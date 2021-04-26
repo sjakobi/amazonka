@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ServiceCatalog.Types.RequestStatus
   ( RequestStatus
       ( ..,
-        Available,
-        Creating,
-        Failed
+        RequestStatusAVAILABLE,
+        RequestStatusCREATING,
+        RequestStatusFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RequestStatus = RequestStatus' (CI Text)
+newtype RequestStatus = RequestStatus'
+  { fromRequestStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: RequestStatus
-pattern Available = RequestStatus' "AVAILABLE"
+pattern RequestStatusAVAILABLE :: RequestStatus
+pattern RequestStatusAVAILABLE = RequestStatus' "AVAILABLE"
 
-pattern Creating :: RequestStatus
-pattern Creating = RequestStatus' "CREATING"
+pattern RequestStatusCREATING :: RequestStatus
+pattern RequestStatusCREATING = RequestStatus' "CREATING"
 
-pattern Failed :: RequestStatus
-pattern Failed = RequestStatus' "FAILED"
+pattern RequestStatusFAILED :: RequestStatus
+pattern RequestStatusFAILED = RequestStatus' "FAILED"
 
 {-# COMPLETE
-  Available,
-  Creating,
-  Failed,
+  RequestStatusAVAILABLE,
+  RequestStatusCREATING,
+  RequestStatusFAILED,
   RequestStatus'
   #-}
 
-instance FromText RequestStatus where
-  parser = (RequestStatus' . mk) <$> takeText
+instance Prelude.FromText RequestStatus where
+  parser = RequestStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RequestStatus where
-  toText (RequestStatus' ci) = original ci
+instance Prelude.ToText RequestStatus where
+  toText (RequestStatus' x) = x
 
-instance Hashable RequestStatus
+instance Prelude.Hashable RequestStatus
 
-instance NFData RequestStatus
+instance Prelude.NFData RequestStatus
 
-instance ToByteString RequestStatus
+instance Prelude.ToByteString RequestStatus
 
-instance ToQuery RequestStatus
+instance Prelude.ToQuery RequestStatus
 
-instance ToHeader RequestStatus
+instance Prelude.ToHeader RequestStatus
 
-instance FromJSON RequestStatus where
-  parseJSON = parseJSONText "RequestStatus"
+instance Prelude.FromJSON RequestStatus where
+  parseJSON = Prelude.parseJSONText "RequestStatus"

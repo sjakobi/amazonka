@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ServiceActionDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ServiceActionDefinitionKey
 import Network.AWS.ServiceCatalog.Types.ServiceActionSummary
 
 -- | An object containing detailed information about the self-service action.
 --
---
---
--- /See:/ 'serviceActionDetail' smart constructor.
+-- /See:/ 'newServiceActionDetail' smart constructor.
 data ServiceActionDetail = ServiceActionDetail'
-  { _sadServiceActionSummary ::
-      !(Maybe ServiceActionSummary),
-    _sadDefinition ::
-      !( Maybe
-           ( Map
-               ServiceActionDefinitionKey
-               Text
-           )
-       )
+  { -- | Summary information about the self-service action.
+    serviceActionSummary :: Prelude.Maybe ServiceActionSummary,
+    -- | A map that defines the self-service action.
+    definition :: Prelude.Maybe (Prelude.Map ServiceActionDefinitionKey Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceActionDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceActionDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sadServiceActionSummary' - Summary information about the self-service action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sadDefinition' - A map that defines the self-service action.
-serviceActionDetail ::
+-- 'serviceActionSummary', 'serviceActionDetail_serviceActionSummary' - Summary information about the self-service action.
+--
+-- 'definition', 'serviceActionDetail_definition' - A map that defines the self-service action.
+newServiceActionDetail ::
   ServiceActionDetail
-serviceActionDetail =
+newServiceActionDetail =
   ServiceActionDetail'
-    { _sadServiceActionSummary =
-        Nothing,
-      _sadDefinition = Nothing
+    { serviceActionSummary =
+        Prelude.Nothing,
+      definition = Prelude.Nothing
     }
 
 -- | Summary information about the self-service action.
-sadServiceActionSummary :: Lens' ServiceActionDetail (Maybe ServiceActionSummary)
-sadServiceActionSummary = lens _sadServiceActionSummary (\s a -> s {_sadServiceActionSummary = a})
+serviceActionDetail_serviceActionSummary :: Lens.Lens' ServiceActionDetail (Prelude.Maybe ServiceActionSummary)
+serviceActionDetail_serviceActionSummary = Lens.lens (\ServiceActionDetail' {serviceActionSummary} -> serviceActionSummary) (\s@ServiceActionDetail' {} a -> s {serviceActionSummary = a} :: ServiceActionDetail)
 
 -- | A map that defines the self-service action.
-sadDefinition :: Lens' ServiceActionDetail (HashMap ServiceActionDefinitionKey Text)
-sadDefinition = lens _sadDefinition (\s a -> s {_sadDefinition = a}) . _Default . _Map
+serviceActionDetail_definition :: Lens.Lens' ServiceActionDetail (Prelude.Maybe (Prelude.HashMap ServiceActionDefinitionKey Prelude.Text))
+serviceActionDetail_definition = Lens.lens (\ServiceActionDetail' {definition} -> definition) (\s@ServiceActionDetail' {} a -> s {definition = a} :: ServiceActionDetail) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON ServiceActionDetail where
+instance Prelude.FromJSON ServiceActionDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceActionDetail"
       ( \x ->
           ServiceActionDetail'
-            <$> (x .:? "ServiceActionSummary")
-            <*> (x .:? "Definition" .!= mempty)
+            Prelude.<$> (x Prelude..:? "ServiceActionSummary")
+            Prelude.<*> ( x Prelude..:? "Definition"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ServiceActionDetail
+instance Prelude.Hashable ServiceActionDetail
 
-instance NFData ServiceActionDetail
+instance Prelude.NFData ServiceActionDetail

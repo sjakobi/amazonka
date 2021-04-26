@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,147 +24,153 @@
 -- Associates the specified budget with the specified resource.
 module Network.AWS.ServiceCatalog.AssociateBudgetWithResource
   ( -- * Creating a Request
-    associateBudgetWithResource,
-    AssociateBudgetWithResource,
+    AssociateBudgetWithResource (..),
+    newAssociateBudgetWithResource,
 
     -- * Request Lenses
-    abwrBudgetName,
-    abwrResourceId,
+    associateBudgetWithResource_budgetName,
+    associateBudgetWithResource_resourceId,
 
     -- * Destructuring the Response
-    associateBudgetWithResourceResponse,
-    AssociateBudgetWithResourceResponse,
+    AssociateBudgetWithResourceResponse (..),
+    newAssociateBudgetWithResourceResponse,
 
     -- * Response Lenses
-    abwrrrsResponseStatus,
+    associateBudgetWithResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'associateBudgetWithResource' smart constructor.
+-- | /See:/ 'newAssociateBudgetWithResource' smart constructor.
 data AssociateBudgetWithResource = AssociateBudgetWithResource'
-  { _abwrBudgetName ::
-      !Text,
-    _abwrResourceId ::
-      !Text
+  { -- | The name of the budget you want to associate.
+    budgetName :: Prelude.Text,
+    -- | The resource identifier. Either a portfolio-id or a product-id.
+    resourceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateBudgetWithResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateBudgetWithResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'abwrBudgetName' - The name of the budget you want to associate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'abwrResourceId' - The resource identifier. Either a portfolio-id or a product-id.
-associateBudgetWithResource ::
-  -- | 'abwrBudgetName'
-  Text ->
-  -- | 'abwrResourceId'
-  Text ->
+-- 'budgetName', 'associateBudgetWithResource_budgetName' - The name of the budget you want to associate.
+--
+-- 'resourceId', 'associateBudgetWithResource_resourceId' - The resource identifier. Either a portfolio-id or a product-id.
+newAssociateBudgetWithResource ::
+  -- | 'budgetName'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
   AssociateBudgetWithResource
-associateBudgetWithResource pBudgetName_ pResourceId_ =
-  AssociateBudgetWithResource'
-    { _abwrBudgetName =
-        pBudgetName_,
-      _abwrResourceId = pResourceId_
-    }
+newAssociateBudgetWithResource
+  pBudgetName_
+  pResourceId_ =
+    AssociateBudgetWithResource'
+      { budgetName =
+          pBudgetName_,
+        resourceId = pResourceId_
+      }
 
 -- | The name of the budget you want to associate.
-abwrBudgetName :: Lens' AssociateBudgetWithResource Text
-abwrBudgetName = lens _abwrBudgetName (\s a -> s {_abwrBudgetName = a})
+associateBudgetWithResource_budgetName :: Lens.Lens' AssociateBudgetWithResource Prelude.Text
+associateBudgetWithResource_budgetName = Lens.lens (\AssociateBudgetWithResource' {budgetName} -> budgetName) (\s@AssociateBudgetWithResource' {} a -> s {budgetName = a} :: AssociateBudgetWithResource)
 
 -- | The resource identifier. Either a portfolio-id or a product-id.
-abwrResourceId :: Lens' AssociateBudgetWithResource Text
-abwrResourceId = lens _abwrResourceId (\s a -> s {_abwrResourceId = a})
+associateBudgetWithResource_resourceId :: Lens.Lens' AssociateBudgetWithResource Prelude.Text
+associateBudgetWithResource_resourceId = Lens.lens (\AssociateBudgetWithResource' {resourceId} -> resourceId) (\s@AssociateBudgetWithResource' {} a -> s {resourceId = a} :: AssociateBudgetWithResource)
 
-instance AWSRequest AssociateBudgetWithResource where
+instance
+  Prelude.AWSRequest
+    AssociateBudgetWithResource
+  where
   type
     Rs AssociateBudgetWithResource =
       AssociateBudgetWithResourceResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateBudgetWithResourceResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateBudgetWithResource
+instance Prelude.Hashable AssociateBudgetWithResource
 
-instance NFData AssociateBudgetWithResource
+instance Prelude.NFData AssociateBudgetWithResource
 
-instance ToHeaders AssociateBudgetWithResource where
+instance
+  Prelude.ToHeaders
+    AssociateBudgetWithResource
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.AssociateBudgetWithResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.AssociateBudgetWithResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateBudgetWithResource where
+instance Prelude.ToJSON AssociateBudgetWithResource where
   toJSON AssociateBudgetWithResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("BudgetName" .= _abwrBudgetName),
-            Just ("ResourceId" .= _abwrResourceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("BudgetName" Prelude..= budgetName),
+            Prelude.Just ("ResourceId" Prelude..= resourceId)
           ]
       )
 
-instance ToPath AssociateBudgetWithResource where
-  toPath = const "/"
+instance Prelude.ToPath AssociateBudgetWithResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateBudgetWithResource where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateBudgetWithResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateBudgetWithResourceResponse' smart constructor.
-newtype AssociateBudgetWithResourceResponse = AssociateBudgetWithResourceResponse'
-  { _abwrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateBudgetWithResourceResponse' smart constructor.
+data AssociateBudgetWithResourceResponse = AssociateBudgetWithResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateBudgetWithResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateBudgetWithResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'abwrrrsResponseStatus' - -- | The response status code.
-associateBudgetWithResourceResponse ::
-  -- | 'abwrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateBudgetWithResourceResponse_httpStatus' - The response's http status code.
+newAssociateBudgetWithResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateBudgetWithResourceResponse
-associateBudgetWithResourceResponse pResponseStatus_ =
+newAssociateBudgetWithResourceResponse pHttpStatus_ =
   AssociateBudgetWithResourceResponse'
-    { _abwrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-abwrrrsResponseStatus :: Lens' AssociateBudgetWithResourceResponse Int
-abwrrrsResponseStatus = lens _abwrrrsResponseStatus (\s a -> s {_abwrrrsResponseStatus = a})
+-- | The response's http status code.
+associateBudgetWithResourceResponse_httpStatus :: Lens.Lens' AssociateBudgetWithResourceResponse Prelude.Int
+associateBudgetWithResourceResponse_httpStatus = Lens.lens (\AssociateBudgetWithResourceResponse' {httpStatus} -> httpStatus) (\s@AssociateBudgetWithResourceResponse' {} a -> s {httpStatus = a} :: AssociateBudgetWithResourceResponse)
 
-instance NFData AssociateBudgetWithResourceResponse
+instance
+  Prelude.NFData
+    AssociateBudgetWithResourceResponse

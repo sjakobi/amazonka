@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ServiceCatalog.Types.ProductViewSortBy
   ( ProductViewSortBy
       ( ..,
-        CreationDate,
-        Title,
-        VersionCount
+        ProductViewSortByCreationDate,
+        ProductViewSortByTitle,
+        ProductViewSortByVersionCount
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProductViewSortBy = ProductViewSortBy' (CI Text)
+newtype ProductViewSortBy = ProductViewSortBy'
+  { fromProductViewSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreationDate :: ProductViewSortBy
-pattern CreationDate = ProductViewSortBy' "CreationDate"
+pattern ProductViewSortByCreationDate :: ProductViewSortBy
+pattern ProductViewSortByCreationDate = ProductViewSortBy' "CreationDate"
 
-pattern Title :: ProductViewSortBy
-pattern Title = ProductViewSortBy' "Title"
+pattern ProductViewSortByTitle :: ProductViewSortBy
+pattern ProductViewSortByTitle = ProductViewSortBy' "Title"
 
-pattern VersionCount :: ProductViewSortBy
-pattern VersionCount = ProductViewSortBy' "VersionCount"
+pattern ProductViewSortByVersionCount :: ProductViewSortBy
+pattern ProductViewSortByVersionCount = ProductViewSortBy' "VersionCount"
 
 {-# COMPLETE
-  CreationDate,
-  Title,
-  VersionCount,
+  ProductViewSortByCreationDate,
+  ProductViewSortByTitle,
+  ProductViewSortByVersionCount,
   ProductViewSortBy'
   #-}
 
-instance FromText ProductViewSortBy where
-  parser = (ProductViewSortBy' . mk) <$> takeText
+instance Prelude.FromText ProductViewSortBy where
+  parser = ProductViewSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText ProductViewSortBy where
-  toText (ProductViewSortBy' ci) = original ci
+instance Prelude.ToText ProductViewSortBy where
+  toText (ProductViewSortBy' x) = x
 
-instance Hashable ProductViewSortBy
+instance Prelude.Hashable ProductViewSortBy
 
-instance NFData ProductViewSortBy
+instance Prelude.NFData ProductViewSortBy
 
-instance ToByteString ProductViewSortBy
+instance Prelude.ToByteString ProductViewSortBy
 
-instance ToQuery ProductViewSortBy
+instance Prelude.ToQuery ProductViewSortBy
 
-instance ToHeader ProductViewSortBy
+instance Prelude.ToHeader ProductViewSortBy
 
-instance ToJSON ProductViewSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProductViewSortBy where
+  toJSON = Prelude.toJSONText

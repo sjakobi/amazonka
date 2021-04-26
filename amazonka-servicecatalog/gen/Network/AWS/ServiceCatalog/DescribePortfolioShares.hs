@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,202 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a summary of each of the portfolio shares that were created for the specified portfolio.
+-- Returns a summary of each of the portfolio shares that were created for
+-- the specified portfolio.
 --
---
--- You can use this API to determine which accounts or organizational nodes this portfolio have been shared, whether the recipient entity has imported the share, and whether TagOptions are included with the share.
+-- You can use this API to determine which accounts or organizational nodes
+-- this portfolio have been shared, whether the recipient entity has
+-- imported the share, and whether TagOptions are included with the share.
 --
 -- The @PortfolioId@ and @Type@ parameters are both required.
 module Network.AWS.ServiceCatalog.DescribePortfolioShares
   ( -- * Creating a Request
-    describePortfolioShares,
-    DescribePortfolioShares,
+    DescribePortfolioShares (..),
+    newDescribePortfolioShares,
 
     -- * Request Lenses
-    dpsPageSize,
-    dpsPageToken,
-    dpsPortfolioId,
-    dpsType,
+    describePortfolioShares_pageSize,
+    describePortfolioShares_pageToken,
+    describePortfolioShares_portfolioId,
+    describePortfolioShares_type,
 
     -- * Destructuring the Response
-    describePortfolioSharesResponse,
-    DescribePortfolioSharesResponse,
+    DescribePortfolioSharesResponse (..),
+    newDescribePortfolioSharesResponse,
 
     -- * Response Lenses
-    dpsrrsNextPageToken,
-    dpsrrsPortfolioShareDetails,
-    dpsrrsResponseStatus,
+    describePortfolioSharesResponse_nextPageToken,
+    describePortfolioSharesResponse_portfolioShareDetails,
+    describePortfolioSharesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.PortfolioShareDetail
 
--- | /See:/ 'describePortfolioShares' smart constructor.
+-- | /See:/ 'newDescribePortfolioShares' smart constructor.
 data DescribePortfolioShares = DescribePortfolioShares'
-  { _dpsPageSize ::
-      !(Maybe Nat),
-    _dpsPageToken ::
-      !(Maybe Text),
-    _dpsPortfolioId ::
-      !Text,
-    _dpsType ::
-      !DescribePortfolioShareType
+  { -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The page token for the next set of results. To retrieve the first set of
+    -- results, use null.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the portfolio for which shares will be
+    -- retrieved.
+    portfolioId :: Prelude.Text,
+    -- | The type of portfolio share to summarize. This field acts as a filter on
+    -- the type of portfolio share, which can be one of the following:
+    --
+    -- 1. @ACCOUNT@ - Represents an external account to account share.
+    --
+    -- 2. @ORGANIZATION@ - Represents a share to an organization. This share is
+    -- available to every account in the organization.
+    --
+    -- 3. @ORGANIZATIONAL_UNIT@ - Represents a share to an organizational unit.
+    --
+    -- 4. @ORGANIZATION_MEMBER_ACCOUNT@ - Represents a share to an account in
+    -- the organization.
+    type' :: DescribePortfolioShareType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePortfolioShares' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePortfolioShares' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpsPageSize' - The maximum number of items to return with this call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpsPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
+-- 'pageSize', 'describePortfolioShares_pageSize' - The maximum number of items to return with this call.
 --
--- * 'dpsPortfolioId' - The unique identifier of the portfolio for which shares will be retrieved.
+-- 'pageToken', 'describePortfolioShares_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
 --
--- * 'dpsType' - The type of portfolio share to summarize. This field acts as a filter on the type of portfolio share, which can be one of the following: 1. @ACCOUNT@ - Represents an external account to account share. 2. @ORGANIZATION@ - Represents a share to an organization. This share is available to every account in the organization. 3. @ORGANIZATIONAL_UNIT@ - Represents a share to an organizational unit. 4. @ORGANIZATION_MEMBER_ACCOUNT@ - Represents a share to an account in the organization.
-describePortfolioShares ::
-  -- | 'dpsPortfolioId'
-  Text ->
-  -- | 'dpsType'
+-- 'portfolioId', 'describePortfolioShares_portfolioId' - The unique identifier of the portfolio for which shares will be
+-- retrieved.
+--
+-- 'type'', 'describePortfolioShares_type' - The type of portfolio share to summarize. This field acts as a filter on
+-- the type of portfolio share, which can be one of the following:
+--
+-- 1. @ACCOUNT@ - Represents an external account to account share.
+--
+-- 2. @ORGANIZATION@ - Represents a share to an organization. This share is
+-- available to every account in the organization.
+--
+-- 3. @ORGANIZATIONAL_UNIT@ - Represents a share to an organizational unit.
+--
+-- 4. @ORGANIZATION_MEMBER_ACCOUNT@ - Represents a share to an account in
+-- the organization.
+newDescribePortfolioShares ::
+  -- | 'portfolioId'
+  Prelude.Text ->
+  -- | 'type''
   DescribePortfolioShareType ->
   DescribePortfolioShares
-describePortfolioShares pPortfolioId_ pType_ =
+newDescribePortfolioShares pPortfolioId_ pType_ =
   DescribePortfolioShares'
-    { _dpsPageSize = Nothing,
-      _dpsPageToken = Nothing,
-      _dpsPortfolioId = pPortfolioId_,
-      _dpsType = pType_
+    { pageSize =
+        Prelude.Nothing,
+      pageToken = Prelude.Nothing,
+      portfolioId = pPortfolioId_,
+      type' = pType_
     }
 
 -- | The maximum number of items to return with this call.
-dpsPageSize :: Lens' DescribePortfolioShares (Maybe Natural)
-dpsPageSize = lens _dpsPageSize (\s a -> s {_dpsPageSize = a}) . mapping _Nat
+describePortfolioShares_pageSize :: Lens.Lens' DescribePortfolioShares (Prelude.Maybe Prelude.Natural)
+describePortfolioShares_pageSize = Lens.lens (\DescribePortfolioShares' {pageSize} -> pageSize) (\s@DescribePortfolioShares' {} a -> s {pageSize = a} :: DescribePortfolioShares) Prelude.. Lens.mapping Prelude._Nat
 
--- | The page token for the next set of results. To retrieve the first set of results, use null.
-dpsPageToken :: Lens' DescribePortfolioShares (Maybe Text)
-dpsPageToken = lens _dpsPageToken (\s a -> s {_dpsPageToken = a})
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+describePortfolioShares_pageToken :: Lens.Lens' DescribePortfolioShares (Prelude.Maybe Prelude.Text)
+describePortfolioShares_pageToken = Lens.lens (\DescribePortfolioShares' {pageToken} -> pageToken) (\s@DescribePortfolioShares' {} a -> s {pageToken = a} :: DescribePortfolioShares)
 
--- | The unique identifier of the portfolio for which shares will be retrieved.
-dpsPortfolioId :: Lens' DescribePortfolioShares Text
-dpsPortfolioId = lens _dpsPortfolioId (\s a -> s {_dpsPortfolioId = a})
+-- | The unique identifier of the portfolio for which shares will be
+-- retrieved.
+describePortfolioShares_portfolioId :: Lens.Lens' DescribePortfolioShares Prelude.Text
+describePortfolioShares_portfolioId = Lens.lens (\DescribePortfolioShares' {portfolioId} -> portfolioId) (\s@DescribePortfolioShares' {} a -> s {portfolioId = a} :: DescribePortfolioShares)
 
--- | The type of portfolio share to summarize. This field acts as a filter on the type of portfolio share, which can be one of the following: 1. @ACCOUNT@ - Represents an external account to account share. 2. @ORGANIZATION@ - Represents a share to an organization. This share is available to every account in the organization. 3. @ORGANIZATIONAL_UNIT@ - Represents a share to an organizational unit. 4. @ORGANIZATION_MEMBER_ACCOUNT@ - Represents a share to an account in the organization.
-dpsType :: Lens' DescribePortfolioShares DescribePortfolioShareType
-dpsType = lens _dpsType (\s a -> s {_dpsType = a})
+-- | The type of portfolio share to summarize. This field acts as a filter on
+-- the type of portfolio share, which can be one of the following:
+--
+-- 1. @ACCOUNT@ - Represents an external account to account share.
+--
+-- 2. @ORGANIZATION@ - Represents a share to an organization. This share is
+-- available to every account in the organization.
+--
+-- 3. @ORGANIZATIONAL_UNIT@ - Represents a share to an organizational unit.
+--
+-- 4. @ORGANIZATION_MEMBER_ACCOUNT@ - Represents a share to an account in
+-- the organization.
+describePortfolioShares_type :: Lens.Lens' DescribePortfolioShares DescribePortfolioShareType
+describePortfolioShares_type = Lens.lens (\DescribePortfolioShares' {type'} -> type') (\s@DescribePortfolioShares' {} a -> s {type' = a} :: DescribePortfolioShares)
 
-instance AWSRequest DescribePortfolioShares where
+instance Prelude.AWSRequest DescribePortfolioShares where
   type
     Rs DescribePortfolioShares =
       DescribePortfolioSharesResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribePortfolioSharesResponse'
-            <$> (x .?> "NextPageToken")
-            <*> (x .?> "PortfolioShareDetails" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextPageToken")
+            Prelude.<*> ( x Prelude..?> "PortfolioShareDetails"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribePortfolioShares
+instance Prelude.Hashable DescribePortfolioShares
 
-instance NFData DescribePortfolioShares
+instance Prelude.NFData DescribePortfolioShares
 
-instance ToHeaders DescribePortfolioShares where
+instance Prelude.ToHeaders DescribePortfolioShares where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DescribePortfolioShares" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DescribePortfolioShares" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribePortfolioShares where
+instance Prelude.ToJSON DescribePortfolioShares where
   toJSON DescribePortfolioShares' {..} =
-    object
-      ( catMaybes
-          [ ("PageSize" .=) <$> _dpsPageSize,
-            ("PageToken" .=) <$> _dpsPageToken,
-            Just ("PortfolioId" .= _dpsPortfolioId),
-            Just ("Type" .= _dpsType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PageSize" Prelude..=) Prelude.<$> pageSize,
+            ("PageToken" Prelude..=) Prelude.<$> pageToken,
+            Prelude.Just ("PortfolioId" Prelude..= portfolioId),
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )
 
-instance ToPath DescribePortfolioShares where
-  toPath = const "/"
+instance Prelude.ToPath DescribePortfolioShares where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribePortfolioShares where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribePortfolioShares where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describePortfolioSharesResponse' smart constructor.
+-- | /See:/ 'newDescribePortfolioSharesResponse' smart constructor.
 data DescribePortfolioSharesResponse = DescribePortfolioSharesResponse'
-  { _dpsrrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _dpsrrsPortfolioShareDetails ::
-      !( Maybe
-           [PortfolioShareDetail]
-       ),
-    _dpsrrsResponseStatus ::
-      !Int
+  { -- | The page token to use to retrieve the next set of results. If there are
+    -- no additional results, this value is null.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | Summaries about each of the portfolio shares.
+    portfolioShareDetails :: Prelude.Maybe [PortfolioShareDetail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePortfolioSharesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePortfolioSharesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpsrrsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpsrrsPortfolioShareDetails' - Summaries about each of the portfolio shares.
+-- 'nextPageToken', 'describePortfolioSharesResponse_nextPageToken' - The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
 --
--- * 'dpsrrsResponseStatus' - -- | The response status code.
-describePortfolioSharesResponse ::
-  -- | 'dpsrrsResponseStatus'
-  Int ->
+-- 'portfolioShareDetails', 'describePortfolioSharesResponse_portfolioShareDetails' - Summaries about each of the portfolio shares.
+--
+-- 'httpStatus', 'describePortfolioSharesResponse_httpStatus' - The response's http status code.
+newDescribePortfolioSharesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribePortfolioSharesResponse
-describePortfolioSharesResponse pResponseStatus_ =
+newDescribePortfolioSharesResponse pHttpStatus_ =
   DescribePortfolioSharesResponse'
-    { _dpsrrsNextPageToken =
-        Nothing,
-      _dpsrrsPortfolioShareDetails = Nothing,
-      _dpsrrsResponseStatus = pResponseStatus_
+    { nextPageToken =
+        Prelude.Nothing,
+      portfolioShareDetails = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
-dpsrrsNextPageToken :: Lens' DescribePortfolioSharesResponse (Maybe Text)
-dpsrrsNextPageToken = lens _dpsrrsNextPageToken (\s a -> s {_dpsrrsNextPageToken = a})
+-- | The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
+describePortfolioSharesResponse_nextPageToken :: Lens.Lens' DescribePortfolioSharesResponse (Prelude.Maybe Prelude.Text)
+describePortfolioSharesResponse_nextPageToken = Lens.lens (\DescribePortfolioSharesResponse' {nextPageToken} -> nextPageToken) (\s@DescribePortfolioSharesResponse' {} a -> s {nextPageToken = a} :: DescribePortfolioSharesResponse)
 
 -- | Summaries about each of the portfolio shares.
-dpsrrsPortfolioShareDetails :: Lens' DescribePortfolioSharesResponse [PortfolioShareDetail]
-dpsrrsPortfolioShareDetails = lens _dpsrrsPortfolioShareDetails (\s a -> s {_dpsrrsPortfolioShareDetails = a}) . _Default . _Coerce
+describePortfolioSharesResponse_portfolioShareDetails :: Lens.Lens' DescribePortfolioSharesResponse (Prelude.Maybe [PortfolioShareDetail])
+describePortfolioSharesResponse_portfolioShareDetails = Lens.lens (\DescribePortfolioSharesResponse' {portfolioShareDetails} -> portfolioShareDetails) (\s@DescribePortfolioSharesResponse' {} a -> s {portfolioShareDetails = a} :: DescribePortfolioSharesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dpsrrsResponseStatus :: Lens' DescribePortfolioSharesResponse Int
-dpsrrsResponseStatus = lens _dpsrrsResponseStatus (\s a -> s {_dpsrrsResponseStatus = a})
+-- | The response's http status code.
+describePortfolioSharesResponse_httpStatus :: Lens.Lens' DescribePortfolioSharesResponse Prelude.Int
+describePortfolioSharesResponse_httpStatus = Lens.lens (\DescribePortfolioSharesResponse' {httpStatus} -> httpStatus) (\s@DescribePortfolioSharesResponse' {} a -> s {httpStatus = a} :: DescribePortfolioSharesResponse)
 
-instance NFData DescribePortfolioSharesResponse
+instance
+  Prelude.NFData
+    DescribePortfolioSharesResponse

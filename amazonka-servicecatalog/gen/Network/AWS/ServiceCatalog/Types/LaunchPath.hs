@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.LaunchPath where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A launch path object.
 --
---
---
--- /See:/ 'launchPath' smart constructor.
+-- /See:/ 'newLaunchPath' smart constructor.
 data LaunchPath = LaunchPath'
-  { _lpId :: !(Maybe Text),
-    _lpName :: !(Maybe Text)
+  { -- | The identifier of the launch path.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the launch path.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchPath' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchPath' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpId' - The identifier of the launch path.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpName' - The name of the launch path.
-launchPath ::
+-- 'id', 'launchPath_id' - The identifier of the launch path.
+--
+-- 'name', 'launchPath_name' - The name of the launch path.
+newLaunchPath ::
   LaunchPath
-launchPath =
-  LaunchPath' {_lpId = Nothing, _lpName = Nothing}
+newLaunchPath =
+  LaunchPath'
+    { id = Prelude.Nothing,
+      name = Prelude.Nothing
+    }
 
 -- | The identifier of the launch path.
-lpId :: Lens' LaunchPath (Maybe Text)
-lpId = lens _lpId (\s a -> s {_lpId = a})
+launchPath_id :: Lens.Lens' LaunchPath (Prelude.Maybe Prelude.Text)
+launchPath_id = Lens.lens (\LaunchPath' {id} -> id) (\s@LaunchPath' {} a -> s {id = a} :: LaunchPath)
 
 -- | The name of the launch path.
-lpName :: Lens' LaunchPath (Maybe Text)
-lpName = lens _lpName (\s a -> s {_lpName = a})
+launchPath_name :: Lens.Lens' LaunchPath (Prelude.Maybe Prelude.Text)
+launchPath_name = Lens.lens (\LaunchPath' {name} -> name) (\s@LaunchPath' {} a -> s {name = a} :: LaunchPath)
 
-instance FromJSON LaunchPath where
+instance Prelude.FromJSON LaunchPath where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LaunchPath"
       ( \x ->
-          LaunchPath' <$> (x .:? "Id") <*> (x .:? "Name")
+          LaunchPath'
+            Prelude.<$> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable LaunchPath
+instance Prelude.Hashable LaunchPath
 
-instance NFData LaunchPath
+instance Prelude.NFData LaunchPath

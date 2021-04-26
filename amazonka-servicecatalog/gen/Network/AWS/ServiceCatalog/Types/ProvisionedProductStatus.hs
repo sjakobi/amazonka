@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.ServiceCatalog.Types.ProvisionedProductStatus
   ( ProvisionedProductStatus
       ( ..,
-        PPSAvailable,
-        PPSError',
-        PPSPlanInProgress,
-        PPSTainted,
-        PPSUnderChange
+        ProvisionedProductStatusAVAILABLE,
+        ProvisionedProductStatusERROR,
+        ProvisionedProductStatusPLANINPROGRESS,
+        ProvisionedProductStatusTAINTED,
+        ProvisionedProductStatusUNDERCHANGE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProvisionedProductStatus
-  = ProvisionedProductStatus'
-      ( CI
-          Text
-      )
+newtype ProvisionedProductStatus = ProvisionedProductStatus'
+  { fromProvisionedProductStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PPSAvailable :: ProvisionedProductStatus
-pattern PPSAvailable = ProvisionedProductStatus' "AVAILABLE"
+pattern ProvisionedProductStatusAVAILABLE :: ProvisionedProductStatus
+pattern ProvisionedProductStatusAVAILABLE = ProvisionedProductStatus' "AVAILABLE"
 
-pattern PPSError' :: ProvisionedProductStatus
-pattern PPSError' = ProvisionedProductStatus' "ERROR"
+pattern ProvisionedProductStatusERROR :: ProvisionedProductStatus
+pattern ProvisionedProductStatusERROR = ProvisionedProductStatus' "ERROR"
 
-pattern PPSPlanInProgress :: ProvisionedProductStatus
-pattern PPSPlanInProgress = ProvisionedProductStatus' "PLAN_IN_PROGRESS"
+pattern ProvisionedProductStatusPLANINPROGRESS :: ProvisionedProductStatus
+pattern ProvisionedProductStatusPLANINPROGRESS = ProvisionedProductStatus' "PLAN_IN_PROGRESS"
 
-pattern PPSTainted :: ProvisionedProductStatus
-pattern PPSTainted = ProvisionedProductStatus' "TAINTED"
+pattern ProvisionedProductStatusTAINTED :: ProvisionedProductStatus
+pattern ProvisionedProductStatusTAINTED = ProvisionedProductStatus' "TAINTED"
 
-pattern PPSUnderChange :: ProvisionedProductStatus
-pattern PPSUnderChange = ProvisionedProductStatus' "UNDER_CHANGE"
+pattern ProvisionedProductStatusUNDERCHANGE :: ProvisionedProductStatus
+pattern ProvisionedProductStatusUNDERCHANGE = ProvisionedProductStatus' "UNDER_CHANGE"
 
 {-# COMPLETE
-  PPSAvailable,
-  PPSError',
-  PPSPlanInProgress,
-  PPSTainted,
-  PPSUnderChange,
+  ProvisionedProductStatusAVAILABLE,
+  ProvisionedProductStatusERROR,
+  ProvisionedProductStatusPLANINPROGRESS,
+  ProvisionedProductStatusTAINTED,
+  ProvisionedProductStatusUNDERCHANGE,
   ProvisionedProductStatus'
   #-}
 
-instance FromText ProvisionedProductStatus where
-  parser = (ProvisionedProductStatus' . mk) <$> takeText
+instance Prelude.FromText ProvisionedProductStatus where
+  parser = ProvisionedProductStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ProvisionedProductStatus where
-  toText (ProvisionedProductStatus' ci) = original ci
+instance Prelude.ToText ProvisionedProductStatus where
+  toText (ProvisionedProductStatus' x) = x
 
-instance Hashable ProvisionedProductStatus
+instance Prelude.Hashable ProvisionedProductStatus
 
-instance NFData ProvisionedProductStatus
+instance Prelude.NFData ProvisionedProductStatus
 
-instance ToByteString ProvisionedProductStatus
+instance Prelude.ToByteString ProvisionedProductStatus
 
-instance ToQuery ProvisionedProductStatus
+instance Prelude.ToQuery ProvisionedProductStatus
 
-instance ToHeader ProvisionedProductStatus
+instance Prelude.ToHeader ProvisionedProductStatus
 
-instance FromJSON ProvisionedProductStatus where
-  parseJSON = parseJSONText "ProvisionedProductStatus"
+instance Prelude.FromJSON ProvisionedProductStatus where
+  parseJSON = Prelude.parseJSONText "ProvisionedProductStatus"

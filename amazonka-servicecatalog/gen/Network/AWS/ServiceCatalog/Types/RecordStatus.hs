@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.ServiceCatalog.Types.RecordStatus
   ( RecordStatus
       ( ..,
-        RSCreated,
-        RSFailed,
-        RSInProgress,
-        RSInProgressInError,
-        RSSucceeded
+        RecordStatusCREATED,
+        RecordStatusFAILED,
+        RecordStatusINPROGRESS,
+        RecordStatusINPROGRESSINERROR,
+        RecordStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecordStatus = RecordStatus' (CI Text)
+newtype RecordStatus = RecordStatus'
+  { fromRecordStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSCreated :: RecordStatus
-pattern RSCreated = RecordStatus' "CREATED"
+pattern RecordStatusCREATED :: RecordStatus
+pattern RecordStatusCREATED = RecordStatus' "CREATED"
 
-pattern RSFailed :: RecordStatus
-pattern RSFailed = RecordStatus' "FAILED"
+pattern RecordStatusFAILED :: RecordStatus
+pattern RecordStatusFAILED = RecordStatus' "FAILED"
 
-pattern RSInProgress :: RecordStatus
-pattern RSInProgress = RecordStatus' "IN_PROGRESS"
+pattern RecordStatusINPROGRESS :: RecordStatus
+pattern RecordStatusINPROGRESS = RecordStatus' "IN_PROGRESS"
 
-pattern RSInProgressInError :: RecordStatus
-pattern RSInProgressInError = RecordStatus' "IN_PROGRESS_IN_ERROR"
+pattern RecordStatusINPROGRESSINERROR :: RecordStatus
+pattern RecordStatusINPROGRESSINERROR = RecordStatus' "IN_PROGRESS_IN_ERROR"
 
-pattern RSSucceeded :: RecordStatus
-pattern RSSucceeded = RecordStatus' "SUCCEEDED"
+pattern RecordStatusSUCCEEDED :: RecordStatus
+pattern RecordStatusSUCCEEDED = RecordStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  RSCreated,
-  RSFailed,
-  RSInProgress,
-  RSInProgressInError,
-  RSSucceeded,
+  RecordStatusCREATED,
+  RecordStatusFAILED,
+  RecordStatusINPROGRESS,
+  RecordStatusINPROGRESSINERROR,
+  RecordStatusSUCCEEDED,
   RecordStatus'
   #-}
 
-instance FromText RecordStatus where
-  parser = (RecordStatus' . mk) <$> takeText
+instance Prelude.FromText RecordStatus where
+  parser = RecordStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RecordStatus where
-  toText (RecordStatus' ci) = original ci
+instance Prelude.ToText RecordStatus where
+  toText (RecordStatus' x) = x
 
-instance Hashable RecordStatus
+instance Prelude.Hashable RecordStatus
 
-instance NFData RecordStatus
+instance Prelude.NFData RecordStatus
 
-instance ToByteString RecordStatus
+instance Prelude.ToByteString RecordStatus
 
-instance ToQuery RecordStatus
+instance Prelude.ToQuery RecordStatus
 
-instance ToHeader RecordStatus
+instance Prelude.ToHeader RecordStatus
 
-instance FromJSON RecordStatus where
-  parseJSON = parseJSONText "RecordStatus"
+instance Prelude.FromJSON RecordStatus where
+  parseJSON = Prelude.parseJSONText "RecordStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ProvisioningArtifactView where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ProductViewSummary
 import Network.AWS.ServiceCatalog.Types.ProvisioningArtifact
 
--- | An object that contains summary information about a product view and a provisioning artifact.
+-- | An object that contains summary information about a product view and a
+-- provisioning artifact.
 --
---
---
--- /See:/ 'provisioningArtifactView' smart constructor.
+-- /See:/ 'newProvisioningArtifactView' smart constructor.
 data ProvisioningArtifactView = ProvisioningArtifactView'
-  { _pavProductViewSummary ::
-      !( Maybe
-           ProductViewSummary
-       ),
-    _pavProvisioningArtifact ::
-      !( Maybe
-           ProvisioningArtifact
-       )
+  { -- | Summary information about a product view.
+    productViewSummary :: Prelude.Maybe ProductViewSummary,
+    -- | Information about a provisioning artifact. A provisioning artifact is
+    -- also known as a product version.
+    provisioningArtifact :: Prelude.Maybe ProvisioningArtifact
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvisioningArtifactView' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvisioningArtifactView' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pavProductViewSummary' - Summary information about a product view.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pavProvisioningArtifact' - Information about a provisioning artifact. A provisioning artifact is also known as a product version.
-provisioningArtifactView ::
+-- 'productViewSummary', 'provisioningArtifactView_productViewSummary' - Summary information about a product view.
+--
+-- 'provisioningArtifact', 'provisioningArtifactView_provisioningArtifact' - Information about a provisioning artifact. A provisioning artifact is
+-- also known as a product version.
+newProvisioningArtifactView ::
   ProvisioningArtifactView
-provisioningArtifactView =
+newProvisioningArtifactView =
   ProvisioningArtifactView'
-    { _pavProductViewSummary =
-        Nothing,
-      _pavProvisioningArtifact = Nothing
+    { productViewSummary =
+        Prelude.Nothing,
+      provisioningArtifact = Prelude.Nothing
     }
 
 -- | Summary information about a product view.
-pavProductViewSummary :: Lens' ProvisioningArtifactView (Maybe ProductViewSummary)
-pavProductViewSummary = lens _pavProductViewSummary (\s a -> s {_pavProductViewSummary = a})
+provisioningArtifactView_productViewSummary :: Lens.Lens' ProvisioningArtifactView (Prelude.Maybe ProductViewSummary)
+provisioningArtifactView_productViewSummary = Lens.lens (\ProvisioningArtifactView' {productViewSummary} -> productViewSummary) (\s@ProvisioningArtifactView' {} a -> s {productViewSummary = a} :: ProvisioningArtifactView)
 
--- | Information about a provisioning artifact. A provisioning artifact is also known as a product version.
-pavProvisioningArtifact :: Lens' ProvisioningArtifactView (Maybe ProvisioningArtifact)
-pavProvisioningArtifact = lens _pavProvisioningArtifact (\s a -> s {_pavProvisioningArtifact = a})
+-- | Information about a provisioning artifact. A provisioning artifact is
+-- also known as a product version.
+provisioningArtifactView_provisioningArtifact :: Lens.Lens' ProvisioningArtifactView (Prelude.Maybe ProvisioningArtifact)
+provisioningArtifactView_provisioningArtifact = Lens.lens (\ProvisioningArtifactView' {provisioningArtifact} -> provisioningArtifact) (\s@ProvisioningArtifactView' {} a -> s {provisioningArtifact = a} :: ProvisioningArtifactView)
 
-instance FromJSON ProvisioningArtifactView where
+instance Prelude.FromJSON ProvisioningArtifactView where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProvisioningArtifactView"
       ( \x ->
           ProvisioningArtifactView'
-            <$> (x .:? "ProductViewSummary")
-            <*> (x .:? "ProvisioningArtifact")
+            Prelude.<$> (x Prelude..:? "ProductViewSummary")
+            Prelude.<*> (x Prelude..:? "ProvisioningArtifact")
       )
 
-instance Hashable ProvisioningArtifactView
+instance Prelude.Hashable ProvisioningArtifactView
 
-instance NFData ProvisioningArtifactView
+instance Prelude.NFData ProvisioningArtifactView

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,156 +24,185 @@
 -- Deletes the specified plan.
 module Network.AWS.ServiceCatalog.DeleteProvisionedProductPlan
   ( -- * Creating a Request
-    deleteProvisionedProductPlan,
-    DeleteProvisionedProductPlan,
+    DeleteProvisionedProductPlan (..),
+    newDeleteProvisionedProductPlan,
 
     -- * Request Lenses
-    dpppIgnoreErrors,
-    dpppAcceptLanguage,
-    dpppPlanId,
+    deleteProvisionedProductPlan_ignoreErrors,
+    deleteProvisionedProductPlan_acceptLanguage,
+    deleteProvisionedProductPlan_planId,
 
     -- * Destructuring the Response
-    deleteProvisionedProductPlanResponse,
-    DeleteProvisionedProductPlanResponse,
+    DeleteProvisionedProductPlanResponse (..),
+    newDeleteProvisionedProductPlanResponse,
 
     -- * Response Lenses
-    dppprprsResponseStatus,
+    deleteProvisionedProductPlanResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'deleteProvisionedProductPlan' smart constructor.
+-- | /See:/ 'newDeleteProvisionedProductPlan' smart constructor.
 data DeleteProvisionedProductPlan = DeleteProvisionedProductPlan'
-  { _dpppIgnoreErrors ::
-      !(Maybe Bool),
-    _dpppAcceptLanguage ::
-      !(Maybe Text),
-    _dpppPlanId ::
-      !Text
+  { -- | If set to true, AWS Service Catalog stops managing the specified
+    -- provisioned product even if it cannot delete the underlying resources.
+    ignoreErrors :: Prelude.Maybe Prelude.Bool,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The plan identifier.
+    planId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProvisionedProductPlan' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProvisionedProductPlan' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpppIgnoreErrors' - If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot delete the underlying resources.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpppAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- 'ignoreErrors', 'deleteProvisionedProductPlan_ignoreErrors' - If set to true, AWS Service Catalog stops managing the specified
+-- provisioned product even if it cannot delete the underlying resources.
 --
--- * 'dpppPlanId' - The plan identifier.
-deleteProvisionedProductPlan ::
-  -- | 'dpppPlanId'
-  Text ->
+-- 'acceptLanguage', 'deleteProvisionedProductPlan_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'planId', 'deleteProvisionedProductPlan_planId' - The plan identifier.
+newDeleteProvisionedProductPlan ::
+  -- | 'planId'
+  Prelude.Text ->
   DeleteProvisionedProductPlan
-deleteProvisionedProductPlan pPlanId_ =
+newDeleteProvisionedProductPlan pPlanId_ =
   DeleteProvisionedProductPlan'
-    { _dpppIgnoreErrors =
-        Nothing,
-      _dpppAcceptLanguage = Nothing,
-      _dpppPlanId = pPlanId_
+    { ignoreErrors =
+        Prelude.Nothing,
+      acceptLanguage = Prelude.Nothing,
+      planId = pPlanId_
     }
 
--- | If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot delete the underlying resources.
-dpppIgnoreErrors :: Lens' DeleteProvisionedProductPlan (Maybe Bool)
-dpppIgnoreErrors = lens _dpppIgnoreErrors (\s a -> s {_dpppIgnoreErrors = a})
+-- | If set to true, AWS Service Catalog stops managing the specified
+-- provisioned product even if it cannot delete the underlying resources.
+deleteProvisionedProductPlan_ignoreErrors :: Lens.Lens' DeleteProvisionedProductPlan (Prelude.Maybe Prelude.Bool)
+deleteProvisionedProductPlan_ignoreErrors = Lens.lens (\DeleteProvisionedProductPlan' {ignoreErrors} -> ignoreErrors) (\s@DeleteProvisionedProductPlan' {} a -> s {ignoreErrors = a} :: DeleteProvisionedProductPlan)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-dpppAcceptLanguage :: Lens' DeleteProvisionedProductPlan (Maybe Text)
-dpppAcceptLanguage = lens _dpppAcceptLanguage (\s a -> s {_dpppAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+deleteProvisionedProductPlan_acceptLanguage :: Lens.Lens' DeleteProvisionedProductPlan (Prelude.Maybe Prelude.Text)
+deleteProvisionedProductPlan_acceptLanguage = Lens.lens (\DeleteProvisionedProductPlan' {acceptLanguage} -> acceptLanguage) (\s@DeleteProvisionedProductPlan' {} a -> s {acceptLanguage = a} :: DeleteProvisionedProductPlan)
 
 -- | The plan identifier.
-dpppPlanId :: Lens' DeleteProvisionedProductPlan Text
-dpppPlanId = lens _dpppPlanId (\s a -> s {_dpppPlanId = a})
+deleteProvisionedProductPlan_planId :: Lens.Lens' DeleteProvisionedProductPlan Prelude.Text
+deleteProvisionedProductPlan_planId = Lens.lens (\DeleteProvisionedProductPlan' {planId} -> planId) (\s@DeleteProvisionedProductPlan' {} a -> s {planId = a} :: DeleteProvisionedProductPlan)
 
-instance AWSRequest DeleteProvisionedProductPlan where
+instance
+  Prelude.AWSRequest
+    DeleteProvisionedProductPlan
+  where
   type
     Rs DeleteProvisionedProductPlan =
       DeleteProvisionedProductPlanResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteProvisionedProductPlanResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteProvisionedProductPlan
+instance
+  Prelude.Hashable
+    DeleteProvisionedProductPlan
 
-instance NFData DeleteProvisionedProductPlan
+instance Prelude.NFData DeleteProvisionedProductPlan
 
-instance ToHeaders DeleteProvisionedProductPlan where
+instance
+  Prelude.ToHeaders
+    DeleteProvisionedProductPlan
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DeleteProvisionedProductPlan" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DeleteProvisionedProductPlan" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteProvisionedProductPlan where
+instance Prelude.ToJSON DeleteProvisionedProductPlan where
   toJSON DeleteProvisionedProductPlan' {..} =
-    object
-      ( catMaybes
-          [ ("IgnoreErrors" .=) <$> _dpppIgnoreErrors,
-            ("AcceptLanguage" .=) <$> _dpppAcceptLanguage,
-            Just ("PlanId" .= _dpppPlanId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IgnoreErrors" Prelude..=)
+              Prelude.<$> ignoreErrors,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("PlanId" Prelude..= planId)
           ]
       )
 
-instance ToPath DeleteProvisionedProductPlan where
-  toPath = const "/"
+instance Prelude.ToPath DeleteProvisionedProductPlan where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteProvisionedProductPlan where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteProvisionedProductPlan where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteProvisionedProductPlanResponse' smart constructor.
-newtype DeleteProvisionedProductPlanResponse = DeleteProvisionedProductPlanResponse'
-  { _dppprprsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteProvisionedProductPlanResponse' smart constructor.
+data DeleteProvisionedProductPlanResponse = DeleteProvisionedProductPlanResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProvisionedProductPlanResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProvisionedProductPlanResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dppprprsResponseStatus' - -- | The response status code.
-deleteProvisionedProductPlanResponse ::
-  -- | 'dppprprsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteProvisionedProductPlanResponse_httpStatus' - The response's http status code.
+newDeleteProvisionedProductPlanResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteProvisionedProductPlanResponse
-deleteProvisionedProductPlanResponse pResponseStatus_ =
+newDeleteProvisionedProductPlanResponse pHttpStatus_ =
   DeleteProvisionedProductPlanResponse'
-    { _dppprprsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dppprprsResponseStatus :: Lens' DeleteProvisionedProductPlanResponse Int
-dppprprsResponseStatus = lens _dppprprsResponseStatus (\s a -> s {_dppprprsResponseStatus = a})
+-- | The response's http status code.
+deleteProvisionedProductPlanResponse_httpStatus :: Lens.Lens' DeleteProvisionedProductPlanResponse Prelude.Int
+deleteProvisionedProductPlanResponse_httpStatus = Lens.lens (\DeleteProvisionedProductPlanResponse' {httpStatus} -> httpStatus) (\s@DeleteProvisionedProductPlanResponse' {} a -> s {httpStatus = a} :: DeleteProvisionedProductPlanResponse)
 
-instance NFData DeleteProvisionedProductPlanResponse
+instance
+  Prelude.NFData
+    DeleteProvisionedProductPlanResponse

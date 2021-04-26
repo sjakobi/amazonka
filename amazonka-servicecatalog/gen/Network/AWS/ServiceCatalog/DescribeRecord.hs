@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,191 +23,243 @@
 --
 -- Gets information about the specified request operation.
 --
+-- Use this operation after calling a request operation (for example,
+-- ProvisionProduct, TerminateProvisionedProduct, or
+-- UpdateProvisionedProduct).
 --
--- Use this operation after calling a request operation (for example, 'ProvisionProduct' , 'TerminateProvisionedProduct' , or 'UpdateProvisionedProduct' ).
+-- If a provisioned product was transferred to a new owner using
+-- UpdateProvisionedProductProperties, the new owner will be able to
+-- describe all past records for that product. The previous owner will no
+-- longer be able to describe the records, but will be able to use
+-- ListRecordHistory to see the product\'s history from when he was the
+-- owner.
 module Network.AWS.ServiceCatalog.DescribeRecord
   ( -- * Creating a Request
-    describeRecord,
-    DescribeRecord,
+    DescribeRecord (..),
+    newDescribeRecord,
 
     -- * Request Lenses
-    drPageSize,
-    drPageToken,
-    drAcceptLanguage,
-    drId,
+    describeRecord_pageSize,
+    describeRecord_pageToken,
+    describeRecord_acceptLanguage,
+    describeRecord_id,
 
     -- * Destructuring the Response
-    describeRecordResponse,
-    DescribeRecordResponse,
+    DescribeRecordResponse (..),
+    newDescribeRecordResponse,
 
     -- * Response Lenses
-    drrrsRecordDetail,
-    drrrsRecordOutputs,
-    drrrsNextPageToken,
-    drrrsResponseStatus,
+    describeRecordResponse_recordDetail,
+    describeRecordResponse_recordOutputs,
+    describeRecordResponse_nextPageToken,
+    describeRecordResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.RecordDetail
+import Network.AWS.ServiceCatalog.Types.RecordOutput
 
--- | /See:/ 'describeRecord' smart constructor.
+-- | /See:/ 'newDescribeRecord' smart constructor.
 data DescribeRecord = DescribeRecord'
-  { _drPageSize ::
-      !(Maybe Nat),
-    _drPageToken :: !(Maybe Text),
-    _drAcceptLanguage :: !(Maybe Text),
-    _drId :: !Text
+  { -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The page token for the next set of results. To retrieve the first set of
+    -- results, use null.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The record identifier of the provisioned product. This identifier is
+    -- returned by the request operation.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRecord' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRecord' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drPageSize' - The maximum number of items to return with this call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
+-- 'pageSize', 'describeRecord_pageSize' - The maximum number of items to return with this call.
 --
--- * 'drAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- 'pageToken', 'describeRecord_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
 --
--- * 'drId' - The record identifier of the provisioned product. This identifier is returned by the request operation.
-describeRecord ::
-  -- | 'drId'
-  Text ->
+-- 'acceptLanguage', 'describeRecord_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'id', 'describeRecord_id' - The record identifier of the provisioned product. This identifier is
+-- returned by the request operation.
+newDescribeRecord ::
+  -- | 'id'
+  Prelude.Text ->
   DescribeRecord
-describeRecord pId_ =
+newDescribeRecord pId_ =
   DescribeRecord'
-    { _drPageSize = Nothing,
-      _drPageToken = Nothing,
-      _drAcceptLanguage = Nothing,
-      _drId = pId_
+    { pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing,
+      acceptLanguage = Prelude.Nothing,
+      id = pId_
     }
 
 -- | The maximum number of items to return with this call.
-drPageSize :: Lens' DescribeRecord (Maybe Natural)
-drPageSize = lens _drPageSize (\s a -> s {_drPageSize = a}) . mapping _Nat
+describeRecord_pageSize :: Lens.Lens' DescribeRecord (Prelude.Maybe Prelude.Natural)
+describeRecord_pageSize = Lens.lens (\DescribeRecord' {pageSize} -> pageSize) (\s@DescribeRecord' {} a -> s {pageSize = a} :: DescribeRecord) Prelude.. Lens.mapping Prelude._Nat
 
--- | The page token for the next set of results. To retrieve the first set of results, use null.
-drPageToken :: Lens' DescribeRecord (Maybe Text)
-drPageToken = lens _drPageToken (\s a -> s {_drPageToken = a})
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+describeRecord_pageToken :: Lens.Lens' DescribeRecord (Prelude.Maybe Prelude.Text)
+describeRecord_pageToken = Lens.lens (\DescribeRecord' {pageToken} -> pageToken) (\s@DescribeRecord' {} a -> s {pageToken = a} :: DescribeRecord)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-drAcceptLanguage :: Lens' DescribeRecord (Maybe Text)
-drAcceptLanguage = lens _drAcceptLanguage (\s a -> s {_drAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+describeRecord_acceptLanguage :: Lens.Lens' DescribeRecord (Prelude.Maybe Prelude.Text)
+describeRecord_acceptLanguage = Lens.lens (\DescribeRecord' {acceptLanguage} -> acceptLanguage) (\s@DescribeRecord' {} a -> s {acceptLanguage = a} :: DescribeRecord)
 
--- | The record identifier of the provisioned product. This identifier is returned by the request operation.
-drId :: Lens' DescribeRecord Text
-drId = lens _drId (\s a -> s {_drId = a})
+-- | The record identifier of the provisioned product. This identifier is
+-- returned by the request operation.
+describeRecord_id :: Lens.Lens' DescribeRecord Prelude.Text
+describeRecord_id = Lens.lens (\DescribeRecord' {id} -> id) (\s@DescribeRecord' {} a -> s {id = a} :: DescribeRecord)
 
-instance AWSRequest DescribeRecord where
+instance Prelude.AWSRequest DescribeRecord where
   type Rs DescribeRecord = DescribeRecordResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeRecordResponse'
-            <$> (x .?> "RecordDetail")
-            <*> (x .?> "RecordOutputs" .!@ mempty)
-            <*> (x .?> "NextPageToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RecordDetail")
+            Prelude.<*> ( x Prelude..?> "RecordOutputs"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeRecord
+instance Prelude.Hashable DescribeRecord
 
-instance NFData DescribeRecord
+instance Prelude.NFData DescribeRecord
 
-instance ToHeaders DescribeRecord where
+instance Prelude.ToHeaders DescribeRecord where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DescribeRecord" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DescribeRecord" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeRecord where
+instance Prelude.ToJSON DescribeRecord where
   toJSON DescribeRecord' {..} =
-    object
-      ( catMaybes
-          [ ("PageSize" .=) <$> _drPageSize,
-            ("PageToken" .=) <$> _drPageToken,
-            ("AcceptLanguage" .=) <$> _drAcceptLanguage,
-            Just ("Id" .= _drId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PageSize" Prelude..=) Prelude.<$> pageSize,
+            ("PageToken" Prelude..=) Prelude.<$> pageToken,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("Id" Prelude..= id)
           ]
       )
 
-instance ToPath DescribeRecord where
-  toPath = const "/"
+instance Prelude.ToPath DescribeRecord where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeRecord where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeRecord where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeRecordResponse' smart constructor.
+-- | /See:/ 'newDescribeRecordResponse' smart constructor.
 data DescribeRecordResponse = DescribeRecordResponse'
-  { _drrrsRecordDetail ::
-      !(Maybe RecordDetail),
-    _drrrsRecordOutputs ::
-      !(Maybe [RecordOutput]),
-    _drrrsNextPageToken ::
-      !(Maybe Text),
-    _drrrsResponseStatus ::
-      !Int
+  { -- | Information about the product.
+    recordDetail :: Prelude.Maybe RecordDetail,
+    -- | Information about the product created as the result of a request. For
+    -- example, the output for a CloudFormation-backed product that creates an
+    -- S3 bucket would include the S3 bucket URL.
+    recordOutputs :: Prelude.Maybe [RecordOutput],
+    -- | The page token to use to retrieve the next set of results. If there are
+    -- no additional results, this value is null.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRecordResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRecordResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drrrsRecordDetail' - Information about the product.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drrrsRecordOutputs' - Information about the product created as the result of a request. For example, the output for a CloudFormation-backed product that creates an S3 bucket would include the S3 bucket URL.
+-- 'recordDetail', 'describeRecordResponse_recordDetail' - Information about the product.
 --
--- * 'drrrsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+-- 'recordOutputs', 'describeRecordResponse_recordOutputs' - Information about the product created as the result of a request. For
+-- example, the output for a CloudFormation-backed product that creates an
+-- S3 bucket would include the S3 bucket URL.
 --
--- * 'drrrsResponseStatus' - -- | The response status code.
-describeRecordResponse ::
-  -- | 'drrrsResponseStatus'
-  Int ->
+-- 'nextPageToken', 'describeRecordResponse_nextPageToken' - The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
+--
+-- 'httpStatus', 'describeRecordResponse_httpStatus' - The response's http status code.
+newDescribeRecordResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeRecordResponse
-describeRecordResponse pResponseStatus_ =
+newDescribeRecordResponse pHttpStatus_ =
   DescribeRecordResponse'
-    { _drrrsRecordDetail =
-        Nothing,
-      _drrrsRecordOutputs = Nothing,
-      _drrrsNextPageToken = Nothing,
-      _drrrsResponseStatus = pResponseStatus_
+    { recordDetail =
+        Prelude.Nothing,
+      recordOutputs = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the product.
-drrrsRecordDetail :: Lens' DescribeRecordResponse (Maybe RecordDetail)
-drrrsRecordDetail = lens _drrrsRecordDetail (\s a -> s {_drrrsRecordDetail = a})
+describeRecordResponse_recordDetail :: Lens.Lens' DescribeRecordResponse (Prelude.Maybe RecordDetail)
+describeRecordResponse_recordDetail = Lens.lens (\DescribeRecordResponse' {recordDetail} -> recordDetail) (\s@DescribeRecordResponse' {} a -> s {recordDetail = a} :: DescribeRecordResponse)
 
--- | Information about the product created as the result of a request. For example, the output for a CloudFormation-backed product that creates an S3 bucket would include the S3 bucket URL.
-drrrsRecordOutputs :: Lens' DescribeRecordResponse [RecordOutput]
-drrrsRecordOutputs = lens _drrrsRecordOutputs (\s a -> s {_drrrsRecordOutputs = a}) . _Default . _Coerce
+-- | Information about the product created as the result of a request. For
+-- example, the output for a CloudFormation-backed product that creates an
+-- S3 bucket would include the S3 bucket URL.
+describeRecordResponse_recordOutputs :: Lens.Lens' DescribeRecordResponse (Prelude.Maybe [RecordOutput])
+describeRecordResponse_recordOutputs = Lens.lens (\DescribeRecordResponse' {recordOutputs} -> recordOutputs) (\s@DescribeRecordResponse' {} a -> s {recordOutputs = a} :: DescribeRecordResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
-drrrsNextPageToken :: Lens' DescribeRecordResponse (Maybe Text)
-drrrsNextPageToken = lens _drrrsNextPageToken (\s a -> s {_drrrsNextPageToken = a})
+-- | The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
+describeRecordResponse_nextPageToken :: Lens.Lens' DescribeRecordResponse (Prelude.Maybe Prelude.Text)
+describeRecordResponse_nextPageToken = Lens.lens (\DescribeRecordResponse' {nextPageToken} -> nextPageToken) (\s@DescribeRecordResponse' {} a -> s {nextPageToken = a} :: DescribeRecordResponse)
 
--- | -- | The response status code.
-drrrsResponseStatus :: Lens' DescribeRecordResponse Int
-drrrsResponseStatus = lens _drrrsResponseStatus (\s a -> s {_drrrsResponseStatus = a})
+-- | The response's http status code.
+describeRecordResponse_httpStatus :: Lens.Lens' DescribeRecordResponse Prelude.Int
+describeRecordResponse_httpStatus = Lens.lens (\DescribeRecordResponse' {httpStatus} -> httpStatus) (\s@DescribeRecordResponse' {} a -> s {httpStatus = a} :: DescribeRecordResponse)
 
-instance NFData DescribeRecordResponse
+instance Prelude.NFData DescribeRecordResponse

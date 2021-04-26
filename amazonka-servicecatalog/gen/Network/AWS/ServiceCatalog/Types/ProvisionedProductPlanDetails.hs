@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ProvisionedProductPlanDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ProvisionedProductPlanStatus
 import Network.AWS.ServiceCatalog.Types.ProvisionedProductPlanType
 import Network.AWS.ServiceCatalog.Types.Tag
@@ -24,218 +28,204 @@ import Network.AWS.ServiceCatalog.Types.UpdateProvisioningParameter
 
 -- | Information about a plan.
 --
---
---
--- /See:/ 'provisionedProductPlanDetails' smart constructor.
+-- /See:/ 'newProvisionedProductPlanDetails' smart constructor.
 data ProvisionedProductPlanDetails = ProvisionedProductPlanDetails'
-  { _pppdProvisionProductId ::
-      !( Maybe
-           Text
-       ),
-    _pppdStatusMessage ::
-      !( Maybe
-           Text
-       ),
-    _pppdStatus ::
-      !( Maybe
-           ProvisionedProductPlanStatus
-       ),
-    _pppdNotificationARNs ::
-      !( Maybe
-           [Text]
-       ),
-    _pppdUpdatedTime ::
-      !( Maybe
-           POSIX
-       ),
-    _pppdCreatedTime ::
-      !( Maybe
-           POSIX
-       ),
-    _pppdProvisioningArtifactId ::
-      !( Maybe
-           Text
-       ),
-    _pppdPlanName ::
-      !( Maybe
-           Text
-       ),
-    _pppdTags ::
-      !( Maybe
-           [Tag]
-       ),
-    _pppdPlanId ::
-      !( Maybe
-           Text
-       ),
-    _pppdProductId ::
-      !( Maybe
-           Text
-       ),
-    _pppdProvisioningParameters ::
-      !( Maybe
-           [UpdateProvisioningParameter]
-       ),
-    _pppdPlanType ::
-      !( Maybe
-           ProvisionedProductPlanType
-       ),
-    _pppdPathId ::
-      !( Maybe
-           Text
-       ),
-    _pppdProvisionProductName ::
-      !( Maybe
-           Text
-       )
+  { -- | The product identifier.
+    provisionProductId :: Prelude.Maybe Prelude.Text,
+    -- | The status message.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The status.
+    status :: Prelude.Maybe ProvisionedProductPlanStatus,
+    -- | Passed to CloudFormation. The SNS topic ARNs to which to publish
+    -- stack-related events.
+    notificationArns :: Prelude.Maybe [Prelude.Text],
+    -- | The time when the plan was last updated.
+    updatedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The UTC time stamp of the creation time.
+    createdTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The identifier of the provisioning artifact.
+    provisioningArtifactId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the plan.
+    planName :: Prelude.Maybe Prelude.Text,
+    -- | One or more tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The plan identifier.
+    planId :: Prelude.Maybe Prelude.Text,
+    -- | The product identifier.
+    productId :: Prelude.Maybe Prelude.Text,
+    -- | Parameters specified by the administrator that are required for
+    -- provisioning the product.
+    provisioningParameters :: Prelude.Maybe [UpdateProvisioningParameter],
+    -- | The plan type.
+    planType :: Prelude.Maybe ProvisionedProductPlanType,
+    -- | The path identifier of the product. This value is optional if the
+    -- product has a default path, and required if the product has more than
+    -- one path. To list the paths for a product, use ListLaunchPaths.
+    pathId :: Prelude.Maybe Prelude.Text,
+    -- | The user-friendly name of the provisioned product.
+    provisionProductName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvisionedProductPlanDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvisionedProductPlanDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pppdProvisionProductId' - The product identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pppdStatusMessage' - The status message.
+-- 'provisionProductId', 'provisionedProductPlanDetails_provisionProductId' - The product identifier.
 --
--- * 'pppdStatus' - The status.
+-- 'statusMessage', 'provisionedProductPlanDetails_statusMessage' - The status message.
 --
--- * 'pppdNotificationARNs' - Passed to CloudFormation. The SNS topic ARNs to which to publish stack-related events.
+-- 'status', 'provisionedProductPlanDetails_status' - The status.
 --
--- * 'pppdUpdatedTime' - The time when the plan was last updated.
+-- 'notificationArns', 'provisionedProductPlanDetails_notificationArns' - Passed to CloudFormation. The SNS topic ARNs to which to publish
+-- stack-related events.
 --
--- * 'pppdCreatedTime' - The UTC time stamp of the creation time.
+-- 'updatedTime', 'provisionedProductPlanDetails_updatedTime' - The time when the plan was last updated.
 --
--- * 'pppdProvisioningArtifactId' - The identifier of the provisioning artifact.
+-- 'createdTime', 'provisionedProductPlanDetails_createdTime' - The UTC time stamp of the creation time.
 --
--- * 'pppdPlanName' - The name of the plan.
+-- 'provisioningArtifactId', 'provisionedProductPlanDetails_provisioningArtifactId' - The identifier of the provisioning artifact.
 --
--- * 'pppdTags' - One or more tags.
+-- 'planName', 'provisionedProductPlanDetails_planName' - The name of the plan.
 --
--- * 'pppdPlanId' - The plan identifier.
+-- 'tags', 'provisionedProductPlanDetails_tags' - One or more tags.
 --
--- * 'pppdProductId' - The product identifier.
+-- 'planId', 'provisionedProductPlanDetails_planId' - The plan identifier.
 --
--- * 'pppdProvisioningParameters' - Parameters specified by the administrator that are required for provisioning the product.
+-- 'productId', 'provisionedProductPlanDetails_productId' - The product identifier.
 --
--- * 'pppdPlanType' - The plan type.
+-- 'provisioningParameters', 'provisionedProductPlanDetails_provisioningParameters' - Parameters specified by the administrator that are required for
+-- provisioning the product.
 --
--- * 'pppdPathId' - The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path. To list the paths for a product, use 'ListLaunchPaths' .
+-- 'planType', 'provisionedProductPlanDetails_planType' - The plan type.
 --
--- * 'pppdProvisionProductName' - The user-friendly name of the provisioned product.
-provisionedProductPlanDetails ::
+-- 'pathId', 'provisionedProductPlanDetails_pathId' - The path identifier of the product. This value is optional if the
+-- product has a default path, and required if the product has more than
+-- one path. To list the paths for a product, use ListLaunchPaths.
+--
+-- 'provisionProductName', 'provisionedProductPlanDetails_provisionProductName' - The user-friendly name of the provisioned product.
+newProvisionedProductPlanDetails ::
   ProvisionedProductPlanDetails
-provisionedProductPlanDetails =
+newProvisionedProductPlanDetails =
   ProvisionedProductPlanDetails'
-    { _pppdProvisionProductId =
-        Nothing,
-      _pppdStatusMessage = Nothing,
-      _pppdStatus = Nothing,
-      _pppdNotificationARNs = Nothing,
-      _pppdUpdatedTime = Nothing,
-      _pppdCreatedTime = Nothing,
-      _pppdProvisioningArtifactId = Nothing,
-      _pppdPlanName = Nothing,
-      _pppdTags = Nothing,
-      _pppdPlanId = Nothing,
-      _pppdProductId = Nothing,
-      _pppdProvisioningParameters = Nothing,
-      _pppdPlanType = Nothing,
-      _pppdPathId = Nothing,
-      _pppdProvisionProductName = Nothing
+    { provisionProductId =
+        Prelude.Nothing,
+      statusMessage = Prelude.Nothing,
+      status = Prelude.Nothing,
+      notificationArns = Prelude.Nothing,
+      updatedTime = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      provisioningArtifactId = Prelude.Nothing,
+      planName = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      planId = Prelude.Nothing,
+      productId = Prelude.Nothing,
+      provisioningParameters = Prelude.Nothing,
+      planType = Prelude.Nothing,
+      pathId = Prelude.Nothing,
+      provisionProductName = Prelude.Nothing
     }
 
 -- | The product identifier.
-pppdProvisionProductId :: Lens' ProvisionedProductPlanDetails (Maybe Text)
-pppdProvisionProductId = lens _pppdProvisionProductId (\s a -> s {_pppdProvisionProductId = a})
+provisionedProductPlanDetails_provisionProductId :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.Text)
+provisionedProductPlanDetails_provisionProductId = Lens.lens (\ProvisionedProductPlanDetails' {provisionProductId} -> provisionProductId) (\s@ProvisionedProductPlanDetails' {} a -> s {provisionProductId = a} :: ProvisionedProductPlanDetails)
 
 -- | The status message.
-pppdStatusMessage :: Lens' ProvisionedProductPlanDetails (Maybe Text)
-pppdStatusMessage = lens _pppdStatusMessage (\s a -> s {_pppdStatusMessage = a})
+provisionedProductPlanDetails_statusMessage :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.Text)
+provisionedProductPlanDetails_statusMessage = Lens.lens (\ProvisionedProductPlanDetails' {statusMessage} -> statusMessage) (\s@ProvisionedProductPlanDetails' {} a -> s {statusMessage = a} :: ProvisionedProductPlanDetails)
 
 -- | The status.
-pppdStatus :: Lens' ProvisionedProductPlanDetails (Maybe ProvisionedProductPlanStatus)
-pppdStatus = lens _pppdStatus (\s a -> s {_pppdStatus = a})
+provisionedProductPlanDetails_status :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe ProvisionedProductPlanStatus)
+provisionedProductPlanDetails_status = Lens.lens (\ProvisionedProductPlanDetails' {status} -> status) (\s@ProvisionedProductPlanDetails' {} a -> s {status = a} :: ProvisionedProductPlanDetails)
 
--- | Passed to CloudFormation. The SNS topic ARNs to which to publish stack-related events.
-pppdNotificationARNs :: Lens' ProvisionedProductPlanDetails [Text]
-pppdNotificationARNs = lens _pppdNotificationARNs (\s a -> s {_pppdNotificationARNs = a}) . _Default . _Coerce
+-- | Passed to CloudFormation. The SNS topic ARNs to which to publish
+-- stack-related events.
+provisionedProductPlanDetails_notificationArns :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe [Prelude.Text])
+provisionedProductPlanDetails_notificationArns = Lens.lens (\ProvisionedProductPlanDetails' {notificationArns} -> notificationArns) (\s@ProvisionedProductPlanDetails' {} a -> s {notificationArns = a} :: ProvisionedProductPlanDetails) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time when the plan was last updated.
-pppdUpdatedTime :: Lens' ProvisionedProductPlanDetails (Maybe UTCTime)
-pppdUpdatedTime = lens _pppdUpdatedTime (\s a -> s {_pppdUpdatedTime = a}) . mapping _Time
+provisionedProductPlanDetails_updatedTime :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.UTCTime)
+provisionedProductPlanDetails_updatedTime = Lens.lens (\ProvisionedProductPlanDetails' {updatedTime} -> updatedTime) (\s@ProvisionedProductPlanDetails' {} a -> s {updatedTime = a} :: ProvisionedProductPlanDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | The UTC time stamp of the creation time.
-pppdCreatedTime :: Lens' ProvisionedProductPlanDetails (Maybe UTCTime)
-pppdCreatedTime = lens _pppdCreatedTime (\s a -> s {_pppdCreatedTime = a}) . mapping _Time
+provisionedProductPlanDetails_createdTime :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.UTCTime)
+provisionedProductPlanDetails_createdTime = Lens.lens (\ProvisionedProductPlanDetails' {createdTime} -> createdTime) (\s@ProvisionedProductPlanDetails' {} a -> s {createdTime = a} :: ProvisionedProductPlanDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identifier of the provisioning artifact.
-pppdProvisioningArtifactId :: Lens' ProvisionedProductPlanDetails (Maybe Text)
-pppdProvisioningArtifactId = lens _pppdProvisioningArtifactId (\s a -> s {_pppdProvisioningArtifactId = a})
+provisionedProductPlanDetails_provisioningArtifactId :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.Text)
+provisionedProductPlanDetails_provisioningArtifactId = Lens.lens (\ProvisionedProductPlanDetails' {provisioningArtifactId} -> provisioningArtifactId) (\s@ProvisionedProductPlanDetails' {} a -> s {provisioningArtifactId = a} :: ProvisionedProductPlanDetails)
 
 -- | The name of the plan.
-pppdPlanName :: Lens' ProvisionedProductPlanDetails (Maybe Text)
-pppdPlanName = lens _pppdPlanName (\s a -> s {_pppdPlanName = a})
+provisionedProductPlanDetails_planName :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.Text)
+provisionedProductPlanDetails_planName = Lens.lens (\ProvisionedProductPlanDetails' {planName} -> planName) (\s@ProvisionedProductPlanDetails' {} a -> s {planName = a} :: ProvisionedProductPlanDetails)
 
 -- | One or more tags.
-pppdTags :: Lens' ProvisionedProductPlanDetails [Tag]
-pppdTags = lens _pppdTags (\s a -> s {_pppdTags = a}) . _Default . _Coerce
+provisionedProductPlanDetails_tags :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe [Tag])
+provisionedProductPlanDetails_tags = Lens.lens (\ProvisionedProductPlanDetails' {tags} -> tags) (\s@ProvisionedProductPlanDetails' {} a -> s {tags = a} :: ProvisionedProductPlanDetails) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The plan identifier.
-pppdPlanId :: Lens' ProvisionedProductPlanDetails (Maybe Text)
-pppdPlanId = lens _pppdPlanId (\s a -> s {_pppdPlanId = a})
+provisionedProductPlanDetails_planId :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.Text)
+provisionedProductPlanDetails_planId = Lens.lens (\ProvisionedProductPlanDetails' {planId} -> planId) (\s@ProvisionedProductPlanDetails' {} a -> s {planId = a} :: ProvisionedProductPlanDetails)
 
 -- | The product identifier.
-pppdProductId :: Lens' ProvisionedProductPlanDetails (Maybe Text)
-pppdProductId = lens _pppdProductId (\s a -> s {_pppdProductId = a})
+provisionedProductPlanDetails_productId :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.Text)
+provisionedProductPlanDetails_productId = Lens.lens (\ProvisionedProductPlanDetails' {productId} -> productId) (\s@ProvisionedProductPlanDetails' {} a -> s {productId = a} :: ProvisionedProductPlanDetails)
 
--- | Parameters specified by the administrator that are required for provisioning the product.
-pppdProvisioningParameters :: Lens' ProvisionedProductPlanDetails [UpdateProvisioningParameter]
-pppdProvisioningParameters = lens _pppdProvisioningParameters (\s a -> s {_pppdProvisioningParameters = a}) . _Default . _Coerce
+-- | Parameters specified by the administrator that are required for
+-- provisioning the product.
+provisionedProductPlanDetails_provisioningParameters :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe [UpdateProvisioningParameter])
+provisionedProductPlanDetails_provisioningParameters = Lens.lens (\ProvisionedProductPlanDetails' {provisioningParameters} -> provisioningParameters) (\s@ProvisionedProductPlanDetails' {} a -> s {provisioningParameters = a} :: ProvisionedProductPlanDetails) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The plan type.
-pppdPlanType :: Lens' ProvisionedProductPlanDetails (Maybe ProvisionedProductPlanType)
-pppdPlanType = lens _pppdPlanType (\s a -> s {_pppdPlanType = a})
+provisionedProductPlanDetails_planType :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe ProvisionedProductPlanType)
+provisionedProductPlanDetails_planType = Lens.lens (\ProvisionedProductPlanDetails' {planType} -> planType) (\s@ProvisionedProductPlanDetails' {} a -> s {planType = a} :: ProvisionedProductPlanDetails)
 
--- | The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path. To list the paths for a product, use 'ListLaunchPaths' .
-pppdPathId :: Lens' ProvisionedProductPlanDetails (Maybe Text)
-pppdPathId = lens _pppdPathId (\s a -> s {_pppdPathId = a})
+-- | The path identifier of the product. This value is optional if the
+-- product has a default path, and required if the product has more than
+-- one path. To list the paths for a product, use ListLaunchPaths.
+provisionedProductPlanDetails_pathId :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.Text)
+provisionedProductPlanDetails_pathId = Lens.lens (\ProvisionedProductPlanDetails' {pathId} -> pathId) (\s@ProvisionedProductPlanDetails' {} a -> s {pathId = a} :: ProvisionedProductPlanDetails)
 
 -- | The user-friendly name of the provisioned product.
-pppdProvisionProductName :: Lens' ProvisionedProductPlanDetails (Maybe Text)
-pppdProvisionProductName = lens _pppdProvisionProductName (\s a -> s {_pppdProvisionProductName = a})
+provisionedProductPlanDetails_provisionProductName :: Lens.Lens' ProvisionedProductPlanDetails (Prelude.Maybe Prelude.Text)
+provisionedProductPlanDetails_provisionProductName = Lens.lens (\ProvisionedProductPlanDetails' {provisionProductName} -> provisionProductName) (\s@ProvisionedProductPlanDetails' {} a -> s {provisionProductName = a} :: ProvisionedProductPlanDetails)
 
-instance FromJSON ProvisionedProductPlanDetails where
+instance
+  Prelude.FromJSON
+    ProvisionedProductPlanDetails
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProvisionedProductPlanDetails"
       ( \x ->
           ProvisionedProductPlanDetails'
-            <$> (x .:? "ProvisionProductId")
-            <*> (x .:? "StatusMessage")
-            <*> (x .:? "Status")
-            <*> (x .:? "NotificationArns" .!= mempty)
-            <*> (x .:? "UpdatedTime")
-            <*> (x .:? "CreatedTime")
-            <*> (x .:? "ProvisioningArtifactId")
-            <*> (x .:? "PlanName")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "PlanId")
-            <*> (x .:? "ProductId")
-            <*> (x .:? "ProvisioningParameters" .!= mempty)
-            <*> (x .:? "PlanType")
-            <*> (x .:? "PathId")
-            <*> (x .:? "ProvisionProductName")
+            Prelude.<$> (x Prelude..:? "ProvisionProductId")
+            Prelude.<*> (x Prelude..:? "StatusMessage")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> ( x Prelude..:? "NotificationArns"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "UpdatedTime")
+            Prelude.<*> (x Prelude..:? "CreatedTime")
+            Prelude.<*> (x Prelude..:? "ProvisioningArtifactId")
+            Prelude.<*> (x Prelude..:? "PlanName")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "PlanId")
+            Prelude.<*> (x Prelude..:? "ProductId")
+            Prelude.<*> ( x Prelude..:? "ProvisioningParameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "PlanType")
+            Prelude.<*> (x Prelude..:? "PathId")
+            Prelude.<*> (x Prelude..:? "ProvisionProductName")
       )
 
-instance Hashable ProvisionedProductPlanDetails
+instance
+  Prelude.Hashable
+    ProvisionedProductPlanDetails
 
-instance NFData ProvisionedProductPlanDetails
+instance Prelude.NFData ProvisionedProductPlanDetails

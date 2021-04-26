@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,133 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ConstraintDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a constraint.
 --
---
---
--- /See:/ 'constraintDetail' smart constructor.
+-- /See:/ 'newConstraintDetail' smart constructor.
 data ConstraintDetail = ConstraintDetail'
-  { _cdConstraintId ::
-      !(Maybe Text),
-    _cdPortfolioId :: !(Maybe Text),
-    _cdOwner :: !(Maybe Text),
-    _cdProductId :: !(Maybe Text),
-    _cdDescription :: !(Maybe Text),
-    _cdType :: !(Maybe Text)
+  { -- | The identifier of the constraint.
+    constraintId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the portfolio the product resides in. The constraint
+    -- applies only to the instance of the product that lives within this
+    -- portfolio.
+    portfolioId :: Prelude.Maybe Prelude.Text,
+    -- | The owner of the constraint.
+    owner :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the product the constraint applies to. Note that a
+    -- constraint applies to a specific instance of a product within a certain
+    -- portfolio.
+    productId :: Prelude.Maybe Prelude.Text,
+    -- | The description of the constraint.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The type of constraint.
+    --
+    -- -   @LAUNCH@
+    --
+    -- -   @NOTIFICATION@
+    --
+    -- -   STACKSET
+    --
+    -- -   @TEMPLATE@
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConstraintDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConstraintDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdConstraintId' - The identifier of the constraint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdPortfolioId' - The identifier of the portfolio the product resides in. The constraint applies only to the instance of the product that lives within this portfolio.
+-- 'constraintId', 'constraintDetail_constraintId' - The identifier of the constraint.
 --
--- * 'cdOwner' - The owner of the constraint.
+-- 'portfolioId', 'constraintDetail_portfolioId' - The identifier of the portfolio the product resides in. The constraint
+-- applies only to the instance of the product that lives within this
+-- portfolio.
 --
--- * 'cdProductId' - The identifier of the product the constraint applies to. Note that a constraint applies to a specific instance of a product within a certain portfolio.
+-- 'owner', 'constraintDetail_owner' - The owner of the constraint.
 --
--- * 'cdDescription' - The description of the constraint.
+-- 'productId', 'constraintDetail_productId' - The identifier of the product the constraint applies to. Note that a
+-- constraint applies to a specific instance of a product within a certain
+-- portfolio.
 --
--- * 'cdType' - The type of constraint.     * @LAUNCH@      * @NOTIFICATION@      * STACKSET     * @TEMPLATE@
-constraintDetail ::
+-- 'description', 'constraintDetail_description' - The description of the constraint.
+--
+-- 'type'', 'constraintDetail_type' - The type of constraint.
+--
+-- -   @LAUNCH@
+--
+-- -   @NOTIFICATION@
+--
+-- -   STACKSET
+--
+-- -   @TEMPLATE@
+newConstraintDetail ::
   ConstraintDetail
-constraintDetail =
+newConstraintDetail =
   ConstraintDetail'
-    { _cdConstraintId = Nothing,
-      _cdPortfolioId = Nothing,
-      _cdOwner = Nothing,
-      _cdProductId = Nothing,
-      _cdDescription = Nothing,
-      _cdType = Nothing
+    { constraintId = Prelude.Nothing,
+      portfolioId = Prelude.Nothing,
+      owner = Prelude.Nothing,
+      productId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The identifier of the constraint.
-cdConstraintId :: Lens' ConstraintDetail (Maybe Text)
-cdConstraintId = lens _cdConstraintId (\s a -> s {_cdConstraintId = a})
+constraintDetail_constraintId :: Lens.Lens' ConstraintDetail (Prelude.Maybe Prelude.Text)
+constraintDetail_constraintId = Lens.lens (\ConstraintDetail' {constraintId} -> constraintId) (\s@ConstraintDetail' {} a -> s {constraintId = a} :: ConstraintDetail)
 
--- | The identifier of the portfolio the product resides in. The constraint applies only to the instance of the product that lives within this portfolio.
-cdPortfolioId :: Lens' ConstraintDetail (Maybe Text)
-cdPortfolioId = lens _cdPortfolioId (\s a -> s {_cdPortfolioId = a})
+-- | The identifier of the portfolio the product resides in. The constraint
+-- applies only to the instance of the product that lives within this
+-- portfolio.
+constraintDetail_portfolioId :: Lens.Lens' ConstraintDetail (Prelude.Maybe Prelude.Text)
+constraintDetail_portfolioId = Lens.lens (\ConstraintDetail' {portfolioId} -> portfolioId) (\s@ConstraintDetail' {} a -> s {portfolioId = a} :: ConstraintDetail)
 
 -- | The owner of the constraint.
-cdOwner :: Lens' ConstraintDetail (Maybe Text)
-cdOwner = lens _cdOwner (\s a -> s {_cdOwner = a})
+constraintDetail_owner :: Lens.Lens' ConstraintDetail (Prelude.Maybe Prelude.Text)
+constraintDetail_owner = Lens.lens (\ConstraintDetail' {owner} -> owner) (\s@ConstraintDetail' {} a -> s {owner = a} :: ConstraintDetail)
 
--- | The identifier of the product the constraint applies to. Note that a constraint applies to a specific instance of a product within a certain portfolio.
-cdProductId :: Lens' ConstraintDetail (Maybe Text)
-cdProductId = lens _cdProductId (\s a -> s {_cdProductId = a})
+-- | The identifier of the product the constraint applies to. Note that a
+-- constraint applies to a specific instance of a product within a certain
+-- portfolio.
+constraintDetail_productId :: Lens.Lens' ConstraintDetail (Prelude.Maybe Prelude.Text)
+constraintDetail_productId = Lens.lens (\ConstraintDetail' {productId} -> productId) (\s@ConstraintDetail' {} a -> s {productId = a} :: ConstraintDetail)
 
 -- | The description of the constraint.
-cdDescription :: Lens' ConstraintDetail (Maybe Text)
-cdDescription = lens _cdDescription (\s a -> s {_cdDescription = a})
+constraintDetail_description :: Lens.Lens' ConstraintDetail (Prelude.Maybe Prelude.Text)
+constraintDetail_description = Lens.lens (\ConstraintDetail' {description} -> description) (\s@ConstraintDetail' {} a -> s {description = a} :: ConstraintDetail)
 
--- | The type of constraint.     * @LAUNCH@      * @NOTIFICATION@      * STACKSET     * @TEMPLATE@
-cdType :: Lens' ConstraintDetail (Maybe Text)
-cdType = lens _cdType (\s a -> s {_cdType = a})
+-- | The type of constraint.
+--
+-- -   @LAUNCH@
+--
+-- -   @NOTIFICATION@
+--
+-- -   STACKSET
+--
+-- -   @TEMPLATE@
+constraintDetail_type :: Lens.Lens' ConstraintDetail (Prelude.Maybe Prelude.Text)
+constraintDetail_type = Lens.lens (\ConstraintDetail' {type'} -> type') (\s@ConstraintDetail' {} a -> s {type' = a} :: ConstraintDetail)
 
-instance FromJSON ConstraintDetail where
+instance Prelude.FromJSON ConstraintDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConstraintDetail"
       ( \x ->
           ConstraintDetail'
-            <$> (x .:? "ConstraintId")
-            <*> (x .:? "PortfolioId")
-            <*> (x .:? "Owner")
-            <*> (x .:? "ProductId")
-            <*> (x .:? "Description")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "ConstraintId")
+            Prelude.<*> (x Prelude..:? "PortfolioId")
+            Prelude.<*> (x Prelude..:? "Owner")
+            Prelude.<*> (x Prelude..:? "ProductId")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable ConstraintDetail
+instance Prelude.Hashable ConstraintDetail
 
-instance NFData ConstraintDetail
+instance Prelude.NFData ConstraintDetail

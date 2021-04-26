@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ServiceCatalog.Types.PortfolioShareType
   ( PortfolioShareType
       ( ..,
-        AWSOrganizations,
-        AWSServicecatalog,
-        Imported
+        PortfolioShareTypeAWSORGANIZATIONS,
+        PortfolioShareTypeAWSSERVICECATALOG,
+        PortfolioShareTypeIMPORTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PortfolioShareType
-  = PortfolioShareType'
-      ( CI
-          Text
-      )
+newtype PortfolioShareType = PortfolioShareType'
+  { fromPortfolioShareType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSOrganizations :: PortfolioShareType
-pattern AWSOrganizations = PortfolioShareType' "AWS_ORGANIZATIONS"
+pattern PortfolioShareTypeAWSORGANIZATIONS :: PortfolioShareType
+pattern PortfolioShareTypeAWSORGANIZATIONS = PortfolioShareType' "AWS_ORGANIZATIONS"
 
-pattern AWSServicecatalog :: PortfolioShareType
-pattern AWSServicecatalog = PortfolioShareType' "AWS_SERVICECATALOG"
+pattern PortfolioShareTypeAWSSERVICECATALOG :: PortfolioShareType
+pattern PortfolioShareTypeAWSSERVICECATALOG = PortfolioShareType' "AWS_SERVICECATALOG"
 
-pattern Imported :: PortfolioShareType
-pattern Imported = PortfolioShareType' "IMPORTED"
+pattern PortfolioShareTypeIMPORTED :: PortfolioShareType
+pattern PortfolioShareTypeIMPORTED = PortfolioShareType' "IMPORTED"
 
 {-# COMPLETE
-  AWSOrganizations,
-  AWSServicecatalog,
-  Imported,
+  PortfolioShareTypeAWSORGANIZATIONS,
+  PortfolioShareTypeAWSSERVICECATALOG,
+  PortfolioShareTypeIMPORTED,
   PortfolioShareType'
   #-}
 
-instance FromText PortfolioShareType where
-  parser = (PortfolioShareType' . mk) <$> takeText
+instance Prelude.FromText PortfolioShareType where
+  parser = PortfolioShareType' Prelude.<$> Prelude.takeText
 
-instance ToText PortfolioShareType where
-  toText (PortfolioShareType' ci) = original ci
+instance Prelude.ToText PortfolioShareType where
+  toText (PortfolioShareType' x) = x
 
-instance Hashable PortfolioShareType
+instance Prelude.Hashable PortfolioShareType
 
-instance NFData PortfolioShareType
+instance Prelude.NFData PortfolioShareType
 
-instance ToByteString PortfolioShareType
+instance Prelude.ToByteString PortfolioShareType
 
-instance ToQuery PortfolioShareType
+instance Prelude.ToQuery PortfolioShareType
 
-instance ToHeader PortfolioShareType
+instance Prelude.ToHeader PortfolioShareType
 
-instance ToJSON PortfolioShareType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PortfolioShareType where
+  toJSON = Prelude.toJSONText

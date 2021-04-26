@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.ServiceCatalog.Types.DescribePortfolioShareType
   ( DescribePortfolioShareType
       ( ..,
-        DPSTAccount,
-        DPSTOrganization,
-        DPSTOrganizationMemberAccount,
-        DPSTOrganizationalUnit
+        DescribePortfolioShareTypeACCOUNT,
+        DescribePortfolioShareTypeORGANIZATION,
+        DescribePortfolioShareTypeORGANIZATIONALUNIT,
+        DescribePortfolioShareTypeORGANIZATIONMEMBERACCOUNT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DescribePortfolioShareType
-  = DescribePortfolioShareType'
-      ( CI
-          Text
-      )
+newtype DescribePortfolioShareType = DescribePortfolioShareType'
+  { fromDescribePortfolioShareType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DPSTAccount :: DescribePortfolioShareType
-pattern DPSTAccount = DescribePortfolioShareType' "ACCOUNT"
+pattern DescribePortfolioShareTypeACCOUNT :: DescribePortfolioShareType
+pattern DescribePortfolioShareTypeACCOUNT = DescribePortfolioShareType' "ACCOUNT"
 
-pattern DPSTOrganization :: DescribePortfolioShareType
-pattern DPSTOrganization = DescribePortfolioShareType' "ORGANIZATION"
+pattern DescribePortfolioShareTypeORGANIZATION :: DescribePortfolioShareType
+pattern DescribePortfolioShareTypeORGANIZATION = DescribePortfolioShareType' "ORGANIZATION"
 
-pattern DPSTOrganizationMemberAccount :: DescribePortfolioShareType
-pattern DPSTOrganizationMemberAccount = DescribePortfolioShareType' "ORGANIZATION_MEMBER_ACCOUNT"
+pattern DescribePortfolioShareTypeORGANIZATIONALUNIT :: DescribePortfolioShareType
+pattern DescribePortfolioShareTypeORGANIZATIONALUNIT = DescribePortfolioShareType' "ORGANIZATIONAL_UNIT"
 
-pattern DPSTOrganizationalUnit :: DescribePortfolioShareType
-pattern DPSTOrganizationalUnit = DescribePortfolioShareType' "ORGANIZATIONAL_UNIT"
+pattern DescribePortfolioShareTypeORGANIZATIONMEMBERACCOUNT :: DescribePortfolioShareType
+pattern DescribePortfolioShareTypeORGANIZATIONMEMBERACCOUNT = DescribePortfolioShareType' "ORGANIZATION_MEMBER_ACCOUNT"
 
 {-# COMPLETE
-  DPSTAccount,
-  DPSTOrganization,
-  DPSTOrganizationMemberAccount,
-  DPSTOrganizationalUnit,
+  DescribePortfolioShareTypeACCOUNT,
+  DescribePortfolioShareTypeORGANIZATION,
+  DescribePortfolioShareTypeORGANIZATIONALUNIT,
+  DescribePortfolioShareTypeORGANIZATIONMEMBERACCOUNT,
   DescribePortfolioShareType'
   #-}
 
-instance FromText DescribePortfolioShareType where
-  parser = (DescribePortfolioShareType' . mk) <$> takeText
+instance Prelude.FromText DescribePortfolioShareType where
+  parser = DescribePortfolioShareType' Prelude.<$> Prelude.takeText
 
-instance ToText DescribePortfolioShareType where
-  toText (DescribePortfolioShareType' ci) = original ci
+instance Prelude.ToText DescribePortfolioShareType where
+  toText (DescribePortfolioShareType' x) = x
 
-instance Hashable DescribePortfolioShareType
+instance Prelude.Hashable DescribePortfolioShareType
 
-instance NFData DescribePortfolioShareType
+instance Prelude.NFData DescribePortfolioShareType
 
-instance ToByteString DescribePortfolioShareType
+instance Prelude.ToByteString DescribePortfolioShareType
 
-instance ToQuery DescribePortfolioShareType
+instance Prelude.ToQuery DescribePortfolioShareType
 
-instance ToHeader DescribePortfolioShareType
+instance Prelude.ToHeader DescribePortfolioShareType
 
-instance ToJSON DescribePortfolioShareType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DescribePortfolioShareType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DescribePortfolioShareType where
-  parseJSON = parseJSONText "DescribePortfolioShareType"
+instance Prelude.FromJSON DescribePortfolioShareType where
+  parseJSON = Prelude.parseJSONText "DescribePortfolioShareType"

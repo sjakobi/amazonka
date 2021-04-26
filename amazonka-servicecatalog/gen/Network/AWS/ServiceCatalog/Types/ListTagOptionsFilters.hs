@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ListTagOptionsFilters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Filters to use when listing TagOptions.
 --
---
---
--- /See:/ 'listTagOptionsFilters' smart constructor.
+-- /See:/ 'newListTagOptionsFilters' smart constructor.
 data ListTagOptionsFilters = ListTagOptionsFilters'
-  { _ltofKey ::
-      !(Maybe Text),
-    _ltofActive ::
-      !(Maybe Bool),
-    _ltofValue :: !(Maybe Text)
+  { -- | The TagOption key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The active state.
+    active :: Prelude.Maybe Prelude.Bool,
+    -- | The TagOption value.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagOptionsFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagOptionsFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltofKey' - The TagOption key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltofActive' - The active state.
+-- 'key', 'listTagOptionsFilters_key' - The TagOption key.
 --
--- * 'ltofValue' - The TagOption value.
-listTagOptionsFilters ::
+-- 'active', 'listTagOptionsFilters_active' - The active state.
+--
+-- 'value', 'listTagOptionsFilters_value' - The TagOption value.
+newListTagOptionsFilters ::
   ListTagOptionsFilters
-listTagOptionsFilters =
+newListTagOptionsFilters =
   ListTagOptionsFilters'
-    { _ltofKey = Nothing,
-      _ltofActive = Nothing,
-      _ltofValue = Nothing
+    { key = Prelude.Nothing,
+      active = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The TagOption key.
-ltofKey :: Lens' ListTagOptionsFilters (Maybe Text)
-ltofKey = lens _ltofKey (\s a -> s {_ltofKey = a})
+listTagOptionsFilters_key :: Lens.Lens' ListTagOptionsFilters (Prelude.Maybe Prelude.Text)
+listTagOptionsFilters_key = Lens.lens (\ListTagOptionsFilters' {key} -> key) (\s@ListTagOptionsFilters' {} a -> s {key = a} :: ListTagOptionsFilters)
 
 -- | The active state.
-ltofActive :: Lens' ListTagOptionsFilters (Maybe Bool)
-ltofActive = lens _ltofActive (\s a -> s {_ltofActive = a})
+listTagOptionsFilters_active :: Lens.Lens' ListTagOptionsFilters (Prelude.Maybe Prelude.Bool)
+listTagOptionsFilters_active = Lens.lens (\ListTagOptionsFilters' {active} -> active) (\s@ListTagOptionsFilters' {} a -> s {active = a} :: ListTagOptionsFilters)
 
 -- | The TagOption value.
-ltofValue :: Lens' ListTagOptionsFilters (Maybe Text)
-ltofValue = lens _ltofValue (\s a -> s {_ltofValue = a})
+listTagOptionsFilters_value :: Lens.Lens' ListTagOptionsFilters (Prelude.Maybe Prelude.Text)
+listTagOptionsFilters_value = Lens.lens (\ListTagOptionsFilters' {value} -> value) (\s@ListTagOptionsFilters' {} a -> s {value = a} :: ListTagOptionsFilters)
 
-instance Hashable ListTagOptionsFilters
+instance Prelude.Hashable ListTagOptionsFilters
 
-instance NFData ListTagOptionsFilters
+instance Prelude.NFData ListTagOptionsFilters
 
-instance ToJSON ListTagOptionsFilters where
+instance Prelude.ToJSON ListTagOptionsFilters where
   toJSON ListTagOptionsFilters' {..} =
-    object
-      ( catMaybes
-          [ ("Key" .=) <$> _ltofKey,
-            ("Active" .=) <$> _ltofActive,
-            ("Value" .=) <$> _ltofValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Active" Prelude..=) Prelude.<$> active,
+            ("Value" Prelude..=) Prelude.<$> value
           ]
       )

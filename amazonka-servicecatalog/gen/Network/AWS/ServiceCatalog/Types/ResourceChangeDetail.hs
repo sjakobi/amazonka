@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ResourceChangeDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.EvaluationType
 import Network.AWS.ServiceCatalog.Types.ResourceTargetDefinition
 
 -- | Information about a change to a resource attribute.
 --
---
---
--- /See:/ 'resourceChangeDetail' smart constructor.
+-- /See:/ 'newResourceChangeDetail' smart constructor.
 data ResourceChangeDetail = ResourceChangeDetail'
-  { _rcdEvaluation ::
-      !(Maybe EvaluationType),
-    _rcdCausingEntity ::
-      !(Maybe Text),
-    _rcdTarget ::
-      !( Maybe
-           ResourceTargetDefinition
-       )
+  { -- | For static evaluations, the value of the resource attribute will change
+    -- and the new value is known. For dynamic evaluations, the value might
+    -- change, and any new value will be determined when the plan is updated.
+    evaluation :: Prelude.Maybe EvaluationType,
+    -- | The ID of the entity that caused the change.
+    causingEntity :: Prelude.Maybe Prelude.Text,
+    -- | Information about the resource attribute to be modified.
+    target :: Prelude.Maybe ResourceTargetDefinition
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceChangeDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceChangeDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcdEvaluation' - For static evaluations, the value of the resource attribute will change and the new value is known. For dynamic evaluations, the value might change, and any new value will be determined when the plan is updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcdCausingEntity' - The ID of the entity that caused the change.
+-- 'evaluation', 'resourceChangeDetail_evaluation' - For static evaluations, the value of the resource attribute will change
+-- and the new value is known. For dynamic evaluations, the value might
+-- change, and any new value will be determined when the plan is updated.
 --
--- * 'rcdTarget' - Information about the resource attribute to be modified.
-resourceChangeDetail ::
+-- 'causingEntity', 'resourceChangeDetail_causingEntity' - The ID of the entity that caused the change.
+--
+-- 'target', 'resourceChangeDetail_target' - Information about the resource attribute to be modified.
+newResourceChangeDetail ::
   ResourceChangeDetail
-resourceChangeDetail =
+newResourceChangeDetail =
   ResourceChangeDetail'
-    { _rcdEvaluation = Nothing,
-      _rcdCausingEntity = Nothing,
-      _rcdTarget = Nothing
+    { evaluation = Prelude.Nothing,
+      causingEntity = Prelude.Nothing,
+      target = Prelude.Nothing
     }
 
--- | For static evaluations, the value of the resource attribute will change and the new value is known. For dynamic evaluations, the value might change, and any new value will be determined when the plan is updated.
-rcdEvaluation :: Lens' ResourceChangeDetail (Maybe EvaluationType)
-rcdEvaluation = lens _rcdEvaluation (\s a -> s {_rcdEvaluation = a})
+-- | For static evaluations, the value of the resource attribute will change
+-- and the new value is known. For dynamic evaluations, the value might
+-- change, and any new value will be determined when the plan is updated.
+resourceChangeDetail_evaluation :: Lens.Lens' ResourceChangeDetail (Prelude.Maybe EvaluationType)
+resourceChangeDetail_evaluation = Lens.lens (\ResourceChangeDetail' {evaluation} -> evaluation) (\s@ResourceChangeDetail' {} a -> s {evaluation = a} :: ResourceChangeDetail)
 
 -- | The ID of the entity that caused the change.
-rcdCausingEntity :: Lens' ResourceChangeDetail (Maybe Text)
-rcdCausingEntity = lens _rcdCausingEntity (\s a -> s {_rcdCausingEntity = a})
+resourceChangeDetail_causingEntity :: Lens.Lens' ResourceChangeDetail (Prelude.Maybe Prelude.Text)
+resourceChangeDetail_causingEntity = Lens.lens (\ResourceChangeDetail' {causingEntity} -> causingEntity) (\s@ResourceChangeDetail' {} a -> s {causingEntity = a} :: ResourceChangeDetail)
 
 -- | Information about the resource attribute to be modified.
-rcdTarget :: Lens' ResourceChangeDetail (Maybe ResourceTargetDefinition)
-rcdTarget = lens _rcdTarget (\s a -> s {_rcdTarget = a})
+resourceChangeDetail_target :: Lens.Lens' ResourceChangeDetail (Prelude.Maybe ResourceTargetDefinition)
+resourceChangeDetail_target = Lens.lens (\ResourceChangeDetail' {target} -> target) (\s@ResourceChangeDetail' {} a -> s {target = a} :: ResourceChangeDetail)
 
-instance FromJSON ResourceChangeDetail where
+instance Prelude.FromJSON ResourceChangeDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceChangeDetail"
       ( \x ->
           ResourceChangeDetail'
-            <$> (x .:? "Evaluation")
-            <*> (x .:? "CausingEntity")
-            <*> (x .:? "Target")
+            Prelude.<$> (x Prelude..:? "Evaluation")
+            Prelude.<*> (x Prelude..:? "CausingEntity")
+            Prelude.<*> (x Prelude..:? "Target")
       )
 
-instance Hashable ResourceChangeDetail
+instance Prelude.Hashable ResourceChangeDetail
 
-instance NFData ResourceChangeDetail
+instance Prelude.NFData ResourceChangeDetail

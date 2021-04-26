@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ProvisioningArtifact where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ProvisioningArtifactGuidance
 
--- | Information about a provisioning artifact. A provisioning artifact is also known as a product version.
+-- | Information about a provisioning artifact. A provisioning artifact is
+-- also known as a product version.
 --
---
---
--- /See:/ 'provisioningArtifact' smart constructor.
+-- /See:/ 'newProvisioningArtifact' smart constructor.
 data ProvisioningArtifact = ProvisioningArtifact'
-  { _paGuidance ::
-      !( Maybe
-           ProvisioningArtifactGuidance
-       ),
-    _paId :: !(Maybe Text),
-    _paCreatedTime ::
-      !(Maybe POSIX),
-    _paName :: !(Maybe Text),
-    _paDescription ::
-      !(Maybe Text)
+  { -- | Information set by the administrator to provide guidance to end users
+    -- about which provisioning artifacts to use.
+    guidance :: Prelude.Maybe ProvisioningArtifactGuidance,
+    -- | The identifier of the provisioning artifact.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The UTC time stamp of the creation time.
+    createdTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the provisioning artifact.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the provisioning artifact.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvisioningArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvisioningArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'paGuidance' - Information set by the administrator to provide guidance to end users about which provisioning artifacts to use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'paId' - The identifier of the provisioning artifact.
+-- 'guidance', 'provisioningArtifact_guidance' - Information set by the administrator to provide guidance to end users
+-- about which provisioning artifacts to use.
 --
--- * 'paCreatedTime' - The UTC time stamp of the creation time.
+-- 'id', 'provisioningArtifact_id' - The identifier of the provisioning artifact.
 --
--- * 'paName' - The name of the provisioning artifact.
+-- 'createdTime', 'provisioningArtifact_createdTime' - The UTC time stamp of the creation time.
 --
--- * 'paDescription' - The description of the provisioning artifact.
-provisioningArtifact ::
+-- 'name', 'provisioningArtifact_name' - The name of the provisioning artifact.
+--
+-- 'description', 'provisioningArtifact_description' - The description of the provisioning artifact.
+newProvisioningArtifact ::
   ProvisioningArtifact
-provisioningArtifact =
+newProvisioningArtifact =
   ProvisioningArtifact'
-    { _paGuidance = Nothing,
-      _paId = Nothing,
-      _paCreatedTime = Nothing,
-      _paName = Nothing,
-      _paDescription = Nothing
+    { guidance = Prelude.Nothing,
+      id = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
--- | Information set by the administrator to provide guidance to end users about which provisioning artifacts to use.
-paGuidance :: Lens' ProvisioningArtifact (Maybe ProvisioningArtifactGuidance)
-paGuidance = lens _paGuidance (\s a -> s {_paGuidance = a})
+-- | Information set by the administrator to provide guidance to end users
+-- about which provisioning artifacts to use.
+provisioningArtifact_guidance :: Lens.Lens' ProvisioningArtifact (Prelude.Maybe ProvisioningArtifactGuidance)
+provisioningArtifact_guidance = Lens.lens (\ProvisioningArtifact' {guidance} -> guidance) (\s@ProvisioningArtifact' {} a -> s {guidance = a} :: ProvisioningArtifact)
 
 -- | The identifier of the provisioning artifact.
-paId :: Lens' ProvisioningArtifact (Maybe Text)
-paId = lens _paId (\s a -> s {_paId = a})
+provisioningArtifact_id :: Lens.Lens' ProvisioningArtifact (Prelude.Maybe Prelude.Text)
+provisioningArtifact_id = Lens.lens (\ProvisioningArtifact' {id} -> id) (\s@ProvisioningArtifact' {} a -> s {id = a} :: ProvisioningArtifact)
 
 -- | The UTC time stamp of the creation time.
-paCreatedTime :: Lens' ProvisioningArtifact (Maybe UTCTime)
-paCreatedTime = lens _paCreatedTime (\s a -> s {_paCreatedTime = a}) . mapping _Time
+provisioningArtifact_createdTime :: Lens.Lens' ProvisioningArtifact (Prelude.Maybe Prelude.UTCTime)
+provisioningArtifact_createdTime = Lens.lens (\ProvisioningArtifact' {createdTime} -> createdTime) (\s@ProvisioningArtifact' {} a -> s {createdTime = a} :: ProvisioningArtifact) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the provisioning artifact.
-paName :: Lens' ProvisioningArtifact (Maybe Text)
-paName = lens _paName (\s a -> s {_paName = a})
+provisioningArtifact_name :: Lens.Lens' ProvisioningArtifact (Prelude.Maybe Prelude.Text)
+provisioningArtifact_name = Lens.lens (\ProvisioningArtifact' {name} -> name) (\s@ProvisioningArtifact' {} a -> s {name = a} :: ProvisioningArtifact)
 
 -- | The description of the provisioning artifact.
-paDescription :: Lens' ProvisioningArtifact (Maybe Text)
-paDescription = lens _paDescription (\s a -> s {_paDescription = a})
+provisioningArtifact_description :: Lens.Lens' ProvisioningArtifact (Prelude.Maybe Prelude.Text)
+provisioningArtifact_description = Lens.lens (\ProvisioningArtifact' {description} -> description) (\s@ProvisioningArtifact' {} a -> s {description = a} :: ProvisioningArtifact)
 
-instance FromJSON ProvisioningArtifact where
+instance Prelude.FromJSON ProvisioningArtifact where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProvisioningArtifact"
       ( \x ->
           ProvisioningArtifact'
-            <$> (x .:? "Guidance")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreatedTime")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "Guidance")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreatedTime")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable ProvisioningArtifact
+instance Prelude.Hashable ProvisioningArtifact
 
-instance NFData ProvisioningArtifact
+instance Prelude.NFData ProvisioningArtifact

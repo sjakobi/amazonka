@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,293 +23,342 @@
 --
 -- Creates a product.
 --
---
 -- A delegated admin is authorized to invoke this command.
 --
--- The user or role that performs this operation must have the @cloudformation:GetTemplate@ IAM policy permission. This policy permission is required when using the @ImportFromPhysicalId@ template source in the information data section.
+-- The user or role that performs this operation must have the
+-- @cloudformation:GetTemplate@ IAM policy permission. This policy
+-- permission is required when using the @ImportFromPhysicalId@ template
+-- source in the information data section.
 module Network.AWS.ServiceCatalog.CreateProduct
   ( -- * Creating a Request
-    createProduct,
-    CreateProduct,
+    CreateProduct (..),
+    newCreateProduct,
 
     -- * Request Lenses
-    cpDistributor,
-    cpSupportURL,
-    cpTags,
-    cpSupportDescription,
-    cpDescription,
-    cpSupportEmail,
-    cpAcceptLanguage,
-    cpName,
-    cpOwner,
-    cpProductType,
-    cpProvisioningArtifactParameters,
-    cpIdempotencyToken,
+    createProduct_distributor,
+    createProduct_supportUrl,
+    createProduct_tags,
+    createProduct_supportDescription,
+    createProduct_description,
+    createProduct_supportEmail,
+    createProduct_acceptLanguage,
+    createProduct_name,
+    createProduct_owner,
+    createProduct_productType,
+    createProduct_provisioningArtifactParameters,
+    createProduct_idempotencyToken,
 
     -- * Destructuring the Response
-    createProductResponse,
-    CreateProductResponse,
+    CreateProductResponse (..),
+    newCreateProductResponse,
 
     -- * Response Lenses
-    crersProductViewDetail,
-    crersProvisioningArtifactDetail,
-    crersTags,
-    crersResponseStatus,
+    createProductResponse_productViewDetail,
+    createProductResponse_provisioningArtifactDetail,
+    createProductResponse_tags,
+    createProductResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ProductViewDetail
+import Network.AWS.ServiceCatalog.Types.ProvisioningArtifactDetail
+import Network.AWS.ServiceCatalog.Types.Tag
 
--- | /See:/ 'createProduct' smart constructor.
+-- | /See:/ 'newCreateProduct' smart constructor.
 data CreateProduct = CreateProduct'
-  { _cpDistributor ::
-      !(Maybe Text),
-    _cpSupportURL :: !(Maybe Text),
-    _cpTags :: !(Maybe [Tag]),
-    _cpSupportDescription :: !(Maybe Text),
-    _cpDescription :: !(Maybe Text),
-    _cpSupportEmail :: !(Maybe Text),
-    _cpAcceptLanguage :: !(Maybe Text),
-    _cpName :: !Text,
-    _cpOwner :: !Text,
-    _cpProductType :: !ProductType,
-    _cpProvisioningArtifactParameters ::
-      !ProvisioningArtifactProperties,
-    _cpIdempotencyToken :: !Text
+  { -- | The distributor of the product.
+    distributor :: Prelude.Maybe Prelude.Text,
+    -- | The contact URL for product support.
+    --
+    -- @^https?:\\\/\\\/\/ @\/ is the pattern used to validate SupportUrl.
+    supportUrl :: Prelude.Maybe Prelude.Text,
+    -- | One or more tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The support information about the product.
+    supportDescription :: Prelude.Maybe Prelude.Text,
+    -- | The description of the product.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The contact email for product support.
+    supportEmail :: Prelude.Maybe Prelude.Text,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The name of the product.
+    name :: Prelude.Text,
+    -- | The owner of the product.
+    owner :: Prelude.Text,
+    -- | The type of product.
+    productType :: ProductType,
+    -- | The configuration of the provisioning artifact.
+    provisioningArtifactParameters :: ProvisioningArtifactProperties,
+    -- | A unique identifier that you provide to ensure idempotency. If multiple
+    -- requests differ only by the idempotency token, the same response is
+    -- returned for each repeated request.
+    idempotencyToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProduct' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProduct' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpDistributor' - The distributor of the product.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpSupportURL' - The contact URL for product support. @^https?:\/\// @ / is the pattern used to validate SupportUrl.
+-- 'distributor', 'createProduct_distributor' - The distributor of the product.
 --
--- * 'cpTags' - One or more tags.
+-- 'supportUrl', 'createProduct_supportUrl' - The contact URL for product support.
 --
--- * 'cpSupportDescription' - The support information about the product.
+-- @^https?:\\\/\\\/\/ @\/ is the pattern used to validate SupportUrl.
 --
--- * 'cpDescription' - The description of the product.
+-- 'tags', 'createProduct_tags' - One or more tags.
 --
--- * 'cpSupportEmail' - The contact email for product support.
+-- 'supportDescription', 'createProduct_supportDescription' - The support information about the product.
 --
--- * 'cpAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- 'description', 'createProduct_description' - The description of the product.
 --
--- * 'cpName' - The name of the product.
+-- 'supportEmail', 'createProduct_supportEmail' - The contact email for product support.
 --
--- * 'cpOwner' - The owner of the product.
+-- 'acceptLanguage', 'createProduct_acceptLanguage' - The language code.
 --
--- * 'cpProductType' - The type of product.
+-- -   @en@ - English (default)
 --
--- * 'cpProvisioningArtifactParameters' - The configuration of the provisioning artifact.
+-- -   @jp@ - Japanese
 --
--- * 'cpIdempotencyToken' - A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
-createProduct ::
-  -- | 'cpName'
-  Text ->
-  -- | 'cpOwner'
-  Text ->
-  -- | 'cpProductType'
+-- -   @zh@ - Chinese
+--
+-- 'name', 'createProduct_name' - The name of the product.
+--
+-- 'owner', 'createProduct_owner' - The owner of the product.
+--
+-- 'productType', 'createProduct_productType' - The type of product.
+--
+-- 'provisioningArtifactParameters', 'createProduct_provisioningArtifactParameters' - The configuration of the provisioning artifact.
+--
+-- 'idempotencyToken', 'createProduct_idempotencyToken' - A unique identifier that you provide to ensure idempotency. If multiple
+-- requests differ only by the idempotency token, the same response is
+-- returned for each repeated request.
+newCreateProduct ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'owner'
+  Prelude.Text ->
+  -- | 'productType'
   ProductType ->
-  -- | 'cpProvisioningArtifactParameters'
+  -- | 'provisioningArtifactParameters'
   ProvisioningArtifactProperties ->
-  -- | 'cpIdempotencyToken'
-  Text ->
+  -- | 'idempotencyToken'
+  Prelude.Text ->
   CreateProduct
-createProduct
+newCreateProduct
   pName_
   pOwner_
   pProductType_
   pProvisioningArtifactParameters_
   pIdempotencyToken_ =
     CreateProduct'
-      { _cpDistributor = Nothing,
-        _cpSupportURL = Nothing,
-        _cpTags = Nothing,
-        _cpSupportDescription = Nothing,
-        _cpDescription = Nothing,
-        _cpSupportEmail = Nothing,
-        _cpAcceptLanguage = Nothing,
-        _cpName = pName_,
-        _cpOwner = pOwner_,
-        _cpProductType = pProductType_,
-        _cpProvisioningArtifactParameters =
+      { distributor = Prelude.Nothing,
+        supportUrl = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        supportDescription = Prelude.Nothing,
+        description = Prelude.Nothing,
+        supportEmail = Prelude.Nothing,
+        acceptLanguage = Prelude.Nothing,
+        name = pName_,
+        owner = pOwner_,
+        productType = pProductType_,
+        provisioningArtifactParameters =
           pProvisioningArtifactParameters_,
-        _cpIdempotencyToken = pIdempotencyToken_
+        idempotencyToken = pIdempotencyToken_
       }
 
 -- | The distributor of the product.
-cpDistributor :: Lens' CreateProduct (Maybe Text)
-cpDistributor = lens _cpDistributor (\s a -> s {_cpDistributor = a})
+createProduct_distributor :: Lens.Lens' CreateProduct (Prelude.Maybe Prelude.Text)
+createProduct_distributor = Lens.lens (\CreateProduct' {distributor} -> distributor) (\s@CreateProduct' {} a -> s {distributor = a} :: CreateProduct)
 
--- | The contact URL for product support. @^https?:\/\// @ / is the pattern used to validate SupportUrl.
-cpSupportURL :: Lens' CreateProduct (Maybe Text)
-cpSupportURL = lens _cpSupportURL (\s a -> s {_cpSupportURL = a})
+-- | The contact URL for product support.
+--
+-- @^https?:\\\/\\\/\/ @\/ is the pattern used to validate SupportUrl.
+createProduct_supportUrl :: Lens.Lens' CreateProduct (Prelude.Maybe Prelude.Text)
+createProduct_supportUrl = Lens.lens (\CreateProduct' {supportUrl} -> supportUrl) (\s@CreateProduct' {} a -> s {supportUrl = a} :: CreateProduct)
 
 -- | One or more tags.
-cpTags :: Lens' CreateProduct [Tag]
-cpTags = lens _cpTags (\s a -> s {_cpTags = a}) . _Default . _Coerce
+createProduct_tags :: Lens.Lens' CreateProduct (Prelude.Maybe [Tag])
+createProduct_tags = Lens.lens (\CreateProduct' {tags} -> tags) (\s@CreateProduct' {} a -> s {tags = a} :: CreateProduct) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The support information about the product.
-cpSupportDescription :: Lens' CreateProduct (Maybe Text)
-cpSupportDescription = lens _cpSupportDescription (\s a -> s {_cpSupportDescription = a})
+createProduct_supportDescription :: Lens.Lens' CreateProduct (Prelude.Maybe Prelude.Text)
+createProduct_supportDescription = Lens.lens (\CreateProduct' {supportDescription} -> supportDescription) (\s@CreateProduct' {} a -> s {supportDescription = a} :: CreateProduct)
 
 -- | The description of the product.
-cpDescription :: Lens' CreateProduct (Maybe Text)
-cpDescription = lens _cpDescription (\s a -> s {_cpDescription = a})
+createProduct_description :: Lens.Lens' CreateProduct (Prelude.Maybe Prelude.Text)
+createProduct_description = Lens.lens (\CreateProduct' {description} -> description) (\s@CreateProduct' {} a -> s {description = a} :: CreateProduct)
 
 -- | The contact email for product support.
-cpSupportEmail :: Lens' CreateProduct (Maybe Text)
-cpSupportEmail = lens _cpSupportEmail (\s a -> s {_cpSupportEmail = a})
+createProduct_supportEmail :: Lens.Lens' CreateProduct (Prelude.Maybe Prelude.Text)
+createProduct_supportEmail = Lens.lens (\CreateProduct' {supportEmail} -> supportEmail) (\s@CreateProduct' {} a -> s {supportEmail = a} :: CreateProduct)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-cpAcceptLanguage :: Lens' CreateProduct (Maybe Text)
-cpAcceptLanguage = lens _cpAcceptLanguage (\s a -> s {_cpAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+createProduct_acceptLanguage :: Lens.Lens' CreateProduct (Prelude.Maybe Prelude.Text)
+createProduct_acceptLanguage = Lens.lens (\CreateProduct' {acceptLanguage} -> acceptLanguage) (\s@CreateProduct' {} a -> s {acceptLanguage = a} :: CreateProduct)
 
 -- | The name of the product.
-cpName :: Lens' CreateProduct Text
-cpName = lens _cpName (\s a -> s {_cpName = a})
+createProduct_name :: Lens.Lens' CreateProduct Prelude.Text
+createProduct_name = Lens.lens (\CreateProduct' {name} -> name) (\s@CreateProduct' {} a -> s {name = a} :: CreateProduct)
 
 -- | The owner of the product.
-cpOwner :: Lens' CreateProduct Text
-cpOwner = lens _cpOwner (\s a -> s {_cpOwner = a})
+createProduct_owner :: Lens.Lens' CreateProduct Prelude.Text
+createProduct_owner = Lens.lens (\CreateProduct' {owner} -> owner) (\s@CreateProduct' {} a -> s {owner = a} :: CreateProduct)
 
 -- | The type of product.
-cpProductType :: Lens' CreateProduct ProductType
-cpProductType = lens _cpProductType (\s a -> s {_cpProductType = a})
+createProduct_productType :: Lens.Lens' CreateProduct ProductType
+createProduct_productType = Lens.lens (\CreateProduct' {productType} -> productType) (\s@CreateProduct' {} a -> s {productType = a} :: CreateProduct)
 
 -- | The configuration of the provisioning artifact.
-cpProvisioningArtifactParameters :: Lens' CreateProduct ProvisioningArtifactProperties
-cpProvisioningArtifactParameters = lens _cpProvisioningArtifactParameters (\s a -> s {_cpProvisioningArtifactParameters = a})
+createProduct_provisioningArtifactParameters :: Lens.Lens' CreateProduct ProvisioningArtifactProperties
+createProduct_provisioningArtifactParameters = Lens.lens (\CreateProduct' {provisioningArtifactParameters} -> provisioningArtifactParameters) (\s@CreateProduct' {} a -> s {provisioningArtifactParameters = a} :: CreateProduct)
 
--- | A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
-cpIdempotencyToken :: Lens' CreateProduct Text
-cpIdempotencyToken = lens _cpIdempotencyToken (\s a -> s {_cpIdempotencyToken = a})
+-- | A unique identifier that you provide to ensure idempotency. If multiple
+-- requests differ only by the idempotency token, the same response is
+-- returned for each repeated request.
+createProduct_idempotencyToken :: Lens.Lens' CreateProduct Prelude.Text
+createProduct_idempotencyToken = Lens.lens (\CreateProduct' {idempotencyToken} -> idempotencyToken) (\s@CreateProduct' {} a -> s {idempotencyToken = a} :: CreateProduct)
 
-instance AWSRequest CreateProduct where
+instance Prelude.AWSRequest CreateProduct where
   type Rs CreateProduct = CreateProductResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateProductResponse'
-            <$> (x .?> "ProductViewDetail")
-            <*> (x .?> "ProvisioningArtifactDetail")
-            <*> (x .?> "Tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ProductViewDetail")
+            Prelude.<*> (x Prelude..?> "ProvisioningArtifactDetail")
+            Prelude.<*> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateProduct
+instance Prelude.Hashable CreateProduct
 
-instance NFData CreateProduct
+instance Prelude.NFData CreateProduct
 
-instance ToHeaders CreateProduct where
+instance Prelude.ToHeaders CreateProduct where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.CreateProduct" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.CreateProduct" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateProduct where
+instance Prelude.ToJSON CreateProduct where
   toJSON CreateProduct' {..} =
-    object
-      ( catMaybes
-          [ ("Distributor" .=) <$> _cpDistributor,
-            ("SupportUrl" .=) <$> _cpSupportURL,
-            ("Tags" .=) <$> _cpTags,
-            ("SupportDescription" .=) <$> _cpSupportDescription,
-            ("Description" .=) <$> _cpDescription,
-            ("SupportEmail" .=) <$> _cpSupportEmail,
-            ("AcceptLanguage" .=) <$> _cpAcceptLanguage,
-            Just ("Name" .= _cpName),
-            Just ("Owner" .= _cpOwner),
-            Just ("ProductType" .= _cpProductType),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Distributor" Prelude..=) Prelude.<$> distributor,
+            ("SupportUrl" Prelude..=) Prelude.<$> supportUrl,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("SupportDescription" Prelude..=)
+              Prelude.<$> supportDescription,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("SupportEmail" Prelude..=) Prelude.<$> supportEmail,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Owner" Prelude..= owner),
+            Prelude.Just ("ProductType" Prelude..= productType),
+            Prelude.Just
               ( "ProvisioningArtifactParameters"
-                  .= _cpProvisioningArtifactParameters
+                  Prelude..= provisioningArtifactParameters
               ),
-            Just ("IdempotencyToken" .= _cpIdempotencyToken)
+            Prelude.Just
+              ("IdempotencyToken" Prelude..= idempotencyToken)
           ]
       )
 
-instance ToPath CreateProduct where
-  toPath = const "/"
+instance Prelude.ToPath CreateProduct where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateProduct where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateProduct where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createProductResponse' smart constructor.
+-- | /See:/ 'newCreateProductResponse' smart constructor.
 data CreateProductResponse = CreateProductResponse'
-  { _crersProductViewDetail ::
-      !(Maybe ProductViewDetail),
-    _crersProvisioningArtifactDetail ::
-      !( Maybe
-           ProvisioningArtifactDetail
-       ),
-    _crersTags ::
-      !(Maybe [Tag]),
-    _crersResponseStatus ::
-      !Int
+  { -- | Information about the product view.
+    productViewDetail :: Prelude.Maybe ProductViewDetail,
+    -- | Information about the provisioning artifact.
+    provisioningArtifactDetail :: Prelude.Maybe ProvisioningArtifactDetail,
+    -- | Information about the tags associated with the product.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProductResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProductResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crersProductViewDetail' - Information about the product view.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crersProvisioningArtifactDetail' - Information about the provisioning artifact.
+-- 'productViewDetail', 'createProductResponse_productViewDetail' - Information about the product view.
 --
--- * 'crersTags' - Information about the tags associated with the product.
+-- 'provisioningArtifactDetail', 'createProductResponse_provisioningArtifactDetail' - Information about the provisioning artifact.
 --
--- * 'crersResponseStatus' - -- | The response status code.
-createProductResponse ::
-  -- | 'crersResponseStatus'
-  Int ->
+-- 'tags', 'createProductResponse_tags' - Information about the tags associated with the product.
+--
+-- 'httpStatus', 'createProductResponse_httpStatus' - The response's http status code.
+newCreateProductResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateProductResponse
-createProductResponse pResponseStatus_ =
+newCreateProductResponse pHttpStatus_ =
   CreateProductResponse'
-    { _crersProductViewDetail =
-        Nothing,
-      _crersProvisioningArtifactDetail = Nothing,
-      _crersTags = Nothing,
-      _crersResponseStatus = pResponseStatus_
+    { productViewDetail =
+        Prelude.Nothing,
+      provisioningArtifactDetail = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the product view.
-crersProductViewDetail :: Lens' CreateProductResponse (Maybe ProductViewDetail)
-crersProductViewDetail = lens _crersProductViewDetail (\s a -> s {_crersProductViewDetail = a})
+createProductResponse_productViewDetail :: Lens.Lens' CreateProductResponse (Prelude.Maybe ProductViewDetail)
+createProductResponse_productViewDetail = Lens.lens (\CreateProductResponse' {productViewDetail} -> productViewDetail) (\s@CreateProductResponse' {} a -> s {productViewDetail = a} :: CreateProductResponse)
 
 -- | Information about the provisioning artifact.
-crersProvisioningArtifactDetail :: Lens' CreateProductResponse (Maybe ProvisioningArtifactDetail)
-crersProvisioningArtifactDetail = lens _crersProvisioningArtifactDetail (\s a -> s {_crersProvisioningArtifactDetail = a})
+createProductResponse_provisioningArtifactDetail :: Lens.Lens' CreateProductResponse (Prelude.Maybe ProvisioningArtifactDetail)
+createProductResponse_provisioningArtifactDetail = Lens.lens (\CreateProductResponse' {provisioningArtifactDetail} -> provisioningArtifactDetail) (\s@CreateProductResponse' {} a -> s {provisioningArtifactDetail = a} :: CreateProductResponse)
 
 -- | Information about the tags associated with the product.
-crersTags :: Lens' CreateProductResponse [Tag]
-crersTags = lens _crersTags (\s a -> s {_crersTags = a}) . _Default . _Coerce
+createProductResponse_tags :: Lens.Lens' CreateProductResponse (Prelude.Maybe [Tag])
+createProductResponse_tags = Lens.lens (\CreateProductResponse' {tags} -> tags) (\s@CreateProductResponse' {} a -> s {tags = a} :: CreateProductResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-crersResponseStatus :: Lens' CreateProductResponse Int
-crersResponseStatus = lens _crersResponseStatus (\s a -> s {_crersResponseStatus = a})
+-- | The response's http status code.
+createProductResponse_httpStatus :: Lens.Lens' CreateProductResponse Prelude.Int
+createProductResponse_httpStatus = Lens.lens (\CreateProductResponse' {httpStatus} -> httpStatus) (\s@CreateProductResponse' {} a -> s {httpStatus = a} :: CreateProductResponse)
 
-instance NFData CreateProductResponse
+instance Prelude.NFData CreateProductResponse

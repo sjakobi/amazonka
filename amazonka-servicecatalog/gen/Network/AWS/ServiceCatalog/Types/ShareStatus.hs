@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.ServiceCatalog.Types.ShareStatus
   ( ShareStatus
       ( ..,
-        Completed,
-        CompletedWithErrors,
-        Error',
-        InProgress,
-        NotStarted
+        ShareStatusCOMPLETED,
+        ShareStatusCOMPLETEDWITHERRORS,
+        ShareStatusERROR,
+        ShareStatusINPROGRESS,
+        ShareStatusNOTSTARTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ShareStatus = ShareStatus' (CI Text)
+newtype ShareStatus = ShareStatus'
+  { fromShareStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: ShareStatus
-pattern Completed = ShareStatus' "COMPLETED"
+pattern ShareStatusCOMPLETED :: ShareStatus
+pattern ShareStatusCOMPLETED = ShareStatus' "COMPLETED"
 
-pattern CompletedWithErrors :: ShareStatus
-pattern CompletedWithErrors = ShareStatus' "COMPLETED_WITH_ERRORS"
+pattern ShareStatusCOMPLETEDWITHERRORS :: ShareStatus
+pattern ShareStatusCOMPLETEDWITHERRORS = ShareStatus' "COMPLETED_WITH_ERRORS"
 
-pattern Error' :: ShareStatus
-pattern Error' = ShareStatus' "ERROR"
+pattern ShareStatusERROR :: ShareStatus
+pattern ShareStatusERROR = ShareStatus' "ERROR"
 
-pattern InProgress :: ShareStatus
-pattern InProgress = ShareStatus' "IN_PROGRESS"
+pattern ShareStatusINPROGRESS :: ShareStatus
+pattern ShareStatusINPROGRESS = ShareStatus' "IN_PROGRESS"
 
-pattern NotStarted :: ShareStatus
-pattern NotStarted = ShareStatus' "NOT_STARTED"
+pattern ShareStatusNOTSTARTED :: ShareStatus
+pattern ShareStatusNOTSTARTED = ShareStatus' "NOT_STARTED"
 
 {-# COMPLETE
-  Completed,
-  CompletedWithErrors,
-  Error',
-  InProgress,
-  NotStarted,
+  ShareStatusCOMPLETED,
+  ShareStatusCOMPLETEDWITHERRORS,
+  ShareStatusERROR,
+  ShareStatusINPROGRESS,
+  ShareStatusNOTSTARTED,
   ShareStatus'
   #-}
 
-instance FromText ShareStatus where
-  parser = (ShareStatus' . mk) <$> takeText
+instance Prelude.FromText ShareStatus where
+  parser = ShareStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ShareStatus where
-  toText (ShareStatus' ci) = original ci
+instance Prelude.ToText ShareStatus where
+  toText (ShareStatus' x) = x
 
-instance Hashable ShareStatus
+instance Prelude.Hashable ShareStatus
 
-instance NFData ShareStatus
+instance Prelude.NFData ShareStatus
 
-instance ToByteString ShareStatus
+instance Prelude.ToByteString ShareStatus
 
-instance ToQuery ShareStatus
+instance Prelude.ToQuery ShareStatus
 
-instance ToHeader ShareStatus
+instance Prelude.ToHeader ShareStatus
 
-instance FromJSON ShareStatus where
-  parseJSON = parseJSONText "ShareStatus"
+instance Prelude.FromJSON ShareStatus where
+  parseJSON = Prelude.parseJSONText "ShareStatus"

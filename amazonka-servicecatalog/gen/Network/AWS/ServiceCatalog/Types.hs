@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types
   ( -- * Service Configuration
-    serviceCatalog,
+    defaultService,
 
     -- * Errors
     _InvalidParametersException,
@@ -127,462 +130,220 @@ module Network.AWS.ServiceCatalog.Types
 
     -- * AccessLevelFilter
     AccessLevelFilter (..),
-    accessLevelFilter,
-    alfKey,
-    alfValue,
+    newAccessLevelFilter,
 
     -- * BudgetDetail
     BudgetDetail (..),
-    budgetDetail,
-    bdBudgetName,
+    newBudgetDetail,
 
     -- * CloudWatchDashboard
     CloudWatchDashboard (..),
-    cloudWatchDashboard,
-    cwdName,
+    newCloudWatchDashboard,
 
     -- * ConstraintDetail
     ConstraintDetail (..),
-    constraintDetail,
-    cdConstraintId,
-    cdPortfolioId,
-    cdOwner,
-    cdProductId,
-    cdDescription,
-    cdType,
+    newConstraintDetail,
 
     -- * ConstraintSummary
     ConstraintSummary (..),
-    constraintSummary,
-    csDescription,
-    csType,
+    newConstraintSummary,
 
     -- * ExecutionParameter
     ExecutionParameter (..),
-    executionParameter,
-    epName,
-    epDefaultValues,
-    epType,
+    newExecutionParameter,
 
     -- * FailedServiceActionAssociation
     FailedServiceActionAssociation (..),
-    failedServiceActionAssociation,
-    fsaaProvisioningArtifactId,
-    fsaaServiceActionId,
-    fsaaProductId,
-    fsaaErrorMessage,
-    fsaaErrorCode,
+    newFailedServiceActionAssociation,
 
     -- * LaunchPath
     LaunchPath (..),
-    launchPath,
-    lpId,
-    lpName,
+    newLaunchPath,
 
     -- * LaunchPathSummary
     LaunchPathSummary (..),
-    launchPathSummary,
-    lpsConstraintSummaries,
-    lpsId,
-    lpsName,
-    lpsTags,
+    newLaunchPathSummary,
 
     -- * ListRecordHistorySearchFilter
     ListRecordHistorySearchFilter (..),
-    listRecordHistorySearchFilter,
-    lrhsfKey,
-    lrhsfValue,
+    newListRecordHistorySearchFilter,
 
     -- * ListTagOptionsFilters
     ListTagOptionsFilters (..),
-    listTagOptionsFilters,
-    ltofKey,
-    ltofActive,
-    ltofValue,
+    newListTagOptionsFilters,
 
     -- * OrganizationNode
     OrganizationNode (..),
-    organizationNode,
-    onValue,
-    onType,
+    newOrganizationNode,
 
     -- * ParameterConstraints
     ParameterConstraints (..),
-    parameterConstraints,
-    pcMaxValue,
-    pcMinLength,
-    pcAllowedValues,
-    pcMinValue,
-    pcConstraintDescription,
-    pcMaxLength,
-    pcAllowedPattern,
+    newParameterConstraints,
 
     -- * PortfolioDetail
     PortfolioDetail (..),
-    portfolioDetail,
-    pdProviderName,
-    pdId,
-    pdARN,
-    pdCreatedTime,
-    pdDescription,
-    pdDisplayName,
+    newPortfolioDetail,
 
     -- * PortfolioShareDetail
     PortfolioShareDetail (..),
-    portfolioShareDetail,
-    psdShareTagOptions,
-    psdPrincipalId,
-    psdAccepted,
-    psdType,
+    newPortfolioShareDetail,
 
     -- * Principal
     Principal (..),
-    principal,
-    pPrincipalARN,
-    pPrincipalType,
+    newPrincipal,
 
     -- * ProductViewAggregationValue
     ProductViewAggregationValue (..),
-    productViewAggregationValue,
-    pvavValue,
-    pvavApproximateCount,
+    newProductViewAggregationValue,
 
     -- * ProductViewDetail
     ProductViewDetail (..),
-    productViewDetail,
-    pvdStatus,
-    pvdProductARN,
-    pvdCreatedTime,
-    pvdProductViewSummary,
+    newProductViewDetail,
 
     -- * ProductViewSummary
     ProductViewSummary (..),
-    productViewSummary,
-    pvsDistributor,
-    pvsId,
-    pvsName,
-    pvsHasDefaultPath,
-    pvsShortDescription,
-    pvsSupportURL,
-    pvsSupportDescription,
-    pvsOwner,
-    pvsProductId,
-    pvsSupportEmail,
-    pvsType,
+    newProductViewSummary,
 
     -- * ProvisionedProductAttribute
     ProvisionedProductAttribute (..),
-    provisionedProductAttribute,
-    ppaStatusMessage,
-    ppaLastSuccessfulProvisioningRecordId,
-    ppaIdempotencyToken,
-    ppaStatus,
-    ppaUserARN,
-    ppaProvisioningArtifactName,
-    ppaARN,
-    ppaId,
-    ppaCreatedTime,
-    ppaProvisioningArtifactId,
-    ppaName,
-    ppaProductName,
-    ppaTags,
-    ppaProductId,
-    ppaLastProvisioningRecordId,
-    ppaType,
-    ppaPhysicalId,
-    ppaUserARNSession,
-    ppaLastRecordId,
+    newProvisionedProductAttribute,
 
     -- * ProvisionedProductDetail
     ProvisionedProductDetail (..),
-    provisionedProductDetail,
-    ppdStatusMessage,
-    ppdLastSuccessfulProvisioningRecordId,
-    ppdIdempotencyToken,
-    ppdStatus,
-    ppdARN,
-    ppdId,
-    ppdCreatedTime,
-    ppdProvisioningArtifactId,
-    ppdName,
-    ppdLaunchRoleARN,
-    ppdProductId,
-    ppdLastProvisioningRecordId,
-    ppdType,
-    ppdLastRecordId,
+    newProvisionedProductDetail,
 
     -- * ProvisionedProductPlanDetails
     ProvisionedProductPlanDetails (..),
-    provisionedProductPlanDetails,
-    pppdProvisionProductId,
-    pppdStatusMessage,
-    pppdStatus,
-    pppdNotificationARNs,
-    pppdUpdatedTime,
-    pppdCreatedTime,
-    pppdProvisioningArtifactId,
-    pppdPlanName,
-    pppdTags,
-    pppdPlanId,
-    pppdProductId,
-    pppdProvisioningParameters,
-    pppdPlanType,
-    pppdPathId,
-    pppdProvisionProductName,
+    newProvisionedProductPlanDetails,
 
     -- * ProvisionedProductPlanSummary
     ProvisionedProductPlanSummary (..),
-    provisionedProductPlanSummary,
-    pppsProvisionProductId,
-    pppsProvisioningArtifactId,
-    pppsPlanName,
-    pppsPlanId,
-    pppsPlanType,
-    pppsProvisionProductName,
+    newProvisionedProductPlanSummary,
 
     -- * ProvisioningArtifact
     ProvisioningArtifact (..),
-    provisioningArtifact,
-    paGuidance,
-    paId,
-    paCreatedTime,
-    paName,
-    paDescription,
+    newProvisioningArtifact,
 
     -- * ProvisioningArtifactDetail
     ProvisioningArtifactDetail (..),
-    provisioningArtifactDetail,
-    padGuidance,
-    padId,
-    padCreatedTime,
-    padName,
-    padActive,
-    padDescription,
-    padType,
+    newProvisioningArtifactDetail,
 
     -- * ProvisioningArtifactOutput
     ProvisioningArtifactOutput (..),
-    provisioningArtifactOutput,
-    paoKey,
-    paoDescription,
+    newProvisioningArtifactOutput,
 
     -- * ProvisioningArtifactParameter
     ProvisioningArtifactParameter (..),
-    provisioningArtifactParameter,
-    pIsNoEcho,
-    pParameterConstraints,
-    pParameterType,
-    pParameterKey,
-    pDescription,
-    pDefaultValue,
+    newProvisioningArtifactParameter,
 
     -- * ProvisioningArtifactPreferences
     ProvisioningArtifactPreferences (..),
-    provisioningArtifactPreferences,
-    papStackSetAccounts,
-    papStackSetRegions,
+    newProvisioningArtifactPreferences,
 
     -- * ProvisioningArtifactProperties
     ProvisioningArtifactProperties (..),
-    provisioningArtifactProperties,
-    papDisableTemplateValidation,
-    papName,
-    papDescription,
-    papType,
-    papInfo,
+    newProvisioningArtifactProperties,
 
     -- * ProvisioningArtifactSummary
     ProvisioningArtifactSummary (..),
-    provisioningArtifactSummary,
-    pasId,
-    pasCreatedTime,
-    pasProvisioningArtifactMetadata,
-    pasName,
-    pasDescription,
+    newProvisioningArtifactSummary,
 
     -- * ProvisioningArtifactView
     ProvisioningArtifactView (..),
-    provisioningArtifactView,
-    pavProductViewSummary,
-    pavProvisioningArtifact,
+    newProvisioningArtifactView,
 
     -- * ProvisioningParameter
     ProvisioningParameter (..),
-    provisioningParameter,
-    ppKey,
-    ppValue,
+    newProvisioningParameter,
 
     -- * ProvisioningPreferences
     ProvisioningPreferences (..),
-    provisioningPreferences,
-    ppStackSetFailureToleranceCount,
-    ppStackSetAccounts,
-    ppStackSetFailureTolerancePercentage,
-    ppStackSetRegions,
-    ppStackSetMaxConcurrencyCount,
-    ppStackSetMaxConcurrencyPercentage,
+    newProvisioningPreferences,
 
     -- * RecordDetail
     RecordDetail (..),
-    recordDetail,
-    rdRecordTags,
-    rdStatus,
-    rdProvisionedProductName,
-    rdRecordErrors,
-    rdProvisionedProductId,
-    rdProvisionedProductType,
-    rdRecordId,
-    rdUpdatedTime,
-    rdCreatedTime,
-    rdProvisioningArtifactId,
-    rdLaunchRoleARN,
-    rdProductId,
-    rdPathId,
-    rdRecordType,
+    newRecordDetail,
 
     -- * RecordError
     RecordError (..),
-    recordError,
-    reCode,
-    reDescription,
+    newRecordError,
 
     -- * RecordOutput
     RecordOutput (..),
-    recordOutput,
-    roOutputKey,
-    roOutputValue,
-    roDescription,
+    newRecordOutput,
 
     -- * RecordTag
     RecordTag (..),
-    recordTag,
-    rtKey,
-    rtValue,
+    newRecordTag,
 
     -- * ResourceChange
     ResourceChange (..),
-    resourceChange,
-    rcPhysicalResourceId,
-    rcResourceType,
-    rcScope,
-    rcDetails,
-    rcLogicalResourceId,
-    rcAction,
-    rcReplacement,
+    newResourceChange,
 
     -- * ResourceChangeDetail
     ResourceChangeDetail (..),
-    resourceChangeDetail,
-    rcdEvaluation,
-    rcdCausingEntity,
-    rcdTarget,
+    newResourceChangeDetail,
 
     -- * ResourceDetail
     ResourceDetail (..),
-    resourceDetail,
-    rId,
-    rARN,
-    rCreatedTime,
-    rName,
-    rDescription,
+    newResourceDetail,
 
     -- * ResourceTargetDefinition
     ResourceTargetDefinition (..),
-    resourceTargetDefinition,
-    rtdRequiresRecreation,
-    rtdName,
-    rtdAttribute,
+    newResourceTargetDefinition,
 
     -- * ServiceActionAssociation
     ServiceActionAssociation (..),
-    serviceActionAssociation,
-    saaServiceActionId,
-    saaProductId,
-    saaProvisioningArtifactId,
+    newServiceActionAssociation,
 
     -- * ServiceActionDetail
     ServiceActionDetail (..),
-    serviceActionDetail,
-    sadServiceActionSummary,
-    sadDefinition,
+    newServiceActionDetail,
 
     -- * ServiceActionSummary
     ServiceActionSummary (..),
-    serviceActionSummary,
-    sasId,
-    sasDefinitionType,
-    sasName,
-    sasDescription,
+    newServiceActionSummary,
 
     -- * ShareDetails
     ShareDetails (..),
-    shareDetails,
-    sdShareErrors,
-    sdSuccessfulShares,
+    newShareDetails,
 
     -- * ShareError
     ShareError (..),
-    shareError,
-    seMessage,
-    seAccounts,
-    seError,
+    newShareError,
 
     -- * StackInstance
     StackInstance (..),
-    stackInstance,
-    siStackInstanceStatus,
-    siAccount,
-    siRegion,
+    newStackInstance,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * TagOptionDetail
     TagOptionDetail (..),
-    tagOptionDetail,
-    todKey,
-    todId,
-    todActive,
-    todOwner,
-    todValue,
+    newTagOptionDetail,
 
     -- * TagOptionSummary
     TagOptionSummary (..),
-    tagOptionSummary,
-    tosKey,
-    tosValues,
+    newTagOptionSummary,
 
     -- * UpdateProvisioningParameter
     UpdateProvisioningParameter (..),
-    updateProvisioningParameter,
-    uppKey,
-    uppUsePreviousValue,
-    uppValue,
+    newUpdateProvisioningParameter,
 
     -- * UpdateProvisioningPreferences
     UpdateProvisioningPreferences (..),
-    updateProvisioningPreferences,
-    uppStackSetOperationType,
-    uppStackSetFailureToleranceCount,
-    uppStackSetAccounts,
-    uppStackSetFailureTolerancePercentage,
-    uppStackSetRegions,
-    uppStackSetMaxConcurrencyCount,
-    uppStackSetMaxConcurrencyPercentage,
+    newUpdateProvisioningPreferences,
 
     -- * UsageInstruction
     UsageInstruction (..),
-    usageInstruction,
-    uiValue,
-    uiType,
+    newUsageInstruction,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.AccessLevelFilter
 import Network.AWS.ServiceCatalog.Types.AccessLevelFilterKey
 import Network.AWS.ServiceCatalog.Types.AccessStatus
@@ -670,111 +431,139 @@ import Network.AWS.ServiceCatalog.Types.TagOptionSummary
 import Network.AWS.ServiceCatalog.Types.UpdateProvisioningParameter
 import Network.AWS.ServiceCatalog.Types.UpdateProvisioningPreferences
 import Network.AWS.ServiceCatalog.Types.UsageInstruction
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2015-12-10@ of the Amazon Service Catalog SDK configuration.
-serviceCatalog :: Service
-serviceCatalog =
-  Service
-    { _svcAbbrev = "ServiceCatalog",
-      _svcSigner = v4,
-      _svcPrefix = "servicecatalog",
-      _svcVersion = "2015-12-10",
-      _svcEndpoint = defaultEndpoint serviceCatalog,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "ServiceCatalog",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "ServiceCatalog",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "servicecatalog",
+      Prelude._svcVersion = "2015-12-10",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "ServiceCatalog",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | One or more parameters provided to the operation are not valid.
-_InvalidParametersException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParametersException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParametersException =
-  _MatchServiceError
-    serviceCatalog
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParametersException"
 
 -- | The operation is not supported.
-_OperationNotSupportedException :: AsError a => Getting (First ServiceError) a ServiceError
+_OperationNotSupportedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationNotSupportedException =
-  _MatchServiceError
-    serviceCatalog
+  Prelude._MatchServiceError
+    defaultService
     "OperationNotSupportedException"
 
--- | An attempt was made to modify a resource that is in a state that is not valid. Check your resources to ensure that they are in valid states before retrying the operation.
-_InvalidStateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An attempt was made to modify a resource that is in a state that is not
+-- valid. Check your resources to ensure that they are in valid states
+-- before retrying the operation.
+_InvalidStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidStateException =
-  _MatchServiceError
-    serviceCatalog
+  Prelude._MatchServiceError
+    defaultService
     "InvalidStateException"
 
 -- | The specified resource is a duplicate.
-_DuplicateResourceException :: AsError a => Getting (First ServiceError) a ServiceError
+_DuplicateResourceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DuplicateResourceException =
-  _MatchServiceError
-    serviceCatalog
+  Prelude._MatchServiceError
+    defaultService
     "DuplicateResourceException"
 
--- | A resource that is currently in use. Ensure that the resource is not in use and retry the operation.
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A resource that is currently in use. Ensure that the resource is not in
+-- use and retry the operation.
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError
-    serviceCatalog
+  Prelude._MatchServiceError
+    defaultService
     "ResourceInUseException"
 
--- | The current limits of the service would have been exceeded by this operation. Decrease your resource use or increase your service limits and retry the operation.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The current limits of the service would have been exceeded by this
+-- operation. Decrease your resource use or increase your service limits
+-- and retry the operation.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    serviceCatalog
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | An operation requiring TagOptions failed because the TagOptions migration process has not been performed for this account. Please use the AWS console to perform the migration process before retrying the operation.
-_TagOptionNotMigratedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An operation requiring TagOptions failed because the TagOptions
+-- migration process has not been performed for this account. Please use
+-- the AWS console to perform the migration process before retrying the
+-- operation.
+_TagOptionNotMigratedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TagOptionNotMigratedException =
-  _MatchServiceError
-    serviceCatalog
+  Prelude._MatchServiceError
+    defaultService
     "TagOptionNotMigratedException"
 
 -- | The specified resource was not found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    serviceCatalog
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,156 +24,161 @@
 -- Updates the specified TagOption.
 module Network.AWS.ServiceCatalog.UpdateTagOption
   ( -- * Creating a Request
-    updateTagOption,
-    UpdateTagOption,
+    UpdateTagOption (..),
+    newUpdateTagOption,
 
     -- * Request Lenses
-    utoActive,
-    utoValue,
-    utoId,
+    updateTagOption_active,
+    updateTagOption_value,
+    updateTagOption_id,
 
     -- * Destructuring the Response
-    updateTagOptionResponse,
-    UpdateTagOptionResponse,
+    UpdateTagOptionResponse (..),
+    newUpdateTagOptionResponse,
 
     -- * Response Lenses
-    utorrsTagOptionDetail,
-    utorrsResponseStatus,
+    updateTagOptionResponse_tagOptionDetail,
+    updateTagOptionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.TagOptionDetail
 
--- | /See:/ 'updateTagOption' smart constructor.
+-- | /See:/ 'newUpdateTagOption' smart constructor.
 data UpdateTagOption = UpdateTagOption'
-  { _utoActive ::
-      !(Maybe Bool),
-    _utoValue :: !(Maybe Text),
-    _utoId :: !Text
+  { -- | The updated active state.
+    active :: Prelude.Maybe Prelude.Bool,
+    -- | The updated value.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The TagOption identifier.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTagOption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTagOption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utoActive' - The updated active state.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utoValue' - The updated value.
+-- 'active', 'updateTagOption_active' - The updated active state.
 --
--- * 'utoId' - The TagOption identifier.
-updateTagOption ::
-  -- | 'utoId'
-  Text ->
+-- 'value', 'updateTagOption_value' - The updated value.
+--
+-- 'id', 'updateTagOption_id' - The TagOption identifier.
+newUpdateTagOption ::
+  -- | 'id'
+  Prelude.Text ->
   UpdateTagOption
-updateTagOption pId_ =
+newUpdateTagOption pId_ =
   UpdateTagOption'
-    { _utoActive = Nothing,
-      _utoValue = Nothing,
-      _utoId = pId_
+    { active = Prelude.Nothing,
+      value = Prelude.Nothing,
+      id = pId_
     }
 
 -- | The updated active state.
-utoActive :: Lens' UpdateTagOption (Maybe Bool)
-utoActive = lens _utoActive (\s a -> s {_utoActive = a})
+updateTagOption_active :: Lens.Lens' UpdateTagOption (Prelude.Maybe Prelude.Bool)
+updateTagOption_active = Lens.lens (\UpdateTagOption' {active} -> active) (\s@UpdateTagOption' {} a -> s {active = a} :: UpdateTagOption)
 
 -- | The updated value.
-utoValue :: Lens' UpdateTagOption (Maybe Text)
-utoValue = lens _utoValue (\s a -> s {_utoValue = a})
+updateTagOption_value :: Lens.Lens' UpdateTagOption (Prelude.Maybe Prelude.Text)
+updateTagOption_value = Lens.lens (\UpdateTagOption' {value} -> value) (\s@UpdateTagOption' {} a -> s {value = a} :: UpdateTagOption)
 
 -- | The TagOption identifier.
-utoId :: Lens' UpdateTagOption Text
-utoId = lens _utoId (\s a -> s {_utoId = a})
+updateTagOption_id :: Lens.Lens' UpdateTagOption Prelude.Text
+updateTagOption_id = Lens.lens (\UpdateTagOption' {id} -> id) (\s@UpdateTagOption' {} a -> s {id = a} :: UpdateTagOption)
 
-instance AWSRequest UpdateTagOption where
+instance Prelude.AWSRequest UpdateTagOption where
   type Rs UpdateTagOption = UpdateTagOptionResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateTagOptionResponse'
-            <$> (x .?> "TagOptionDetail") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TagOptionDetail")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateTagOption
+instance Prelude.Hashable UpdateTagOption
 
-instance NFData UpdateTagOption
+instance Prelude.NFData UpdateTagOption
 
-instance ToHeaders UpdateTagOption where
+instance Prelude.ToHeaders UpdateTagOption where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.UpdateTagOption" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.UpdateTagOption" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateTagOption where
+instance Prelude.ToJSON UpdateTagOption where
   toJSON UpdateTagOption' {..} =
-    object
-      ( catMaybes
-          [ ("Active" .=) <$> _utoActive,
-            ("Value" .=) <$> _utoValue,
-            Just ("Id" .= _utoId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Active" Prelude..=) Prelude.<$> active,
+            ("Value" Prelude..=) Prelude.<$> value,
+            Prelude.Just ("Id" Prelude..= id)
           ]
       )
 
-instance ToPath UpdateTagOption where
-  toPath = const "/"
+instance Prelude.ToPath UpdateTagOption where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateTagOption where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateTagOption where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateTagOptionResponse' smart constructor.
+-- | /See:/ 'newUpdateTagOptionResponse' smart constructor.
 data UpdateTagOptionResponse = UpdateTagOptionResponse'
-  { _utorrsTagOptionDetail ::
-      !( Maybe
-           TagOptionDetail
-       ),
-    _utorrsResponseStatus ::
-      !Int
+  { -- | Information about the TagOption.
+    tagOptionDetail :: Prelude.Maybe TagOptionDetail,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTagOptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTagOptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utorrsTagOptionDetail' - Information about the TagOption.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utorrsResponseStatus' - -- | The response status code.
-updateTagOptionResponse ::
-  -- | 'utorrsResponseStatus'
-  Int ->
+-- 'tagOptionDetail', 'updateTagOptionResponse_tagOptionDetail' - Information about the TagOption.
+--
+-- 'httpStatus', 'updateTagOptionResponse_httpStatus' - The response's http status code.
+newUpdateTagOptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateTagOptionResponse
-updateTagOptionResponse pResponseStatus_ =
+newUpdateTagOptionResponse pHttpStatus_ =
   UpdateTagOptionResponse'
-    { _utorrsTagOptionDetail =
-        Nothing,
-      _utorrsResponseStatus = pResponseStatus_
+    { tagOptionDetail =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the TagOption.
-utorrsTagOptionDetail :: Lens' UpdateTagOptionResponse (Maybe TagOptionDetail)
-utorrsTagOptionDetail = lens _utorrsTagOptionDetail (\s a -> s {_utorrsTagOptionDetail = a})
+updateTagOptionResponse_tagOptionDetail :: Lens.Lens' UpdateTagOptionResponse (Prelude.Maybe TagOptionDetail)
+updateTagOptionResponse_tagOptionDetail = Lens.lens (\UpdateTagOptionResponse' {tagOptionDetail} -> tagOptionDetail) (\s@UpdateTagOptionResponse' {} a -> s {tagOptionDetail = a} :: UpdateTagOptionResponse)
 
--- | -- | The response status code.
-utorrsResponseStatus :: Lens' UpdateTagOptionResponse Int
-utorrsResponseStatus = lens _utorrsResponseStatus (\s a -> s {_utorrsResponseStatus = a})
+-- | The response's http status code.
+updateTagOptionResponse_httpStatus :: Lens.Lens' UpdateTagOptionResponse Prelude.Int
+updateTagOptionResponse_httpStatus = Lens.lens (\UpdateTagOptionResponse' {httpStatus} -> httpStatus) (\s@UpdateTagOptionResponse' {} a -> s {httpStatus = a} :: UpdateTagOptionResponse)
 
-instance NFData UpdateTagOptionResponse
+instance Prelude.NFData UpdateTagOptionResponse

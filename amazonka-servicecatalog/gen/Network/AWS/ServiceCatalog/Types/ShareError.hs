@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ShareError where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Errors that occurred during the portfolio share operation.
 --
---
---
--- /See:/ 'shareError' smart constructor.
+-- /See:/ 'newShareError' smart constructor.
 data ShareError = ShareError'
-  { _seMessage ::
-      !(Maybe Text),
-    _seAccounts :: !(Maybe [Text]),
-    _seError :: !(Maybe Text)
+  { -- | Information about the error.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | List of accounts impacted by the error.
+    accounts :: Prelude.Maybe [Prelude.Text],
+    -- | Error type that happened when processing the operation.
+    error :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ShareError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ShareError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seMessage' - Information about the error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seAccounts' - List of accounts impacted by the error.
+-- 'message', 'shareError_message' - Information about the error.
 --
--- * 'seError' - Error type that happened when processing the operation.
-shareError ::
+-- 'accounts', 'shareError_accounts' - List of accounts impacted by the error.
+--
+-- 'error', 'shareError_error' - Error type that happened when processing the operation.
+newShareError ::
   ShareError
-shareError =
+newShareError =
   ShareError'
-    { _seMessage = Nothing,
-      _seAccounts = Nothing,
-      _seError = Nothing
+    { message = Prelude.Nothing,
+      accounts = Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | Information about the error.
-seMessage :: Lens' ShareError (Maybe Text)
-seMessage = lens _seMessage (\s a -> s {_seMessage = a})
+shareError_message :: Lens.Lens' ShareError (Prelude.Maybe Prelude.Text)
+shareError_message = Lens.lens (\ShareError' {message} -> message) (\s@ShareError' {} a -> s {message = a} :: ShareError)
 
 -- | List of accounts impacted by the error.
-seAccounts :: Lens' ShareError [Text]
-seAccounts = lens _seAccounts (\s a -> s {_seAccounts = a}) . _Default . _Coerce
+shareError_accounts :: Lens.Lens' ShareError (Prelude.Maybe [Prelude.Text])
+shareError_accounts = Lens.lens (\ShareError' {accounts} -> accounts) (\s@ShareError' {} a -> s {accounts = a} :: ShareError) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Error type that happened when processing the operation.
-seError :: Lens' ShareError (Maybe Text)
-seError = lens _seError (\s a -> s {_seError = a})
+shareError_error :: Lens.Lens' ShareError (Prelude.Maybe Prelude.Text)
+shareError_error = Lens.lens (\ShareError' {error} -> error) (\s@ShareError' {} a -> s {error = a} :: ShareError)
 
-instance FromJSON ShareError where
+instance Prelude.FromJSON ShareError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ShareError"
       ( \x ->
           ShareError'
-            <$> (x .:? "Message")
-            <*> (x .:? "Accounts" .!= mempty)
-            <*> (x .:? "Error")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Accounts" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Error")
       )
 
-instance Hashable ShareError
+instance Prelude.Hashable ShareError
 
-instance NFData ShareError
+instance Prelude.NFData ShareError

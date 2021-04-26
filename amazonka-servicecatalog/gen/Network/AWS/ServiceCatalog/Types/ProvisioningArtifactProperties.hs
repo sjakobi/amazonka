@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,105 +19,157 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ProvisioningArtifactProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ProvisioningArtifactType
 
--- | Information about a provisioning artifact (also known as a version) for a product.
+-- | Information about a provisioning artifact (also known as a version) for
+-- a product.
 --
---
---
--- /See:/ 'provisioningArtifactProperties' smart constructor.
+-- /See:/ 'newProvisioningArtifactProperties' smart constructor.
 data ProvisioningArtifactProperties = ProvisioningArtifactProperties'
-  { _papDisableTemplateValidation ::
-      !( Maybe
-           Bool
-       ),
-    _papName ::
-      !( Maybe
-           Text
-       ),
-    _papDescription ::
-      !( Maybe
-           Text
-       ),
-    _papType ::
-      !( Maybe
-           ProvisioningArtifactType
-       ),
-    _papInfo ::
-      !( Map
-           Text
-           Text
-       )
+  { -- | If set to true, AWS Service Catalog stops validating the specified
+    -- provisioning artifact even if it is invalid.
+    disableTemplateValidation :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the provisioning artifact (for example, v1 v2beta). No
+    -- spaces are allowed.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the provisioning artifact, including how it differs
+    -- from the previous provisioning artifact.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The type of provisioning artifact.
+    --
+    -- -   @CLOUD_FORMATION_TEMPLATE@ - AWS CloudFormation template
+    --
+    -- -   @MARKETPLACE_AMI@ - AWS Marketplace AMI
+    --
+    -- -   @MARKETPLACE_CAR@ - AWS Marketplace Clusters and AWS Resources
+    type' :: Prelude.Maybe ProvisioningArtifactType,
+    -- | Specify the template source with one of the following options, but not
+    -- both. Keys accepted: [ @LoadTemplateFromURL@, @ImportFromPhysicalId@ ]
+    --
+    -- The URL of the CloudFormation template in Amazon S3. Specify the URL in
+    -- JSON format as follows:
+    --
+    -- @\"LoadTemplateFromURL\": \"https:\/\/s3.amazonaws.com\/cf-templates-ozkq9d3hgiq2-us-east-1\/...\"@
+    --
+    -- @ImportFromPhysicalId@: The physical id of the resource that contains
+    -- the template. Currently only supports CloudFormation stack arn. Specify
+    -- the physical id in JSON format as follows:
+    -- @ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack\/[StackName]\/[resourceId]@
+    info :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvisioningArtifactProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvisioningArtifactProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'papDisableTemplateValidation' - If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'papName' - The name of the provisioning artifact (for example, v1 v2beta). No spaces are allowed.
+-- 'disableTemplateValidation', 'provisioningArtifactProperties_disableTemplateValidation' - If set to true, AWS Service Catalog stops validating the specified
+-- provisioning artifact even if it is invalid.
 --
--- * 'papDescription' - The description of the provisioning artifact, including how it differs from the previous provisioning artifact.
+-- 'name', 'provisioningArtifactProperties_name' - The name of the provisioning artifact (for example, v1 v2beta). No
+-- spaces are allowed.
 --
--- * 'papType' - The type of provisioning artifact.     * @CLOUD_FORMATION_TEMPLATE@ - AWS CloudFormation template     * @MARKETPLACE_AMI@ - AWS Marketplace AMI     * @MARKETPLACE_CAR@ - AWS Marketplace Clusters and AWS Resources
+-- 'description', 'provisioningArtifactProperties_description' - The description of the provisioning artifact, including how it differs
+-- from the previous provisioning artifact.
 --
--- * 'papInfo' - Specify the template source with one of the following options, but not both. Keys accepted: [ @LoadTemplateFromURL@ , @ImportFromPhysicalId@ ] The URL of the CloudFormation template in Amazon S3. Specify the URL in JSON format as follows: @"LoadTemplateFromURL": "https://s3.amazonaws.com/cf-templates-ozkq9d3hgiq2-us-east-1/..."@  @ImportFromPhysicalId@ : The physical id of the resource that contains the template. Currently only supports CloudFormation stack arn. Specify the physical id in JSON format as follows: @ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack/[StackName]/[resourceId]@
-provisioningArtifactProperties ::
+-- 'type'', 'provisioningArtifactProperties_type' - The type of provisioning artifact.
+--
+-- -   @CLOUD_FORMATION_TEMPLATE@ - AWS CloudFormation template
+--
+-- -   @MARKETPLACE_AMI@ - AWS Marketplace AMI
+--
+-- -   @MARKETPLACE_CAR@ - AWS Marketplace Clusters and AWS Resources
+--
+-- 'info', 'provisioningArtifactProperties_info' - Specify the template source with one of the following options, but not
+-- both. Keys accepted: [ @LoadTemplateFromURL@, @ImportFromPhysicalId@ ]
+--
+-- The URL of the CloudFormation template in Amazon S3. Specify the URL in
+-- JSON format as follows:
+--
+-- @\"LoadTemplateFromURL\": \"https:\/\/s3.amazonaws.com\/cf-templates-ozkq9d3hgiq2-us-east-1\/...\"@
+--
+-- @ImportFromPhysicalId@: The physical id of the resource that contains
+-- the template. Currently only supports CloudFormation stack arn. Specify
+-- the physical id in JSON format as follows:
+-- @ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack\/[StackName]\/[resourceId]@
+newProvisioningArtifactProperties ::
   ProvisioningArtifactProperties
-provisioningArtifactProperties =
+newProvisioningArtifactProperties =
   ProvisioningArtifactProperties'
-    { _papDisableTemplateValidation =
-        Nothing,
-      _papName = Nothing,
-      _papDescription = Nothing,
-      _papType = Nothing,
-      _papInfo = mempty
+    { disableTemplateValidation =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      info = Prelude.mempty
     }
 
--- | If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is invalid.
-papDisableTemplateValidation :: Lens' ProvisioningArtifactProperties (Maybe Bool)
-papDisableTemplateValidation = lens _papDisableTemplateValidation (\s a -> s {_papDisableTemplateValidation = a})
+-- | If set to true, AWS Service Catalog stops validating the specified
+-- provisioning artifact even if it is invalid.
+provisioningArtifactProperties_disableTemplateValidation :: Lens.Lens' ProvisioningArtifactProperties (Prelude.Maybe Prelude.Bool)
+provisioningArtifactProperties_disableTemplateValidation = Lens.lens (\ProvisioningArtifactProperties' {disableTemplateValidation} -> disableTemplateValidation) (\s@ProvisioningArtifactProperties' {} a -> s {disableTemplateValidation = a} :: ProvisioningArtifactProperties)
 
--- | The name of the provisioning artifact (for example, v1 v2beta). No spaces are allowed.
-papName :: Lens' ProvisioningArtifactProperties (Maybe Text)
-papName = lens _papName (\s a -> s {_papName = a})
+-- | The name of the provisioning artifact (for example, v1 v2beta). No
+-- spaces are allowed.
+provisioningArtifactProperties_name :: Lens.Lens' ProvisioningArtifactProperties (Prelude.Maybe Prelude.Text)
+provisioningArtifactProperties_name = Lens.lens (\ProvisioningArtifactProperties' {name} -> name) (\s@ProvisioningArtifactProperties' {} a -> s {name = a} :: ProvisioningArtifactProperties)
 
--- | The description of the provisioning artifact, including how it differs from the previous provisioning artifact.
-papDescription :: Lens' ProvisioningArtifactProperties (Maybe Text)
-papDescription = lens _papDescription (\s a -> s {_papDescription = a})
+-- | The description of the provisioning artifact, including how it differs
+-- from the previous provisioning artifact.
+provisioningArtifactProperties_description :: Lens.Lens' ProvisioningArtifactProperties (Prelude.Maybe Prelude.Text)
+provisioningArtifactProperties_description = Lens.lens (\ProvisioningArtifactProperties' {description} -> description) (\s@ProvisioningArtifactProperties' {} a -> s {description = a} :: ProvisioningArtifactProperties)
 
--- | The type of provisioning artifact.     * @CLOUD_FORMATION_TEMPLATE@ - AWS CloudFormation template     * @MARKETPLACE_AMI@ - AWS Marketplace AMI     * @MARKETPLACE_CAR@ - AWS Marketplace Clusters and AWS Resources
-papType :: Lens' ProvisioningArtifactProperties (Maybe ProvisioningArtifactType)
-papType = lens _papType (\s a -> s {_papType = a})
+-- | The type of provisioning artifact.
+--
+-- -   @CLOUD_FORMATION_TEMPLATE@ - AWS CloudFormation template
+--
+-- -   @MARKETPLACE_AMI@ - AWS Marketplace AMI
+--
+-- -   @MARKETPLACE_CAR@ - AWS Marketplace Clusters and AWS Resources
+provisioningArtifactProperties_type :: Lens.Lens' ProvisioningArtifactProperties (Prelude.Maybe ProvisioningArtifactType)
+provisioningArtifactProperties_type = Lens.lens (\ProvisioningArtifactProperties' {type'} -> type') (\s@ProvisioningArtifactProperties' {} a -> s {type' = a} :: ProvisioningArtifactProperties)
 
--- | Specify the template source with one of the following options, but not both. Keys accepted: [ @LoadTemplateFromURL@ , @ImportFromPhysicalId@ ] The URL of the CloudFormation template in Amazon S3. Specify the URL in JSON format as follows: @"LoadTemplateFromURL": "https://s3.amazonaws.com/cf-templates-ozkq9d3hgiq2-us-east-1/..."@  @ImportFromPhysicalId@ : The physical id of the resource that contains the template. Currently only supports CloudFormation stack arn. Specify the physical id in JSON format as follows: @ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack/[StackName]/[resourceId]@
-papInfo :: Lens' ProvisioningArtifactProperties (HashMap Text Text)
-papInfo = lens _papInfo (\s a -> s {_papInfo = a}) . _Map
+-- | Specify the template source with one of the following options, but not
+-- both. Keys accepted: [ @LoadTemplateFromURL@, @ImportFromPhysicalId@ ]
+--
+-- The URL of the CloudFormation template in Amazon S3. Specify the URL in
+-- JSON format as follows:
+--
+-- @\"LoadTemplateFromURL\": \"https:\/\/s3.amazonaws.com\/cf-templates-ozkq9d3hgiq2-us-east-1\/...\"@
+--
+-- @ImportFromPhysicalId@: The physical id of the resource that contains
+-- the template. Currently only supports CloudFormation stack arn. Specify
+-- the physical id in JSON format as follows:
+-- @ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack\/[StackName]\/[resourceId]@
+provisioningArtifactProperties_info :: Lens.Lens' ProvisioningArtifactProperties (Prelude.HashMap Prelude.Text Prelude.Text)
+provisioningArtifactProperties_info = Lens.lens (\ProvisioningArtifactProperties' {info} -> info) (\s@ProvisioningArtifactProperties' {} a -> s {info = a} :: ProvisioningArtifactProperties) Prelude.. Prelude._Map
 
-instance Hashable ProvisioningArtifactProperties
+instance
+  Prelude.Hashable
+    ProvisioningArtifactProperties
 
-instance NFData ProvisioningArtifactProperties
+instance
+  Prelude.NFData
+    ProvisioningArtifactProperties
 
-instance ToJSON ProvisioningArtifactProperties where
+instance
+  Prelude.ToJSON
+    ProvisioningArtifactProperties
+  where
   toJSON ProvisioningArtifactProperties' {..} =
-    object
-      ( catMaybes
-          [ ("DisableTemplateValidation" .=)
-              <$> _papDisableTemplateValidation,
-            ("Name" .=) <$> _papName,
-            ("Description" .=) <$> _papDescription,
-            ("Type" .=) <$> _papType,
-            Just ("Info" .= _papInfo)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DisableTemplateValidation" Prelude..=)
+              Prelude.<$> disableTemplateValidation,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("Type" Prelude..=) Prelude.<$> type',
+            Prelude.Just ("Info" Prelude..= info)
           ]
       )

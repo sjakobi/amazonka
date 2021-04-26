@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.PortfolioShareDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.DescribePortfolioShareType
 
 -- | Information about the portfolio share.
 --
---
---
--- /See:/ 'portfolioShareDetail' smart constructor.
+-- /See:/ 'newPortfolioShareDetail' smart constructor.
 data PortfolioShareDetail = PortfolioShareDetail'
-  { _psdShareTagOptions ::
-      !(Maybe Bool),
-    _psdPrincipalId ::
-      !(Maybe Text),
-    _psdAccepted :: !(Maybe Bool),
-    _psdType ::
-      !( Maybe
-           DescribePortfolioShareType
-       )
+  { -- | Indicates whether TagOptions sharing is enabled or disabled for the
+    -- portfolio share.
+    shareTagOptions :: Prelude.Maybe Prelude.Bool,
+    -- | The identifier of the recipient entity that received the portfolio
+    -- share. The recipient entities can be one of the following:
+    --
+    -- 1. An external account.
+    --
+    -- 2. An organziation member account.
+    --
+    -- 3. An organzational unit (OU).
+    --
+    -- 4. The organization itself. (This shares with every account in the
+    -- organization).
+    principalId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the shared portfolio is imported by the recipient
+    -- account. If the recipient is in an organization node, the share is
+    -- automatically imported, and the field is always set to true.
+    accepted :: Prelude.Maybe Prelude.Bool,
+    -- | The type of the portfolio share.
+    type' :: Prelude.Maybe DescribePortfolioShareType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PortfolioShareDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PortfolioShareDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psdShareTagOptions' - Indicates whether TagOptions sharing is enabled or disabled for the portfolio share.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psdPrincipalId' - The identifier of the recipient entity that received the portfolio share. The recipient entities can be one of the following:  1. An external account. 2. An organziation member account. 3. An organzational unit (OU). 4. The organization itself. (This shares with every account in the organization).
+-- 'shareTagOptions', 'portfolioShareDetail_shareTagOptions' - Indicates whether TagOptions sharing is enabled or disabled for the
+-- portfolio share.
 --
--- * 'psdAccepted' - Indicates whether the shared portfolio is imported by the recipient account. If the recipient is in an organization node, the share is automatically imported, and the field is always set to true.
+-- 'principalId', 'portfolioShareDetail_principalId' - The identifier of the recipient entity that received the portfolio
+-- share. The recipient entities can be one of the following:
 --
--- * 'psdType' - The type of the portfolio share.
-portfolioShareDetail ::
+-- 1. An external account.
+--
+-- 2. An organziation member account.
+--
+-- 3. An organzational unit (OU).
+--
+-- 4. The organization itself. (This shares with every account in the
+-- organization).
+--
+-- 'accepted', 'portfolioShareDetail_accepted' - Indicates whether the shared portfolio is imported by the recipient
+-- account. If the recipient is in an organization node, the share is
+-- automatically imported, and the field is always set to true.
+--
+-- 'type'', 'portfolioShareDetail_type' - The type of the portfolio share.
+newPortfolioShareDetail ::
   PortfolioShareDetail
-portfolioShareDetail =
+newPortfolioShareDetail =
   PortfolioShareDetail'
-    { _psdShareTagOptions =
-        Nothing,
-      _psdPrincipalId = Nothing,
-      _psdAccepted = Nothing,
-      _psdType = Nothing
+    { shareTagOptions =
+        Prelude.Nothing,
+      principalId = Prelude.Nothing,
+      accepted = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | Indicates whether TagOptions sharing is enabled or disabled for the portfolio share.
-psdShareTagOptions :: Lens' PortfolioShareDetail (Maybe Bool)
-psdShareTagOptions = lens _psdShareTagOptions (\s a -> s {_psdShareTagOptions = a})
+-- | Indicates whether TagOptions sharing is enabled or disabled for the
+-- portfolio share.
+portfolioShareDetail_shareTagOptions :: Lens.Lens' PortfolioShareDetail (Prelude.Maybe Prelude.Bool)
+portfolioShareDetail_shareTagOptions = Lens.lens (\PortfolioShareDetail' {shareTagOptions} -> shareTagOptions) (\s@PortfolioShareDetail' {} a -> s {shareTagOptions = a} :: PortfolioShareDetail)
 
--- | The identifier of the recipient entity that received the portfolio share. The recipient entities can be one of the following:  1. An external account. 2. An organziation member account. 3. An organzational unit (OU). 4. The organization itself. (This shares with every account in the organization).
-psdPrincipalId :: Lens' PortfolioShareDetail (Maybe Text)
-psdPrincipalId = lens _psdPrincipalId (\s a -> s {_psdPrincipalId = a})
+-- | The identifier of the recipient entity that received the portfolio
+-- share. The recipient entities can be one of the following:
+--
+-- 1. An external account.
+--
+-- 2. An organziation member account.
+--
+-- 3. An organzational unit (OU).
+--
+-- 4. The organization itself. (This shares with every account in the
+-- organization).
+portfolioShareDetail_principalId :: Lens.Lens' PortfolioShareDetail (Prelude.Maybe Prelude.Text)
+portfolioShareDetail_principalId = Lens.lens (\PortfolioShareDetail' {principalId} -> principalId) (\s@PortfolioShareDetail' {} a -> s {principalId = a} :: PortfolioShareDetail)
 
--- | Indicates whether the shared portfolio is imported by the recipient account. If the recipient is in an organization node, the share is automatically imported, and the field is always set to true.
-psdAccepted :: Lens' PortfolioShareDetail (Maybe Bool)
-psdAccepted = lens _psdAccepted (\s a -> s {_psdAccepted = a})
+-- | Indicates whether the shared portfolio is imported by the recipient
+-- account. If the recipient is in an organization node, the share is
+-- automatically imported, and the field is always set to true.
+portfolioShareDetail_accepted :: Lens.Lens' PortfolioShareDetail (Prelude.Maybe Prelude.Bool)
+portfolioShareDetail_accepted = Lens.lens (\PortfolioShareDetail' {accepted} -> accepted) (\s@PortfolioShareDetail' {} a -> s {accepted = a} :: PortfolioShareDetail)
 
 -- | The type of the portfolio share.
-psdType :: Lens' PortfolioShareDetail (Maybe DescribePortfolioShareType)
-psdType = lens _psdType (\s a -> s {_psdType = a})
+portfolioShareDetail_type :: Lens.Lens' PortfolioShareDetail (Prelude.Maybe DescribePortfolioShareType)
+portfolioShareDetail_type = Lens.lens (\PortfolioShareDetail' {type'} -> type') (\s@PortfolioShareDetail' {} a -> s {type' = a} :: PortfolioShareDetail)
 
-instance FromJSON PortfolioShareDetail where
+instance Prelude.FromJSON PortfolioShareDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PortfolioShareDetail"
       ( \x ->
           PortfolioShareDetail'
-            <$> (x .:? "ShareTagOptions")
-            <*> (x .:? "PrincipalId")
-            <*> (x .:? "Accepted")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "ShareTagOptions")
+            Prelude.<*> (x Prelude..:? "PrincipalId")
+            Prelude.<*> (x Prelude..:? "Accepted")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable PortfolioShareDetail
+instance Prelude.Hashable PortfolioShareDetail
 
-instance NFData PortfolioShareDetail
+instance Prelude.NFData PortfolioShareDetail

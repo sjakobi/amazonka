@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.ServiceCatalog.Types.ProvisionedProductViewFilterBy
   ( ProvisionedProductViewFilterBy
       ( ..,
-        SearchQuery
+        ProvisionedProductViewFilterBySearchQuery
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProvisionedProductViewFilterBy
-  = ProvisionedProductViewFilterBy'
-      ( CI
-          Text
-      )
+newtype ProvisionedProductViewFilterBy = ProvisionedProductViewFilterBy'
+  { fromProvisionedProductViewFilterBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SearchQuery :: ProvisionedProductViewFilterBy
-pattern SearchQuery = ProvisionedProductViewFilterBy' "SearchQuery"
+pattern ProvisionedProductViewFilterBySearchQuery :: ProvisionedProductViewFilterBy
+pattern ProvisionedProductViewFilterBySearchQuery = ProvisionedProductViewFilterBy' "SearchQuery"
 
 {-# COMPLETE
-  SearchQuery,
+  ProvisionedProductViewFilterBySearchQuery,
   ProvisionedProductViewFilterBy'
   #-}
 
-instance FromText ProvisionedProductViewFilterBy where
-  parser = (ProvisionedProductViewFilterBy' . mk) <$> takeText
+instance Prelude.FromText ProvisionedProductViewFilterBy where
+  parser = ProvisionedProductViewFilterBy' Prelude.<$> Prelude.takeText
 
-instance ToText ProvisionedProductViewFilterBy where
-  toText (ProvisionedProductViewFilterBy' ci) = original ci
+instance Prelude.ToText ProvisionedProductViewFilterBy where
+  toText (ProvisionedProductViewFilterBy' x) = x
 
-instance Hashable ProvisionedProductViewFilterBy
+instance Prelude.Hashable ProvisionedProductViewFilterBy
 
-instance NFData ProvisionedProductViewFilterBy
+instance Prelude.NFData ProvisionedProductViewFilterBy
 
-instance ToByteString ProvisionedProductViewFilterBy
+instance Prelude.ToByteString ProvisionedProductViewFilterBy
 
-instance ToQuery ProvisionedProductViewFilterBy
+instance Prelude.ToQuery ProvisionedProductViewFilterBy
 
-instance ToHeader ProvisionedProductViewFilterBy
+instance Prelude.ToHeader ProvisionedProductViewFilterBy
 
-instance ToJSON ProvisionedProductViewFilterBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProvisionedProductViewFilterBy where
+  toJSON = Prelude.toJSONText

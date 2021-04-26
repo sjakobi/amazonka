@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,182 +23,228 @@
 --
 -- Lists all self-service actions.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.ServiceCatalog.ListServiceActions
   ( -- * Creating a Request
-    listServiceActions,
-    ListServiceActions,
+    ListServiceActions (..),
+    newListServiceActions,
 
     -- * Request Lenses
-    lsaPageSize,
-    lsaPageToken,
-    lsaAcceptLanguage,
+    listServiceActions_pageSize,
+    listServiceActions_pageToken,
+    listServiceActions_acceptLanguage,
 
     -- * Destructuring the Response
-    listServiceActionsResponse,
-    ListServiceActionsResponse,
+    ListServiceActionsResponse (..),
+    newListServiceActionsResponse,
 
     -- * Response Lenses
-    lsarrsNextPageToken,
-    lsarrsServiceActionSummaries,
-    lsarrsResponseStatus,
+    listServiceActionsResponse_nextPageToken,
+    listServiceActionsResponse_serviceActionSummaries,
+    listServiceActionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ServiceActionSummary
 
--- | /See:/ 'listServiceActions' smart constructor.
+-- | /See:/ 'newListServiceActions' smart constructor.
 data ListServiceActions = ListServiceActions'
-  { _lsaPageSize ::
-      !(Maybe Nat),
-    _lsaPageToken :: !(Maybe Text),
-    _lsaAcceptLanguage ::
-      !(Maybe Text)
+  { -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The page token for the next set of results. To retrieve the first set of
+    -- results, use null.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServiceActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServiceActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsaPageSize' - The maximum number of items to return with this call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsaPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
+-- 'pageSize', 'listServiceActions_pageSize' - The maximum number of items to return with this call.
 --
--- * 'lsaAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-listServiceActions ::
+-- 'pageToken', 'listServiceActions_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+--
+-- 'acceptLanguage', 'listServiceActions_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+newListServiceActions ::
   ListServiceActions
-listServiceActions =
+newListServiceActions =
   ListServiceActions'
-    { _lsaPageSize = Nothing,
-      _lsaPageToken = Nothing,
-      _lsaAcceptLanguage = Nothing
+    { pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing,
+      acceptLanguage = Prelude.Nothing
     }
 
 -- | The maximum number of items to return with this call.
-lsaPageSize :: Lens' ListServiceActions (Maybe Natural)
-lsaPageSize = lens _lsaPageSize (\s a -> s {_lsaPageSize = a}) . mapping _Nat
+listServiceActions_pageSize :: Lens.Lens' ListServiceActions (Prelude.Maybe Prelude.Natural)
+listServiceActions_pageSize = Lens.lens (\ListServiceActions' {pageSize} -> pageSize) (\s@ListServiceActions' {} a -> s {pageSize = a} :: ListServiceActions) Prelude.. Lens.mapping Prelude._Nat
 
--- | The page token for the next set of results. To retrieve the first set of results, use null.
-lsaPageToken :: Lens' ListServiceActions (Maybe Text)
-lsaPageToken = lens _lsaPageToken (\s a -> s {_lsaPageToken = a})
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+listServiceActions_pageToken :: Lens.Lens' ListServiceActions (Prelude.Maybe Prelude.Text)
+listServiceActions_pageToken = Lens.lens (\ListServiceActions' {pageToken} -> pageToken) (\s@ListServiceActions' {} a -> s {pageToken = a} :: ListServiceActions)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-lsaAcceptLanguage :: Lens' ListServiceActions (Maybe Text)
-lsaAcceptLanguage = lens _lsaAcceptLanguage (\s a -> s {_lsaAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+listServiceActions_acceptLanguage :: Lens.Lens' ListServiceActions (Prelude.Maybe Prelude.Text)
+listServiceActions_acceptLanguage = Lens.lens (\ListServiceActions' {acceptLanguage} -> acceptLanguage) (\s@ListServiceActions' {} a -> s {acceptLanguage = a} :: ListServiceActions)
 
-instance AWSPager ListServiceActions where
+instance Pager.AWSPager ListServiceActions where
   page rq rs
-    | stop (rs ^. lsarrsNextPageToken) = Nothing
-    | stop (rs ^. lsarrsServiceActionSummaries) = Nothing
-    | otherwise =
-      Just $ rq & lsaPageToken .~ rs ^. lsarrsNextPageToken
+    | Pager.stop
+        ( rs
+            Lens.^? listServiceActionsResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listServiceActionsResponse_serviceActionSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listServiceActions_pageToken
+          Lens..~ rs
+          Lens.^? listServiceActionsResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListServiceActions where
+instance Prelude.AWSRequest ListServiceActions where
   type
     Rs ListServiceActions =
       ListServiceActionsResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListServiceActionsResponse'
-            <$> (x .?> "NextPageToken")
-            <*> (x .?> "ServiceActionSummaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextPageToken")
+            Prelude.<*> ( x Prelude..?> "ServiceActionSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListServiceActions
+instance Prelude.Hashable ListServiceActions
 
-instance NFData ListServiceActions
+instance Prelude.NFData ListServiceActions
 
-instance ToHeaders ListServiceActions where
+instance Prelude.ToHeaders ListServiceActions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.ListServiceActions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.ListServiceActions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListServiceActions where
+instance Prelude.ToJSON ListServiceActions where
   toJSON ListServiceActions' {..} =
-    object
-      ( catMaybes
-          [ ("PageSize" .=) <$> _lsaPageSize,
-            ("PageToken" .=) <$> _lsaPageToken,
-            ("AcceptLanguage" .=) <$> _lsaAcceptLanguage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PageSize" Prelude..=) Prelude.<$> pageSize,
+            ("PageToken" Prelude..=) Prelude.<$> pageToken,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage
           ]
       )
 
-instance ToPath ListServiceActions where
-  toPath = const "/"
+instance Prelude.ToPath ListServiceActions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListServiceActions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListServiceActions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listServiceActionsResponse' smart constructor.
+-- | /See:/ 'newListServiceActionsResponse' smart constructor.
 data ListServiceActionsResponse = ListServiceActionsResponse'
-  { _lsarrsNextPageToken ::
-      !(Maybe Text),
-    _lsarrsServiceActionSummaries ::
-      !( Maybe
-           [ServiceActionSummary]
-       ),
-    _lsarrsResponseStatus ::
-      !Int
+  { -- | The page token to use to retrieve the next set of results. If there are
+    -- no additional results, this value is null.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | An object containing information about the service actions associated
+    -- with the provisioning artifact.
+    serviceActionSummaries :: Prelude.Maybe [ServiceActionSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServiceActionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServiceActionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsarrsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsarrsServiceActionSummaries' - An object containing information about the service actions associated with the provisioning artifact.
+-- 'nextPageToken', 'listServiceActionsResponse_nextPageToken' - The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
 --
--- * 'lsarrsResponseStatus' - -- | The response status code.
-listServiceActionsResponse ::
-  -- | 'lsarrsResponseStatus'
-  Int ->
+-- 'serviceActionSummaries', 'listServiceActionsResponse_serviceActionSummaries' - An object containing information about the service actions associated
+-- with the provisioning artifact.
+--
+-- 'httpStatus', 'listServiceActionsResponse_httpStatus' - The response's http status code.
+newListServiceActionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListServiceActionsResponse
-listServiceActionsResponse pResponseStatus_ =
+newListServiceActionsResponse pHttpStatus_ =
   ListServiceActionsResponse'
-    { _lsarrsNextPageToken =
-        Nothing,
-      _lsarrsServiceActionSummaries = Nothing,
-      _lsarrsResponseStatus = pResponseStatus_
+    { nextPageToken =
+        Prelude.Nothing,
+      serviceActionSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
-lsarrsNextPageToken :: Lens' ListServiceActionsResponse (Maybe Text)
-lsarrsNextPageToken = lens _lsarrsNextPageToken (\s a -> s {_lsarrsNextPageToken = a})
+-- | The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
+listServiceActionsResponse_nextPageToken :: Lens.Lens' ListServiceActionsResponse (Prelude.Maybe Prelude.Text)
+listServiceActionsResponse_nextPageToken = Lens.lens (\ListServiceActionsResponse' {nextPageToken} -> nextPageToken) (\s@ListServiceActionsResponse' {} a -> s {nextPageToken = a} :: ListServiceActionsResponse)
 
--- | An object containing information about the service actions associated with the provisioning artifact.
-lsarrsServiceActionSummaries :: Lens' ListServiceActionsResponse [ServiceActionSummary]
-lsarrsServiceActionSummaries = lens _lsarrsServiceActionSummaries (\s a -> s {_lsarrsServiceActionSummaries = a}) . _Default . _Coerce
+-- | An object containing information about the service actions associated
+-- with the provisioning artifact.
+listServiceActionsResponse_serviceActionSummaries :: Lens.Lens' ListServiceActionsResponse (Prelude.Maybe [ServiceActionSummary])
+listServiceActionsResponse_serviceActionSummaries = Lens.lens (\ListServiceActionsResponse' {serviceActionSummaries} -> serviceActionSummaries) (\s@ListServiceActionsResponse' {} a -> s {serviceActionSummaries = a} :: ListServiceActionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsarrsResponseStatus :: Lens' ListServiceActionsResponse Int
-lsarrsResponseStatus = lens _lsarrsResponseStatus (\s a -> s {_lsarrsResponseStatus = a})
+-- | The response's http status code.
+listServiceActionsResponse_httpStatus :: Lens.Lens' ListServiceActionsResponse Prelude.Int
+listServiceActionsResponse_httpStatus = Lens.lens (\ListServiceActionsResponse' {httpStatus} -> httpStatus) (\s@ListServiceActionsResponse' {} a -> s {httpStatus = a} :: ListServiceActionsResponse)
 
-instance NFData ListServiceActionsResponse
+instance Prelude.NFData ListServiceActionsResponse

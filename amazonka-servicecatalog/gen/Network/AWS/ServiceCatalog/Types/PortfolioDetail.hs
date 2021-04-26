@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.PortfolioDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a portfolio.
 --
---
---
--- /See:/ 'portfolioDetail' smart constructor.
+-- /See:/ 'newPortfolioDetail' smart constructor.
 data PortfolioDetail = PortfolioDetail'
-  { _pdProviderName ::
-      !(Maybe Text),
-    _pdId :: !(Maybe Text),
-    _pdARN :: !(Maybe Text),
-    _pdCreatedTime :: !(Maybe POSIX),
-    _pdDescription :: !(Maybe Text),
-    _pdDisplayName :: !(Maybe Text)
+  { -- | The name of the portfolio provider.
+    providerName :: Prelude.Maybe Prelude.Text,
+    -- | The portfolio identifier.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The ARN assigned to the portfolio.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The UTC time stamp of the creation time.
+    createdTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The description of the portfolio.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name to use for display purposes.
+    displayName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PortfolioDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PortfolioDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdProviderName' - The name of the portfolio provider.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdId' - The portfolio identifier.
+-- 'providerName', 'portfolioDetail_providerName' - The name of the portfolio provider.
 --
--- * 'pdARN' - The ARN assigned to the portfolio.
+-- 'id', 'portfolioDetail_id' - The portfolio identifier.
 --
--- * 'pdCreatedTime' - The UTC time stamp of the creation time.
+-- 'aRN', 'portfolioDetail_aRN' - The ARN assigned to the portfolio.
 --
--- * 'pdDescription' - The description of the portfolio.
+-- 'createdTime', 'portfolioDetail_createdTime' - The UTC time stamp of the creation time.
 --
--- * 'pdDisplayName' - The name to use for display purposes.
-portfolioDetail ::
+-- 'description', 'portfolioDetail_description' - The description of the portfolio.
+--
+-- 'displayName', 'portfolioDetail_displayName' - The name to use for display purposes.
+newPortfolioDetail ::
   PortfolioDetail
-portfolioDetail =
+newPortfolioDetail =
   PortfolioDetail'
-    { _pdProviderName = Nothing,
-      _pdId = Nothing,
-      _pdARN = Nothing,
-      _pdCreatedTime = Nothing,
-      _pdDescription = Nothing,
-      _pdDisplayName = Nothing
+    { providerName = Prelude.Nothing,
+      id = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      description = Prelude.Nothing,
+      displayName = Prelude.Nothing
     }
 
 -- | The name of the portfolio provider.
-pdProviderName :: Lens' PortfolioDetail (Maybe Text)
-pdProviderName = lens _pdProviderName (\s a -> s {_pdProviderName = a})
+portfolioDetail_providerName :: Lens.Lens' PortfolioDetail (Prelude.Maybe Prelude.Text)
+portfolioDetail_providerName = Lens.lens (\PortfolioDetail' {providerName} -> providerName) (\s@PortfolioDetail' {} a -> s {providerName = a} :: PortfolioDetail)
 
 -- | The portfolio identifier.
-pdId :: Lens' PortfolioDetail (Maybe Text)
-pdId = lens _pdId (\s a -> s {_pdId = a})
+portfolioDetail_id :: Lens.Lens' PortfolioDetail (Prelude.Maybe Prelude.Text)
+portfolioDetail_id = Lens.lens (\PortfolioDetail' {id} -> id) (\s@PortfolioDetail' {} a -> s {id = a} :: PortfolioDetail)
 
 -- | The ARN assigned to the portfolio.
-pdARN :: Lens' PortfolioDetail (Maybe Text)
-pdARN = lens _pdARN (\s a -> s {_pdARN = a})
+portfolioDetail_aRN :: Lens.Lens' PortfolioDetail (Prelude.Maybe Prelude.Text)
+portfolioDetail_aRN = Lens.lens (\PortfolioDetail' {aRN} -> aRN) (\s@PortfolioDetail' {} a -> s {aRN = a} :: PortfolioDetail)
 
 -- | The UTC time stamp of the creation time.
-pdCreatedTime :: Lens' PortfolioDetail (Maybe UTCTime)
-pdCreatedTime = lens _pdCreatedTime (\s a -> s {_pdCreatedTime = a}) . mapping _Time
+portfolioDetail_createdTime :: Lens.Lens' PortfolioDetail (Prelude.Maybe Prelude.UTCTime)
+portfolioDetail_createdTime = Lens.lens (\PortfolioDetail' {createdTime} -> createdTime) (\s@PortfolioDetail' {} a -> s {createdTime = a} :: PortfolioDetail) Prelude.. Lens.mapping Prelude._Time
 
 -- | The description of the portfolio.
-pdDescription :: Lens' PortfolioDetail (Maybe Text)
-pdDescription = lens _pdDescription (\s a -> s {_pdDescription = a})
+portfolioDetail_description :: Lens.Lens' PortfolioDetail (Prelude.Maybe Prelude.Text)
+portfolioDetail_description = Lens.lens (\PortfolioDetail' {description} -> description) (\s@PortfolioDetail' {} a -> s {description = a} :: PortfolioDetail)
 
 -- | The name to use for display purposes.
-pdDisplayName :: Lens' PortfolioDetail (Maybe Text)
-pdDisplayName = lens _pdDisplayName (\s a -> s {_pdDisplayName = a})
+portfolioDetail_displayName :: Lens.Lens' PortfolioDetail (Prelude.Maybe Prelude.Text)
+portfolioDetail_displayName = Lens.lens (\PortfolioDetail' {displayName} -> displayName) (\s@PortfolioDetail' {} a -> s {displayName = a} :: PortfolioDetail)
 
-instance FromJSON PortfolioDetail where
+instance Prelude.FromJSON PortfolioDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PortfolioDetail"
       ( \x ->
           PortfolioDetail'
-            <$> (x .:? "ProviderName")
-            <*> (x .:? "Id")
-            <*> (x .:? "ARN")
-            <*> (x .:? "CreatedTime")
-            <*> (x .:? "Description")
-            <*> (x .:? "DisplayName")
+            Prelude.<$> (x Prelude..:? "ProviderName")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "ARN")
+            Prelude.<*> (x Prelude..:? "CreatedTime")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "DisplayName")
       )
 
-instance Hashable PortfolioDetail
+instance Prelude.Hashable PortfolioDetail
 
-instance NFData PortfolioDetail
+instance Prelude.NFData PortfolioDetail

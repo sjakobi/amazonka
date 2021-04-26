@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.RecordOutput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The output for the product created as the result of a request. For example, the output for a CloudFormation-backed product that creates an S3 bucket would include the S3 bucket URL.
+-- | The output for the product created as the result of a request. For
+-- example, the output for a CloudFormation-backed product that creates an
+-- S3 bucket would include the S3 bucket URL.
 --
---
---
--- /See:/ 'recordOutput' smart constructor.
+-- /See:/ 'newRecordOutput' smart constructor.
 data RecordOutput = RecordOutput'
-  { _roOutputKey ::
-      !(Maybe Text),
-    _roOutputValue :: !(Maybe Text),
-    _roDescription :: !(Maybe Text)
+  { -- | The output key.
+    outputKey :: Prelude.Maybe Prelude.Text,
+    -- | The output value.
+    outputValue :: Prelude.Maybe Prelude.Text,
+    -- | The description of the output.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RecordOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RecordOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'roOutputKey' - The output key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'roOutputValue' - The output value.
+-- 'outputKey', 'recordOutput_outputKey' - The output key.
 --
--- * 'roDescription' - The description of the output.
-recordOutput ::
+-- 'outputValue', 'recordOutput_outputValue' - The output value.
+--
+-- 'description', 'recordOutput_description' - The description of the output.
+newRecordOutput ::
   RecordOutput
-recordOutput =
+newRecordOutput =
   RecordOutput'
-    { _roOutputKey = Nothing,
-      _roOutputValue = Nothing,
-      _roDescription = Nothing
+    { outputKey = Prelude.Nothing,
+      outputValue = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The output key.
-roOutputKey :: Lens' RecordOutput (Maybe Text)
-roOutputKey = lens _roOutputKey (\s a -> s {_roOutputKey = a})
+recordOutput_outputKey :: Lens.Lens' RecordOutput (Prelude.Maybe Prelude.Text)
+recordOutput_outputKey = Lens.lens (\RecordOutput' {outputKey} -> outputKey) (\s@RecordOutput' {} a -> s {outputKey = a} :: RecordOutput)
 
 -- | The output value.
-roOutputValue :: Lens' RecordOutput (Maybe Text)
-roOutputValue = lens _roOutputValue (\s a -> s {_roOutputValue = a})
+recordOutput_outputValue :: Lens.Lens' RecordOutput (Prelude.Maybe Prelude.Text)
+recordOutput_outputValue = Lens.lens (\RecordOutput' {outputValue} -> outputValue) (\s@RecordOutput' {} a -> s {outputValue = a} :: RecordOutput)
 
 -- | The description of the output.
-roDescription :: Lens' RecordOutput (Maybe Text)
-roDescription = lens _roDescription (\s a -> s {_roDescription = a})
+recordOutput_description :: Lens.Lens' RecordOutput (Prelude.Maybe Prelude.Text)
+recordOutput_description = Lens.lens (\RecordOutput' {description} -> description) (\s@RecordOutput' {} a -> s {description = a} :: RecordOutput)
 
-instance FromJSON RecordOutput where
+instance Prelude.FromJSON RecordOutput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RecordOutput"
       ( \x ->
           RecordOutput'
-            <$> (x .:? "OutputKey")
-            <*> (x .:? "OutputValue")
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "OutputKey")
+            Prelude.<*> (x Prelude..:? "OutputValue")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable RecordOutput
+instance Prelude.Hashable RecordOutput
 
-instance NFData RecordOutput
+instance Prelude.NFData RecordOutput

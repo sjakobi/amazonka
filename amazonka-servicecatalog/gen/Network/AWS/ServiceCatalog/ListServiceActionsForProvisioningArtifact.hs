@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,263 +21,294 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a paginated list of self-service actions associated with the specified Product ID and Provisioning Artifact ID.
---
---
+-- Returns a paginated list of self-service actions associated with the
+-- specified Product ID and Provisioning Artifact ID.
 --
 -- This operation returns paginated results.
 module Network.AWS.ServiceCatalog.ListServiceActionsForProvisioningArtifact
   ( -- * Creating a Request
-    listServiceActionsForProvisioningArtifact,
-    ListServiceActionsForProvisioningArtifact,
+    ListServiceActionsForProvisioningArtifact (..),
+    newListServiceActionsForProvisioningArtifact,
 
     -- * Request Lenses
-    lsafpaPageSize,
-    lsafpaPageToken,
-    lsafpaAcceptLanguage,
-    lsafpaProductId,
-    lsafpaProvisioningArtifactId,
+    listServiceActionsForProvisioningArtifact_pageSize,
+    listServiceActionsForProvisioningArtifact_pageToken,
+    listServiceActionsForProvisioningArtifact_acceptLanguage,
+    listServiceActionsForProvisioningArtifact_productId,
+    listServiceActionsForProvisioningArtifact_provisioningArtifactId,
 
     -- * Destructuring the Response
-    listServiceActionsForProvisioningArtifactResponse,
-    ListServiceActionsForProvisioningArtifactResponse,
+    ListServiceActionsForProvisioningArtifactResponse (..),
+    newListServiceActionsForProvisioningArtifactResponse,
 
     -- * Response Lenses
-    lsafparrsNextPageToken,
-    lsafparrsServiceActionSummaries,
-    lsafparrsResponseStatus,
+    listServiceActionsForProvisioningArtifactResponse_nextPageToken,
+    listServiceActionsForProvisioningArtifactResponse_serviceActionSummaries,
+    listServiceActionsForProvisioningArtifactResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ServiceActionSummary
 
--- | /See:/ 'listServiceActionsForProvisioningArtifact' smart constructor.
+-- | /See:/ 'newListServiceActionsForProvisioningArtifact' smart constructor.
 data ListServiceActionsForProvisioningArtifact = ListServiceActionsForProvisioningArtifact'
-  { _lsafpaPageSize ::
-      !( Maybe
-           Nat
-       ),
-    _lsafpaPageToken ::
-      !( Maybe
-           Text
-       ),
-    _lsafpaAcceptLanguage ::
-      !( Maybe
-           Text
-       ),
-    _lsafpaProductId ::
-      !Text,
-    _lsafpaProvisioningArtifactId ::
-      !Text
+  { -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The page token for the next set of results. To retrieve the first set of
+    -- results, use null.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The product identifier. For example, @prod-abcdzk7xy33qa@.
+    productId :: Prelude.Text,
+    -- | The identifier of the provisioning artifact. For example,
+    -- @pa-4abcdjnxjj6ne@.
+    provisioningArtifactId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServiceActionsForProvisioningArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServiceActionsForProvisioningArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsafpaPageSize' - The maximum number of items to return with this call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsafpaPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
+-- 'pageSize', 'listServiceActionsForProvisioningArtifact_pageSize' - The maximum number of items to return with this call.
 --
--- * 'lsafpaAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- 'pageToken', 'listServiceActionsForProvisioningArtifact_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
 --
--- * 'lsafpaProductId' - The product identifier. For example, @prod-abcdzk7xy33qa@ .
+-- 'acceptLanguage', 'listServiceActionsForProvisioningArtifact_acceptLanguage' - The language code.
 --
--- * 'lsafpaProvisioningArtifactId' - The identifier of the provisioning artifact. For example, @pa-4abcdjnxjj6ne@ .
-listServiceActionsForProvisioningArtifact ::
-  -- | 'lsafpaProductId'
-  Text ->
-  -- | 'lsafpaProvisioningArtifactId'
-  Text ->
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'productId', 'listServiceActionsForProvisioningArtifact_productId' - The product identifier. For example, @prod-abcdzk7xy33qa@.
+--
+-- 'provisioningArtifactId', 'listServiceActionsForProvisioningArtifact_provisioningArtifactId' - The identifier of the provisioning artifact. For example,
+-- @pa-4abcdjnxjj6ne@.
+newListServiceActionsForProvisioningArtifact ::
+  -- | 'productId'
+  Prelude.Text ->
+  -- | 'provisioningArtifactId'
+  Prelude.Text ->
   ListServiceActionsForProvisioningArtifact
-listServiceActionsForProvisioningArtifact
+newListServiceActionsForProvisioningArtifact
   pProductId_
   pProvisioningArtifactId_ =
     ListServiceActionsForProvisioningArtifact'
-      { _lsafpaPageSize =
-          Nothing,
-        _lsafpaPageToken = Nothing,
-        _lsafpaAcceptLanguage = Nothing,
-        _lsafpaProductId = pProductId_,
-        _lsafpaProvisioningArtifactId =
+      { pageSize =
+          Prelude.Nothing,
+        pageToken = Prelude.Nothing,
+        acceptLanguage = Prelude.Nothing,
+        productId = pProductId_,
+        provisioningArtifactId =
           pProvisioningArtifactId_
       }
 
 -- | The maximum number of items to return with this call.
-lsafpaPageSize :: Lens' ListServiceActionsForProvisioningArtifact (Maybe Natural)
-lsafpaPageSize = lens _lsafpaPageSize (\s a -> s {_lsafpaPageSize = a}) . mapping _Nat
+listServiceActionsForProvisioningArtifact_pageSize :: Lens.Lens' ListServiceActionsForProvisioningArtifact (Prelude.Maybe Prelude.Natural)
+listServiceActionsForProvisioningArtifact_pageSize = Lens.lens (\ListServiceActionsForProvisioningArtifact' {pageSize} -> pageSize) (\s@ListServiceActionsForProvisioningArtifact' {} a -> s {pageSize = a} :: ListServiceActionsForProvisioningArtifact) Prelude.. Lens.mapping Prelude._Nat
 
--- | The page token for the next set of results. To retrieve the first set of results, use null.
-lsafpaPageToken :: Lens' ListServiceActionsForProvisioningArtifact (Maybe Text)
-lsafpaPageToken = lens _lsafpaPageToken (\s a -> s {_lsafpaPageToken = a})
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+listServiceActionsForProvisioningArtifact_pageToken :: Lens.Lens' ListServiceActionsForProvisioningArtifact (Prelude.Maybe Prelude.Text)
+listServiceActionsForProvisioningArtifact_pageToken = Lens.lens (\ListServiceActionsForProvisioningArtifact' {pageToken} -> pageToken) (\s@ListServiceActionsForProvisioningArtifact' {} a -> s {pageToken = a} :: ListServiceActionsForProvisioningArtifact)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-lsafpaAcceptLanguage :: Lens' ListServiceActionsForProvisioningArtifact (Maybe Text)
-lsafpaAcceptLanguage = lens _lsafpaAcceptLanguage (\s a -> s {_lsafpaAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+listServiceActionsForProvisioningArtifact_acceptLanguage :: Lens.Lens' ListServiceActionsForProvisioningArtifact (Prelude.Maybe Prelude.Text)
+listServiceActionsForProvisioningArtifact_acceptLanguage = Lens.lens (\ListServiceActionsForProvisioningArtifact' {acceptLanguage} -> acceptLanguage) (\s@ListServiceActionsForProvisioningArtifact' {} a -> s {acceptLanguage = a} :: ListServiceActionsForProvisioningArtifact)
 
--- | The product identifier. For example, @prod-abcdzk7xy33qa@ .
-lsafpaProductId :: Lens' ListServiceActionsForProvisioningArtifact Text
-lsafpaProductId = lens _lsafpaProductId (\s a -> s {_lsafpaProductId = a})
+-- | The product identifier. For example, @prod-abcdzk7xy33qa@.
+listServiceActionsForProvisioningArtifact_productId :: Lens.Lens' ListServiceActionsForProvisioningArtifact Prelude.Text
+listServiceActionsForProvisioningArtifact_productId = Lens.lens (\ListServiceActionsForProvisioningArtifact' {productId} -> productId) (\s@ListServiceActionsForProvisioningArtifact' {} a -> s {productId = a} :: ListServiceActionsForProvisioningArtifact)
 
--- | The identifier of the provisioning artifact. For example, @pa-4abcdjnxjj6ne@ .
-lsafpaProvisioningArtifactId :: Lens' ListServiceActionsForProvisioningArtifact Text
-lsafpaProvisioningArtifactId = lens _lsafpaProvisioningArtifactId (\s a -> s {_lsafpaProvisioningArtifactId = a})
+-- | The identifier of the provisioning artifact. For example,
+-- @pa-4abcdjnxjj6ne@.
+listServiceActionsForProvisioningArtifact_provisioningArtifactId :: Lens.Lens' ListServiceActionsForProvisioningArtifact Prelude.Text
+listServiceActionsForProvisioningArtifact_provisioningArtifactId = Lens.lens (\ListServiceActionsForProvisioningArtifact' {provisioningArtifactId} -> provisioningArtifactId) (\s@ListServiceActionsForProvisioningArtifact' {} a -> s {provisioningArtifactId = a} :: ListServiceActionsForProvisioningArtifact)
 
 instance
-  AWSPager
+  Pager.AWSPager
     ListServiceActionsForProvisioningArtifact
   where
   page rq rs
-    | stop (rs ^. lsafparrsNextPageToken) = Nothing
-    | stop (rs ^. lsafparrsServiceActionSummaries) =
-      Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? listServiceActionsForProvisioningArtifactResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listServiceActionsForProvisioningArtifactResponse_serviceActionSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & lsafpaPageToken .~ rs ^. lsafparrsNextPageToken
+          Lens.& listServiceActionsForProvisioningArtifact_pageToken
+          Lens..~ rs
+            Lens.^? listServiceActionsForProvisioningArtifactResponse_nextPageToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     ListServiceActionsForProvisioningArtifact
   where
   type
     Rs ListServiceActionsForProvisioningArtifact =
       ListServiceActionsForProvisioningArtifactResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListServiceActionsForProvisioningArtifactResponse'
-            <$> (x .?> "NextPageToken")
-              <*> (x .?> "ServiceActionSummaries" .!@ mempty)
-              <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextPageToken")
+              Prelude.<*> ( x Prelude..?> "ServiceActionSummaries"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ListServiceActionsForProvisioningArtifact
 
 instance
-  NFData
+  Prelude.NFData
     ListServiceActionsForProvisioningArtifact
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     ListServiceActionsForProvisioningArtifact
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.ListServiceActionsForProvisioningArtifact" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.ListServiceActionsForProvisioningArtifact" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     ListServiceActionsForProvisioningArtifact
   where
   toJSON ListServiceActionsForProvisioningArtifact' {..} =
-    object
-      ( catMaybes
-          [ ("PageSize" .=) <$> _lsafpaPageSize,
-            ("PageToken" .=) <$> _lsafpaPageToken,
-            ("AcceptLanguage" .=) <$> _lsafpaAcceptLanguage,
-            Just ("ProductId" .= _lsafpaProductId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PageSize" Prelude..=) Prelude.<$> pageSize,
+            ("PageToken" Prelude..=) Prelude.<$> pageToken,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("ProductId" Prelude..= productId),
+            Prelude.Just
               ( "ProvisioningArtifactId"
-                  .= _lsafpaProvisioningArtifactId
+                  Prelude..= provisioningArtifactId
               )
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     ListServiceActionsForProvisioningArtifact
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     ListServiceActionsForProvisioningArtifact
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listServiceActionsForProvisioningArtifactResponse' smart constructor.
+-- | /See:/ 'newListServiceActionsForProvisioningArtifactResponse' smart constructor.
 data ListServiceActionsForProvisioningArtifactResponse = ListServiceActionsForProvisioningArtifactResponse'
-  { _lsafparrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _lsafparrsServiceActionSummaries ::
-      !( Maybe
-           [ServiceActionSummary]
-       ),
-    _lsafparrsResponseStatus ::
-      !Int
+  { -- | The page token to use to retrieve the next set of results. If there are
+    -- no additional results, this value is null.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | An object containing information about the self-service actions
+    -- associated with the provisioning artifact.
+    serviceActionSummaries :: Prelude.Maybe [ServiceActionSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServiceActionsForProvisioningArtifactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServiceActionsForProvisioningArtifactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsafparrsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsafparrsServiceActionSummaries' - An object containing information about the self-service actions associated with the provisioning artifact.
+-- 'nextPageToken', 'listServiceActionsForProvisioningArtifactResponse_nextPageToken' - The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
 --
--- * 'lsafparrsResponseStatus' - -- | The response status code.
-listServiceActionsForProvisioningArtifactResponse ::
-  -- | 'lsafparrsResponseStatus'
-  Int ->
+-- 'serviceActionSummaries', 'listServiceActionsForProvisioningArtifactResponse_serviceActionSummaries' - An object containing information about the self-service actions
+-- associated with the provisioning artifact.
+--
+-- 'httpStatus', 'listServiceActionsForProvisioningArtifactResponse_httpStatus' - The response's http status code.
+newListServiceActionsForProvisioningArtifactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListServiceActionsForProvisioningArtifactResponse
-listServiceActionsForProvisioningArtifactResponse
-  pResponseStatus_ =
+newListServiceActionsForProvisioningArtifactResponse
+  pHttpStatus_ =
     ListServiceActionsForProvisioningArtifactResponse'
-      { _lsafparrsNextPageToken =
-          Nothing,
-        _lsafparrsServiceActionSummaries =
-          Nothing,
-        _lsafparrsResponseStatus =
-          pResponseStatus_
+      { nextPageToken =
+          Prelude.Nothing,
+        serviceActionSummaries =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
--- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
-lsafparrsNextPageToken :: Lens' ListServiceActionsForProvisioningArtifactResponse (Maybe Text)
-lsafparrsNextPageToken = lens _lsafparrsNextPageToken (\s a -> s {_lsafparrsNextPageToken = a})
+-- | The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
+listServiceActionsForProvisioningArtifactResponse_nextPageToken :: Lens.Lens' ListServiceActionsForProvisioningArtifactResponse (Prelude.Maybe Prelude.Text)
+listServiceActionsForProvisioningArtifactResponse_nextPageToken = Lens.lens (\ListServiceActionsForProvisioningArtifactResponse' {nextPageToken} -> nextPageToken) (\s@ListServiceActionsForProvisioningArtifactResponse' {} a -> s {nextPageToken = a} :: ListServiceActionsForProvisioningArtifactResponse)
 
--- | An object containing information about the self-service actions associated with the provisioning artifact.
-lsafparrsServiceActionSummaries :: Lens' ListServiceActionsForProvisioningArtifactResponse [ServiceActionSummary]
-lsafparrsServiceActionSummaries = lens _lsafparrsServiceActionSummaries (\s a -> s {_lsafparrsServiceActionSummaries = a}) . _Default . _Coerce
+-- | An object containing information about the self-service actions
+-- associated with the provisioning artifact.
+listServiceActionsForProvisioningArtifactResponse_serviceActionSummaries :: Lens.Lens' ListServiceActionsForProvisioningArtifactResponse (Prelude.Maybe [ServiceActionSummary])
+listServiceActionsForProvisioningArtifactResponse_serviceActionSummaries = Lens.lens (\ListServiceActionsForProvisioningArtifactResponse' {serviceActionSummaries} -> serviceActionSummaries) (\s@ListServiceActionsForProvisioningArtifactResponse' {} a -> s {serviceActionSummaries = a} :: ListServiceActionsForProvisioningArtifactResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsafparrsResponseStatus :: Lens' ListServiceActionsForProvisioningArtifactResponse Int
-lsafparrsResponseStatus = lens _lsafparrsResponseStatus (\s a -> s {_lsafparrsResponseStatus = a})
+-- | The response's http status code.
+listServiceActionsForProvisioningArtifactResponse_httpStatus :: Lens.Lens' ListServiceActionsForProvisioningArtifactResponse Prelude.Int
+listServiceActionsForProvisioningArtifactResponse_httpStatus = Lens.lens (\ListServiceActionsForProvisioningArtifactResponse' {httpStatus} -> httpStatus) (\s@ListServiceActionsForProvisioningArtifactResponse' {} a -> s {httpStatus = a} :: ListServiceActionsForProvisioningArtifactResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListServiceActionsForProvisioningArtifactResponse

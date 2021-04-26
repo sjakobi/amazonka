@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ServiceCatalog.Types.AccessStatus
   ( AccessStatus
       ( ..,
-        Disabled,
-        Enabled,
-        UnderChange
+        AccessStatusDISABLED,
+        AccessStatusENABLED,
+        AccessStatusUNDERCHANGE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccessStatus = AccessStatus' (CI Text)
+newtype AccessStatus = AccessStatus'
+  { fromAccessStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: AccessStatus
-pattern Disabled = AccessStatus' "DISABLED"
+pattern AccessStatusDISABLED :: AccessStatus
+pattern AccessStatusDISABLED = AccessStatus' "DISABLED"
 
-pattern Enabled :: AccessStatus
-pattern Enabled = AccessStatus' "ENABLED"
+pattern AccessStatusENABLED :: AccessStatus
+pattern AccessStatusENABLED = AccessStatus' "ENABLED"
 
-pattern UnderChange :: AccessStatus
-pattern UnderChange = AccessStatus' "UNDER_CHANGE"
+pattern AccessStatusUNDERCHANGE :: AccessStatus
+pattern AccessStatusUNDERCHANGE = AccessStatus' "UNDER_CHANGE"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
-  UnderChange,
+  AccessStatusDISABLED,
+  AccessStatusENABLED,
+  AccessStatusUNDERCHANGE,
   AccessStatus'
   #-}
 
-instance FromText AccessStatus where
-  parser = (AccessStatus' . mk) <$> takeText
+instance Prelude.FromText AccessStatus where
+  parser = AccessStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AccessStatus where
-  toText (AccessStatus' ci) = original ci
+instance Prelude.ToText AccessStatus where
+  toText (AccessStatus' x) = x
 
-instance Hashable AccessStatus
+instance Prelude.Hashable AccessStatus
 
-instance NFData AccessStatus
+instance Prelude.NFData AccessStatus
 
-instance ToByteString AccessStatus
+instance Prelude.ToByteString AccessStatus
 
-instance ToQuery AccessStatus
+instance Prelude.ToQuery AccessStatus
 
-instance ToHeader AccessStatus
+instance Prelude.ToHeader AccessStatus
 
-instance FromJSON AccessStatus where
-  parseJSON = parseJSONText "AccessStatus"
+instance Prelude.FromJSON AccessStatus where
+  parseJSON = Prelude.parseJSONText "AccessStatus"

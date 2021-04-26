@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,165 +19,247 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.RecordDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.RecordError
 import Network.AWS.ServiceCatalog.Types.RecordStatus
 import Network.AWS.ServiceCatalog.Types.RecordTag
 
 -- | Information about a request operation.
 --
---
---
--- /See:/ 'recordDetail' smart constructor.
+-- /See:/ 'newRecordDetail' smart constructor.
 data RecordDetail = RecordDetail'
-  { _rdRecordTags ::
-      !(Maybe [RecordTag]),
-    _rdStatus :: !(Maybe RecordStatus),
-    _rdProvisionedProductName :: !(Maybe Text),
-    _rdRecordErrors :: !(Maybe [RecordError]),
-    _rdProvisionedProductId :: !(Maybe Text),
-    _rdProvisionedProductType :: !(Maybe Text),
-    _rdRecordId :: !(Maybe Text),
-    _rdUpdatedTime :: !(Maybe POSIX),
-    _rdCreatedTime :: !(Maybe POSIX),
-    _rdProvisioningArtifactId :: !(Maybe Text),
-    _rdLaunchRoleARN :: !(Maybe Text),
-    _rdProductId :: !(Maybe Text),
-    _rdPathId :: !(Maybe Text),
-    _rdRecordType :: !(Maybe Text)
+  { -- | One or more tags.
+    recordTags :: Prelude.Maybe [RecordTag],
+    -- | The status of the provisioned product.
+    --
+    -- -   @CREATED@ - The request was created but the operation has not
+    --     started.
+    --
+    -- -   @IN_PROGRESS@ - The requested operation is in progress.
+    --
+    -- -   @IN_PROGRESS_IN_ERROR@ - The provisioned product is under change but
+    --     the requested operation failed and some remediation is occurring.
+    --     For example, a rollback.
+    --
+    -- -   @SUCCEEDED@ - The requested operation has successfully completed.
+    --
+    -- -   @FAILED@ - The requested operation has unsuccessfully completed.
+    --     Investigate using the error messages returned.
+    status :: Prelude.Maybe RecordStatus,
+    -- | The user-friendly name of the provisioned product.
+    provisionedProductName :: Prelude.Maybe Prelude.Text,
+    -- | The errors that occurred.
+    recordErrors :: Prelude.Maybe [RecordError],
+    -- | The identifier of the provisioned product.
+    provisionedProductId :: Prelude.Maybe Prelude.Text,
+    -- | The type of provisioned product. The supported values are @CFN_STACK@
+    -- and @CFN_STACKSET@.
+    provisionedProductType :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the record.
+    recordId :: Prelude.Maybe Prelude.Text,
+    -- | The time when the record was last updated.
+    updatedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The UTC time stamp of the creation time.
+    createdTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The identifier of the provisioning artifact.
+    provisioningArtifactId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the launch role associated with the provisioned product.
+    launchRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The product identifier.
+    productId :: Prelude.Maybe Prelude.Text,
+    -- | The path identifier.
+    pathId :: Prelude.Maybe Prelude.Text,
+    -- | The record type.
+    --
+    -- -   @PROVISION_PRODUCT@
+    --
+    -- -   @UPDATE_PROVISIONED_PRODUCT@
+    --
+    -- -   @TERMINATE_PROVISIONED_PRODUCT@
+    recordType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RecordDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RecordDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdRecordTags' - One or more tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdStatus' - The status of the provisioned product.     * @CREATED@ - The request was created but the operation has not started.     * @IN_PROGRESS@ - The requested operation is in progress.     * @IN_PROGRESS_IN_ERROR@ - The provisioned product is under change but the requested operation failed and some remediation is occurring. For example, a rollback.     * @SUCCEEDED@ - The requested operation has successfully completed.     * @FAILED@ - The requested operation has unsuccessfully completed. Investigate using the error messages returned.
+-- 'recordTags', 'recordDetail_recordTags' - One or more tags.
 --
--- * 'rdProvisionedProductName' - The user-friendly name of the provisioned product.
+-- 'status', 'recordDetail_status' - The status of the provisioned product.
 --
--- * 'rdRecordErrors' - The errors that occurred.
+-- -   @CREATED@ - The request was created but the operation has not
+--     started.
 --
--- * 'rdProvisionedProductId' - The identifier of the provisioned product.
+-- -   @IN_PROGRESS@ - The requested operation is in progress.
 --
--- * 'rdProvisionedProductType' - The type of provisioned product. The supported values are @CFN_STACK@ and @CFN_STACKSET@ .
+-- -   @IN_PROGRESS_IN_ERROR@ - The provisioned product is under change but
+--     the requested operation failed and some remediation is occurring.
+--     For example, a rollback.
 --
--- * 'rdRecordId' - The identifier of the record.
+-- -   @SUCCEEDED@ - The requested operation has successfully completed.
 --
--- * 'rdUpdatedTime' - The time when the record was last updated.
+-- -   @FAILED@ - The requested operation has unsuccessfully completed.
+--     Investigate using the error messages returned.
 --
--- * 'rdCreatedTime' - The UTC time stamp of the creation time.
+-- 'provisionedProductName', 'recordDetail_provisionedProductName' - The user-friendly name of the provisioned product.
 --
--- * 'rdProvisioningArtifactId' - The identifier of the provisioning artifact.
+-- 'recordErrors', 'recordDetail_recordErrors' - The errors that occurred.
 --
--- * 'rdLaunchRoleARN' - The ARN of the launch role associated with the provisioned product.
+-- 'provisionedProductId', 'recordDetail_provisionedProductId' - The identifier of the provisioned product.
 --
--- * 'rdProductId' - The product identifier.
+-- 'provisionedProductType', 'recordDetail_provisionedProductType' - The type of provisioned product. The supported values are @CFN_STACK@
+-- and @CFN_STACKSET@.
 --
--- * 'rdPathId' - The path identifier.
+-- 'recordId', 'recordDetail_recordId' - The identifier of the record.
 --
--- * 'rdRecordType' - The record type.     * @PROVISION_PRODUCT@      * @UPDATE_PROVISIONED_PRODUCT@      * @TERMINATE_PROVISIONED_PRODUCT@
-recordDetail ::
+-- 'updatedTime', 'recordDetail_updatedTime' - The time when the record was last updated.
+--
+-- 'createdTime', 'recordDetail_createdTime' - The UTC time stamp of the creation time.
+--
+-- 'provisioningArtifactId', 'recordDetail_provisioningArtifactId' - The identifier of the provisioning artifact.
+--
+-- 'launchRoleArn', 'recordDetail_launchRoleArn' - The ARN of the launch role associated with the provisioned product.
+--
+-- 'productId', 'recordDetail_productId' - The product identifier.
+--
+-- 'pathId', 'recordDetail_pathId' - The path identifier.
+--
+-- 'recordType', 'recordDetail_recordType' - The record type.
+--
+-- -   @PROVISION_PRODUCT@
+--
+-- -   @UPDATE_PROVISIONED_PRODUCT@
+--
+-- -   @TERMINATE_PROVISIONED_PRODUCT@
+newRecordDetail ::
   RecordDetail
-recordDetail =
+newRecordDetail =
   RecordDetail'
-    { _rdRecordTags = Nothing,
-      _rdStatus = Nothing,
-      _rdProvisionedProductName = Nothing,
-      _rdRecordErrors = Nothing,
-      _rdProvisionedProductId = Nothing,
-      _rdProvisionedProductType = Nothing,
-      _rdRecordId = Nothing,
-      _rdUpdatedTime = Nothing,
-      _rdCreatedTime = Nothing,
-      _rdProvisioningArtifactId = Nothing,
-      _rdLaunchRoleARN = Nothing,
-      _rdProductId = Nothing,
-      _rdPathId = Nothing,
-      _rdRecordType = Nothing
+    { recordTags = Prelude.Nothing,
+      status = Prelude.Nothing,
+      provisionedProductName = Prelude.Nothing,
+      recordErrors = Prelude.Nothing,
+      provisionedProductId = Prelude.Nothing,
+      provisionedProductType = Prelude.Nothing,
+      recordId = Prelude.Nothing,
+      updatedTime = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      provisioningArtifactId = Prelude.Nothing,
+      launchRoleArn = Prelude.Nothing,
+      productId = Prelude.Nothing,
+      pathId = Prelude.Nothing,
+      recordType = Prelude.Nothing
     }
 
 -- | One or more tags.
-rdRecordTags :: Lens' RecordDetail [RecordTag]
-rdRecordTags = lens _rdRecordTags (\s a -> s {_rdRecordTags = a}) . _Default . _Coerce
+recordDetail_recordTags :: Lens.Lens' RecordDetail (Prelude.Maybe [RecordTag])
+recordDetail_recordTags = Lens.lens (\RecordDetail' {recordTags} -> recordTags) (\s@RecordDetail' {} a -> s {recordTags = a} :: RecordDetail) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The status of the provisioned product.     * @CREATED@ - The request was created but the operation has not started.     * @IN_PROGRESS@ - The requested operation is in progress.     * @IN_PROGRESS_IN_ERROR@ - The provisioned product is under change but the requested operation failed and some remediation is occurring. For example, a rollback.     * @SUCCEEDED@ - The requested operation has successfully completed.     * @FAILED@ - The requested operation has unsuccessfully completed. Investigate using the error messages returned.
-rdStatus :: Lens' RecordDetail (Maybe RecordStatus)
-rdStatus = lens _rdStatus (\s a -> s {_rdStatus = a})
+-- | The status of the provisioned product.
+--
+-- -   @CREATED@ - The request was created but the operation has not
+--     started.
+--
+-- -   @IN_PROGRESS@ - The requested operation is in progress.
+--
+-- -   @IN_PROGRESS_IN_ERROR@ - The provisioned product is under change but
+--     the requested operation failed and some remediation is occurring.
+--     For example, a rollback.
+--
+-- -   @SUCCEEDED@ - The requested operation has successfully completed.
+--
+-- -   @FAILED@ - The requested operation has unsuccessfully completed.
+--     Investigate using the error messages returned.
+recordDetail_status :: Lens.Lens' RecordDetail (Prelude.Maybe RecordStatus)
+recordDetail_status = Lens.lens (\RecordDetail' {status} -> status) (\s@RecordDetail' {} a -> s {status = a} :: RecordDetail)
 
 -- | The user-friendly name of the provisioned product.
-rdProvisionedProductName :: Lens' RecordDetail (Maybe Text)
-rdProvisionedProductName = lens _rdProvisionedProductName (\s a -> s {_rdProvisionedProductName = a})
+recordDetail_provisionedProductName :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.Text)
+recordDetail_provisionedProductName = Lens.lens (\RecordDetail' {provisionedProductName} -> provisionedProductName) (\s@RecordDetail' {} a -> s {provisionedProductName = a} :: RecordDetail)
 
 -- | The errors that occurred.
-rdRecordErrors :: Lens' RecordDetail [RecordError]
-rdRecordErrors = lens _rdRecordErrors (\s a -> s {_rdRecordErrors = a}) . _Default . _Coerce
+recordDetail_recordErrors :: Lens.Lens' RecordDetail (Prelude.Maybe [RecordError])
+recordDetail_recordErrors = Lens.lens (\RecordDetail' {recordErrors} -> recordErrors) (\s@RecordDetail' {} a -> s {recordErrors = a} :: RecordDetail) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The identifier of the provisioned product.
-rdProvisionedProductId :: Lens' RecordDetail (Maybe Text)
-rdProvisionedProductId = lens _rdProvisionedProductId (\s a -> s {_rdProvisionedProductId = a})
+recordDetail_provisionedProductId :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.Text)
+recordDetail_provisionedProductId = Lens.lens (\RecordDetail' {provisionedProductId} -> provisionedProductId) (\s@RecordDetail' {} a -> s {provisionedProductId = a} :: RecordDetail)
 
--- | The type of provisioned product. The supported values are @CFN_STACK@ and @CFN_STACKSET@ .
-rdProvisionedProductType :: Lens' RecordDetail (Maybe Text)
-rdProvisionedProductType = lens _rdProvisionedProductType (\s a -> s {_rdProvisionedProductType = a})
+-- | The type of provisioned product. The supported values are @CFN_STACK@
+-- and @CFN_STACKSET@.
+recordDetail_provisionedProductType :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.Text)
+recordDetail_provisionedProductType = Lens.lens (\RecordDetail' {provisionedProductType} -> provisionedProductType) (\s@RecordDetail' {} a -> s {provisionedProductType = a} :: RecordDetail)
 
 -- | The identifier of the record.
-rdRecordId :: Lens' RecordDetail (Maybe Text)
-rdRecordId = lens _rdRecordId (\s a -> s {_rdRecordId = a})
+recordDetail_recordId :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.Text)
+recordDetail_recordId = Lens.lens (\RecordDetail' {recordId} -> recordId) (\s@RecordDetail' {} a -> s {recordId = a} :: RecordDetail)
 
 -- | The time when the record was last updated.
-rdUpdatedTime :: Lens' RecordDetail (Maybe UTCTime)
-rdUpdatedTime = lens _rdUpdatedTime (\s a -> s {_rdUpdatedTime = a}) . mapping _Time
+recordDetail_updatedTime :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.UTCTime)
+recordDetail_updatedTime = Lens.lens (\RecordDetail' {updatedTime} -> updatedTime) (\s@RecordDetail' {} a -> s {updatedTime = a} :: RecordDetail) Prelude.. Lens.mapping Prelude._Time
 
 -- | The UTC time stamp of the creation time.
-rdCreatedTime :: Lens' RecordDetail (Maybe UTCTime)
-rdCreatedTime = lens _rdCreatedTime (\s a -> s {_rdCreatedTime = a}) . mapping _Time
+recordDetail_createdTime :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.UTCTime)
+recordDetail_createdTime = Lens.lens (\RecordDetail' {createdTime} -> createdTime) (\s@RecordDetail' {} a -> s {createdTime = a} :: RecordDetail) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identifier of the provisioning artifact.
-rdProvisioningArtifactId :: Lens' RecordDetail (Maybe Text)
-rdProvisioningArtifactId = lens _rdProvisioningArtifactId (\s a -> s {_rdProvisioningArtifactId = a})
+recordDetail_provisioningArtifactId :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.Text)
+recordDetail_provisioningArtifactId = Lens.lens (\RecordDetail' {provisioningArtifactId} -> provisioningArtifactId) (\s@RecordDetail' {} a -> s {provisioningArtifactId = a} :: RecordDetail)
 
 -- | The ARN of the launch role associated with the provisioned product.
-rdLaunchRoleARN :: Lens' RecordDetail (Maybe Text)
-rdLaunchRoleARN = lens _rdLaunchRoleARN (\s a -> s {_rdLaunchRoleARN = a})
+recordDetail_launchRoleArn :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.Text)
+recordDetail_launchRoleArn = Lens.lens (\RecordDetail' {launchRoleArn} -> launchRoleArn) (\s@RecordDetail' {} a -> s {launchRoleArn = a} :: RecordDetail)
 
 -- | The product identifier.
-rdProductId :: Lens' RecordDetail (Maybe Text)
-rdProductId = lens _rdProductId (\s a -> s {_rdProductId = a})
+recordDetail_productId :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.Text)
+recordDetail_productId = Lens.lens (\RecordDetail' {productId} -> productId) (\s@RecordDetail' {} a -> s {productId = a} :: RecordDetail)
 
 -- | The path identifier.
-rdPathId :: Lens' RecordDetail (Maybe Text)
-rdPathId = lens _rdPathId (\s a -> s {_rdPathId = a})
+recordDetail_pathId :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.Text)
+recordDetail_pathId = Lens.lens (\RecordDetail' {pathId} -> pathId) (\s@RecordDetail' {} a -> s {pathId = a} :: RecordDetail)
 
--- | The record type.     * @PROVISION_PRODUCT@      * @UPDATE_PROVISIONED_PRODUCT@      * @TERMINATE_PROVISIONED_PRODUCT@
-rdRecordType :: Lens' RecordDetail (Maybe Text)
-rdRecordType = lens _rdRecordType (\s a -> s {_rdRecordType = a})
+-- | The record type.
+--
+-- -   @PROVISION_PRODUCT@
+--
+-- -   @UPDATE_PROVISIONED_PRODUCT@
+--
+-- -   @TERMINATE_PROVISIONED_PRODUCT@
+recordDetail_recordType :: Lens.Lens' RecordDetail (Prelude.Maybe Prelude.Text)
+recordDetail_recordType = Lens.lens (\RecordDetail' {recordType} -> recordType) (\s@RecordDetail' {} a -> s {recordType = a} :: RecordDetail)
 
-instance FromJSON RecordDetail where
+instance Prelude.FromJSON RecordDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RecordDetail"
       ( \x ->
           RecordDetail'
-            <$> (x .:? "RecordTags" .!= mempty)
-            <*> (x .:? "Status")
-            <*> (x .:? "ProvisionedProductName")
-            <*> (x .:? "RecordErrors" .!= mempty)
-            <*> (x .:? "ProvisionedProductId")
-            <*> (x .:? "ProvisionedProductType")
-            <*> (x .:? "RecordId")
-            <*> (x .:? "UpdatedTime")
-            <*> (x .:? "CreatedTime")
-            <*> (x .:? "ProvisioningArtifactId")
-            <*> (x .:? "LaunchRoleArn")
-            <*> (x .:? "ProductId")
-            <*> (x .:? "PathId")
-            <*> (x .:? "RecordType")
+            Prelude.<$> ( x Prelude..:? "RecordTags"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "ProvisionedProductName")
+            Prelude.<*> ( x Prelude..:? "RecordErrors"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ProvisionedProductId")
+            Prelude.<*> (x Prelude..:? "ProvisionedProductType")
+            Prelude.<*> (x Prelude..:? "RecordId")
+            Prelude.<*> (x Prelude..:? "UpdatedTime")
+            Prelude.<*> (x Prelude..:? "CreatedTime")
+            Prelude.<*> (x Prelude..:? "ProvisioningArtifactId")
+            Prelude.<*> (x Prelude..:? "LaunchRoleArn")
+            Prelude.<*> (x Prelude..:? "ProductId")
+            Prelude.<*> (x Prelude..:? "PathId")
+            Prelude.<*> (x Prelude..:? "RecordType")
       )
 
-instance Hashable RecordDetail
+instance Prelude.Hashable RecordDetail
 
-instance NFData RecordDetail
+instance Prelude.NFData RecordDetail

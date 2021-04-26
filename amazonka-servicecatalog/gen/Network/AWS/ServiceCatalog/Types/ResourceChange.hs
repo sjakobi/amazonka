@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,116 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ResourceChange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ChangeAction
 import Network.AWS.ServiceCatalog.Types.Replacement
 import Network.AWS.ServiceCatalog.Types.ResourceAttribute
 import Network.AWS.ServiceCatalog.Types.ResourceChangeDetail
 
--- | Information about a resource change that will occur when a plan is executed.
+-- | Information about a resource change that will occur when a plan is
+-- executed.
 --
---
---
--- /See:/ 'resourceChange' smart constructor.
+-- /See:/ 'newResourceChange' smart constructor.
 data ResourceChange = ResourceChange'
-  { _rcPhysicalResourceId ::
-      !(Maybe Text),
-    _rcResourceType :: !(Maybe Text),
-    _rcScope :: !(Maybe [ResourceAttribute]),
-    _rcDetails ::
-      !(Maybe [ResourceChangeDetail]),
-    _rcLogicalResourceId :: !(Maybe Text),
-    _rcAction :: !(Maybe ChangeAction),
-    _rcReplacement :: !(Maybe Replacement)
+  { -- | The ID of the resource, if it was already created.
+    physicalResourceId :: Prelude.Maybe Prelude.Text,
+    -- | The type of resource.
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | The change scope.
+    scope :: Prelude.Maybe [ResourceAttribute],
+    -- | Information about the resource changes.
+    details :: Prelude.Maybe [ResourceChangeDetail],
+    -- | The ID of the resource, as defined in the CloudFormation template.
+    logicalResourceId :: Prelude.Maybe Prelude.Text,
+    -- | The change action.
+    action :: Prelude.Maybe ChangeAction,
+    -- | If the change type is @Modify@, indicates whether the existing resource
+    -- is deleted and replaced with a new one.
+    replacement :: Prelude.Maybe Replacement
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceChange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceChange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcPhysicalResourceId' - The ID of the resource, if it was already created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcResourceType' - The type of resource.
+-- 'physicalResourceId', 'resourceChange_physicalResourceId' - The ID of the resource, if it was already created.
 --
--- * 'rcScope' - The change scope.
+-- 'resourceType', 'resourceChange_resourceType' - The type of resource.
 --
--- * 'rcDetails' - Information about the resource changes.
+-- 'scope', 'resourceChange_scope' - The change scope.
 --
--- * 'rcLogicalResourceId' - The ID of the resource, as defined in the CloudFormation template.
+-- 'details', 'resourceChange_details' - Information about the resource changes.
 --
--- * 'rcAction' - The change action.
+-- 'logicalResourceId', 'resourceChange_logicalResourceId' - The ID of the resource, as defined in the CloudFormation template.
 --
--- * 'rcReplacement' - If the change type is @Modify@ , indicates whether the existing resource is deleted and replaced with a new one.
-resourceChange ::
+-- 'action', 'resourceChange_action' - The change action.
+--
+-- 'replacement', 'resourceChange_replacement' - If the change type is @Modify@, indicates whether the existing resource
+-- is deleted and replaced with a new one.
+newResourceChange ::
   ResourceChange
-resourceChange =
+newResourceChange =
   ResourceChange'
-    { _rcPhysicalResourceId = Nothing,
-      _rcResourceType = Nothing,
-      _rcScope = Nothing,
-      _rcDetails = Nothing,
-      _rcLogicalResourceId = Nothing,
-      _rcAction = Nothing,
-      _rcReplacement = Nothing
+    { physicalResourceId =
+        Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      scope = Prelude.Nothing,
+      details = Prelude.Nothing,
+      logicalResourceId = Prelude.Nothing,
+      action = Prelude.Nothing,
+      replacement = Prelude.Nothing
     }
 
 -- | The ID of the resource, if it was already created.
-rcPhysicalResourceId :: Lens' ResourceChange (Maybe Text)
-rcPhysicalResourceId = lens _rcPhysicalResourceId (\s a -> s {_rcPhysicalResourceId = a})
+resourceChange_physicalResourceId :: Lens.Lens' ResourceChange (Prelude.Maybe Prelude.Text)
+resourceChange_physicalResourceId = Lens.lens (\ResourceChange' {physicalResourceId} -> physicalResourceId) (\s@ResourceChange' {} a -> s {physicalResourceId = a} :: ResourceChange)
 
 -- | The type of resource.
-rcResourceType :: Lens' ResourceChange (Maybe Text)
-rcResourceType = lens _rcResourceType (\s a -> s {_rcResourceType = a})
+resourceChange_resourceType :: Lens.Lens' ResourceChange (Prelude.Maybe Prelude.Text)
+resourceChange_resourceType = Lens.lens (\ResourceChange' {resourceType} -> resourceType) (\s@ResourceChange' {} a -> s {resourceType = a} :: ResourceChange)
 
 -- | The change scope.
-rcScope :: Lens' ResourceChange [ResourceAttribute]
-rcScope = lens _rcScope (\s a -> s {_rcScope = a}) . _Default . _Coerce
+resourceChange_scope :: Lens.Lens' ResourceChange (Prelude.Maybe [ResourceAttribute])
+resourceChange_scope = Lens.lens (\ResourceChange' {scope} -> scope) (\s@ResourceChange' {} a -> s {scope = a} :: ResourceChange) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the resource changes.
-rcDetails :: Lens' ResourceChange [ResourceChangeDetail]
-rcDetails = lens _rcDetails (\s a -> s {_rcDetails = a}) . _Default . _Coerce
+resourceChange_details :: Lens.Lens' ResourceChange (Prelude.Maybe [ResourceChangeDetail])
+resourceChange_details = Lens.lens (\ResourceChange' {details} -> details) (\s@ResourceChange' {} a -> s {details = a} :: ResourceChange) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the resource, as defined in the CloudFormation template.
-rcLogicalResourceId :: Lens' ResourceChange (Maybe Text)
-rcLogicalResourceId = lens _rcLogicalResourceId (\s a -> s {_rcLogicalResourceId = a})
+resourceChange_logicalResourceId :: Lens.Lens' ResourceChange (Prelude.Maybe Prelude.Text)
+resourceChange_logicalResourceId = Lens.lens (\ResourceChange' {logicalResourceId} -> logicalResourceId) (\s@ResourceChange' {} a -> s {logicalResourceId = a} :: ResourceChange)
 
 -- | The change action.
-rcAction :: Lens' ResourceChange (Maybe ChangeAction)
-rcAction = lens _rcAction (\s a -> s {_rcAction = a})
+resourceChange_action :: Lens.Lens' ResourceChange (Prelude.Maybe ChangeAction)
+resourceChange_action = Lens.lens (\ResourceChange' {action} -> action) (\s@ResourceChange' {} a -> s {action = a} :: ResourceChange)
 
--- | If the change type is @Modify@ , indicates whether the existing resource is deleted and replaced with a new one.
-rcReplacement :: Lens' ResourceChange (Maybe Replacement)
-rcReplacement = lens _rcReplacement (\s a -> s {_rcReplacement = a})
+-- | If the change type is @Modify@, indicates whether the existing resource
+-- is deleted and replaced with a new one.
+resourceChange_replacement :: Lens.Lens' ResourceChange (Prelude.Maybe Replacement)
+resourceChange_replacement = Lens.lens (\ResourceChange' {replacement} -> replacement) (\s@ResourceChange' {} a -> s {replacement = a} :: ResourceChange)
 
-instance FromJSON ResourceChange where
+instance Prelude.FromJSON ResourceChange where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceChange"
       ( \x ->
           ResourceChange'
-            <$> (x .:? "PhysicalResourceId")
-            <*> (x .:? "ResourceType")
-            <*> (x .:? "Scope" .!= mempty)
-            <*> (x .:? "Details" .!= mempty)
-            <*> (x .:? "LogicalResourceId")
-            <*> (x .:? "Action")
-            <*> (x .:? "Replacement")
+            Prelude.<$> (x Prelude..:? "PhysicalResourceId")
+            Prelude.<*> (x Prelude..:? "ResourceType")
+            Prelude.<*> (x Prelude..:? "Scope" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Details" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "LogicalResourceId")
+            Prelude.<*> (x Prelude..:? "Action")
+            Prelude.<*> (x Prelude..:? "Replacement")
       )
 
-instance Hashable ResourceChange
+instance Prelude.Hashable ResourceChange
 
-instance NFData ResourceChange
+instance Prelude.NFData ResourceChange

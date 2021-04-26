@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.ServiceCatalog.Types.ServiceActionDefinitionKey
   ( ServiceActionDefinitionKey
       ( ..,
-        AssumeRole,
-        Name,
-        Parameters,
-        Version
+        ServiceActionDefinitionKeyAssumeRole,
+        ServiceActionDefinitionKeyName,
+        ServiceActionDefinitionKeyParameters,
+        ServiceActionDefinitionKeyVersion
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceActionDefinitionKey
-  = ServiceActionDefinitionKey'
-      ( CI
-          Text
-      )
+newtype ServiceActionDefinitionKey = ServiceActionDefinitionKey'
+  { fromServiceActionDefinitionKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AssumeRole :: ServiceActionDefinitionKey
-pattern AssumeRole = ServiceActionDefinitionKey' "AssumeRole"
+pattern ServiceActionDefinitionKeyAssumeRole :: ServiceActionDefinitionKey
+pattern ServiceActionDefinitionKeyAssumeRole = ServiceActionDefinitionKey' "AssumeRole"
 
-pattern Name :: ServiceActionDefinitionKey
-pattern Name = ServiceActionDefinitionKey' "Name"
+pattern ServiceActionDefinitionKeyName :: ServiceActionDefinitionKey
+pattern ServiceActionDefinitionKeyName = ServiceActionDefinitionKey' "Name"
 
-pattern Parameters :: ServiceActionDefinitionKey
-pattern Parameters = ServiceActionDefinitionKey' "Parameters"
+pattern ServiceActionDefinitionKeyParameters :: ServiceActionDefinitionKey
+pattern ServiceActionDefinitionKeyParameters = ServiceActionDefinitionKey' "Parameters"
 
-pattern Version :: ServiceActionDefinitionKey
-pattern Version = ServiceActionDefinitionKey' "Version"
+pattern ServiceActionDefinitionKeyVersion :: ServiceActionDefinitionKey
+pattern ServiceActionDefinitionKeyVersion = ServiceActionDefinitionKey' "Version"
 
 {-# COMPLETE
-  AssumeRole,
-  Name,
-  Parameters,
-  Version,
+  ServiceActionDefinitionKeyAssumeRole,
+  ServiceActionDefinitionKeyName,
+  ServiceActionDefinitionKeyParameters,
+  ServiceActionDefinitionKeyVersion,
   ServiceActionDefinitionKey'
   #-}
 
-instance FromText ServiceActionDefinitionKey where
-  parser = (ServiceActionDefinitionKey' . mk) <$> takeText
+instance Prelude.FromText ServiceActionDefinitionKey where
+  parser = ServiceActionDefinitionKey' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceActionDefinitionKey where
-  toText (ServiceActionDefinitionKey' ci) = original ci
+instance Prelude.ToText ServiceActionDefinitionKey where
+  toText (ServiceActionDefinitionKey' x) = x
 
-instance Hashable ServiceActionDefinitionKey
+instance Prelude.Hashable ServiceActionDefinitionKey
 
-instance NFData ServiceActionDefinitionKey
+instance Prelude.NFData ServiceActionDefinitionKey
 
-instance ToByteString ServiceActionDefinitionKey
+instance Prelude.ToByteString ServiceActionDefinitionKey
 
-instance ToQuery ServiceActionDefinitionKey
+instance Prelude.ToQuery ServiceActionDefinitionKey
 
-instance ToHeader ServiceActionDefinitionKey
+instance Prelude.ToHeader ServiceActionDefinitionKey
 
-instance ToJSON ServiceActionDefinitionKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON ServiceActionDefinitionKey where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ServiceActionDefinitionKey where
-  parseJSON = parseJSONText "ServiceActionDefinitionKey"
+instance Prelude.FromJSON ServiceActionDefinitionKey where
+  parseJSON = Prelude.parseJSONText "ServiceActionDefinitionKey"

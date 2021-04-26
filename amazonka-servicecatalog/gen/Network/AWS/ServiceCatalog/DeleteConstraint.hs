@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,137 +23,160 @@
 --
 -- Deletes the specified constraint.
 --
---
 -- A delegated admin is authorized to invoke this command.
 module Network.AWS.ServiceCatalog.DeleteConstraint
   ( -- * Creating a Request
-    deleteConstraint,
-    DeleteConstraint,
+    DeleteConstraint (..),
+    newDeleteConstraint,
 
     -- * Request Lenses
-    dcAcceptLanguage,
-    dcId,
+    deleteConstraint_acceptLanguage,
+    deleteConstraint_id,
 
     -- * Destructuring the Response
-    deleteConstraintResponse,
-    DeleteConstraintResponse,
+    DeleteConstraintResponse (..),
+    newDeleteConstraintResponse,
 
     -- * Response Lenses
-    dcrrsResponseStatus,
+    deleteConstraintResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'deleteConstraint' smart constructor.
+-- | /See:/ 'newDeleteConstraint' smart constructor.
 data DeleteConstraint = DeleteConstraint'
-  { _dcAcceptLanguage ::
-      !(Maybe Text),
-    _dcId :: !Text
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the constraint.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConstraint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConstraint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcId' - The identifier of the constraint.
-deleteConstraint ::
-  -- | 'dcId'
-  Text ->
+-- 'acceptLanguage', 'deleteConstraint_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'id', 'deleteConstraint_id' - The identifier of the constraint.
+newDeleteConstraint ::
+  -- | 'id'
+  Prelude.Text ->
   DeleteConstraint
-deleteConstraint pId_ =
+newDeleteConstraint pId_ =
   DeleteConstraint'
-    { _dcAcceptLanguage = Nothing,
-      _dcId = pId_
+    { acceptLanguage = Prelude.Nothing,
+      id = pId_
     }
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-dcAcceptLanguage :: Lens' DeleteConstraint (Maybe Text)
-dcAcceptLanguage = lens _dcAcceptLanguage (\s a -> s {_dcAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+deleteConstraint_acceptLanguage :: Lens.Lens' DeleteConstraint (Prelude.Maybe Prelude.Text)
+deleteConstraint_acceptLanguage = Lens.lens (\DeleteConstraint' {acceptLanguage} -> acceptLanguage) (\s@DeleteConstraint' {} a -> s {acceptLanguage = a} :: DeleteConstraint)
 
 -- | The identifier of the constraint.
-dcId :: Lens' DeleteConstraint Text
-dcId = lens _dcId (\s a -> s {_dcId = a})
+deleteConstraint_id :: Lens.Lens' DeleteConstraint Prelude.Text
+deleteConstraint_id = Lens.lens (\DeleteConstraint' {id} -> id) (\s@DeleteConstraint' {} a -> s {id = a} :: DeleteConstraint)
 
-instance AWSRequest DeleteConstraint where
+instance Prelude.AWSRequest DeleteConstraint where
   type Rs DeleteConstraint = DeleteConstraintResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteConstraintResponse' <$> (pure (fromEnum s))
+          DeleteConstraintResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteConstraint
+instance Prelude.Hashable DeleteConstraint
 
-instance NFData DeleteConstraint
+instance Prelude.NFData DeleteConstraint
 
-instance ToHeaders DeleteConstraint where
+instance Prelude.ToHeaders DeleteConstraint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DeleteConstraint" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DeleteConstraint" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteConstraint where
+instance Prelude.ToJSON DeleteConstraint where
   toJSON DeleteConstraint' {..} =
-    object
-      ( catMaybes
-          [ ("AcceptLanguage" .=) <$> _dcAcceptLanguage,
-            Just ("Id" .= _dcId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("Id" Prelude..= id)
           ]
       )
 
-instance ToPath DeleteConstraint where
-  toPath = const "/"
+instance Prelude.ToPath DeleteConstraint where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteConstraint where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteConstraint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteConstraintResponse' smart constructor.
-newtype DeleteConstraintResponse = DeleteConstraintResponse'
-  { _dcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteConstraintResponse' smart constructor.
+data DeleteConstraintResponse = DeleteConstraintResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConstraintResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConstraintResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-deleteConstraintResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteConstraintResponse_httpStatus' - The response's http status code.
+newDeleteConstraintResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteConstraintResponse
-deleteConstraintResponse pResponseStatus_ =
+newDeleteConstraintResponse pHttpStatus_ =
   DeleteConstraintResponse'
-    { _dcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DeleteConstraintResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteConstraintResponse_httpStatus :: Lens.Lens' DeleteConstraintResponse Prelude.Int
+deleteConstraintResponse_httpStatus = Lens.lens (\DeleteConstraintResponse' {httpStatus} -> httpStatus) (\s@DeleteConstraintResponse' {} a -> s {httpStatus = a} :: DeleteConstraintResponse)
 
-instance NFData DeleteConstraintResponse
+instance Prelude.NFData DeleteConstraintResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.TagOptionSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary information about a TagOption.
 --
---
---
--- /See:/ 'tagOptionSummary' smart constructor.
+-- /See:/ 'newTagOptionSummary' smart constructor.
 data TagOptionSummary = TagOptionSummary'
-  { _tosKey ::
-      !(Maybe Text),
-    _tosValues :: !(Maybe [Text])
+  { -- | The TagOption key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The TagOption value.
+    values :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagOptionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagOptionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tosKey' - The TagOption key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tosValues' - The TagOption value.
-tagOptionSummary ::
+-- 'key', 'tagOptionSummary_key' - The TagOption key.
+--
+-- 'values', 'tagOptionSummary_values' - The TagOption value.
+newTagOptionSummary ::
   TagOptionSummary
-tagOptionSummary =
+newTagOptionSummary =
   TagOptionSummary'
-    { _tosKey = Nothing,
-      _tosValues = Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
     }
 
 -- | The TagOption key.
-tosKey :: Lens' TagOptionSummary (Maybe Text)
-tosKey = lens _tosKey (\s a -> s {_tosKey = a})
+tagOptionSummary_key :: Lens.Lens' TagOptionSummary (Prelude.Maybe Prelude.Text)
+tagOptionSummary_key = Lens.lens (\TagOptionSummary' {key} -> key) (\s@TagOptionSummary' {} a -> s {key = a} :: TagOptionSummary)
 
 -- | The TagOption value.
-tosValues :: Lens' TagOptionSummary [Text]
-tosValues = lens _tosValues (\s a -> s {_tosValues = a}) . _Default . _Coerce
+tagOptionSummary_values :: Lens.Lens' TagOptionSummary (Prelude.Maybe [Prelude.Text])
+tagOptionSummary_values = Lens.lens (\TagOptionSummary' {values} -> values) (\s@TagOptionSummary' {} a -> s {values = a} :: TagOptionSummary) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON TagOptionSummary where
+instance Prelude.FromJSON TagOptionSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TagOptionSummary"
       ( \x ->
           TagOptionSummary'
-            <$> (x .:? "Key") <*> (x .:? "Values" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Values" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable TagOptionSummary
+instance Prelude.Hashable TagOptionSummary
 
-instance NFData TagOptionSummary
+instance Prelude.NFData TagOptionSummary

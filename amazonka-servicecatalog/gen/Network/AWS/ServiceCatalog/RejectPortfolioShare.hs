@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,149 +24,208 @@
 -- Rejects an offer to share the specified portfolio.
 module Network.AWS.ServiceCatalog.RejectPortfolioShare
   ( -- * Creating a Request
-    rejectPortfolioShare,
-    RejectPortfolioShare,
+    RejectPortfolioShare (..),
+    newRejectPortfolioShare,
 
     -- * Request Lenses
-    rpsPortfolioShareType,
-    rpsAcceptLanguage,
-    rpsPortfolioId,
+    rejectPortfolioShare_portfolioShareType,
+    rejectPortfolioShare_acceptLanguage,
+    rejectPortfolioShare_portfolioId,
 
     -- * Destructuring the Response
-    rejectPortfolioShareResponse,
-    RejectPortfolioShareResponse,
+    RejectPortfolioShareResponse (..),
+    newRejectPortfolioShareResponse,
 
     -- * Response Lenses
-    rpsrrsResponseStatus,
+    rejectPortfolioShareResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'rejectPortfolioShare' smart constructor.
+-- | /See:/ 'newRejectPortfolioShare' smart constructor.
 data RejectPortfolioShare = RejectPortfolioShare'
-  { _rpsPortfolioShareType ::
-      !(Maybe PortfolioShareType),
-    _rpsAcceptLanguage ::
-      !(Maybe Text),
-    _rpsPortfolioId :: !Text
+  { -- | The type of shared portfolios to reject. The default is to reject
+    -- imported portfolios.
+    --
+    -- -   @AWS_ORGANIZATIONS@ - Reject portfolios shared by the management
+    --     account of your organization.
+    --
+    -- -   @IMPORTED@ - Reject imported portfolios.
+    --
+    -- -   @AWS_SERVICECATALOG@ - Not supported. (Throws
+    --     ResourceNotFoundException.)
+    --
+    -- For example,
+    -- @aws servicecatalog reject-portfolio-share --portfolio-id \"port-2qwzkwxt3y5fk\" --portfolio-share-type AWS_ORGANIZATIONS@
+    portfolioShareType :: Prelude.Maybe PortfolioShareType,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The portfolio identifier.
+    portfolioId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectPortfolioShare' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectPortfolioShare' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpsPortfolioShareType' - The type of shared portfolios to reject. The default is to reject imported portfolios.     * @AWS_ORGANIZATIONS@ - Reject portfolios shared by the management account of your organization.     * @IMPORTED@ - Reject imported portfolios.     * @AWS_SERVICECATALOG@ - Not supported. (Throws ResourceNotFoundException.) For example, @aws servicecatalog reject-portfolio-share --portfolio-id "port-2qwzkwxt3y5fk" --portfolio-share-type AWS_ORGANIZATIONS@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpsAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- 'portfolioShareType', 'rejectPortfolioShare_portfolioShareType' - The type of shared portfolios to reject. The default is to reject
+-- imported portfolios.
 --
--- * 'rpsPortfolioId' - The portfolio identifier.
-rejectPortfolioShare ::
-  -- | 'rpsPortfolioId'
-  Text ->
+-- -   @AWS_ORGANIZATIONS@ - Reject portfolios shared by the management
+--     account of your organization.
+--
+-- -   @IMPORTED@ - Reject imported portfolios.
+--
+-- -   @AWS_SERVICECATALOG@ - Not supported. (Throws
+--     ResourceNotFoundException.)
+--
+-- For example,
+-- @aws servicecatalog reject-portfolio-share --portfolio-id \"port-2qwzkwxt3y5fk\" --portfolio-share-type AWS_ORGANIZATIONS@
+--
+-- 'acceptLanguage', 'rejectPortfolioShare_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'portfolioId', 'rejectPortfolioShare_portfolioId' - The portfolio identifier.
+newRejectPortfolioShare ::
+  -- | 'portfolioId'
+  Prelude.Text ->
   RejectPortfolioShare
-rejectPortfolioShare pPortfolioId_ =
+newRejectPortfolioShare pPortfolioId_ =
   RejectPortfolioShare'
-    { _rpsPortfolioShareType =
-        Nothing,
-      _rpsAcceptLanguage = Nothing,
-      _rpsPortfolioId = pPortfolioId_
+    { portfolioShareType =
+        Prelude.Nothing,
+      acceptLanguage = Prelude.Nothing,
+      portfolioId = pPortfolioId_
     }
 
--- | The type of shared portfolios to reject. The default is to reject imported portfolios.     * @AWS_ORGANIZATIONS@ - Reject portfolios shared by the management account of your organization.     * @IMPORTED@ - Reject imported portfolios.     * @AWS_SERVICECATALOG@ - Not supported. (Throws ResourceNotFoundException.) For example, @aws servicecatalog reject-portfolio-share --portfolio-id "port-2qwzkwxt3y5fk" --portfolio-share-type AWS_ORGANIZATIONS@
-rpsPortfolioShareType :: Lens' RejectPortfolioShare (Maybe PortfolioShareType)
-rpsPortfolioShareType = lens _rpsPortfolioShareType (\s a -> s {_rpsPortfolioShareType = a})
+-- | The type of shared portfolios to reject. The default is to reject
+-- imported portfolios.
+--
+-- -   @AWS_ORGANIZATIONS@ - Reject portfolios shared by the management
+--     account of your organization.
+--
+-- -   @IMPORTED@ - Reject imported portfolios.
+--
+-- -   @AWS_SERVICECATALOG@ - Not supported. (Throws
+--     ResourceNotFoundException.)
+--
+-- For example,
+-- @aws servicecatalog reject-portfolio-share --portfolio-id \"port-2qwzkwxt3y5fk\" --portfolio-share-type AWS_ORGANIZATIONS@
+rejectPortfolioShare_portfolioShareType :: Lens.Lens' RejectPortfolioShare (Prelude.Maybe PortfolioShareType)
+rejectPortfolioShare_portfolioShareType = Lens.lens (\RejectPortfolioShare' {portfolioShareType} -> portfolioShareType) (\s@RejectPortfolioShare' {} a -> s {portfolioShareType = a} :: RejectPortfolioShare)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-rpsAcceptLanguage :: Lens' RejectPortfolioShare (Maybe Text)
-rpsAcceptLanguage = lens _rpsAcceptLanguage (\s a -> s {_rpsAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+rejectPortfolioShare_acceptLanguage :: Lens.Lens' RejectPortfolioShare (Prelude.Maybe Prelude.Text)
+rejectPortfolioShare_acceptLanguage = Lens.lens (\RejectPortfolioShare' {acceptLanguage} -> acceptLanguage) (\s@RejectPortfolioShare' {} a -> s {acceptLanguage = a} :: RejectPortfolioShare)
 
 -- | The portfolio identifier.
-rpsPortfolioId :: Lens' RejectPortfolioShare Text
-rpsPortfolioId = lens _rpsPortfolioId (\s a -> s {_rpsPortfolioId = a})
+rejectPortfolioShare_portfolioId :: Lens.Lens' RejectPortfolioShare Prelude.Text
+rejectPortfolioShare_portfolioId = Lens.lens (\RejectPortfolioShare' {portfolioId} -> portfolioId) (\s@RejectPortfolioShare' {} a -> s {portfolioId = a} :: RejectPortfolioShare)
 
-instance AWSRequest RejectPortfolioShare where
+instance Prelude.AWSRequest RejectPortfolioShare where
   type
     Rs RejectPortfolioShare =
       RejectPortfolioShareResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           RejectPortfolioShareResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RejectPortfolioShare
+instance Prelude.Hashable RejectPortfolioShare
 
-instance NFData RejectPortfolioShare
+instance Prelude.NFData RejectPortfolioShare
 
-instance ToHeaders RejectPortfolioShare where
+instance Prelude.ToHeaders RejectPortfolioShare where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.RejectPortfolioShare" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.RejectPortfolioShare" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RejectPortfolioShare where
+instance Prelude.ToJSON RejectPortfolioShare where
   toJSON RejectPortfolioShare' {..} =
-    object
-      ( catMaybes
-          [ ("PortfolioShareType" .=)
-              <$> _rpsPortfolioShareType,
-            ("AcceptLanguage" .=) <$> _rpsAcceptLanguage,
-            Just ("PortfolioId" .= _rpsPortfolioId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PortfolioShareType" Prelude..=)
+              Prelude.<$> portfolioShareType,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("PortfolioId" Prelude..= portfolioId)
           ]
       )
 
-instance ToPath RejectPortfolioShare where
-  toPath = const "/"
+instance Prelude.ToPath RejectPortfolioShare where
+  toPath = Prelude.const "/"
 
-instance ToQuery RejectPortfolioShare where
-  toQuery = const mempty
+instance Prelude.ToQuery RejectPortfolioShare where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'rejectPortfolioShareResponse' smart constructor.
-newtype RejectPortfolioShareResponse = RejectPortfolioShareResponse'
-  { _rpsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newRejectPortfolioShareResponse' smart constructor.
+data RejectPortfolioShareResponse = RejectPortfolioShareResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectPortfolioShareResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectPortfolioShareResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpsrrsResponseStatus' - -- | The response status code.
-rejectPortfolioShareResponse ::
-  -- | 'rpsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'rejectPortfolioShareResponse_httpStatus' - The response's http status code.
+newRejectPortfolioShareResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RejectPortfolioShareResponse
-rejectPortfolioShareResponse pResponseStatus_ =
+newRejectPortfolioShareResponse pHttpStatus_ =
   RejectPortfolioShareResponse'
-    { _rpsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-rpsrrsResponseStatus :: Lens' RejectPortfolioShareResponse Int
-rpsrrsResponseStatus = lens _rpsrrsResponseStatus (\s a -> s {_rpsrrsResponseStatus = a})
+-- | The response's http status code.
+rejectPortfolioShareResponse_httpStatus :: Lens.Lens' RejectPortfolioShareResponse Prelude.Int
+rejectPortfolioShareResponse_httpStatus = Lens.lens (\RejectPortfolioShareResponse' {httpStatus} -> httpStatus) (\s@RejectPortfolioShareResponse' {} a -> s {httpStatus = a} :: RejectPortfolioShareResponse)
 
-instance NFData RejectPortfolioShareResponse
+instance Prelude.NFData RejectPortfolioShareResponse

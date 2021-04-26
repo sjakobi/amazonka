@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.ServiceCatalog.Types.PrincipalType
   ( PrincipalType
       ( ..,
-        IAM
+        PrincipalTypeIAM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PrincipalType = PrincipalType' (CI Text)
+newtype PrincipalType = PrincipalType'
+  { fromPrincipalType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IAM :: PrincipalType
-pattern IAM = PrincipalType' "IAM"
+pattern PrincipalTypeIAM :: PrincipalType
+pattern PrincipalTypeIAM = PrincipalType' "IAM"
 
 {-# COMPLETE
-  IAM,
+  PrincipalTypeIAM,
   PrincipalType'
   #-}
 
-instance FromText PrincipalType where
-  parser = (PrincipalType' . mk) <$> takeText
+instance Prelude.FromText PrincipalType where
+  parser = PrincipalType' Prelude.<$> Prelude.takeText
 
-instance ToText PrincipalType where
-  toText (PrincipalType' ci) = original ci
+instance Prelude.ToText PrincipalType where
+  toText (PrincipalType' x) = x
 
-instance Hashable PrincipalType
+instance Prelude.Hashable PrincipalType
 
-instance NFData PrincipalType
+instance Prelude.NFData PrincipalType
 
-instance ToByteString PrincipalType
+instance Prelude.ToByteString PrincipalType
 
-instance ToQuery PrincipalType
+instance Prelude.ToQuery PrincipalType
 
-instance ToHeader PrincipalType
+instance Prelude.ToHeader PrincipalType
 
-instance ToJSON PrincipalType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PrincipalType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PrincipalType where
-  parseJSON = parseJSONText "PrincipalType"
+instance Prelude.FromJSON PrincipalType where
+  parseJSON = Prelude.parseJSONText "PrincipalType"

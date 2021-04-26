@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,149 +24,208 @@
 -- Accepts an offer to share the specified portfolio.
 module Network.AWS.ServiceCatalog.AcceptPortfolioShare
   ( -- * Creating a Request
-    acceptPortfolioShare,
-    AcceptPortfolioShare,
+    AcceptPortfolioShare (..),
+    newAcceptPortfolioShare,
 
     -- * Request Lenses
-    apsPortfolioShareType,
-    apsAcceptLanguage,
-    apsPortfolioId,
+    acceptPortfolioShare_portfolioShareType,
+    acceptPortfolioShare_acceptLanguage,
+    acceptPortfolioShare_portfolioId,
 
     -- * Destructuring the Response
-    acceptPortfolioShareResponse,
-    AcceptPortfolioShareResponse,
+    AcceptPortfolioShareResponse (..),
+    newAcceptPortfolioShareResponse,
 
     -- * Response Lenses
-    apsrrsResponseStatus,
+    acceptPortfolioShareResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'acceptPortfolioShare' smart constructor.
+-- | /See:/ 'newAcceptPortfolioShare' smart constructor.
 data AcceptPortfolioShare = AcceptPortfolioShare'
-  { _apsPortfolioShareType ::
-      !(Maybe PortfolioShareType),
-    _apsAcceptLanguage ::
-      !(Maybe Text),
-    _apsPortfolioId :: !Text
+  { -- | The type of shared portfolios to accept. The default is to accept
+    -- imported portfolios.
+    --
+    -- -   @AWS_ORGANIZATIONS@ - Accept portfolios shared by the management
+    --     account of your organization.
+    --
+    -- -   @IMPORTED@ - Accept imported portfolios.
+    --
+    -- -   @AWS_SERVICECATALOG@ - Not supported. (Throws
+    --     ResourceNotFoundException.)
+    --
+    -- For example,
+    -- @aws servicecatalog accept-portfolio-share --portfolio-id \"port-2qwzkwxt3y5fk\" --portfolio-share-type AWS_ORGANIZATIONS@
+    portfolioShareType :: Prelude.Maybe PortfolioShareType,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The portfolio identifier.
+    portfolioId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptPortfolioShare' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptPortfolioShare' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apsPortfolioShareType' - The type of shared portfolios to accept. The default is to accept imported portfolios.     * @AWS_ORGANIZATIONS@ - Accept portfolios shared by the management account of your organization.     * @IMPORTED@ - Accept imported portfolios.     * @AWS_SERVICECATALOG@ - Not supported. (Throws ResourceNotFoundException.) For example, @aws servicecatalog accept-portfolio-share --portfolio-id "port-2qwzkwxt3y5fk" --portfolio-share-type AWS_ORGANIZATIONS@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apsAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- 'portfolioShareType', 'acceptPortfolioShare_portfolioShareType' - The type of shared portfolios to accept. The default is to accept
+-- imported portfolios.
 --
--- * 'apsPortfolioId' - The portfolio identifier.
-acceptPortfolioShare ::
-  -- | 'apsPortfolioId'
-  Text ->
+-- -   @AWS_ORGANIZATIONS@ - Accept portfolios shared by the management
+--     account of your organization.
+--
+-- -   @IMPORTED@ - Accept imported portfolios.
+--
+-- -   @AWS_SERVICECATALOG@ - Not supported. (Throws
+--     ResourceNotFoundException.)
+--
+-- For example,
+-- @aws servicecatalog accept-portfolio-share --portfolio-id \"port-2qwzkwxt3y5fk\" --portfolio-share-type AWS_ORGANIZATIONS@
+--
+-- 'acceptLanguage', 'acceptPortfolioShare_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'portfolioId', 'acceptPortfolioShare_portfolioId' - The portfolio identifier.
+newAcceptPortfolioShare ::
+  -- | 'portfolioId'
+  Prelude.Text ->
   AcceptPortfolioShare
-acceptPortfolioShare pPortfolioId_ =
+newAcceptPortfolioShare pPortfolioId_ =
   AcceptPortfolioShare'
-    { _apsPortfolioShareType =
-        Nothing,
-      _apsAcceptLanguage = Nothing,
-      _apsPortfolioId = pPortfolioId_
+    { portfolioShareType =
+        Prelude.Nothing,
+      acceptLanguage = Prelude.Nothing,
+      portfolioId = pPortfolioId_
     }
 
--- | The type of shared portfolios to accept. The default is to accept imported portfolios.     * @AWS_ORGANIZATIONS@ - Accept portfolios shared by the management account of your organization.     * @IMPORTED@ - Accept imported portfolios.     * @AWS_SERVICECATALOG@ - Not supported. (Throws ResourceNotFoundException.) For example, @aws servicecatalog accept-portfolio-share --portfolio-id "port-2qwzkwxt3y5fk" --portfolio-share-type AWS_ORGANIZATIONS@
-apsPortfolioShareType :: Lens' AcceptPortfolioShare (Maybe PortfolioShareType)
-apsPortfolioShareType = lens _apsPortfolioShareType (\s a -> s {_apsPortfolioShareType = a})
+-- | The type of shared portfolios to accept. The default is to accept
+-- imported portfolios.
+--
+-- -   @AWS_ORGANIZATIONS@ - Accept portfolios shared by the management
+--     account of your organization.
+--
+-- -   @IMPORTED@ - Accept imported portfolios.
+--
+-- -   @AWS_SERVICECATALOG@ - Not supported. (Throws
+--     ResourceNotFoundException.)
+--
+-- For example,
+-- @aws servicecatalog accept-portfolio-share --portfolio-id \"port-2qwzkwxt3y5fk\" --portfolio-share-type AWS_ORGANIZATIONS@
+acceptPortfolioShare_portfolioShareType :: Lens.Lens' AcceptPortfolioShare (Prelude.Maybe PortfolioShareType)
+acceptPortfolioShare_portfolioShareType = Lens.lens (\AcceptPortfolioShare' {portfolioShareType} -> portfolioShareType) (\s@AcceptPortfolioShare' {} a -> s {portfolioShareType = a} :: AcceptPortfolioShare)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-apsAcceptLanguage :: Lens' AcceptPortfolioShare (Maybe Text)
-apsAcceptLanguage = lens _apsAcceptLanguage (\s a -> s {_apsAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+acceptPortfolioShare_acceptLanguage :: Lens.Lens' AcceptPortfolioShare (Prelude.Maybe Prelude.Text)
+acceptPortfolioShare_acceptLanguage = Lens.lens (\AcceptPortfolioShare' {acceptLanguage} -> acceptLanguage) (\s@AcceptPortfolioShare' {} a -> s {acceptLanguage = a} :: AcceptPortfolioShare)
 
 -- | The portfolio identifier.
-apsPortfolioId :: Lens' AcceptPortfolioShare Text
-apsPortfolioId = lens _apsPortfolioId (\s a -> s {_apsPortfolioId = a})
+acceptPortfolioShare_portfolioId :: Lens.Lens' AcceptPortfolioShare Prelude.Text
+acceptPortfolioShare_portfolioId = Lens.lens (\AcceptPortfolioShare' {portfolioId} -> portfolioId) (\s@AcceptPortfolioShare' {} a -> s {portfolioId = a} :: AcceptPortfolioShare)
 
-instance AWSRequest AcceptPortfolioShare where
+instance Prelude.AWSRequest AcceptPortfolioShare where
   type
     Rs AcceptPortfolioShare =
       AcceptPortfolioShareResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AcceptPortfolioShareResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AcceptPortfolioShare
+instance Prelude.Hashable AcceptPortfolioShare
 
-instance NFData AcceptPortfolioShare
+instance Prelude.NFData AcceptPortfolioShare
 
-instance ToHeaders AcceptPortfolioShare where
+instance Prelude.ToHeaders AcceptPortfolioShare where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.AcceptPortfolioShare" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.AcceptPortfolioShare" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AcceptPortfolioShare where
+instance Prelude.ToJSON AcceptPortfolioShare where
   toJSON AcceptPortfolioShare' {..} =
-    object
-      ( catMaybes
-          [ ("PortfolioShareType" .=)
-              <$> _apsPortfolioShareType,
-            ("AcceptLanguage" .=) <$> _apsAcceptLanguage,
-            Just ("PortfolioId" .= _apsPortfolioId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PortfolioShareType" Prelude..=)
+              Prelude.<$> portfolioShareType,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("PortfolioId" Prelude..= portfolioId)
           ]
       )
 
-instance ToPath AcceptPortfolioShare where
-  toPath = const "/"
+instance Prelude.ToPath AcceptPortfolioShare where
+  toPath = Prelude.const "/"
 
-instance ToQuery AcceptPortfolioShare where
-  toQuery = const mempty
+instance Prelude.ToQuery AcceptPortfolioShare where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'acceptPortfolioShareResponse' smart constructor.
-newtype AcceptPortfolioShareResponse = AcceptPortfolioShareResponse'
-  { _apsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAcceptPortfolioShareResponse' smart constructor.
+data AcceptPortfolioShareResponse = AcceptPortfolioShareResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptPortfolioShareResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptPortfolioShareResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apsrrsResponseStatus' - -- | The response status code.
-acceptPortfolioShareResponse ::
-  -- | 'apsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'acceptPortfolioShareResponse_httpStatus' - The response's http status code.
+newAcceptPortfolioShareResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AcceptPortfolioShareResponse
-acceptPortfolioShareResponse pResponseStatus_ =
+newAcceptPortfolioShareResponse pHttpStatus_ =
   AcceptPortfolioShareResponse'
-    { _apsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-apsrrsResponseStatus :: Lens' AcceptPortfolioShareResponse Int
-apsrrsResponseStatus = lens _apsrrsResponseStatus (\s a -> s {_apsrrsResponseStatus = a})
+-- | The response's http status code.
+acceptPortfolioShareResponse_httpStatus :: Lens.Lens' AcceptPortfolioShareResponse Prelude.Int
+acceptPortfolioShareResponse_httpStatus = Lens.lens (\AcceptPortfolioShareResponse' {httpStatus} -> httpStatus) (\s@AcceptPortfolioShareResponse' {} a -> s {httpStatus = a} :: AcceptPortfolioShareResponse)
 
-instance NFData AcceptPortfolioShareResponse
+instance Prelude.NFData AcceptPortfolioShareResponse

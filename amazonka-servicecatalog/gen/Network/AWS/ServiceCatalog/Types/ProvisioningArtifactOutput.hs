@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ProvisioningArtifactOutput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provisioning artifact output.
 --
---
---
--- /See:/ 'provisioningArtifactOutput' smart constructor.
+-- /See:/ 'newProvisioningArtifactOutput' smart constructor.
 data ProvisioningArtifactOutput = ProvisioningArtifactOutput'
-  { _paoKey ::
-      !(Maybe Text),
-    _paoDescription ::
-      !(Maybe Text)
+  { -- | The provisioning artifact output key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | Description of the provisioning artifact output key.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvisioningArtifactOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvisioningArtifactOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'paoKey' - The provisioning artifact output key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'paoDescription' - Description of the provisioning artifact output key.
-provisioningArtifactOutput ::
+-- 'key', 'provisioningArtifactOutput_key' - The provisioning artifact output key.
+--
+-- 'description', 'provisioningArtifactOutput_description' - Description of the provisioning artifact output key.
+newProvisioningArtifactOutput ::
   ProvisioningArtifactOutput
-provisioningArtifactOutput =
+newProvisioningArtifactOutput =
   ProvisioningArtifactOutput'
-    { _paoKey = Nothing,
-      _paoDescription = Nothing
+    { key = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The provisioning artifact output key.
-paoKey :: Lens' ProvisioningArtifactOutput (Maybe Text)
-paoKey = lens _paoKey (\s a -> s {_paoKey = a})
+provisioningArtifactOutput_key :: Lens.Lens' ProvisioningArtifactOutput (Prelude.Maybe Prelude.Text)
+provisioningArtifactOutput_key = Lens.lens (\ProvisioningArtifactOutput' {key} -> key) (\s@ProvisioningArtifactOutput' {} a -> s {key = a} :: ProvisioningArtifactOutput)
 
 -- | Description of the provisioning artifact output key.
-paoDescription :: Lens' ProvisioningArtifactOutput (Maybe Text)
-paoDescription = lens _paoDescription (\s a -> s {_paoDescription = a})
+provisioningArtifactOutput_description :: Lens.Lens' ProvisioningArtifactOutput (Prelude.Maybe Prelude.Text)
+provisioningArtifactOutput_description = Lens.lens (\ProvisioningArtifactOutput' {description} -> description) (\s@ProvisioningArtifactOutput' {} a -> s {description = a} :: ProvisioningArtifactOutput)
 
-instance FromJSON ProvisioningArtifactOutput where
+instance Prelude.FromJSON ProvisioningArtifactOutput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProvisioningArtifactOutput"
       ( \x ->
           ProvisioningArtifactOutput'
-            <$> (x .:? "Key") <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable ProvisioningArtifactOutput
+instance Prelude.Hashable ProvisioningArtifactOutput
 
-instance NFData ProvisioningArtifactOutput
+instance Prelude.NFData ProvisioningArtifactOutput

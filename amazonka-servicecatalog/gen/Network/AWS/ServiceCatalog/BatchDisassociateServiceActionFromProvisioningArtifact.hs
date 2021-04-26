@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,196 +21,215 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates a batch of self-service actions from the specified provisioning artifact.
+-- Disassociates a batch of self-service actions from the specified
+-- provisioning artifact.
 module Network.AWS.ServiceCatalog.BatchDisassociateServiceActionFromProvisioningArtifact
   ( -- * Creating a Request
-    batchDisassociateServiceActionFromProvisioningArtifact,
-    BatchDisassociateServiceActionFromProvisioningArtifact,
+    BatchDisassociateServiceActionFromProvisioningArtifact (..),
+    newBatchDisassociateServiceActionFromProvisioningArtifact,
 
     -- * Request Lenses
-    bdsafpaAcceptLanguage,
-    bdsafpaServiceActionAssociations,
+    batchDisassociateServiceActionFromProvisioningArtifact_acceptLanguage,
+    batchDisassociateServiceActionFromProvisioningArtifact_serviceActionAssociations,
 
     -- * Destructuring the Response
-    batchDisassociateServiceActionFromProvisioningArtifactResponse,
-    BatchDisassociateServiceActionFromProvisioningArtifactResponse,
+    BatchDisassociateServiceActionFromProvisioningArtifactResponse (..),
+    newBatchDisassociateServiceActionFromProvisioningArtifactResponse,
 
     -- * Response Lenses
-    bdsafparrsFailedServiceActionAssociations,
-    bdsafparrsResponseStatus,
+    batchDisassociateServiceActionFromProvisioningArtifactResponse_failedServiceActionAssociations,
+    batchDisassociateServiceActionFromProvisioningArtifactResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.FailedServiceActionAssociation
 
--- | /See:/ 'batchDisassociateServiceActionFromProvisioningArtifact' smart constructor.
+-- | /See:/ 'newBatchDisassociateServiceActionFromProvisioningArtifact' smart constructor.
 data BatchDisassociateServiceActionFromProvisioningArtifact = BatchDisassociateServiceActionFromProvisioningArtifact'
-  { _bdsafpaAcceptLanguage ::
-      !( Maybe
-           Text
-       ),
-    _bdsafpaServiceActionAssociations ::
-      !( List1
-           ServiceActionAssociation
-       )
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | One or more associations, each consisting of the Action ID, the Product
+    -- ID, and the Provisioning Artifact ID.
+    serviceActionAssociations :: Prelude.List1 ServiceActionAssociation
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDisassociateServiceActionFromProvisioningArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDisassociateServiceActionFromProvisioningArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdsafpaAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdsafpaServiceActionAssociations' - One or more associations, each consisting of the Action ID, the Product ID, and the Provisioning Artifact ID.
-batchDisassociateServiceActionFromProvisioningArtifact ::
-  -- | 'bdsafpaServiceActionAssociations'
-  NonEmpty ServiceActionAssociation ->
+-- 'acceptLanguage', 'batchDisassociateServiceActionFromProvisioningArtifact_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'serviceActionAssociations', 'batchDisassociateServiceActionFromProvisioningArtifact_serviceActionAssociations' - One or more associations, each consisting of the Action ID, the Product
+-- ID, and the Provisioning Artifact ID.
+newBatchDisassociateServiceActionFromProvisioningArtifact ::
+  -- | 'serviceActionAssociations'
+  Prelude.NonEmpty ServiceActionAssociation ->
   BatchDisassociateServiceActionFromProvisioningArtifact
-batchDisassociateServiceActionFromProvisioningArtifact
+newBatchDisassociateServiceActionFromProvisioningArtifact
   pServiceActionAssociations_ =
     BatchDisassociateServiceActionFromProvisioningArtifact'
-      { _bdsafpaAcceptLanguage =
-          Nothing,
-        _bdsafpaServiceActionAssociations =
-          _List1
-            # pServiceActionAssociations_
+      { acceptLanguage =
+          Prelude.Nothing,
+        serviceActionAssociations =
+          Prelude._List1
+            Lens.# pServiceActionAssociations_
       }
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-bdsafpaAcceptLanguage :: Lens' BatchDisassociateServiceActionFromProvisioningArtifact (Maybe Text)
-bdsafpaAcceptLanguage = lens _bdsafpaAcceptLanguage (\s a -> s {_bdsafpaAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+batchDisassociateServiceActionFromProvisioningArtifact_acceptLanguage :: Lens.Lens' BatchDisassociateServiceActionFromProvisioningArtifact (Prelude.Maybe Prelude.Text)
+batchDisassociateServiceActionFromProvisioningArtifact_acceptLanguage = Lens.lens (\BatchDisassociateServiceActionFromProvisioningArtifact' {acceptLanguage} -> acceptLanguage) (\s@BatchDisassociateServiceActionFromProvisioningArtifact' {} a -> s {acceptLanguage = a} :: BatchDisassociateServiceActionFromProvisioningArtifact)
 
--- | One or more associations, each consisting of the Action ID, the Product ID, and the Provisioning Artifact ID.
-bdsafpaServiceActionAssociations :: Lens' BatchDisassociateServiceActionFromProvisioningArtifact (NonEmpty ServiceActionAssociation)
-bdsafpaServiceActionAssociations = lens _bdsafpaServiceActionAssociations (\s a -> s {_bdsafpaServiceActionAssociations = a}) . _List1
+-- | One or more associations, each consisting of the Action ID, the Product
+-- ID, and the Provisioning Artifact ID.
+batchDisassociateServiceActionFromProvisioningArtifact_serviceActionAssociations :: Lens.Lens' BatchDisassociateServiceActionFromProvisioningArtifact (Prelude.NonEmpty ServiceActionAssociation)
+batchDisassociateServiceActionFromProvisioningArtifact_serviceActionAssociations = Lens.lens (\BatchDisassociateServiceActionFromProvisioningArtifact' {serviceActionAssociations} -> serviceActionAssociations) (\s@BatchDisassociateServiceActionFromProvisioningArtifact' {} a -> s {serviceActionAssociations = a} :: BatchDisassociateServiceActionFromProvisioningArtifact) Prelude.. Prelude._List1
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     BatchDisassociateServiceActionFromProvisioningArtifact
   where
   type
     Rs
       BatchDisassociateServiceActionFromProvisioningArtifact =
       BatchDisassociateServiceActionFromProvisioningArtifactResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchDisassociateServiceActionFromProvisioningArtifactResponse'
-            <$> (x .?> "FailedServiceActionAssociations" .!@ mempty)
-              <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "FailedServiceActionAssociations"
+                            Prelude..!@ Prelude.mempty
+                        )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     BatchDisassociateServiceActionFromProvisioningArtifact
 
 instance
-  NFData
+  Prelude.NFData
     BatchDisassociateServiceActionFromProvisioningArtifact
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     BatchDisassociateServiceActionFromProvisioningArtifact
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.BatchDisassociateServiceActionFromProvisioningArtifact" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.BatchDisassociateServiceActionFromProvisioningArtifact" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     BatchDisassociateServiceActionFromProvisioningArtifact
   where
   toJSON
     BatchDisassociateServiceActionFromProvisioningArtifact' {..} =
-      object
-        ( catMaybes
-            [ ("AcceptLanguage" .=) <$> _bdsafpaAcceptLanguage,
-              Just
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ("AcceptLanguage" Prelude..=)
+                Prelude.<$> acceptLanguage,
+              Prelude.Just
                 ( "ServiceActionAssociations"
-                    .= _bdsafpaServiceActionAssociations
+                    Prelude..= serviceActionAssociations
                 )
             ]
         )
 
 instance
-  ToPath
+  Prelude.ToPath
     BatchDisassociateServiceActionFromProvisioningArtifact
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     BatchDisassociateServiceActionFromProvisioningArtifact
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchDisassociateServiceActionFromProvisioningArtifactResponse' smart constructor.
+-- | /See:/ 'newBatchDisassociateServiceActionFromProvisioningArtifactResponse' smart constructor.
 data BatchDisassociateServiceActionFromProvisioningArtifactResponse = BatchDisassociateServiceActionFromProvisioningArtifactResponse'
-  { _bdsafparrsFailedServiceActionAssociations ::
-      !( Maybe
-           [FailedServiceActionAssociation]
-       ),
-    _bdsafparrsResponseStatus ::
-      !Int
+  { -- | An object that contains a list of errors, along with information to help
+    -- you identify the self-service action.
+    failedServiceActionAssociations :: Prelude.Maybe [FailedServiceActionAssociation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDisassociateServiceActionFromProvisioningArtifactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDisassociateServiceActionFromProvisioningArtifactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdsafparrsFailedServiceActionAssociations' - An object that contains a list of errors, along with information to help you identify the self-service action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdsafparrsResponseStatus' - -- | The response status code.
-batchDisassociateServiceActionFromProvisioningArtifactResponse ::
-  -- | 'bdsafparrsResponseStatus'
-  Int ->
+-- 'failedServiceActionAssociations', 'batchDisassociateServiceActionFromProvisioningArtifactResponse_failedServiceActionAssociations' - An object that contains a list of errors, along with information to help
+-- you identify the self-service action.
+--
+-- 'httpStatus', 'batchDisassociateServiceActionFromProvisioningArtifactResponse_httpStatus' - The response's http status code.
+newBatchDisassociateServiceActionFromProvisioningArtifactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchDisassociateServiceActionFromProvisioningArtifactResponse
-batchDisassociateServiceActionFromProvisioningArtifactResponse
-  pResponseStatus_ =
+newBatchDisassociateServiceActionFromProvisioningArtifactResponse
+  pHttpStatus_ =
     BatchDisassociateServiceActionFromProvisioningArtifactResponse'
-      { _bdsafparrsFailedServiceActionAssociations =
-          Nothing,
-        _bdsafparrsResponseStatus =
-          pResponseStatus_
+      { failedServiceActionAssociations =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
--- | An object that contains a list of errors, along with information to help you identify the self-service action.
-bdsafparrsFailedServiceActionAssociations :: Lens' BatchDisassociateServiceActionFromProvisioningArtifactResponse [FailedServiceActionAssociation]
-bdsafparrsFailedServiceActionAssociations = lens _bdsafparrsFailedServiceActionAssociations (\s a -> s {_bdsafparrsFailedServiceActionAssociations = a}) . _Default . _Coerce
+-- | An object that contains a list of errors, along with information to help
+-- you identify the self-service action.
+batchDisassociateServiceActionFromProvisioningArtifactResponse_failedServiceActionAssociations :: Lens.Lens' BatchDisassociateServiceActionFromProvisioningArtifactResponse (Prelude.Maybe [FailedServiceActionAssociation])
+batchDisassociateServiceActionFromProvisioningArtifactResponse_failedServiceActionAssociations = Lens.lens (\BatchDisassociateServiceActionFromProvisioningArtifactResponse' {failedServiceActionAssociations} -> failedServiceActionAssociations) (\s@BatchDisassociateServiceActionFromProvisioningArtifactResponse' {} a -> s {failedServiceActionAssociations = a} :: BatchDisassociateServiceActionFromProvisioningArtifactResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bdsafparrsResponseStatus :: Lens' BatchDisassociateServiceActionFromProvisioningArtifactResponse Int
-bdsafparrsResponseStatus = lens _bdsafparrsResponseStatus (\s a -> s {_bdsafparrsResponseStatus = a})
+-- | The response's http status code.
+batchDisassociateServiceActionFromProvisioningArtifactResponse_httpStatus :: Lens.Lens' BatchDisassociateServiceActionFromProvisioningArtifactResponse Prelude.Int
+batchDisassociateServiceActionFromProvisioningArtifactResponse_httpStatus = Lens.lens (\BatchDisassociateServiceActionFromProvisioningArtifactResponse' {httpStatus} -> httpStatus) (\s@BatchDisassociateServiceActionFromProvisioningArtifactResponse' {} a -> s {httpStatus = a} :: BatchDisassociateServiceActionFromProvisioningArtifactResponse)
 
 instance
-  NFData
+  Prelude.NFData
     BatchDisassociateServiceActionFromProvisioningArtifactResponse

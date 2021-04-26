@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ServiceCatalog.Types.ChangeAction
   ( ChangeAction
       ( ..,
-        Add,
-        Modify,
-        Remove
+        ChangeActionADD,
+        ChangeActionMODIFY,
+        ChangeActionREMOVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChangeAction = ChangeAction' (CI Text)
+newtype ChangeAction = ChangeAction'
+  { fromChangeAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Add :: ChangeAction
-pattern Add = ChangeAction' "ADD"
+pattern ChangeActionADD :: ChangeAction
+pattern ChangeActionADD = ChangeAction' "ADD"
 
-pattern Modify :: ChangeAction
-pattern Modify = ChangeAction' "MODIFY"
+pattern ChangeActionMODIFY :: ChangeAction
+pattern ChangeActionMODIFY = ChangeAction' "MODIFY"
 
-pattern Remove :: ChangeAction
-pattern Remove = ChangeAction' "REMOVE"
+pattern ChangeActionREMOVE :: ChangeAction
+pattern ChangeActionREMOVE = ChangeAction' "REMOVE"
 
 {-# COMPLETE
-  Add,
-  Modify,
-  Remove,
+  ChangeActionADD,
+  ChangeActionMODIFY,
+  ChangeActionREMOVE,
   ChangeAction'
   #-}
 
-instance FromText ChangeAction where
-  parser = (ChangeAction' . mk) <$> takeText
+instance Prelude.FromText ChangeAction where
+  parser = ChangeAction' Prelude.<$> Prelude.takeText
 
-instance ToText ChangeAction where
-  toText (ChangeAction' ci) = original ci
+instance Prelude.ToText ChangeAction where
+  toText (ChangeAction' x) = x
 
-instance Hashable ChangeAction
+instance Prelude.Hashable ChangeAction
 
-instance NFData ChangeAction
+instance Prelude.NFData ChangeAction
 
-instance ToByteString ChangeAction
+instance Prelude.ToByteString ChangeAction
 
-instance ToQuery ChangeAction
+instance Prelude.ToQuery ChangeAction
 
-instance ToHeader ChangeAction
+instance Prelude.ToHeader ChangeAction
 
-instance FromJSON ChangeAction where
-  parseJSON = parseJSONText "ChangeAction"
+instance Prelude.FromJSON ChangeAction where
+  parseJSON = Prelude.parseJSONText "ChangeAction"

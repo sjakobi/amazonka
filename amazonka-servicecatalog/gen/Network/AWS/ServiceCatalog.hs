@@ -11,12 +11,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Service Catalog__
+-- AWS Service Catalog
 --
--- <https://aws.amazon.com/servicecatalog/ AWS Service Catalog> enables organizations to create and manage catalogs of IT services that are approved for AWS. To get the most out of this documentation, you should be familiar with the terminology discussed in <http://docs.aws.amazon.com/servicecatalog/latest/adminguide/what-is_concepts.html AWS Service Catalog Concepts> .
+-- <https://aws.amazon.com/servicecatalog/ AWS Service Catalog> enables
+-- organizations to create and manage catalogs of IT services that are
+-- approved for AWS. To get the most out of this documentation, you should
+-- be familiar with the terminology discussed in
+-- <http://docs.aws.amazon.com/servicecatalog/latest/adminguide/what-is_concepts.html AWS Service Catalog Concepts>.
 module Network.AWS.ServiceCatalog
   ( -- * Service Configuration
-    serviceCatalog,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -52,265 +56,526 @@ module Network.AWS.ServiceCatalog
     -- $operations
 
     -- ** DescribePortfolio
-    module Network.AWS.ServiceCatalog.DescribePortfolio,
+    DescribePortfolio (DescribePortfolio'),
+    newDescribePortfolio,
+    DescribePortfolioResponse (DescribePortfolioResponse'),
+    newDescribePortfolioResponse,
 
     -- ** ListAcceptedPortfolioShares (Paginated)
-    module Network.AWS.ServiceCatalog.ListAcceptedPortfolioShares,
+    ListAcceptedPortfolioShares (ListAcceptedPortfolioShares'),
+    newListAcceptedPortfolioShares,
+    ListAcceptedPortfolioSharesResponse (ListAcceptedPortfolioSharesResponse'),
+    newListAcceptedPortfolioSharesResponse,
 
     -- ** DisassociateTagOptionFromResource
-    module Network.AWS.ServiceCatalog.DisassociateTagOptionFromResource,
+    DisassociateTagOptionFromResource (DisassociateTagOptionFromResource'),
+    newDisassociateTagOptionFromResource,
+    DisassociateTagOptionFromResourceResponse (DisassociateTagOptionFromResourceResponse'),
+    newDisassociateTagOptionFromResourceResponse,
 
     -- ** ScanProvisionedProducts (Paginated)
-    module Network.AWS.ServiceCatalog.ScanProvisionedProducts,
+    ScanProvisionedProducts (ScanProvisionedProducts'),
+    newScanProvisionedProducts,
+    ScanProvisionedProductsResponse (ScanProvisionedProductsResponse'),
+    newScanProvisionedProductsResponse,
 
     -- ** AssociateProductWithPortfolio
-    module Network.AWS.ServiceCatalog.AssociateProductWithPortfolio,
+    AssociateProductWithPortfolio (AssociateProductWithPortfolio'),
+    newAssociateProductWithPortfolio,
+    AssociateProductWithPortfolioResponse (AssociateProductWithPortfolioResponse'),
+    newAssociateProductWithPortfolioResponse,
 
     -- ** ListOrganizationPortfolioAccess (Paginated)
-    module Network.AWS.ServiceCatalog.ListOrganizationPortfolioAccess,
+    ListOrganizationPortfolioAccess (ListOrganizationPortfolioAccess'),
+    newListOrganizationPortfolioAccess,
+    ListOrganizationPortfolioAccessResponse (ListOrganizationPortfolioAccessResponse'),
+    newListOrganizationPortfolioAccessResponse,
 
     -- ** ExecuteProvisionedProductPlan
-    module Network.AWS.ServiceCatalog.ExecuteProvisionedProductPlan,
+    ExecuteProvisionedProductPlan (ExecuteProvisionedProductPlan'),
+    newExecuteProvisionedProductPlan,
+    ExecuteProvisionedProductPlanResponse (ExecuteProvisionedProductPlanResponse'),
+    newExecuteProvisionedProductPlanResponse,
 
     -- ** ExecuteProvisionedProductServiceAction
-    module Network.AWS.ServiceCatalog.ExecuteProvisionedProductServiceAction,
+    ExecuteProvisionedProductServiceAction (ExecuteProvisionedProductServiceAction'),
+    newExecuteProvisionedProductServiceAction,
+    ExecuteProvisionedProductServiceActionResponse (ExecuteProvisionedProductServiceActionResponse'),
+    newExecuteProvisionedProductServiceActionResponse,
 
     -- ** ImportAsProvisionedProduct
-    module Network.AWS.ServiceCatalog.ImportAsProvisionedProduct,
+    ImportAsProvisionedProduct (ImportAsProvisionedProduct'),
+    newImportAsProvisionedProduct,
+    ImportAsProvisionedProductResponse (ImportAsProvisionedProductResponse'),
+    newImportAsProvisionedProductResponse,
 
     -- ** ListPortfolioAccess
-    module Network.AWS.ServiceCatalog.ListPortfolioAccess,
+    ListPortfolioAccess (ListPortfolioAccess'),
+    newListPortfolioAccess,
+    ListPortfolioAccessResponse (ListPortfolioAccessResponse'),
+    newListPortfolioAccessResponse,
 
     -- ** CreateProvisionedProductPlan
-    module Network.AWS.ServiceCatalog.CreateProvisionedProductPlan,
+    CreateProvisionedProductPlan (CreateProvisionedProductPlan'),
+    newCreateProvisionedProductPlan,
+    CreateProvisionedProductPlanResponse (CreateProvisionedProductPlanResponse'),
+    newCreateProvisionedProductPlanResponse,
 
     -- ** DescribeTagOption
-    module Network.AWS.ServiceCatalog.DescribeTagOption,
+    DescribeTagOption (DescribeTagOption'),
+    newDescribeTagOption,
+    DescribeTagOptionResponse (DescribeTagOptionResponse'),
+    newDescribeTagOptionResponse,
 
     -- ** DeleteConstraint
-    module Network.AWS.ServiceCatalog.DeleteConstraint,
+    DeleteConstraint (DeleteConstraint'),
+    newDeleteConstraint,
+    DeleteConstraintResponse (DeleteConstraintResponse'),
+    newDeleteConstraintResponse,
 
     -- ** UpdateConstraint
-    module Network.AWS.ServiceCatalog.UpdateConstraint,
+    UpdateConstraint (UpdateConstraint'),
+    newUpdateConstraint,
+    UpdateConstraintResponse (UpdateConstraintResponse'),
+    newUpdateConstraintResponse,
 
     -- ** ListResourcesForTagOption (Paginated)
-    module Network.AWS.ServiceCatalog.ListResourcesForTagOption,
+    ListResourcesForTagOption (ListResourcesForTagOption'),
+    newListResourcesForTagOption,
+    ListResourcesForTagOptionResponse (ListResourcesForTagOptionResponse'),
+    newListResourcesForTagOptionResponse,
 
     -- ** DescribePortfolioShares
-    module Network.AWS.ServiceCatalog.DescribePortfolioShares,
+    DescribePortfolioShares (DescribePortfolioShares'),
+    newDescribePortfolioShares,
+    DescribePortfolioSharesResponse (DescribePortfolioSharesResponse'),
+    newDescribePortfolioSharesResponse,
 
     -- ** GetProvisionedProductOutputs
-    module Network.AWS.ServiceCatalog.GetProvisionedProductOutputs,
+    GetProvisionedProductOutputs (GetProvisionedProductOutputs'),
+    newGetProvisionedProductOutputs,
+    GetProvisionedProductOutputsResponse (GetProvisionedProductOutputsResponse'),
+    newGetProvisionedProductOutputsResponse,
 
     -- ** AssociateBudgetWithResource
-    module Network.AWS.ServiceCatalog.AssociateBudgetWithResource,
+    AssociateBudgetWithResource (AssociateBudgetWithResource'),
+    newAssociateBudgetWithResource,
+    AssociateBudgetWithResourceResponse (AssociateBudgetWithResourceResponse'),
+    newAssociateBudgetWithResourceResponse,
 
     -- ** DeleteProvisionedProductPlan
-    module Network.AWS.ServiceCatalog.DeleteProvisionedProductPlan,
+    DeleteProvisionedProductPlan (DeleteProvisionedProductPlan'),
+    newDeleteProvisionedProductPlan,
+    DeleteProvisionedProductPlanResponse (DeleteProvisionedProductPlanResponse'),
+    newDeleteProvisionedProductPlanResponse,
 
     -- ** ListLaunchPaths (Paginated)
-    module Network.AWS.ServiceCatalog.ListLaunchPaths,
+    ListLaunchPaths (ListLaunchPaths'),
+    newListLaunchPaths,
+    ListLaunchPathsResponse (ListLaunchPathsResponse'),
+    newListLaunchPathsResponse,
 
     -- ** CreateConstraint
-    module Network.AWS.ServiceCatalog.CreateConstraint,
+    CreateConstraint (CreateConstraint'),
+    newCreateConstraint,
+    CreateConstraintResponse (CreateConstraintResponse'),
+    newCreateConstraintResponse,
 
     -- ** DescribePortfolioShareStatus
-    module Network.AWS.ServiceCatalog.DescribePortfolioShareStatus,
+    DescribePortfolioShareStatus (DescribePortfolioShareStatus'),
+    newDescribePortfolioShareStatus,
+    DescribePortfolioShareStatusResponse (DescribePortfolioShareStatusResponse'),
+    newDescribePortfolioShareStatusResponse,
 
     -- ** DeletePortfolioShare
-    module Network.AWS.ServiceCatalog.DeletePortfolioShare,
+    DeletePortfolioShare (DeletePortfolioShare'),
+    newDeletePortfolioShare,
+    DeletePortfolioShareResponse (DeletePortfolioShareResponse'),
+    newDeletePortfolioShareResponse,
 
     -- ** DescribeServiceAction
-    module Network.AWS.ServiceCatalog.DescribeServiceAction,
+    DescribeServiceAction (DescribeServiceAction'),
+    newDescribeServiceAction,
+    DescribeServiceActionResponse (DescribeServiceActionResponse'),
+    newDescribeServiceActionResponse,
 
     -- ** UpdateProvisioningArtifact
-    module Network.AWS.ServiceCatalog.UpdateProvisioningArtifact,
+    UpdateProvisioningArtifact (UpdateProvisioningArtifact'),
+    newUpdateProvisioningArtifact,
+    UpdateProvisioningArtifactResponse (UpdateProvisioningArtifactResponse'),
+    newUpdateProvisioningArtifactResponse,
 
     -- ** ListStackInstancesForProvisionedProduct
-    module Network.AWS.ServiceCatalog.ListStackInstancesForProvisionedProduct,
+    ListStackInstancesForProvisionedProduct (ListStackInstancesForProvisionedProduct'),
+    newListStackInstancesForProvisionedProduct,
+    ListStackInstancesForProvisionedProductResponse (ListStackInstancesForProvisionedProductResponse'),
+    newListStackInstancesForProvisionedProductResponse,
 
     -- ** DeleteProvisioningArtifact
-    module Network.AWS.ServiceCatalog.DeleteProvisioningArtifact,
+    DeleteProvisioningArtifact (DeleteProvisioningArtifact'),
+    newDeleteProvisioningArtifact,
+    DeleteProvisioningArtifactResponse (DeleteProvisioningArtifactResponse'),
+    newDeleteProvisioningArtifactResponse,
 
     -- ** DescribeProvisioningParameters
-    module Network.AWS.ServiceCatalog.DescribeProvisioningParameters,
+    DescribeProvisioningParameters (DescribeProvisioningParameters'),
+    newDescribeProvisioningParameters,
+    DescribeProvisioningParametersResponse (DescribeProvisioningParametersResponse'),
+    newDescribeProvisioningParametersResponse,
 
     -- ** ListProvisioningArtifacts
-    module Network.AWS.ServiceCatalog.ListProvisioningArtifacts,
+    ListProvisioningArtifacts (ListProvisioningArtifacts'),
+    newListProvisioningArtifacts,
+    ListProvisioningArtifactsResponse (ListProvisioningArtifactsResponse'),
+    newListProvisioningArtifactsResponse,
 
     -- ** DescribeProvisionedProduct
-    module Network.AWS.ServiceCatalog.DescribeProvisionedProduct,
+    DescribeProvisionedProduct (DescribeProvisionedProduct'),
+    newDescribeProvisionedProduct,
+    DescribeProvisionedProductResponse (DescribeProvisionedProductResponse'),
+    newDescribeProvisionedProductResponse,
 
     -- ** DescribeProduct
-    module Network.AWS.ServiceCatalog.DescribeProduct,
+    DescribeProduct (DescribeProduct'),
+    newDescribeProduct,
+    DescribeProductResponse (DescribeProductResponse'),
+    newDescribeProductResponse,
 
     -- ** UpdatePortfolioShare
-    module Network.AWS.ServiceCatalog.UpdatePortfolioShare,
+    UpdatePortfolioShare (UpdatePortfolioShare'),
+    newUpdatePortfolioShare,
+    UpdatePortfolioShareResponse (UpdatePortfolioShareResponse'),
+    newUpdatePortfolioShareResponse,
 
     -- ** SearchProvisionedProducts
-    module Network.AWS.ServiceCatalog.SearchProvisionedProducts,
+    SearchProvisionedProducts (SearchProvisionedProducts'),
+    newSearchProvisionedProducts,
+    SearchProvisionedProductsResponse (SearchProvisionedProductsResponse'),
+    newSearchProvisionedProductsResponse,
 
     -- ** ListServiceActionsForProvisioningArtifact (Paginated)
-    module Network.AWS.ServiceCatalog.ListServiceActionsForProvisioningArtifact,
+    ListServiceActionsForProvisioningArtifact (ListServiceActionsForProvisioningArtifact'),
+    newListServiceActionsForProvisioningArtifact,
+    ListServiceActionsForProvisioningArtifactResponse (ListServiceActionsForProvisioningArtifactResponse'),
+    newListServiceActionsForProvisioningArtifactResponse,
 
     -- ** CreateProvisioningArtifact
-    module Network.AWS.ServiceCatalog.CreateProvisioningArtifact,
+    CreateProvisioningArtifact (CreateProvisioningArtifact'),
+    newCreateProvisioningArtifact,
+    CreateProvisioningArtifactResponse (CreateProvisioningArtifactResponse'),
+    newCreateProvisioningArtifactResponse,
 
     -- ** DeletePortfolio
-    module Network.AWS.ServiceCatalog.DeletePortfolio,
+    DeletePortfolio (DeletePortfolio'),
+    newDeletePortfolio,
+    DeletePortfolioResponse (DeletePortfolioResponse'),
+    newDeletePortfolioResponse,
 
     -- ** CreatePortfolioShare
-    module Network.AWS.ServiceCatalog.CreatePortfolioShare,
+    CreatePortfolioShare (CreatePortfolioShare'),
+    newCreatePortfolioShare,
+    CreatePortfolioShareResponse (CreatePortfolioShareResponse'),
+    newCreatePortfolioShareResponse,
 
     -- ** DisassociateBudgetFromResource
-    module Network.AWS.ServiceCatalog.DisassociateBudgetFromResource,
+    DisassociateBudgetFromResource (DisassociateBudgetFromResource'),
+    newDisassociateBudgetFromResource,
+    DisassociateBudgetFromResourceResponse (DisassociateBudgetFromResourceResponse'),
+    newDisassociateBudgetFromResourceResponse,
 
     -- ** UpdatePortfolio
-    module Network.AWS.ServiceCatalog.UpdatePortfolio,
+    UpdatePortfolio (UpdatePortfolio'),
+    newUpdatePortfolio,
+    UpdatePortfolioResponse (UpdatePortfolioResponse'),
+    newUpdatePortfolioResponse,
 
     -- ** ListPortfolios (Paginated)
-    module Network.AWS.ServiceCatalog.ListPortfolios,
+    ListPortfolios (ListPortfolios'),
+    newListPortfolios,
+    ListPortfoliosResponse (ListPortfoliosResponse'),
+    newListPortfoliosResponse,
 
     -- ** GetAWSOrganizationsAccessStatus
-    module Network.AWS.ServiceCatalog.GetAWSOrganizationsAccessStatus,
+    GetAWSOrganizationsAccessStatus (GetAWSOrganizationsAccessStatus'),
+    newGetAWSOrganizationsAccessStatus,
+    GetAWSOrganizationsAccessStatusResponse (GetAWSOrganizationsAccessStatusResponse'),
+    newGetAWSOrganizationsAccessStatusResponse,
 
     -- ** SearchProductsAsAdmin (Paginated)
-    module Network.AWS.ServiceCatalog.SearchProductsAsAdmin,
+    SearchProductsAsAdmin (SearchProductsAsAdmin'),
+    newSearchProductsAsAdmin,
+    SearchProductsAsAdminResponse (SearchProductsAsAdminResponse'),
+    newSearchProductsAsAdminResponse,
 
     -- ** DescribeRecord
-    module Network.AWS.ServiceCatalog.DescribeRecord,
+    DescribeRecord (DescribeRecord'),
+    newDescribeRecord,
+    DescribeRecordResponse (DescribeRecordResponse'),
+    newDescribeRecordResponse,
 
     -- ** DescribeConstraint
-    module Network.AWS.ServiceCatalog.DescribeConstraint,
+    DescribeConstraint (DescribeConstraint'),
+    newDescribeConstraint,
+    DescribeConstraintResponse (DescribeConstraintResponse'),
+    newDescribeConstraintResponse,
 
     -- ** EnableAWSOrganizationsAccess
-    module Network.AWS.ServiceCatalog.EnableAWSOrganizationsAccess,
+    EnableAWSOrganizationsAccess (EnableAWSOrganizationsAccess'),
+    newEnableAWSOrganizationsAccess,
+    EnableAWSOrganizationsAccessResponse (EnableAWSOrganizationsAccessResponse'),
+    newEnableAWSOrganizationsAccessResponse,
 
     -- ** DeleteTagOption
-    module Network.AWS.ServiceCatalog.DeleteTagOption,
+    DeleteTagOption (DeleteTagOption'),
+    newDeleteTagOption,
+    DeleteTagOptionResponse (DeleteTagOptionResponse'),
+    newDeleteTagOptionResponse,
 
     -- ** DisassociateServiceActionFromProvisioningArtifact
-    module Network.AWS.ServiceCatalog.DisassociateServiceActionFromProvisioningArtifact,
+    DisassociateServiceActionFromProvisioningArtifact (DisassociateServiceActionFromProvisioningArtifact'),
+    newDisassociateServiceActionFromProvisioningArtifact,
+    DisassociateServiceActionFromProvisioningArtifactResponse (DisassociateServiceActionFromProvisioningArtifactResponse'),
+    newDisassociateServiceActionFromProvisioningArtifactResponse,
 
     -- ** UpdateTagOption
-    module Network.AWS.ServiceCatalog.UpdateTagOption,
+    UpdateTagOption (UpdateTagOption'),
+    newUpdateTagOption,
+    UpdateTagOptionResponse (UpdateTagOptionResponse'),
+    newUpdateTagOptionResponse,
 
     -- ** ListConstraintsForPortfolio (Paginated)
-    module Network.AWS.ServiceCatalog.ListConstraintsForPortfolio,
+    ListConstraintsForPortfolio (ListConstraintsForPortfolio'),
+    newListConstraintsForPortfolio,
+    ListConstraintsForPortfolioResponse (ListConstraintsForPortfolioResponse'),
+    newListConstraintsForPortfolioResponse,
 
     -- ** ListRecordHistory (Paginated)
-    module Network.AWS.ServiceCatalog.ListRecordHistory,
+    ListRecordHistory (ListRecordHistory'),
+    newListRecordHistory,
+    ListRecordHistoryResponse (ListRecordHistoryResponse'),
+    newListRecordHistoryResponse,
 
     -- ** CreateTagOption
-    module Network.AWS.ServiceCatalog.CreateTagOption,
+    CreateTagOption (CreateTagOption'),
+    newCreateTagOption,
+    CreateTagOptionResponse (CreateTagOptionResponse'),
+    newCreateTagOptionResponse,
 
     -- ** UpdateProduct
-    module Network.AWS.ServiceCatalog.UpdateProduct,
+    UpdateProduct (UpdateProduct'),
+    newUpdateProduct,
+    UpdateProductResponse (UpdateProductResponse'),
+    newUpdateProductResponse,
 
     -- ** UpdateServiceAction
-    module Network.AWS.ServiceCatalog.UpdateServiceAction,
+    UpdateServiceAction (UpdateServiceAction'),
+    newUpdateServiceAction,
+    UpdateServiceActionResponse (UpdateServiceActionResponse'),
+    newUpdateServiceActionResponse,
 
     -- ** DescribeProvisioningArtifact
-    module Network.AWS.ServiceCatalog.DescribeProvisioningArtifact,
+    DescribeProvisioningArtifact (DescribeProvisioningArtifact'),
+    newDescribeProvisioningArtifact,
+    DescribeProvisioningArtifactResponse (DescribeProvisioningArtifactResponse'),
+    newDescribeProvisioningArtifactResponse,
 
     -- ** DeleteServiceAction
-    module Network.AWS.ServiceCatalog.DeleteServiceAction,
+    DeleteServiceAction (DeleteServiceAction'),
+    newDeleteServiceAction,
+    DeleteServiceActionResponse (DeleteServiceActionResponse'),
+    newDeleteServiceActionResponse,
 
     -- ** AssociateServiceActionWithProvisioningArtifact
-    module Network.AWS.ServiceCatalog.AssociateServiceActionWithProvisioningArtifact,
+    AssociateServiceActionWithProvisioningArtifact (AssociateServiceActionWithProvisioningArtifact'),
+    newAssociateServiceActionWithProvisioningArtifact,
+    AssociateServiceActionWithProvisioningArtifactResponse (AssociateServiceActionWithProvisioningArtifactResponse'),
+    newAssociateServiceActionWithProvisioningArtifactResponse,
 
     -- ** UpdateProvisionedProduct
-    module Network.AWS.ServiceCatalog.UpdateProvisionedProduct,
+    UpdateProvisionedProduct (UpdateProvisionedProduct'),
+    newUpdateProvisionedProduct,
+    UpdateProvisionedProductResponse (UpdateProvisionedProductResponse'),
+    newUpdateProvisionedProductResponse,
 
     -- ** DeleteProduct
-    module Network.AWS.ServiceCatalog.DeleteProduct,
+    DeleteProduct (DeleteProduct'),
+    newDeleteProduct,
+    DeleteProductResponse (DeleteProductResponse'),
+    newDeleteProductResponse,
 
     -- ** DescribeCopyProductStatus
-    module Network.AWS.ServiceCatalog.DescribeCopyProductStatus,
+    DescribeCopyProductStatus (DescribeCopyProductStatus'),
+    newDescribeCopyProductStatus,
+    DescribeCopyProductStatusResponse (DescribeCopyProductStatusResponse'),
+    newDescribeCopyProductStatusResponse,
 
     -- ** CreateServiceAction
-    module Network.AWS.ServiceCatalog.CreateServiceAction,
+    CreateServiceAction (CreateServiceAction'),
+    newCreateServiceAction,
+    CreateServiceActionResponse (CreateServiceActionResponse'),
+    newCreateServiceActionResponse,
 
     -- ** CreateProduct
-    module Network.AWS.ServiceCatalog.CreateProduct,
+    CreateProduct (CreateProduct'),
+    newCreateProduct,
+    CreateProductResponse (CreateProductResponse'),
+    newCreateProductResponse,
 
     -- ** AcceptPortfolioShare
-    module Network.AWS.ServiceCatalog.AcceptPortfolioShare,
+    AcceptPortfolioShare (AcceptPortfolioShare'),
+    newAcceptPortfolioShare,
+    AcceptPortfolioShareResponse (AcceptPortfolioShareResponse'),
+    newAcceptPortfolioShareResponse,
 
     -- ** DisassociatePrincipalFromPortfolio
-    module Network.AWS.ServiceCatalog.DisassociatePrincipalFromPortfolio,
+    DisassociatePrincipalFromPortfolio (DisassociatePrincipalFromPortfolio'),
+    newDisassociatePrincipalFromPortfolio,
+    DisassociatePrincipalFromPortfolioResponse (DisassociatePrincipalFromPortfolioResponse'),
+    newDisassociatePrincipalFromPortfolioResponse,
 
     -- ** BatchDisassociateServiceActionFromProvisioningArtifact
-    module Network.AWS.ServiceCatalog.BatchDisassociateServiceActionFromProvisioningArtifact,
+    BatchDisassociateServiceActionFromProvisioningArtifact (BatchDisassociateServiceActionFromProvisioningArtifact'),
+    newBatchDisassociateServiceActionFromProvisioningArtifact,
+    BatchDisassociateServiceActionFromProvisioningArtifactResponse (BatchDisassociateServiceActionFromProvisioningArtifactResponse'),
+    newBatchDisassociateServiceActionFromProvisioningArtifactResponse,
 
     -- ** ListProvisionedProductPlans (Paginated)
-    module Network.AWS.ServiceCatalog.ListProvisionedProductPlans,
+    ListProvisionedProductPlans (ListProvisionedProductPlans'),
+    newListProvisionedProductPlans,
+    ListProvisionedProductPlansResponse (ListProvisionedProductPlansResponse'),
+    newListProvisionedProductPlansResponse,
 
     -- ** BatchAssociateServiceActionWithProvisioningArtifact
-    module Network.AWS.ServiceCatalog.BatchAssociateServiceActionWithProvisioningArtifact,
+    BatchAssociateServiceActionWithProvisioningArtifact (BatchAssociateServiceActionWithProvisioningArtifact'),
+    newBatchAssociateServiceActionWithProvisioningArtifact,
+    BatchAssociateServiceActionWithProvisioningArtifactResponse (BatchAssociateServiceActionWithProvisioningArtifactResponse'),
+    newBatchAssociateServiceActionWithProvisioningArtifactResponse,
 
     -- ** SearchProducts
-    module Network.AWS.ServiceCatalog.SearchProducts,
+    SearchProducts (SearchProducts'),
+    newSearchProducts,
+    SearchProductsResponse (SearchProductsResponse'),
+    newSearchProductsResponse,
 
     -- ** ListProvisioningArtifactsForServiceAction (Paginated)
-    module Network.AWS.ServiceCatalog.ListProvisioningArtifactsForServiceAction,
+    ListProvisioningArtifactsForServiceAction (ListProvisioningArtifactsForServiceAction'),
+    newListProvisioningArtifactsForServiceAction,
+    ListProvisioningArtifactsForServiceActionResponse (ListProvisioningArtifactsForServiceActionResponse'),
+    newListProvisioningArtifactsForServiceActionResponse,
 
     -- ** AssociatePrincipalWithPortfolio
-    module Network.AWS.ServiceCatalog.AssociatePrincipalWithPortfolio,
+    AssociatePrincipalWithPortfolio (AssociatePrincipalWithPortfolio'),
+    newAssociatePrincipalWithPortfolio,
+    AssociatePrincipalWithPortfolioResponse (AssociatePrincipalWithPortfolioResponse'),
+    newAssociatePrincipalWithPortfolioResponse,
 
     -- ** DescribeServiceActionExecutionParameters
-    module Network.AWS.ServiceCatalog.DescribeServiceActionExecutionParameters,
+    DescribeServiceActionExecutionParameters (DescribeServiceActionExecutionParameters'),
+    newDescribeServiceActionExecutionParameters,
+    DescribeServiceActionExecutionParametersResponse (DescribeServiceActionExecutionParametersResponse'),
+    newDescribeServiceActionExecutionParametersResponse,
 
     -- ** CopyProduct
-    module Network.AWS.ServiceCatalog.CopyProduct,
+    CopyProduct (CopyProduct'),
+    newCopyProduct,
+    CopyProductResponse (CopyProductResponse'),
+    newCopyProductResponse,
 
     -- ** CreatePortfolio
-    module Network.AWS.ServiceCatalog.CreatePortfolio,
+    CreatePortfolio (CreatePortfolio'),
+    newCreatePortfolio,
+    CreatePortfolioResponse (CreatePortfolioResponse'),
+    newCreatePortfolioResponse,
 
     -- ** UpdateProvisionedProductProperties
-    module Network.AWS.ServiceCatalog.UpdateProvisionedProductProperties,
+    UpdateProvisionedProductProperties (UpdateProvisionedProductProperties'),
+    newUpdateProvisionedProductProperties,
+    UpdateProvisionedProductPropertiesResponse (UpdateProvisionedProductPropertiesResponse'),
+    newUpdateProvisionedProductPropertiesResponse,
 
     -- ** DescribeProductView
-    module Network.AWS.ServiceCatalog.DescribeProductView,
+    DescribeProductView (DescribeProductView'),
+    newDescribeProductView,
+    DescribeProductViewResponse (DescribeProductViewResponse'),
+    newDescribeProductViewResponse,
 
     -- ** DescribeProductAsAdmin
-    module Network.AWS.ServiceCatalog.DescribeProductAsAdmin,
+    DescribeProductAsAdmin (DescribeProductAsAdmin'),
+    newDescribeProductAsAdmin,
+    DescribeProductAsAdminResponse (DescribeProductAsAdminResponse'),
+    newDescribeProductAsAdminResponse,
 
     -- ** ListPortfoliosForProduct (Paginated)
-    module Network.AWS.ServiceCatalog.ListPortfoliosForProduct,
+    ListPortfoliosForProduct (ListPortfoliosForProduct'),
+    newListPortfoliosForProduct,
+    ListPortfoliosForProductResponse (ListPortfoliosForProductResponse'),
+    newListPortfoliosForProductResponse,
 
     -- ** RejectPortfolioShare
-    module Network.AWS.ServiceCatalog.RejectPortfolioShare,
+    RejectPortfolioShare (RejectPortfolioShare'),
+    newRejectPortfolioShare,
+    RejectPortfolioShareResponse (RejectPortfolioShareResponse'),
+    newRejectPortfolioShareResponse,
 
     -- ** ListTagOptions (Paginated)
-    module Network.AWS.ServiceCatalog.ListTagOptions,
+    ListTagOptions (ListTagOptions'),
+    newListTagOptions,
+    ListTagOptionsResponse (ListTagOptionsResponse'),
+    newListTagOptionsResponse,
 
     -- ** AssociateTagOptionWithResource
-    module Network.AWS.ServiceCatalog.AssociateTagOptionWithResource,
+    AssociateTagOptionWithResource (AssociateTagOptionWithResource'),
+    newAssociateTagOptionWithResource,
+    AssociateTagOptionWithResourceResponse (AssociateTagOptionWithResourceResponse'),
+    newAssociateTagOptionWithResourceResponse,
 
     -- ** DisableAWSOrganizationsAccess
-    module Network.AWS.ServiceCatalog.DisableAWSOrganizationsAccess,
+    DisableAWSOrganizationsAccess (DisableAWSOrganizationsAccess'),
+    newDisableAWSOrganizationsAccess,
+    DisableAWSOrganizationsAccessResponse (DisableAWSOrganizationsAccessResponse'),
+    newDisableAWSOrganizationsAccessResponse,
 
     -- ** DescribeProvisionedProductPlan
-    module Network.AWS.ServiceCatalog.DescribeProvisionedProductPlan,
+    DescribeProvisionedProductPlan (DescribeProvisionedProductPlan'),
+    newDescribeProvisionedProductPlan,
+    DescribeProvisionedProductPlanResponse (DescribeProvisionedProductPlanResponse'),
+    newDescribeProvisionedProductPlanResponse,
 
     -- ** ListBudgetsForResource
-    module Network.AWS.ServiceCatalog.ListBudgetsForResource,
+    ListBudgetsForResource (ListBudgetsForResource'),
+    newListBudgetsForResource,
+    ListBudgetsForResourceResponse (ListBudgetsForResourceResponse'),
+    newListBudgetsForResourceResponse,
 
     -- ** DisassociateProductFromPortfolio
-    module Network.AWS.ServiceCatalog.DisassociateProductFromPortfolio,
+    DisassociateProductFromPortfolio (DisassociateProductFromPortfolio'),
+    newDisassociateProductFromPortfolio,
+    DisassociateProductFromPortfolioResponse (DisassociateProductFromPortfolioResponse'),
+    newDisassociateProductFromPortfolioResponse,
 
     -- ** ListPrincipalsForPortfolio (Paginated)
-    module Network.AWS.ServiceCatalog.ListPrincipalsForPortfolio,
+    ListPrincipalsForPortfolio (ListPrincipalsForPortfolio'),
+    newListPrincipalsForPortfolio,
+    ListPrincipalsForPortfolioResponse (ListPrincipalsForPortfolioResponse'),
+    newListPrincipalsForPortfolioResponse,
 
     -- ** ProvisionProduct
-    module Network.AWS.ServiceCatalog.ProvisionProduct,
+    ProvisionProduct (ProvisionProduct'),
+    newProvisionProduct,
+    ProvisionProductResponse (ProvisionProductResponse'),
+    newProvisionProductResponse,
 
     -- ** TerminateProvisionedProduct
-    module Network.AWS.ServiceCatalog.TerminateProvisionedProduct,
+    TerminateProvisionedProduct (TerminateProvisionedProduct'),
+    newTerminateProvisionedProduct,
+    TerminateProvisionedProductResponse (TerminateProvisionedProductResponse'),
+    newTerminateProvisionedProductResponse,
 
     -- ** ListServiceActions (Paginated)
-    module Network.AWS.ServiceCatalog.ListServiceActions,
+    ListServiceActions (ListServiceActions'),
+    newListServiceActions,
+    ListServiceActionsResponse (ListServiceActionsResponse'),
+    newListServiceActionsResponse,
 
     -- * Types
 
@@ -417,458 +682,216 @@ module Network.AWS.ServiceCatalog
     StackSetOperationType (..),
 
     -- ** AccessLevelFilter
-    AccessLevelFilter,
-    accessLevelFilter,
-    alfKey,
-    alfValue,
+    AccessLevelFilter (AccessLevelFilter'),
+    newAccessLevelFilter,
 
     -- ** BudgetDetail
-    BudgetDetail,
-    budgetDetail,
-    bdBudgetName,
+    BudgetDetail (BudgetDetail'),
+    newBudgetDetail,
 
     -- ** CloudWatchDashboard
-    CloudWatchDashboard,
-    cloudWatchDashboard,
-    cwdName,
+    CloudWatchDashboard (CloudWatchDashboard'),
+    newCloudWatchDashboard,
 
     -- ** ConstraintDetail
-    ConstraintDetail,
-    constraintDetail,
-    cdConstraintId,
-    cdPortfolioId,
-    cdOwner,
-    cdProductId,
-    cdDescription,
-    cdType,
+    ConstraintDetail (ConstraintDetail'),
+    newConstraintDetail,
 
     -- ** ConstraintSummary
-    ConstraintSummary,
-    constraintSummary,
-    csDescription,
-    csType,
+    ConstraintSummary (ConstraintSummary'),
+    newConstraintSummary,
 
     -- ** ExecutionParameter
-    ExecutionParameter,
-    executionParameter,
-    epName,
-    epDefaultValues,
-    epType,
+    ExecutionParameter (ExecutionParameter'),
+    newExecutionParameter,
 
     -- ** FailedServiceActionAssociation
-    FailedServiceActionAssociation,
-    failedServiceActionAssociation,
-    fsaaProvisioningArtifactId,
-    fsaaServiceActionId,
-    fsaaProductId,
-    fsaaErrorMessage,
-    fsaaErrorCode,
+    FailedServiceActionAssociation (FailedServiceActionAssociation'),
+    newFailedServiceActionAssociation,
 
     -- ** LaunchPath
-    LaunchPath,
-    launchPath,
-    lpId,
-    lpName,
+    LaunchPath (LaunchPath'),
+    newLaunchPath,
 
     -- ** LaunchPathSummary
-    LaunchPathSummary,
-    launchPathSummary,
-    lpsConstraintSummaries,
-    lpsId,
-    lpsName,
-    lpsTags,
+    LaunchPathSummary (LaunchPathSummary'),
+    newLaunchPathSummary,
 
     -- ** ListRecordHistorySearchFilter
-    ListRecordHistorySearchFilter,
-    listRecordHistorySearchFilter,
-    lrhsfKey,
-    lrhsfValue,
+    ListRecordHistorySearchFilter (ListRecordHistorySearchFilter'),
+    newListRecordHistorySearchFilter,
 
     -- ** ListTagOptionsFilters
-    ListTagOptionsFilters,
-    listTagOptionsFilters,
-    ltofKey,
-    ltofActive,
-    ltofValue,
+    ListTagOptionsFilters (ListTagOptionsFilters'),
+    newListTagOptionsFilters,
 
     -- ** OrganizationNode
-    OrganizationNode,
-    organizationNode,
-    onValue,
-    onType,
+    OrganizationNode (OrganizationNode'),
+    newOrganizationNode,
 
     -- ** ParameterConstraints
-    ParameterConstraints,
-    parameterConstraints,
-    pcMaxValue,
-    pcMinLength,
-    pcAllowedValues,
-    pcMinValue,
-    pcConstraintDescription,
-    pcMaxLength,
-    pcAllowedPattern,
+    ParameterConstraints (ParameterConstraints'),
+    newParameterConstraints,
 
     -- ** PortfolioDetail
-    PortfolioDetail,
-    portfolioDetail,
-    pdProviderName,
-    pdId,
-    pdARN,
-    pdCreatedTime,
-    pdDescription,
-    pdDisplayName,
+    PortfolioDetail (PortfolioDetail'),
+    newPortfolioDetail,
 
     -- ** PortfolioShareDetail
-    PortfolioShareDetail,
-    portfolioShareDetail,
-    psdShareTagOptions,
-    psdPrincipalId,
-    psdAccepted,
-    psdType,
+    PortfolioShareDetail (PortfolioShareDetail'),
+    newPortfolioShareDetail,
 
     -- ** Principal
-    Principal,
-    principal,
-    pPrincipalARN,
-    pPrincipalType,
+    Principal (Principal'),
+    newPrincipal,
 
     -- ** ProductViewAggregationValue
-    ProductViewAggregationValue,
-    productViewAggregationValue,
-    pvavValue,
-    pvavApproximateCount,
+    ProductViewAggregationValue (ProductViewAggregationValue'),
+    newProductViewAggregationValue,
 
     -- ** ProductViewDetail
-    ProductViewDetail,
-    productViewDetail,
-    pvdStatus,
-    pvdProductARN,
-    pvdCreatedTime,
-    pvdProductViewSummary,
+    ProductViewDetail (ProductViewDetail'),
+    newProductViewDetail,
 
     -- ** ProductViewSummary
-    ProductViewSummary,
-    productViewSummary,
-    pvsDistributor,
-    pvsId,
-    pvsName,
-    pvsHasDefaultPath,
-    pvsShortDescription,
-    pvsSupportURL,
-    pvsSupportDescription,
-    pvsOwner,
-    pvsProductId,
-    pvsSupportEmail,
-    pvsType,
+    ProductViewSummary (ProductViewSummary'),
+    newProductViewSummary,
 
     -- ** ProvisionedProductAttribute
-    ProvisionedProductAttribute,
-    provisionedProductAttribute,
-    ppaStatusMessage,
-    ppaLastSuccessfulProvisioningRecordId,
-    ppaIdempotencyToken,
-    ppaStatus,
-    ppaUserARN,
-    ppaProvisioningArtifactName,
-    ppaARN,
-    ppaId,
-    ppaCreatedTime,
-    ppaProvisioningArtifactId,
-    ppaName,
-    ppaProductName,
-    ppaTags,
-    ppaProductId,
-    ppaLastProvisioningRecordId,
-    ppaType,
-    ppaPhysicalId,
-    ppaUserARNSession,
-    ppaLastRecordId,
+    ProvisionedProductAttribute (ProvisionedProductAttribute'),
+    newProvisionedProductAttribute,
 
     -- ** ProvisionedProductDetail
-    ProvisionedProductDetail,
-    provisionedProductDetail,
-    ppdStatusMessage,
-    ppdLastSuccessfulProvisioningRecordId,
-    ppdIdempotencyToken,
-    ppdStatus,
-    ppdARN,
-    ppdId,
-    ppdCreatedTime,
-    ppdProvisioningArtifactId,
-    ppdName,
-    ppdLaunchRoleARN,
-    ppdProductId,
-    ppdLastProvisioningRecordId,
-    ppdType,
-    ppdLastRecordId,
+    ProvisionedProductDetail (ProvisionedProductDetail'),
+    newProvisionedProductDetail,
 
     -- ** ProvisionedProductPlanDetails
-    ProvisionedProductPlanDetails,
-    provisionedProductPlanDetails,
-    pppdProvisionProductId,
-    pppdStatusMessage,
-    pppdStatus,
-    pppdNotificationARNs,
-    pppdUpdatedTime,
-    pppdCreatedTime,
-    pppdProvisioningArtifactId,
-    pppdPlanName,
-    pppdTags,
-    pppdPlanId,
-    pppdProductId,
-    pppdProvisioningParameters,
-    pppdPlanType,
-    pppdPathId,
-    pppdProvisionProductName,
+    ProvisionedProductPlanDetails (ProvisionedProductPlanDetails'),
+    newProvisionedProductPlanDetails,
 
     -- ** ProvisionedProductPlanSummary
-    ProvisionedProductPlanSummary,
-    provisionedProductPlanSummary,
-    pppsProvisionProductId,
-    pppsProvisioningArtifactId,
-    pppsPlanName,
-    pppsPlanId,
-    pppsPlanType,
-    pppsProvisionProductName,
+    ProvisionedProductPlanSummary (ProvisionedProductPlanSummary'),
+    newProvisionedProductPlanSummary,
 
     -- ** ProvisioningArtifact
-    ProvisioningArtifact,
-    provisioningArtifact,
-    paGuidance,
-    paId,
-    paCreatedTime,
-    paName,
-    paDescription,
+    ProvisioningArtifact (ProvisioningArtifact'),
+    newProvisioningArtifact,
 
     -- ** ProvisioningArtifactDetail
-    ProvisioningArtifactDetail,
-    provisioningArtifactDetail,
-    padGuidance,
-    padId,
-    padCreatedTime,
-    padName,
-    padActive,
-    padDescription,
-    padType,
+    ProvisioningArtifactDetail (ProvisioningArtifactDetail'),
+    newProvisioningArtifactDetail,
 
     -- ** ProvisioningArtifactOutput
-    ProvisioningArtifactOutput,
-    provisioningArtifactOutput,
-    paoKey,
-    paoDescription,
+    ProvisioningArtifactOutput (ProvisioningArtifactOutput'),
+    newProvisioningArtifactOutput,
 
     -- ** ProvisioningArtifactParameter
-    ProvisioningArtifactParameter,
-    provisioningArtifactParameter,
-    pIsNoEcho,
-    pParameterConstraints,
-    pParameterType,
-    pParameterKey,
-    pDescription,
-    pDefaultValue,
+    ProvisioningArtifactParameter (ProvisioningArtifactParameter'),
+    newProvisioningArtifactParameter,
 
     -- ** ProvisioningArtifactPreferences
-    ProvisioningArtifactPreferences,
-    provisioningArtifactPreferences,
-    papStackSetAccounts,
-    papStackSetRegions,
+    ProvisioningArtifactPreferences (ProvisioningArtifactPreferences'),
+    newProvisioningArtifactPreferences,
 
     -- ** ProvisioningArtifactProperties
-    ProvisioningArtifactProperties,
-    provisioningArtifactProperties,
-    papDisableTemplateValidation,
-    papName,
-    papDescription,
-    papType,
-    papInfo,
+    ProvisioningArtifactProperties (ProvisioningArtifactProperties'),
+    newProvisioningArtifactProperties,
 
     -- ** ProvisioningArtifactSummary
-    ProvisioningArtifactSummary,
-    provisioningArtifactSummary,
-    pasId,
-    pasCreatedTime,
-    pasProvisioningArtifactMetadata,
-    pasName,
-    pasDescription,
+    ProvisioningArtifactSummary (ProvisioningArtifactSummary'),
+    newProvisioningArtifactSummary,
 
     -- ** ProvisioningArtifactView
-    ProvisioningArtifactView,
-    provisioningArtifactView,
-    pavProductViewSummary,
-    pavProvisioningArtifact,
+    ProvisioningArtifactView (ProvisioningArtifactView'),
+    newProvisioningArtifactView,
 
     -- ** ProvisioningParameter
-    ProvisioningParameter,
-    provisioningParameter,
-    ppKey,
-    ppValue,
+    ProvisioningParameter (ProvisioningParameter'),
+    newProvisioningParameter,
 
     -- ** ProvisioningPreferences
-    ProvisioningPreferences,
-    provisioningPreferences,
-    ppStackSetFailureToleranceCount,
-    ppStackSetAccounts,
-    ppStackSetFailureTolerancePercentage,
-    ppStackSetRegions,
-    ppStackSetMaxConcurrencyCount,
-    ppStackSetMaxConcurrencyPercentage,
+    ProvisioningPreferences (ProvisioningPreferences'),
+    newProvisioningPreferences,
 
     -- ** RecordDetail
-    RecordDetail,
-    recordDetail,
-    rdRecordTags,
-    rdStatus,
-    rdProvisionedProductName,
-    rdRecordErrors,
-    rdProvisionedProductId,
-    rdProvisionedProductType,
-    rdRecordId,
-    rdUpdatedTime,
-    rdCreatedTime,
-    rdProvisioningArtifactId,
-    rdLaunchRoleARN,
-    rdProductId,
-    rdPathId,
-    rdRecordType,
+    RecordDetail (RecordDetail'),
+    newRecordDetail,
 
     -- ** RecordError
-    RecordError,
-    recordError,
-    reCode,
-    reDescription,
+    RecordError (RecordError'),
+    newRecordError,
 
     -- ** RecordOutput
-    RecordOutput,
-    recordOutput,
-    roOutputKey,
-    roOutputValue,
-    roDescription,
+    RecordOutput (RecordOutput'),
+    newRecordOutput,
 
     -- ** RecordTag
-    RecordTag,
-    recordTag,
-    rtKey,
-    rtValue,
+    RecordTag (RecordTag'),
+    newRecordTag,
 
     -- ** ResourceChange
-    ResourceChange,
-    resourceChange,
-    rcPhysicalResourceId,
-    rcResourceType,
-    rcScope,
-    rcDetails,
-    rcLogicalResourceId,
-    rcAction,
-    rcReplacement,
+    ResourceChange (ResourceChange'),
+    newResourceChange,
 
     -- ** ResourceChangeDetail
-    ResourceChangeDetail,
-    resourceChangeDetail,
-    rcdEvaluation,
-    rcdCausingEntity,
-    rcdTarget,
+    ResourceChangeDetail (ResourceChangeDetail'),
+    newResourceChangeDetail,
 
     -- ** ResourceDetail
-    ResourceDetail,
-    resourceDetail,
-    rId,
-    rARN,
-    rCreatedTime,
-    rName,
-    rDescription,
+    ResourceDetail (ResourceDetail'),
+    newResourceDetail,
 
     -- ** ResourceTargetDefinition
-    ResourceTargetDefinition,
-    resourceTargetDefinition,
-    rtdRequiresRecreation,
-    rtdName,
-    rtdAttribute,
+    ResourceTargetDefinition (ResourceTargetDefinition'),
+    newResourceTargetDefinition,
 
     -- ** ServiceActionAssociation
-    ServiceActionAssociation,
-    serviceActionAssociation,
-    saaServiceActionId,
-    saaProductId,
-    saaProvisioningArtifactId,
+    ServiceActionAssociation (ServiceActionAssociation'),
+    newServiceActionAssociation,
 
     -- ** ServiceActionDetail
-    ServiceActionDetail,
-    serviceActionDetail,
-    sadServiceActionSummary,
-    sadDefinition,
+    ServiceActionDetail (ServiceActionDetail'),
+    newServiceActionDetail,
 
     -- ** ServiceActionSummary
-    ServiceActionSummary,
-    serviceActionSummary,
-    sasId,
-    sasDefinitionType,
-    sasName,
-    sasDescription,
+    ServiceActionSummary (ServiceActionSummary'),
+    newServiceActionSummary,
 
     -- ** ShareDetails
-    ShareDetails,
-    shareDetails,
-    sdShareErrors,
-    sdSuccessfulShares,
+    ShareDetails (ShareDetails'),
+    newShareDetails,
 
     -- ** ShareError
-    ShareError,
-    shareError,
-    seMessage,
-    seAccounts,
-    seError,
+    ShareError (ShareError'),
+    newShareError,
 
     -- ** StackInstance
-    StackInstance,
-    stackInstance,
-    siStackInstanceStatus,
-    siAccount,
-    siRegion,
+    StackInstance (StackInstance'),
+    newStackInstance,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TagOptionDetail
-    TagOptionDetail,
-    tagOptionDetail,
-    todKey,
-    todId,
-    todActive,
-    todOwner,
-    todValue,
+    TagOptionDetail (TagOptionDetail'),
+    newTagOptionDetail,
 
     -- ** TagOptionSummary
-    TagOptionSummary,
-    tagOptionSummary,
-    tosKey,
-    tosValues,
+    TagOptionSummary (TagOptionSummary'),
+    newTagOptionSummary,
 
     -- ** UpdateProvisioningParameter
-    UpdateProvisioningParameter,
-    updateProvisioningParameter,
-    uppKey,
-    uppUsePreviousValue,
-    uppValue,
+    UpdateProvisioningParameter (UpdateProvisioningParameter'),
+    newUpdateProvisioningParameter,
 
     -- ** UpdateProvisioningPreferences
-    UpdateProvisioningPreferences,
-    updateProvisioningPreferences,
-    uppStackSetOperationType,
-    uppStackSetFailureToleranceCount,
-    uppStackSetAccounts,
-    uppStackSetFailureTolerancePercentage,
-    uppStackSetRegions,
-    uppStackSetMaxConcurrencyCount,
-    uppStackSetMaxConcurrencyPercentage,
+    UpdateProvisioningPreferences (UpdateProvisioningPreferences'),
+    newUpdateProvisioningPreferences,
 
     -- ** UsageInstruction
-    UsageInstruction,
-    usageInstruction,
-    uiValue,
-    uiType,
+    UsageInstruction (UsageInstruction'),
+    newUsageInstruction,
   )
 where
 
@@ -925,6 +948,7 @@ import Network.AWS.ServiceCatalog.ExecuteProvisionedProductServiceAction
 import Network.AWS.ServiceCatalog.GetAWSOrganizationsAccessStatus
 import Network.AWS.ServiceCatalog.GetProvisionedProductOutputs
 import Network.AWS.ServiceCatalog.ImportAsProvisionedProduct
+import Network.AWS.ServiceCatalog.Lens
 import Network.AWS.ServiceCatalog.ListAcceptedPortfolioShares
 import Network.AWS.ServiceCatalog.ListBudgetsForResource
 import Network.AWS.ServiceCatalog.ListConstraintsForPortfolio

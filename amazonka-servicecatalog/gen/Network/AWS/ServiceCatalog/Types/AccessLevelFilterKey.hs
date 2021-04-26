@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ServiceCatalog.Types.AccessLevelFilterKey
   ( AccessLevelFilterKey
       ( ..,
-        Account,
-        Role,
-        User
+        AccessLevelFilterKeyAccount,
+        AccessLevelFilterKeyRole,
+        AccessLevelFilterKeyUser
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccessLevelFilterKey
-  = AccessLevelFilterKey'
-      ( CI
-          Text
-      )
+newtype AccessLevelFilterKey = AccessLevelFilterKey'
+  { fromAccessLevelFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Account :: AccessLevelFilterKey
-pattern Account = AccessLevelFilterKey' "Account"
+pattern AccessLevelFilterKeyAccount :: AccessLevelFilterKey
+pattern AccessLevelFilterKeyAccount = AccessLevelFilterKey' "Account"
 
-pattern Role :: AccessLevelFilterKey
-pattern Role = AccessLevelFilterKey' "Role"
+pattern AccessLevelFilterKeyRole :: AccessLevelFilterKey
+pattern AccessLevelFilterKeyRole = AccessLevelFilterKey' "Role"
 
-pattern User :: AccessLevelFilterKey
-pattern User = AccessLevelFilterKey' "User"
+pattern AccessLevelFilterKeyUser :: AccessLevelFilterKey
+pattern AccessLevelFilterKeyUser = AccessLevelFilterKey' "User"
 
 {-# COMPLETE
-  Account,
-  Role,
-  User,
+  AccessLevelFilterKeyAccount,
+  AccessLevelFilterKeyRole,
+  AccessLevelFilterKeyUser,
   AccessLevelFilterKey'
   #-}
 
-instance FromText AccessLevelFilterKey where
-  parser = (AccessLevelFilterKey' . mk) <$> takeText
+instance Prelude.FromText AccessLevelFilterKey where
+  parser = AccessLevelFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText AccessLevelFilterKey where
-  toText (AccessLevelFilterKey' ci) = original ci
+instance Prelude.ToText AccessLevelFilterKey where
+  toText (AccessLevelFilterKey' x) = x
 
-instance Hashable AccessLevelFilterKey
+instance Prelude.Hashable AccessLevelFilterKey
 
-instance NFData AccessLevelFilterKey
+instance Prelude.NFData AccessLevelFilterKey
 
-instance ToByteString AccessLevelFilterKey
+instance Prelude.ToByteString AccessLevelFilterKey
 
-instance ToQuery AccessLevelFilterKey
+instance Prelude.ToQuery AccessLevelFilterKey
 
-instance ToHeader AccessLevelFilterKey
+instance Prelude.ToHeader AccessLevelFilterKey
 
-instance ToJSON AccessLevelFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON AccessLevelFilterKey where
+  toJSON = Prelude.toJSONText

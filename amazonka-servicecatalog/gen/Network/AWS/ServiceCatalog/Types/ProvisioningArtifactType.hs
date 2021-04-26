@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.ServiceCatalog.Types.ProvisioningArtifactType
   ( ProvisioningArtifactType
       ( ..,
-        CloudFormationTemplate,
-        MarketplaceAMI,
-        MarketplaceCar
+        ProvisioningArtifactTypeCLOUDFORMATIONTEMPLATE,
+        ProvisioningArtifactTypeMARKETPLACEAMI,
+        ProvisioningArtifactTypeMARKETPLACECAR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProvisioningArtifactType
-  = ProvisioningArtifactType'
-      ( CI
-          Text
-      )
+newtype ProvisioningArtifactType = ProvisioningArtifactType'
+  { fromProvisioningArtifactType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CloudFormationTemplate :: ProvisioningArtifactType
-pattern CloudFormationTemplate = ProvisioningArtifactType' "CLOUD_FORMATION_TEMPLATE"
+pattern ProvisioningArtifactTypeCLOUDFORMATIONTEMPLATE :: ProvisioningArtifactType
+pattern ProvisioningArtifactTypeCLOUDFORMATIONTEMPLATE = ProvisioningArtifactType' "CLOUD_FORMATION_TEMPLATE"
 
-pattern MarketplaceAMI :: ProvisioningArtifactType
-pattern MarketplaceAMI = ProvisioningArtifactType' "MARKETPLACE_AMI"
+pattern ProvisioningArtifactTypeMARKETPLACEAMI :: ProvisioningArtifactType
+pattern ProvisioningArtifactTypeMARKETPLACEAMI = ProvisioningArtifactType' "MARKETPLACE_AMI"
 
-pattern MarketplaceCar :: ProvisioningArtifactType
-pattern MarketplaceCar = ProvisioningArtifactType' "MARKETPLACE_CAR"
+pattern ProvisioningArtifactTypeMARKETPLACECAR :: ProvisioningArtifactType
+pattern ProvisioningArtifactTypeMARKETPLACECAR = ProvisioningArtifactType' "MARKETPLACE_CAR"
 
 {-# COMPLETE
-  CloudFormationTemplate,
-  MarketplaceAMI,
-  MarketplaceCar,
+  ProvisioningArtifactTypeCLOUDFORMATIONTEMPLATE,
+  ProvisioningArtifactTypeMARKETPLACEAMI,
+  ProvisioningArtifactTypeMARKETPLACECAR,
   ProvisioningArtifactType'
   #-}
 
-instance FromText ProvisioningArtifactType where
-  parser = (ProvisioningArtifactType' . mk) <$> takeText
+instance Prelude.FromText ProvisioningArtifactType where
+  parser = ProvisioningArtifactType' Prelude.<$> Prelude.takeText
 
-instance ToText ProvisioningArtifactType where
-  toText (ProvisioningArtifactType' ci) = original ci
+instance Prelude.ToText ProvisioningArtifactType where
+  toText (ProvisioningArtifactType' x) = x
 
-instance Hashable ProvisioningArtifactType
+instance Prelude.Hashable ProvisioningArtifactType
 
-instance NFData ProvisioningArtifactType
+instance Prelude.NFData ProvisioningArtifactType
 
-instance ToByteString ProvisioningArtifactType
+instance Prelude.ToByteString ProvisioningArtifactType
 
-instance ToQuery ProvisioningArtifactType
+instance Prelude.ToQuery ProvisioningArtifactType
 
-instance ToHeader ProvisioningArtifactType
+instance Prelude.ToHeader ProvisioningArtifactType
 
-instance ToJSON ProvisioningArtifactType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProvisioningArtifactType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProvisioningArtifactType where
-  parseJSON = parseJSONText "ProvisioningArtifactType"
+instance Prelude.FromJSON ProvisioningArtifactType where
+  parseJSON = Prelude.parseJSONText "ProvisioningArtifactType"

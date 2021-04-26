@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,120 +23,124 @@
 --
 -- Deletes the specified TagOption.
 --
---
--- You cannot delete a TagOption if it is associated with a product or portfolio.
+-- You cannot delete a TagOption if it is associated with a product or
+-- portfolio.
 module Network.AWS.ServiceCatalog.DeleteTagOption
   ( -- * Creating a Request
-    deleteTagOption,
-    DeleteTagOption,
+    DeleteTagOption (..),
+    newDeleteTagOption,
 
     -- * Request Lenses
-    dId,
+    deleteTagOption_id,
 
     -- * Destructuring the Response
-    deleteTagOptionResponse,
-    DeleteTagOptionResponse,
+    DeleteTagOptionResponse (..),
+    newDeleteTagOptionResponse,
 
     -- * Response Lenses
-    delrsResponseStatus,
+    deleteTagOptionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'deleteTagOption' smart constructor.
-newtype DeleteTagOption = DeleteTagOption'
-  { _dId ::
-      Text
+-- | /See:/ 'newDeleteTagOption' smart constructor.
+data DeleteTagOption = DeleteTagOption'
+  { -- | The TagOption identifier.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTagOption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTagOption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dId' - The TagOption identifier.
-deleteTagOption ::
-  -- | 'dId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'deleteTagOption_id' - The TagOption identifier.
+newDeleteTagOption ::
+  -- | 'id'
+  Prelude.Text ->
   DeleteTagOption
-deleteTagOption pId_ = DeleteTagOption' {_dId = pId_}
+newDeleteTagOption pId_ = DeleteTagOption' {id = pId_}
 
 -- | The TagOption identifier.
-dId :: Lens' DeleteTagOption Text
-dId = lens _dId (\s a -> s {_dId = a})
+deleteTagOption_id :: Lens.Lens' DeleteTagOption Prelude.Text
+deleteTagOption_id = Lens.lens (\DeleteTagOption' {id} -> id) (\s@DeleteTagOption' {} a -> s {id = a} :: DeleteTagOption)
 
-instance AWSRequest DeleteTagOption where
+instance Prelude.AWSRequest DeleteTagOption where
   type Rs DeleteTagOption = DeleteTagOptionResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteTagOptionResponse' <$> (pure (fromEnum s))
+          DeleteTagOptionResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTagOption
+instance Prelude.Hashable DeleteTagOption
 
-instance NFData DeleteTagOption
+instance Prelude.NFData DeleteTagOption
 
-instance ToHeaders DeleteTagOption where
+instance Prelude.ToHeaders DeleteTagOption where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DeleteTagOption" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DeleteTagOption" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTagOption where
+instance Prelude.ToJSON DeleteTagOption where
   toJSON DeleteTagOption' {..} =
-    object (catMaybes [Just ("Id" .= _dId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Id" Prelude..= id)]
+      )
 
-instance ToPath DeleteTagOption where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTagOption where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTagOption where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTagOption where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTagOptionResponse' smart constructor.
-newtype DeleteTagOptionResponse = DeleteTagOptionResponse'
-  { _delrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteTagOptionResponse' smart constructor.
+data DeleteTagOptionResponse = DeleteTagOptionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTagOptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTagOptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteTagOptionResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteTagOptionResponse_httpStatus' - The response's http status code.
+newDeleteTagOptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTagOptionResponse
-deleteTagOptionResponse pResponseStatus_ =
-  DeleteTagOptionResponse'
-    { _delrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteTagOptionResponse pHttpStatus_ =
+  DeleteTagOptionResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteTagOptionResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteTagOptionResponse_httpStatus :: Lens.Lens' DeleteTagOptionResponse Prelude.Int
+deleteTagOptionResponse_httpStatus = Lens.lens (\DeleteTagOptionResponse' {httpStatus} -> httpStatus) (\s@DeleteTagOptionResponse' {} a -> s {httpStatus = a} :: DeleteTagOptionResponse)
 
-instance NFData DeleteTagOptionResponse
+instance Prelude.NFData DeleteTagOptionResponse

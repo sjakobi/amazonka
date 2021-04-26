@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ServiceCatalog.Types.PropertyKey
   ( PropertyKey
       ( ..,
-        PKLaunchRole,
-        PKOwner
+        PropertyKeyLAUNCHROLE,
+        PropertyKeyOWNER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PropertyKey = PropertyKey' (CI Text)
+newtype PropertyKey = PropertyKey'
+  { fromPropertyKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PKLaunchRole :: PropertyKey
-pattern PKLaunchRole = PropertyKey' "LAUNCH_ROLE"
+pattern PropertyKeyLAUNCHROLE :: PropertyKey
+pattern PropertyKeyLAUNCHROLE = PropertyKey' "LAUNCH_ROLE"
 
-pattern PKOwner :: PropertyKey
-pattern PKOwner = PropertyKey' "OWNER"
+pattern PropertyKeyOWNER :: PropertyKey
+pattern PropertyKeyOWNER = PropertyKey' "OWNER"
 
 {-# COMPLETE
-  PKLaunchRole,
-  PKOwner,
+  PropertyKeyLAUNCHROLE,
+  PropertyKeyOWNER,
   PropertyKey'
   #-}
 
-instance FromText PropertyKey where
-  parser = (PropertyKey' . mk) <$> takeText
+instance Prelude.FromText PropertyKey where
+  parser = PropertyKey' Prelude.<$> Prelude.takeText
 
-instance ToText PropertyKey where
-  toText (PropertyKey' ci) = original ci
+instance Prelude.ToText PropertyKey where
+  toText (PropertyKey' x) = x
 
-instance Hashable PropertyKey
+instance Prelude.Hashable PropertyKey
 
-instance NFData PropertyKey
+instance Prelude.NFData PropertyKey
 
-instance ToByteString PropertyKey
+instance Prelude.ToByteString PropertyKey
 
-instance ToQuery PropertyKey
+instance Prelude.ToQuery PropertyKey
 
-instance ToHeader PropertyKey
+instance Prelude.ToHeader PropertyKey
 
-instance ToJSON PropertyKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON PropertyKey where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PropertyKey where
-  parseJSON = parseJSONText "PropertyKey"
+instance Prelude.FromJSON PropertyKey where
+  parseJSON = Prelude.parseJSONText "PropertyKey"

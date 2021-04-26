@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.UpdateProvisioningParameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The parameter key-value pair used to update a provisioned product.
 --
---
---
--- /See:/ 'updateProvisioningParameter' smart constructor.
+-- /See:/ 'newUpdateProvisioningParameter' smart constructor.
 data UpdateProvisioningParameter = UpdateProvisioningParameter'
-  { _uppKey ::
-      !(Maybe Text),
-    _uppUsePreviousValue ::
-      !(Maybe Bool),
-    _uppValue ::
-      !(Maybe Text)
+  { -- | The parameter key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | If set to true, @Value@ is ignored and the previous parameter value is
+    -- kept.
+    usePreviousValue :: Prelude.Maybe Prelude.Bool,
+    -- | The parameter value.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateProvisioningParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateProvisioningParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uppKey' - The parameter key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uppUsePreviousValue' - If set to true, @Value@ is ignored and the previous parameter value is kept.
+-- 'key', 'updateProvisioningParameter_key' - The parameter key.
 --
--- * 'uppValue' - The parameter value.
-updateProvisioningParameter ::
+-- 'usePreviousValue', 'updateProvisioningParameter_usePreviousValue' - If set to true, @Value@ is ignored and the previous parameter value is
+-- kept.
+--
+-- 'value', 'updateProvisioningParameter_value' - The parameter value.
+newUpdateProvisioningParameter ::
   UpdateProvisioningParameter
-updateProvisioningParameter =
+newUpdateProvisioningParameter =
   UpdateProvisioningParameter'
-    { _uppKey = Nothing,
-      _uppUsePreviousValue = Nothing,
-      _uppValue = Nothing
+    { key = Prelude.Nothing,
+      usePreviousValue = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The parameter key.
-uppKey :: Lens' UpdateProvisioningParameter (Maybe Text)
-uppKey = lens _uppKey (\s a -> s {_uppKey = a})
+updateProvisioningParameter_key :: Lens.Lens' UpdateProvisioningParameter (Prelude.Maybe Prelude.Text)
+updateProvisioningParameter_key = Lens.lens (\UpdateProvisioningParameter' {key} -> key) (\s@UpdateProvisioningParameter' {} a -> s {key = a} :: UpdateProvisioningParameter)
 
--- | If set to true, @Value@ is ignored and the previous parameter value is kept.
-uppUsePreviousValue :: Lens' UpdateProvisioningParameter (Maybe Bool)
-uppUsePreviousValue = lens _uppUsePreviousValue (\s a -> s {_uppUsePreviousValue = a})
+-- | If set to true, @Value@ is ignored and the previous parameter value is
+-- kept.
+updateProvisioningParameter_usePreviousValue :: Lens.Lens' UpdateProvisioningParameter (Prelude.Maybe Prelude.Bool)
+updateProvisioningParameter_usePreviousValue = Lens.lens (\UpdateProvisioningParameter' {usePreviousValue} -> usePreviousValue) (\s@UpdateProvisioningParameter' {} a -> s {usePreviousValue = a} :: UpdateProvisioningParameter)
 
 -- | The parameter value.
-uppValue :: Lens' UpdateProvisioningParameter (Maybe Text)
-uppValue = lens _uppValue (\s a -> s {_uppValue = a})
+updateProvisioningParameter_value :: Lens.Lens' UpdateProvisioningParameter (Prelude.Maybe Prelude.Text)
+updateProvisioningParameter_value = Lens.lens (\UpdateProvisioningParameter' {value} -> value) (\s@UpdateProvisioningParameter' {} a -> s {value = a} :: UpdateProvisioningParameter)
 
-instance FromJSON UpdateProvisioningParameter where
+instance Prelude.FromJSON UpdateProvisioningParameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UpdateProvisioningParameter"
       ( \x ->
           UpdateProvisioningParameter'
-            <$> (x .:? "Key")
-            <*> (x .:? "UsePreviousValue")
-            <*> (x .:? "Value")
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "UsePreviousValue")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable UpdateProvisioningParameter
+instance Prelude.Hashable UpdateProvisioningParameter
 
-instance NFData UpdateProvisioningParameter
+instance Prelude.NFData UpdateProvisioningParameter
 
-instance ToJSON UpdateProvisioningParameter where
+instance Prelude.ToJSON UpdateProvisioningParameter where
   toJSON UpdateProvisioningParameter' {..} =
-    object
-      ( catMaybes
-          [ ("Key" .=) <$> _uppKey,
-            ("UsePreviousValue" .=) <$> _uppUsePreviousValue,
-            ("Value" .=) <$> _uppValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("UsePreviousValue" Prelude..=)
+              Prelude.<$> usePreviousValue,
+            ("Value" Prelude..=) Prelude.<$> value
           ]
       )

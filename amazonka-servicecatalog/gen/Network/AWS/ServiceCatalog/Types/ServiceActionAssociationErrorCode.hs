@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.ServiceCatalog.Types.ServiceActionAssociationErrorCode
   ( ServiceActionAssociationErrorCode
       ( ..,
-        DuplicateResource,
-        InternalFailure,
-        LimitExceeded,
-        ResourceNotFound,
-        Throttling
+        ServiceActionAssociationErrorCodeDUPLICATERESOURCE,
+        ServiceActionAssociationErrorCodeINTERNALFAILURE,
+        ServiceActionAssociationErrorCodeLIMITEXCEEDED,
+        ServiceActionAssociationErrorCodeRESOURCENOTFOUND,
+        ServiceActionAssociationErrorCodeTHROTTLING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceActionAssociationErrorCode
-  = ServiceActionAssociationErrorCode'
-      ( CI
-          Text
-      )
+newtype ServiceActionAssociationErrorCode = ServiceActionAssociationErrorCode'
+  { fromServiceActionAssociationErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DuplicateResource :: ServiceActionAssociationErrorCode
-pattern DuplicateResource = ServiceActionAssociationErrorCode' "DUPLICATE_RESOURCE"
+pattern ServiceActionAssociationErrorCodeDUPLICATERESOURCE :: ServiceActionAssociationErrorCode
+pattern ServiceActionAssociationErrorCodeDUPLICATERESOURCE = ServiceActionAssociationErrorCode' "DUPLICATE_RESOURCE"
 
-pattern InternalFailure :: ServiceActionAssociationErrorCode
-pattern InternalFailure = ServiceActionAssociationErrorCode' "INTERNAL_FAILURE"
+pattern ServiceActionAssociationErrorCodeINTERNALFAILURE :: ServiceActionAssociationErrorCode
+pattern ServiceActionAssociationErrorCodeINTERNALFAILURE = ServiceActionAssociationErrorCode' "INTERNAL_FAILURE"
 
-pattern LimitExceeded :: ServiceActionAssociationErrorCode
-pattern LimitExceeded = ServiceActionAssociationErrorCode' "LIMIT_EXCEEDED"
+pattern ServiceActionAssociationErrorCodeLIMITEXCEEDED :: ServiceActionAssociationErrorCode
+pattern ServiceActionAssociationErrorCodeLIMITEXCEEDED = ServiceActionAssociationErrorCode' "LIMIT_EXCEEDED"
 
-pattern ResourceNotFound :: ServiceActionAssociationErrorCode
-pattern ResourceNotFound = ServiceActionAssociationErrorCode' "RESOURCE_NOT_FOUND"
+pattern ServiceActionAssociationErrorCodeRESOURCENOTFOUND :: ServiceActionAssociationErrorCode
+pattern ServiceActionAssociationErrorCodeRESOURCENOTFOUND = ServiceActionAssociationErrorCode' "RESOURCE_NOT_FOUND"
 
-pattern Throttling :: ServiceActionAssociationErrorCode
-pattern Throttling = ServiceActionAssociationErrorCode' "THROTTLING"
+pattern ServiceActionAssociationErrorCodeTHROTTLING :: ServiceActionAssociationErrorCode
+pattern ServiceActionAssociationErrorCodeTHROTTLING = ServiceActionAssociationErrorCode' "THROTTLING"
 
 {-# COMPLETE
-  DuplicateResource,
-  InternalFailure,
-  LimitExceeded,
-  ResourceNotFound,
-  Throttling,
+  ServiceActionAssociationErrorCodeDUPLICATERESOURCE,
+  ServiceActionAssociationErrorCodeINTERNALFAILURE,
+  ServiceActionAssociationErrorCodeLIMITEXCEEDED,
+  ServiceActionAssociationErrorCodeRESOURCENOTFOUND,
+  ServiceActionAssociationErrorCodeTHROTTLING,
   ServiceActionAssociationErrorCode'
   #-}
 
-instance FromText ServiceActionAssociationErrorCode where
-  parser = (ServiceActionAssociationErrorCode' . mk) <$> takeText
+instance Prelude.FromText ServiceActionAssociationErrorCode where
+  parser = ServiceActionAssociationErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceActionAssociationErrorCode where
-  toText (ServiceActionAssociationErrorCode' ci) = original ci
+instance Prelude.ToText ServiceActionAssociationErrorCode where
+  toText (ServiceActionAssociationErrorCode' x) = x
 
-instance Hashable ServiceActionAssociationErrorCode
+instance Prelude.Hashable ServiceActionAssociationErrorCode
 
-instance NFData ServiceActionAssociationErrorCode
+instance Prelude.NFData ServiceActionAssociationErrorCode
 
-instance ToByteString ServiceActionAssociationErrorCode
+instance Prelude.ToByteString ServiceActionAssociationErrorCode
 
-instance ToQuery ServiceActionAssociationErrorCode
+instance Prelude.ToQuery ServiceActionAssociationErrorCode
 
-instance ToHeader ServiceActionAssociationErrorCode
+instance Prelude.ToHeader ServiceActionAssociationErrorCode
 
-instance FromJSON ServiceActionAssociationErrorCode where
-  parseJSON = parseJSONText "ServiceActionAssociationErrorCode"
+instance Prelude.FromJSON ServiceActionAssociationErrorCode where
+  parseJSON = Prelude.parseJSONText "ServiceActionAssociationErrorCode"

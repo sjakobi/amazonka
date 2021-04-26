@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,179 +23,206 @@
 --
 -- Lists the specified TagOptions or all TagOptions.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.ServiceCatalog.ListTagOptions
   ( -- * Creating a Request
-    listTagOptions,
-    ListTagOptions,
+    ListTagOptions (..),
+    newListTagOptions,
 
     -- * Request Lenses
-    ltoPageSize,
-    ltoPageToken,
-    ltoFilters,
+    listTagOptions_pageSize,
+    listTagOptions_pageToken,
+    listTagOptions_filters,
 
     -- * Destructuring the Response
-    listTagOptionsResponse,
-    ListTagOptionsResponse,
+    ListTagOptionsResponse (..),
+    newListTagOptionsResponse,
 
     -- * Response Lenses
-    ltorrsPageToken,
-    ltorrsTagOptionDetails,
-    ltorrsResponseStatus,
+    listTagOptionsResponse_pageToken,
+    listTagOptionsResponse_tagOptionDetails,
+    listTagOptionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.TagOptionDetail
 
--- | /See:/ 'listTagOptions' smart constructor.
+-- | /See:/ 'newListTagOptions' smart constructor.
 data ListTagOptions = ListTagOptions'
-  { _ltoPageSize ::
-      !(Maybe Nat),
-    _ltoPageToken :: !(Maybe Text),
-    _ltoFilters ::
-      !(Maybe ListTagOptionsFilters)
+  { -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The page token for the next set of results. To retrieve the first set of
+    -- results, use null.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The search filters. If no search filters are specified, the output
+    -- includes all TagOptions.
+    filters :: Prelude.Maybe ListTagOptionsFilters
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltoPageSize' - The maximum number of items to return with this call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltoPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
+-- 'pageSize', 'listTagOptions_pageSize' - The maximum number of items to return with this call.
 --
--- * 'ltoFilters' - The search filters. If no search filters are specified, the output includes all TagOptions.
-listTagOptions ::
+-- 'pageToken', 'listTagOptions_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+--
+-- 'filters', 'listTagOptions_filters' - The search filters. If no search filters are specified, the output
+-- includes all TagOptions.
+newListTagOptions ::
   ListTagOptions
-listTagOptions =
+newListTagOptions =
   ListTagOptions'
-    { _ltoPageSize = Nothing,
-      _ltoPageToken = Nothing,
-      _ltoFilters = Nothing
+    { pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The maximum number of items to return with this call.
-ltoPageSize :: Lens' ListTagOptions (Maybe Natural)
-ltoPageSize = lens _ltoPageSize (\s a -> s {_ltoPageSize = a}) . mapping _Nat
+listTagOptions_pageSize :: Lens.Lens' ListTagOptions (Prelude.Maybe Prelude.Natural)
+listTagOptions_pageSize = Lens.lens (\ListTagOptions' {pageSize} -> pageSize) (\s@ListTagOptions' {} a -> s {pageSize = a} :: ListTagOptions) Prelude.. Lens.mapping Prelude._Nat
 
--- | The page token for the next set of results. To retrieve the first set of results, use null.
-ltoPageToken :: Lens' ListTagOptions (Maybe Text)
-ltoPageToken = lens _ltoPageToken (\s a -> s {_ltoPageToken = a})
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+listTagOptions_pageToken :: Lens.Lens' ListTagOptions (Prelude.Maybe Prelude.Text)
+listTagOptions_pageToken = Lens.lens (\ListTagOptions' {pageToken} -> pageToken) (\s@ListTagOptions' {} a -> s {pageToken = a} :: ListTagOptions)
 
--- | The search filters. If no search filters are specified, the output includes all TagOptions.
-ltoFilters :: Lens' ListTagOptions (Maybe ListTagOptionsFilters)
-ltoFilters = lens _ltoFilters (\s a -> s {_ltoFilters = a})
+-- | The search filters. If no search filters are specified, the output
+-- includes all TagOptions.
+listTagOptions_filters :: Lens.Lens' ListTagOptions (Prelude.Maybe ListTagOptionsFilters)
+listTagOptions_filters = Lens.lens (\ListTagOptions' {filters} -> filters) (\s@ListTagOptions' {} a -> s {filters = a} :: ListTagOptions)
 
-instance AWSPager ListTagOptions where
+instance Pager.AWSPager ListTagOptions where
   page rq rs
-    | stop (rs ^. ltorrsPageToken) = Nothing
-    | stop (rs ^. ltorrsTagOptionDetails) = Nothing
-    | otherwise =
-      Just $ rq & ltoPageToken .~ rs ^. ltorrsPageToken
+    | Pager.stop
+        ( rs
+            Lens.^? listTagOptionsResponse_pageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTagOptionsResponse_tagOptionDetails
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTagOptions_pageToken
+          Lens..~ rs
+          Lens.^? listTagOptionsResponse_pageToken Prelude.. Lens._Just
 
-instance AWSRequest ListTagOptions where
+instance Prelude.AWSRequest ListTagOptions where
   type Rs ListTagOptions = ListTagOptionsResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagOptionsResponse'
-            <$> (x .?> "PageToken")
-            <*> (x .?> "TagOptionDetails" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PageToken")
+            Prelude.<*> ( x Prelude..?> "TagOptionDetails"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTagOptions
+instance Prelude.Hashable ListTagOptions
 
-instance NFData ListTagOptions
+instance Prelude.NFData ListTagOptions
 
-instance ToHeaders ListTagOptions where
+instance Prelude.ToHeaders ListTagOptions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.ListTagOptions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.ListTagOptions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTagOptions where
+instance Prelude.ToJSON ListTagOptions where
   toJSON ListTagOptions' {..} =
-    object
-      ( catMaybes
-          [ ("PageSize" .=) <$> _ltoPageSize,
-            ("PageToken" .=) <$> _ltoPageToken,
-            ("Filters" .=) <$> _ltoFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PageSize" Prelude..=) Prelude.<$> pageSize,
+            ("PageToken" Prelude..=) Prelude.<$> pageToken,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath ListTagOptions where
-  toPath = const "/"
+instance Prelude.ToPath ListTagOptions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTagOptions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTagOptions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTagOptionsResponse' smart constructor.
+-- | /See:/ 'newListTagOptionsResponse' smart constructor.
 data ListTagOptionsResponse = ListTagOptionsResponse'
-  { _ltorrsPageToken ::
-      !(Maybe Text),
-    _ltorrsTagOptionDetails ::
-      !( Maybe
-           [TagOptionDetail]
-       ),
-    _ltorrsResponseStatus ::
-      !Int
+  { -- | The page token for the next set of results. To retrieve the first set of
+    -- results, use null.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the TagOptions.
+    tagOptionDetails :: Prelude.Maybe [TagOptionDetail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltorrsPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltorrsTagOptionDetails' - Information about the TagOptions.
+-- 'pageToken', 'listTagOptionsResponse_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
 --
--- * 'ltorrsResponseStatus' - -- | The response status code.
-listTagOptionsResponse ::
-  -- | 'ltorrsResponseStatus'
-  Int ->
+-- 'tagOptionDetails', 'listTagOptionsResponse_tagOptionDetails' - Information about the TagOptions.
+--
+-- 'httpStatus', 'listTagOptionsResponse_httpStatus' - The response's http status code.
+newListTagOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagOptionsResponse
-listTagOptionsResponse pResponseStatus_ =
+newListTagOptionsResponse pHttpStatus_ =
   ListTagOptionsResponse'
-    { _ltorrsPageToken = Nothing,
-      _ltorrsTagOptionDetails = Nothing,
-      _ltorrsResponseStatus = pResponseStatus_
+    { pageToken =
+        Prelude.Nothing,
+      tagOptionDetails = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The page token for the next set of results. To retrieve the first set of results, use null.
-ltorrsPageToken :: Lens' ListTagOptionsResponse (Maybe Text)
-ltorrsPageToken = lens _ltorrsPageToken (\s a -> s {_ltorrsPageToken = a})
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+listTagOptionsResponse_pageToken :: Lens.Lens' ListTagOptionsResponse (Prelude.Maybe Prelude.Text)
+listTagOptionsResponse_pageToken = Lens.lens (\ListTagOptionsResponse' {pageToken} -> pageToken) (\s@ListTagOptionsResponse' {} a -> s {pageToken = a} :: ListTagOptionsResponse)
 
 -- | Information about the TagOptions.
-ltorrsTagOptionDetails :: Lens' ListTagOptionsResponse [TagOptionDetail]
-ltorrsTagOptionDetails = lens _ltorrsTagOptionDetails (\s a -> s {_ltorrsTagOptionDetails = a}) . _Default . _Coerce
+listTagOptionsResponse_tagOptionDetails :: Lens.Lens' ListTagOptionsResponse (Prelude.Maybe [TagOptionDetail])
+listTagOptionsResponse_tagOptionDetails = Lens.lens (\ListTagOptionsResponse' {tagOptionDetails} -> tagOptionDetails) (\s@ListTagOptionsResponse' {} a -> s {tagOptionDetails = a} :: ListTagOptionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltorrsResponseStatus :: Lens' ListTagOptionsResponse Int
-ltorrsResponseStatus = lens _ltorrsResponseStatus (\s a -> s {_ltorrsResponseStatus = a})
+-- | The response's http status code.
+listTagOptionsResponse_httpStatus :: Lens.Lens' ListTagOptionsResponse Prelude.Int
+listTagOptionsResponse_httpStatus = Lens.lens (\ListTagOptionsResponse' {httpStatus} -> httpStatus) (\s@ListTagOptionsResponse' {} a -> s {httpStatus = a} :: ListTagOptionsResponse)
 
-instance NFData ListTagOptionsResponse
+instance Prelude.NFData ListTagOptionsResponse

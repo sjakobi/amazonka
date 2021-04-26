@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.ServiceCatalog.Types.ProductSource
   ( ProductSource
       ( ..,
-        PSAccount
+        ProductSourceACCOUNT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProductSource = ProductSource' (CI Text)
+newtype ProductSource = ProductSource'
+  { fromProductSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSAccount :: ProductSource
-pattern PSAccount = ProductSource' "ACCOUNT"
+pattern ProductSourceACCOUNT :: ProductSource
+pattern ProductSourceACCOUNT = ProductSource' "ACCOUNT"
 
 {-# COMPLETE
-  PSAccount,
+  ProductSourceACCOUNT,
   ProductSource'
   #-}
 
-instance FromText ProductSource where
-  parser = (ProductSource' . mk) <$> takeText
+instance Prelude.FromText ProductSource where
+  parser = ProductSource' Prelude.<$> Prelude.takeText
 
-instance ToText ProductSource where
-  toText (ProductSource' ci) = original ci
+instance Prelude.ToText ProductSource where
+  toText (ProductSource' x) = x
 
-instance Hashable ProductSource
+instance Prelude.Hashable ProductSource
 
-instance NFData ProductSource
+instance Prelude.NFData ProductSource
 
-instance ToByteString ProductSource
+instance Prelude.ToByteString ProductSource
 
-instance ToQuery ProductSource
+instance Prelude.ToQuery ProductSource
 
-instance ToHeader ProductSource
+instance Prelude.ToHeader ProductSource
 
-instance ToJSON ProductSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProductSource where
+  toJSON = Prelude.toJSONText

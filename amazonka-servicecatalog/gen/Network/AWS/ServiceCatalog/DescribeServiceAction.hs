@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,157 +24,172 @@
 -- Describes a self-service action.
 module Network.AWS.ServiceCatalog.DescribeServiceAction
   ( -- * Creating a Request
-    describeServiceAction,
-    DescribeServiceAction,
+    DescribeServiceAction (..),
+    newDescribeServiceAction,
 
     -- * Request Lenses
-    dsaAcceptLanguage,
-    dsaId,
+    describeServiceAction_acceptLanguage,
+    describeServiceAction_id,
 
     -- * Destructuring the Response
-    describeServiceActionResponse,
-    DescribeServiceActionResponse,
+    DescribeServiceActionResponse (..),
+    newDescribeServiceActionResponse,
 
     -- * Response Lenses
-    dsarsrsServiceActionDetail,
-    dsarsrsResponseStatus,
+    describeServiceActionResponse_serviceActionDetail,
+    describeServiceActionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ServiceActionDetail
 
--- | /See:/ 'describeServiceAction' smart constructor.
+-- | /See:/ 'newDescribeServiceAction' smart constructor.
 data DescribeServiceAction = DescribeServiceAction'
-  { _dsaAcceptLanguage ::
-      !(Maybe Text),
-    _dsaId :: !Text
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The self-service action identifier.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServiceAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServiceAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsaAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsaId' - The self-service action identifier.
-describeServiceAction ::
-  -- | 'dsaId'
-  Text ->
+-- 'acceptLanguage', 'describeServiceAction_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'id', 'describeServiceAction_id' - The self-service action identifier.
+newDescribeServiceAction ::
+  -- | 'id'
+  Prelude.Text ->
   DescribeServiceAction
-describeServiceAction pId_ =
+newDescribeServiceAction pId_ =
   DescribeServiceAction'
-    { _dsaAcceptLanguage =
-        Nothing,
-      _dsaId = pId_
+    { acceptLanguage =
+        Prelude.Nothing,
+      id = pId_
     }
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-dsaAcceptLanguage :: Lens' DescribeServiceAction (Maybe Text)
-dsaAcceptLanguage = lens _dsaAcceptLanguage (\s a -> s {_dsaAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+describeServiceAction_acceptLanguage :: Lens.Lens' DescribeServiceAction (Prelude.Maybe Prelude.Text)
+describeServiceAction_acceptLanguage = Lens.lens (\DescribeServiceAction' {acceptLanguage} -> acceptLanguage) (\s@DescribeServiceAction' {} a -> s {acceptLanguage = a} :: DescribeServiceAction)
 
 -- | The self-service action identifier.
-dsaId :: Lens' DescribeServiceAction Text
-dsaId = lens _dsaId (\s a -> s {_dsaId = a})
+describeServiceAction_id :: Lens.Lens' DescribeServiceAction Prelude.Text
+describeServiceAction_id = Lens.lens (\DescribeServiceAction' {id} -> id) (\s@DescribeServiceAction' {} a -> s {id = a} :: DescribeServiceAction)
 
-instance AWSRequest DescribeServiceAction where
+instance Prelude.AWSRequest DescribeServiceAction where
   type
     Rs DescribeServiceAction =
       DescribeServiceActionResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeServiceActionResponse'
-            <$> (x .?> "ServiceActionDetail")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ServiceActionDetail")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeServiceAction
+instance Prelude.Hashable DescribeServiceAction
 
-instance NFData DescribeServiceAction
+instance Prelude.NFData DescribeServiceAction
 
-instance ToHeaders DescribeServiceAction where
+instance Prelude.ToHeaders DescribeServiceAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DescribeServiceAction" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DescribeServiceAction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeServiceAction where
+instance Prelude.ToJSON DescribeServiceAction where
   toJSON DescribeServiceAction' {..} =
-    object
-      ( catMaybes
-          [ ("AcceptLanguage" .=) <$> _dsaAcceptLanguage,
-            Just ("Id" .= _dsaId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("Id" Prelude..= id)
           ]
       )
 
-instance ToPath DescribeServiceAction where
-  toPath = const "/"
+instance Prelude.ToPath DescribeServiceAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeServiceAction where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeServiceAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeServiceActionResponse' smart constructor.
+-- | /See:/ 'newDescribeServiceActionResponse' smart constructor.
 data DescribeServiceActionResponse = DescribeServiceActionResponse'
-  { _dsarsrsServiceActionDetail ::
-      !( Maybe
-           ServiceActionDetail
-       ),
-    _dsarsrsResponseStatus ::
-      !Int
+  { -- | Detailed information about the self-service action.
+    serviceActionDetail :: Prelude.Maybe ServiceActionDetail,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServiceActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServiceActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsarsrsServiceActionDetail' - Detailed information about the self-service action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsarsrsResponseStatus' - -- | The response status code.
-describeServiceActionResponse ::
-  -- | 'dsarsrsResponseStatus'
-  Int ->
+-- 'serviceActionDetail', 'describeServiceActionResponse_serviceActionDetail' - Detailed information about the self-service action.
+--
+-- 'httpStatus', 'describeServiceActionResponse_httpStatus' - The response's http status code.
+newDescribeServiceActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeServiceActionResponse
-describeServiceActionResponse pResponseStatus_ =
+newDescribeServiceActionResponse pHttpStatus_ =
   DescribeServiceActionResponse'
-    { _dsarsrsServiceActionDetail =
-        Nothing,
-      _dsarsrsResponseStatus = pResponseStatus_
+    { serviceActionDetail =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Detailed information about the self-service action.
-dsarsrsServiceActionDetail :: Lens' DescribeServiceActionResponse (Maybe ServiceActionDetail)
-dsarsrsServiceActionDetail = lens _dsarsrsServiceActionDetail (\s a -> s {_dsarsrsServiceActionDetail = a})
+describeServiceActionResponse_serviceActionDetail :: Lens.Lens' DescribeServiceActionResponse (Prelude.Maybe ServiceActionDetail)
+describeServiceActionResponse_serviceActionDetail = Lens.lens (\DescribeServiceActionResponse' {serviceActionDetail} -> serviceActionDetail) (\s@DescribeServiceActionResponse' {} a -> s {serviceActionDetail = a} :: DescribeServiceActionResponse)
 
--- | -- | The response status code.
-dsarsrsResponseStatus :: Lens' DescribeServiceActionResponse Int
-dsarsrsResponseStatus = lens _dsarsrsResponseStatus (\s a -> s {_dsarsrsResponseStatus = a})
+-- | The response's http status code.
+describeServiceActionResponse_httpStatus :: Lens.Lens' DescribeServiceActionResponse Prelude.Int
+describeServiceActionResponse_httpStatus = Lens.lens (\DescribeServiceActionResponse' {httpStatus} -> httpStatus) (\s@DescribeServiceActionResponse' {} a -> s {httpStatus = a} :: DescribeServiceActionResponse)
 
-instance NFData DescribeServiceActionResponse
+instance Prelude.NFData DescribeServiceActionResponse

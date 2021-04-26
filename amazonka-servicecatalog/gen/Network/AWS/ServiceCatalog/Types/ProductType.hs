@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ServiceCatalog.Types.ProductType
   ( ProductType
       ( ..,
-        PTCloudFormationTemplate,
-        PTMarketplace
+        ProductTypeCLOUDFORMATIONTEMPLATE,
+        ProductTypeMARKETPLACE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProductType = ProductType' (CI Text)
+newtype ProductType = ProductType'
+  { fromProductType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PTCloudFormationTemplate :: ProductType
-pattern PTCloudFormationTemplate = ProductType' "CLOUD_FORMATION_TEMPLATE"
+pattern ProductTypeCLOUDFORMATIONTEMPLATE :: ProductType
+pattern ProductTypeCLOUDFORMATIONTEMPLATE = ProductType' "CLOUD_FORMATION_TEMPLATE"
 
-pattern PTMarketplace :: ProductType
-pattern PTMarketplace = ProductType' "MARKETPLACE"
+pattern ProductTypeMARKETPLACE :: ProductType
+pattern ProductTypeMARKETPLACE = ProductType' "MARKETPLACE"
 
 {-# COMPLETE
-  PTCloudFormationTemplate,
-  PTMarketplace,
+  ProductTypeCLOUDFORMATIONTEMPLATE,
+  ProductTypeMARKETPLACE,
   ProductType'
   #-}
 
-instance FromText ProductType where
-  parser = (ProductType' . mk) <$> takeText
+instance Prelude.FromText ProductType where
+  parser = ProductType' Prelude.<$> Prelude.takeText
 
-instance ToText ProductType where
-  toText (ProductType' ci) = original ci
+instance Prelude.ToText ProductType where
+  toText (ProductType' x) = x
 
-instance Hashable ProductType
+instance Prelude.Hashable ProductType
 
-instance NFData ProductType
+instance Prelude.NFData ProductType
 
-instance ToByteString ProductType
+instance Prelude.ToByteString ProductType
 
-instance ToQuery ProductType
+instance Prelude.ToQuery ProductType
 
-instance ToHeader ProductType
+instance Prelude.ToHeader ProductType
 
-instance ToJSON ProductType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProductType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProductType where
-  parseJSON = parseJSONText "ProductType"
+instance Prelude.FromJSON ProductType where
+  parseJSON = Prelude.parseJSONText "ProductType"

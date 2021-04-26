@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,202 +24,308 @@
 -- Creates a self-service action.
 module Network.AWS.ServiceCatalog.CreateServiceAction
   ( -- * Creating a Request
-    createServiceAction,
-    CreateServiceAction,
+    CreateServiceAction (..),
+    newCreateServiceAction,
 
     -- * Request Lenses
-    csaDescription,
-    csaAcceptLanguage,
-    csaName,
-    csaDefinitionType,
-    csaDefinition,
-    csaIdempotencyToken,
+    createServiceAction_description,
+    createServiceAction_acceptLanguage,
+    createServiceAction_name,
+    createServiceAction_definitionType,
+    createServiceAction_definition,
+    createServiceAction_idempotencyToken,
 
     -- * Destructuring the Response
-    createServiceActionResponse,
-    CreateServiceActionResponse,
+    CreateServiceActionResponse (..),
+    newCreateServiceActionResponse,
 
     -- * Response Lenses
-    csarrsServiceActionDetail,
-    csarrsResponseStatus,
+    createServiceActionResponse_serviceActionDetail,
+    createServiceActionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ServiceActionDetail
 
--- | /See:/ 'createServiceAction' smart constructor.
+-- | /See:/ 'newCreateServiceAction' smart constructor.
 data CreateServiceAction = CreateServiceAction'
-  { _csaDescription ::
-      !(Maybe Text),
-    _csaAcceptLanguage ::
-      !(Maybe Text),
-    _csaName :: !Text,
-    _csaDefinitionType ::
-      !ServiceActionDefinitionType,
-    _csaDefinition ::
-      !( Map
-           ServiceActionDefinitionKey
-           Text
-       ),
-    _csaIdempotencyToken :: !Text
+  { -- | The self-service action description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The self-service action name.
+    name :: Prelude.Text,
+    -- | The service action definition type. For example, @SSM_AUTOMATION@.
+    definitionType :: ServiceActionDefinitionType,
+    -- | The self-service action definition. Can be one of the following:
+    --
+    -- [Name]
+    --     The name of the AWS Systems Manager document (SSM document). For
+    --     example, @AWS-RestartEC2Instance@.
+    --
+    --     If you are using a shared SSM document, you must provide the ARN
+    --     instead of the name.
+    --
+    -- [Version]
+    --     The AWS Systems Manager automation document version. For example,
+    --     @\"Version\": \"1\"@
+    --
+    -- [AssumeRole]
+    --     The Amazon Resource Name (ARN) of the role that performs the
+    --     self-service actions on your behalf. For example,
+    --     @\"AssumeRole\": \"arn:aws:iam::12345678910:role\/ActionRole\"@.
+    --
+    --     To reuse the provisioned product launch role, set to
+    --     @\"AssumeRole\": \"LAUNCH_ROLE\"@.
+    --
+    -- [Parameters]
+    --     The list of parameters in JSON format.
+    --
+    --     For example:
+    --     @[{\\\"Name\\\":\\\"InstanceId\\\",\\\"Type\\\":\\\"TARGET\\\"}]@ or
+    --     @[{\\\"Name\\\":\\\"InstanceId\\\",\\\"Type\\\":\\\"TEXT_VALUE\\\"}]@.
+    definition :: Prelude.Map ServiceActionDefinitionKey Prelude.Text,
+    -- | A unique identifier that you provide to ensure idempotency. If multiple
+    -- requests differ only by the idempotency token, the same response is
+    -- returned for each repeated request.
+    idempotencyToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateServiceAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateServiceAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csaDescription' - The self-service action description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csaAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- 'description', 'createServiceAction_description' - The self-service action description.
 --
--- * 'csaName' - The self-service action name.
+-- 'acceptLanguage', 'createServiceAction_acceptLanguage' - The language code.
 --
--- * 'csaDefinitionType' - The service action definition type. For example, @SSM_AUTOMATION@ .
+-- -   @en@ - English (default)
 --
--- * 'csaDefinition' - The self-service action definition. Can be one of the following:     * Name    * The name of the AWS Systems Manager document (SSM document). For example, @AWS-RestartEC2Instance@ . If you are using a shared SSM document, you must provide the ARN instead of the name.     * Version    * The AWS Systems Manager automation document version. For example, @"Version": "1"@      * AssumeRole    * The Amazon Resource Name (ARN) of the role that performs the self-service actions on your behalf. For example, @"AssumeRole": "arn:aws:iam::12345678910:role/ActionRole"@ . To reuse the provisioned product launch role, set to @"AssumeRole": "LAUNCH_ROLE"@ .     * Parameters    * The list of parameters in JSON format. For example: @[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]@ or @[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]@ .
+-- -   @jp@ - Japanese
 --
--- * 'csaIdempotencyToken' - A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
-createServiceAction ::
-  -- | 'csaName'
-  Text ->
-  -- | 'csaDefinitionType'
+-- -   @zh@ - Chinese
+--
+-- 'name', 'createServiceAction_name' - The self-service action name.
+--
+-- 'definitionType', 'createServiceAction_definitionType' - The service action definition type. For example, @SSM_AUTOMATION@.
+--
+-- 'definition', 'createServiceAction_definition' - The self-service action definition. Can be one of the following:
+--
+-- [Name]
+--     The name of the AWS Systems Manager document (SSM document). For
+--     example, @AWS-RestartEC2Instance@.
+--
+--     If you are using a shared SSM document, you must provide the ARN
+--     instead of the name.
+--
+-- [Version]
+--     The AWS Systems Manager automation document version. For example,
+--     @\"Version\": \"1\"@
+--
+-- [AssumeRole]
+--     The Amazon Resource Name (ARN) of the role that performs the
+--     self-service actions on your behalf. For example,
+--     @\"AssumeRole\": \"arn:aws:iam::12345678910:role\/ActionRole\"@.
+--
+--     To reuse the provisioned product launch role, set to
+--     @\"AssumeRole\": \"LAUNCH_ROLE\"@.
+--
+-- [Parameters]
+--     The list of parameters in JSON format.
+--
+--     For example:
+--     @[{\\\"Name\\\":\\\"InstanceId\\\",\\\"Type\\\":\\\"TARGET\\\"}]@ or
+--     @[{\\\"Name\\\":\\\"InstanceId\\\",\\\"Type\\\":\\\"TEXT_VALUE\\\"}]@.
+--
+-- 'idempotencyToken', 'createServiceAction_idempotencyToken' - A unique identifier that you provide to ensure idempotency. If multiple
+-- requests differ only by the idempotency token, the same response is
+-- returned for each repeated request.
+newCreateServiceAction ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'definitionType'
   ServiceActionDefinitionType ->
-  -- | 'csaIdempotencyToken'
-  Text ->
+  -- | 'idempotencyToken'
+  Prelude.Text ->
   CreateServiceAction
-createServiceAction
+newCreateServiceAction
   pName_
   pDefinitionType_
   pIdempotencyToken_ =
     CreateServiceAction'
-      { _csaDescription = Nothing,
-        _csaAcceptLanguage = Nothing,
-        _csaName = pName_,
-        _csaDefinitionType = pDefinitionType_,
-        _csaDefinition = mempty,
-        _csaIdempotencyToken = pIdempotencyToken_
+      { description = Prelude.Nothing,
+        acceptLanguage = Prelude.Nothing,
+        name = pName_,
+        definitionType = pDefinitionType_,
+        definition = Prelude.mempty,
+        idempotencyToken = pIdempotencyToken_
       }
 
 -- | The self-service action description.
-csaDescription :: Lens' CreateServiceAction (Maybe Text)
-csaDescription = lens _csaDescription (\s a -> s {_csaDescription = a})
+createServiceAction_description :: Lens.Lens' CreateServiceAction (Prelude.Maybe Prelude.Text)
+createServiceAction_description = Lens.lens (\CreateServiceAction' {description} -> description) (\s@CreateServiceAction' {} a -> s {description = a} :: CreateServiceAction)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-csaAcceptLanguage :: Lens' CreateServiceAction (Maybe Text)
-csaAcceptLanguage = lens _csaAcceptLanguage (\s a -> s {_csaAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+createServiceAction_acceptLanguage :: Lens.Lens' CreateServiceAction (Prelude.Maybe Prelude.Text)
+createServiceAction_acceptLanguage = Lens.lens (\CreateServiceAction' {acceptLanguage} -> acceptLanguage) (\s@CreateServiceAction' {} a -> s {acceptLanguage = a} :: CreateServiceAction)
 
 -- | The self-service action name.
-csaName :: Lens' CreateServiceAction Text
-csaName = lens _csaName (\s a -> s {_csaName = a})
+createServiceAction_name :: Lens.Lens' CreateServiceAction Prelude.Text
+createServiceAction_name = Lens.lens (\CreateServiceAction' {name} -> name) (\s@CreateServiceAction' {} a -> s {name = a} :: CreateServiceAction)
 
--- | The service action definition type. For example, @SSM_AUTOMATION@ .
-csaDefinitionType :: Lens' CreateServiceAction ServiceActionDefinitionType
-csaDefinitionType = lens _csaDefinitionType (\s a -> s {_csaDefinitionType = a})
+-- | The service action definition type. For example, @SSM_AUTOMATION@.
+createServiceAction_definitionType :: Lens.Lens' CreateServiceAction ServiceActionDefinitionType
+createServiceAction_definitionType = Lens.lens (\CreateServiceAction' {definitionType} -> definitionType) (\s@CreateServiceAction' {} a -> s {definitionType = a} :: CreateServiceAction)
 
--- | The self-service action definition. Can be one of the following:     * Name    * The name of the AWS Systems Manager document (SSM document). For example, @AWS-RestartEC2Instance@ . If you are using a shared SSM document, you must provide the ARN instead of the name.     * Version    * The AWS Systems Manager automation document version. For example, @"Version": "1"@      * AssumeRole    * The Amazon Resource Name (ARN) of the role that performs the self-service actions on your behalf. For example, @"AssumeRole": "arn:aws:iam::12345678910:role/ActionRole"@ . To reuse the provisioned product launch role, set to @"AssumeRole": "LAUNCH_ROLE"@ .     * Parameters    * The list of parameters in JSON format. For example: @[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]@ or @[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]@ .
-csaDefinition :: Lens' CreateServiceAction (HashMap ServiceActionDefinitionKey Text)
-csaDefinition = lens _csaDefinition (\s a -> s {_csaDefinition = a}) . _Map
+-- | The self-service action definition. Can be one of the following:
+--
+-- [Name]
+--     The name of the AWS Systems Manager document (SSM document). For
+--     example, @AWS-RestartEC2Instance@.
+--
+--     If you are using a shared SSM document, you must provide the ARN
+--     instead of the name.
+--
+-- [Version]
+--     The AWS Systems Manager automation document version. For example,
+--     @\"Version\": \"1\"@
+--
+-- [AssumeRole]
+--     The Amazon Resource Name (ARN) of the role that performs the
+--     self-service actions on your behalf. For example,
+--     @\"AssumeRole\": \"arn:aws:iam::12345678910:role\/ActionRole\"@.
+--
+--     To reuse the provisioned product launch role, set to
+--     @\"AssumeRole\": \"LAUNCH_ROLE\"@.
+--
+-- [Parameters]
+--     The list of parameters in JSON format.
+--
+--     For example:
+--     @[{\\\"Name\\\":\\\"InstanceId\\\",\\\"Type\\\":\\\"TARGET\\\"}]@ or
+--     @[{\\\"Name\\\":\\\"InstanceId\\\",\\\"Type\\\":\\\"TEXT_VALUE\\\"}]@.
+createServiceAction_definition :: Lens.Lens' CreateServiceAction (Prelude.HashMap ServiceActionDefinitionKey Prelude.Text)
+createServiceAction_definition = Lens.lens (\CreateServiceAction' {definition} -> definition) (\s@CreateServiceAction' {} a -> s {definition = a} :: CreateServiceAction) Prelude.. Prelude._Map
 
--- | A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
-csaIdempotencyToken :: Lens' CreateServiceAction Text
-csaIdempotencyToken = lens _csaIdempotencyToken (\s a -> s {_csaIdempotencyToken = a})
+-- | A unique identifier that you provide to ensure idempotency. If multiple
+-- requests differ only by the idempotency token, the same response is
+-- returned for each repeated request.
+createServiceAction_idempotencyToken :: Lens.Lens' CreateServiceAction Prelude.Text
+createServiceAction_idempotencyToken = Lens.lens (\CreateServiceAction' {idempotencyToken} -> idempotencyToken) (\s@CreateServiceAction' {} a -> s {idempotencyToken = a} :: CreateServiceAction)
 
-instance AWSRequest CreateServiceAction where
+instance Prelude.AWSRequest CreateServiceAction where
   type
     Rs CreateServiceAction =
       CreateServiceActionResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateServiceActionResponse'
-            <$> (x .?> "ServiceActionDetail")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ServiceActionDetail")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateServiceAction
+instance Prelude.Hashable CreateServiceAction
 
-instance NFData CreateServiceAction
+instance Prelude.NFData CreateServiceAction
 
-instance ToHeaders CreateServiceAction where
+instance Prelude.ToHeaders CreateServiceAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.CreateServiceAction" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.CreateServiceAction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateServiceAction where
+instance Prelude.ToJSON CreateServiceAction where
   toJSON CreateServiceAction' {..} =
-    object
-      ( catMaybes
-          [ ("Description" .=) <$> _csaDescription,
-            ("AcceptLanguage" .=) <$> _csaAcceptLanguage,
-            Just ("Name" .= _csaName),
-            Just ("DefinitionType" .= _csaDefinitionType),
-            Just ("Definition" .= _csaDefinition),
-            Just ("IdempotencyToken" .= _csaIdempotencyToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Description" Prelude..=) Prelude.<$> description,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("DefinitionType" Prelude..= definitionType),
+            Prelude.Just ("Definition" Prelude..= definition),
+            Prelude.Just
+              ("IdempotencyToken" Prelude..= idempotencyToken)
           ]
       )
 
-instance ToPath CreateServiceAction where
-  toPath = const "/"
+instance Prelude.ToPath CreateServiceAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateServiceAction where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateServiceAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createServiceActionResponse' smart constructor.
+-- | /See:/ 'newCreateServiceActionResponse' smart constructor.
 data CreateServiceActionResponse = CreateServiceActionResponse'
-  { _csarrsServiceActionDetail ::
-      !( Maybe
-           ServiceActionDetail
-       ),
-    _csarrsResponseStatus ::
-      !Int
+  { -- | An object containing information about the self-service action.
+    serviceActionDetail :: Prelude.Maybe ServiceActionDetail,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateServiceActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateServiceActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csarrsServiceActionDetail' - An object containing information about the self-service action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csarrsResponseStatus' - -- | The response status code.
-createServiceActionResponse ::
-  -- | 'csarrsResponseStatus'
-  Int ->
+-- 'serviceActionDetail', 'createServiceActionResponse_serviceActionDetail' - An object containing information about the self-service action.
+--
+-- 'httpStatus', 'createServiceActionResponse_httpStatus' - The response's http status code.
+newCreateServiceActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateServiceActionResponse
-createServiceActionResponse pResponseStatus_ =
+newCreateServiceActionResponse pHttpStatus_ =
   CreateServiceActionResponse'
-    { _csarrsServiceActionDetail =
-        Nothing,
-      _csarrsResponseStatus = pResponseStatus_
+    { serviceActionDetail =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An object containing information about the self-service action.
-csarrsServiceActionDetail :: Lens' CreateServiceActionResponse (Maybe ServiceActionDetail)
-csarrsServiceActionDetail = lens _csarrsServiceActionDetail (\s a -> s {_csarrsServiceActionDetail = a})
+createServiceActionResponse_serviceActionDetail :: Lens.Lens' CreateServiceActionResponse (Prelude.Maybe ServiceActionDetail)
+createServiceActionResponse_serviceActionDetail = Lens.lens (\CreateServiceActionResponse' {serviceActionDetail} -> serviceActionDetail) (\s@CreateServiceActionResponse' {} a -> s {serviceActionDetail = a} :: CreateServiceActionResponse)
 
--- | -- | The response status code.
-csarrsResponseStatus :: Lens' CreateServiceActionResponse Int
-csarrsResponseStatus = lens _csarrsResponseStatus (\s a -> s {_csarrsResponseStatus = a})
+-- | The response's http status code.
+createServiceActionResponse_httpStatus :: Lens.Lens' CreateServiceActionResponse Prelude.Int
+createServiceActionResponse_httpStatus = Lens.lens (\CreateServiceActionResponse' {httpStatus} -> httpStatus) (\s@CreateServiceActionResponse' {} a -> s {httpStatus = a} :: CreateServiceActionResponse)
 
-instance NFData CreateServiceActionResponse
+instance Prelude.NFData CreateServiceActionResponse

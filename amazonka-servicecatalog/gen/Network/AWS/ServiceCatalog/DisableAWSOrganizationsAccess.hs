@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,119 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disable portfolio sharing through AWS Organizations feature. This feature will not delete your current shares but it will prevent you from creating new shares throughout your organization. Current shares will not be in sync with your organization structure if it changes after calling this API. This API can only be called by the management account in the organization.
+-- Disable portfolio sharing through AWS Organizations feature. This
+-- feature will not delete your current shares but it will prevent you from
+-- creating new shares throughout your organization. Current shares will
+-- not be in sync with your organization structure if it changes after
+-- calling this API. This API can only be called by the management account
+-- in the organization.
 --
+-- This API can\'t be invoked if there are active delegated administrators
+-- in the organization.
 --
--- This API can't be invoked if there are active delegated administrators in the organization.
---
--- Note that a delegated administrator is not authorized to invoke @DisableAWSOrganizationsAccess@ .
+-- Note that a delegated administrator is not authorized to invoke
+-- @DisableAWSOrganizationsAccess@.
 module Network.AWS.ServiceCatalog.DisableAWSOrganizationsAccess
   ( -- * Creating a Request
-    disableAWSOrganizationsAccess,
-    DisableAWSOrganizationsAccess,
+    DisableAWSOrganizationsAccess (..),
+    newDisableAWSOrganizationsAccess,
 
     -- * Destructuring the Response
-    disableAWSOrganizationsAccessResponse,
-    DisableAWSOrganizationsAccessResponse,
+    DisableAWSOrganizationsAccessResponse (..),
+    newDisableAWSOrganizationsAccessResponse,
 
     -- * Response Lenses
-    daoarrsResponseStatus,
+    disableAWSOrganizationsAccessResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'disableAWSOrganizationsAccess' smart constructor.
+-- | /See:/ 'newDisableAWSOrganizationsAccess' smart constructor.
 data DisableAWSOrganizationsAccess = DisableAWSOrganizationsAccess'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableAWSOrganizationsAccess' with the minimum fields required to make a request.
-disableAWSOrganizationsAccess ::
+-- |
+-- Create a value of 'DisableAWSOrganizationsAccess' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDisableAWSOrganizationsAccess ::
   DisableAWSOrganizationsAccess
-disableAWSOrganizationsAccess =
+newDisableAWSOrganizationsAccess =
   DisableAWSOrganizationsAccess'
 
-instance AWSRequest DisableAWSOrganizationsAccess where
+instance
+  Prelude.AWSRequest
+    DisableAWSOrganizationsAccess
+  where
   type
     Rs DisableAWSOrganizationsAccess =
       DisableAWSOrganizationsAccessResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DisableAWSOrganizationsAccessResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisableAWSOrganizationsAccess
+instance
+  Prelude.Hashable
+    DisableAWSOrganizationsAccess
 
-instance NFData DisableAWSOrganizationsAccess
+instance Prelude.NFData DisableAWSOrganizationsAccess
 
-instance ToHeaders DisableAWSOrganizationsAccess where
+instance
+  Prelude.ToHeaders
+    DisableAWSOrganizationsAccess
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DisableAWSOrganizationsAccess" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DisableAWSOrganizationsAccess" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisableAWSOrganizationsAccess where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DisableAWSOrganizationsAccess where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DisableAWSOrganizationsAccess where
-  toPath = const "/"
+instance Prelude.ToPath DisableAWSOrganizationsAccess where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableAWSOrganizationsAccess where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DisableAWSOrganizationsAccess
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disableAWSOrganizationsAccessResponse' smart constructor.
-newtype DisableAWSOrganizationsAccessResponse = DisableAWSOrganizationsAccessResponse'
-  { _daoarrsResponseStatus ::
-      Int
+-- | /See:/ 'newDisableAWSOrganizationsAccessResponse' smart constructor.
+data DisableAWSOrganizationsAccessResponse = DisableAWSOrganizationsAccessResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableAWSOrganizationsAccessResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableAWSOrganizationsAccessResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daoarrsResponseStatus' - -- | The response status code.
-disableAWSOrganizationsAccessResponse ::
-  -- | 'daoarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disableAWSOrganizationsAccessResponse_httpStatus' - The response's http status code.
+newDisableAWSOrganizationsAccessResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisableAWSOrganizationsAccessResponse
-disableAWSOrganizationsAccessResponse
-  pResponseStatus_ =
-    DisableAWSOrganizationsAccessResponse'
-      { _daoarrsResponseStatus =
-          pResponseStatus_
-      }
+newDisableAWSOrganizationsAccessResponse pHttpStatus_ =
+  DisableAWSOrganizationsAccessResponse'
+    { httpStatus =
+        pHttpStatus_
+    }
 
--- | -- | The response status code.
-daoarrsResponseStatus :: Lens' DisableAWSOrganizationsAccessResponse Int
-daoarrsResponseStatus = lens _daoarrsResponseStatus (\s a -> s {_daoarrsResponseStatus = a})
+-- | The response's http status code.
+disableAWSOrganizationsAccessResponse_httpStatus :: Lens.Lens' DisableAWSOrganizationsAccessResponse Prelude.Int
+disableAWSOrganizationsAccessResponse_httpStatus = Lens.lens (\DisableAWSOrganizationsAccessResponse' {httpStatus} -> httpStatus) (\s@DisableAWSOrganizationsAccessResponse' {} a -> s {httpStatus = a} :: DisableAWSOrganizationsAccessResponse)
 
-instance NFData DisableAWSOrganizationsAccessResponse
+instance
+  Prelude.NFData
+    DisableAWSOrganizationsAccessResponse

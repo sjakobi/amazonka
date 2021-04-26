@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,131 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enable portfolio sharing feature through AWS Organizations. This API will allow Service Catalog to receive updates on your organization in order to sync your shares with the current structure. This API can only be called by the management account in the organization.
+-- Enable portfolio sharing feature through AWS Organizations. This API
+-- will allow Service Catalog to receive updates on your organization in
+-- order to sync your shares with the current structure. This API can only
+-- be called by the management account in the organization.
 --
+-- By calling this API Service Catalog will make a call to
+-- organizations:EnableAWSServiceAccess on your behalf so that your shares
+-- can be in sync with any changes in your AWS Organizations structure.
 --
--- By calling this API Service Catalog will make a call to organizations:EnableAWSServiceAccess on your behalf so that your shares can be in sync with any changes in your AWS Organizations structure.
---
--- Note that a delegated administrator is not authorized to invoke @EnableAWSOrganizationsAccess@ .
+-- Note that a delegated administrator is not authorized to invoke
+-- @EnableAWSOrganizationsAccess@.
 module Network.AWS.ServiceCatalog.EnableAWSOrganizationsAccess
   ( -- * Creating a Request
-    enableAWSOrganizationsAccess,
-    EnableAWSOrganizationsAccess,
+    EnableAWSOrganizationsAccess (..),
+    newEnableAWSOrganizationsAccess,
 
     -- * Destructuring the Response
-    enableAWSOrganizationsAccessResponse,
-    EnableAWSOrganizationsAccessResponse,
+    EnableAWSOrganizationsAccessResponse (..),
+    newEnableAWSOrganizationsAccessResponse,
 
     -- * Response Lenses
-    eaoarrsResponseStatus,
+    enableAWSOrganizationsAccessResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'enableAWSOrganizationsAccess' smart constructor.
+-- | /See:/ 'newEnableAWSOrganizationsAccess' smart constructor.
 data EnableAWSOrganizationsAccess = EnableAWSOrganizationsAccess'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableAWSOrganizationsAccess' with the minimum fields required to make a request.
-enableAWSOrganizationsAccess ::
+-- |
+-- Create a value of 'EnableAWSOrganizationsAccess' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEnableAWSOrganizationsAccess ::
   EnableAWSOrganizationsAccess
-enableAWSOrganizationsAccess =
+newEnableAWSOrganizationsAccess =
   EnableAWSOrganizationsAccess'
 
-instance AWSRequest EnableAWSOrganizationsAccess where
+instance
+  Prelude.AWSRequest
+    EnableAWSOrganizationsAccess
+  where
   type
     Rs EnableAWSOrganizationsAccess =
       EnableAWSOrganizationsAccessResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           EnableAWSOrganizationsAccessResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableAWSOrganizationsAccess
+instance
+  Prelude.Hashable
+    EnableAWSOrganizationsAccess
 
-instance NFData EnableAWSOrganizationsAccess
+instance Prelude.NFData EnableAWSOrganizationsAccess
 
-instance ToHeaders EnableAWSOrganizationsAccess where
+instance
+  Prelude.ToHeaders
+    EnableAWSOrganizationsAccess
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.EnableAWSOrganizationsAccess" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.EnableAWSOrganizationsAccess" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableAWSOrganizationsAccess where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON EnableAWSOrganizationsAccess where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath EnableAWSOrganizationsAccess where
-  toPath = const "/"
+instance Prelude.ToPath EnableAWSOrganizationsAccess where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableAWSOrganizationsAccess where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableAWSOrganizationsAccess where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableAWSOrganizationsAccessResponse' smart constructor.
-newtype EnableAWSOrganizationsAccessResponse = EnableAWSOrganizationsAccessResponse'
-  { _eaoarrsResponseStatus ::
-      Int
+-- | /See:/ 'newEnableAWSOrganizationsAccessResponse' smart constructor.
+data EnableAWSOrganizationsAccessResponse = EnableAWSOrganizationsAccessResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableAWSOrganizationsAccessResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableAWSOrganizationsAccessResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eaoarrsResponseStatus' - -- | The response status code.
-enableAWSOrganizationsAccessResponse ::
-  -- | 'eaoarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'enableAWSOrganizationsAccessResponse_httpStatus' - The response's http status code.
+newEnableAWSOrganizationsAccessResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnableAWSOrganizationsAccessResponse
-enableAWSOrganizationsAccessResponse pResponseStatus_ =
+newEnableAWSOrganizationsAccessResponse pHttpStatus_ =
   EnableAWSOrganizationsAccessResponse'
-    { _eaoarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-eaoarrsResponseStatus :: Lens' EnableAWSOrganizationsAccessResponse Int
-eaoarrsResponseStatus = lens _eaoarrsResponseStatus (\s a -> s {_eaoarrsResponseStatus = a})
+-- | The response's http status code.
+enableAWSOrganizationsAccessResponse_httpStatus :: Lens.Lens' EnableAWSOrganizationsAccessResponse Prelude.Int
+enableAWSOrganizationsAccessResponse_httpStatus = Lens.lens (\EnableAWSOrganizationsAccessResponse' {httpStatus} -> httpStatus) (\s@EnableAWSOrganizationsAccessResponse' {} a -> s {httpStatus = a} :: EnableAWSOrganizationsAccessResponse)
 
-instance NFData EnableAWSOrganizationsAccessResponse
+instance
+  Prelude.NFData
+    EnableAWSOrganizationsAccessResponse

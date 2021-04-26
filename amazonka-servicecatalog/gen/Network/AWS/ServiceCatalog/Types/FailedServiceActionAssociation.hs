@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,100 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.FailedServiceActionAssociation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ServiceActionAssociationErrorCode
 
--- | An object containing information about the error, along with identifying information about the self-service action and its associations.
+-- | An object containing information about the error, along with identifying
+-- information about the self-service action and its associations.
 --
---
---
--- /See:/ 'failedServiceActionAssociation' smart constructor.
+-- /See:/ 'newFailedServiceActionAssociation' smart constructor.
 data FailedServiceActionAssociation = FailedServiceActionAssociation'
-  { _fsaaProvisioningArtifactId ::
-      !( Maybe
-           Text
-       ),
-    _fsaaServiceActionId ::
-      !( Maybe
-           Text
-       ),
-    _fsaaProductId ::
-      !( Maybe
-           Text
-       ),
-    _fsaaErrorMessage ::
-      !( Maybe
-           Text
-       ),
-    _fsaaErrorCode ::
-      !( Maybe
-           ServiceActionAssociationErrorCode
-       )
+  { -- | The identifier of the provisioning artifact. For example,
+    -- @pa-4abcdjnxjj6ne@.
+    provisioningArtifactId :: Prelude.Maybe Prelude.Text,
+    -- | The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+    serviceActionId :: Prelude.Maybe Prelude.Text,
+    -- | The product identifier. For example, @prod-abcdzk7xy33qa@.
+    productId :: Prelude.Maybe Prelude.Text,
+    -- | A text description of the error.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The error code. Valid values are listed below.
+    errorCode :: Prelude.Maybe ServiceActionAssociationErrorCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailedServiceActionAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailedServiceActionAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fsaaProvisioningArtifactId' - The identifier of the provisioning artifact. For example, @pa-4abcdjnxjj6ne@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fsaaServiceActionId' - The self-service action identifier. For example, @act-fs7abcd89wxyz@ .
+-- 'provisioningArtifactId', 'failedServiceActionAssociation_provisioningArtifactId' - The identifier of the provisioning artifact. For example,
+-- @pa-4abcdjnxjj6ne@.
 --
--- * 'fsaaProductId' - The product identifier. For example, @prod-abcdzk7xy33qa@ .
+-- 'serviceActionId', 'failedServiceActionAssociation_serviceActionId' - The self-service action identifier. For example, @act-fs7abcd89wxyz@.
 --
--- * 'fsaaErrorMessage' - A text description of the error.
+-- 'productId', 'failedServiceActionAssociation_productId' - The product identifier. For example, @prod-abcdzk7xy33qa@.
 --
--- * 'fsaaErrorCode' - The error code. Valid values are listed below.
-failedServiceActionAssociation ::
+-- 'errorMessage', 'failedServiceActionAssociation_errorMessage' - A text description of the error.
+--
+-- 'errorCode', 'failedServiceActionAssociation_errorCode' - The error code. Valid values are listed below.
+newFailedServiceActionAssociation ::
   FailedServiceActionAssociation
-failedServiceActionAssociation =
+newFailedServiceActionAssociation =
   FailedServiceActionAssociation'
-    { _fsaaProvisioningArtifactId =
-        Nothing,
-      _fsaaServiceActionId = Nothing,
-      _fsaaProductId = Nothing,
-      _fsaaErrorMessage = Nothing,
-      _fsaaErrorCode = Nothing
+    { provisioningArtifactId =
+        Prelude.Nothing,
+      serviceActionId = Prelude.Nothing,
+      productId = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
--- | The identifier of the provisioning artifact. For example, @pa-4abcdjnxjj6ne@ .
-fsaaProvisioningArtifactId :: Lens' FailedServiceActionAssociation (Maybe Text)
-fsaaProvisioningArtifactId = lens _fsaaProvisioningArtifactId (\s a -> s {_fsaaProvisioningArtifactId = a})
+-- | The identifier of the provisioning artifact. For example,
+-- @pa-4abcdjnxjj6ne@.
+failedServiceActionAssociation_provisioningArtifactId :: Lens.Lens' FailedServiceActionAssociation (Prelude.Maybe Prelude.Text)
+failedServiceActionAssociation_provisioningArtifactId = Lens.lens (\FailedServiceActionAssociation' {provisioningArtifactId} -> provisioningArtifactId) (\s@FailedServiceActionAssociation' {} a -> s {provisioningArtifactId = a} :: FailedServiceActionAssociation)
 
--- | The self-service action identifier. For example, @act-fs7abcd89wxyz@ .
-fsaaServiceActionId :: Lens' FailedServiceActionAssociation (Maybe Text)
-fsaaServiceActionId = lens _fsaaServiceActionId (\s a -> s {_fsaaServiceActionId = a})
+-- | The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+failedServiceActionAssociation_serviceActionId :: Lens.Lens' FailedServiceActionAssociation (Prelude.Maybe Prelude.Text)
+failedServiceActionAssociation_serviceActionId = Lens.lens (\FailedServiceActionAssociation' {serviceActionId} -> serviceActionId) (\s@FailedServiceActionAssociation' {} a -> s {serviceActionId = a} :: FailedServiceActionAssociation)
 
--- | The product identifier. For example, @prod-abcdzk7xy33qa@ .
-fsaaProductId :: Lens' FailedServiceActionAssociation (Maybe Text)
-fsaaProductId = lens _fsaaProductId (\s a -> s {_fsaaProductId = a})
+-- | The product identifier. For example, @prod-abcdzk7xy33qa@.
+failedServiceActionAssociation_productId :: Lens.Lens' FailedServiceActionAssociation (Prelude.Maybe Prelude.Text)
+failedServiceActionAssociation_productId = Lens.lens (\FailedServiceActionAssociation' {productId} -> productId) (\s@FailedServiceActionAssociation' {} a -> s {productId = a} :: FailedServiceActionAssociation)
 
 -- | A text description of the error.
-fsaaErrorMessage :: Lens' FailedServiceActionAssociation (Maybe Text)
-fsaaErrorMessage = lens _fsaaErrorMessage (\s a -> s {_fsaaErrorMessage = a})
+failedServiceActionAssociation_errorMessage :: Lens.Lens' FailedServiceActionAssociation (Prelude.Maybe Prelude.Text)
+failedServiceActionAssociation_errorMessage = Lens.lens (\FailedServiceActionAssociation' {errorMessage} -> errorMessage) (\s@FailedServiceActionAssociation' {} a -> s {errorMessage = a} :: FailedServiceActionAssociation)
 
 -- | The error code. Valid values are listed below.
-fsaaErrorCode :: Lens' FailedServiceActionAssociation (Maybe ServiceActionAssociationErrorCode)
-fsaaErrorCode = lens _fsaaErrorCode (\s a -> s {_fsaaErrorCode = a})
+failedServiceActionAssociation_errorCode :: Lens.Lens' FailedServiceActionAssociation (Prelude.Maybe ServiceActionAssociationErrorCode)
+failedServiceActionAssociation_errorCode = Lens.lens (\FailedServiceActionAssociation' {errorCode} -> errorCode) (\s@FailedServiceActionAssociation' {} a -> s {errorCode = a} :: FailedServiceActionAssociation)
 
-instance FromJSON FailedServiceActionAssociation where
+instance
+  Prelude.FromJSON
+    FailedServiceActionAssociation
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FailedServiceActionAssociation"
       ( \x ->
           FailedServiceActionAssociation'
-            <$> (x .:? "ProvisioningArtifactId")
-            <*> (x .:? "ServiceActionId")
-            <*> (x .:? "ProductId")
-            <*> (x .:? "ErrorMessage")
-            <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "ProvisioningArtifactId")
+            Prelude.<*> (x Prelude..:? "ServiceActionId")
+            Prelude.<*> (x Prelude..:? "ProductId")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable FailedServiceActionAssociation
+instance
+  Prelude.Hashable
+    FailedServiceActionAssociation
 
-instance NFData FailedServiceActionAssociation
+instance
+  Prelude.NFData
+    FailedServiceActionAssociation

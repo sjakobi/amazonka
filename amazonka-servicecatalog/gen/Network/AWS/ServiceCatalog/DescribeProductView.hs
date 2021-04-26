@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,162 +24,186 @@
 -- Gets information about the specified product.
 module Network.AWS.ServiceCatalog.DescribeProductView
   ( -- * Creating a Request
-    describeProductView,
-    DescribeProductView,
+    DescribeProductView (..),
+    newDescribeProductView,
 
     -- * Request Lenses
-    dpvAcceptLanguage,
-    dpvId,
+    describeProductView_acceptLanguage,
+    describeProductView_id,
 
     -- * Destructuring the Response
-    describeProductViewResponse,
-    DescribeProductViewResponse,
+    DescribeProductViewResponse (..),
+    newDescribeProductViewResponse,
 
     -- * Response Lenses
-    dpvrrsProvisioningArtifacts,
-    dpvrrsProductViewSummary,
-    dpvrrsResponseStatus,
+    describeProductViewResponse_provisioningArtifacts,
+    describeProductViewResponse_productViewSummary,
+    describeProductViewResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ProductViewSummary
+import Network.AWS.ServiceCatalog.Types.ProvisioningArtifact
 
--- | /See:/ 'describeProductView' smart constructor.
+-- | /See:/ 'newDescribeProductView' smart constructor.
 data DescribeProductView = DescribeProductView'
-  { _dpvAcceptLanguage ::
-      !(Maybe Text),
-    _dpvId :: !Text
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The product view identifier.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProductView' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProductView' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpvAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpvId' - The product view identifier.
-describeProductView ::
-  -- | 'dpvId'
-  Text ->
+-- 'acceptLanguage', 'describeProductView_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'id', 'describeProductView_id' - The product view identifier.
+newDescribeProductView ::
+  -- | 'id'
+  Prelude.Text ->
   DescribeProductView
-describeProductView pId_ =
+newDescribeProductView pId_ =
   DescribeProductView'
-    { _dpvAcceptLanguage = Nothing,
-      _dpvId = pId_
+    { acceptLanguage =
+        Prelude.Nothing,
+      id = pId_
     }
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-dpvAcceptLanguage :: Lens' DescribeProductView (Maybe Text)
-dpvAcceptLanguage = lens _dpvAcceptLanguage (\s a -> s {_dpvAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+describeProductView_acceptLanguage :: Lens.Lens' DescribeProductView (Prelude.Maybe Prelude.Text)
+describeProductView_acceptLanguage = Lens.lens (\DescribeProductView' {acceptLanguage} -> acceptLanguage) (\s@DescribeProductView' {} a -> s {acceptLanguage = a} :: DescribeProductView)
 
 -- | The product view identifier.
-dpvId :: Lens' DescribeProductView Text
-dpvId = lens _dpvId (\s a -> s {_dpvId = a})
+describeProductView_id :: Lens.Lens' DescribeProductView Prelude.Text
+describeProductView_id = Lens.lens (\DescribeProductView' {id} -> id) (\s@DescribeProductView' {} a -> s {id = a} :: DescribeProductView)
 
-instance AWSRequest DescribeProductView where
+instance Prelude.AWSRequest DescribeProductView where
   type
     Rs DescribeProductView =
       DescribeProductViewResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeProductViewResponse'
-            <$> (x .?> "ProvisioningArtifacts" .!@ mempty)
-            <*> (x .?> "ProductViewSummary")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ProvisioningArtifacts"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "ProductViewSummary")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeProductView
+instance Prelude.Hashable DescribeProductView
 
-instance NFData DescribeProductView
+instance Prelude.NFData DescribeProductView
 
-instance ToHeaders DescribeProductView where
+instance Prelude.ToHeaders DescribeProductView where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DescribeProductView" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DescribeProductView" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeProductView where
+instance Prelude.ToJSON DescribeProductView where
   toJSON DescribeProductView' {..} =
-    object
-      ( catMaybes
-          [ ("AcceptLanguage" .=) <$> _dpvAcceptLanguage,
-            Just ("Id" .= _dpvId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("Id" Prelude..= id)
           ]
       )
 
-instance ToPath DescribeProductView where
-  toPath = const "/"
+instance Prelude.ToPath DescribeProductView where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeProductView where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeProductView where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeProductViewResponse' smart constructor.
+-- | /See:/ 'newDescribeProductViewResponse' smart constructor.
 data DescribeProductViewResponse = DescribeProductViewResponse'
-  { _dpvrrsProvisioningArtifacts ::
-      !( Maybe
-           [ProvisioningArtifact]
-       ),
-    _dpvrrsProductViewSummary ::
-      !( Maybe
-           ProductViewSummary
-       ),
-    _dpvrrsResponseStatus ::
-      !Int
+  { -- | Information about the provisioning artifacts for the product.
+    provisioningArtifacts :: Prelude.Maybe [ProvisioningArtifact],
+    -- | Summary information about the product.
+    productViewSummary :: Prelude.Maybe ProductViewSummary,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProductViewResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProductViewResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpvrrsProvisioningArtifacts' - Information about the provisioning artifacts for the product.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpvrrsProductViewSummary' - Summary information about the product.
+-- 'provisioningArtifacts', 'describeProductViewResponse_provisioningArtifacts' - Information about the provisioning artifacts for the product.
 --
--- * 'dpvrrsResponseStatus' - -- | The response status code.
-describeProductViewResponse ::
-  -- | 'dpvrrsResponseStatus'
-  Int ->
+-- 'productViewSummary', 'describeProductViewResponse_productViewSummary' - Summary information about the product.
+--
+-- 'httpStatus', 'describeProductViewResponse_httpStatus' - The response's http status code.
+newDescribeProductViewResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeProductViewResponse
-describeProductViewResponse pResponseStatus_ =
+newDescribeProductViewResponse pHttpStatus_ =
   DescribeProductViewResponse'
-    { _dpvrrsProvisioningArtifacts =
-        Nothing,
-      _dpvrrsProductViewSummary = Nothing,
-      _dpvrrsResponseStatus = pResponseStatus_
+    { provisioningArtifacts =
+        Prelude.Nothing,
+      productViewSummary = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the provisioning artifacts for the product.
-dpvrrsProvisioningArtifacts :: Lens' DescribeProductViewResponse [ProvisioningArtifact]
-dpvrrsProvisioningArtifacts = lens _dpvrrsProvisioningArtifacts (\s a -> s {_dpvrrsProvisioningArtifacts = a}) . _Default . _Coerce
+describeProductViewResponse_provisioningArtifacts :: Lens.Lens' DescribeProductViewResponse (Prelude.Maybe [ProvisioningArtifact])
+describeProductViewResponse_provisioningArtifacts = Lens.lens (\DescribeProductViewResponse' {provisioningArtifacts} -> provisioningArtifacts) (\s@DescribeProductViewResponse' {} a -> s {provisioningArtifacts = a} :: DescribeProductViewResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Summary information about the product.
-dpvrrsProductViewSummary :: Lens' DescribeProductViewResponse (Maybe ProductViewSummary)
-dpvrrsProductViewSummary = lens _dpvrrsProductViewSummary (\s a -> s {_dpvrrsProductViewSummary = a})
+describeProductViewResponse_productViewSummary :: Lens.Lens' DescribeProductViewResponse (Prelude.Maybe ProductViewSummary)
+describeProductViewResponse_productViewSummary = Lens.lens (\DescribeProductViewResponse' {productViewSummary} -> productViewSummary) (\s@DescribeProductViewResponse' {} a -> s {productViewSummary = a} :: DescribeProductViewResponse)
 
--- | -- | The response status code.
-dpvrrsResponseStatus :: Lens' DescribeProductViewResponse Int
-dpvrrsResponseStatus = lens _dpvrrsResponseStatus (\s a -> s {_dpvrrsResponseStatus = a})
+-- | The response's http status code.
+describeProductViewResponse_httpStatus :: Lens.Lens' DescribeProductViewResponse Prelude.Int
+describeProductViewResponse_httpStatus = Lens.lens (\DescribeProductViewResponse' {httpStatus} -> httpStatus) (\s@DescribeProductViewResponse' {} a -> s {httpStatus = a} :: DescribeProductViewResponse)
 
-instance NFData DescribeProductViewResponse
+instance Prelude.NFData DescribeProductViewResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.ServiceCatalog.Types.ProvisionedProductPlanType
   ( ProvisionedProductPlanType
       ( ..,
-        Cloudformation
+        ProvisionedProductPlanTypeCLOUDFORMATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProvisionedProductPlanType
-  = ProvisionedProductPlanType'
-      ( CI
-          Text
-      )
+newtype ProvisionedProductPlanType = ProvisionedProductPlanType'
+  { fromProvisionedProductPlanType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cloudformation :: ProvisionedProductPlanType
-pattern Cloudformation = ProvisionedProductPlanType' "CLOUDFORMATION"
+pattern ProvisionedProductPlanTypeCLOUDFORMATION :: ProvisionedProductPlanType
+pattern ProvisionedProductPlanTypeCLOUDFORMATION = ProvisionedProductPlanType' "CLOUDFORMATION"
 
 {-# COMPLETE
-  Cloudformation,
+  ProvisionedProductPlanTypeCLOUDFORMATION,
   ProvisionedProductPlanType'
   #-}
 
-instance FromText ProvisionedProductPlanType where
-  parser = (ProvisionedProductPlanType' . mk) <$> takeText
+instance Prelude.FromText ProvisionedProductPlanType where
+  parser = ProvisionedProductPlanType' Prelude.<$> Prelude.takeText
 
-instance ToText ProvisionedProductPlanType where
-  toText (ProvisionedProductPlanType' ci) = original ci
+instance Prelude.ToText ProvisionedProductPlanType where
+  toText (ProvisionedProductPlanType' x) = x
 
-instance Hashable ProvisionedProductPlanType
+instance Prelude.Hashable ProvisionedProductPlanType
 
-instance NFData ProvisionedProductPlanType
+instance Prelude.NFData ProvisionedProductPlanType
 
-instance ToByteString ProvisionedProductPlanType
+instance Prelude.ToByteString ProvisionedProductPlanType
 
-instance ToQuery ProvisionedProductPlanType
+instance Prelude.ToQuery ProvisionedProductPlanType
 
-instance ToHeader ProvisionedProductPlanType
+instance Prelude.ToHeader ProvisionedProductPlanType
 
-instance ToJSON ProvisionedProductPlanType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProvisionedProductPlanType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProvisionedProductPlanType where
-  parseJSON = parseJSONText "ProvisionedProductPlanType"
+instance Prelude.FromJSON ProvisionedProductPlanType where
+  parseJSON = Prelude.parseJSONText "ProvisionedProductPlanType"

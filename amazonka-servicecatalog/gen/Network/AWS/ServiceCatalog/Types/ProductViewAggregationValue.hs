@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ProductViewAggregationValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A single product view aggregation value/count pair, containing metadata about each product to which the calling user has access.
+-- | A single product view aggregation value\/count pair, containing metadata
+-- about each product to which the calling user has access.
 --
---
---
--- /See:/ 'productViewAggregationValue' smart constructor.
+-- /See:/ 'newProductViewAggregationValue' smart constructor.
 data ProductViewAggregationValue = ProductViewAggregationValue'
-  { _pvavValue ::
-      !(Maybe Text),
-    _pvavApproximateCount ::
-      !(Maybe Int)
+  { -- | The value of the product view aggregation.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | An approximate count of the products that match the value.
+    approximateCount :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProductViewAggregationValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProductViewAggregationValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pvavValue' - The value of the product view aggregation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pvavApproximateCount' - An approximate count of the products that match the value.
-productViewAggregationValue ::
+-- 'value', 'productViewAggregationValue_value' - The value of the product view aggregation.
+--
+-- 'approximateCount', 'productViewAggregationValue_approximateCount' - An approximate count of the products that match the value.
+newProductViewAggregationValue ::
   ProductViewAggregationValue
-productViewAggregationValue =
+newProductViewAggregationValue =
   ProductViewAggregationValue'
-    { _pvavValue = Nothing,
-      _pvavApproximateCount = Nothing
+    { value =
+        Prelude.Nothing,
+      approximateCount = Prelude.Nothing
     }
 
 -- | The value of the product view aggregation.
-pvavValue :: Lens' ProductViewAggregationValue (Maybe Text)
-pvavValue = lens _pvavValue (\s a -> s {_pvavValue = a})
+productViewAggregationValue_value :: Lens.Lens' ProductViewAggregationValue (Prelude.Maybe Prelude.Text)
+productViewAggregationValue_value = Lens.lens (\ProductViewAggregationValue' {value} -> value) (\s@ProductViewAggregationValue' {} a -> s {value = a} :: ProductViewAggregationValue)
 
 -- | An approximate count of the products that match the value.
-pvavApproximateCount :: Lens' ProductViewAggregationValue (Maybe Int)
-pvavApproximateCount = lens _pvavApproximateCount (\s a -> s {_pvavApproximateCount = a})
+productViewAggregationValue_approximateCount :: Lens.Lens' ProductViewAggregationValue (Prelude.Maybe Prelude.Int)
+productViewAggregationValue_approximateCount = Lens.lens (\ProductViewAggregationValue' {approximateCount} -> approximateCount) (\s@ProductViewAggregationValue' {} a -> s {approximateCount = a} :: ProductViewAggregationValue)
 
-instance FromJSON ProductViewAggregationValue where
+instance Prelude.FromJSON ProductViewAggregationValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProductViewAggregationValue"
       ( \x ->
           ProductViewAggregationValue'
-            <$> (x .:? "Value") <*> (x .:? "ApproximateCount")
+            Prelude.<$> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "ApproximateCount")
       )
 
-instance Hashable ProductViewAggregationValue
+instance Prelude.Hashable ProductViewAggregationValue
 
-instance NFData ProductViewAggregationValue
+instance Prelude.NFData ProductViewAggregationValue

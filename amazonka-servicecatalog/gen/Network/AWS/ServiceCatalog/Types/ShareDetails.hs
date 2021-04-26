@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ShareDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ShareError
 
 -- | Information about the portfolio share operation.
 --
---
---
--- /See:/ 'shareDetails' smart constructor.
+-- /See:/ 'newShareDetails' smart constructor.
 data ShareDetails = ShareDetails'
-  { _sdShareErrors ::
-      !(Maybe [ShareError]),
-    _sdSuccessfulShares :: !(Maybe [Text])
+  { -- | List of errors.
+    shareErrors :: Prelude.Maybe [ShareError],
+    -- | List of accounts for whom the operation succeeded.
+    successfulShares :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ShareDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ShareDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdShareErrors' - List of errors.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdSuccessfulShares' - List of accounts for whom the operation succeeded.
-shareDetails ::
+-- 'shareErrors', 'shareDetails_shareErrors' - List of errors.
+--
+-- 'successfulShares', 'shareDetails_successfulShares' - List of accounts for whom the operation succeeded.
+newShareDetails ::
   ShareDetails
-shareDetails =
+newShareDetails =
   ShareDetails'
-    { _sdShareErrors = Nothing,
-      _sdSuccessfulShares = Nothing
+    { shareErrors = Prelude.Nothing,
+      successfulShares = Prelude.Nothing
     }
 
 -- | List of errors.
-sdShareErrors :: Lens' ShareDetails [ShareError]
-sdShareErrors = lens _sdShareErrors (\s a -> s {_sdShareErrors = a}) . _Default . _Coerce
+shareDetails_shareErrors :: Lens.Lens' ShareDetails (Prelude.Maybe [ShareError])
+shareDetails_shareErrors = Lens.lens (\ShareDetails' {shareErrors} -> shareErrors) (\s@ShareDetails' {} a -> s {shareErrors = a} :: ShareDetails) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | List of accounts for whom the operation succeeded.
-sdSuccessfulShares :: Lens' ShareDetails [Text]
-sdSuccessfulShares = lens _sdSuccessfulShares (\s a -> s {_sdSuccessfulShares = a}) . _Default . _Coerce
+shareDetails_successfulShares :: Lens.Lens' ShareDetails (Prelude.Maybe [Prelude.Text])
+shareDetails_successfulShares = Lens.lens (\ShareDetails' {successfulShares} -> successfulShares) (\s@ShareDetails' {} a -> s {successfulShares = a} :: ShareDetails) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ShareDetails where
+instance Prelude.FromJSON ShareDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ShareDetails"
       ( \x ->
           ShareDetails'
-            <$> (x .:? "ShareErrors" .!= mempty)
-            <*> (x .:? "SuccessfulShares" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "ShareErrors"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "SuccessfulShares"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ShareDetails
+instance Prelude.Hashable ShareDetails
 
-instance NFData ShareDetails
+instance Prelude.NFData ShareDetails

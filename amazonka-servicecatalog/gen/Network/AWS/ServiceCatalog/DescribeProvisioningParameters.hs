@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,305 +21,361 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about the configuration required to provision the specified product using the specified provisioning artifact.
+-- Gets information about the configuration required to provision the
+-- specified product using the specified provisioning artifact.
 --
---
--- If the output contains a TagOption key with an empty list of values, there is a TagOption conflict for that key. The end user cannot take action to fix the conflict, and launch is not blocked. In subsequent calls to 'ProvisionProduct' , do not include conflicted TagOption keys as tags, or this causes the error "Parameter validation failed: Missing required parameter in Tags[/N/ ]:/Value/ ". Tag the provisioned product with the value @sc-tagoption-conflict-portfolioId-productId@ .
+-- If the output contains a TagOption key with an empty list of values,
+-- there is a TagOption conflict for that key. The end user cannot take
+-- action to fix the conflict, and launch is not blocked. In subsequent
+-- calls to ProvisionProduct, do not include conflicted TagOption keys as
+-- tags, or this causes the error \"Parameter validation failed: Missing
+-- required parameter in Tags[/N/]:/Value/\". Tag the provisioned product
+-- with the value @sc-tagoption-conflict-portfolioId-productId@.
 module Network.AWS.ServiceCatalog.DescribeProvisioningParameters
   ( -- * Creating a Request
-    describeProvisioningParameters,
-    DescribeProvisioningParameters,
+    DescribeProvisioningParameters (..),
+    newDescribeProvisioningParameters,
 
     -- * Request Lenses
-    dppProvisioningArtifactName,
-    dppProvisioningArtifactId,
-    dppProductName,
-    dppProductId,
-    dppPathId,
-    dppAcceptLanguage,
-    dppPathName,
+    describeProvisioningParameters_provisioningArtifactName,
+    describeProvisioningParameters_provisioningArtifactId,
+    describeProvisioningParameters_productName,
+    describeProvisioningParameters_productId,
+    describeProvisioningParameters_pathId,
+    describeProvisioningParameters_acceptLanguage,
+    describeProvisioningParameters_pathName,
 
     -- * Destructuring the Response
-    describeProvisioningParametersResponse,
-    DescribeProvisioningParametersResponse,
+    DescribeProvisioningParametersResponse (..),
+    newDescribeProvisioningParametersResponse,
 
     -- * Response Lenses
-    dpprprsConstraintSummaries,
-    dpprprsUsageInstructions,
-    dpprprsProvisioningArtifactOutputs,
-    dpprprsProvisioningArtifactPreferences,
-    dpprprsProvisioningArtifactParameters,
-    dpprprsTagOptions,
-    dpprprsResponseStatus,
+    describeProvisioningParametersResponse_constraintSummaries,
+    describeProvisioningParametersResponse_usageInstructions,
+    describeProvisioningParametersResponse_provisioningArtifactOutputs,
+    describeProvisioningParametersResponse_provisioningArtifactPreferences,
+    describeProvisioningParametersResponse_provisioningArtifactParameters,
+    describeProvisioningParametersResponse_tagOptions,
+    describeProvisioningParametersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ConstraintSummary
+import Network.AWS.ServiceCatalog.Types.ProvisioningArtifactOutput
+import Network.AWS.ServiceCatalog.Types.ProvisioningArtifactParameter
+import Network.AWS.ServiceCatalog.Types.ProvisioningArtifactPreferences
+import Network.AWS.ServiceCatalog.Types.TagOptionSummary
+import Network.AWS.ServiceCatalog.Types.UsageInstruction
 
--- | /See:/ 'describeProvisioningParameters' smart constructor.
+-- | /See:/ 'newDescribeProvisioningParameters' smart constructor.
 data DescribeProvisioningParameters = DescribeProvisioningParameters'
-  { _dppProvisioningArtifactName ::
-      !( Maybe
-           Text
-       ),
-    _dppProvisioningArtifactId ::
-      !( Maybe
-           Text
-       ),
-    _dppProductName ::
-      !( Maybe
-           Text
-       ),
-    _dppProductId ::
-      !( Maybe
-           Text
-       ),
-    _dppPathId ::
-      !( Maybe
-           Text
-       ),
-    _dppAcceptLanguage ::
-      !( Maybe
-           Text
-       ),
-    _dppPathName ::
-      !( Maybe
-           Text
-       )
+  { -- | The name of the provisioning artifact. You must provide the name or ID,
+    -- but not both.
+    provisioningArtifactName :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the provisioning artifact. You must provide the name
+    -- or ID, but not both.
+    provisioningArtifactId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the product. You must provide the name or ID, but not both.
+    productName :: Prelude.Maybe Prelude.Text,
+    -- | The product identifier. You must provide the product name or ID, but not
+    -- both.
+    productId :: Prelude.Maybe Prelude.Text,
+    -- | The path identifier of the product. This value is optional if the
+    -- product has a default path, and required if the product has more than
+    -- one path. To list the paths for a product, use ListLaunchPaths. You must
+    -- provide the name or ID, but not both.
+    pathId :: Prelude.Maybe Prelude.Text,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The name of the path. You must provide the name or ID, but not both.
+    pathName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProvisioningParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProvisioningParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dppProvisioningArtifactName' - The name of the provisioning artifact. You must provide the name or ID, but not both.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dppProvisioningArtifactId' - The identifier of the provisioning artifact. You must provide the name or ID, but not both.
+-- 'provisioningArtifactName', 'describeProvisioningParameters_provisioningArtifactName' - The name of the provisioning artifact. You must provide the name or ID,
+-- but not both.
 --
--- * 'dppProductName' - The name of the product. You must provide the name or ID, but not both.
+-- 'provisioningArtifactId', 'describeProvisioningParameters_provisioningArtifactId' - The identifier of the provisioning artifact. You must provide the name
+-- or ID, but not both.
 --
--- * 'dppProductId' - The product identifier. You must provide the product name or ID, but not both.
+-- 'productName', 'describeProvisioningParameters_productName' - The name of the product. You must provide the name or ID, but not both.
 --
--- * 'dppPathId' - The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path. To list the paths for a product, use 'ListLaunchPaths' . You must provide the name or ID, but not both.
+-- 'productId', 'describeProvisioningParameters_productId' - The product identifier. You must provide the product name or ID, but not
+-- both.
 --
--- * 'dppAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- 'pathId', 'describeProvisioningParameters_pathId' - The path identifier of the product. This value is optional if the
+-- product has a default path, and required if the product has more than
+-- one path. To list the paths for a product, use ListLaunchPaths. You must
+-- provide the name or ID, but not both.
 --
--- * 'dppPathName' - The name of the path. You must provide the name or ID, but not both.
-describeProvisioningParameters ::
+-- 'acceptLanguage', 'describeProvisioningParameters_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'pathName', 'describeProvisioningParameters_pathName' - The name of the path. You must provide the name or ID, but not both.
+newDescribeProvisioningParameters ::
   DescribeProvisioningParameters
-describeProvisioningParameters =
+newDescribeProvisioningParameters =
   DescribeProvisioningParameters'
-    { _dppProvisioningArtifactName =
-        Nothing,
-      _dppProvisioningArtifactId = Nothing,
-      _dppProductName = Nothing,
-      _dppProductId = Nothing,
-      _dppPathId = Nothing,
-      _dppAcceptLanguage = Nothing,
-      _dppPathName = Nothing
+    { provisioningArtifactName =
+        Prelude.Nothing,
+      provisioningArtifactId = Prelude.Nothing,
+      productName = Prelude.Nothing,
+      productId = Prelude.Nothing,
+      pathId = Prelude.Nothing,
+      acceptLanguage = Prelude.Nothing,
+      pathName = Prelude.Nothing
     }
 
--- | The name of the provisioning artifact. You must provide the name or ID, but not both.
-dppProvisioningArtifactName :: Lens' DescribeProvisioningParameters (Maybe Text)
-dppProvisioningArtifactName = lens _dppProvisioningArtifactName (\s a -> s {_dppProvisioningArtifactName = a})
+-- | The name of the provisioning artifact. You must provide the name or ID,
+-- but not both.
+describeProvisioningParameters_provisioningArtifactName :: Lens.Lens' DescribeProvisioningParameters (Prelude.Maybe Prelude.Text)
+describeProvisioningParameters_provisioningArtifactName = Lens.lens (\DescribeProvisioningParameters' {provisioningArtifactName} -> provisioningArtifactName) (\s@DescribeProvisioningParameters' {} a -> s {provisioningArtifactName = a} :: DescribeProvisioningParameters)
 
--- | The identifier of the provisioning artifact. You must provide the name or ID, but not both.
-dppProvisioningArtifactId :: Lens' DescribeProvisioningParameters (Maybe Text)
-dppProvisioningArtifactId = lens _dppProvisioningArtifactId (\s a -> s {_dppProvisioningArtifactId = a})
+-- | The identifier of the provisioning artifact. You must provide the name
+-- or ID, but not both.
+describeProvisioningParameters_provisioningArtifactId :: Lens.Lens' DescribeProvisioningParameters (Prelude.Maybe Prelude.Text)
+describeProvisioningParameters_provisioningArtifactId = Lens.lens (\DescribeProvisioningParameters' {provisioningArtifactId} -> provisioningArtifactId) (\s@DescribeProvisioningParameters' {} a -> s {provisioningArtifactId = a} :: DescribeProvisioningParameters)
 
 -- | The name of the product. You must provide the name or ID, but not both.
-dppProductName :: Lens' DescribeProvisioningParameters (Maybe Text)
-dppProductName = lens _dppProductName (\s a -> s {_dppProductName = a})
+describeProvisioningParameters_productName :: Lens.Lens' DescribeProvisioningParameters (Prelude.Maybe Prelude.Text)
+describeProvisioningParameters_productName = Lens.lens (\DescribeProvisioningParameters' {productName} -> productName) (\s@DescribeProvisioningParameters' {} a -> s {productName = a} :: DescribeProvisioningParameters)
 
--- | The product identifier. You must provide the product name or ID, but not both.
-dppProductId :: Lens' DescribeProvisioningParameters (Maybe Text)
-dppProductId = lens _dppProductId (\s a -> s {_dppProductId = a})
+-- | The product identifier. You must provide the product name or ID, but not
+-- both.
+describeProvisioningParameters_productId :: Lens.Lens' DescribeProvisioningParameters (Prelude.Maybe Prelude.Text)
+describeProvisioningParameters_productId = Lens.lens (\DescribeProvisioningParameters' {productId} -> productId) (\s@DescribeProvisioningParameters' {} a -> s {productId = a} :: DescribeProvisioningParameters)
 
--- | The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path. To list the paths for a product, use 'ListLaunchPaths' . You must provide the name or ID, but not both.
-dppPathId :: Lens' DescribeProvisioningParameters (Maybe Text)
-dppPathId = lens _dppPathId (\s a -> s {_dppPathId = a})
+-- | The path identifier of the product. This value is optional if the
+-- product has a default path, and required if the product has more than
+-- one path. To list the paths for a product, use ListLaunchPaths. You must
+-- provide the name or ID, but not both.
+describeProvisioningParameters_pathId :: Lens.Lens' DescribeProvisioningParameters (Prelude.Maybe Prelude.Text)
+describeProvisioningParameters_pathId = Lens.lens (\DescribeProvisioningParameters' {pathId} -> pathId) (\s@DescribeProvisioningParameters' {} a -> s {pathId = a} :: DescribeProvisioningParameters)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-dppAcceptLanguage :: Lens' DescribeProvisioningParameters (Maybe Text)
-dppAcceptLanguage = lens _dppAcceptLanguage (\s a -> s {_dppAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+describeProvisioningParameters_acceptLanguage :: Lens.Lens' DescribeProvisioningParameters (Prelude.Maybe Prelude.Text)
+describeProvisioningParameters_acceptLanguage = Lens.lens (\DescribeProvisioningParameters' {acceptLanguage} -> acceptLanguage) (\s@DescribeProvisioningParameters' {} a -> s {acceptLanguage = a} :: DescribeProvisioningParameters)
 
 -- | The name of the path. You must provide the name or ID, but not both.
-dppPathName :: Lens' DescribeProvisioningParameters (Maybe Text)
-dppPathName = lens _dppPathName (\s a -> s {_dppPathName = a})
+describeProvisioningParameters_pathName :: Lens.Lens' DescribeProvisioningParameters (Prelude.Maybe Prelude.Text)
+describeProvisioningParameters_pathName = Lens.lens (\DescribeProvisioningParameters' {pathName} -> pathName) (\s@DescribeProvisioningParameters' {} a -> s {pathName = a} :: DescribeProvisioningParameters)
 
-instance AWSRequest DescribeProvisioningParameters where
+instance
+  Prelude.AWSRequest
+    DescribeProvisioningParameters
+  where
   type
     Rs DescribeProvisioningParameters =
       DescribeProvisioningParametersResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeProvisioningParametersResponse'
-            <$> (x .?> "ConstraintSummaries" .!@ mempty)
-            <*> (x .?> "UsageInstructions" .!@ mempty)
-            <*> (x .?> "ProvisioningArtifactOutputs" .!@ mempty)
-            <*> (x .?> "ProvisioningArtifactPreferences")
-            <*> (x .?> "ProvisioningArtifactParameters" .!@ mempty)
-            <*> (x .?> "TagOptions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ConstraintSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "UsageInstructions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "ProvisioningArtifactOutputs"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "ProvisioningArtifactPreferences")
+            Prelude.<*> ( x Prelude..?> "ProvisioningArtifactParameters"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "TagOptions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeProvisioningParameters
+instance
+  Prelude.Hashable
+    DescribeProvisioningParameters
 
-instance NFData DescribeProvisioningParameters
+instance
+  Prelude.NFData
+    DescribeProvisioningParameters
 
-instance ToHeaders DescribeProvisioningParameters where
+instance
+  Prelude.ToHeaders
+    DescribeProvisioningParameters
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DescribeProvisioningParameters" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DescribeProvisioningParameters" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeProvisioningParameters where
+instance
+  Prelude.ToJSON
+    DescribeProvisioningParameters
+  where
   toJSON DescribeProvisioningParameters' {..} =
-    object
-      ( catMaybes
-          [ ("ProvisioningArtifactName" .=)
-              <$> _dppProvisioningArtifactName,
-            ("ProvisioningArtifactId" .=)
-              <$> _dppProvisioningArtifactId,
-            ("ProductName" .=) <$> _dppProductName,
-            ("ProductId" .=) <$> _dppProductId,
-            ("PathId" .=) <$> _dppPathId,
-            ("AcceptLanguage" .=) <$> _dppAcceptLanguage,
-            ("PathName" .=) <$> _dppPathName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ProvisioningArtifactName" Prelude..=)
+              Prelude.<$> provisioningArtifactName,
+            ("ProvisioningArtifactId" Prelude..=)
+              Prelude.<$> provisioningArtifactId,
+            ("ProductName" Prelude..=) Prelude.<$> productName,
+            ("ProductId" Prelude..=) Prelude.<$> productId,
+            ("PathId" Prelude..=) Prelude.<$> pathId,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            ("PathName" Prelude..=) Prelude.<$> pathName
           ]
       )
 
-instance ToPath DescribeProvisioningParameters where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeProvisioningParameters
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeProvisioningParameters where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeProvisioningParameters
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeProvisioningParametersResponse' smart constructor.
+-- | /See:/ 'newDescribeProvisioningParametersResponse' smart constructor.
 data DescribeProvisioningParametersResponse = DescribeProvisioningParametersResponse'
-  { _dpprprsConstraintSummaries ::
-      !( Maybe
-           [ConstraintSummary]
-       ),
-    _dpprprsUsageInstructions ::
-      !( Maybe
-           [UsageInstruction]
-       ),
-    _dpprprsProvisioningArtifactOutputs ::
-      !( Maybe
-           [ProvisioningArtifactOutput]
-       ),
-    _dpprprsProvisioningArtifactPreferences ::
-      !( Maybe
-           ProvisioningArtifactPreferences
-       ),
-    _dpprprsProvisioningArtifactParameters ::
-      !( Maybe
-           [ProvisioningArtifactParameter]
-       ),
-    _dpprprsTagOptions ::
-      !( Maybe
-           [TagOptionSummary]
-       ),
-    _dpprprsResponseStatus ::
-      !Int
+  { -- | Information about the constraints used to provision the product.
+    constraintSummaries :: Prelude.Maybe [ConstraintSummary],
+    -- | Any additional metadata specifically related to the provisioning of the
+    -- product. For example, see the @Version@ field of the CloudFormation
+    -- template.
+    usageInstructions :: Prelude.Maybe [UsageInstruction],
+    -- | The output of the provisioning artifact.
+    provisioningArtifactOutputs :: Prelude.Maybe [ProvisioningArtifactOutput],
+    -- | An object that contains information about preferences, such as regions
+    -- and accounts, for the provisioning artifact.
+    provisioningArtifactPreferences :: Prelude.Maybe ProvisioningArtifactPreferences,
+    -- | Information about the parameters used to provision the product.
+    provisioningArtifactParameters :: Prelude.Maybe [ProvisioningArtifactParameter],
+    -- | Information about the TagOptions associated with the resource.
+    tagOptions :: Prelude.Maybe [TagOptionSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProvisioningParametersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProvisioningParametersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpprprsConstraintSummaries' - Information about the constraints used to provision the product.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpprprsUsageInstructions' - Any additional metadata specifically related to the provisioning of the product. For example, see the @Version@ field of the CloudFormation template.
+-- 'constraintSummaries', 'describeProvisioningParametersResponse_constraintSummaries' - Information about the constraints used to provision the product.
 --
--- * 'dpprprsProvisioningArtifactOutputs' - The output of the provisioning artifact.
+-- 'usageInstructions', 'describeProvisioningParametersResponse_usageInstructions' - Any additional metadata specifically related to the provisioning of the
+-- product. For example, see the @Version@ field of the CloudFormation
+-- template.
 --
--- * 'dpprprsProvisioningArtifactPreferences' - An object that contains information about preferences, such as regions and accounts, for the provisioning artifact.
+-- 'provisioningArtifactOutputs', 'describeProvisioningParametersResponse_provisioningArtifactOutputs' - The output of the provisioning artifact.
 --
--- * 'dpprprsProvisioningArtifactParameters' - Information about the parameters used to provision the product.
+-- 'provisioningArtifactPreferences', 'describeProvisioningParametersResponse_provisioningArtifactPreferences' - An object that contains information about preferences, such as regions
+-- and accounts, for the provisioning artifact.
 --
--- * 'dpprprsTagOptions' - Information about the TagOptions associated with the resource.
+-- 'provisioningArtifactParameters', 'describeProvisioningParametersResponse_provisioningArtifactParameters' - Information about the parameters used to provision the product.
 --
--- * 'dpprprsResponseStatus' - -- | The response status code.
-describeProvisioningParametersResponse ::
-  -- | 'dpprprsResponseStatus'
-  Int ->
+-- 'tagOptions', 'describeProvisioningParametersResponse_tagOptions' - Information about the TagOptions associated with the resource.
+--
+-- 'httpStatus', 'describeProvisioningParametersResponse_httpStatus' - The response's http status code.
+newDescribeProvisioningParametersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeProvisioningParametersResponse
-describeProvisioningParametersResponse
-  pResponseStatus_ =
+newDescribeProvisioningParametersResponse
+  pHttpStatus_ =
     DescribeProvisioningParametersResponse'
-      { _dpprprsConstraintSummaries =
-          Nothing,
-        _dpprprsUsageInstructions = Nothing,
-        _dpprprsProvisioningArtifactOutputs =
-          Nothing,
-        _dpprprsProvisioningArtifactPreferences =
-          Nothing,
-        _dpprprsProvisioningArtifactParameters =
-          Nothing,
-        _dpprprsTagOptions = Nothing,
-        _dpprprsResponseStatus =
-          pResponseStatus_
+      { constraintSummaries =
+          Prelude.Nothing,
+        usageInstructions = Prelude.Nothing,
+        provisioningArtifactOutputs =
+          Prelude.Nothing,
+        provisioningArtifactPreferences =
+          Prelude.Nothing,
+        provisioningArtifactParameters =
+          Prelude.Nothing,
+        tagOptions = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Information about the constraints used to provision the product.
-dpprprsConstraintSummaries :: Lens' DescribeProvisioningParametersResponse [ConstraintSummary]
-dpprprsConstraintSummaries = lens _dpprprsConstraintSummaries (\s a -> s {_dpprprsConstraintSummaries = a}) . _Default . _Coerce
+describeProvisioningParametersResponse_constraintSummaries :: Lens.Lens' DescribeProvisioningParametersResponse (Prelude.Maybe [ConstraintSummary])
+describeProvisioningParametersResponse_constraintSummaries = Lens.lens (\DescribeProvisioningParametersResponse' {constraintSummaries} -> constraintSummaries) (\s@DescribeProvisioningParametersResponse' {} a -> s {constraintSummaries = a} :: DescribeProvisioningParametersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Any additional metadata specifically related to the provisioning of the product. For example, see the @Version@ field of the CloudFormation template.
-dpprprsUsageInstructions :: Lens' DescribeProvisioningParametersResponse [UsageInstruction]
-dpprprsUsageInstructions = lens _dpprprsUsageInstructions (\s a -> s {_dpprprsUsageInstructions = a}) . _Default . _Coerce
+-- | Any additional metadata specifically related to the provisioning of the
+-- product. For example, see the @Version@ field of the CloudFormation
+-- template.
+describeProvisioningParametersResponse_usageInstructions :: Lens.Lens' DescribeProvisioningParametersResponse (Prelude.Maybe [UsageInstruction])
+describeProvisioningParametersResponse_usageInstructions = Lens.lens (\DescribeProvisioningParametersResponse' {usageInstructions} -> usageInstructions) (\s@DescribeProvisioningParametersResponse' {} a -> s {usageInstructions = a} :: DescribeProvisioningParametersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The output of the provisioning artifact.
-dpprprsProvisioningArtifactOutputs :: Lens' DescribeProvisioningParametersResponse [ProvisioningArtifactOutput]
-dpprprsProvisioningArtifactOutputs = lens _dpprprsProvisioningArtifactOutputs (\s a -> s {_dpprprsProvisioningArtifactOutputs = a}) . _Default . _Coerce
+describeProvisioningParametersResponse_provisioningArtifactOutputs :: Lens.Lens' DescribeProvisioningParametersResponse (Prelude.Maybe [ProvisioningArtifactOutput])
+describeProvisioningParametersResponse_provisioningArtifactOutputs = Lens.lens (\DescribeProvisioningParametersResponse' {provisioningArtifactOutputs} -> provisioningArtifactOutputs) (\s@DescribeProvisioningParametersResponse' {} a -> s {provisioningArtifactOutputs = a} :: DescribeProvisioningParametersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An object that contains information about preferences, such as regions and accounts, for the provisioning artifact.
-dpprprsProvisioningArtifactPreferences :: Lens' DescribeProvisioningParametersResponse (Maybe ProvisioningArtifactPreferences)
-dpprprsProvisioningArtifactPreferences = lens _dpprprsProvisioningArtifactPreferences (\s a -> s {_dpprprsProvisioningArtifactPreferences = a})
+-- | An object that contains information about preferences, such as regions
+-- and accounts, for the provisioning artifact.
+describeProvisioningParametersResponse_provisioningArtifactPreferences :: Lens.Lens' DescribeProvisioningParametersResponse (Prelude.Maybe ProvisioningArtifactPreferences)
+describeProvisioningParametersResponse_provisioningArtifactPreferences = Lens.lens (\DescribeProvisioningParametersResponse' {provisioningArtifactPreferences} -> provisioningArtifactPreferences) (\s@DescribeProvisioningParametersResponse' {} a -> s {provisioningArtifactPreferences = a} :: DescribeProvisioningParametersResponse)
 
 -- | Information about the parameters used to provision the product.
-dpprprsProvisioningArtifactParameters :: Lens' DescribeProvisioningParametersResponse [ProvisioningArtifactParameter]
-dpprprsProvisioningArtifactParameters = lens _dpprprsProvisioningArtifactParameters (\s a -> s {_dpprprsProvisioningArtifactParameters = a}) . _Default . _Coerce
+describeProvisioningParametersResponse_provisioningArtifactParameters :: Lens.Lens' DescribeProvisioningParametersResponse (Prelude.Maybe [ProvisioningArtifactParameter])
+describeProvisioningParametersResponse_provisioningArtifactParameters = Lens.lens (\DescribeProvisioningParametersResponse' {provisioningArtifactParameters} -> provisioningArtifactParameters) (\s@DescribeProvisioningParametersResponse' {} a -> s {provisioningArtifactParameters = a} :: DescribeProvisioningParametersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the TagOptions associated with the resource.
-dpprprsTagOptions :: Lens' DescribeProvisioningParametersResponse [TagOptionSummary]
-dpprprsTagOptions = lens _dpprprsTagOptions (\s a -> s {_dpprprsTagOptions = a}) . _Default . _Coerce
+describeProvisioningParametersResponse_tagOptions :: Lens.Lens' DescribeProvisioningParametersResponse (Prelude.Maybe [TagOptionSummary])
+describeProvisioningParametersResponse_tagOptions = Lens.lens (\DescribeProvisioningParametersResponse' {tagOptions} -> tagOptions) (\s@DescribeProvisioningParametersResponse' {} a -> s {tagOptions = a} :: DescribeProvisioningParametersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dpprprsResponseStatus :: Lens' DescribeProvisioningParametersResponse Int
-dpprprsResponseStatus = lens _dpprprsResponseStatus (\s a -> s {_dpprprsResponseStatus = a})
+-- | The response's http status code.
+describeProvisioningParametersResponse_httpStatus :: Lens.Lens' DescribeProvisioningParametersResponse Prelude.Int
+describeProvisioningParametersResponse_httpStatus = Lens.lens (\DescribeProvisioningParametersResponse' {httpStatus} -> httpStatus) (\s@DescribeProvisioningParametersResponse' {} a -> s {httpStatus = a} :: DescribeProvisioningParametersResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeProvisioningParametersResponse

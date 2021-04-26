@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,169 +23,200 @@
 --
 -- Disassociates the specified product from the specified portfolio.
 --
---
 -- A delegated admin is authorized to invoke this command.
 module Network.AWS.ServiceCatalog.DisassociateProductFromPortfolio
   ( -- * Creating a Request
-    disassociateProductFromPortfolio,
-    DisassociateProductFromPortfolio,
+    DisassociateProductFromPortfolio (..),
+    newDisassociateProductFromPortfolio,
 
     -- * Request Lenses
-    disAcceptLanguage,
-    disProductId,
-    disPortfolioId,
+    disassociateProductFromPortfolio_acceptLanguage,
+    disassociateProductFromPortfolio_productId,
+    disassociateProductFromPortfolio_portfolioId,
 
     -- * Destructuring the Response
-    disassociateProductFromPortfolioResponse,
-    DisassociateProductFromPortfolioResponse,
+    DisassociateProductFromPortfolioResponse (..),
+    newDisassociateProductFromPortfolioResponse,
 
     -- * Response Lenses
-    dpfprrsResponseStatus,
+    disassociateProductFromPortfolioResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'disassociateProductFromPortfolio' smart constructor.
+-- | /See:/ 'newDisassociateProductFromPortfolio' smart constructor.
 data DisassociateProductFromPortfolio = DisassociateProductFromPortfolio'
-  { _disAcceptLanguage ::
-      !( Maybe
-           Text
-       ),
-    _disProductId ::
-      !Text,
-    _disPortfolioId ::
-      !Text
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The product identifier.
+    productId :: Prelude.Text,
+    -- | The portfolio identifier.
+    portfolioId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateProductFromPortfolio' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateProductFromPortfolio' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'disProductId' - The product identifier.
+-- 'acceptLanguage', 'disassociateProductFromPortfolio_acceptLanguage' - The language code.
 --
--- * 'disPortfolioId' - The portfolio identifier.
-disassociateProductFromPortfolio ::
-  -- | 'disProductId'
-  Text ->
-  -- | 'disPortfolioId'
-  Text ->
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'productId', 'disassociateProductFromPortfolio_productId' - The product identifier.
+--
+-- 'portfolioId', 'disassociateProductFromPortfolio_portfolioId' - The portfolio identifier.
+newDisassociateProductFromPortfolio ::
+  -- | 'productId'
+  Prelude.Text ->
+  -- | 'portfolioId'
+  Prelude.Text ->
   DisassociateProductFromPortfolio
-disassociateProductFromPortfolio
+newDisassociateProductFromPortfolio
   pProductId_
   pPortfolioId_ =
     DisassociateProductFromPortfolio'
-      { _disAcceptLanguage =
-          Nothing,
-        _disProductId = pProductId_,
-        _disPortfolioId = pPortfolioId_
+      { acceptLanguage =
+          Prelude.Nothing,
+        productId = pProductId_,
+        portfolioId = pPortfolioId_
       }
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-disAcceptLanguage :: Lens' DisassociateProductFromPortfolio (Maybe Text)
-disAcceptLanguage = lens _disAcceptLanguage (\s a -> s {_disAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+disassociateProductFromPortfolio_acceptLanguage :: Lens.Lens' DisassociateProductFromPortfolio (Prelude.Maybe Prelude.Text)
+disassociateProductFromPortfolio_acceptLanguage = Lens.lens (\DisassociateProductFromPortfolio' {acceptLanguage} -> acceptLanguage) (\s@DisassociateProductFromPortfolio' {} a -> s {acceptLanguage = a} :: DisassociateProductFromPortfolio)
 
 -- | The product identifier.
-disProductId :: Lens' DisassociateProductFromPortfolio Text
-disProductId = lens _disProductId (\s a -> s {_disProductId = a})
+disassociateProductFromPortfolio_productId :: Lens.Lens' DisassociateProductFromPortfolio Prelude.Text
+disassociateProductFromPortfolio_productId = Lens.lens (\DisassociateProductFromPortfolio' {productId} -> productId) (\s@DisassociateProductFromPortfolio' {} a -> s {productId = a} :: DisassociateProductFromPortfolio)
 
 -- | The portfolio identifier.
-disPortfolioId :: Lens' DisassociateProductFromPortfolio Text
-disPortfolioId = lens _disPortfolioId (\s a -> s {_disPortfolioId = a})
+disassociateProductFromPortfolio_portfolioId :: Lens.Lens' DisassociateProductFromPortfolio Prelude.Text
+disassociateProductFromPortfolio_portfolioId = Lens.lens (\DisassociateProductFromPortfolio' {portfolioId} -> portfolioId) (\s@DisassociateProductFromPortfolio' {} a -> s {portfolioId = a} :: DisassociateProductFromPortfolio)
 
-instance AWSRequest DisassociateProductFromPortfolio where
+instance
+  Prelude.AWSRequest
+    DisassociateProductFromPortfolio
+  where
   type
     Rs DisassociateProductFromPortfolio =
       DisassociateProductFromPortfolioResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DisassociateProductFromPortfolioResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable DisassociateProductFromPortfolio
-
-instance NFData DisassociateProductFromPortfolio
-
-instance ToHeaders DisassociateProductFromPortfolio where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DisassociateProductFromPortfolio" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON DisassociateProductFromPortfolio where
-  toJSON DisassociateProductFromPortfolio' {..} =
-    object
-      ( catMaybes
-          [ ("AcceptLanguage" .=) <$> _disAcceptLanguage,
-            Just ("ProductId" .= _disProductId),
-            Just ("PortfolioId" .= _disPortfolioId)
-          ]
-      )
-
-instance ToPath DisassociateProductFromPortfolio where
-  toPath = const "/"
-
-instance ToQuery DisassociateProductFromPortfolio where
-  toQuery = const mempty
-
--- | /See:/ 'disassociateProductFromPortfolioResponse' smart constructor.
-newtype DisassociateProductFromPortfolioResponse = DisassociateProductFromPortfolioResponse'
-  { _dpfprrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DisassociateProductFromPortfolioResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dpfprrsResponseStatus' - -- | The response status code.
-disassociateProductFromPortfolioResponse ::
-  -- | 'dpfprrsResponseStatus'
-  Int ->
-  DisassociateProductFromPortfolioResponse
-disassociateProductFromPortfolioResponse
-  pResponseStatus_ =
-    DisassociateProductFromPortfolioResponse'
-      { _dpfprrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-dpfprrsResponseStatus :: Lens' DisassociateProductFromPortfolioResponse Int
-dpfprrsResponseStatus = lens _dpfprrsResponseStatus (\s a -> s {_dpfprrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    DisassociateProductFromPortfolio
+
+instance
+  Prelude.NFData
+    DisassociateProductFromPortfolio
+
+instance
+  Prelude.ToHeaders
+    DisassociateProductFromPortfolio
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "AWS242ServiceCatalogService.DisassociateProductFromPortfolio" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    DisassociateProductFromPortfolio
+  where
+  toJSON DisassociateProductFromPortfolio' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("ProductId" Prelude..= productId),
+            Prelude.Just ("PortfolioId" Prelude..= portfolioId)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    DisassociateProductFromPortfolio
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DisassociateProductFromPortfolio
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDisassociateProductFromPortfolioResponse' smart constructor.
+data DisassociateProductFromPortfolioResponse = DisassociateProductFromPortfolioResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DisassociateProductFromPortfolioResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disassociateProductFromPortfolioResponse_httpStatus' - The response's http status code.
+newDisassociateProductFromPortfolioResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DisassociateProductFromPortfolioResponse
+newDisassociateProductFromPortfolioResponse
+  pHttpStatus_ =
+    DisassociateProductFromPortfolioResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+disassociateProductFromPortfolioResponse_httpStatus :: Lens.Lens' DisassociateProductFromPortfolioResponse Prelude.Int
+disassociateProductFromPortfolioResponse_httpStatus = Lens.lens (\DisassociateProductFromPortfolioResponse' {httpStatus} -> httpStatus) (\s@DisassociateProductFromPortfolioResponse' {} a -> s {httpStatus = a} :: DisassociateProductFromPortfolioResponse)
+
+instance
+  Prelude.NFData
     DisassociateProductFromPortfolioResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.ServiceCatalog.Types.CopyOption
   ( CopyOption
       ( ..,
-        CopyTags
+        CopyOptionCopyTags
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CopyOption = CopyOption' (CI Text)
+newtype CopyOption = CopyOption'
+  { fromCopyOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CopyTags :: CopyOption
-pattern CopyTags = CopyOption' "CopyTags"
+pattern CopyOptionCopyTags :: CopyOption
+pattern CopyOptionCopyTags = CopyOption' "CopyTags"
 
 {-# COMPLETE
-  CopyTags,
+  CopyOptionCopyTags,
   CopyOption'
   #-}
 
-instance FromText CopyOption where
-  parser = (CopyOption' . mk) <$> takeText
+instance Prelude.FromText CopyOption where
+  parser = CopyOption' Prelude.<$> Prelude.takeText
 
-instance ToText CopyOption where
-  toText (CopyOption' ci) = original ci
+instance Prelude.ToText CopyOption where
+  toText (CopyOption' x) = x
 
-instance Hashable CopyOption
+instance Prelude.Hashable CopyOption
 
-instance NFData CopyOption
+instance Prelude.NFData CopyOption
 
-instance ToByteString CopyOption
+instance Prelude.ToByteString CopyOption
 
-instance ToQuery CopyOption
+instance Prelude.ToQuery CopyOption
 
-instance ToHeader CopyOption
+instance Prelude.ToHeader CopyOption
 
-instance ToJSON CopyOption where
-  toJSON = toJSONText
+instance Prelude.ToJSON CopyOption where
+  toJSON = Prelude.toJSONText

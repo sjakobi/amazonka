@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.ServiceCatalog.Types.OrganizationNodeType
   ( OrganizationNodeType
       ( ..,
-        ONTAccount,
-        ONTOrganization,
-        ONTOrganizationalUnit
+        OrganizationNodeTypeACCOUNT,
+        OrganizationNodeTypeORGANIZATION,
+        OrganizationNodeTypeORGANIZATIONALUNIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrganizationNodeType
-  = OrganizationNodeType'
-      ( CI
-          Text
-      )
+newtype OrganizationNodeType = OrganizationNodeType'
+  { fromOrganizationNodeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ONTAccount :: OrganizationNodeType
-pattern ONTAccount = OrganizationNodeType' "ACCOUNT"
+pattern OrganizationNodeTypeACCOUNT :: OrganizationNodeType
+pattern OrganizationNodeTypeACCOUNT = OrganizationNodeType' "ACCOUNT"
 
-pattern ONTOrganization :: OrganizationNodeType
-pattern ONTOrganization = OrganizationNodeType' "ORGANIZATION"
+pattern OrganizationNodeTypeORGANIZATION :: OrganizationNodeType
+pattern OrganizationNodeTypeORGANIZATION = OrganizationNodeType' "ORGANIZATION"
 
-pattern ONTOrganizationalUnit :: OrganizationNodeType
-pattern ONTOrganizationalUnit = OrganizationNodeType' "ORGANIZATIONAL_UNIT"
+pattern OrganizationNodeTypeORGANIZATIONALUNIT :: OrganizationNodeType
+pattern OrganizationNodeTypeORGANIZATIONALUNIT = OrganizationNodeType' "ORGANIZATIONAL_UNIT"
 
 {-# COMPLETE
-  ONTAccount,
-  ONTOrganization,
-  ONTOrganizationalUnit,
+  OrganizationNodeTypeACCOUNT,
+  OrganizationNodeTypeORGANIZATION,
+  OrganizationNodeTypeORGANIZATIONALUNIT,
   OrganizationNodeType'
   #-}
 
-instance FromText OrganizationNodeType where
-  parser = (OrganizationNodeType' . mk) <$> takeText
+instance Prelude.FromText OrganizationNodeType where
+  parser = OrganizationNodeType' Prelude.<$> Prelude.takeText
 
-instance ToText OrganizationNodeType where
-  toText (OrganizationNodeType' ci) = original ci
+instance Prelude.ToText OrganizationNodeType where
+  toText (OrganizationNodeType' x) = x
 
-instance Hashable OrganizationNodeType
+instance Prelude.Hashable OrganizationNodeType
 
-instance NFData OrganizationNodeType
+instance Prelude.NFData OrganizationNodeType
 
-instance ToByteString OrganizationNodeType
+instance Prelude.ToByteString OrganizationNodeType
 
-instance ToQuery OrganizationNodeType
+instance Prelude.ToQuery OrganizationNodeType
 
-instance ToHeader OrganizationNodeType
+instance Prelude.ToHeader OrganizationNodeType
 
-instance ToJSON OrganizationNodeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OrganizationNodeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OrganizationNodeType where
-  parseJSON = parseJSONText "OrganizationNodeType"
+instance Prelude.FromJSON OrganizationNodeType where
+  parseJSON = Prelude.parseJSONText "OrganizationNodeType"

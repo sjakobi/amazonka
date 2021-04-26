@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,256 +21,287 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about the products for the specified portfolio or all products.
---
---
+-- Gets information about the products for the specified portfolio or all
+-- products.
 --
 -- This operation returns paginated results.
 module Network.AWS.ServiceCatalog.SearchProductsAsAdmin
   ( -- * Creating a Request
-    searchProductsAsAdmin,
-    SearchProductsAsAdmin,
+    SearchProductsAsAdmin (..),
+    newSearchProductsAsAdmin,
 
     -- * Request Lenses
-    spaaSortOrder,
-    spaaPageSize,
-    spaaPageToken,
-    spaaPortfolioId,
-    spaaSortBy,
-    spaaProductSource,
-    spaaFilters,
-    spaaAcceptLanguage,
+    searchProductsAsAdmin_sortOrder,
+    searchProductsAsAdmin_pageSize,
+    searchProductsAsAdmin_pageToken,
+    searchProductsAsAdmin_portfolioId,
+    searchProductsAsAdmin_sortBy,
+    searchProductsAsAdmin_productSource,
+    searchProductsAsAdmin_filters,
+    searchProductsAsAdmin_acceptLanguage,
 
     -- * Destructuring the Response
-    searchProductsAsAdminResponse,
-    SearchProductsAsAdminResponse,
+    SearchProductsAsAdminResponse (..),
+    newSearchProductsAsAdminResponse,
 
     -- * Response Lenses
-    spaarrsNextPageToken,
-    spaarrsProductViewDetails,
-    spaarrsResponseStatus,
+    searchProductsAsAdminResponse_nextPageToken,
+    searchProductsAsAdminResponse_productViewDetails,
+    searchProductsAsAdminResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ProductViewDetail
 
--- | /See:/ 'searchProductsAsAdmin' smart constructor.
+-- | /See:/ 'newSearchProductsAsAdmin' smart constructor.
 data SearchProductsAsAdmin = SearchProductsAsAdmin'
-  { _spaaSortOrder ::
-      !(Maybe SortOrder),
-    _spaaPageSize ::
-      !(Maybe Nat),
-    _spaaPageToken ::
-      !(Maybe Text),
-    _spaaPortfolioId ::
-      !(Maybe Text),
-    _spaaSortBy ::
-      !(Maybe ProductViewSortBy),
-    _spaaProductSource ::
-      !(Maybe ProductSource),
-    _spaaFilters ::
-      !( Maybe
-           ( Map
-               ProductViewFilterBy
-               [Text]
-           )
-       ),
-    _spaaAcceptLanguage ::
-      !(Maybe Text)
+  { -- | The sort order. If no value is specified, the results are not sorted.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The page token for the next set of results. To retrieve the first set of
+    -- results, use null.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The portfolio identifier.
+    portfolioId :: Prelude.Maybe Prelude.Text,
+    -- | The sort field. If no value is specified, the results are not sorted.
+    sortBy :: Prelude.Maybe ProductViewSortBy,
+    -- | Access level of the source of the product.
+    productSource :: Prelude.Maybe ProductSource,
+    -- | The search filters. If no search filters are specified, the output
+    -- includes all products to which the administrator has access.
+    filters :: Prelude.Maybe (Prelude.Map ProductViewFilterBy [Prelude.Text]),
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchProductsAsAdmin' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchProductsAsAdmin' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spaaSortOrder' - The sort order. If no value is specified, the results are not sorted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spaaPageSize' - The maximum number of items to return with this call.
+-- 'sortOrder', 'searchProductsAsAdmin_sortOrder' - The sort order. If no value is specified, the results are not sorted.
 --
--- * 'spaaPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
+-- 'pageSize', 'searchProductsAsAdmin_pageSize' - The maximum number of items to return with this call.
 --
--- * 'spaaPortfolioId' - The portfolio identifier.
+-- 'pageToken', 'searchProductsAsAdmin_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
 --
--- * 'spaaSortBy' - The sort field. If no value is specified, the results are not sorted.
+-- 'portfolioId', 'searchProductsAsAdmin_portfolioId' - The portfolio identifier.
 --
--- * 'spaaProductSource' - Access level of the source of the product.
+-- 'sortBy', 'searchProductsAsAdmin_sortBy' - The sort field. If no value is specified, the results are not sorted.
 --
--- * 'spaaFilters' - The search filters. If no search filters are specified, the output includes all products to which the administrator has access.
+-- 'productSource', 'searchProductsAsAdmin_productSource' - Access level of the source of the product.
 --
--- * 'spaaAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-searchProductsAsAdmin ::
+-- 'filters', 'searchProductsAsAdmin_filters' - The search filters. If no search filters are specified, the output
+-- includes all products to which the administrator has access.
+--
+-- 'acceptLanguage', 'searchProductsAsAdmin_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+newSearchProductsAsAdmin ::
   SearchProductsAsAdmin
-searchProductsAsAdmin =
+newSearchProductsAsAdmin =
   SearchProductsAsAdmin'
-    { _spaaSortOrder = Nothing,
-      _spaaPageSize = Nothing,
-      _spaaPageToken = Nothing,
-      _spaaPortfolioId = Nothing,
-      _spaaSortBy = Nothing,
-      _spaaProductSource = Nothing,
-      _spaaFilters = Nothing,
-      _spaaAcceptLanguage = Nothing
+    { sortOrder = Prelude.Nothing,
+      pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing,
+      portfolioId = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      productSource = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      acceptLanguage = Prelude.Nothing
     }
 
 -- | The sort order. If no value is specified, the results are not sorted.
-spaaSortOrder :: Lens' SearchProductsAsAdmin (Maybe SortOrder)
-spaaSortOrder = lens _spaaSortOrder (\s a -> s {_spaaSortOrder = a})
+searchProductsAsAdmin_sortOrder :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe SortOrder)
+searchProductsAsAdmin_sortOrder = Lens.lens (\SearchProductsAsAdmin' {sortOrder} -> sortOrder) (\s@SearchProductsAsAdmin' {} a -> s {sortOrder = a} :: SearchProductsAsAdmin)
 
 -- | The maximum number of items to return with this call.
-spaaPageSize :: Lens' SearchProductsAsAdmin (Maybe Natural)
-spaaPageSize = lens _spaaPageSize (\s a -> s {_spaaPageSize = a}) . mapping _Nat
+searchProductsAsAdmin_pageSize :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Natural)
+searchProductsAsAdmin_pageSize = Lens.lens (\SearchProductsAsAdmin' {pageSize} -> pageSize) (\s@SearchProductsAsAdmin' {} a -> s {pageSize = a} :: SearchProductsAsAdmin) Prelude.. Lens.mapping Prelude._Nat
 
--- | The page token for the next set of results. To retrieve the first set of results, use null.
-spaaPageToken :: Lens' SearchProductsAsAdmin (Maybe Text)
-spaaPageToken = lens _spaaPageToken (\s a -> s {_spaaPageToken = a})
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+searchProductsAsAdmin_pageToken :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Text)
+searchProductsAsAdmin_pageToken = Lens.lens (\SearchProductsAsAdmin' {pageToken} -> pageToken) (\s@SearchProductsAsAdmin' {} a -> s {pageToken = a} :: SearchProductsAsAdmin)
 
 -- | The portfolio identifier.
-spaaPortfolioId :: Lens' SearchProductsAsAdmin (Maybe Text)
-spaaPortfolioId = lens _spaaPortfolioId (\s a -> s {_spaaPortfolioId = a})
+searchProductsAsAdmin_portfolioId :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Text)
+searchProductsAsAdmin_portfolioId = Lens.lens (\SearchProductsAsAdmin' {portfolioId} -> portfolioId) (\s@SearchProductsAsAdmin' {} a -> s {portfolioId = a} :: SearchProductsAsAdmin)
 
 -- | The sort field. If no value is specified, the results are not sorted.
-spaaSortBy :: Lens' SearchProductsAsAdmin (Maybe ProductViewSortBy)
-spaaSortBy = lens _spaaSortBy (\s a -> s {_spaaSortBy = a})
+searchProductsAsAdmin_sortBy :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe ProductViewSortBy)
+searchProductsAsAdmin_sortBy = Lens.lens (\SearchProductsAsAdmin' {sortBy} -> sortBy) (\s@SearchProductsAsAdmin' {} a -> s {sortBy = a} :: SearchProductsAsAdmin)
 
 -- | Access level of the source of the product.
-spaaProductSource :: Lens' SearchProductsAsAdmin (Maybe ProductSource)
-spaaProductSource = lens _spaaProductSource (\s a -> s {_spaaProductSource = a})
+searchProductsAsAdmin_productSource :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe ProductSource)
+searchProductsAsAdmin_productSource = Lens.lens (\SearchProductsAsAdmin' {productSource} -> productSource) (\s@SearchProductsAsAdmin' {} a -> s {productSource = a} :: SearchProductsAsAdmin)
 
--- | The search filters. If no search filters are specified, the output includes all products to which the administrator has access.
-spaaFilters :: Lens' SearchProductsAsAdmin (HashMap ProductViewFilterBy [Text])
-spaaFilters = lens _spaaFilters (\s a -> s {_spaaFilters = a}) . _Default . _Map
+-- | The search filters. If no search filters are specified, the output
+-- includes all products to which the administrator has access.
+searchProductsAsAdmin_filters :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe (Prelude.HashMap ProductViewFilterBy [Prelude.Text]))
+searchProductsAsAdmin_filters = Lens.lens (\SearchProductsAsAdmin' {filters} -> filters) (\s@SearchProductsAsAdmin' {} a -> s {filters = a} :: SearchProductsAsAdmin) Prelude.. Lens.mapping Prelude._Map
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-spaaAcceptLanguage :: Lens' SearchProductsAsAdmin (Maybe Text)
-spaaAcceptLanguage = lens _spaaAcceptLanguage (\s a -> s {_spaaAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+searchProductsAsAdmin_acceptLanguage :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Text)
+searchProductsAsAdmin_acceptLanguage = Lens.lens (\SearchProductsAsAdmin' {acceptLanguage} -> acceptLanguage) (\s@SearchProductsAsAdmin' {} a -> s {acceptLanguage = a} :: SearchProductsAsAdmin)
 
-instance AWSPager SearchProductsAsAdmin where
+instance Pager.AWSPager SearchProductsAsAdmin where
   page rq rs
-    | stop (rs ^. spaarrsNextPageToken) = Nothing
-    | stop (rs ^. spaarrsProductViewDetails) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? searchProductsAsAdminResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? searchProductsAsAdminResponse_productViewDetails
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & spaaPageToken .~ rs ^. spaarrsNextPageToken
+          Lens.& searchProductsAsAdmin_pageToken
+          Lens..~ rs
+          Lens.^? searchProductsAsAdminResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest SearchProductsAsAdmin where
+instance Prelude.AWSRequest SearchProductsAsAdmin where
   type
     Rs SearchProductsAsAdmin =
       SearchProductsAsAdminResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SearchProductsAsAdminResponse'
-            <$> (x .?> "NextPageToken")
-            <*> (x .?> "ProductViewDetails" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextPageToken")
+            Prelude.<*> ( x Prelude..?> "ProductViewDetails"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SearchProductsAsAdmin
+instance Prelude.Hashable SearchProductsAsAdmin
 
-instance NFData SearchProductsAsAdmin
+instance Prelude.NFData SearchProductsAsAdmin
 
-instance ToHeaders SearchProductsAsAdmin where
+instance Prelude.ToHeaders SearchProductsAsAdmin where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.SearchProductsAsAdmin" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.SearchProductsAsAdmin" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SearchProductsAsAdmin where
+instance Prelude.ToJSON SearchProductsAsAdmin where
   toJSON SearchProductsAsAdmin' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _spaaSortOrder,
-            ("PageSize" .=) <$> _spaaPageSize,
-            ("PageToken" .=) <$> _spaaPageToken,
-            ("PortfolioId" .=) <$> _spaaPortfolioId,
-            ("SortBy" .=) <$> _spaaSortBy,
-            ("ProductSource" .=) <$> _spaaProductSource,
-            ("Filters" .=) <$> _spaaFilters,
-            ("AcceptLanguage" .=) <$> _spaaAcceptLanguage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("PageSize" Prelude..=) Prelude.<$> pageSize,
+            ("PageToken" Prelude..=) Prelude.<$> pageToken,
+            ("PortfolioId" Prelude..=) Prelude.<$> portfolioId,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("ProductSource" Prelude..=)
+              Prelude.<$> productSource,
+            ("Filters" Prelude..=) Prelude.<$> filters,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage
           ]
       )
 
-instance ToPath SearchProductsAsAdmin where
-  toPath = const "/"
+instance Prelude.ToPath SearchProductsAsAdmin where
+  toPath = Prelude.const "/"
 
-instance ToQuery SearchProductsAsAdmin where
-  toQuery = const mempty
+instance Prelude.ToQuery SearchProductsAsAdmin where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'searchProductsAsAdminResponse' smart constructor.
+-- | /See:/ 'newSearchProductsAsAdminResponse' smart constructor.
 data SearchProductsAsAdminResponse = SearchProductsAsAdminResponse'
-  { _spaarrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _spaarrsProductViewDetails ::
-      !( Maybe
-           [ProductViewDetail]
-       ),
-    _spaarrsResponseStatus ::
-      !Int
+  { -- | The page token to use to retrieve the next set of results. If there are
+    -- no additional results, this value is null.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the product views.
+    productViewDetails :: Prelude.Maybe [ProductViewDetail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchProductsAsAdminResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchProductsAsAdminResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spaarrsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spaarrsProductViewDetails' - Information about the product views.
+-- 'nextPageToken', 'searchProductsAsAdminResponse_nextPageToken' - The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
 --
--- * 'spaarrsResponseStatus' - -- | The response status code.
-searchProductsAsAdminResponse ::
-  -- | 'spaarrsResponseStatus'
-  Int ->
+-- 'productViewDetails', 'searchProductsAsAdminResponse_productViewDetails' - Information about the product views.
+--
+-- 'httpStatus', 'searchProductsAsAdminResponse_httpStatus' - The response's http status code.
+newSearchProductsAsAdminResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SearchProductsAsAdminResponse
-searchProductsAsAdminResponse pResponseStatus_ =
+newSearchProductsAsAdminResponse pHttpStatus_ =
   SearchProductsAsAdminResponse'
-    { _spaarrsNextPageToken =
-        Nothing,
-      _spaarrsProductViewDetails = Nothing,
-      _spaarrsResponseStatus = pResponseStatus_
+    { nextPageToken =
+        Prelude.Nothing,
+      productViewDetails = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
-spaarrsNextPageToken :: Lens' SearchProductsAsAdminResponse (Maybe Text)
-spaarrsNextPageToken = lens _spaarrsNextPageToken (\s a -> s {_spaarrsNextPageToken = a})
+-- | The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
+searchProductsAsAdminResponse_nextPageToken :: Lens.Lens' SearchProductsAsAdminResponse (Prelude.Maybe Prelude.Text)
+searchProductsAsAdminResponse_nextPageToken = Lens.lens (\SearchProductsAsAdminResponse' {nextPageToken} -> nextPageToken) (\s@SearchProductsAsAdminResponse' {} a -> s {nextPageToken = a} :: SearchProductsAsAdminResponse)
 
 -- | Information about the product views.
-spaarrsProductViewDetails :: Lens' SearchProductsAsAdminResponse [ProductViewDetail]
-spaarrsProductViewDetails = lens _spaarrsProductViewDetails (\s a -> s {_spaarrsProductViewDetails = a}) . _Default . _Coerce
+searchProductsAsAdminResponse_productViewDetails :: Lens.Lens' SearchProductsAsAdminResponse (Prelude.Maybe [ProductViewDetail])
+searchProductsAsAdminResponse_productViewDetails = Lens.lens (\SearchProductsAsAdminResponse' {productViewDetails} -> productViewDetails) (\s@SearchProductsAsAdminResponse' {} a -> s {productViewDetails = a} :: SearchProductsAsAdminResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-spaarrsResponseStatus :: Lens' SearchProductsAsAdminResponse Int
-spaarrsResponseStatus = lens _spaarrsResponseStatus (\s a -> s {_spaarrsResponseStatus = a})
+-- | The response's http status code.
+searchProductsAsAdminResponse_httpStatus :: Lens.Lens' SearchProductsAsAdminResponse Prelude.Int
+searchProductsAsAdminResponse_httpStatus = Lens.lens (\SearchProductsAsAdminResponse' {httpStatus} -> httpStatus) (\s@SearchProductsAsAdminResponse' {} a -> s {httpStatus = a} :: SearchProductsAsAdminResponse)
 
-instance NFData SearchProductsAsAdminResponse
+instance Prelude.NFData SearchProductsAsAdminResponse

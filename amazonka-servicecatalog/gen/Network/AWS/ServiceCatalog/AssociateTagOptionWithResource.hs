@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associate the specified TagOption with the specified portfolio or product.
+-- Associate the specified TagOption with the specified portfolio or
+-- product.
 module Network.AWS.ServiceCatalog.AssociateTagOptionWithResource
   ( -- * Creating a Request
-    associateTagOptionWithResource,
-    AssociateTagOptionWithResource,
+    AssociateTagOptionWithResource (..),
+    newAssociateTagOptionWithResource,
 
     -- * Request Lenses
-    atowrResourceId,
-    atowrTagOptionId,
+    associateTagOptionWithResource_resourceId,
+    associateTagOptionWithResource_tagOptionId,
 
     -- * Destructuring the Response
-    associateTagOptionWithResourceResponse,
-    AssociateTagOptionWithResourceResponse,
+    AssociateTagOptionWithResourceResponse (..),
+    newAssociateTagOptionWithResourceResponse,
 
     -- * Response Lenses
-    atowrrrsResponseStatus,
+    associateTagOptionWithResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'associateTagOptionWithResource' smart constructor.
+-- | /See:/ 'newAssociateTagOptionWithResource' smart constructor.
 data AssociateTagOptionWithResource = AssociateTagOptionWithResource'
-  { _atowrResourceId ::
-      !Text,
-    _atowrTagOptionId ::
-      !Text
+  { -- | The resource identifier.
+    resourceId :: Prelude.Text,
+    -- | The TagOption identifier.
+    tagOptionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateTagOptionWithResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateTagOptionWithResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atowrResourceId' - The resource identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atowrTagOptionId' - The TagOption identifier.
-associateTagOptionWithResource ::
-  -- | 'atowrResourceId'
-  Text ->
-  -- | 'atowrTagOptionId'
-  Text ->
+-- 'resourceId', 'associateTagOptionWithResource_resourceId' - The resource identifier.
+--
+-- 'tagOptionId', 'associateTagOptionWithResource_tagOptionId' - The TagOption identifier.
+newAssociateTagOptionWithResource ::
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'tagOptionId'
+  Prelude.Text ->
   AssociateTagOptionWithResource
-associateTagOptionWithResource
+newAssociateTagOptionWithResource
   pResourceId_
   pTagOptionId_ =
     AssociateTagOptionWithResource'
-      { _atowrResourceId =
+      { resourceId =
           pResourceId_,
-        _atowrTagOptionId = pTagOptionId_
+        tagOptionId = pTagOptionId_
       }
 
 -- | The resource identifier.
-atowrResourceId :: Lens' AssociateTagOptionWithResource Text
-atowrResourceId = lens _atowrResourceId (\s a -> s {_atowrResourceId = a})
+associateTagOptionWithResource_resourceId :: Lens.Lens' AssociateTagOptionWithResource Prelude.Text
+associateTagOptionWithResource_resourceId = Lens.lens (\AssociateTagOptionWithResource' {resourceId} -> resourceId) (\s@AssociateTagOptionWithResource' {} a -> s {resourceId = a} :: AssociateTagOptionWithResource)
 
 -- | The TagOption identifier.
-atowrTagOptionId :: Lens' AssociateTagOptionWithResource Text
-atowrTagOptionId = lens _atowrTagOptionId (\s a -> s {_atowrTagOptionId = a})
+associateTagOptionWithResource_tagOptionId :: Lens.Lens' AssociateTagOptionWithResource Prelude.Text
+associateTagOptionWithResource_tagOptionId = Lens.lens (\AssociateTagOptionWithResource' {tagOptionId} -> tagOptionId) (\s@AssociateTagOptionWithResource' {} a -> s {tagOptionId = a} :: AssociateTagOptionWithResource)
 
-instance AWSRequest AssociateTagOptionWithResource where
+instance
+  Prelude.AWSRequest
+    AssociateTagOptionWithResource
+  where
   type
     Rs AssociateTagOptionWithResource =
       AssociateTagOptionWithResourceResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateTagOptionWithResourceResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable AssociateTagOptionWithResource
-
-instance NFData AssociateTagOptionWithResource
-
-instance ToHeaders AssociateTagOptionWithResource where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.AssociateTagOptionWithResource" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON AssociateTagOptionWithResource where
-  toJSON AssociateTagOptionWithResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _atowrResourceId),
-            Just ("TagOptionId" .= _atowrTagOptionId)
-          ]
-      )
-
-instance ToPath AssociateTagOptionWithResource where
-  toPath = const "/"
-
-instance ToQuery AssociateTagOptionWithResource where
-  toQuery = const mempty
-
--- | /See:/ 'associateTagOptionWithResourceResponse' smart constructor.
-newtype AssociateTagOptionWithResourceResponse = AssociateTagOptionWithResourceResponse'
-  { _atowrrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'AssociateTagOptionWithResourceResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'atowrrrsResponseStatus' - -- | The response status code.
-associateTagOptionWithResourceResponse ::
-  -- | 'atowrrrsResponseStatus'
-  Int ->
-  AssociateTagOptionWithResourceResponse
-associateTagOptionWithResourceResponse
-  pResponseStatus_ =
-    AssociateTagOptionWithResourceResponse'
-      { _atowrrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-atowrrrsResponseStatus :: Lens' AssociateTagOptionWithResourceResponse Int
-atowrrrsResponseStatus = lens _atowrrrsResponseStatus (\s a -> s {_atowrrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    AssociateTagOptionWithResource
+
+instance
+  Prelude.NFData
+    AssociateTagOptionWithResource
+
+instance
+  Prelude.ToHeaders
+    AssociateTagOptionWithResource
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "AWS242ServiceCatalogService.AssociateTagOptionWithResource" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    AssociateTagOptionWithResource
+  where
+  toJSON AssociateTagOptionWithResource' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just ("TagOptionId" Prelude..= tagOptionId)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    AssociateTagOptionWithResource
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    AssociateTagOptionWithResource
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newAssociateTagOptionWithResourceResponse' smart constructor.
+data AssociateTagOptionWithResourceResponse = AssociateTagOptionWithResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'AssociateTagOptionWithResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateTagOptionWithResourceResponse_httpStatus' - The response's http status code.
+newAssociateTagOptionWithResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  AssociateTagOptionWithResourceResponse
+newAssociateTagOptionWithResourceResponse
+  pHttpStatus_ =
+    AssociateTagOptionWithResourceResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+associateTagOptionWithResourceResponse_httpStatus :: Lens.Lens' AssociateTagOptionWithResourceResponse Prelude.Int
+associateTagOptionWithResourceResponse_httpStatus = Lens.lens (\AssociateTagOptionWithResourceResponse' {httpStatus} -> httpStatus) (\s@AssociateTagOptionWithResourceResponse' {} a -> s {httpStatus = a} :: AssociateTagOptionWithResourceResponse)
+
+instance
+  Prelude.NFData
     AssociateTagOptionWithResourceResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.ServiceCatalog.Types.ProductViewFilterBy
   ( ProductViewFilterBy
       ( ..,
-        FullTextSearch,
-        Owner,
-        ProductType,
-        SourceProductId
+        ProductViewFilterByFullTextSearch,
+        ProductViewFilterByOwner,
+        ProductViewFilterByProductType,
+        ProductViewFilterBySourceProductId
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProductViewFilterBy
-  = ProductViewFilterBy'
-      ( CI
-          Text
-      )
+newtype ProductViewFilterBy = ProductViewFilterBy'
+  { fromProductViewFilterBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FullTextSearch :: ProductViewFilterBy
-pattern FullTextSearch = ProductViewFilterBy' "FullTextSearch"
+pattern ProductViewFilterByFullTextSearch :: ProductViewFilterBy
+pattern ProductViewFilterByFullTextSearch = ProductViewFilterBy' "FullTextSearch"
 
-pattern Owner :: ProductViewFilterBy
-pattern Owner = ProductViewFilterBy' "Owner"
+pattern ProductViewFilterByOwner :: ProductViewFilterBy
+pattern ProductViewFilterByOwner = ProductViewFilterBy' "Owner"
 
-pattern ProductType :: ProductViewFilterBy
-pattern ProductType = ProductViewFilterBy' "ProductType"
+pattern ProductViewFilterByProductType :: ProductViewFilterBy
+pattern ProductViewFilterByProductType = ProductViewFilterBy' "ProductType"
 
-pattern SourceProductId :: ProductViewFilterBy
-pattern SourceProductId = ProductViewFilterBy' "SourceProductId"
+pattern ProductViewFilterBySourceProductId :: ProductViewFilterBy
+pattern ProductViewFilterBySourceProductId = ProductViewFilterBy' "SourceProductId"
 
 {-# COMPLETE
-  FullTextSearch,
-  Owner,
-  ProductType,
-  SourceProductId,
+  ProductViewFilterByFullTextSearch,
+  ProductViewFilterByOwner,
+  ProductViewFilterByProductType,
+  ProductViewFilterBySourceProductId,
   ProductViewFilterBy'
   #-}
 
-instance FromText ProductViewFilterBy where
-  parser = (ProductViewFilterBy' . mk) <$> takeText
+instance Prelude.FromText ProductViewFilterBy where
+  parser = ProductViewFilterBy' Prelude.<$> Prelude.takeText
 
-instance ToText ProductViewFilterBy where
-  toText (ProductViewFilterBy' ci) = original ci
+instance Prelude.ToText ProductViewFilterBy where
+  toText (ProductViewFilterBy' x) = x
 
-instance Hashable ProductViewFilterBy
+instance Prelude.Hashable ProductViewFilterBy
 
-instance NFData ProductViewFilterBy
+instance Prelude.NFData ProductViewFilterBy
 
-instance ToByteString ProductViewFilterBy
+instance Prelude.ToByteString ProductViewFilterBy
 
-instance ToQuery ProductViewFilterBy
+instance Prelude.ToQuery ProductViewFilterBy
 
-instance ToHeader ProductViewFilterBy
+instance Prelude.ToHeader ProductViewFilterBy
 
-instance ToJSON ProductViewFilterBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProductViewFilterBy where
+  toJSON = Prelude.toJSONText

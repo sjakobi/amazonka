@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ServiceActionAssociation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A self-service action association consisting of the Action ID, the Product ID, and the Provisioning Artifact ID.
+-- | A self-service action association consisting of the Action ID, the
+-- Product ID, and the Provisioning Artifact ID.
 --
---
---
--- /See:/ 'serviceActionAssociation' smart constructor.
+-- /See:/ 'newServiceActionAssociation' smart constructor.
 data ServiceActionAssociation = ServiceActionAssociation'
-  { _saaServiceActionId ::
-      !Text,
-    _saaProductId ::
-      !Text,
-    _saaProvisioningArtifactId ::
-      !Text
+  { -- | The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+    serviceActionId :: Prelude.Text,
+    -- | The product identifier. For example, @prod-abcdzk7xy33qa@.
+    productId :: Prelude.Text,
+    -- | The identifier of the provisioning artifact. For example,
+    -- @pa-4abcdjnxjj6ne@.
+    provisioningArtifactId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceActionAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceActionAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saaServiceActionId' - The self-service action identifier. For example, @act-fs7abcd89wxyz@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'saaProductId' - The product identifier. For example, @prod-abcdzk7xy33qa@ .
+-- 'serviceActionId', 'serviceActionAssociation_serviceActionId' - The self-service action identifier. For example, @act-fs7abcd89wxyz@.
 --
--- * 'saaProvisioningArtifactId' - The identifier of the provisioning artifact. For example, @pa-4abcdjnxjj6ne@ .
-serviceActionAssociation ::
-  -- | 'saaServiceActionId'
-  Text ->
-  -- | 'saaProductId'
-  Text ->
-  -- | 'saaProvisioningArtifactId'
-  Text ->
+-- 'productId', 'serviceActionAssociation_productId' - The product identifier. For example, @prod-abcdzk7xy33qa@.
+--
+-- 'provisioningArtifactId', 'serviceActionAssociation_provisioningArtifactId' - The identifier of the provisioning artifact. For example,
+-- @pa-4abcdjnxjj6ne@.
+newServiceActionAssociation ::
+  -- | 'serviceActionId'
+  Prelude.Text ->
+  -- | 'productId'
+  Prelude.Text ->
+  -- | 'provisioningArtifactId'
+  Prelude.Text ->
   ServiceActionAssociation
-serviceActionAssociation
+newServiceActionAssociation
   pServiceActionId_
   pProductId_
   pProvisioningArtifactId_ =
     ServiceActionAssociation'
-      { _saaServiceActionId =
+      { serviceActionId =
           pServiceActionId_,
-        _saaProductId = pProductId_,
-        _saaProvisioningArtifactId =
-          pProvisioningArtifactId_
+        productId = pProductId_,
+        provisioningArtifactId = pProvisioningArtifactId_
       }
 
--- | The self-service action identifier. For example, @act-fs7abcd89wxyz@ .
-saaServiceActionId :: Lens' ServiceActionAssociation Text
-saaServiceActionId = lens _saaServiceActionId (\s a -> s {_saaServiceActionId = a})
+-- | The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+serviceActionAssociation_serviceActionId :: Lens.Lens' ServiceActionAssociation Prelude.Text
+serviceActionAssociation_serviceActionId = Lens.lens (\ServiceActionAssociation' {serviceActionId} -> serviceActionId) (\s@ServiceActionAssociation' {} a -> s {serviceActionId = a} :: ServiceActionAssociation)
 
--- | The product identifier. For example, @prod-abcdzk7xy33qa@ .
-saaProductId :: Lens' ServiceActionAssociation Text
-saaProductId = lens _saaProductId (\s a -> s {_saaProductId = a})
+-- | The product identifier. For example, @prod-abcdzk7xy33qa@.
+serviceActionAssociation_productId :: Lens.Lens' ServiceActionAssociation Prelude.Text
+serviceActionAssociation_productId = Lens.lens (\ServiceActionAssociation' {productId} -> productId) (\s@ServiceActionAssociation' {} a -> s {productId = a} :: ServiceActionAssociation)
 
--- | The identifier of the provisioning artifact. For example, @pa-4abcdjnxjj6ne@ .
-saaProvisioningArtifactId :: Lens' ServiceActionAssociation Text
-saaProvisioningArtifactId = lens _saaProvisioningArtifactId (\s a -> s {_saaProvisioningArtifactId = a})
+-- | The identifier of the provisioning artifact. For example,
+-- @pa-4abcdjnxjj6ne@.
+serviceActionAssociation_provisioningArtifactId :: Lens.Lens' ServiceActionAssociation Prelude.Text
+serviceActionAssociation_provisioningArtifactId = Lens.lens (\ServiceActionAssociation' {provisioningArtifactId} -> provisioningArtifactId) (\s@ServiceActionAssociation' {} a -> s {provisioningArtifactId = a} :: ServiceActionAssociation)
 
-instance Hashable ServiceActionAssociation
+instance Prelude.Hashable ServiceActionAssociation
 
-instance NFData ServiceActionAssociation
+instance Prelude.NFData ServiceActionAssociation
 
-instance ToJSON ServiceActionAssociation where
+instance Prelude.ToJSON ServiceActionAssociation where
   toJSON ServiceActionAssociation' {..} =
-    object
-      ( catMaybes
-          [ Just ("ServiceActionId" .= _saaServiceActionId),
-            Just ("ProductId" .= _saaProductId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ServiceActionId" Prelude..= serviceActionId),
+            Prelude.Just ("ProductId" Prelude..= productId),
+            Prelude.Just
               ( "ProvisioningArtifactId"
-                  .= _saaProvisioningArtifactId
+                  Prelude..= provisioningArtifactId
               )
           ]
       )

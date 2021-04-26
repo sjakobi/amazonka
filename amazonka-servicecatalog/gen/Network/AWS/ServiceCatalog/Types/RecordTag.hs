@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.RecordTag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a tag, which is a key-value pair.
 --
---
---
--- /See:/ 'recordTag' smart constructor.
+-- /See:/ 'newRecordTag' smart constructor.
 data RecordTag = RecordTag'
-  { _rtKey :: !(Maybe Text),
-    _rtValue :: !(Maybe Text)
+  { -- | The key for this tag.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value for this tag.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RecordTag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RecordTag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtKey' - The key for this tag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtValue' - The value for this tag.
-recordTag ::
+-- 'key', 'recordTag_key' - The key for this tag.
+--
+-- 'value', 'recordTag_value' - The value for this tag.
+newRecordTag ::
   RecordTag
-recordTag =
-  RecordTag' {_rtKey = Nothing, _rtValue = Nothing}
+newRecordTag =
+  RecordTag'
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
 -- | The key for this tag.
-rtKey :: Lens' RecordTag (Maybe Text)
-rtKey = lens _rtKey (\s a -> s {_rtKey = a})
+recordTag_key :: Lens.Lens' RecordTag (Prelude.Maybe Prelude.Text)
+recordTag_key = Lens.lens (\RecordTag' {key} -> key) (\s@RecordTag' {} a -> s {key = a} :: RecordTag)
 
 -- | The value for this tag.
-rtValue :: Lens' RecordTag (Maybe Text)
-rtValue = lens _rtValue (\s a -> s {_rtValue = a})
+recordTag_value :: Lens.Lens' RecordTag (Prelude.Maybe Prelude.Text)
+recordTag_value = Lens.lens (\RecordTag' {value} -> value) (\s@RecordTag' {} a -> s {value = a} :: RecordTag)
 
-instance FromJSON RecordTag where
+instance Prelude.FromJSON RecordTag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RecordTag"
       ( \x ->
-          RecordTag' <$> (x .:? "Key") <*> (x .:? "Value")
+          RecordTag'
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable RecordTag
+instance Prelude.Hashable RecordTag
 
-instance NFData RecordTag
+instance Prelude.NFData RecordTag

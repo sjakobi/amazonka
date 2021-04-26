@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ServiceCatalog.Types.ProvisioningArtifactGuidance
   ( ProvisioningArtifactGuidance
       ( ..,
-        Default,
-        Deprecated
+        ProvisioningArtifactGuidanceDEFAULT,
+        ProvisioningArtifactGuidanceDEPRECATED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProvisioningArtifactGuidance
-  = ProvisioningArtifactGuidance'
-      ( CI
-          Text
-      )
+newtype ProvisioningArtifactGuidance = ProvisioningArtifactGuidance'
+  { fromProvisioningArtifactGuidance ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Default :: ProvisioningArtifactGuidance
-pattern Default = ProvisioningArtifactGuidance' "DEFAULT"
+pattern ProvisioningArtifactGuidanceDEFAULT :: ProvisioningArtifactGuidance
+pattern ProvisioningArtifactGuidanceDEFAULT = ProvisioningArtifactGuidance' "DEFAULT"
 
-pattern Deprecated :: ProvisioningArtifactGuidance
-pattern Deprecated = ProvisioningArtifactGuidance' "DEPRECATED"
+pattern ProvisioningArtifactGuidanceDEPRECATED :: ProvisioningArtifactGuidance
+pattern ProvisioningArtifactGuidanceDEPRECATED = ProvisioningArtifactGuidance' "DEPRECATED"
 
 {-# COMPLETE
-  Default,
-  Deprecated,
+  ProvisioningArtifactGuidanceDEFAULT,
+  ProvisioningArtifactGuidanceDEPRECATED,
   ProvisioningArtifactGuidance'
   #-}
 
-instance FromText ProvisioningArtifactGuidance where
-  parser = (ProvisioningArtifactGuidance' . mk) <$> takeText
+instance Prelude.FromText ProvisioningArtifactGuidance where
+  parser = ProvisioningArtifactGuidance' Prelude.<$> Prelude.takeText
 
-instance ToText ProvisioningArtifactGuidance where
-  toText (ProvisioningArtifactGuidance' ci) = original ci
+instance Prelude.ToText ProvisioningArtifactGuidance where
+  toText (ProvisioningArtifactGuidance' x) = x
 
-instance Hashable ProvisioningArtifactGuidance
+instance Prelude.Hashable ProvisioningArtifactGuidance
 
-instance NFData ProvisioningArtifactGuidance
+instance Prelude.NFData ProvisioningArtifactGuidance
 
-instance ToByteString ProvisioningArtifactGuidance
+instance Prelude.ToByteString ProvisioningArtifactGuidance
 
-instance ToQuery ProvisioningArtifactGuidance
+instance Prelude.ToQuery ProvisioningArtifactGuidance
 
-instance ToHeader ProvisioningArtifactGuidance
+instance Prelude.ToHeader ProvisioningArtifactGuidance
 
-instance ToJSON ProvisioningArtifactGuidance where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProvisioningArtifactGuidance where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProvisioningArtifactGuidance where
-  parseJSON = parseJSONText "ProvisioningArtifactGuidance"
+instance Prelude.FromJSON ProvisioningArtifactGuidance where
+  parseJSON = Prelude.parseJSONText "ProvisioningArtifactGuidance"

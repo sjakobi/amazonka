@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get the Access Status for AWS Organization portfolio share feature. This API can only be called by the management account in the organization or by a delegated admin.
+-- Get the Access Status for AWS Organization portfolio share feature. This
+-- API can only be called by the management account in the organization or
+-- by a delegated admin.
 module Network.AWS.ServiceCatalog.GetAWSOrganizationsAccessStatus
   ( -- * Creating a Request
-    getAWSOrganizationsAccessStatus,
-    GetAWSOrganizationsAccessStatus,
+    GetAWSOrganizationsAccessStatus (..),
+    newGetAWSOrganizationsAccessStatus,
 
     -- * Destructuring the Response
-    getAWSOrganizationsAccessStatusResponse,
-    GetAWSOrganizationsAccessStatusResponse,
+    GetAWSOrganizationsAccessStatusResponse (..),
+    newGetAWSOrganizationsAccessStatusResponse,
 
     -- * Response Lenses
-    gaoasrrsAccessStatus,
-    gaoasrrsResponseStatus,
+    getAWSOrganizationsAccessStatusResponse_accessStatus,
+    getAWSOrganizationsAccessStatusResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.AccessStatus
 
--- | /See:/ 'getAWSOrganizationsAccessStatus' smart constructor.
+-- | /See:/ 'newGetAWSOrganizationsAccessStatus' smart constructor.
 data GetAWSOrganizationsAccessStatus = GetAWSOrganizationsAccessStatus'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAWSOrganizationsAccessStatus' with the minimum fields required to make a request.
-getAWSOrganizationsAccessStatus ::
+-- |
+-- Create a value of 'GetAWSOrganizationsAccessStatus' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetAWSOrganizationsAccessStatus ::
   GetAWSOrganizationsAccessStatus
-getAWSOrganizationsAccessStatus =
+newGetAWSOrganizationsAccessStatus =
   GetAWSOrganizationsAccessStatus'
 
-instance AWSRequest GetAWSOrganizationsAccessStatus where
+instance
+  Prelude.AWSRequest
+    GetAWSOrganizationsAccessStatus
+  where
   type
     Rs GetAWSOrganizationsAccessStatus =
       GetAWSOrganizationsAccessStatusResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAWSOrganizationsAccessStatusResponse'
-            <$> (x .?> "AccessStatus") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AccessStatus")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAWSOrganizationsAccessStatus
+instance
+  Prelude.Hashable
+    GetAWSOrganizationsAccessStatus
 
-instance NFData GetAWSOrganizationsAccessStatus
+instance
+  Prelude.NFData
+    GetAWSOrganizationsAccessStatus
 
-instance ToHeaders GetAWSOrganizationsAccessStatus where
+instance
+  Prelude.ToHeaders
+    GetAWSOrganizationsAccessStatus
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.GetAWSOrganizationsAccessStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.GetAWSOrganizationsAccessStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAWSOrganizationsAccessStatus where
-  toJSON = const (Object mempty)
+instance
+  Prelude.ToJSON
+    GetAWSOrganizationsAccessStatus
+  where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetAWSOrganizationsAccessStatus where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetAWSOrganizationsAccessStatus
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAWSOrganizationsAccessStatus where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetAWSOrganizationsAccessStatus
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAWSOrganizationsAccessStatusResponse' smart constructor.
+-- | /See:/ 'newGetAWSOrganizationsAccessStatusResponse' smart constructor.
 data GetAWSOrganizationsAccessStatusResponse = GetAWSOrganizationsAccessStatusResponse'
-  { _gaoasrrsAccessStatus ::
-      !( Maybe
-           AccessStatus
-       ),
-    _gaoasrrsResponseStatus ::
-      !Int
+  { -- | The status of the portfolio share feature.
+    accessStatus :: Prelude.Maybe AccessStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAWSOrganizationsAccessStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAWSOrganizationsAccessStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaoasrrsAccessStatus' - The status of the portfolio share feature.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaoasrrsResponseStatus' - -- | The response status code.
-getAWSOrganizationsAccessStatusResponse ::
-  -- | 'gaoasrrsResponseStatus'
-  Int ->
+-- 'accessStatus', 'getAWSOrganizationsAccessStatusResponse_accessStatus' - The status of the portfolio share feature.
+--
+-- 'httpStatus', 'getAWSOrganizationsAccessStatusResponse_httpStatus' - The response's http status code.
+newGetAWSOrganizationsAccessStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAWSOrganizationsAccessStatusResponse
-getAWSOrganizationsAccessStatusResponse
-  pResponseStatus_ =
+newGetAWSOrganizationsAccessStatusResponse
+  pHttpStatus_ =
     GetAWSOrganizationsAccessStatusResponse'
-      { _gaoasrrsAccessStatus =
-          Nothing,
-        _gaoasrrsResponseStatus =
-          pResponseStatus_
+      { accessStatus =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The status of the portfolio share feature.
-gaoasrrsAccessStatus :: Lens' GetAWSOrganizationsAccessStatusResponse (Maybe AccessStatus)
-gaoasrrsAccessStatus = lens _gaoasrrsAccessStatus (\s a -> s {_gaoasrrsAccessStatus = a})
+getAWSOrganizationsAccessStatusResponse_accessStatus :: Lens.Lens' GetAWSOrganizationsAccessStatusResponse (Prelude.Maybe AccessStatus)
+getAWSOrganizationsAccessStatusResponse_accessStatus = Lens.lens (\GetAWSOrganizationsAccessStatusResponse' {accessStatus} -> accessStatus) (\s@GetAWSOrganizationsAccessStatusResponse' {} a -> s {accessStatus = a} :: GetAWSOrganizationsAccessStatusResponse)
 
--- | -- | The response status code.
-gaoasrrsResponseStatus :: Lens' GetAWSOrganizationsAccessStatusResponse Int
-gaoasrrsResponseStatus = lens _gaoasrrsResponseStatus (\s a -> s {_gaoasrrsResponseStatus = a})
+-- | The response's http status code.
+getAWSOrganizationsAccessStatusResponse_httpStatus :: Lens.Lens' GetAWSOrganizationsAccessStatusResponse Prelude.Int
+getAWSOrganizationsAccessStatusResponse_httpStatus = Lens.lens (\GetAWSOrganizationsAccessStatusResponse' {httpStatus} -> httpStatus) (\s@GetAWSOrganizationsAccessStatusResponse' {} a -> s {httpStatus = a} :: GetAWSOrganizationsAccessStatusResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetAWSOrganizationsAccessStatusResponse

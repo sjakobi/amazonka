@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.UsageInstruction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Additional information provided by the administrator.
 --
---
---
--- /See:/ 'usageInstruction' smart constructor.
+-- /See:/ 'newUsageInstruction' smart constructor.
 data UsageInstruction = UsageInstruction'
-  { _uiValue ::
-      !(Maybe Text),
-    _uiType :: !(Maybe Text)
+  { -- | The usage instruction value for this type.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The usage instruction type for the value.
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UsageInstruction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UsageInstruction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uiValue' - The usage instruction value for this type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uiType' - The usage instruction type for the value.
-usageInstruction ::
+-- 'value', 'usageInstruction_value' - The usage instruction value for this type.
+--
+-- 'type'', 'usageInstruction_type' - The usage instruction type for the value.
+newUsageInstruction ::
   UsageInstruction
-usageInstruction =
+newUsageInstruction =
   UsageInstruction'
-    { _uiValue = Nothing,
-      _uiType = Nothing
+    { value = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The usage instruction value for this type.
-uiValue :: Lens' UsageInstruction (Maybe Text)
-uiValue = lens _uiValue (\s a -> s {_uiValue = a})
+usageInstruction_value :: Lens.Lens' UsageInstruction (Prelude.Maybe Prelude.Text)
+usageInstruction_value = Lens.lens (\UsageInstruction' {value} -> value) (\s@UsageInstruction' {} a -> s {value = a} :: UsageInstruction)
 
 -- | The usage instruction type for the value.
-uiType :: Lens' UsageInstruction (Maybe Text)
-uiType = lens _uiType (\s a -> s {_uiType = a})
+usageInstruction_type :: Lens.Lens' UsageInstruction (Prelude.Maybe Prelude.Text)
+usageInstruction_type = Lens.lens (\UsageInstruction' {type'} -> type') (\s@UsageInstruction' {} a -> s {type' = a} :: UsageInstruction)
 
-instance FromJSON UsageInstruction where
+instance Prelude.FromJSON UsageInstruction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UsageInstruction"
       ( \x ->
           UsageInstruction'
-            <$> (x .:? "Value") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable UsageInstruction
+instance Prelude.Hashable UsageInstruction
 
-instance NFData UsageInstruction
+instance Prelude.NFData UsageInstruction

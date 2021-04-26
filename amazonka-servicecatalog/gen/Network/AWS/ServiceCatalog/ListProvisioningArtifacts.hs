@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all provisioning artifacts (also known as versions) for the specified product.
+-- Lists all provisioning artifacts (also known as versions) for the
+-- specified product.
 module Network.AWS.ServiceCatalog.ListProvisioningArtifacts
   ( -- * Creating a Request
-    listProvisioningArtifacts,
-    ListProvisioningArtifacts,
+    ListProvisioningArtifacts (..),
+    newListProvisioningArtifacts,
 
     -- * Request Lenses
-    lAcceptLanguage,
-    lProductId,
+    listProvisioningArtifacts_acceptLanguage,
+    listProvisioningArtifacts_productId,
 
     -- * Destructuring the Response
-    listProvisioningArtifactsResponse,
-    ListProvisioningArtifactsResponse,
+    ListProvisioningArtifactsResponse (..),
+    newListProvisioningArtifactsResponse,
 
     -- * Response Lenses
-    lisrsNextPageToken,
-    lisrsProvisioningArtifactDetails,
-    lisrsResponseStatus,
+    listProvisioningArtifactsResponse_nextPageToken,
+    listProvisioningArtifactsResponse_provisioningArtifactDetails,
+    listProvisioningArtifactsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ProvisioningArtifactDetail
 
--- | /See:/ 'listProvisioningArtifacts' smart constructor.
+-- | /See:/ 'newListProvisioningArtifacts' smart constructor.
 data ListProvisioningArtifacts = ListProvisioningArtifacts'
-  { _lAcceptLanguage ::
-      !(Maybe Text),
-    _lProductId ::
-      !Text
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The product identifier.
+    productId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProvisioningArtifacts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProvisioningArtifacts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lProductId' - The product identifier.
-listProvisioningArtifacts ::
-  -- | 'lProductId'
-  Text ->
+-- 'acceptLanguage', 'listProvisioningArtifacts_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'productId', 'listProvisioningArtifacts_productId' - The product identifier.
+newListProvisioningArtifacts ::
+  -- | 'productId'
+  Prelude.Text ->
   ListProvisioningArtifacts
-listProvisioningArtifacts pProductId_ =
+newListProvisioningArtifacts pProductId_ =
   ListProvisioningArtifacts'
-    { _lAcceptLanguage =
-        Nothing,
-      _lProductId = pProductId_
+    { acceptLanguage =
+        Prelude.Nothing,
+      productId = pProductId_
     }
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-lAcceptLanguage :: Lens' ListProvisioningArtifacts (Maybe Text)
-lAcceptLanguage = lens _lAcceptLanguage (\s a -> s {_lAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+listProvisioningArtifacts_acceptLanguage :: Lens.Lens' ListProvisioningArtifacts (Prelude.Maybe Prelude.Text)
+listProvisioningArtifacts_acceptLanguage = Lens.lens (\ListProvisioningArtifacts' {acceptLanguage} -> acceptLanguage) (\s@ListProvisioningArtifacts' {} a -> s {acceptLanguage = a} :: ListProvisioningArtifacts)
 
 -- | The product identifier.
-lProductId :: Lens' ListProvisioningArtifacts Text
-lProductId = lens _lProductId (\s a -> s {_lProductId = a})
+listProvisioningArtifacts_productId :: Lens.Lens' ListProvisioningArtifacts Prelude.Text
+listProvisioningArtifacts_productId = Lens.lens (\ListProvisioningArtifacts' {productId} -> productId) (\s@ListProvisioningArtifacts' {} a -> s {productId = a} :: ListProvisioningArtifacts)
 
-instance AWSRequest ListProvisioningArtifacts where
+instance Prelude.AWSRequest ListProvisioningArtifacts where
   type
     Rs ListProvisioningArtifacts =
       ListProvisioningArtifactsResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListProvisioningArtifactsResponse'
-            <$> (x .?> "NextPageToken")
-            <*> (x .?> "ProvisioningArtifactDetails" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextPageToken")
+            Prelude.<*> ( x Prelude..?> "ProvisioningArtifactDetails"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListProvisioningArtifacts
+instance Prelude.Hashable ListProvisioningArtifacts
 
-instance NFData ListProvisioningArtifacts
+instance Prelude.NFData ListProvisioningArtifacts
 
-instance ToHeaders ListProvisioningArtifacts where
+instance Prelude.ToHeaders ListProvisioningArtifacts where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.ListProvisioningArtifacts" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.ListProvisioningArtifacts" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListProvisioningArtifacts where
+instance Prelude.ToJSON ListProvisioningArtifacts where
   toJSON ListProvisioningArtifacts' {..} =
-    object
-      ( catMaybes
-          [ ("AcceptLanguage" .=) <$> _lAcceptLanguage,
-            Just ("ProductId" .= _lProductId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("ProductId" Prelude..= productId)
           ]
       )
 
-instance ToPath ListProvisioningArtifacts where
-  toPath = const "/"
+instance Prelude.ToPath ListProvisioningArtifacts where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListProvisioningArtifacts where
-  toQuery = const mempty
+instance Prelude.ToQuery ListProvisioningArtifacts where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listProvisioningArtifactsResponse' smart constructor.
+-- | /See:/ 'newListProvisioningArtifactsResponse' smart constructor.
 data ListProvisioningArtifactsResponse = ListProvisioningArtifactsResponse'
-  { _lisrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _lisrsProvisioningArtifactDetails ::
-      !( Maybe
-           [ProvisioningArtifactDetail]
-       ),
-    _lisrsResponseStatus ::
-      !Int
+  { -- | The page token to use to retrieve the next set of results. If there are
+    -- no additional results, this value is null.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the provisioning artifacts.
+    provisioningArtifactDetails :: Prelude.Maybe [ProvisioningArtifactDetail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProvisioningArtifactsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProvisioningArtifactsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lisrsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lisrsProvisioningArtifactDetails' - Information about the provisioning artifacts.
+-- 'nextPageToken', 'listProvisioningArtifactsResponse_nextPageToken' - The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
 --
--- * 'lisrsResponseStatus' - -- | The response status code.
-listProvisioningArtifactsResponse ::
-  -- | 'lisrsResponseStatus'
-  Int ->
+-- 'provisioningArtifactDetails', 'listProvisioningArtifactsResponse_provisioningArtifactDetails' - Information about the provisioning artifacts.
+--
+-- 'httpStatus', 'listProvisioningArtifactsResponse_httpStatus' - The response's http status code.
+newListProvisioningArtifactsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListProvisioningArtifactsResponse
-listProvisioningArtifactsResponse pResponseStatus_ =
+newListProvisioningArtifactsResponse pHttpStatus_ =
   ListProvisioningArtifactsResponse'
-    { _lisrsNextPageToken =
-        Nothing,
-      _lisrsProvisioningArtifactDetails =
-        Nothing,
-      _lisrsResponseStatus = pResponseStatus_
+    { nextPageToken =
+        Prelude.Nothing,
+      provisioningArtifactDetails =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
-lisrsNextPageToken :: Lens' ListProvisioningArtifactsResponse (Maybe Text)
-lisrsNextPageToken = lens _lisrsNextPageToken (\s a -> s {_lisrsNextPageToken = a})
+-- | The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
+listProvisioningArtifactsResponse_nextPageToken :: Lens.Lens' ListProvisioningArtifactsResponse (Prelude.Maybe Prelude.Text)
+listProvisioningArtifactsResponse_nextPageToken = Lens.lens (\ListProvisioningArtifactsResponse' {nextPageToken} -> nextPageToken) (\s@ListProvisioningArtifactsResponse' {} a -> s {nextPageToken = a} :: ListProvisioningArtifactsResponse)
 
 -- | Information about the provisioning artifacts.
-lisrsProvisioningArtifactDetails :: Lens' ListProvisioningArtifactsResponse [ProvisioningArtifactDetail]
-lisrsProvisioningArtifactDetails = lens _lisrsProvisioningArtifactDetails (\s a -> s {_lisrsProvisioningArtifactDetails = a}) . _Default . _Coerce
+listProvisioningArtifactsResponse_provisioningArtifactDetails :: Lens.Lens' ListProvisioningArtifactsResponse (Prelude.Maybe [ProvisioningArtifactDetail])
+listProvisioningArtifactsResponse_provisioningArtifactDetails = Lens.lens (\ListProvisioningArtifactsResponse' {provisioningArtifactDetails} -> provisioningArtifactDetails) (\s@ListProvisioningArtifactsResponse' {} a -> s {provisioningArtifactDetails = a} :: ListProvisioningArtifactsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lisrsResponseStatus :: Lens' ListProvisioningArtifactsResponse Int
-lisrsResponseStatus = lens _lisrsResponseStatus (\s a -> s {_lisrsResponseStatus = a})
+-- | The response's http status code.
+listProvisioningArtifactsResponse_httpStatus :: Lens.Lens' ListProvisioningArtifactsResponse Prelude.Int
+listProvisioningArtifactsResponse_httpStatus = Lens.lens (\ListProvisioningArtifactsResponse' {httpStatus} -> httpStatus) (\s@ListProvisioningArtifactsResponse' {} a -> s {httpStatus = a} :: ListProvisioningArtifactsResponse)
 
-instance NFData ListProvisioningArtifactsResponse
+instance
+  Prelude.NFData
+    ListProvisioningArtifactsResponse

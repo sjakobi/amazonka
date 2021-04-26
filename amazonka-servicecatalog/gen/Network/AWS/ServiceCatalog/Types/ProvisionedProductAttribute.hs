@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,238 +19,372 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ProvisionedProductAttribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ProvisionedProductStatus
 import Network.AWS.ServiceCatalog.Types.Tag
 
 -- | Information about a provisioned product.
 --
---
---
--- /See:/ 'provisionedProductAttribute' smart constructor.
+-- /See:/ 'newProvisionedProductAttribute' smart constructor.
 data ProvisionedProductAttribute = ProvisionedProductAttribute'
-  { _ppaStatusMessage ::
-      !(Maybe Text),
-    _ppaLastSuccessfulProvisioningRecordId ::
-      !(Maybe Text),
-    _ppaIdempotencyToken ::
-      !(Maybe Text),
-    _ppaStatus ::
-      !( Maybe
-           ProvisionedProductStatus
-       ),
-    _ppaUserARN ::
-      !(Maybe Text),
-    _ppaProvisioningArtifactName ::
-      !(Maybe Text),
-    _ppaARN ::
-      !(Maybe Text),
-    _ppaId ::
-      !(Maybe Text),
-    _ppaCreatedTime ::
-      !(Maybe POSIX),
-    _ppaProvisioningArtifactId ::
-      !(Maybe Text),
-    _ppaName ::
-      !(Maybe Text),
-    _ppaProductName ::
-      !(Maybe Text),
-    _ppaTags ::
-      !(Maybe [Tag]),
-    _ppaProductId ::
-      !(Maybe Text),
-    _ppaLastProvisioningRecordId ::
-      !(Maybe Text),
-    _ppaType ::
-      !(Maybe Text),
-    _ppaPhysicalId ::
-      !(Maybe Text),
-    _ppaUserARNSession ::
-      !(Maybe Text),
-    _ppaLastRecordId ::
-      !(Maybe Text)
+  { -- | The current status message of the provisioned product.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The record identifier of the last successful request performed on this
+    -- provisioned product of the following types:
+    --
+    -- -   ProvisionedProduct
+    --
+    -- -   UpdateProvisionedProduct
+    --
+    -- -   ExecuteProvisionedProductPlan
+    --
+    -- -   TerminateProvisionedProduct
+    lastSuccessfulProvisioningRecordId :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier that you provide to ensure idempotency. If multiple
+    -- requests differ only by the idempotency token, the same response is
+    -- returned for each repeated request.
+    idempotencyToken :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the provisioned product.
+    --
+    -- -   @AVAILABLE@ - Stable state, ready to perform any operation. The most
+    --     recent operation succeeded and completed.
+    --
+    -- -   @UNDER_CHANGE@ - Transitive state. Operations performed might not
+    --     have valid results. Wait for an @AVAILABLE@ status before performing
+    --     operations.
+    --
+    -- -   @TAINTED@ - Stable state, ready to perform any operation. The stack
+    --     has completed the requested operation but is not exactly what was
+    --     requested. For example, a request to update to a new version failed
+    --     and the stack rolled back to the current version.
+    --
+    -- -   @ERROR@ - An unexpected error occurred. The provisioned product
+    --     exists but the stack is not running. For example, CloudFormation
+    --     received a parameter value that was not valid and could not launch
+    --     the stack.
+    --
+    -- -   @PLAN_IN_PROGRESS@ - Transitive state. The plan operations were
+    --     performed to provision a new product, but resources have not yet
+    --     been created. After reviewing the list of resources to be created,
+    --     execute the plan. Wait for an @AVAILABLE@ status before performing
+    --     operations.
+    status :: Prelude.Maybe ProvisionedProductStatus,
+    -- | The Amazon Resource Name (ARN) of the IAM user.
+    userArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the provisioning artifact.
+    provisioningArtifactName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the provisioned product.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the provisioned product.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The UTC time stamp of the creation time.
+    createdTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The identifier of the provisioning artifact.
+    provisioningArtifactId :: Prelude.Maybe Prelude.Text,
+    -- | The user-friendly name of the provisioned product.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The name of the product.
+    productName :: Prelude.Maybe Prelude.Text,
+    -- | One or more tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The product identifier.
+    productId :: Prelude.Maybe Prelude.Text,
+    -- | The record identifier of the last request performed on this provisioned
+    -- product of the following types:
+    --
+    -- -   ProvisionedProduct
+    --
+    -- -   UpdateProvisionedProduct
+    --
+    -- -   ExecuteProvisionedProductPlan
+    --
+    -- -   TerminateProvisionedProduct
+    lastProvisioningRecordId :: Prelude.Maybe Prelude.Text,
+    -- | The type of provisioned product. The supported values are @CFN_STACK@
+    -- and @CFN_STACKSET@.
+    type' :: Prelude.Maybe Prelude.Text,
+    -- | The assigned identifier for the resource, such as an EC2 instance ID or
+    -- an S3 bucket name.
+    physicalId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the IAM user in the session. This ARN might contain a session
+    -- ID.
+    userArnSession :: Prelude.Maybe Prelude.Text,
+    -- | The record identifier of the last request performed on this provisioned
+    -- product.
+    lastRecordId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvisionedProductAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvisionedProductAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppaStatusMessage' - The current status message of the provisioned product.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ppaLastSuccessfulProvisioningRecordId' - The record identifier of the last successful request performed on this provisioned product of the following types:     * ProvisionedProduct      * UpdateProvisionedProduct      * ExecuteProvisionedProductPlan      * TerminateProvisionedProduct
+-- 'statusMessage', 'provisionedProductAttribute_statusMessage' - The current status message of the provisioned product.
 --
--- * 'ppaIdempotencyToken' - A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
+-- 'lastSuccessfulProvisioningRecordId', 'provisionedProductAttribute_lastSuccessfulProvisioningRecordId' - The record identifier of the last successful request performed on this
+-- provisioned product of the following types:
 --
--- * 'ppaStatus' - The current status of the provisioned product.     * @AVAILABLE@ - Stable state, ready to perform any operation. The most recent operation succeeded and completed.     * @UNDER_CHANGE@ - Transitive state. Operations performed might not have valid results. Wait for an @AVAILABLE@ status before performing operations.     * @TAINTED@ - Stable state, ready to perform any operation. The stack has completed the requested operation but is not exactly what was requested. For example, a request to update to a new version failed and the stack rolled back to the current version.     * @ERROR@ - An unexpected error occurred. The provisioned product exists but the stack is not running. For example, CloudFormation received a parameter value that was not valid and could not launch the stack.     * @PLAN_IN_PROGRESS@ - Transitive state. The plan operations were performed to provision a new product, but resources have not yet been created. After reviewing the list of resources to be created, execute the plan. Wait for an @AVAILABLE@ status before performing operations.
+-- -   ProvisionedProduct
 --
--- * 'ppaUserARN' - The Amazon Resource Name (ARN) of the IAM user.
+-- -   UpdateProvisionedProduct
 --
--- * 'ppaProvisioningArtifactName' - The name of the provisioning artifact.
+-- -   ExecuteProvisionedProductPlan
 --
--- * 'ppaARN' - The ARN of the provisioned product.
+-- -   TerminateProvisionedProduct
 --
--- * 'ppaId' - The identifier of the provisioned product.
+-- 'idempotencyToken', 'provisionedProductAttribute_idempotencyToken' - A unique identifier that you provide to ensure idempotency. If multiple
+-- requests differ only by the idempotency token, the same response is
+-- returned for each repeated request.
 --
--- * 'ppaCreatedTime' - The UTC time stamp of the creation time.
+-- 'status', 'provisionedProductAttribute_status' - The current status of the provisioned product.
 --
--- * 'ppaProvisioningArtifactId' - The identifier of the provisioning artifact.
+-- -   @AVAILABLE@ - Stable state, ready to perform any operation. The most
+--     recent operation succeeded and completed.
 --
--- * 'ppaName' - The user-friendly name of the provisioned product.
+-- -   @UNDER_CHANGE@ - Transitive state. Operations performed might not
+--     have valid results. Wait for an @AVAILABLE@ status before performing
+--     operations.
 --
--- * 'ppaProductName' - The name of the product.
+-- -   @TAINTED@ - Stable state, ready to perform any operation. The stack
+--     has completed the requested operation but is not exactly what was
+--     requested. For example, a request to update to a new version failed
+--     and the stack rolled back to the current version.
 --
--- * 'ppaTags' - One or more tags.
+-- -   @ERROR@ - An unexpected error occurred. The provisioned product
+--     exists but the stack is not running. For example, CloudFormation
+--     received a parameter value that was not valid and could not launch
+--     the stack.
 --
--- * 'ppaProductId' - The product identifier.
+-- -   @PLAN_IN_PROGRESS@ - Transitive state. The plan operations were
+--     performed to provision a new product, but resources have not yet
+--     been created. After reviewing the list of resources to be created,
+--     execute the plan. Wait for an @AVAILABLE@ status before performing
+--     operations.
 --
--- * 'ppaLastProvisioningRecordId' - The record identifier of the last request performed on this provisioned product of the following types:     * ProvisionedProduct      * UpdateProvisionedProduct      * ExecuteProvisionedProductPlan      * TerminateProvisionedProduct
+-- 'userArn', 'provisionedProductAttribute_userArn' - The Amazon Resource Name (ARN) of the IAM user.
 --
--- * 'ppaType' - The type of provisioned product. The supported values are @CFN_STACK@ and @CFN_STACKSET@ .
+-- 'provisioningArtifactName', 'provisionedProductAttribute_provisioningArtifactName' - The name of the provisioning artifact.
 --
--- * 'ppaPhysicalId' - The assigned identifier for the resource, such as an EC2 instance ID or an S3 bucket name.
+-- 'arn', 'provisionedProductAttribute_arn' - The ARN of the provisioned product.
 --
--- * 'ppaUserARNSession' - The ARN of the IAM user in the session. This ARN might contain a session ID.
+-- 'id', 'provisionedProductAttribute_id' - The identifier of the provisioned product.
 --
--- * 'ppaLastRecordId' - The record identifier of the last request performed on this provisioned product.
-provisionedProductAttribute ::
+-- 'createdTime', 'provisionedProductAttribute_createdTime' - The UTC time stamp of the creation time.
+--
+-- 'provisioningArtifactId', 'provisionedProductAttribute_provisioningArtifactId' - The identifier of the provisioning artifact.
+--
+-- 'name', 'provisionedProductAttribute_name' - The user-friendly name of the provisioned product.
+--
+-- 'productName', 'provisionedProductAttribute_productName' - The name of the product.
+--
+-- 'tags', 'provisionedProductAttribute_tags' - One or more tags.
+--
+-- 'productId', 'provisionedProductAttribute_productId' - The product identifier.
+--
+-- 'lastProvisioningRecordId', 'provisionedProductAttribute_lastProvisioningRecordId' - The record identifier of the last request performed on this provisioned
+-- product of the following types:
+--
+-- -   ProvisionedProduct
+--
+-- -   UpdateProvisionedProduct
+--
+-- -   ExecuteProvisionedProductPlan
+--
+-- -   TerminateProvisionedProduct
+--
+-- 'type'', 'provisionedProductAttribute_type' - The type of provisioned product. The supported values are @CFN_STACK@
+-- and @CFN_STACKSET@.
+--
+-- 'physicalId', 'provisionedProductAttribute_physicalId' - The assigned identifier for the resource, such as an EC2 instance ID or
+-- an S3 bucket name.
+--
+-- 'userArnSession', 'provisionedProductAttribute_userArnSession' - The ARN of the IAM user in the session. This ARN might contain a session
+-- ID.
+--
+-- 'lastRecordId', 'provisionedProductAttribute_lastRecordId' - The record identifier of the last request performed on this provisioned
+-- product.
+newProvisionedProductAttribute ::
   ProvisionedProductAttribute
-provisionedProductAttribute =
+newProvisionedProductAttribute =
   ProvisionedProductAttribute'
-    { _ppaStatusMessage =
-        Nothing,
-      _ppaLastSuccessfulProvisioningRecordId =
-        Nothing,
-      _ppaIdempotencyToken = Nothing,
-      _ppaStatus = Nothing,
-      _ppaUserARN = Nothing,
-      _ppaProvisioningArtifactName = Nothing,
-      _ppaARN = Nothing,
-      _ppaId = Nothing,
-      _ppaCreatedTime = Nothing,
-      _ppaProvisioningArtifactId = Nothing,
-      _ppaName = Nothing,
-      _ppaProductName = Nothing,
-      _ppaTags = Nothing,
-      _ppaProductId = Nothing,
-      _ppaLastProvisioningRecordId = Nothing,
-      _ppaType = Nothing,
-      _ppaPhysicalId = Nothing,
-      _ppaUserARNSession = Nothing,
-      _ppaLastRecordId = Nothing
+    { statusMessage =
+        Prelude.Nothing,
+      lastSuccessfulProvisioningRecordId =
+        Prelude.Nothing,
+      idempotencyToken = Prelude.Nothing,
+      status = Prelude.Nothing,
+      userArn = Prelude.Nothing,
+      provisioningArtifactName = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      provisioningArtifactId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      productName = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      productId = Prelude.Nothing,
+      lastProvisioningRecordId = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      physicalId = Prelude.Nothing,
+      userArnSession = Prelude.Nothing,
+      lastRecordId = Prelude.Nothing
     }
 
 -- | The current status message of the provisioned product.
-ppaStatusMessage :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaStatusMessage = lens _ppaStatusMessage (\s a -> s {_ppaStatusMessage = a})
+provisionedProductAttribute_statusMessage :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_statusMessage = Lens.lens (\ProvisionedProductAttribute' {statusMessage} -> statusMessage) (\s@ProvisionedProductAttribute' {} a -> s {statusMessage = a} :: ProvisionedProductAttribute)
 
--- | The record identifier of the last successful request performed on this provisioned product of the following types:     * ProvisionedProduct      * UpdateProvisionedProduct      * ExecuteProvisionedProductPlan      * TerminateProvisionedProduct
-ppaLastSuccessfulProvisioningRecordId :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaLastSuccessfulProvisioningRecordId = lens _ppaLastSuccessfulProvisioningRecordId (\s a -> s {_ppaLastSuccessfulProvisioningRecordId = a})
+-- | The record identifier of the last successful request performed on this
+-- provisioned product of the following types:
+--
+-- -   ProvisionedProduct
+--
+-- -   UpdateProvisionedProduct
+--
+-- -   ExecuteProvisionedProductPlan
+--
+-- -   TerminateProvisionedProduct
+provisionedProductAttribute_lastSuccessfulProvisioningRecordId :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_lastSuccessfulProvisioningRecordId = Lens.lens (\ProvisionedProductAttribute' {lastSuccessfulProvisioningRecordId} -> lastSuccessfulProvisioningRecordId) (\s@ProvisionedProductAttribute' {} a -> s {lastSuccessfulProvisioningRecordId = a} :: ProvisionedProductAttribute)
 
--- | A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
-ppaIdempotencyToken :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaIdempotencyToken = lens _ppaIdempotencyToken (\s a -> s {_ppaIdempotencyToken = a})
+-- | A unique identifier that you provide to ensure idempotency. If multiple
+-- requests differ only by the idempotency token, the same response is
+-- returned for each repeated request.
+provisionedProductAttribute_idempotencyToken :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_idempotencyToken = Lens.lens (\ProvisionedProductAttribute' {idempotencyToken} -> idempotencyToken) (\s@ProvisionedProductAttribute' {} a -> s {idempotencyToken = a} :: ProvisionedProductAttribute)
 
--- | The current status of the provisioned product.     * @AVAILABLE@ - Stable state, ready to perform any operation. The most recent operation succeeded and completed.     * @UNDER_CHANGE@ - Transitive state. Operations performed might not have valid results. Wait for an @AVAILABLE@ status before performing operations.     * @TAINTED@ - Stable state, ready to perform any operation. The stack has completed the requested operation but is not exactly what was requested. For example, a request to update to a new version failed and the stack rolled back to the current version.     * @ERROR@ - An unexpected error occurred. The provisioned product exists but the stack is not running. For example, CloudFormation received a parameter value that was not valid and could not launch the stack.     * @PLAN_IN_PROGRESS@ - Transitive state. The plan operations were performed to provision a new product, but resources have not yet been created. After reviewing the list of resources to be created, execute the plan. Wait for an @AVAILABLE@ status before performing operations.
-ppaStatus :: Lens' ProvisionedProductAttribute (Maybe ProvisionedProductStatus)
-ppaStatus = lens _ppaStatus (\s a -> s {_ppaStatus = a})
+-- | The current status of the provisioned product.
+--
+-- -   @AVAILABLE@ - Stable state, ready to perform any operation. The most
+--     recent operation succeeded and completed.
+--
+-- -   @UNDER_CHANGE@ - Transitive state. Operations performed might not
+--     have valid results. Wait for an @AVAILABLE@ status before performing
+--     operations.
+--
+-- -   @TAINTED@ - Stable state, ready to perform any operation. The stack
+--     has completed the requested operation but is not exactly what was
+--     requested. For example, a request to update to a new version failed
+--     and the stack rolled back to the current version.
+--
+-- -   @ERROR@ - An unexpected error occurred. The provisioned product
+--     exists but the stack is not running. For example, CloudFormation
+--     received a parameter value that was not valid and could not launch
+--     the stack.
+--
+-- -   @PLAN_IN_PROGRESS@ - Transitive state. The plan operations were
+--     performed to provision a new product, but resources have not yet
+--     been created. After reviewing the list of resources to be created,
+--     execute the plan. Wait for an @AVAILABLE@ status before performing
+--     operations.
+provisionedProductAttribute_status :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe ProvisionedProductStatus)
+provisionedProductAttribute_status = Lens.lens (\ProvisionedProductAttribute' {status} -> status) (\s@ProvisionedProductAttribute' {} a -> s {status = a} :: ProvisionedProductAttribute)
 
 -- | The Amazon Resource Name (ARN) of the IAM user.
-ppaUserARN :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaUserARN = lens _ppaUserARN (\s a -> s {_ppaUserARN = a})
+provisionedProductAttribute_userArn :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_userArn = Lens.lens (\ProvisionedProductAttribute' {userArn} -> userArn) (\s@ProvisionedProductAttribute' {} a -> s {userArn = a} :: ProvisionedProductAttribute)
 
 -- | The name of the provisioning artifact.
-ppaProvisioningArtifactName :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaProvisioningArtifactName = lens _ppaProvisioningArtifactName (\s a -> s {_ppaProvisioningArtifactName = a})
+provisionedProductAttribute_provisioningArtifactName :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_provisioningArtifactName = Lens.lens (\ProvisionedProductAttribute' {provisioningArtifactName} -> provisioningArtifactName) (\s@ProvisionedProductAttribute' {} a -> s {provisioningArtifactName = a} :: ProvisionedProductAttribute)
 
 -- | The ARN of the provisioned product.
-ppaARN :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaARN = lens _ppaARN (\s a -> s {_ppaARN = a})
+provisionedProductAttribute_arn :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_arn = Lens.lens (\ProvisionedProductAttribute' {arn} -> arn) (\s@ProvisionedProductAttribute' {} a -> s {arn = a} :: ProvisionedProductAttribute)
 
 -- | The identifier of the provisioned product.
-ppaId :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaId = lens _ppaId (\s a -> s {_ppaId = a})
+provisionedProductAttribute_id :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_id = Lens.lens (\ProvisionedProductAttribute' {id} -> id) (\s@ProvisionedProductAttribute' {} a -> s {id = a} :: ProvisionedProductAttribute)
 
 -- | The UTC time stamp of the creation time.
-ppaCreatedTime :: Lens' ProvisionedProductAttribute (Maybe UTCTime)
-ppaCreatedTime = lens _ppaCreatedTime (\s a -> s {_ppaCreatedTime = a}) . mapping _Time
+provisionedProductAttribute_createdTime :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.UTCTime)
+provisionedProductAttribute_createdTime = Lens.lens (\ProvisionedProductAttribute' {createdTime} -> createdTime) (\s@ProvisionedProductAttribute' {} a -> s {createdTime = a} :: ProvisionedProductAttribute) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identifier of the provisioning artifact.
-ppaProvisioningArtifactId :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaProvisioningArtifactId = lens _ppaProvisioningArtifactId (\s a -> s {_ppaProvisioningArtifactId = a})
+provisionedProductAttribute_provisioningArtifactId :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_provisioningArtifactId = Lens.lens (\ProvisionedProductAttribute' {provisioningArtifactId} -> provisioningArtifactId) (\s@ProvisionedProductAttribute' {} a -> s {provisioningArtifactId = a} :: ProvisionedProductAttribute)
 
 -- | The user-friendly name of the provisioned product.
-ppaName :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaName = lens _ppaName (\s a -> s {_ppaName = a})
+provisionedProductAttribute_name :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_name = Lens.lens (\ProvisionedProductAttribute' {name} -> name) (\s@ProvisionedProductAttribute' {} a -> s {name = a} :: ProvisionedProductAttribute)
 
 -- | The name of the product.
-ppaProductName :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaProductName = lens _ppaProductName (\s a -> s {_ppaProductName = a})
+provisionedProductAttribute_productName :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_productName = Lens.lens (\ProvisionedProductAttribute' {productName} -> productName) (\s@ProvisionedProductAttribute' {} a -> s {productName = a} :: ProvisionedProductAttribute)
 
 -- | One or more tags.
-ppaTags :: Lens' ProvisionedProductAttribute [Tag]
-ppaTags = lens _ppaTags (\s a -> s {_ppaTags = a}) . _Default . _Coerce
+provisionedProductAttribute_tags :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe [Tag])
+provisionedProductAttribute_tags = Lens.lens (\ProvisionedProductAttribute' {tags} -> tags) (\s@ProvisionedProductAttribute' {} a -> s {tags = a} :: ProvisionedProductAttribute) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The product identifier.
-ppaProductId :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaProductId = lens _ppaProductId (\s a -> s {_ppaProductId = a})
+provisionedProductAttribute_productId :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_productId = Lens.lens (\ProvisionedProductAttribute' {productId} -> productId) (\s@ProvisionedProductAttribute' {} a -> s {productId = a} :: ProvisionedProductAttribute)
 
--- | The record identifier of the last request performed on this provisioned product of the following types:     * ProvisionedProduct      * UpdateProvisionedProduct      * ExecuteProvisionedProductPlan      * TerminateProvisionedProduct
-ppaLastProvisioningRecordId :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaLastProvisioningRecordId = lens _ppaLastProvisioningRecordId (\s a -> s {_ppaLastProvisioningRecordId = a})
+-- | The record identifier of the last request performed on this provisioned
+-- product of the following types:
+--
+-- -   ProvisionedProduct
+--
+-- -   UpdateProvisionedProduct
+--
+-- -   ExecuteProvisionedProductPlan
+--
+-- -   TerminateProvisionedProduct
+provisionedProductAttribute_lastProvisioningRecordId :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_lastProvisioningRecordId = Lens.lens (\ProvisionedProductAttribute' {lastProvisioningRecordId} -> lastProvisioningRecordId) (\s@ProvisionedProductAttribute' {} a -> s {lastProvisioningRecordId = a} :: ProvisionedProductAttribute)
 
--- | The type of provisioned product. The supported values are @CFN_STACK@ and @CFN_STACKSET@ .
-ppaType :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaType = lens _ppaType (\s a -> s {_ppaType = a})
+-- | The type of provisioned product. The supported values are @CFN_STACK@
+-- and @CFN_STACKSET@.
+provisionedProductAttribute_type :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_type = Lens.lens (\ProvisionedProductAttribute' {type'} -> type') (\s@ProvisionedProductAttribute' {} a -> s {type' = a} :: ProvisionedProductAttribute)
 
--- | The assigned identifier for the resource, such as an EC2 instance ID or an S3 bucket name.
-ppaPhysicalId :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaPhysicalId = lens _ppaPhysicalId (\s a -> s {_ppaPhysicalId = a})
+-- | The assigned identifier for the resource, such as an EC2 instance ID or
+-- an S3 bucket name.
+provisionedProductAttribute_physicalId :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_physicalId = Lens.lens (\ProvisionedProductAttribute' {physicalId} -> physicalId) (\s@ProvisionedProductAttribute' {} a -> s {physicalId = a} :: ProvisionedProductAttribute)
 
--- | The ARN of the IAM user in the session. This ARN might contain a session ID.
-ppaUserARNSession :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaUserARNSession = lens _ppaUserARNSession (\s a -> s {_ppaUserARNSession = a})
+-- | The ARN of the IAM user in the session. This ARN might contain a session
+-- ID.
+provisionedProductAttribute_userArnSession :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_userArnSession = Lens.lens (\ProvisionedProductAttribute' {userArnSession} -> userArnSession) (\s@ProvisionedProductAttribute' {} a -> s {userArnSession = a} :: ProvisionedProductAttribute)
 
--- | The record identifier of the last request performed on this provisioned product.
-ppaLastRecordId :: Lens' ProvisionedProductAttribute (Maybe Text)
-ppaLastRecordId = lens _ppaLastRecordId (\s a -> s {_ppaLastRecordId = a})
+-- | The record identifier of the last request performed on this provisioned
+-- product.
+provisionedProductAttribute_lastRecordId :: Lens.Lens' ProvisionedProductAttribute (Prelude.Maybe Prelude.Text)
+provisionedProductAttribute_lastRecordId = Lens.lens (\ProvisionedProductAttribute' {lastRecordId} -> lastRecordId) (\s@ProvisionedProductAttribute' {} a -> s {lastRecordId = a} :: ProvisionedProductAttribute)
 
-instance FromJSON ProvisionedProductAttribute where
+instance Prelude.FromJSON ProvisionedProductAttribute where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProvisionedProductAttribute"
       ( \x ->
           ProvisionedProductAttribute'
-            <$> (x .:? "StatusMessage")
-            <*> (x .:? "LastSuccessfulProvisioningRecordId")
-            <*> (x .:? "IdempotencyToken")
-            <*> (x .:? "Status")
-            <*> (x .:? "UserArn")
-            <*> (x .:? "ProvisioningArtifactName")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreatedTime")
-            <*> (x .:? "ProvisioningArtifactId")
-            <*> (x .:? "Name")
-            <*> (x .:? "ProductName")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "ProductId")
-            <*> (x .:? "LastProvisioningRecordId")
-            <*> (x .:? "Type")
-            <*> (x .:? "PhysicalId")
-            <*> (x .:? "UserArnSession")
-            <*> (x .:? "LastRecordId")
+            Prelude.<$> (x Prelude..:? "StatusMessage")
+            Prelude.<*> (x Prelude..:? "LastSuccessfulProvisioningRecordId")
+            Prelude.<*> (x Prelude..:? "IdempotencyToken")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "UserArn")
+            Prelude.<*> (x Prelude..:? "ProvisioningArtifactName")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreatedTime")
+            Prelude.<*> (x Prelude..:? "ProvisioningArtifactId")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "ProductName")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ProductId")
+            Prelude.<*> (x Prelude..:? "LastProvisioningRecordId")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "PhysicalId")
+            Prelude.<*> (x Prelude..:? "UserArnSession")
+            Prelude.<*> (x Prelude..:? "LastRecordId")
       )
 
-instance Hashable ProvisionedProductAttribute
+instance Prelude.Hashable ProvisionedProductAttribute
 
-instance NFData ProvisionedProductAttribute
+instance Prelude.NFData ProvisionedProductAttribute

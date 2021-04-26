@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,130 +24,136 @@
 -- Gets information about the specified TagOption.
 module Network.AWS.ServiceCatalog.DescribeTagOption
   ( -- * Creating a Request
-    describeTagOption,
-    DescribeTagOption,
+    DescribeTagOption (..),
+    newDescribeTagOption,
 
     -- * Request Lenses
-    dtoId,
+    describeTagOption_id,
 
     -- * Destructuring the Response
-    describeTagOptionResponse,
-    DescribeTagOptionResponse,
+    DescribeTagOptionResponse (..),
+    newDescribeTagOptionResponse,
 
     -- * Response Lenses
-    dtorrsTagOptionDetail,
-    dtorrsResponseStatus,
+    describeTagOptionResponse_tagOptionDetail,
+    describeTagOptionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.TagOptionDetail
 
--- | /See:/ 'describeTagOption' smart constructor.
-newtype DescribeTagOption = DescribeTagOption'
-  { _dtoId ::
-      Text
+-- | /See:/ 'newDescribeTagOption' smart constructor.
+data DescribeTagOption = DescribeTagOption'
+  { -- | The TagOption identifier.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTagOption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTagOption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtoId' - The TagOption identifier.
-describeTagOption ::
-  -- | 'dtoId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'describeTagOption_id' - The TagOption identifier.
+newDescribeTagOption ::
+  -- | 'id'
+  Prelude.Text ->
   DescribeTagOption
-describeTagOption pId_ =
-  DescribeTagOption' {_dtoId = pId_}
+newDescribeTagOption pId_ =
+  DescribeTagOption' {id = pId_}
 
 -- | The TagOption identifier.
-dtoId :: Lens' DescribeTagOption Text
-dtoId = lens _dtoId (\s a -> s {_dtoId = a})
+describeTagOption_id :: Lens.Lens' DescribeTagOption Prelude.Text
+describeTagOption_id = Lens.lens (\DescribeTagOption' {id} -> id) (\s@DescribeTagOption' {} a -> s {id = a} :: DescribeTagOption)
 
-instance AWSRequest DescribeTagOption where
+instance Prelude.AWSRequest DescribeTagOption where
   type Rs DescribeTagOption = DescribeTagOptionResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTagOptionResponse'
-            <$> (x .?> "TagOptionDetail") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TagOptionDetail")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTagOption
+instance Prelude.Hashable DescribeTagOption
 
-instance NFData DescribeTagOption
+instance Prelude.NFData DescribeTagOption
 
-instance ToHeaders DescribeTagOption where
+instance Prelude.ToHeaders DescribeTagOption where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DescribeTagOption" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DescribeTagOption" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTagOption where
+instance Prelude.ToJSON DescribeTagOption where
   toJSON DescribeTagOption' {..} =
-    object (catMaybes [Just ("Id" .= _dtoId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Id" Prelude..= id)]
+      )
 
-instance ToPath DescribeTagOption where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTagOption where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTagOption where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeTagOption where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeTagOptionResponse' smart constructor.
+-- | /See:/ 'newDescribeTagOptionResponse' smart constructor.
 data DescribeTagOptionResponse = DescribeTagOptionResponse'
-  { _dtorrsTagOptionDetail ::
-      !( Maybe
-           TagOptionDetail
-       ),
-    _dtorrsResponseStatus ::
-      !Int
+  { -- | Information about the TagOption.
+    tagOptionDetail :: Prelude.Maybe TagOptionDetail,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTagOptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTagOptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtorrsTagOptionDetail' - Information about the TagOption.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtorrsResponseStatus' - -- | The response status code.
-describeTagOptionResponse ::
-  -- | 'dtorrsResponseStatus'
-  Int ->
+-- 'tagOptionDetail', 'describeTagOptionResponse_tagOptionDetail' - Information about the TagOption.
+--
+-- 'httpStatus', 'describeTagOptionResponse_httpStatus' - The response's http status code.
+newDescribeTagOptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTagOptionResponse
-describeTagOptionResponse pResponseStatus_ =
+newDescribeTagOptionResponse pHttpStatus_ =
   DescribeTagOptionResponse'
-    { _dtorrsTagOptionDetail =
-        Nothing,
-      _dtorrsResponseStatus = pResponseStatus_
+    { tagOptionDetail =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the TagOption.
-dtorrsTagOptionDetail :: Lens' DescribeTagOptionResponse (Maybe TagOptionDetail)
-dtorrsTagOptionDetail = lens _dtorrsTagOptionDetail (\s a -> s {_dtorrsTagOptionDetail = a})
+describeTagOptionResponse_tagOptionDetail :: Lens.Lens' DescribeTagOptionResponse (Prelude.Maybe TagOptionDetail)
+describeTagOptionResponse_tagOptionDetail = Lens.lens (\DescribeTagOptionResponse' {tagOptionDetail} -> tagOptionDetail) (\s@DescribeTagOptionResponse' {} a -> s {tagOptionDetail = a} :: DescribeTagOptionResponse)
 
--- | -- | The response status code.
-dtorrsResponseStatus :: Lens' DescribeTagOptionResponse Int
-dtorrsResponseStatus = lens _dtorrsResponseStatus (\s a -> s {_dtorrsResponseStatus = a})
+-- | The response's http status code.
+describeTagOptionResponse_httpStatus :: Lens.Lens' DescribeTagOptionResponse Prelude.Int
+describeTagOptionResponse_httpStatus = Lens.lens (\DescribeTagOptionResponse' {httpStatus} -> httpStatus) (\s@DescribeTagOptionResponse' {} a -> s {httpStatus = a} :: DescribeTagOptionResponse)
 
-instance NFData DescribeTagOptionResponse
+instance Prelude.NFData DescribeTagOptionResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.ServiceCatalog.Types.ServiceActionDefinitionType
   ( ServiceActionDefinitionType
       ( ..,
-        SsmAutomation
+        ServiceActionDefinitionTypeSSMAUTOMATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceActionDefinitionType
-  = ServiceActionDefinitionType'
-      ( CI
-          Text
-      )
+newtype ServiceActionDefinitionType = ServiceActionDefinitionType'
+  { fromServiceActionDefinitionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SsmAutomation :: ServiceActionDefinitionType
-pattern SsmAutomation = ServiceActionDefinitionType' "SSM_AUTOMATION"
+pattern ServiceActionDefinitionTypeSSMAUTOMATION :: ServiceActionDefinitionType
+pattern ServiceActionDefinitionTypeSSMAUTOMATION = ServiceActionDefinitionType' "SSM_AUTOMATION"
 
 {-# COMPLETE
-  SsmAutomation,
+  ServiceActionDefinitionTypeSSMAUTOMATION,
   ServiceActionDefinitionType'
   #-}
 
-instance FromText ServiceActionDefinitionType where
-  parser = (ServiceActionDefinitionType' . mk) <$> takeText
+instance Prelude.FromText ServiceActionDefinitionType where
+  parser = ServiceActionDefinitionType' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceActionDefinitionType where
-  toText (ServiceActionDefinitionType' ci) = original ci
+instance Prelude.ToText ServiceActionDefinitionType where
+  toText (ServiceActionDefinitionType' x) = x
 
-instance Hashable ServiceActionDefinitionType
+instance Prelude.Hashable ServiceActionDefinitionType
 
-instance NFData ServiceActionDefinitionType
+instance Prelude.NFData ServiceActionDefinitionType
 
-instance ToByteString ServiceActionDefinitionType
+instance Prelude.ToByteString ServiceActionDefinitionType
 
-instance ToQuery ServiceActionDefinitionType
+instance Prelude.ToQuery ServiceActionDefinitionType
 
-instance ToHeader ServiceActionDefinitionType
+instance Prelude.ToHeader ServiceActionDefinitionType
 
-instance ToJSON ServiceActionDefinitionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ServiceActionDefinitionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ServiceActionDefinitionType where
-  parseJSON = parseJSONText "ServiceActionDefinitionType"
+instance Prelude.FromJSON ServiceActionDefinitionType where
+  parseJSON = Prelude.parseJSONText "ServiceActionDefinitionType"

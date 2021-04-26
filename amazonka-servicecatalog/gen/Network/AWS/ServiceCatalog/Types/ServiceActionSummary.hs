@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServiceCatalog.Types.ServiceActionSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServiceCatalog.Types.ServiceActionDefinitionType
 
 -- | Detailed information about the self-service action.
 --
---
---
--- /See:/ 'serviceActionSummary' smart constructor.
+-- /See:/ 'newServiceActionSummary' smart constructor.
 data ServiceActionSummary = ServiceActionSummary'
-  { _sasId ::
-      !(Maybe Text),
-    _sasDefinitionType ::
-      !( Maybe
-           ServiceActionDefinitionType
-       ),
-    _sasName :: !(Maybe Text),
-    _sasDescription ::
-      !(Maybe Text)
+  { -- | The self-service action identifier.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The self-service action definition type. For example, @SSM_AUTOMATION@.
+    definitionType :: Prelude.Maybe ServiceActionDefinitionType,
+    -- | The self-service action name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The self-service action description.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceActionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceActionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sasId' - The self-service action identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sasDefinitionType' - The self-service action definition type. For example, @SSM_AUTOMATION@ .
+-- 'id', 'serviceActionSummary_id' - The self-service action identifier.
 --
--- * 'sasName' - The self-service action name.
+-- 'definitionType', 'serviceActionSummary_definitionType' - The self-service action definition type. For example, @SSM_AUTOMATION@.
 --
--- * 'sasDescription' - The self-service action description.
-serviceActionSummary ::
+-- 'name', 'serviceActionSummary_name' - The self-service action name.
+--
+-- 'description', 'serviceActionSummary_description' - The self-service action description.
+newServiceActionSummary ::
   ServiceActionSummary
-serviceActionSummary =
+newServiceActionSummary =
   ServiceActionSummary'
-    { _sasId = Nothing,
-      _sasDefinitionType = Nothing,
-      _sasName = Nothing,
-      _sasDescription = Nothing
+    { id = Prelude.Nothing,
+      definitionType = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The self-service action identifier.
-sasId :: Lens' ServiceActionSummary (Maybe Text)
-sasId = lens _sasId (\s a -> s {_sasId = a})
+serviceActionSummary_id :: Lens.Lens' ServiceActionSummary (Prelude.Maybe Prelude.Text)
+serviceActionSummary_id = Lens.lens (\ServiceActionSummary' {id} -> id) (\s@ServiceActionSummary' {} a -> s {id = a} :: ServiceActionSummary)
 
--- | The self-service action definition type. For example, @SSM_AUTOMATION@ .
-sasDefinitionType :: Lens' ServiceActionSummary (Maybe ServiceActionDefinitionType)
-sasDefinitionType = lens _sasDefinitionType (\s a -> s {_sasDefinitionType = a})
+-- | The self-service action definition type. For example, @SSM_AUTOMATION@.
+serviceActionSummary_definitionType :: Lens.Lens' ServiceActionSummary (Prelude.Maybe ServiceActionDefinitionType)
+serviceActionSummary_definitionType = Lens.lens (\ServiceActionSummary' {definitionType} -> definitionType) (\s@ServiceActionSummary' {} a -> s {definitionType = a} :: ServiceActionSummary)
 
 -- | The self-service action name.
-sasName :: Lens' ServiceActionSummary (Maybe Text)
-sasName = lens _sasName (\s a -> s {_sasName = a})
+serviceActionSummary_name :: Lens.Lens' ServiceActionSummary (Prelude.Maybe Prelude.Text)
+serviceActionSummary_name = Lens.lens (\ServiceActionSummary' {name} -> name) (\s@ServiceActionSummary' {} a -> s {name = a} :: ServiceActionSummary)
 
 -- | The self-service action description.
-sasDescription :: Lens' ServiceActionSummary (Maybe Text)
-sasDescription = lens _sasDescription (\s a -> s {_sasDescription = a})
+serviceActionSummary_description :: Lens.Lens' ServiceActionSummary (Prelude.Maybe Prelude.Text)
+serviceActionSummary_description = Lens.lens (\ServiceActionSummary' {description} -> description) (\s@ServiceActionSummary' {} a -> s {description = a} :: ServiceActionSummary)
 
-instance FromJSON ServiceActionSummary where
+instance Prelude.FromJSON ServiceActionSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceActionSummary"
       ( \x ->
           ServiceActionSummary'
-            <$> (x .:? "Id")
-            <*> (x .:? "DefinitionType")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "DefinitionType")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable ServiceActionSummary
+instance Prelude.Hashable ServiceActionSummary
 
-instance NFData ServiceActionSummary
+instance Prelude.NFData ServiceActionSummary

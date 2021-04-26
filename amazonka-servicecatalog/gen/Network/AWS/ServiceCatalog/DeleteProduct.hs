@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,139 +23,160 @@
 --
 -- Deletes the specified product.
 --
---
--- You cannot delete a product if it was shared with you or is associated with a portfolio.
+-- You cannot delete a product if it was shared with you or is associated
+-- with a portfolio.
 --
 -- A delegated admin is authorized to invoke this command.
 module Network.AWS.ServiceCatalog.DeleteProduct
   ( -- * Creating a Request
-    deleteProduct,
-    DeleteProduct,
+    DeleteProduct (..),
+    newDeleteProduct,
 
     -- * Request Lenses
-    deleAcceptLanguage,
-    deleId,
+    deleteProduct_acceptLanguage,
+    deleteProduct_id,
 
     -- * Destructuring the Response
-    deleteProductResponse,
-    DeleteProductResponse,
+    DeleteProductResponse (..),
+    newDeleteProductResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deleteProductResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'deleteProduct' smart constructor.
+-- | /See:/ 'newDeleteProduct' smart constructor.
 data DeleteProduct = DeleteProduct'
-  { _deleAcceptLanguage ::
-      !(Maybe Text),
-    _deleId :: !Text
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The product identifier.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProduct' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProduct' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deleAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deleId' - The product identifier.
-deleteProduct ::
-  -- | 'deleId'
-  Text ->
+-- 'acceptLanguage', 'deleteProduct_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'id', 'deleteProduct_id' - The product identifier.
+newDeleteProduct ::
+  -- | 'id'
+  Prelude.Text ->
   DeleteProduct
-deleteProduct pId_ =
+newDeleteProduct pId_ =
   DeleteProduct'
-    { _deleAcceptLanguage = Nothing,
-      _deleId = pId_
+    { acceptLanguage = Prelude.Nothing,
+      id = pId_
     }
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-deleAcceptLanguage :: Lens' DeleteProduct (Maybe Text)
-deleAcceptLanguage = lens _deleAcceptLanguage (\s a -> s {_deleAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+deleteProduct_acceptLanguage :: Lens.Lens' DeleteProduct (Prelude.Maybe Prelude.Text)
+deleteProduct_acceptLanguage = Lens.lens (\DeleteProduct' {acceptLanguage} -> acceptLanguage) (\s@DeleteProduct' {} a -> s {acceptLanguage = a} :: DeleteProduct)
 
 -- | The product identifier.
-deleId :: Lens' DeleteProduct Text
-deleId = lens _deleId (\s a -> s {_deleId = a})
+deleteProduct_id :: Lens.Lens' DeleteProduct Prelude.Text
+deleteProduct_id = Lens.lens (\DeleteProduct' {id} -> id) (\s@DeleteProduct' {} a -> s {id = a} :: DeleteProduct)
 
-instance AWSRequest DeleteProduct where
+instance Prelude.AWSRequest DeleteProduct where
   type Rs DeleteProduct = DeleteProductResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteProductResponse' <$> (pure (fromEnum s))
+          DeleteProductResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteProduct
+instance Prelude.Hashable DeleteProduct
 
-instance NFData DeleteProduct
+instance Prelude.NFData DeleteProduct
 
-instance ToHeaders DeleteProduct where
+instance Prelude.ToHeaders DeleteProduct where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DeleteProduct" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DeleteProduct" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteProduct where
+instance Prelude.ToJSON DeleteProduct where
   toJSON DeleteProduct' {..} =
-    object
-      ( catMaybes
-          [ ("AcceptLanguage" .=) <$> _deleAcceptLanguage,
-            Just ("Id" .= _deleId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("Id" Prelude..= id)
           ]
       )
 
-instance ToPath DeleteProduct where
-  toPath = const "/"
+instance Prelude.ToPath DeleteProduct where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteProduct where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteProduct where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteProductResponse' smart constructor.
-newtype DeleteProductResponse = DeleteProductResponse'
-  { _drsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteProductResponse' smart constructor.
+data DeleteProductResponse = DeleteProductResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProductResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProductResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteProductResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteProductResponse_httpStatus' - The response's http status code.
+newDeleteProductResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteProductResponse
-deleteProductResponse pResponseStatus_ =
-  DeleteProductResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteProductResponse pHttpStatus_ =
+  DeleteProductResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteProductResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteProductResponse_httpStatus :: Lens.Lens' DeleteProductResponse Prelude.Int
+deleteProductResponse_httpStatus = Lens.lens (\DeleteProductResponse' {httpStatus} -> httpStatus) (\s@DeleteProductResponse' {} a -> s {httpStatus = a} :: DeleteProductResponse)
 
-instance NFData DeleteProductResponse
+instance Prelude.NFData DeleteProductResponse

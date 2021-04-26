@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,207 +23,242 @@
 --
 -- Lists the provisioned products that are available (not terminated).
 --
---
--- To use additional filtering, see 'SearchProvisionedProducts' .
---
+-- To use additional filtering, see SearchProvisionedProducts.
 --
 -- This operation returns paginated results.
 module Network.AWS.ServiceCatalog.ScanProvisionedProducts
   ( -- * Creating a Request
-    scanProvisionedProducts,
-    ScanProvisionedProducts,
+    ScanProvisionedProducts (..),
+    newScanProvisionedProducts,
 
     -- * Request Lenses
-    sppPageSize,
-    sppPageToken,
-    sppAccessLevelFilter,
-    sppAcceptLanguage,
+    scanProvisionedProducts_pageSize,
+    scanProvisionedProducts_pageToken,
+    scanProvisionedProducts_accessLevelFilter,
+    scanProvisionedProducts_acceptLanguage,
 
     -- * Destructuring the Response
-    scanProvisionedProductsResponse,
-    ScanProvisionedProductsResponse,
+    ScanProvisionedProductsResponse (..),
+    newScanProvisionedProductsResponse,
 
     -- * Response Lenses
-    spprrsProvisionedProducts,
-    spprrsNextPageToken,
-    spprrsResponseStatus,
+    scanProvisionedProductsResponse_provisionedProducts,
+    scanProvisionedProductsResponse_nextPageToken,
+    scanProvisionedProductsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.ProvisionedProductDetail
 
--- | /See:/ 'scanProvisionedProducts' smart constructor.
+-- | /See:/ 'newScanProvisionedProducts' smart constructor.
 data ScanProvisionedProducts = ScanProvisionedProducts'
-  { _sppPageSize ::
-      !(Maybe Nat),
-    _sppPageToken ::
-      !(Maybe Text),
-    _sppAccessLevelFilter ::
-      !( Maybe
-           AccessLevelFilter
-       ),
-    _sppAcceptLanguage ::
-      !(Maybe Text)
+  { -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The page token for the next set of results. To retrieve the first set of
+    -- results, use null.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The access level to use to obtain results. The default is @User@.
+    accessLevelFilter :: Prelude.Maybe AccessLevelFilter,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScanProvisionedProducts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScanProvisionedProducts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sppPageSize' - The maximum number of items to return with this call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sppPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
+-- 'pageSize', 'scanProvisionedProducts_pageSize' - The maximum number of items to return with this call.
 --
--- * 'sppAccessLevelFilter' - The access level to use to obtain results. The default is @User@ .
+-- 'pageToken', 'scanProvisionedProducts_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
 --
--- * 'sppAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-scanProvisionedProducts ::
+-- 'accessLevelFilter', 'scanProvisionedProducts_accessLevelFilter' - The access level to use to obtain results. The default is @User@.
+--
+-- 'acceptLanguage', 'scanProvisionedProducts_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+newScanProvisionedProducts ::
   ScanProvisionedProducts
-scanProvisionedProducts =
+newScanProvisionedProducts =
   ScanProvisionedProducts'
-    { _sppPageSize = Nothing,
-      _sppPageToken = Nothing,
-      _sppAccessLevelFilter = Nothing,
-      _sppAcceptLanguage = Nothing
+    { pageSize =
+        Prelude.Nothing,
+      pageToken = Prelude.Nothing,
+      accessLevelFilter = Prelude.Nothing,
+      acceptLanguage = Prelude.Nothing
     }
 
 -- | The maximum number of items to return with this call.
-sppPageSize :: Lens' ScanProvisionedProducts (Maybe Natural)
-sppPageSize = lens _sppPageSize (\s a -> s {_sppPageSize = a}) . mapping _Nat
+scanProvisionedProducts_pageSize :: Lens.Lens' ScanProvisionedProducts (Prelude.Maybe Prelude.Natural)
+scanProvisionedProducts_pageSize = Lens.lens (\ScanProvisionedProducts' {pageSize} -> pageSize) (\s@ScanProvisionedProducts' {} a -> s {pageSize = a} :: ScanProvisionedProducts) Prelude.. Lens.mapping Prelude._Nat
 
--- | The page token for the next set of results. To retrieve the first set of results, use null.
-sppPageToken :: Lens' ScanProvisionedProducts (Maybe Text)
-sppPageToken = lens _sppPageToken (\s a -> s {_sppPageToken = a})
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+scanProvisionedProducts_pageToken :: Lens.Lens' ScanProvisionedProducts (Prelude.Maybe Prelude.Text)
+scanProvisionedProducts_pageToken = Lens.lens (\ScanProvisionedProducts' {pageToken} -> pageToken) (\s@ScanProvisionedProducts' {} a -> s {pageToken = a} :: ScanProvisionedProducts)
 
--- | The access level to use to obtain results. The default is @User@ .
-sppAccessLevelFilter :: Lens' ScanProvisionedProducts (Maybe AccessLevelFilter)
-sppAccessLevelFilter = lens _sppAccessLevelFilter (\s a -> s {_sppAccessLevelFilter = a})
+-- | The access level to use to obtain results. The default is @User@.
+scanProvisionedProducts_accessLevelFilter :: Lens.Lens' ScanProvisionedProducts (Prelude.Maybe AccessLevelFilter)
+scanProvisionedProducts_accessLevelFilter = Lens.lens (\ScanProvisionedProducts' {accessLevelFilter} -> accessLevelFilter) (\s@ScanProvisionedProducts' {} a -> s {accessLevelFilter = a} :: ScanProvisionedProducts)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-sppAcceptLanguage :: Lens' ScanProvisionedProducts (Maybe Text)
-sppAcceptLanguage = lens _sppAcceptLanguage (\s a -> s {_sppAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+scanProvisionedProducts_acceptLanguage :: Lens.Lens' ScanProvisionedProducts (Prelude.Maybe Prelude.Text)
+scanProvisionedProducts_acceptLanguage = Lens.lens (\ScanProvisionedProducts' {acceptLanguage} -> acceptLanguage) (\s@ScanProvisionedProducts' {} a -> s {acceptLanguage = a} :: ScanProvisionedProducts)
 
-instance AWSPager ScanProvisionedProducts where
+instance Pager.AWSPager ScanProvisionedProducts where
   page rq rs
-    | stop (rs ^. spprrsNextPageToken) = Nothing
-    | stop (rs ^. spprrsProvisionedProducts) = Nothing
-    | otherwise =
-      Just $ rq & sppPageToken .~ rs ^. spprrsNextPageToken
+    | Pager.stop
+        ( rs
+            Lens.^? scanProvisionedProductsResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? scanProvisionedProductsResponse_provisionedProducts
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& scanProvisionedProducts_pageToken
+          Lens..~ rs
+          Lens.^? scanProvisionedProductsResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ScanProvisionedProducts where
+instance Prelude.AWSRequest ScanProvisionedProducts where
   type
     Rs ScanProvisionedProducts =
       ScanProvisionedProductsResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ScanProvisionedProductsResponse'
-            <$> (x .?> "ProvisionedProducts" .!@ mempty)
-            <*> (x .?> "NextPageToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ProvisionedProducts"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ScanProvisionedProducts
+instance Prelude.Hashable ScanProvisionedProducts
 
-instance NFData ScanProvisionedProducts
+instance Prelude.NFData ScanProvisionedProducts
 
-instance ToHeaders ScanProvisionedProducts where
+instance Prelude.ToHeaders ScanProvisionedProducts where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.ScanProvisionedProducts" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.ScanProvisionedProducts" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ScanProvisionedProducts where
+instance Prelude.ToJSON ScanProvisionedProducts where
   toJSON ScanProvisionedProducts' {..} =
-    object
-      ( catMaybes
-          [ ("PageSize" .=) <$> _sppPageSize,
-            ("PageToken" .=) <$> _sppPageToken,
-            ("AccessLevelFilter" .=) <$> _sppAccessLevelFilter,
-            ("AcceptLanguage" .=) <$> _sppAcceptLanguage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PageSize" Prelude..=) Prelude.<$> pageSize,
+            ("PageToken" Prelude..=) Prelude.<$> pageToken,
+            ("AccessLevelFilter" Prelude..=)
+              Prelude.<$> accessLevelFilter,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage
           ]
       )
 
-instance ToPath ScanProvisionedProducts where
-  toPath = const "/"
+instance Prelude.ToPath ScanProvisionedProducts where
+  toPath = Prelude.const "/"
 
-instance ToQuery ScanProvisionedProducts where
-  toQuery = const mempty
+instance Prelude.ToQuery ScanProvisionedProducts where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'scanProvisionedProductsResponse' smart constructor.
+-- | /See:/ 'newScanProvisionedProductsResponse' smart constructor.
 data ScanProvisionedProductsResponse = ScanProvisionedProductsResponse'
-  { _spprrsProvisionedProducts ::
-      !( Maybe
-           [ProvisionedProductDetail]
-       ),
-    _spprrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _spprrsResponseStatus ::
-      !Int
+  { -- | Information about the provisioned products.
+    provisionedProducts :: Prelude.Maybe [ProvisionedProductDetail],
+    -- | The page token to use to retrieve the next set of results. If there are
+    -- no additional results, this value is null.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScanProvisionedProductsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScanProvisionedProductsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spprrsProvisionedProducts' - Information about the provisioned products.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spprrsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+-- 'provisionedProducts', 'scanProvisionedProductsResponse_provisionedProducts' - Information about the provisioned products.
 --
--- * 'spprrsResponseStatus' - -- | The response status code.
-scanProvisionedProductsResponse ::
-  -- | 'spprrsResponseStatus'
-  Int ->
+-- 'nextPageToken', 'scanProvisionedProductsResponse_nextPageToken' - The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
+--
+-- 'httpStatus', 'scanProvisionedProductsResponse_httpStatus' - The response's http status code.
+newScanProvisionedProductsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ScanProvisionedProductsResponse
-scanProvisionedProductsResponse pResponseStatus_ =
+newScanProvisionedProductsResponse pHttpStatus_ =
   ScanProvisionedProductsResponse'
-    { _spprrsProvisionedProducts =
-        Nothing,
-      _spprrsNextPageToken = Nothing,
-      _spprrsResponseStatus = pResponseStatus_
+    { provisionedProducts =
+        Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the provisioned products.
-spprrsProvisionedProducts :: Lens' ScanProvisionedProductsResponse [ProvisionedProductDetail]
-spprrsProvisionedProducts = lens _spprrsProvisionedProducts (\s a -> s {_spprrsProvisionedProducts = a}) . _Default . _Coerce
+scanProvisionedProductsResponse_provisionedProducts :: Lens.Lens' ScanProvisionedProductsResponse (Prelude.Maybe [ProvisionedProductDetail])
+scanProvisionedProductsResponse_provisionedProducts = Lens.lens (\ScanProvisionedProductsResponse' {provisionedProducts} -> provisionedProducts) (\s@ScanProvisionedProductsResponse' {} a -> s {provisionedProducts = a} :: ScanProvisionedProductsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
-spprrsNextPageToken :: Lens' ScanProvisionedProductsResponse (Maybe Text)
-spprrsNextPageToken = lens _spprrsNextPageToken (\s a -> s {_spprrsNextPageToken = a})
+-- | The page token to use to retrieve the next set of results. If there are
+-- no additional results, this value is null.
+scanProvisionedProductsResponse_nextPageToken :: Lens.Lens' ScanProvisionedProductsResponse (Prelude.Maybe Prelude.Text)
+scanProvisionedProductsResponse_nextPageToken = Lens.lens (\ScanProvisionedProductsResponse' {nextPageToken} -> nextPageToken) (\s@ScanProvisionedProductsResponse' {} a -> s {nextPageToken = a} :: ScanProvisionedProductsResponse)
 
--- | -- | The response status code.
-spprrsResponseStatus :: Lens' ScanProvisionedProductsResponse Int
-spprrsResponseStatus = lens _spprrsResponseStatus (\s a -> s {_spprrsResponseStatus = a})
+-- | The response's http status code.
+scanProvisionedProductsResponse_httpStatus :: Lens.Lens' ScanProvisionedProductsResponse Prelude.Int
+scanProvisionedProductsResponse_httpStatus = Lens.lens (\ScanProvisionedProductsResponse' {httpStatus} -> httpStatus) (\s@ScanProvisionedProductsResponse' {} a -> s {httpStatus = a} :: ScanProvisionedProductsResponse)
 
-instance NFData ScanProvisionedProductsResponse
+instance
+  Prelude.NFData
+    ScanProvisionedProductsResponse

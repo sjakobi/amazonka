@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,135 +24,160 @@
 -- Deletes a self-service action.
 module Network.AWS.ServiceCatalog.DeleteServiceAction
   ( -- * Creating a Request
-    deleteServiceAction,
-    DeleteServiceAction,
+    DeleteServiceAction (..),
+    newDeleteServiceAction,
 
     -- * Request Lenses
-    dsasAcceptLanguage,
-    dsasId,
+    deleteServiceAction_acceptLanguage,
+    deleteServiceAction_id,
 
     -- * Destructuring the Response
-    deleteServiceActionResponse,
-    DeleteServiceActionResponse,
+    DeleteServiceActionResponse (..),
+    newDeleteServiceActionResponse,
 
     -- * Response Lenses
-    dsarrsResponseStatus,
+    deleteServiceActionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'deleteServiceAction' smart constructor.
+-- | /See:/ 'newDeleteServiceAction' smart constructor.
 data DeleteServiceAction = DeleteServiceAction'
-  { _dsasAcceptLanguage ::
-      !(Maybe Text),
-    _dsasId :: !Text
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteServiceAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteServiceAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsasAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsasId' - The self-service action identifier. For example, @act-fs7abcd89wxyz@ .
-deleteServiceAction ::
-  -- | 'dsasId'
-  Text ->
+-- 'acceptLanguage', 'deleteServiceAction_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'id', 'deleteServiceAction_id' - The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+newDeleteServiceAction ::
+  -- | 'id'
+  Prelude.Text ->
   DeleteServiceAction
-deleteServiceAction pId_ =
+newDeleteServiceAction pId_ =
   DeleteServiceAction'
-    { _dsasAcceptLanguage = Nothing,
-      _dsasId = pId_
+    { acceptLanguage =
+        Prelude.Nothing,
+      id = pId_
     }
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-dsasAcceptLanguage :: Lens' DeleteServiceAction (Maybe Text)
-dsasAcceptLanguage = lens _dsasAcceptLanguage (\s a -> s {_dsasAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+deleteServiceAction_acceptLanguage :: Lens.Lens' DeleteServiceAction (Prelude.Maybe Prelude.Text)
+deleteServiceAction_acceptLanguage = Lens.lens (\DeleteServiceAction' {acceptLanguage} -> acceptLanguage) (\s@DeleteServiceAction' {} a -> s {acceptLanguage = a} :: DeleteServiceAction)
 
--- | The self-service action identifier. For example, @act-fs7abcd89wxyz@ .
-dsasId :: Lens' DeleteServiceAction Text
-dsasId = lens _dsasId (\s a -> s {_dsasId = a})
+-- | The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+deleteServiceAction_id :: Lens.Lens' DeleteServiceAction Prelude.Text
+deleteServiceAction_id = Lens.lens (\DeleteServiceAction' {id} -> id) (\s@DeleteServiceAction' {} a -> s {id = a} :: DeleteServiceAction)
 
-instance AWSRequest DeleteServiceAction where
+instance Prelude.AWSRequest DeleteServiceAction where
   type
     Rs DeleteServiceAction =
       DeleteServiceActionResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteServiceActionResponse' <$> (pure (fromEnum s))
+          DeleteServiceActionResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteServiceAction
+instance Prelude.Hashable DeleteServiceAction
 
-instance NFData DeleteServiceAction
+instance Prelude.NFData DeleteServiceAction
 
-instance ToHeaders DeleteServiceAction where
+instance Prelude.ToHeaders DeleteServiceAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.DeleteServiceAction" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.DeleteServiceAction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteServiceAction where
+instance Prelude.ToJSON DeleteServiceAction where
   toJSON DeleteServiceAction' {..} =
-    object
-      ( catMaybes
-          [ ("AcceptLanguage" .=) <$> _dsasAcceptLanguage,
-            Just ("Id" .= _dsasId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("Id" Prelude..= id)
           ]
       )
 
-instance ToPath DeleteServiceAction where
-  toPath = const "/"
+instance Prelude.ToPath DeleteServiceAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteServiceAction where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteServiceAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteServiceActionResponse' smart constructor.
-newtype DeleteServiceActionResponse = DeleteServiceActionResponse'
-  { _dsarrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteServiceActionResponse' smart constructor.
+data DeleteServiceActionResponse = DeleteServiceActionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteServiceActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteServiceActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsarrsResponseStatus' - -- | The response status code.
-deleteServiceActionResponse ::
-  -- | 'dsarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteServiceActionResponse_httpStatus' - The response's http status code.
+newDeleteServiceActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteServiceActionResponse
-deleteServiceActionResponse pResponseStatus_ =
+newDeleteServiceActionResponse pHttpStatus_ =
   DeleteServiceActionResponse'
-    { _dsarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dsarrsResponseStatus :: Lens' DeleteServiceActionResponse Int
-dsarrsResponseStatus = lens _dsarrsResponseStatus (\s a -> s {_dsarrsResponseStatus = a})
+-- | The response's http status code.
+deleteServiceActionResponse_httpStatus :: Lens.Lens' DeleteServiceActionResponse Prelude.Int
+deleteServiceActionResponse_httpStatus = Lens.lens (\DeleteServiceActionResponse' {httpStatus} -> httpStatus) (\s@DeleteServiceActionResponse' {} a -> s {httpStatus = a} :: DeleteServiceActionResponse)
 
-instance NFData DeleteServiceActionResponse
+instance Prelude.NFData DeleteServiceActionResponse

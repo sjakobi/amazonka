@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ServiceCatalog.Types.StackSetOperationType
   ( StackSetOperationType
       ( ..,
-        Create,
-        Delete,
-        Update
+        StackSetOperationTypeCREATE,
+        StackSetOperationTypeDELETE,
+        StackSetOperationTypeUPDATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackSetOperationType
-  = StackSetOperationType'
-      ( CI
-          Text
-      )
+newtype StackSetOperationType = StackSetOperationType'
+  { fromStackSetOperationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Create :: StackSetOperationType
-pattern Create = StackSetOperationType' "CREATE"
+pattern StackSetOperationTypeCREATE :: StackSetOperationType
+pattern StackSetOperationTypeCREATE = StackSetOperationType' "CREATE"
 
-pattern Delete :: StackSetOperationType
-pattern Delete = StackSetOperationType' "DELETE"
+pattern StackSetOperationTypeDELETE :: StackSetOperationType
+pattern StackSetOperationTypeDELETE = StackSetOperationType' "DELETE"
 
-pattern Update :: StackSetOperationType
-pattern Update = StackSetOperationType' "UPDATE"
+pattern StackSetOperationTypeUPDATE :: StackSetOperationType
+pattern StackSetOperationTypeUPDATE = StackSetOperationType' "UPDATE"
 
 {-# COMPLETE
-  Create,
-  Delete,
-  Update,
+  StackSetOperationTypeCREATE,
+  StackSetOperationTypeDELETE,
+  StackSetOperationTypeUPDATE,
   StackSetOperationType'
   #-}
 
-instance FromText StackSetOperationType where
-  parser = (StackSetOperationType' . mk) <$> takeText
+instance Prelude.FromText StackSetOperationType where
+  parser = StackSetOperationType' Prelude.<$> Prelude.takeText
 
-instance ToText StackSetOperationType where
-  toText (StackSetOperationType' ci) = original ci
+instance Prelude.ToText StackSetOperationType where
+  toText (StackSetOperationType' x) = x
 
-instance Hashable StackSetOperationType
+instance Prelude.Hashable StackSetOperationType
 
-instance NFData StackSetOperationType
+instance Prelude.NFData StackSetOperationType
 
-instance ToByteString StackSetOperationType
+instance Prelude.ToByteString StackSetOperationType
 
-instance ToQuery StackSetOperationType
+instance Prelude.ToQuery StackSetOperationType
 
-instance ToHeader StackSetOperationType
+instance Prelude.ToHeader StackSetOperationType
 
-instance ToJSON StackSetOperationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StackSetOperationType where
+  toJSON = Prelude.toJSONText

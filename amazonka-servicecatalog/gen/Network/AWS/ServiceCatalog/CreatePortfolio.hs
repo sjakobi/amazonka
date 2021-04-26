@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,208 +23,242 @@
 --
 -- Creates a portfolio.
 --
---
 -- A delegated admin is authorized to invoke this command.
 module Network.AWS.ServiceCatalog.CreatePortfolio
   ( -- * Creating a Request
-    createPortfolio,
-    CreatePortfolio,
+    CreatePortfolio (..),
+    newCreatePortfolio,
 
     -- * Request Lenses
-    creTags,
-    creDescription,
-    creAcceptLanguage,
-    creDisplayName,
-    creProviderName,
-    creIdempotencyToken,
+    createPortfolio_tags,
+    createPortfolio_description,
+    createPortfolio_acceptLanguage,
+    createPortfolio_displayName,
+    createPortfolio_providerName,
+    createPortfolio_idempotencyToken,
 
     -- * Destructuring the Response
-    createPortfolioResponse,
-    CreatePortfolioResponse,
+    CreatePortfolioResponse (..),
+    newCreatePortfolioResponse,
 
     -- * Response Lenses
-    cprrsTags,
-    cprrsPortfolioDetail,
-    cprrsResponseStatus,
+    createPortfolioResponse_tags,
+    createPortfolioResponse_portfolioDetail,
+    createPortfolioResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.PortfolioDetail
+import Network.AWS.ServiceCatalog.Types.Tag
 
--- | /See:/ 'createPortfolio' smart constructor.
+-- | /See:/ 'newCreatePortfolio' smart constructor.
 data CreatePortfolio = CreatePortfolio'
-  { _creTags ::
-      !(Maybe [Tag]),
-    _creDescription :: !(Maybe Text),
-    _creAcceptLanguage :: !(Maybe Text),
-    _creDisplayName :: !Text,
-    _creProviderName :: !Text,
-    _creIdempotencyToken :: !Text
+  { -- | One or more tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The description of the portfolio.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The name to use for display purposes.
+    displayName :: Prelude.Text,
+    -- | The name of the portfolio provider.
+    providerName :: Prelude.Text,
+    -- | A unique identifier that you provide to ensure idempotency. If multiple
+    -- requests differ only by the idempotency token, the same response is
+    -- returned for each repeated request.
+    idempotencyToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePortfolio' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePortfolio' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'creTags' - One or more tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'creDescription' - The description of the portfolio.
+-- 'tags', 'createPortfolio_tags' - One or more tags.
 --
--- * 'creAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- 'description', 'createPortfolio_description' - The description of the portfolio.
 --
--- * 'creDisplayName' - The name to use for display purposes.
+-- 'acceptLanguage', 'createPortfolio_acceptLanguage' - The language code.
 --
--- * 'creProviderName' - The name of the portfolio provider.
+-- -   @en@ - English (default)
 --
--- * 'creIdempotencyToken' - A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
-createPortfolio ::
-  -- | 'creDisplayName'
-  Text ->
-  -- | 'creProviderName'
-  Text ->
-  -- | 'creIdempotencyToken'
-  Text ->
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'displayName', 'createPortfolio_displayName' - The name to use for display purposes.
+--
+-- 'providerName', 'createPortfolio_providerName' - The name of the portfolio provider.
+--
+-- 'idempotencyToken', 'createPortfolio_idempotencyToken' - A unique identifier that you provide to ensure idempotency. If multiple
+-- requests differ only by the idempotency token, the same response is
+-- returned for each repeated request.
+newCreatePortfolio ::
+  -- | 'displayName'
+  Prelude.Text ->
+  -- | 'providerName'
+  Prelude.Text ->
+  -- | 'idempotencyToken'
+  Prelude.Text ->
   CreatePortfolio
-createPortfolio
+newCreatePortfolio
   pDisplayName_
   pProviderName_
   pIdempotencyToken_ =
     CreatePortfolio'
-      { _creTags = Nothing,
-        _creDescription = Nothing,
-        _creAcceptLanguage = Nothing,
-        _creDisplayName = pDisplayName_,
-        _creProviderName = pProviderName_,
-        _creIdempotencyToken = pIdempotencyToken_
+      { tags = Prelude.Nothing,
+        description = Prelude.Nothing,
+        acceptLanguage = Prelude.Nothing,
+        displayName = pDisplayName_,
+        providerName = pProviderName_,
+        idempotencyToken = pIdempotencyToken_
       }
 
 -- | One or more tags.
-creTags :: Lens' CreatePortfolio [Tag]
-creTags = lens _creTags (\s a -> s {_creTags = a}) . _Default . _Coerce
+createPortfolio_tags :: Lens.Lens' CreatePortfolio (Prelude.Maybe [Tag])
+createPortfolio_tags = Lens.lens (\CreatePortfolio' {tags} -> tags) (\s@CreatePortfolio' {} a -> s {tags = a} :: CreatePortfolio) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the portfolio.
-creDescription :: Lens' CreatePortfolio (Maybe Text)
-creDescription = lens _creDescription (\s a -> s {_creDescription = a})
+createPortfolio_description :: Lens.Lens' CreatePortfolio (Prelude.Maybe Prelude.Text)
+createPortfolio_description = Lens.lens (\CreatePortfolio' {description} -> description) (\s@CreatePortfolio' {} a -> s {description = a} :: CreatePortfolio)
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-creAcceptLanguage :: Lens' CreatePortfolio (Maybe Text)
-creAcceptLanguage = lens _creAcceptLanguage (\s a -> s {_creAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+createPortfolio_acceptLanguage :: Lens.Lens' CreatePortfolio (Prelude.Maybe Prelude.Text)
+createPortfolio_acceptLanguage = Lens.lens (\CreatePortfolio' {acceptLanguage} -> acceptLanguage) (\s@CreatePortfolio' {} a -> s {acceptLanguage = a} :: CreatePortfolio)
 
 -- | The name to use for display purposes.
-creDisplayName :: Lens' CreatePortfolio Text
-creDisplayName = lens _creDisplayName (\s a -> s {_creDisplayName = a})
+createPortfolio_displayName :: Lens.Lens' CreatePortfolio Prelude.Text
+createPortfolio_displayName = Lens.lens (\CreatePortfolio' {displayName} -> displayName) (\s@CreatePortfolio' {} a -> s {displayName = a} :: CreatePortfolio)
 
 -- | The name of the portfolio provider.
-creProviderName :: Lens' CreatePortfolio Text
-creProviderName = lens _creProviderName (\s a -> s {_creProviderName = a})
+createPortfolio_providerName :: Lens.Lens' CreatePortfolio Prelude.Text
+createPortfolio_providerName = Lens.lens (\CreatePortfolio' {providerName} -> providerName) (\s@CreatePortfolio' {} a -> s {providerName = a} :: CreatePortfolio)
 
--- | A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
-creIdempotencyToken :: Lens' CreatePortfolio Text
-creIdempotencyToken = lens _creIdempotencyToken (\s a -> s {_creIdempotencyToken = a})
+-- | A unique identifier that you provide to ensure idempotency. If multiple
+-- requests differ only by the idempotency token, the same response is
+-- returned for each repeated request.
+createPortfolio_idempotencyToken :: Lens.Lens' CreatePortfolio Prelude.Text
+createPortfolio_idempotencyToken = Lens.lens (\CreatePortfolio' {idempotencyToken} -> idempotencyToken) (\s@CreatePortfolio' {} a -> s {idempotencyToken = a} :: CreatePortfolio)
 
-instance AWSRequest CreatePortfolio where
+instance Prelude.AWSRequest CreatePortfolio where
   type Rs CreatePortfolio = CreatePortfolioResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreatePortfolioResponse'
-            <$> (x .?> "Tags" .!@ mempty)
-            <*> (x .?> "PortfolioDetail")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "PortfolioDetail")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreatePortfolio
+instance Prelude.Hashable CreatePortfolio
 
-instance NFData CreatePortfolio
+instance Prelude.NFData CreatePortfolio
 
-instance ToHeaders CreatePortfolio where
+instance Prelude.ToHeaders CreatePortfolio where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.CreatePortfolio" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.CreatePortfolio" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePortfolio where
+instance Prelude.ToJSON CreatePortfolio where
   toJSON CreatePortfolio' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _creTags,
-            ("Description" .=) <$> _creDescription,
-            ("AcceptLanguage" .=) <$> _creAcceptLanguage,
-            Just ("DisplayName" .= _creDisplayName),
-            Just ("ProviderName" .= _creProviderName),
-            Just ("IdempotencyToken" .= _creIdempotencyToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("AcceptLanguage" Prelude..=)
+              Prelude.<$> acceptLanguage,
+            Prelude.Just ("DisplayName" Prelude..= displayName),
+            Prelude.Just
+              ("ProviderName" Prelude..= providerName),
+            Prelude.Just
+              ("IdempotencyToken" Prelude..= idempotencyToken)
           ]
       )
 
-instance ToPath CreatePortfolio where
-  toPath = const "/"
+instance Prelude.ToPath CreatePortfolio where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreatePortfolio where
-  toQuery = const mempty
+instance Prelude.ToQuery CreatePortfolio where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createPortfolioResponse' smart constructor.
+-- | /See:/ 'newCreatePortfolioResponse' smart constructor.
 data CreatePortfolioResponse = CreatePortfolioResponse'
-  { _cprrsTags ::
-      !(Maybe [Tag]),
-    _cprrsPortfolioDetail ::
-      !( Maybe
-           PortfolioDetail
-       ),
-    _cprrsResponseStatus ::
-      !Int
+  { -- | Information about the tags associated with the portfolio.
+    tags :: Prelude.Maybe [Tag],
+    -- | Information about the portfolio.
+    portfolioDetail :: Prelude.Maybe PortfolioDetail,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePortfolioResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePortfolioResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprrsTags' - Information about the tags associated with the portfolio.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprrsPortfolioDetail' - Information about the portfolio.
+-- 'tags', 'createPortfolioResponse_tags' - Information about the tags associated with the portfolio.
 --
--- * 'cprrsResponseStatus' - -- | The response status code.
-createPortfolioResponse ::
-  -- | 'cprrsResponseStatus'
-  Int ->
+-- 'portfolioDetail', 'createPortfolioResponse_portfolioDetail' - Information about the portfolio.
+--
+-- 'httpStatus', 'createPortfolioResponse_httpStatus' - The response's http status code.
+newCreatePortfolioResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreatePortfolioResponse
-createPortfolioResponse pResponseStatus_ =
+newCreatePortfolioResponse pHttpStatus_ =
   CreatePortfolioResponse'
-    { _cprrsTags = Nothing,
-      _cprrsPortfolioDetail = Nothing,
-      _cprrsResponseStatus = pResponseStatus_
+    { tags = Prelude.Nothing,
+      portfolioDetail = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the tags associated with the portfolio.
-cprrsTags :: Lens' CreatePortfolioResponse [Tag]
-cprrsTags = lens _cprrsTags (\s a -> s {_cprrsTags = a}) . _Default . _Coerce
+createPortfolioResponse_tags :: Lens.Lens' CreatePortfolioResponse (Prelude.Maybe [Tag])
+createPortfolioResponse_tags = Lens.lens (\CreatePortfolioResponse' {tags} -> tags) (\s@CreatePortfolioResponse' {} a -> s {tags = a} :: CreatePortfolioResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the portfolio.
-cprrsPortfolioDetail :: Lens' CreatePortfolioResponse (Maybe PortfolioDetail)
-cprrsPortfolioDetail = lens _cprrsPortfolioDetail (\s a -> s {_cprrsPortfolioDetail = a})
+createPortfolioResponse_portfolioDetail :: Lens.Lens' CreatePortfolioResponse (Prelude.Maybe PortfolioDetail)
+createPortfolioResponse_portfolioDetail = Lens.lens (\CreatePortfolioResponse' {portfolioDetail} -> portfolioDetail) (\s@CreatePortfolioResponse' {} a -> s {portfolioDetail = a} :: CreatePortfolioResponse)
 
--- | -- | The response status code.
-cprrsResponseStatus :: Lens' CreatePortfolioResponse Int
-cprrsResponseStatus = lens _cprrsResponseStatus (\s a -> s {_cprrsResponseStatus = a})
+-- | The response's http status code.
+createPortfolioResponse_httpStatus :: Lens.Lens' CreatePortfolioResponse Prelude.Int
+createPortfolioResponse_httpStatus = Lens.lens (\CreatePortfolioResponse' {httpStatus} -> httpStatus) (\s@CreatePortfolioResponse' {} a -> s {httpStatus = a} :: CreatePortfolioResponse)
 
-instance NFData CreatePortfolioResponse
+instance Prelude.NFData CreatePortfolioResponse

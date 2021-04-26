@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.ServiceCatalog.Types.SortOrder
   ( SortOrder
       ( ..,
-        Ascending,
-        Descending
+        SortOrderASCENDING,
+        SortOrderDESCENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortOrder = SortOrder' (CI Text)
+newtype SortOrder = SortOrder'
+  { fromSortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ascending :: SortOrder
-pattern Ascending = SortOrder' "ASCENDING"
+pattern SortOrderASCENDING :: SortOrder
+pattern SortOrderASCENDING = SortOrder' "ASCENDING"
 
-pattern Descending :: SortOrder
-pattern Descending = SortOrder' "DESCENDING"
+pattern SortOrderDESCENDING :: SortOrder
+pattern SortOrderDESCENDING = SortOrder' "DESCENDING"
 
 {-# COMPLETE
-  Ascending,
-  Descending,
+  SortOrderASCENDING,
+  SortOrderDESCENDING,
   SortOrder'
   #-}
 
-instance FromText SortOrder where
-  parser = (SortOrder' . mk) <$> takeText
+instance Prelude.FromText SortOrder where
+  parser = SortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText SortOrder where
-  toText (SortOrder' ci) = original ci
+instance Prelude.ToText SortOrder where
+  toText (SortOrder' x) = x
 
-instance Hashable SortOrder
+instance Prelude.Hashable SortOrder
 
-instance NFData SortOrder
+instance Prelude.NFData SortOrder
 
-instance ToByteString SortOrder
+instance Prelude.ToByteString SortOrder
 
-instance ToQuery SortOrder
+instance Prelude.ToQuery SortOrder
 
-instance ToHeader SortOrder
+instance Prelude.ToHeader SortOrder
 
-instance ToJSON SortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortOrder where
+  toJSON = Prelude.toJSONText

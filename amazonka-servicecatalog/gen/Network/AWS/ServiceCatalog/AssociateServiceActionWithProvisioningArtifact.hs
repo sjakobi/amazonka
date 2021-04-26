@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,206 +24,222 @@
 -- Associates a self-service action with a provisioning artifact.
 module Network.AWS.ServiceCatalog.AssociateServiceActionWithProvisioningArtifact
   ( -- * Creating a Request
-    associateServiceActionWithProvisioningArtifact,
-    AssociateServiceActionWithProvisioningArtifact,
+    AssociateServiceActionWithProvisioningArtifact (..),
+    newAssociateServiceActionWithProvisioningArtifact,
 
     -- * Request Lenses
-    asawpaAcceptLanguage,
-    asawpaProductId,
-    asawpaProvisioningArtifactId,
-    asawpaServiceActionId,
+    associateServiceActionWithProvisioningArtifact_acceptLanguage,
+    associateServiceActionWithProvisioningArtifact_productId,
+    associateServiceActionWithProvisioningArtifact_provisioningArtifactId,
+    associateServiceActionWithProvisioningArtifact_serviceActionId,
 
     -- * Destructuring the Response
-    associateServiceActionWithProvisioningArtifactResponse,
-    AssociateServiceActionWithProvisioningArtifactResponse,
+    AssociateServiceActionWithProvisioningArtifactResponse (..),
+    newAssociateServiceActionWithProvisioningArtifactResponse,
 
     -- * Response Lenses
-    asawparrsResponseStatus,
+    associateServiceActionWithProvisioningArtifactResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServiceCatalog.Types
 
--- | /See:/ 'associateServiceActionWithProvisioningArtifact' smart constructor.
+-- | /See:/ 'newAssociateServiceActionWithProvisioningArtifact' smart constructor.
 data AssociateServiceActionWithProvisioningArtifact = AssociateServiceActionWithProvisioningArtifact'
-  { _asawpaAcceptLanguage ::
-      !( Maybe
-           Text
-       ),
-    _asawpaProductId ::
-      !Text,
-    _asawpaProvisioningArtifactId ::
-      !Text,
-    _asawpaServiceActionId ::
-      !Text
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The product identifier. For example, @prod-abcdzk7xy33qa@.
+    productId :: Prelude.Text,
+    -- | The identifier of the provisioning artifact. For example,
+    -- @pa-4abcdjnxjj6ne@.
+    provisioningArtifactId :: Prelude.Text,
+    -- | The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+    serviceActionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateServiceActionWithProvisioningArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateServiceActionWithProvisioningArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asawpaAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asawpaProductId' - The product identifier. For example, @prod-abcdzk7xy33qa@ .
+-- 'acceptLanguage', 'associateServiceActionWithProvisioningArtifact_acceptLanguage' - The language code.
 --
--- * 'asawpaProvisioningArtifactId' - The identifier of the provisioning artifact. For example, @pa-4abcdjnxjj6ne@ .
+-- -   @en@ - English (default)
 --
--- * 'asawpaServiceActionId' - The self-service action identifier. For example, @act-fs7abcd89wxyz@ .
-associateServiceActionWithProvisioningArtifact ::
-  -- | 'asawpaProductId'
-  Text ->
-  -- | 'asawpaProvisioningArtifactId'
-  Text ->
-  -- | 'asawpaServiceActionId'
-  Text ->
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+--
+-- 'productId', 'associateServiceActionWithProvisioningArtifact_productId' - The product identifier. For example, @prod-abcdzk7xy33qa@.
+--
+-- 'provisioningArtifactId', 'associateServiceActionWithProvisioningArtifact_provisioningArtifactId' - The identifier of the provisioning artifact. For example,
+-- @pa-4abcdjnxjj6ne@.
+--
+-- 'serviceActionId', 'associateServiceActionWithProvisioningArtifact_serviceActionId' - The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+newAssociateServiceActionWithProvisioningArtifact ::
+  -- | 'productId'
+  Prelude.Text ->
+  -- | 'provisioningArtifactId'
+  Prelude.Text ->
+  -- | 'serviceActionId'
+  Prelude.Text ->
   AssociateServiceActionWithProvisioningArtifact
-associateServiceActionWithProvisioningArtifact
+newAssociateServiceActionWithProvisioningArtifact
   pProductId_
   pProvisioningArtifactId_
   pServiceActionId_ =
     AssociateServiceActionWithProvisioningArtifact'
-      { _asawpaAcceptLanguage =
-          Nothing,
-        _asawpaProductId =
-          pProductId_,
-        _asawpaProvisioningArtifactId =
+      { acceptLanguage =
+          Prelude.Nothing,
+        productId = pProductId_,
+        provisioningArtifactId =
           pProvisioningArtifactId_,
-        _asawpaServiceActionId =
+        serviceActionId =
           pServiceActionId_
       }
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-asawpaAcceptLanguage :: Lens' AssociateServiceActionWithProvisioningArtifact (Maybe Text)
-asawpaAcceptLanguage = lens _asawpaAcceptLanguage (\s a -> s {_asawpaAcceptLanguage = a})
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+associateServiceActionWithProvisioningArtifact_acceptLanguage :: Lens.Lens' AssociateServiceActionWithProvisioningArtifact (Prelude.Maybe Prelude.Text)
+associateServiceActionWithProvisioningArtifact_acceptLanguage = Lens.lens (\AssociateServiceActionWithProvisioningArtifact' {acceptLanguage} -> acceptLanguage) (\s@AssociateServiceActionWithProvisioningArtifact' {} a -> s {acceptLanguage = a} :: AssociateServiceActionWithProvisioningArtifact)
 
--- | The product identifier. For example, @prod-abcdzk7xy33qa@ .
-asawpaProductId :: Lens' AssociateServiceActionWithProvisioningArtifact Text
-asawpaProductId = lens _asawpaProductId (\s a -> s {_asawpaProductId = a})
+-- | The product identifier. For example, @prod-abcdzk7xy33qa@.
+associateServiceActionWithProvisioningArtifact_productId :: Lens.Lens' AssociateServiceActionWithProvisioningArtifact Prelude.Text
+associateServiceActionWithProvisioningArtifact_productId = Lens.lens (\AssociateServiceActionWithProvisioningArtifact' {productId} -> productId) (\s@AssociateServiceActionWithProvisioningArtifact' {} a -> s {productId = a} :: AssociateServiceActionWithProvisioningArtifact)
 
--- | The identifier of the provisioning artifact. For example, @pa-4abcdjnxjj6ne@ .
-asawpaProvisioningArtifactId :: Lens' AssociateServiceActionWithProvisioningArtifact Text
-asawpaProvisioningArtifactId = lens _asawpaProvisioningArtifactId (\s a -> s {_asawpaProvisioningArtifactId = a})
+-- | The identifier of the provisioning artifact. For example,
+-- @pa-4abcdjnxjj6ne@.
+associateServiceActionWithProvisioningArtifact_provisioningArtifactId :: Lens.Lens' AssociateServiceActionWithProvisioningArtifact Prelude.Text
+associateServiceActionWithProvisioningArtifact_provisioningArtifactId = Lens.lens (\AssociateServiceActionWithProvisioningArtifact' {provisioningArtifactId} -> provisioningArtifactId) (\s@AssociateServiceActionWithProvisioningArtifact' {} a -> s {provisioningArtifactId = a} :: AssociateServiceActionWithProvisioningArtifact)
 
--- | The self-service action identifier. For example, @act-fs7abcd89wxyz@ .
-asawpaServiceActionId :: Lens' AssociateServiceActionWithProvisioningArtifact Text
-asawpaServiceActionId = lens _asawpaServiceActionId (\s a -> s {_asawpaServiceActionId = a})
+-- | The self-service action identifier. For example, @act-fs7abcd89wxyz@.
+associateServiceActionWithProvisioningArtifact_serviceActionId :: Lens.Lens' AssociateServiceActionWithProvisioningArtifact Prelude.Text
+associateServiceActionWithProvisioningArtifact_serviceActionId = Lens.lens (\AssociateServiceActionWithProvisioningArtifact' {serviceActionId} -> serviceActionId) (\s@AssociateServiceActionWithProvisioningArtifact' {} a -> s {serviceActionId = a} :: AssociateServiceActionWithProvisioningArtifact)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     AssociateServiceActionWithProvisioningArtifact
   where
   type
     Rs
       AssociateServiceActionWithProvisioningArtifact =
       AssociateServiceActionWithProvisioningArtifactResponse
-  request = postJSON serviceCatalog
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateServiceActionWithProvisioningArtifactResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     AssociateServiceActionWithProvisioningArtifact
 
 instance
-  NFData
+  Prelude.NFData
     AssociateServiceActionWithProvisioningArtifact
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     AssociateServiceActionWithProvisioningArtifact
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWS242ServiceCatalogService.AssociateServiceActionWithProvisioningArtifact" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWS242ServiceCatalogService.AssociateServiceActionWithProvisioningArtifact" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     AssociateServiceActionWithProvisioningArtifact
   where
   toJSON
     AssociateServiceActionWithProvisioningArtifact' {..} =
-      object
-        ( catMaybes
-            [ ("AcceptLanguage" .=) <$> _asawpaAcceptLanguage,
-              Just ("ProductId" .= _asawpaProductId),
-              Just
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ("AcceptLanguage" Prelude..=)
+                Prelude.<$> acceptLanguage,
+              Prelude.Just ("ProductId" Prelude..= productId),
+              Prelude.Just
                 ( "ProvisioningArtifactId"
-                    .= _asawpaProvisioningArtifactId
+                    Prelude..= provisioningArtifactId
                 ),
-              Just ("ServiceActionId" .= _asawpaServiceActionId)
+              Prelude.Just
+                ("ServiceActionId" Prelude..= serviceActionId)
             ]
         )
 
 instance
-  ToPath
+  Prelude.ToPath
     AssociateServiceActionWithProvisioningArtifact
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     AssociateServiceActionWithProvisioningArtifact
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateServiceActionWithProvisioningArtifactResponse' smart constructor.
-newtype AssociateServiceActionWithProvisioningArtifactResponse = AssociateServiceActionWithProvisioningArtifactResponse'
-  { _asawparrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateServiceActionWithProvisioningArtifactResponse' smart constructor.
+data AssociateServiceActionWithProvisioningArtifactResponse = AssociateServiceActionWithProvisioningArtifactResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateServiceActionWithProvisioningArtifactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateServiceActionWithProvisioningArtifactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asawparrsResponseStatus' - -- | The response status code.
-associateServiceActionWithProvisioningArtifactResponse ::
-  -- | 'asawparrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateServiceActionWithProvisioningArtifactResponse_httpStatus' - The response's http status code.
+newAssociateServiceActionWithProvisioningArtifactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateServiceActionWithProvisioningArtifactResponse
-associateServiceActionWithProvisioningArtifactResponse
-  pResponseStatus_ =
+newAssociateServiceActionWithProvisioningArtifactResponse
+  pHttpStatus_ =
     AssociateServiceActionWithProvisioningArtifactResponse'
-      { _asawparrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-asawparrsResponseStatus :: Lens' AssociateServiceActionWithProvisioningArtifactResponse Int
-asawparrsResponseStatus = lens _asawparrsResponseStatus (\s a -> s {_asawparrsResponseStatus = a})
+-- | The response's http status code.
+associateServiceActionWithProvisioningArtifactResponse_httpStatus :: Lens.Lens' AssociateServiceActionWithProvisioningArtifactResponse Prelude.Int
+associateServiceActionWithProvisioningArtifactResponse_httpStatus = Lens.lens (\AssociateServiceActionWithProvisioningArtifactResponse' {httpStatus} -> httpStatus) (\s@AssociateServiceActionWithProvisioningArtifactResponse' {} a -> s {httpStatus = a} :: AssociateServiceActionWithProvisioningArtifactResponse)
 
 instance
-  NFData
+  Prelude.NFData
     AssociateServiceActionWithProvisioningArtifactResponse
