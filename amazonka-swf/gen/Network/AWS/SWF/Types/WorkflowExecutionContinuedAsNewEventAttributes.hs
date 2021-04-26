@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,199 +19,258 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionContinuedAsNewEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.ChildPolicy
 import Network.AWS.SWF.Types.TaskList
 import Network.AWS.SWF.Types.WorkflowType
 
 -- | Provides the details of the @WorkflowExecutionContinuedAsNew@ event.
 --
---
---
--- /See:/ 'workflowExecutionContinuedAsNewEventAttributes' smart constructor.
+-- /See:/ 'newWorkflowExecutionContinuedAsNewEventAttributes' smart constructor.
 data WorkflowExecutionContinuedAsNewEventAttributes = WorkflowExecutionContinuedAsNewEventAttributes'
-  { _wecaneaInput ::
-      !( Maybe
-           Text
-       ),
-    _wecaneaLambdaRole ::
-      !( Maybe
-           Text
-       ),
-    _wecaneaTaskPriority ::
-      !( Maybe
-           Text
-       ),
-    _wecaneaExecutionStartToCloseTimeout ::
-      !( Maybe
-           Text
-       ),
-    _wecaneaTaskStartToCloseTimeout ::
-      !( Maybe
-           Text
-       ),
-    _wecaneaTagList ::
-      !( Maybe
-           [Text]
-       ),
-    _wecaneaDecisionTaskCompletedEventId ::
-      !Integer,
-    _wecaneaNewExecutionRunId ::
-      !Text,
-    _wecaneaTaskList ::
-      !TaskList,
-    _wecaneaChildPolicy ::
-      !ChildPolicy,
-    _wecaneaWorkflowType ::
-      !WorkflowType
+  { -- | The input provided to the new workflow execution.
+    input :: Prelude.Maybe Prelude.Text,
+    -- | The IAM role to attach to the new (continued) workflow execution.
+    lambdaRole :: Prelude.Maybe Prelude.Text,
+    -- | The priority of the task to use for the decisions of the new (continued)
+    -- workflow execution.
+    taskPriority :: Prelude.Maybe Prelude.Text,
+    -- | The total duration allowed for the new workflow execution.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    executionStartToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The maximum duration of decision tasks for the new workflow execution.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    taskStartToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The list of tags associated with the new workflow execution.
+    tagList :: Prelude.Maybe [Prelude.Text],
+    -- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+    -- decision task that resulted in the @ContinueAsNewWorkflowExecution@
+    -- decision that started this execution. This information can be useful for
+    -- diagnosing problems by tracing back the chain of events leading up to
+    -- this event.
+    decisionTaskCompletedEventId :: Prelude.Integer,
+    -- | The @runId@ of the new workflow execution.
+    newExecutionRunId' :: Prelude.Text,
+    -- | The task list to use for the decisions of the new (continued) workflow
+    -- execution.
+    taskList :: TaskList,
+    -- | The policy to use for the child workflow executions of the new execution
+    -- if it is terminated by calling the TerminateWorkflowExecution action
+    -- explicitly or due to an expired timeout.
+    --
+    -- The supported child policies are:
+    --
+    -- -   @TERMINATE@ – The child executions are terminated.
+    --
+    -- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+    --     execution by recording a @WorkflowExecutionCancelRequested@ event in
+    --     its history. It is up to the decider to take appropriate actions
+    --     when it receives an execution history with this event.
+    --
+    -- -   @ABANDON@ – No action is taken. The child executions continue to
+    --     run.
+    childPolicy :: ChildPolicy,
+    -- | The workflow type of this execution.
+    workflowType :: WorkflowType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionContinuedAsNewEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionContinuedAsNewEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wecaneaInput' - The input provided to the new workflow execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wecaneaLambdaRole' - The IAM role to attach to the new (continued) workflow execution.
+-- 'input', 'workflowExecutionContinuedAsNewEventAttributes_input' - The input provided to the new workflow execution.
 --
--- * 'wecaneaTaskPriority' - The priority of the task to use for the decisions of the new (continued) workflow execution.
+-- 'lambdaRole', 'workflowExecutionContinuedAsNewEventAttributes_lambdaRole' - The IAM role to attach to the new (continued) workflow execution.
 --
--- * 'wecaneaExecutionStartToCloseTimeout' - The total duration allowed for the new workflow execution. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- 'taskPriority', 'workflowExecutionContinuedAsNewEventAttributes_taskPriority' - The priority of the task to use for the decisions of the new (continued)
+-- workflow execution.
 --
--- * 'wecaneaTaskStartToCloseTimeout' - The maximum duration of decision tasks for the new workflow execution. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- 'executionStartToCloseTimeout', 'workflowExecutionContinuedAsNewEventAttributes_executionStartToCloseTimeout' - The total duration allowed for the new workflow execution.
 --
--- * 'wecaneaTagList' - The list of tags associated with the new workflow execution.
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
 --
--- * 'wecaneaDecisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @ContinueAsNewWorkflowExecution@ decision that started this execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
+-- 'taskStartToCloseTimeout', 'workflowExecutionContinuedAsNewEventAttributes_taskStartToCloseTimeout' - The maximum duration of decision tasks for the new workflow execution.
 --
--- * 'wecaneaNewExecutionRunId' - The @runId@ of the new workflow execution.
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
 --
--- * 'wecaneaTaskList' - The task list to use for the decisions of the new (continued) workflow execution.
+-- 'tagList', 'workflowExecutionContinuedAsNewEventAttributes_tagList' - The list of tags associated with the new workflow execution.
 --
--- * 'wecaneaChildPolicy' - The policy to use for the child workflow executions of the new execution if it is terminated by calling the 'TerminateWorkflowExecution' action explicitly or due to an expired timeout. The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
+-- 'decisionTaskCompletedEventId', 'workflowExecutionContinuedAsNewEventAttributes_decisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @ContinueAsNewWorkflowExecution@
+-- decision that started this execution. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
 --
--- * 'wecaneaWorkflowType' - The workflow type of this execution.
-workflowExecutionContinuedAsNewEventAttributes ::
-  -- | 'wecaneaDecisionTaskCompletedEventId'
-  Integer ->
-  -- | 'wecaneaNewExecutionRunId'
-  Text ->
-  -- | 'wecaneaTaskList'
+-- 'newExecutionRunId'', 'workflowExecutionContinuedAsNewEventAttributes_newExecutionRunId' - The @runId@ of the new workflow execution.
+--
+-- 'taskList', 'workflowExecutionContinuedAsNewEventAttributes_taskList' - The task list to use for the decisions of the new (continued) workflow
+-- execution.
+--
+-- 'childPolicy', 'workflowExecutionContinuedAsNewEventAttributes_childPolicy' - The policy to use for the child workflow executions of the new execution
+-- if it is terminated by calling the TerminateWorkflowExecution action
+-- explicitly or due to an expired timeout.
+--
+-- The supported child policies are:
+--
+-- -   @TERMINATE@ – The child executions are terminated.
+--
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+--
+-- 'workflowType', 'workflowExecutionContinuedAsNewEventAttributes_workflowType' - The workflow type of this execution.
+newWorkflowExecutionContinuedAsNewEventAttributes ::
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
+  -- | 'newExecutionRunId''
+  Prelude.Text ->
+  -- | 'taskList'
   TaskList ->
-  -- | 'wecaneaChildPolicy'
+  -- | 'childPolicy'
   ChildPolicy ->
-  -- | 'wecaneaWorkflowType'
+  -- | 'workflowType'
   WorkflowType ->
   WorkflowExecutionContinuedAsNewEventAttributes
-workflowExecutionContinuedAsNewEventAttributes
+newWorkflowExecutionContinuedAsNewEventAttributes
   pDecisionTaskCompletedEventId_
   pNewExecutionRunId_
   pTaskList_
   pChildPolicy_
   pWorkflowType_ =
     WorkflowExecutionContinuedAsNewEventAttributes'
-      { _wecaneaInput =
-          Nothing,
-        _wecaneaLambdaRole =
-          Nothing,
-        _wecaneaTaskPriority =
-          Nothing,
-        _wecaneaExecutionStartToCloseTimeout =
-          Nothing,
-        _wecaneaTaskStartToCloseTimeout =
-          Nothing,
-        _wecaneaTagList = Nothing,
-        _wecaneaDecisionTaskCompletedEventId =
+      { input =
+          Prelude.Nothing,
+        lambdaRole =
+          Prelude.Nothing,
+        taskPriority =
+          Prelude.Nothing,
+        executionStartToCloseTimeout =
+          Prelude.Nothing,
+        taskStartToCloseTimeout =
+          Prelude.Nothing,
+        tagList = Prelude.Nothing,
+        decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_,
-        _wecaneaNewExecutionRunId =
+        newExecutionRunId' =
           pNewExecutionRunId_,
-        _wecaneaTaskList =
-          pTaskList_,
-        _wecaneaChildPolicy =
-          pChildPolicy_,
-        _wecaneaWorkflowType =
+        taskList = pTaskList_,
+        childPolicy = pChildPolicy_,
+        workflowType =
           pWorkflowType_
       }
 
 -- | The input provided to the new workflow execution.
-wecaneaInput :: Lens' WorkflowExecutionContinuedAsNewEventAttributes (Maybe Text)
-wecaneaInput = lens _wecaneaInput (\s a -> s {_wecaneaInput = a})
+workflowExecutionContinuedAsNewEventAttributes_input :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionContinuedAsNewEventAttributes_input = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {input} -> input) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {input = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
 -- | The IAM role to attach to the new (continued) workflow execution.
-wecaneaLambdaRole :: Lens' WorkflowExecutionContinuedAsNewEventAttributes (Maybe Text)
-wecaneaLambdaRole = lens _wecaneaLambdaRole (\s a -> s {_wecaneaLambdaRole = a})
+workflowExecutionContinuedAsNewEventAttributes_lambdaRole :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionContinuedAsNewEventAttributes_lambdaRole = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {lambdaRole} -> lambdaRole) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {lambdaRole = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
--- | The priority of the task to use for the decisions of the new (continued) workflow execution.
-wecaneaTaskPriority :: Lens' WorkflowExecutionContinuedAsNewEventAttributes (Maybe Text)
-wecaneaTaskPriority = lens _wecaneaTaskPriority (\s a -> s {_wecaneaTaskPriority = a})
+-- | The priority of the task to use for the decisions of the new (continued)
+-- workflow execution.
+workflowExecutionContinuedAsNewEventAttributes_taskPriority :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionContinuedAsNewEventAttributes_taskPriority = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {taskPriority} -> taskPriority) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {taskPriority = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
--- | The total duration allowed for the new workflow execution. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-wecaneaExecutionStartToCloseTimeout :: Lens' WorkflowExecutionContinuedAsNewEventAttributes (Maybe Text)
-wecaneaExecutionStartToCloseTimeout = lens _wecaneaExecutionStartToCloseTimeout (\s a -> s {_wecaneaExecutionStartToCloseTimeout = a})
+-- | The total duration allowed for the new workflow execution.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+workflowExecutionContinuedAsNewEventAttributes_executionStartToCloseTimeout :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionContinuedAsNewEventAttributes_executionStartToCloseTimeout = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {executionStartToCloseTimeout} -> executionStartToCloseTimeout) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {executionStartToCloseTimeout = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
--- | The maximum duration of decision tasks for the new workflow execution. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-wecaneaTaskStartToCloseTimeout :: Lens' WorkflowExecutionContinuedAsNewEventAttributes (Maybe Text)
-wecaneaTaskStartToCloseTimeout = lens _wecaneaTaskStartToCloseTimeout (\s a -> s {_wecaneaTaskStartToCloseTimeout = a})
+-- | The maximum duration of decision tasks for the new workflow execution.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+workflowExecutionContinuedAsNewEventAttributes_taskStartToCloseTimeout :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionContinuedAsNewEventAttributes_taskStartToCloseTimeout = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {taskStartToCloseTimeout} -> taskStartToCloseTimeout) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {taskStartToCloseTimeout = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
 -- | The list of tags associated with the new workflow execution.
-wecaneaTagList :: Lens' WorkflowExecutionContinuedAsNewEventAttributes [Text]
-wecaneaTagList = lens _wecaneaTagList (\s a -> s {_wecaneaTagList = a}) . _Default . _Coerce
+workflowExecutionContinuedAsNewEventAttributes_tagList :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes (Prelude.Maybe [Prelude.Text])
+workflowExecutionContinuedAsNewEventAttributes_tagList = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {tagList} -> tagList) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {tagList = a} :: WorkflowExecutionContinuedAsNewEventAttributes) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @ContinueAsNewWorkflowExecution@ decision that started this execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-wecaneaDecisionTaskCompletedEventId :: Lens' WorkflowExecutionContinuedAsNewEventAttributes Integer
-wecaneaDecisionTaskCompletedEventId = lens _wecaneaDecisionTaskCompletedEventId (\s a -> s {_wecaneaDecisionTaskCompletedEventId = a})
+-- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @ContinueAsNewWorkflowExecution@
+-- decision that started this execution. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+workflowExecutionContinuedAsNewEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes Prelude.Integer
+workflowExecutionContinuedAsNewEventAttributes_decisionTaskCompletedEventId = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
 -- | The @runId@ of the new workflow execution.
-wecaneaNewExecutionRunId :: Lens' WorkflowExecutionContinuedAsNewEventAttributes Text
-wecaneaNewExecutionRunId = lens _wecaneaNewExecutionRunId (\s a -> s {_wecaneaNewExecutionRunId = a})
+workflowExecutionContinuedAsNewEventAttributes_newExecutionRunId :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes Prelude.Text
+workflowExecutionContinuedAsNewEventAttributes_newExecutionRunId = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {newExecutionRunId'} -> newExecutionRunId') (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {newExecutionRunId' = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
--- | The task list to use for the decisions of the new (continued) workflow execution.
-wecaneaTaskList :: Lens' WorkflowExecutionContinuedAsNewEventAttributes TaskList
-wecaneaTaskList = lens _wecaneaTaskList (\s a -> s {_wecaneaTaskList = a})
+-- | The task list to use for the decisions of the new (continued) workflow
+-- execution.
+workflowExecutionContinuedAsNewEventAttributes_taskList :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes TaskList
+workflowExecutionContinuedAsNewEventAttributes_taskList = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {taskList} -> taskList) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {taskList = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
--- | The policy to use for the child workflow executions of the new execution if it is terminated by calling the 'TerminateWorkflowExecution' action explicitly or due to an expired timeout. The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
-wecaneaChildPolicy :: Lens' WorkflowExecutionContinuedAsNewEventAttributes ChildPolicy
-wecaneaChildPolicy = lens _wecaneaChildPolicy (\s a -> s {_wecaneaChildPolicy = a})
+-- | The policy to use for the child workflow executions of the new execution
+-- if it is terminated by calling the TerminateWorkflowExecution action
+-- explicitly or due to an expired timeout.
+--
+-- The supported child policies are:
+--
+-- -   @TERMINATE@ – The child executions are terminated.
+--
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+workflowExecutionContinuedAsNewEventAttributes_childPolicy :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes ChildPolicy
+workflowExecutionContinuedAsNewEventAttributes_childPolicy = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {childPolicy} -> childPolicy) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {childPolicy = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
 -- | The workflow type of this execution.
-wecaneaWorkflowType :: Lens' WorkflowExecutionContinuedAsNewEventAttributes WorkflowType
-wecaneaWorkflowType = lens _wecaneaWorkflowType (\s a -> s {_wecaneaWorkflowType = a})
+workflowExecutionContinuedAsNewEventAttributes_workflowType :: Lens.Lens' WorkflowExecutionContinuedAsNewEventAttributes WorkflowType
+workflowExecutionContinuedAsNewEventAttributes_workflowType = Lens.lens (\WorkflowExecutionContinuedAsNewEventAttributes' {workflowType} -> workflowType) (\s@WorkflowExecutionContinuedAsNewEventAttributes' {} a -> s {workflowType = a} :: WorkflowExecutionContinuedAsNewEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     WorkflowExecutionContinuedAsNewEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecutionContinuedAsNewEventAttributes"
       ( \x ->
           WorkflowExecutionContinuedAsNewEventAttributes'
-            <$> (x .:? "input")
-            <*> (x .:? "lambdaRole")
-            <*> (x .:? "taskPriority")
-            <*> (x .:? "executionStartToCloseTimeout")
-            <*> (x .:? "taskStartToCloseTimeout")
-            <*> (x .:? "tagList" .!= mempty)
-            <*> (x .: "decisionTaskCompletedEventId")
-            <*> (x .: "newExecutionRunId")
-            <*> (x .: "taskList")
-            <*> (x .: "childPolicy")
-            <*> (x .: "workflowType")
+            Prelude.<$> (x Prelude..:? "input")
+              Prelude.<*> (x Prelude..:? "lambdaRole")
+              Prelude.<*> (x Prelude..:? "taskPriority")
+              Prelude.<*> (x Prelude..:? "executionStartToCloseTimeout")
+              Prelude.<*> (x Prelude..:? "taskStartToCloseTimeout")
+              Prelude.<*> (x Prelude..:? "tagList" Prelude..!= Prelude.mempty)
+              Prelude.<*> (x Prelude..: "decisionTaskCompletedEventId")
+              Prelude.<*> (x Prelude..: "newExecutionRunId")
+              Prelude.<*> (x Prelude..: "taskList")
+              Prelude.<*> (x Prelude..: "childPolicy")
+              Prelude.<*> (x Prelude..: "workflowType")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     WorkflowExecutionContinuedAsNewEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     WorkflowExecutionContinuedAsNewEventAttributes

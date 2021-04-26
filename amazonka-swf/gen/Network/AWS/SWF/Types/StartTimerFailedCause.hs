@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SWF.Types.StartTimerFailedCause
   ( StartTimerFailedCause
       ( ..,
-        STFCOpenTimersLimitExceeded,
-        STFCOperationNotPermitted,
-        STFCTimerCreationRateExceeded,
-        STFCTimerIdAlreadyInUse
+        StartTimerFailedCauseOPENTIMERSLIMITEXCEEDED,
+        StartTimerFailedCauseOPERATIONNOTPERMITTED,
+        StartTimerFailedCauseTIMERCREATIONRATEEXCEEDED,
+        StartTimerFailedCauseTIMERIDALREADYINUSE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StartTimerFailedCause
-  = StartTimerFailedCause'
-      ( CI
-          Text
-      )
+newtype StartTimerFailedCause = StartTimerFailedCause'
+  { fromStartTimerFailedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern STFCOpenTimersLimitExceeded :: StartTimerFailedCause
-pattern STFCOpenTimersLimitExceeded = StartTimerFailedCause' "OPEN_TIMERS_LIMIT_EXCEEDED"
+pattern StartTimerFailedCauseOPENTIMERSLIMITEXCEEDED :: StartTimerFailedCause
+pattern StartTimerFailedCauseOPENTIMERSLIMITEXCEEDED = StartTimerFailedCause' "OPEN_TIMERS_LIMIT_EXCEEDED"
 
-pattern STFCOperationNotPermitted :: StartTimerFailedCause
-pattern STFCOperationNotPermitted = StartTimerFailedCause' "OPERATION_NOT_PERMITTED"
+pattern StartTimerFailedCauseOPERATIONNOTPERMITTED :: StartTimerFailedCause
+pattern StartTimerFailedCauseOPERATIONNOTPERMITTED = StartTimerFailedCause' "OPERATION_NOT_PERMITTED"
 
-pattern STFCTimerCreationRateExceeded :: StartTimerFailedCause
-pattern STFCTimerCreationRateExceeded = StartTimerFailedCause' "TIMER_CREATION_RATE_EXCEEDED"
+pattern StartTimerFailedCauseTIMERCREATIONRATEEXCEEDED :: StartTimerFailedCause
+pattern StartTimerFailedCauseTIMERCREATIONRATEEXCEEDED = StartTimerFailedCause' "TIMER_CREATION_RATE_EXCEEDED"
 
-pattern STFCTimerIdAlreadyInUse :: StartTimerFailedCause
-pattern STFCTimerIdAlreadyInUse = StartTimerFailedCause' "TIMER_ID_ALREADY_IN_USE"
+pattern StartTimerFailedCauseTIMERIDALREADYINUSE :: StartTimerFailedCause
+pattern StartTimerFailedCauseTIMERIDALREADYINUSE = StartTimerFailedCause' "TIMER_ID_ALREADY_IN_USE"
 
 {-# COMPLETE
-  STFCOpenTimersLimitExceeded,
-  STFCOperationNotPermitted,
-  STFCTimerCreationRateExceeded,
-  STFCTimerIdAlreadyInUse,
+  StartTimerFailedCauseOPENTIMERSLIMITEXCEEDED,
+  StartTimerFailedCauseOPERATIONNOTPERMITTED,
+  StartTimerFailedCauseTIMERCREATIONRATEEXCEEDED,
+  StartTimerFailedCauseTIMERIDALREADYINUSE,
   StartTimerFailedCause'
   #-}
 
-instance FromText StartTimerFailedCause where
-  parser = (StartTimerFailedCause' . mk) <$> takeText
+instance Prelude.FromText StartTimerFailedCause where
+  parser = StartTimerFailedCause' Prelude.<$> Prelude.takeText
 
-instance ToText StartTimerFailedCause where
-  toText (StartTimerFailedCause' ci) = original ci
+instance Prelude.ToText StartTimerFailedCause where
+  toText (StartTimerFailedCause' x) = x
 
-instance Hashable StartTimerFailedCause
+instance Prelude.Hashable StartTimerFailedCause
 
-instance NFData StartTimerFailedCause
+instance Prelude.NFData StartTimerFailedCause
 
-instance ToByteString StartTimerFailedCause
+instance Prelude.ToByteString StartTimerFailedCause
 
-instance ToQuery StartTimerFailedCause
+instance Prelude.ToQuery StartTimerFailedCause
 
-instance ToHeader StartTimerFailedCause
+instance Prelude.ToHeader StartTimerFailedCause
 
-instance FromJSON StartTimerFailedCause where
-  parseJSON = parseJSONText "StartTimerFailedCause"
+instance Prelude.FromJSON StartTimerFailedCause where
+  parseJSON = Prelude.parseJSONText "StartTimerFailedCause"

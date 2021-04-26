@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecution where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a workflow execution.
 --
---
---
--- /See:/ 'workflowExecution' smart constructor.
+-- /See:/ 'newWorkflowExecution' smart constructor.
 data WorkflowExecution = WorkflowExecution'
-  { _weWorkflowId ::
-      !Text,
-    _weRunId :: !Text
+  { -- | The user defined identifier associated with the workflow execution.
+    workflowId :: Prelude.Text,
+    -- | A system-generated unique identifier for the workflow execution.
+    runId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'weWorkflowId' - The user defined identifier associated with the workflow execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'weRunId' - A system-generated unique identifier for the workflow execution.
-workflowExecution ::
-  -- | 'weWorkflowId'
-  Text ->
-  -- | 'weRunId'
-  Text ->
+-- 'workflowId', 'workflowExecution_workflowId' - The user defined identifier associated with the workflow execution.
+--
+-- 'runId', 'workflowExecution_runId' - A system-generated unique identifier for the workflow execution.
+newWorkflowExecution ::
+  -- | 'workflowId'
+  Prelude.Text ->
+  -- | 'runId'
+  Prelude.Text ->
   WorkflowExecution
-workflowExecution pWorkflowId_ pRunId_ =
+newWorkflowExecution pWorkflowId_ pRunId_ =
   WorkflowExecution'
-    { _weWorkflowId = pWorkflowId_,
-      _weRunId = pRunId_
+    { workflowId = pWorkflowId_,
+      runId = pRunId_
     }
 
 -- | The user defined identifier associated with the workflow execution.
-weWorkflowId :: Lens' WorkflowExecution Text
-weWorkflowId = lens _weWorkflowId (\s a -> s {_weWorkflowId = a})
+workflowExecution_workflowId :: Lens.Lens' WorkflowExecution Prelude.Text
+workflowExecution_workflowId = Lens.lens (\WorkflowExecution' {workflowId} -> workflowId) (\s@WorkflowExecution' {} a -> s {workflowId = a} :: WorkflowExecution)
 
 -- | A system-generated unique identifier for the workflow execution.
-weRunId :: Lens' WorkflowExecution Text
-weRunId = lens _weRunId (\s a -> s {_weRunId = a})
+workflowExecution_runId :: Lens.Lens' WorkflowExecution Prelude.Text
+workflowExecution_runId = Lens.lens (\WorkflowExecution' {runId} -> runId) (\s@WorkflowExecution' {} a -> s {runId = a} :: WorkflowExecution)
 
-instance FromJSON WorkflowExecution where
+instance Prelude.FromJSON WorkflowExecution where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecution"
       ( \x ->
           WorkflowExecution'
-            <$> (x .: "workflowId") <*> (x .: "runId")
+            Prelude.<$> (x Prelude..: "workflowId")
+            Prelude.<*> (x Prelude..: "runId")
       )
 
-instance Hashable WorkflowExecution
+instance Prelude.Hashable WorkflowExecution
 
-instance NFData WorkflowExecution
+instance Prelude.NFData WorkflowExecution
 
-instance ToJSON WorkflowExecution where
+instance Prelude.ToJSON WorkflowExecution where
   toJSON WorkflowExecution' {..} =
-    object
-      ( catMaybes
-          [ Just ("workflowId" .= _weWorkflowId),
-            Just ("runId" .= _weRunId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("workflowId" Prelude..= workflowId),
+            Prelude.Just ("runId" Prelude..= runId)
           ]
       )

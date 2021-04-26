@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionInfos where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.WorkflowExecutionInfo
 
 -- | Contains a paginated list of information about workflow executions.
 --
---
---
--- /See:/ 'workflowExecutionInfos' smart constructor.
+-- /See:/ 'newWorkflowExecutionInfos' smart constructor.
 data WorkflowExecutionInfos = WorkflowExecutionInfos'
-  { _weiNextPageToken ::
-      !(Maybe Text),
-    _weiExecutionInfos ::
-      ![WorkflowExecutionInfo]
+  { -- | If a @NextPageToken@ was returned by a previous call, there are more
+    -- results available. To retrieve the next page of results, make the call
+    -- again using the returned token in @nextPageToken@. Keep all other
+    -- arguments unchanged.
+    --
+    -- The configured @maximumPageSize@ determines how many results can be
+    -- returned in a single call.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of workflow information structures.
+    executionInfos :: [WorkflowExecutionInfo]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionInfos' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionInfos' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'weiNextPageToken' - If a @NextPageToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @nextPageToken@ . Keep all other arguments unchanged. The configured @maximumPageSize@ determines how many results can be returned in a single call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'weiExecutionInfos' - The list of workflow information structures.
-workflowExecutionInfos ::
+-- 'nextPageToken', 'workflowExecutionInfos_nextPageToken' - If a @NextPageToken@ was returned by a previous call, there are more
+-- results available. To retrieve the next page of results, make the call
+-- again using the returned token in @nextPageToken@. Keep all other
+-- arguments unchanged.
+--
+-- The configured @maximumPageSize@ determines how many results can be
+-- returned in a single call.
+--
+-- 'executionInfos', 'workflowExecutionInfos_executionInfos' - The list of workflow information structures.
+newWorkflowExecutionInfos ::
   WorkflowExecutionInfos
-workflowExecutionInfos =
+newWorkflowExecutionInfos =
   WorkflowExecutionInfos'
-    { _weiNextPageToken =
-        Nothing,
-      _weiExecutionInfos = mempty
+    { nextPageToken =
+        Prelude.Nothing,
+      executionInfos = Prelude.mempty
     }
 
--- | If a @NextPageToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @nextPageToken@ . Keep all other arguments unchanged. The configured @maximumPageSize@ determines how many results can be returned in a single call.
-weiNextPageToken :: Lens' WorkflowExecutionInfos (Maybe Text)
-weiNextPageToken = lens _weiNextPageToken (\s a -> s {_weiNextPageToken = a})
+-- | If a @NextPageToken@ was returned by a previous call, there are more
+-- results available. To retrieve the next page of results, make the call
+-- again using the returned token in @nextPageToken@. Keep all other
+-- arguments unchanged.
+--
+-- The configured @maximumPageSize@ determines how many results can be
+-- returned in a single call.
+workflowExecutionInfos_nextPageToken :: Lens.Lens' WorkflowExecutionInfos (Prelude.Maybe Prelude.Text)
+workflowExecutionInfos_nextPageToken = Lens.lens (\WorkflowExecutionInfos' {nextPageToken} -> nextPageToken) (\s@WorkflowExecutionInfos' {} a -> s {nextPageToken = a} :: WorkflowExecutionInfos)
 
 -- | The list of workflow information structures.
-weiExecutionInfos :: Lens' WorkflowExecutionInfos [WorkflowExecutionInfo]
-weiExecutionInfos = lens _weiExecutionInfos (\s a -> s {_weiExecutionInfos = a}) . _Coerce
+workflowExecutionInfos_executionInfos :: Lens.Lens' WorkflowExecutionInfos [WorkflowExecutionInfo]
+workflowExecutionInfos_executionInfos = Lens.lens (\WorkflowExecutionInfos' {executionInfos} -> executionInfos) (\s@WorkflowExecutionInfos' {} a -> s {executionInfos = a} :: WorkflowExecutionInfos) Prelude.. Prelude._Coerce
 
-instance FromJSON WorkflowExecutionInfos where
+instance Prelude.FromJSON WorkflowExecutionInfos where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecutionInfos"
       ( \x ->
           WorkflowExecutionInfos'
-            <$> (x .:? "nextPageToken")
-            <*> (x .:? "executionInfos" .!= mempty)
+            Prelude.<$> (x Prelude..:? "nextPageToken")
+            Prelude.<*> ( x Prelude..:? "executionInfos"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable WorkflowExecutionInfos
+instance Prelude.Hashable WorkflowExecutionInfos
 
-instance NFData WorkflowExecutionInfos
+instance Prelude.NFData WorkflowExecutionInfos

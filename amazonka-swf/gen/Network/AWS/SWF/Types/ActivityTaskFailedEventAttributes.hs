@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,94 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ActivityTaskFailedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @ActivityTaskFailed@ event.
 --
---
---
--- /See:/ 'activityTaskFailedEventAttributes' smart constructor.
+-- /See:/ 'newActivityTaskFailedEventAttributes' smart constructor.
 data ActivityTaskFailedEventAttributes = ActivityTaskFailedEventAttributes'
-  { _atfeaDetails ::
-      !( Maybe
-           Text
-       ),
-    _atfeaReason ::
-      !( Maybe
-           Text
-       ),
-    _atfeaScheduledEventId ::
-      !Integer,
-    _atfeaStartedEventId ::
-      !Integer
+  { -- | The details of the failure.
+    details :: Prelude.Maybe Prelude.Text,
+    -- | The reason provided for the failure.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the @ActivityTaskScheduled@ event that was recorded when this
+    -- activity task was scheduled. This information can be useful for
+    -- diagnosing problems by tracing back the chain of events leading up to
+    -- this event.
+    scheduledEventId :: Prelude.Integer,
+    -- | The ID of the @ActivityTaskStarted@ event recorded when this activity
+    -- task was started. This information can be useful for diagnosing problems
+    -- by tracing back the chain of events leading up to this event.
+    startedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivityTaskFailedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivityTaskFailedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atfeaDetails' - The details of the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atfeaReason' - The reason provided for the failure.
+-- 'details', 'activityTaskFailedEventAttributes_details' - The details of the failure.
 --
--- * 'atfeaScheduledEventId' - The ID of the @ActivityTaskScheduled@ event that was recorded when this activity task was scheduled. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
+-- 'reason', 'activityTaskFailedEventAttributes_reason' - The reason provided for the failure.
 --
--- * 'atfeaStartedEventId' - The ID of the @ActivityTaskStarted@ event recorded when this activity task was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-activityTaskFailedEventAttributes ::
-  -- | 'atfeaScheduledEventId'
-  Integer ->
-  -- | 'atfeaStartedEventId'
-  Integer ->
+-- 'scheduledEventId', 'activityTaskFailedEventAttributes_scheduledEventId' - The ID of the @ActivityTaskScheduled@ event that was recorded when this
+-- activity task was scheduled. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+--
+-- 'startedEventId', 'activityTaskFailedEventAttributes_startedEventId' - The ID of the @ActivityTaskStarted@ event recorded when this activity
+-- task was started. This information can be useful for diagnosing problems
+-- by tracing back the chain of events leading up to this event.
+newActivityTaskFailedEventAttributes ::
+  -- | 'scheduledEventId'
+  Prelude.Integer ->
+  -- | 'startedEventId'
+  Prelude.Integer ->
   ActivityTaskFailedEventAttributes
-activityTaskFailedEventAttributes
+newActivityTaskFailedEventAttributes
   pScheduledEventId_
   pStartedEventId_ =
     ActivityTaskFailedEventAttributes'
-      { _atfeaDetails =
-          Nothing,
-        _atfeaReason = Nothing,
-        _atfeaScheduledEventId =
-          pScheduledEventId_,
-        _atfeaStartedEventId = pStartedEventId_
+      { details =
+          Prelude.Nothing,
+        reason = Prelude.Nothing,
+        scheduledEventId = pScheduledEventId_,
+        startedEventId = pStartedEventId_
       }
 
 -- | The details of the failure.
-atfeaDetails :: Lens' ActivityTaskFailedEventAttributes (Maybe Text)
-atfeaDetails = lens _atfeaDetails (\s a -> s {_atfeaDetails = a})
+activityTaskFailedEventAttributes_details :: Lens.Lens' ActivityTaskFailedEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskFailedEventAttributes_details = Lens.lens (\ActivityTaskFailedEventAttributes' {details} -> details) (\s@ActivityTaskFailedEventAttributes' {} a -> s {details = a} :: ActivityTaskFailedEventAttributes)
 
 -- | The reason provided for the failure.
-atfeaReason :: Lens' ActivityTaskFailedEventAttributes (Maybe Text)
-atfeaReason = lens _atfeaReason (\s a -> s {_atfeaReason = a})
+activityTaskFailedEventAttributes_reason :: Lens.Lens' ActivityTaskFailedEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskFailedEventAttributes_reason = Lens.lens (\ActivityTaskFailedEventAttributes' {reason} -> reason) (\s@ActivityTaskFailedEventAttributes' {} a -> s {reason = a} :: ActivityTaskFailedEventAttributes)
 
--- | The ID of the @ActivityTaskScheduled@ event that was recorded when this activity task was scheduled. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-atfeaScheduledEventId :: Lens' ActivityTaskFailedEventAttributes Integer
-atfeaScheduledEventId = lens _atfeaScheduledEventId (\s a -> s {_atfeaScheduledEventId = a})
+-- | The ID of the @ActivityTaskScheduled@ event that was recorded when this
+-- activity task was scheduled. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+activityTaskFailedEventAttributes_scheduledEventId :: Lens.Lens' ActivityTaskFailedEventAttributes Prelude.Integer
+activityTaskFailedEventAttributes_scheduledEventId = Lens.lens (\ActivityTaskFailedEventAttributes' {scheduledEventId} -> scheduledEventId) (\s@ActivityTaskFailedEventAttributes' {} a -> s {scheduledEventId = a} :: ActivityTaskFailedEventAttributes)
 
--- | The ID of the @ActivityTaskStarted@ event recorded when this activity task was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-atfeaStartedEventId :: Lens' ActivityTaskFailedEventAttributes Integer
-atfeaStartedEventId = lens _atfeaStartedEventId (\s a -> s {_atfeaStartedEventId = a})
+-- | The ID of the @ActivityTaskStarted@ event recorded when this activity
+-- task was started. This information can be useful for diagnosing problems
+-- by tracing back the chain of events leading up to this event.
+activityTaskFailedEventAttributes_startedEventId :: Lens.Lens' ActivityTaskFailedEventAttributes Prelude.Integer
+activityTaskFailedEventAttributes_startedEventId = Lens.lens (\ActivityTaskFailedEventAttributes' {startedEventId} -> startedEventId) (\s@ActivityTaskFailedEventAttributes' {} a -> s {startedEventId = a} :: ActivityTaskFailedEventAttributes)
 
-instance FromJSON ActivityTaskFailedEventAttributes where
+instance
+  Prelude.FromJSON
+    ActivityTaskFailedEventAttributes
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivityTaskFailedEventAttributes"
       ( \x ->
           ActivityTaskFailedEventAttributes'
-            <$> (x .:? "details")
-            <*> (x .:? "reason")
-            <*> (x .: "scheduledEventId")
-            <*> (x .: "startedEventId")
+            Prelude.<$> (x Prelude..:? "details")
+            Prelude.<*> (x Prelude..:? "reason")
+            Prelude.<*> (x Prelude..: "scheduledEventId")
+            Prelude.<*> (x Prelude..: "startedEventId")
       )
 
-instance Hashable ActivityTaskFailedEventAttributes
+instance
+  Prelude.Hashable
+    ActivityTaskFailedEventAttributes
 
-instance NFData ActivityTaskFailedEventAttributes
+instance
+  Prelude.NFData
+    ActivityTaskFailedEventAttributes

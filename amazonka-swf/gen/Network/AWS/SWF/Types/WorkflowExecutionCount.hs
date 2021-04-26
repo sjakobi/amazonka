@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionCount where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the count of workflow executions returned from 'CountOpenWorkflowExecutions' or 'CountClosedWorkflowExecutions'
+-- | Contains the count of workflow executions returned from
+-- CountOpenWorkflowExecutions or CountClosedWorkflowExecutions
 --
---
---
--- /See:/ 'workflowExecutionCount' smart constructor.
+-- /See:/ 'newWorkflowExecutionCount' smart constructor.
 data WorkflowExecutionCount = WorkflowExecutionCount'
-  { _wecTruncated ::
-      !(Maybe Bool),
-    _wecCount :: !Nat
+  { -- | If set to true, indicates that the actual count was more than the
+    -- maximum supported by this API and the count returned is the truncated
+    -- value.
+    truncated :: Prelude.Maybe Prelude.Bool,
+    -- | The number of workflow executions.
+    count :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionCount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionCount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wecTruncated' - If set to true, indicates that the actual count was more than the maximum supported by this API and the count returned is the truncated value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wecCount' - The number of workflow executions.
-workflowExecutionCount ::
-  -- | 'wecCount'
-  Natural ->
+-- 'truncated', 'workflowExecutionCount_truncated' - If set to true, indicates that the actual count was more than the
+-- maximum supported by this API and the count returned is the truncated
+-- value.
+--
+-- 'count', 'workflowExecutionCount_count' - The number of workflow executions.
+newWorkflowExecutionCount ::
+  -- | 'count'
+  Prelude.Natural ->
   WorkflowExecutionCount
-workflowExecutionCount pCount_ =
+newWorkflowExecutionCount pCount_ =
   WorkflowExecutionCount'
-    { _wecTruncated = Nothing,
-      _wecCount = _Nat # pCount_
+    { truncated =
+        Prelude.Nothing,
+      count = Prelude._Nat Lens.# pCount_
     }
 
--- | If set to true, indicates that the actual count was more than the maximum supported by this API and the count returned is the truncated value.
-wecTruncated :: Lens' WorkflowExecutionCount (Maybe Bool)
-wecTruncated = lens _wecTruncated (\s a -> s {_wecTruncated = a})
+-- | If set to true, indicates that the actual count was more than the
+-- maximum supported by this API and the count returned is the truncated
+-- value.
+workflowExecutionCount_truncated :: Lens.Lens' WorkflowExecutionCount (Prelude.Maybe Prelude.Bool)
+workflowExecutionCount_truncated = Lens.lens (\WorkflowExecutionCount' {truncated} -> truncated) (\s@WorkflowExecutionCount' {} a -> s {truncated = a} :: WorkflowExecutionCount)
 
 -- | The number of workflow executions.
-wecCount :: Lens' WorkflowExecutionCount Natural
-wecCount = lens _wecCount (\s a -> s {_wecCount = a}) . _Nat
+workflowExecutionCount_count :: Lens.Lens' WorkflowExecutionCount Prelude.Natural
+workflowExecutionCount_count = Lens.lens (\WorkflowExecutionCount' {count} -> count) (\s@WorkflowExecutionCount' {} a -> s {count = a} :: WorkflowExecutionCount) Prelude.. Prelude._Nat
 
-instance FromJSON WorkflowExecutionCount where
+instance Prelude.FromJSON WorkflowExecutionCount where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecutionCount"
       ( \x ->
           WorkflowExecutionCount'
-            <$> (x .:? "truncated") <*> (x .: "count")
+            Prelude.<$> (x Prelude..:? "truncated")
+            Prelude.<*> (x Prelude..: "count")
       )
 
-instance Hashable WorkflowExecutionCount
+instance Prelude.Hashable WorkflowExecutionCount
 
-instance NFData WorkflowExecutionCount
+instance Prelude.NFData WorkflowExecutionCount

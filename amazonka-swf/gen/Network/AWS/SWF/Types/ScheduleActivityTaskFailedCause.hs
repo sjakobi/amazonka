@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,102 +19,100 @@
 module Network.AWS.SWF.Types.ScheduleActivityTaskFailedCause
   ( ScheduleActivityTaskFailedCause
       ( ..,
-        ActivityCreationRateExceeded,
-        ActivityIdAlreadyInUse,
-        ActivityTypeDeprecated,
-        ActivityTypeDoesNotExist,
-        DefaultHeartbeatTimeoutUndefined,
-        DefaultScheduleToCloseTimeoutUndefined,
-        DefaultScheduleToStartTimeoutUndefined,
-        DefaultStartToCloseTimeoutUndefined,
-        DefaultTaskListUndefined,
-        OpenActivitiesLimitExceeded,
-        OperationNotPermitted
+        ScheduleActivityTaskFailedCauseACTIVITYCREATIONRATEEXCEEDED,
+        ScheduleActivityTaskFailedCauseACTIVITYIDALREADYINUSE,
+        ScheduleActivityTaskFailedCauseACTIVITYTYPEDEPRECATED,
+        ScheduleActivityTaskFailedCauseACTIVITYTYPEDOESNOTEXIST,
+        ScheduleActivityTaskFailedCauseDEFAULTHEARTBEATTIMEOUTUNDEFINED,
+        ScheduleActivityTaskFailedCauseDEFAULTSCHEDULETOCLOSETIMEOUTUNDEFINED,
+        ScheduleActivityTaskFailedCauseDEFAULTSCHEDULETOSTARTTIMEOUTUNDEFINED,
+        ScheduleActivityTaskFailedCauseDEFAULTSTARTTOCLOSETIMEOUTUNDEFINED,
+        ScheduleActivityTaskFailedCauseDEFAULTTASKLISTUNDEFINED,
+        ScheduleActivityTaskFailedCauseOPENACTIVITIESLIMITEXCEEDED,
+        ScheduleActivityTaskFailedCauseOPERATIONNOTPERMITTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScheduleActivityTaskFailedCause
-  = ScheduleActivityTaskFailedCause'
-      ( CI
-          Text
-      )
+newtype ScheduleActivityTaskFailedCause = ScheduleActivityTaskFailedCause'
+  { fromScheduleActivityTaskFailedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ActivityCreationRateExceeded :: ScheduleActivityTaskFailedCause
-pattern ActivityCreationRateExceeded = ScheduleActivityTaskFailedCause' "ACTIVITY_CREATION_RATE_EXCEEDED"
+pattern ScheduleActivityTaskFailedCauseACTIVITYCREATIONRATEEXCEEDED :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseACTIVITYCREATIONRATEEXCEEDED = ScheduleActivityTaskFailedCause' "ACTIVITY_CREATION_RATE_EXCEEDED"
 
-pattern ActivityIdAlreadyInUse :: ScheduleActivityTaskFailedCause
-pattern ActivityIdAlreadyInUse = ScheduleActivityTaskFailedCause' "ACTIVITY_ID_ALREADY_IN_USE"
+pattern ScheduleActivityTaskFailedCauseACTIVITYIDALREADYINUSE :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseACTIVITYIDALREADYINUSE = ScheduleActivityTaskFailedCause' "ACTIVITY_ID_ALREADY_IN_USE"
 
-pattern ActivityTypeDeprecated :: ScheduleActivityTaskFailedCause
-pattern ActivityTypeDeprecated = ScheduleActivityTaskFailedCause' "ACTIVITY_TYPE_DEPRECATED"
+pattern ScheduleActivityTaskFailedCauseACTIVITYTYPEDEPRECATED :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseACTIVITYTYPEDEPRECATED = ScheduleActivityTaskFailedCause' "ACTIVITY_TYPE_DEPRECATED"
 
-pattern ActivityTypeDoesNotExist :: ScheduleActivityTaskFailedCause
-pattern ActivityTypeDoesNotExist = ScheduleActivityTaskFailedCause' "ACTIVITY_TYPE_DOES_NOT_EXIST"
+pattern ScheduleActivityTaskFailedCauseACTIVITYTYPEDOESNOTEXIST :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseACTIVITYTYPEDOESNOTEXIST = ScheduleActivityTaskFailedCause' "ACTIVITY_TYPE_DOES_NOT_EXIST"
 
-pattern DefaultHeartbeatTimeoutUndefined :: ScheduleActivityTaskFailedCause
-pattern DefaultHeartbeatTimeoutUndefined = ScheduleActivityTaskFailedCause' "DEFAULT_HEARTBEAT_TIMEOUT_UNDEFINED"
+pattern ScheduleActivityTaskFailedCauseDEFAULTHEARTBEATTIMEOUTUNDEFINED :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseDEFAULTHEARTBEATTIMEOUTUNDEFINED = ScheduleActivityTaskFailedCause' "DEFAULT_HEARTBEAT_TIMEOUT_UNDEFINED"
 
-pattern DefaultScheduleToCloseTimeoutUndefined :: ScheduleActivityTaskFailedCause
-pattern DefaultScheduleToCloseTimeoutUndefined = ScheduleActivityTaskFailedCause' "DEFAULT_SCHEDULE_TO_CLOSE_TIMEOUT_UNDEFINED"
+pattern ScheduleActivityTaskFailedCauseDEFAULTSCHEDULETOCLOSETIMEOUTUNDEFINED :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseDEFAULTSCHEDULETOCLOSETIMEOUTUNDEFINED = ScheduleActivityTaskFailedCause' "DEFAULT_SCHEDULE_TO_CLOSE_TIMEOUT_UNDEFINED"
 
-pattern DefaultScheduleToStartTimeoutUndefined :: ScheduleActivityTaskFailedCause
-pattern DefaultScheduleToStartTimeoutUndefined = ScheduleActivityTaskFailedCause' "DEFAULT_SCHEDULE_TO_START_TIMEOUT_UNDEFINED"
+pattern ScheduleActivityTaskFailedCauseDEFAULTSCHEDULETOSTARTTIMEOUTUNDEFINED :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseDEFAULTSCHEDULETOSTARTTIMEOUTUNDEFINED = ScheduleActivityTaskFailedCause' "DEFAULT_SCHEDULE_TO_START_TIMEOUT_UNDEFINED"
 
-pattern DefaultStartToCloseTimeoutUndefined :: ScheduleActivityTaskFailedCause
-pattern DefaultStartToCloseTimeoutUndefined = ScheduleActivityTaskFailedCause' "DEFAULT_START_TO_CLOSE_TIMEOUT_UNDEFINED"
+pattern ScheduleActivityTaskFailedCauseDEFAULTSTARTTOCLOSETIMEOUTUNDEFINED :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseDEFAULTSTARTTOCLOSETIMEOUTUNDEFINED = ScheduleActivityTaskFailedCause' "DEFAULT_START_TO_CLOSE_TIMEOUT_UNDEFINED"
 
-pattern DefaultTaskListUndefined :: ScheduleActivityTaskFailedCause
-pattern DefaultTaskListUndefined = ScheduleActivityTaskFailedCause' "DEFAULT_TASK_LIST_UNDEFINED"
+pattern ScheduleActivityTaskFailedCauseDEFAULTTASKLISTUNDEFINED :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseDEFAULTTASKLISTUNDEFINED = ScheduleActivityTaskFailedCause' "DEFAULT_TASK_LIST_UNDEFINED"
 
-pattern OpenActivitiesLimitExceeded :: ScheduleActivityTaskFailedCause
-pattern OpenActivitiesLimitExceeded = ScheduleActivityTaskFailedCause' "OPEN_ACTIVITIES_LIMIT_EXCEEDED"
+pattern ScheduleActivityTaskFailedCauseOPENACTIVITIESLIMITEXCEEDED :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseOPENACTIVITIESLIMITEXCEEDED = ScheduleActivityTaskFailedCause' "OPEN_ACTIVITIES_LIMIT_EXCEEDED"
 
-pattern OperationNotPermitted :: ScheduleActivityTaskFailedCause
-pattern OperationNotPermitted = ScheduleActivityTaskFailedCause' "OPERATION_NOT_PERMITTED"
+pattern ScheduleActivityTaskFailedCauseOPERATIONNOTPERMITTED :: ScheduleActivityTaskFailedCause
+pattern ScheduleActivityTaskFailedCauseOPERATIONNOTPERMITTED = ScheduleActivityTaskFailedCause' "OPERATION_NOT_PERMITTED"
 
 {-# COMPLETE
-  ActivityCreationRateExceeded,
-  ActivityIdAlreadyInUse,
-  ActivityTypeDeprecated,
-  ActivityTypeDoesNotExist,
-  DefaultHeartbeatTimeoutUndefined,
-  DefaultScheduleToCloseTimeoutUndefined,
-  DefaultScheduleToStartTimeoutUndefined,
-  DefaultStartToCloseTimeoutUndefined,
-  DefaultTaskListUndefined,
-  OpenActivitiesLimitExceeded,
-  OperationNotPermitted,
+  ScheduleActivityTaskFailedCauseACTIVITYCREATIONRATEEXCEEDED,
+  ScheduleActivityTaskFailedCauseACTIVITYIDALREADYINUSE,
+  ScheduleActivityTaskFailedCauseACTIVITYTYPEDEPRECATED,
+  ScheduleActivityTaskFailedCauseACTIVITYTYPEDOESNOTEXIST,
+  ScheduleActivityTaskFailedCauseDEFAULTHEARTBEATTIMEOUTUNDEFINED,
+  ScheduleActivityTaskFailedCauseDEFAULTSCHEDULETOCLOSETIMEOUTUNDEFINED,
+  ScheduleActivityTaskFailedCauseDEFAULTSCHEDULETOSTARTTIMEOUTUNDEFINED,
+  ScheduleActivityTaskFailedCauseDEFAULTSTARTTOCLOSETIMEOUTUNDEFINED,
+  ScheduleActivityTaskFailedCauseDEFAULTTASKLISTUNDEFINED,
+  ScheduleActivityTaskFailedCauseOPENACTIVITIESLIMITEXCEEDED,
+  ScheduleActivityTaskFailedCauseOPERATIONNOTPERMITTED,
   ScheduleActivityTaskFailedCause'
   #-}
 
-instance FromText ScheduleActivityTaskFailedCause where
-  parser = (ScheduleActivityTaskFailedCause' . mk) <$> takeText
+instance Prelude.FromText ScheduleActivityTaskFailedCause where
+  parser = ScheduleActivityTaskFailedCause' Prelude.<$> Prelude.takeText
 
-instance ToText ScheduleActivityTaskFailedCause where
-  toText (ScheduleActivityTaskFailedCause' ci) = original ci
+instance Prelude.ToText ScheduleActivityTaskFailedCause where
+  toText (ScheduleActivityTaskFailedCause' x) = x
 
-instance Hashable ScheduleActivityTaskFailedCause
+instance Prelude.Hashable ScheduleActivityTaskFailedCause
 
-instance NFData ScheduleActivityTaskFailedCause
+instance Prelude.NFData ScheduleActivityTaskFailedCause
 
-instance ToByteString ScheduleActivityTaskFailedCause
+instance Prelude.ToByteString ScheduleActivityTaskFailedCause
 
-instance ToQuery ScheduleActivityTaskFailedCause
+instance Prelude.ToQuery ScheduleActivityTaskFailedCause
 
-instance ToHeader ScheduleActivityTaskFailedCause
+instance Prelude.ToHeader ScheduleActivityTaskFailedCause
 
-instance FromJSON ScheduleActivityTaskFailedCause where
-  parseJSON = parseJSONText "ScheduleActivityTaskFailedCause"
+instance Prelude.FromJSON ScheduleActivityTaskFailedCause where
+  parseJSON = Prelude.parseJSONText "ScheduleActivityTaskFailedCause"

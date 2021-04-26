@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.SWF.Types.ChildPolicy
   ( ChildPolicy
       ( ..,
-        Abandon,
-        RequestCancel,
-        Terminate
+        ChildPolicyABANDON,
+        ChildPolicyREQUESTCANCEL,
+        ChildPolicyTERMINATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChildPolicy = ChildPolicy' (CI Text)
+newtype ChildPolicy = ChildPolicy'
+  { fromChildPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Abandon :: ChildPolicy
-pattern Abandon = ChildPolicy' "ABANDON"
+pattern ChildPolicyABANDON :: ChildPolicy
+pattern ChildPolicyABANDON = ChildPolicy' "ABANDON"
 
-pattern RequestCancel :: ChildPolicy
-pattern RequestCancel = ChildPolicy' "REQUEST_CANCEL"
+pattern ChildPolicyREQUESTCANCEL :: ChildPolicy
+pattern ChildPolicyREQUESTCANCEL = ChildPolicy' "REQUEST_CANCEL"
 
-pattern Terminate :: ChildPolicy
-pattern Terminate = ChildPolicy' "TERMINATE"
+pattern ChildPolicyTERMINATE :: ChildPolicy
+pattern ChildPolicyTERMINATE = ChildPolicy' "TERMINATE"
 
 {-# COMPLETE
-  Abandon,
-  RequestCancel,
-  Terminate,
+  ChildPolicyABANDON,
+  ChildPolicyREQUESTCANCEL,
+  ChildPolicyTERMINATE,
   ChildPolicy'
   #-}
 
-instance FromText ChildPolicy where
-  parser = (ChildPolicy' . mk) <$> takeText
+instance Prelude.FromText ChildPolicy where
+  parser = ChildPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText ChildPolicy where
-  toText (ChildPolicy' ci) = original ci
+instance Prelude.ToText ChildPolicy where
+  toText (ChildPolicy' x) = x
 
-instance Hashable ChildPolicy
+instance Prelude.Hashable ChildPolicy
 
-instance NFData ChildPolicy
+instance Prelude.NFData ChildPolicy
 
-instance ToByteString ChildPolicy
+instance Prelude.ToByteString ChildPolicy
 
-instance ToQuery ChildPolicy
+instance Prelude.ToQuery ChildPolicy
 
-instance ToHeader ChildPolicy
+instance Prelude.ToHeader ChildPolicy
 
-instance ToJSON ChildPolicy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ChildPolicy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ChildPolicy where
-  parseJSON = parseJSONText "ChildPolicy"
+instance Prelude.FromJSON ChildPolicy where
+  parseJSON = Prelude.parseJSONText "ChildPolicy"

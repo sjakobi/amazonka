@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,154 +23,230 @@
 --
 -- Registers a new domain.
 --
---
 -- __Access Control__
 --
--- You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+-- You can use IAM policies to control this action\'s access to Amazon SWF
+-- resources as follows:
 --
---     * You cannot use an IAM policy to control domain access for this action. The name of the domain being registered is available as the resource of this action.
+-- -   You cannot use an IAM policy to control domain access for this
+--     action. The name of the domain being registered is available as the
+--     resource of this action.
 --
---     * Use an @Action@ element to allow or deny permission to call this action.
+-- -   Use an @Action@ element to allow or deny permission to call this
+--     action.
 --
---     * You cannot use an IAM policy to constrain this action's parameters.
+-- -   You cannot use an IAM policy to constrain this action\'s parameters.
 --
---
---
--- If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's @cause@ parameter is set to @OPERATION_NOT_PERMITTED@ . For details and example IAM policies, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows> in the /Amazon SWF Developer Guide/ .
+-- If the caller doesn\'t have sufficient permissions to invoke the action,
+-- or the parameter values fall outside the specified constraints, the
+-- action fails. The associated event attribute\'s @cause@ parameter is set
+-- to @OPERATION_NOT_PERMITTED@. For details and example IAM policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
 module Network.AWS.SWF.RegisterDomain
   ( -- * Creating a Request
-    registerDomain,
-    RegisterDomain,
+    RegisterDomain (..),
+    newRegisterDomain,
 
     -- * Request Lenses
-    rdTags,
-    rdDescription,
-    rdName,
-    rdWorkflowExecutionRetentionPeriodInDays,
+    registerDomain_tags,
+    registerDomain_description,
+    registerDomain_name,
+    registerDomain_workflowExecutionRetentionPeriodInDays,
 
     -- * Destructuring the Response
-    registerDomainResponse,
-    RegisterDomainResponse,
+    RegisterDomainResponse (..),
+    newRegisterDomainResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SWF.Types
 
--- | /See:/ 'registerDomain' smart constructor.
+-- | /See:/ 'newRegisterDomain' smart constructor.
 data RegisterDomain = RegisterDomain'
-  { _rdTags ::
-      !(Maybe [ResourceTag]),
-    _rdDescription :: !(Maybe Text),
-    _rdName :: !Text,
-    _rdWorkflowExecutionRetentionPeriodInDays ::
-      !Text
+  { -- | Tags to be added when registering a domain.
+    --
+    -- Tags may only contain unicode letters, digits, whitespace, or these
+    -- symbols: @_ . : \/ = + - \@@.
+    tags :: Prelude.Maybe [ResourceTag],
+    -- | A text description of the domain.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Name of the domain to register. The name must be unique in the region
+    -- that the domain is registered in.
+    --
+    -- The specified string must not start or end with whitespace. It must not
+    -- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+    -- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+    -- /be/ the literal string @arn@.
+    name :: Prelude.Text,
+    -- | The duration (in days) that records and histories of workflow executions
+    -- on the domain should be kept by the service. After the retention period,
+    -- the workflow execution isn\'t available in the results of visibility
+    -- calls.
+    --
+    -- If you pass the value @NONE@ or @0@ (zero), then the workflow execution
+    -- history isn\'t retained. As soon as the workflow execution completes,
+    -- the execution record and its history are deleted.
+    --
+    -- The maximum workflow execution retention period is 90 days. For more
+    -- information about Amazon SWF service limits, see:
+    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-limits.html Amazon SWF Service Limits>
+    -- in the /Amazon SWF Developer Guide/.
+    workflowExecutionRetentionPeriodInDays :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdTags' - Tags to be added when registering a domain. Tags may only contain unicode letters, digits, whitespace, or these symbols: @_ . : / = + - @@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdDescription' - A text description of the domain.
+-- 'tags', 'registerDomain_tags' - Tags to be added when registering a domain.
 --
--- * 'rdName' - Name of the domain to register. The name must be unique in the region that the domain is registered in. The specified string must not start or end with whitespace. It must not contain a @:@ (colon), @/@ (slash), @|@ (vertical bar), or any control characters (@\u0000-\u001f@ | @\u007f-\u009f@ ). Also, it must not /be/ the literal string @arn@ .
+-- Tags may only contain unicode letters, digits, whitespace, or these
+-- symbols: @_ . : \/ = + - \@@.
 --
--- * 'rdWorkflowExecutionRetentionPeriodInDays' - The duration (in days) that records and histories of workflow executions on the domain should be kept by the service. After the retention period, the workflow execution isn't available in the results of visibility calls. If you pass the value @NONE@ or @0@ (zero), then the workflow execution history isn't retained. As soon as the workflow execution completes, the execution record and its history are deleted. The maximum workflow execution retention period is 90 days. For more information about Amazon SWF service limits, see: <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-limits.html Amazon SWF Service Limits> in the /Amazon SWF Developer Guide/ .
-registerDomain ::
-  -- | 'rdName'
-  Text ->
-  -- | 'rdWorkflowExecutionRetentionPeriodInDays'
-  Text ->
+-- 'description', 'registerDomain_description' - A text description of the domain.
+--
+-- 'name', 'registerDomain_name' - Name of the domain to register. The name must be unique in the region
+-- that the domain is registered in.
+--
+-- The specified string must not start or end with whitespace. It must not
+-- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+-- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+-- /be/ the literal string @arn@.
+--
+-- 'workflowExecutionRetentionPeriodInDays', 'registerDomain_workflowExecutionRetentionPeriodInDays' - The duration (in days) that records and histories of workflow executions
+-- on the domain should be kept by the service. After the retention period,
+-- the workflow execution isn\'t available in the results of visibility
+-- calls.
+--
+-- If you pass the value @NONE@ or @0@ (zero), then the workflow execution
+-- history isn\'t retained. As soon as the workflow execution completes,
+-- the execution record and its history are deleted.
+--
+-- The maximum workflow execution retention period is 90 days. For more
+-- information about Amazon SWF service limits, see:
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-limits.html Amazon SWF Service Limits>
+-- in the /Amazon SWF Developer Guide/.
+newRegisterDomain ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'workflowExecutionRetentionPeriodInDays'
+  Prelude.Text ->
   RegisterDomain
-registerDomain
+newRegisterDomain
   pName_
   pWorkflowExecutionRetentionPeriodInDays_ =
     RegisterDomain'
-      { _rdTags = Nothing,
-        _rdDescription = Nothing,
-        _rdName = pName_,
-        _rdWorkflowExecutionRetentionPeriodInDays =
+      { tags = Prelude.Nothing,
+        description = Prelude.Nothing,
+        name = pName_,
+        workflowExecutionRetentionPeriodInDays =
           pWorkflowExecutionRetentionPeriodInDays_
       }
 
--- | Tags to be added when registering a domain. Tags may only contain unicode letters, digits, whitespace, or these symbols: @_ . : / = + - @@ .
-rdTags :: Lens' RegisterDomain [ResourceTag]
-rdTags = lens _rdTags (\s a -> s {_rdTags = a}) . _Default . _Coerce
+-- | Tags to be added when registering a domain.
+--
+-- Tags may only contain unicode letters, digits, whitespace, or these
+-- symbols: @_ . : \/ = + - \@@.
+registerDomain_tags :: Lens.Lens' RegisterDomain (Prelude.Maybe [ResourceTag])
+registerDomain_tags = Lens.lens (\RegisterDomain' {tags} -> tags) (\s@RegisterDomain' {} a -> s {tags = a} :: RegisterDomain) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A text description of the domain.
-rdDescription :: Lens' RegisterDomain (Maybe Text)
-rdDescription = lens _rdDescription (\s a -> s {_rdDescription = a})
+registerDomain_description :: Lens.Lens' RegisterDomain (Prelude.Maybe Prelude.Text)
+registerDomain_description = Lens.lens (\RegisterDomain' {description} -> description) (\s@RegisterDomain' {} a -> s {description = a} :: RegisterDomain)
 
--- | Name of the domain to register. The name must be unique in the region that the domain is registered in. The specified string must not start or end with whitespace. It must not contain a @:@ (colon), @/@ (slash), @|@ (vertical bar), or any control characters (@\u0000-\u001f@ | @\u007f-\u009f@ ). Also, it must not /be/ the literal string @arn@ .
-rdName :: Lens' RegisterDomain Text
-rdName = lens _rdName (\s a -> s {_rdName = a})
+-- | Name of the domain to register. The name must be unique in the region
+-- that the domain is registered in.
+--
+-- The specified string must not start or end with whitespace. It must not
+-- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+-- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+-- /be/ the literal string @arn@.
+registerDomain_name :: Lens.Lens' RegisterDomain Prelude.Text
+registerDomain_name = Lens.lens (\RegisterDomain' {name} -> name) (\s@RegisterDomain' {} a -> s {name = a} :: RegisterDomain)
 
--- | The duration (in days) that records and histories of workflow executions on the domain should be kept by the service. After the retention period, the workflow execution isn't available in the results of visibility calls. If you pass the value @NONE@ or @0@ (zero), then the workflow execution history isn't retained. As soon as the workflow execution completes, the execution record and its history are deleted. The maximum workflow execution retention period is 90 days. For more information about Amazon SWF service limits, see: <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-limits.html Amazon SWF Service Limits> in the /Amazon SWF Developer Guide/ .
-rdWorkflowExecutionRetentionPeriodInDays :: Lens' RegisterDomain Text
-rdWorkflowExecutionRetentionPeriodInDays = lens _rdWorkflowExecutionRetentionPeriodInDays (\s a -> s {_rdWorkflowExecutionRetentionPeriodInDays = a})
+-- | The duration (in days) that records and histories of workflow executions
+-- on the domain should be kept by the service. After the retention period,
+-- the workflow execution isn\'t available in the results of visibility
+-- calls.
+--
+-- If you pass the value @NONE@ or @0@ (zero), then the workflow execution
+-- history isn\'t retained. As soon as the workflow execution completes,
+-- the execution record and its history are deleted.
+--
+-- The maximum workflow execution retention period is 90 days. For more
+-- information about Amazon SWF service limits, see:
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-limits.html Amazon SWF Service Limits>
+-- in the /Amazon SWF Developer Guide/.
+registerDomain_workflowExecutionRetentionPeriodInDays :: Lens.Lens' RegisterDomain Prelude.Text
+registerDomain_workflowExecutionRetentionPeriodInDays = Lens.lens (\RegisterDomain' {workflowExecutionRetentionPeriodInDays} -> workflowExecutionRetentionPeriodInDays) (\s@RegisterDomain' {} a -> s {workflowExecutionRetentionPeriodInDays = a} :: RegisterDomain)
 
-instance AWSRequest RegisterDomain where
+instance Prelude.AWSRequest RegisterDomain where
   type Rs RegisterDomain = RegisterDomainResponse
-  request = postJSON swf
-  response = receiveNull RegisterDomainResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull RegisterDomainResponse'
 
-instance Hashable RegisterDomain
+instance Prelude.Hashable RegisterDomain
 
-instance NFData RegisterDomain
+instance Prelude.NFData RegisterDomain
 
-instance ToHeaders RegisterDomain where
+instance Prelude.ToHeaders RegisterDomain where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SimpleWorkflowService.RegisterDomain" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SimpleWorkflowService.RegisterDomain" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterDomain where
+instance Prelude.ToJSON RegisterDomain where
   toJSON RegisterDomain' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _rdTags,
-            ("description" .=) <$> _rdDescription,
-            Just ("name" .= _rdName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            ("description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just
               ( "workflowExecutionRetentionPeriodInDays"
-                  .= _rdWorkflowExecutionRetentionPeriodInDays
+                  Prelude..= workflowExecutionRetentionPeriodInDays
               )
           ]
       )
 
-instance ToPath RegisterDomain where
-  toPath = const "/"
+instance Prelude.ToPath RegisterDomain where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterDomain where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterDomain where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerDomainResponse' smart constructor.
+-- | /See:/ 'newRegisterDomainResponse' smart constructor.
 data RegisterDomainResponse = RegisterDomainResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterDomainResponse' with the minimum fields required to make a request.
-registerDomainResponse ::
+-- |
+-- Create a value of 'RegisterDomainResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRegisterDomainResponse ::
   RegisterDomainResponse
-registerDomainResponse = RegisterDomainResponse'
+newRegisterDomainResponse = RegisterDomainResponse'
 
-instance NFData RegisterDomainResponse
+instance Prelude.NFData RegisterDomainResponse

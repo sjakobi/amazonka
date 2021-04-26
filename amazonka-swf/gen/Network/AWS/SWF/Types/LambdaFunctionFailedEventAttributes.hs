@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,95 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.LambdaFunctionFailedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the details of the @LambdaFunctionFailed@ event. It isn't set for other event types.
+-- | Provides the details of the @LambdaFunctionFailed@ event. It isn\'t set
+-- for other event types.
 --
---
---
--- /See:/ 'lambdaFunctionFailedEventAttributes' smart constructor.
+-- /See:/ 'newLambdaFunctionFailedEventAttributes' smart constructor.
 data LambdaFunctionFailedEventAttributes = LambdaFunctionFailedEventAttributes'
-  { _lffeaDetails ::
-      !( Maybe
-           Text
-       ),
-    _lffeaReason ::
-      !( Maybe
-           Text
-       ),
-    _lffeaScheduledEventId ::
-      !Integer,
-    _lffeaStartedEventId ::
-      !Integer
+  { -- | The details of the failure.
+    details :: Prelude.Maybe Prelude.Text,
+    -- | The reason provided for the failure.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the @LambdaFunctionScheduled@ event that was recorded when
+    -- this activity task was scheduled. To help diagnose issues, use this
+    -- information to trace back the chain of events leading up to this event.
+    scheduledEventId :: Prelude.Integer,
+    -- | The ID of the @LambdaFunctionStarted@ event recorded when this activity
+    -- task started. To help diagnose issues, use this information to trace
+    -- back the chain of events leading up to this event.
+    startedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaFunctionFailedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaFunctionFailedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lffeaDetails' - The details of the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lffeaReason' - The reason provided for the failure.
+-- 'details', 'lambdaFunctionFailedEventAttributes_details' - The details of the failure.
 --
--- * 'lffeaScheduledEventId' - The ID of the @LambdaFunctionScheduled@ event that was recorded when this activity task was scheduled. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
+-- 'reason', 'lambdaFunctionFailedEventAttributes_reason' - The reason provided for the failure.
 --
--- * 'lffeaStartedEventId' - The ID of the @LambdaFunctionStarted@ event recorded when this activity task started. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lambdaFunctionFailedEventAttributes ::
-  -- | 'lffeaScheduledEventId'
-  Integer ->
-  -- | 'lffeaStartedEventId'
-  Integer ->
+-- 'scheduledEventId', 'lambdaFunctionFailedEventAttributes_scheduledEventId' - The ID of the @LambdaFunctionScheduled@ event that was recorded when
+-- this activity task was scheduled. To help diagnose issues, use this
+-- information to trace back the chain of events leading up to this event.
+--
+-- 'startedEventId', 'lambdaFunctionFailedEventAttributes_startedEventId' - The ID of the @LambdaFunctionStarted@ event recorded when this activity
+-- task started. To help diagnose issues, use this information to trace
+-- back the chain of events leading up to this event.
+newLambdaFunctionFailedEventAttributes ::
+  -- | 'scheduledEventId'
+  Prelude.Integer ->
+  -- | 'startedEventId'
+  Prelude.Integer ->
   LambdaFunctionFailedEventAttributes
-lambdaFunctionFailedEventAttributes
+newLambdaFunctionFailedEventAttributes
   pScheduledEventId_
   pStartedEventId_ =
     LambdaFunctionFailedEventAttributes'
-      { _lffeaDetails =
-          Nothing,
-        _lffeaReason = Nothing,
-        _lffeaScheduledEventId =
-          pScheduledEventId_,
-        _lffeaStartedEventId =
-          pStartedEventId_
+      { details =
+          Prelude.Nothing,
+        reason = Prelude.Nothing,
+        scheduledEventId = pScheduledEventId_,
+        startedEventId = pStartedEventId_
       }
 
 -- | The details of the failure.
-lffeaDetails :: Lens' LambdaFunctionFailedEventAttributes (Maybe Text)
-lffeaDetails = lens _lffeaDetails (\s a -> s {_lffeaDetails = a})
+lambdaFunctionFailedEventAttributes_details :: Lens.Lens' LambdaFunctionFailedEventAttributes (Prelude.Maybe Prelude.Text)
+lambdaFunctionFailedEventAttributes_details = Lens.lens (\LambdaFunctionFailedEventAttributes' {details} -> details) (\s@LambdaFunctionFailedEventAttributes' {} a -> s {details = a} :: LambdaFunctionFailedEventAttributes)
 
 -- | The reason provided for the failure.
-lffeaReason :: Lens' LambdaFunctionFailedEventAttributes (Maybe Text)
-lffeaReason = lens _lffeaReason (\s a -> s {_lffeaReason = a})
+lambdaFunctionFailedEventAttributes_reason :: Lens.Lens' LambdaFunctionFailedEventAttributes (Prelude.Maybe Prelude.Text)
+lambdaFunctionFailedEventAttributes_reason = Lens.lens (\LambdaFunctionFailedEventAttributes' {reason} -> reason) (\s@LambdaFunctionFailedEventAttributes' {} a -> s {reason = a} :: LambdaFunctionFailedEventAttributes)
 
--- | The ID of the @LambdaFunctionScheduled@ event that was recorded when this activity task was scheduled. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lffeaScheduledEventId :: Lens' LambdaFunctionFailedEventAttributes Integer
-lffeaScheduledEventId = lens _lffeaScheduledEventId (\s a -> s {_lffeaScheduledEventId = a})
+-- | The ID of the @LambdaFunctionScheduled@ event that was recorded when
+-- this activity task was scheduled. To help diagnose issues, use this
+-- information to trace back the chain of events leading up to this event.
+lambdaFunctionFailedEventAttributes_scheduledEventId :: Lens.Lens' LambdaFunctionFailedEventAttributes Prelude.Integer
+lambdaFunctionFailedEventAttributes_scheduledEventId = Lens.lens (\LambdaFunctionFailedEventAttributes' {scheduledEventId} -> scheduledEventId) (\s@LambdaFunctionFailedEventAttributes' {} a -> s {scheduledEventId = a} :: LambdaFunctionFailedEventAttributes)
 
--- | The ID of the @LambdaFunctionStarted@ event recorded when this activity task started. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lffeaStartedEventId :: Lens' LambdaFunctionFailedEventAttributes Integer
-lffeaStartedEventId = lens _lffeaStartedEventId (\s a -> s {_lffeaStartedEventId = a})
+-- | The ID of the @LambdaFunctionStarted@ event recorded when this activity
+-- task started. To help diagnose issues, use this information to trace
+-- back the chain of events leading up to this event.
+lambdaFunctionFailedEventAttributes_startedEventId :: Lens.Lens' LambdaFunctionFailedEventAttributes Prelude.Integer
+lambdaFunctionFailedEventAttributes_startedEventId = Lens.lens (\LambdaFunctionFailedEventAttributes' {startedEventId} -> startedEventId) (\s@LambdaFunctionFailedEventAttributes' {} a -> s {startedEventId = a} :: LambdaFunctionFailedEventAttributes)
 
-instance FromJSON LambdaFunctionFailedEventAttributes where
+instance
+  Prelude.FromJSON
+    LambdaFunctionFailedEventAttributes
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaFunctionFailedEventAttributes"
       ( \x ->
           LambdaFunctionFailedEventAttributes'
-            <$> (x .:? "details")
-            <*> (x .:? "reason")
-            <*> (x .: "scheduledEventId")
-            <*> (x .: "startedEventId")
+            Prelude.<$> (x Prelude..:? "details")
+            Prelude.<*> (x Prelude..:? "reason")
+            Prelude.<*> (x Prelude..: "scheduledEventId")
+            Prelude.<*> (x Prelude..: "startedEventId")
       )
 
-instance Hashable LambdaFunctionFailedEventAttributes
+instance
+  Prelude.Hashable
+    LambdaFunctionFailedEventAttributes
 
-instance NFData LambdaFunctionFailedEventAttributes
+instance
+  Prelude.NFData
+    LambdaFunctionFailedEventAttributes

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SWF.Types.CancelWorkflowExecutionFailedCause
   ( CancelWorkflowExecutionFailedCause
       ( ..,
-        COperationNotPermitted,
-        CUnhandledDecision
+        CancelWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED,
+        CancelWorkflowExecutionFailedCauseUNHANDLEDDECISION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CancelWorkflowExecutionFailedCause
-  = CancelWorkflowExecutionFailedCause'
-      ( CI
-          Text
-      )
+newtype CancelWorkflowExecutionFailedCause = CancelWorkflowExecutionFailedCause'
+  { fromCancelWorkflowExecutionFailedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern COperationNotPermitted :: CancelWorkflowExecutionFailedCause
-pattern COperationNotPermitted = CancelWorkflowExecutionFailedCause' "OPERATION_NOT_PERMITTED"
+pattern CancelWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED :: CancelWorkflowExecutionFailedCause
+pattern CancelWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED = CancelWorkflowExecutionFailedCause' "OPERATION_NOT_PERMITTED"
 
-pattern CUnhandledDecision :: CancelWorkflowExecutionFailedCause
-pattern CUnhandledDecision = CancelWorkflowExecutionFailedCause' "UNHANDLED_DECISION"
+pattern CancelWorkflowExecutionFailedCauseUNHANDLEDDECISION :: CancelWorkflowExecutionFailedCause
+pattern CancelWorkflowExecutionFailedCauseUNHANDLEDDECISION = CancelWorkflowExecutionFailedCause' "UNHANDLED_DECISION"
 
 {-# COMPLETE
-  COperationNotPermitted,
-  CUnhandledDecision,
+  CancelWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED,
+  CancelWorkflowExecutionFailedCauseUNHANDLEDDECISION,
   CancelWorkflowExecutionFailedCause'
   #-}
 
-instance FromText CancelWorkflowExecutionFailedCause where
-  parser = (CancelWorkflowExecutionFailedCause' . mk) <$> takeText
+instance Prelude.FromText CancelWorkflowExecutionFailedCause where
+  parser = CancelWorkflowExecutionFailedCause' Prelude.<$> Prelude.takeText
 
-instance ToText CancelWorkflowExecutionFailedCause where
-  toText (CancelWorkflowExecutionFailedCause' ci) = original ci
+instance Prelude.ToText CancelWorkflowExecutionFailedCause where
+  toText (CancelWorkflowExecutionFailedCause' x) = x
 
-instance Hashable CancelWorkflowExecutionFailedCause
+instance Prelude.Hashable CancelWorkflowExecutionFailedCause
 
-instance NFData CancelWorkflowExecutionFailedCause
+instance Prelude.NFData CancelWorkflowExecutionFailedCause
 
-instance ToByteString CancelWorkflowExecutionFailedCause
+instance Prelude.ToByteString CancelWorkflowExecutionFailedCause
 
-instance ToQuery CancelWorkflowExecutionFailedCause
+instance Prelude.ToQuery CancelWorkflowExecutionFailedCause
 
-instance ToHeader CancelWorkflowExecutionFailedCause
+instance Prelude.ToHeader CancelWorkflowExecutionFailedCause
 
-instance FromJSON CancelWorkflowExecutionFailedCause where
-  parseJSON = parseJSONText "CancelWorkflowExecutionFailedCause"
+instance Prelude.FromJSON CancelWorkflowExecutionFailedCause where
+  parseJSON = Prelude.parseJSONText "CancelWorkflowExecutionFailedCause"

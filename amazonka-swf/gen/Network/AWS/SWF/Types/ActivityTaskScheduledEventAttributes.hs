@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,189 +19,232 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ActivityTaskScheduledEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.ActivityType
 import Network.AWS.SWF.Types.TaskList
 
 -- | Provides the details of the @ActivityTaskScheduled@ event.
 --
---
---
--- /See:/ 'activityTaskScheduledEventAttributes' smart constructor.
+-- /See:/ 'newActivityTaskScheduledEventAttributes' smart constructor.
 data ActivityTaskScheduledEventAttributes = ActivityTaskScheduledEventAttributes'
-  { _atseaInput ::
-      !( Maybe
-           Text
-       ),
-    _atseaHeartbeatTimeout ::
-      !( Maybe
-           Text
-       ),
-    _atseaScheduleToCloseTimeout ::
-      !( Maybe
-           Text
-       ),
-    _atseaScheduleToStartTimeout ::
-      !( Maybe
-           Text
-       ),
-    _atseaTaskPriority ::
-      !( Maybe
-           Text
-       ),
-    _atseaControl ::
-      !( Maybe
-           Text
-       ),
-    _atseaStartToCloseTimeout ::
-      !( Maybe
-           Text
-       ),
-    _atseaActivityType ::
-      !ActivityType,
-    _atseaActivityId ::
-      !Text,
-    _atseaTaskList ::
-      !TaskList,
-    _atseaDecisionTaskCompletedEventId ::
-      !Integer
+  { -- | The input provided to the activity task.
+    input :: Prelude.Maybe Prelude.Text,
+    -- | The maximum time before which the worker processing this task must
+    -- report progress by calling RecordActivityTaskHeartbeat. If the timeout
+    -- is exceeded, the activity task is automatically timed out. If the worker
+    -- subsequently attempts to record a heartbeat or return a result, it is
+    -- ignored.
+    heartbeatTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The maximum amount of time for this activity task.
+    scheduleToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The maximum amount of time the activity task can wait to be assigned to
+    -- a worker.
+    scheduleToStartTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The priority to assign to the scheduled activity task. If set, this
+    -- overrides any default priority value that was assigned when the activity
+    -- type was registered.
+    --
+    -- Valid values are integers that range from Java\'s @Integer.MIN_VALUE@
+    -- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+    -- indicate higher priority.
+    --
+    -- For more information about setting task priority, see
+    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+    -- in the /Amazon SWF Developer Guide/.
+    taskPriority :: Prelude.Maybe Prelude.Text,
+    -- | Data attached to the event that can be used by the decider in subsequent
+    -- workflow tasks. This data isn\'t sent to the activity.
+    control :: Prelude.Maybe Prelude.Text,
+    -- | The maximum amount of time a worker may take to process the activity
+    -- task.
+    startToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The type of the activity task.
+    activityType :: ActivityType,
+    -- | The unique ID of the activity task.
+    activityId :: Prelude.Text,
+    -- | The task list in which the activity task has been scheduled.
+    taskList :: TaskList,
+    -- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+    -- decision that resulted in the scheduling of this activity task. This
+    -- information can be useful for diagnosing problems by tracing back the
+    -- chain of events leading up to this event.
+    decisionTaskCompletedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivityTaskScheduledEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivityTaskScheduledEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atseaInput' - The input provided to the activity task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atseaHeartbeatTimeout' - The maximum time before which the worker processing this task must report progress by calling 'RecordActivityTaskHeartbeat' . If the timeout is exceeded, the activity task is automatically timed out. If the worker subsequently attempts to record a heartbeat or return a result, it is ignored.
+-- 'input', 'activityTaskScheduledEventAttributes_input' - The input provided to the activity task.
 --
--- * 'atseaScheduleToCloseTimeout' - The maximum amount of time for this activity task.
+-- 'heartbeatTimeout', 'activityTaskScheduledEventAttributes_heartbeatTimeout' - The maximum time before which the worker processing this task must
+-- report progress by calling RecordActivityTaskHeartbeat. If the timeout
+-- is exceeded, the activity task is automatically timed out. If the worker
+-- subsequently attempts to record a heartbeat or return a result, it is
+-- ignored.
 --
--- * 'atseaScheduleToStartTimeout' - The maximum amount of time the activity task can wait to be assigned to a worker.
+-- 'scheduleToCloseTimeout', 'activityTaskScheduledEventAttributes_scheduleToCloseTimeout' - The maximum amount of time for this activity task.
 --
--- * 'atseaTaskPriority' - The priority to assign to the scheduled activity task. If set, this overrides any default priority value that was assigned when the activity type was registered. Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
+-- 'scheduleToStartTimeout', 'activityTaskScheduledEventAttributes_scheduleToStartTimeout' - The maximum amount of time the activity task can wait to be assigned to
+-- a worker.
 --
--- * 'atseaControl' - Data attached to the event that can be used by the decider in subsequent workflow tasks. This data isn't sent to the activity.
+-- 'taskPriority', 'activityTaskScheduledEventAttributes_taskPriority' - The priority to assign to the scheduled activity task. If set, this
+-- overrides any default priority value that was assigned when the activity
+-- type was registered.
 --
--- * 'atseaStartToCloseTimeout' - The maximum amount of time a worker may take to process the activity task.
+-- Valid values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
 --
--- * 'atseaActivityType' - The type of the activity task.
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
 --
--- * 'atseaActivityId' - The unique ID of the activity task.
+-- 'control', 'activityTaskScheduledEventAttributes_control' - Data attached to the event that can be used by the decider in subsequent
+-- workflow tasks. This data isn\'t sent to the activity.
 --
--- * 'atseaTaskList' - The task list in which the activity task has been scheduled.
+-- 'startToCloseTimeout', 'activityTaskScheduledEventAttributes_startToCloseTimeout' - The maximum amount of time a worker may take to process the activity
+-- task.
 --
--- * 'atseaDecisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the decision that resulted in the scheduling of this activity task. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-activityTaskScheduledEventAttributes ::
-  -- | 'atseaActivityType'
+-- 'activityType', 'activityTaskScheduledEventAttributes_activityType' - The type of the activity task.
+--
+-- 'activityId', 'activityTaskScheduledEventAttributes_activityId' - The unique ID of the activity task.
+--
+-- 'taskList', 'activityTaskScheduledEventAttributes_taskList' - The task list in which the activity task has been scheduled.
+--
+-- 'decisionTaskCompletedEventId', 'activityTaskScheduledEventAttributes_decisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision that resulted in the scheduling of this activity task. This
+-- information can be useful for diagnosing problems by tracing back the
+-- chain of events leading up to this event.
+newActivityTaskScheduledEventAttributes ::
+  -- | 'activityType'
   ActivityType ->
-  -- | 'atseaActivityId'
-  Text ->
-  -- | 'atseaTaskList'
+  -- | 'activityId'
+  Prelude.Text ->
+  -- | 'taskList'
   TaskList ->
-  -- | 'atseaDecisionTaskCompletedEventId'
-  Integer ->
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
   ActivityTaskScheduledEventAttributes
-activityTaskScheduledEventAttributes
+newActivityTaskScheduledEventAttributes
   pActivityType_
   pActivityId_
   pTaskList_
   pDecisionTaskCompletedEventId_ =
     ActivityTaskScheduledEventAttributes'
-      { _atseaInput =
-          Nothing,
-        _atseaHeartbeatTimeout = Nothing,
-        _atseaScheduleToCloseTimeout =
-          Nothing,
-        _atseaScheduleToStartTimeout =
-          Nothing,
-        _atseaTaskPriority = Nothing,
-        _atseaControl = Nothing,
-        _atseaStartToCloseTimeout = Nothing,
-        _atseaActivityType = pActivityType_,
-        _atseaActivityId = pActivityId_,
-        _atseaTaskList = pTaskList_,
-        _atseaDecisionTaskCompletedEventId =
+      { input =
+          Prelude.Nothing,
+        heartbeatTimeout = Prelude.Nothing,
+        scheduleToCloseTimeout =
+          Prelude.Nothing,
+        scheduleToStartTimeout =
+          Prelude.Nothing,
+        taskPriority = Prelude.Nothing,
+        control = Prelude.Nothing,
+        startToCloseTimeout = Prelude.Nothing,
+        activityType = pActivityType_,
+        activityId = pActivityId_,
+        taskList = pTaskList_,
+        decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_
       }
 
 -- | The input provided to the activity task.
-atseaInput :: Lens' ActivityTaskScheduledEventAttributes (Maybe Text)
-atseaInput = lens _atseaInput (\s a -> s {_atseaInput = a})
+activityTaskScheduledEventAttributes_input :: Lens.Lens' ActivityTaskScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskScheduledEventAttributes_input = Lens.lens (\ActivityTaskScheduledEventAttributes' {input} -> input) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {input = a} :: ActivityTaskScheduledEventAttributes)
 
--- | The maximum time before which the worker processing this task must report progress by calling 'RecordActivityTaskHeartbeat' . If the timeout is exceeded, the activity task is automatically timed out. If the worker subsequently attempts to record a heartbeat or return a result, it is ignored.
-atseaHeartbeatTimeout :: Lens' ActivityTaskScheduledEventAttributes (Maybe Text)
-atseaHeartbeatTimeout = lens _atseaHeartbeatTimeout (\s a -> s {_atseaHeartbeatTimeout = a})
+-- | The maximum time before which the worker processing this task must
+-- report progress by calling RecordActivityTaskHeartbeat. If the timeout
+-- is exceeded, the activity task is automatically timed out. If the worker
+-- subsequently attempts to record a heartbeat or return a result, it is
+-- ignored.
+activityTaskScheduledEventAttributes_heartbeatTimeout :: Lens.Lens' ActivityTaskScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskScheduledEventAttributes_heartbeatTimeout = Lens.lens (\ActivityTaskScheduledEventAttributes' {heartbeatTimeout} -> heartbeatTimeout) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {heartbeatTimeout = a} :: ActivityTaskScheduledEventAttributes)
 
 -- | The maximum amount of time for this activity task.
-atseaScheduleToCloseTimeout :: Lens' ActivityTaskScheduledEventAttributes (Maybe Text)
-atseaScheduleToCloseTimeout = lens _atseaScheduleToCloseTimeout (\s a -> s {_atseaScheduleToCloseTimeout = a})
+activityTaskScheduledEventAttributes_scheduleToCloseTimeout :: Lens.Lens' ActivityTaskScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskScheduledEventAttributes_scheduleToCloseTimeout = Lens.lens (\ActivityTaskScheduledEventAttributes' {scheduleToCloseTimeout} -> scheduleToCloseTimeout) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {scheduleToCloseTimeout = a} :: ActivityTaskScheduledEventAttributes)
 
--- | The maximum amount of time the activity task can wait to be assigned to a worker.
-atseaScheduleToStartTimeout :: Lens' ActivityTaskScheduledEventAttributes (Maybe Text)
-atseaScheduleToStartTimeout = lens _atseaScheduleToStartTimeout (\s a -> s {_atseaScheduleToStartTimeout = a})
+-- | The maximum amount of time the activity task can wait to be assigned to
+-- a worker.
+activityTaskScheduledEventAttributes_scheduleToStartTimeout :: Lens.Lens' ActivityTaskScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskScheduledEventAttributes_scheduleToStartTimeout = Lens.lens (\ActivityTaskScheduledEventAttributes' {scheduleToStartTimeout} -> scheduleToStartTimeout) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {scheduleToStartTimeout = a} :: ActivityTaskScheduledEventAttributes)
 
--- | The priority to assign to the scheduled activity task. If set, this overrides any default priority value that was assigned when the activity type was registered. Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
-atseaTaskPriority :: Lens' ActivityTaskScheduledEventAttributes (Maybe Text)
-atseaTaskPriority = lens _atseaTaskPriority (\s a -> s {_atseaTaskPriority = a})
+-- | The priority to assign to the scheduled activity task. If set, this
+-- overrides any default priority value that was assigned when the activity
+-- type was registered.
+--
+-- Valid values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
+--
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
+activityTaskScheduledEventAttributes_taskPriority :: Lens.Lens' ActivityTaskScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskScheduledEventAttributes_taskPriority = Lens.lens (\ActivityTaskScheduledEventAttributes' {taskPriority} -> taskPriority) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {taskPriority = a} :: ActivityTaskScheduledEventAttributes)
 
--- | Data attached to the event that can be used by the decider in subsequent workflow tasks. This data isn't sent to the activity.
-atseaControl :: Lens' ActivityTaskScheduledEventAttributes (Maybe Text)
-atseaControl = lens _atseaControl (\s a -> s {_atseaControl = a})
+-- | Data attached to the event that can be used by the decider in subsequent
+-- workflow tasks. This data isn\'t sent to the activity.
+activityTaskScheduledEventAttributes_control :: Lens.Lens' ActivityTaskScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskScheduledEventAttributes_control = Lens.lens (\ActivityTaskScheduledEventAttributes' {control} -> control) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {control = a} :: ActivityTaskScheduledEventAttributes)
 
--- | The maximum amount of time a worker may take to process the activity task.
-atseaStartToCloseTimeout :: Lens' ActivityTaskScheduledEventAttributes (Maybe Text)
-atseaStartToCloseTimeout = lens _atseaStartToCloseTimeout (\s a -> s {_atseaStartToCloseTimeout = a})
+-- | The maximum amount of time a worker may take to process the activity
+-- task.
+activityTaskScheduledEventAttributes_startToCloseTimeout :: Lens.Lens' ActivityTaskScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskScheduledEventAttributes_startToCloseTimeout = Lens.lens (\ActivityTaskScheduledEventAttributes' {startToCloseTimeout} -> startToCloseTimeout) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {startToCloseTimeout = a} :: ActivityTaskScheduledEventAttributes)
 
 -- | The type of the activity task.
-atseaActivityType :: Lens' ActivityTaskScheduledEventAttributes ActivityType
-atseaActivityType = lens _atseaActivityType (\s a -> s {_atseaActivityType = a})
+activityTaskScheduledEventAttributes_activityType :: Lens.Lens' ActivityTaskScheduledEventAttributes ActivityType
+activityTaskScheduledEventAttributes_activityType = Lens.lens (\ActivityTaskScheduledEventAttributes' {activityType} -> activityType) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {activityType = a} :: ActivityTaskScheduledEventAttributes)
 
 -- | The unique ID of the activity task.
-atseaActivityId :: Lens' ActivityTaskScheduledEventAttributes Text
-atseaActivityId = lens _atseaActivityId (\s a -> s {_atseaActivityId = a})
+activityTaskScheduledEventAttributes_activityId :: Lens.Lens' ActivityTaskScheduledEventAttributes Prelude.Text
+activityTaskScheduledEventAttributes_activityId = Lens.lens (\ActivityTaskScheduledEventAttributes' {activityId} -> activityId) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {activityId = a} :: ActivityTaskScheduledEventAttributes)
 
 -- | The task list in which the activity task has been scheduled.
-atseaTaskList :: Lens' ActivityTaskScheduledEventAttributes TaskList
-atseaTaskList = lens _atseaTaskList (\s a -> s {_atseaTaskList = a})
+activityTaskScheduledEventAttributes_taskList :: Lens.Lens' ActivityTaskScheduledEventAttributes TaskList
+activityTaskScheduledEventAttributes_taskList = Lens.lens (\ActivityTaskScheduledEventAttributes' {taskList} -> taskList) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {taskList = a} :: ActivityTaskScheduledEventAttributes)
 
--- | The ID of the @DecisionTaskCompleted@ event corresponding to the decision that resulted in the scheduling of this activity task. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-atseaDecisionTaskCompletedEventId :: Lens' ActivityTaskScheduledEventAttributes Integer
-atseaDecisionTaskCompletedEventId = lens _atseaDecisionTaskCompletedEventId (\s a -> s {_atseaDecisionTaskCompletedEventId = a})
+-- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision that resulted in the scheduling of this activity task. This
+-- information can be useful for diagnosing problems by tracing back the
+-- chain of events leading up to this event.
+activityTaskScheduledEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' ActivityTaskScheduledEventAttributes Prelude.Integer
+activityTaskScheduledEventAttributes_decisionTaskCompletedEventId = Lens.lens (\ActivityTaskScheduledEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@ActivityTaskScheduledEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: ActivityTaskScheduledEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ActivityTaskScheduledEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivityTaskScheduledEventAttributes"
       ( \x ->
           ActivityTaskScheduledEventAttributes'
-            <$> (x .:? "input")
-            <*> (x .:? "heartbeatTimeout")
-            <*> (x .:? "scheduleToCloseTimeout")
-            <*> (x .:? "scheduleToStartTimeout")
-            <*> (x .:? "taskPriority")
-            <*> (x .:? "control")
-            <*> (x .:? "startToCloseTimeout")
-            <*> (x .: "activityType")
-            <*> (x .: "activityId")
-            <*> (x .: "taskList")
-            <*> (x .: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Prelude..:? "input")
+            Prelude.<*> (x Prelude..:? "heartbeatTimeout")
+            Prelude.<*> (x Prelude..:? "scheduleToCloseTimeout")
+            Prelude.<*> (x Prelude..:? "scheduleToStartTimeout")
+            Prelude.<*> (x Prelude..:? "taskPriority")
+            Prelude.<*> (x Prelude..:? "control")
+            Prelude.<*> (x Prelude..:? "startToCloseTimeout")
+            Prelude.<*> (x Prelude..: "activityType")
+            Prelude.<*> (x Prelude..: "activityId")
+            Prelude.<*> (x Prelude..: "taskList")
+            Prelude.<*> (x Prelude..: "decisionTaskCompletedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ActivityTaskScheduledEventAttributes
 
-instance NFData ActivityTaskScheduledEventAttributes
+instance
+  Prelude.NFData
+    ActivityTaskScheduledEventAttributes

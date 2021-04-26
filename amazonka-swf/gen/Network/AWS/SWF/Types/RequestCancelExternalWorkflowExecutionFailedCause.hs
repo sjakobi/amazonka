@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SWF.Types.RequestCancelExternalWorkflowExecutionFailedCause
   ( RequestCancelExternalWorkflowExecutionFailedCause
       ( ..,
-        RCEWEFCOperationNotPermitted,
-        RCEWEFCRequestCancelExternalWorkflowExecutionRateExceeded,
-        RCEWEFCUnknownExternalWorkflowExecution
+        RequestCancelExternalWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED,
+        RequestCancelExternalWorkflowExecutionFailedCauseREQUESTCANCELEXTERNALWORKFLOWEXECUTIONRATEEXCEEDED,
+        RequestCancelExternalWorkflowExecutionFailedCauseUNKNOWNEXTERNALWORKFLOWEXECUTION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RequestCancelExternalWorkflowExecutionFailedCause
-  = RequestCancelExternalWorkflowExecutionFailedCause'
-      ( CI
-          Text
-      )
+newtype RequestCancelExternalWorkflowExecutionFailedCause = RequestCancelExternalWorkflowExecutionFailedCause'
+  { fromRequestCancelExternalWorkflowExecutionFailedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RCEWEFCOperationNotPermitted :: RequestCancelExternalWorkflowExecutionFailedCause
-pattern RCEWEFCOperationNotPermitted = RequestCancelExternalWorkflowExecutionFailedCause' "OPERATION_NOT_PERMITTED"
+pattern RequestCancelExternalWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED :: RequestCancelExternalWorkflowExecutionFailedCause
+pattern RequestCancelExternalWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED = RequestCancelExternalWorkflowExecutionFailedCause' "OPERATION_NOT_PERMITTED"
 
-pattern RCEWEFCRequestCancelExternalWorkflowExecutionRateExceeded :: RequestCancelExternalWorkflowExecutionFailedCause
-pattern RCEWEFCRequestCancelExternalWorkflowExecutionRateExceeded = RequestCancelExternalWorkflowExecutionFailedCause' "REQUEST_CANCEL_EXTERNAL_WORKFLOW_EXECUTION_RATE_EXCEEDED"
+pattern RequestCancelExternalWorkflowExecutionFailedCauseREQUESTCANCELEXTERNALWORKFLOWEXECUTIONRATEEXCEEDED :: RequestCancelExternalWorkflowExecutionFailedCause
+pattern RequestCancelExternalWorkflowExecutionFailedCauseREQUESTCANCELEXTERNALWORKFLOWEXECUTIONRATEEXCEEDED = RequestCancelExternalWorkflowExecutionFailedCause' "REQUEST_CANCEL_EXTERNAL_WORKFLOW_EXECUTION_RATE_EXCEEDED"
 
-pattern RCEWEFCUnknownExternalWorkflowExecution :: RequestCancelExternalWorkflowExecutionFailedCause
-pattern RCEWEFCUnknownExternalWorkflowExecution = RequestCancelExternalWorkflowExecutionFailedCause' "UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION"
+pattern RequestCancelExternalWorkflowExecutionFailedCauseUNKNOWNEXTERNALWORKFLOWEXECUTION :: RequestCancelExternalWorkflowExecutionFailedCause
+pattern RequestCancelExternalWorkflowExecutionFailedCauseUNKNOWNEXTERNALWORKFLOWEXECUTION = RequestCancelExternalWorkflowExecutionFailedCause' "UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION"
 
 {-# COMPLETE
-  RCEWEFCOperationNotPermitted,
-  RCEWEFCRequestCancelExternalWorkflowExecutionRateExceeded,
-  RCEWEFCUnknownExternalWorkflowExecution,
+  RequestCancelExternalWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED,
+  RequestCancelExternalWorkflowExecutionFailedCauseREQUESTCANCELEXTERNALWORKFLOWEXECUTIONRATEEXCEEDED,
+  RequestCancelExternalWorkflowExecutionFailedCauseUNKNOWNEXTERNALWORKFLOWEXECUTION,
   RequestCancelExternalWorkflowExecutionFailedCause'
   #-}
 
-instance FromText RequestCancelExternalWorkflowExecutionFailedCause where
-  parser = (RequestCancelExternalWorkflowExecutionFailedCause' . mk) <$> takeText
+instance Prelude.FromText RequestCancelExternalWorkflowExecutionFailedCause where
+  parser = RequestCancelExternalWorkflowExecutionFailedCause' Prelude.<$> Prelude.takeText
 
-instance ToText RequestCancelExternalWorkflowExecutionFailedCause where
-  toText (RequestCancelExternalWorkflowExecutionFailedCause' ci) = original ci
+instance Prelude.ToText RequestCancelExternalWorkflowExecutionFailedCause where
+  toText (RequestCancelExternalWorkflowExecutionFailedCause' x) = x
 
-instance Hashable RequestCancelExternalWorkflowExecutionFailedCause
+instance Prelude.Hashable RequestCancelExternalWorkflowExecutionFailedCause
 
-instance NFData RequestCancelExternalWorkflowExecutionFailedCause
+instance Prelude.NFData RequestCancelExternalWorkflowExecutionFailedCause
 
-instance ToByteString RequestCancelExternalWorkflowExecutionFailedCause
+instance Prelude.ToByteString RequestCancelExternalWorkflowExecutionFailedCause
 
-instance ToQuery RequestCancelExternalWorkflowExecutionFailedCause
+instance Prelude.ToQuery RequestCancelExternalWorkflowExecutionFailedCause
 
-instance ToHeader RequestCancelExternalWorkflowExecutionFailedCause
+instance Prelude.ToHeader RequestCancelExternalWorkflowExecutionFailedCause
 
-instance FromJSON RequestCancelExternalWorkflowExecutionFailedCause where
-  parseJSON = parseJSONText "RequestCancelExternalWorkflowExecutionFailedCause"
+instance Prelude.FromJSON RequestCancelExternalWorkflowExecutionFailedCause where
+  parseJSON = Prelude.parseJSONText "RequestCancelExternalWorkflowExecutionFailedCause"

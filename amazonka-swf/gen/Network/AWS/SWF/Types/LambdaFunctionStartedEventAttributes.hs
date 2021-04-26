@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.LambdaFunctionStartedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the details of the @LambdaFunctionStarted@ event. It isn't set for other event types.
+-- | Provides the details of the @LambdaFunctionStarted@ event. It isn\'t set
+-- for other event types.
 --
---
---
--- /See:/ 'lambdaFunctionStartedEventAttributes' smart constructor.
-newtype LambdaFunctionStartedEventAttributes = LambdaFunctionStartedEventAttributes'
-  { _lfseaScheduledEventId ::
-      Integer
+-- /See:/ 'newLambdaFunctionStartedEventAttributes' smart constructor.
+data LambdaFunctionStartedEventAttributes = LambdaFunctionStartedEventAttributes'
+  { -- | The ID of the @LambdaFunctionScheduled@ event that was recorded when
+    -- this activity task was scheduled. To help diagnose issues, use this
+    -- information to trace back the chain of events leading up to this event.
+    scheduledEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaFunctionStartedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaFunctionStartedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfseaScheduledEventId' - The ID of the @LambdaFunctionScheduled@ event that was recorded when this activity task was scheduled. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lambdaFunctionStartedEventAttributes ::
-  -- | 'lfseaScheduledEventId'
-  Integer ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'scheduledEventId', 'lambdaFunctionStartedEventAttributes_scheduledEventId' - The ID of the @LambdaFunctionScheduled@ event that was recorded when
+-- this activity task was scheduled. To help diagnose issues, use this
+-- information to trace back the chain of events leading up to this event.
+newLambdaFunctionStartedEventAttributes ::
+  -- | 'scheduledEventId'
+  Prelude.Integer ->
   LambdaFunctionStartedEventAttributes
-lambdaFunctionStartedEventAttributes
+newLambdaFunctionStartedEventAttributes
   pScheduledEventId_ =
     LambdaFunctionStartedEventAttributes'
-      { _lfseaScheduledEventId =
+      { scheduledEventId =
           pScheduledEventId_
       }
 
--- | The ID of the @LambdaFunctionScheduled@ event that was recorded when this activity task was scheduled. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lfseaScheduledEventId :: Lens' LambdaFunctionStartedEventAttributes Integer
-lfseaScheduledEventId = lens _lfseaScheduledEventId (\s a -> s {_lfseaScheduledEventId = a})
+-- | The ID of the @LambdaFunctionScheduled@ event that was recorded when
+-- this activity task was scheduled. To help diagnose issues, use this
+-- information to trace back the chain of events leading up to this event.
+lambdaFunctionStartedEventAttributes_scheduledEventId :: Lens.Lens' LambdaFunctionStartedEventAttributes Prelude.Integer
+lambdaFunctionStartedEventAttributes_scheduledEventId = Lens.lens (\LambdaFunctionStartedEventAttributes' {scheduledEventId} -> scheduledEventId) (\s@LambdaFunctionStartedEventAttributes' {} a -> s {scheduledEventId = a} :: LambdaFunctionStartedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     LambdaFunctionStartedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaFunctionStartedEventAttributes"
       ( \x ->
           LambdaFunctionStartedEventAttributes'
-            <$> (x .: "scheduledEventId")
+            Prelude.<$> (x Prelude..: "scheduledEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     LambdaFunctionStartedEventAttributes
 
-instance NFData LambdaFunctionStartedEventAttributes
+instance
+  Prelude.NFData
+    LambdaFunctionStartedEventAttributes

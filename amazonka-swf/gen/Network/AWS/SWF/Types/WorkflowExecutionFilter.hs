@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,46 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Used to filter the workflow executions in visibility APIs by their @workflowId@ .
+-- | Used to filter the workflow executions in visibility APIs by their
+-- @workflowId@.
 --
---
---
--- /See:/ 'workflowExecutionFilter' smart constructor.
-newtype WorkflowExecutionFilter = WorkflowExecutionFilter'
-  { _wefWorkflowId ::
-      Text
+-- /See:/ 'newWorkflowExecutionFilter' smart constructor.
+data WorkflowExecutionFilter = WorkflowExecutionFilter'
+  { -- | The workflowId to pass of match the criteria of this filter.
+    workflowId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wefWorkflowId' - The workflowId to pass of match the criteria of this filter.
-workflowExecutionFilter ::
-  -- | 'wefWorkflowId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'workflowId', 'workflowExecutionFilter_workflowId' - The workflowId to pass of match the criteria of this filter.
+newWorkflowExecutionFilter ::
+  -- | 'workflowId'
+  Prelude.Text ->
   WorkflowExecutionFilter
-workflowExecutionFilter pWorkflowId_ =
-  WorkflowExecutionFilter'
-    { _wefWorkflowId =
-        pWorkflowId_
-    }
+newWorkflowExecutionFilter pWorkflowId_ =
+  WorkflowExecutionFilter' {workflowId = pWorkflowId_}
 
 -- | The workflowId to pass of match the criteria of this filter.
-wefWorkflowId :: Lens' WorkflowExecutionFilter Text
-wefWorkflowId = lens _wefWorkflowId (\s a -> s {_wefWorkflowId = a})
+workflowExecutionFilter_workflowId :: Lens.Lens' WorkflowExecutionFilter Prelude.Text
+workflowExecutionFilter_workflowId = Lens.lens (\WorkflowExecutionFilter' {workflowId} -> workflowId) (\s@WorkflowExecutionFilter' {} a -> s {workflowId = a} :: WorkflowExecutionFilter)
 
-instance Hashable WorkflowExecutionFilter
+instance Prelude.Hashable WorkflowExecutionFilter
 
-instance NFData WorkflowExecutionFilter
+instance Prelude.NFData WorkflowExecutionFilter
 
-instance ToJSON WorkflowExecutionFilter where
+instance Prelude.ToJSON WorkflowExecutionFilter where
   toJSON WorkflowExecutionFilter' {..} =
-    object
-      (catMaybes [Just ("workflowId" .= _wefWorkflowId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("workflowId" Prelude..= workflowId)]
+      )

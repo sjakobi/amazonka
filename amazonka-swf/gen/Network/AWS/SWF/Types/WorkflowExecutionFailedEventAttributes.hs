@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,88 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionFailedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @WorkflowExecutionFailed@ event.
 --
---
---
--- /See:/ 'workflowExecutionFailedEventAttributes' smart constructor.
+-- /See:/ 'newWorkflowExecutionFailedEventAttributes' smart constructor.
 data WorkflowExecutionFailedEventAttributes = WorkflowExecutionFailedEventAttributes'
-  { _wefeaDetails ::
-      !( Maybe
-           Text
-       ),
-    _wefeaReason ::
-      !( Maybe
-           Text
-       ),
-    _wefeaDecisionTaskCompletedEventId ::
-      !Integer
+  { -- | The details of the failure.
+    details :: Prelude.Maybe Prelude.Text,
+    -- | The descriptive reason provided for the failure.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+    -- decision task that resulted in the @FailWorkflowExecution@ decision to
+    -- fail this execution. This information can be useful for diagnosing
+    -- problems by tracing back the chain of events leading up to this event.
+    decisionTaskCompletedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionFailedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionFailedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wefeaDetails' - The details of the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wefeaReason' - The descriptive reason provided for the failure.
+-- 'details', 'workflowExecutionFailedEventAttributes_details' - The details of the failure.
 --
--- * 'wefeaDecisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @FailWorkflowExecution@ decision to fail this execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-workflowExecutionFailedEventAttributes ::
-  -- | 'wefeaDecisionTaskCompletedEventId'
-  Integer ->
+-- 'reason', 'workflowExecutionFailedEventAttributes_reason' - The descriptive reason provided for the failure.
+--
+-- 'decisionTaskCompletedEventId', 'workflowExecutionFailedEventAttributes_decisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @FailWorkflowExecution@ decision to
+-- fail this execution. This information can be useful for diagnosing
+-- problems by tracing back the chain of events leading up to this event.
+newWorkflowExecutionFailedEventAttributes ::
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
   WorkflowExecutionFailedEventAttributes
-workflowExecutionFailedEventAttributes
+newWorkflowExecutionFailedEventAttributes
   pDecisionTaskCompletedEventId_ =
     WorkflowExecutionFailedEventAttributes'
-      { _wefeaDetails =
-          Nothing,
-        _wefeaReason = Nothing,
-        _wefeaDecisionTaskCompletedEventId =
+      { details =
+          Prelude.Nothing,
+        reason = Prelude.Nothing,
+        decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_
       }
 
 -- | The details of the failure.
-wefeaDetails :: Lens' WorkflowExecutionFailedEventAttributes (Maybe Text)
-wefeaDetails = lens _wefeaDetails (\s a -> s {_wefeaDetails = a})
+workflowExecutionFailedEventAttributes_details :: Lens.Lens' WorkflowExecutionFailedEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionFailedEventAttributes_details = Lens.lens (\WorkflowExecutionFailedEventAttributes' {details} -> details) (\s@WorkflowExecutionFailedEventAttributes' {} a -> s {details = a} :: WorkflowExecutionFailedEventAttributes)
 
 -- | The descriptive reason provided for the failure.
-wefeaReason :: Lens' WorkflowExecutionFailedEventAttributes (Maybe Text)
-wefeaReason = lens _wefeaReason (\s a -> s {_wefeaReason = a})
+workflowExecutionFailedEventAttributes_reason :: Lens.Lens' WorkflowExecutionFailedEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionFailedEventAttributes_reason = Lens.lens (\WorkflowExecutionFailedEventAttributes' {reason} -> reason) (\s@WorkflowExecutionFailedEventAttributes' {} a -> s {reason = a} :: WorkflowExecutionFailedEventAttributes)
 
--- | The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @FailWorkflowExecution@ decision to fail this execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-wefeaDecisionTaskCompletedEventId :: Lens' WorkflowExecutionFailedEventAttributes Integer
-wefeaDecisionTaskCompletedEventId = lens _wefeaDecisionTaskCompletedEventId (\s a -> s {_wefeaDecisionTaskCompletedEventId = a})
+-- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @FailWorkflowExecution@ decision to
+-- fail this execution. This information can be useful for diagnosing
+-- problems by tracing back the chain of events leading up to this event.
+workflowExecutionFailedEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' WorkflowExecutionFailedEventAttributes Prelude.Integer
+workflowExecutionFailedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\WorkflowExecutionFailedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@WorkflowExecutionFailedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: WorkflowExecutionFailedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     WorkflowExecutionFailedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecutionFailedEventAttributes"
       ( \x ->
           WorkflowExecutionFailedEventAttributes'
-            <$> (x .:? "details")
-            <*> (x .:? "reason")
-            <*> (x .: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Prelude..:? "details")
+            Prelude.<*> (x Prelude..:? "reason")
+            Prelude.<*> (x Prelude..: "decisionTaskCompletedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     WorkflowExecutionFailedEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     WorkflowExecutionFailedEventAttributes

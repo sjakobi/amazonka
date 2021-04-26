@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,129 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ScheduleLambdaFunctionFailedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.ScheduleLambdaFunctionFailedCause
 
--- | Provides the details of the @ScheduleLambdaFunctionFailed@ event. It isn't set for other event types.
+-- | Provides the details of the @ScheduleLambdaFunctionFailed@ event. It
+-- isn\'t set for other event types.
 --
---
---
--- /See:/ 'scheduleLambdaFunctionFailedEventAttributes' smart constructor.
+-- /See:/ 'newScheduleLambdaFunctionFailedEventAttributes' smart constructor.
 data ScheduleLambdaFunctionFailedEventAttributes = ScheduleLambdaFunctionFailedEventAttributes'
-  { _sId ::
-      !Text,
-    _sName ::
-      !Text,
-    _sCause ::
-      !ScheduleLambdaFunctionFailedCause,
-    _sDecisionTaskCompletedEventId ::
-      !Integer
+  { -- | The ID provided in the @ScheduleLambdaFunction@ decision that failed.
+    id :: Prelude.Text,
+    -- | The name of the Lambda function.
+    name :: Prelude.Text,
+    -- | The cause of the failure. To help diagnose issues, use this information
+    -- to trace back the chain of events leading up to this event.
+    --
+    -- If @cause@ is set to @OPERATION_NOT_PERMITTED@, the decision failed
+    -- because it lacked sufficient permissions. For details and example IAM
+    -- policies, see
+    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+    -- in the /Amazon SWF Developer Guide/.
+    cause :: ScheduleLambdaFunctionFailedCause,
+    -- | The ID of the @LambdaFunctionCompleted@ event corresponding to the
+    -- decision that resulted in scheduling this Lambda task. To help diagnose
+    -- issues, use this information to trace back the chain of events leading
+    -- up to this event.
+    decisionTaskCompletedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduleLambdaFunctionFailedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduleLambdaFunctionFailedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sId' - The ID provided in the @ScheduleLambdaFunction@ decision that failed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sName' - The name of the Lambda function.
+-- 'id', 'scheduleLambdaFunctionFailedEventAttributes_id' - The ID provided in the @ScheduleLambdaFunction@ decision that failed.
 --
--- * 'sCause' - The cause of the failure. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
+-- 'name', 'scheduleLambdaFunctionFailedEventAttributes_name' - The name of the Lambda function.
 --
--- * 'sDecisionTaskCompletedEventId' - The ID of the @LambdaFunctionCompleted@ event corresponding to the decision that resulted in scheduling this Lambda task. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-scheduleLambdaFunctionFailedEventAttributes ::
-  -- | 'sId'
-  Text ->
-  -- | 'sName'
-  Text ->
-  -- | 'sCause'
+-- 'cause', 'scheduleLambdaFunctionFailedEventAttributes_cause' - The cause of the failure. To help diagnose issues, use this information
+-- to trace back the chain of events leading up to this event.
+--
+-- If @cause@ is set to @OPERATION_NOT_PERMITTED@, the decision failed
+-- because it lacked sufficient permissions. For details and example IAM
+-- policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
+--
+-- 'decisionTaskCompletedEventId', 'scheduleLambdaFunctionFailedEventAttributes_decisionTaskCompletedEventId' - The ID of the @LambdaFunctionCompleted@ event corresponding to the
+-- decision that resulted in scheduling this Lambda task. To help diagnose
+-- issues, use this information to trace back the chain of events leading
+-- up to this event.
+newScheduleLambdaFunctionFailedEventAttributes ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'cause'
   ScheduleLambdaFunctionFailedCause ->
-  -- | 'sDecisionTaskCompletedEventId'
-  Integer ->
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
   ScheduleLambdaFunctionFailedEventAttributes
-scheduleLambdaFunctionFailedEventAttributes
+newScheduleLambdaFunctionFailedEventAttributes
   pId_
   pName_
   pCause_
   pDecisionTaskCompletedEventId_ =
     ScheduleLambdaFunctionFailedEventAttributes'
-      { _sId =
+      { id =
           pId_,
-        _sName = pName_,
-        _sCause = pCause_,
-        _sDecisionTaskCompletedEventId =
+        name = pName_,
+        cause = pCause_,
+        decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_
       }
 
 -- | The ID provided in the @ScheduleLambdaFunction@ decision that failed.
-sId :: Lens' ScheduleLambdaFunctionFailedEventAttributes Text
-sId = lens _sId (\s a -> s {_sId = a})
+scheduleLambdaFunctionFailedEventAttributes_id :: Lens.Lens' ScheduleLambdaFunctionFailedEventAttributes Prelude.Text
+scheduleLambdaFunctionFailedEventAttributes_id = Lens.lens (\ScheduleLambdaFunctionFailedEventAttributes' {id} -> id) (\s@ScheduleLambdaFunctionFailedEventAttributes' {} a -> s {id = a} :: ScheduleLambdaFunctionFailedEventAttributes)
 
 -- | The name of the Lambda function.
-sName :: Lens' ScheduleLambdaFunctionFailedEventAttributes Text
-sName = lens _sName (\s a -> s {_sName = a})
+scheduleLambdaFunctionFailedEventAttributes_name :: Lens.Lens' ScheduleLambdaFunctionFailedEventAttributes Prelude.Text
+scheduleLambdaFunctionFailedEventAttributes_name = Lens.lens (\ScheduleLambdaFunctionFailedEventAttributes' {name} -> name) (\s@ScheduleLambdaFunctionFailedEventAttributes' {} a -> s {name = a} :: ScheduleLambdaFunctionFailedEventAttributes)
 
--- | The cause of the failure. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-sCause :: Lens' ScheduleLambdaFunctionFailedEventAttributes ScheduleLambdaFunctionFailedCause
-sCause = lens _sCause (\s a -> s {_sCause = a})
+-- | The cause of the failure. To help diagnose issues, use this information
+-- to trace back the chain of events leading up to this event.
+--
+-- If @cause@ is set to @OPERATION_NOT_PERMITTED@, the decision failed
+-- because it lacked sufficient permissions. For details and example IAM
+-- policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
+scheduleLambdaFunctionFailedEventAttributes_cause :: Lens.Lens' ScheduleLambdaFunctionFailedEventAttributes ScheduleLambdaFunctionFailedCause
+scheduleLambdaFunctionFailedEventAttributes_cause = Lens.lens (\ScheduleLambdaFunctionFailedEventAttributes' {cause} -> cause) (\s@ScheduleLambdaFunctionFailedEventAttributes' {} a -> s {cause = a} :: ScheduleLambdaFunctionFailedEventAttributes)
 
--- | The ID of the @LambdaFunctionCompleted@ event corresponding to the decision that resulted in scheduling this Lambda task. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-sDecisionTaskCompletedEventId :: Lens' ScheduleLambdaFunctionFailedEventAttributes Integer
-sDecisionTaskCompletedEventId = lens _sDecisionTaskCompletedEventId (\s a -> s {_sDecisionTaskCompletedEventId = a})
+-- | The ID of the @LambdaFunctionCompleted@ event corresponding to the
+-- decision that resulted in scheduling this Lambda task. To help diagnose
+-- issues, use this information to trace back the chain of events leading
+-- up to this event.
+scheduleLambdaFunctionFailedEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' ScheduleLambdaFunctionFailedEventAttributes Prelude.Integer
+scheduleLambdaFunctionFailedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\ScheduleLambdaFunctionFailedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@ScheduleLambdaFunctionFailedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: ScheduleLambdaFunctionFailedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ScheduleLambdaFunctionFailedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ScheduleLambdaFunctionFailedEventAttributes"
       ( \x ->
           ScheduleLambdaFunctionFailedEventAttributes'
-            <$> (x .: "id")
-            <*> (x .: "name")
-            <*> (x .: "cause")
-            <*> (x .: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Prelude..: "id") Prelude.<*> (x Prelude..: "name")
+              Prelude.<*> (x Prelude..: "cause")
+              Prelude.<*> (x Prelude..: "decisionTaskCompletedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ScheduleLambdaFunctionFailedEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     ScheduleLambdaFunctionFailedEventAttributes

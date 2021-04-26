@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,88 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.DecisionTaskCompletedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @DecisionTaskCompleted@ event.
 --
---
---
--- /See:/ 'decisionTaskCompletedEventAttributes' smart constructor.
+-- /See:/ 'newDecisionTaskCompletedEventAttributes' smart constructor.
 data DecisionTaskCompletedEventAttributes = DecisionTaskCompletedEventAttributes'
-  { _dtceaExecutionContext ::
-      !( Maybe
-           Text
-       ),
-    _dtceaScheduledEventId ::
-      !Integer,
-    _dtceaStartedEventId ::
-      !Integer
+  { -- | User defined context for the workflow execution.
+    executionContext :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the @DecisionTaskScheduled@ event that was recorded when this
+    -- decision task was scheduled. This information can be useful for
+    -- diagnosing problems by tracing back the chain of events leading up to
+    -- this event.
+    scheduledEventId :: Prelude.Integer,
+    -- | The ID of the @DecisionTaskStarted@ event recorded when this decision
+    -- task was started. This information can be useful for diagnosing problems
+    -- by tracing back the chain of events leading up to this event.
+    startedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DecisionTaskCompletedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DecisionTaskCompletedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtceaExecutionContext' - User defined context for the workflow execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtceaScheduledEventId' - The ID of the @DecisionTaskScheduled@ event that was recorded when this decision task was scheduled. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
+-- 'executionContext', 'decisionTaskCompletedEventAttributes_executionContext' - User defined context for the workflow execution.
 --
--- * 'dtceaStartedEventId' - The ID of the @DecisionTaskStarted@ event recorded when this decision task was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-decisionTaskCompletedEventAttributes ::
-  -- | 'dtceaScheduledEventId'
-  Integer ->
-  -- | 'dtceaStartedEventId'
-  Integer ->
+-- 'scheduledEventId', 'decisionTaskCompletedEventAttributes_scheduledEventId' - The ID of the @DecisionTaskScheduled@ event that was recorded when this
+-- decision task was scheduled. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+--
+-- 'startedEventId', 'decisionTaskCompletedEventAttributes_startedEventId' - The ID of the @DecisionTaskStarted@ event recorded when this decision
+-- task was started. This information can be useful for diagnosing problems
+-- by tracing back the chain of events leading up to this event.
+newDecisionTaskCompletedEventAttributes ::
+  -- | 'scheduledEventId'
+  Prelude.Integer ->
+  -- | 'startedEventId'
+  Prelude.Integer ->
   DecisionTaskCompletedEventAttributes
-decisionTaskCompletedEventAttributes
+newDecisionTaskCompletedEventAttributes
   pScheduledEventId_
   pStartedEventId_ =
     DecisionTaskCompletedEventAttributes'
-      { _dtceaExecutionContext =
-          Nothing,
-        _dtceaScheduledEventId =
-          pScheduledEventId_,
-        _dtceaStartedEventId =
-          pStartedEventId_
+      { executionContext =
+          Prelude.Nothing,
+        scheduledEventId = pScheduledEventId_,
+        startedEventId = pStartedEventId_
       }
 
 -- | User defined context for the workflow execution.
-dtceaExecutionContext :: Lens' DecisionTaskCompletedEventAttributes (Maybe Text)
-dtceaExecutionContext = lens _dtceaExecutionContext (\s a -> s {_dtceaExecutionContext = a})
+decisionTaskCompletedEventAttributes_executionContext :: Lens.Lens' DecisionTaskCompletedEventAttributes (Prelude.Maybe Prelude.Text)
+decisionTaskCompletedEventAttributes_executionContext = Lens.lens (\DecisionTaskCompletedEventAttributes' {executionContext} -> executionContext) (\s@DecisionTaskCompletedEventAttributes' {} a -> s {executionContext = a} :: DecisionTaskCompletedEventAttributes)
 
--- | The ID of the @DecisionTaskScheduled@ event that was recorded when this decision task was scheduled. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-dtceaScheduledEventId :: Lens' DecisionTaskCompletedEventAttributes Integer
-dtceaScheduledEventId = lens _dtceaScheduledEventId (\s a -> s {_dtceaScheduledEventId = a})
+-- | The ID of the @DecisionTaskScheduled@ event that was recorded when this
+-- decision task was scheduled. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+decisionTaskCompletedEventAttributes_scheduledEventId :: Lens.Lens' DecisionTaskCompletedEventAttributes Prelude.Integer
+decisionTaskCompletedEventAttributes_scheduledEventId = Lens.lens (\DecisionTaskCompletedEventAttributes' {scheduledEventId} -> scheduledEventId) (\s@DecisionTaskCompletedEventAttributes' {} a -> s {scheduledEventId = a} :: DecisionTaskCompletedEventAttributes)
 
--- | The ID of the @DecisionTaskStarted@ event recorded when this decision task was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-dtceaStartedEventId :: Lens' DecisionTaskCompletedEventAttributes Integer
-dtceaStartedEventId = lens _dtceaStartedEventId (\s a -> s {_dtceaStartedEventId = a})
+-- | The ID of the @DecisionTaskStarted@ event recorded when this decision
+-- task was started. This information can be useful for diagnosing problems
+-- by tracing back the chain of events leading up to this event.
+decisionTaskCompletedEventAttributes_startedEventId :: Lens.Lens' DecisionTaskCompletedEventAttributes Prelude.Integer
+decisionTaskCompletedEventAttributes_startedEventId = Lens.lens (\DecisionTaskCompletedEventAttributes' {startedEventId} -> startedEventId) (\s@DecisionTaskCompletedEventAttributes' {} a -> s {startedEventId = a} :: DecisionTaskCompletedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     DecisionTaskCompletedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DecisionTaskCompletedEventAttributes"
       ( \x ->
           DecisionTaskCompletedEventAttributes'
-            <$> (x .:? "executionContext")
-            <*> (x .: "scheduledEventId")
-            <*> (x .: "startedEventId")
+            Prelude.<$> (x Prelude..:? "executionContext")
+            Prelude.<*> (x Prelude..: "scheduledEventId")
+            Prelude.<*> (x Prelude..: "startedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DecisionTaskCompletedEventAttributes
 
-instance NFData DecisionTaskCompletedEventAttributes
+instance
+  Prelude.NFData
+    DecisionTaskCompletedEventAttributes

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ActivityTaskCancelRequestedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @ActivityTaskCancelRequested@ event.
 --
---
---
--- /See:/ 'activityTaskCancelRequestedEventAttributes' smart constructor.
+-- /See:/ 'newActivityTaskCancelRequestedEventAttributes' smart constructor.
 data ActivityTaskCancelRequestedEventAttributes = ActivityTaskCancelRequestedEventAttributes'
-  { _atcreaDecisionTaskCompletedEventId ::
-      !Integer,
-    _atcreaActivityId ::
-      !Text
+  { -- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+    -- decision task that resulted in the @RequestCancelActivityTask@ decision
+    -- for this cancellation request. This information can be useful for
+    -- diagnosing problems by tracing back the chain of events leading up to
+    -- this event.
+    decisionTaskCompletedEventId :: Prelude.Integer,
+    -- | The unique ID of the task.
+    activityId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivityTaskCancelRequestedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivityTaskCancelRequestedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atcreaDecisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @RequestCancelActivityTask@ decision for this cancellation request. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atcreaActivityId' - The unique ID of the task.
-activityTaskCancelRequestedEventAttributes ::
-  -- | 'atcreaDecisionTaskCompletedEventId'
-  Integer ->
-  -- | 'atcreaActivityId'
-  Text ->
+-- 'decisionTaskCompletedEventId', 'activityTaskCancelRequestedEventAttributes_decisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @RequestCancelActivityTask@ decision
+-- for this cancellation request. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+--
+-- 'activityId', 'activityTaskCancelRequestedEventAttributes_activityId' - The unique ID of the task.
+newActivityTaskCancelRequestedEventAttributes ::
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
+  -- | 'activityId'
+  Prelude.Text ->
   ActivityTaskCancelRequestedEventAttributes
-activityTaskCancelRequestedEventAttributes
+newActivityTaskCancelRequestedEventAttributes
   pDecisionTaskCompletedEventId_
   pActivityId_ =
     ActivityTaskCancelRequestedEventAttributes'
-      { _atcreaDecisionTaskCompletedEventId =
+      { decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_,
-        _atcreaActivityId =
-          pActivityId_
+        activityId = pActivityId_
       }
 
--- | The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @RequestCancelActivityTask@ decision for this cancellation request. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-atcreaDecisionTaskCompletedEventId :: Lens' ActivityTaskCancelRequestedEventAttributes Integer
-atcreaDecisionTaskCompletedEventId = lens _atcreaDecisionTaskCompletedEventId (\s a -> s {_atcreaDecisionTaskCompletedEventId = a})
+-- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @RequestCancelActivityTask@ decision
+-- for this cancellation request. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+activityTaskCancelRequestedEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' ActivityTaskCancelRequestedEventAttributes Prelude.Integer
+activityTaskCancelRequestedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\ActivityTaskCancelRequestedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@ActivityTaskCancelRequestedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: ActivityTaskCancelRequestedEventAttributes)
 
 -- | The unique ID of the task.
-atcreaActivityId :: Lens' ActivityTaskCancelRequestedEventAttributes Text
-atcreaActivityId = lens _atcreaActivityId (\s a -> s {_atcreaActivityId = a})
+activityTaskCancelRequestedEventAttributes_activityId :: Lens.Lens' ActivityTaskCancelRequestedEventAttributes Prelude.Text
+activityTaskCancelRequestedEventAttributes_activityId = Lens.lens (\ActivityTaskCancelRequestedEventAttributes' {activityId} -> activityId) (\s@ActivityTaskCancelRequestedEventAttributes' {} a -> s {activityId = a} :: ActivityTaskCancelRequestedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ActivityTaskCancelRequestedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivityTaskCancelRequestedEventAttributes"
       ( \x ->
           ActivityTaskCancelRequestedEventAttributes'
-            <$> (x .: "decisionTaskCompletedEventId")
-            <*> (x .: "activityId")
+            Prelude.<$> (x Prelude..: "decisionTaskCompletedEventId")
+              Prelude.<*> (x Prelude..: "activityId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ActivityTaskCancelRequestedEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     ActivityTaskCancelRequestedEventAttributes

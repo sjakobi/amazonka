@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.SWF.Types.WorkflowExecutionTimeoutType
   ( WorkflowExecutionTimeoutType
       ( ..,
-        StartToClose
+        WorkflowExecutionTimeoutTypeSTARTTOCLOSE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WorkflowExecutionTimeoutType
-  = WorkflowExecutionTimeoutType'
-      ( CI
-          Text
-      )
+newtype WorkflowExecutionTimeoutType = WorkflowExecutionTimeoutType'
+  { fromWorkflowExecutionTimeoutType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern StartToClose :: WorkflowExecutionTimeoutType
-pattern StartToClose = WorkflowExecutionTimeoutType' "START_TO_CLOSE"
+pattern WorkflowExecutionTimeoutTypeSTARTTOCLOSE :: WorkflowExecutionTimeoutType
+pattern WorkflowExecutionTimeoutTypeSTARTTOCLOSE = WorkflowExecutionTimeoutType' "START_TO_CLOSE"
 
 {-# COMPLETE
-  StartToClose,
+  WorkflowExecutionTimeoutTypeSTARTTOCLOSE,
   WorkflowExecutionTimeoutType'
   #-}
 
-instance FromText WorkflowExecutionTimeoutType where
-  parser = (WorkflowExecutionTimeoutType' . mk) <$> takeText
+instance Prelude.FromText WorkflowExecutionTimeoutType where
+  parser = WorkflowExecutionTimeoutType' Prelude.<$> Prelude.takeText
 
-instance ToText WorkflowExecutionTimeoutType where
-  toText (WorkflowExecutionTimeoutType' ci) = original ci
+instance Prelude.ToText WorkflowExecutionTimeoutType where
+  toText (WorkflowExecutionTimeoutType' x) = x
 
-instance Hashable WorkflowExecutionTimeoutType
+instance Prelude.Hashable WorkflowExecutionTimeoutType
 
-instance NFData WorkflowExecutionTimeoutType
+instance Prelude.NFData WorkflowExecutionTimeoutType
 
-instance ToByteString WorkflowExecutionTimeoutType
+instance Prelude.ToByteString WorkflowExecutionTimeoutType
 
-instance ToQuery WorkflowExecutionTimeoutType
+instance Prelude.ToQuery WorkflowExecutionTimeoutType
 
-instance ToHeader WorkflowExecutionTimeoutType
+instance Prelude.ToHeader WorkflowExecutionTimeoutType
 
-instance FromJSON WorkflowExecutionTimeoutType where
-  parseJSON = parseJSONText "WorkflowExecutionTimeoutType"
+instance Prelude.FromJSON WorkflowExecutionTimeoutType where
+  parseJSON = Prelude.parseJSONText "WorkflowExecutionTimeoutType"

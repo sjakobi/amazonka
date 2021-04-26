@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.SWF.Types.CloseStatus
   ( CloseStatus
       ( ..,
-        Canceled,
-        Completed,
-        ContinuedAsNew,
-        Failed,
-        Terminated,
-        TimedOut
+        CloseStatusCANCELED,
+        CloseStatusCOMPLETED,
+        CloseStatusCONTINUEDASNEW,
+        CloseStatusFAILED,
+        CloseStatusTERMINATED,
+        CloseStatusTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CloseStatus = CloseStatus' (CI Text)
+newtype CloseStatus = CloseStatus'
+  { fromCloseStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Canceled :: CloseStatus
-pattern Canceled = CloseStatus' "CANCELED"
+pattern CloseStatusCANCELED :: CloseStatus
+pattern CloseStatusCANCELED = CloseStatus' "CANCELED"
 
-pattern Completed :: CloseStatus
-pattern Completed = CloseStatus' "COMPLETED"
+pattern CloseStatusCOMPLETED :: CloseStatus
+pattern CloseStatusCOMPLETED = CloseStatus' "COMPLETED"
 
-pattern ContinuedAsNew :: CloseStatus
-pattern ContinuedAsNew = CloseStatus' "CONTINUED_AS_NEW"
+pattern CloseStatusCONTINUEDASNEW :: CloseStatus
+pattern CloseStatusCONTINUEDASNEW = CloseStatus' "CONTINUED_AS_NEW"
 
-pattern Failed :: CloseStatus
-pattern Failed = CloseStatus' "FAILED"
+pattern CloseStatusFAILED :: CloseStatus
+pattern CloseStatusFAILED = CloseStatus' "FAILED"
 
-pattern Terminated :: CloseStatus
-pattern Terminated = CloseStatus' "TERMINATED"
+pattern CloseStatusTERMINATED :: CloseStatus
+pattern CloseStatusTERMINATED = CloseStatus' "TERMINATED"
 
-pattern TimedOut :: CloseStatus
-pattern TimedOut = CloseStatus' "TIMED_OUT"
+pattern CloseStatusTIMEDOUT :: CloseStatus
+pattern CloseStatusTIMEDOUT = CloseStatus' "TIMED_OUT"
 
 {-# COMPLETE
-  Canceled,
-  Completed,
-  ContinuedAsNew,
-  Failed,
-  Terminated,
-  TimedOut,
+  CloseStatusCANCELED,
+  CloseStatusCOMPLETED,
+  CloseStatusCONTINUEDASNEW,
+  CloseStatusFAILED,
+  CloseStatusTERMINATED,
+  CloseStatusTIMEDOUT,
   CloseStatus'
   #-}
 
-instance FromText CloseStatus where
-  parser = (CloseStatus' . mk) <$> takeText
+instance Prelude.FromText CloseStatus where
+  parser = CloseStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CloseStatus where
-  toText (CloseStatus' ci) = original ci
+instance Prelude.ToText CloseStatus where
+  toText (CloseStatus' x) = x
 
-instance Hashable CloseStatus
+instance Prelude.Hashable CloseStatus
 
-instance NFData CloseStatus
+instance Prelude.NFData CloseStatus
 
-instance ToByteString CloseStatus
+instance Prelude.ToByteString CloseStatus
 
-instance ToQuery CloseStatus
+instance Prelude.ToQuery CloseStatus
 
-instance ToHeader CloseStatus
+instance Prelude.ToHeader CloseStatus
 
-instance ToJSON CloseStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON CloseStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CloseStatus where
-  parseJSON = parseJSONText "CloseStatus"
+instance Prelude.FromJSON CloseStatus where
+  parseJSON = Prelude.parseJSONText "CloseStatus"

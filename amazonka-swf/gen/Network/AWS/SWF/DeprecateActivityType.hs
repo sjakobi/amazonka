@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deprecates the specified /activity type/ . After an activity type has been deprecated, you cannot create new tasks of that activity type. Tasks of this type that were scheduled before the type was deprecated continue to run.
+-- Deprecates the specified /activity type/. After an activity type has
+-- been deprecated, you cannot create new tasks of that activity type.
+-- Tasks of this type that were scheduled before the type was deprecated
+-- continue to run.
 --
+-- This operation is eventually consistent. The results are best effort and
+-- may not exactly reflect recent updates and changes.
 --
 -- __Access Control__
 --
--- You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+-- You can use IAM policies to control this action\'s access to Amazon SWF
+-- resources as follows:
 --
---     * Use a @Resource@ element with the domain name to limit the action to only specified domains.
+-- -   Use a @Resource@ element with the domain name to limit the action to
+--     only specified domains.
 --
---     * Use an @Action@ element to allow or deny permission to call this action.
+-- -   Use an @Action@ element to allow or deny permission to call this
+--     action.
 --
---     * Constrain the following parameters by using a @Condition@ element with the appropriate keys.
+-- -   Constrain the following parameters by using a @Condition@ element
+--     with the appropriate keys.
 --
---     * @activityType.name@ : String constraint. The key is @swf:activityType.name@ .
+--     -   @activityType.name@: String constraint. The key is
+--         @swf:activityType.name@.
 --
---     * @activityType.version@ : String constraint. The key is @swf:activityType.version@ .
+--     -   @activityType.version@: String constraint. The key is
+--         @swf:activityType.version@.
 --
---
---
---
---
--- If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's @cause@ parameter is set to @OPERATION_NOT_PERMITTED@ . For details and example IAM policies, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows> in the /Amazon SWF Developer Guide/ .
+-- If the caller doesn\'t have sufficient permissions to invoke the action,
+-- or the parameter values fall outside the specified constraints, the
+-- action fails. The associated event attribute\'s @cause@ parameter is set
+-- to @OPERATION_NOT_PERMITTED@. For details and example IAM policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
 module Network.AWS.SWF.DeprecateActivityType
   ( -- * Creating a Request
-    deprecateActivityType,
-    DeprecateActivityType,
+    DeprecateActivityType (..),
+    newDeprecateActivityType,
 
     -- * Request Lenses
-    datDomain,
-    datActivityType,
+    deprecateActivityType_domain,
+    deprecateActivityType_activityType,
 
     -- * Destructuring the Response
-    deprecateActivityTypeResponse,
-    DeprecateActivityTypeResponse,
+    DeprecateActivityTypeResponse (..),
+    newDeprecateActivityTypeResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SWF.Types
 
--- | /See:/ 'deprecateActivityType' smart constructor.
+-- | /See:/ 'newDeprecateActivityType' smart constructor.
 data DeprecateActivityType = DeprecateActivityType'
-  { _datDomain ::
-      !Text,
-    _datActivityType ::
-      !ActivityType
+  { -- | The name of the domain in which the activity type is registered.
+    domain :: Prelude.Text,
+    -- | The activity type to deprecate.
+    activityType :: ActivityType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeprecateActivityType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeprecateActivityType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datDomain' - The name of the domain in which the activity type is registered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'datActivityType' - The activity type to deprecate.
-deprecateActivityType ::
-  -- | 'datDomain'
-  Text ->
-  -- | 'datActivityType'
+-- 'domain', 'deprecateActivityType_domain' - The name of the domain in which the activity type is registered.
+--
+-- 'activityType', 'deprecateActivityType_activityType' - The activity type to deprecate.
+newDeprecateActivityType ::
+  -- | 'domain'
+  Prelude.Text ->
+  -- | 'activityType'
   ActivityType ->
   DeprecateActivityType
-deprecateActivityType pDomain_ pActivityType_ =
+newDeprecateActivityType pDomain_ pActivityType_ =
   DeprecateActivityType'
-    { _datDomain = pDomain_,
-      _datActivityType = pActivityType_
+    { domain = pDomain_,
+      activityType = pActivityType_
     }
 
 -- | The name of the domain in which the activity type is registered.
-datDomain :: Lens' DeprecateActivityType Text
-datDomain = lens _datDomain (\s a -> s {_datDomain = a})
+deprecateActivityType_domain :: Lens.Lens' DeprecateActivityType Prelude.Text
+deprecateActivityType_domain = Lens.lens (\DeprecateActivityType' {domain} -> domain) (\s@DeprecateActivityType' {} a -> s {domain = a} :: DeprecateActivityType)
 
 -- | The activity type to deprecate.
-datActivityType :: Lens' DeprecateActivityType ActivityType
-datActivityType = lens _datActivityType (\s a -> s {_datActivityType = a})
+deprecateActivityType_activityType :: Lens.Lens' DeprecateActivityType ActivityType
+deprecateActivityType_activityType = Lens.lens (\DeprecateActivityType' {activityType} -> activityType) (\s@DeprecateActivityType' {} a -> s {activityType = a} :: DeprecateActivityType)
 
-instance AWSRequest DeprecateActivityType where
+instance Prelude.AWSRequest DeprecateActivityType where
   type
     Rs DeprecateActivityType =
       DeprecateActivityTypeResponse
-  request = postJSON swf
-  response = receiveNull DeprecateActivityTypeResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeprecateActivityTypeResponse'
 
-instance Hashable DeprecateActivityType
+instance Prelude.Hashable DeprecateActivityType
 
-instance NFData DeprecateActivityType
+instance Prelude.NFData DeprecateActivityType
 
-instance ToHeaders DeprecateActivityType where
+instance Prelude.ToHeaders DeprecateActivityType where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SimpleWorkflowService.DeprecateActivityType" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SimpleWorkflowService.DeprecateActivityType" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeprecateActivityType where
+instance Prelude.ToJSON DeprecateActivityType where
   toJSON DeprecateActivityType' {..} =
-    object
-      ( catMaybes
-          [ Just ("domain" .= _datDomain),
-            Just ("activityType" .= _datActivityType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("domain" Prelude..= domain),
+            Prelude.Just
+              ("activityType" Prelude..= activityType)
           ]
       )
 
-instance ToPath DeprecateActivityType where
-  toPath = const "/"
+instance Prelude.ToPath DeprecateActivityType where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeprecateActivityType where
-  toQuery = const mempty
+instance Prelude.ToQuery DeprecateActivityType where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deprecateActivityTypeResponse' smart constructor.
+-- | /See:/ 'newDeprecateActivityTypeResponse' smart constructor.
 data DeprecateActivityTypeResponse = DeprecateActivityTypeResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeprecateActivityTypeResponse' with the minimum fields required to make a request.
-deprecateActivityTypeResponse ::
+-- |
+-- Create a value of 'DeprecateActivityTypeResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeprecateActivityTypeResponse ::
   DeprecateActivityTypeResponse
-deprecateActivityTypeResponse =
+newDeprecateActivityTypeResponse =
   DeprecateActivityTypeResponse'
 
-instance NFData DeprecateActivityTypeResponse
+instance Prelude.NFData DeprecateActivityTypeResponse

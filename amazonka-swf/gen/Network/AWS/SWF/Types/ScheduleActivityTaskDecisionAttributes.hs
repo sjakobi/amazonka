@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,200 +19,384 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ScheduleActivityTaskDecisionAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.ActivityType
 import Network.AWS.SWF.Types.TaskList
 
 -- | Provides the details of the @ScheduleActivityTask@ decision.
 --
---
 -- __Access Control__
 --
--- You can use IAM policies to control this decision's access to Amazon SWF resources as follows:
+-- You can use IAM policies to control this decision\'s access to Amazon
+-- SWF resources as follows:
 --
---     * Use a @Resource@ element with the domain name to limit the action to only specified domains.
+-- -   Use a @Resource@ element with the domain name to limit the action to
+--     only specified domains.
 --
---     * Use an @Action@ element to allow or deny permission to call this action.
+-- -   Use an @Action@ element to allow or deny permission to call this
+--     action.
 --
---     * Constrain the following parameters by using a @Condition@ element with the appropriate keys.
+-- -   Constrain the following parameters by using a @Condition@ element
+--     with the appropriate keys.
 --
---     * @activityType.name@ – String constraint. The key is @swf:activityType.name@ .
+--     -   @activityType.name@ – String constraint. The key is
+--         @swf:activityType.name@.
 --
---     * @activityType.version@ – String constraint. The key is @swf:activityType.version@ .
+--     -   @activityType.version@ – String constraint. The key is
+--         @swf:activityType.version@.
 --
---     * @taskList@ – String constraint. The key is @swf:taskList.name@ .
+--     -   @taskList@ – String constraint. The key is @swf:taskList.name@.
 --
+-- If the caller doesn\'t have sufficient permissions to invoke the action,
+-- or the parameter values fall outside the specified constraints, the
+-- action fails. The associated event attribute\'s @cause@ parameter is set
+-- to @OPERATION_NOT_PERMITTED@. For details and example IAM policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
 --
---
---
---
--- If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's @cause@ parameter is set to @OPERATION_NOT_PERMITTED@ . For details and example IAM policies, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows> in the /Amazon SWF Developer Guide/ .
---
---
--- /See:/ 'scheduleActivityTaskDecisionAttributes' smart constructor.
+-- /See:/ 'newScheduleActivityTaskDecisionAttributes' smart constructor.
 data ScheduleActivityTaskDecisionAttributes = ScheduleActivityTaskDecisionAttributes'
-  { _satdaInput ::
-      !( Maybe
-           Text
-       ),
-    _satdaHeartbeatTimeout ::
-      !( Maybe
-           Text
-       ),
-    _satdaScheduleToCloseTimeout ::
-      !( Maybe
-           Text
-       ),
-    _satdaScheduleToStartTimeout ::
-      !( Maybe
-           Text
-       ),
-    _satdaTaskList ::
-      !( Maybe
-           TaskList
-       ),
-    _satdaTaskPriority ::
-      !( Maybe
-           Text
-       ),
-    _satdaControl ::
-      !( Maybe
-           Text
-       ),
-    _satdaStartToCloseTimeout ::
-      !( Maybe
-           Text
-       ),
-    _satdaActivityType ::
-      !ActivityType,
-    _satdaActivityId ::
-      !Text
+  { -- | The input provided to the activity task.
+    input :: Prelude.Maybe Prelude.Text,
+    -- | If set, specifies the maximum time before which a worker processing a
+    -- task of this type must report progress by calling
+    -- RecordActivityTaskHeartbeat. If the timeout is exceeded, the activity
+    -- task is automatically timed out. If the worker subsequently attempts to
+    -- record a heartbeat or returns a result, it is ignored. This overrides
+    -- the default heartbeat timeout specified when registering the activity
+    -- type using RegisterActivityType.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    heartbeatTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The maximum duration for this activity task.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    --
+    -- A schedule-to-close timeout for this activity task must be specified
+    -- either as a default for the activity type or through this field. If
+    -- neither this field is set nor a default schedule-to-close timeout was
+    -- specified at registration time then a fault is returned.
+    scheduleToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | If set, specifies the maximum duration the activity task can wait to be
+    -- assigned to a worker. This overrides the default schedule-to-start
+    -- timeout specified when registering the activity type using
+    -- RegisterActivityType.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    --
+    -- A schedule-to-start timeout for this activity task must be specified
+    -- either as a default for the activity type or through this field. If
+    -- neither this field is set nor a default schedule-to-start timeout was
+    -- specified at registration time then a fault is returned.
+    scheduleToStartTimeout :: Prelude.Maybe Prelude.Text,
+    -- | If set, specifies the name of the task list in which to schedule the
+    -- activity task. If not specified, the @defaultTaskList@ registered with
+    -- the activity type is used.
+    --
+    -- A task list for this activity task must be specified either as a default
+    -- for the activity type or through this field. If neither this field is
+    -- set nor a default task list was specified at registration time then a
+    -- fault is returned.
+    --
+    -- The specified string must not start or end with whitespace. It must not
+    -- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+    -- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+    -- contain the literal string @arn@.
+    taskList :: Prelude.Maybe TaskList,
+    -- | If set, specifies the priority with which the activity task is to be
+    -- assigned to a worker. This overrides the defaultTaskPriority specified
+    -- when registering the activity type using RegisterActivityType. Valid
+    -- values are integers that range from Java\'s @Integer.MIN_VALUE@
+    -- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+    -- indicate higher priority.
+    --
+    -- For more information about setting task priority, see
+    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+    -- in the /Amazon SWF Developer Guide/.
+    taskPriority :: Prelude.Maybe Prelude.Text,
+    -- | Data attached to the event that can be used by the decider in subsequent
+    -- workflow tasks. This data isn\'t sent to the activity.
+    control :: Prelude.Maybe Prelude.Text,
+    -- | If set, specifies the maximum duration a worker may take to process this
+    -- activity task. This overrides the default start-to-close timeout
+    -- specified when registering the activity type using RegisterActivityType.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    --
+    -- A start-to-close timeout for this activity task must be specified either
+    -- as a default for the activity type or through this field. If neither
+    -- this field is set nor a default start-to-close timeout was specified at
+    -- registration time then a fault is returned.
+    startToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The type of the activity task to schedule.
+    activityType :: ActivityType,
+    -- | The @activityId@ of the activity task.
+    --
+    -- The specified string must not start or end with whitespace. It must not
+    -- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+    -- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+    -- contain the literal string @arn@.
+    activityId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduleActivityTaskDecisionAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduleActivityTaskDecisionAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'satdaInput' - The input provided to the activity task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'satdaHeartbeatTimeout' - If set, specifies the maximum time before which a worker processing a task of this type must report progress by calling 'RecordActivityTaskHeartbeat' . If the timeout is exceeded, the activity task is automatically timed out. If the worker subsequently attempts to record a heartbeat or returns a result, it is ignored. This overrides the default heartbeat timeout specified when registering the activity type using 'RegisterActivityType' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- 'input', 'scheduleActivityTaskDecisionAttributes_input' - The input provided to the activity task.
 --
--- * 'satdaScheduleToCloseTimeout' - The maximum duration for this activity task. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- 'heartbeatTimeout', 'scheduleActivityTaskDecisionAttributes_heartbeatTimeout' - If set, specifies the maximum time before which a worker processing a
+-- task of this type must report progress by calling
+-- RecordActivityTaskHeartbeat. If the timeout is exceeded, the activity
+-- task is automatically timed out. If the worker subsequently attempts to
+-- record a heartbeat or returns a result, it is ignored. This overrides
+-- the default heartbeat timeout specified when registering the activity
+-- type using RegisterActivityType.
 --
--- * 'satdaScheduleToStartTimeout' - If set, specifies the maximum duration the activity task can wait to be assigned to a worker. This overrides the default schedule-to-start timeout specified when registering the activity type using 'RegisterActivityType' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
 --
--- * 'satdaTaskList' - If set, specifies the name of the task list in which to schedule the activity task. If not specified, the @defaultTaskList@ registered with the activity type is used. The specified string must not start or end with whitespace. It must not contain a @:@ (colon), @/@ (slash), @|@ (vertical bar), or any control characters (@\u0000-\u001f@ | @\u007f-\u009f@ ). Also, it must not contain the literal string @arn@ .
+-- 'scheduleToCloseTimeout', 'scheduleActivityTaskDecisionAttributes_scheduleToCloseTimeout' - The maximum duration for this activity task.
 --
--- * 'satdaTaskPriority' - If set, specifies the priority with which the activity task is to be assigned to a worker. This overrides the defaultTaskPriority specified when registering the activity type using 'RegisterActivityType' . Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
 --
--- * 'satdaControl' - Data attached to the event that can be used by the decider in subsequent workflow tasks. This data isn't sent to the activity.
+-- A schedule-to-close timeout for this activity task must be specified
+-- either as a default for the activity type or through this field. If
+-- neither this field is set nor a default schedule-to-close timeout was
+-- specified at registration time then a fault is returned.
 --
--- * 'satdaStartToCloseTimeout' - If set, specifies the maximum duration a worker may take to process this activity task. This overrides the default start-to-close timeout specified when registering the activity type using 'RegisterActivityType' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- 'scheduleToStartTimeout', 'scheduleActivityTaskDecisionAttributes_scheduleToStartTimeout' - If set, specifies the maximum duration the activity task can wait to be
+-- assigned to a worker. This overrides the default schedule-to-start
+-- timeout specified when registering the activity type using
+-- RegisterActivityType.
 --
--- * 'satdaActivityType' - The type of the activity task to schedule.
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
 --
--- * 'satdaActivityId' - The @activityId@ of the activity task. The specified string must not start or end with whitespace. It must not contain a @:@ (colon), @/@ (slash), @|@ (vertical bar), or any control characters (@\u0000-\u001f@ | @\u007f-\u009f@ ). Also, it must not contain the literal string @arn@ .
-scheduleActivityTaskDecisionAttributes ::
-  -- | 'satdaActivityType'
+-- A schedule-to-start timeout for this activity task must be specified
+-- either as a default for the activity type or through this field. If
+-- neither this field is set nor a default schedule-to-start timeout was
+-- specified at registration time then a fault is returned.
+--
+-- 'taskList', 'scheduleActivityTaskDecisionAttributes_taskList' - If set, specifies the name of the task list in which to schedule the
+-- activity task. If not specified, the @defaultTaskList@ registered with
+-- the activity type is used.
+--
+-- A task list for this activity task must be specified either as a default
+-- for the activity type or through this field. If neither this field is
+-- set nor a default task list was specified at registration time then a
+-- fault is returned.
+--
+-- The specified string must not start or end with whitespace. It must not
+-- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+-- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+-- contain the literal string @arn@.
+--
+-- 'taskPriority', 'scheduleActivityTaskDecisionAttributes_taskPriority' - If set, specifies the priority with which the activity task is to be
+-- assigned to a worker. This overrides the defaultTaskPriority specified
+-- when registering the activity type using RegisterActivityType. Valid
+-- values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
+--
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
+--
+-- 'control', 'scheduleActivityTaskDecisionAttributes_control' - Data attached to the event that can be used by the decider in subsequent
+-- workflow tasks. This data isn\'t sent to the activity.
+--
+-- 'startToCloseTimeout', 'scheduleActivityTaskDecisionAttributes_startToCloseTimeout' - If set, specifies the maximum duration a worker may take to process this
+-- activity task. This overrides the default start-to-close timeout
+-- specified when registering the activity type using RegisterActivityType.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- A start-to-close timeout for this activity task must be specified either
+-- as a default for the activity type or through this field. If neither
+-- this field is set nor a default start-to-close timeout was specified at
+-- registration time then a fault is returned.
+--
+-- 'activityType', 'scheduleActivityTaskDecisionAttributes_activityType' - The type of the activity task to schedule.
+--
+-- 'activityId', 'scheduleActivityTaskDecisionAttributes_activityId' - The @activityId@ of the activity task.
+--
+-- The specified string must not start or end with whitespace. It must not
+-- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+-- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+-- contain the literal string @arn@.
+newScheduleActivityTaskDecisionAttributes ::
+  -- | 'activityType'
   ActivityType ->
-  -- | 'satdaActivityId'
-  Text ->
+  -- | 'activityId'
+  Prelude.Text ->
   ScheduleActivityTaskDecisionAttributes
-scheduleActivityTaskDecisionAttributes
+newScheduleActivityTaskDecisionAttributes
   pActivityType_
   pActivityId_ =
     ScheduleActivityTaskDecisionAttributes'
-      { _satdaInput =
-          Nothing,
-        _satdaHeartbeatTimeout = Nothing,
-        _satdaScheduleToCloseTimeout =
-          Nothing,
-        _satdaScheduleToStartTimeout =
-          Nothing,
-        _satdaTaskList = Nothing,
-        _satdaTaskPriority = Nothing,
-        _satdaControl = Nothing,
-        _satdaStartToCloseTimeout = Nothing,
-        _satdaActivityType = pActivityType_,
-        _satdaActivityId = pActivityId_
+      { input =
+          Prelude.Nothing,
+        heartbeatTimeout = Prelude.Nothing,
+        scheduleToCloseTimeout =
+          Prelude.Nothing,
+        scheduleToStartTimeout =
+          Prelude.Nothing,
+        taskList = Prelude.Nothing,
+        taskPriority = Prelude.Nothing,
+        control = Prelude.Nothing,
+        startToCloseTimeout =
+          Prelude.Nothing,
+        activityType = pActivityType_,
+        activityId = pActivityId_
       }
 
 -- | The input provided to the activity task.
-satdaInput :: Lens' ScheduleActivityTaskDecisionAttributes (Maybe Text)
-satdaInput = lens _satdaInput (\s a -> s {_satdaInput = a})
+scheduleActivityTaskDecisionAttributes_input :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
+scheduleActivityTaskDecisionAttributes_input = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {input} -> input) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {input = a} :: ScheduleActivityTaskDecisionAttributes)
 
--- | If set, specifies the maximum time before which a worker processing a task of this type must report progress by calling 'RecordActivityTaskHeartbeat' . If the timeout is exceeded, the activity task is automatically timed out. If the worker subsequently attempts to record a heartbeat or returns a result, it is ignored. This overrides the default heartbeat timeout specified when registering the activity type using 'RegisterActivityType' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-satdaHeartbeatTimeout :: Lens' ScheduleActivityTaskDecisionAttributes (Maybe Text)
-satdaHeartbeatTimeout = lens _satdaHeartbeatTimeout (\s a -> s {_satdaHeartbeatTimeout = a})
+-- | If set, specifies the maximum time before which a worker processing a
+-- task of this type must report progress by calling
+-- RecordActivityTaskHeartbeat. If the timeout is exceeded, the activity
+-- task is automatically timed out. If the worker subsequently attempts to
+-- record a heartbeat or returns a result, it is ignored. This overrides
+-- the default heartbeat timeout specified when registering the activity
+-- type using RegisterActivityType.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+scheduleActivityTaskDecisionAttributes_heartbeatTimeout :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
+scheduleActivityTaskDecisionAttributes_heartbeatTimeout = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {heartbeatTimeout} -> heartbeatTimeout) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {heartbeatTimeout = a} :: ScheduleActivityTaskDecisionAttributes)
 
--- | The maximum duration for this activity task. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-satdaScheduleToCloseTimeout :: Lens' ScheduleActivityTaskDecisionAttributes (Maybe Text)
-satdaScheduleToCloseTimeout = lens _satdaScheduleToCloseTimeout (\s a -> s {_satdaScheduleToCloseTimeout = a})
+-- | The maximum duration for this activity task.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- A schedule-to-close timeout for this activity task must be specified
+-- either as a default for the activity type or through this field. If
+-- neither this field is set nor a default schedule-to-close timeout was
+-- specified at registration time then a fault is returned.
+scheduleActivityTaskDecisionAttributes_scheduleToCloseTimeout :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
+scheduleActivityTaskDecisionAttributes_scheduleToCloseTimeout = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {scheduleToCloseTimeout} -> scheduleToCloseTimeout) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {scheduleToCloseTimeout = a} :: ScheduleActivityTaskDecisionAttributes)
 
--- | If set, specifies the maximum duration the activity task can wait to be assigned to a worker. This overrides the default schedule-to-start timeout specified when registering the activity type using 'RegisterActivityType' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-satdaScheduleToStartTimeout :: Lens' ScheduleActivityTaskDecisionAttributes (Maybe Text)
-satdaScheduleToStartTimeout = lens _satdaScheduleToStartTimeout (\s a -> s {_satdaScheduleToStartTimeout = a})
+-- | If set, specifies the maximum duration the activity task can wait to be
+-- assigned to a worker. This overrides the default schedule-to-start
+-- timeout specified when registering the activity type using
+-- RegisterActivityType.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- A schedule-to-start timeout for this activity task must be specified
+-- either as a default for the activity type or through this field. If
+-- neither this field is set nor a default schedule-to-start timeout was
+-- specified at registration time then a fault is returned.
+scheduleActivityTaskDecisionAttributes_scheduleToStartTimeout :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
+scheduleActivityTaskDecisionAttributes_scheduleToStartTimeout = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {scheduleToStartTimeout} -> scheduleToStartTimeout) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {scheduleToStartTimeout = a} :: ScheduleActivityTaskDecisionAttributes)
 
--- | If set, specifies the name of the task list in which to schedule the activity task. If not specified, the @defaultTaskList@ registered with the activity type is used. The specified string must not start or end with whitespace. It must not contain a @:@ (colon), @/@ (slash), @|@ (vertical bar), or any control characters (@\u0000-\u001f@ | @\u007f-\u009f@ ). Also, it must not contain the literal string @arn@ .
-satdaTaskList :: Lens' ScheduleActivityTaskDecisionAttributes (Maybe TaskList)
-satdaTaskList = lens _satdaTaskList (\s a -> s {_satdaTaskList = a})
+-- | If set, specifies the name of the task list in which to schedule the
+-- activity task. If not specified, the @defaultTaskList@ registered with
+-- the activity type is used.
+--
+-- A task list for this activity task must be specified either as a default
+-- for the activity type or through this field. If neither this field is
+-- set nor a default task list was specified at registration time then a
+-- fault is returned.
+--
+-- The specified string must not start or end with whitespace. It must not
+-- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+-- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+-- contain the literal string @arn@.
+scheduleActivityTaskDecisionAttributes_taskList :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe TaskList)
+scheduleActivityTaskDecisionAttributes_taskList = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {taskList} -> taskList) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {taskList = a} :: ScheduleActivityTaskDecisionAttributes)
 
--- | If set, specifies the priority with which the activity task is to be assigned to a worker. This overrides the defaultTaskPriority specified when registering the activity type using 'RegisterActivityType' . Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
-satdaTaskPriority :: Lens' ScheduleActivityTaskDecisionAttributes (Maybe Text)
-satdaTaskPriority = lens _satdaTaskPriority (\s a -> s {_satdaTaskPriority = a})
+-- | If set, specifies the priority with which the activity task is to be
+-- assigned to a worker. This overrides the defaultTaskPriority specified
+-- when registering the activity type using RegisterActivityType. Valid
+-- values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
+--
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
+scheduleActivityTaskDecisionAttributes_taskPriority :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
+scheduleActivityTaskDecisionAttributes_taskPriority = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {taskPriority} -> taskPriority) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {taskPriority = a} :: ScheduleActivityTaskDecisionAttributes)
 
--- | Data attached to the event that can be used by the decider in subsequent workflow tasks. This data isn't sent to the activity.
-satdaControl :: Lens' ScheduleActivityTaskDecisionAttributes (Maybe Text)
-satdaControl = lens _satdaControl (\s a -> s {_satdaControl = a})
+-- | Data attached to the event that can be used by the decider in subsequent
+-- workflow tasks. This data isn\'t sent to the activity.
+scheduleActivityTaskDecisionAttributes_control :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
+scheduleActivityTaskDecisionAttributes_control = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {control} -> control) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {control = a} :: ScheduleActivityTaskDecisionAttributes)
 
--- | If set, specifies the maximum duration a worker may take to process this activity task. This overrides the default start-to-close timeout specified when registering the activity type using 'RegisterActivityType' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-satdaStartToCloseTimeout :: Lens' ScheduleActivityTaskDecisionAttributes (Maybe Text)
-satdaStartToCloseTimeout = lens _satdaStartToCloseTimeout (\s a -> s {_satdaStartToCloseTimeout = a})
+-- | If set, specifies the maximum duration a worker may take to process this
+-- activity task. This overrides the default start-to-close timeout
+-- specified when registering the activity type using RegisterActivityType.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- A start-to-close timeout for this activity task must be specified either
+-- as a default for the activity type or through this field. If neither
+-- this field is set nor a default start-to-close timeout was specified at
+-- registration time then a fault is returned.
+scheduleActivityTaskDecisionAttributes_startToCloseTimeout :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
+scheduleActivityTaskDecisionAttributes_startToCloseTimeout = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {startToCloseTimeout} -> startToCloseTimeout) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {startToCloseTimeout = a} :: ScheduleActivityTaskDecisionAttributes)
 
 -- | The type of the activity task to schedule.
-satdaActivityType :: Lens' ScheduleActivityTaskDecisionAttributes ActivityType
-satdaActivityType = lens _satdaActivityType (\s a -> s {_satdaActivityType = a})
+scheduleActivityTaskDecisionAttributes_activityType :: Lens.Lens' ScheduleActivityTaskDecisionAttributes ActivityType
+scheduleActivityTaskDecisionAttributes_activityType = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {activityType} -> activityType) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {activityType = a} :: ScheduleActivityTaskDecisionAttributes)
 
--- | The @activityId@ of the activity task. The specified string must not start or end with whitespace. It must not contain a @:@ (colon), @/@ (slash), @|@ (vertical bar), or any control characters (@\u0000-\u001f@ | @\u007f-\u009f@ ). Also, it must not contain the literal string @arn@ .
-satdaActivityId :: Lens' ScheduleActivityTaskDecisionAttributes Text
-satdaActivityId = lens _satdaActivityId (\s a -> s {_satdaActivityId = a})
+-- | The @activityId@ of the activity task.
+--
+-- The specified string must not start or end with whitespace. It must not
+-- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+-- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+-- contain the literal string @arn@.
+scheduleActivityTaskDecisionAttributes_activityId :: Lens.Lens' ScheduleActivityTaskDecisionAttributes Prelude.Text
+scheduleActivityTaskDecisionAttributes_activityId = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {activityId} -> activityId) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {activityId = a} :: ScheduleActivityTaskDecisionAttributes)
 
 instance
-  Hashable
+  Prelude.Hashable
     ScheduleActivityTaskDecisionAttributes
 
 instance
-  NFData
+  Prelude.NFData
     ScheduleActivityTaskDecisionAttributes
 
 instance
-  ToJSON
+  Prelude.ToJSON
     ScheduleActivityTaskDecisionAttributes
   where
   toJSON ScheduleActivityTaskDecisionAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("input" .=) <$> _satdaInput,
-            ("heartbeatTimeout" .=) <$> _satdaHeartbeatTimeout,
-            ("scheduleToCloseTimeout" .=)
-              <$> _satdaScheduleToCloseTimeout,
-            ("scheduleToStartTimeout" .=)
-              <$> _satdaScheduleToStartTimeout,
-            ("taskList" .=) <$> _satdaTaskList,
-            ("taskPriority" .=) <$> _satdaTaskPriority,
-            ("control" .=) <$> _satdaControl,
-            ("startToCloseTimeout" .=)
-              <$> _satdaStartToCloseTimeout,
-            Just ("activityType" .= _satdaActivityType),
-            Just ("activityId" .= _satdaActivityId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("input" Prelude..=) Prelude.<$> input,
+            ("heartbeatTimeout" Prelude..=)
+              Prelude.<$> heartbeatTimeout,
+            ("scheduleToCloseTimeout" Prelude..=)
+              Prelude.<$> scheduleToCloseTimeout,
+            ("scheduleToStartTimeout" Prelude..=)
+              Prelude.<$> scheduleToStartTimeout,
+            ("taskList" Prelude..=) Prelude.<$> taskList,
+            ("taskPriority" Prelude..=) Prelude.<$> taskPriority,
+            ("control" Prelude..=) Prelude.<$> control,
+            ("startToCloseTimeout" Prelude..=)
+              Prelude.<$> startToCloseTimeout,
+            Prelude.Just
+              ("activityType" Prelude..= activityType),
+            Prelude.Just ("activityId" Prelude..= activityId)
           ]
       )

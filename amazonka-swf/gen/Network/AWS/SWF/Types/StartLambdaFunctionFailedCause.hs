@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.SWF.Types.StartLambdaFunctionFailedCause
   ( StartLambdaFunctionFailedCause
       ( ..,
-        AssumeRoleFailed
+        StartLambdaFunctionFailedCauseASSUMEROLEFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StartLambdaFunctionFailedCause
-  = StartLambdaFunctionFailedCause'
-      ( CI
-          Text
-      )
+newtype StartLambdaFunctionFailedCause = StartLambdaFunctionFailedCause'
+  { fromStartLambdaFunctionFailedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AssumeRoleFailed :: StartLambdaFunctionFailedCause
-pattern AssumeRoleFailed = StartLambdaFunctionFailedCause' "ASSUME_ROLE_FAILED"
+pattern StartLambdaFunctionFailedCauseASSUMEROLEFAILED :: StartLambdaFunctionFailedCause
+pattern StartLambdaFunctionFailedCauseASSUMEROLEFAILED = StartLambdaFunctionFailedCause' "ASSUME_ROLE_FAILED"
 
 {-# COMPLETE
-  AssumeRoleFailed,
+  StartLambdaFunctionFailedCauseASSUMEROLEFAILED,
   StartLambdaFunctionFailedCause'
   #-}
 
-instance FromText StartLambdaFunctionFailedCause where
-  parser = (StartLambdaFunctionFailedCause' . mk) <$> takeText
+instance Prelude.FromText StartLambdaFunctionFailedCause where
+  parser = StartLambdaFunctionFailedCause' Prelude.<$> Prelude.takeText
 
-instance ToText StartLambdaFunctionFailedCause where
-  toText (StartLambdaFunctionFailedCause' ci) = original ci
+instance Prelude.ToText StartLambdaFunctionFailedCause where
+  toText (StartLambdaFunctionFailedCause' x) = x
 
-instance Hashable StartLambdaFunctionFailedCause
+instance Prelude.Hashable StartLambdaFunctionFailedCause
 
-instance NFData StartLambdaFunctionFailedCause
+instance Prelude.NFData StartLambdaFunctionFailedCause
 
-instance ToByteString StartLambdaFunctionFailedCause
+instance Prelude.ToByteString StartLambdaFunctionFailedCause
 
-instance ToQuery StartLambdaFunctionFailedCause
+instance Prelude.ToQuery StartLambdaFunctionFailedCause
 
-instance ToHeader StartLambdaFunctionFailedCause
+instance Prelude.ToHeader StartLambdaFunctionFailedCause
 
-instance FromJSON StartLambdaFunctionFailedCause where
-  parseJSON = parseJSONText "StartLambdaFunctionFailedCause"
+instance Prelude.FromJSON StartLambdaFunctionFailedCause where
+  parseJSON = Prelude.parseJSONText "StartLambdaFunctionFailedCause"

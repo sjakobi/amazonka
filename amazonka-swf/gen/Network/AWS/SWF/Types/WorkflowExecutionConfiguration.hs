@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,123 +19,211 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.ChildPolicy
 import Network.AWS.SWF.Types.TaskList
 
--- | The configuration settings for a workflow execution including timeout values, tasklist etc. These configuration settings are determined from the defaults specified when registering the workflow type and those specified when starting the workflow execution.
+-- | The configuration settings for a workflow execution including timeout
+-- values, tasklist etc. These configuration settings are determined from
+-- the defaults specified when registering the workflow type and those
+-- specified when starting the workflow execution.
 --
---
---
--- /See:/ 'workflowExecutionConfiguration' smart constructor.
+-- /See:/ 'newWorkflowExecutionConfiguration' smart constructor.
 data WorkflowExecutionConfiguration = WorkflowExecutionConfiguration'
-  { _wecLambdaRole ::
-      !( Maybe
-           Text
-       ),
-    _wecTaskPriority ::
-      !( Maybe
-           Text
-       ),
-    _wecTaskStartToCloseTimeout ::
-      !Text,
-    _wecExecutionStartToCloseTimeout ::
-      !Text,
-    _wecTaskList ::
-      !TaskList,
-    _wecChildPolicy ::
-      !ChildPolicy
+  { -- | The IAM role attached to the child workflow execution.
+    lambdaRole :: Prelude.Maybe Prelude.Text,
+    -- | The priority assigned to decision tasks for this workflow execution.
+    -- Valid values are integers that range from Java\'s @Integer.MIN_VALUE@
+    -- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+    -- indicate higher priority.
+    --
+    -- For more information about setting task priority, see
+    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+    -- in the /Amazon SWF Developer Guide/.
+    taskPriority :: Prelude.Maybe Prelude.Text,
+    -- | The maximum duration allowed for decision tasks for this workflow
+    -- execution.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    taskStartToCloseTimeout :: Prelude.Text,
+    -- | The total duration for this workflow execution.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    executionStartToCloseTimeout :: Prelude.Text,
+    -- | The task list used for the decision tasks generated for this workflow
+    -- execution.
+    taskList :: TaskList,
+    -- | The policy to use for the child workflow executions if this workflow
+    -- execution is terminated, by calling the TerminateWorkflowExecution
+    -- action explicitly or due to an expired timeout.
+    --
+    -- The supported child policies are:
+    --
+    -- -   @TERMINATE@ – The child executions are terminated.
+    --
+    -- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+    --     execution by recording a @WorkflowExecutionCancelRequested@ event in
+    --     its history. It is up to the decider to take appropriate actions
+    --     when it receives an execution history with this event.
+    --
+    -- -   @ABANDON@ – No action is taken. The child executions continue to
+    --     run.
+    childPolicy :: ChildPolicy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wecLambdaRole' - The IAM role attached to the child workflow execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wecTaskPriority' - The priority assigned to decision tasks for this workflow execution. Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
+-- 'lambdaRole', 'workflowExecutionConfiguration_lambdaRole' - The IAM role attached to the child workflow execution.
 --
--- * 'wecTaskStartToCloseTimeout' - The maximum duration allowed for decision tasks for this workflow execution. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- 'taskPriority', 'workflowExecutionConfiguration_taskPriority' - The priority assigned to decision tasks for this workflow execution.
+-- Valid values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
 --
--- * 'wecExecutionStartToCloseTimeout' - The total duration for this workflow execution. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
 --
--- * 'wecTaskList' - The task list used for the decision tasks generated for this workflow execution.
+-- 'taskStartToCloseTimeout', 'workflowExecutionConfiguration_taskStartToCloseTimeout' - The maximum duration allowed for decision tasks for this workflow
+-- execution.
 --
--- * 'wecChildPolicy' - The policy to use for the child workflow executions if this workflow execution is terminated, by calling the 'TerminateWorkflowExecution' action explicitly or due to an expired timeout. The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
-workflowExecutionConfiguration ::
-  -- | 'wecTaskStartToCloseTimeout'
-  Text ->
-  -- | 'wecExecutionStartToCloseTimeout'
-  Text ->
-  -- | 'wecTaskList'
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- 'executionStartToCloseTimeout', 'workflowExecutionConfiguration_executionStartToCloseTimeout' - The total duration for this workflow execution.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- 'taskList', 'workflowExecutionConfiguration_taskList' - The task list used for the decision tasks generated for this workflow
+-- execution.
+--
+-- 'childPolicy', 'workflowExecutionConfiguration_childPolicy' - The policy to use for the child workflow executions if this workflow
+-- execution is terminated, by calling the TerminateWorkflowExecution
+-- action explicitly or due to an expired timeout.
+--
+-- The supported child policies are:
+--
+-- -   @TERMINATE@ – The child executions are terminated.
+--
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+newWorkflowExecutionConfiguration ::
+  -- | 'taskStartToCloseTimeout'
+  Prelude.Text ->
+  -- | 'executionStartToCloseTimeout'
+  Prelude.Text ->
+  -- | 'taskList'
   TaskList ->
-  -- | 'wecChildPolicy'
+  -- | 'childPolicy'
   ChildPolicy ->
   WorkflowExecutionConfiguration
-workflowExecutionConfiguration
+newWorkflowExecutionConfiguration
   pTaskStartToCloseTimeout_
   pExecutionStartToCloseTimeout_
   pTaskList_
   pChildPolicy_ =
     WorkflowExecutionConfiguration'
-      { _wecLambdaRole =
-          Nothing,
-        _wecTaskPriority = Nothing,
-        _wecTaskStartToCloseTimeout =
+      { lambdaRole =
+          Prelude.Nothing,
+        taskPriority = Prelude.Nothing,
+        taskStartToCloseTimeout =
           pTaskStartToCloseTimeout_,
-        _wecExecutionStartToCloseTimeout =
+        executionStartToCloseTimeout =
           pExecutionStartToCloseTimeout_,
-        _wecTaskList = pTaskList_,
-        _wecChildPolicy = pChildPolicy_
+        taskList = pTaskList_,
+        childPolicy = pChildPolicy_
       }
 
 -- | The IAM role attached to the child workflow execution.
-wecLambdaRole :: Lens' WorkflowExecutionConfiguration (Maybe Text)
-wecLambdaRole = lens _wecLambdaRole (\s a -> s {_wecLambdaRole = a})
+workflowExecutionConfiguration_lambdaRole :: Lens.Lens' WorkflowExecutionConfiguration (Prelude.Maybe Prelude.Text)
+workflowExecutionConfiguration_lambdaRole = Lens.lens (\WorkflowExecutionConfiguration' {lambdaRole} -> lambdaRole) (\s@WorkflowExecutionConfiguration' {} a -> s {lambdaRole = a} :: WorkflowExecutionConfiguration)
 
--- | The priority assigned to decision tasks for this workflow execution. Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
-wecTaskPriority :: Lens' WorkflowExecutionConfiguration (Maybe Text)
-wecTaskPriority = lens _wecTaskPriority (\s a -> s {_wecTaskPriority = a})
+-- | The priority assigned to decision tasks for this workflow execution.
+-- Valid values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
+--
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
+workflowExecutionConfiguration_taskPriority :: Lens.Lens' WorkflowExecutionConfiguration (Prelude.Maybe Prelude.Text)
+workflowExecutionConfiguration_taskPriority = Lens.lens (\WorkflowExecutionConfiguration' {taskPriority} -> taskPriority) (\s@WorkflowExecutionConfiguration' {} a -> s {taskPriority = a} :: WorkflowExecutionConfiguration)
 
--- | The maximum duration allowed for decision tasks for this workflow execution. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-wecTaskStartToCloseTimeout :: Lens' WorkflowExecutionConfiguration Text
-wecTaskStartToCloseTimeout = lens _wecTaskStartToCloseTimeout (\s a -> s {_wecTaskStartToCloseTimeout = a})
+-- | The maximum duration allowed for decision tasks for this workflow
+-- execution.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+workflowExecutionConfiguration_taskStartToCloseTimeout :: Lens.Lens' WorkflowExecutionConfiguration Prelude.Text
+workflowExecutionConfiguration_taskStartToCloseTimeout = Lens.lens (\WorkflowExecutionConfiguration' {taskStartToCloseTimeout} -> taskStartToCloseTimeout) (\s@WorkflowExecutionConfiguration' {} a -> s {taskStartToCloseTimeout = a} :: WorkflowExecutionConfiguration)
 
--- | The total duration for this workflow execution. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-wecExecutionStartToCloseTimeout :: Lens' WorkflowExecutionConfiguration Text
-wecExecutionStartToCloseTimeout = lens _wecExecutionStartToCloseTimeout (\s a -> s {_wecExecutionStartToCloseTimeout = a})
+-- | The total duration for this workflow execution.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+workflowExecutionConfiguration_executionStartToCloseTimeout :: Lens.Lens' WorkflowExecutionConfiguration Prelude.Text
+workflowExecutionConfiguration_executionStartToCloseTimeout = Lens.lens (\WorkflowExecutionConfiguration' {executionStartToCloseTimeout} -> executionStartToCloseTimeout) (\s@WorkflowExecutionConfiguration' {} a -> s {executionStartToCloseTimeout = a} :: WorkflowExecutionConfiguration)
 
--- | The task list used for the decision tasks generated for this workflow execution.
-wecTaskList :: Lens' WorkflowExecutionConfiguration TaskList
-wecTaskList = lens _wecTaskList (\s a -> s {_wecTaskList = a})
+-- | The task list used for the decision tasks generated for this workflow
+-- execution.
+workflowExecutionConfiguration_taskList :: Lens.Lens' WorkflowExecutionConfiguration TaskList
+workflowExecutionConfiguration_taskList = Lens.lens (\WorkflowExecutionConfiguration' {taskList} -> taskList) (\s@WorkflowExecutionConfiguration' {} a -> s {taskList = a} :: WorkflowExecutionConfiguration)
 
--- | The policy to use for the child workflow executions if this workflow execution is terminated, by calling the 'TerminateWorkflowExecution' action explicitly or due to an expired timeout. The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
-wecChildPolicy :: Lens' WorkflowExecutionConfiguration ChildPolicy
-wecChildPolicy = lens _wecChildPolicy (\s a -> s {_wecChildPolicy = a})
+-- | The policy to use for the child workflow executions if this workflow
+-- execution is terminated, by calling the TerminateWorkflowExecution
+-- action explicitly or due to an expired timeout.
+--
+-- The supported child policies are:
+--
+-- -   @TERMINATE@ – The child executions are terminated.
+--
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+workflowExecutionConfiguration_childPolicy :: Lens.Lens' WorkflowExecutionConfiguration ChildPolicy
+workflowExecutionConfiguration_childPolicy = Lens.lens (\WorkflowExecutionConfiguration' {childPolicy} -> childPolicy) (\s@WorkflowExecutionConfiguration' {} a -> s {childPolicy = a} :: WorkflowExecutionConfiguration)
 
-instance FromJSON WorkflowExecutionConfiguration where
+instance
+  Prelude.FromJSON
+    WorkflowExecutionConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecutionConfiguration"
       ( \x ->
           WorkflowExecutionConfiguration'
-            <$> (x .:? "lambdaRole")
-            <*> (x .:? "taskPriority")
-            <*> (x .: "taskStartToCloseTimeout")
-            <*> (x .: "executionStartToCloseTimeout")
-            <*> (x .: "taskList")
-            <*> (x .: "childPolicy")
+            Prelude.<$> (x Prelude..:? "lambdaRole")
+            Prelude.<*> (x Prelude..:? "taskPriority")
+            Prelude.<*> (x Prelude..: "taskStartToCloseTimeout")
+            Prelude.<*> (x Prelude..: "executionStartToCloseTimeout")
+            Prelude.<*> (x Prelude..: "taskList")
+            Prelude.<*> (x Prelude..: "childPolicy")
       )
 
-instance Hashable WorkflowExecutionConfiguration
+instance
+  Prelude.Hashable
+    WorkflowExecutionConfiguration
 
-instance NFData WorkflowExecutionConfiguration
+instance
+  Prelude.NFData
+    WorkflowExecutionConfiguration

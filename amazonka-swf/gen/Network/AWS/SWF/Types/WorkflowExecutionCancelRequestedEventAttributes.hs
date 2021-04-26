@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,105 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionCancelRequestedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.WorkflowExecution
 import Network.AWS.SWF.Types.WorkflowExecutionCancelRequestedCause
 
 -- | Provides the details of the @WorkflowExecutionCancelRequested@ event.
 --
---
---
--- /See:/ 'workflowExecutionCancelRequestedEventAttributes' smart constructor.
+-- /See:/ 'newWorkflowExecutionCancelRequestedEventAttributes' smart constructor.
 data WorkflowExecutionCancelRequestedEventAttributes = WorkflowExecutionCancelRequestedEventAttributes'
-  { _wecreaExternalInitiatedEventId ::
-      !( Maybe
-           Integer
-       ),
-    _wecreaExternalWorkflowExecution ::
-      !( Maybe
-           WorkflowExecution
-       ),
-    _wecreaCause ::
-      !( Maybe
-           WorkflowExecutionCancelRequestedCause
-       )
+  { -- | The ID of the @RequestCancelExternalWorkflowExecutionInitiated@ event
+    -- corresponding to the @RequestCancelExternalWorkflowExecution@ decision
+    -- to cancel this workflow execution.The source event with this ID can be
+    -- found in the history of the source workflow execution. This information
+    -- can be useful for diagnosing problems by tracing back the chain of
+    -- events leading up to this event.
+    externalInitiatedEventId :: Prelude.Maybe Prelude.Integer,
+    -- | The external workflow execution for which the cancellation was
+    -- requested.
+    externalWorkflowExecution :: Prelude.Maybe WorkflowExecution,
+    -- | If set, indicates that the request to cancel the workflow execution was
+    -- automatically generated, and specifies the cause. This happens if the
+    -- parent workflow execution times out or is terminated, and the child
+    -- policy is set to cancel child executions.
+    cause :: Prelude.Maybe WorkflowExecutionCancelRequestedCause
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionCancelRequestedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionCancelRequestedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wecreaExternalInitiatedEventId' - The ID of the @RequestCancelExternalWorkflowExecutionInitiated@ event corresponding to the @RequestCancelExternalWorkflowExecution@ decision to cancel this workflow execution.The source event with this ID can be found in the history of the source workflow execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wecreaExternalWorkflowExecution' - The external workflow execution for which the cancellation was requested.
+-- 'externalInitiatedEventId', 'workflowExecutionCancelRequestedEventAttributes_externalInitiatedEventId' - The ID of the @RequestCancelExternalWorkflowExecutionInitiated@ event
+-- corresponding to the @RequestCancelExternalWorkflowExecution@ decision
+-- to cancel this workflow execution.The source event with this ID can be
+-- found in the history of the source workflow execution. This information
+-- can be useful for diagnosing problems by tracing back the chain of
+-- events leading up to this event.
 --
--- * 'wecreaCause' - If set, indicates that the request to cancel the workflow execution was automatically generated, and specifies the cause. This happens if the parent workflow execution times out or is terminated, and the child policy is set to cancel child executions.
-workflowExecutionCancelRequestedEventAttributes ::
+-- 'externalWorkflowExecution', 'workflowExecutionCancelRequestedEventAttributes_externalWorkflowExecution' - The external workflow execution for which the cancellation was
+-- requested.
+--
+-- 'cause', 'workflowExecutionCancelRequestedEventAttributes_cause' - If set, indicates that the request to cancel the workflow execution was
+-- automatically generated, and specifies the cause. This happens if the
+-- parent workflow execution times out or is terminated, and the child
+-- policy is set to cancel child executions.
+newWorkflowExecutionCancelRequestedEventAttributes ::
   WorkflowExecutionCancelRequestedEventAttributes
-workflowExecutionCancelRequestedEventAttributes =
+newWorkflowExecutionCancelRequestedEventAttributes =
   WorkflowExecutionCancelRequestedEventAttributes'
-    { _wecreaExternalInitiatedEventId =
-        Nothing,
-      _wecreaExternalWorkflowExecution =
-        Nothing,
-      _wecreaCause = Nothing
+    { externalInitiatedEventId =
+        Prelude.Nothing,
+      externalWorkflowExecution =
+        Prelude.Nothing,
+      cause = Prelude.Nothing
     }
 
--- | The ID of the @RequestCancelExternalWorkflowExecutionInitiated@ event corresponding to the @RequestCancelExternalWorkflowExecution@ decision to cancel this workflow execution.The source event with this ID can be found in the history of the source workflow execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-wecreaExternalInitiatedEventId :: Lens' WorkflowExecutionCancelRequestedEventAttributes (Maybe Integer)
-wecreaExternalInitiatedEventId = lens _wecreaExternalInitiatedEventId (\s a -> s {_wecreaExternalInitiatedEventId = a})
+-- | The ID of the @RequestCancelExternalWorkflowExecutionInitiated@ event
+-- corresponding to the @RequestCancelExternalWorkflowExecution@ decision
+-- to cancel this workflow execution.The source event with this ID can be
+-- found in the history of the source workflow execution. This information
+-- can be useful for diagnosing problems by tracing back the chain of
+-- events leading up to this event.
+workflowExecutionCancelRequestedEventAttributes_externalInitiatedEventId :: Lens.Lens' WorkflowExecutionCancelRequestedEventAttributes (Prelude.Maybe Prelude.Integer)
+workflowExecutionCancelRequestedEventAttributes_externalInitiatedEventId = Lens.lens (\WorkflowExecutionCancelRequestedEventAttributes' {externalInitiatedEventId} -> externalInitiatedEventId) (\s@WorkflowExecutionCancelRequestedEventAttributes' {} a -> s {externalInitiatedEventId = a} :: WorkflowExecutionCancelRequestedEventAttributes)
 
--- | The external workflow execution for which the cancellation was requested.
-wecreaExternalWorkflowExecution :: Lens' WorkflowExecutionCancelRequestedEventAttributes (Maybe WorkflowExecution)
-wecreaExternalWorkflowExecution = lens _wecreaExternalWorkflowExecution (\s a -> s {_wecreaExternalWorkflowExecution = a})
+-- | The external workflow execution for which the cancellation was
+-- requested.
+workflowExecutionCancelRequestedEventAttributes_externalWorkflowExecution :: Lens.Lens' WorkflowExecutionCancelRequestedEventAttributes (Prelude.Maybe WorkflowExecution)
+workflowExecutionCancelRequestedEventAttributes_externalWorkflowExecution = Lens.lens (\WorkflowExecutionCancelRequestedEventAttributes' {externalWorkflowExecution} -> externalWorkflowExecution) (\s@WorkflowExecutionCancelRequestedEventAttributes' {} a -> s {externalWorkflowExecution = a} :: WorkflowExecutionCancelRequestedEventAttributes)
 
--- | If set, indicates that the request to cancel the workflow execution was automatically generated, and specifies the cause. This happens if the parent workflow execution times out or is terminated, and the child policy is set to cancel child executions.
-wecreaCause :: Lens' WorkflowExecutionCancelRequestedEventAttributes (Maybe WorkflowExecutionCancelRequestedCause)
-wecreaCause = lens _wecreaCause (\s a -> s {_wecreaCause = a})
+-- | If set, indicates that the request to cancel the workflow execution was
+-- automatically generated, and specifies the cause. This happens if the
+-- parent workflow execution times out or is terminated, and the child
+-- policy is set to cancel child executions.
+workflowExecutionCancelRequestedEventAttributes_cause :: Lens.Lens' WorkflowExecutionCancelRequestedEventAttributes (Prelude.Maybe WorkflowExecutionCancelRequestedCause)
+workflowExecutionCancelRequestedEventAttributes_cause = Lens.lens (\WorkflowExecutionCancelRequestedEventAttributes' {cause} -> cause) (\s@WorkflowExecutionCancelRequestedEventAttributes' {} a -> s {cause = a} :: WorkflowExecutionCancelRequestedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     WorkflowExecutionCancelRequestedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecutionCancelRequestedEventAttributes"
       ( \x ->
           WorkflowExecutionCancelRequestedEventAttributes'
-            <$> (x .:? "externalInitiatedEventId")
-            <*> (x .:? "externalWorkflowExecution")
-            <*> (x .:? "cause")
+            Prelude.<$> (x Prelude..:? "externalInitiatedEventId")
+              Prelude.<*> (x Prelude..:? "externalWorkflowExecution")
+              Prelude.<*> (x Prelude..:? "cause")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     WorkflowExecutionCancelRequestedEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     WorkflowExecutionCancelRequestedEventAttributes

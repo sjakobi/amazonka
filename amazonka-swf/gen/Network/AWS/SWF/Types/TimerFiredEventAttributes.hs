@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.TimerFiredEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @TimerFired@ event.
 --
---
---
--- /See:/ 'timerFiredEventAttributes' smart constructor.
+-- /See:/ 'newTimerFiredEventAttributes' smart constructor.
 data TimerFiredEventAttributes = TimerFiredEventAttributes'
-  { _tfeaTimerId ::
-      !Text,
-    _tfeaStartedEventId ::
-      !Integer
+  { -- | The unique ID of the timer that fired.
+    timerId :: Prelude.Text,
+    -- | The ID of the @TimerStarted@ event that was recorded when this timer was
+    -- started. This information can be useful for diagnosing problems by
+    -- tracing back the chain of events leading up to this event.
+    startedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimerFiredEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimerFiredEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tfeaTimerId' - The unique ID of the timer that fired.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tfeaStartedEventId' - The ID of the @TimerStarted@ event that was recorded when this timer was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-timerFiredEventAttributes ::
-  -- | 'tfeaTimerId'
-  Text ->
-  -- | 'tfeaStartedEventId'
-  Integer ->
+-- 'timerId', 'timerFiredEventAttributes_timerId' - The unique ID of the timer that fired.
+--
+-- 'startedEventId', 'timerFiredEventAttributes_startedEventId' - The ID of the @TimerStarted@ event that was recorded when this timer was
+-- started. This information can be useful for diagnosing problems by
+-- tracing back the chain of events leading up to this event.
+newTimerFiredEventAttributes ::
+  -- | 'timerId'
+  Prelude.Text ->
+  -- | 'startedEventId'
+  Prelude.Integer ->
   TimerFiredEventAttributes
-timerFiredEventAttributes pTimerId_ pStartedEventId_ =
-  TimerFiredEventAttributes'
-    { _tfeaTimerId =
-        pTimerId_,
-      _tfeaStartedEventId = pStartedEventId_
-    }
+newTimerFiredEventAttributes
+  pTimerId_
+  pStartedEventId_ =
+    TimerFiredEventAttributes'
+      { timerId = pTimerId_,
+        startedEventId = pStartedEventId_
+      }
 
 -- | The unique ID of the timer that fired.
-tfeaTimerId :: Lens' TimerFiredEventAttributes Text
-tfeaTimerId = lens _tfeaTimerId (\s a -> s {_tfeaTimerId = a})
+timerFiredEventAttributes_timerId :: Lens.Lens' TimerFiredEventAttributes Prelude.Text
+timerFiredEventAttributes_timerId = Lens.lens (\TimerFiredEventAttributes' {timerId} -> timerId) (\s@TimerFiredEventAttributes' {} a -> s {timerId = a} :: TimerFiredEventAttributes)
 
--- | The ID of the @TimerStarted@ event that was recorded when this timer was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-tfeaStartedEventId :: Lens' TimerFiredEventAttributes Integer
-tfeaStartedEventId = lens _tfeaStartedEventId (\s a -> s {_tfeaStartedEventId = a})
+-- | The ID of the @TimerStarted@ event that was recorded when this timer was
+-- started. This information can be useful for diagnosing problems by
+-- tracing back the chain of events leading up to this event.
+timerFiredEventAttributes_startedEventId :: Lens.Lens' TimerFiredEventAttributes Prelude.Integer
+timerFiredEventAttributes_startedEventId = Lens.lens (\TimerFiredEventAttributes' {startedEventId} -> startedEventId) (\s@TimerFiredEventAttributes' {} a -> s {startedEventId = a} :: TimerFiredEventAttributes)
 
-instance FromJSON TimerFiredEventAttributes where
+instance Prelude.FromJSON TimerFiredEventAttributes where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimerFiredEventAttributes"
       ( \x ->
           TimerFiredEventAttributes'
-            <$> (x .: "timerId") <*> (x .: "startedEventId")
+            Prelude.<$> (x Prelude..: "timerId")
+            Prelude.<*> (x Prelude..: "startedEventId")
       )
 
-instance Hashable TimerFiredEventAttributes
+instance Prelude.Hashable TimerFiredEventAttributes
 
-instance NFData TimerFiredEventAttributes
+instance Prelude.NFData TimerFiredEventAttributes

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ExecutionTimeFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Used to filter the workflow executions in visibility APIs by various time-based rules. Each parameter, if specified, defines a rule that must be satisfied by each returned query result. The parameter values are in the <https://en.wikipedia.org/wiki/Unix_time Unix Time format> . For example: @"oldestDate": 1325376070.@
+-- | Used to filter the workflow executions in visibility APIs by various
+-- time-based rules. Each parameter, if specified, defines a rule that must
+-- be satisfied by each returned query result. The parameter values are in
+-- the <https://en.wikipedia.org/wiki/Unix_time Unix Time format>. For
+-- example: @\"oldestDate\": 1325376070.@
 --
---
---
--- /See:/ 'executionTimeFilter' smart constructor.
+-- /See:/ 'newExecutionTimeFilter' smart constructor.
 data ExecutionTimeFilter = ExecutionTimeFilter'
-  { _etfLatestDate ::
-      !(Maybe POSIX),
-    _etfOldestDate :: !POSIX
+  { -- | Specifies the latest start or close date and time to return.
+    latestDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies the oldest start or close date and time to return.
+    oldestDate :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecutionTimeFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecutionTimeFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etfLatestDate' - Specifies the latest start or close date and time to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etfOldestDate' - Specifies the oldest start or close date and time to return.
-executionTimeFilter ::
-  -- | 'etfOldestDate'
-  UTCTime ->
+-- 'latestDate', 'executionTimeFilter_latestDate' - Specifies the latest start or close date and time to return.
+--
+-- 'oldestDate', 'executionTimeFilter_oldestDate' - Specifies the oldest start or close date and time to return.
+newExecutionTimeFilter ::
+  -- | 'oldestDate'
+  Prelude.UTCTime ->
   ExecutionTimeFilter
-executionTimeFilter pOldestDate_ =
+newExecutionTimeFilter pOldestDate_ =
   ExecutionTimeFilter'
-    { _etfLatestDate = Nothing,
-      _etfOldestDate = _Time # pOldestDate_
+    { latestDate = Prelude.Nothing,
+      oldestDate = Prelude._Time Lens.# pOldestDate_
     }
 
 -- | Specifies the latest start or close date and time to return.
-etfLatestDate :: Lens' ExecutionTimeFilter (Maybe UTCTime)
-etfLatestDate = lens _etfLatestDate (\s a -> s {_etfLatestDate = a}) . mapping _Time
+executionTimeFilter_latestDate :: Lens.Lens' ExecutionTimeFilter (Prelude.Maybe Prelude.UTCTime)
+executionTimeFilter_latestDate = Lens.lens (\ExecutionTimeFilter' {latestDate} -> latestDate) (\s@ExecutionTimeFilter' {} a -> s {latestDate = a} :: ExecutionTimeFilter) Prelude.. Lens.mapping Prelude._Time
 
 -- | Specifies the oldest start or close date and time to return.
-etfOldestDate :: Lens' ExecutionTimeFilter UTCTime
-etfOldestDate = lens _etfOldestDate (\s a -> s {_etfOldestDate = a}) . _Time
+executionTimeFilter_oldestDate :: Lens.Lens' ExecutionTimeFilter Prelude.UTCTime
+executionTimeFilter_oldestDate = Lens.lens (\ExecutionTimeFilter' {oldestDate} -> oldestDate) (\s@ExecutionTimeFilter' {} a -> s {oldestDate = a} :: ExecutionTimeFilter) Prelude.. Prelude._Time
 
-instance Hashable ExecutionTimeFilter
+instance Prelude.Hashable ExecutionTimeFilter
 
-instance NFData ExecutionTimeFilter
+instance Prelude.NFData ExecutionTimeFilter
 
-instance ToJSON ExecutionTimeFilter where
+instance Prelude.ToJSON ExecutionTimeFilter where
   toJSON ExecutionTimeFilter' {..} =
-    object
-      ( catMaybes
-          [ ("latestDate" .=) <$> _etfLatestDate,
-            Just ("oldestDate" .= _etfOldestDate)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("latestDate" Prelude..=) Prelude.<$> latestDate,
+            Prelude.Just ("oldestDate" Prelude..= oldestDate)
           ]
       )

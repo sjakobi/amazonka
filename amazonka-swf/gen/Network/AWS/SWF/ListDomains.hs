@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,201 +21,295 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the list of domains registered in the account. The results may be split into multiple pages. To retrieve subsequent pages, make the call again using the nextPageToken returned by the initial call.
+-- Returns the list of domains registered in the account. The results may
+-- be split into multiple pages. To retrieve subsequent pages, make the
+-- call again using the nextPageToken returned by the initial call.
 --
+-- This operation is eventually consistent. The results are best effort and
+-- may not exactly reflect recent updates and changes.
 --
 -- __Access Control__
 --
--- You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+-- You can use IAM policies to control this action\'s access to Amazon SWF
+-- resources as follows:
 --
---     * Use a @Resource@ element with the domain name to limit the action to only specified domains. The element must be set to @arn:aws:swf::AccountID:domain/*@ , where /AccountID/ is the account ID, with no dashes.
+-- -   Use a @Resource@ element with the domain name to limit the action to
+--     only specified domains. The element must be set to
+--     @arn:aws:swf::AccountID:domain\/*@, where /AccountID/ is the account
+--     ID, with no dashes.
 --
---     * Use an @Action@ element to allow or deny permission to call this action.
+-- -   Use an @Action@ element to allow or deny permission to call this
+--     action.
 --
---     * You cannot use an IAM policy to constrain this action's parameters.
+-- -   You cannot use an IAM policy to constrain this action\'s parameters.
 --
---
---
--- If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's @cause@ parameter is set to @OPERATION_NOT_PERMITTED@ . For details and example IAM policies, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows> in the /Amazon SWF Developer Guide/ .
---
+-- If the caller doesn\'t have sufficient permissions to invoke the action,
+-- or the parameter values fall outside the specified constraints, the
+-- action fails. The associated event attribute\'s @cause@ parameter is set
+-- to @OPERATION_NOT_PERMITTED@. For details and example IAM policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.SWF.ListDomains
   ( -- * Creating a Request
-    listDomains,
-    ListDomains,
+    ListDomains (..),
+    newListDomains,
 
     -- * Request Lenses
-    ldNextPageToken,
-    ldMaximumPageSize,
-    ldReverseOrder,
-    ldRegistrationStatus,
+    listDomains_nextPageToken,
+    listDomains_maximumPageSize,
+    listDomains_reverseOrder,
+    listDomains_registrationStatus,
 
     -- * Destructuring the Response
-    listDomainsResponse,
-    ListDomainsResponse,
+    ListDomainsResponse (..),
+    newListDomainsResponse,
 
     -- * Response Lenses
-    ldrrsNextPageToken,
-    ldrrsResponseStatus,
-    ldrrsDomainInfos,
+    listDomainsResponse_nextPageToken,
+    listDomainsResponse_httpStatus,
+    listDomainsResponse_domainInfos,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SWF.Types
+import Network.AWS.SWF.Types.DomainInfo
 
--- | /See:/ 'listDomains' smart constructor.
+-- | /See:/ 'newListDomains' smart constructor.
 data ListDomains = ListDomains'
-  { _ldNextPageToken ::
-      !(Maybe Text),
-    _ldMaximumPageSize :: !(Maybe Nat),
-    _ldReverseOrder :: !(Maybe Bool),
-    _ldRegistrationStatus :: !RegistrationStatus
+  { -- | If @NextPageToken@ is returned there are more results available. The
+    -- value of @NextPageToken@ is a unique pagination token for each page.
+    -- Make the call again using the returned token to retrieve the next page.
+    -- Keep all other arguments unchanged. Each pagination token expires after
+    -- 60 seconds. Using an expired pagination token will return a @400@ error:
+    -- \"@Specified token has exceeded its maximum lifetime@\".
+    --
+    -- The configured @maximumPageSize@ determines how many results can be
+    -- returned in a single call.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results that are returned per call. Use
+    -- @nextPageToken@ to obtain further pages of results.
+    maximumPageSize :: Prelude.Maybe Prelude.Nat,
+    -- | When set to @true@, returns the results in reverse order. By default,
+    -- the results are returned in ascending alphabetical order by @name@ of
+    -- the domains.
+    reverseOrder :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the registration status of the domains to list.
+    registrationStatus :: RegistrationStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDomains' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDomains' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldNextPageToken' - If @NextPageToken@ is returned there are more results available. The value of @NextPageToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 60 seconds. Using an expired pagination token will return a @400@ error: "@Specified token has exceeded its maximum lifetime@ ".  The configured @maximumPageSize@ determines how many results can be returned in a single call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldMaximumPageSize' - The maximum number of results that are returned per call. Use @nextPageToken@ to obtain further pages of results.
+-- 'nextPageToken', 'listDomains_nextPageToken' - If @NextPageToken@ is returned there are more results available. The
+-- value of @NextPageToken@ is a unique pagination token for each page.
+-- Make the call again using the returned token to retrieve the next page.
+-- Keep all other arguments unchanged. Each pagination token expires after
+-- 60 seconds. Using an expired pagination token will return a @400@ error:
+-- \"@Specified token has exceeded its maximum lifetime@\".
 --
--- * 'ldReverseOrder' - When set to @true@ , returns the results in reverse order. By default, the results are returned in ascending alphabetical order by @name@ of the domains.
+-- The configured @maximumPageSize@ determines how many results can be
+-- returned in a single call.
 --
--- * 'ldRegistrationStatus' - Specifies the registration status of the domains to list.
-listDomains ::
-  -- | 'ldRegistrationStatus'
+-- 'maximumPageSize', 'listDomains_maximumPageSize' - The maximum number of results that are returned per call. Use
+-- @nextPageToken@ to obtain further pages of results.
+--
+-- 'reverseOrder', 'listDomains_reverseOrder' - When set to @true@, returns the results in reverse order. By default,
+-- the results are returned in ascending alphabetical order by @name@ of
+-- the domains.
+--
+-- 'registrationStatus', 'listDomains_registrationStatus' - Specifies the registration status of the domains to list.
+newListDomains ::
+  -- | 'registrationStatus'
   RegistrationStatus ->
   ListDomains
-listDomains pRegistrationStatus_ =
+newListDomains pRegistrationStatus_ =
   ListDomains'
-    { _ldNextPageToken = Nothing,
-      _ldMaximumPageSize = Nothing,
-      _ldReverseOrder = Nothing,
-      _ldRegistrationStatus = pRegistrationStatus_
+    { nextPageToken = Prelude.Nothing,
+      maximumPageSize = Prelude.Nothing,
+      reverseOrder = Prelude.Nothing,
+      registrationStatus = pRegistrationStatus_
     }
 
--- | If @NextPageToken@ is returned there are more results available. The value of @NextPageToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 60 seconds. Using an expired pagination token will return a @400@ error: "@Specified token has exceeded its maximum lifetime@ ".  The configured @maximumPageSize@ determines how many results can be returned in a single call.
-ldNextPageToken :: Lens' ListDomains (Maybe Text)
-ldNextPageToken = lens _ldNextPageToken (\s a -> s {_ldNextPageToken = a})
+-- | If @NextPageToken@ is returned there are more results available. The
+-- value of @NextPageToken@ is a unique pagination token for each page.
+-- Make the call again using the returned token to retrieve the next page.
+-- Keep all other arguments unchanged. Each pagination token expires after
+-- 60 seconds. Using an expired pagination token will return a @400@ error:
+-- \"@Specified token has exceeded its maximum lifetime@\".
+--
+-- The configured @maximumPageSize@ determines how many results can be
+-- returned in a single call.
+listDomains_nextPageToken :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Text)
+listDomains_nextPageToken = Lens.lens (\ListDomains' {nextPageToken} -> nextPageToken) (\s@ListDomains' {} a -> s {nextPageToken = a} :: ListDomains)
 
--- | The maximum number of results that are returned per call. Use @nextPageToken@ to obtain further pages of results.
-ldMaximumPageSize :: Lens' ListDomains (Maybe Natural)
-ldMaximumPageSize = lens _ldMaximumPageSize (\s a -> s {_ldMaximumPageSize = a}) . mapping _Nat
+-- | The maximum number of results that are returned per call. Use
+-- @nextPageToken@ to obtain further pages of results.
+listDomains_maximumPageSize :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Natural)
+listDomains_maximumPageSize = Lens.lens (\ListDomains' {maximumPageSize} -> maximumPageSize) (\s@ListDomains' {} a -> s {maximumPageSize = a} :: ListDomains) Prelude.. Lens.mapping Prelude._Nat
 
--- | When set to @true@ , returns the results in reverse order. By default, the results are returned in ascending alphabetical order by @name@ of the domains.
-ldReverseOrder :: Lens' ListDomains (Maybe Bool)
-ldReverseOrder = lens _ldReverseOrder (\s a -> s {_ldReverseOrder = a})
+-- | When set to @true@, returns the results in reverse order. By default,
+-- the results are returned in ascending alphabetical order by @name@ of
+-- the domains.
+listDomains_reverseOrder :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Bool)
+listDomains_reverseOrder = Lens.lens (\ListDomains' {reverseOrder} -> reverseOrder) (\s@ListDomains' {} a -> s {reverseOrder = a} :: ListDomains)
 
 -- | Specifies the registration status of the domains to list.
-ldRegistrationStatus :: Lens' ListDomains RegistrationStatus
-ldRegistrationStatus = lens _ldRegistrationStatus (\s a -> s {_ldRegistrationStatus = a})
+listDomains_registrationStatus :: Lens.Lens' ListDomains RegistrationStatus
+listDomains_registrationStatus = Lens.lens (\ListDomains' {registrationStatus} -> registrationStatus) (\s@ListDomains' {} a -> s {registrationStatus = a} :: ListDomains)
 
-instance AWSPager ListDomains where
+instance Pager.AWSPager ListDomains where
   page rq rs
-    | stop (rs ^. ldrrsNextPageToken) = Nothing
-    | stop (rs ^. ldrrsDomainInfos) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? listDomainsResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listDomainsResponse_domainInfos) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & ldNextPageToken .~ rs ^. ldrrsNextPageToken
+          Lens.& listDomains_nextPageToken
+          Lens..~ rs
+          Lens.^? listDomainsResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDomains where
+instance Prelude.AWSRequest ListDomains where
   type Rs ListDomains = ListDomainsResponse
-  request = postJSON swf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDomainsResponse'
-            <$> (x .?> "nextPageToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "domainInfos" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "domainInfos"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListDomains
+instance Prelude.Hashable ListDomains
 
-instance NFData ListDomains
+instance Prelude.NFData ListDomains
 
-instance ToHeaders ListDomains where
+instance Prelude.ToHeaders ListDomains where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SimpleWorkflowService.ListDomains" :: ByteString),
+              Prelude.=# ( "SimpleWorkflowService.ListDomains" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDomains where
+instance Prelude.ToJSON ListDomains where
   toJSON ListDomains' {..} =
-    object
-      ( catMaybes
-          [ ("nextPageToken" .=) <$> _ldNextPageToken,
-            ("maximumPageSize" .=) <$> _ldMaximumPageSize,
-            ("reverseOrder" .=) <$> _ldReverseOrder,
-            Just
-              ("registrationStatus" .= _ldRegistrationStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextPageToken" Prelude..=)
+              Prelude.<$> nextPageToken,
+            ("maximumPageSize" Prelude..=)
+              Prelude.<$> maximumPageSize,
+            ("reverseOrder" Prelude..=) Prelude.<$> reverseOrder,
+            Prelude.Just
+              ( "registrationStatus"
+                  Prelude..= registrationStatus
+              )
           ]
       )
 
-instance ToPath ListDomains where
-  toPath = const "/"
+instance Prelude.ToPath ListDomains where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDomains where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDomains where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains a paginated collection of DomainInfo structures.
 --
---
---
--- /See:/ 'listDomainsResponse' smart constructor.
+-- /See:/ 'newListDomainsResponse' smart constructor.
 data ListDomainsResponse = ListDomainsResponse'
-  { _ldrrsNextPageToken ::
-      !(Maybe Text),
-    _ldrrsResponseStatus :: !Int,
-    _ldrrsDomainInfos ::
-      ![DomainInfo]
+  { -- | If a @NextPageToken@ was returned by a previous call, there are more
+    -- results available. To retrieve the next page of results, make the call
+    -- again using the returned token in @nextPageToken@. Keep all other
+    -- arguments unchanged.
+    --
+    -- The configured @maximumPageSize@ determines how many results can be
+    -- returned in a single call.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of DomainInfo structures.
+    domainInfos :: [DomainInfo]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDomainsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDomainsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrrsNextPageToken' - If a @NextPageToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @nextPageToken@ . Keep all other arguments unchanged. The configured @maximumPageSize@ determines how many results can be returned in a single call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrrsResponseStatus' - -- | The response status code.
+-- 'nextPageToken', 'listDomainsResponse_nextPageToken' - If a @NextPageToken@ was returned by a previous call, there are more
+-- results available. To retrieve the next page of results, make the call
+-- again using the returned token in @nextPageToken@. Keep all other
+-- arguments unchanged.
 --
--- * 'ldrrsDomainInfos' - A list of DomainInfo structures.
-listDomainsResponse ::
-  -- | 'ldrrsResponseStatus'
-  Int ->
+-- The configured @maximumPageSize@ determines how many results can be
+-- returned in a single call.
+--
+-- 'httpStatus', 'listDomainsResponse_httpStatus' - The response's http status code.
+--
+-- 'domainInfos', 'listDomainsResponse_domainInfos' - A list of DomainInfo structures.
+newListDomainsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDomainsResponse
-listDomainsResponse pResponseStatus_ =
+newListDomainsResponse pHttpStatus_ =
   ListDomainsResponse'
-    { _ldrrsNextPageToken = Nothing,
-      _ldrrsResponseStatus = pResponseStatus_,
-      _ldrrsDomainInfos = mempty
+    { nextPageToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      domainInfos = Prelude.mempty
     }
 
--- | If a @NextPageToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @nextPageToken@ . Keep all other arguments unchanged. The configured @maximumPageSize@ determines how many results can be returned in a single call.
-ldrrsNextPageToken :: Lens' ListDomainsResponse (Maybe Text)
-ldrrsNextPageToken = lens _ldrrsNextPageToken (\s a -> s {_ldrrsNextPageToken = a})
+-- | If a @NextPageToken@ was returned by a previous call, there are more
+-- results available. To retrieve the next page of results, make the call
+-- again using the returned token in @nextPageToken@. Keep all other
+-- arguments unchanged.
+--
+-- The configured @maximumPageSize@ determines how many results can be
+-- returned in a single call.
+listDomainsResponse_nextPageToken :: Lens.Lens' ListDomainsResponse (Prelude.Maybe Prelude.Text)
+listDomainsResponse_nextPageToken = Lens.lens (\ListDomainsResponse' {nextPageToken} -> nextPageToken) (\s@ListDomainsResponse' {} a -> s {nextPageToken = a} :: ListDomainsResponse)
 
--- | -- | The response status code.
-ldrrsResponseStatus :: Lens' ListDomainsResponse Int
-ldrrsResponseStatus = lens _ldrrsResponseStatus (\s a -> s {_ldrrsResponseStatus = a})
+-- | The response's http status code.
+listDomainsResponse_httpStatus :: Lens.Lens' ListDomainsResponse Prelude.Int
+listDomainsResponse_httpStatus = Lens.lens (\ListDomainsResponse' {httpStatus} -> httpStatus) (\s@ListDomainsResponse' {} a -> s {httpStatus = a} :: ListDomainsResponse)
 
 -- | A list of DomainInfo structures.
-ldrrsDomainInfos :: Lens' ListDomainsResponse [DomainInfo]
-ldrrsDomainInfos = lens _ldrrsDomainInfos (\s a -> s {_ldrrsDomainInfos = a}) . _Coerce
+listDomainsResponse_domainInfos :: Lens.Lens' ListDomainsResponse [DomainInfo]
+listDomainsResponse_domainInfos = Lens.lens (\ListDomainsResponse' {domainInfos} -> domainInfos) (\s@ListDomainsResponse' {} a -> s {domainInfos = a} :: ListDomainsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListDomainsResponse
+instance Prelude.NFData ListDomainsResponse

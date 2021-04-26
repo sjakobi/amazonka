@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.CompleteWorkflowExecutionDecisionAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @CompleteWorkflowExecution@ decision.
 --
---
 -- __Access Control__
 --
--- You can use IAM policies to control this decision's access to Amazon SWF resources as follows:
+-- You can use IAM policies to control this decision\'s access to Amazon
+-- SWF resources as follows:
 --
---     * Use a @Resource@ element with the domain name to limit the action to only specified domains.
+-- -   Use a @Resource@ element with the domain name to limit the action to
+--     only specified domains.
 --
---     * Use an @Action@ element to allow or deny permission to call this action.
+-- -   Use an @Action@ element to allow or deny permission to call this
+--     action.
 --
---     * You cannot use an IAM policy to constrain this action's parameters.
+-- -   You cannot use an IAM policy to constrain this action\'s parameters.
 --
+-- If the caller doesn\'t have sufficient permissions to invoke the action,
+-- or the parameter values fall outside the specified constraints, the
+-- action fails. The associated event attribute\'s @cause@ parameter is set
+-- to @OPERATION_NOT_PERMITTED@. For details and example IAM policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
 --
---
--- If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's @cause@ parameter is set to @OPERATION_NOT_PERMITTED@ . For details and example IAM policies, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows> in the /Amazon SWF Developer Guide/ .
---
---
--- /See:/ 'completeWorkflowExecutionDecisionAttributes' smart constructor.
-newtype CompleteWorkflowExecutionDecisionAttributes = CompleteWorkflowExecutionDecisionAttributes'
-  { _cwedaResult ::
-      Maybe
-        Text
+-- /See:/ 'newCompleteWorkflowExecutionDecisionAttributes' smart constructor.
+data CompleteWorkflowExecutionDecisionAttributes = CompleteWorkflowExecutionDecisionAttributes'
+  { -- | The result of the workflow execution. The form of the result is
+    -- implementation defined.
+    result :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompleteWorkflowExecutionDecisionAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompleteWorkflowExecutionDecisionAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwedaResult' - The result of the workflow execution. The form of the result is implementation defined.
-completeWorkflowExecutionDecisionAttributes ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'result', 'completeWorkflowExecutionDecisionAttributes_result' - The result of the workflow execution. The form of the result is
+-- implementation defined.
+newCompleteWorkflowExecutionDecisionAttributes ::
   CompleteWorkflowExecutionDecisionAttributes
-completeWorkflowExecutionDecisionAttributes =
+newCompleteWorkflowExecutionDecisionAttributes =
   CompleteWorkflowExecutionDecisionAttributes'
-    { _cwedaResult =
-        Nothing
+    { result =
+        Prelude.Nothing
     }
 
--- | The result of the workflow execution. The form of the result is implementation defined.
-cwedaResult :: Lens' CompleteWorkflowExecutionDecisionAttributes (Maybe Text)
-cwedaResult = lens _cwedaResult (\s a -> s {_cwedaResult = a})
+-- | The result of the workflow execution. The form of the result is
+-- implementation defined.
+completeWorkflowExecutionDecisionAttributes_result :: Lens.Lens' CompleteWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+completeWorkflowExecutionDecisionAttributes_result = Lens.lens (\CompleteWorkflowExecutionDecisionAttributes' {result} -> result) (\s@CompleteWorkflowExecutionDecisionAttributes' {} a -> s {result = a} :: CompleteWorkflowExecutionDecisionAttributes)
 
 instance
-  Hashable
+  Prelude.Hashable
     CompleteWorkflowExecutionDecisionAttributes
 
 instance
-  NFData
+  Prelude.NFData
     CompleteWorkflowExecutionDecisionAttributes
 
 instance
-  ToJSON
+  Prelude.ToJSON
     CompleteWorkflowExecutionDecisionAttributes
   where
   toJSON
     CompleteWorkflowExecutionDecisionAttributes' {..} =
-      object (catMaybes [("result" .=) <$> _cwedaResult])
+      Prelude.object
+        ( Prelude.catMaybes
+            [("result" Prelude..=) Prelude.<$> result]
+        )

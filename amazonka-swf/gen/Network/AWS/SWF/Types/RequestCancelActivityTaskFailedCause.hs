@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SWF.Types.RequestCancelActivityTaskFailedCause
   ( RequestCancelActivityTaskFailedCause
       ( ..,
-        RCATFCActivityIdUnknown,
-        RCATFCOperationNotPermitted
+        RequestCancelActivityTaskFailedCauseACTIVITYIDUNKNOWN,
+        RequestCancelActivityTaskFailedCauseOPERATIONNOTPERMITTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RequestCancelActivityTaskFailedCause
-  = RequestCancelActivityTaskFailedCause'
-      ( CI
-          Text
-      )
+newtype RequestCancelActivityTaskFailedCause = RequestCancelActivityTaskFailedCause'
+  { fromRequestCancelActivityTaskFailedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RCATFCActivityIdUnknown :: RequestCancelActivityTaskFailedCause
-pattern RCATFCActivityIdUnknown = RequestCancelActivityTaskFailedCause' "ACTIVITY_ID_UNKNOWN"
+pattern RequestCancelActivityTaskFailedCauseACTIVITYIDUNKNOWN :: RequestCancelActivityTaskFailedCause
+pattern RequestCancelActivityTaskFailedCauseACTIVITYIDUNKNOWN = RequestCancelActivityTaskFailedCause' "ACTIVITY_ID_UNKNOWN"
 
-pattern RCATFCOperationNotPermitted :: RequestCancelActivityTaskFailedCause
-pattern RCATFCOperationNotPermitted = RequestCancelActivityTaskFailedCause' "OPERATION_NOT_PERMITTED"
+pattern RequestCancelActivityTaskFailedCauseOPERATIONNOTPERMITTED :: RequestCancelActivityTaskFailedCause
+pattern RequestCancelActivityTaskFailedCauseOPERATIONNOTPERMITTED = RequestCancelActivityTaskFailedCause' "OPERATION_NOT_PERMITTED"
 
 {-# COMPLETE
-  RCATFCActivityIdUnknown,
-  RCATFCOperationNotPermitted,
+  RequestCancelActivityTaskFailedCauseACTIVITYIDUNKNOWN,
+  RequestCancelActivityTaskFailedCauseOPERATIONNOTPERMITTED,
   RequestCancelActivityTaskFailedCause'
   #-}
 
-instance FromText RequestCancelActivityTaskFailedCause where
-  parser = (RequestCancelActivityTaskFailedCause' . mk) <$> takeText
+instance Prelude.FromText RequestCancelActivityTaskFailedCause where
+  parser = RequestCancelActivityTaskFailedCause' Prelude.<$> Prelude.takeText
 
-instance ToText RequestCancelActivityTaskFailedCause where
-  toText (RequestCancelActivityTaskFailedCause' ci) = original ci
+instance Prelude.ToText RequestCancelActivityTaskFailedCause where
+  toText (RequestCancelActivityTaskFailedCause' x) = x
 
-instance Hashable RequestCancelActivityTaskFailedCause
+instance Prelude.Hashable RequestCancelActivityTaskFailedCause
 
-instance NFData RequestCancelActivityTaskFailedCause
+instance Prelude.NFData RequestCancelActivityTaskFailedCause
 
-instance ToByteString RequestCancelActivityTaskFailedCause
+instance Prelude.ToByteString RequestCancelActivityTaskFailedCause
 
-instance ToQuery RequestCancelActivityTaskFailedCause
+instance Prelude.ToQuery RequestCancelActivityTaskFailedCause
 
-instance ToHeader RequestCancelActivityTaskFailedCause
+instance Prelude.ToHeader RequestCancelActivityTaskFailedCause
 
-instance FromJSON RequestCancelActivityTaskFailedCause where
-  parseJSON = parseJSONText "RequestCancelActivityTaskFailedCause"
+instance Prelude.FromJSON RequestCancelActivityTaskFailedCause where
+  parseJSON = Prelude.parseJSONText "RequestCancelActivityTaskFailedCause"

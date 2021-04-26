@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ExternalWorkflowExecutionSignaledEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.WorkflowExecution
 
 -- | Provides the details of the @ExternalWorkflowExecutionSignaled@ event.
 --
---
---
--- /See:/ 'externalWorkflowExecutionSignaledEventAttributes' smart constructor.
+-- /See:/ 'newExternalWorkflowExecutionSignaledEventAttributes' smart constructor.
 data ExternalWorkflowExecutionSignaledEventAttributes = ExternalWorkflowExecutionSignaledEventAttributes'
-  { _eweseaWorkflowExecution ::
-      !WorkflowExecution,
-    _eweseaInitiatedEventId ::
-      !Integer
+  { -- | The external workflow execution that the signal was delivered to.
+    workflowExecution :: WorkflowExecution,
+    -- | The ID of the @SignalExternalWorkflowExecutionInitiated@ event
+    -- corresponding to the @SignalExternalWorkflowExecution@ decision to
+    -- request this signal. This information can be useful for diagnosing
+    -- problems by tracing back the chain of events leading up to this event.
+    initiatedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExternalWorkflowExecutionSignaledEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExternalWorkflowExecutionSignaledEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eweseaWorkflowExecution' - The external workflow execution that the signal was delivered to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eweseaInitiatedEventId' - The ID of the @SignalExternalWorkflowExecutionInitiated@ event corresponding to the @SignalExternalWorkflowExecution@ decision to request this signal. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-externalWorkflowExecutionSignaledEventAttributes ::
-  -- | 'eweseaWorkflowExecution'
+-- 'workflowExecution', 'externalWorkflowExecutionSignaledEventAttributes_workflowExecution' - The external workflow execution that the signal was delivered to.
+--
+-- 'initiatedEventId', 'externalWorkflowExecutionSignaledEventAttributes_initiatedEventId' - The ID of the @SignalExternalWorkflowExecutionInitiated@ event
+-- corresponding to the @SignalExternalWorkflowExecution@ decision to
+-- request this signal. This information can be useful for diagnosing
+-- problems by tracing back the chain of events leading up to this event.
+newExternalWorkflowExecutionSignaledEventAttributes ::
+  -- | 'workflowExecution'
   WorkflowExecution ->
-  -- | 'eweseaInitiatedEventId'
-  Integer ->
+  -- | 'initiatedEventId'
+  Prelude.Integer ->
   ExternalWorkflowExecutionSignaledEventAttributes
-externalWorkflowExecutionSignaledEventAttributes
+newExternalWorkflowExecutionSignaledEventAttributes
   pWorkflowExecution_
   pInitiatedEventId_ =
     ExternalWorkflowExecutionSignaledEventAttributes'
-      { _eweseaWorkflowExecution =
+      { workflowExecution =
           pWorkflowExecution_,
-        _eweseaInitiatedEventId =
+        initiatedEventId =
           pInitiatedEventId_
       }
 
 -- | The external workflow execution that the signal was delivered to.
-eweseaWorkflowExecution :: Lens' ExternalWorkflowExecutionSignaledEventAttributes WorkflowExecution
-eweseaWorkflowExecution = lens _eweseaWorkflowExecution (\s a -> s {_eweseaWorkflowExecution = a})
+externalWorkflowExecutionSignaledEventAttributes_workflowExecution :: Lens.Lens' ExternalWorkflowExecutionSignaledEventAttributes WorkflowExecution
+externalWorkflowExecutionSignaledEventAttributes_workflowExecution = Lens.lens (\ExternalWorkflowExecutionSignaledEventAttributes' {workflowExecution} -> workflowExecution) (\s@ExternalWorkflowExecutionSignaledEventAttributes' {} a -> s {workflowExecution = a} :: ExternalWorkflowExecutionSignaledEventAttributes)
 
--- | The ID of the @SignalExternalWorkflowExecutionInitiated@ event corresponding to the @SignalExternalWorkflowExecution@ decision to request this signal. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-eweseaInitiatedEventId :: Lens' ExternalWorkflowExecutionSignaledEventAttributes Integer
-eweseaInitiatedEventId = lens _eweseaInitiatedEventId (\s a -> s {_eweseaInitiatedEventId = a})
+-- | The ID of the @SignalExternalWorkflowExecutionInitiated@ event
+-- corresponding to the @SignalExternalWorkflowExecution@ decision to
+-- request this signal. This information can be useful for diagnosing
+-- problems by tracing back the chain of events leading up to this event.
+externalWorkflowExecutionSignaledEventAttributes_initiatedEventId :: Lens.Lens' ExternalWorkflowExecutionSignaledEventAttributes Prelude.Integer
+externalWorkflowExecutionSignaledEventAttributes_initiatedEventId = Lens.lens (\ExternalWorkflowExecutionSignaledEventAttributes' {initiatedEventId} -> initiatedEventId) (\s@ExternalWorkflowExecutionSignaledEventAttributes' {} a -> s {initiatedEventId = a} :: ExternalWorkflowExecutionSignaledEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ExternalWorkflowExecutionSignaledEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExternalWorkflowExecutionSignaledEventAttributes"
       ( \x ->
           ExternalWorkflowExecutionSignaledEventAttributes'
-            <$> (x .: "workflowExecution")
-            <*> (x .: "initiatedEventId")
+            Prelude.<$> (x Prelude..: "workflowExecution")
+              Prelude.<*> (x Prelude..: "initiatedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ExternalWorkflowExecutionSignaledEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     ExternalWorkflowExecutionSignaledEventAttributes

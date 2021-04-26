@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,93 +19,109 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.TimerStartedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @TimerStarted@ event.
 --
---
---
--- /See:/ 'timerStartedEventAttributes' smart constructor.
+-- /See:/ 'newTimerStartedEventAttributes' smart constructor.
 data TimerStartedEventAttributes = TimerStartedEventAttributes'
-  { _tseaControl ::
-      !(Maybe Text),
-    _tseaTimerId ::
-      !Text,
-    _tseaStartToFireTimeout ::
-      !Text,
-    _tseaDecisionTaskCompletedEventId ::
-      !Integer
+  { -- | Data attached to the event that can be used by the decider in subsequent
+    -- workflow tasks.
+    control :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of the timer that was started.
+    timerId :: Prelude.Text,
+    -- | The duration of time after which the timer fires.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@.
+    startToFireTimeout :: Prelude.Text,
+    -- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+    -- decision task that resulted in the @StartTimer@ decision for this
+    -- activity task. This information can be useful for diagnosing problems by
+    -- tracing back the chain of events leading up to this event.
+    decisionTaskCompletedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimerStartedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimerStartedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tseaControl' - Data attached to the event that can be used by the decider in subsequent workflow tasks.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tseaTimerId' - The unique ID of the timer that was started.
+-- 'control', 'timerStartedEventAttributes_control' - Data attached to the event that can be used by the decider in subsequent
+-- workflow tasks.
 --
--- * 'tseaStartToFireTimeout' - The duration of time after which the timer fires. The duration is specified in seconds, an integer greater than or equal to @0@ .
+-- 'timerId', 'timerStartedEventAttributes_timerId' - The unique ID of the timer that was started.
 --
--- * 'tseaDecisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @StartTimer@ decision for this activity task. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-timerStartedEventAttributes ::
-  -- | 'tseaTimerId'
-  Text ->
-  -- | 'tseaStartToFireTimeout'
-  Text ->
-  -- | 'tseaDecisionTaskCompletedEventId'
-  Integer ->
+-- 'startToFireTimeout', 'timerStartedEventAttributes_startToFireTimeout' - The duration of time after which the timer fires.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@.
+--
+-- 'decisionTaskCompletedEventId', 'timerStartedEventAttributes_decisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @StartTimer@ decision for this
+-- activity task. This information can be useful for diagnosing problems by
+-- tracing back the chain of events leading up to this event.
+newTimerStartedEventAttributes ::
+  -- | 'timerId'
+  Prelude.Text ->
+  -- | 'startToFireTimeout'
+  Prelude.Text ->
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
   TimerStartedEventAttributes
-timerStartedEventAttributes
+newTimerStartedEventAttributes
   pTimerId_
   pStartToFireTimeout_
   pDecisionTaskCompletedEventId_ =
     TimerStartedEventAttributes'
-      { _tseaControl =
-          Nothing,
-        _tseaTimerId = pTimerId_,
-        _tseaStartToFireTimeout = pStartToFireTimeout_,
-        _tseaDecisionTaskCompletedEventId =
+      { control =
+          Prelude.Nothing,
+        timerId = pTimerId_,
+        startToFireTimeout = pStartToFireTimeout_,
+        decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_
       }
 
--- | Data attached to the event that can be used by the decider in subsequent workflow tasks.
-tseaControl :: Lens' TimerStartedEventAttributes (Maybe Text)
-tseaControl = lens _tseaControl (\s a -> s {_tseaControl = a})
+-- | Data attached to the event that can be used by the decider in subsequent
+-- workflow tasks.
+timerStartedEventAttributes_control :: Lens.Lens' TimerStartedEventAttributes (Prelude.Maybe Prelude.Text)
+timerStartedEventAttributes_control = Lens.lens (\TimerStartedEventAttributes' {control} -> control) (\s@TimerStartedEventAttributes' {} a -> s {control = a} :: TimerStartedEventAttributes)
 
 -- | The unique ID of the timer that was started.
-tseaTimerId :: Lens' TimerStartedEventAttributes Text
-tseaTimerId = lens _tseaTimerId (\s a -> s {_tseaTimerId = a})
+timerStartedEventAttributes_timerId :: Lens.Lens' TimerStartedEventAttributes Prelude.Text
+timerStartedEventAttributes_timerId = Lens.lens (\TimerStartedEventAttributes' {timerId} -> timerId) (\s@TimerStartedEventAttributes' {} a -> s {timerId = a} :: TimerStartedEventAttributes)
 
--- | The duration of time after which the timer fires. The duration is specified in seconds, an integer greater than or equal to @0@ .
-tseaStartToFireTimeout :: Lens' TimerStartedEventAttributes Text
-tseaStartToFireTimeout = lens _tseaStartToFireTimeout (\s a -> s {_tseaStartToFireTimeout = a})
+-- | The duration of time after which the timer fires.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@.
+timerStartedEventAttributes_startToFireTimeout :: Lens.Lens' TimerStartedEventAttributes Prelude.Text
+timerStartedEventAttributes_startToFireTimeout = Lens.lens (\TimerStartedEventAttributes' {startToFireTimeout} -> startToFireTimeout) (\s@TimerStartedEventAttributes' {} a -> s {startToFireTimeout = a} :: TimerStartedEventAttributes)
 
--- | The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @StartTimer@ decision for this activity task. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-tseaDecisionTaskCompletedEventId :: Lens' TimerStartedEventAttributes Integer
-tseaDecisionTaskCompletedEventId = lens _tseaDecisionTaskCompletedEventId (\s a -> s {_tseaDecisionTaskCompletedEventId = a})
+-- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @StartTimer@ decision for this
+-- activity task. This information can be useful for diagnosing problems by
+-- tracing back the chain of events leading up to this event.
+timerStartedEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' TimerStartedEventAttributes Prelude.Integer
+timerStartedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\TimerStartedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@TimerStartedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: TimerStartedEventAttributes)
 
-instance FromJSON TimerStartedEventAttributes where
+instance Prelude.FromJSON TimerStartedEventAttributes where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimerStartedEventAttributes"
       ( \x ->
           TimerStartedEventAttributes'
-            <$> (x .:? "control")
-            <*> (x .: "timerId")
-            <*> (x .: "startToFireTimeout")
-            <*> (x .: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Prelude..:? "control")
+            Prelude.<*> (x Prelude..: "timerId")
+            Prelude.<*> (x Prelude..: "startToFireTimeout")
+            Prelude.<*> (x Prelude..: "decisionTaskCompletedEventId")
       )
 
-instance Hashable TimerStartedEventAttributes
+instance Prelude.Hashable TimerStartedEventAttributes
 
-instance NFData TimerStartedEventAttributes
+instance Prelude.NFData TimerStartedEventAttributes

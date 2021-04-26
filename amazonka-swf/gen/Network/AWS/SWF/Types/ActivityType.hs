@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ActivityType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents an activity type.
 --
---
---
--- /See:/ 'activityType' smart constructor.
+-- /See:/ 'newActivityType' smart constructor.
 data ActivityType = ActivityType'
-  { _atName :: !Text,
-    _atVersion :: !Text
+  { -- | The name of this activity.
+    --
+    -- The combination of activity type name and version must be unique within
+    -- a domain.
+    name :: Prelude.Text,
+    -- | The version of this activity.
+    --
+    -- The combination of activity type name and version must be unique with in
+    -- a domain.
+    version :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivityType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivityType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atName' - The name of this activity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atVersion' - The version of this activity.
-activityType ::
-  -- | 'atName'
-  Text ->
-  -- | 'atVersion'
-  Text ->
+-- 'name', 'activityType_name' - The name of this activity.
+--
+-- The combination of activity type name and version must be unique within
+-- a domain.
+--
+-- 'version', 'activityType_version' - The version of this activity.
+--
+-- The combination of activity type name and version must be unique with in
+-- a domain.
+newActivityType ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'version'
+  Prelude.Text ->
   ActivityType
-activityType pName_ pVersion_ =
-  ActivityType'
-    { _atName = pName_,
-      _atVersion = pVersion_
-    }
+newActivityType pName_ pVersion_ =
+  ActivityType' {name = pName_, version = pVersion_}
 
 -- | The name of this activity.
-atName :: Lens' ActivityType Text
-atName = lens _atName (\s a -> s {_atName = a})
+--
+-- The combination of activity type name and version must be unique within
+-- a domain.
+activityType_name :: Lens.Lens' ActivityType Prelude.Text
+activityType_name = Lens.lens (\ActivityType' {name} -> name) (\s@ActivityType' {} a -> s {name = a} :: ActivityType)
 
 -- | The version of this activity.
-atVersion :: Lens' ActivityType Text
-atVersion = lens _atVersion (\s a -> s {_atVersion = a})
+--
+-- The combination of activity type name and version must be unique with in
+-- a domain.
+activityType_version :: Lens.Lens' ActivityType Prelude.Text
+activityType_version = Lens.lens (\ActivityType' {version} -> version) (\s@ActivityType' {} a -> s {version = a} :: ActivityType)
 
-instance FromJSON ActivityType where
+instance Prelude.FromJSON ActivityType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivityType"
       ( \x ->
-          ActivityType' <$> (x .: "name") <*> (x .: "version")
+          ActivityType'
+            Prelude.<$> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "version")
       )
 
-instance Hashable ActivityType
+instance Prelude.Hashable ActivityType
 
-instance NFData ActivityType
+instance Prelude.NFData ActivityType
 
-instance ToJSON ActivityType where
+instance Prelude.ToJSON ActivityType where
   toJSON ActivityType' {..} =
-    object
-      ( catMaybes
-          [ Just ("name" .= _atName),
-            Just ("version" .= _atVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("version" Prelude..= version)
           ]
       )

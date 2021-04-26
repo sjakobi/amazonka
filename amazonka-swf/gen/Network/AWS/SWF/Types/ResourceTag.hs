@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ResourceTag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Tags are key-value pairs that can be associated with Amazon SWF state machines and activities.
+-- | Tags are key-value pairs that can be associated with Amazon SWF state
+-- machines and activities.
 --
+-- Tags may only contain unicode letters, digits, whitespace, or these
+-- symbols: @_ . : \/ = + - \@@.
 --
--- Tags may only contain unicode letters, digits, whitespace, or these symbols: @_ . : / = + - @@ .
---
---
--- /See:/ 'resourceTag' smart constructor.
+-- /See:/ 'newResourceTag' smart constructor.
 data ResourceTag = ResourceTag'
-  { _rtValue ::
-      !(Maybe Text),
-    _rtKey :: !Text
+  { -- | The value of a tag.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The key of a tag.
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceTag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceTag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtValue' - The value of a tag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtKey' - The key of a tag.
-resourceTag ::
-  -- | 'rtKey'
-  Text ->
+-- 'value', 'resourceTag_value' - The value of a tag.
+--
+-- 'key', 'resourceTag_key' - The key of a tag.
+newResourceTag ::
+  -- | 'key'
+  Prelude.Text ->
   ResourceTag
-resourceTag pKey_ =
-  ResourceTag' {_rtValue = Nothing, _rtKey = pKey_}
+newResourceTag pKey_ =
+  ResourceTag' {value = Prelude.Nothing, key = pKey_}
 
 -- | The value of a tag.
-rtValue :: Lens' ResourceTag (Maybe Text)
-rtValue = lens _rtValue (\s a -> s {_rtValue = a})
+resourceTag_value :: Lens.Lens' ResourceTag (Prelude.Maybe Prelude.Text)
+resourceTag_value = Lens.lens (\ResourceTag' {value} -> value) (\s@ResourceTag' {} a -> s {value = a} :: ResourceTag)
 
 -- | The key of a tag.
-rtKey :: Lens' ResourceTag Text
-rtKey = lens _rtKey (\s a -> s {_rtKey = a})
+resourceTag_key :: Lens.Lens' ResourceTag Prelude.Text
+resourceTag_key = Lens.lens (\ResourceTag' {key} -> key) (\s@ResourceTag' {} a -> s {key = a} :: ResourceTag)
 
-instance FromJSON ResourceTag where
+instance Prelude.FromJSON ResourceTag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceTag"
       ( \x ->
-          ResourceTag' <$> (x .:? "value") <*> (x .: "key")
+          ResourceTag'
+            Prelude.<$> (x Prelude..:? "value")
+            Prelude.<*> (x Prelude..: "key")
       )
 
-instance Hashable ResourceTag
+instance Prelude.Hashable ResourceTag
 
-instance NFData ResourceTag
+instance Prelude.NFData ResourceTag
 
-instance ToJSON ResourceTag where
+instance Prelude.ToJSON ResourceTag where
   toJSON ResourceTag' {..} =
-    object
-      ( catMaybes
-          [("value" .=) <$> _rtValue, Just ("key" .= _rtKey)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("value" Prelude..=) Prelude.<$> value,
+            Prelude.Just ("key" Prelude..= key)
+          ]
       )

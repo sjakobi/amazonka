@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.LambdaFunctionCompletedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the details of the @LambdaFunctionCompleted@ event. It isn't set for other event types.
+-- | Provides the details of the @LambdaFunctionCompleted@ event. It isn\'t
+-- set for other event types.
 --
---
---
--- /See:/ 'lambdaFunctionCompletedEventAttributes' smart constructor.
+-- /See:/ 'newLambdaFunctionCompletedEventAttributes' smart constructor.
 data LambdaFunctionCompletedEventAttributes = LambdaFunctionCompletedEventAttributes'
-  { _lfceaResult ::
-      !( Maybe
-           Text
-       ),
-    _lfceaScheduledEventId ::
-      !Integer,
-    _lfceaStartedEventId ::
-      !Integer
+  { -- | The results of the Lambda task.
+    result :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the @LambdaFunctionScheduled@ event that was recorded when
+    -- this Lambda task was scheduled. To help diagnose issues, use this
+    -- information to trace back the chain of events leading up to this event.
+    scheduledEventId :: Prelude.Integer,
+    -- | The ID of the @LambdaFunctionStarted@ event recorded when this activity
+    -- task started. To help diagnose issues, use this information to trace
+    -- back the chain of events leading up to this event.
+    startedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaFunctionCompletedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaFunctionCompletedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfceaResult' - The results of the Lambda task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfceaScheduledEventId' - The ID of the @LambdaFunctionScheduled@ event that was recorded when this Lambda task was scheduled. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
+-- 'result', 'lambdaFunctionCompletedEventAttributes_result' - The results of the Lambda task.
 --
--- * 'lfceaStartedEventId' - The ID of the @LambdaFunctionStarted@ event recorded when this activity task started. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lambdaFunctionCompletedEventAttributes ::
-  -- | 'lfceaScheduledEventId'
-  Integer ->
-  -- | 'lfceaStartedEventId'
-  Integer ->
+-- 'scheduledEventId', 'lambdaFunctionCompletedEventAttributes_scheduledEventId' - The ID of the @LambdaFunctionScheduled@ event that was recorded when
+-- this Lambda task was scheduled. To help diagnose issues, use this
+-- information to trace back the chain of events leading up to this event.
+--
+-- 'startedEventId', 'lambdaFunctionCompletedEventAttributes_startedEventId' - The ID of the @LambdaFunctionStarted@ event recorded when this activity
+-- task started. To help diagnose issues, use this information to trace
+-- back the chain of events leading up to this event.
+newLambdaFunctionCompletedEventAttributes ::
+  -- | 'scheduledEventId'
+  Prelude.Integer ->
+  -- | 'startedEventId'
+  Prelude.Integer ->
   LambdaFunctionCompletedEventAttributes
-lambdaFunctionCompletedEventAttributes
+newLambdaFunctionCompletedEventAttributes
   pScheduledEventId_
   pStartedEventId_ =
     LambdaFunctionCompletedEventAttributes'
-      { _lfceaResult =
-          Nothing,
-        _lfceaScheduledEventId =
+      { result =
+          Prelude.Nothing,
+        scheduledEventId =
           pScheduledEventId_,
-        _lfceaStartedEventId =
-          pStartedEventId_
+        startedEventId = pStartedEventId_
       }
 
 -- | The results of the Lambda task.
-lfceaResult :: Lens' LambdaFunctionCompletedEventAttributes (Maybe Text)
-lfceaResult = lens _lfceaResult (\s a -> s {_lfceaResult = a})
+lambdaFunctionCompletedEventAttributes_result :: Lens.Lens' LambdaFunctionCompletedEventAttributes (Prelude.Maybe Prelude.Text)
+lambdaFunctionCompletedEventAttributes_result = Lens.lens (\LambdaFunctionCompletedEventAttributes' {result} -> result) (\s@LambdaFunctionCompletedEventAttributes' {} a -> s {result = a} :: LambdaFunctionCompletedEventAttributes)
 
--- | The ID of the @LambdaFunctionScheduled@ event that was recorded when this Lambda task was scheduled. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lfceaScheduledEventId :: Lens' LambdaFunctionCompletedEventAttributes Integer
-lfceaScheduledEventId = lens _lfceaScheduledEventId (\s a -> s {_lfceaScheduledEventId = a})
+-- | The ID of the @LambdaFunctionScheduled@ event that was recorded when
+-- this Lambda task was scheduled. To help diagnose issues, use this
+-- information to trace back the chain of events leading up to this event.
+lambdaFunctionCompletedEventAttributes_scheduledEventId :: Lens.Lens' LambdaFunctionCompletedEventAttributes Prelude.Integer
+lambdaFunctionCompletedEventAttributes_scheduledEventId = Lens.lens (\LambdaFunctionCompletedEventAttributes' {scheduledEventId} -> scheduledEventId) (\s@LambdaFunctionCompletedEventAttributes' {} a -> s {scheduledEventId = a} :: LambdaFunctionCompletedEventAttributes)
 
--- | The ID of the @LambdaFunctionStarted@ event recorded when this activity task started. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lfceaStartedEventId :: Lens' LambdaFunctionCompletedEventAttributes Integer
-lfceaStartedEventId = lens _lfceaStartedEventId (\s a -> s {_lfceaStartedEventId = a})
+-- | The ID of the @LambdaFunctionStarted@ event recorded when this activity
+-- task started. To help diagnose issues, use this information to trace
+-- back the chain of events leading up to this event.
+lambdaFunctionCompletedEventAttributes_startedEventId :: Lens.Lens' LambdaFunctionCompletedEventAttributes Prelude.Integer
+lambdaFunctionCompletedEventAttributes_startedEventId = Lens.lens (\LambdaFunctionCompletedEventAttributes' {startedEventId} -> startedEventId) (\s@LambdaFunctionCompletedEventAttributes' {} a -> s {startedEventId = a} :: LambdaFunctionCompletedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     LambdaFunctionCompletedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaFunctionCompletedEventAttributes"
       ( \x ->
           LambdaFunctionCompletedEventAttributes'
-            <$> (x .:? "result")
-            <*> (x .: "scheduledEventId")
-            <*> (x .: "startedEventId")
+            Prelude.<$> (x Prelude..:? "result")
+            Prelude.<*> (x Prelude..: "scheduledEventId")
+            Prelude.<*> (x Prelude..: "startedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     LambdaFunctionCompletedEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     LambdaFunctionCompletedEventAttributes

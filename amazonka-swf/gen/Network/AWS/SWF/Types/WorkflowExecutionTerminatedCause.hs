@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SWF.Types.WorkflowExecutionTerminatedCause
   ( WorkflowExecutionTerminatedCause
       ( ..,
-        ChildPolicyApplied,
-        EventLimitExceeded,
-        OperatorInitiated
+        WorkflowExecutionTerminatedCauseCHILDPOLICYAPPLIED,
+        WorkflowExecutionTerminatedCauseEVENTLIMITEXCEEDED,
+        WorkflowExecutionTerminatedCauseOPERATORINITIATED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WorkflowExecutionTerminatedCause
-  = WorkflowExecutionTerminatedCause'
-      ( CI
-          Text
-      )
+newtype WorkflowExecutionTerminatedCause = WorkflowExecutionTerminatedCause'
+  { fromWorkflowExecutionTerminatedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ChildPolicyApplied :: WorkflowExecutionTerminatedCause
-pattern ChildPolicyApplied = WorkflowExecutionTerminatedCause' "CHILD_POLICY_APPLIED"
+pattern WorkflowExecutionTerminatedCauseCHILDPOLICYAPPLIED :: WorkflowExecutionTerminatedCause
+pattern WorkflowExecutionTerminatedCauseCHILDPOLICYAPPLIED = WorkflowExecutionTerminatedCause' "CHILD_POLICY_APPLIED"
 
-pattern EventLimitExceeded :: WorkflowExecutionTerminatedCause
-pattern EventLimitExceeded = WorkflowExecutionTerminatedCause' "EVENT_LIMIT_EXCEEDED"
+pattern WorkflowExecutionTerminatedCauseEVENTLIMITEXCEEDED :: WorkflowExecutionTerminatedCause
+pattern WorkflowExecutionTerminatedCauseEVENTLIMITEXCEEDED = WorkflowExecutionTerminatedCause' "EVENT_LIMIT_EXCEEDED"
 
-pattern OperatorInitiated :: WorkflowExecutionTerminatedCause
-pattern OperatorInitiated = WorkflowExecutionTerminatedCause' "OPERATOR_INITIATED"
+pattern WorkflowExecutionTerminatedCauseOPERATORINITIATED :: WorkflowExecutionTerminatedCause
+pattern WorkflowExecutionTerminatedCauseOPERATORINITIATED = WorkflowExecutionTerminatedCause' "OPERATOR_INITIATED"
 
 {-# COMPLETE
-  ChildPolicyApplied,
-  EventLimitExceeded,
-  OperatorInitiated,
+  WorkflowExecutionTerminatedCauseCHILDPOLICYAPPLIED,
+  WorkflowExecutionTerminatedCauseEVENTLIMITEXCEEDED,
+  WorkflowExecutionTerminatedCauseOPERATORINITIATED,
   WorkflowExecutionTerminatedCause'
   #-}
 
-instance FromText WorkflowExecutionTerminatedCause where
-  parser = (WorkflowExecutionTerminatedCause' . mk) <$> takeText
+instance Prelude.FromText WorkflowExecutionTerminatedCause where
+  parser = WorkflowExecutionTerminatedCause' Prelude.<$> Prelude.takeText
 
-instance ToText WorkflowExecutionTerminatedCause where
-  toText (WorkflowExecutionTerminatedCause' ci) = original ci
+instance Prelude.ToText WorkflowExecutionTerminatedCause where
+  toText (WorkflowExecutionTerminatedCause' x) = x
 
-instance Hashable WorkflowExecutionTerminatedCause
+instance Prelude.Hashable WorkflowExecutionTerminatedCause
 
-instance NFData WorkflowExecutionTerminatedCause
+instance Prelude.NFData WorkflowExecutionTerminatedCause
 
-instance ToByteString WorkflowExecutionTerminatedCause
+instance Prelude.ToByteString WorkflowExecutionTerminatedCause
 
-instance ToQuery WorkflowExecutionTerminatedCause
+instance Prelude.ToQuery WorkflowExecutionTerminatedCause
 
-instance ToHeader WorkflowExecutionTerminatedCause
+instance Prelude.ToHeader WorkflowExecutionTerminatedCause
 
-instance FromJSON WorkflowExecutionTerminatedCause where
-  parseJSON = parseJSONText "WorkflowExecutionTerminatedCause"
+instance Prelude.FromJSON WorkflowExecutionTerminatedCause where
+  parseJSON = Prelude.parseJSONText "WorkflowExecutionTerminatedCause"

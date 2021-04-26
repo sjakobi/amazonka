@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionTimedOutEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.ChildPolicy
 import Network.AWS.SWF.Types.WorkflowExecutionTimeoutType
 
 -- | Provides the details of the @WorkflowExecutionTimedOut@ event.
 --
---
---
--- /See:/ 'workflowExecutionTimedOutEventAttributes' smart constructor.
+-- /See:/ 'newWorkflowExecutionTimedOutEventAttributes' smart constructor.
 data WorkflowExecutionTimedOutEventAttributes = WorkflowExecutionTimedOutEventAttributes'
-  { _wetoeaTimeoutType ::
-      !WorkflowExecutionTimeoutType,
-    _wetoeaChildPolicy ::
-      !ChildPolicy
+  { -- | The type of timeout that caused this event.
+    timeoutType :: WorkflowExecutionTimeoutType,
+    -- | The policy used for the child workflow executions of this workflow
+    -- execution.
+    --
+    -- The supported child policies are:
+    --
+    -- -   @TERMINATE@ – The child executions are terminated.
+    --
+    -- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+    --     execution by recording a @WorkflowExecutionCancelRequested@ event in
+    --     its history. It is up to the decider to take appropriate actions
+    --     when it receives an execution history with this event.
+    --
+    -- -   @ABANDON@ – No action is taken. The child executions continue to
+    --     run.
+    childPolicy :: ChildPolicy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionTimedOutEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionTimedOutEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wetoeaTimeoutType' - The type of timeout that caused this event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wetoeaChildPolicy' - The policy used for the child workflow executions of this workflow execution. The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
-workflowExecutionTimedOutEventAttributes ::
-  -- | 'wetoeaTimeoutType'
+-- 'timeoutType', 'workflowExecutionTimedOutEventAttributes_timeoutType' - The type of timeout that caused this event.
+--
+-- 'childPolicy', 'workflowExecutionTimedOutEventAttributes_childPolicy' - The policy used for the child workflow executions of this workflow
+-- execution.
+--
+-- The supported child policies are:
+--
+-- -   @TERMINATE@ – The child executions are terminated.
+--
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+newWorkflowExecutionTimedOutEventAttributes ::
+  -- | 'timeoutType'
   WorkflowExecutionTimeoutType ->
-  -- | 'wetoeaChildPolicy'
+  -- | 'childPolicy'
   ChildPolicy ->
   WorkflowExecutionTimedOutEventAttributes
-workflowExecutionTimedOutEventAttributes
+newWorkflowExecutionTimedOutEventAttributes
   pTimeoutType_
   pChildPolicy_ =
     WorkflowExecutionTimedOutEventAttributes'
-      { _wetoeaTimeoutType =
+      { timeoutType =
           pTimeoutType_,
-        _wetoeaChildPolicy =
-          pChildPolicy_
+        childPolicy = pChildPolicy_
       }
 
 -- | The type of timeout that caused this event.
-wetoeaTimeoutType :: Lens' WorkflowExecutionTimedOutEventAttributes WorkflowExecutionTimeoutType
-wetoeaTimeoutType = lens _wetoeaTimeoutType (\s a -> s {_wetoeaTimeoutType = a})
+workflowExecutionTimedOutEventAttributes_timeoutType :: Lens.Lens' WorkflowExecutionTimedOutEventAttributes WorkflowExecutionTimeoutType
+workflowExecutionTimedOutEventAttributes_timeoutType = Lens.lens (\WorkflowExecutionTimedOutEventAttributes' {timeoutType} -> timeoutType) (\s@WorkflowExecutionTimedOutEventAttributes' {} a -> s {timeoutType = a} :: WorkflowExecutionTimedOutEventAttributes)
 
--- | The policy used for the child workflow executions of this workflow execution. The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
-wetoeaChildPolicy :: Lens' WorkflowExecutionTimedOutEventAttributes ChildPolicy
-wetoeaChildPolicy = lens _wetoeaChildPolicy (\s a -> s {_wetoeaChildPolicy = a})
+-- | The policy used for the child workflow executions of this workflow
+-- execution.
+--
+-- The supported child policies are:
+--
+-- -   @TERMINATE@ – The child executions are terminated.
+--
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+workflowExecutionTimedOutEventAttributes_childPolicy :: Lens.Lens' WorkflowExecutionTimedOutEventAttributes ChildPolicy
+workflowExecutionTimedOutEventAttributes_childPolicy = Lens.lens (\WorkflowExecutionTimedOutEventAttributes' {childPolicy} -> childPolicy) (\s@WorkflowExecutionTimedOutEventAttributes' {} a -> s {childPolicy = a} :: WorkflowExecutionTimedOutEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     WorkflowExecutionTimedOutEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecutionTimedOutEventAttributes"
       ( \x ->
           WorkflowExecutionTimedOutEventAttributes'
-            <$> (x .: "timeoutType") <*> (x .: "childPolicy")
+            Prelude.<$> (x Prelude..: "timeoutType")
+            Prelude.<*> (x Prelude..: "childPolicy")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     WorkflowExecutionTimedOutEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     WorkflowExecutionTimedOutEventAttributes

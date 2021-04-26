@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SWF.Types.ScheduleLambdaFunctionFailedCause
   ( ScheduleLambdaFunctionFailedCause
       ( ..,
-        IdAlreadyInUse,
-        LambdaFunctionCreationRateExceeded,
-        LambdaServiceNotAvailableInRegion,
-        OpenLambdaFunctionsLimitExceeded
+        ScheduleLambdaFunctionFailedCauseIDALREADYINUSE,
+        ScheduleLambdaFunctionFailedCauseLAMBDAFUNCTIONCREATIONRATEEXCEEDED,
+        ScheduleLambdaFunctionFailedCauseLAMBDASERVICENOTAVAILABLEINREGION,
+        ScheduleLambdaFunctionFailedCauseOPENLAMBDAFUNCTIONSLIMITEXCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScheduleLambdaFunctionFailedCause
-  = ScheduleLambdaFunctionFailedCause'
-      ( CI
-          Text
-      )
+newtype ScheduleLambdaFunctionFailedCause = ScheduleLambdaFunctionFailedCause'
+  { fromScheduleLambdaFunctionFailedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IdAlreadyInUse :: ScheduleLambdaFunctionFailedCause
-pattern IdAlreadyInUse = ScheduleLambdaFunctionFailedCause' "ID_ALREADY_IN_USE"
+pattern ScheduleLambdaFunctionFailedCauseIDALREADYINUSE :: ScheduleLambdaFunctionFailedCause
+pattern ScheduleLambdaFunctionFailedCauseIDALREADYINUSE = ScheduleLambdaFunctionFailedCause' "ID_ALREADY_IN_USE"
 
-pattern LambdaFunctionCreationRateExceeded :: ScheduleLambdaFunctionFailedCause
-pattern LambdaFunctionCreationRateExceeded = ScheduleLambdaFunctionFailedCause' "LAMBDA_FUNCTION_CREATION_RATE_EXCEEDED"
+pattern ScheduleLambdaFunctionFailedCauseLAMBDAFUNCTIONCREATIONRATEEXCEEDED :: ScheduleLambdaFunctionFailedCause
+pattern ScheduleLambdaFunctionFailedCauseLAMBDAFUNCTIONCREATIONRATEEXCEEDED = ScheduleLambdaFunctionFailedCause' "LAMBDA_FUNCTION_CREATION_RATE_EXCEEDED"
 
-pattern LambdaServiceNotAvailableInRegion :: ScheduleLambdaFunctionFailedCause
-pattern LambdaServiceNotAvailableInRegion = ScheduleLambdaFunctionFailedCause' "LAMBDA_SERVICE_NOT_AVAILABLE_IN_REGION"
+pattern ScheduleLambdaFunctionFailedCauseLAMBDASERVICENOTAVAILABLEINREGION :: ScheduleLambdaFunctionFailedCause
+pattern ScheduleLambdaFunctionFailedCauseLAMBDASERVICENOTAVAILABLEINREGION = ScheduleLambdaFunctionFailedCause' "LAMBDA_SERVICE_NOT_AVAILABLE_IN_REGION"
 
-pattern OpenLambdaFunctionsLimitExceeded :: ScheduleLambdaFunctionFailedCause
-pattern OpenLambdaFunctionsLimitExceeded = ScheduleLambdaFunctionFailedCause' "OPEN_LAMBDA_FUNCTIONS_LIMIT_EXCEEDED"
+pattern ScheduleLambdaFunctionFailedCauseOPENLAMBDAFUNCTIONSLIMITEXCEEDED :: ScheduleLambdaFunctionFailedCause
+pattern ScheduleLambdaFunctionFailedCauseOPENLAMBDAFUNCTIONSLIMITEXCEEDED = ScheduleLambdaFunctionFailedCause' "OPEN_LAMBDA_FUNCTIONS_LIMIT_EXCEEDED"
 
 {-# COMPLETE
-  IdAlreadyInUse,
-  LambdaFunctionCreationRateExceeded,
-  LambdaServiceNotAvailableInRegion,
-  OpenLambdaFunctionsLimitExceeded,
+  ScheduleLambdaFunctionFailedCauseIDALREADYINUSE,
+  ScheduleLambdaFunctionFailedCauseLAMBDAFUNCTIONCREATIONRATEEXCEEDED,
+  ScheduleLambdaFunctionFailedCauseLAMBDASERVICENOTAVAILABLEINREGION,
+  ScheduleLambdaFunctionFailedCauseOPENLAMBDAFUNCTIONSLIMITEXCEEDED,
   ScheduleLambdaFunctionFailedCause'
   #-}
 
-instance FromText ScheduleLambdaFunctionFailedCause where
-  parser = (ScheduleLambdaFunctionFailedCause' . mk) <$> takeText
+instance Prelude.FromText ScheduleLambdaFunctionFailedCause where
+  parser = ScheduleLambdaFunctionFailedCause' Prelude.<$> Prelude.takeText
 
-instance ToText ScheduleLambdaFunctionFailedCause where
-  toText (ScheduleLambdaFunctionFailedCause' ci) = original ci
+instance Prelude.ToText ScheduleLambdaFunctionFailedCause where
+  toText (ScheduleLambdaFunctionFailedCause' x) = x
 
-instance Hashable ScheduleLambdaFunctionFailedCause
+instance Prelude.Hashable ScheduleLambdaFunctionFailedCause
 
-instance NFData ScheduleLambdaFunctionFailedCause
+instance Prelude.NFData ScheduleLambdaFunctionFailedCause
 
-instance ToByteString ScheduleLambdaFunctionFailedCause
+instance Prelude.ToByteString ScheduleLambdaFunctionFailedCause
 
-instance ToQuery ScheduleLambdaFunctionFailedCause
+instance Prelude.ToQuery ScheduleLambdaFunctionFailedCause
 
-instance ToHeader ScheduleLambdaFunctionFailedCause
+instance Prelude.ToHeader ScheduleLambdaFunctionFailedCause
 
-instance FromJSON ScheduleLambdaFunctionFailedCause where
-  parseJSON = parseJSONText "ScheduleLambdaFunctionFailedCause"
+instance Prelude.FromJSON ScheduleLambdaFunctionFailedCause where
+  parseJSON = Prelude.parseJSONText "ScheduleLambdaFunctionFailedCause"

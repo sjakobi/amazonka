@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.LambdaFunctionTimedOutEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.LambdaFunctionTimeoutType
 
 -- | Provides details of the @LambdaFunctionTimedOut@ event.
 --
---
---
--- /See:/ 'lambdaFunctionTimedOutEventAttributes' smart constructor.
+-- /See:/ 'newLambdaFunctionTimedOutEventAttributes' smart constructor.
 data LambdaFunctionTimedOutEventAttributes = LambdaFunctionTimedOutEventAttributes'
-  { _lftoeaTimeoutType ::
-      !( Maybe
-           LambdaFunctionTimeoutType
-       ),
-    _lftoeaScheduledEventId ::
-      !Integer,
-    _lftoeaStartedEventId ::
-      !Integer
+  { -- | The type of the timeout that caused this event.
+    timeoutType :: Prelude.Maybe LambdaFunctionTimeoutType,
+    -- | The ID of the @LambdaFunctionScheduled@ event that was recorded when
+    -- this activity task was scheduled. To help diagnose issues, use this
+    -- information to trace back the chain of events leading up to this event.
+    scheduledEventId :: Prelude.Integer,
+    -- | The ID of the @ActivityTaskStarted@ event that was recorded when this
+    -- activity task started. To help diagnose issues, use this information to
+    -- trace back the chain of events leading up to this event.
+    startedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaFunctionTimedOutEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaFunctionTimedOutEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lftoeaTimeoutType' - The type of the timeout that caused this event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lftoeaScheduledEventId' - The ID of the @LambdaFunctionScheduled@ event that was recorded when this activity task was scheduled. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
+-- 'timeoutType', 'lambdaFunctionTimedOutEventAttributes_timeoutType' - The type of the timeout that caused this event.
 --
--- * 'lftoeaStartedEventId' - The ID of the @ActivityTaskStarted@ event that was recorded when this activity task started. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lambdaFunctionTimedOutEventAttributes ::
-  -- | 'lftoeaScheduledEventId'
-  Integer ->
-  -- | 'lftoeaStartedEventId'
-  Integer ->
+-- 'scheduledEventId', 'lambdaFunctionTimedOutEventAttributes_scheduledEventId' - The ID of the @LambdaFunctionScheduled@ event that was recorded when
+-- this activity task was scheduled. To help diagnose issues, use this
+-- information to trace back the chain of events leading up to this event.
+--
+-- 'startedEventId', 'lambdaFunctionTimedOutEventAttributes_startedEventId' - The ID of the @ActivityTaskStarted@ event that was recorded when this
+-- activity task started. To help diagnose issues, use this information to
+-- trace back the chain of events leading up to this event.
+newLambdaFunctionTimedOutEventAttributes ::
+  -- | 'scheduledEventId'
+  Prelude.Integer ->
+  -- | 'startedEventId'
+  Prelude.Integer ->
   LambdaFunctionTimedOutEventAttributes
-lambdaFunctionTimedOutEventAttributes
+newLambdaFunctionTimedOutEventAttributes
   pScheduledEventId_
   pStartedEventId_ =
     LambdaFunctionTimedOutEventAttributes'
-      { _lftoeaTimeoutType =
-          Nothing,
-        _lftoeaScheduledEventId =
+      { timeoutType =
+          Prelude.Nothing,
+        scheduledEventId =
           pScheduledEventId_,
-        _lftoeaStartedEventId =
-          pStartedEventId_
+        startedEventId = pStartedEventId_
       }
 
 -- | The type of the timeout that caused this event.
-lftoeaTimeoutType :: Lens' LambdaFunctionTimedOutEventAttributes (Maybe LambdaFunctionTimeoutType)
-lftoeaTimeoutType = lens _lftoeaTimeoutType (\s a -> s {_lftoeaTimeoutType = a})
+lambdaFunctionTimedOutEventAttributes_timeoutType :: Lens.Lens' LambdaFunctionTimedOutEventAttributes (Prelude.Maybe LambdaFunctionTimeoutType)
+lambdaFunctionTimedOutEventAttributes_timeoutType = Lens.lens (\LambdaFunctionTimedOutEventAttributes' {timeoutType} -> timeoutType) (\s@LambdaFunctionTimedOutEventAttributes' {} a -> s {timeoutType = a} :: LambdaFunctionTimedOutEventAttributes)
 
--- | The ID of the @LambdaFunctionScheduled@ event that was recorded when this activity task was scheduled. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lftoeaScheduledEventId :: Lens' LambdaFunctionTimedOutEventAttributes Integer
-lftoeaScheduledEventId = lens _lftoeaScheduledEventId (\s a -> s {_lftoeaScheduledEventId = a})
+-- | The ID of the @LambdaFunctionScheduled@ event that was recorded when
+-- this activity task was scheduled. To help diagnose issues, use this
+-- information to trace back the chain of events leading up to this event.
+lambdaFunctionTimedOutEventAttributes_scheduledEventId :: Lens.Lens' LambdaFunctionTimedOutEventAttributes Prelude.Integer
+lambdaFunctionTimedOutEventAttributes_scheduledEventId = Lens.lens (\LambdaFunctionTimedOutEventAttributes' {scheduledEventId} -> scheduledEventId) (\s@LambdaFunctionTimedOutEventAttributes' {} a -> s {scheduledEventId = a} :: LambdaFunctionTimedOutEventAttributes)
 
--- | The ID of the @ActivityTaskStarted@ event that was recorded when this activity task started. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lftoeaStartedEventId :: Lens' LambdaFunctionTimedOutEventAttributes Integer
-lftoeaStartedEventId = lens _lftoeaStartedEventId (\s a -> s {_lftoeaStartedEventId = a})
+-- | The ID of the @ActivityTaskStarted@ event that was recorded when this
+-- activity task started. To help diagnose issues, use this information to
+-- trace back the chain of events leading up to this event.
+lambdaFunctionTimedOutEventAttributes_startedEventId :: Lens.Lens' LambdaFunctionTimedOutEventAttributes Prelude.Integer
+lambdaFunctionTimedOutEventAttributes_startedEventId = Lens.lens (\LambdaFunctionTimedOutEventAttributes' {startedEventId} -> startedEventId) (\s@LambdaFunctionTimedOutEventAttributes' {} a -> s {startedEventId = a} :: LambdaFunctionTimedOutEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     LambdaFunctionTimedOutEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaFunctionTimedOutEventAttributes"
       ( \x ->
           LambdaFunctionTimedOutEventAttributes'
-            <$> (x .:? "timeoutType")
-            <*> (x .: "scheduledEventId")
-            <*> (x .: "startedEventId")
+            Prelude.<$> (x Prelude..:? "timeoutType")
+            Prelude.<*> (x Prelude..: "scheduledEventId")
+            Prelude.<*> (x Prelude..: "startedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     LambdaFunctionTimedOutEventAttributes
 
-instance NFData LambdaFunctionTimedOutEventAttributes
+instance
+  Prelude.NFData
+    LambdaFunctionTimedOutEventAttributes

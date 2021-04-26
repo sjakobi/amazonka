@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.FailWorkflowExecutionDecisionAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @FailWorkflowExecution@ decision.
 --
---
 -- __Access Control__
 --
--- You can use IAM policies to control this decision's access to Amazon SWF resources as follows:
+-- You can use IAM policies to control this decision\'s access to Amazon
+-- SWF resources as follows:
 --
---     * Use a @Resource@ element with the domain name to limit the action to only specified domains.
+-- -   Use a @Resource@ element with the domain name to limit the action to
+--     only specified domains.
 --
---     * Use an @Action@ element to allow or deny permission to call this action.
+-- -   Use an @Action@ element to allow or deny permission to call this
+--     action.
 --
---     * You cannot use an IAM policy to constrain this action's parameters.
+-- -   You cannot use an IAM policy to constrain this action\'s parameters.
 --
+-- If the caller doesn\'t have sufficient permissions to invoke the action,
+-- or the parameter values fall outside the specified constraints, the
+-- action fails. The associated event attribute\'s @cause@ parameter is set
+-- to @OPERATION_NOT_PERMITTED@. For details and example IAM policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
 --
---
--- If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's @cause@ parameter is set to @OPERATION_NOT_PERMITTED@ . For details and example IAM policies, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows> in the /Amazon SWF Developer Guide/ .
---
---
--- /See:/ 'failWorkflowExecutionDecisionAttributes' smart constructor.
+-- /See:/ 'newFailWorkflowExecutionDecisionAttributes' smart constructor.
 data FailWorkflowExecutionDecisionAttributes = FailWorkflowExecutionDecisionAttributes'
-  { _fwedaDetails ::
-      !( Maybe
-           Text
-       ),
-    _fwedaReason ::
-      !( Maybe
-           Text
-       )
+  { -- | Details of the failure.
+    details :: Prelude.Maybe Prelude.Text,
+    -- | A descriptive reason for the failure that may help in diagnostics.
+    reason :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailWorkflowExecutionDecisionAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailWorkflowExecutionDecisionAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fwedaDetails' - Details of the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fwedaReason' - A descriptive reason for the failure that may help in diagnostics.
-failWorkflowExecutionDecisionAttributes ::
+-- 'details', 'failWorkflowExecutionDecisionAttributes_details' - Details of the failure.
+--
+-- 'reason', 'failWorkflowExecutionDecisionAttributes_reason' - A descriptive reason for the failure that may help in diagnostics.
+newFailWorkflowExecutionDecisionAttributes ::
   FailWorkflowExecutionDecisionAttributes
-failWorkflowExecutionDecisionAttributes =
+newFailWorkflowExecutionDecisionAttributes =
   FailWorkflowExecutionDecisionAttributes'
-    { _fwedaDetails =
-        Nothing,
-      _fwedaReason = Nothing
+    { details =
+        Prelude.Nothing,
+      reason = Prelude.Nothing
     }
 
 -- | Details of the failure.
-fwedaDetails :: Lens' FailWorkflowExecutionDecisionAttributes (Maybe Text)
-fwedaDetails = lens _fwedaDetails (\s a -> s {_fwedaDetails = a})
+failWorkflowExecutionDecisionAttributes_details :: Lens.Lens' FailWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+failWorkflowExecutionDecisionAttributes_details = Lens.lens (\FailWorkflowExecutionDecisionAttributes' {details} -> details) (\s@FailWorkflowExecutionDecisionAttributes' {} a -> s {details = a} :: FailWorkflowExecutionDecisionAttributes)
 
 -- | A descriptive reason for the failure that may help in diagnostics.
-fwedaReason :: Lens' FailWorkflowExecutionDecisionAttributes (Maybe Text)
-fwedaReason = lens _fwedaReason (\s a -> s {_fwedaReason = a})
+failWorkflowExecutionDecisionAttributes_reason :: Lens.Lens' FailWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+failWorkflowExecutionDecisionAttributes_reason = Lens.lens (\FailWorkflowExecutionDecisionAttributes' {reason} -> reason) (\s@FailWorkflowExecutionDecisionAttributes' {} a -> s {reason = a} :: FailWorkflowExecutionDecisionAttributes)
 
 instance
-  Hashable
+  Prelude.Hashable
     FailWorkflowExecutionDecisionAttributes
 
 instance
-  NFData
+  Prelude.NFData
     FailWorkflowExecutionDecisionAttributes
 
 instance
-  ToJSON
+  Prelude.ToJSON
     FailWorkflowExecutionDecisionAttributes
   where
   toJSON FailWorkflowExecutionDecisionAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("details" .=) <$> _fwedaDetails,
-            ("reason" .=) <$> _fwedaReason
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("details" Prelude..=) Prelude.<$> details,
+            ("reason" Prelude..=) Prelude.<$> reason
           ]
       )

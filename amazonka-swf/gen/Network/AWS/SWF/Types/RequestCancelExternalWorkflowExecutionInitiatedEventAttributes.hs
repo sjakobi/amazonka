@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,102 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.RequestCancelExternalWorkflowExecutionInitiatedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the details of the @RequestCancelExternalWorkflowExecutionInitiated@ event.
+-- | Provides the details of the
+-- @RequestCancelExternalWorkflowExecutionInitiated@ event.
 --
---
---
--- /See:/ 'requestCancelExternalWorkflowExecutionInitiatedEventAttributes' smart constructor.
+-- /See:/ 'newRequestCancelExternalWorkflowExecutionInitiatedEventAttributes' smart constructor.
 data RequestCancelExternalWorkflowExecutionInitiatedEventAttributes = RequestCancelExternalWorkflowExecutionInitiatedEventAttributes'
-  { _rceweieaRunId ::
-      !( Maybe
-           Text
-       ),
-    _rceweieaControl ::
-      !( Maybe
-           Text
-       ),
-    _rceweieaWorkflowId ::
-      !Text,
-    _rceweieaDecisionTaskCompletedEventId ::
-      !Integer
+  { -- | The @runId@ of the external workflow execution to be canceled.
+    runId :: Prelude.Maybe Prelude.Text,
+    -- | Data attached to the event that can be used by the decider in subsequent
+    -- workflow tasks.
+    control :: Prelude.Maybe Prelude.Text,
+    -- | The @workflowId@ of the external workflow execution to be canceled.
+    workflowId :: Prelude.Text,
+    -- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+    -- decision task that resulted in the
+    -- @RequestCancelExternalWorkflowExecution@ decision for this cancellation
+    -- request. This information can be useful for diagnosing problems by
+    -- tracing back the chain of events leading up to this event.
+    decisionTaskCompletedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rceweieaRunId' - The @runId@ of the external workflow execution to be canceled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rceweieaControl' - Data attached to the event that can be used by the decider in subsequent workflow tasks.
+-- 'runId', 'requestCancelExternalWorkflowExecutionInitiatedEventAttributes_runId' - The @runId@ of the external workflow execution to be canceled.
 --
--- * 'rceweieaWorkflowId' - The @workflowId@ of the external workflow execution to be canceled.
+-- 'control', 'requestCancelExternalWorkflowExecutionInitiatedEventAttributes_control' - Data attached to the event that can be used by the decider in subsequent
+-- workflow tasks.
 --
--- * 'rceweieaDecisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @RequestCancelExternalWorkflowExecution@ decision for this cancellation request. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-requestCancelExternalWorkflowExecutionInitiatedEventAttributes ::
-  -- | 'rceweieaWorkflowId'
-  Text ->
-  -- | 'rceweieaDecisionTaskCompletedEventId'
-  Integer ->
+-- 'workflowId', 'requestCancelExternalWorkflowExecutionInitiatedEventAttributes_workflowId' - The @workflowId@ of the external workflow execution to be canceled.
+--
+-- 'decisionTaskCompletedEventId', 'requestCancelExternalWorkflowExecutionInitiatedEventAttributes_decisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the
+-- @RequestCancelExternalWorkflowExecution@ decision for this cancellation
+-- request. This information can be useful for diagnosing problems by
+-- tracing back the chain of events leading up to this event.
+newRequestCancelExternalWorkflowExecutionInitiatedEventAttributes ::
+  -- | 'workflowId'
+  Prelude.Text ->
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
   RequestCancelExternalWorkflowExecutionInitiatedEventAttributes
-requestCancelExternalWorkflowExecutionInitiatedEventAttributes
+newRequestCancelExternalWorkflowExecutionInitiatedEventAttributes
   pWorkflowId_
   pDecisionTaskCompletedEventId_ =
     RequestCancelExternalWorkflowExecutionInitiatedEventAttributes'
-      { _rceweieaRunId =
-          Nothing,
-        _rceweieaControl =
-          Nothing,
-        _rceweieaWorkflowId =
+      { runId =
+          Prelude.Nothing,
+        control =
+          Prelude.Nothing,
+        workflowId =
           pWorkflowId_,
-        _rceweieaDecisionTaskCompletedEventId =
+        decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_
       }
 
 -- | The @runId@ of the external workflow execution to be canceled.
-rceweieaRunId :: Lens' RequestCancelExternalWorkflowExecutionInitiatedEventAttributes (Maybe Text)
-rceweieaRunId = lens _rceweieaRunId (\s a -> s {_rceweieaRunId = a})
+requestCancelExternalWorkflowExecutionInitiatedEventAttributes_runId :: Lens.Lens' RequestCancelExternalWorkflowExecutionInitiatedEventAttributes (Prelude.Maybe Prelude.Text)
+requestCancelExternalWorkflowExecutionInitiatedEventAttributes_runId = Lens.lens (\RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' {runId} -> runId) (\s@RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' {} a -> s {runId = a} :: RequestCancelExternalWorkflowExecutionInitiatedEventAttributes)
 
--- | Data attached to the event that can be used by the decider in subsequent workflow tasks.
-rceweieaControl :: Lens' RequestCancelExternalWorkflowExecutionInitiatedEventAttributes (Maybe Text)
-rceweieaControl = lens _rceweieaControl (\s a -> s {_rceweieaControl = a})
+-- | Data attached to the event that can be used by the decider in subsequent
+-- workflow tasks.
+requestCancelExternalWorkflowExecutionInitiatedEventAttributes_control :: Lens.Lens' RequestCancelExternalWorkflowExecutionInitiatedEventAttributes (Prelude.Maybe Prelude.Text)
+requestCancelExternalWorkflowExecutionInitiatedEventAttributes_control = Lens.lens (\RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' {control} -> control) (\s@RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' {} a -> s {control = a} :: RequestCancelExternalWorkflowExecutionInitiatedEventAttributes)
 
 -- | The @workflowId@ of the external workflow execution to be canceled.
-rceweieaWorkflowId :: Lens' RequestCancelExternalWorkflowExecutionInitiatedEventAttributes Text
-rceweieaWorkflowId = lens _rceweieaWorkflowId (\s a -> s {_rceweieaWorkflowId = a})
+requestCancelExternalWorkflowExecutionInitiatedEventAttributes_workflowId :: Lens.Lens' RequestCancelExternalWorkflowExecutionInitiatedEventAttributes Prelude.Text
+requestCancelExternalWorkflowExecutionInitiatedEventAttributes_workflowId = Lens.lens (\RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' {workflowId} -> workflowId) (\s@RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' {} a -> s {workflowId = a} :: RequestCancelExternalWorkflowExecutionInitiatedEventAttributes)
 
--- | The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @RequestCancelExternalWorkflowExecution@ decision for this cancellation request. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-rceweieaDecisionTaskCompletedEventId :: Lens' RequestCancelExternalWorkflowExecutionInitiatedEventAttributes Integer
-rceweieaDecisionTaskCompletedEventId = lens _rceweieaDecisionTaskCompletedEventId (\s a -> s {_rceweieaDecisionTaskCompletedEventId = a})
+-- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the
+-- @RequestCancelExternalWorkflowExecution@ decision for this cancellation
+-- request. This information can be useful for diagnosing problems by
+-- tracing back the chain of events leading up to this event.
+requestCancelExternalWorkflowExecutionInitiatedEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' RequestCancelExternalWorkflowExecutionInitiatedEventAttributes Prelude.Integer
+requestCancelExternalWorkflowExecutionInitiatedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@RequestCancelExternalWorkflowExecutionInitiatedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: RequestCancelExternalWorkflowExecutionInitiatedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     RequestCancelExternalWorkflowExecutionInitiatedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RequestCancelExternalWorkflowExecutionInitiatedEventAttributes"
       ( \x ->
           RequestCancelExternalWorkflowExecutionInitiatedEventAttributes'
-            <$> (x .:? "runId") <*> (x .:? "control")
-              <*> (x .: "workflowId")
-              <*> (x .: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Prelude..:? "runId")
+              Prelude.<*> (x Prelude..:? "control")
+              Prelude.<*> (x Prelude..: "workflowId")
+              Prelude.<*> (x Prelude..: "decisionTaskCompletedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     RequestCancelExternalWorkflowExecutionInitiatedEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     RequestCancelExternalWorkflowExecutionInitiatedEventAttributes

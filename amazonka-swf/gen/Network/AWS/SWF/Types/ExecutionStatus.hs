@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SWF.Types.ExecutionStatus
   ( ExecutionStatus
       ( ..,
-        Closed,
-        Open
+        ExecutionStatusCLOSED,
+        ExecutionStatusOPEN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutionStatus = ExecutionStatus' (CI Text)
+newtype ExecutionStatus = ExecutionStatus'
+  { fromExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Closed :: ExecutionStatus
-pattern Closed = ExecutionStatus' "CLOSED"
+pattern ExecutionStatusCLOSED :: ExecutionStatus
+pattern ExecutionStatusCLOSED = ExecutionStatus' "CLOSED"
 
-pattern Open :: ExecutionStatus
-pattern Open = ExecutionStatus' "OPEN"
+pattern ExecutionStatusOPEN :: ExecutionStatus
+pattern ExecutionStatusOPEN = ExecutionStatus' "OPEN"
 
 {-# COMPLETE
-  Closed,
-  Open,
+  ExecutionStatusCLOSED,
+  ExecutionStatusOPEN,
   ExecutionStatus'
   #-}
 
-instance FromText ExecutionStatus where
-  parser = (ExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText ExecutionStatus where
+  parser = ExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutionStatus where
-  toText (ExecutionStatus' ci) = original ci
+instance Prelude.ToText ExecutionStatus where
+  toText (ExecutionStatus' x) = x
 
-instance Hashable ExecutionStatus
+instance Prelude.Hashable ExecutionStatus
 
-instance NFData ExecutionStatus
+instance Prelude.NFData ExecutionStatus
 
-instance ToByteString ExecutionStatus
+instance Prelude.ToByteString ExecutionStatus
 
-instance ToQuery ExecutionStatus
+instance Prelude.ToQuery ExecutionStatus
 
-instance ToHeader ExecutionStatus
+instance Prelude.ToHeader ExecutionStatus
 
-instance FromJSON ExecutionStatus where
-  parseJSON = parseJSONText "ExecutionStatus"
+instance Prelude.FromJSON ExecutionStatus where
+  parseJSON = Prelude.parseJSONText "ExecutionStatus"

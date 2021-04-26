@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,128 +19,133 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.SignalExternalWorkflowExecutionDecisionAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @SignalExternalWorkflowExecution@ decision.
 --
---
 -- __Access Control__
 --
--- You can use IAM policies to control this decision's access to Amazon SWF resources as follows:
+-- You can use IAM policies to control this decision\'s access to Amazon
+-- SWF resources as follows:
 --
---     * Use a @Resource@ element with the domain name to limit the action to only specified domains.
+-- -   Use a @Resource@ element with the domain name to limit the action to
+--     only specified domains.
 --
---     * Use an @Action@ element to allow or deny permission to call this action.
+-- -   Use an @Action@ element to allow or deny permission to call this
+--     action.
 --
---     * You cannot use an IAM policy to constrain this action's parameters.
+-- -   You cannot use an IAM policy to constrain this action\'s parameters.
 --
+-- If the caller doesn\'t have sufficient permissions to invoke the action,
+-- or the parameter values fall outside the specified constraints, the
+-- action fails. The associated event attribute\'s @cause@ parameter is set
+-- to @OPERATION_NOT_PERMITTED@. For details and example IAM policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
 --
---
--- If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's @cause@ parameter is set to @OPERATION_NOT_PERMITTED@ . For details and example IAM policies, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows> in the /Amazon SWF Developer Guide/ .
---
---
--- /See:/ 'signalExternalWorkflowExecutionDecisionAttributes' smart constructor.
+-- /See:/ 'newSignalExternalWorkflowExecutionDecisionAttributes' smart constructor.
 data SignalExternalWorkflowExecutionDecisionAttributes = SignalExternalWorkflowExecutionDecisionAttributes'
-  { _sewedaRunId ::
-      !( Maybe
-           Text
-       ),
-    _sewedaInput ::
-      !( Maybe
-           Text
-       ),
-    _sewedaControl ::
-      !( Maybe
-           Text
-       ),
-    _sewedaWorkflowId ::
-      !Text,
-    _sewedaSignalName ::
-      !Text
+  { -- | The @runId@ of the workflow execution to be signaled.
+    runId :: Prelude.Maybe Prelude.Text,
+    -- | The input data to be provided with the signal. The target workflow
+    -- execution uses the signal name and input data to process the signal.
+    input :: Prelude.Maybe Prelude.Text,
+    -- | The data attached to the event that can be used by the decider in
+    -- subsequent decision tasks.
+    control :: Prelude.Maybe Prelude.Text,
+    -- | The @workflowId@ of the workflow execution to be signaled.
+    workflowId :: Prelude.Text,
+    -- | The name of the signal.The target workflow execution uses the signal
+    -- name and input to process the signal.
+    signalName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SignalExternalWorkflowExecutionDecisionAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SignalExternalWorkflowExecutionDecisionAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sewedaRunId' - The @runId@ of the workflow execution to be signaled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sewedaInput' - The input data to be provided with the signal. The target workflow execution uses the signal name and input data to process the signal.
+-- 'runId', 'signalExternalWorkflowExecutionDecisionAttributes_runId' - The @runId@ of the workflow execution to be signaled.
 --
--- * 'sewedaControl' - The data attached to the event that can be used by the decider in subsequent decision tasks.
+-- 'input', 'signalExternalWorkflowExecutionDecisionAttributes_input' - The input data to be provided with the signal. The target workflow
+-- execution uses the signal name and input data to process the signal.
 --
--- * 'sewedaWorkflowId' - The @workflowId@ of the workflow execution to be signaled.
+-- 'control', 'signalExternalWorkflowExecutionDecisionAttributes_control' - The data attached to the event that can be used by the decider in
+-- subsequent decision tasks.
 --
--- * 'sewedaSignalName' - The name of the signal.The target workflow execution uses the signal name and input to process the signal.
-signalExternalWorkflowExecutionDecisionAttributes ::
-  -- | 'sewedaWorkflowId'
-  Text ->
-  -- | 'sewedaSignalName'
-  Text ->
+-- 'workflowId', 'signalExternalWorkflowExecutionDecisionAttributes_workflowId' - The @workflowId@ of the workflow execution to be signaled.
+--
+-- 'signalName', 'signalExternalWorkflowExecutionDecisionAttributes_signalName' - The name of the signal.The target workflow execution uses the signal
+-- name and input to process the signal.
+newSignalExternalWorkflowExecutionDecisionAttributes ::
+  -- | 'workflowId'
+  Prelude.Text ->
+  -- | 'signalName'
+  Prelude.Text ->
   SignalExternalWorkflowExecutionDecisionAttributes
-signalExternalWorkflowExecutionDecisionAttributes
+newSignalExternalWorkflowExecutionDecisionAttributes
   pWorkflowId_
   pSignalName_ =
     SignalExternalWorkflowExecutionDecisionAttributes'
-      { _sewedaRunId =
-          Nothing,
-        _sewedaInput = Nothing,
-        _sewedaControl = Nothing,
-        _sewedaWorkflowId =
+      { runId =
+          Prelude.Nothing,
+        input = Prelude.Nothing,
+        control =
+          Prelude.Nothing,
+        workflowId =
           pWorkflowId_,
-        _sewedaSignalName =
+        signalName =
           pSignalName_
       }
 
 -- | The @runId@ of the workflow execution to be signaled.
-sewedaRunId :: Lens' SignalExternalWorkflowExecutionDecisionAttributes (Maybe Text)
-sewedaRunId = lens _sewedaRunId (\s a -> s {_sewedaRunId = a})
+signalExternalWorkflowExecutionDecisionAttributes_runId :: Lens.Lens' SignalExternalWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+signalExternalWorkflowExecutionDecisionAttributes_runId = Lens.lens (\SignalExternalWorkflowExecutionDecisionAttributes' {runId} -> runId) (\s@SignalExternalWorkflowExecutionDecisionAttributes' {} a -> s {runId = a} :: SignalExternalWorkflowExecutionDecisionAttributes)
 
--- | The input data to be provided with the signal. The target workflow execution uses the signal name and input data to process the signal.
-sewedaInput :: Lens' SignalExternalWorkflowExecutionDecisionAttributes (Maybe Text)
-sewedaInput = lens _sewedaInput (\s a -> s {_sewedaInput = a})
+-- | The input data to be provided with the signal. The target workflow
+-- execution uses the signal name and input data to process the signal.
+signalExternalWorkflowExecutionDecisionAttributes_input :: Lens.Lens' SignalExternalWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+signalExternalWorkflowExecutionDecisionAttributes_input = Lens.lens (\SignalExternalWorkflowExecutionDecisionAttributes' {input} -> input) (\s@SignalExternalWorkflowExecutionDecisionAttributes' {} a -> s {input = a} :: SignalExternalWorkflowExecutionDecisionAttributes)
 
--- | The data attached to the event that can be used by the decider in subsequent decision tasks.
-sewedaControl :: Lens' SignalExternalWorkflowExecutionDecisionAttributes (Maybe Text)
-sewedaControl = lens _sewedaControl (\s a -> s {_sewedaControl = a})
+-- | The data attached to the event that can be used by the decider in
+-- subsequent decision tasks.
+signalExternalWorkflowExecutionDecisionAttributes_control :: Lens.Lens' SignalExternalWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+signalExternalWorkflowExecutionDecisionAttributes_control = Lens.lens (\SignalExternalWorkflowExecutionDecisionAttributes' {control} -> control) (\s@SignalExternalWorkflowExecutionDecisionAttributes' {} a -> s {control = a} :: SignalExternalWorkflowExecutionDecisionAttributes)
 
 -- | The @workflowId@ of the workflow execution to be signaled.
-sewedaWorkflowId :: Lens' SignalExternalWorkflowExecutionDecisionAttributes Text
-sewedaWorkflowId = lens _sewedaWorkflowId (\s a -> s {_sewedaWorkflowId = a})
+signalExternalWorkflowExecutionDecisionAttributes_workflowId :: Lens.Lens' SignalExternalWorkflowExecutionDecisionAttributes Prelude.Text
+signalExternalWorkflowExecutionDecisionAttributes_workflowId = Lens.lens (\SignalExternalWorkflowExecutionDecisionAttributes' {workflowId} -> workflowId) (\s@SignalExternalWorkflowExecutionDecisionAttributes' {} a -> s {workflowId = a} :: SignalExternalWorkflowExecutionDecisionAttributes)
 
--- | The name of the signal.The target workflow execution uses the signal name and input to process the signal.
-sewedaSignalName :: Lens' SignalExternalWorkflowExecutionDecisionAttributes Text
-sewedaSignalName = lens _sewedaSignalName (\s a -> s {_sewedaSignalName = a})
+-- | The name of the signal.The target workflow execution uses the signal
+-- name and input to process the signal.
+signalExternalWorkflowExecutionDecisionAttributes_signalName :: Lens.Lens' SignalExternalWorkflowExecutionDecisionAttributes Prelude.Text
+signalExternalWorkflowExecutionDecisionAttributes_signalName = Lens.lens (\SignalExternalWorkflowExecutionDecisionAttributes' {signalName} -> signalName) (\s@SignalExternalWorkflowExecutionDecisionAttributes' {} a -> s {signalName = a} :: SignalExternalWorkflowExecutionDecisionAttributes)
 
 instance
-  Hashable
+  Prelude.Hashable
     SignalExternalWorkflowExecutionDecisionAttributes
 
 instance
-  NFData
+  Prelude.NFData
     SignalExternalWorkflowExecutionDecisionAttributes
 
 instance
-  ToJSON
+  Prelude.ToJSON
     SignalExternalWorkflowExecutionDecisionAttributes
   where
   toJSON
     SignalExternalWorkflowExecutionDecisionAttributes' {..} =
-      object
-        ( catMaybes
-            [ ("runId" .=) <$> _sewedaRunId,
-              ("input" .=) <$> _sewedaInput,
-              ("control" .=) <$> _sewedaControl,
-              Just ("workflowId" .= _sewedaWorkflowId),
-              Just ("signalName" .= _sewedaSignalName)
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ("runId" Prelude..=) Prelude.<$> runId,
+              ("input" Prelude..=) Prelude.<$> input,
+              ("control" Prelude..=) Prelude.<$> control,
+              Prelude.Just ("workflowId" Prelude..= workflowId),
+              Prelude.Just ("signalName" Prelude..= signalName)
             ]
         )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,126 +19,129 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.LambdaFunctionScheduledEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the details of the @LambdaFunctionScheduled@ event. It isn't set for other event types.
+-- | Provides the details of the @LambdaFunctionScheduled@ event. It isn\'t
+-- set for other event types.
 --
---
---
--- /See:/ 'lambdaFunctionScheduledEventAttributes' smart constructor.
+-- /See:/ 'newLambdaFunctionScheduledEventAttributes' smart constructor.
 data LambdaFunctionScheduledEventAttributes = LambdaFunctionScheduledEventAttributes'
-  { _lfseaInput ::
-      !( Maybe
-           Text
-       ),
-    _lfseaControl ::
-      !( Maybe
-           Text
-       ),
-    _lfseaStartToCloseTimeout ::
-      !( Maybe
-           Text
-       ),
-    _lfseaId ::
-      !Text,
-    _lfseaName ::
-      !Text,
-    _lfseaDecisionTaskCompletedEventId ::
-      !Integer
+  { -- | The input provided to the Lambda task.
+    input :: Prelude.Maybe Prelude.Text,
+    -- | Data attached to the event that the decider can use in subsequent
+    -- workflow tasks. This data isn\'t sent to the Lambda task.
+    control :: Prelude.Maybe Prelude.Text,
+    -- | The maximum amount of time a worker can take to process the Lambda task.
+    startToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of the Lambda task.
+    id :: Prelude.Text,
+    -- | The name of the Lambda function.
+    name :: Prelude.Text,
+    -- | The ID of the @LambdaFunctionCompleted@ event corresponding to the
+    -- decision that resulted in scheduling this activity task. To help
+    -- diagnose issues, use this information to trace back the chain of events
+    -- leading up to this event.
+    decisionTaskCompletedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaFunctionScheduledEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaFunctionScheduledEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfseaInput' - The input provided to the Lambda task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfseaControl' - Data attached to the event that the decider can use in subsequent workflow tasks. This data isn't sent to the Lambda task.
+-- 'input', 'lambdaFunctionScheduledEventAttributes_input' - The input provided to the Lambda task.
 --
--- * 'lfseaStartToCloseTimeout' - The maximum amount of time a worker can take to process the Lambda task.
+-- 'control', 'lambdaFunctionScheduledEventAttributes_control' - Data attached to the event that the decider can use in subsequent
+-- workflow tasks. This data isn\'t sent to the Lambda task.
 --
--- * 'lfseaId' - The unique ID of the Lambda task.
+-- 'startToCloseTimeout', 'lambdaFunctionScheduledEventAttributes_startToCloseTimeout' - The maximum amount of time a worker can take to process the Lambda task.
 --
--- * 'lfseaName' - The name of the Lambda function.
+-- 'id', 'lambdaFunctionScheduledEventAttributes_id' - The unique ID of the Lambda task.
 --
--- * 'lfseaDecisionTaskCompletedEventId' - The ID of the @LambdaFunctionCompleted@ event corresponding to the decision that resulted in scheduling this activity task. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lambdaFunctionScheduledEventAttributes ::
-  -- | 'lfseaId'
-  Text ->
-  -- | 'lfseaName'
-  Text ->
-  -- | 'lfseaDecisionTaskCompletedEventId'
-  Integer ->
+-- 'name', 'lambdaFunctionScheduledEventAttributes_name' - The name of the Lambda function.
+--
+-- 'decisionTaskCompletedEventId', 'lambdaFunctionScheduledEventAttributes_decisionTaskCompletedEventId' - The ID of the @LambdaFunctionCompleted@ event corresponding to the
+-- decision that resulted in scheduling this activity task. To help
+-- diagnose issues, use this information to trace back the chain of events
+-- leading up to this event.
+newLambdaFunctionScheduledEventAttributes ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
   LambdaFunctionScheduledEventAttributes
-lambdaFunctionScheduledEventAttributes
+newLambdaFunctionScheduledEventAttributes
   pId_
   pName_
   pDecisionTaskCompletedEventId_ =
     LambdaFunctionScheduledEventAttributes'
-      { _lfseaInput =
-          Nothing,
-        _lfseaControl = Nothing,
-        _lfseaStartToCloseTimeout = Nothing,
-        _lfseaId = pId_,
-        _lfseaName = pName_,
-        _lfseaDecisionTaskCompletedEventId =
+      { input =
+          Prelude.Nothing,
+        control = Prelude.Nothing,
+        startToCloseTimeout =
+          Prelude.Nothing,
+        id = pId_,
+        name = pName_,
+        decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_
       }
 
 -- | The input provided to the Lambda task.
-lfseaInput :: Lens' LambdaFunctionScheduledEventAttributes (Maybe Text)
-lfseaInput = lens _lfseaInput (\s a -> s {_lfseaInput = a})
+lambdaFunctionScheduledEventAttributes_input :: Lens.Lens' LambdaFunctionScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+lambdaFunctionScheduledEventAttributes_input = Lens.lens (\LambdaFunctionScheduledEventAttributes' {input} -> input) (\s@LambdaFunctionScheduledEventAttributes' {} a -> s {input = a} :: LambdaFunctionScheduledEventAttributes)
 
--- | Data attached to the event that the decider can use in subsequent workflow tasks. This data isn't sent to the Lambda task.
-lfseaControl :: Lens' LambdaFunctionScheduledEventAttributes (Maybe Text)
-lfseaControl = lens _lfseaControl (\s a -> s {_lfseaControl = a})
+-- | Data attached to the event that the decider can use in subsequent
+-- workflow tasks. This data isn\'t sent to the Lambda task.
+lambdaFunctionScheduledEventAttributes_control :: Lens.Lens' LambdaFunctionScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+lambdaFunctionScheduledEventAttributes_control = Lens.lens (\LambdaFunctionScheduledEventAttributes' {control} -> control) (\s@LambdaFunctionScheduledEventAttributes' {} a -> s {control = a} :: LambdaFunctionScheduledEventAttributes)
 
 -- | The maximum amount of time a worker can take to process the Lambda task.
-lfseaStartToCloseTimeout :: Lens' LambdaFunctionScheduledEventAttributes (Maybe Text)
-lfseaStartToCloseTimeout = lens _lfseaStartToCloseTimeout (\s a -> s {_lfseaStartToCloseTimeout = a})
+lambdaFunctionScheduledEventAttributes_startToCloseTimeout :: Lens.Lens' LambdaFunctionScheduledEventAttributes (Prelude.Maybe Prelude.Text)
+lambdaFunctionScheduledEventAttributes_startToCloseTimeout = Lens.lens (\LambdaFunctionScheduledEventAttributes' {startToCloseTimeout} -> startToCloseTimeout) (\s@LambdaFunctionScheduledEventAttributes' {} a -> s {startToCloseTimeout = a} :: LambdaFunctionScheduledEventAttributes)
 
 -- | The unique ID of the Lambda task.
-lfseaId :: Lens' LambdaFunctionScheduledEventAttributes Text
-lfseaId = lens _lfseaId (\s a -> s {_lfseaId = a})
+lambdaFunctionScheduledEventAttributes_id :: Lens.Lens' LambdaFunctionScheduledEventAttributes Prelude.Text
+lambdaFunctionScheduledEventAttributes_id = Lens.lens (\LambdaFunctionScheduledEventAttributes' {id} -> id) (\s@LambdaFunctionScheduledEventAttributes' {} a -> s {id = a} :: LambdaFunctionScheduledEventAttributes)
 
 -- | The name of the Lambda function.
-lfseaName :: Lens' LambdaFunctionScheduledEventAttributes Text
-lfseaName = lens _lfseaName (\s a -> s {_lfseaName = a})
+lambdaFunctionScheduledEventAttributes_name :: Lens.Lens' LambdaFunctionScheduledEventAttributes Prelude.Text
+lambdaFunctionScheduledEventAttributes_name = Lens.lens (\LambdaFunctionScheduledEventAttributes' {name} -> name) (\s@LambdaFunctionScheduledEventAttributes' {} a -> s {name = a} :: LambdaFunctionScheduledEventAttributes)
 
--- | The ID of the @LambdaFunctionCompleted@ event corresponding to the decision that resulted in scheduling this activity task. To help diagnose issues, use this information to trace back the chain of events leading up to this event.
-lfseaDecisionTaskCompletedEventId :: Lens' LambdaFunctionScheduledEventAttributes Integer
-lfseaDecisionTaskCompletedEventId = lens _lfseaDecisionTaskCompletedEventId (\s a -> s {_lfseaDecisionTaskCompletedEventId = a})
+-- | The ID of the @LambdaFunctionCompleted@ event corresponding to the
+-- decision that resulted in scheduling this activity task. To help
+-- diagnose issues, use this information to trace back the chain of events
+-- leading up to this event.
+lambdaFunctionScheduledEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' LambdaFunctionScheduledEventAttributes Prelude.Integer
+lambdaFunctionScheduledEventAttributes_decisionTaskCompletedEventId = Lens.lens (\LambdaFunctionScheduledEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@LambdaFunctionScheduledEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: LambdaFunctionScheduledEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     LambdaFunctionScheduledEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaFunctionScheduledEventAttributes"
       ( \x ->
           LambdaFunctionScheduledEventAttributes'
-            <$> (x .:? "input")
-            <*> (x .:? "control")
-            <*> (x .:? "startToCloseTimeout")
-            <*> (x .: "id")
-            <*> (x .: "name")
-            <*> (x .: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Prelude..:? "input")
+            Prelude.<*> (x Prelude..:? "control")
+            Prelude.<*> (x Prelude..:? "startToCloseTimeout")
+            Prelude.<*> (x Prelude..: "id")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "decisionTaskCompletedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     LambdaFunctionScheduledEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     LambdaFunctionScheduledEventAttributes

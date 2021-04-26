@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.SWF.Types.DecisionTaskTimeoutType
   ( DecisionTaskTimeoutType
       ( ..,
-        DTTTStartToClose
+        DecisionTaskTimeoutTypeSTARTTOCLOSE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DecisionTaskTimeoutType
-  = DecisionTaskTimeoutType'
-      ( CI
-          Text
-      )
+newtype DecisionTaskTimeoutType = DecisionTaskTimeoutType'
+  { fromDecisionTaskTimeoutType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DTTTStartToClose :: DecisionTaskTimeoutType
-pattern DTTTStartToClose = DecisionTaskTimeoutType' "START_TO_CLOSE"
+pattern DecisionTaskTimeoutTypeSTARTTOCLOSE :: DecisionTaskTimeoutType
+pattern DecisionTaskTimeoutTypeSTARTTOCLOSE = DecisionTaskTimeoutType' "START_TO_CLOSE"
 
 {-# COMPLETE
-  DTTTStartToClose,
+  DecisionTaskTimeoutTypeSTARTTOCLOSE,
   DecisionTaskTimeoutType'
   #-}
 
-instance FromText DecisionTaskTimeoutType where
-  parser = (DecisionTaskTimeoutType' . mk) <$> takeText
+instance Prelude.FromText DecisionTaskTimeoutType where
+  parser = DecisionTaskTimeoutType' Prelude.<$> Prelude.takeText
 
-instance ToText DecisionTaskTimeoutType where
-  toText (DecisionTaskTimeoutType' ci) = original ci
+instance Prelude.ToText DecisionTaskTimeoutType where
+  toText (DecisionTaskTimeoutType' x) = x
 
-instance Hashable DecisionTaskTimeoutType
+instance Prelude.Hashable DecisionTaskTimeoutType
 
-instance NFData DecisionTaskTimeoutType
+instance Prelude.NFData DecisionTaskTimeoutType
 
-instance ToByteString DecisionTaskTimeoutType
+instance Prelude.ToByteString DecisionTaskTimeoutType
 
-instance ToQuery DecisionTaskTimeoutType
+instance Prelude.ToQuery DecisionTaskTimeoutType
 
-instance ToHeader DecisionTaskTimeoutType
+instance Prelude.ToHeader DecisionTaskTimeoutType
 
-instance FromJSON DecisionTaskTimeoutType where
-  parseJSON = parseJSONText "DecisionTaskTimeoutType"
+instance Prelude.FromJSON DecisionTaskTimeoutType where
+  parseJSON = Prelude.parseJSONText "DecisionTaskTimeoutType"

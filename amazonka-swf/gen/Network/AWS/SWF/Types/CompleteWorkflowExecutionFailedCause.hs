@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SWF.Types.CompleteWorkflowExecutionFailedCause
   ( CompleteWorkflowExecutionFailedCause
       ( ..,
-        CWEFCOperationNotPermitted,
-        CWEFCUnhandledDecision
+        CompleteWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED,
+        CompleteWorkflowExecutionFailedCauseUNHANDLEDDECISION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CompleteWorkflowExecutionFailedCause
-  = CompleteWorkflowExecutionFailedCause'
-      ( CI
-          Text
-      )
+newtype CompleteWorkflowExecutionFailedCause = CompleteWorkflowExecutionFailedCause'
+  { fromCompleteWorkflowExecutionFailedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CWEFCOperationNotPermitted :: CompleteWorkflowExecutionFailedCause
-pattern CWEFCOperationNotPermitted = CompleteWorkflowExecutionFailedCause' "OPERATION_NOT_PERMITTED"
+pattern CompleteWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED :: CompleteWorkflowExecutionFailedCause
+pattern CompleteWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED = CompleteWorkflowExecutionFailedCause' "OPERATION_NOT_PERMITTED"
 
-pattern CWEFCUnhandledDecision :: CompleteWorkflowExecutionFailedCause
-pattern CWEFCUnhandledDecision = CompleteWorkflowExecutionFailedCause' "UNHANDLED_DECISION"
+pattern CompleteWorkflowExecutionFailedCauseUNHANDLEDDECISION :: CompleteWorkflowExecutionFailedCause
+pattern CompleteWorkflowExecutionFailedCauseUNHANDLEDDECISION = CompleteWorkflowExecutionFailedCause' "UNHANDLED_DECISION"
 
 {-# COMPLETE
-  CWEFCOperationNotPermitted,
-  CWEFCUnhandledDecision,
+  CompleteWorkflowExecutionFailedCauseOPERATIONNOTPERMITTED,
+  CompleteWorkflowExecutionFailedCauseUNHANDLEDDECISION,
   CompleteWorkflowExecutionFailedCause'
   #-}
 
-instance FromText CompleteWorkflowExecutionFailedCause where
-  parser = (CompleteWorkflowExecutionFailedCause' . mk) <$> takeText
+instance Prelude.FromText CompleteWorkflowExecutionFailedCause where
+  parser = CompleteWorkflowExecutionFailedCause' Prelude.<$> Prelude.takeText
 
-instance ToText CompleteWorkflowExecutionFailedCause where
-  toText (CompleteWorkflowExecutionFailedCause' ci) = original ci
+instance Prelude.ToText CompleteWorkflowExecutionFailedCause where
+  toText (CompleteWorkflowExecutionFailedCause' x) = x
 
-instance Hashable CompleteWorkflowExecutionFailedCause
+instance Prelude.Hashable CompleteWorkflowExecutionFailedCause
 
-instance NFData CompleteWorkflowExecutionFailedCause
+instance Prelude.NFData CompleteWorkflowExecutionFailedCause
 
-instance ToByteString CompleteWorkflowExecutionFailedCause
+instance Prelude.ToByteString CompleteWorkflowExecutionFailedCause
 
-instance ToQuery CompleteWorkflowExecutionFailedCause
+instance Prelude.ToQuery CompleteWorkflowExecutionFailedCause
 
-instance ToHeader CompleteWorkflowExecutionFailedCause
+instance Prelude.ToHeader CompleteWorkflowExecutionFailedCause
 
-instance FromJSON CompleteWorkflowExecutionFailedCause where
-  parseJSON = parseJSONText "CompleteWorkflowExecutionFailedCause"
+instance Prelude.FromJSON CompleteWorkflowExecutionFailedCause where
+  parseJSON = Prelude.parseJSONText "CompleteWorkflowExecutionFailedCause"

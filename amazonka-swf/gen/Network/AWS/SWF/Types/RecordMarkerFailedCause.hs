@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.SWF.Types.RecordMarkerFailedCause
   ( RecordMarkerFailedCause
       ( ..,
-        RMFCOperationNotPermitted
+        RecordMarkerFailedCauseOPERATIONNOTPERMITTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecordMarkerFailedCause
-  = RecordMarkerFailedCause'
-      ( CI
-          Text
-      )
+newtype RecordMarkerFailedCause = RecordMarkerFailedCause'
+  { fromRecordMarkerFailedCause ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RMFCOperationNotPermitted :: RecordMarkerFailedCause
-pattern RMFCOperationNotPermitted = RecordMarkerFailedCause' "OPERATION_NOT_PERMITTED"
+pattern RecordMarkerFailedCauseOPERATIONNOTPERMITTED :: RecordMarkerFailedCause
+pattern RecordMarkerFailedCauseOPERATIONNOTPERMITTED = RecordMarkerFailedCause' "OPERATION_NOT_PERMITTED"
 
 {-# COMPLETE
-  RMFCOperationNotPermitted,
+  RecordMarkerFailedCauseOPERATIONNOTPERMITTED,
   RecordMarkerFailedCause'
   #-}
 
-instance FromText RecordMarkerFailedCause where
-  parser = (RecordMarkerFailedCause' . mk) <$> takeText
+instance Prelude.FromText RecordMarkerFailedCause where
+  parser = RecordMarkerFailedCause' Prelude.<$> Prelude.takeText
 
-instance ToText RecordMarkerFailedCause where
-  toText (RecordMarkerFailedCause' ci) = original ci
+instance Prelude.ToText RecordMarkerFailedCause where
+  toText (RecordMarkerFailedCause' x) = x
 
-instance Hashable RecordMarkerFailedCause
+instance Prelude.Hashable RecordMarkerFailedCause
 
-instance NFData RecordMarkerFailedCause
+instance Prelude.NFData RecordMarkerFailedCause
 
-instance ToByteString RecordMarkerFailedCause
+instance Prelude.ToByteString RecordMarkerFailedCause
 
-instance ToQuery RecordMarkerFailedCause
+instance Prelude.ToQuery RecordMarkerFailedCause
 
-instance ToHeader RecordMarkerFailedCause
+instance Prelude.ToHeader RecordMarkerFailedCause
 
-instance FromJSON RecordMarkerFailedCause where
-  parseJSON = parseJSONText "RecordMarkerFailedCause"
+instance Prelude.FromJSON RecordMarkerFailedCause where
+  parseJSON = Prelude.parseJSONText "RecordMarkerFailedCause"

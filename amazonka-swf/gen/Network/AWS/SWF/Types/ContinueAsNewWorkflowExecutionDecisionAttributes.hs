@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,192 +19,343 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ContinueAsNewWorkflowExecutionDecisionAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.ChildPolicy
 import Network.AWS.SWF.Types.TaskList
 
 -- | Provides the details of the @ContinueAsNewWorkflowExecution@ decision.
 --
---
 -- __Access Control__
 --
--- You can use IAM policies to control this decision's access to Amazon SWF resources as follows:
+-- You can use IAM policies to control this decision\'s access to Amazon
+-- SWF resources as follows:
 --
---     * Use a @Resource@ element with the domain name to limit the action to only specified domains.
+-- -   Use a @Resource@ element with the domain name to limit the action to
+--     only specified domains.
 --
---     * Use an @Action@ element to allow or deny permission to call this action.
+-- -   Use an @Action@ element to allow or deny permission to call this
+--     action.
 --
---     * Constrain the following parameters by using a @Condition@ element with the appropriate keys.
+-- -   Constrain the following parameters by using a @Condition@ element
+--     with the appropriate keys.
 --
---     * @tag@ – A tag used to identify the workflow execution
+--     -   @tag@ – A tag used to identify the workflow execution
 --
---     * @taskList@ – String constraint. The key is @swf:taskList.name@ .
+--     -   @taskList@ – String constraint. The key is @swf:taskList.name@.
 --
---     * @workflowType.version@ – String constraint. The key is @swf:workflowType.version@ .
+--     -   @workflowType.version@ – String constraint. The key is
+--         @swf:workflowType.version@.
 --
+-- If the caller doesn\'t have sufficient permissions to invoke the action,
+-- or the parameter values fall outside the specified constraints, the
+-- action fails. The associated event attribute\'s @cause@ parameter is set
+-- to @OPERATION_NOT_PERMITTED@. For details and example IAM policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
 --
---
---
---
--- If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's @cause@ parameter is set to @OPERATION_NOT_PERMITTED@ . For details and example IAM policies, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows> in the /Amazon SWF Developer Guide/ .
---
---
--- /See:/ 'continueAsNewWorkflowExecutionDecisionAttributes' smart constructor.
+-- /See:/ 'newContinueAsNewWorkflowExecutionDecisionAttributes' smart constructor.
 data ContinueAsNewWorkflowExecutionDecisionAttributes = ContinueAsNewWorkflowExecutionDecisionAttributes'
-  { _canwedaInput ::
-      !( Maybe
-           Text
-       ),
-    _canwedaLambdaRole ::
-      !( Maybe
-           Text
-       ),
-    _canwedaChildPolicy ::
-      !( Maybe
-           ChildPolicy
-       ),
-    _canwedaTaskList ::
-      !( Maybe
-           TaskList
-       ),
-    _canwedaTaskPriority ::
-      !( Maybe
-           Text
-       ),
-    _canwedaExecutionStartToCloseTimeout ::
-      !( Maybe
-           Text
-       ),
-    _canwedaWorkflowTypeVersion ::
-      !( Maybe
-           Text
-       ),
-    _canwedaTaskStartToCloseTimeout ::
-      !( Maybe
-           Text
-       ),
-    _canwedaTagList ::
-      !( Maybe
-           [Text]
-       )
+  { -- | The input provided to the new workflow execution.
+    input :: Prelude.Maybe Prelude.Text,
+    -- | The IAM role to attach to the new (continued) execution.
+    lambdaRole :: Prelude.Maybe Prelude.Text,
+    -- | If set, specifies the policy to use for the child workflow executions of
+    -- the new execution if it is terminated by calling the
+    -- TerminateWorkflowExecution action explicitly or due to an expired
+    -- timeout. This policy overrides the default child policy specified when
+    -- registering the workflow type using RegisterWorkflowType.
+    --
+    -- The supported child policies are:
+    --
+    -- -   @TERMINATE@ – The child executions are terminated.
+    --
+    -- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+    --     execution by recording a @WorkflowExecutionCancelRequested@ event in
+    --     its history. It is up to the decider to take appropriate actions
+    --     when it receives an execution history with this event.
+    --
+    -- -   @ABANDON@ – No action is taken. The child executions continue to
+    --     run.
+    --
+    -- A child policy for this workflow execution must be specified either as a
+    -- default for the workflow type or through this parameter. If neither this
+    -- parameter is set nor a default child policy was specified at
+    -- registration time then a fault is returned.
+    childPolicy :: Prelude.Maybe ChildPolicy,
+    -- | The task list to use for the decisions of the new (continued) workflow
+    -- execution.
+    taskList :: Prelude.Maybe TaskList,
+    -- | The task priority that, if set, specifies the priority for the decision
+    -- tasks for this workflow execution. This overrides the
+    -- defaultTaskPriority specified when registering the workflow type. Valid
+    -- values are integers that range from Java\'s @Integer.MIN_VALUE@
+    -- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+    -- indicate higher priority.
+    --
+    -- For more information about setting task priority, see
+    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+    -- in the /Amazon SWF Developer Guide/.
+    taskPriority :: Prelude.Maybe Prelude.Text,
+    -- | If set, specifies the total duration for this workflow execution. This
+    -- overrides the @defaultExecutionStartToCloseTimeout@ specified when
+    -- registering the workflow type.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    --
+    -- An execution start-to-close timeout for this workflow execution must be
+    -- specified either as a default for the workflow type or through this
+    -- field. If neither this field is set nor a default execution
+    -- start-to-close timeout was specified at registration time then a fault
+    -- is returned.
+    executionStartToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The version of the workflow to start.
+    workflowTypeVersion :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the maximum duration of decision tasks for the new workflow
+    -- execution. This parameter overrides the @defaultTaskStartToCloseTimout@
+    -- specified when registering the workflow type using RegisterWorkflowType.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    --
+    -- A task start-to-close timeout for the new workflow execution must be
+    -- specified either as a default for the workflow type or through this
+    -- parameter. If neither this parameter is set nor a default task
+    -- start-to-close timeout was specified at registration time then a fault
+    -- is returned.
+    taskStartToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The list of tags to associate with the new workflow execution. A maximum
+    -- of 5 tags can be specified. You can list workflow executions with a
+    -- specific tag by calling ListOpenWorkflowExecutions or
+    -- ListClosedWorkflowExecutions and specifying a TagFilter.
+    tagList :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContinueAsNewWorkflowExecutionDecisionAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContinueAsNewWorkflowExecutionDecisionAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'canwedaInput' - The input provided to the new workflow execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'canwedaLambdaRole' - The IAM role to attach to the new (continued) execution.
+-- 'input', 'continueAsNewWorkflowExecutionDecisionAttributes_input' - The input provided to the new workflow execution.
 --
--- * 'canwedaChildPolicy' - If set, specifies the policy to use for the child workflow executions of the new execution if it is terminated by calling the 'TerminateWorkflowExecution' action explicitly or due to an expired timeout. This policy overrides the default child policy specified when registering the workflow type using 'RegisterWorkflowType' . The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
+-- 'lambdaRole', 'continueAsNewWorkflowExecutionDecisionAttributes_lambdaRole' - The IAM role to attach to the new (continued) execution.
 --
--- * 'canwedaTaskList' - The task list to use for the decisions of the new (continued) workflow execution.
+-- 'childPolicy', 'continueAsNewWorkflowExecutionDecisionAttributes_childPolicy' - If set, specifies the policy to use for the child workflow executions of
+-- the new execution if it is terminated by calling the
+-- TerminateWorkflowExecution action explicitly or due to an expired
+-- timeout. This policy overrides the default child policy specified when
+-- registering the workflow type using RegisterWorkflowType.
 --
--- * 'canwedaTaskPriority' - The task priority that, if set, specifies the priority for the decision tasks for this workflow execution. This overrides the defaultTaskPriority specified when registering the workflow type. Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
+-- The supported child policies are:
 --
--- * 'canwedaExecutionStartToCloseTimeout' - If set, specifies the total duration for this workflow execution. This overrides the @defaultExecutionStartToCloseTimeout@ specified when registering the workflow type. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- -   @TERMINATE@ – The child executions are terminated.
 --
--- * 'canwedaWorkflowTypeVersion' - The version of the workflow to start.
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
 --
--- * 'canwedaTaskStartToCloseTimeout' - Specifies the maximum duration of decision tasks for the new workflow execution. This parameter overrides the @defaultTaskStartToCloseTimout@ specified when registering the workflow type using 'RegisterWorkflowType' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
 --
--- * 'canwedaTagList' - The list of tags to associate with the new workflow execution. A maximum of 5 tags can be specified. You can list workflow executions with a specific tag by calling 'ListOpenWorkflowExecutions' or 'ListClosedWorkflowExecutions' and specifying a 'TagFilter' .
-continueAsNewWorkflowExecutionDecisionAttributes ::
+-- A child policy for this workflow execution must be specified either as a
+-- default for the workflow type or through this parameter. If neither this
+-- parameter is set nor a default child policy was specified at
+-- registration time then a fault is returned.
+--
+-- 'taskList', 'continueAsNewWorkflowExecutionDecisionAttributes_taskList' - The task list to use for the decisions of the new (continued) workflow
+-- execution.
+--
+-- 'taskPriority', 'continueAsNewWorkflowExecutionDecisionAttributes_taskPriority' - The task priority that, if set, specifies the priority for the decision
+-- tasks for this workflow execution. This overrides the
+-- defaultTaskPriority specified when registering the workflow type. Valid
+-- values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
+--
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
+--
+-- 'executionStartToCloseTimeout', 'continueAsNewWorkflowExecutionDecisionAttributes_executionStartToCloseTimeout' - If set, specifies the total duration for this workflow execution. This
+-- overrides the @defaultExecutionStartToCloseTimeout@ specified when
+-- registering the workflow type.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- An execution start-to-close timeout for this workflow execution must be
+-- specified either as a default for the workflow type or through this
+-- field. If neither this field is set nor a default execution
+-- start-to-close timeout was specified at registration time then a fault
+-- is returned.
+--
+-- 'workflowTypeVersion', 'continueAsNewWorkflowExecutionDecisionAttributes_workflowTypeVersion' - The version of the workflow to start.
+--
+-- 'taskStartToCloseTimeout', 'continueAsNewWorkflowExecutionDecisionAttributes_taskStartToCloseTimeout' - Specifies the maximum duration of decision tasks for the new workflow
+-- execution. This parameter overrides the @defaultTaskStartToCloseTimout@
+-- specified when registering the workflow type using RegisterWorkflowType.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- A task start-to-close timeout for the new workflow execution must be
+-- specified either as a default for the workflow type or through this
+-- parameter. If neither this parameter is set nor a default task
+-- start-to-close timeout was specified at registration time then a fault
+-- is returned.
+--
+-- 'tagList', 'continueAsNewWorkflowExecutionDecisionAttributes_tagList' - The list of tags to associate with the new workflow execution. A maximum
+-- of 5 tags can be specified. You can list workflow executions with a
+-- specific tag by calling ListOpenWorkflowExecutions or
+-- ListClosedWorkflowExecutions and specifying a TagFilter.
+newContinueAsNewWorkflowExecutionDecisionAttributes ::
   ContinueAsNewWorkflowExecutionDecisionAttributes
-continueAsNewWorkflowExecutionDecisionAttributes =
+newContinueAsNewWorkflowExecutionDecisionAttributes =
   ContinueAsNewWorkflowExecutionDecisionAttributes'
-    { _canwedaInput =
-        Nothing,
-      _canwedaLambdaRole =
-        Nothing,
-      _canwedaChildPolicy =
-        Nothing,
-      _canwedaTaskList =
-        Nothing,
-      _canwedaTaskPriority =
-        Nothing,
-      _canwedaExecutionStartToCloseTimeout =
-        Nothing,
-      _canwedaWorkflowTypeVersion =
-        Nothing,
-      _canwedaTaskStartToCloseTimeout =
-        Nothing,
-      _canwedaTagList = Nothing
+    { input =
+        Prelude.Nothing,
+      lambdaRole =
+        Prelude.Nothing,
+      childPolicy =
+        Prelude.Nothing,
+      taskList =
+        Prelude.Nothing,
+      taskPriority =
+        Prelude.Nothing,
+      executionStartToCloseTimeout =
+        Prelude.Nothing,
+      workflowTypeVersion =
+        Prelude.Nothing,
+      taskStartToCloseTimeout =
+        Prelude.Nothing,
+      tagList = Prelude.Nothing
     }
 
 -- | The input provided to the new workflow execution.
-canwedaInput :: Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Maybe Text)
-canwedaInput = lens _canwedaInput (\s a -> s {_canwedaInput = a})
+continueAsNewWorkflowExecutionDecisionAttributes_input :: Lens.Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+continueAsNewWorkflowExecutionDecisionAttributes_input = Lens.lens (\ContinueAsNewWorkflowExecutionDecisionAttributes' {input} -> input) (\s@ContinueAsNewWorkflowExecutionDecisionAttributes' {} a -> s {input = a} :: ContinueAsNewWorkflowExecutionDecisionAttributes)
 
 -- | The IAM role to attach to the new (continued) execution.
-canwedaLambdaRole :: Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Maybe Text)
-canwedaLambdaRole = lens _canwedaLambdaRole (\s a -> s {_canwedaLambdaRole = a})
+continueAsNewWorkflowExecutionDecisionAttributes_lambdaRole :: Lens.Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+continueAsNewWorkflowExecutionDecisionAttributes_lambdaRole = Lens.lens (\ContinueAsNewWorkflowExecutionDecisionAttributes' {lambdaRole} -> lambdaRole) (\s@ContinueAsNewWorkflowExecutionDecisionAttributes' {} a -> s {lambdaRole = a} :: ContinueAsNewWorkflowExecutionDecisionAttributes)
 
--- | If set, specifies the policy to use for the child workflow executions of the new execution if it is terminated by calling the 'TerminateWorkflowExecution' action explicitly or due to an expired timeout. This policy overrides the default child policy specified when registering the workflow type using 'RegisterWorkflowType' . The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
-canwedaChildPolicy :: Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Maybe ChildPolicy)
-canwedaChildPolicy = lens _canwedaChildPolicy (\s a -> s {_canwedaChildPolicy = a})
+-- | If set, specifies the policy to use for the child workflow executions of
+-- the new execution if it is terminated by calling the
+-- TerminateWorkflowExecution action explicitly or due to an expired
+-- timeout. This policy overrides the default child policy specified when
+-- registering the workflow type using RegisterWorkflowType.
+--
+-- The supported child policies are:
+--
+-- -   @TERMINATE@ – The child executions are terminated.
+--
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+--
+-- A child policy for this workflow execution must be specified either as a
+-- default for the workflow type or through this parameter. If neither this
+-- parameter is set nor a default child policy was specified at
+-- registration time then a fault is returned.
+continueAsNewWorkflowExecutionDecisionAttributes_childPolicy :: Lens.Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Prelude.Maybe ChildPolicy)
+continueAsNewWorkflowExecutionDecisionAttributes_childPolicy = Lens.lens (\ContinueAsNewWorkflowExecutionDecisionAttributes' {childPolicy} -> childPolicy) (\s@ContinueAsNewWorkflowExecutionDecisionAttributes' {} a -> s {childPolicy = a} :: ContinueAsNewWorkflowExecutionDecisionAttributes)
 
--- | The task list to use for the decisions of the new (continued) workflow execution.
-canwedaTaskList :: Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Maybe TaskList)
-canwedaTaskList = lens _canwedaTaskList (\s a -> s {_canwedaTaskList = a})
+-- | The task list to use for the decisions of the new (continued) workflow
+-- execution.
+continueAsNewWorkflowExecutionDecisionAttributes_taskList :: Lens.Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Prelude.Maybe TaskList)
+continueAsNewWorkflowExecutionDecisionAttributes_taskList = Lens.lens (\ContinueAsNewWorkflowExecutionDecisionAttributes' {taskList} -> taskList) (\s@ContinueAsNewWorkflowExecutionDecisionAttributes' {} a -> s {taskList = a} :: ContinueAsNewWorkflowExecutionDecisionAttributes)
 
--- | The task priority that, if set, specifies the priority for the decision tasks for this workflow execution. This overrides the defaultTaskPriority specified when registering the workflow type. Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
-canwedaTaskPriority :: Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Maybe Text)
-canwedaTaskPriority = lens _canwedaTaskPriority (\s a -> s {_canwedaTaskPriority = a})
+-- | The task priority that, if set, specifies the priority for the decision
+-- tasks for this workflow execution. This overrides the
+-- defaultTaskPriority specified when registering the workflow type. Valid
+-- values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
+--
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
+continueAsNewWorkflowExecutionDecisionAttributes_taskPriority :: Lens.Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+continueAsNewWorkflowExecutionDecisionAttributes_taskPriority = Lens.lens (\ContinueAsNewWorkflowExecutionDecisionAttributes' {taskPriority} -> taskPriority) (\s@ContinueAsNewWorkflowExecutionDecisionAttributes' {} a -> s {taskPriority = a} :: ContinueAsNewWorkflowExecutionDecisionAttributes)
 
--- | If set, specifies the total duration for this workflow execution. This overrides the @defaultExecutionStartToCloseTimeout@ specified when registering the workflow type. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-canwedaExecutionStartToCloseTimeout :: Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Maybe Text)
-canwedaExecutionStartToCloseTimeout = lens _canwedaExecutionStartToCloseTimeout (\s a -> s {_canwedaExecutionStartToCloseTimeout = a})
+-- | If set, specifies the total duration for this workflow execution. This
+-- overrides the @defaultExecutionStartToCloseTimeout@ specified when
+-- registering the workflow type.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- An execution start-to-close timeout for this workflow execution must be
+-- specified either as a default for the workflow type or through this
+-- field. If neither this field is set nor a default execution
+-- start-to-close timeout was specified at registration time then a fault
+-- is returned.
+continueAsNewWorkflowExecutionDecisionAttributes_executionStartToCloseTimeout :: Lens.Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+continueAsNewWorkflowExecutionDecisionAttributes_executionStartToCloseTimeout = Lens.lens (\ContinueAsNewWorkflowExecutionDecisionAttributes' {executionStartToCloseTimeout} -> executionStartToCloseTimeout) (\s@ContinueAsNewWorkflowExecutionDecisionAttributes' {} a -> s {executionStartToCloseTimeout = a} :: ContinueAsNewWorkflowExecutionDecisionAttributes)
 
 -- | The version of the workflow to start.
-canwedaWorkflowTypeVersion :: Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Maybe Text)
-canwedaWorkflowTypeVersion = lens _canwedaWorkflowTypeVersion (\s a -> s {_canwedaWorkflowTypeVersion = a})
+continueAsNewWorkflowExecutionDecisionAttributes_workflowTypeVersion :: Lens.Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+continueAsNewWorkflowExecutionDecisionAttributes_workflowTypeVersion = Lens.lens (\ContinueAsNewWorkflowExecutionDecisionAttributes' {workflowTypeVersion} -> workflowTypeVersion) (\s@ContinueAsNewWorkflowExecutionDecisionAttributes' {} a -> s {workflowTypeVersion = a} :: ContinueAsNewWorkflowExecutionDecisionAttributes)
 
--- | Specifies the maximum duration of decision tasks for the new workflow execution. This parameter overrides the @defaultTaskStartToCloseTimout@ specified when registering the workflow type using 'RegisterWorkflowType' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-canwedaTaskStartToCloseTimeout :: Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Maybe Text)
-canwedaTaskStartToCloseTimeout = lens _canwedaTaskStartToCloseTimeout (\s a -> s {_canwedaTaskStartToCloseTimeout = a})
+-- | Specifies the maximum duration of decision tasks for the new workflow
+-- execution. This parameter overrides the @defaultTaskStartToCloseTimout@
+-- specified when registering the workflow type using RegisterWorkflowType.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- A task start-to-close timeout for the new workflow execution must be
+-- specified either as a default for the workflow type or through this
+-- parameter. If neither this parameter is set nor a default task
+-- start-to-close timeout was specified at registration time then a fault
+-- is returned.
+continueAsNewWorkflowExecutionDecisionAttributes_taskStartToCloseTimeout :: Lens.Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Prelude.Maybe Prelude.Text)
+continueAsNewWorkflowExecutionDecisionAttributes_taskStartToCloseTimeout = Lens.lens (\ContinueAsNewWorkflowExecutionDecisionAttributes' {taskStartToCloseTimeout} -> taskStartToCloseTimeout) (\s@ContinueAsNewWorkflowExecutionDecisionAttributes' {} a -> s {taskStartToCloseTimeout = a} :: ContinueAsNewWorkflowExecutionDecisionAttributes)
 
--- | The list of tags to associate with the new workflow execution. A maximum of 5 tags can be specified. You can list workflow executions with a specific tag by calling 'ListOpenWorkflowExecutions' or 'ListClosedWorkflowExecutions' and specifying a 'TagFilter' .
-canwedaTagList :: Lens' ContinueAsNewWorkflowExecutionDecisionAttributes [Text]
-canwedaTagList = lens _canwedaTagList (\s a -> s {_canwedaTagList = a}) . _Default . _Coerce
+-- | The list of tags to associate with the new workflow execution. A maximum
+-- of 5 tags can be specified. You can list workflow executions with a
+-- specific tag by calling ListOpenWorkflowExecutions or
+-- ListClosedWorkflowExecutions and specifying a TagFilter.
+continueAsNewWorkflowExecutionDecisionAttributes_tagList :: Lens.Lens' ContinueAsNewWorkflowExecutionDecisionAttributes (Prelude.Maybe [Prelude.Text])
+continueAsNewWorkflowExecutionDecisionAttributes_tagList = Lens.lens (\ContinueAsNewWorkflowExecutionDecisionAttributes' {tagList} -> tagList) (\s@ContinueAsNewWorkflowExecutionDecisionAttributes' {} a -> s {tagList = a} :: ContinueAsNewWorkflowExecutionDecisionAttributes) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  Hashable
+  Prelude.Hashable
     ContinueAsNewWorkflowExecutionDecisionAttributes
 
 instance
-  NFData
+  Prelude.NFData
     ContinueAsNewWorkflowExecutionDecisionAttributes
 
 instance
-  ToJSON
+  Prelude.ToJSON
     ContinueAsNewWorkflowExecutionDecisionAttributes
   where
   toJSON
     ContinueAsNewWorkflowExecutionDecisionAttributes' {..} =
-      object
-        ( catMaybes
-            [ ("input" .=) <$> _canwedaInput,
-              ("lambdaRole" .=) <$> _canwedaLambdaRole,
-              ("childPolicy" .=) <$> _canwedaChildPolicy,
-              ("taskList" .=) <$> _canwedaTaskList,
-              ("taskPriority" .=) <$> _canwedaTaskPriority,
-              ("executionStartToCloseTimeout" .=)
-                <$> _canwedaExecutionStartToCloseTimeout,
-              ("workflowTypeVersion" .=)
-                <$> _canwedaWorkflowTypeVersion,
-              ("taskStartToCloseTimeout" .=)
-                <$> _canwedaTaskStartToCloseTimeout,
-              ("tagList" .=) <$> _canwedaTagList
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ("input" Prelude..=) Prelude.<$> input,
+              ("lambdaRole" Prelude..=) Prelude.<$> lambdaRole,
+              ("childPolicy" Prelude..=) Prelude.<$> childPolicy,
+              ("taskList" Prelude..=) Prelude.<$> taskList,
+              ("taskPriority" Prelude..=) Prelude.<$> taskPriority,
+              ("executionStartToCloseTimeout" Prelude..=)
+                Prelude.<$> executionStartToCloseTimeout,
+              ("workflowTypeVersion" Prelude..=)
+                Prelude.<$> workflowTypeVersion,
+              ("taskStartToCloseTimeout" Prelude..=)
+                Prelude.<$> taskStartToCloseTimeout,
+              ("tagList" Prelude..=) Prelude.<$> tagList
             ]
         )

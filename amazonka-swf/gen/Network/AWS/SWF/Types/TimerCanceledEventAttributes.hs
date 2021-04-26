@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.TimerCanceledEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @TimerCanceled@ event.
 --
---
---
--- /See:/ 'timerCanceledEventAttributes' smart constructor.
+-- /See:/ 'newTimerCanceledEventAttributes' smart constructor.
 data TimerCanceledEventAttributes = TimerCanceledEventAttributes'
-  { _tceaTimerId ::
-      !Text,
-    _tceaStartedEventId ::
-      !Integer,
-    _tceaDecisionTaskCompletedEventId ::
-      !Integer
+  { -- | The unique ID of the timer that was canceled.
+    timerId :: Prelude.Text,
+    -- | The ID of the @TimerStarted@ event that was recorded when this timer was
+    -- started. This information can be useful for diagnosing problems by
+    -- tracing back the chain of events leading up to this event.
+    startedEventId :: Prelude.Integer,
+    -- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+    -- decision task that resulted in the @CancelTimer@ decision to cancel this
+    -- timer. This information can be useful for diagnosing problems by tracing
+    -- back the chain of events leading up to this event.
+    decisionTaskCompletedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimerCanceledEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimerCanceledEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tceaTimerId' - The unique ID of the timer that was canceled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tceaStartedEventId' - The ID of the @TimerStarted@ event that was recorded when this timer was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
+-- 'timerId', 'timerCanceledEventAttributes_timerId' - The unique ID of the timer that was canceled.
 --
--- * 'tceaDecisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @CancelTimer@ decision to cancel this timer. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-timerCanceledEventAttributes ::
-  -- | 'tceaTimerId'
-  Text ->
-  -- | 'tceaStartedEventId'
-  Integer ->
-  -- | 'tceaDecisionTaskCompletedEventId'
-  Integer ->
+-- 'startedEventId', 'timerCanceledEventAttributes_startedEventId' - The ID of the @TimerStarted@ event that was recorded when this timer was
+-- started. This information can be useful for diagnosing problems by
+-- tracing back the chain of events leading up to this event.
+--
+-- 'decisionTaskCompletedEventId', 'timerCanceledEventAttributes_decisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @CancelTimer@ decision to cancel this
+-- timer. This information can be useful for diagnosing problems by tracing
+-- back the chain of events leading up to this event.
+newTimerCanceledEventAttributes ::
+  -- | 'timerId'
+  Prelude.Text ->
+  -- | 'startedEventId'
+  Prelude.Integer ->
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
   TimerCanceledEventAttributes
-timerCanceledEventAttributes
+newTimerCanceledEventAttributes
   pTimerId_
   pStartedEventId_
   pDecisionTaskCompletedEventId_ =
     TimerCanceledEventAttributes'
-      { _tceaTimerId =
-          pTimerId_,
-        _tceaStartedEventId = pStartedEventId_,
-        _tceaDecisionTaskCompletedEventId =
+      { timerId = pTimerId_,
+        startedEventId = pStartedEventId_,
+        decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_
       }
 
 -- | The unique ID of the timer that was canceled.
-tceaTimerId :: Lens' TimerCanceledEventAttributes Text
-tceaTimerId = lens _tceaTimerId (\s a -> s {_tceaTimerId = a})
+timerCanceledEventAttributes_timerId :: Lens.Lens' TimerCanceledEventAttributes Prelude.Text
+timerCanceledEventAttributes_timerId = Lens.lens (\TimerCanceledEventAttributes' {timerId} -> timerId) (\s@TimerCanceledEventAttributes' {} a -> s {timerId = a} :: TimerCanceledEventAttributes)
 
--- | The ID of the @TimerStarted@ event that was recorded when this timer was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-tceaStartedEventId :: Lens' TimerCanceledEventAttributes Integer
-tceaStartedEventId = lens _tceaStartedEventId (\s a -> s {_tceaStartedEventId = a})
+-- | The ID of the @TimerStarted@ event that was recorded when this timer was
+-- started. This information can be useful for diagnosing problems by
+-- tracing back the chain of events leading up to this event.
+timerCanceledEventAttributes_startedEventId :: Lens.Lens' TimerCanceledEventAttributes Prelude.Integer
+timerCanceledEventAttributes_startedEventId = Lens.lens (\TimerCanceledEventAttributes' {startedEventId} -> startedEventId) (\s@TimerCanceledEventAttributes' {} a -> s {startedEventId = a} :: TimerCanceledEventAttributes)
 
--- | The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @CancelTimer@ decision to cancel this timer. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-tceaDecisionTaskCompletedEventId :: Lens' TimerCanceledEventAttributes Integer
-tceaDecisionTaskCompletedEventId = lens _tceaDecisionTaskCompletedEventId (\s a -> s {_tceaDecisionTaskCompletedEventId = a})
+-- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @CancelTimer@ decision to cancel this
+-- timer. This information can be useful for diagnosing problems by tracing
+-- back the chain of events leading up to this event.
+timerCanceledEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' TimerCanceledEventAttributes Prelude.Integer
+timerCanceledEventAttributes_decisionTaskCompletedEventId = Lens.lens (\TimerCanceledEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@TimerCanceledEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: TimerCanceledEventAttributes)
 
-instance FromJSON TimerCanceledEventAttributes where
+instance
+  Prelude.FromJSON
+    TimerCanceledEventAttributes
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimerCanceledEventAttributes"
       ( \x ->
           TimerCanceledEventAttributes'
-            <$> (x .: "timerId")
-            <*> (x .: "startedEventId")
-            <*> (x .: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Prelude..: "timerId")
+            Prelude.<*> (x Prelude..: "startedEventId")
+            Prelude.<*> (x Prelude..: "decisionTaskCompletedEventId")
       )
 
-instance Hashable TimerCanceledEventAttributes
+instance
+  Prelude.Hashable
+    TimerCanceledEventAttributes
 
-instance NFData TimerCanceledEventAttributes
+instance Prelude.NFData TimerCanceledEventAttributes

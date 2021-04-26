@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SWF.Types.ActivityTaskTimeoutType
   ( ActivityTaskTimeoutType
       ( ..,
-        ATTTHeartbeat,
-        ATTTScheduleToClose,
-        ATTTScheduleToStart,
-        ATTTStartToClose
+        ActivityTaskTimeoutTypeHEARTBEAT,
+        ActivityTaskTimeoutTypeSCHEDULETOCLOSE,
+        ActivityTaskTimeoutTypeSCHEDULETOSTART,
+        ActivityTaskTimeoutTypeSTARTTOCLOSE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActivityTaskTimeoutType
-  = ActivityTaskTimeoutType'
-      ( CI
-          Text
-      )
+newtype ActivityTaskTimeoutType = ActivityTaskTimeoutType'
+  { fromActivityTaskTimeoutType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ATTTHeartbeat :: ActivityTaskTimeoutType
-pattern ATTTHeartbeat = ActivityTaskTimeoutType' "HEARTBEAT"
+pattern ActivityTaskTimeoutTypeHEARTBEAT :: ActivityTaskTimeoutType
+pattern ActivityTaskTimeoutTypeHEARTBEAT = ActivityTaskTimeoutType' "HEARTBEAT"
 
-pattern ATTTScheduleToClose :: ActivityTaskTimeoutType
-pattern ATTTScheduleToClose = ActivityTaskTimeoutType' "SCHEDULE_TO_CLOSE"
+pattern ActivityTaskTimeoutTypeSCHEDULETOCLOSE :: ActivityTaskTimeoutType
+pattern ActivityTaskTimeoutTypeSCHEDULETOCLOSE = ActivityTaskTimeoutType' "SCHEDULE_TO_CLOSE"
 
-pattern ATTTScheduleToStart :: ActivityTaskTimeoutType
-pattern ATTTScheduleToStart = ActivityTaskTimeoutType' "SCHEDULE_TO_START"
+pattern ActivityTaskTimeoutTypeSCHEDULETOSTART :: ActivityTaskTimeoutType
+pattern ActivityTaskTimeoutTypeSCHEDULETOSTART = ActivityTaskTimeoutType' "SCHEDULE_TO_START"
 
-pattern ATTTStartToClose :: ActivityTaskTimeoutType
-pattern ATTTStartToClose = ActivityTaskTimeoutType' "START_TO_CLOSE"
+pattern ActivityTaskTimeoutTypeSTARTTOCLOSE :: ActivityTaskTimeoutType
+pattern ActivityTaskTimeoutTypeSTARTTOCLOSE = ActivityTaskTimeoutType' "START_TO_CLOSE"
 
 {-# COMPLETE
-  ATTTHeartbeat,
-  ATTTScheduleToClose,
-  ATTTScheduleToStart,
-  ATTTStartToClose,
+  ActivityTaskTimeoutTypeHEARTBEAT,
+  ActivityTaskTimeoutTypeSCHEDULETOCLOSE,
+  ActivityTaskTimeoutTypeSCHEDULETOSTART,
+  ActivityTaskTimeoutTypeSTARTTOCLOSE,
   ActivityTaskTimeoutType'
   #-}
 
-instance FromText ActivityTaskTimeoutType where
-  parser = (ActivityTaskTimeoutType' . mk) <$> takeText
+instance Prelude.FromText ActivityTaskTimeoutType where
+  parser = ActivityTaskTimeoutType' Prelude.<$> Prelude.takeText
 
-instance ToText ActivityTaskTimeoutType where
-  toText (ActivityTaskTimeoutType' ci) = original ci
+instance Prelude.ToText ActivityTaskTimeoutType where
+  toText (ActivityTaskTimeoutType' x) = x
 
-instance Hashable ActivityTaskTimeoutType
+instance Prelude.Hashable ActivityTaskTimeoutType
 
-instance NFData ActivityTaskTimeoutType
+instance Prelude.NFData ActivityTaskTimeoutType
 
-instance ToByteString ActivityTaskTimeoutType
+instance Prelude.ToByteString ActivityTaskTimeoutType
 
-instance ToQuery ActivityTaskTimeoutType
+instance Prelude.ToQuery ActivityTaskTimeoutType
 
-instance ToHeader ActivityTaskTimeoutType
+instance Prelude.ToHeader ActivityTaskTimeoutType
 
-instance FromJSON ActivityTaskTimeoutType where
-  parseJSON = parseJSONText "ActivityTaskTimeoutType"
+instance Prelude.FromJSON ActivityTaskTimeoutType where
+  parseJSON = Prelude.parseJSONText "ActivityTaskTimeoutType"

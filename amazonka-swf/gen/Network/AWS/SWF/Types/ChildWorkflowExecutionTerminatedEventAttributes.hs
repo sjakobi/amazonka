@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,107 +19,120 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ChildWorkflowExecutionTerminatedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.WorkflowExecution
 import Network.AWS.SWF.Types.WorkflowType
 
 -- | Provides the details of the @ChildWorkflowExecutionTerminated@ event.
 --
---
---
--- /See:/ 'childWorkflowExecutionTerminatedEventAttributes' smart constructor.
+-- /See:/ 'newChildWorkflowExecutionTerminatedEventAttributes' smart constructor.
 data ChildWorkflowExecutionTerminatedEventAttributes = ChildWorkflowExecutionTerminatedEventAttributes'
-  { _cweteaWorkflowExecution ::
-      !WorkflowExecution,
-    _cweteaWorkflowType ::
-      !WorkflowType,
-    _cweteaInitiatedEventId ::
-      !Integer,
-    _cweteaStartedEventId ::
-      !Integer
+  { -- | The child workflow execution that was terminated.
+    workflowExecution :: WorkflowExecution,
+    -- | The type of the child workflow execution.
+    workflowType :: WorkflowType,
+    -- | The ID of the @StartChildWorkflowExecutionInitiated@ event corresponding
+    -- to the @StartChildWorkflowExecution@ Decision to start this child
+    -- workflow execution. This information can be useful for diagnosing
+    -- problems by tracing back the chain of events leading up to this event.
+    initiatedEventId :: Prelude.Integer,
+    -- | The ID of the @ChildWorkflowExecutionStarted@ event recorded when this
+    -- child workflow execution was started. This information can be useful for
+    -- diagnosing problems by tracing back the chain of events leading up to
+    -- this event.
+    startedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChildWorkflowExecutionTerminatedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChildWorkflowExecutionTerminatedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cweteaWorkflowExecution' - The child workflow execution that was terminated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cweteaWorkflowType' - The type of the child workflow execution.
+-- 'workflowExecution', 'childWorkflowExecutionTerminatedEventAttributes_workflowExecution' - The child workflow execution that was terminated.
 --
--- * 'cweteaInitiatedEventId' - The ID of the @StartChildWorkflowExecutionInitiated@ event corresponding to the @StartChildWorkflowExecution@ 'Decision' to start this child workflow execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
+-- 'workflowType', 'childWorkflowExecutionTerminatedEventAttributes_workflowType' - The type of the child workflow execution.
 --
--- * 'cweteaStartedEventId' - The ID of the @ChildWorkflowExecutionStarted@ event recorded when this child workflow execution was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-childWorkflowExecutionTerminatedEventAttributes ::
-  -- | 'cweteaWorkflowExecution'
+-- 'initiatedEventId', 'childWorkflowExecutionTerminatedEventAttributes_initiatedEventId' - The ID of the @StartChildWorkflowExecutionInitiated@ event corresponding
+-- to the @StartChildWorkflowExecution@ Decision to start this child
+-- workflow execution. This information can be useful for diagnosing
+-- problems by tracing back the chain of events leading up to this event.
+--
+-- 'startedEventId', 'childWorkflowExecutionTerminatedEventAttributes_startedEventId' - The ID of the @ChildWorkflowExecutionStarted@ event recorded when this
+-- child workflow execution was started. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+newChildWorkflowExecutionTerminatedEventAttributes ::
+  -- | 'workflowExecution'
   WorkflowExecution ->
-  -- | 'cweteaWorkflowType'
+  -- | 'workflowType'
   WorkflowType ->
-  -- | 'cweteaInitiatedEventId'
-  Integer ->
-  -- | 'cweteaStartedEventId'
-  Integer ->
+  -- | 'initiatedEventId'
+  Prelude.Integer ->
+  -- | 'startedEventId'
+  Prelude.Integer ->
   ChildWorkflowExecutionTerminatedEventAttributes
-childWorkflowExecutionTerminatedEventAttributes
+newChildWorkflowExecutionTerminatedEventAttributes
   pWorkflowExecution_
   pWorkflowType_
   pInitiatedEventId_
   pStartedEventId_ =
     ChildWorkflowExecutionTerminatedEventAttributes'
-      { _cweteaWorkflowExecution =
+      { workflowExecution =
           pWorkflowExecution_,
-        _cweteaWorkflowType =
+        workflowType =
           pWorkflowType_,
-        _cweteaInitiatedEventId =
+        initiatedEventId =
           pInitiatedEventId_,
-        _cweteaStartedEventId =
+        startedEventId =
           pStartedEventId_
       }
 
 -- | The child workflow execution that was terminated.
-cweteaWorkflowExecution :: Lens' ChildWorkflowExecutionTerminatedEventAttributes WorkflowExecution
-cweteaWorkflowExecution = lens _cweteaWorkflowExecution (\s a -> s {_cweteaWorkflowExecution = a})
+childWorkflowExecutionTerminatedEventAttributes_workflowExecution :: Lens.Lens' ChildWorkflowExecutionTerminatedEventAttributes WorkflowExecution
+childWorkflowExecutionTerminatedEventAttributes_workflowExecution = Lens.lens (\ChildWorkflowExecutionTerminatedEventAttributes' {workflowExecution} -> workflowExecution) (\s@ChildWorkflowExecutionTerminatedEventAttributes' {} a -> s {workflowExecution = a} :: ChildWorkflowExecutionTerminatedEventAttributes)
 
 -- | The type of the child workflow execution.
-cweteaWorkflowType :: Lens' ChildWorkflowExecutionTerminatedEventAttributes WorkflowType
-cweteaWorkflowType = lens _cweteaWorkflowType (\s a -> s {_cweteaWorkflowType = a})
+childWorkflowExecutionTerminatedEventAttributes_workflowType :: Lens.Lens' ChildWorkflowExecutionTerminatedEventAttributes WorkflowType
+childWorkflowExecutionTerminatedEventAttributes_workflowType = Lens.lens (\ChildWorkflowExecutionTerminatedEventAttributes' {workflowType} -> workflowType) (\s@ChildWorkflowExecutionTerminatedEventAttributes' {} a -> s {workflowType = a} :: ChildWorkflowExecutionTerminatedEventAttributes)
 
--- | The ID of the @StartChildWorkflowExecutionInitiated@ event corresponding to the @StartChildWorkflowExecution@ 'Decision' to start this child workflow execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-cweteaInitiatedEventId :: Lens' ChildWorkflowExecutionTerminatedEventAttributes Integer
-cweteaInitiatedEventId = lens _cweteaInitiatedEventId (\s a -> s {_cweteaInitiatedEventId = a})
+-- | The ID of the @StartChildWorkflowExecutionInitiated@ event corresponding
+-- to the @StartChildWorkflowExecution@ Decision to start this child
+-- workflow execution. This information can be useful for diagnosing
+-- problems by tracing back the chain of events leading up to this event.
+childWorkflowExecutionTerminatedEventAttributes_initiatedEventId :: Lens.Lens' ChildWorkflowExecutionTerminatedEventAttributes Prelude.Integer
+childWorkflowExecutionTerminatedEventAttributes_initiatedEventId = Lens.lens (\ChildWorkflowExecutionTerminatedEventAttributes' {initiatedEventId} -> initiatedEventId) (\s@ChildWorkflowExecutionTerminatedEventAttributes' {} a -> s {initiatedEventId = a} :: ChildWorkflowExecutionTerminatedEventAttributes)
 
--- | The ID of the @ChildWorkflowExecutionStarted@ event recorded when this child workflow execution was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-cweteaStartedEventId :: Lens' ChildWorkflowExecutionTerminatedEventAttributes Integer
-cweteaStartedEventId = lens _cweteaStartedEventId (\s a -> s {_cweteaStartedEventId = a})
+-- | The ID of the @ChildWorkflowExecutionStarted@ event recorded when this
+-- child workflow execution was started. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+childWorkflowExecutionTerminatedEventAttributes_startedEventId :: Lens.Lens' ChildWorkflowExecutionTerminatedEventAttributes Prelude.Integer
+childWorkflowExecutionTerminatedEventAttributes_startedEventId = Lens.lens (\ChildWorkflowExecutionTerminatedEventAttributes' {startedEventId} -> startedEventId) (\s@ChildWorkflowExecutionTerminatedEventAttributes' {} a -> s {startedEventId = a} :: ChildWorkflowExecutionTerminatedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ChildWorkflowExecutionTerminatedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChildWorkflowExecutionTerminatedEventAttributes"
       ( \x ->
           ChildWorkflowExecutionTerminatedEventAttributes'
-            <$> (x .: "workflowExecution")
-            <*> (x .: "workflowType")
-            <*> (x .: "initiatedEventId")
-            <*> (x .: "startedEventId")
+            Prelude.<$> (x Prelude..: "workflowExecution")
+              Prelude.<*> (x Prelude..: "workflowType")
+              Prelude.<*> (x Prelude..: "initiatedEventId")
+              Prelude.<*> (x Prelude..: "startedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ChildWorkflowExecutionTerminatedEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     ChildWorkflowExecutionTerminatedEventAttributes

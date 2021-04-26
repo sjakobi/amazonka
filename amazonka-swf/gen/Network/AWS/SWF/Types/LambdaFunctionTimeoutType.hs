@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.SWF.Types.LambdaFunctionTimeoutType
   ( LambdaFunctionTimeoutType
       ( ..,
-        LFTTStartToClose
+        LambdaFunctionTimeoutTypeSTARTTOCLOSE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LambdaFunctionTimeoutType
-  = LambdaFunctionTimeoutType'
-      ( CI
-          Text
-      )
+newtype LambdaFunctionTimeoutType = LambdaFunctionTimeoutType'
+  { fromLambdaFunctionTimeoutType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LFTTStartToClose :: LambdaFunctionTimeoutType
-pattern LFTTStartToClose = LambdaFunctionTimeoutType' "START_TO_CLOSE"
+pattern LambdaFunctionTimeoutTypeSTARTTOCLOSE :: LambdaFunctionTimeoutType
+pattern LambdaFunctionTimeoutTypeSTARTTOCLOSE = LambdaFunctionTimeoutType' "START_TO_CLOSE"
 
 {-# COMPLETE
-  LFTTStartToClose,
+  LambdaFunctionTimeoutTypeSTARTTOCLOSE,
   LambdaFunctionTimeoutType'
   #-}
 
-instance FromText LambdaFunctionTimeoutType where
-  parser = (LambdaFunctionTimeoutType' . mk) <$> takeText
+instance Prelude.FromText LambdaFunctionTimeoutType where
+  parser = LambdaFunctionTimeoutType' Prelude.<$> Prelude.takeText
 
-instance ToText LambdaFunctionTimeoutType where
-  toText (LambdaFunctionTimeoutType' ci) = original ci
+instance Prelude.ToText LambdaFunctionTimeoutType where
+  toText (LambdaFunctionTimeoutType' x) = x
 
-instance Hashable LambdaFunctionTimeoutType
+instance Prelude.Hashable LambdaFunctionTimeoutType
 
-instance NFData LambdaFunctionTimeoutType
+instance Prelude.NFData LambdaFunctionTimeoutType
 
-instance ToByteString LambdaFunctionTimeoutType
+instance Prelude.ToByteString LambdaFunctionTimeoutType
 
-instance ToQuery LambdaFunctionTimeoutType
+instance Prelude.ToQuery LambdaFunctionTimeoutType
 
-instance ToHeader LambdaFunctionTimeoutType
+instance Prelude.ToHeader LambdaFunctionTimeoutType
 
-instance FromJSON LambdaFunctionTimeoutType where
-  parseJSON = parseJSONText "LambdaFunctionTimeoutType"
+instance Prelude.FromJSON LambdaFunctionTimeoutType where
+  parseJSON = Prelude.parseJSONText "LambdaFunctionTimeoutType"

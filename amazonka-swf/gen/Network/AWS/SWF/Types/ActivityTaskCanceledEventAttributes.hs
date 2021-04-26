@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,95 +19,115 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ActivityTaskCanceledEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @ActivityTaskCanceled@ event.
 --
---
---
--- /See:/ 'activityTaskCanceledEventAttributes' smart constructor.
+-- /See:/ 'newActivityTaskCanceledEventAttributes' smart constructor.
 data ActivityTaskCanceledEventAttributes = ActivityTaskCanceledEventAttributes'
-  { _atceaLatestCancelRequestedEventId ::
-      !( Maybe
-           Integer
-       ),
-    _atceaDetails ::
-      !( Maybe
-           Text
-       ),
-    _atceaScheduledEventId ::
-      !Integer,
-    _atceaStartedEventId ::
-      !Integer
+  { -- | If set, contains the ID of the last @ActivityTaskCancelRequested@ event
+    -- recorded for this activity task. This information can be useful for
+    -- diagnosing problems by tracing back the chain of events leading up to
+    -- this event.
+    latestCancelRequestedEventId :: Prelude.Maybe Prelude.Integer,
+    -- | Details of the cancellation.
+    details :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the @ActivityTaskScheduled@ event that was recorded when this
+    -- activity task was scheduled. This information can be useful for
+    -- diagnosing problems by tracing back the chain of events leading up to
+    -- this event.
+    scheduledEventId :: Prelude.Integer,
+    -- | The ID of the @ActivityTaskStarted@ event recorded when this activity
+    -- task was started. This information can be useful for diagnosing problems
+    -- by tracing back the chain of events leading up to this event.
+    startedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivityTaskCanceledEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivityTaskCanceledEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atceaLatestCancelRequestedEventId' - If set, contains the ID of the last @ActivityTaskCancelRequested@ event recorded for this activity task. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atceaDetails' - Details of the cancellation.
+-- 'latestCancelRequestedEventId', 'activityTaskCanceledEventAttributes_latestCancelRequestedEventId' - If set, contains the ID of the last @ActivityTaskCancelRequested@ event
+-- recorded for this activity task. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
 --
--- * 'atceaScheduledEventId' - The ID of the @ActivityTaskScheduled@ event that was recorded when this activity task was scheduled. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
+-- 'details', 'activityTaskCanceledEventAttributes_details' - Details of the cancellation.
 --
--- * 'atceaStartedEventId' - The ID of the @ActivityTaskStarted@ event recorded when this activity task was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-activityTaskCanceledEventAttributes ::
-  -- | 'atceaScheduledEventId'
-  Integer ->
-  -- | 'atceaStartedEventId'
-  Integer ->
+-- 'scheduledEventId', 'activityTaskCanceledEventAttributes_scheduledEventId' - The ID of the @ActivityTaskScheduled@ event that was recorded when this
+-- activity task was scheduled. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+--
+-- 'startedEventId', 'activityTaskCanceledEventAttributes_startedEventId' - The ID of the @ActivityTaskStarted@ event recorded when this activity
+-- task was started. This information can be useful for diagnosing problems
+-- by tracing back the chain of events leading up to this event.
+newActivityTaskCanceledEventAttributes ::
+  -- | 'scheduledEventId'
+  Prelude.Integer ->
+  -- | 'startedEventId'
+  Prelude.Integer ->
   ActivityTaskCanceledEventAttributes
-activityTaskCanceledEventAttributes
+newActivityTaskCanceledEventAttributes
   pScheduledEventId_
   pStartedEventId_ =
     ActivityTaskCanceledEventAttributes'
-      { _atceaLatestCancelRequestedEventId =
-          Nothing,
-        _atceaDetails = Nothing,
-        _atceaScheduledEventId =
-          pScheduledEventId_,
-        _atceaStartedEventId =
-          pStartedEventId_
+      { latestCancelRequestedEventId =
+          Prelude.Nothing,
+        details = Prelude.Nothing,
+        scheduledEventId = pScheduledEventId_,
+        startedEventId = pStartedEventId_
       }
 
--- | If set, contains the ID of the last @ActivityTaskCancelRequested@ event recorded for this activity task. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-atceaLatestCancelRequestedEventId :: Lens' ActivityTaskCanceledEventAttributes (Maybe Integer)
-atceaLatestCancelRequestedEventId = lens _atceaLatestCancelRequestedEventId (\s a -> s {_atceaLatestCancelRequestedEventId = a})
+-- | If set, contains the ID of the last @ActivityTaskCancelRequested@ event
+-- recorded for this activity task. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+activityTaskCanceledEventAttributes_latestCancelRequestedEventId :: Lens.Lens' ActivityTaskCanceledEventAttributes (Prelude.Maybe Prelude.Integer)
+activityTaskCanceledEventAttributes_latestCancelRequestedEventId = Lens.lens (\ActivityTaskCanceledEventAttributes' {latestCancelRequestedEventId} -> latestCancelRequestedEventId) (\s@ActivityTaskCanceledEventAttributes' {} a -> s {latestCancelRequestedEventId = a} :: ActivityTaskCanceledEventAttributes)
 
 -- | Details of the cancellation.
-atceaDetails :: Lens' ActivityTaskCanceledEventAttributes (Maybe Text)
-atceaDetails = lens _atceaDetails (\s a -> s {_atceaDetails = a})
+activityTaskCanceledEventAttributes_details :: Lens.Lens' ActivityTaskCanceledEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskCanceledEventAttributes_details = Lens.lens (\ActivityTaskCanceledEventAttributes' {details} -> details) (\s@ActivityTaskCanceledEventAttributes' {} a -> s {details = a} :: ActivityTaskCanceledEventAttributes)
 
--- | The ID of the @ActivityTaskScheduled@ event that was recorded when this activity task was scheduled. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-atceaScheduledEventId :: Lens' ActivityTaskCanceledEventAttributes Integer
-atceaScheduledEventId = lens _atceaScheduledEventId (\s a -> s {_atceaScheduledEventId = a})
+-- | The ID of the @ActivityTaskScheduled@ event that was recorded when this
+-- activity task was scheduled. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+activityTaskCanceledEventAttributes_scheduledEventId :: Lens.Lens' ActivityTaskCanceledEventAttributes Prelude.Integer
+activityTaskCanceledEventAttributes_scheduledEventId = Lens.lens (\ActivityTaskCanceledEventAttributes' {scheduledEventId} -> scheduledEventId) (\s@ActivityTaskCanceledEventAttributes' {} a -> s {scheduledEventId = a} :: ActivityTaskCanceledEventAttributes)
 
--- | The ID of the @ActivityTaskStarted@ event recorded when this activity task was started. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-atceaStartedEventId :: Lens' ActivityTaskCanceledEventAttributes Integer
-atceaStartedEventId = lens _atceaStartedEventId (\s a -> s {_atceaStartedEventId = a})
+-- | The ID of the @ActivityTaskStarted@ event recorded when this activity
+-- task was started. This information can be useful for diagnosing problems
+-- by tracing back the chain of events leading up to this event.
+activityTaskCanceledEventAttributes_startedEventId :: Lens.Lens' ActivityTaskCanceledEventAttributes Prelude.Integer
+activityTaskCanceledEventAttributes_startedEventId = Lens.lens (\ActivityTaskCanceledEventAttributes' {startedEventId} -> startedEventId) (\s@ActivityTaskCanceledEventAttributes' {} a -> s {startedEventId = a} :: ActivityTaskCanceledEventAttributes)
 
-instance FromJSON ActivityTaskCanceledEventAttributes where
+instance
+  Prelude.FromJSON
+    ActivityTaskCanceledEventAttributes
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivityTaskCanceledEventAttributes"
       ( \x ->
           ActivityTaskCanceledEventAttributes'
-            <$> (x .:? "latestCancelRequestedEventId")
-            <*> (x .:? "details")
-            <*> (x .: "scheduledEventId")
-            <*> (x .: "startedEventId")
+            Prelude.<$> (x Prelude..:? "latestCancelRequestedEventId")
+            Prelude.<*> (x Prelude..:? "details")
+            Prelude.<*> (x Prelude..: "scheduledEventId")
+            Prelude.<*> (x Prelude..: "startedEventId")
       )
 
-instance Hashable ActivityTaskCanceledEventAttributes
+instance
+  Prelude.Hashable
+    ActivityTaskCanceledEventAttributes
 
-instance NFData ActivityTaskCanceledEventAttributes
+instance
+  Prelude.NFData
+    ActivityTaskCanceledEventAttributes

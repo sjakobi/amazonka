@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Used by workers to tell the service that the 'ActivityTask' identified by the @taskToken@ was successfully canceled. Additional @details@ can be provided using the @details@ argument.
+-- Used by workers to tell the service that the ActivityTask identified by
+-- the @taskToken@ was successfully canceled. Additional @details@ can be
+-- provided using the @details@ argument.
 --
+-- These @details@ (if provided) appear in the @ActivityTaskCanceled@ event
+-- added to the workflow history.
 --
--- These @details@ (if provided) appear in the @ActivityTaskCanceled@ event added to the workflow history.
+-- Only use this operation if the @canceled@ flag of a
+-- RecordActivityTaskHeartbeat request returns @true@ and if the activity
+-- can be safely undone or abandoned.
 --
--- /Important:/ Only use this operation if the @canceled@ flag of a 'RecordActivityTaskHeartbeat' request returns @true@ and if the activity can be safely undone or abandoned.
---
--- A task is considered open from the time that it is scheduled until it is closed. Therefore a task is reported as open while a worker is processing it. A task is closed after it has been specified in a call to 'RespondActivityTaskCompleted' , RespondActivityTaskCanceled, 'RespondActivityTaskFailed' , or the task has <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types timed out> .
+-- A task is considered open from the time that it is scheduled until it is
+-- closed. Therefore a task is reported as open while a worker is
+-- processing it. A task is closed after it has been specified in a call to
+-- RespondActivityTaskCompleted, RespondActivityTaskCanceled,
+-- RespondActivityTaskFailed, or the task has
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types timed out>.
 --
 -- __Access Control__
 --
--- You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+-- You can use IAM policies to control this action\'s access to Amazon SWF
+-- resources as follows:
 --
---     * Use a @Resource@ element with the domain name to limit the action to only specified domains.
+-- -   Use a @Resource@ element with the domain name to limit the action to
+--     only specified domains.
 --
---     * Use an @Action@ element to allow or deny permission to call this action.
+-- -   Use an @Action@ element to allow or deny permission to call this
+--     action.
 --
---     * You cannot use an IAM policy to constrain this action's parameters.
+-- -   You cannot use an IAM policy to constrain this action\'s parameters.
 --
---
---
--- If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's @cause@ parameter is set to @OPERATION_NOT_PERMITTED@ . For details and example IAM policies, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows> in the /Amazon SWF Developer Guide/ .
+-- If the caller doesn\'t have sufficient permissions to invoke the action,
+-- or the parameter values fall outside the specified constraints, the
+-- action fails. The associated event attribute\'s @cause@ parameter is set
+-- to @OPERATION_NOT_PERMITTED@. For details and example IAM policies, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html Using IAM to Manage Access to Amazon SWF Workflows>
+-- in the /Amazon SWF Developer Guide/.
 module Network.AWS.SWF.RespondActivityTaskCanceled
   ( -- * Creating a Request
-    respondActivityTaskCanceled,
-    RespondActivityTaskCanceled,
+    RespondActivityTaskCanceled (..),
+    newRespondActivityTaskCanceled,
 
     -- * Request Lenses
-    rDetails,
-    rTaskToken,
+    respondActivityTaskCanceled_details,
+    respondActivityTaskCanceled_taskToken,
 
     -- * Destructuring the Response
-    respondActivityTaskCanceledResponse,
-    RespondActivityTaskCanceledResponse,
+    RespondActivityTaskCanceledResponse (..),
+    newRespondActivityTaskCanceledResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SWF.Types
 
--- | /See:/ 'respondActivityTaskCanceled' smart constructor.
+-- | /See:/ 'newRespondActivityTaskCanceled' smart constructor.
 data RespondActivityTaskCanceled = RespondActivityTaskCanceled'
-  { _rDetails ::
-      !(Maybe Text),
-    _rTaskToken ::
-      !Text
+  { -- | Information about the cancellation.
+    details :: Prelude.Maybe Prelude.Text,
+    -- | The @taskToken@ of the ActivityTask.
+    --
+    -- @taskToken@ is generated by the service and should be treated as an
+    -- opaque value. If the task is passed to another process, its @taskToken@
+    -- must also be passed. This enables it to provide its progress and respond
+    -- with results.
+    taskToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RespondActivityTaskCanceled' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RespondActivityTaskCanceled' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rDetails' - Information about the cancellation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rTaskToken' - The @taskToken@ of the 'ActivityTask' . /Important:/ @taskToken@ is generated by the service and should be treated as an opaque value. If the task is passed to another process, its @taskToken@ must also be passed. This enables it to provide its progress and respond with results.
-respondActivityTaskCanceled ::
-  -- | 'rTaskToken'
-  Text ->
+-- 'details', 'respondActivityTaskCanceled_details' - Information about the cancellation.
+--
+-- 'taskToken', 'respondActivityTaskCanceled_taskToken' - The @taskToken@ of the ActivityTask.
+--
+-- @taskToken@ is generated by the service and should be treated as an
+-- opaque value. If the task is passed to another process, its @taskToken@
+-- must also be passed. This enables it to provide its progress and respond
+-- with results.
+newRespondActivityTaskCanceled ::
+  -- | 'taskToken'
+  Prelude.Text ->
   RespondActivityTaskCanceled
-respondActivityTaskCanceled pTaskToken_ =
+newRespondActivityTaskCanceled pTaskToken_ =
   RespondActivityTaskCanceled'
-    { _rDetails = Nothing,
-      _rTaskToken = pTaskToken_
+    { details =
+        Prelude.Nothing,
+      taskToken = pTaskToken_
     }
 
 -- | Information about the cancellation.
-rDetails :: Lens' RespondActivityTaskCanceled (Maybe Text)
-rDetails = lens _rDetails (\s a -> s {_rDetails = a})
+respondActivityTaskCanceled_details :: Lens.Lens' RespondActivityTaskCanceled (Prelude.Maybe Prelude.Text)
+respondActivityTaskCanceled_details = Lens.lens (\RespondActivityTaskCanceled' {details} -> details) (\s@RespondActivityTaskCanceled' {} a -> s {details = a} :: RespondActivityTaskCanceled)
 
--- | The @taskToken@ of the 'ActivityTask' . /Important:/ @taskToken@ is generated by the service and should be treated as an opaque value. If the task is passed to another process, its @taskToken@ must also be passed. This enables it to provide its progress and respond with results.
-rTaskToken :: Lens' RespondActivityTaskCanceled Text
-rTaskToken = lens _rTaskToken (\s a -> s {_rTaskToken = a})
+-- | The @taskToken@ of the ActivityTask.
+--
+-- @taskToken@ is generated by the service and should be treated as an
+-- opaque value. If the task is passed to another process, its @taskToken@
+-- must also be passed. This enables it to provide its progress and respond
+-- with results.
+respondActivityTaskCanceled_taskToken :: Lens.Lens' RespondActivityTaskCanceled Prelude.Text
+respondActivityTaskCanceled_taskToken = Lens.lens (\RespondActivityTaskCanceled' {taskToken} -> taskToken) (\s@RespondActivityTaskCanceled' {} a -> s {taskToken = a} :: RespondActivityTaskCanceled)
 
-instance AWSRequest RespondActivityTaskCanceled where
+instance
+  Prelude.AWSRequest
+    RespondActivityTaskCanceled
+  where
   type
     Rs RespondActivityTaskCanceled =
       RespondActivityTaskCanceledResponse
-  request = postJSON swf
+  request = Request.postJSON defaultService
   response =
-    receiveNull RespondActivityTaskCanceledResponse'
+    Response.receiveNull
+      RespondActivityTaskCanceledResponse'
 
-instance Hashable RespondActivityTaskCanceled
+instance Prelude.Hashable RespondActivityTaskCanceled
 
-instance NFData RespondActivityTaskCanceled
+instance Prelude.NFData RespondActivityTaskCanceled
 
-instance ToHeaders RespondActivityTaskCanceled where
+instance
+  Prelude.ToHeaders
+    RespondActivityTaskCanceled
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SimpleWorkflowService.RespondActivityTaskCanceled" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SimpleWorkflowService.RespondActivityTaskCanceled" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RespondActivityTaskCanceled where
+instance Prelude.ToJSON RespondActivityTaskCanceled where
   toJSON RespondActivityTaskCanceled' {..} =
-    object
-      ( catMaybes
-          [ ("details" .=) <$> _rDetails,
-            Just ("taskToken" .= _rTaskToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("details" Prelude..=) Prelude.<$> details,
+            Prelude.Just ("taskToken" Prelude..= taskToken)
           ]
       )
 
-instance ToPath RespondActivityTaskCanceled where
-  toPath = const "/"
+instance Prelude.ToPath RespondActivityTaskCanceled where
+  toPath = Prelude.const "/"
 
-instance ToQuery RespondActivityTaskCanceled where
-  toQuery = const mempty
+instance Prelude.ToQuery RespondActivityTaskCanceled where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'respondActivityTaskCanceledResponse' smart constructor.
+-- | /See:/ 'newRespondActivityTaskCanceledResponse' smart constructor.
 data RespondActivityTaskCanceledResponse = RespondActivityTaskCanceledResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RespondActivityTaskCanceledResponse' with the minimum fields required to make a request.
-respondActivityTaskCanceledResponse ::
+-- |
+-- Create a value of 'RespondActivityTaskCanceledResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRespondActivityTaskCanceledResponse ::
   RespondActivityTaskCanceledResponse
-respondActivityTaskCanceledResponse =
+newRespondActivityTaskCanceledResponse =
   RespondActivityTaskCanceledResponse'
 
-instance NFData RespondActivityTaskCanceledResponse
+instance
+  Prelude.NFData
+    RespondActivityTaskCanceledResponse

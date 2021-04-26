@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionCompletedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the details of the @WorkflowExecutionCompleted@ event.
 --
---
---
--- /See:/ 'workflowExecutionCompletedEventAttributes' smart constructor.
+-- /See:/ 'newWorkflowExecutionCompletedEventAttributes' smart constructor.
 data WorkflowExecutionCompletedEventAttributes = WorkflowExecutionCompletedEventAttributes'
-  { _wResult ::
-      !( Maybe
-           Text
-       ),
-    _wDecisionTaskCompletedEventId ::
-      !Integer
+  { -- | The result produced by the workflow execution upon successful
+    -- completion.
+    result :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+    -- decision task that resulted in the @CompleteWorkflowExecution@ decision
+    -- to complete this execution. This information can be useful for
+    -- diagnosing problems by tracing back the chain of events leading up to
+    -- this event.
+    decisionTaskCompletedEventId :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionCompletedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionCompletedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wResult' - The result produced by the workflow execution upon successful completion.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wDecisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @CompleteWorkflowExecution@ decision to complete this execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-workflowExecutionCompletedEventAttributes ::
-  -- | 'wDecisionTaskCompletedEventId'
-  Integer ->
+-- 'result', 'workflowExecutionCompletedEventAttributes_result' - The result produced by the workflow execution upon successful
+-- completion.
+--
+-- 'decisionTaskCompletedEventId', 'workflowExecutionCompletedEventAttributes_decisionTaskCompletedEventId' - The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @CompleteWorkflowExecution@ decision
+-- to complete this execution. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+newWorkflowExecutionCompletedEventAttributes ::
+  -- | 'decisionTaskCompletedEventId'
+  Prelude.Integer ->
   WorkflowExecutionCompletedEventAttributes
-workflowExecutionCompletedEventAttributes
+newWorkflowExecutionCompletedEventAttributes
   pDecisionTaskCompletedEventId_ =
     WorkflowExecutionCompletedEventAttributes'
-      { _wResult =
-          Nothing,
-        _wDecisionTaskCompletedEventId =
+      { result =
+          Prelude.Nothing,
+        decisionTaskCompletedEventId =
           pDecisionTaskCompletedEventId_
       }
 
--- | The result produced by the workflow execution upon successful completion.
-wResult :: Lens' WorkflowExecutionCompletedEventAttributes (Maybe Text)
-wResult = lens _wResult (\s a -> s {_wResult = a})
+-- | The result produced by the workflow execution upon successful
+-- completion.
+workflowExecutionCompletedEventAttributes_result :: Lens.Lens' WorkflowExecutionCompletedEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionCompletedEventAttributes_result = Lens.lens (\WorkflowExecutionCompletedEventAttributes' {result} -> result) (\s@WorkflowExecutionCompletedEventAttributes' {} a -> s {result = a} :: WorkflowExecutionCompletedEventAttributes)
 
--- | The ID of the @DecisionTaskCompleted@ event corresponding to the decision task that resulted in the @CompleteWorkflowExecution@ decision to complete this execution. This information can be useful for diagnosing problems by tracing back the chain of events leading up to this event.
-wDecisionTaskCompletedEventId :: Lens' WorkflowExecutionCompletedEventAttributes Integer
-wDecisionTaskCompletedEventId = lens _wDecisionTaskCompletedEventId (\s a -> s {_wDecisionTaskCompletedEventId = a})
+-- | The ID of the @DecisionTaskCompleted@ event corresponding to the
+-- decision task that resulted in the @CompleteWorkflowExecution@ decision
+-- to complete this execution. This information can be useful for
+-- diagnosing problems by tracing back the chain of events leading up to
+-- this event.
+workflowExecutionCompletedEventAttributes_decisionTaskCompletedEventId :: Lens.Lens' WorkflowExecutionCompletedEventAttributes Prelude.Integer
+workflowExecutionCompletedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\WorkflowExecutionCompletedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@WorkflowExecutionCompletedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: WorkflowExecutionCompletedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     WorkflowExecutionCompletedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecutionCompletedEventAttributes"
       ( \x ->
           WorkflowExecutionCompletedEventAttributes'
-            <$> (x .:? "result")
-            <*> (x .: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Prelude..:? "result")
+              Prelude.<*> (x Prelude..: "decisionTaskCompletedEventId")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     WorkflowExecutionCompletedEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     WorkflowExecutionCompletedEventAttributes

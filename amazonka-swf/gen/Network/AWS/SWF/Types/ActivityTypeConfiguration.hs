@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,227 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.ActivityTypeConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.TaskList
 
 -- | Configuration settings registered with the activity type.
 --
---
---
--- /See:/ 'activityTypeConfiguration' smart constructor.
+-- /See:/ 'newActivityTypeConfiguration' smart constructor.
 data ActivityTypeConfiguration = ActivityTypeConfiguration'
-  { _atcDefaultTaskPriority ::
-      !(Maybe Text),
-    _atcDefaultTaskList ::
-      !(Maybe TaskList),
-    _atcDefaultTaskScheduleToStartTimeout ::
-      !(Maybe Text),
-    _atcDefaultTaskStartToCloseTimeout ::
-      !(Maybe Text),
-    _atcDefaultTaskHeartbeatTimeout ::
-      !(Maybe Text),
-    _atcDefaultTaskScheduleToCloseTimeout ::
-      !(Maybe Text)
+  { -- | The default task priority for tasks of this activity type, specified at
+    -- registration. If not set, then @0@ is used as the default priority. This
+    -- default can be overridden when scheduling an activity task.
+    --
+    -- Valid values are integers that range from Java\'s @Integer.MIN_VALUE@
+    -- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+    -- indicate higher priority.
+    --
+    -- For more information about setting task priority, see
+    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+    -- in the /Amazon SWF Developer Guide/.
+    defaultTaskPriority :: Prelude.Maybe Prelude.Text,
+    -- | The default task list specified for this activity type at registration.
+    -- This default is used if a task list isn\'t provided when a task is
+    -- scheduled through the @ScheduleActivityTask@ Decision. You can override
+    -- the default registered task list when scheduling a task through the
+    -- @ScheduleActivityTask@ Decision.
+    defaultTaskList :: Prelude.Maybe TaskList,
+    -- | The default maximum duration, specified when registering the activity
+    -- type, that a task of an activity type can wait before being assigned to
+    -- a worker. You can override this default when scheduling a task through
+    -- the @ScheduleActivityTask@ Decision.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    defaultTaskScheduleToStartTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The default maximum duration for tasks of an activity type specified
+    -- when registering the activity type. You can override this default when
+    -- scheduling a task through the @ScheduleActivityTask@ Decision.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    defaultTaskStartToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The default maximum time, in seconds, before which a worker processing a
+    -- task must report progress by calling RecordActivityTaskHeartbeat.
+    --
+    -- You can specify this value only when /registering/ an activity type. The
+    -- registered default value can be overridden when you schedule a task
+    -- through the @ScheduleActivityTask@ Decision. If the activity worker
+    -- subsequently attempts to record a heartbeat or returns a result, the
+    -- activity worker receives an @UnknownResource@ fault. In this case,
+    -- Amazon SWF no longer considers the activity task to be valid; the
+    -- activity worker should clean up the activity task.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    defaultTaskHeartbeatTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The default maximum duration, specified when registering the activity
+    -- type, for tasks of this activity type. You can override this default
+    -- when scheduling a task through the @ScheduleActivityTask@ Decision.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    defaultTaskScheduleToCloseTimeout :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivityTypeConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivityTypeConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atcDefaultTaskPriority' - The default task priority for tasks of this activity type, specified at registration. If not set, then @0@ is used as the default priority. This default can be overridden when scheduling an activity task. Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atcDefaultTaskList' - The default task list specified for this activity type at registration. This default is used if a task list isn't provided when a task is scheduled through the @ScheduleActivityTask@ 'Decision' . You can override the default registered task list when scheduling a task through the @ScheduleActivityTask@ 'Decision' .
+-- 'defaultTaskPriority', 'activityTypeConfiguration_defaultTaskPriority' - The default task priority for tasks of this activity type, specified at
+-- registration. If not set, then @0@ is used as the default priority. This
+-- default can be overridden when scheduling an activity task.
 --
--- * 'atcDefaultTaskScheduleToStartTimeout' - The default maximum duration, specified when registering the activity type, that a task of an activity type can wait before being assigned to a worker. You can override this default when scheduling a task through the @ScheduleActivityTask@ 'Decision' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- Valid values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
 --
--- * 'atcDefaultTaskStartToCloseTimeout' - The default maximum duration for tasks of an activity type specified when registering the activity type. You can override this default when scheduling a task through the @ScheduleActivityTask@ 'Decision' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
 --
--- * 'atcDefaultTaskHeartbeatTimeout' - The default maximum time, in seconds, before which a worker processing a task must report progress by calling 'RecordActivityTaskHeartbeat' . You can specify this value only when /registering/ an activity type. The registered default value can be overridden when you schedule a task through the @ScheduleActivityTask@ 'Decision' . If the activity worker subsequently attempts to record a heartbeat or returns a result, the activity worker receives an @UnknownResource@ fault. In this case, Amazon SWF no longer considers the activity task to be valid; the activity worker should clean up the activity task. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
+-- 'defaultTaskList', 'activityTypeConfiguration_defaultTaskList' - The default task list specified for this activity type at registration.
+-- This default is used if a task list isn\'t provided when a task is
+-- scheduled through the @ScheduleActivityTask@ Decision. You can override
+-- the default registered task list when scheduling a task through the
+-- @ScheduleActivityTask@ Decision.
 --
--- * 'atcDefaultTaskScheduleToCloseTimeout' - The default maximum duration, specified when registering the activity type, for tasks of this activity type. You can override this default when scheduling a task through the @ScheduleActivityTask@ 'Decision' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-activityTypeConfiguration ::
+-- 'defaultTaskScheduleToStartTimeout', 'activityTypeConfiguration_defaultTaskScheduleToStartTimeout' - The default maximum duration, specified when registering the activity
+-- type, that a task of an activity type can wait before being assigned to
+-- a worker. You can override this default when scheduling a task through
+-- the @ScheduleActivityTask@ Decision.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- 'defaultTaskStartToCloseTimeout', 'activityTypeConfiguration_defaultTaskStartToCloseTimeout' - The default maximum duration for tasks of an activity type specified
+-- when registering the activity type. You can override this default when
+-- scheduling a task through the @ScheduleActivityTask@ Decision.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- 'defaultTaskHeartbeatTimeout', 'activityTypeConfiguration_defaultTaskHeartbeatTimeout' - The default maximum time, in seconds, before which a worker processing a
+-- task must report progress by calling RecordActivityTaskHeartbeat.
+--
+-- You can specify this value only when /registering/ an activity type. The
+-- registered default value can be overridden when you schedule a task
+-- through the @ScheduleActivityTask@ Decision. If the activity worker
+-- subsequently attempts to record a heartbeat or returns a result, the
+-- activity worker receives an @UnknownResource@ fault. In this case,
+-- Amazon SWF no longer considers the activity task to be valid; the
+-- activity worker should clean up the activity task.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+--
+-- 'defaultTaskScheduleToCloseTimeout', 'activityTypeConfiguration_defaultTaskScheduleToCloseTimeout' - The default maximum duration, specified when registering the activity
+-- type, for tasks of this activity type. You can override this default
+-- when scheduling a task through the @ScheduleActivityTask@ Decision.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+newActivityTypeConfiguration ::
   ActivityTypeConfiguration
-activityTypeConfiguration =
+newActivityTypeConfiguration =
   ActivityTypeConfiguration'
-    { _atcDefaultTaskPriority =
-        Nothing,
-      _atcDefaultTaskList = Nothing,
-      _atcDefaultTaskScheduleToStartTimeout = Nothing,
-      _atcDefaultTaskStartToCloseTimeout = Nothing,
-      _atcDefaultTaskHeartbeatTimeout = Nothing,
-      _atcDefaultTaskScheduleToCloseTimeout = Nothing
+    { defaultTaskPriority =
+        Prelude.Nothing,
+      defaultTaskList = Prelude.Nothing,
+      defaultTaskScheduleToStartTimeout =
+        Prelude.Nothing,
+      defaultTaskStartToCloseTimeout = Prelude.Nothing,
+      defaultTaskHeartbeatTimeout = Prelude.Nothing,
+      defaultTaskScheduleToCloseTimeout =
+        Prelude.Nothing
     }
 
--- | The default task priority for tasks of this activity type, specified at registration. If not set, then @0@ is used as the default priority. This default can be overridden when scheduling an activity task. Valid values are integers that range from Java's @Integer.MIN_VALUE@ (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers indicate higher priority. For more information about setting task priority, see <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority> in the /Amazon SWF Developer Guide/ .
-atcDefaultTaskPriority :: Lens' ActivityTypeConfiguration (Maybe Text)
-atcDefaultTaskPriority = lens _atcDefaultTaskPriority (\s a -> s {_atcDefaultTaskPriority = a})
+-- | The default task priority for tasks of this activity type, specified at
+-- registration. If not set, then @0@ is used as the default priority. This
+-- default can be overridden when scheduling an activity task.
+--
+-- Valid values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
+--
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
+activityTypeConfiguration_defaultTaskPriority :: Lens.Lens' ActivityTypeConfiguration (Prelude.Maybe Prelude.Text)
+activityTypeConfiguration_defaultTaskPriority = Lens.lens (\ActivityTypeConfiguration' {defaultTaskPriority} -> defaultTaskPriority) (\s@ActivityTypeConfiguration' {} a -> s {defaultTaskPriority = a} :: ActivityTypeConfiguration)
 
--- | The default task list specified for this activity type at registration. This default is used if a task list isn't provided when a task is scheduled through the @ScheduleActivityTask@ 'Decision' . You can override the default registered task list when scheduling a task through the @ScheduleActivityTask@ 'Decision' .
-atcDefaultTaskList :: Lens' ActivityTypeConfiguration (Maybe TaskList)
-atcDefaultTaskList = lens _atcDefaultTaskList (\s a -> s {_atcDefaultTaskList = a})
+-- | The default task list specified for this activity type at registration.
+-- This default is used if a task list isn\'t provided when a task is
+-- scheduled through the @ScheduleActivityTask@ Decision. You can override
+-- the default registered task list when scheduling a task through the
+-- @ScheduleActivityTask@ Decision.
+activityTypeConfiguration_defaultTaskList :: Lens.Lens' ActivityTypeConfiguration (Prelude.Maybe TaskList)
+activityTypeConfiguration_defaultTaskList = Lens.lens (\ActivityTypeConfiguration' {defaultTaskList} -> defaultTaskList) (\s@ActivityTypeConfiguration' {} a -> s {defaultTaskList = a} :: ActivityTypeConfiguration)
 
--- | The default maximum duration, specified when registering the activity type, that a task of an activity type can wait before being assigned to a worker. You can override this default when scheduling a task through the @ScheduleActivityTask@ 'Decision' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-atcDefaultTaskScheduleToStartTimeout :: Lens' ActivityTypeConfiguration (Maybe Text)
-atcDefaultTaskScheduleToStartTimeout = lens _atcDefaultTaskScheduleToStartTimeout (\s a -> s {_atcDefaultTaskScheduleToStartTimeout = a})
+-- | The default maximum duration, specified when registering the activity
+-- type, that a task of an activity type can wait before being assigned to
+-- a worker. You can override this default when scheduling a task through
+-- the @ScheduleActivityTask@ Decision.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+activityTypeConfiguration_defaultTaskScheduleToStartTimeout :: Lens.Lens' ActivityTypeConfiguration (Prelude.Maybe Prelude.Text)
+activityTypeConfiguration_defaultTaskScheduleToStartTimeout = Lens.lens (\ActivityTypeConfiguration' {defaultTaskScheduleToStartTimeout} -> defaultTaskScheduleToStartTimeout) (\s@ActivityTypeConfiguration' {} a -> s {defaultTaskScheduleToStartTimeout = a} :: ActivityTypeConfiguration)
 
--- | The default maximum duration for tasks of an activity type specified when registering the activity type. You can override this default when scheduling a task through the @ScheduleActivityTask@ 'Decision' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-atcDefaultTaskStartToCloseTimeout :: Lens' ActivityTypeConfiguration (Maybe Text)
-atcDefaultTaskStartToCloseTimeout = lens _atcDefaultTaskStartToCloseTimeout (\s a -> s {_atcDefaultTaskStartToCloseTimeout = a})
+-- | The default maximum duration for tasks of an activity type specified
+-- when registering the activity type. You can override this default when
+-- scheduling a task through the @ScheduleActivityTask@ Decision.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+activityTypeConfiguration_defaultTaskStartToCloseTimeout :: Lens.Lens' ActivityTypeConfiguration (Prelude.Maybe Prelude.Text)
+activityTypeConfiguration_defaultTaskStartToCloseTimeout = Lens.lens (\ActivityTypeConfiguration' {defaultTaskStartToCloseTimeout} -> defaultTaskStartToCloseTimeout) (\s@ActivityTypeConfiguration' {} a -> s {defaultTaskStartToCloseTimeout = a} :: ActivityTypeConfiguration)
 
--- | The default maximum time, in seconds, before which a worker processing a task must report progress by calling 'RecordActivityTaskHeartbeat' . You can specify this value only when /registering/ an activity type. The registered default value can be overridden when you schedule a task through the @ScheduleActivityTask@ 'Decision' . If the activity worker subsequently attempts to record a heartbeat or returns a result, the activity worker receives an @UnknownResource@ fault. In this case, Amazon SWF no longer considers the activity task to be valid; the activity worker should clean up the activity task. The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-atcDefaultTaskHeartbeatTimeout :: Lens' ActivityTypeConfiguration (Maybe Text)
-atcDefaultTaskHeartbeatTimeout = lens _atcDefaultTaskHeartbeatTimeout (\s a -> s {_atcDefaultTaskHeartbeatTimeout = a})
+-- | The default maximum time, in seconds, before which a worker processing a
+-- task must report progress by calling RecordActivityTaskHeartbeat.
+--
+-- You can specify this value only when /registering/ an activity type. The
+-- registered default value can be overridden when you schedule a task
+-- through the @ScheduleActivityTask@ Decision. If the activity worker
+-- subsequently attempts to record a heartbeat or returns a result, the
+-- activity worker receives an @UnknownResource@ fault. In this case,
+-- Amazon SWF no longer considers the activity task to be valid; the
+-- activity worker should clean up the activity task.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+activityTypeConfiguration_defaultTaskHeartbeatTimeout :: Lens.Lens' ActivityTypeConfiguration (Prelude.Maybe Prelude.Text)
+activityTypeConfiguration_defaultTaskHeartbeatTimeout = Lens.lens (\ActivityTypeConfiguration' {defaultTaskHeartbeatTimeout} -> defaultTaskHeartbeatTimeout) (\s@ActivityTypeConfiguration' {} a -> s {defaultTaskHeartbeatTimeout = a} :: ActivityTypeConfiguration)
 
--- | The default maximum duration, specified when registering the activity type, for tasks of this activity type. You can override this default when scheduling a task through the @ScheduleActivityTask@ 'Decision' . The duration is specified in seconds, an integer greater than or equal to @0@ . You can use @NONE@ to specify unlimited duration.
-atcDefaultTaskScheduleToCloseTimeout :: Lens' ActivityTypeConfiguration (Maybe Text)
-atcDefaultTaskScheduleToCloseTimeout = lens _atcDefaultTaskScheduleToCloseTimeout (\s a -> s {_atcDefaultTaskScheduleToCloseTimeout = a})
+-- | The default maximum duration, specified when registering the activity
+-- type, for tasks of this activity type. You can override this default
+-- when scheduling a task through the @ScheduleActivityTask@ Decision.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+activityTypeConfiguration_defaultTaskScheduleToCloseTimeout :: Lens.Lens' ActivityTypeConfiguration (Prelude.Maybe Prelude.Text)
+activityTypeConfiguration_defaultTaskScheduleToCloseTimeout = Lens.lens (\ActivityTypeConfiguration' {defaultTaskScheduleToCloseTimeout} -> defaultTaskScheduleToCloseTimeout) (\s@ActivityTypeConfiguration' {} a -> s {defaultTaskScheduleToCloseTimeout = a} :: ActivityTypeConfiguration)
 
-instance FromJSON ActivityTypeConfiguration where
+instance Prelude.FromJSON ActivityTypeConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivityTypeConfiguration"
       ( \x ->
           ActivityTypeConfiguration'
-            <$> (x .:? "defaultTaskPriority")
-            <*> (x .:? "defaultTaskList")
-            <*> (x .:? "defaultTaskScheduleToStartTimeout")
-            <*> (x .:? "defaultTaskStartToCloseTimeout")
-            <*> (x .:? "defaultTaskHeartbeatTimeout")
-            <*> (x .:? "defaultTaskScheduleToCloseTimeout")
+            Prelude.<$> (x Prelude..:? "defaultTaskPriority")
+            Prelude.<*> (x Prelude..:? "defaultTaskList")
+            Prelude.<*> (x Prelude..:? "defaultTaskScheduleToStartTimeout")
+            Prelude.<*> (x Prelude..:? "defaultTaskStartToCloseTimeout")
+            Prelude.<*> (x Prelude..:? "defaultTaskHeartbeatTimeout")
+            Prelude.<*> (x Prelude..:? "defaultTaskScheduleToCloseTimeout")
       )
 
-instance Hashable ActivityTypeConfiguration
+instance Prelude.Hashable ActivityTypeConfiguration
 
-instance NFData ActivityTypeConfiguration
+instance Prelude.NFData ActivityTypeConfiguration

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,102 +19,138 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SWF.Types.WorkflowExecutionTerminatedEventAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SWF.Types.ChildPolicy
 import Network.AWS.SWF.Types.WorkflowExecutionTerminatedCause
 
 -- | Provides the details of the @WorkflowExecutionTerminated@ event.
 --
---
---
--- /See:/ 'workflowExecutionTerminatedEventAttributes' smart constructor.
+-- /See:/ 'newWorkflowExecutionTerminatedEventAttributes' smart constructor.
 data WorkflowExecutionTerminatedEventAttributes = WorkflowExecutionTerminatedEventAttributes'
-  { _weteaDetails ::
-      !( Maybe
-           Text
-       ),
-    _weteaReason ::
-      !( Maybe
-           Text
-       ),
-    _weteaCause ::
-      !( Maybe
-           WorkflowExecutionTerminatedCause
-       ),
-    _weteaChildPolicy ::
-      !ChildPolicy
+  { -- | The details provided for the termination.
+    details :: Prelude.Maybe Prelude.Text,
+    -- | The reason provided for the termination.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | If set, indicates that the workflow execution was automatically
+    -- terminated, and specifies the cause. This happens if the parent workflow
+    -- execution times out or is terminated and the child policy is set to
+    -- terminate child executions.
+    cause :: Prelude.Maybe WorkflowExecutionTerminatedCause,
+    -- | The policy used for the child workflow executions of this workflow
+    -- execution.
+    --
+    -- The supported child policies are:
+    --
+    -- -   @TERMINATE@ – The child executions are terminated.
+    --
+    -- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+    --     execution by recording a @WorkflowExecutionCancelRequested@ event in
+    --     its history. It is up to the decider to take appropriate actions
+    --     when it receives an execution history with this event.
+    --
+    -- -   @ABANDON@ – No action is taken. The child executions continue to
+    --     run.
+    childPolicy :: ChildPolicy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowExecutionTerminatedEventAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowExecutionTerminatedEventAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'weteaDetails' - The details provided for the termination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'weteaReason' - The reason provided for the termination.
+-- 'details', 'workflowExecutionTerminatedEventAttributes_details' - The details provided for the termination.
 --
--- * 'weteaCause' - If set, indicates that the workflow execution was automatically terminated, and specifies the cause. This happens if the parent workflow execution times out or is terminated and the child policy is set to terminate child executions.
+-- 'reason', 'workflowExecutionTerminatedEventAttributes_reason' - The reason provided for the termination.
 --
--- * 'weteaChildPolicy' - The policy used for the child workflow executions of this workflow execution. The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
-workflowExecutionTerminatedEventAttributes ::
-  -- | 'weteaChildPolicy'
+-- 'cause', 'workflowExecutionTerminatedEventAttributes_cause' - If set, indicates that the workflow execution was automatically
+-- terminated, and specifies the cause. This happens if the parent workflow
+-- execution times out or is terminated and the child policy is set to
+-- terminate child executions.
+--
+-- 'childPolicy', 'workflowExecutionTerminatedEventAttributes_childPolicy' - The policy used for the child workflow executions of this workflow
+-- execution.
+--
+-- The supported child policies are:
+--
+-- -   @TERMINATE@ – The child executions are terminated.
+--
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+newWorkflowExecutionTerminatedEventAttributes ::
+  -- | 'childPolicy'
   ChildPolicy ->
   WorkflowExecutionTerminatedEventAttributes
-workflowExecutionTerminatedEventAttributes
+newWorkflowExecutionTerminatedEventAttributes
   pChildPolicy_ =
     WorkflowExecutionTerminatedEventAttributes'
-      { _weteaDetails =
-          Nothing,
-        _weteaReason = Nothing,
-        _weteaCause = Nothing,
-        _weteaChildPolicy =
-          pChildPolicy_
+      { details =
+          Prelude.Nothing,
+        reason = Prelude.Nothing,
+        cause = Prelude.Nothing,
+        childPolicy = pChildPolicy_
       }
 
 -- | The details provided for the termination.
-weteaDetails :: Lens' WorkflowExecutionTerminatedEventAttributes (Maybe Text)
-weteaDetails = lens _weteaDetails (\s a -> s {_weteaDetails = a})
+workflowExecutionTerminatedEventAttributes_details :: Lens.Lens' WorkflowExecutionTerminatedEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionTerminatedEventAttributes_details = Lens.lens (\WorkflowExecutionTerminatedEventAttributes' {details} -> details) (\s@WorkflowExecutionTerminatedEventAttributes' {} a -> s {details = a} :: WorkflowExecutionTerminatedEventAttributes)
 
 -- | The reason provided for the termination.
-weteaReason :: Lens' WorkflowExecutionTerminatedEventAttributes (Maybe Text)
-weteaReason = lens _weteaReason (\s a -> s {_weteaReason = a})
+workflowExecutionTerminatedEventAttributes_reason :: Lens.Lens' WorkflowExecutionTerminatedEventAttributes (Prelude.Maybe Prelude.Text)
+workflowExecutionTerminatedEventAttributes_reason = Lens.lens (\WorkflowExecutionTerminatedEventAttributes' {reason} -> reason) (\s@WorkflowExecutionTerminatedEventAttributes' {} a -> s {reason = a} :: WorkflowExecutionTerminatedEventAttributes)
 
--- | If set, indicates that the workflow execution was automatically terminated, and specifies the cause. This happens if the parent workflow execution times out or is terminated and the child policy is set to terminate child executions.
-weteaCause :: Lens' WorkflowExecutionTerminatedEventAttributes (Maybe WorkflowExecutionTerminatedCause)
-weteaCause = lens _weteaCause (\s a -> s {_weteaCause = a})
+-- | If set, indicates that the workflow execution was automatically
+-- terminated, and specifies the cause. This happens if the parent workflow
+-- execution times out or is terminated and the child policy is set to
+-- terminate child executions.
+workflowExecutionTerminatedEventAttributes_cause :: Lens.Lens' WorkflowExecutionTerminatedEventAttributes (Prelude.Maybe WorkflowExecutionTerminatedCause)
+workflowExecutionTerminatedEventAttributes_cause = Lens.lens (\WorkflowExecutionTerminatedEventAttributes' {cause} -> cause) (\s@WorkflowExecutionTerminatedEventAttributes' {} a -> s {cause = a} :: WorkflowExecutionTerminatedEventAttributes)
 
--- | The policy used for the child workflow executions of this workflow execution. The supported child policies are:     * @TERMINATE@ – The child executions are terminated.     * @REQUEST_CANCEL@ – A request to cancel is attempted for each child execution by recording a @WorkflowExecutionCancelRequested@ event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.     * @ABANDON@ – No action is taken. The child executions continue to run.
-weteaChildPolicy :: Lens' WorkflowExecutionTerminatedEventAttributes ChildPolicy
-weteaChildPolicy = lens _weteaChildPolicy (\s a -> s {_weteaChildPolicy = a})
+-- | The policy used for the child workflow executions of this workflow
+-- execution.
+--
+-- The supported child policies are:
+--
+-- -   @TERMINATE@ – The child executions are terminated.
+--
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+workflowExecutionTerminatedEventAttributes_childPolicy :: Lens.Lens' WorkflowExecutionTerminatedEventAttributes ChildPolicy
+workflowExecutionTerminatedEventAttributes_childPolicy = Lens.lens (\WorkflowExecutionTerminatedEventAttributes' {childPolicy} -> childPolicy) (\s@WorkflowExecutionTerminatedEventAttributes' {} a -> s {childPolicy = a} :: WorkflowExecutionTerminatedEventAttributes)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     WorkflowExecutionTerminatedEventAttributes
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowExecutionTerminatedEventAttributes"
       ( \x ->
           WorkflowExecutionTerminatedEventAttributes'
-            <$> (x .:? "details")
-            <*> (x .:? "reason")
-            <*> (x .:? "cause")
-            <*> (x .: "childPolicy")
+            Prelude.<$> (x Prelude..:? "details")
+              Prelude.<*> (x Prelude..:? "reason")
+              Prelude.<*> (x Prelude..:? "cause")
+              Prelude.<*> (x Prelude..: "childPolicy")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     WorkflowExecutionTerminatedEventAttributes
 
 instance
-  NFData
+  Prelude.NFData
     WorkflowExecutionTerminatedEventAttributes
