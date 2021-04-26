@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Organizations.Types.IAMUserAccessToBilling
   ( IAMUserAccessToBilling
       ( ..,
-        Allow,
-        Deny
+        IAMUserAccessToBillingALLOW,
+        IAMUserAccessToBillingDENY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data IAMUserAccessToBilling
-  = IAMUserAccessToBilling'
-      ( CI
-          Text
-      )
+newtype IAMUserAccessToBilling = IAMUserAccessToBilling'
+  { fromIAMUserAccessToBilling ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allow :: IAMUserAccessToBilling
-pattern Allow = IAMUserAccessToBilling' "ALLOW"
+pattern IAMUserAccessToBillingALLOW :: IAMUserAccessToBilling
+pattern IAMUserAccessToBillingALLOW = IAMUserAccessToBilling' "ALLOW"
 
-pattern Deny :: IAMUserAccessToBilling
-pattern Deny = IAMUserAccessToBilling' "DENY"
+pattern IAMUserAccessToBillingDENY :: IAMUserAccessToBilling
+pattern IAMUserAccessToBillingDENY = IAMUserAccessToBilling' "DENY"
 
 {-# COMPLETE
-  Allow,
-  Deny,
+  IAMUserAccessToBillingALLOW,
+  IAMUserAccessToBillingDENY,
   IAMUserAccessToBilling'
   #-}
 
-instance FromText IAMUserAccessToBilling where
-  parser = (IAMUserAccessToBilling' . mk) <$> takeText
+instance Prelude.FromText IAMUserAccessToBilling where
+  parser = IAMUserAccessToBilling' Prelude.<$> Prelude.takeText
 
-instance ToText IAMUserAccessToBilling where
-  toText (IAMUserAccessToBilling' ci) = original ci
+instance Prelude.ToText IAMUserAccessToBilling where
+  toText (IAMUserAccessToBilling' x) = x
 
-instance Hashable IAMUserAccessToBilling
+instance Prelude.Hashable IAMUserAccessToBilling
 
-instance NFData IAMUserAccessToBilling
+instance Prelude.NFData IAMUserAccessToBilling
 
-instance ToByteString IAMUserAccessToBilling
+instance Prelude.ToByteString IAMUserAccessToBilling
 
-instance ToQuery IAMUserAccessToBilling
+instance Prelude.ToQuery IAMUserAccessToBilling
 
-instance ToHeader IAMUserAccessToBilling
+instance Prelude.ToHeader IAMUserAccessToBilling
 
-instance ToJSON IAMUserAccessToBilling where
-  toJSON = toJSONText
+instance Prelude.ToJSON IAMUserAccessToBilling where
+  toJSON = Prelude.toJSONText

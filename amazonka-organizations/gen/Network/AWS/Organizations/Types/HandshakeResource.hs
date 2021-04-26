@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,130 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Organizations.Types.HandshakeResource where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types.HandshakeResourceType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains additional data that is needed to process a handshake.
 --
---
---
--- /See:/ 'handshakeResource' smart constructor.
+-- /See:/ 'newHandshakeResource' smart constructor.
 data HandshakeResource = HandshakeResource'
-  { _hrResources ::
-      !(Maybe [HandshakeResource]),
-    _hrValue ::
-      !(Maybe (Sensitive Text)),
-    _hrType ::
-      !(Maybe HandshakeResourceType)
+  { -- | When needed, contains an additional array of @HandshakeResource@
+    -- objects.
+    resources :: Prelude.Maybe [HandshakeResource],
+    -- | The information that is passed to the other party in the handshake. The
+    -- format of the value string must match the requirements of the specified
+    -- type.
+    value :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The type of information being passed, specifying how the value is to be
+    -- interpreted by the other party:
+    --
+    -- -   @ACCOUNT@ - Specifies an AWS account ID number.
+    --
+    -- -   @ORGANIZATION@ - Specifies an organization ID number.
+    --
+    -- -   @EMAIL@ - Specifies the email address that is associated with the
+    --     account that receives the handshake.
+    --
+    -- -   @OWNER_EMAIL@ - Specifies the email address associated with the
+    --     management account. Included as information about an organization.
+    --
+    -- -   @OWNER_NAME@ - Specifies the name associated with the management
+    --     account. Included as information about an organization.
+    --
+    -- -   @NOTES@ - Additional text provided by the handshake initiator and
+    --     intended for the recipient to read.
+    type' :: Prelude.Maybe HandshakeResourceType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HandshakeResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HandshakeResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hrResources' - When needed, contains an additional array of @HandshakeResource@ objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hrValue' - The information that is passed to the other party in the handshake. The format of the value string must match the requirements of the specified type.
+-- 'resources', 'handshakeResource_resources' - When needed, contains an additional array of @HandshakeResource@
+-- objects.
 --
--- * 'hrType' - The type of information being passed, specifying how the value is to be interpreted by the other party:     * @ACCOUNT@ - Specifies an AWS account ID number.     * @ORGANIZATION@ - Specifies an organization ID number.     * @EMAIL@ - Specifies the email address that is associated with the account that receives the handshake.      * @OWNER_EMAIL@ - Specifies the email address associated with the management account. Included as information about an organization.      * @OWNER_NAME@ - Specifies the name associated with the management account. Included as information about an organization.      * @NOTES@ - Additional text provided by the handshake initiator and intended for the recipient to read.
-handshakeResource ::
+-- 'value', 'handshakeResource_value' - The information that is passed to the other party in the handshake. The
+-- format of the value string must match the requirements of the specified
+-- type.
+--
+-- 'type'', 'handshakeResource_type' - The type of information being passed, specifying how the value is to be
+-- interpreted by the other party:
+--
+-- -   @ACCOUNT@ - Specifies an AWS account ID number.
+--
+-- -   @ORGANIZATION@ - Specifies an organization ID number.
+--
+-- -   @EMAIL@ - Specifies the email address that is associated with the
+--     account that receives the handshake.
+--
+-- -   @OWNER_EMAIL@ - Specifies the email address associated with the
+--     management account. Included as information about an organization.
+--
+-- -   @OWNER_NAME@ - Specifies the name associated with the management
+--     account. Included as information about an organization.
+--
+-- -   @NOTES@ - Additional text provided by the handshake initiator and
+--     intended for the recipient to read.
+newHandshakeResource ::
   HandshakeResource
-handshakeResource =
+newHandshakeResource =
   HandshakeResource'
-    { _hrResources = Nothing,
-      _hrValue = Nothing,
-      _hrType = Nothing
+    { resources = Prelude.Nothing,
+      value = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | When needed, contains an additional array of @HandshakeResource@ objects.
-hrResources :: Lens' HandshakeResource [HandshakeResource]
-hrResources = lens _hrResources (\s a -> s {_hrResources = a}) . _Default . _Coerce
+-- | When needed, contains an additional array of @HandshakeResource@
+-- objects.
+handshakeResource_resources :: Lens.Lens' HandshakeResource (Prelude.Maybe [HandshakeResource])
+handshakeResource_resources = Lens.lens (\HandshakeResource' {resources} -> resources) (\s@HandshakeResource' {} a -> s {resources = a} :: HandshakeResource) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The information that is passed to the other party in the handshake. The format of the value string must match the requirements of the specified type.
-hrValue :: Lens' HandshakeResource (Maybe Text)
-hrValue = lens _hrValue (\s a -> s {_hrValue = a}) . mapping _Sensitive
+-- | The information that is passed to the other party in the handshake. The
+-- format of the value string must match the requirements of the specified
+-- type.
+handshakeResource_value :: Lens.Lens' HandshakeResource (Prelude.Maybe Prelude.Text)
+handshakeResource_value = Lens.lens (\HandshakeResource' {value} -> value) (\s@HandshakeResource' {} a -> s {value = a} :: HandshakeResource) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The type of information being passed, specifying how the value is to be interpreted by the other party:     * @ACCOUNT@ - Specifies an AWS account ID number.     * @ORGANIZATION@ - Specifies an organization ID number.     * @EMAIL@ - Specifies the email address that is associated with the account that receives the handshake.      * @OWNER_EMAIL@ - Specifies the email address associated with the management account. Included as information about an organization.      * @OWNER_NAME@ - Specifies the name associated with the management account. Included as information about an organization.      * @NOTES@ - Additional text provided by the handshake initiator and intended for the recipient to read.
-hrType :: Lens' HandshakeResource (Maybe HandshakeResourceType)
-hrType = lens _hrType (\s a -> s {_hrType = a})
+-- | The type of information being passed, specifying how the value is to be
+-- interpreted by the other party:
+--
+-- -   @ACCOUNT@ - Specifies an AWS account ID number.
+--
+-- -   @ORGANIZATION@ - Specifies an organization ID number.
+--
+-- -   @EMAIL@ - Specifies the email address that is associated with the
+--     account that receives the handshake.
+--
+-- -   @OWNER_EMAIL@ - Specifies the email address associated with the
+--     management account. Included as information about an organization.
+--
+-- -   @OWNER_NAME@ - Specifies the name associated with the management
+--     account. Included as information about an organization.
+--
+-- -   @NOTES@ - Additional text provided by the handshake initiator and
+--     intended for the recipient to read.
+handshakeResource_type :: Lens.Lens' HandshakeResource (Prelude.Maybe HandshakeResourceType)
+handshakeResource_type = Lens.lens (\HandshakeResource' {type'} -> type') (\s@HandshakeResource' {} a -> s {type' = a} :: HandshakeResource)
 
-instance FromJSON HandshakeResource where
+instance Prelude.FromJSON HandshakeResource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HandshakeResource"
       ( \x ->
           HandshakeResource'
-            <$> (x .:? "Resources" .!= mempty)
-            <*> (x .:? "Value")
-            <*> (x .:? "Type")
+            Prelude.<$> ( x Prelude..:? "Resources"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable HandshakeResource
+instance Prelude.Hashable HandshakeResource
 
-instance NFData HandshakeResource
+instance Prelude.NFData HandshakeResource

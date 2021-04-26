@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,117 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables all features in an organization. This enables the use of organization policies that can restrict the services and actions that can be called in each account. Until you enable all features, you have access only to consolidated billing, and you can't use any of the advanced account administration features that AWS Organizations supports. For more information, see <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html Enabling All Features in Your Organization> in the /AWS Organizations User Guide./
+-- Enables all features in an organization. This enables the use of
+-- organization policies that can restrict the services and actions that
+-- can be called in each account. Until you enable all features, you have
+-- access only to consolidated billing, and you can\'t use any of the
+-- advanced account administration features that AWS Organizations
+-- supports. For more information, see
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html Enabling All Features in Your Organization>
+-- in the /AWS Organizations User Guide./
 --
+-- This operation is required only for organizations that were created
+-- explicitly with only the consolidated billing features enabled. Calling
+-- this operation sends a handshake to every invited account in the
+-- organization. The feature set change can be finalized and the additional
+-- features enabled only after all administrators in the invited accounts
+-- approve the change by accepting the handshake.
 --
--- /Important:/ This operation is required only for organizations that were created explicitly with only the consolidated billing features enabled. Calling this operation sends a handshake to every invited account in the organization. The feature set change can be finalized and the additional features enabled only after all administrators in the invited accounts approve the change by accepting the handshake.
+-- After you enable all features, you can separately enable or disable
+-- individual policy types in a root using EnablePolicyType and
+-- DisablePolicyType. To see the status of policy types in a root, use
+-- ListRoots.
 --
--- After you enable all features, you can separately enable or disable individual policy types in a root using 'EnablePolicyType' and 'DisablePolicyType' . To see the status of policy types in a root, use 'ListRoots' .
+-- After all invited member accounts accept the handshake, you finalize the
+-- feature set change by accepting the handshake that contains
+-- @\"Action\": \"ENABLE_ALL_FEATURES\"@. This completes the change.
 --
--- After all invited member accounts accept the handshake, you finalize the feature set change by accepting the handshake that contains @"Action": "ENABLE_ALL_FEATURES"@ . This completes the change.
+-- After you enable all features in your organization, the management
+-- account in the organization can apply policies on all member accounts.
+-- These policies can restrict what users and even administrators in those
+-- accounts can do. The management account can apply policies that prevent
+-- accounts from leaving the organization. Ensure that your account
+-- administrators are aware of this.
 --
--- After you enable all features in your organization, the management account in the organization can apply policies on all member accounts. These policies can restrict what users and even administrators in those accounts can do. The management account can apply policies that prevent accounts from leaving the organization. Ensure that your account administrators are aware of this.
---
--- This operation can be called only from the organization's management account.
+-- This operation can be called only from the organization\'s management
+-- account.
 module Network.AWS.Organizations.EnableAllFeatures
   ( -- * Creating a Request
-    enableAllFeatures,
-    EnableAllFeatures,
+    EnableAllFeatures (..),
+    newEnableAllFeatures,
 
     -- * Destructuring the Response
-    enableAllFeaturesResponse,
-    EnableAllFeaturesResponse,
+    EnableAllFeaturesResponse (..),
+    newEnableAllFeaturesResponse,
 
     -- * Response Lenses
-    eafrrsHandshake,
-    eafrrsResponseStatus,
+    enableAllFeaturesResponse_handshake,
+    enableAllFeaturesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.Handshake
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableAllFeatures' smart constructor.
+-- | /See:/ 'newEnableAllFeatures' smart constructor.
 data EnableAllFeatures = EnableAllFeatures'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableAllFeatures' with the minimum fields required to make a request.
-enableAllFeatures ::
+-- |
+-- Create a value of 'EnableAllFeatures' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEnableAllFeatures ::
   EnableAllFeatures
-enableAllFeatures = EnableAllFeatures'
+newEnableAllFeatures = EnableAllFeatures'
 
-instance AWSRequest EnableAllFeatures where
+instance Prelude.AWSRequest EnableAllFeatures where
   type Rs EnableAllFeatures = EnableAllFeaturesResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           EnableAllFeaturesResponse'
-            <$> (x .?> "Handshake") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Handshake")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableAllFeatures
+instance Prelude.Hashable EnableAllFeatures
 
-instance NFData EnableAllFeatures
+instance Prelude.NFData EnableAllFeatures
 
-instance ToHeaders EnableAllFeatures where
+instance Prelude.ToHeaders EnableAllFeatures where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.EnableAllFeatures" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.EnableAllFeatures" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableAllFeatures where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON EnableAllFeatures where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath EnableAllFeatures where
-  toPath = const "/"
+instance Prelude.ToPath EnableAllFeatures where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableAllFeatures where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableAllFeatures where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableAllFeaturesResponse' smart constructor.
+-- | /See:/ 'newEnableAllFeaturesResponse' smart constructor.
 data EnableAllFeaturesResponse = EnableAllFeaturesResponse'
-  { _eafrrsHandshake ::
-      !(Maybe Handshake),
-    _eafrrsResponseStatus ::
-      !Int
+  { -- | A structure that contains details about the handshake created to support
+    -- this request to enable all features in the organization.
+    handshake :: Prelude.Maybe Handshake,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableAllFeaturesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableAllFeaturesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eafrrsHandshake' - A structure that contains details about the handshake created to support this request to enable all features in the organization.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eafrrsResponseStatus' - -- | The response status code.
-enableAllFeaturesResponse ::
-  -- | 'eafrrsResponseStatus'
-  Int ->
+-- 'handshake', 'enableAllFeaturesResponse_handshake' - A structure that contains details about the handshake created to support
+-- this request to enable all features in the organization.
+--
+-- 'httpStatus', 'enableAllFeaturesResponse_httpStatus' - The response's http status code.
+newEnableAllFeaturesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnableAllFeaturesResponse
-enableAllFeaturesResponse pResponseStatus_ =
+newEnableAllFeaturesResponse pHttpStatus_ =
   EnableAllFeaturesResponse'
-    { _eafrrsHandshake =
-        Nothing,
-      _eafrrsResponseStatus = pResponseStatus_
+    { handshake =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A structure that contains details about the handshake created to support this request to enable all features in the organization.
-eafrrsHandshake :: Lens' EnableAllFeaturesResponse (Maybe Handshake)
-eafrrsHandshake = lens _eafrrsHandshake (\s a -> s {_eafrrsHandshake = a})
+-- | A structure that contains details about the handshake created to support
+-- this request to enable all features in the organization.
+enableAllFeaturesResponse_handshake :: Lens.Lens' EnableAllFeaturesResponse (Prelude.Maybe Handshake)
+enableAllFeaturesResponse_handshake = Lens.lens (\EnableAllFeaturesResponse' {handshake} -> handshake) (\s@EnableAllFeaturesResponse' {} a -> s {handshake = a} :: EnableAllFeaturesResponse)
 
--- | -- | The response status code.
-eafrrsResponseStatus :: Lens' EnableAllFeaturesResponse Int
-eafrrsResponseStatus = lens _eafrrsResponseStatus (\s a -> s {_eafrrsResponseStatus = a})
+-- | The response's http status code.
+enableAllFeaturesResponse_httpStatus :: Lens.Lens' EnableAllFeaturesResponse Prelude.Int
+enableAllFeaturesResponse_httpStatus = Lens.lens (\EnableAllFeaturesResponse' {httpStatus} -> httpStatus) (\s@EnableAllFeaturesResponse' {} a -> s {httpStatus = a} :: EnableAllFeaturesResponse)
 
-instance NFData EnableAllFeaturesResponse
+instance Prelude.NFData EnableAllFeaturesResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Organizations.Types.OrganizationFeatureSet
   ( OrganizationFeatureSet
       ( ..,
-        All,
-        ConsolidatedBilling
+        OrganizationFeatureSetALL,
+        OrganizationFeatureSetCONSOLIDATEDBILLING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrganizationFeatureSet
-  = OrganizationFeatureSet'
-      ( CI
-          Text
-      )
+newtype OrganizationFeatureSet = OrganizationFeatureSet'
+  { fromOrganizationFeatureSet ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: OrganizationFeatureSet
-pattern All = OrganizationFeatureSet' "ALL"
+pattern OrganizationFeatureSetALL :: OrganizationFeatureSet
+pattern OrganizationFeatureSetALL = OrganizationFeatureSet' "ALL"
 
-pattern ConsolidatedBilling :: OrganizationFeatureSet
-pattern ConsolidatedBilling = OrganizationFeatureSet' "CONSOLIDATED_BILLING"
+pattern OrganizationFeatureSetCONSOLIDATEDBILLING :: OrganizationFeatureSet
+pattern OrganizationFeatureSetCONSOLIDATEDBILLING = OrganizationFeatureSet' "CONSOLIDATED_BILLING"
 
 {-# COMPLETE
-  All,
-  ConsolidatedBilling,
+  OrganizationFeatureSetALL,
+  OrganizationFeatureSetCONSOLIDATEDBILLING,
   OrganizationFeatureSet'
   #-}
 
-instance FromText OrganizationFeatureSet where
-  parser = (OrganizationFeatureSet' . mk) <$> takeText
+instance Prelude.FromText OrganizationFeatureSet where
+  parser = OrganizationFeatureSet' Prelude.<$> Prelude.takeText
 
-instance ToText OrganizationFeatureSet where
-  toText (OrganizationFeatureSet' ci) = original ci
+instance Prelude.ToText OrganizationFeatureSet where
+  toText (OrganizationFeatureSet' x) = x
 
-instance Hashable OrganizationFeatureSet
+instance Prelude.Hashable OrganizationFeatureSet
 
-instance NFData OrganizationFeatureSet
+instance Prelude.NFData OrganizationFeatureSet
 
-instance ToByteString OrganizationFeatureSet
+instance Prelude.ToByteString OrganizationFeatureSet
 
-instance ToQuery OrganizationFeatureSet
+instance Prelude.ToQuery OrganizationFeatureSet
 
-instance ToHeader OrganizationFeatureSet
+instance Prelude.ToHeader OrganizationFeatureSet
 
-instance ToJSON OrganizationFeatureSet where
-  toJSON = toJSONText
+instance Prelude.ToJSON OrganizationFeatureSet where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OrganizationFeatureSet where
-  parseJSON = parseJSONText "OrganizationFeatureSet"
+instance Prelude.FromJSON OrganizationFeatureSet where
+  parseJSON = Prelude.parseJSONText "OrganizationFeatureSet"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Organizations.Types.DelegatedService where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the AWS service for which the account is a delegated administrator.
+-- | Contains information about the AWS service for which the account is a
+-- delegated administrator.
 --
---
---
--- /See:/ 'delegatedService' smart constructor.
+-- /See:/ 'newDelegatedService' smart constructor.
 data DelegatedService = DelegatedService'
-  { _dsServicePrincipal ::
-      !(Maybe Text),
-    _dsDelegationEnabledDate ::
-      !(Maybe POSIX)
+  { -- | The name of a service that can request an operation for the specified
+    -- service. This is typically in the form of a URL, such as:
+    -- @ servicename.amazonaws.com@.
+    servicePrincipal :: Prelude.Maybe Prelude.Text,
+    -- | The date that the account became a delegated administrator for this
+    -- service.
+    delegationEnabledDate :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DelegatedService' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DelegatedService' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsServicePrincipal' - The name of a service that can request an operation for the specified service. This is typically in the form of a URL, such as: @/servicename/ .amazonaws.com@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsDelegationEnabledDate' - The date that the account became a delegated administrator for this service.
-delegatedService ::
+-- 'servicePrincipal', 'delegatedService_servicePrincipal' - The name of a service that can request an operation for the specified
+-- service. This is typically in the form of a URL, such as:
+-- @ servicename.amazonaws.com@.
+--
+-- 'delegationEnabledDate', 'delegatedService_delegationEnabledDate' - The date that the account became a delegated administrator for this
+-- service.
+newDelegatedService ::
   DelegatedService
-delegatedService =
+newDelegatedService =
   DelegatedService'
-    { _dsServicePrincipal = Nothing,
-      _dsDelegationEnabledDate = Nothing
+    { servicePrincipal =
+        Prelude.Nothing,
+      delegationEnabledDate = Prelude.Nothing
     }
 
--- | The name of a service that can request an operation for the specified service. This is typically in the form of a URL, such as: @/servicename/ .amazonaws.com@ .
-dsServicePrincipal :: Lens' DelegatedService (Maybe Text)
-dsServicePrincipal = lens _dsServicePrincipal (\s a -> s {_dsServicePrincipal = a})
+-- | The name of a service that can request an operation for the specified
+-- service. This is typically in the form of a URL, such as:
+-- @ servicename.amazonaws.com@.
+delegatedService_servicePrincipal :: Lens.Lens' DelegatedService (Prelude.Maybe Prelude.Text)
+delegatedService_servicePrincipal = Lens.lens (\DelegatedService' {servicePrincipal} -> servicePrincipal) (\s@DelegatedService' {} a -> s {servicePrincipal = a} :: DelegatedService)
 
--- | The date that the account became a delegated administrator for this service.
-dsDelegationEnabledDate :: Lens' DelegatedService (Maybe UTCTime)
-dsDelegationEnabledDate = lens _dsDelegationEnabledDate (\s a -> s {_dsDelegationEnabledDate = a}) . mapping _Time
+-- | The date that the account became a delegated administrator for this
+-- service.
+delegatedService_delegationEnabledDate :: Lens.Lens' DelegatedService (Prelude.Maybe Prelude.UTCTime)
+delegatedService_delegationEnabledDate = Lens.lens (\DelegatedService' {delegationEnabledDate} -> delegationEnabledDate) (\s@DelegatedService' {} a -> s {delegationEnabledDate = a} :: DelegatedService) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON DelegatedService where
+instance Prelude.FromJSON DelegatedService where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DelegatedService"
       ( \x ->
           DelegatedService'
-            <$> (x .:? "ServicePrincipal")
-            <*> (x .:? "DelegationEnabledDate")
+            Prelude.<$> (x Prelude..:? "ServicePrincipal")
+            Prelude.<*> (x Prelude..:? "DelegationEnabledDate")
       )
 
-instance Hashable DelegatedService
+instance Prelude.Hashable DelegatedService
 
-instance NFData DelegatedService
+instance Prelude.NFData DelegatedService

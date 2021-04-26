@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,184 +21,304 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sends an invitation to another account to join your organization as a member account. AWS Organizations sends email on your behalf to the email address that is associated with the other account's owner. The invitation is implemented as a 'Handshake' whose details are in the response.
+-- Sends an invitation to another account to join your organization as a
+-- member account. AWS Organizations sends email on your behalf to the
+-- email address that is associated with the other account\'s owner. The
+-- invitation is implemented as a Handshake whose details are in the
+-- response.
 --
+-- -   You can invite AWS accounts only from the same seller as the
+--     management account. For example, if your organization\'s management
+--     account was created by Amazon Internet Services Pvt. Ltd (AISPL), an
+--     AWS seller in India, you can invite only other AISPL accounts to
+--     your organization. You can\'t combine accounts from AISPL and AWS or
+--     from any other AWS seller. For more information, see
+--     <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilliing-India.html Consolidated Billing in India>.
 --
--- /Important:/     * You can invite AWS accounts only from the same seller as the management account. For example, if your organization's management account was created by Amazon Internet Services Pvt. Ltd (AISPL), an AWS seller in India, you can invite only other AISPL accounts to your organization. You can't combine accounts from AISPL and AWS or from any other AWS seller. For more information, see <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilliing-India.html Consolidated Billing in India> .
+-- -   If you receive an exception that indicates that you exceeded your
+--     account limits for the organization or that the operation failed
+--     because your organization is still initializing, wait one hour and
+--     then try again. If the error persists after an hour, contact
+--     <https://console.aws.amazon.com/support/home#/ AWS Support>.
 --
---     * If you receive an exception that indicates that you exceeded your account limits for the organization or that the operation failed because your organization is still initializing, wait one hour and then try again. If the error persists after an hour, contact <https://console.aws.amazon.com/support/home#/ AWS Support> .
+-- If the request includes tags, then the requester must have the
+-- @organizations:TagResource@ permission.
 --
---
---
--- If the request includes tags, then the requester must have the @organizations:TagResource@ permission.
---
--- This operation can be called only from the organization's management account.
+-- This operation can be called only from the organization\'s management
+-- account.
 module Network.AWS.Organizations.InviteAccountToOrganization
   ( -- * Creating a Request
-    inviteAccountToOrganization,
-    InviteAccountToOrganization,
+    InviteAccountToOrganization (..),
+    newInviteAccountToOrganization,
 
     -- * Request Lenses
-    iatoNotes,
-    iatoTags,
-    iatoTarget,
+    inviteAccountToOrganization_notes,
+    inviteAccountToOrganization_tags,
+    inviteAccountToOrganization_target,
 
     -- * Destructuring the Response
-    inviteAccountToOrganizationResponse,
-    InviteAccountToOrganizationResponse,
+    InviteAccountToOrganizationResponse (..),
+    newInviteAccountToOrganizationResponse,
 
     -- * Response Lenses
-    iatorrsHandshake,
-    iatorrsResponseStatus,
+    inviteAccountToOrganizationResponse_handshake,
+    inviteAccountToOrganizationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.Handshake
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'inviteAccountToOrganization' smart constructor.
+-- | /See:/ 'newInviteAccountToOrganization' smart constructor.
 data InviteAccountToOrganization = InviteAccountToOrganization'
-  { _iatoNotes ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _iatoTags ::
-      !(Maybe [Tag]),
-    _iatoTarget ::
-      !HandshakeParty
+  { -- | Additional information that you want to include in the generated email
+    -- to the recipient account owner.
+    notes :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | A list of tags that you want to attach to the account when it becomes a
+    -- member of the organization. For each tag in the list, you must specify
+    -- both a tag key and a value. You can set the value to an empty string,
+    -- but you can\'t set it to @null@. For more information about tagging, see
+    -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
+    -- in the AWS Organizations User Guide.
+    --
+    -- Any tags in the request are checked for compliance with any applicable
+    -- tag policies when the request is made. The request is rejected if the
+    -- tags in the request don\'t match the requirements of the policy at that
+    -- time. Tag policy compliance is /__not__/ checked again when the
+    -- invitation is accepted and the tags are actually attached to the
+    -- account. That means that if the tag policy changes between the
+    -- invitation and the acceptance, then that tags could potentially be
+    -- non-compliant.
+    --
+    -- If any one of the tags is invalid or if you exceed the allowed number of
+    -- tags for an account, then the entire request fails and invitations are
+    -- not sent.
+    tags :: Prelude.Maybe [Tag],
+    -- | The identifier (ID) of the AWS account that you want to invite to join
+    -- your organization. This is a JSON object that contains the following
+    -- elements:
+    --
+    -- @{ \"Type\": \"ACCOUNT\", \"Id\": \"\< account id number >\" }@
+    --
+    -- If you use the AWS CLI, you can submit this as a single string, similar
+    -- to the following example:
+    --
+    -- @--target Id=123456789012,Type=ACCOUNT@
+    --
+    -- If you specify @\"Type\": \"ACCOUNT\"@, you must provide the AWS account
+    -- ID number as the @Id@. If you specify @\"Type\": \"EMAIL\"@, you must
+    -- specify the email address that is associated with the account.
+    --
+    -- @--target Id=diego\@example.com,Type=EMAIL@
+    target :: HandshakeParty
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InviteAccountToOrganization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InviteAccountToOrganization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iatoNotes' - Additional information that you want to include in the generated email to the recipient account owner.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iatoTags' - A list of tags that you want to attach to the account when it becomes a member of the organization. For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to @null@ . For more information about tagging, see <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources> in the AWS Organizations User Guide. /Important:/ Any tags in the request are checked for compliance with any applicable tag policies when the request is made. The request is rejected if the tags in the request don't match the requirements of the policy at that time. Tag policy compliance is /__not__ / checked again when the invitation is accepted and the tags are actually attached to the account. That means that if the tag policy changes between the invitation and the acceptance, then that tags could potentially be non-compliant.
+-- 'notes', 'inviteAccountToOrganization_notes' - Additional information that you want to include in the generated email
+-- to the recipient account owner.
 --
--- * 'iatoTarget' - The identifier (ID) of the AWS account that you want to invite to join your organization. This is a JSON object that contains the following elements: @{ "Type": "ACCOUNT", "Id": "</__account id number__ / >" }@  If you use the AWS CLI, you can submit this as a single string, similar to the following example: @--target Id=123456789012,Type=ACCOUNT@  If you specify @"Type": "ACCOUNT"@ , you must provide the AWS account ID number as the @Id@ . If you specify @"Type": "EMAIL"@ , you must specify the email address that is associated with the account. @--target Id=diego@example.com,Type=EMAIL@
-inviteAccountToOrganization ::
-  -- | 'iatoTarget'
+-- 'tags', 'inviteAccountToOrganization_tags' - A list of tags that you want to attach to the account when it becomes a
+-- member of the organization. For each tag in the list, you must specify
+-- both a tag key and a value. You can set the value to an empty string,
+-- but you can\'t set it to @null@. For more information about tagging, see
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
+-- in the AWS Organizations User Guide.
+--
+-- Any tags in the request are checked for compliance with any applicable
+-- tag policies when the request is made. The request is rejected if the
+-- tags in the request don\'t match the requirements of the policy at that
+-- time. Tag policy compliance is /__not__/ checked again when the
+-- invitation is accepted and the tags are actually attached to the
+-- account. That means that if the tag policy changes between the
+-- invitation and the acceptance, then that tags could potentially be
+-- non-compliant.
+--
+-- If any one of the tags is invalid or if you exceed the allowed number of
+-- tags for an account, then the entire request fails and invitations are
+-- not sent.
+--
+-- 'target', 'inviteAccountToOrganization_target' - The identifier (ID) of the AWS account that you want to invite to join
+-- your organization. This is a JSON object that contains the following
+-- elements:
+--
+-- @{ \"Type\": \"ACCOUNT\", \"Id\": \"\< account id number >\" }@
+--
+-- If you use the AWS CLI, you can submit this as a single string, similar
+-- to the following example:
+--
+-- @--target Id=123456789012,Type=ACCOUNT@
+--
+-- If you specify @\"Type\": \"ACCOUNT\"@, you must provide the AWS account
+-- ID number as the @Id@. If you specify @\"Type\": \"EMAIL\"@, you must
+-- specify the email address that is associated with the account.
+--
+-- @--target Id=diego\@example.com,Type=EMAIL@
+newInviteAccountToOrganization ::
+  -- | 'target'
   HandshakeParty ->
   InviteAccountToOrganization
-inviteAccountToOrganization pTarget_ =
+newInviteAccountToOrganization pTarget_ =
   InviteAccountToOrganization'
-    { _iatoNotes = Nothing,
-      _iatoTags = Nothing,
-      _iatoTarget = pTarget_
+    { notes =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
+      target = pTarget_
     }
 
--- | Additional information that you want to include in the generated email to the recipient account owner.
-iatoNotes :: Lens' InviteAccountToOrganization (Maybe Text)
-iatoNotes = lens _iatoNotes (\s a -> s {_iatoNotes = a}) . mapping _Sensitive
+-- | Additional information that you want to include in the generated email
+-- to the recipient account owner.
+inviteAccountToOrganization_notes :: Lens.Lens' InviteAccountToOrganization (Prelude.Maybe Prelude.Text)
+inviteAccountToOrganization_notes = Lens.lens (\InviteAccountToOrganization' {notes} -> notes) (\s@InviteAccountToOrganization' {} a -> s {notes = a} :: InviteAccountToOrganization) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | A list of tags that you want to attach to the account when it becomes a member of the organization. For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to @null@ . For more information about tagging, see <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources> in the AWS Organizations User Guide. /Important:/ Any tags in the request are checked for compliance with any applicable tag policies when the request is made. The request is rejected if the tags in the request don't match the requirements of the policy at that time. Tag policy compliance is /__not__ / checked again when the invitation is accepted and the tags are actually attached to the account. That means that if the tag policy changes between the invitation and the acceptance, then that tags could potentially be non-compliant.
-iatoTags :: Lens' InviteAccountToOrganization [Tag]
-iatoTags = lens _iatoTags (\s a -> s {_iatoTags = a}) . _Default . _Coerce
+-- | A list of tags that you want to attach to the account when it becomes a
+-- member of the organization. For each tag in the list, you must specify
+-- both a tag key and a value. You can set the value to an empty string,
+-- but you can\'t set it to @null@. For more information about tagging, see
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
+-- in the AWS Organizations User Guide.
+--
+-- Any tags in the request are checked for compliance with any applicable
+-- tag policies when the request is made. The request is rejected if the
+-- tags in the request don\'t match the requirements of the policy at that
+-- time. Tag policy compliance is /__not__/ checked again when the
+-- invitation is accepted and the tags are actually attached to the
+-- account. That means that if the tag policy changes between the
+-- invitation and the acceptance, then that tags could potentially be
+-- non-compliant.
+--
+-- If any one of the tags is invalid or if you exceed the allowed number of
+-- tags for an account, then the entire request fails and invitations are
+-- not sent.
+inviteAccountToOrganization_tags :: Lens.Lens' InviteAccountToOrganization (Prelude.Maybe [Tag])
+inviteAccountToOrganization_tags = Lens.lens (\InviteAccountToOrganization' {tags} -> tags) (\s@InviteAccountToOrganization' {} a -> s {tags = a} :: InviteAccountToOrganization) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The identifier (ID) of the AWS account that you want to invite to join your organization. This is a JSON object that contains the following elements: @{ "Type": "ACCOUNT", "Id": "</__account id number__ / >" }@  If you use the AWS CLI, you can submit this as a single string, similar to the following example: @--target Id=123456789012,Type=ACCOUNT@  If you specify @"Type": "ACCOUNT"@ , you must provide the AWS account ID number as the @Id@ . If you specify @"Type": "EMAIL"@ , you must specify the email address that is associated with the account. @--target Id=diego@example.com,Type=EMAIL@
-iatoTarget :: Lens' InviteAccountToOrganization HandshakeParty
-iatoTarget = lens _iatoTarget (\s a -> s {_iatoTarget = a})
+-- | The identifier (ID) of the AWS account that you want to invite to join
+-- your organization. This is a JSON object that contains the following
+-- elements:
+--
+-- @{ \"Type\": \"ACCOUNT\", \"Id\": \"\< account id number >\" }@
+--
+-- If you use the AWS CLI, you can submit this as a single string, similar
+-- to the following example:
+--
+-- @--target Id=123456789012,Type=ACCOUNT@
+--
+-- If you specify @\"Type\": \"ACCOUNT\"@, you must provide the AWS account
+-- ID number as the @Id@. If you specify @\"Type\": \"EMAIL\"@, you must
+-- specify the email address that is associated with the account.
+--
+-- @--target Id=diego\@example.com,Type=EMAIL@
+inviteAccountToOrganization_target :: Lens.Lens' InviteAccountToOrganization HandshakeParty
+inviteAccountToOrganization_target = Lens.lens (\InviteAccountToOrganization' {target} -> target) (\s@InviteAccountToOrganization' {} a -> s {target = a} :: InviteAccountToOrganization)
 
-instance AWSRequest InviteAccountToOrganization where
+instance
+  Prelude.AWSRequest
+    InviteAccountToOrganization
+  where
   type
     Rs InviteAccountToOrganization =
       InviteAccountToOrganizationResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           InviteAccountToOrganizationResponse'
-            <$> (x .?> "Handshake") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Handshake")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable InviteAccountToOrganization
+instance Prelude.Hashable InviteAccountToOrganization
 
-instance NFData InviteAccountToOrganization
+instance Prelude.NFData InviteAccountToOrganization
 
-instance ToHeaders InviteAccountToOrganization where
+instance
+  Prelude.ToHeaders
+    InviteAccountToOrganization
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.InviteAccountToOrganization" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.InviteAccountToOrganization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON InviteAccountToOrganization where
+instance Prelude.ToJSON InviteAccountToOrganization where
   toJSON InviteAccountToOrganization' {..} =
-    object
-      ( catMaybes
-          [ ("Notes" .=) <$> _iatoNotes,
-            ("Tags" .=) <$> _iatoTags,
-            Just ("Target" .= _iatoTarget)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Notes" Prelude..=) Prelude.<$> notes,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("Target" Prelude..= target)
           ]
       )
 
-instance ToPath InviteAccountToOrganization where
-  toPath = const "/"
+instance Prelude.ToPath InviteAccountToOrganization where
+  toPath = Prelude.const "/"
 
-instance ToQuery InviteAccountToOrganization where
-  toQuery = const mempty
+instance Prelude.ToQuery InviteAccountToOrganization where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'inviteAccountToOrganizationResponse' smart constructor.
+-- | /See:/ 'newInviteAccountToOrganizationResponse' smart constructor.
 data InviteAccountToOrganizationResponse = InviteAccountToOrganizationResponse'
-  { _iatorrsHandshake ::
-      !( Maybe
-           Handshake
-       ),
-    _iatorrsResponseStatus ::
-      !Int
+  { -- | A structure that contains details about the handshake that is created to
+    -- support this invitation request.
+    handshake :: Prelude.Maybe Handshake,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InviteAccountToOrganizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InviteAccountToOrganizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iatorrsHandshake' - A structure that contains details about the handshake that is created to support this invitation request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iatorrsResponseStatus' - -- | The response status code.
-inviteAccountToOrganizationResponse ::
-  -- | 'iatorrsResponseStatus'
-  Int ->
+-- 'handshake', 'inviteAccountToOrganizationResponse_handshake' - A structure that contains details about the handshake that is created to
+-- support this invitation request.
+--
+-- 'httpStatus', 'inviteAccountToOrganizationResponse_httpStatus' - The response's http status code.
+newInviteAccountToOrganizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   InviteAccountToOrganizationResponse
-inviteAccountToOrganizationResponse pResponseStatus_ =
+newInviteAccountToOrganizationResponse pHttpStatus_ =
   InviteAccountToOrganizationResponse'
-    { _iatorrsHandshake =
-        Nothing,
-      _iatorrsResponseStatus =
-        pResponseStatus_
+    { handshake =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A structure that contains details about the handshake that is created to support this invitation request.
-iatorrsHandshake :: Lens' InviteAccountToOrganizationResponse (Maybe Handshake)
-iatorrsHandshake = lens _iatorrsHandshake (\s a -> s {_iatorrsHandshake = a})
+-- | A structure that contains details about the handshake that is created to
+-- support this invitation request.
+inviteAccountToOrganizationResponse_handshake :: Lens.Lens' InviteAccountToOrganizationResponse (Prelude.Maybe Handshake)
+inviteAccountToOrganizationResponse_handshake = Lens.lens (\InviteAccountToOrganizationResponse' {handshake} -> handshake) (\s@InviteAccountToOrganizationResponse' {} a -> s {handshake = a} :: InviteAccountToOrganizationResponse)
 
--- | -- | The response status code.
-iatorrsResponseStatus :: Lens' InviteAccountToOrganizationResponse Int
-iatorrsResponseStatus = lens _iatorrsResponseStatus (\s a -> s {_iatorrsResponseStatus = a})
+-- | The response's http status code.
+inviteAccountToOrganizationResponse_httpStatus :: Lens.Lens' InviteAccountToOrganizationResponse Prelude.Int
+inviteAccountToOrganizationResponse_httpStatus = Lens.lens (\InviteAccountToOrganizationResponse' {httpStatus} -> httpStatus) (\s@InviteAccountToOrganizationResponse' {} a -> s {httpStatus = a} :: InviteAccountToOrganizationResponse)
 
-instance NFData InviteAccountToOrganizationResponse
+instance
+  Prelude.NFData
+    InviteAccountToOrganizationResponse

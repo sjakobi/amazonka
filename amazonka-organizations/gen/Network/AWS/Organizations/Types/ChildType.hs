@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Organizations.Types.ChildType
   ( ChildType
       ( ..,
-        CTAccount,
-        CTOrganizationalUnit
+        ChildTypeACCOUNT,
+        ChildTypeORGANIZATIONALUNIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChildType = ChildType' (CI Text)
+newtype ChildType = ChildType'
+  { fromChildType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CTAccount :: ChildType
-pattern CTAccount = ChildType' "ACCOUNT"
+pattern ChildTypeACCOUNT :: ChildType
+pattern ChildTypeACCOUNT = ChildType' "ACCOUNT"
 
-pattern CTOrganizationalUnit :: ChildType
-pattern CTOrganizationalUnit = ChildType' "ORGANIZATIONAL_UNIT"
+pattern ChildTypeORGANIZATIONALUNIT :: ChildType
+pattern ChildTypeORGANIZATIONALUNIT = ChildType' "ORGANIZATIONAL_UNIT"
 
 {-# COMPLETE
-  CTAccount,
-  CTOrganizationalUnit,
+  ChildTypeACCOUNT,
+  ChildTypeORGANIZATIONALUNIT,
   ChildType'
   #-}
 
-instance FromText ChildType where
-  parser = (ChildType' . mk) <$> takeText
+instance Prelude.FromText ChildType where
+  parser = ChildType' Prelude.<$> Prelude.takeText
 
-instance ToText ChildType where
-  toText (ChildType' ci) = original ci
+instance Prelude.ToText ChildType where
+  toText (ChildType' x) = x
 
-instance Hashable ChildType
+instance Prelude.Hashable ChildType
 
-instance NFData ChildType
+instance Prelude.NFData ChildType
 
-instance ToByteString ChildType
+instance Prelude.ToByteString ChildType
 
-instance ToQuery ChildType
+instance Prelude.ToQuery ChildType
 
-instance ToHeader ChildType
+instance Prelude.ToHeader ChildType
 
-instance ToJSON ChildType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ChildType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ChildType where
-  parseJSON = parseJSONText "ChildType"
+instance Prelude.FromJSON ChildType where
+  parseJSON = Prelude.parseJSONText "ChildType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,120 +21,143 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables the integration of an AWS service (the service that is specified by @ServicePrincipal@ ) with AWS Organizations. When you enable integration, you allow the specified service to create a <http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html service-linked role> in all the accounts in your organization. This allows the service to perform operations on your behalf in your organization and its accounts.
+-- Enables the integration of an AWS service (the service that is specified
+-- by @ServicePrincipal@) with AWS Organizations. When you enable
+-- integration, you allow the specified service to create a
+-- <http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html service-linked role>
+-- in all the accounts in your organization. This allows the service to
+-- perform operations on your behalf in your organization and its accounts.
 --
+-- We recommend that you enable integration between AWS Organizations and
+-- the specified AWS service by using the console or commands that are
+-- provided by the specified service. Doing so ensures that the service is
+-- aware that it can create the resources that are required for the
+-- integration. How the service creates those resources in the
+-- organization\'s accounts depends on that service. For more information,
+-- see the documentation for the other AWS service.
 --
--- /Important:/ We recommend that you enable integration between AWS Organizations and the specified AWS service by using the console or commands that are provided by the specified service. Doing so ensures that the service is aware that it can create the resources that are required for the integration. How the service creates those resources in the organization's accounts depends on that service. For more information, see the documentation for the other AWS service.
+-- For more information about enabling services to integrate with AWS
+-- Organizations, see
+-- <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html Integrating AWS Organizations with Other AWS Services>
+-- in the /AWS Organizations User Guide./
 --
--- For more information about enabling services to integrate with AWS Organizations, see <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html Integrating AWS Organizations with Other AWS Services> in the /AWS Organizations User Guide./
---
--- This operation can be called only from the organization's management account and only if the organization has <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html enabled all features> .
+-- This operation can be called only from the organization\'s management
+-- account and only if the organization has
+-- <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html enabled all features>.
 module Network.AWS.Organizations.EnableAWSServiceAccess
   ( -- * Creating a Request
-    enableAWSServiceAccess,
-    EnableAWSServiceAccess,
+    EnableAWSServiceAccess (..),
+    newEnableAWSServiceAccess,
 
     -- * Request Lenses
-    easaServicePrincipal,
+    enableAWSServiceAccess_servicePrincipal,
 
     -- * Destructuring the Response
-    enableAWSServiceAccessResponse,
-    EnableAWSServiceAccessResponse,
+    EnableAWSServiceAccessResponse (..),
+    newEnableAWSServiceAccessResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableAWSServiceAccess' smart constructor.
-newtype EnableAWSServiceAccess = EnableAWSServiceAccess'
-  { _easaServicePrincipal ::
-      Text
+-- | /See:/ 'newEnableAWSServiceAccess' smart constructor.
+data EnableAWSServiceAccess = EnableAWSServiceAccess'
+  { -- | The service principal name of the AWS service for which you want to
+    -- enable integration with your organization. This is typically in the form
+    -- of a URL, such as @ service-abbreviation.amazonaws.com@.
+    servicePrincipal :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableAWSServiceAccess' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableAWSServiceAccess' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'easaServicePrincipal' - The service principal name of the AWS service for which you want to enable integration with your organization. This is typically in the form of a URL, such as @/service-abbreviation/ .amazonaws.com@ .
-enableAWSServiceAccess ::
-  -- | 'easaServicePrincipal'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'servicePrincipal', 'enableAWSServiceAccess_servicePrincipal' - The service principal name of the AWS service for which you want to
+-- enable integration with your organization. This is typically in the form
+-- of a URL, such as @ service-abbreviation.amazonaws.com@.
+newEnableAWSServiceAccess ::
+  -- | 'servicePrincipal'
+  Prelude.Text ->
   EnableAWSServiceAccess
-enableAWSServiceAccess pServicePrincipal_ =
+newEnableAWSServiceAccess pServicePrincipal_ =
   EnableAWSServiceAccess'
-    { _easaServicePrincipal =
+    { servicePrincipal =
         pServicePrincipal_
     }
 
--- | The service principal name of the AWS service for which you want to enable integration with your organization. This is typically in the form of a URL, such as @/service-abbreviation/ .amazonaws.com@ .
-easaServicePrincipal :: Lens' EnableAWSServiceAccess Text
-easaServicePrincipal = lens _easaServicePrincipal (\s a -> s {_easaServicePrincipal = a})
+-- | The service principal name of the AWS service for which you want to
+-- enable integration with your organization. This is typically in the form
+-- of a URL, such as @ service-abbreviation.amazonaws.com@.
+enableAWSServiceAccess_servicePrincipal :: Lens.Lens' EnableAWSServiceAccess Prelude.Text
+enableAWSServiceAccess_servicePrincipal = Lens.lens (\EnableAWSServiceAccess' {servicePrincipal} -> servicePrincipal) (\s@EnableAWSServiceAccess' {} a -> s {servicePrincipal = a} :: EnableAWSServiceAccess)
 
-instance AWSRequest EnableAWSServiceAccess where
+instance Prelude.AWSRequest EnableAWSServiceAccess where
   type
     Rs EnableAWSServiceAccess =
       EnableAWSServiceAccessResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveNull EnableAWSServiceAccessResponse'
+    Response.receiveNull
+      EnableAWSServiceAccessResponse'
 
-instance Hashable EnableAWSServiceAccess
+instance Prelude.Hashable EnableAWSServiceAccess
 
-instance NFData EnableAWSServiceAccess
+instance Prelude.NFData EnableAWSServiceAccess
 
-instance ToHeaders EnableAWSServiceAccess where
+instance Prelude.ToHeaders EnableAWSServiceAccess where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.EnableAWSServiceAccess" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.EnableAWSServiceAccess" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableAWSServiceAccess where
+instance Prelude.ToJSON EnableAWSServiceAccess where
   toJSON EnableAWSServiceAccess' {..} =
-    object
-      ( catMaybes
-          [Just ("ServicePrincipal" .= _easaServicePrincipal)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ServicePrincipal" Prelude..= servicePrincipal)
+          ]
       )
 
-instance ToPath EnableAWSServiceAccess where
-  toPath = const "/"
+instance Prelude.ToPath EnableAWSServiceAccess where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableAWSServiceAccess where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableAWSServiceAccess where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableAWSServiceAccessResponse' smart constructor.
+-- | /See:/ 'newEnableAWSServiceAccessResponse' smart constructor.
 data EnableAWSServiceAccessResponse = EnableAWSServiceAccessResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableAWSServiceAccessResponse' with the minimum fields required to make a request.
-enableAWSServiceAccessResponse ::
+-- |
+-- Create a value of 'EnableAWSServiceAccessResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEnableAWSServiceAccessResponse ::
   EnableAWSServiceAccessResponse
-enableAWSServiceAccessResponse =
+newEnableAWSServiceAccessResponse =
   EnableAWSServiceAccessResponse'
 
-instance NFData EnableAWSServiceAccessResponse
+instance
+  Prelude.NFData
+    EnableAWSServiceAccessResponse

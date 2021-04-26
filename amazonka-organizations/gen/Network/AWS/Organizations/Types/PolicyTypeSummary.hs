@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Organizations.Types.PolicyTypeSummary where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types.PolicyType
 import Network.AWS.Organizations.Types.PolicyTypeStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about a policy type and its status in the associated root.
+-- | Contains information about a policy type and its status in the
+-- associated root.
 --
---
---
--- /See:/ 'policyTypeSummary' smart constructor.
+-- /See:/ 'newPolicyTypeSummary' smart constructor.
 data PolicyTypeSummary = PolicyTypeSummary'
-  { _ptsStatus ::
-      !(Maybe PolicyTypeStatus),
-    _ptsType :: !(Maybe PolicyType)
+  { -- | The status of the policy type as it relates to the associated root. To
+    -- attach a policy of the specified type to a root or to an OU or account
+    -- in that root, it must be available in the organization and enabled for
+    -- that root.
+    status :: Prelude.Maybe PolicyTypeStatus,
+    -- | The name of the policy type.
+    type' :: Prelude.Maybe PolicyType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyTypeSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyTypeSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ptsStatus' - The status of the policy type as it relates to the associated root. To attach a policy of the specified type to a root or to an OU or account in that root, it must be available in the organization and enabled for that root.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ptsType' - The name of the policy type.
-policyTypeSummary ::
+-- 'status', 'policyTypeSummary_status' - The status of the policy type as it relates to the associated root. To
+-- attach a policy of the specified type to a root or to an OU or account
+-- in that root, it must be available in the organization and enabled for
+-- that root.
+--
+-- 'type'', 'policyTypeSummary_type' - The name of the policy type.
+newPolicyTypeSummary ::
   PolicyTypeSummary
-policyTypeSummary =
+newPolicyTypeSummary =
   PolicyTypeSummary'
-    { _ptsStatus = Nothing,
-      _ptsType = Nothing
+    { status = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The status of the policy type as it relates to the associated root. To attach a policy of the specified type to a root or to an OU or account in that root, it must be available in the organization and enabled for that root.
-ptsStatus :: Lens' PolicyTypeSummary (Maybe PolicyTypeStatus)
-ptsStatus = lens _ptsStatus (\s a -> s {_ptsStatus = a})
+-- | The status of the policy type as it relates to the associated root. To
+-- attach a policy of the specified type to a root or to an OU or account
+-- in that root, it must be available in the organization and enabled for
+-- that root.
+policyTypeSummary_status :: Lens.Lens' PolicyTypeSummary (Prelude.Maybe PolicyTypeStatus)
+policyTypeSummary_status = Lens.lens (\PolicyTypeSummary' {status} -> status) (\s@PolicyTypeSummary' {} a -> s {status = a} :: PolicyTypeSummary)
 
 -- | The name of the policy type.
-ptsType :: Lens' PolicyTypeSummary (Maybe PolicyType)
-ptsType = lens _ptsType (\s a -> s {_ptsType = a})
+policyTypeSummary_type :: Lens.Lens' PolicyTypeSummary (Prelude.Maybe PolicyType)
+policyTypeSummary_type = Lens.lens (\PolicyTypeSummary' {type'} -> type') (\s@PolicyTypeSummary' {} a -> s {type' = a} :: PolicyTypeSummary)
 
-instance FromJSON PolicyTypeSummary where
+instance Prelude.FromJSON PolicyTypeSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PolicyTypeSummary"
       ( \x ->
           PolicyTypeSummary'
-            <$> (x .:? "Status") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable PolicyTypeSummary
+instance Prelude.Hashable PolicyTypeSummary
 
-instance NFData PolicyTypeSummary
+instance Prelude.NFData PolicyTypeSummary

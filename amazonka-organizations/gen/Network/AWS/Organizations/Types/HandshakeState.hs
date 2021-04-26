@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.Organizations.Types.HandshakeState
   ( HandshakeState
       ( ..,
-        Accepted,
-        Canceled,
-        Declined,
-        Expired,
-        Open,
-        Requested
+        HandshakeStateACCEPTED,
+        HandshakeStateCANCELED,
+        HandshakeStateDECLINED,
+        HandshakeStateEXPIRED,
+        HandshakeStateOPEN,
+        HandshakeStateREQUESTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HandshakeState = HandshakeState' (CI Text)
+newtype HandshakeState = HandshakeState'
+  { fromHandshakeState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Accepted :: HandshakeState
-pattern Accepted = HandshakeState' "ACCEPTED"
+pattern HandshakeStateACCEPTED :: HandshakeState
+pattern HandshakeStateACCEPTED = HandshakeState' "ACCEPTED"
 
-pattern Canceled :: HandshakeState
-pattern Canceled = HandshakeState' "CANCELED"
+pattern HandshakeStateCANCELED :: HandshakeState
+pattern HandshakeStateCANCELED = HandshakeState' "CANCELED"
 
-pattern Declined :: HandshakeState
-pattern Declined = HandshakeState' "DECLINED"
+pattern HandshakeStateDECLINED :: HandshakeState
+pattern HandshakeStateDECLINED = HandshakeState' "DECLINED"
 
-pattern Expired :: HandshakeState
-pattern Expired = HandshakeState' "EXPIRED"
+pattern HandshakeStateEXPIRED :: HandshakeState
+pattern HandshakeStateEXPIRED = HandshakeState' "EXPIRED"
 
-pattern Open :: HandshakeState
-pattern Open = HandshakeState' "OPEN"
+pattern HandshakeStateOPEN :: HandshakeState
+pattern HandshakeStateOPEN = HandshakeState' "OPEN"
 
-pattern Requested :: HandshakeState
-pattern Requested = HandshakeState' "REQUESTED"
+pattern HandshakeStateREQUESTED :: HandshakeState
+pattern HandshakeStateREQUESTED = HandshakeState' "REQUESTED"
 
 {-# COMPLETE
-  Accepted,
-  Canceled,
-  Declined,
-  Expired,
-  Open,
-  Requested,
+  HandshakeStateACCEPTED,
+  HandshakeStateCANCELED,
+  HandshakeStateDECLINED,
+  HandshakeStateEXPIRED,
+  HandshakeStateOPEN,
+  HandshakeStateREQUESTED,
   HandshakeState'
   #-}
 
-instance FromText HandshakeState where
-  parser = (HandshakeState' . mk) <$> takeText
+instance Prelude.FromText HandshakeState where
+  parser = HandshakeState' Prelude.<$> Prelude.takeText
 
-instance ToText HandshakeState where
-  toText (HandshakeState' ci) = original ci
+instance Prelude.ToText HandshakeState where
+  toText (HandshakeState' x) = x
 
-instance Hashable HandshakeState
+instance Prelude.Hashable HandshakeState
 
-instance NFData HandshakeState
+instance Prelude.NFData HandshakeState
 
-instance ToByteString HandshakeState
+instance Prelude.ToByteString HandshakeState
 
-instance ToQuery HandshakeState
+instance Prelude.ToQuery HandshakeState
 
-instance ToHeader HandshakeState
+instance Prelude.ToHeader HandshakeState
 
-instance FromJSON HandshakeState where
-  parseJSON = parseJSONText "HandshakeState"
+instance Prelude.FromJSON HandshakeState where
+  parseJSON = Prelude.parseJSONText "HandshakeState"

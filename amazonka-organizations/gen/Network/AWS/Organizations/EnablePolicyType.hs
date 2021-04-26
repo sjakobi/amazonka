@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables a policy type in a root. After you enable a policy type in a root, you can attach policies of that type to the root, any organizational unit (OU), or account in that root. You can undo this by using the 'DisablePolicyType' operation.
+-- Enables a policy type in a root. After you enable a policy type in a
+-- root, you can attach policies of that type to the root, any
+-- organizational unit (OU), or account in that root. You can undo this by
+-- using the DisablePolicyType operation.
 --
+-- This is an asynchronous request that AWS performs in the background. AWS
+-- recommends that you first use ListRoots to see the status of policy
+-- types for a specified root, and then use this operation.
 --
--- This is an asynchronous request that AWS performs in the background. AWS recommends that you first use 'ListRoots' to see the status of policy types for a specified root, and then use this operation.
+-- This operation can be called only from the organization\'s management
+-- account.
 --
--- This operation can be called only from the organization's management account.
---
--- You can enable a policy type in a root only if that policy type is available in the organization. To view the status of available policy types in the organization, use 'DescribeOrganization' .
+-- You can enable a policy type in a root only if that policy type is
+-- available in the organization. To view the status of available policy
+-- types in the organization, use DescribeOrganization.
 module Network.AWS.Organizations.EnablePolicyType
   ( -- * Creating a Request
-    enablePolicyType,
-    EnablePolicyType,
+    EnablePolicyType (..),
+    newEnablePolicyType,
 
     -- * Request Lenses
-    eptRootId,
-    eptPolicyType,
+    enablePolicyType_rootId,
+    enablePolicyType_policyType,
 
     -- * Destructuring the Response
-    enablePolicyTypeResponse,
-    EnablePolicyTypeResponse,
+    EnablePolicyTypeResponse (..),
+    newEnablePolicyTypeResponse,
 
     -- * Response Lenses
-    eptrrsRoot,
-    eptrrsResponseStatus,
+    enablePolicyTypeResponse_root,
+    enablePolicyTypeResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.Root
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enablePolicyType' smart constructor.
+-- | /See:/ 'newEnablePolicyType' smart constructor.
 data EnablePolicyType = EnablePolicyType'
-  { _eptRootId ::
-      !Text,
-    _eptPolicyType :: !PolicyType
+  { -- | The unique identifier (ID) of the root in which you want to enable a
+    -- policy type. You can get the ID from the ListRoots operation.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string
+    -- requires \"r-\" followed by from 4 to 32 lowercase letters or digits.
+    rootId :: Prelude.Text,
+    -- | The policy type that you want to enable. You can specify one of the
+    -- following values:
+    --
+    -- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>
+    --
+    -- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>
+    --
+    -- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html SERVICE_CONTROL_POLICY>
+    --
+    -- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
+    policyType :: PolicyType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnablePolicyType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnablePolicyType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eptRootId' - The unique identifier (ID) of the root in which you want to enable a policy type. You can get the ID from the 'ListRoots' operation. The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string requires "r-" followed by from 4 to 32 lowercase letters or digits.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eptPolicyType' - The policy type that you want to enable. You can specify one of the following values:     * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html SERVICE_CONTROL_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
-enablePolicyType ::
-  -- | 'eptRootId'
-  Text ->
-  -- | 'eptPolicyType'
+-- 'rootId', 'enablePolicyType_rootId' - The unique identifier (ID) of the root in which you want to enable a
+-- policy type. You can get the ID from the ListRoots operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string
+-- requires \"r-\" followed by from 4 to 32 lowercase letters or digits.
+--
+-- 'policyType', 'enablePolicyType_policyType' - The policy type that you want to enable. You can specify one of the
+-- following values:
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html SERVICE_CONTROL_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
+newEnablePolicyType ::
+  -- | 'rootId'
+  Prelude.Text ->
+  -- | 'policyType'
   PolicyType ->
   EnablePolicyType
-enablePolicyType pRootId_ pPolicyType_ =
+newEnablePolicyType pRootId_ pPolicyType_ =
   EnablePolicyType'
-    { _eptRootId = pRootId_,
-      _eptPolicyType = pPolicyType_
+    { rootId = pRootId_,
+      policyType = pPolicyType_
     }
 
--- | The unique identifier (ID) of the root in which you want to enable a policy type. You can get the ID from the 'ListRoots' operation. The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string requires "r-" followed by from 4 to 32 lowercase letters or digits.
-eptRootId :: Lens' EnablePolicyType Text
-eptRootId = lens _eptRootId (\s a -> s {_eptRootId = a})
+-- | The unique identifier (ID) of the root in which you want to enable a
+-- policy type. You can get the ID from the ListRoots operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string
+-- requires \"r-\" followed by from 4 to 32 lowercase letters or digits.
+enablePolicyType_rootId :: Lens.Lens' EnablePolicyType Prelude.Text
+enablePolicyType_rootId = Lens.lens (\EnablePolicyType' {rootId} -> rootId) (\s@EnablePolicyType' {} a -> s {rootId = a} :: EnablePolicyType)
 
--- | The policy type that you want to enable. You can specify one of the following values:     * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html SERVICE_CONTROL_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
-eptPolicyType :: Lens' EnablePolicyType PolicyType
-eptPolicyType = lens _eptPolicyType (\s a -> s {_eptPolicyType = a})
+-- | The policy type that you want to enable. You can specify one of the
+-- following values:
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html SERVICE_CONTROL_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
+enablePolicyType_policyType :: Lens.Lens' EnablePolicyType PolicyType
+enablePolicyType_policyType = Lens.lens (\EnablePolicyType' {policyType} -> policyType) (\s@EnablePolicyType' {} a -> s {policyType = a} :: EnablePolicyType)
 
-instance AWSRequest EnablePolicyType where
+instance Prelude.AWSRequest EnablePolicyType where
   type Rs EnablePolicyType = EnablePolicyTypeResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           EnablePolicyTypeResponse'
-            <$> (x .?> "Root") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Root")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnablePolicyType
+instance Prelude.Hashable EnablePolicyType
 
-instance NFData EnablePolicyType
+instance Prelude.NFData EnablePolicyType
 
-instance ToHeaders EnablePolicyType where
+instance Prelude.ToHeaders EnablePolicyType where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.EnablePolicyType" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.EnablePolicyType" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnablePolicyType where
+instance Prelude.ToJSON EnablePolicyType where
   toJSON EnablePolicyType' {..} =
-    object
-      ( catMaybes
-          [ Just ("RootId" .= _eptRootId),
-            Just ("PolicyType" .= _eptPolicyType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("RootId" Prelude..= rootId),
+            Prelude.Just ("PolicyType" Prelude..= policyType)
           ]
       )
 
-instance ToPath EnablePolicyType where
-  toPath = const "/"
+instance Prelude.ToPath EnablePolicyType where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnablePolicyType where
-  toQuery = const mempty
+instance Prelude.ToQuery EnablePolicyType where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enablePolicyTypeResponse' smart constructor.
+-- | /See:/ 'newEnablePolicyTypeResponse' smart constructor.
 data EnablePolicyTypeResponse = EnablePolicyTypeResponse'
-  { _eptrrsRoot ::
-      !(Maybe Root),
-    _eptrrsResponseStatus ::
-      !Int
+  { -- | A structure that shows the root with the updated list of enabled policy
+    -- types.
+    root :: Prelude.Maybe Root,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnablePolicyTypeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnablePolicyTypeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eptrrsRoot' - A structure that shows the root with the updated list of enabled policy types.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eptrrsResponseStatus' - -- | The response status code.
-enablePolicyTypeResponse ::
-  -- | 'eptrrsResponseStatus'
-  Int ->
+-- 'root', 'enablePolicyTypeResponse_root' - A structure that shows the root with the updated list of enabled policy
+-- types.
+--
+-- 'httpStatus', 'enablePolicyTypeResponse_httpStatus' - The response's http status code.
+newEnablePolicyTypeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnablePolicyTypeResponse
-enablePolicyTypeResponse pResponseStatus_ =
+newEnablePolicyTypeResponse pHttpStatus_ =
   EnablePolicyTypeResponse'
-    { _eptrrsRoot = Nothing,
-      _eptrrsResponseStatus = pResponseStatus_
+    { root = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A structure that shows the root with the updated list of enabled policy types.
-eptrrsRoot :: Lens' EnablePolicyTypeResponse (Maybe Root)
-eptrrsRoot = lens _eptrrsRoot (\s a -> s {_eptrrsRoot = a})
+-- | A structure that shows the root with the updated list of enabled policy
+-- types.
+enablePolicyTypeResponse_root :: Lens.Lens' EnablePolicyTypeResponse (Prelude.Maybe Root)
+enablePolicyTypeResponse_root = Lens.lens (\EnablePolicyTypeResponse' {root} -> root) (\s@EnablePolicyTypeResponse' {} a -> s {root = a} :: EnablePolicyTypeResponse)
 
--- | -- | The response status code.
-eptrrsResponseStatus :: Lens' EnablePolicyTypeResponse Int
-eptrrsResponseStatus = lens _eptrrsResponseStatus (\s a -> s {_eptrrsResponseStatus = a})
+-- | The response's http status code.
+enablePolicyTypeResponse_httpStatus :: Lens.Lens' EnablePolicyTypeResponse Prelude.Int
+enablePolicyTypeResponse_httpStatus = Lens.lens (\EnablePolicyTypeResponse' {httpStatus} -> httpStatus) (\s@EnablePolicyTypeResponse' {} a -> s {httpStatus = a} :: EnablePolicyTypeResponse)
 
-instance NFData EnablePolicyTypeResponse
+instance Prelude.NFData EnablePolicyTypeResponse

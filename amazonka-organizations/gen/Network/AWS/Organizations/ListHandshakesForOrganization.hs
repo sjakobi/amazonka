@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,206 +21,305 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the handshakes that are associated with the organization that the requesting user is part of. The @ListHandshakesForOrganization@ operation returns a list of handshake structures. Each structure contains details and status about a handshake.
+-- Lists the handshakes that are associated with the organization that the
+-- requesting user is part of. The @ListHandshakesForOrganization@
+-- operation returns a list of handshake structures. Each structure
+-- contains details and status about a handshake.
 --
+-- Handshakes that are @ACCEPTED@, @DECLINED@, or @CANCELED@ appear in the
+-- results of this API for only 30 days after changing to that state. After
+-- that, they\'re deleted and no longer accessible.
 --
--- Handshakes that are @ACCEPTED@ , @DECLINED@ , or @CANCELED@ appear in the results of this API for only 30 days after changing to that state. After that, they're deleted and no longer accessible.
+-- Always check the @NextToken@ response parameter for a @null@ value when
+-- calling a @List*@ operation. These operations can occasionally return an
+-- empty set of results even when there are more results available. The
+-- @NextToken@ response parameter value is @null@ /only/ when there are no
+-- more results to display.
 --
--- This operation can be called only from the organization's management account or by a member account that is a delegated administrator for an AWS service.
---
+-- This operation can be called only from the organization\'s management
+-- account or by a member account that is a delegated administrator for an
+-- AWS service.
 --
 -- This operation returns paginated results.
 module Network.AWS.Organizations.ListHandshakesForOrganization
   ( -- * Creating a Request
-    listHandshakesForOrganization,
-    ListHandshakesForOrganization,
+    ListHandshakesForOrganization (..),
+    newListHandshakesForOrganization,
 
     -- * Request Lenses
-    lhfoNextToken,
-    lhfoMaxResults,
-    lhfoFilter,
+    listHandshakesForOrganization_nextToken,
+    listHandshakesForOrganization_maxResults,
+    listHandshakesForOrganization_filter,
 
     -- * Destructuring the Response
-    listHandshakesForOrganizationResponse,
-    ListHandshakesForOrganizationResponse,
+    ListHandshakesForOrganizationResponse (..),
+    newListHandshakesForOrganizationResponse,
 
     -- * Response Lenses
-    lhforrsHandshakes,
-    lhforrsNextToken,
-    lhforrsResponseStatus,
+    listHandshakesForOrganizationResponse_handshakes,
+    listHandshakesForOrganizationResponse_nextToken,
+    listHandshakesForOrganizationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.Handshake
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listHandshakesForOrganization' smart constructor.
+-- | /See:/ 'newListHandshakesForOrganization' smart constructor.
 data ListHandshakesForOrganization = ListHandshakesForOrganization'
-  { _lhfoNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lhfoMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _lhfoFilter ::
-      !( Maybe
-           HandshakeFilter
-       )
+  { -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The total number of results that you want included on each page of the
+    -- response. If you do not include this parameter, it defaults to a value
+    -- that is specific to the operation. If additional items exist beyond the
+    -- maximum you specify, the @NextToken@ response element is present and has
+    -- a value (is not null). Include that value as the @NextToken@ request
+    -- parameter in the next call to the operation to get the next part of the
+    -- results. Note that Organizations might return fewer results than the
+    -- maximum even when there are more results available. You should check
+    -- @NextToken@ after every operation to ensure that you receive all of the
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter of the handshakes that you want included in the response. The
+    -- default is all types. Use the @ActionType@ element to limit the output
+    -- to only a specified type, such as @INVITE@, @ENABLE-ALL-FEATURES@, or
+    -- @APPROVE-ALL-FEATURES@. Alternatively, for the @ENABLE-ALL-FEATURES@
+    -- handshake that generates a separate child handshake for each member
+    -- account, you can specify the @ParentHandshakeId@ to see only the
+    -- handshakes that were generated by that parent request.
+    filter' :: Prelude.Maybe HandshakeFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHandshakesForOrganization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHandshakesForOrganization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhfoNextToken' - The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value of the previous call's @NextToken@ response to indicate where the output should continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhfoMaxResults' - The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Organizations might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
+-- 'nextToken', 'listHandshakesForOrganization_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
 --
--- * 'lhfoFilter' - A filter of the handshakes that you want included in the response. The default is all types. Use the @ActionType@ element to limit the output to only a specified type, such as @INVITE@ , @ENABLE-ALL-FEATURES@ , or @APPROVE-ALL-FEATURES@ . Alternatively, for the @ENABLE-ALL-FEATURES@ handshake that generates a separate child handshake for each member account, you can specify the @ParentHandshakeId@ to see only the handshakes that were generated by that parent request.
-listHandshakesForOrganization ::
+-- 'maxResults', 'listHandshakesForOrganization_maxResults' - The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Organizations might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+--
+-- 'filter'', 'listHandshakesForOrganization_filter' - A filter of the handshakes that you want included in the response. The
+-- default is all types. Use the @ActionType@ element to limit the output
+-- to only a specified type, such as @INVITE@, @ENABLE-ALL-FEATURES@, or
+-- @APPROVE-ALL-FEATURES@. Alternatively, for the @ENABLE-ALL-FEATURES@
+-- handshake that generates a separate child handshake for each member
+-- account, you can specify the @ParentHandshakeId@ to see only the
+-- handshakes that were generated by that parent request.
+newListHandshakesForOrganization ::
   ListHandshakesForOrganization
-listHandshakesForOrganization =
+newListHandshakesForOrganization =
   ListHandshakesForOrganization'
-    { _lhfoNextToken =
-        Nothing,
-      _lhfoMaxResults = Nothing,
-      _lhfoFilter = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
--- | The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value of the previous call's @NextToken@ response to indicate where the output should continue from.
-lhfoNextToken :: Lens' ListHandshakesForOrganization (Maybe Text)
-lhfoNextToken = lens _lhfoNextToken (\s a -> s {_lhfoNextToken = a})
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listHandshakesForOrganization_nextToken :: Lens.Lens' ListHandshakesForOrganization (Prelude.Maybe Prelude.Text)
+listHandshakesForOrganization_nextToken = Lens.lens (\ListHandshakesForOrganization' {nextToken} -> nextToken) (\s@ListHandshakesForOrganization' {} a -> s {nextToken = a} :: ListHandshakesForOrganization)
 
--- | The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Organizations might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
-lhfoMaxResults :: Lens' ListHandshakesForOrganization (Maybe Natural)
-lhfoMaxResults = lens _lhfoMaxResults (\s a -> s {_lhfoMaxResults = a}) . mapping _Nat
+-- | The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Organizations might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+listHandshakesForOrganization_maxResults :: Lens.Lens' ListHandshakesForOrganization (Prelude.Maybe Prelude.Natural)
+listHandshakesForOrganization_maxResults = Lens.lens (\ListHandshakesForOrganization' {maxResults} -> maxResults) (\s@ListHandshakesForOrganization' {} a -> s {maxResults = a} :: ListHandshakesForOrganization) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter of the handshakes that you want included in the response. The default is all types. Use the @ActionType@ element to limit the output to only a specified type, such as @INVITE@ , @ENABLE-ALL-FEATURES@ , or @APPROVE-ALL-FEATURES@ . Alternatively, for the @ENABLE-ALL-FEATURES@ handshake that generates a separate child handshake for each member account, you can specify the @ParentHandshakeId@ to see only the handshakes that were generated by that parent request.
-lhfoFilter :: Lens' ListHandshakesForOrganization (Maybe HandshakeFilter)
-lhfoFilter = lens _lhfoFilter (\s a -> s {_lhfoFilter = a})
+-- | A filter of the handshakes that you want included in the response. The
+-- default is all types. Use the @ActionType@ element to limit the output
+-- to only a specified type, such as @INVITE@, @ENABLE-ALL-FEATURES@, or
+-- @APPROVE-ALL-FEATURES@. Alternatively, for the @ENABLE-ALL-FEATURES@
+-- handshake that generates a separate child handshake for each member
+-- account, you can specify the @ParentHandshakeId@ to see only the
+-- handshakes that were generated by that parent request.
+listHandshakesForOrganization_filter :: Lens.Lens' ListHandshakesForOrganization (Prelude.Maybe HandshakeFilter)
+listHandshakesForOrganization_filter = Lens.lens (\ListHandshakesForOrganization' {filter'} -> filter') (\s@ListHandshakesForOrganization' {} a -> s {filter' = a} :: ListHandshakesForOrganization)
 
-instance AWSPager ListHandshakesForOrganization where
+instance Pager.AWSPager ListHandshakesForOrganization where
   page rq rs
-    | stop (rs ^. lhforrsNextToken) = Nothing
-    | stop (rs ^. lhforrsHandshakes) = Nothing
-    | otherwise =
-      Just $ rq & lhfoNextToken .~ rs ^. lhforrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listHandshakesForOrganizationResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listHandshakesForOrganizationResponse_handshakes
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listHandshakesForOrganization_nextToken
+          Lens..~ rs
+          Lens.^? listHandshakesForOrganizationResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListHandshakesForOrganization where
+instance
+  Prelude.AWSRequest
+    ListHandshakesForOrganization
+  where
   type
     Rs ListHandshakesForOrganization =
       ListHandshakesForOrganizationResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListHandshakesForOrganizationResponse'
-            <$> (x .?> "Handshakes" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Handshakes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListHandshakesForOrganization
+instance
+  Prelude.Hashable
+    ListHandshakesForOrganization
 
-instance NFData ListHandshakesForOrganization
+instance Prelude.NFData ListHandshakesForOrganization
 
-instance ToHeaders ListHandshakesForOrganization where
+instance
+  Prelude.ToHeaders
+    ListHandshakesForOrganization
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.ListHandshakesForOrganization" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.ListHandshakesForOrganization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListHandshakesForOrganization where
+instance Prelude.ToJSON ListHandshakesForOrganization where
   toJSON ListHandshakesForOrganization' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lhfoNextToken,
-            ("MaxResults" .=) <$> _lhfoMaxResults,
-            ("Filter" .=) <$> _lhfoFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filter" Prelude..=) Prelude.<$> filter'
           ]
       )
 
-instance ToPath ListHandshakesForOrganization where
-  toPath = const "/"
+instance Prelude.ToPath ListHandshakesForOrganization where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListHandshakesForOrganization where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    ListHandshakesForOrganization
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listHandshakesForOrganizationResponse' smart constructor.
+-- | /See:/ 'newListHandshakesForOrganizationResponse' smart constructor.
 data ListHandshakesForOrganizationResponse = ListHandshakesForOrganizationResponse'
-  { _lhforrsHandshakes ::
-      !( Maybe
-           [Handshake]
-       ),
-    _lhforrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lhforrsResponseStatus ::
-      !Int
+  { -- | A list of Handshake objects with details about each of the handshakes
+    -- that are associated with an organization.
+    handshakes :: Prelude.Maybe [Handshake],
+    -- | If present, indicates that more output is available than is included in
+    -- the current response. Use this value in the @NextToken@ request
+    -- parameter in a subsequent call to the operation to get the next part of
+    -- the output. You should repeat this until the @NextToken@ response
+    -- element comes back as @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHandshakesForOrganizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHandshakesForOrganizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhforrsHandshakes' - A list of 'Handshake' objects with details about each of the handshakes that are associated with an organization.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhforrsNextToken' - If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
+-- 'handshakes', 'listHandshakesForOrganizationResponse_handshakes' - A list of Handshake objects with details about each of the handshakes
+-- that are associated with an organization.
 --
--- * 'lhforrsResponseStatus' - -- | The response status code.
-listHandshakesForOrganizationResponse ::
-  -- | 'lhforrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listHandshakesForOrganizationResponse_nextToken' - If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
+--
+-- 'httpStatus', 'listHandshakesForOrganizationResponse_httpStatus' - The response's http status code.
+newListHandshakesForOrganizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListHandshakesForOrganizationResponse
-listHandshakesForOrganizationResponse
-  pResponseStatus_ =
-    ListHandshakesForOrganizationResponse'
-      { _lhforrsHandshakes =
-          Nothing,
-        _lhforrsNextToken = Nothing,
-        _lhforrsResponseStatus =
-          pResponseStatus_
-      }
+newListHandshakesForOrganizationResponse pHttpStatus_ =
+  ListHandshakesForOrganizationResponse'
+    { handshakes =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | A list of 'Handshake' objects with details about each of the handshakes that are associated with an organization.
-lhforrsHandshakes :: Lens' ListHandshakesForOrganizationResponse [Handshake]
-lhforrsHandshakes = lens _lhforrsHandshakes (\s a -> s {_lhforrsHandshakes = a}) . _Default . _Coerce
+-- | A list of Handshake objects with details about each of the handshakes
+-- that are associated with an organization.
+listHandshakesForOrganizationResponse_handshakes :: Lens.Lens' ListHandshakesForOrganizationResponse (Prelude.Maybe [Handshake])
+listHandshakesForOrganizationResponse_handshakes = Lens.lens (\ListHandshakesForOrganizationResponse' {handshakes} -> handshakes) (\s@ListHandshakesForOrganizationResponse' {} a -> s {handshakes = a} :: ListHandshakesForOrganizationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
-lhforrsNextToken :: Lens' ListHandshakesForOrganizationResponse (Maybe Text)
-lhforrsNextToken = lens _lhforrsNextToken (\s a -> s {_lhforrsNextToken = a})
+-- | If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
+listHandshakesForOrganizationResponse_nextToken :: Lens.Lens' ListHandshakesForOrganizationResponse (Prelude.Maybe Prelude.Text)
+listHandshakesForOrganizationResponse_nextToken = Lens.lens (\ListHandshakesForOrganizationResponse' {nextToken} -> nextToken) (\s@ListHandshakesForOrganizationResponse' {} a -> s {nextToken = a} :: ListHandshakesForOrganizationResponse)
 
--- | -- | The response status code.
-lhforrsResponseStatus :: Lens' ListHandshakesForOrganizationResponse Int
-lhforrsResponseStatus = lens _lhforrsResponseStatus (\s a -> s {_lhforrsResponseStatus = a})
+-- | The response's http status code.
+listHandshakesForOrganizationResponse_httpStatus :: Lens.Lens' ListHandshakesForOrganizationResponse Prelude.Int
+listHandshakesForOrganizationResponse_httpStatus = Lens.lens (\ListHandshakesForOrganizationResponse' {httpStatus} -> httpStatus) (\s@ListHandshakesForOrganizationResponse' {} a -> s {httpStatus = a} :: ListHandshakesForOrganizationResponse)
 
-instance NFData ListHandshakesForOrganizationResponse
+instance
+  Prelude.NFData
+    ListHandshakesForOrganizationResponse

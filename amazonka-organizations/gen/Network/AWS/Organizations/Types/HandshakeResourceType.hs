@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.Organizations.Types.HandshakeResourceType
   ( HandshakeResourceType
       ( ..,
-        HRTAccount,
-        HRTEmail,
-        HRTMasterEmail,
-        HRTMasterName,
-        HRTNotes,
-        HRTOrganization,
-        HRTOrganizationFeatureSet,
-        HRTParentHandshake
+        HandshakeResourceTypeACCOUNT,
+        HandshakeResourceTypeEMAIL,
+        HandshakeResourceTypeMASTEREMAIL,
+        HandshakeResourceTypeMASTERNAME,
+        HandshakeResourceTypeNOTES,
+        HandshakeResourceTypeORGANIZATION,
+        HandshakeResourceTypeORGANIZATIONFEATURESET,
+        HandshakeResourceTypePARENTHANDSHAKE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HandshakeResourceType
-  = HandshakeResourceType'
-      ( CI
-          Text
-      )
+newtype HandshakeResourceType = HandshakeResourceType'
+  { fromHandshakeResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HRTAccount :: HandshakeResourceType
-pattern HRTAccount = HandshakeResourceType' "ACCOUNT"
+pattern HandshakeResourceTypeACCOUNT :: HandshakeResourceType
+pattern HandshakeResourceTypeACCOUNT = HandshakeResourceType' "ACCOUNT"
 
-pattern HRTEmail :: HandshakeResourceType
-pattern HRTEmail = HandshakeResourceType' "EMAIL"
+pattern HandshakeResourceTypeEMAIL :: HandshakeResourceType
+pattern HandshakeResourceTypeEMAIL = HandshakeResourceType' "EMAIL"
 
-pattern HRTMasterEmail :: HandshakeResourceType
-pattern HRTMasterEmail = HandshakeResourceType' "MASTER_EMAIL"
+pattern HandshakeResourceTypeMASTEREMAIL :: HandshakeResourceType
+pattern HandshakeResourceTypeMASTEREMAIL = HandshakeResourceType' "MASTER_EMAIL"
 
-pattern HRTMasterName :: HandshakeResourceType
-pattern HRTMasterName = HandshakeResourceType' "MASTER_NAME"
+pattern HandshakeResourceTypeMASTERNAME :: HandshakeResourceType
+pattern HandshakeResourceTypeMASTERNAME = HandshakeResourceType' "MASTER_NAME"
 
-pattern HRTNotes :: HandshakeResourceType
-pattern HRTNotes = HandshakeResourceType' "NOTES"
+pattern HandshakeResourceTypeNOTES :: HandshakeResourceType
+pattern HandshakeResourceTypeNOTES = HandshakeResourceType' "NOTES"
 
-pattern HRTOrganization :: HandshakeResourceType
-pattern HRTOrganization = HandshakeResourceType' "ORGANIZATION"
+pattern HandshakeResourceTypeORGANIZATION :: HandshakeResourceType
+pattern HandshakeResourceTypeORGANIZATION = HandshakeResourceType' "ORGANIZATION"
 
-pattern HRTOrganizationFeatureSet :: HandshakeResourceType
-pattern HRTOrganizationFeatureSet = HandshakeResourceType' "ORGANIZATION_FEATURE_SET"
+pattern HandshakeResourceTypeORGANIZATIONFEATURESET :: HandshakeResourceType
+pattern HandshakeResourceTypeORGANIZATIONFEATURESET = HandshakeResourceType' "ORGANIZATION_FEATURE_SET"
 
-pattern HRTParentHandshake :: HandshakeResourceType
-pattern HRTParentHandshake = HandshakeResourceType' "PARENT_HANDSHAKE"
+pattern HandshakeResourceTypePARENTHANDSHAKE :: HandshakeResourceType
+pattern HandshakeResourceTypePARENTHANDSHAKE = HandshakeResourceType' "PARENT_HANDSHAKE"
 
 {-# COMPLETE
-  HRTAccount,
-  HRTEmail,
-  HRTMasterEmail,
-  HRTMasterName,
-  HRTNotes,
-  HRTOrganization,
-  HRTOrganizationFeatureSet,
-  HRTParentHandshake,
+  HandshakeResourceTypeACCOUNT,
+  HandshakeResourceTypeEMAIL,
+  HandshakeResourceTypeMASTEREMAIL,
+  HandshakeResourceTypeMASTERNAME,
+  HandshakeResourceTypeNOTES,
+  HandshakeResourceTypeORGANIZATION,
+  HandshakeResourceTypeORGANIZATIONFEATURESET,
+  HandshakeResourceTypePARENTHANDSHAKE,
   HandshakeResourceType'
   #-}
 
-instance FromText HandshakeResourceType where
-  parser = (HandshakeResourceType' . mk) <$> takeText
+instance Prelude.FromText HandshakeResourceType where
+  parser = HandshakeResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText HandshakeResourceType where
-  toText (HandshakeResourceType' ci) = original ci
+instance Prelude.ToText HandshakeResourceType where
+  toText (HandshakeResourceType' x) = x
 
-instance Hashable HandshakeResourceType
+instance Prelude.Hashable HandshakeResourceType
 
-instance NFData HandshakeResourceType
+instance Prelude.NFData HandshakeResourceType
 
-instance ToByteString HandshakeResourceType
+instance Prelude.ToByteString HandshakeResourceType
 
-instance ToQuery HandshakeResourceType
+instance Prelude.ToQuery HandshakeResourceType
 
-instance ToHeader HandshakeResourceType
+instance Prelude.ToHeader HandshakeResourceType
 
-instance FromJSON HandshakeResourceType where
-  parseJSON = parseJSONText "HandshakeResourceType"
+instance Prelude.FromJSON HandshakeResourceType where
+  parseJSON = Prelude.parseJSONText "HandshakeResourceType"

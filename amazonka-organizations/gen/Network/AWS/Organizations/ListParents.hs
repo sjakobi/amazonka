@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,173 +21,295 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the root or organizational units (OUs) that serve as the immediate parent of the specified child OU or account. This operation, along with 'ListChildren' enables you to traverse the tree structure that makes up this root.
+-- Lists the root or organizational units (OUs) that serve as the immediate
+-- parent of the specified child OU or account. This operation, along with
+-- ListChildren enables you to traverse the tree structure that makes up
+-- this root.
 --
+-- Always check the @NextToken@ response parameter for a @null@ value when
+-- calling a @List*@ operation. These operations can occasionally return an
+-- empty set of results even when there are more results available. The
+-- @NextToken@ response parameter value is @null@ /only/ when there are no
+-- more results to display.
 --
--- This operation can be called only from the organization's management account or by a member account that is a delegated administrator for an AWS service.
+-- This operation can be called only from the organization\'s management
+-- account or by a member account that is a delegated administrator for an
+-- AWS service.
 --
+-- In the current release, a child can have only a single parent.
 --
 -- This operation returns paginated results.
 module Network.AWS.Organizations.ListParents
   ( -- * Creating a Request
-    listParents,
-    ListParents,
+    ListParents (..),
+    newListParents,
 
     -- * Request Lenses
-    lNextToken,
-    lMaxResults,
-    lChildId,
+    listParents_nextToken,
+    listParents_maxResults,
+    listParents_childId,
 
     -- * Destructuring the Response
-    listParentsResponse,
-    ListParentsResponse,
+    ListParentsResponse (..),
+    newListParentsResponse,
 
     -- * Response Lenses
-    lrsParents,
-    lrsNextToken,
-    lrsResponseStatus,
+    listParentsResponse_parents,
+    listParentsResponse_nextToken,
+    listParentsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.Parent
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listParents' smart constructor.
+-- | /See:/ 'newListParents' smart constructor.
 data ListParents = ListParents'
-  { _lNextToken ::
-      !(Maybe Text),
-    _lMaxResults :: !(Maybe Nat),
-    _lChildId :: !Text
+  { -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The total number of results that you want included on each page of the
+    -- response. If you do not include this parameter, it defaults to a value
+    -- that is specific to the operation. If additional items exist beyond the
+    -- maximum you specify, the @NextToken@ response element is present and has
+    -- a value (is not null). Include that value as the @NextToken@ request
+    -- parameter in the next call to the operation to get the next part of the
+    -- results. Note that Organizations might return fewer results than the
+    -- maximum even when there are more results available. You should check
+    -- @NextToken@ after every operation to ensure that you receive all of the
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The unique identifier (ID) of the OU or account whose parent containers
+    -- you want to list. Don\'t specify a root.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for a child ID
+    -- string requires one of the following:
+    --
+    -- -   __Account__ - A string that consists of exactly 12 digits.
+    --
+    -- -   __Organizational unit (OU)__ - A string that begins with \"ou-\"
+    --     followed by from 4 to 32 lowercase letters or digits (the ID of the
+    --     root that contains the OU). This string is followed by a second
+    --     \"-\" dash and from 8 to 32 additional lowercase letters or digits.
+    childId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListParents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListParents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lNextToken' - The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value of the previous call's @NextToken@ response to indicate where the output should continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lMaxResults' - The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Organizations might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
+-- 'nextToken', 'listParents_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
 --
--- * 'lChildId' - The unique identifier (ID) of the OU or account whose parent containers you want to list. Don't specify a root. The <http://wikipedia.org/wiki/regex regex pattern> for a child ID string requires one of the following:     * __Account__ - A string that consists of exactly 12 digits.     * __Organizational unit (OU)__ - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
-listParents ::
-  -- | 'lChildId'
-  Text ->
+-- 'maxResults', 'listParents_maxResults' - The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Organizations might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+--
+-- 'childId', 'listParents_childId' - The unique identifier (ID) of the OU or account whose parent containers
+-- you want to list. Don\'t specify a root.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a child ID
+-- string requires one of the following:
+--
+-- -   __Account__ - A string that consists of exactly 12 digits.
+--
+-- -   __Organizational unit (OU)__ - A string that begins with \"ou-\"
+--     followed by from 4 to 32 lowercase letters or digits (the ID of the
+--     root that contains the OU). This string is followed by a second
+--     \"-\" dash and from 8 to 32 additional lowercase letters or digits.
+newListParents ::
+  -- | 'childId'
+  Prelude.Text ->
   ListParents
-listParents pChildId_ =
+newListParents pChildId_ =
   ListParents'
-    { _lNextToken = Nothing,
-      _lMaxResults = Nothing,
-      _lChildId = pChildId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      childId = pChildId_
     }
 
--- | The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value of the previous call's @NextToken@ response to indicate where the output should continue from.
-lNextToken :: Lens' ListParents (Maybe Text)
-lNextToken = lens _lNextToken (\s a -> s {_lNextToken = a})
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listParents_nextToken :: Lens.Lens' ListParents (Prelude.Maybe Prelude.Text)
+listParents_nextToken = Lens.lens (\ListParents' {nextToken} -> nextToken) (\s@ListParents' {} a -> s {nextToken = a} :: ListParents)
 
--- | The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Organizations might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
-lMaxResults :: Lens' ListParents (Maybe Natural)
-lMaxResults = lens _lMaxResults (\s a -> s {_lMaxResults = a}) . mapping _Nat
+-- | The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Organizations might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+listParents_maxResults :: Lens.Lens' ListParents (Prelude.Maybe Prelude.Natural)
+listParents_maxResults = Lens.lens (\ListParents' {maxResults} -> maxResults) (\s@ListParents' {} a -> s {maxResults = a} :: ListParents) Prelude.. Lens.mapping Prelude._Nat
 
--- | The unique identifier (ID) of the OU or account whose parent containers you want to list. Don't specify a root. The <http://wikipedia.org/wiki/regex regex pattern> for a child ID string requires one of the following:     * __Account__ - A string that consists of exactly 12 digits.     * __Organizational unit (OU)__ - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
-lChildId :: Lens' ListParents Text
-lChildId = lens _lChildId (\s a -> s {_lChildId = a})
+-- | The unique identifier (ID) of the OU or account whose parent containers
+-- you want to list. Don\'t specify a root.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a child ID
+-- string requires one of the following:
+--
+-- -   __Account__ - A string that consists of exactly 12 digits.
+--
+-- -   __Organizational unit (OU)__ - A string that begins with \"ou-\"
+--     followed by from 4 to 32 lowercase letters or digits (the ID of the
+--     root that contains the OU). This string is followed by a second
+--     \"-\" dash and from 8 to 32 additional lowercase letters or digits.
+listParents_childId :: Lens.Lens' ListParents Prelude.Text
+listParents_childId = Lens.lens (\ListParents' {childId} -> childId) (\s@ListParents' {} a -> s {childId = a} :: ListParents)
 
-instance AWSPager ListParents where
+instance Pager.AWSPager ListParents where
   page rq rs
-    | stop (rs ^. lrsNextToken) = Nothing
-    | stop (rs ^. lrsParents) = Nothing
-    | otherwise =
-      Just $ rq & lNextToken .~ rs ^. lrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listParentsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listParentsResponse_parents Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listParents_nextToken
+          Lens..~ rs
+          Lens.^? listParentsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListParents where
+instance Prelude.AWSRequest ListParents where
   type Rs ListParents = ListParentsResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListParentsResponse'
-            <$> (x .?> "Parents" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Parents" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListParents
+instance Prelude.Hashable ListParents
 
-instance NFData ListParents
+instance Prelude.NFData ListParents
 
-instance ToHeaders ListParents where
+instance Prelude.ToHeaders ListParents where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.ListParents" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.ListParents" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListParents where
+instance Prelude.ToJSON ListParents where
   toJSON ListParents' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lNextToken,
-            ("MaxResults" .=) <$> _lMaxResults,
-            Just ("ChildId" .= _lChildId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("ChildId" Prelude..= childId)
           ]
       )
 
-instance ToPath ListParents where
-  toPath = const "/"
+instance Prelude.ToPath ListParents where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListParents where
-  toQuery = const mempty
+instance Prelude.ToQuery ListParents where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listParentsResponse' smart constructor.
+-- | /See:/ 'newListParentsResponse' smart constructor.
 data ListParentsResponse = ListParentsResponse'
-  { _lrsParents ::
-      !(Maybe [Parent]),
-    _lrsNextToken :: !(Maybe Text),
-    _lrsResponseStatus :: !Int
+  { -- | A list of parents for the specified child account or OU.
+    parents :: Prelude.Maybe [Parent],
+    -- | If present, indicates that more output is available than is included in
+    -- the current response. Use this value in the @NextToken@ request
+    -- parameter in a subsequent call to the operation to get the next part of
+    -- the output. You should repeat this until the @NextToken@ response
+    -- element comes back as @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListParentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListParentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrsParents' - A list of parents for the specified child account or OU.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrsNextToken' - If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
+-- 'parents', 'listParentsResponse_parents' - A list of parents for the specified child account or OU.
 --
--- * 'lrsResponseStatus' - -- | The response status code.
-listParentsResponse ::
-  -- | 'lrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listParentsResponse_nextToken' - If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
+--
+-- 'httpStatus', 'listParentsResponse_httpStatus' - The response's http status code.
+newListParentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListParentsResponse
-listParentsResponse pResponseStatus_ =
+newListParentsResponse pHttpStatus_ =
   ListParentsResponse'
-    { _lrsParents = Nothing,
-      _lrsNextToken = Nothing,
-      _lrsResponseStatus = pResponseStatus_
+    { parents = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of parents for the specified child account or OU.
-lrsParents :: Lens' ListParentsResponse [Parent]
-lrsParents = lens _lrsParents (\s a -> s {_lrsParents = a}) . _Default . _Coerce
+listParentsResponse_parents :: Lens.Lens' ListParentsResponse (Prelude.Maybe [Parent])
+listParentsResponse_parents = Lens.lens (\ListParentsResponse' {parents} -> parents) (\s@ListParentsResponse' {} a -> s {parents = a} :: ListParentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
-lrsNextToken :: Lens' ListParentsResponse (Maybe Text)
-lrsNextToken = lens _lrsNextToken (\s a -> s {_lrsNextToken = a})
+-- | If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
+listParentsResponse_nextToken :: Lens.Lens' ListParentsResponse (Prelude.Maybe Prelude.Text)
+listParentsResponse_nextToken = Lens.lens (\ListParentsResponse' {nextToken} -> nextToken) (\s@ListParentsResponse' {} a -> s {nextToken = a} :: ListParentsResponse)
 
--- | -- | The response status code.
-lrsResponseStatus :: Lens' ListParentsResponse Int
-lrsResponseStatus = lens _lrsResponseStatus (\s a -> s {_lrsResponseStatus = a})
+-- | The response's http status code.
+listParentsResponse_httpStatus :: Lens.Lens' ListParentsResponse Prelude.Int
+listParentsResponse_httpStatus = Lens.lens (\ListParentsResponse' {httpStatus} -> httpStatus) (\s@ListParentsResponse' {} a -> s {httpStatus = a} :: ListParentsResponse)
 
-instance NFData ListParentsResponse
+instance Prelude.NFData ListParentsResponse

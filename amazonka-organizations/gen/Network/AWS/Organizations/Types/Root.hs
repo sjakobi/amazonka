@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,133 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Organizations.Types.Root where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types.PolicyTypeSummary
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains details about a root. A root is a top-level parent node in the hierarchy of an organization that can contain organizational units (OUs) and accounts. The root contains every AWS account in the organization.
+-- | Contains details about a root. A root is a top-level parent node in the
+-- hierarchy of an organization that can contain organizational units (OUs)
+-- and accounts. The root contains every AWS account in the organization.
 --
---
---
--- /See:/ 'root' smart constructor.
+-- /See:/ 'newRoot' smart constructor.
 data Root = Root'
-  { _rPolicyTypes ::
-      !(Maybe [PolicyTypeSummary]),
-    _rARN :: !(Maybe Text),
-    _rId :: !(Maybe Text),
-    _rName :: !(Maybe Text)
+  { -- | The types of policies that are currently enabled for the root and
+    -- therefore can be attached to the root or to its OUs or accounts.
+    --
+    -- Even if a policy type is shown as available in the organization, you can
+    -- separately enable and disable them at the root level by using
+    -- EnablePolicyType and DisablePolicyType. Use DescribeOrganization to see
+    -- the availability of the policy types in that organization.
+    policyTypes :: Prelude.Maybe [PolicyTypeSummary],
+    -- | The Amazon Resource Name (ARN) of the root.
+    --
+    -- For more information about ARNs in Organizations, see
+    -- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations>
+    -- in the /AWS Service Authorization Reference/.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier (ID) for the root.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string
+    -- requires \"r-\" followed by from 4 to 32 lowercase letters or digits.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of the root.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+    -- validate this parameter is a string of any of the characters in the
+    -- ASCII character range.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Root' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Root' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rPolicyTypes' - The types of policies that are currently enabled for the root and therefore can be attached to the root or to its OUs or accounts.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rARN' - The Amazon Resource Name (ARN) of the root. For more information about ARNs in Organizations, see <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations> in the /AWS Service Authorization Reference/ .
+-- 'policyTypes', 'root_policyTypes' - The types of policies that are currently enabled for the root and
+-- therefore can be attached to the root or to its OUs or accounts.
 --
--- * 'rId' - The unique identifier (ID) for the root. The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string requires "r-" followed by from 4 to 32 lowercase letters or digits.
+-- Even if a policy type is shown as available in the organization, you can
+-- separately enable and disable them at the root level by using
+-- EnablePolicyType and DisablePolicyType. Use DescribeOrganization to see
+-- the availability of the policy types in that organization.
 --
--- * 'rName' - The friendly name of the root. The <http://wikipedia.org/wiki/regex regex pattern> that is used to validate this parameter is a string of any of the characters in the ASCII character range.
-root ::
+-- 'arn', 'root_arn' - The Amazon Resource Name (ARN) of the root.
+--
+-- For more information about ARNs in Organizations, see
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations>
+-- in the /AWS Service Authorization Reference/.
+--
+-- 'id', 'root_id' - The unique identifier (ID) for the root.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string
+-- requires \"r-\" followed by from 4 to 32 lowercase letters or digits.
+--
+-- 'name', 'root_name' - The friendly name of the root.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of any of the characters in the
+-- ASCII character range.
+newRoot ::
   Root
-root =
+newRoot =
   Root'
-    { _rPolicyTypes = Nothing,
-      _rARN = Nothing,
-      _rId = Nothing,
-      _rName = Nothing
+    { policyTypes = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
--- | The types of policies that are currently enabled for the root and therefore can be attached to the root or to its OUs or accounts.
-rPolicyTypes :: Lens' Root [PolicyTypeSummary]
-rPolicyTypes = lens _rPolicyTypes (\s a -> s {_rPolicyTypes = a}) . _Default . _Coerce
+-- | The types of policies that are currently enabled for the root and
+-- therefore can be attached to the root or to its OUs or accounts.
+--
+-- Even if a policy type is shown as available in the organization, you can
+-- separately enable and disable them at the root level by using
+-- EnablePolicyType and DisablePolicyType. Use DescribeOrganization to see
+-- the availability of the policy types in that organization.
+root_policyTypes :: Lens.Lens' Root (Prelude.Maybe [PolicyTypeSummary])
+root_policyTypes = Lens.lens (\Root' {policyTypes} -> policyTypes) (\s@Root' {} a -> s {policyTypes = a} :: Root) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon Resource Name (ARN) of the root. For more information about ARNs in Organizations, see <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations> in the /AWS Service Authorization Reference/ .
-rARN :: Lens' Root (Maybe Text)
-rARN = lens _rARN (\s a -> s {_rARN = a})
+-- | The Amazon Resource Name (ARN) of the root.
+--
+-- For more information about ARNs in Organizations, see
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations>
+-- in the /AWS Service Authorization Reference/.
+root_arn :: Lens.Lens' Root (Prelude.Maybe Prelude.Text)
+root_arn = Lens.lens (\Root' {arn} -> arn) (\s@Root' {} a -> s {arn = a} :: Root)
 
--- | The unique identifier (ID) for the root. The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string requires "r-" followed by from 4 to 32 lowercase letters or digits.
-rId :: Lens' Root (Maybe Text)
-rId = lens _rId (\s a -> s {_rId = a})
+-- | The unique identifier (ID) for the root.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a root ID string
+-- requires \"r-\" followed by from 4 to 32 lowercase letters or digits.
+root_id :: Lens.Lens' Root (Prelude.Maybe Prelude.Text)
+root_id = Lens.lens (\Root' {id} -> id) (\s@Root' {} a -> s {id = a} :: Root)
 
--- | The friendly name of the root. The <http://wikipedia.org/wiki/regex regex pattern> that is used to validate this parameter is a string of any of the characters in the ASCII character range.
-rName :: Lens' Root (Maybe Text)
-rName = lens _rName (\s a -> s {_rName = a})
+-- | The friendly name of the root.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of any of the characters in the
+-- ASCII character range.
+root_name :: Lens.Lens' Root (Prelude.Maybe Prelude.Text)
+root_name = Lens.lens (\Root' {name} -> name) (\s@Root' {} a -> s {name = a} :: Root)
 
-instance FromJSON Root where
+instance Prelude.FromJSON Root where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Root"
       ( \x ->
           Root'
-            <$> (x .:? "PolicyTypes" .!= mempty)
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Name")
+            Prelude.<$> ( x Prelude..:? "PolicyTypes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable Root
+instance Prelude.Hashable Root
 
-instance NFData Root
+instance Prelude.NFData Root

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Renames the specified organizational unit (OU). The ID and ARN don't change. The child OUs and accounts remain in place, and any attached policies of the OU remain attached.
+-- Renames the specified organizational unit (OU). The ID and ARN don\'t
+-- change. The child OUs and accounts remain in place, and any attached
+-- policies of the OU remain attached.
 --
---
--- This operation can be called only from the organization's management account.
+-- This operation can be called only from the organization\'s management
+-- account.
 module Network.AWS.Organizations.UpdateOrganizationalUnit
   ( -- * Creating a Request
-    updateOrganizationalUnit,
-    UpdateOrganizationalUnit,
+    UpdateOrganizationalUnit (..),
+    newUpdateOrganizationalUnit,
 
     -- * Request Lenses
-    uouName,
-    uouOrganizationalUnitId,
+    updateOrganizationalUnit_name,
+    updateOrganizationalUnit_organizationalUnitId,
 
     -- * Destructuring the Response
-    updateOrganizationalUnitResponse,
-    UpdateOrganizationalUnitResponse,
+    UpdateOrganizationalUnitResponse (..),
+    newUpdateOrganizationalUnitResponse,
 
     -- * Response Lenses
-    uourrsOrganizationalUnit,
-    uourrsResponseStatus,
+    updateOrganizationalUnitResponse_organizationalUnit,
+    updateOrganizationalUnitResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.OrganizationalUnit
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateOrganizationalUnit' smart constructor.
+-- | /See:/ 'newUpdateOrganizationalUnit' smart constructor.
 data UpdateOrganizationalUnit = UpdateOrganizationalUnit'
-  { _uouName ::
-      !(Maybe Text),
-    _uouOrganizationalUnitId ::
-      !Text
+  { -- | The new name that you want to assign to the OU.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+    -- validate this parameter is a string of any of the characters in the
+    -- ASCII character range.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier (ID) of the OU that you want to rename. You can
+    -- get the ID from the ListOrganizationalUnitsForParent operation.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for an
+    -- organizational unit ID string requires \"ou-\" followed by from 4 to 32
+    -- lowercase letters or digits (the ID of the root that contains the OU).
+    -- This string is followed by a second \"-\" dash and from 8 to 32
+    -- additional lowercase letters or digits.
+    organizationalUnitId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateOrganizationalUnit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateOrganizationalUnit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uouName' - The new name that you want to assign to the OU. The <http://wikipedia.org/wiki/regex regex pattern> that is used to validate this parameter is a string of any of the characters in the ASCII character range.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uouOrganizationalUnitId' - The unique identifier (ID) of the OU that you want to rename. You can get the ID from the 'ListOrganizationalUnitsForParent' operation. The <http://wikipedia.org/wiki/regex regex pattern> for an organizational unit ID string requires "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
-updateOrganizationalUnit ::
-  -- | 'uouOrganizationalUnitId'
-  Text ->
+-- 'name', 'updateOrganizationalUnit_name' - The new name that you want to assign to the OU.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of any of the characters in the
+-- ASCII character range.
+--
+-- 'organizationalUnitId', 'updateOrganizationalUnit_organizationalUnitId' - The unique identifier (ID) of the OU that you want to rename. You can
+-- get the ID from the ListOrganizationalUnitsForParent operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for an
+-- organizational unit ID string requires \"ou-\" followed by from 4 to 32
+-- lowercase letters or digits (the ID of the root that contains the OU).
+-- This string is followed by a second \"-\" dash and from 8 to 32
+-- additional lowercase letters or digits.
+newUpdateOrganizationalUnit ::
+  -- | 'organizationalUnitId'
+  Prelude.Text ->
   UpdateOrganizationalUnit
-updateOrganizationalUnit pOrganizationalUnitId_ =
+newUpdateOrganizationalUnit pOrganizationalUnitId_ =
   UpdateOrganizationalUnit'
-    { _uouName = Nothing,
-      _uouOrganizationalUnitId = pOrganizationalUnitId_
+    { name = Prelude.Nothing,
+      organizationalUnitId = pOrganizationalUnitId_
     }
 
--- | The new name that you want to assign to the OU. The <http://wikipedia.org/wiki/regex regex pattern> that is used to validate this parameter is a string of any of the characters in the ASCII character range.
-uouName :: Lens' UpdateOrganizationalUnit (Maybe Text)
-uouName = lens _uouName (\s a -> s {_uouName = a})
+-- | The new name that you want to assign to the OU.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of any of the characters in the
+-- ASCII character range.
+updateOrganizationalUnit_name :: Lens.Lens' UpdateOrganizationalUnit (Prelude.Maybe Prelude.Text)
+updateOrganizationalUnit_name = Lens.lens (\UpdateOrganizationalUnit' {name} -> name) (\s@UpdateOrganizationalUnit' {} a -> s {name = a} :: UpdateOrganizationalUnit)
 
--- | The unique identifier (ID) of the OU that you want to rename. You can get the ID from the 'ListOrganizationalUnitsForParent' operation. The <http://wikipedia.org/wiki/regex regex pattern> for an organizational unit ID string requires "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
-uouOrganizationalUnitId :: Lens' UpdateOrganizationalUnit Text
-uouOrganizationalUnitId = lens _uouOrganizationalUnitId (\s a -> s {_uouOrganizationalUnitId = a})
+-- | The unique identifier (ID) of the OU that you want to rename. You can
+-- get the ID from the ListOrganizationalUnitsForParent operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for an
+-- organizational unit ID string requires \"ou-\" followed by from 4 to 32
+-- lowercase letters or digits (the ID of the root that contains the OU).
+-- This string is followed by a second \"-\" dash and from 8 to 32
+-- additional lowercase letters or digits.
+updateOrganizationalUnit_organizationalUnitId :: Lens.Lens' UpdateOrganizationalUnit Prelude.Text
+updateOrganizationalUnit_organizationalUnitId = Lens.lens (\UpdateOrganizationalUnit' {organizationalUnitId} -> organizationalUnitId) (\s@UpdateOrganizationalUnit' {} a -> s {organizationalUnitId = a} :: UpdateOrganizationalUnit)
 
-instance AWSRequest UpdateOrganizationalUnit where
+instance Prelude.AWSRequest UpdateOrganizationalUnit where
   type
     Rs UpdateOrganizationalUnit =
       UpdateOrganizationalUnitResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateOrganizationalUnitResponse'
-            <$> (x .?> "OrganizationalUnit") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "OrganizationalUnit")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateOrganizationalUnit
+instance Prelude.Hashable UpdateOrganizationalUnit
 
-instance NFData UpdateOrganizationalUnit
+instance Prelude.NFData UpdateOrganizationalUnit
 
-instance ToHeaders UpdateOrganizationalUnit where
+instance Prelude.ToHeaders UpdateOrganizationalUnit where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.UpdateOrganizationalUnit" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.UpdateOrganizationalUnit" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateOrganizationalUnit where
+instance Prelude.ToJSON UpdateOrganizationalUnit where
   toJSON UpdateOrganizationalUnit' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _uouName,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            Prelude.Just
               ( "OrganizationalUnitId"
-                  .= _uouOrganizationalUnitId
+                  Prelude..= organizationalUnitId
               )
           ]
       )
 
-instance ToPath UpdateOrganizationalUnit where
-  toPath = const "/"
+instance Prelude.ToPath UpdateOrganizationalUnit where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateOrganizationalUnit where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateOrganizationalUnit where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateOrganizationalUnitResponse' smart constructor.
+-- | /See:/ 'newUpdateOrganizationalUnitResponse' smart constructor.
 data UpdateOrganizationalUnitResponse = UpdateOrganizationalUnitResponse'
-  { _uourrsOrganizationalUnit ::
-      !( Maybe
-           OrganizationalUnit
-       ),
-    _uourrsResponseStatus ::
-      !Int
+  { -- | A structure that contains the details about the specified OU, including
+    -- its new name.
+    organizationalUnit :: Prelude.Maybe OrganizationalUnit,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateOrganizationalUnitResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateOrganizationalUnitResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uourrsOrganizationalUnit' - A structure that contains the details about the specified OU, including its new name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uourrsResponseStatus' - -- | The response status code.
-updateOrganizationalUnitResponse ::
-  -- | 'uourrsResponseStatus'
-  Int ->
+-- 'organizationalUnit', 'updateOrganizationalUnitResponse_organizationalUnit' - A structure that contains the details about the specified OU, including
+-- its new name.
+--
+-- 'httpStatus', 'updateOrganizationalUnitResponse_httpStatus' - The response's http status code.
+newUpdateOrganizationalUnitResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateOrganizationalUnitResponse
-updateOrganizationalUnitResponse pResponseStatus_ =
+newUpdateOrganizationalUnitResponse pHttpStatus_ =
   UpdateOrganizationalUnitResponse'
-    { _uourrsOrganizationalUnit =
-        Nothing,
-      _uourrsResponseStatus = pResponseStatus_
+    { organizationalUnit =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A structure that contains the details about the specified OU, including its new name.
-uourrsOrganizationalUnit :: Lens' UpdateOrganizationalUnitResponse (Maybe OrganizationalUnit)
-uourrsOrganizationalUnit = lens _uourrsOrganizationalUnit (\s a -> s {_uourrsOrganizationalUnit = a})
+-- | A structure that contains the details about the specified OU, including
+-- its new name.
+updateOrganizationalUnitResponse_organizationalUnit :: Lens.Lens' UpdateOrganizationalUnitResponse (Prelude.Maybe OrganizationalUnit)
+updateOrganizationalUnitResponse_organizationalUnit = Lens.lens (\UpdateOrganizationalUnitResponse' {organizationalUnit} -> organizationalUnit) (\s@UpdateOrganizationalUnitResponse' {} a -> s {organizationalUnit = a} :: UpdateOrganizationalUnitResponse)
 
--- | -- | The response status code.
-uourrsResponseStatus :: Lens' UpdateOrganizationalUnitResponse Int
-uourrsResponseStatus = lens _uourrsResponseStatus (\s a -> s {_uourrsResponseStatus = a})
+-- | The response's http status code.
+updateOrganizationalUnitResponse_httpStatus :: Lens.Lens' UpdateOrganizationalUnitResponse Prelude.Int
+updateOrganizationalUnitResponse_httpStatus = Lens.lens (\UpdateOrganizationalUnitResponse' {httpStatus} -> httpStatus) (\s@UpdateOrganizationalUnitResponse' {} a -> s {httpStatus = a} :: UpdateOrganizationalUnitResponse)
 
-instance NFData UpdateOrganizationalUnitResponse
+instance
+  Prelude.NFData
+    UpdateOrganizationalUnitResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,208 +21,290 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List the AWS services for which the specified account is a delegated administrator.
+-- List the AWS services for which the specified account is a delegated
+-- administrator.
 --
---
--- This operation can be called only from the organization's management account or by a member account that is a delegated administrator for an AWS service.
---
+-- This operation can be called only from the organization\'s management
+-- account or by a member account that is a delegated administrator for an
+-- AWS service.
 --
 -- This operation returns paginated results.
 module Network.AWS.Organizations.ListDelegatedServicesForAccount
   ( -- * Creating a Request
-    listDelegatedServicesForAccount,
-    ListDelegatedServicesForAccount,
+    ListDelegatedServicesForAccount (..),
+    newListDelegatedServicesForAccount,
 
     -- * Request Lenses
-    ldsfaNextToken,
-    ldsfaMaxResults,
-    ldsfaAccountId,
+    listDelegatedServicesForAccount_nextToken,
+    listDelegatedServicesForAccount_maxResults,
+    listDelegatedServicesForAccount_accountId,
 
     -- * Destructuring the Response
-    listDelegatedServicesForAccountResponse,
-    ListDelegatedServicesForAccountResponse,
+    ListDelegatedServicesForAccountResponse (..),
+    newListDelegatedServicesForAccountResponse,
 
     -- * Response Lenses
-    ldsfarrsNextToken,
-    ldsfarrsDelegatedServices,
-    ldsfarrsResponseStatus,
+    listDelegatedServicesForAccountResponse_nextToken,
+    listDelegatedServicesForAccountResponse_delegatedServices,
+    listDelegatedServicesForAccountResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.DelegatedService
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDelegatedServicesForAccount' smart constructor.
+-- | /See:/ 'newListDelegatedServicesForAccount' smart constructor.
 data ListDelegatedServicesForAccount = ListDelegatedServicesForAccount'
-  { _ldsfaNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldsfaMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _ldsfaAccountId ::
-      !Text
+  { -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The total number of results that you want included on each page of the
+    -- response. If you do not include this parameter, it defaults to a value
+    -- that is specific to the operation. If additional items exist beyond the
+    -- maximum you specify, the @NextToken@ response element is present and has
+    -- a value (is not null). Include that value as the @NextToken@ request
+    -- parameter in the next call to the operation to get the next part of the
+    -- results. Note that Organizations might return fewer results than the
+    -- maximum even when there are more results available. You should check
+    -- @NextToken@ after every operation to ensure that you receive all of the
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The account ID number of a delegated administrator account in the
+    -- organization.
+    accountId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDelegatedServicesForAccount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDelegatedServicesForAccount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldsfaNextToken' - The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value of the previous call's @NextToken@ response to indicate where the output should continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldsfaMaxResults' - The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Organizations might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
+-- 'nextToken', 'listDelegatedServicesForAccount_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
 --
--- * 'ldsfaAccountId' - The account ID number of a delegated administrator account in the organization.
-listDelegatedServicesForAccount ::
-  -- | 'ldsfaAccountId'
-  Text ->
+-- 'maxResults', 'listDelegatedServicesForAccount_maxResults' - The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Organizations might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+--
+-- 'accountId', 'listDelegatedServicesForAccount_accountId' - The account ID number of a delegated administrator account in the
+-- organization.
+newListDelegatedServicesForAccount ::
+  -- | 'accountId'
+  Prelude.Text ->
   ListDelegatedServicesForAccount
-listDelegatedServicesForAccount pAccountId_ =
+newListDelegatedServicesForAccount pAccountId_ =
   ListDelegatedServicesForAccount'
-    { _ldsfaNextToken =
-        Nothing,
-      _ldsfaMaxResults = Nothing,
-      _ldsfaAccountId = pAccountId_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      accountId = pAccountId_
     }
 
--- | The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value of the previous call's @NextToken@ response to indicate where the output should continue from.
-ldsfaNextToken :: Lens' ListDelegatedServicesForAccount (Maybe Text)
-ldsfaNextToken = lens _ldsfaNextToken (\s a -> s {_ldsfaNextToken = a})
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listDelegatedServicesForAccount_nextToken :: Lens.Lens' ListDelegatedServicesForAccount (Prelude.Maybe Prelude.Text)
+listDelegatedServicesForAccount_nextToken = Lens.lens (\ListDelegatedServicesForAccount' {nextToken} -> nextToken) (\s@ListDelegatedServicesForAccount' {} a -> s {nextToken = a} :: ListDelegatedServicesForAccount)
 
--- | The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Organizations might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
-ldsfaMaxResults :: Lens' ListDelegatedServicesForAccount (Maybe Natural)
-ldsfaMaxResults = lens _ldsfaMaxResults (\s a -> s {_ldsfaMaxResults = a}) . mapping _Nat
+-- | The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Organizations might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+listDelegatedServicesForAccount_maxResults :: Lens.Lens' ListDelegatedServicesForAccount (Prelude.Maybe Prelude.Natural)
+listDelegatedServicesForAccount_maxResults = Lens.lens (\ListDelegatedServicesForAccount' {maxResults} -> maxResults) (\s@ListDelegatedServicesForAccount' {} a -> s {maxResults = a} :: ListDelegatedServicesForAccount) Prelude.. Lens.mapping Prelude._Nat
 
--- | The account ID number of a delegated administrator account in the organization.
-ldsfaAccountId :: Lens' ListDelegatedServicesForAccount Text
-ldsfaAccountId = lens _ldsfaAccountId (\s a -> s {_ldsfaAccountId = a})
+-- | The account ID number of a delegated administrator account in the
+-- organization.
+listDelegatedServicesForAccount_accountId :: Lens.Lens' ListDelegatedServicesForAccount Prelude.Text
+listDelegatedServicesForAccount_accountId = Lens.lens (\ListDelegatedServicesForAccount' {accountId} -> accountId) (\s@ListDelegatedServicesForAccount' {} a -> s {accountId = a} :: ListDelegatedServicesForAccount)
 
-instance AWSPager ListDelegatedServicesForAccount where
+instance
+  Pager.AWSPager
+    ListDelegatedServicesForAccount
+  where
   page rq rs
-    | stop (rs ^. ldsfarrsNextToken) = Nothing
-    | stop (rs ^. ldsfarrsDelegatedServices) = Nothing
-    | otherwise =
-      Just $ rq & ldsfaNextToken .~ rs ^. ldsfarrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDelegatedServicesForAccountResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDelegatedServicesForAccountResponse_delegatedServices
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDelegatedServicesForAccount_nextToken
+          Lens..~ rs
+          Lens.^? listDelegatedServicesForAccountResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDelegatedServicesForAccount where
+instance
+  Prelude.AWSRequest
+    ListDelegatedServicesForAccount
+  where
   type
     Rs ListDelegatedServicesForAccount =
       ListDelegatedServicesForAccountResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDelegatedServicesForAccountResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "DelegatedServices" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "DelegatedServices"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable ListDelegatedServicesForAccount
-
-instance NFData ListDelegatedServicesForAccount
-
-instance ToHeaders ListDelegatedServicesForAccount where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.ListDelegatedServicesForAccount" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON ListDelegatedServicesForAccount where
-  toJSON ListDelegatedServicesForAccount' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ldsfaNextToken,
-            ("MaxResults" .=) <$> _ldsfaMaxResults,
-            Just ("AccountId" .= _ldsfaAccountId)
-          ]
-      )
-
-instance ToPath ListDelegatedServicesForAccount where
-  toPath = const "/"
-
-instance ToQuery ListDelegatedServicesForAccount where
-  toQuery = const mempty
-
--- | /See:/ 'listDelegatedServicesForAccountResponse' smart constructor.
-data ListDelegatedServicesForAccountResponse = ListDelegatedServicesForAccountResponse'
-  { _ldsfarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldsfarrsDelegatedServices ::
-      !( Maybe
-           [DelegatedService]
-       ),
-    _ldsfarrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ListDelegatedServicesForAccountResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'ldsfarrsNextToken' - If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
---
--- * 'ldsfarrsDelegatedServices' - The services for which the account is a delegated administrator.
---
--- * 'ldsfarrsResponseStatus' - -- | The response status code.
-listDelegatedServicesForAccountResponse ::
-  -- | 'ldsfarrsResponseStatus'
-  Int ->
-  ListDelegatedServicesForAccountResponse
-listDelegatedServicesForAccountResponse
-  pResponseStatus_ =
-    ListDelegatedServicesForAccountResponse'
-      { _ldsfarrsNextToken =
-          Nothing,
-        _ldsfarrsDelegatedServices =
-          Nothing,
-        _ldsfarrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
-ldsfarrsNextToken :: Lens' ListDelegatedServicesForAccountResponse (Maybe Text)
-ldsfarrsNextToken = lens _ldsfarrsNextToken (\s a -> s {_ldsfarrsNextToken = a})
-
--- | The services for which the account is a delegated administrator.
-ldsfarrsDelegatedServices :: Lens' ListDelegatedServicesForAccountResponse [DelegatedService]
-ldsfarrsDelegatedServices = lens _ldsfarrsDelegatedServices (\s a -> s {_ldsfarrsDelegatedServices = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-ldsfarrsResponseStatus :: Lens' ListDelegatedServicesForAccountResponse Int
-ldsfarrsResponseStatus = lens _ldsfarrsResponseStatus (\s a -> s {_ldsfarrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    ListDelegatedServicesForAccount
+
+instance
+  Prelude.NFData
+    ListDelegatedServicesForAccount
+
+instance
+  Prelude.ToHeaders
+    ListDelegatedServicesForAccount
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "AWSOrganizationsV20161128.ListDelegatedServicesForAccount" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    ListDelegatedServicesForAccount
+  where
+  toJSON ListDelegatedServicesForAccount' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("AccountId" Prelude..= accountId)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    ListDelegatedServicesForAccount
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    ListDelegatedServicesForAccount
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newListDelegatedServicesForAccountResponse' smart constructor.
+data ListDelegatedServicesForAccountResponse = ListDelegatedServicesForAccountResponse'
+  { -- | If present, indicates that more output is available than is included in
+    -- the current response. Use this value in the @NextToken@ request
+    -- parameter in a subsequent call to the operation to get the next part of
+    -- the output. You should repeat this until the @NextToken@ response
+    -- element comes back as @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The services for which the account is a delegated administrator.
+    delegatedServices :: Prelude.Maybe [DelegatedService],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ListDelegatedServicesForAccountResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listDelegatedServicesForAccountResponse_nextToken' - If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
+--
+-- 'delegatedServices', 'listDelegatedServicesForAccountResponse_delegatedServices' - The services for which the account is a delegated administrator.
+--
+-- 'httpStatus', 'listDelegatedServicesForAccountResponse_httpStatus' - The response's http status code.
+newListDelegatedServicesForAccountResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ListDelegatedServicesForAccountResponse
+newListDelegatedServicesForAccountResponse
+  pHttpStatus_ =
+    ListDelegatedServicesForAccountResponse'
+      { nextToken =
+          Prelude.Nothing,
+        delegatedServices =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
+listDelegatedServicesForAccountResponse_nextToken :: Lens.Lens' ListDelegatedServicesForAccountResponse (Prelude.Maybe Prelude.Text)
+listDelegatedServicesForAccountResponse_nextToken = Lens.lens (\ListDelegatedServicesForAccountResponse' {nextToken} -> nextToken) (\s@ListDelegatedServicesForAccountResponse' {} a -> s {nextToken = a} :: ListDelegatedServicesForAccountResponse)
+
+-- | The services for which the account is a delegated administrator.
+listDelegatedServicesForAccountResponse_delegatedServices :: Lens.Lens' ListDelegatedServicesForAccountResponse (Prelude.Maybe [DelegatedService])
+listDelegatedServicesForAccountResponse_delegatedServices = Lens.lens (\ListDelegatedServicesForAccountResponse' {delegatedServices} -> delegatedServices) (\s@ListDelegatedServicesForAccountResponse' {} a -> s {delegatedServices = a} :: ListDelegatedServicesForAccountResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+listDelegatedServicesForAccountResponse_httpStatus :: Lens.Lens' ListDelegatedServicesForAccountResponse Prelude.Int
+listDelegatedServicesForAccountResponse_httpStatus = Lens.lens (\ListDelegatedServicesForAccountResponse' {httpStatus} -> httpStatus) (\s@ListDelegatedServicesForAccountResponse' {} a -> s {httpStatus = a} :: ListDelegatedServicesForAccountResponse)
+
+instance
+  Prelude.NFData
     ListDelegatedServicesForAccountResponse

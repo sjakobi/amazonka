@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Organizations.Types.HandshakePartyType
   ( HandshakePartyType
       ( ..,
-        Account,
-        Email,
-        Organization
+        HandshakePartyTypeACCOUNT,
+        HandshakePartyTypeEMAIL,
+        HandshakePartyTypeORGANIZATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HandshakePartyType
-  = HandshakePartyType'
-      ( CI
-          Text
-      )
+newtype HandshakePartyType = HandshakePartyType'
+  { fromHandshakePartyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Account :: HandshakePartyType
-pattern Account = HandshakePartyType' "ACCOUNT"
+pattern HandshakePartyTypeACCOUNT :: HandshakePartyType
+pattern HandshakePartyTypeACCOUNT = HandshakePartyType' "ACCOUNT"
 
-pattern Email :: HandshakePartyType
-pattern Email = HandshakePartyType' "EMAIL"
+pattern HandshakePartyTypeEMAIL :: HandshakePartyType
+pattern HandshakePartyTypeEMAIL = HandshakePartyType' "EMAIL"
 
-pattern Organization :: HandshakePartyType
-pattern Organization = HandshakePartyType' "ORGANIZATION"
+pattern HandshakePartyTypeORGANIZATION :: HandshakePartyType
+pattern HandshakePartyTypeORGANIZATION = HandshakePartyType' "ORGANIZATION"
 
 {-# COMPLETE
-  Account,
-  Email,
-  Organization,
+  HandshakePartyTypeACCOUNT,
+  HandshakePartyTypeEMAIL,
+  HandshakePartyTypeORGANIZATION,
   HandshakePartyType'
   #-}
 
-instance FromText HandshakePartyType where
-  parser = (HandshakePartyType' . mk) <$> takeText
+instance Prelude.FromText HandshakePartyType where
+  parser = HandshakePartyType' Prelude.<$> Prelude.takeText
 
-instance ToText HandshakePartyType where
-  toText (HandshakePartyType' ci) = original ci
+instance Prelude.ToText HandshakePartyType where
+  toText (HandshakePartyType' x) = x
 
-instance Hashable HandshakePartyType
+instance Prelude.Hashable HandshakePartyType
 
-instance NFData HandshakePartyType
+instance Prelude.NFData HandshakePartyType
 
-instance ToByteString HandshakePartyType
+instance Prelude.ToByteString HandshakePartyType
 
-instance ToQuery HandshakePartyType
+instance Prelude.ToQuery HandshakePartyType
 
-instance ToHeader HandshakePartyType
+instance Prelude.ToHeader HandshakePartyType
 
-instance ToJSON HandshakePartyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HandshakePartyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HandshakePartyType where
-  parseJSON = parseJSONText "HandshakePartyType"
+instance Prelude.FromJSON HandshakePartyType where
+  parseJSON = Prelude.parseJSONText "HandshakePartyType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Organizations.Types.TargetType
   ( TargetType
       ( ..,
-        TTAccount,
-        TTOrganizationalUnit,
-        TTRoot
+        TargetTypeACCOUNT,
+        TargetTypeORGANIZATIONALUNIT,
+        TargetTypeROOT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetType = TargetType' (CI Text)
+newtype TargetType = TargetType'
+  { fromTargetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TTAccount :: TargetType
-pattern TTAccount = TargetType' "ACCOUNT"
+pattern TargetTypeACCOUNT :: TargetType
+pattern TargetTypeACCOUNT = TargetType' "ACCOUNT"
 
-pattern TTOrganizationalUnit :: TargetType
-pattern TTOrganizationalUnit = TargetType' "ORGANIZATIONAL_UNIT"
+pattern TargetTypeORGANIZATIONALUNIT :: TargetType
+pattern TargetTypeORGANIZATIONALUNIT = TargetType' "ORGANIZATIONAL_UNIT"
 
-pattern TTRoot :: TargetType
-pattern TTRoot = TargetType' "ROOT"
+pattern TargetTypeROOT :: TargetType
+pattern TargetTypeROOT = TargetType' "ROOT"
 
 {-# COMPLETE
-  TTAccount,
-  TTOrganizationalUnit,
-  TTRoot,
+  TargetTypeACCOUNT,
+  TargetTypeORGANIZATIONALUNIT,
+  TargetTypeROOT,
   TargetType'
   #-}
 
-instance FromText TargetType where
-  parser = (TargetType' . mk) <$> takeText
+instance Prelude.FromText TargetType where
+  parser = TargetType' Prelude.<$> Prelude.takeText
 
-instance ToText TargetType where
-  toText (TargetType' ci) = original ci
+instance Prelude.ToText TargetType where
+  toText (TargetType' x) = x
 
-instance Hashable TargetType
+instance Prelude.Hashable TargetType
 
-instance NFData TargetType
+instance Prelude.NFData TargetType
 
-instance ToByteString TargetType
+instance Prelude.ToByteString TargetType
 
-instance ToQuery TargetType
+instance Prelude.ToQuery TargetType
 
-instance ToHeader TargetType
+instance Prelude.ToHeader TargetType
 
-instance FromJSON TargetType where
-  parseJSON = parseJSONText "TargetType"
+instance Prelude.FromJSON TargetType where
+  parseJSON = Prelude.parseJSONText "TargetType"

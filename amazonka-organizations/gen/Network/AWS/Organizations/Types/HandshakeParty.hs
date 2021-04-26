@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Organizations.Types.HandshakeParty where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types.HandshakePartyType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Identifies a participant in a handshake.
 --
---
---
--- /See:/ 'handshakeParty' smart constructor.
+-- /See:/ 'newHandshakeParty' smart constructor.
 data HandshakeParty = HandshakeParty'
-  { _hpId ::
-      !(Sensitive Text),
-    _hpType :: !HandshakePartyType
+  { -- | The unique identifier (ID) for the party.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+    -- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+    -- digits.
+    id :: Prelude.Sensitive Prelude.Text,
+    -- | The type of party.
+    type' :: HandshakePartyType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HandshakeParty' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HandshakeParty' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hpId' - The unique identifier (ID) for the party. The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hpType' - The type of party.
-handshakeParty ::
-  -- | 'hpId'
-  Text ->
-  -- | 'hpType'
+-- 'id', 'handshakeParty_id' - The unique identifier (ID) for the party.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+-- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+-- digits.
+--
+-- 'type'', 'handshakeParty_type' - The type of party.
+newHandshakeParty ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'type''
   HandshakePartyType ->
   HandshakeParty
-handshakeParty pId_ pType_ =
+newHandshakeParty pId_ pType_ =
   HandshakeParty'
-    { _hpId = _Sensitive # pId_,
-      _hpType = pType_
+    { id =
+        Prelude._Sensitive Lens.# pId_,
+      type' = pType_
     }
 
--- | The unique identifier (ID) for the party. The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.
-hpId :: Lens' HandshakeParty Text
-hpId = lens _hpId (\s a -> s {_hpId = a}) . _Sensitive
+-- | The unique identifier (ID) for the party.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+-- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+-- digits.
+handshakeParty_id :: Lens.Lens' HandshakeParty Prelude.Text
+handshakeParty_id = Lens.lens (\HandshakeParty' {id} -> id) (\s@HandshakeParty' {} a -> s {id = a} :: HandshakeParty) Prelude.. Prelude._Sensitive
 
 -- | The type of party.
-hpType :: Lens' HandshakeParty HandshakePartyType
-hpType = lens _hpType (\s a -> s {_hpType = a})
+handshakeParty_type :: Lens.Lens' HandshakeParty HandshakePartyType
+handshakeParty_type = Lens.lens (\HandshakeParty' {type'} -> type') (\s@HandshakeParty' {} a -> s {type' = a} :: HandshakeParty)
 
-instance FromJSON HandshakeParty where
+instance Prelude.FromJSON HandshakeParty where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HandshakeParty"
       ( \x ->
-          HandshakeParty' <$> (x .: "Id") <*> (x .: "Type")
+          HandshakeParty'
+            Prelude.<$> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "Type")
       )
 
-instance Hashable HandshakeParty
+instance Prelude.Hashable HandshakeParty
 
-instance NFData HandshakeParty
+instance Prelude.NFData HandshakeParty
 
-instance ToJSON HandshakeParty where
+instance Prelude.ToJSON HandshakeParty where
   toJSON HandshakeParty' {..} =
-    object
-      ( catMaybes
-          [Just ("Id" .= _hpId), Just ("Type" .= _hpType)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Id" Prelude..= id),
+            Prelude.Just ("Type" Prelude..= type')
+          ]
       )

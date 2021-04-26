@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,112 +19,110 @@
 module Network.AWS.Organizations.Types.CreateAccountFailureReason
   ( CreateAccountFailureReason
       ( ..,
-        AccountLimitExceeded,
-        ConcurrentAccountModification,
-        EmailAlreadyExists,
-        FailedBusinessValidation,
-        GovcloudAccountAlreadyExists,
-        InternalFailure,
-        InvalidAddress,
-        InvalidEmail,
-        InvalidIdentityForBusinessValidation,
-        MissingBusinessValidation,
-        MissingPaymentInstrument,
-        PendingBusinessValidation,
-        UnknownBusinessValidation
+        CreateAccountFailureReasonACCOUNTLIMITEXCEEDED,
+        CreateAccountFailureReasonCONCURRENTACCOUNTMODIFICATION,
+        CreateAccountFailureReasonEMAILALREADYEXISTS,
+        CreateAccountFailureReasonFAILEDBUSINESSVALIDATION,
+        CreateAccountFailureReasonGOVCLOUDACCOUNTALREADYEXISTS,
+        CreateAccountFailureReasonINTERNALFAILURE,
+        CreateAccountFailureReasonINVALIDADDRESS,
+        CreateAccountFailureReasonINVALIDEMAIL,
+        CreateAccountFailureReasonINVALIDIDENTITYFORBUSINESSVALIDATION,
+        CreateAccountFailureReasonMISSINGBUSINESSVALIDATION,
+        CreateAccountFailureReasonMISSINGPAYMENTINSTRUMENT,
+        CreateAccountFailureReasonPENDINGBUSINESSVALIDATION,
+        CreateAccountFailureReasonUNKNOWNBUSINESSVALIDATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CreateAccountFailureReason
-  = CreateAccountFailureReason'
-      ( CI
-          Text
-      )
+newtype CreateAccountFailureReason = CreateAccountFailureReason'
+  { fromCreateAccountFailureReason ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccountLimitExceeded :: CreateAccountFailureReason
-pattern AccountLimitExceeded = CreateAccountFailureReason' "ACCOUNT_LIMIT_EXCEEDED"
+pattern CreateAccountFailureReasonACCOUNTLIMITEXCEEDED :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonACCOUNTLIMITEXCEEDED = CreateAccountFailureReason' "ACCOUNT_LIMIT_EXCEEDED"
 
-pattern ConcurrentAccountModification :: CreateAccountFailureReason
-pattern ConcurrentAccountModification = CreateAccountFailureReason' "CONCURRENT_ACCOUNT_MODIFICATION"
+pattern CreateAccountFailureReasonCONCURRENTACCOUNTMODIFICATION :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonCONCURRENTACCOUNTMODIFICATION = CreateAccountFailureReason' "CONCURRENT_ACCOUNT_MODIFICATION"
 
-pattern EmailAlreadyExists :: CreateAccountFailureReason
-pattern EmailAlreadyExists = CreateAccountFailureReason' "EMAIL_ALREADY_EXISTS"
+pattern CreateAccountFailureReasonEMAILALREADYEXISTS :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonEMAILALREADYEXISTS = CreateAccountFailureReason' "EMAIL_ALREADY_EXISTS"
 
-pattern FailedBusinessValidation :: CreateAccountFailureReason
-pattern FailedBusinessValidation = CreateAccountFailureReason' "FAILED_BUSINESS_VALIDATION"
+pattern CreateAccountFailureReasonFAILEDBUSINESSVALIDATION :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonFAILEDBUSINESSVALIDATION = CreateAccountFailureReason' "FAILED_BUSINESS_VALIDATION"
 
-pattern GovcloudAccountAlreadyExists :: CreateAccountFailureReason
-pattern GovcloudAccountAlreadyExists = CreateAccountFailureReason' "GOVCLOUD_ACCOUNT_ALREADY_EXISTS"
+pattern CreateAccountFailureReasonGOVCLOUDACCOUNTALREADYEXISTS :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonGOVCLOUDACCOUNTALREADYEXISTS = CreateAccountFailureReason' "GOVCLOUD_ACCOUNT_ALREADY_EXISTS"
 
-pattern InternalFailure :: CreateAccountFailureReason
-pattern InternalFailure = CreateAccountFailureReason' "INTERNAL_FAILURE"
+pattern CreateAccountFailureReasonINTERNALFAILURE :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonINTERNALFAILURE = CreateAccountFailureReason' "INTERNAL_FAILURE"
 
-pattern InvalidAddress :: CreateAccountFailureReason
-pattern InvalidAddress = CreateAccountFailureReason' "INVALID_ADDRESS"
+pattern CreateAccountFailureReasonINVALIDADDRESS :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonINVALIDADDRESS = CreateAccountFailureReason' "INVALID_ADDRESS"
 
-pattern InvalidEmail :: CreateAccountFailureReason
-pattern InvalidEmail = CreateAccountFailureReason' "INVALID_EMAIL"
+pattern CreateAccountFailureReasonINVALIDEMAIL :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonINVALIDEMAIL = CreateAccountFailureReason' "INVALID_EMAIL"
 
-pattern InvalidIdentityForBusinessValidation :: CreateAccountFailureReason
-pattern InvalidIdentityForBusinessValidation = CreateAccountFailureReason' "INVALID_IDENTITY_FOR_BUSINESS_VALIDATION"
+pattern CreateAccountFailureReasonINVALIDIDENTITYFORBUSINESSVALIDATION :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonINVALIDIDENTITYFORBUSINESSVALIDATION = CreateAccountFailureReason' "INVALID_IDENTITY_FOR_BUSINESS_VALIDATION"
 
-pattern MissingBusinessValidation :: CreateAccountFailureReason
-pattern MissingBusinessValidation = CreateAccountFailureReason' "MISSING_BUSINESS_VALIDATION"
+pattern CreateAccountFailureReasonMISSINGBUSINESSVALIDATION :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonMISSINGBUSINESSVALIDATION = CreateAccountFailureReason' "MISSING_BUSINESS_VALIDATION"
 
-pattern MissingPaymentInstrument :: CreateAccountFailureReason
-pattern MissingPaymentInstrument = CreateAccountFailureReason' "MISSING_PAYMENT_INSTRUMENT"
+pattern CreateAccountFailureReasonMISSINGPAYMENTINSTRUMENT :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonMISSINGPAYMENTINSTRUMENT = CreateAccountFailureReason' "MISSING_PAYMENT_INSTRUMENT"
 
-pattern PendingBusinessValidation :: CreateAccountFailureReason
-pattern PendingBusinessValidation = CreateAccountFailureReason' "PENDING_BUSINESS_VALIDATION"
+pattern CreateAccountFailureReasonPENDINGBUSINESSVALIDATION :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonPENDINGBUSINESSVALIDATION = CreateAccountFailureReason' "PENDING_BUSINESS_VALIDATION"
 
-pattern UnknownBusinessValidation :: CreateAccountFailureReason
-pattern UnknownBusinessValidation = CreateAccountFailureReason' "UNKNOWN_BUSINESS_VALIDATION"
+pattern CreateAccountFailureReasonUNKNOWNBUSINESSVALIDATION :: CreateAccountFailureReason
+pattern CreateAccountFailureReasonUNKNOWNBUSINESSVALIDATION = CreateAccountFailureReason' "UNKNOWN_BUSINESS_VALIDATION"
 
 {-# COMPLETE
-  AccountLimitExceeded,
-  ConcurrentAccountModification,
-  EmailAlreadyExists,
-  FailedBusinessValidation,
-  GovcloudAccountAlreadyExists,
-  InternalFailure,
-  InvalidAddress,
-  InvalidEmail,
-  InvalidIdentityForBusinessValidation,
-  MissingBusinessValidation,
-  MissingPaymentInstrument,
-  PendingBusinessValidation,
-  UnknownBusinessValidation,
+  CreateAccountFailureReasonACCOUNTLIMITEXCEEDED,
+  CreateAccountFailureReasonCONCURRENTACCOUNTMODIFICATION,
+  CreateAccountFailureReasonEMAILALREADYEXISTS,
+  CreateAccountFailureReasonFAILEDBUSINESSVALIDATION,
+  CreateAccountFailureReasonGOVCLOUDACCOUNTALREADYEXISTS,
+  CreateAccountFailureReasonINTERNALFAILURE,
+  CreateAccountFailureReasonINVALIDADDRESS,
+  CreateAccountFailureReasonINVALIDEMAIL,
+  CreateAccountFailureReasonINVALIDIDENTITYFORBUSINESSVALIDATION,
+  CreateAccountFailureReasonMISSINGBUSINESSVALIDATION,
+  CreateAccountFailureReasonMISSINGPAYMENTINSTRUMENT,
+  CreateAccountFailureReasonPENDINGBUSINESSVALIDATION,
+  CreateAccountFailureReasonUNKNOWNBUSINESSVALIDATION,
   CreateAccountFailureReason'
   #-}
 
-instance FromText CreateAccountFailureReason where
-  parser = (CreateAccountFailureReason' . mk) <$> takeText
+instance Prelude.FromText CreateAccountFailureReason where
+  parser = CreateAccountFailureReason' Prelude.<$> Prelude.takeText
 
-instance ToText CreateAccountFailureReason where
-  toText (CreateAccountFailureReason' ci) = original ci
+instance Prelude.ToText CreateAccountFailureReason where
+  toText (CreateAccountFailureReason' x) = x
 
-instance Hashable CreateAccountFailureReason
+instance Prelude.Hashable CreateAccountFailureReason
 
-instance NFData CreateAccountFailureReason
+instance Prelude.NFData CreateAccountFailureReason
 
-instance ToByteString CreateAccountFailureReason
+instance Prelude.ToByteString CreateAccountFailureReason
 
-instance ToQuery CreateAccountFailureReason
+instance Prelude.ToQuery CreateAccountFailureReason
 
-instance ToHeader CreateAccountFailureReason
+instance Prelude.ToHeader CreateAccountFailureReason
 
-instance FromJSON CreateAccountFailureReason where
-  parseJSON = parseJSONText "CreateAccountFailureReason"
+instance Prelude.FromJSON CreateAccountFailureReason where
+  parseJSON = Prelude.parseJSONText "CreateAccountFailureReason"

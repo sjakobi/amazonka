@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Organizations.Types.HandshakeFilter where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types.ActionType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the criteria that are used to select the handshakes for the operation.
+-- | Specifies the criteria that are used to select the handshakes for the
+-- operation.
 --
---
---
--- /See:/ 'handshakeFilter' smart constructor.
+-- /See:/ 'newHandshakeFilter' smart constructor.
 data HandshakeFilter = HandshakeFilter'
-  { _hfActionType ::
-      !(Maybe ActionType),
-    _hfParentHandshakeId :: !(Maybe Text)
+  { -- | Specifies the type of handshake action.
+    --
+    -- If you specify @ActionType@, you cannot also specify
+    -- @ParentHandshakeId@.
+    actionType :: Prelude.Maybe ActionType,
+    -- | Specifies the parent handshake. Only used for handshake types that are a
+    -- child of another type.
+    --
+    -- If you specify @ParentHandshakeId@, you cannot also specify
+    -- @ActionType@.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+    -- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+    -- digits.
+    parentHandshakeId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HandshakeFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HandshakeFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hfActionType' - Specifies the type of handshake action. If you specify @ActionType@ , you cannot also specify @ParentHandshakeId@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hfParentHandshakeId' - Specifies the parent handshake. Only used for handshake types that are a child of another type. If you specify @ParentHandshakeId@ , you cannot also specify @ActionType@ . The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.
-handshakeFilter ::
+-- 'actionType', 'handshakeFilter_actionType' - Specifies the type of handshake action.
+--
+-- If you specify @ActionType@, you cannot also specify
+-- @ParentHandshakeId@.
+--
+-- 'parentHandshakeId', 'handshakeFilter_parentHandshakeId' - Specifies the parent handshake. Only used for handshake types that are a
+-- child of another type.
+--
+-- If you specify @ParentHandshakeId@, you cannot also specify
+-- @ActionType@.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+-- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+-- digits.
+newHandshakeFilter ::
   HandshakeFilter
-handshakeFilter =
+newHandshakeFilter =
   HandshakeFilter'
-    { _hfActionType = Nothing,
-      _hfParentHandshakeId = Nothing
+    { actionType = Prelude.Nothing,
+      parentHandshakeId = Prelude.Nothing
     }
 
--- | Specifies the type of handshake action. If you specify @ActionType@ , you cannot also specify @ParentHandshakeId@ .
-hfActionType :: Lens' HandshakeFilter (Maybe ActionType)
-hfActionType = lens _hfActionType (\s a -> s {_hfActionType = a})
+-- | Specifies the type of handshake action.
+--
+-- If you specify @ActionType@, you cannot also specify
+-- @ParentHandshakeId@.
+handshakeFilter_actionType :: Lens.Lens' HandshakeFilter (Prelude.Maybe ActionType)
+handshakeFilter_actionType = Lens.lens (\HandshakeFilter' {actionType} -> actionType) (\s@HandshakeFilter' {} a -> s {actionType = a} :: HandshakeFilter)
 
--- | Specifies the parent handshake. Only used for handshake types that are a child of another type. If you specify @ParentHandshakeId@ , you cannot also specify @ActionType@ . The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.
-hfParentHandshakeId :: Lens' HandshakeFilter (Maybe Text)
-hfParentHandshakeId = lens _hfParentHandshakeId (\s a -> s {_hfParentHandshakeId = a})
+-- | Specifies the parent handshake. Only used for handshake types that are a
+-- child of another type.
+--
+-- If you specify @ParentHandshakeId@, you cannot also specify
+-- @ActionType@.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+-- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+-- digits.
+handshakeFilter_parentHandshakeId :: Lens.Lens' HandshakeFilter (Prelude.Maybe Prelude.Text)
+handshakeFilter_parentHandshakeId = Lens.lens (\HandshakeFilter' {parentHandshakeId} -> parentHandshakeId) (\s@HandshakeFilter' {} a -> s {parentHandshakeId = a} :: HandshakeFilter)
 
-instance Hashable HandshakeFilter
+instance Prelude.Hashable HandshakeFilter
 
-instance NFData HandshakeFilter
+instance Prelude.NFData HandshakeFilter
 
-instance ToJSON HandshakeFilter where
+instance Prelude.ToJSON HandshakeFilter where
   toJSON HandshakeFilter' {..} =
-    object
-      ( catMaybes
-          [ ("ActionType" .=) <$> _hfActionType,
-            ("ParentHandshakeId" .=) <$> _hfParentHandshakeId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ActionType" Prelude..=) Prelude.<$> actionType,
+            ("ParentHandshakeId" Prelude..=)
+              Prelude.<$> parentHandshakeId
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Organizations.Types.EffectivePolicyType
   ( EffectivePolicyType
       ( ..,
-        EPTAiservicesOptOutPolicy,
-        EPTBackupPolicy,
-        EPTTagPolicy
+        EffectivePolicyTypeAISERVICESOPTOUTPOLICY,
+        EffectivePolicyTypeBACKUPPOLICY,
+        EffectivePolicyTypeTAGPOLICY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EffectivePolicyType
-  = EffectivePolicyType'
-      ( CI
-          Text
-      )
+newtype EffectivePolicyType = EffectivePolicyType'
+  { fromEffectivePolicyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EPTAiservicesOptOutPolicy :: EffectivePolicyType
-pattern EPTAiservicesOptOutPolicy = EffectivePolicyType' "AISERVICES_OPT_OUT_POLICY"
+pattern EffectivePolicyTypeAISERVICESOPTOUTPOLICY :: EffectivePolicyType
+pattern EffectivePolicyTypeAISERVICESOPTOUTPOLICY = EffectivePolicyType' "AISERVICES_OPT_OUT_POLICY"
 
-pattern EPTBackupPolicy :: EffectivePolicyType
-pattern EPTBackupPolicy = EffectivePolicyType' "BACKUP_POLICY"
+pattern EffectivePolicyTypeBACKUPPOLICY :: EffectivePolicyType
+pattern EffectivePolicyTypeBACKUPPOLICY = EffectivePolicyType' "BACKUP_POLICY"
 
-pattern EPTTagPolicy :: EffectivePolicyType
-pattern EPTTagPolicy = EffectivePolicyType' "TAG_POLICY"
+pattern EffectivePolicyTypeTAGPOLICY :: EffectivePolicyType
+pattern EffectivePolicyTypeTAGPOLICY = EffectivePolicyType' "TAG_POLICY"
 
 {-# COMPLETE
-  EPTAiservicesOptOutPolicy,
-  EPTBackupPolicy,
-  EPTTagPolicy,
+  EffectivePolicyTypeAISERVICESOPTOUTPOLICY,
+  EffectivePolicyTypeBACKUPPOLICY,
+  EffectivePolicyTypeTAGPOLICY,
   EffectivePolicyType'
   #-}
 
-instance FromText EffectivePolicyType where
-  parser = (EffectivePolicyType' . mk) <$> takeText
+instance Prelude.FromText EffectivePolicyType where
+  parser = EffectivePolicyType' Prelude.<$> Prelude.takeText
 
-instance ToText EffectivePolicyType where
-  toText (EffectivePolicyType' ci) = original ci
+instance Prelude.ToText EffectivePolicyType where
+  toText (EffectivePolicyType' x) = x
 
-instance Hashable EffectivePolicyType
+instance Prelude.Hashable EffectivePolicyType
 
-instance NFData EffectivePolicyType
+instance Prelude.NFData EffectivePolicyType
 
-instance ToByteString EffectivePolicyType
+instance Prelude.ToByteString EffectivePolicyType
 
-instance ToQuery EffectivePolicyType
+instance Prelude.ToQuery EffectivePolicyType
 
-instance ToHeader EffectivePolicyType
+instance Prelude.ToHeader EffectivePolicyType
 
-instance ToJSON EffectivePolicyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EffectivePolicyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EffectivePolicyType where
-  parseJSON = parseJSONText "EffectivePolicyType"
+instance Prelude.FromJSON EffectivePolicyType where
+  parseJSON = Prelude.parseJSONText "EffectivePolicyType"

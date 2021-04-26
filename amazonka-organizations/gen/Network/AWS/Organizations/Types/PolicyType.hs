@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Organizations.Types.PolicyType
   ( PolicyType
       ( ..,
-        AiservicesOptOutPolicy,
-        BackupPolicy,
-        ServiceControlPolicy,
-        TagPolicy
+        PolicyTypeAISERVICESOPTOUTPOLICY,
+        PolicyTypeBACKUPPOLICY,
+        PolicyTypeSERVICECONTROLPOLICY,
+        PolicyTypeTAGPOLICY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicyType = PolicyType' (CI Text)
+newtype PolicyType = PolicyType'
+  { fromPolicyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AiservicesOptOutPolicy :: PolicyType
-pattern AiservicesOptOutPolicy = PolicyType' "AISERVICES_OPT_OUT_POLICY"
+pattern PolicyTypeAISERVICESOPTOUTPOLICY :: PolicyType
+pattern PolicyTypeAISERVICESOPTOUTPOLICY = PolicyType' "AISERVICES_OPT_OUT_POLICY"
 
-pattern BackupPolicy :: PolicyType
-pattern BackupPolicy = PolicyType' "BACKUP_POLICY"
+pattern PolicyTypeBACKUPPOLICY :: PolicyType
+pattern PolicyTypeBACKUPPOLICY = PolicyType' "BACKUP_POLICY"
 
-pattern ServiceControlPolicy :: PolicyType
-pattern ServiceControlPolicy = PolicyType' "SERVICE_CONTROL_POLICY"
+pattern PolicyTypeSERVICECONTROLPOLICY :: PolicyType
+pattern PolicyTypeSERVICECONTROLPOLICY = PolicyType' "SERVICE_CONTROL_POLICY"
 
-pattern TagPolicy :: PolicyType
-pattern TagPolicy = PolicyType' "TAG_POLICY"
+pattern PolicyTypeTAGPOLICY :: PolicyType
+pattern PolicyTypeTAGPOLICY = PolicyType' "TAG_POLICY"
 
 {-# COMPLETE
-  AiservicesOptOutPolicy,
-  BackupPolicy,
-  ServiceControlPolicy,
-  TagPolicy,
+  PolicyTypeAISERVICESOPTOUTPOLICY,
+  PolicyTypeBACKUPPOLICY,
+  PolicyTypeSERVICECONTROLPOLICY,
+  PolicyTypeTAGPOLICY,
   PolicyType'
   #-}
 
-instance FromText PolicyType where
-  parser = (PolicyType' . mk) <$> takeText
+instance Prelude.FromText PolicyType where
+  parser = PolicyType' Prelude.<$> Prelude.takeText
 
-instance ToText PolicyType where
-  toText (PolicyType' ci) = original ci
+instance Prelude.ToText PolicyType where
+  toText (PolicyType' x) = x
 
-instance Hashable PolicyType
+instance Prelude.Hashable PolicyType
 
-instance NFData PolicyType
+instance Prelude.NFData PolicyType
 
-instance ToByteString PolicyType
+instance Prelude.ToByteString PolicyType
 
-instance ToQuery PolicyType
+instance Prelude.ToQuery PolicyType
 
-instance ToHeader PolicyType
+instance Prelude.ToHeader PolicyType
 
-instance ToJSON PolicyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PolicyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PolicyType where
-  parseJSON = parseJSONText "PolicyType"
+instance Prelude.FromJSON PolicyType where
+  parseJSON = Prelude.parseJSONText "PolicyType"

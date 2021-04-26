@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,125 +23,168 @@
 --
 -- Removes any tags with the specified keys from the specified resource.
 --
---
 -- You can attach tags to the following resources in AWS Organizations.
 --
---     * AWS account
+-- -   AWS account
 --
---     * Organization root
+-- -   Organization root
 --
---     * Organizational unit (OU)
+-- -   Organizational unit (OU)
 --
---     * Policy (any type)
+-- -   Policy (any type)
 --
---
---
--- This operation can be called only from the organization's management account.
+-- This operation can be called only from the organization\'s management
+-- account.
 module Network.AWS.Organizations.UntagResource
   ( -- * Creating a Request
-    untagResource,
-    UntagResource,
+    UntagResource (..),
+    newUntagResource,
 
     -- * Request Lenses
-    urResourceId,
-    urTagKeys,
+    untagResource_resourceId,
+    untagResource_tagKeys,
 
     -- * Destructuring the Response
-    untagResourceResponse,
-    UntagResourceResponse,
+    UntagResourceResponse (..),
+    newUntagResourceResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagResource' smart constructor.
+-- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { _urResourceId ::
-      !Text,
-    _urTagKeys :: ![Text]
+  { -- | The ID of the resource to remove a tag from.
+    --
+    -- You can specify any of the following taggable resources.
+    --
+    -- -   AWS account – specify the account ID number.
+    --
+    -- -   Organizational unit – specify the OU ID that begins with @ou-@ and
+    --     looks similar to: @ou-1a2b-34uvwxyz @
+    --
+    -- -   Root – specify the root ID that begins with @r-@ and looks similar
+    --     to: @r-1a2b @
+    --
+    -- -   Policy – specify the policy ID that begins with @p-@ andlooks
+    --     similar to: @p-12abcdefg3 @
+    resourceId :: Prelude.Text,
+    -- | The list of keys for tags to remove from the specified resource.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urResourceId' - The ID of the resource to remove a tag from. You can specify any of the following taggable resources.     * AWS account – specify the account ID number.     * Organizational unit – specify the OU ID that begins with @ou-@ and looks similar to: @ou-/1a2b-34uvwxyz/ @      * Root – specify the root ID that begins with @r-@ and looks similar to: @r-/1a2b/ @      * Policy – specify the policy ID that begins with @p-@ andlooks similar to: @p-/12abcdefg3/ @
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urTagKeys' - The list of keys for tags to remove from the specified resource.
-untagResource ::
-  -- | 'urResourceId'
-  Text ->
+-- 'resourceId', 'untagResource_resourceId' - The ID of the resource to remove a tag from.
+--
+-- You can specify any of the following taggable resources.
+--
+-- -   AWS account – specify the account ID number.
+--
+-- -   Organizational unit – specify the OU ID that begins with @ou-@ and
+--     looks similar to: @ou-1a2b-34uvwxyz @
+--
+-- -   Root – specify the root ID that begins with @r-@ and looks similar
+--     to: @r-1a2b @
+--
+-- -   Policy – specify the policy ID that begins with @p-@ andlooks
+--     similar to: @p-12abcdefg3 @
+--
+-- 'tagKeys', 'untagResource_tagKeys' - The list of keys for tags to remove from the specified resource.
+newUntagResource ::
+  -- | 'resourceId'
+  Prelude.Text ->
   UntagResource
-untagResource pResourceId_ =
+newUntagResource pResourceId_ =
   UntagResource'
-    { _urResourceId = pResourceId_,
-      _urTagKeys = mempty
+    { resourceId = pResourceId_,
+      tagKeys = Prelude.mempty
     }
 
--- | The ID of the resource to remove a tag from. You can specify any of the following taggable resources.     * AWS account – specify the account ID number.     * Organizational unit – specify the OU ID that begins with @ou-@ and looks similar to: @ou-/1a2b-34uvwxyz/ @      * Root – specify the root ID that begins with @r-@ and looks similar to: @r-/1a2b/ @      * Policy – specify the policy ID that begins with @p-@ andlooks similar to: @p-/12abcdefg3/ @
-urResourceId :: Lens' UntagResource Text
-urResourceId = lens _urResourceId (\s a -> s {_urResourceId = a})
+-- | The ID of the resource to remove a tag from.
+--
+-- You can specify any of the following taggable resources.
+--
+-- -   AWS account – specify the account ID number.
+--
+-- -   Organizational unit – specify the OU ID that begins with @ou-@ and
+--     looks similar to: @ou-1a2b-34uvwxyz @
+--
+-- -   Root – specify the root ID that begins with @r-@ and looks similar
+--     to: @r-1a2b @
+--
+-- -   Policy – specify the policy ID that begins with @p-@ andlooks
+--     similar to: @p-12abcdefg3 @
+untagResource_resourceId :: Lens.Lens' UntagResource Prelude.Text
+untagResource_resourceId = Lens.lens (\UntagResource' {resourceId} -> resourceId) (\s@UntagResource' {} a -> s {resourceId = a} :: UntagResource)
 
 -- | The list of keys for tags to remove from the specified resource.
-urTagKeys :: Lens' UntagResource [Text]
-urTagKeys = lens _urTagKeys (\s a -> s {_urTagKeys = a}) . _Coerce
+untagResource_tagKeys :: Lens.Lens' UntagResource [Prelude.Text]
+untagResource_tagKeys = Lens.lens (\UntagResource' {tagKeys} -> tagKeys) (\s@UntagResource' {} a -> s {tagKeys = a} :: UntagResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagResource where
+instance Prelude.AWSRequest UntagResource where
   type Rs UntagResource = UntagResourceResponse
-  request = postJSON organizations
-  response = receiveNull UntagResourceResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull UntagResourceResponse'
 
-instance Hashable UntagResource
+instance Prelude.Hashable UntagResource
 
-instance NFData UntagResource
+instance Prelude.NFData UntagResource
 
-instance ToHeaders UntagResource where
+instance Prelude.ToHeaders UntagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.UntagResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.UntagResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UntagResource where
+instance Prelude.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _urResourceId),
-            Just ("TagKeys" .= _urTagKeys)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just ("TagKeys" Prelude..= tagKeys)
           ]
       )
 
-instance ToPath UntagResource where
-  toPath = const "/"
+instance Prelude.ToPath UntagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery UntagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'untagResourceResponse' smart constructor.
+-- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResourceResponse' with the minimum fields required to make a request.
-untagResourceResponse ::
+-- |
+-- Create a value of 'UntagResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagResourceResponse ::
   UntagResourceResponse
-untagResourceResponse = UntagResourceResponse'
+newUntagResourceResponse = UntagResourceResponse'
 
-instance NFData UntagResourceResponse
+instance Prelude.NFData UntagResourceResponse

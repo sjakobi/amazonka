@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Organizations.Types.ParentType
   ( ParentType
       ( ..,
-        OrganizationalUnit,
-        Root
+        ParentTypeORGANIZATIONALUNIT,
+        ParentTypeROOT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParentType = ParentType' (CI Text)
+newtype ParentType = ParentType'
+  { fromParentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OrganizationalUnit :: ParentType
-pattern OrganizationalUnit = ParentType' "ORGANIZATIONAL_UNIT"
+pattern ParentTypeORGANIZATIONALUNIT :: ParentType
+pattern ParentTypeORGANIZATIONALUNIT = ParentType' "ORGANIZATIONAL_UNIT"
 
-pattern Root :: ParentType
-pattern Root = ParentType' "ROOT"
+pattern ParentTypeROOT :: ParentType
+pattern ParentTypeROOT = ParentType' "ROOT"
 
 {-# COMPLETE
-  OrganizationalUnit,
-  Root,
+  ParentTypeORGANIZATIONALUNIT,
+  ParentTypeROOT,
   ParentType'
   #-}
 
-instance FromText ParentType where
-  parser = (ParentType' . mk) <$> takeText
+instance Prelude.FromText ParentType where
+  parser = ParentType' Prelude.<$> Prelude.takeText
 
-instance ToText ParentType where
-  toText (ParentType' ci) = original ci
+instance Prelude.ToText ParentType where
+  toText (ParentType' x) = x
 
-instance Hashable ParentType
+instance Prelude.Hashable ParentType
 
-instance NFData ParentType
+instance Prelude.NFData ParentType
 
-instance ToByteString ParentType
+instance Prelude.ToByteString ParentType
 
-instance ToQuery ParentType
+instance Prelude.ToQuery ParentType
 
-instance ToHeader ParentType
+instance Prelude.ToHeader ParentType
 
-instance FromJSON ParentType where
-  parseJSON = parseJSONText "ParentType"
+instance Prelude.FromJSON ParentType where
+  parseJSON = Prelude.parseJSONText "ParentType"

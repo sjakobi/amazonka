@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Organizations.Types.AccountStatus
   ( AccountStatus
       ( ..,
-        Active,
-        Suspended
+        AccountStatusACTIVE,
+        AccountStatusSUSPENDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccountStatus = AccountStatus' (CI Text)
+newtype AccountStatus = AccountStatus'
+  { fromAccountStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: AccountStatus
-pattern Active = AccountStatus' "ACTIVE"
+pattern AccountStatusACTIVE :: AccountStatus
+pattern AccountStatusACTIVE = AccountStatus' "ACTIVE"
 
-pattern Suspended :: AccountStatus
-pattern Suspended = AccountStatus' "SUSPENDED"
+pattern AccountStatusSUSPENDED :: AccountStatus
+pattern AccountStatusSUSPENDED = AccountStatus' "SUSPENDED"
 
 {-# COMPLETE
-  Active,
-  Suspended,
+  AccountStatusACTIVE,
+  AccountStatusSUSPENDED,
   AccountStatus'
   #-}
 
-instance FromText AccountStatus where
-  parser = (AccountStatus' . mk) <$> takeText
+instance Prelude.FromText AccountStatus where
+  parser = AccountStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AccountStatus where
-  toText (AccountStatus' ci) = original ci
+instance Prelude.ToText AccountStatus where
+  toText (AccountStatus' x) = x
 
-instance Hashable AccountStatus
+instance Prelude.Hashable AccountStatus
 
-instance NFData AccountStatus
+instance Prelude.NFData AccountStatus
 
-instance ToByteString AccountStatus
+instance Prelude.ToByteString AccountStatus
 
-instance ToQuery AccountStatus
+instance Prelude.ToQuery AccountStatus
 
-instance ToHeader AccountStatus
+instance Prelude.ToHeader AccountStatus
 
-instance FromJSON AccountStatus where
-  parseJSON = parseJSONText "AccountStatus"
+instance Prelude.FromJSON AccountStatus where
+  parseJSON = Prelude.parseJSONText "AccountStatus"

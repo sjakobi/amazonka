@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,146 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an organizational unit (OU) from a root or another OU. You must first remove all accounts and child OUs from the OU that you want to delete.
+-- Deletes an organizational unit (OU) from a root or another OU. You must
+-- first remove all accounts and child OUs from the OU that you want to
+-- delete.
 --
---
--- This operation can be called only from the organization's management account.
+-- This operation can be called only from the organization\'s management
+-- account.
 module Network.AWS.Organizations.DeleteOrganizationalUnit
   ( -- * Creating a Request
-    deleteOrganizationalUnit,
-    DeleteOrganizationalUnit,
+    DeleteOrganizationalUnit (..),
+    newDeleteOrganizationalUnit,
 
     -- * Request Lenses
-    dOrganizationalUnitId,
+    deleteOrganizationalUnit_organizationalUnitId,
 
     -- * Destructuring the Response
-    deleteOrganizationalUnitResponse,
-    DeleteOrganizationalUnitResponse,
+    DeleteOrganizationalUnitResponse (..),
+    newDeleteOrganizationalUnitResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteOrganizationalUnit' smart constructor.
-newtype DeleteOrganizationalUnit = DeleteOrganizationalUnit'
-  { _dOrganizationalUnitId ::
-      Text
+-- | /See:/ 'newDeleteOrganizationalUnit' smart constructor.
+data DeleteOrganizationalUnit = DeleteOrganizationalUnit'
+  { -- | The unique identifier (ID) of the organizational unit that you want to
+    -- delete. You can get the ID from the ListOrganizationalUnitsForParent
+    -- operation.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for an
+    -- organizational unit ID string requires \"ou-\" followed by from 4 to 32
+    -- lowercase letters or digits (the ID of the root that contains the OU).
+    -- This string is followed by a second \"-\" dash and from 8 to 32
+    -- additional lowercase letters or digits.
+    organizationalUnitId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOrganizationalUnit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteOrganizationalUnit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dOrganizationalUnitId' - The unique identifier (ID) of the organizational unit that you want to delete. You can get the ID from the 'ListOrganizationalUnitsForParent' operation. The <http://wikipedia.org/wiki/regex regex pattern> for an organizational unit ID string requires "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
-deleteOrganizationalUnit ::
-  -- | 'dOrganizationalUnitId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'organizationalUnitId', 'deleteOrganizationalUnit_organizationalUnitId' - The unique identifier (ID) of the organizational unit that you want to
+-- delete. You can get the ID from the ListOrganizationalUnitsForParent
+-- operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for an
+-- organizational unit ID string requires \"ou-\" followed by from 4 to 32
+-- lowercase letters or digits (the ID of the root that contains the OU).
+-- This string is followed by a second \"-\" dash and from 8 to 32
+-- additional lowercase letters or digits.
+newDeleteOrganizationalUnit ::
+  -- | 'organizationalUnitId'
+  Prelude.Text ->
   DeleteOrganizationalUnit
-deleteOrganizationalUnit pOrganizationalUnitId_ =
+newDeleteOrganizationalUnit pOrganizationalUnitId_ =
   DeleteOrganizationalUnit'
-    { _dOrganizationalUnitId =
+    { organizationalUnitId =
         pOrganizationalUnitId_
     }
 
--- | The unique identifier (ID) of the organizational unit that you want to delete. You can get the ID from the 'ListOrganizationalUnitsForParent' operation. The <http://wikipedia.org/wiki/regex regex pattern> for an organizational unit ID string requires "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
-dOrganizationalUnitId :: Lens' DeleteOrganizationalUnit Text
-dOrganizationalUnitId = lens _dOrganizationalUnitId (\s a -> s {_dOrganizationalUnitId = a})
+-- | The unique identifier (ID) of the organizational unit that you want to
+-- delete. You can get the ID from the ListOrganizationalUnitsForParent
+-- operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for an
+-- organizational unit ID string requires \"ou-\" followed by from 4 to 32
+-- lowercase letters or digits (the ID of the root that contains the OU).
+-- This string is followed by a second \"-\" dash and from 8 to 32
+-- additional lowercase letters or digits.
+deleteOrganizationalUnit_organizationalUnitId :: Lens.Lens' DeleteOrganizationalUnit Prelude.Text
+deleteOrganizationalUnit_organizationalUnitId = Lens.lens (\DeleteOrganizationalUnit' {organizationalUnitId} -> organizationalUnitId) (\s@DeleteOrganizationalUnit' {} a -> s {organizationalUnitId = a} :: DeleteOrganizationalUnit)
 
-instance AWSRequest DeleteOrganizationalUnit where
+instance Prelude.AWSRequest DeleteOrganizationalUnit where
   type
     Rs DeleteOrganizationalUnit =
       DeleteOrganizationalUnitResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteOrganizationalUnitResponse'
+    Response.receiveNull
+      DeleteOrganizationalUnitResponse'
 
-instance Hashable DeleteOrganizationalUnit
+instance Prelude.Hashable DeleteOrganizationalUnit
 
-instance NFData DeleteOrganizationalUnit
+instance Prelude.NFData DeleteOrganizationalUnit
 
-instance ToHeaders DeleteOrganizationalUnit where
+instance Prelude.ToHeaders DeleteOrganizationalUnit where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.DeleteOrganizationalUnit" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.DeleteOrganizationalUnit" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteOrganizationalUnit where
+instance Prelude.ToJSON DeleteOrganizationalUnit where
   toJSON DeleteOrganizationalUnit' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("OrganizationalUnitId" .= _dOrganizationalUnitId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "OrganizationalUnitId"
+                  Prelude..= organizationalUnitId
+              )
           ]
       )
 
-instance ToPath DeleteOrganizationalUnit where
-  toPath = const "/"
+instance Prelude.ToPath DeleteOrganizationalUnit where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteOrganizationalUnit where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteOrganizationalUnit where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteOrganizationalUnitResponse' smart constructor.
+-- | /See:/ 'newDeleteOrganizationalUnitResponse' smart constructor.
 data DeleteOrganizationalUnitResponse = DeleteOrganizationalUnitResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOrganizationalUnitResponse' with the minimum fields required to make a request.
-deleteOrganizationalUnitResponse ::
+-- |
+-- Create a value of 'DeleteOrganizationalUnitResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteOrganizationalUnitResponse ::
   DeleteOrganizationalUnitResponse
-deleteOrganizationalUnitResponse =
+newDeleteOrganizationalUnitResponse =
   DeleteOrganizationalUnitResponse'
 
-instance NFData DeleteOrganizationalUnitResponse
+instance
+  Prelude.NFData
+    DeleteOrganizationalUnitResponse

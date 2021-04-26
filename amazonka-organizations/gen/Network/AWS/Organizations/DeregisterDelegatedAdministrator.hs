@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,139 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified member AWS account as a delegated administrator for the specified AWS service.
+-- Removes the specified member AWS account as a delegated administrator
+-- for the specified AWS service.
 --
+-- Deregistering a delegated administrator can have unintended impacts on
+-- the functionality of the enabled AWS service. See the documentation for
+-- the enabled service before you deregister a delegated administrator so
+-- that you understand any potential impacts.
 --
--- /Important:/ Deregistering a delegated administrator can have unintended impacts on the functionality of the enabled AWS service. See the documentation for the enabled service before you deregister a delegated administrator so that you understand any potential impacts.
+-- You can run this action only for AWS services that support this feature.
+-- For a current list of services that support it, see the column /Supports
+-- Delegated Administrator/ in the table at
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html AWS Services that you can use with AWS Organizations>
+-- in the /AWS Organizations User Guide./
 --
--- You can run this action only for AWS services that support this feature. For a current list of services that support it, see the column /Supports Delegated Administrator/ in the table at <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html AWS Services that you can use with AWS Organizations> in the /AWS Organizations User Guide./
---
--- This operation can be called only from the organization's management account.
+-- This operation can be called only from the organization\'s management
+-- account.
 module Network.AWS.Organizations.DeregisterDelegatedAdministrator
   ( -- * Creating a Request
-    deregisterDelegatedAdministrator,
-    DeregisterDelegatedAdministrator,
+    DeregisterDelegatedAdministrator (..),
+    newDeregisterDelegatedAdministrator,
 
     -- * Request Lenses
-    ddaAccountId,
-    ddaServicePrincipal,
+    deregisterDelegatedAdministrator_accountId,
+    deregisterDelegatedAdministrator_servicePrincipal,
 
     -- * Destructuring the Response
-    deregisterDelegatedAdministratorResponse,
-    DeregisterDelegatedAdministratorResponse,
+    DeregisterDelegatedAdministratorResponse (..),
+    newDeregisterDelegatedAdministratorResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deregisterDelegatedAdministrator' smart constructor.
+-- | /See:/ 'newDeregisterDelegatedAdministrator' smart constructor.
 data DeregisterDelegatedAdministrator = DeregisterDelegatedAdministrator'
-  { _ddaAccountId ::
-      !Text,
-    _ddaServicePrincipal ::
-      !Text
+  { -- | The account ID number of the member account in the organization that you
+    -- want to deregister as a delegated administrator.
+    accountId :: Prelude.Text,
+    -- | The service principal name of an AWS service for which the account is a
+    -- delegated administrator.
+    --
+    -- Delegated administrator privileges are revoked for only the specified
+    -- AWS service from the member account. If the specified service is the
+    -- only service for which the member account is a delegated administrator,
+    -- the operation also revokes Organizations read action permissions.
+    servicePrincipal :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterDelegatedAdministrator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterDelegatedAdministrator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddaAccountId' - The account ID number of the member account in the organization that you want to deregister as a delegated administrator.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddaServicePrincipal' - The service principal name of an AWS service for which the account is a delegated administrator. Delegated administrator privileges are revoked for only the specified AWS service from the member account. If the specified service is the only service for which the member account is a delegated administrator, the operation also revokes Organizations read action permissions.
-deregisterDelegatedAdministrator ::
-  -- | 'ddaAccountId'
-  Text ->
-  -- | 'ddaServicePrincipal'
-  Text ->
+-- 'accountId', 'deregisterDelegatedAdministrator_accountId' - The account ID number of the member account in the organization that you
+-- want to deregister as a delegated administrator.
+--
+-- 'servicePrincipal', 'deregisterDelegatedAdministrator_servicePrincipal' - The service principal name of an AWS service for which the account is a
+-- delegated administrator.
+--
+-- Delegated administrator privileges are revoked for only the specified
+-- AWS service from the member account. If the specified service is the
+-- only service for which the member account is a delegated administrator,
+-- the operation also revokes Organizations read action permissions.
+newDeregisterDelegatedAdministrator ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'servicePrincipal'
+  Prelude.Text ->
   DeregisterDelegatedAdministrator
-deregisterDelegatedAdministrator
+newDeregisterDelegatedAdministrator
   pAccountId_
   pServicePrincipal_ =
     DeregisterDelegatedAdministrator'
-      { _ddaAccountId =
+      { accountId =
           pAccountId_,
-        _ddaServicePrincipal = pServicePrincipal_
+        servicePrincipal = pServicePrincipal_
       }
 
--- | The account ID number of the member account in the organization that you want to deregister as a delegated administrator.
-ddaAccountId :: Lens' DeregisterDelegatedAdministrator Text
-ddaAccountId = lens _ddaAccountId (\s a -> s {_ddaAccountId = a})
+-- | The account ID number of the member account in the organization that you
+-- want to deregister as a delegated administrator.
+deregisterDelegatedAdministrator_accountId :: Lens.Lens' DeregisterDelegatedAdministrator Prelude.Text
+deregisterDelegatedAdministrator_accountId = Lens.lens (\DeregisterDelegatedAdministrator' {accountId} -> accountId) (\s@DeregisterDelegatedAdministrator' {} a -> s {accountId = a} :: DeregisterDelegatedAdministrator)
 
--- | The service principal name of an AWS service for which the account is a delegated administrator. Delegated administrator privileges are revoked for only the specified AWS service from the member account. If the specified service is the only service for which the member account is a delegated administrator, the operation also revokes Organizations read action permissions.
-ddaServicePrincipal :: Lens' DeregisterDelegatedAdministrator Text
-ddaServicePrincipal = lens _ddaServicePrincipal (\s a -> s {_ddaServicePrincipal = a})
+-- | The service principal name of an AWS service for which the account is a
+-- delegated administrator.
+--
+-- Delegated administrator privileges are revoked for only the specified
+-- AWS service from the member account. If the specified service is the
+-- only service for which the member account is a delegated administrator,
+-- the operation also revokes Organizations read action permissions.
+deregisterDelegatedAdministrator_servicePrincipal :: Lens.Lens' DeregisterDelegatedAdministrator Prelude.Text
+deregisterDelegatedAdministrator_servicePrincipal = Lens.lens (\DeregisterDelegatedAdministrator' {servicePrincipal} -> servicePrincipal) (\s@DeregisterDelegatedAdministrator' {} a -> s {servicePrincipal = a} :: DeregisterDelegatedAdministrator)
 
-instance AWSRequest DeregisterDelegatedAdministrator where
+instance
+  Prelude.AWSRequest
+    DeregisterDelegatedAdministrator
+  where
   type
     Rs DeregisterDelegatedAdministrator =
       DeregisterDelegatedAdministratorResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveNull
+    Response.receiveNull
       DeregisterDelegatedAdministratorResponse'
 
-instance Hashable DeregisterDelegatedAdministrator
+instance
+  Prelude.Hashable
+    DeregisterDelegatedAdministrator
 
-instance NFData DeregisterDelegatedAdministrator
+instance
+  Prelude.NFData
+    DeregisterDelegatedAdministrator
 
-instance ToHeaders DeregisterDelegatedAdministrator where
+instance
+  Prelude.ToHeaders
+    DeregisterDelegatedAdministrator
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.DeregisterDelegatedAdministrator" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.DeregisterDelegatedAdministrator" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeregisterDelegatedAdministrator where
+instance
+  Prelude.ToJSON
+    DeregisterDelegatedAdministrator
+  where
   toJSON DeregisterDelegatedAdministrator' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _ddaAccountId),
-            Just ("ServicePrincipal" .= _ddaServicePrincipal)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just
+              ("ServicePrincipal" Prelude..= servicePrincipal)
           ]
       )
 
-instance ToPath DeregisterDelegatedAdministrator where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DeregisterDelegatedAdministrator
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeregisterDelegatedAdministrator where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DeregisterDelegatedAdministrator
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deregisterDelegatedAdministratorResponse' smart constructor.
+-- | /See:/ 'newDeregisterDelegatedAdministratorResponse' smart constructor.
 data DeregisterDelegatedAdministratorResponse = DeregisterDelegatedAdministratorResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterDelegatedAdministratorResponse' with the minimum fields required to make a request.
-deregisterDelegatedAdministratorResponse ::
+-- |
+-- Create a value of 'DeregisterDelegatedAdministratorResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeregisterDelegatedAdministratorResponse ::
   DeregisterDelegatedAdministratorResponse
-deregisterDelegatedAdministratorResponse =
+newDeregisterDelegatedAdministratorResponse =
   DeregisterDelegatedAdministratorResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DeregisterDelegatedAdministratorResponse

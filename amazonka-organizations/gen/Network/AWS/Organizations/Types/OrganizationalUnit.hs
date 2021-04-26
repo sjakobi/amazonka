@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Organizations.Types.OrganizationalUnit where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains details about an organizational unit (OU). An OU is a container of AWS accounts within a root of an organization. Policies that are attached to an OU apply to all accounts contained in that OU and in any child OUs.
+-- | Contains details about an organizational unit (OU). An OU is a container
+-- of AWS accounts within a root of an organization. Policies that are
+-- attached to an OU apply to all accounts contained in that OU and in any
+-- child OUs.
 --
---
---
--- /See:/ 'organizationalUnit' smart constructor.
+-- /See:/ 'newOrganizationalUnit' smart constructor.
 data OrganizationalUnit = OrganizationalUnit'
-  { _ouARN ::
-      !(Maybe Text),
-    _ouId :: !(Maybe Text),
-    _ouName :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of this OU.
+    --
+    -- For more information about ARNs in Organizations, see
+    -- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations>
+    -- in the /AWS Service Authorization Reference/.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier (ID) associated with this OU.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for an
+    -- organizational unit ID string requires \"ou-\" followed by from 4 to 32
+    -- lowercase letters or digits (the ID of the root that contains the OU).
+    -- This string is followed by a second \"-\" dash and from 8 to 32
+    -- additional lowercase letters or digits.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of this OU.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+    -- validate this parameter is a string of any of the characters in the
+    -- ASCII character range.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OrganizationalUnit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OrganizationalUnit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ouARN' - The Amazon Resource Name (ARN) of this OU. For more information about ARNs in Organizations, see <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations> in the /AWS Service Authorization Reference/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ouId' - The unique identifier (ID) associated with this OU. The <http://wikipedia.org/wiki/regex regex pattern> for an organizational unit ID string requires "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
+-- 'arn', 'organizationalUnit_arn' - The Amazon Resource Name (ARN) of this OU.
 --
--- * 'ouName' - The friendly name of this OU. The <http://wikipedia.org/wiki/regex regex pattern> that is used to validate this parameter is a string of any of the characters in the ASCII character range.
-organizationalUnit ::
+-- For more information about ARNs in Organizations, see
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations>
+-- in the /AWS Service Authorization Reference/.
+--
+-- 'id', 'organizationalUnit_id' - The unique identifier (ID) associated with this OU.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for an
+-- organizational unit ID string requires \"ou-\" followed by from 4 to 32
+-- lowercase letters or digits (the ID of the root that contains the OU).
+-- This string is followed by a second \"-\" dash and from 8 to 32
+-- additional lowercase letters or digits.
+--
+-- 'name', 'organizationalUnit_name' - The friendly name of this OU.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of any of the characters in the
+-- ASCII character range.
+newOrganizationalUnit ::
   OrganizationalUnit
-organizationalUnit =
+newOrganizationalUnit =
   OrganizationalUnit'
-    { _ouARN = Nothing,
-      _ouId = Nothing,
-      _ouName = Nothing
+    { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of this OU. For more information about ARNs in Organizations, see <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations> in the /AWS Service Authorization Reference/ .
-ouARN :: Lens' OrganizationalUnit (Maybe Text)
-ouARN = lens _ouARN (\s a -> s {_ouARN = a})
+-- | The Amazon Resource Name (ARN) of this OU.
+--
+-- For more information about ARNs in Organizations, see
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations>
+-- in the /AWS Service Authorization Reference/.
+organizationalUnit_arn :: Lens.Lens' OrganizationalUnit (Prelude.Maybe Prelude.Text)
+organizationalUnit_arn = Lens.lens (\OrganizationalUnit' {arn} -> arn) (\s@OrganizationalUnit' {} a -> s {arn = a} :: OrganizationalUnit)
 
--- | The unique identifier (ID) associated with this OU. The <http://wikipedia.org/wiki/regex regex pattern> for an organizational unit ID string requires "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
-ouId :: Lens' OrganizationalUnit (Maybe Text)
-ouId = lens _ouId (\s a -> s {_ouId = a})
+-- | The unique identifier (ID) associated with this OU.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for an
+-- organizational unit ID string requires \"ou-\" followed by from 4 to 32
+-- lowercase letters or digits (the ID of the root that contains the OU).
+-- This string is followed by a second \"-\" dash and from 8 to 32
+-- additional lowercase letters or digits.
+organizationalUnit_id :: Lens.Lens' OrganizationalUnit (Prelude.Maybe Prelude.Text)
+organizationalUnit_id = Lens.lens (\OrganizationalUnit' {id} -> id) (\s@OrganizationalUnit' {} a -> s {id = a} :: OrganizationalUnit)
 
--- | The friendly name of this OU. The <http://wikipedia.org/wiki/regex regex pattern> that is used to validate this parameter is a string of any of the characters in the ASCII character range.
-ouName :: Lens' OrganizationalUnit (Maybe Text)
-ouName = lens _ouName (\s a -> s {_ouName = a})
+-- | The friendly name of this OU.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of any of the characters in the
+-- ASCII character range.
+organizationalUnit_name :: Lens.Lens' OrganizationalUnit (Prelude.Maybe Prelude.Text)
+organizationalUnit_name = Lens.lens (\OrganizationalUnit' {name} -> name) (\s@OrganizationalUnit' {} a -> s {name = a} :: OrganizationalUnit)
 
-instance FromJSON OrganizationalUnit where
+instance Prelude.FromJSON OrganizationalUnit where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OrganizationalUnit"
       ( \x ->
           OrganizationalUnit'
-            <$> (x .:? "Arn") <*> (x .:? "Id") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable OrganizationalUnit
+instance Prelude.Hashable OrganizationalUnit
 
-instance NFData OrganizationalUnit
+instance Prelude.NFData OrganizationalUnit

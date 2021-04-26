@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Organizations.Types.Child where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types.ChildType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains a list of child entities, either OUs or accounts.
 --
---
---
--- /See:/ 'child' smart constructor.
+-- /See:/ 'newChild' smart constructor.
 data Child = Child'
-  { _cId :: !(Maybe Text),
-    _cType :: !(Maybe ChildType)
+  { -- | The unique identifier (ID) of this child entity.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for a child ID
+    -- string requires one of the following:
+    --
+    -- -   __Account__ - A string that consists of exactly 12 digits.
+    --
+    -- -   __Organizational unit (OU)__ - A string that begins with \"ou-\"
+    --     followed by from 4 to 32 lowercase letters or digits (the ID of the
+    --     root that contains the OU). This string is followed by a second
+    --     \"-\" dash and from 8 to 32 additional lowercase letters or digits.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The type of this child entity.
+    type' :: Prelude.Maybe ChildType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Child' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Child' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cId' - The unique identifier (ID) of this child entity. The <http://wikipedia.org/wiki/regex regex pattern> for a child ID string requires one of the following:     * __Account__ - A string that consists of exactly 12 digits.     * __Organizational unit (OU)__ - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cType' - The type of this child entity.
-child ::
+-- 'id', 'child_id' - The unique identifier (ID) of this child entity.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a child ID
+-- string requires one of the following:
+--
+-- -   __Account__ - A string that consists of exactly 12 digits.
+--
+-- -   __Organizational unit (OU)__ - A string that begins with \"ou-\"
+--     followed by from 4 to 32 lowercase letters or digits (the ID of the
+--     root that contains the OU). This string is followed by a second
+--     \"-\" dash and from 8 to 32 additional lowercase letters or digits.
+--
+-- 'type'', 'child_type' - The type of this child entity.
+newChild ::
   Child
-child = Child' {_cId = Nothing, _cType = Nothing}
+newChild =
+  Child'
+    { id = Prelude.Nothing,
+      type' = Prelude.Nothing
+    }
 
--- | The unique identifier (ID) of this child entity. The <http://wikipedia.org/wiki/regex regex pattern> for a child ID string requires one of the following:     * __Account__ - A string that consists of exactly 12 digits.     * __Organizational unit (OU)__ - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
-cId :: Lens' Child (Maybe Text)
-cId = lens _cId (\s a -> s {_cId = a})
+-- | The unique identifier (ID) of this child entity.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a child ID
+-- string requires one of the following:
+--
+-- -   __Account__ - A string that consists of exactly 12 digits.
+--
+-- -   __Organizational unit (OU)__ - A string that begins with \"ou-\"
+--     followed by from 4 to 32 lowercase letters or digits (the ID of the
+--     root that contains the OU). This string is followed by a second
+--     \"-\" dash and from 8 to 32 additional lowercase letters or digits.
+child_id :: Lens.Lens' Child (Prelude.Maybe Prelude.Text)
+child_id = Lens.lens (\Child' {id} -> id) (\s@Child' {} a -> s {id = a} :: Child)
 
 -- | The type of this child entity.
-cType :: Lens' Child (Maybe ChildType)
-cType = lens _cType (\s a -> s {_cType = a})
+child_type :: Lens.Lens' Child (Prelude.Maybe ChildType)
+child_type = Lens.lens (\Child' {type'} -> type') (\s@Child' {} a -> s {type' = a} :: Child)
 
-instance FromJSON Child where
+instance Prelude.FromJSON Child where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Child"
-      (\x -> Child' <$> (x .:? "Id") <*> (x .:? "Type"))
+      ( \x ->
+          Child'
+            Prelude.<$> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Type")
+      )
 
-instance Hashable Child
+instance Prelude.Hashable Child
 
-instance NFData Child
+instance Prelude.NFData Child

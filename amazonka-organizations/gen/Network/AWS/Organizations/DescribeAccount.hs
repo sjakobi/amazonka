@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,158 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves AWS Organizations-related information about the specified account.
+-- Retrieves AWS Organizations-related information about the specified
+-- account.
 --
---
--- This operation can be called only from the organization's management account or by a member account that is a delegated administrator for an AWS service.
+-- This operation can be called only from the organization\'s management
+-- account or by a member account that is a delegated administrator for an
+-- AWS service.
 module Network.AWS.Organizations.DescribeAccount
   ( -- * Creating a Request
-    describeAccount,
-    DescribeAccount,
+    DescribeAccount (..),
+    newDescribeAccount,
 
     -- * Request Lenses
-    daAccountId,
+    describeAccount_accountId,
 
     -- * Destructuring the Response
-    describeAccountResponse,
-    DescribeAccountResponse,
+    DescribeAccountResponse (..),
+    newDescribeAccountResponse,
 
     -- * Response Lenses
-    darrsAccount,
-    darrsResponseStatus,
+    describeAccountResponse_account,
+    describeAccountResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.Account
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAccount' smart constructor.
-newtype DescribeAccount = DescribeAccount'
-  { _daAccountId ::
-      Text
+-- | /See:/ 'newDescribeAccount' smart constructor.
+data DescribeAccount = DescribeAccount'
+  { -- | The unique identifier (ID) of the AWS account that you want information
+    -- about. You can get the ID from the ListAccounts or ListAccountsForParent
+    -- operations.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for an account ID
+    -- string requires exactly 12 digits.
+    accountId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daAccountId' - The unique identifier (ID) of the AWS account that you want information about. You can get the ID from the 'ListAccounts' or 'ListAccountsForParent' operations. The <http://wikipedia.org/wiki/regex regex pattern> for an account ID string requires exactly 12 digits.
-describeAccount ::
-  -- | 'daAccountId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'accountId', 'describeAccount_accountId' - The unique identifier (ID) of the AWS account that you want information
+-- about. You can get the ID from the ListAccounts or ListAccountsForParent
+-- operations.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for an account ID
+-- string requires exactly 12 digits.
+newDescribeAccount ::
+  -- | 'accountId'
+  Prelude.Text ->
   DescribeAccount
-describeAccount pAccountId_ =
-  DescribeAccount' {_daAccountId = pAccountId_}
+newDescribeAccount pAccountId_ =
+  DescribeAccount' {accountId = pAccountId_}
 
--- | The unique identifier (ID) of the AWS account that you want information about. You can get the ID from the 'ListAccounts' or 'ListAccountsForParent' operations. The <http://wikipedia.org/wiki/regex regex pattern> for an account ID string requires exactly 12 digits.
-daAccountId :: Lens' DescribeAccount Text
-daAccountId = lens _daAccountId (\s a -> s {_daAccountId = a})
+-- | The unique identifier (ID) of the AWS account that you want information
+-- about. You can get the ID from the ListAccounts or ListAccountsForParent
+-- operations.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for an account ID
+-- string requires exactly 12 digits.
+describeAccount_accountId :: Lens.Lens' DescribeAccount Prelude.Text
+describeAccount_accountId = Lens.lens (\DescribeAccount' {accountId} -> accountId) (\s@DescribeAccount' {} a -> s {accountId = a} :: DescribeAccount)
 
-instance AWSRequest DescribeAccount where
+instance Prelude.AWSRequest DescribeAccount where
   type Rs DescribeAccount = DescribeAccountResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAccountResponse'
-            <$> (x .?> "Account") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Account")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAccount
+instance Prelude.Hashable DescribeAccount
 
-instance NFData DescribeAccount
+instance Prelude.NFData DescribeAccount
 
-instance ToHeaders DescribeAccount where
+instance Prelude.ToHeaders DescribeAccount where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.DescribeAccount" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.DescribeAccount" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAccount where
+instance Prelude.ToJSON DescribeAccount where
   toJSON DescribeAccount' {..} =
-    object
-      (catMaybes [Just ("AccountId" .= _daAccountId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("AccountId" Prelude..= accountId)]
+      )
 
-instance ToPath DescribeAccount where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAccount where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAccount where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAccount where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAccountResponse' smart constructor.
+-- | /See:/ 'newDescribeAccountResponse' smart constructor.
 data DescribeAccountResponse = DescribeAccountResponse'
-  { _darrsAccount ::
-      !(Maybe Account),
-    _darrsResponseStatus ::
-      !Int
+  { -- | A structure that contains information about the requested account.
+    account :: Prelude.Maybe Account,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsAccount' - A structure that contains information about the requested account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-describeAccountResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'account', 'describeAccountResponse_account' - A structure that contains information about the requested account.
+--
+-- 'httpStatus', 'describeAccountResponse_httpStatus' - The response's http status code.
+newDescribeAccountResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAccountResponse
-describeAccountResponse pResponseStatus_ =
+newDescribeAccountResponse pHttpStatus_ =
   DescribeAccountResponse'
-    { _darrsAccount = Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { account = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A structure that contains information about the requested account.
-darrsAccount :: Lens' DescribeAccountResponse (Maybe Account)
-darrsAccount = lens _darrsAccount (\s a -> s {_darrsAccount = a})
+describeAccountResponse_account :: Lens.Lens' DescribeAccountResponse (Prelude.Maybe Account)
+describeAccountResponse_account = Lens.lens (\DescribeAccountResponse' {account} -> account) (\s@DescribeAccountResponse' {} a -> s {account = a} :: DescribeAccountResponse)
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DescribeAccountResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+describeAccountResponse_httpStatus :: Lens.Lens' DescribeAccountResponse Prelude.Int
+describeAccountResponse_httpStatus = Lens.lens (\DescribeAccountResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountResponse' {} a -> s {httpStatus = a} :: DescribeAccountResponse)
 
-instance NFData DescribeAccountResponse
+instance Prelude.NFData DescribeAccountResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Organizations.Types.CreateAccountState
   ( CreateAccountState
       ( ..,
-        Failed,
-        InProgress,
-        Succeeded
+        CreateAccountStateFAILED,
+        CreateAccountStateINPROGRESS,
+        CreateAccountStateSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CreateAccountState
-  = CreateAccountState'
-      ( CI
-          Text
-      )
+newtype CreateAccountState = CreateAccountState'
+  { fromCreateAccountState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: CreateAccountState
-pattern Failed = CreateAccountState' "FAILED"
+pattern CreateAccountStateFAILED :: CreateAccountState
+pattern CreateAccountStateFAILED = CreateAccountState' "FAILED"
 
-pattern InProgress :: CreateAccountState
-pattern InProgress = CreateAccountState' "IN_PROGRESS"
+pattern CreateAccountStateINPROGRESS :: CreateAccountState
+pattern CreateAccountStateINPROGRESS = CreateAccountState' "IN_PROGRESS"
 
-pattern Succeeded :: CreateAccountState
-pattern Succeeded = CreateAccountState' "SUCCEEDED"
+pattern CreateAccountStateSUCCEEDED :: CreateAccountState
+pattern CreateAccountStateSUCCEEDED = CreateAccountState' "SUCCEEDED"
 
 {-# COMPLETE
-  Failed,
-  InProgress,
-  Succeeded,
+  CreateAccountStateFAILED,
+  CreateAccountStateINPROGRESS,
+  CreateAccountStateSUCCEEDED,
   CreateAccountState'
   #-}
 
-instance FromText CreateAccountState where
-  parser = (CreateAccountState' . mk) <$> takeText
+instance Prelude.FromText CreateAccountState where
+  parser = CreateAccountState' Prelude.<$> Prelude.takeText
 
-instance ToText CreateAccountState where
-  toText (CreateAccountState' ci) = original ci
+instance Prelude.ToText CreateAccountState where
+  toText (CreateAccountState' x) = x
 
-instance Hashable CreateAccountState
+instance Prelude.Hashable CreateAccountState
 
-instance NFData CreateAccountState
+instance Prelude.NFData CreateAccountState
 
-instance ToByteString CreateAccountState
+instance Prelude.ToByteString CreateAccountState
 
-instance ToQuery CreateAccountState
+instance Prelude.ToQuery CreateAccountState
 
-instance ToHeader CreateAccountState
+instance Prelude.ToHeader CreateAccountState
 
-instance ToJSON CreateAccountState where
-  toJSON = toJSONText
+instance Prelude.ToJSON CreateAccountState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CreateAccountState where
-  parseJSON = parseJSONText "CreateAccountState"
+instance Prelude.FromJSON CreateAccountState where
+  parseJSON = Prelude.parseJSONText "CreateAccountState"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,130 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about a previously requested handshake. The handshake ID comes from the response to the original 'InviteAccountToOrganization' operation that generated the handshake.
+-- Retrieves information about a previously requested handshake. The
+-- handshake ID comes from the response to the original
+-- InviteAccountToOrganization operation that generated the handshake.
 --
---
--- You can access handshakes that are @ACCEPTED@ , @DECLINED@ , or @CANCELED@ for only 30 days after they change to that state. They're then deleted and no longer accessible.
+-- You can access handshakes that are @ACCEPTED@, @DECLINED@, or @CANCELED@
+-- for only 30 days after they change to that state. They\'re then deleted
+-- and no longer accessible.
 --
 -- This operation can be called from any account in the organization.
 module Network.AWS.Organizations.DescribeHandshake
   ( -- * Creating a Request
-    describeHandshake,
-    DescribeHandshake,
+    DescribeHandshake (..),
+    newDescribeHandshake,
 
     -- * Request Lenses
-    dHandshakeId,
+    describeHandshake_handshakeId,
 
     -- * Destructuring the Response
-    describeHandshakeResponse,
-    DescribeHandshakeResponse,
+    DescribeHandshakeResponse (..),
+    newDescribeHandshakeResponse,
 
     -- * Response Lenses
-    dhrrsHandshake,
-    dhrrsResponseStatus,
+    describeHandshakeResponse_handshake,
+    describeHandshakeResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.Handshake
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeHandshake' smart constructor.
-newtype DescribeHandshake = DescribeHandshake'
-  { _dHandshakeId ::
-      Text
+-- | /See:/ 'newDescribeHandshake' smart constructor.
+data DescribeHandshake = DescribeHandshake'
+  { -- | The unique identifier (ID) of the handshake that you want information
+    -- about. You can get the ID from the original call to
+    -- InviteAccountToOrganization, or from a call to ListHandshakesForAccount
+    -- or ListHandshakesForOrganization.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+    -- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+    -- digits.
+    handshakeId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHandshake' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeHandshake' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dHandshakeId' - The unique identifier (ID) of the handshake that you want information about. You can get the ID from the original call to 'InviteAccountToOrganization' , or from a call to 'ListHandshakesForAccount' or 'ListHandshakesForOrganization' . The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.
-describeHandshake ::
-  -- | 'dHandshakeId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'handshakeId', 'describeHandshake_handshakeId' - The unique identifier (ID) of the handshake that you want information
+-- about. You can get the ID from the original call to
+-- InviteAccountToOrganization, or from a call to ListHandshakesForAccount
+-- or ListHandshakesForOrganization.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+-- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+-- digits.
+newDescribeHandshake ::
+  -- | 'handshakeId'
+  Prelude.Text ->
   DescribeHandshake
-describeHandshake pHandshakeId_ =
-  DescribeHandshake' {_dHandshakeId = pHandshakeId_}
+newDescribeHandshake pHandshakeId_ =
+  DescribeHandshake' {handshakeId = pHandshakeId_}
 
--- | The unique identifier (ID) of the handshake that you want information about. You can get the ID from the original call to 'InviteAccountToOrganization' , or from a call to 'ListHandshakesForAccount' or 'ListHandshakesForOrganization' . The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.
-dHandshakeId :: Lens' DescribeHandshake Text
-dHandshakeId = lens _dHandshakeId (\s a -> s {_dHandshakeId = a})
+-- | The unique identifier (ID) of the handshake that you want information
+-- about. You can get the ID from the original call to
+-- InviteAccountToOrganization, or from a call to ListHandshakesForAccount
+-- or ListHandshakesForOrganization.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+-- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+-- digits.
+describeHandshake_handshakeId :: Lens.Lens' DescribeHandshake Prelude.Text
+describeHandshake_handshakeId = Lens.lens (\DescribeHandshake' {handshakeId} -> handshakeId) (\s@DescribeHandshake' {} a -> s {handshakeId = a} :: DescribeHandshake)
 
-instance AWSRequest DescribeHandshake where
+instance Prelude.AWSRequest DescribeHandshake where
   type Rs DescribeHandshake = DescribeHandshakeResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeHandshakeResponse'
-            <$> (x .?> "Handshake") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Handshake")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeHandshake
+instance Prelude.Hashable DescribeHandshake
 
-instance NFData DescribeHandshake
+instance Prelude.NFData DescribeHandshake
 
-instance ToHeaders DescribeHandshake where
+instance Prelude.ToHeaders DescribeHandshake where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.DescribeHandshake" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.DescribeHandshake" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeHandshake where
+instance Prelude.ToJSON DescribeHandshake where
   toJSON DescribeHandshake' {..} =
-    object
-      (catMaybes [Just ("HandshakeId" .= _dHandshakeId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("HandshakeId" Prelude..= handshakeId)
+          ]
+      )
 
-instance ToPath DescribeHandshake where
-  toPath = const "/"
+instance Prelude.ToPath DescribeHandshake where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeHandshake where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeHandshake where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeHandshakeResponse' smart constructor.
+-- | /See:/ 'newDescribeHandshakeResponse' smart constructor.
 data DescribeHandshakeResponse = DescribeHandshakeResponse'
-  { _dhrrsHandshake ::
-      !(Maybe Handshake),
-    _dhrrsResponseStatus ::
-      !Int
+  { -- | A structure that contains information about the specified handshake.
+    handshake :: Prelude.Maybe Handshake,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHandshakeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeHandshakeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhrrsHandshake' - A structure that contains information about the specified handshake.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dhrrsResponseStatus' - -- | The response status code.
-describeHandshakeResponse ::
-  -- | 'dhrrsResponseStatus'
-  Int ->
+-- 'handshake', 'describeHandshakeResponse_handshake' - A structure that contains information about the specified handshake.
+--
+-- 'httpStatus', 'describeHandshakeResponse_httpStatus' - The response's http status code.
+newDescribeHandshakeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeHandshakeResponse
-describeHandshakeResponse pResponseStatus_ =
+newDescribeHandshakeResponse pHttpStatus_ =
   DescribeHandshakeResponse'
-    { _dhrrsHandshake =
-        Nothing,
-      _dhrrsResponseStatus = pResponseStatus_
+    { handshake =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A structure that contains information about the specified handshake.
-dhrrsHandshake :: Lens' DescribeHandshakeResponse (Maybe Handshake)
-dhrrsHandshake = lens _dhrrsHandshake (\s a -> s {_dhrrsHandshake = a})
+describeHandshakeResponse_handshake :: Lens.Lens' DescribeHandshakeResponse (Prelude.Maybe Handshake)
+describeHandshakeResponse_handshake = Lens.lens (\DescribeHandshakeResponse' {handshake} -> handshake) (\s@DescribeHandshakeResponse' {} a -> s {handshake = a} :: DescribeHandshakeResponse)
 
--- | -- | The response status code.
-dhrrsResponseStatus :: Lens' DescribeHandshakeResponse Int
-dhrrsResponseStatus = lens _dhrrsResponseStatus (\s a -> s {_dhrrsResponseStatus = a})
+-- | The response's http status code.
+describeHandshakeResponse_httpStatus :: Lens.Lens' DescribeHandshakeResponse Prelude.Int
+describeHandshakeResponse_httpStatus = Lens.lens (\DescribeHandshakeResponse' {httpStatus} -> httpStatus) (\s@DescribeHandshakeResponse' {} a -> s {httpStatus = a} :: DescribeHandshakeResponse)
 
-instance NFData DescribeHandshakeResponse
+instance Prelude.NFData DescribeHandshakeResponse

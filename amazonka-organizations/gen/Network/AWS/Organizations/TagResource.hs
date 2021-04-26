@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,118 +23,192 @@
 --
 -- Adds one or more tags to the specified resource.
 --
+-- Currently, you can attach tags to the following resources in AWS
+-- Organizations.
 --
--- Currently, you can attach tags to the following resources in AWS Organizations.
+-- -   AWS account
 --
---     * AWS account
+-- -   Organization root
 --
---     * Organization root
+-- -   Organizational unit (OU)
 --
---     * Organizational unit (OU)
+-- -   Policy (any type)
 --
---     * Policy (any type)
---
---
---
--- This operation can be called only from the organization's management account.
+-- This operation can be called only from the organization\'s management
+-- account.
 module Network.AWS.Organizations.TagResource
   ( -- * Creating a Request
-    tagResource,
-    TagResource,
+    TagResource (..),
+    newTagResource,
 
     -- * Request Lenses
-    trResourceId,
-    trTags,
+    tagResource_resourceId,
+    tagResource_tags,
 
     -- * Destructuring the Response
-    tagResourceResponse,
-    TagResourceResponse,
+    TagResourceResponse (..),
+    newTagResourceResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagResource' smart constructor.
+-- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { _trResourceId ::
-      !Text,
-    _trTags :: ![Tag]
+  { -- | The ID of the resource to add a tag to.
+    resourceId :: Prelude.Text,
+    -- | A list of tags to add to the specified resource.
+    --
+    -- You can specify any of the following taggable resources.
+    --
+    -- -   AWS account – specify the account ID number.
+    --
+    -- -   Organizational unit – specify the OU ID that begins with @ou-@ and
+    --     looks similar to: @ou-1a2b-34uvwxyz @
+    --
+    -- -   Root – specify the root ID that begins with @r-@ and looks similar
+    --     to: @r-1a2b @
+    --
+    -- -   Policy – specify the policy ID that begins with @p-@ andlooks
+    --     similar to: @p-12abcdefg3 @
+    --
+    -- For each tag in the list, you must specify both a tag key and a value.
+    -- You can set the value to an empty string, but you can\'t set it to
+    -- @null@.
+    --
+    -- If any one of the tags is invalid or if you exceed the allowed number of
+    -- tags for an account user, then the entire request fails and the account
+    -- is not created.
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trResourceId' - The ID of the resource to add a tag to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTags' - A list of tags to add to the specified resource. You can specify any of the following taggable resources.     * AWS account – specify the account ID number.     * Organizational unit – specify the OU ID that begins with @ou-@ and looks similar to: @ou-/1a2b-34uvwxyz/ @      * Root – specify the root ID that begins with @r-@ and looks similar to: @r-/1a2b/ @      * Policy – specify the policy ID that begins with @p-@ andlooks similar to: @p-/12abcdefg3/ @  For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to @null@ .
-tagResource ::
-  -- | 'trResourceId'
-  Text ->
+-- 'resourceId', 'tagResource_resourceId' - The ID of the resource to add a tag to.
+--
+-- 'tags', 'tagResource_tags' - A list of tags to add to the specified resource.
+--
+-- You can specify any of the following taggable resources.
+--
+-- -   AWS account – specify the account ID number.
+--
+-- -   Organizational unit – specify the OU ID that begins with @ou-@ and
+--     looks similar to: @ou-1a2b-34uvwxyz @
+--
+-- -   Root – specify the root ID that begins with @r-@ and looks similar
+--     to: @r-1a2b @
+--
+-- -   Policy – specify the policy ID that begins with @p-@ andlooks
+--     similar to: @p-12abcdefg3 @
+--
+-- For each tag in the list, you must specify both a tag key and a value.
+-- You can set the value to an empty string, but you can\'t set it to
+-- @null@.
+--
+-- If any one of the tags is invalid or if you exceed the allowed number of
+-- tags for an account user, then the entire request fails and the account
+-- is not created.
+newTagResource ::
+  -- | 'resourceId'
+  Prelude.Text ->
   TagResource
-tagResource pResourceId_ =
+newTagResource pResourceId_ =
   TagResource'
-    { _trResourceId = pResourceId_,
-      _trTags = mempty
+    { resourceId = pResourceId_,
+      tags = Prelude.mempty
     }
 
 -- | The ID of the resource to add a tag to.
-trResourceId :: Lens' TagResource Text
-trResourceId = lens _trResourceId (\s a -> s {_trResourceId = a})
+tagResource_resourceId :: Lens.Lens' TagResource Prelude.Text
+tagResource_resourceId = Lens.lens (\TagResource' {resourceId} -> resourceId) (\s@TagResource' {} a -> s {resourceId = a} :: TagResource)
 
--- | A list of tags to add to the specified resource. You can specify any of the following taggable resources.     * AWS account – specify the account ID number.     * Organizational unit – specify the OU ID that begins with @ou-@ and looks similar to: @ou-/1a2b-34uvwxyz/ @      * Root – specify the root ID that begins with @r-@ and looks similar to: @r-/1a2b/ @      * Policy – specify the policy ID that begins with @p-@ andlooks similar to: @p-/12abcdefg3/ @  For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to @null@ .
-trTags :: Lens' TagResource [Tag]
-trTags = lens _trTags (\s a -> s {_trTags = a}) . _Coerce
+-- | A list of tags to add to the specified resource.
+--
+-- You can specify any of the following taggable resources.
+--
+-- -   AWS account – specify the account ID number.
+--
+-- -   Organizational unit – specify the OU ID that begins with @ou-@ and
+--     looks similar to: @ou-1a2b-34uvwxyz @
+--
+-- -   Root – specify the root ID that begins with @r-@ and looks similar
+--     to: @r-1a2b @
+--
+-- -   Policy – specify the policy ID that begins with @p-@ andlooks
+--     similar to: @p-12abcdefg3 @
+--
+-- For each tag in the list, you must specify both a tag key and a value.
+-- You can set the value to an empty string, but you can\'t set it to
+-- @null@.
+--
+-- If any one of the tags is invalid or if you exceed the allowed number of
+-- tags for an account user, then the entire request fails and the account
+-- is not created.
+tagResource_tags :: Lens.Lens' TagResource [Tag]
+tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest TagResource where
+instance Prelude.AWSRequest TagResource where
   type Rs TagResource = TagResourceResponse
-  request = postJSON organizations
-  response = receiveNull TagResourceResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull TagResourceResponse'
 
-instance Hashable TagResource
+instance Prelude.Hashable TagResource
 
-instance NFData TagResource
+instance Prelude.NFData TagResource
 
-instance ToHeaders TagResource where
+instance Prelude.ToHeaders TagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.TagResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.TagResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TagResource where
+instance Prelude.ToJSON TagResource where
   toJSON TagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _trResourceId),
-            Just ("Tags" .= _trTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath TagResource where
-  toPath = const "/"
+instance Prelude.ToPath TagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery TagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagResourceResponse' smart constructor.
+-- | /See:/ 'newTagResourceResponse' smart constructor.
 data TagResourceResponse = TagResourceResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourceResponse' with the minimum fields required to make a request.
-tagResourceResponse ::
+-- |
+-- Create a value of 'TagResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newTagResourceResponse ::
   TagResourceResponse
-tagResourceResponse = TagResourceResponse'
+newTagResourceResponse = TagResourceResponse'
 
-instance NFData TagResourceResponse
+instance Prelude.NFData TagResourceResponse

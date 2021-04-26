@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,186 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the current status of an asynchronous request to create an account.
+-- Retrieves the current status of an asynchronous request to create an
+-- account.
 --
---
--- This operation can be called only from the organization's management account or by a member account that is a delegated administrator for an AWS service.
+-- This operation can be called only from the organization\'s management
+-- account or by a member account that is a delegated administrator for an
+-- AWS service.
 module Network.AWS.Organizations.DescribeCreateAccountStatus
   ( -- * Creating a Request
-    describeCreateAccountStatus,
-    DescribeCreateAccountStatus,
+    DescribeCreateAccountStatus (..),
+    newDescribeCreateAccountStatus,
 
     -- * Request Lenses
-    dcasCreateAccountRequestId,
+    describeCreateAccountStatus_createAccountRequestId,
 
     -- * Destructuring the Response
-    describeCreateAccountStatusResponse,
-    DescribeCreateAccountStatusResponse,
+    DescribeCreateAccountStatusResponse (..),
+    newDescribeCreateAccountStatusResponse,
 
     -- * Response Lenses
-    dcasrrsCreateAccountStatus,
-    dcasrrsResponseStatus,
+    describeCreateAccountStatusResponse_createAccountStatus,
+    describeCreateAccountStatusResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.CreateAccountStatus
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCreateAccountStatus' smart constructor.
-newtype DescribeCreateAccountStatus = DescribeCreateAccountStatus'
-  { _dcasCreateAccountRequestId ::
-      Text
+-- | /See:/ 'newDescribeCreateAccountStatus' smart constructor.
+data DescribeCreateAccountStatus = DescribeCreateAccountStatus'
+  { -- | Specifies the @Id@ value that uniquely identifies the @CreateAccount@
+    -- request. You can get the value from the @CreateAccountStatus.Id@
+    -- response in an earlier CreateAccount request, or from the
+    -- ListCreateAccountStatus operation.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for a create account
+    -- request ID string requires \"car-\" followed by from 8 to 32 lowercase
+    -- letters or digits.
+    createAccountRequestId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCreateAccountStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCreateAccountStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcasCreateAccountRequestId' - Specifies the @Id@ value that uniquely identifies the @CreateAccount@ request. You can get the value from the @CreateAccountStatus.Id@ response in an earlier 'CreateAccount' request, or from the 'ListCreateAccountStatus' operation. The <http://wikipedia.org/wiki/regex regex pattern> for a create account request ID string requires "car-" followed by from 8 to 32 lowercase letters or digits.
-describeCreateAccountStatus ::
-  -- | 'dcasCreateAccountRequestId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'createAccountRequestId', 'describeCreateAccountStatus_createAccountRequestId' - Specifies the @Id@ value that uniquely identifies the @CreateAccount@
+-- request. You can get the value from the @CreateAccountStatus.Id@
+-- response in an earlier CreateAccount request, or from the
+-- ListCreateAccountStatus operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a create account
+-- request ID string requires \"car-\" followed by from 8 to 32 lowercase
+-- letters or digits.
+newDescribeCreateAccountStatus ::
+  -- | 'createAccountRequestId'
+  Prelude.Text ->
   DescribeCreateAccountStatus
-describeCreateAccountStatus pCreateAccountRequestId_ =
-  DescribeCreateAccountStatus'
-    { _dcasCreateAccountRequestId =
-        pCreateAccountRequestId_
-    }
+newDescribeCreateAccountStatus
+  pCreateAccountRequestId_ =
+    DescribeCreateAccountStatus'
+      { createAccountRequestId =
+          pCreateAccountRequestId_
+      }
 
--- | Specifies the @Id@ value that uniquely identifies the @CreateAccount@ request. You can get the value from the @CreateAccountStatus.Id@ response in an earlier 'CreateAccount' request, or from the 'ListCreateAccountStatus' operation. The <http://wikipedia.org/wiki/regex regex pattern> for a create account request ID string requires "car-" followed by from 8 to 32 lowercase letters or digits.
-dcasCreateAccountRequestId :: Lens' DescribeCreateAccountStatus Text
-dcasCreateAccountRequestId = lens _dcasCreateAccountRequestId (\s a -> s {_dcasCreateAccountRequestId = a})
+-- | Specifies the @Id@ value that uniquely identifies the @CreateAccount@
+-- request. You can get the value from the @CreateAccountStatus.Id@
+-- response in an earlier CreateAccount request, or from the
+-- ListCreateAccountStatus operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a create account
+-- request ID string requires \"car-\" followed by from 8 to 32 lowercase
+-- letters or digits.
+describeCreateAccountStatus_createAccountRequestId :: Lens.Lens' DescribeCreateAccountStatus Prelude.Text
+describeCreateAccountStatus_createAccountRequestId = Lens.lens (\DescribeCreateAccountStatus' {createAccountRequestId} -> createAccountRequestId) (\s@DescribeCreateAccountStatus' {} a -> s {createAccountRequestId = a} :: DescribeCreateAccountStatus)
 
-instance AWSRequest DescribeCreateAccountStatus where
+instance
+  Prelude.AWSRequest
+    DescribeCreateAccountStatus
+  where
   type
     Rs DescribeCreateAccountStatus =
       DescribeCreateAccountStatusResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCreateAccountStatusResponse'
-            <$> (x .?> "CreateAccountStatus")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreateAccountStatus")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCreateAccountStatus
+instance Prelude.Hashable DescribeCreateAccountStatus
 
-instance NFData DescribeCreateAccountStatus
+instance Prelude.NFData DescribeCreateAccountStatus
 
-instance ToHeaders DescribeCreateAccountStatus where
+instance
+  Prelude.ToHeaders
+    DescribeCreateAccountStatus
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.DescribeCreateAccountStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.DescribeCreateAccountStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCreateAccountStatus where
+instance Prelude.ToJSON DescribeCreateAccountStatus where
   toJSON DescribeCreateAccountStatus' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "CreateAccountRequestId"
-                  .= _dcasCreateAccountRequestId
+                  Prelude..= createAccountRequestId
               )
           ]
       )
 
-instance ToPath DescribeCreateAccountStatus where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCreateAccountStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCreateAccountStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeCreateAccountStatus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeCreateAccountStatusResponse' smart constructor.
+-- | /See:/ 'newDescribeCreateAccountStatusResponse' smart constructor.
 data DescribeCreateAccountStatusResponse = DescribeCreateAccountStatusResponse'
-  { _dcasrrsCreateAccountStatus ::
-      !( Maybe
-           CreateAccountStatus
-       ),
-    _dcasrrsResponseStatus ::
-      !Int
+  { -- | A structure that contains the current status of an account creation
+    -- request.
+    createAccountStatus :: Prelude.Maybe CreateAccountStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCreateAccountStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCreateAccountStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcasrrsCreateAccountStatus' - A structure that contains the current status of an account creation request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcasrrsResponseStatus' - -- | The response status code.
-describeCreateAccountStatusResponse ::
-  -- | 'dcasrrsResponseStatus'
-  Int ->
+-- 'createAccountStatus', 'describeCreateAccountStatusResponse_createAccountStatus' - A structure that contains the current status of an account creation
+-- request.
+--
+-- 'httpStatus', 'describeCreateAccountStatusResponse_httpStatus' - The response's http status code.
+newDescribeCreateAccountStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCreateAccountStatusResponse
-describeCreateAccountStatusResponse pResponseStatus_ =
+newDescribeCreateAccountStatusResponse pHttpStatus_ =
   DescribeCreateAccountStatusResponse'
-    { _dcasrrsCreateAccountStatus =
-        Nothing,
-      _dcasrrsResponseStatus =
-        pResponseStatus_
+    { createAccountStatus =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A structure that contains the current status of an account creation request.
-dcasrrsCreateAccountStatus :: Lens' DescribeCreateAccountStatusResponse (Maybe CreateAccountStatus)
-dcasrrsCreateAccountStatus = lens _dcasrrsCreateAccountStatus (\s a -> s {_dcasrrsCreateAccountStatus = a})
+-- | A structure that contains the current status of an account creation
+-- request.
+describeCreateAccountStatusResponse_createAccountStatus :: Lens.Lens' DescribeCreateAccountStatusResponse (Prelude.Maybe CreateAccountStatus)
+describeCreateAccountStatusResponse_createAccountStatus = Lens.lens (\DescribeCreateAccountStatusResponse' {createAccountStatus} -> createAccountStatus) (\s@DescribeCreateAccountStatusResponse' {} a -> s {createAccountStatus = a} :: DescribeCreateAccountStatusResponse)
 
--- | -- | The response status code.
-dcasrrsResponseStatus :: Lens' DescribeCreateAccountStatusResponse Int
-dcasrrsResponseStatus = lens _dcasrrsResponseStatus (\s a -> s {_dcasrrsResponseStatus = a})
+-- | The response's http status code.
+describeCreateAccountStatusResponse_httpStatus :: Lens.Lens' DescribeCreateAccountStatusResponse Prelude.Int
+describeCreateAccountStatusResponse_httpStatus = Lens.lens (\DescribeCreateAccountStatusResponse' {httpStatus} -> httpStatus) (\s@DescribeCreateAccountStatusResponse' {} a -> s {httpStatus = a} :: DescribeCreateAccountStatusResponse)
 
-instance NFData DescribeCreateAccountStatusResponse
+instance
+  Prelude.NFData
+    DescribeCreateAccountStatusResponse

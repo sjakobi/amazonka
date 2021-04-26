@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an organizational unit (OU) within a root or parent OU. An OU is a container for accounts that enables you to organize your accounts to apply policies according to your business requirements. The number of levels deep that you can nest OUs is dependent upon the policy types enabled for that root. For service control policies, the limit is five.
+-- Creates an organizational unit (OU) within a root or parent OU. An OU is
+-- a container for accounts that enables you to organize your accounts to
+-- apply policies according to your business requirements. The number of
+-- levels deep that you can nest OUs is dependent upon the policy types
+-- enabled for that root. For service control policies, the limit is five.
 --
+-- For more information about OUs, see
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_ous.html Managing Organizational Units>
+-- in the /AWS Organizations User Guide./
 --
--- For more information about OUs, see <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_ous.html Managing Organizational Units> in the /AWS Organizations User Guide./
+-- If the request includes tags, then the requester must have the
+-- @organizations:TagResource@ permission.
 --
--- If the request includes tags, then the requester must have the @organizations:TagResource@ permission.
---
--- This operation can be called only from the organization's management account.
+-- This operation can be called only from the organization\'s management
+-- account.
 module Network.AWS.Organizations.CreateOrganizationalUnit
   ( -- * Creating a Request
-    createOrganizationalUnit,
-    CreateOrganizationalUnit,
+    CreateOrganizationalUnit (..),
+    newCreateOrganizationalUnit,
 
     -- * Request Lenses
-    couTags,
-    couParentId,
-    couName,
+    createOrganizationalUnit_tags,
+    createOrganizationalUnit_parentId,
+    createOrganizationalUnit_name,
 
     -- * Destructuring the Response
-    createOrganizationalUnitResponse,
-    CreateOrganizationalUnitResponse,
+    CreateOrganizationalUnitResponse (..),
+    newCreateOrganizationalUnitResponse,
 
     -- * Response Lenses
-    courrsOrganizationalUnit,
-    courrsResponseStatus,
+    createOrganizationalUnitResponse_organizationalUnit,
+    createOrganizationalUnitResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.OrganizationalUnit
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createOrganizationalUnit' smart constructor.
+-- | /See:/ 'newCreateOrganizationalUnit' smart constructor.
 data CreateOrganizationalUnit = CreateOrganizationalUnit'
-  { _couTags ::
-      !(Maybe [Tag]),
-    _couParentId :: !Text,
-    _couName :: !Text
+  { -- | A list of tags that you want to attach to the newly created OU. For each
+    -- tag in the list, you must specify both a tag key and a value. You can
+    -- set the value to an empty string, but you can\'t set it to @null@. For
+    -- more information about tagging, see
+    -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
+    -- in the AWS Organizations User Guide.
+    --
+    -- If any one of the tags is invalid or if you exceed the allowed number of
+    -- tags for an OU, then the entire request fails and the OU is not created.
+    tags :: Prelude.Maybe [Tag],
+    -- | The unique identifier (ID) of the parent root or OU that you want to
+    -- create the new OU in.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for a parent ID
+    -- string requires one of the following:
+    --
+    -- -   __Root__ - A string that begins with \"r-\" followed by from 4 to 32
+    --     lowercase letters or digits.
+    --
+    -- -   __Organizational unit (OU)__ - A string that begins with \"ou-\"
+    --     followed by from 4 to 32 lowercase letters or digits (the ID of the
+    --     root that the OU is in). This string is followed by a second \"-\"
+    --     dash and from 8 to 32 additional lowercase letters or digits.
+    parentId :: Prelude.Text,
+    -- | The friendly name to assign to the new OU.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateOrganizationalUnit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateOrganizationalUnit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'couTags' - A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to @null@ . For more information about tagging, see <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources> in the AWS Organizations User Guide.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'couParentId' - The unique identifier (ID) of the parent root or OU that you want to create the new OU in. The <http://wikipedia.org/wiki/regex regex pattern> for a parent ID string requires one of the following:     * __Root__ - A string that begins with "r-" followed by from 4 to 32 lowercase letters or digits.     * __Organizational unit (OU)__ - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that the OU is in). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
+-- 'tags', 'createOrganizationalUnit_tags' - A list of tags that you want to attach to the newly created OU. For each
+-- tag in the list, you must specify both a tag key and a value. You can
+-- set the value to an empty string, but you can\'t set it to @null@. For
+-- more information about tagging, see
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
+-- in the AWS Organizations User Guide.
 --
--- * 'couName' - The friendly name to assign to the new OU.
-createOrganizationalUnit ::
-  -- | 'couParentId'
-  Text ->
-  -- | 'couName'
-  Text ->
+-- If any one of the tags is invalid or if you exceed the allowed number of
+-- tags for an OU, then the entire request fails and the OU is not created.
+--
+-- 'parentId', 'createOrganizationalUnit_parentId' - The unique identifier (ID) of the parent root or OU that you want to
+-- create the new OU in.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a parent ID
+-- string requires one of the following:
+--
+-- -   __Root__ - A string that begins with \"r-\" followed by from 4 to 32
+--     lowercase letters or digits.
+--
+-- -   __Organizational unit (OU)__ - A string that begins with \"ou-\"
+--     followed by from 4 to 32 lowercase letters or digits (the ID of the
+--     root that the OU is in). This string is followed by a second \"-\"
+--     dash and from 8 to 32 additional lowercase letters or digits.
+--
+-- 'name', 'createOrganizationalUnit_name' - The friendly name to assign to the new OU.
+newCreateOrganizationalUnit ::
+  -- | 'parentId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   CreateOrganizationalUnit
-createOrganizationalUnit pParentId_ pName_ =
+newCreateOrganizationalUnit pParentId_ pName_ =
   CreateOrganizationalUnit'
-    { _couTags = Nothing,
-      _couParentId = pParentId_,
-      _couName = pName_
+    { tags = Prelude.Nothing,
+      parentId = pParentId_,
+      name = pName_
     }
 
--- | A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to @null@ . For more information about tagging, see <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources> in the AWS Organizations User Guide.
-couTags :: Lens' CreateOrganizationalUnit [Tag]
-couTags = lens _couTags (\s a -> s {_couTags = a}) . _Default . _Coerce
+-- | A list of tags that you want to attach to the newly created OU. For each
+-- tag in the list, you must specify both a tag key and a value. You can
+-- set the value to an empty string, but you can\'t set it to @null@. For
+-- more information about tagging, see
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
+-- in the AWS Organizations User Guide.
+--
+-- If any one of the tags is invalid or if you exceed the allowed number of
+-- tags for an OU, then the entire request fails and the OU is not created.
+createOrganizationalUnit_tags :: Lens.Lens' CreateOrganizationalUnit (Prelude.Maybe [Tag])
+createOrganizationalUnit_tags = Lens.lens (\CreateOrganizationalUnit' {tags} -> tags) (\s@CreateOrganizationalUnit' {} a -> s {tags = a} :: CreateOrganizationalUnit) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The unique identifier (ID) of the parent root or OU that you want to create the new OU in. The <http://wikipedia.org/wiki/regex regex pattern> for a parent ID string requires one of the following:     * __Root__ - A string that begins with "r-" followed by from 4 to 32 lowercase letters or digits.     * __Organizational unit (OU)__ - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that the OU is in). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
-couParentId :: Lens' CreateOrganizationalUnit Text
-couParentId = lens _couParentId (\s a -> s {_couParentId = a})
+-- | The unique identifier (ID) of the parent root or OU that you want to
+-- create the new OU in.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a parent ID
+-- string requires one of the following:
+--
+-- -   __Root__ - A string that begins with \"r-\" followed by from 4 to 32
+--     lowercase letters or digits.
+--
+-- -   __Organizational unit (OU)__ - A string that begins with \"ou-\"
+--     followed by from 4 to 32 lowercase letters or digits (the ID of the
+--     root that the OU is in). This string is followed by a second \"-\"
+--     dash and from 8 to 32 additional lowercase letters or digits.
+createOrganizationalUnit_parentId :: Lens.Lens' CreateOrganizationalUnit Prelude.Text
+createOrganizationalUnit_parentId = Lens.lens (\CreateOrganizationalUnit' {parentId} -> parentId) (\s@CreateOrganizationalUnit' {} a -> s {parentId = a} :: CreateOrganizationalUnit)
 
 -- | The friendly name to assign to the new OU.
-couName :: Lens' CreateOrganizationalUnit Text
-couName = lens _couName (\s a -> s {_couName = a})
+createOrganizationalUnit_name :: Lens.Lens' CreateOrganizationalUnit Prelude.Text
+createOrganizationalUnit_name = Lens.lens (\CreateOrganizationalUnit' {name} -> name) (\s@CreateOrganizationalUnit' {} a -> s {name = a} :: CreateOrganizationalUnit)
 
-instance AWSRequest CreateOrganizationalUnit where
+instance Prelude.AWSRequest CreateOrganizationalUnit where
   type
     Rs CreateOrganizationalUnit =
       CreateOrganizationalUnitResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateOrganizationalUnitResponse'
-            <$> (x .?> "OrganizationalUnit") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "OrganizationalUnit")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateOrganizationalUnit
+instance Prelude.Hashable CreateOrganizationalUnit
 
-instance NFData CreateOrganizationalUnit
+instance Prelude.NFData CreateOrganizationalUnit
 
-instance ToHeaders CreateOrganizationalUnit where
+instance Prelude.ToHeaders CreateOrganizationalUnit where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.CreateOrganizationalUnit" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.CreateOrganizationalUnit" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateOrganizationalUnit where
+instance Prelude.ToJSON CreateOrganizationalUnit where
   toJSON CreateOrganizationalUnit' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _couTags,
-            Just ("ParentId" .= _couParentId),
-            Just ("Name" .= _couName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("ParentId" Prelude..= parentId),
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateOrganizationalUnit where
-  toPath = const "/"
+instance Prelude.ToPath CreateOrganizationalUnit where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateOrganizationalUnit where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateOrganizationalUnit where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createOrganizationalUnitResponse' smart constructor.
+-- | /See:/ 'newCreateOrganizationalUnitResponse' smart constructor.
 data CreateOrganizationalUnitResponse = CreateOrganizationalUnitResponse'
-  { _courrsOrganizationalUnit ::
-      !( Maybe
-           OrganizationalUnit
-       ),
-    _courrsResponseStatus ::
-      !Int
+  { -- | A structure that contains details about the newly created OU.
+    organizationalUnit :: Prelude.Maybe OrganizationalUnit,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateOrganizationalUnitResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateOrganizationalUnitResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'courrsOrganizationalUnit' - A structure that contains details about the newly created OU.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'courrsResponseStatus' - -- | The response status code.
-createOrganizationalUnitResponse ::
-  -- | 'courrsResponseStatus'
-  Int ->
+-- 'organizationalUnit', 'createOrganizationalUnitResponse_organizationalUnit' - A structure that contains details about the newly created OU.
+--
+-- 'httpStatus', 'createOrganizationalUnitResponse_httpStatus' - The response's http status code.
+newCreateOrganizationalUnitResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateOrganizationalUnitResponse
-createOrganizationalUnitResponse pResponseStatus_ =
+newCreateOrganizationalUnitResponse pHttpStatus_ =
   CreateOrganizationalUnitResponse'
-    { _courrsOrganizationalUnit =
-        Nothing,
-      _courrsResponseStatus = pResponseStatus_
+    { organizationalUnit =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A structure that contains details about the newly created OU.
-courrsOrganizationalUnit :: Lens' CreateOrganizationalUnitResponse (Maybe OrganizationalUnit)
-courrsOrganizationalUnit = lens _courrsOrganizationalUnit (\s a -> s {_courrsOrganizationalUnit = a})
+createOrganizationalUnitResponse_organizationalUnit :: Lens.Lens' CreateOrganizationalUnitResponse (Prelude.Maybe OrganizationalUnit)
+createOrganizationalUnitResponse_organizationalUnit = Lens.lens (\CreateOrganizationalUnitResponse' {organizationalUnit} -> organizationalUnit) (\s@CreateOrganizationalUnitResponse' {} a -> s {organizationalUnit = a} :: CreateOrganizationalUnitResponse)
 
--- | -- | The response status code.
-courrsResponseStatus :: Lens' CreateOrganizationalUnitResponse Int
-courrsResponseStatus = lens _courrsResponseStatus (\s a -> s {_courrsResponseStatus = a})
+-- | The response's http status code.
+createOrganizationalUnitResponse_httpStatus :: Lens.Lens' CreateOrganizationalUnitResponse Prelude.Int
+createOrganizationalUnitResponse_httpStatus = Lens.lens (\CreateOrganizationalUnitResponse' {httpStatus} -> httpStatus) (\s@CreateOrganizationalUnitResponse' {} a -> s {httpStatus = a} :: CreateOrganizationalUnitResponse)
 
-instance NFData CreateOrganizationalUnitResponse
+instance
+  Prelude.NFData
+    CreateOrganizationalUnitResponse

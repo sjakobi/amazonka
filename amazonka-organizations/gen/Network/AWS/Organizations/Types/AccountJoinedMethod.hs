@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Organizations.Types.AccountJoinedMethod
   ( AccountJoinedMethod
       ( ..,
-        Created,
-        Invited
+        AccountJoinedMethodCREATED,
+        AccountJoinedMethodINVITED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccountJoinedMethod
-  = AccountJoinedMethod'
-      ( CI
-          Text
-      )
+newtype AccountJoinedMethod = AccountJoinedMethod'
+  { fromAccountJoinedMethod ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Created :: AccountJoinedMethod
-pattern Created = AccountJoinedMethod' "CREATED"
+pattern AccountJoinedMethodCREATED :: AccountJoinedMethod
+pattern AccountJoinedMethodCREATED = AccountJoinedMethod' "CREATED"
 
-pattern Invited :: AccountJoinedMethod
-pattern Invited = AccountJoinedMethod' "INVITED"
+pattern AccountJoinedMethodINVITED :: AccountJoinedMethod
+pattern AccountJoinedMethodINVITED = AccountJoinedMethod' "INVITED"
 
 {-# COMPLETE
-  Created,
-  Invited,
+  AccountJoinedMethodCREATED,
+  AccountJoinedMethodINVITED,
   AccountJoinedMethod'
   #-}
 
-instance FromText AccountJoinedMethod where
-  parser = (AccountJoinedMethod' . mk) <$> takeText
+instance Prelude.FromText AccountJoinedMethod where
+  parser = AccountJoinedMethod' Prelude.<$> Prelude.takeText
 
-instance ToText AccountJoinedMethod where
-  toText (AccountJoinedMethod' ci) = original ci
+instance Prelude.ToText AccountJoinedMethod where
+  toText (AccountJoinedMethod' x) = x
 
-instance Hashable AccountJoinedMethod
+instance Prelude.Hashable AccountJoinedMethod
 
-instance NFData AccountJoinedMethod
+instance Prelude.NFData AccountJoinedMethod
 
-instance ToByteString AccountJoinedMethod
+instance Prelude.ToByteString AccountJoinedMethod
 
-instance ToQuery AccountJoinedMethod
+instance Prelude.ToQuery AccountJoinedMethod
 
-instance ToHeader AccountJoinedMethod
+instance Prelude.ToHeader AccountJoinedMethod
 
-instance FromJSON AccountJoinedMethod where
-  parseJSON = parseJSONText "AccountJoinedMethod"
+instance Prelude.FromJSON AccountJoinedMethod where
+  parseJSON = Prelude.parseJSONText "AccountJoinedMethod"

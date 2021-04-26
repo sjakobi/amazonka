@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables the specified member account to administer the Organizations features of the specified AWS service. It grants read-only access to AWS Organizations service data. The account still requires IAM permissions to access and administer the AWS service.
+-- Enables the specified member account to administer the Organizations
+-- features of the specified AWS service. It grants read-only access to AWS
+-- Organizations service data. The account still requires IAM permissions
+-- to access and administer the AWS service.
 --
+-- You can run this action only for AWS services that support this feature.
+-- For a current list of services that support it, see the column /Supports
+-- Delegated Administrator/ in the table at
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html AWS Services that you can use with AWS Organizations>
+-- in the /AWS Organizations User Guide./
 --
--- You can run this action only for AWS services that support this feature. For a current list of services that support it, see the column /Supports Delegated Administrator/ in the table at <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html AWS Services that you can use with AWS Organizations> in the /AWS Organizations User Guide./
---
--- This operation can be called only from the organization's management account.
+-- This operation can be called only from the organization\'s management
+-- account.
 module Network.AWS.Organizations.RegisterDelegatedAdministrator
   ( -- * Creating a Request
-    registerDelegatedAdministrator,
-    RegisterDelegatedAdministrator,
+    RegisterDelegatedAdministrator (..),
+    newRegisterDelegatedAdministrator,
 
     -- * Request Lenses
-    rdaAccountId,
-    rdaServicePrincipal,
+    registerDelegatedAdministrator_accountId,
+    registerDelegatedAdministrator_servicePrincipal,
 
     -- * Destructuring the Response
-    registerDelegatedAdministratorResponse,
-    RegisterDelegatedAdministratorResponse,
+    RegisterDelegatedAdministratorResponse (..),
+    newRegisterDelegatedAdministratorResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerDelegatedAdministrator' smart constructor.
+-- | /See:/ 'newRegisterDelegatedAdministrator' smart constructor.
 data RegisterDelegatedAdministrator = RegisterDelegatedAdministrator'
-  { _rdaAccountId ::
-      !Text,
-    _rdaServicePrincipal ::
-      !Text
+  { -- | The account ID number of the member account in the organization to
+    -- register as a delegated administrator.
+    accountId :: Prelude.Text,
+    -- | The service principal of the AWS service for which you want to make the
+    -- member account a delegated administrator.
+    servicePrincipal :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterDelegatedAdministrator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterDelegatedAdministrator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdaAccountId' - The account ID number of the member account in the organization to register as a delegated administrator.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdaServicePrincipal' - The service principal of the AWS service for which you want to make the member account a delegated administrator.
-registerDelegatedAdministrator ::
-  -- | 'rdaAccountId'
-  Text ->
-  -- | 'rdaServicePrincipal'
-  Text ->
+-- 'accountId', 'registerDelegatedAdministrator_accountId' - The account ID number of the member account in the organization to
+-- register as a delegated administrator.
+--
+-- 'servicePrincipal', 'registerDelegatedAdministrator_servicePrincipal' - The service principal of the AWS service for which you want to make the
+-- member account a delegated administrator.
+newRegisterDelegatedAdministrator ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'servicePrincipal'
+  Prelude.Text ->
   RegisterDelegatedAdministrator
-registerDelegatedAdministrator
+newRegisterDelegatedAdministrator
   pAccountId_
   pServicePrincipal_ =
     RegisterDelegatedAdministrator'
-      { _rdaAccountId =
+      { accountId =
           pAccountId_,
-        _rdaServicePrincipal = pServicePrincipal_
+        servicePrincipal = pServicePrincipal_
       }
 
--- | The account ID number of the member account in the organization to register as a delegated administrator.
-rdaAccountId :: Lens' RegisterDelegatedAdministrator Text
-rdaAccountId = lens _rdaAccountId (\s a -> s {_rdaAccountId = a})
+-- | The account ID number of the member account in the organization to
+-- register as a delegated administrator.
+registerDelegatedAdministrator_accountId :: Lens.Lens' RegisterDelegatedAdministrator Prelude.Text
+registerDelegatedAdministrator_accountId = Lens.lens (\RegisterDelegatedAdministrator' {accountId} -> accountId) (\s@RegisterDelegatedAdministrator' {} a -> s {accountId = a} :: RegisterDelegatedAdministrator)
 
--- | The service principal of the AWS service for which you want to make the member account a delegated administrator.
-rdaServicePrincipal :: Lens' RegisterDelegatedAdministrator Text
-rdaServicePrincipal = lens _rdaServicePrincipal (\s a -> s {_rdaServicePrincipal = a})
+-- | The service principal of the AWS service for which you want to make the
+-- member account a delegated administrator.
+registerDelegatedAdministrator_servicePrincipal :: Lens.Lens' RegisterDelegatedAdministrator Prelude.Text
+registerDelegatedAdministrator_servicePrincipal = Lens.lens (\RegisterDelegatedAdministrator' {servicePrincipal} -> servicePrincipal) (\s@RegisterDelegatedAdministrator' {} a -> s {servicePrincipal = a} :: RegisterDelegatedAdministrator)
 
-instance AWSRequest RegisterDelegatedAdministrator where
+instance
+  Prelude.AWSRequest
+    RegisterDelegatedAdministrator
+  where
   type
     Rs RegisterDelegatedAdministrator =
       RegisterDelegatedAdministratorResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveNull RegisterDelegatedAdministratorResponse'
+    Response.receiveNull
+      RegisterDelegatedAdministratorResponse'
 
-instance Hashable RegisterDelegatedAdministrator
+instance
+  Prelude.Hashable
+    RegisterDelegatedAdministrator
 
-instance NFData RegisterDelegatedAdministrator
+instance
+  Prelude.NFData
+    RegisterDelegatedAdministrator
 
-instance ToHeaders RegisterDelegatedAdministrator where
+instance
+  Prelude.ToHeaders
+    RegisterDelegatedAdministrator
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.RegisterDelegatedAdministrator" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.RegisterDelegatedAdministrator" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterDelegatedAdministrator where
+instance
+  Prelude.ToJSON
+    RegisterDelegatedAdministrator
+  where
   toJSON RegisterDelegatedAdministrator' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountId" .= _rdaAccountId),
-            Just ("ServicePrincipal" .= _rdaServicePrincipal)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountId" Prelude..= accountId),
+            Prelude.Just
+              ("ServicePrincipal" Prelude..= servicePrincipal)
           ]
       )
 
-instance ToPath RegisterDelegatedAdministrator where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    RegisterDelegatedAdministrator
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterDelegatedAdministrator where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    RegisterDelegatedAdministrator
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerDelegatedAdministratorResponse' smart constructor.
+-- | /See:/ 'newRegisterDelegatedAdministratorResponse' smart constructor.
 data RegisterDelegatedAdministratorResponse = RegisterDelegatedAdministratorResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterDelegatedAdministratorResponse' with the minimum fields required to make a request.
-registerDelegatedAdministratorResponse ::
+-- |
+-- Create a value of 'RegisterDelegatedAdministratorResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRegisterDelegatedAdministratorResponse ::
   RegisterDelegatedAdministratorResponse
-registerDelegatedAdministratorResponse =
+newRegisterDelegatedAdministratorResponse =
   RegisterDelegatedAdministratorResponse'
 
 instance
-  NFData
+  Prelude.NFData
     RegisterDelegatedAdministratorResponse

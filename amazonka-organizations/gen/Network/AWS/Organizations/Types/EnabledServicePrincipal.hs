@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Organizations.Types.EnabledServicePrincipal where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A structure that contains details of a service principal that represents an AWS service that is enabled to integrate with AWS Organizations.
+-- | A structure that contains details of a service principal that represents
+-- an AWS service that is enabled to integrate with AWS Organizations.
 --
---
---
--- /See:/ 'enabledServicePrincipal' smart constructor.
+-- /See:/ 'newEnabledServicePrincipal' smart constructor.
 data EnabledServicePrincipal = EnabledServicePrincipal'
-  { _espServicePrincipal ::
-      !(Maybe Text),
-    _espDateEnabled ::
-      !(Maybe POSIX)
+  { -- | The name of the service principal. This is typically in the form of a
+    -- URL, such as: @ servicename.amazonaws.com@.
+    servicePrincipal :: Prelude.Maybe Prelude.Text,
+    -- | The date that the service principal was enabled for integration with AWS
+    -- Organizations.
+    dateEnabled :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnabledServicePrincipal' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnabledServicePrincipal' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'espServicePrincipal' - The name of the service principal. This is typically in the form of a URL, such as: @/servicename/ .amazonaws.com@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'espDateEnabled' - The date that the service principal was enabled for integration with AWS Organizations.
-enabledServicePrincipal ::
+-- 'servicePrincipal', 'enabledServicePrincipal_servicePrincipal' - The name of the service principal. This is typically in the form of a
+-- URL, such as: @ servicename.amazonaws.com@.
+--
+-- 'dateEnabled', 'enabledServicePrincipal_dateEnabled' - The date that the service principal was enabled for integration with AWS
+-- Organizations.
+newEnabledServicePrincipal ::
   EnabledServicePrincipal
-enabledServicePrincipal =
+newEnabledServicePrincipal =
   EnabledServicePrincipal'
-    { _espServicePrincipal =
-        Nothing,
-      _espDateEnabled = Nothing
+    { servicePrincipal =
+        Prelude.Nothing,
+      dateEnabled = Prelude.Nothing
     }
 
--- | The name of the service principal. This is typically in the form of a URL, such as: @/servicename/ .amazonaws.com@ .
-espServicePrincipal :: Lens' EnabledServicePrincipal (Maybe Text)
-espServicePrincipal = lens _espServicePrincipal (\s a -> s {_espServicePrincipal = a})
+-- | The name of the service principal. This is typically in the form of a
+-- URL, such as: @ servicename.amazonaws.com@.
+enabledServicePrincipal_servicePrincipal :: Lens.Lens' EnabledServicePrincipal (Prelude.Maybe Prelude.Text)
+enabledServicePrincipal_servicePrincipal = Lens.lens (\EnabledServicePrincipal' {servicePrincipal} -> servicePrincipal) (\s@EnabledServicePrincipal' {} a -> s {servicePrincipal = a} :: EnabledServicePrincipal)
 
--- | The date that the service principal was enabled for integration with AWS Organizations.
-espDateEnabled :: Lens' EnabledServicePrincipal (Maybe UTCTime)
-espDateEnabled = lens _espDateEnabled (\s a -> s {_espDateEnabled = a}) . mapping _Time
+-- | The date that the service principal was enabled for integration with AWS
+-- Organizations.
+enabledServicePrincipal_dateEnabled :: Lens.Lens' EnabledServicePrincipal (Prelude.Maybe Prelude.UTCTime)
+enabledServicePrincipal_dateEnabled = Lens.lens (\EnabledServicePrincipal' {dateEnabled} -> dateEnabled) (\s@EnabledServicePrincipal' {} a -> s {dateEnabled = a} :: EnabledServicePrincipal) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON EnabledServicePrincipal where
+instance Prelude.FromJSON EnabledServicePrincipal where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EnabledServicePrincipal"
       ( \x ->
           EnabledServicePrincipal'
-            <$> (x .:? "ServicePrincipal") <*> (x .:? "DateEnabled")
+            Prelude.<$> (x Prelude..:? "ServicePrincipal")
+            Prelude.<*> (x Prelude..:? "DateEnabled")
       )
 
-instance Hashable EnabledServicePrincipal
+instance Prelude.Hashable EnabledServicePrincipal
 
-instance NFData EnabledServicePrincipal
+instance Prelude.NFData EnabledServicePrincipal

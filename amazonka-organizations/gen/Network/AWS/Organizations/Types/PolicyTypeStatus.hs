@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Organizations.Types.PolicyTypeStatus
   ( PolicyTypeStatus
       ( ..,
-        Enabled,
-        PendingDisable,
-        PendingEnable
+        PolicyTypeStatusENABLED,
+        PolicyTypeStatusPENDINGDISABLE,
+        PolicyTypeStatusPENDINGENABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicyTypeStatus = PolicyTypeStatus' (CI Text)
+newtype PolicyTypeStatus = PolicyTypeStatus'
+  { fromPolicyTypeStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Enabled :: PolicyTypeStatus
-pattern Enabled = PolicyTypeStatus' "ENABLED"
+pattern PolicyTypeStatusENABLED :: PolicyTypeStatus
+pattern PolicyTypeStatusENABLED = PolicyTypeStatus' "ENABLED"
 
-pattern PendingDisable :: PolicyTypeStatus
-pattern PendingDisable = PolicyTypeStatus' "PENDING_DISABLE"
+pattern PolicyTypeStatusPENDINGDISABLE :: PolicyTypeStatus
+pattern PolicyTypeStatusPENDINGDISABLE = PolicyTypeStatus' "PENDING_DISABLE"
 
-pattern PendingEnable :: PolicyTypeStatus
-pattern PendingEnable = PolicyTypeStatus' "PENDING_ENABLE"
+pattern PolicyTypeStatusPENDINGENABLE :: PolicyTypeStatus
+pattern PolicyTypeStatusPENDINGENABLE = PolicyTypeStatus' "PENDING_ENABLE"
 
 {-# COMPLETE
-  Enabled,
-  PendingDisable,
-  PendingEnable,
+  PolicyTypeStatusENABLED,
+  PolicyTypeStatusPENDINGDISABLE,
+  PolicyTypeStatusPENDINGENABLE,
   PolicyTypeStatus'
   #-}
 
-instance FromText PolicyTypeStatus where
-  parser = (PolicyTypeStatus' . mk) <$> takeText
+instance Prelude.FromText PolicyTypeStatus where
+  parser = PolicyTypeStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PolicyTypeStatus where
-  toText (PolicyTypeStatus' ci) = original ci
+instance Prelude.ToText PolicyTypeStatus where
+  toText (PolicyTypeStatus' x) = x
 
-instance Hashable PolicyTypeStatus
+instance Prelude.Hashable PolicyTypeStatus
 
-instance NFData PolicyTypeStatus
+instance Prelude.NFData PolicyTypeStatus
 
-instance ToByteString PolicyTypeStatus
+instance Prelude.ToByteString PolicyTypeStatus
 
-instance ToQuery PolicyTypeStatus
+instance Prelude.ToQuery PolicyTypeStatus
 
-instance ToHeader PolicyTypeStatus
+instance Prelude.ToHeader PolicyTypeStatus
 
-instance FromJSON PolicyTypeStatus where
-  parseJSON = parseJSONText "PolicyTypeStatus"
+instance Prelude.FromJSON PolicyTypeStatus where
+  parseJSON = Prelude.parseJSONText "PolicyTypeStatus"

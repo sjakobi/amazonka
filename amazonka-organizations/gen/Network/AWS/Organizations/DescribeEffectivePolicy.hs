@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,199 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the contents of the effective policy for specified policy type and account. The effective policy is the aggregation of any policies of the specified type that the account inherits, plus any policy of that type that is directly attached to the account.
+-- Returns the contents of the effective policy for specified policy type
+-- and account. The effective policy is the aggregation of any policies of
+-- the specified type that the account inherits, plus any policy of that
+-- type that is directly attached to the account.
 --
+-- This operation applies only to policy types /other/ than service control
+-- policies (SCPs).
 --
--- This operation applies only to policy types /other/ than service control policies (SCPs).
+-- For more information about policy inheritance, see
+-- <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies-inheritance.html How Policy Inheritance Works>
+-- in the /AWS Organizations User Guide/.
 --
--- For more information about policy inheritance, see <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies-inheritance.html How Policy Inheritance Works> in the /AWS Organizations User Guide/ .
---
--- This operation can be called only from the organization's management account or by a member account that is a delegated administrator for an AWS service.
+-- This operation can be called only from the organization\'s management
+-- account or by a member account that is a delegated administrator for an
+-- AWS service.
 module Network.AWS.Organizations.DescribeEffectivePolicy
   ( -- * Creating a Request
-    describeEffectivePolicy,
-    DescribeEffectivePolicy,
+    DescribeEffectivePolicy (..),
+    newDescribeEffectivePolicy,
 
     -- * Request Lenses
-    depTargetId,
-    depPolicyType,
+    describeEffectivePolicy_targetId,
+    describeEffectivePolicy_policyType,
 
     -- * Destructuring the Response
-    describeEffectivePolicyResponse,
-    DescribeEffectivePolicyResponse,
+    DescribeEffectivePolicyResponse (..),
+    newDescribeEffectivePolicyResponse,
 
     -- * Response Lenses
-    deprrsEffectivePolicy,
-    deprrsResponseStatus,
+    describeEffectivePolicyResponse_effectivePolicy,
+    describeEffectivePolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.EffectivePolicy
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeEffectivePolicy' smart constructor.
+-- | /See:/ 'newDescribeEffectivePolicy' smart constructor.
 data DescribeEffectivePolicy = DescribeEffectivePolicy'
-  { _depTargetId ::
-      !(Maybe Text),
-    _depPolicyType ::
-      !EffectivePolicyType
+  { -- | When you\'re signed in as the management account, specify the ID of the
+    -- account that you want details about. Specifying an organization root or
+    -- organizational unit (OU) as the target is not supported.
+    targetId :: Prelude.Maybe Prelude.Text,
+    -- | The type of policy that you want information about. You can specify one
+    -- of the following values:
+    --
+    -- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>
+    --
+    -- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>
+    --
+    -- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
+    policyType :: EffectivePolicyType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEffectivePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEffectivePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'depTargetId' - When you're signed in as the management account, specify the ID of the account that you want details about. Specifying an organization root or organizational unit (OU) as the target is not supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'depPolicyType' - The type of policy that you want information about. You can specify one of the following values:     * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
-describeEffectivePolicy ::
-  -- | 'depPolicyType'
+-- 'targetId', 'describeEffectivePolicy_targetId' - When you\'re signed in as the management account, specify the ID of the
+-- account that you want details about. Specifying an organization root or
+-- organizational unit (OU) as the target is not supported.
+--
+-- 'policyType', 'describeEffectivePolicy_policyType' - The type of policy that you want information about. You can specify one
+-- of the following values:
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
+newDescribeEffectivePolicy ::
+  -- | 'policyType'
   EffectivePolicyType ->
   DescribeEffectivePolicy
-describeEffectivePolicy pPolicyType_ =
+newDescribeEffectivePolicy pPolicyType_ =
   DescribeEffectivePolicy'
-    { _depTargetId = Nothing,
-      _depPolicyType = pPolicyType_
+    { targetId =
+        Prelude.Nothing,
+      policyType = pPolicyType_
     }
 
--- | When you're signed in as the management account, specify the ID of the account that you want details about. Specifying an organization root or organizational unit (OU) as the target is not supported.
-depTargetId :: Lens' DescribeEffectivePolicy (Maybe Text)
-depTargetId = lens _depTargetId (\s a -> s {_depTargetId = a})
+-- | When you\'re signed in as the management account, specify the ID of the
+-- account that you want details about. Specifying an organization root or
+-- organizational unit (OU) as the target is not supported.
+describeEffectivePolicy_targetId :: Lens.Lens' DescribeEffectivePolicy (Prelude.Maybe Prelude.Text)
+describeEffectivePolicy_targetId = Lens.lens (\DescribeEffectivePolicy' {targetId} -> targetId) (\s@DescribeEffectivePolicy' {} a -> s {targetId = a} :: DescribeEffectivePolicy)
 
--- | The type of policy that you want information about. You can specify one of the following values:     * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>      * <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
-depPolicyType :: Lens' DescribeEffectivePolicy EffectivePolicyType
-depPolicyType = lens _depPolicyType (\s a -> s {_depPolicyType = a})
+-- | The type of policy that you want information about. You can specify one
+-- of the following values:
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html BACKUP_POLICY>
+--
+-- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html TAG_POLICY>
+describeEffectivePolicy_policyType :: Lens.Lens' DescribeEffectivePolicy EffectivePolicyType
+describeEffectivePolicy_policyType = Lens.lens (\DescribeEffectivePolicy' {policyType} -> policyType) (\s@DescribeEffectivePolicy' {} a -> s {policyType = a} :: DescribeEffectivePolicy)
 
-instance AWSRequest DescribeEffectivePolicy where
+instance Prelude.AWSRequest DescribeEffectivePolicy where
   type
     Rs DescribeEffectivePolicy =
       DescribeEffectivePolicyResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEffectivePolicyResponse'
-            <$> (x .?> "EffectivePolicy") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "EffectivePolicy")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEffectivePolicy
+instance Prelude.Hashable DescribeEffectivePolicy
 
-instance NFData DescribeEffectivePolicy
+instance Prelude.NFData DescribeEffectivePolicy
 
-instance ToHeaders DescribeEffectivePolicy where
+instance Prelude.ToHeaders DescribeEffectivePolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.DescribeEffectivePolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.DescribeEffectivePolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEffectivePolicy where
+instance Prelude.ToJSON DescribeEffectivePolicy where
   toJSON DescribeEffectivePolicy' {..} =
-    object
-      ( catMaybes
-          [ ("TargetId" .=) <$> _depTargetId,
-            Just ("PolicyType" .= _depPolicyType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TargetId" Prelude..=) Prelude.<$> targetId,
+            Prelude.Just ("PolicyType" Prelude..= policyType)
           ]
       )
 
-instance ToPath DescribeEffectivePolicy where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEffectivePolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEffectivePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEffectivePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEffectivePolicyResponse' smart constructor.
+-- | /See:/ 'newDescribeEffectivePolicyResponse' smart constructor.
 data DescribeEffectivePolicyResponse = DescribeEffectivePolicyResponse'
-  { _deprrsEffectivePolicy ::
-      !( Maybe
-           EffectivePolicy
-       ),
-    _deprrsResponseStatus ::
-      !Int
+  { -- | The contents of the effective policy.
+    effectivePolicy :: Prelude.Maybe EffectivePolicy,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEffectivePolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEffectivePolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deprrsEffectivePolicy' - The contents of the effective policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deprrsResponseStatus' - -- | The response status code.
-describeEffectivePolicyResponse ::
-  -- | 'deprrsResponseStatus'
-  Int ->
+-- 'effectivePolicy', 'describeEffectivePolicyResponse_effectivePolicy' - The contents of the effective policy.
+--
+-- 'httpStatus', 'describeEffectivePolicyResponse_httpStatus' - The response's http status code.
+newDescribeEffectivePolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEffectivePolicyResponse
-describeEffectivePolicyResponse pResponseStatus_ =
+newDescribeEffectivePolicyResponse pHttpStatus_ =
   DescribeEffectivePolicyResponse'
-    { _deprrsEffectivePolicy =
-        Nothing,
-      _deprrsResponseStatus = pResponseStatus_
+    { effectivePolicy =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The contents of the effective policy.
-deprrsEffectivePolicy :: Lens' DescribeEffectivePolicyResponse (Maybe EffectivePolicy)
-deprrsEffectivePolicy = lens _deprrsEffectivePolicy (\s a -> s {_deprrsEffectivePolicy = a})
+describeEffectivePolicyResponse_effectivePolicy :: Lens.Lens' DescribeEffectivePolicyResponse (Prelude.Maybe EffectivePolicy)
+describeEffectivePolicyResponse_effectivePolicy = Lens.lens (\DescribeEffectivePolicyResponse' {effectivePolicy} -> effectivePolicy) (\s@DescribeEffectivePolicyResponse' {} a -> s {effectivePolicy = a} :: DescribeEffectivePolicyResponse)
 
--- | -- | The response status code.
-deprrsResponseStatus :: Lens' DescribeEffectivePolicyResponse Int
-deprrsResponseStatus = lens _deprrsResponseStatus (\s a -> s {_deprrsResponseStatus = a})
+-- | The response's http status code.
+describeEffectivePolicyResponse_httpStatus :: Lens.Lens' DescribeEffectivePolicyResponse Prelude.Int
+describeEffectivePolicyResponse_httpStatus = Lens.lens (\DescribeEffectivePolicyResponse' {httpStatus} -> httpStatus) (\s@DescribeEffectivePolicyResponse' {} a -> s {httpStatus = a} :: DescribeEffectivePolicyResponse)
 
-instance NFData DescribeEffectivePolicyResponse
+instance
+  Prelude.NFData
+    DescribeEffectivePolicyResponse

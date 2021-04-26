@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,188 +21,282 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all the roots, organizational units (OUs), and accounts that the specified policy is attached to.
+-- Lists all the roots, organizational units (OUs), and accounts that the
+-- specified policy is attached to.
 --
+-- Always check the @NextToken@ response parameter for a @null@ value when
+-- calling a @List*@ operation. These operations can occasionally return an
+-- empty set of results even when there are more results available. The
+-- @NextToken@ response parameter value is @null@ /only/ when there are no
+-- more results to display.
 --
--- This operation can be called only from the organization's management account or by a member account that is a delegated administrator for an AWS service.
---
+-- This operation can be called only from the organization\'s management
+-- account or by a member account that is a delegated administrator for an
+-- AWS service.
 --
 -- This operation returns paginated results.
 module Network.AWS.Organizations.ListTargetsForPolicy
   ( -- * Creating a Request
-    listTargetsForPolicy,
-    ListTargetsForPolicy,
+    ListTargetsForPolicy (..),
+    newListTargetsForPolicy,
 
     -- * Request Lenses
-    ltfpNextToken,
-    ltfpMaxResults,
-    ltfpPolicyId,
+    listTargetsForPolicy_nextToken,
+    listTargetsForPolicy_maxResults,
+    listTargetsForPolicy_policyId,
 
     -- * Destructuring the Response
-    listTargetsForPolicyResponse,
-    ListTargetsForPolicyResponse,
+    ListTargetsForPolicyResponse (..),
+    newListTargetsForPolicyResponse,
 
     -- * Response Lenses
-    ltfprrsNextToken,
-    ltfprrsTargets,
-    ltfprrsResponseStatus,
+    listTargetsForPolicyResponse_nextToken,
+    listTargetsForPolicyResponse_targets,
+    listTargetsForPolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.PolicyTargetSummary
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTargetsForPolicy' smart constructor.
+-- | /See:/ 'newListTargetsForPolicy' smart constructor.
 data ListTargetsForPolicy = ListTargetsForPolicy'
-  { _ltfpNextToken ::
-      !(Maybe Text),
-    _ltfpMaxResults ::
-      !(Maybe Nat),
-    _ltfpPolicyId :: !Text
+  { -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The total number of results that you want included on each page of the
+    -- response. If you do not include this parameter, it defaults to a value
+    -- that is specific to the operation. If additional items exist beyond the
+    -- maximum you specify, the @NextToken@ response element is present and has
+    -- a value (is not null). Include that value as the @NextToken@ request
+    -- parameter in the next call to the operation to get the next part of the
+    -- results. Note that Organizations might return fewer results than the
+    -- maximum even when there are more results available. You should check
+    -- @NextToken@ after every operation to ensure that you receive all of the
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The unique identifier (ID) of the policy whose attachments you want to
+    -- know.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for a policy ID
+    -- string requires \"p-\" followed by from 8 to 128 lowercase or uppercase
+    -- letters, digits, or the underscore character (_).
+    policyId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTargetsForPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTargetsForPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfpNextToken' - The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value of the previous call's @NextToken@ response to indicate where the output should continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfpMaxResults' - The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Organizations might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
+-- 'nextToken', 'listTargetsForPolicy_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
 --
--- * 'ltfpPolicyId' - The unique identifier (ID) of the policy whose attachments you want to know. The <http://wikipedia.org/wiki/regex regex pattern> for a policy ID string requires "p-" followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
-listTargetsForPolicy ::
-  -- | 'ltfpPolicyId'
-  Text ->
+-- 'maxResults', 'listTargetsForPolicy_maxResults' - The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Organizations might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+--
+-- 'policyId', 'listTargetsForPolicy_policyId' - The unique identifier (ID) of the policy whose attachments you want to
+-- know.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a policy ID
+-- string requires \"p-\" followed by from 8 to 128 lowercase or uppercase
+-- letters, digits, or the underscore character (_).
+newListTargetsForPolicy ::
+  -- | 'policyId'
+  Prelude.Text ->
   ListTargetsForPolicy
-listTargetsForPolicy pPolicyId_ =
+newListTargetsForPolicy pPolicyId_ =
   ListTargetsForPolicy'
-    { _ltfpNextToken = Nothing,
-      _ltfpMaxResults = Nothing,
-      _ltfpPolicyId = pPolicyId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      policyId = pPolicyId_
     }
 
--- | The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value of the previous call's @NextToken@ response to indicate where the output should continue from.
-ltfpNextToken :: Lens' ListTargetsForPolicy (Maybe Text)
-ltfpNextToken = lens _ltfpNextToken (\s a -> s {_ltfpNextToken = a})
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listTargetsForPolicy_nextToken :: Lens.Lens' ListTargetsForPolicy (Prelude.Maybe Prelude.Text)
+listTargetsForPolicy_nextToken = Lens.lens (\ListTargetsForPolicy' {nextToken} -> nextToken) (\s@ListTargetsForPolicy' {} a -> s {nextToken = a} :: ListTargetsForPolicy)
 
--- | The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Organizations might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
-ltfpMaxResults :: Lens' ListTargetsForPolicy (Maybe Natural)
-ltfpMaxResults = lens _ltfpMaxResults (\s a -> s {_ltfpMaxResults = a}) . mapping _Nat
+-- | The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Organizations might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+listTargetsForPolicy_maxResults :: Lens.Lens' ListTargetsForPolicy (Prelude.Maybe Prelude.Natural)
+listTargetsForPolicy_maxResults = Lens.lens (\ListTargetsForPolicy' {maxResults} -> maxResults) (\s@ListTargetsForPolicy' {} a -> s {maxResults = a} :: ListTargetsForPolicy) Prelude.. Lens.mapping Prelude._Nat
 
--- | The unique identifier (ID) of the policy whose attachments you want to know. The <http://wikipedia.org/wiki/regex regex pattern> for a policy ID string requires "p-" followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
-ltfpPolicyId :: Lens' ListTargetsForPolicy Text
-ltfpPolicyId = lens _ltfpPolicyId (\s a -> s {_ltfpPolicyId = a})
+-- | The unique identifier (ID) of the policy whose attachments you want to
+-- know.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for a policy ID
+-- string requires \"p-\" followed by from 8 to 128 lowercase or uppercase
+-- letters, digits, or the underscore character (_).
+listTargetsForPolicy_policyId :: Lens.Lens' ListTargetsForPolicy Prelude.Text
+listTargetsForPolicy_policyId = Lens.lens (\ListTargetsForPolicy' {policyId} -> policyId) (\s@ListTargetsForPolicy' {} a -> s {policyId = a} :: ListTargetsForPolicy)
 
-instance AWSPager ListTargetsForPolicy where
+instance Pager.AWSPager ListTargetsForPolicy where
   page rq rs
-    | stop (rs ^. ltfprrsNextToken) = Nothing
-    | stop (rs ^. ltfprrsTargets) = Nothing
-    | otherwise =
-      Just $ rq & ltfpNextToken .~ rs ^. ltfprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listTargetsForPolicyResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTargetsForPolicyResponse_targets
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTargetsForPolicy_nextToken
+          Lens..~ rs
+          Lens.^? listTargetsForPolicyResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListTargetsForPolicy where
+instance Prelude.AWSRequest ListTargetsForPolicy where
   type
     Rs ListTargetsForPolicy =
       ListTargetsForPolicyResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTargetsForPolicyResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Targets" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Targets" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTargetsForPolicy
+instance Prelude.Hashable ListTargetsForPolicy
 
-instance NFData ListTargetsForPolicy
+instance Prelude.NFData ListTargetsForPolicy
 
-instance ToHeaders ListTargetsForPolicy where
+instance Prelude.ToHeaders ListTargetsForPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.ListTargetsForPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.ListTargetsForPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTargetsForPolicy where
+instance Prelude.ToJSON ListTargetsForPolicy where
   toJSON ListTargetsForPolicy' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ltfpNextToken,
-            ("MaxResults" .=) <$> _ltfpMaxResults,
-            Just ("PolicyId" .= _ltfpPolicyId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("PolicyId" Prelude..= policyId)
           ]
       )
 
-instance ToPath ListTargetsForPolicy where
-  toPath = const "/"
+instance Prelude.ToPath ListTargetsForPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTargetsForPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTargetsForPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTargetsForPolicyResponse' smart constructor.
+-- | /See:/ 'newListTargetsForPolicyResponse' smart constructor.
 data ListTargetsForPolicyResponse = ListTargetsForPolicyResponse'
-  { _ltfprrsNextToken ::
-      !(Maybe Text),
-    _ltfprrsTargets ::
-      !( Maybe
-           [PolicyTargetSummary]
-       ),
-    _ltfprrsResponseStatus ::
-      !Int
+  { -- | If present, indicates that more output is available than is included in
+    -- the current response. Use this value in the @NextToken@ request
+    -- parameter in a subsequent call to the operation to get the next part of
+    -- the output. You should repeat this until the @NextToken@ response
+    -- element comes back as @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of structures, each of which contains details about one of the
+    -- entities to which the specified policy is attached.
+    targets :: Prelude.Maybe [PolicyTargetSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTargetsForPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTargetsForPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfprrsNextToken' - If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfprrsTargets' - A list of structures, each of which contains details about one of the entities to which the specified policy is attached.
+-- 'nextToken', 'listTargetsForPolicyResponse_nextToken' - If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
 --
--- * 'ltfprrsResponseStatus' - -- | The response status code.
-listTargetsForPolicyResponse ::
-  -- | 'ltfprrsResponseStatus'
-  Int ->
+-- 'targets', 'listTargetsForPolicyResponse_targets' - A list of structures, each of which contains details about one of the
+-- entities to which the specified policy is attached.
+--
+-- 'httpStatus', 'listTargetsForPolicyResponse_httpStatus' - The response's http status code.
+newListTargetsForPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTargetsForPolicyResponse
-listTargetsForPolicyResponse pResponseStatus_ =
+newListTargetsForPolicyResponse pHttpStatus_ =
   ListTargetsForPolicyResponse'
-    { _ltfprrsNextToken =
-        Nothing,
-      _ltfprrsTargets = Nothing,
-      _ltfprrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      targets = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
-ltfprrsNextToken :: Lens' ListTargetsForPolicyResponse (Maybe Text)
-ltfprrsNextToken = lens _ltfprrsNextToken (\s a -> s {_ltfprrsNextToken = a})
+-- | If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
+listTargetsForPolicyResponse_nextToken :: Lens.Lens' ListTargetsForPolicyResponse (Prelude.Maybe Prelude.Text)
+listTargetsForPolicyResponse_nextToken = Lens.lens (\ListTargetsForPolicyResponse' {nextToken} -> nextToken) (\s@ListTargetsForPolicyResponse' {} a -> s {nextToken = a} :: ListTargetsForPolicyResponse)
 
--- | A list of structures, each of which contains details about one of the entities to which the specified policy is attached.
-ltfprrsTargets :: Lens' ListTargetsForPolicyResponse [PolicyTargetSummary]
-ltfprrsTargets = lens _ltfprrsTargets (\s a -> s {_ltfprrsTargets = a}) . _Default . _Coerce
+-- | A list of structures, each of which contains details about one of the
+-- entities to which the specified policy is attached.
+listTargetsForPolicyResponse_targets :: Lens.Lens' ListTargetsForPolicyResponse (Prelude.Maybe [PolicyTargetSummary])
+listTargetsForPolicyResponse_targets = Lens.lens (\ListTargetsForPolicyResponse' {targets} -> targets) (\s@ListTargetsForPolicyResponse' {} a -> s {targets = a} :: ListTargetsForPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltfprrsResponseStatus :: Lens' ListTargetsForPolicyResponse Int
-ltfprrsResponseStatus = lens _ltfprrsResponseStatus (\s a -> s {_ltfprrsResponseStatus = a})
+-- | The response's http status code.
+listTargetsForPolicyResponse_httpStatus :: Lens.Lens' ListTargetsForPolicyResponse Prelude.Int
+listTargetsForPolicyResponse_httpStatus = Lens.lens (\ListTargetsForPolicyResponse' {httpStatus} -> httpStatus) (\s@ListTargetsForPolicyResponse' {} a -> s {httpStatus = a} :: ListTargetsForPolicyResponse)
 
-instance NFData ListTargetsForPolicyResponse
+instance Prelude.NFData ListTargetsForPolicyResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels a handshake. Canceling a handshake sets the handshake state to @CANCELED@ .
+-- Cancels a handshake. Canceling a handshake sets the handshake state to
+-- @CANCELED@.
 --
+-- This operation can be called only from the account that originated the
+-- handshake. The recipient of the handshake can\'t cancel it, but can use
+-- DeclineHandshake instead. After a handshake is canceled, the recipient
+-- can no longer respond to that handshake.
 --
--- This operation can be called only from the account that originated the handshake. The recipient of the handshake can't cancel it, but can use 'DeclineHandshake' instead. After a handshake is canceled, the recipient can no longer respond to that handshake.
---
--- After you cancel a handshake, it continues to appear in the results of relevant APIs for only 30 days. After that, it's deleted.
+-- After you cancel a handshake, it continues to appear in the results of
+-- relevant APIs for only 30 days. After that, it\'s deleted.
 module Network.AWS.Organizations.CancelHandshake
   ( -- * Creating a Request
-    cancelHandshake,
-    CancelHandshake,
+    CancelHandshake (..),
+    newCancelHandshake,
 
     -- * Request Lenses
-    chHandshakeId,
+    cancelHandshake_handshakeId,
 
     -- * Destructuring the Response
-    cancelHandshakeResponse,
-    CancelHandshakeResponse,
+    CancelHandshakeResponse (..),
+    newCancelHandshakeResponse,
 
     -- * Response Lenses
-    chrrsHandshake,
-    chrrsResponseStatus,
+    cancelHandshakeResponse_handshake,
+    cancelHandshakeResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Organizations.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Organizations.Types.Handshake
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'cancelHandshake' smart constructor.
-newtype CancelHandshake = CancelHandshake'
-  { _chHandshakeId ::
-      Text
+-- | /See:/ 'newCancelHandshake' smart constructor.
+data CancelHandshake = CancelHandshake'
+  { -- | The unique identifier (ID) of the handshake that you want to cancel. You
+    -- can get the ID from the ListHandshakesForOrganization operation.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+    -- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+    -- digits.
+    handshakeId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelHandshake' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelHandshake' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chHandshakeId' - The unique identifier (ID) of the handshake that you want to cancel. You can get the ID from the 'ListHandshakesForOrganization' operation. The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.
-cancelHandshake ::
-  -- | 'chHandshakeId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'handshakeId', 'cancelHandshake_handshakeId' - The unique identifier (ID) of the handshake that you want to cancel. You
+-- can get the ID from the ListHandshakesForOrganization operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+-- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+-- digits.
+newCancelHandshake ::
+  -- | 'handshakeId'
+  Prelude.Text ->
   CancelHandshake
-cancelHandshake pHandshakeId_ =
-  CancelHandshake' {_chHandshakeId = pHandshakeId_}
+newCancelHandshake pHandshakeId_ =
+  CancelHandshake' {handshakeId = pHandshakeId_}
 
--- | The unique identifier (ID) of the handshake that you want to cancel. You can get the ID from the 'ListHandshakesForOrganization' operation. The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID string requires "h-" followed by from 8 to 32 lowercase letters or digits.
-chHandshakeId :: Lens' CancelHandshake Text
-chHandshakeId = lens _chHandshakeId (\s a -> s {_chHandshakeId = a})
+-- | The unique identifier (ID) of the handshake that you want to cancel. You
+-- can get the ID from the ListHandshakesForOrganization operation.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID
+-- string requires \"h-\" followed by from 8 to 32 lowercase letters or
+-- digits.
+cancelHandshake_handshakeId :: Lens.Lens' CancelHandshake Prelude.Text
+cancelHandshake_handshakeId = Lens.lens (\CancelHandshake' {handshakeId} -> handshakeId) (\s@CancelHandshake' {} a -> s {handshakeId = a} :: CancelHandshake)
 
-instance AWSRequest CancelHandshake where
+instance Prelude.AWSRequest CancelHandshake where
   type Rs CancelHandshake = CancelHandshakeResponse
-  request = postJSON organizations
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CancelHandshakeResponse'
-            <$> (x .?> "Handshake") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Handshake")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelHandshake
+instance Prelude.Hashable CancelHandshake
 
-instance NFData CancelHandshake
+instance Prelude.NFData CancelHandshake
 
-instance ToHeaders CancelHandshake where
+instance Prelude.ToHeaders CancelHandshake where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrganizationsV20161128.CancelHandshake" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrganizationsV20161128.CancelHandshake" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CancelHandshake where
+instance Prelude.ToJSON CancelHandshake where
   toJSON CancelHandshake' {..} =
-    object
-      (catMaybes [Just ("HandshakeId" .= _chHandshakeId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("HandshakeId" Prelude..= handshakeId)
+          ]
+      )
 
-instance ToPath CancelHandshake where
-  toPath = const "/"
+instance Prelude.ToPath CancelHandshake where
+  toPath = Prelude.const "/"
 
-instance ToQuery CancelHandshake where
-  toQuery = const mempty
+instance Prelude.ToQuery CancelHandshake where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'cancelHandshakeResponse' smart constructor.
+-- | /See:/ 'newCancelHandshakeResponse' smart constructor.
 data CancelHandshakeResponse = CancelHandshakeResponse'
-  { _chrrsHandshake ::
-      !(Maybe Handshake),
-    _chrrsResponseStatus ::
-      !Int
+  { -- | A structure that contains details about the handshake that you canceled.
+    handshake :: Prelude.Maybe Handshake,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelHandshakeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelHandshakeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chrrsHandshake' - A structure that contains details about the handshake that you canceled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chrrsResponseStatus' - -- | The response status code.
-cancelHandshakeResponse ::
-  -- | 'chrrsResponseStatus'
-  Int ->
+-- 'handshake', 'cancelHandshakeResponse_handshake' - A structure that contains details about the handshake that you canceled.
+--
+-- 'httpStatus', 'cancelHandshakeResponse_httpStatus' - The response's http status code.
+newCancelHandshakeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelHandshakeResponse
-cancelHandshakeResponse pResponseStatus_ =
+newCancelHandshakeResponse pHttpStatus_ =
   CancelHandshakeResponse'
-    { _chrrsHandshake = Nothing,
-      _chrrsResponseStatus = pResponseStatus_
+    { handshake =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A structure that contains details about the handshake that you canceled.
-chrrsHandshake :: Lens' CancelHandshakeResponse (Maybe Handshake)
-chrrsHandshake = lens _chrrsHandshake (\s a -> s {_chrrsHandshake = a})
+cancelHandshakeResponse_handshake :: Lens.Lens' CancelHandshakeResponse (Prelude.Maybe Handshake)
+cancelHandshakeResponse_handshake = Lens.lens (\CancelHandshakeResponse' {handshake} -> handshake) (\s@CancelHandshakeResponse' {} a -> s {handshake = a} :: CancelHandshakeResponse)
 
--- | -- | The response status code.
-chrrsResponseStatus :: Lens' CancelHandshakeResponse Int
-chrrsResponseStatus = lens _chrrsResponseStatus (\s a -> s {_chrrsResponseStatus = a})
+-- | The response's http status code.
+cancelHandshakeResponse_httpStatus :: Lens.Lens' CancelHandshakeResponse Prelude.Int
+cancelHandshakeResponse_httpStatus = Lens.lens (\CancelHandshakeResponse' {httpStatus} -> httpStatus) (\s@CancelHandshakeResponse' {} a -> s {httpStatus = a} :: CancelHandshakeResponse)
 
-instance NFData CancelHandshakeResponse
+instance Prelude.NFData CancelHandshakeResponse
