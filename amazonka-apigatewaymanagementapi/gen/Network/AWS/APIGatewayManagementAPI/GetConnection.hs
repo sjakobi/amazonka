@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,143 +24,146 @@
 -- Get information about the connection with the provided id.
 module Network.AWS.APIGatewayManagementAPI.GetConnection
   ( -- * Creating a Request
-    getConnection,
-    GetConnection,
+    GetConnection (..),
+    newGetConnection,
 
     -- * Request Lenses
-    gcConnectionId,
+    getConnection_connectionId,
 
     -- * Destructuring the Response
-    getConnectionResponse,
-    GetConnectionResponse,
+    GetConnectionResponse (..),
+    newGetConnectionResponse,
 
     -- * Response Lenses
-    gcrrsIdentity,
-    gcrrsLastActiveAt,
-    gcrrsConnectedAt,
-    gcrrsResponseStatus,
+    getConnectionResponse_identity,
+    getConnectionResponse_lastActiveAt,
+    getConnectionResponse_connectedAt,
+    getConnectionResponse_httpStatus,
   )
 where
 
 import Network.AWS.APIGatewayManagementAPI.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGatewayManagementAPI.Types.Identity
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getConnection' smart constructor.
-newtype GetConnection = GetConnection'
-  { _gcConnectionId ::
-      Text
+-- | /See:/ 'newGetConnection' smart constructor.
+data GetConnection = GetConnection'
+  { connectionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConnection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConnection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcConnectionId' - Undocumented member.
-getConnection ::
-  -- | 'gcConnectionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'connectionId', 'getConnection_connectionId' - Undocumented member.
+newGetConnection ::
+  -- | 'connectionId'
+  Prelude.Text ->
   GetConnection
-getConnection pConnectionId_ =
-  GetConnection' {_gcConnectionId = pConnectionId_}
+newGetConnection pConnectionId_ =
+  GetConnection' {connectionId = pConnectionId_}
 
 -- | Undocumented member.
-gcConnectionId :: Lens' GetConnection Text
-gcConnectionId = lens _gcConnectionId (\s a -> s {_gcConnectionId = a})
+getConnection_connectionId :: Lens.Lens' GetConnection Prelude.Text
+getConnection_connectionId = Lens.lens (\GetConnection' {connectionId} -> connectionId) (\s@GetConnection' {} a -> s {connectionId = a} :: GetConnection)
 
-instance AWSRequest GetConnection where
+instance Prelude.AWSRequest GetConnection where
   type Rs GetConnection = GetConnectionResponse
-  request = get apiGatewayManagementAPI
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetConnectionResponse'
-            <$> (x .?> "identity")
-            <*> (x .?> "lastActiveAt")
-            <*> (x .?> "connectedAt")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "identity")
+            Prelude.<*> (x Prelude..?> "lastActiveAt")
+            Prelude.<*> (x Prelude..?> "connectedAt")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetConnection
+instance Prelude.Hashable GetConnection
 
-instance NFData GetConnection
+instance Prelude.NFData GetConnection
 
-instance ToHeaders GetConnection where
+instance Prelude.ToHeaders GetConnection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetConnection where
+instance Prelude.ToPath GetConnection where
   toPath GetConnection' {..} =
-    mconcat ["/@connections/", toBS _gcConnectionId]
+    Prelude.mconcat
+      ["/@connections/", Prelude.toBS connectionId]
 
-instance ToQuery GetConnection where
-  toQuery = const mempty
+instance Prelude.ToQuery GetConnection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getConnectionResponse' smart constructor.
+-- | /See:/ 'newGetConnectionResponse' smart constructor.
 data GetConnectionResponse = GetConnectionResponse'
-  { _gcrrsIdentity ::
-      !(Maybe Identity),
-    _gcrrsLastActiveAt ::
-      !(Maybe POSIX),
-    _gcrrsConnectedAt ::
-      !(Maybe POSIX),
-    _gcrrsResponseStatus ::
-      !Int
+  { identity :: Prelude.Maybe Identity,
+    -- | The time in ISO 8601 format for when the connection was last active.
+    lastActiveAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The time in ISO 8601 format for when the connection was established.
+    connectedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConnectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConnectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrrsIdentity' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrrsLastActiveAt' - The time in ISO 8601 format for when the connection was last active.
+-- 'identity', 'getConnectionResponse_identity' - Undocumented member.
 --
--- * 'gcrrsConnectedAt' - The time in ISO 8601 format for when the connection was established.
+-- 'lastActiveAt', 'getConnectionResponse_lastActiveAt' - The time in ISO 8601 format for when the connection was last active.
 --
--- * 'gcrrsResponseStatus' - -- | The response status code.
-getConnectionResponse ::
-  -- | 'gcrrsResponseStatus'
-  Int ->
+-- 'connectedAt', 'getConnectionResponse_connectedAt' - The time in ISO 8601 format for when the connection was established.
+--
+-- 'httpStatus', 'getConnectionResponse_httpStatus' - The response's http status code.
+newGetConnectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetConnectionResponse
-getConnectionResponse pResponseStatus_ =
+newGetConnectionResponse pHttpStatus_ =
   GetConnectionResponse'
-    { _gcrrsIdentity = Nothing,
-      _gcrrsLastActiveAt = Nothing,
-      _gcrrsConnectedAt = Nothing,
-      _gcrrsResponseStatus = pResponseStatus_
+    { identity = Prelude.Nothing,
+      lastActiveAt = Prelude.Nothing,
+      connectedAt = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-gcrrsIdentity :: Lens' GetConnectionResponse (Maybe Identity)
-gcrrsIdentity = lens _gcrrsIdentity (\s a -> s {_gcrrsIdentity = a})
+getConnectionResponse_identity :: Lens.Lens' GetConnectionResponse (Prelude.Maybe Identity)
+getConnectionResponse_identity = Lens.lens (\GetConnectionResponse' {identity} -> identity) (\s@GetConnectionResponse' {} a -> s {identity = a} :: GetConnectionResponse)
 
 -- | The time in ISO 8601 format for when the connection was last active.
-gcrrsLastActiveAt :: Lens' GetConnectionResponse (Maybe UTCTime)
-gcrrsLastActiveAt = lens _gcrrsLastActiveAt (\s a -> s {_gcrrsLastActiveAt = a}) . mapping _Time
+getConnectionResponse_lastActiveAt :: Lens.Lens' GetConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+getConnectionResponse_lastActiveAt = Lens.lens (\GetConnectionResponse' {lastActiveAt} -> lastActiveAt) (\s@GetConnectionResponse' {} a -> s {lastActiveAt = a} :: GetConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time in ISO 8601 format for when the connection was established.
-gcrrsConnectedAt :: Lens' GetConnectionResponse (Maybe UTCTime)
-gcrrsConnectedAt = lens _gcrrsConnectedAt (\s a -> s {_gcrrsConnectedAt = a}) . mapping _Time
+getConnectionResponse_connectedAt :: Lens.Lens' GetConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+getConnectionResponse_connectedAt = Lens.lens (\GetConnectionResponse' {connectedAt} -> connectedAt) (\s@GetConnectionResponse' {} a -> s {connectedAt = a} :: GetConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-gcrrsResponseStatus :: Lens' GetConnectionResponse Int
-gcrrsResponseStatus = lens _gcrrsResponseStatus (\s a -> s {_gcrrsResponseStatus = a})
+-- | The response's http status code.
+getConnectionResponse_httpStatus :: Lens.Lens' GetConnectionResponse Prelude.Int
+getConnectionResponse_httpStatus = Lens.lens (\GetConnectionResponse' {httpStatus} -> httpStatus) (\s@GetConnectionResponse' {} a -> s {httpStatus = a} :: GetConnectionResponse)
 
-instance NFData GetConnectionResponse
+instance Prelude.NFData GetConnectionResponse

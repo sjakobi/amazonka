@@ -11,10 +11,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The Amazon API Gateway Management API allows you to directly manage runtime aspects of your deployed APIs. To use it, you must explicitly set the SDK's endpoint to point to the endpoint of your deployed API. The endpoint will be of the form https://{api-id}.execute-api.{region}.amazonaws.com/{stage}, or will be the endpoint corresponding to your API's custom domain and base path, if applicable.
+-- The Amazon API Gateway Management API allows you to directly manage
+-- runtime aspects of your deployed APIs. To use it, you must explicitly
+-- set the SDK\'s endpoint to point to the endpoint of your deployed API.
+-- The endpoint will be of the form
+-- https:\/\/{api-id}.execute-api.{region}.amazonaws.com\/{stage}, or will
+-- be the endpoint corresponding to your API\'s custom domain and base
+-- path, if applicable.
 module Network.AWS.APIGatewayManagementAPI
   ( -- * Service Configuration
-    apiGatewayManagementAPI,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -38,26 +44,34 @@ module Network.AWS.APIGatewayManagementAPI
     -- $operations
 
     -- ** DeleteConnection
-    module Network.AWS.APIGatewayManagementAPI.DeleteConnection,
+    DeleteConnection (DeleteConnection'),
+    newDeleteConnection,
+    DeleteConnectionResponse (DeleteConnectionResponse'),
+    newDeleteConnectionResponse,
 
     -- ** PostToConnection
-    module Network.AWS.APIGatewayManagementAPI.PostToConnection,
+    PostToConnection (PostToConnection'),
+    newPostToConnection,
+    PostToConnectionResponse (PostToConnectionResponse'),
+    newPostToConnectionResponse,
 
     -- ** GetConnection
-    module Network.AWS.APIGatewayManagementAPI.GetConnection,
+    GetConnection (GetConnection'),
+    newGetConnection,
+    GetConnectionResponse (GetConnectionResponse'),
+    newGetConnectionResponse,
 
     -- * Types
 
     -- ** Identity
-    Identity,
-    identity,
-    iSourceIP,
-    iUserAgent,
+    Identity (Identity'),
+    newIdentity,
   )
 where
 
 import Network.AWS.APIGatewayManagementAPI.DeleteConnection
 import Network.AWS.APIGatewayManagementAPI.GetConnection
+import Network.AWS.APIGatewayManagementAPI.Lens
 import Network.AWS.APIGatewayManagementAPI.PostToConnection
 import Network.AWS.APIGatewayManagementAPI.Types
 import Network.AWS.APIGatewayManagementAPI.Waiters

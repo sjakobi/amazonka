@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.APIGatewayManagementAPI.Types.Identity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'identity' smart constructor.
+-- | /See:/ 'newIdentity' smart constructor.
 data Identity = Identity'
-  { _iSourceIP :: !Text,
-    _iUserAgent :: !Text
+  { -- | The source IP address of the TCP connection making the request to API
+    -- Gateway.
+    sourceIp :: Prelude.Text,
+    -- | The User Agent of the API caller.
+    userAgent :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Identity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Identity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iSourceIP' - The source IP address of the TCP connection making the request to API Gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iUserAgent' - The User Agent of the API caller.
-identity ::
-  -- | 'iSourceIP'
-  Text ->
-  -- | 'iUserAgent'
-  Text ->
+-- 'sourceIp', 'identity_sourceIp' - The source IP address of the TCP connection making the request to API
+-- Gateway.
+--
+-- 'userAgent', 'identity_userAgent' - The User Agent of the API caller.
+newIdentity ::
+  -- | 'sourceIp'
+  Prelude.Text ->
+  -- | 'userAgent'
+  Prelude.Text ->
   Identity
-identity pSourceIP_ pUserAgent_ =
+newIdentity pSourceIp_ pUserAgent_ =
   Identity'
-    { _iSourceIP = pSourceIP_,
-      _iUserAgent = pUserAgent_
+    { sourceIp = pSourceIp_,
+      userAgent = pUserAgent_
     }
 
--- | The source IP address of the TCP connection making the request to API Gateway.
-iSourceIP :: Lens' Identity Text
-iSourceIP = lens _iSourceIP (\s a -> s {_iSourceIP = a})
+-- | The source IP address of the TCP connection making the request to API
+-- Gateway.
+identity_sourceIp :: Lens.Lens' Identity Prelude.Text
+identity_sourceIp = Lens.lens (\Identity' {sourceIp} -> sourceIp) (\s@Identity' {} a -> s {sourceIp = a} :: Identity)
 
 -- | The User Agent of the API caller.
-iUserAgent :: Lens' Identity Text
-iUserAgent = lens _iUserAgent (\s a -> s {_iUserAgent = a})
+identity_userAgent :: Lens.Lens' Identity Prelude.Text
+identity_userAgent = Lens.lens (\Identity' {userAgent} -> userAgent) (\s@Identity' {} a -> s {userAgent = a} :: Identity)
 
-instance FromJSON Identity where
+instance Prelude.FromJSON Identity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Identity"
       ( \x ->
           Identity'
-            <$> (x .: "sourceIp") <*> (x .: "userAgent")
+            Prelude.<$> (x Prelude..: "sourceIp")
+            Prelude.<*> (x Prelude..: "userAgent")
       )
 
-instance Hashable Identity
+instance Prelude.Hashable Identity
 
-instance NFData Identity
+instance Prelude.NFData Identity
