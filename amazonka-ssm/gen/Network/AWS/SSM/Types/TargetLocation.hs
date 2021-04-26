@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,116 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.TargetLocation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The combination of AWS Regions and accounts targeted by the current Automation execution.
+-- | The combination of AWS Regions and accounts targeted by the current
+-- Automation execution.
 --
---
---
--- /See:/ 'targetLocation' smart constructor.
+-- /See:/ 'newTargetLocation' smart constructor.
 data TargetLocation = TargetLocation'
-  { _tlExecutionRoleName ::
-      !(Maybe Text),
-    _tlAccounts :: !(Maybe (List1 Text)),
-    _tlRegions :: !(Maybe (List1 Text)),
-    _tlTargetLocationMaxErrors ::
-      !(Maybe Text),
-    _tlTargetLocationMaxConcurrency ::
-      !(Maybe Text)
+  { -- | The Automation execution role used by the currently running Automation.
+    -- If not specified, the default value is
+    -- @AWS-SystemsManager-AutomationExecutionRole@.
+    executionRoleName :: Prelude.Maybe Prelude.Text,
+    -- | The AWS accounts targeted by the current Automation execution.
+    accounts :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The AWS Regions targeted by the current Automation execution.
+    regions :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The maximum number of errors allowed before the system stops queueing
+    -- additional Automation executions for the currently running Automation.
+    targetLocationMaxErrors :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of AWS accounts and AWS regions allowed to run the
+    -- Automation concurrently.
+    targetLocationMaxConcurrency :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tlExecutionRoleName' - The Automation execution role used by the currently running Automation. If not specified, the default value is @AWS-SystemsManager-AutomationExecutionRole@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tlAccounts' - The AWS accounts targeted by the current Automation execution.
+-- 'executionRoleName', 'targetLocation_executionRoleName' - The Automation execution role used by the currently running Automation.
+-- If not specified, the default value is
+-- @AWS-SystemsManager-AutomationExecutionRole@.
 --
--- * 'tlRegions' - The AWS Regions targeted by the current Automation execution.
+-- 'accounts', 'targetLocation_accounts' - The AWS accounts targeted by the current Automation execution.
 --
--- * 'tlTargetLocationMaxErrors' - The maximum number of errors allowed before the system stops queueing additional Automation executions for the currently running Automation.
+-- 'regions', 'targetLocation_regions' - The AWS Regions targeted by the current Automation execution.
 --
--- * 'tlTargetLocationMaxConcurrency' - The maximum number of AWS accounts and AWS regions allowed to run the Automation concurrently.
-targetLocation ::
+-- 'targetLocationMaxErrors', 'targetLocation_targetLocationMaxErrors' - The maximum number of errors allowed before the system stops queueing
+-- additional Automation executions for the currently running Automation.
+--
+-- 'targetLocationMaxConcurrency', 'targetLocation_targetLocationMaxConcurrency' - The maximum number of AWS accounts and AWS regions allowed to run the
+-- Automation concurrently.
+newTargetLocation ::
   TargetLocation
-targetLocation =
+newTargetLocation =
   TargetLocation'
-    { _tlExecutionRoleName = Nothing,
-      _tlAccounts = Nothing,
-      _tlRegions = Nothing,
-      _tlTargetLocationMaxErrors = Nothing,
-      _tlTargetLocationMaxConcurrency = Nothing
+    { executionRoleName =
+        Prelude.Nothing,
+      accounts = Prelude.Nothing,
+      regions = Prelude.Nothing,
+      targetLocationMaxErrors = Prelude.Nothing,
+      targetLocationMaxConcurrency = Prelude.Nothing
     }
 
--- | The Automation execution role used by the currently running Automation. If not specified, the default value is @AWS-SystemsManager-AutomationExecutionRole@ .
-tlExecutionRoleName :: Lens' TargetLocation (Maybe Text)
-tlExecutionRoleName = lens _tlExecutionRoleName (\s a -> s {_tlExecutionRoleName = a})
+-- | The Automation execution role used by the currently running Automation.
+-- If not specified, the default value is
+-- @AWS-SystemsManager-AutomationExecutionRole@.
+targetLocation_executionRoleName :: Lens.Lens' TargetLocation (Prelude.Maybe Prelude.Text)
+targetLocation_executionRoleName = Lens.lens (\TargetLocation' {executionRoleName} -> executionRoleName) (\s@TargetLocation' {} a -> s {executionRoleName = a} :: TargetLocation)
 
 -- | The AWS accounts targeted by the current Automation execution.
-tlAccounts :: Lens' TargetLocation (Maybe (NonEmpty Text))
-tlAccounts = lens _tlAccounts (\s a -> s {_tlAccounts = a}) . mapping _List1
+targetLocation_accounts :: Lens.Lens' TargetLocation (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+targetLocation_accounts = Lens.lens (\TargetLocation' {accounts} -> accounts) (\s@TargetLocation' {} a -> s {accounts = a} :: TargetLocation) Prelude.. Lens.mapping Prelude._List1
 
 -- | The AWS Regions targeted by the current Automation execution.
-tlRegions :: Lens' TargetLocation (Maybe (NonEmpty Text))
-tlRegions = lens _tlRegions (\s a -> s {_tlRegions = a}) . mapping _List1
+targetLocation_regions :: Lens.Lens' TargetLocation (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+targetLocation_regions = Lens.lens (\TargetLocation' {regions} -> regions) (\s@TargetLocation' {} a -> s {regions = a} :: TargetLocation) Prelude.. Lens.mapping Prelude._List1
 
--- | The maximum number of errors allowed before the system stops queueing additional Automation executions for the currently running Automation.
-tlTargetLocationMaxErrors :: Lens' TargetLocation (Maybe Text)
-tlTargetLocationMaxErrors = lens _tlTargetLocationMaxErrors (\s a -> s {_tlTargetLocationMaxErrors = a})
+-- | The maximum number of errors allowed before the system stops queueing
+-- additional Automation executions for the currently running Automation.
+targetLocation_targetLocationMaxErrors :: Lens.Lens' TargetLocation (Prelude.Maybe Prelude.Text)
+targetLocation_targetLocationMaxErrors = Lens.lens (\TargetLocation' {targetLocationMaxErrors} -> targetLocationMaxErrors) (\s@TargetLocation' {} a -> s {targetLocationMaxErrors = a} :: TargetLocation)
 
--- | The maximum number of AWS accounts and AWS regions allowed to run the Automation concurrently.
-tlTargetLocationMaxConcurrency :: Lens' TargetLocation (Maybe Text)
-tlTargetLocationMaxConcurrency = lens _tlTargetLocationMaxConcurrency (\s a -> s {_tlTargetLocationMaxConcurrency = a})
+-- | The maximum number of AWS accounts and AWS regions allowed to run the
+-- Automation concurrently.
+targetLocation_targetLocationMaxConcurrency :: Lens.Lens' TargetLocation (Prelude.Maybe Prelude.Text)
+targetLocation_targetLocationMaxConcurrency = Lens.lens (\TargetLocation' {targetLocationMaxConcurrency} -> targetLocationMaxConcurrency) (\s@TargetLocation' {} a -> s {targetLocationMaxConcurrency = a} :: TargetLocation)
 
-instance FromJSON TargetLocation where
+instance Prelude.FromJSON TargetLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TargetLocation"
       ( \x ->
           TargetLocation'
-            <$> (x .:? "ExecutionRoleName")
-            <*> (x .:? "Accounts")
-            <*> (x .:? "Regions")
-            <*> (x .:? "TargetLocationMaxErrors")
-            <*> (x .:? "TargetLocationMaxConcurrency")
+            Prelude.<$> (x Prelude..:? "ExecutionRoleName")
+            Prelude.<*> (x Prelude..:? "Accounts")
+            Prelude.<*> (x Prelude..:? "Regions")
+            Prelude.<*> (x Prelude..:? "TargetLocationMaxErrors")
+            Prelude.<*> (x Prelude..:? "TargetLocationMaxConcurrency")
       )
 
-instance Hashable TargetLocation
+instance Prelude.Hashable TargetLocation
 
-instance NFData TargetLocation
+instance Prelude.NFData TargetLocation
 
-instance ToJSON TargetLocation where
+instance Prelude.ToJSON TargetLocation where
   toJSON TargetLocation' {..} =
-    object
-      ( catMaybes
-          [ ("ExecutionRoleName" .=) <$> _tlExecutionRoleName,
-            ("Accounts" .=) <$> _tlAccounts,
-            ("Regions" .=) <$> _tlRegions,
-            ("TargetLocationMaxErrors" .=)
-              <$> _tlTargetLocationMaxErrors,
-            ("TargetLocationMaxConcurrency" .=)
-              <$> _tlTargetLocationMaxConcurrency
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ExecutionRoleName" Prelude..=)
+              Prelude.<$> executionRoleName,
+            ("Accounts" Prelude..=) Prelude.<$> accounts,
+            ("Regions" Prelude..=) Prelude.<$> regions,
+            ("TargetLocationMaxErrors" Prelude..=)
+              Prelude.<$> targetLocationMaxErrors,
+            ("TargetLocationMaxConcurrency" Prelude..=)
+              Prelude.<$> targetLocationMaxConcurrency
           ]
       )

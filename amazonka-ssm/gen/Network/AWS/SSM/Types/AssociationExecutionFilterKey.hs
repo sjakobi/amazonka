@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SSM.Types.AssociationExecutionFilterKey
   ( AssociationExecutionFilterKey
       ( ..,
-        AEFKCreatedTime,
-        AEFKExecutionId,
-        AEFKStatus
+        AssociationExecutionFilterKeyCreatedTime,
+        AssociationExecutionFilterKeyExecutionId,
+        AssociationExecutionFilterKeyStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationExecutionFilterKey
-  = AssociationExecutionFilterKey'
-      ( CI
-          Text
-      )
+newtype AssociationExecutionFilterKey = AssociationExecutionFilterKey'
+  { fromAssociationExecutionFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AEFKCreatedTime :: AssociationExecutionFilterKey
-pattern AEFKCreatedTime = AssociationExecutionFilterKey' "CreatedTime"
+pattern AssociationExecutionFilterKeyCreatedTime :: AssociationExecutionFilterKey
+pattern AssociationExecutionFilterKeyCreatedTime = AssociationExecutionFilterKey' "CreatedTime"
 
-pattern AEFKExecutionId :: AssociationExecutionFilterKey
-pattern AEFKExecutionId = AssociationExecutionFilterKey' "ExecutionId"
+pattern AssociationExecutionFilterKeyExecutionId :: AssociationExecutionFilterKey
+pattern AssociationExecutionFilterKeyExecutionId = AssociationExecutionFilterKey' "ExecutionId"
 
-pattern AEFKStatus :: AssociationExecutionFilterKey
-pattern AEFKStatus = AssociationExecutionFilterKey' "Status"
+pattern AssociationExecutionFilterKeyStatus' :: AssociationExecutionFilterKey
+pattern AssociationExecutionFilterKeyStatus' = AssociationExecutionFilterKey' "Status"
 
 {-# COMPLETE
-  AEFKCreatedTime,
-  AEFKExecutionId,
-  AEFKStatus,
+  AssociationExecutionFilterKeyCreatedTime,
+  AssociationExecutionFilterKeyExecutionId,
+  AssociationExecutionFilterKeyStatus',
   AssociationExecutionFilterKey'
   #-}
 
-instance FromText AssociationExecutionFilterKey where
-  parser = (AssociationExecutionFilterKey' . mk) <$> takeText
+instance Prelude.FromText AssociationExecutionFilterKey where
+  parser = AssociationExecutionFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationExecutionFilterKey where
-  toText (AssociationExecutionFilterKey' ci) = original ci
+instance Prelude.ToText AssociationExecutionFilterKey where
+  toText (AssociationExecutionFilterKey' x) = x
 
-instance Hashable AssociationExecutionFilterKey
+instance Prelude.Hashable AssociationExecutionFilterKey
 
-instance NFData AssociationExecutionFilterKey
+instance Prelude.NFData AssociationExecutionFilterKey
 
-instance ToByteString AssociationExecutionFilterKey
+instance Prelude.ToByteString AssociationExecutionFilterKey
 
-instance ToQuery AssociationExecutionFilterKey
+instance Prelude.ToQuery AssociationExecutionFilterKey
 
-instance ToHeader AssociationExecutionFilterKey
+instance Prelude.ToHeader AssociationExecutionFilterKey
 
-instance ToJSON AssociationExecutionFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssociationExecutionFilterKey where
+  toJSON = Prelude.toJSONText

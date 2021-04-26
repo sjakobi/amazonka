@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,316 +21,311 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the target of an existing maintenance window. You can change the following:
+-- Modifies the target of an existing maintenance window. You can change
+-- the following:
 --
+-- -   Name
 --
---     * Name
+-- -   Description
 --
---     * Description
+-- -   Owner
 --
---     * Owner
+-- -   IDs for an ID target
 --
---     * IDs for an ID target
+-- -   Tags for a Tag target
 --
---     * Tags for a Tag target
+-- -   From any supported tag type to another. The three supported tag
+--     types are ID target, Tag target, and resource group. For more
+--     information, see Target.
 --
---     * From any supported tag type to another. The three supported tag types are ID target, Tag target, and resource group. For more information, see 'Target' .
+-- If a parameter is null, then the corresponding field is not modified.
 module Network.AWS.SSM.UpdateMaintenanceWindowTarget
   ( -- * Creating a Request
-    updateMaintenanceWindowTarget,
-    UpdateMaintenanceWindowTarget,
+    UpdateMaintenanceWindowTarget (..),
+    newUpdateMaintenanceWindowTarget,
 
     -- * Request Lenses
-    umwtTargets,
-    umwtName,
-    umwtReplace,
-    umwtDescription,
-    umwtOwnerInformation,
-    umwtWindowId,
-    umwtWindowTargetId,
+    updateMaintenanceWindowTarget_targets,
+    updateMaintenanceWindowTarget_name,
+    updateMaintenanceWindowTarget_replace,
+    updateMaintenanceWindowTarget_description,
+    updateMaintenanceWindowTarget_ownerInformation,
+    updateMaintenanceWindowTarget_windowId,
+    updateMaintenanceWindowTarget_windowTargetId,
 
     -- * Destructuring the Response
-    updateMaintenanceWindowTargetResponse,
-    UpdateMaintenanceWindowTargetResponse,
+    UpdateMaintenanceWindowTargetResponse (..),
+    newUpdateMaintenanceWindowTargetResponse,
 
     -- * Response Lenses
-    ursWindowTargetId,
-    ursTargets,
-    ursName,
-    ursWindowId,
-    ursDescription,
-    ursOwnerInformation,
-    ursResponseStatus,
+    updateMaintenanceWindowTargetResponse_windowTargetId,
+    updateMaintenanceWindowTargetResponse_targets,
+    updateMaintenanceWindowTargetResponse_name,
+    updateMaintenanceWindowTargetResponse_windowId,
+    updateMaintenanceWindowTargetResponse_description,
+    updateMaintenanceWindowTargetResponse_ownerInformation,
+    updateMaintenanceWindowTargetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Target
 
--- | /See:/ 'updateMaintenanceWindowTarget' smart constructor.
+-- | /See:/ 'newUpdateMaintenanceWindowTarget' smart constructor.
 data UpdateMaintenanceWindowTarget = UpdateMaintenanceWindowTarget'
-  { _umwtTargets ::
-      !( Maybe
-           [Target]
-       ),
-    _umwtName ::
-      !( Maybe
-           Text
-       ),
-    _umwtReplace ::
-      !( Maybe
-           Bool
-       ),
-    _umwtDescription ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _umwtOwnerInformation ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _umwtWindowId ::
-      !Text,
-    _umwtWindowTargetId ::
-      !Text
+  { -- | The targets to add or replace.
+    targets :: Prelude.Maybe [Target],
+    -- | A name for the update.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If True, then all fields that are required by the
+    -- RegisterTargetWithMaintenanceWindow action are also required for this
+    -- API request. Optional fields that are not specified are set to null.
+    replace :: Prelude.Maybe Prelude.Bool,
+    -- | An optional description for the update.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | User-provided value that will be included in any CloudWatch events
+    -- raised while running tasks for these targets in this maintenance window.
+    ownerInformation :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The maintenance window ID with which to modify the target.
+    windowId :: Prelude.Text,
+    -- | The target ID to modify.
+    windowTargetId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMaintenanceWindowTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMaintenanceWindowTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umwtTargets' - The targets to add or replace.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umwtName' - A name for the update.
+-- 'targets', 'updateMaintenanceWindowTarget_targets' - The targets to add or replace.
 --
--- * 'umwtReplace' - If True, then all fields that are required by the RegisterTargetWithMaintenanceWindow action are also required for this API request. Optional fields that are not specified are set to null.
+-- 'name', 'updateMaintenanceWindowTarget_name' - A name for the update.
 --
--- * 'umwtDescription' - An optional description for the update.
+-- 'replace', 'updateMaintenanceWindowTarget_replace' - If True, then all fields that are required by the
+-- RegisterTargetWithMaintenanceWindow action are also required for this
+-- API request. Optional fields that are not specified are set to null.
 --
--- * 'umwtOwnerInformation' - User-provided value that will be included in any CloudWatch events raised while running tasks for these targets in this maintenance window.
+-- 'description', 'updateMaintenanceWindowTarget_description' - An optional description for the update.
 --
--- * 'umwtWindowId' - The maintenance window ID with which to modify the target.
+-- 'ownerInformation', 'updateMaintenanceWindowTarget_ownerInformation' - User-provided value that will be included in any CloudWatch events
+-- raised while running tasks for these targets in this maintenance window.
 --
--- * 'umwtWindowTargetId' - The target ID to modify.
-updateMaintenanceWindowTarget ::
-  -- | 'umwtWindowId'
-  Text ->
-  -- | 'umwtWindowTargetId'
-  Text ->
+-- 'windowId', 'updateMaintenanceWindowTarget_windowId' - The maintenance window ID with which to modify the target.
+--
+-- 'windowTargetId', 'updateMaintenanceWindowTarget_windowTargetId' - The target ID to modify.
+newUpdateMaintenanceWindowTarget ::
+  -- | 'windowId'
+  Prelude.Text ->
+  -- | 'windowTargetId'
+  Prelude.Text ->
   UpdateMaintenanceWindowTarget
-updateMaintenanceWindowTarget
+newUpdateMaintenanceWindowTarget
   pWindowId_
   pWindowTargetId_ =
     UpdateMaintenanceWindowTarget'
-      { _umwtTargets =
-          Nothing,
-        _umwtName = Nothing,
-        _umwtReplace = Nothing,
-        _umwtDescription = Nothing,
-        _umwtOwnerInformation = Nothing,
-        _umwtWindowId = pWindowId_,
-        _umwtWindowTargetId = pWindowTargetId_
+      { targets =
+          Prelude.Nothing,
+        name = Prelude.Nothing,
+        replace = Prelude.Nothing,
+        description = Prelude.Nothing,
+        ownerInformation = Prelude.Nothing,
+        windowId = pWindowId_,
+        windowTargetId = pWindowTargetId_
       }
 
 -- | The targets to add or replace.
-umwtTargets :: Lens' UpdateMaintenanceWindowTarget [Target]
-umwtTargets = lens _umwtTargets (\s a -> s {_umwtTargets = a}) . _Default . _Coerce
+updateMaintenanceWindowTarget_targets :: Lens.Lens' UpdateMaintenanceWindowTarget (Prelude.Maybe [Target])
+updateMaintenanceWindowTarget_targets = Lens.lens (\UpdateMaintenanceWindowTarget' {targets} -> targets) (\s@UpdateMaintenanceWindowTarget' {} a -> s {targets = a} :: UpdateMaintenanceWindowTarget) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A name for the update.
-umwtName :: Lens' UpdateMaintenanceWindowTarget (Maybe Text)
-umwtName = lens _umwtName (\s a -> s {_umwtName = a})
+updateMaintenanceWindowTarget_name :: Lens.Lens' UpdateMaintenanceWindowTarget (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowTarget_name = Lens.lens (\UpdateMaintenanceWindowTarget' {name} -> name) (\s@UpdateMaintenanceWindowTarget' {} a -> s {name = a} :: UpdateMaintenanceWindowTarget)
 
--- | If True, then all fields that are required by the RegisterTargetWithMaintenanceWindow action are also required for this API request. Optional fields that are not specified are set to null.
-umwtReplace :: Lens' UpdateMaintenanceWindowTarget (Maybe Bool)
-umwtReplace = lens _umwtReplace (\s a -> s {_umwtReplace = a})
+-- | If True, then all fields that are required by the
+-- RegisterTargetWithMaintenanceWindow action are also required for this
+-- API request. Optional fields that are not specified are set to null.
+updateMaintenanceWindowTarget_replace :: Lens.Lens' UpdateMaintenanceWindowTarget (Prelude.Maybe Prelude.Bool)
+updateMaintenanceWindowTarget_replace = Lens.lens (\UpdateMaintenanceWindowTarget' {replace} -> replace) (\s@UpdateMaintenanceWindowTarget' {} a -> s {replace = a} :: UpdateMaintenanceWindowTarget)
 
 -- | An optional description for the update.
-umwtDescription :: Lens' UpdateMaintenanceWindowTarget (Maybe Text)
-umwtDescription = lens _umwtDescription (\s a -> s {_umwtDescription = a}) . mapping _Sensitive
+updateMaintenanceWindowTarget_description :: Lens.Lens' UpdateMaintenanceWindowTarget (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowTarget_description = Lens.lens (\UpdateMaintenanceWindowTarget' {description} -> description) (\s@UpdateMaintenanceWindowTarget' {} a -> s {description = a} :: UpdateMaintenanceWindowTarget) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | User-provided value that will be included in any CloudWatch events raised while running tasks for these targets in this maintenance window.
-umwtOwnerInformation :: Lens' UpdateMaintenanceWindowTarget (Maybe Text)
-umwtOwnerInformation = lens _umwtOwnerInformation (\s a -> s {_umwtOwnerInformation = a}) . mapping _Sensitive
+-- | User-provided value that will be included in any CloudWatch events
+-- raised while running tasks for these targets in this maintenance window.
+updateMaintenanceWindowTarget_ownerInformation :: Lens.Lens' UpdateMaintenanceWindowTarget (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowTarget_ownerInformation = Lens.lens (\UpdateMaintenanceWindowTarget' {ownerInformation} -> ownerInformation) (\s@UpdateMaintenanceWindowTarget' {} a -> s {ownerInformation = a} :: UpdateMaintenanceWindowTarget) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The maintenance window ID with which to modify the target.
-umwtWindowId :: Lens' UpdateMaintenanceWindowTarget Text
-umwtWindowId = lens _umwtWindowId (\s a -> s {_umwtWindowId = a})
+updateMaintenanceWindowTarget_windowId :: Lens.Lens' UpdateMaintenanceWindowTarget Prelude.Text
+updateMaintenanceWindowTarget_windowId = Lens.lens (\UpdateMaintenanceWindowTarget' {windowId} -> windowId) (\s@UpdateMaintenanceWindowTarget' {} a -> s {windowId = a} :: UpdateMaintenanceWindowTarget)
 
 -- | The target ID to modify.
-umwtWindowTargetId :: Lens' UpdateMaintenanceWindowTarget Text
-umwtWindowTargetId = lens _umwtWindowTargetId (\s a -> s {_umwtWindowTargetId = a})
+updateMaintenanceWindowTarget_windowTargetId :: Lens.Lens' UpdateMaintenanceWindowTarget Prelude.Text
+updateMaintenanceWindowTarget_windowTargetId = Lens.lens (\UpdateMaintenanceWindowTarget' {windowTargetId} -> windowTargetId) (\s@UpdateMaintenanceWindowTarget' {} a -> s {windowTargetId = a} :: UpdateMaintenanceWindowTarget)
 
-instance AWSRequest UpdateMaintenanceWindowTarget where
+instance
+  Prelude.AWSRequest
+    UpdateMaintenanceWindowTarget
+  where
   type
     Rs UpdateMaintenanceWindowTarget =
       UpdateMaintenanceWindowTargetResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateMaintenanceWindowTargetResponse'
-            <$> (x .?> "WindowTargetId")
-            <*> (x .?> "Targets" .!@ mempty)
-            <*> (x .?> "Name")
-            <*> (x .?> "WindowId")
-            <*> (x .?> "Description")
-            <*> (x .?> "OwnerInformation")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "WindowTargetId")
+            Prelude.<*> (x Prelude..?> "Targets" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "WindowId")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "OwnerInformation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateMaintenanceWindowTarget
+instance
+  Prelude.Hashable
+    UpdateMaintenanceWindowTarget
 
-instance NFData UpdateMaintenanceWindowTarget
+instance Prelude.NFData UpdateMaintenanceWindowTarget
 
-instance ToHeaders UpdateMaintenanceWindowTarget where
+instance
+  Prelude.ToHeaders
+    UpdateMaintenanceWindowTarget
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.UpdateMaintenanceWindowTarget" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.UpdateMaintenanceWindowTarget" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateMaintenanceWindowTarget where
+instance Prelude.ToJSON UpdateMaintenanceWindowTarget where
   toJSON UpdateMaintenanceWindowTarget' {..} =
-    object
-      ( catMaybes
-          [ ("Targets" .=) <$> _umwtTargets,
-            ("Name" .=) <$> _umwtName,
-            ("Replace" .=) <$> _umwtReplace,
-            ("Description" .=) <$> _umwtDescription,
-            ("OwnerInformation" .=) <$> _umwtOwnerInformation,
-            Just ("WindowId" .= _umwtWindowId),
-            Just ("WindowTargetId" .= _umwtWindowTargetId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Targets" Prelude..=) Prelude.<$> targets,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Replace" Prelude..=) Prelude.<$> replace,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("OwnerInformation" Prelude..=)
+              Prelude.<$> ownerInformation,
+            Prelude.Just ("WindowId" Prelude..= windowId),
+            Prelude.Just
+              ("WindowTargetId" Prelude..= windowTargetId)
           ]
       )
 
-instance ToPath UpdateMaintenanceWindowTarget where
-  toPath = const "/"
+instance Prelude.ToPath UpdateMaintenanceWindowTarget where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateMaintenanceWindowTarget where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdateMaintenanceWindowTarget
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateMaintenanceWindowTargetResponse' smart constructor.
+-- | /See:/ 'newUpdateMaintenanceWindowTargetResponse' smart constructor.
 data UpdateMaintenanceWindowTargetResponse = UpdateMaintenanceWindowTargetResponse'
-  { _ursWindowTargetId ::
-      !( Maybe
-           Text
-       ),
-    _ursTargets ::
-      !( Maybe
-           [Target]
-       ),
-    _ursName ::
-      !( Maybe
-           Text
-       ),
-    _ursWindowId ::
-      !( Maybe
-           Text
-       ),
-    _ursDescription ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _ursOwnerInformation ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _ursResponseStatus ::
-      !Int
+  { -- | The target ID specified in the update request.
+    windowTargetId :: Prelude.Maybe Prelude.Text,
+    -- | The updated targets.
+    targets :: Prelude.Maybe [Target],
+    -- | The updated name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The maintenance window ID specified in the update request.
+    windowId :: Prelude.Maybe Prelude.Text,
+    -- | The updated description.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The updated owner.
+    ownerInformation :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMaintenanceWindowTargetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMaintenanceWindowTargetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ursWindowTargetId' - The target ID specified in the update request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ursTargets' - The updated targets.
+-- 'windowTargetId', 'updateMaintenanceWindowTargetResponse_windowTargetId' - The target ID specified in the update request.
 --
--- * 'ursName' - The updated name.
+-- 'targets', 'updateMaintenanceWindowTargetResponse_targets' - The updated targets.
 --
--- * 'ursWindowId' - The maintenance window ID specified in the update request.
+-- 'name', 'updateMaintenanceWindowTargetResponse_name' - The updated name.
 --
--- * 'ursDescription' - The updated description.
+-- 'windowId', 'updateMaintenanceWindowTargetResponse_windowId' - The maintenance window ID specified in the update request.
 --
--- * 'ursOwnerInformation' - The updated owner.
+-- 'description', 'updateMaintenanceWindowTargetResponse_description' - The updated description.
 --
--- * 'ursResponseStatus' - -- | The response status code.
-updateMaintenanceWindowTargetResponse ::
-  -- | 'ursResponseStatus'
-  Int ->
+-- 'ownerInformation', 'updateMaintenanceWindowTargetResponse_ownerInformation' - The updated owner.
+--
+-- 'httpStatus', 'updateMaintenanceWindowTargetResponse_httpStatus' - The response's http status code.
+newUpdateMaintenanceWindowTargetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateMaintenanceWindowTargetResponse
-updateMaintenanceWindowTargetResponse
-  pResponseStatus_ =
-    UpdateMaintenanceWindowTargetResponse'
-      { _ursWindowTargetId =
-          Nothing,
-        _ursTargets = Nothing,
-        _ursName = Nothing,
-        _ursWindowId = Nothing,
-        _ursDescription = Nothing,
-        _ursOwnerInformation = Nothing,
-        _ursResponseStatus =
-          pResponseStatus_
-      }
+newUpdateMaintenanceWindowTargetResponse pHttpStatus_ =
+  UpdateMaintenanceWindowTargetResponse'
+    { windowTargetId =
+        Prelude.Nothing,
+      targets = Prelude.Nothing,
+      name = Prelude.Nothing,
+      windowId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      ownerInformation = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | The target ID specified in the update request.
-ursWindowTargetId :: Lens' UpdateMaintenanceWindowTargetResponse (Maybe Text)
-ursWindowTargetId = lens _ursWindowTargetId (\s a -> s {_ursWindowTargetId = a})
+updateMaintenanceWindowTargetResponse_windowTargetId :: Lens.Lens' UpdateMaintenanceWindowTargetResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowTargetResponse_windowTargetId = Lens.lens (\UpdateMaintenanceWindowTargetResponse' {windowTargetId} -> windowTargetId) (\s@UpdateMaintenanceWindowTargetResponse' {} a -> s {windowTargetId = a} :: UpdateMaintenanceWindowTargetResponse)
 
 -- | The updated targets.
-ursTargets :: Lens' UpdateMaintenanceWindowTargetResponse [Target]
-ursTargets = lens _ursTargets (\s a -> s {_ursTargets = a}) . _Default . _Coerce
+updateMaintenanceWindowTargetResponse_targets :: Lens.Lens' UpdateMaintenanceWindowTargetResponse (Prelude.Maybe [Target])
+updateMaintenanceWindowTargetResponse_targets = Lens.lens (\UpdateMaintenanceWindowTargetResponse' {targets} -> targets) (\s@UpdateMaintenanceWindowTargetResponse' {} a -> s {targets = a} :: UpdateMaintenanceWindowTargetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The updated name.
-ursName :: Lens' UpdateMaintenanceWindowTargetResponse (Maybe Text)
-ursName = lens _ursName (\s a -> s {_ursName = a})
+updateMaintenanceWindowTargetResponse_name :: Lens.Lens' UpdateMaintenanceWindowTargetResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowTargetResponse_name = Lens.lens (\UpdateMaintenanceWindowTargetResponse' {name} -> name) (\s@UpdateMaintenanceWindowTargetResponse' {} a -> s {name = a} :: UpdateMaintenanceWindowTargetResponse)
 
 -- | The maintenance window ID specified in the update request.
-ursWindowId :: Lens' UpdateMaintenanceWindowTargetResponse (Maybe Text)
-ursWindowId = lens _ursWindowId (\s a -> s {_ursWindowId = a})
+updateMaintenanceWindowTargetResponse_windowId :: Lens.Lens' UpdateMaintenanceWindowTargetResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowTargetResponse_windowId = Lens.lens (\UpdateMaintenanceWindowTargetResponse' {windowId} -> windowId) (\s@UpdateMaintenanceWindowTargetResponse' {} a -> s {windowId = a} :: UpdateMaintenanceWindowTargetResponse)
 
 -- | The updated description.
-ursDescription :: Lens' UpdateMaintenanceWindowTargetResponse (Maybe Text)
-ursDescription = lens _ursDescription (\s a -> s {_ursDescription = a}) . mapping _Sensitive
+updateMaintenanceWindowTargetResponse_description :: Lens.Lens' UpdateMaintenanceWindowTargetResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowTargetResponse_description = Lens.lens (\UpdateMaintenanceWindowTargetResponse' {description} -> description) (\s@UpdateMaintenanceWindowTargetResponse' {} a -> s {description = a} :: UpdateMaintenanceWindowTargetResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The updated owner.
-ursOwnerInformation :: Lens' UpdateMaintenanceWindowTargetResponse (Maybe Text)
-ursOwnerInformation = lens _ursOwnerInformation (\s a -> s {_ursOwnerInformation = a}) . mapping _Sensitive
+updateMaintenanceWindowTargetResponse_ownerInformation :: Lens.Lens' UpdateMaintenanceWindowTargetResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowTargetResponse_ownerInformation = Lens.lens (\UpdateMaintenanceWindowTargetResponse' {ownerInformation} -> ownerInformation) (\s@UpdateMaintenanceWindowTargetResponse' {} a -> s {ownerInformation = a} :: UpdateMaintenanceWindowTargetResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | -- | The response status code.
-ursResponseStatus :: Lens' UpdateMaintenanceWindowTargetResponse Int
-ursResponseStatus = lens _ursResponseStatus (\s a -> s {_ursResponseStatus = a})
+-- | The response's http status code.
+updateMaintenanceWindowTargetResponse_httpStatus :: Lens.Lens' UpdateMaintenanceWindowTargetResponse Prelude.Int
+updateMaintenanceWindowTargetResponse_httpStatus = Lens.lens (\UpdateMaintenanceWindowTargetResponse' {httpStatus} -> httpStatus) (\s@UpdateMaintenanceWindowTargetResponse' {} a -> s {httpStatus = a} :: UpdateMaintenanceWindowTargetResponse)
 
-instance NFData UpdateMaintenanceWindowTargetResponse
+instance
+  Prelude.NFData
+    UpdateMaintenanceWindowTargetResponse

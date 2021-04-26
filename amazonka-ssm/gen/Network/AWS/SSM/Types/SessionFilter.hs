@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,151 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.SessionFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.SessionFilterKey
 
 -- | Describes a filter for Session Manager information.
 --
---
---
--- /See:/ 'sessionFilter' smart constructor.
+-- /See:/ 'newSessionFilter' smart constructor.
 data SessionFilter = SessionFilter'
-  { _sfKey ::
-      !SessionFilterKey,
-    _sfValue :: !Text
+  { -- | The name of the filter.
+    key :: SessionFilterKey,
+    -- | The filter value. Valid values for each filter key are as follows:
+    --
+    -- -   InvokedAfter: Specify a timestamp to limit your results. For
+    --     example, specify 2018-08-29T00:00:00Z to see sessions that started
+    --     August 29, 2018, and later.
+    --
+    -- -   InvokedBefore: Specify a timestamp to limit your results. For
+    --     example, specify 2018-08-29T00:00:00Z to see sessions that started
+    --     before August 29, 2018.
+    --
+    -- -   Target: Specify an instance to which session connections have been
+    --     made.
+    --
+    -- -   Owner: Specify an AWS user account to see a list of sessions started
+    --     by that user.
+    --
+    -- -   Status: Specify a valid session status to see a list of all sessions
+    --     with that status. Status values you can specify include:
+    --
+    --     -   Connected
+    --
+    --     -   Connecting
+    --
+    --     -   Disconnected
+    --
+    --     -   Terminated
+    --
+    --     -   Terminating
+    --
+    --     -   Failed
+    --
+    -- -   SessionId: Specify a session ID to return details about the session.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SessionFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SessionFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfKey' - The name of the filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sfValue' - The filter value. Valid values for each filter key are as follows:     * InvokedAfter: Specify a timestamp to limit your results. For example, specify 2018-08-29T00:00:00Z to see sessions that started August 29, 2018, and later.     * InvokedBefore: Specify a timestamp to limit your results. For example, specify 2018-08-29T00:00:00Z to see sessions that started before August 29, 2018.     * Target: Specify an instance to which session connections have been made.     * Owner: Specify an AWS user account to see a list of sessions started by that user.     * Status: Specify a valid session status to see a list of all sessions with that status. Status values you can specify include:     * Connected     * Connecting     * Disconnected     * Terminated     * Terminating     * Failed     * SessionId: Specify a session ID to return details about the session.
-sessionFilter ::
-  -- | 'sfKey'
+-- 'key', 'sessionFilter_key' - The name of the filter.
+--
+-- 'value', 'sessionFilter_value' - The filter value. Valid values for each filter key are as follows:
+--
+-- -   InvokedAfter: Specify a timestamp to limit your results. For
+--     example, specify 2018-08-29T00:00:00Z to see sessions that started
+--     August 29, 2018, and later.
+--
+-- -   InvokedBefore: Specify a timestamp to limit your results. For
+--     example, specify 2018-08-29T00:00:00Z to see sessions that started
+--     before August 29, 2018.
+--
+-- -   Target: Specify an instance to which session connections have been
+--     made.
+--
+-- -   Owner: Specify an AWS user account to see a list of sessions started
+--     by that user.
+--
+-- -   Status: Specify a valid session status to see a list of all sessions
+--     with that status. Status values you can specify include:
+--
+--     -   Connected
+--
+--     -   Connecting
+--
+--     -   Disconnected
+--
+--     -   Terminated
+--
+--     -   Terminating
+--
+--     -   Failed
+--
+-- -   SessionId: Specify a session ID to return details about the session.
+newSessionFilter ::
+  -- | 'key'
   SessionFilterKey ->
-  -- | 'sfValue'
-  Text ->
+  -- | 'value'
+  Prelude.Text ->
   SessionFilter
-sessionFilter pKey_ pValue_ =
-  SessionFilter' {_sfKey = pKey_, _sfValue = pValue_}
+newSessionFilter pKey_ pValue_ =
+  SessionFilter' {key = pKey_, value = pValue_}
 
 -- | The name of the filter.
-sfKey :: Lens' SessionFilter SessionFilterKey
-sfKey = lens _sfKey (\s a -> s {_sfKey = a})
+sessionFilter_key :: Lens.Lens' SessionFilter SessionFilterKey
+sessionFilter_key = Lens.lens (\SessionFilter' {key} -> key) (\s@SessionFilter' {} a -> s {key = a} :: SessionFilter)
 
--- | The filter value. Valid values for each filter key are as follows:     * InvokedAfter: Specify a timestamp to limit your results. For example, specify 2018-08-29T00:00:00Z to see sessions that started August 29, 2018, and later.     * InvokedBefore: Specify a timestamp to limit your results. For example, specify 2018-08-29T00:00:00Z to see sessions that started before August 29, 2018.     * Target: Specify an instance to which session connections have been made.     * Owner: Specify an AWS user account to see a list of sessions started by that user.     * Status: Specify a valid session status to see a list of all sessions with that status. Status values you can specify include:     * Connected     * Connecting     * Disconnected     * Terminated     * Terminating     * Failed     * SessionId: Specify a session ID to return details about the session.
-sfValue :: Lens' SessionFilter Text
-sfValue = lens _sfValue (\s a -> s {_sfValue = a})
+-- | The filter value. Valid values for each filter key are as follows:
+--
+-- -   InvokedAfter: Specify a timestamp to limit your results. For
+--     example, specify 2018-08-29T00:00:00Z to see sessions that started
+--     August 29, 2018, and later.
+--
+-- -   InvokedBefore: Specify a timestamp to limit your results. For
+--     example, specify 2018-08-29T00:00:00Z to see sessions that started
+--     before August 29, 2018.
+--
+-- -   Target: Specify an instance to which session connections have been
+--     made.
+--
+-- -   Owner: Specify an AWS user account to see a list of sessions started
+--     by that user.
+--
+-- -   Status: Specify a valid session status to see a list of all sessions
+--     with that status. Status values you can specify include:
+--
+--     -   Connected
+--
+--     -   Connecting
+--
+--     -   Disconnected
+--
+--     -   Terminated
+--
+--     -   Terminating
+--
+--     -   Failed
+--
+-- -   SessionId: Specify a session ID to return details about the session.
+sessionFilter_value :: Lens.Lens' SessionFilter Prelude.Text
+sessionFilter_value = Lens.lens (\SessionFilter' {value} -> value) (\s@SessionFilter' {} a -> s {value = a} :: SessionFilter)
 
-instance Hashable SessionFilter
+instance Prelude.Hashable SessionFilter
 
-instance NFData SessionFilter
+instance Prelude.NFData SessionFilter
 
-instance ToJSON SessionFilter where
+instance Prelude.ToJSON SessionFilter where
   toJSON SessionFilter' {..} =
-    object
-      ( catMaybes
-          [Just ("key" .= _sfKey), Just ("value" .= _sfValue)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("key" Prelude..= key),
+            Prelude.Just ("value" Prelude..= value)
+          ]
       )

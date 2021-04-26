@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,274 +22,419 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a new maintenance window.
+--
+-- The value you specify for @Duration@ determines the specific end time
+-- for the maintenance window based on the time it begins. No maintenance
+-- window tasks are permitted to start after the resulting endtime minus
+-- the number of hours you specify for @Cutoff@. For example, if the
+-- maintenance window starts at 3 PM, the duration is three hours, and the
+-- value you specify for @Cutoff@ is one hour, no maintenance window tasks
+-- can start after 5 PM.
 module Network.AWS.SSM.CreateMaintenanceWindow
   ( -- * Creating a Request
-    createMaintenanceWindow,
-    CreateMaintenanceWindow,
+    CreateMaintenanceWindow (..),
+    newCreateMaintenanceWindow,
 
     -- * Request Lenses
-    cmwStartDate,
-    cmwScheduleOffset,
-    cmwTags,
-    cmwDescription,
-    cmwScheduleTimezone,
-    cmwEndDate,
-    cmwClientToken,
-    cmwName,
-    cmwSchedule,
-    cmwDuration,
-    cmwCutoff,
-    cmwAllowUnassociatedTargets,
+    createMaintenanceWindow_startDate,
+    createMaintenanceWindow_scheduleOffset,
+    createMaintenanceWindow_tags,
+    createMaintenanceWindow_description,
+    createMaintenanceWindow_scheduleTimezone,
+    createMaintenanceWindow_endDate,
+    createMaintenanceWindow_clientToken,
+    createMaintenanceWindow_name,
+    createMaintenanceWindow_schedule,
+    createMaintenanceWindow_duration,
+    createMaintenanceWindow_cutoff,
+    createMaintenanceWindow_allowUnassociatedTargets,
 
     -- * Destructuring the Response
-    createMaintenanceWindowResponse,
-    CreateMaintenanceWindowResponse,
+    CreateMaintenanceWindowResponse (..),
+    newCreateMaintenanceWindowResponse,
 
     -- * Response Lenses
-    cmwrrsWindowId,
-    cmwrrsResponseStatus,
+    createMaintenanceWindowResponse_windowId,
+    createMaintenanceWindowResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'createMaintenanceWindow' smart constructor.
+-- | /See:/ 'newCreateMaintenanceWindow' smart constructor.
 data CreateMaintenanceWindow = CreateMaintenanceWindow'
-  { _cmwStartDate ::
-      !(Maybe Text),
-    _cmwScheduleOffset ::
-      !(Maybe Nat),
-    _cmwTags ::
-      !(Maybe [Tag]),
-    _cmwDescription ::
-      !( Maybe
-           (Sensitive Text)
-       ),
-    _cmwScheduleTimezone ::
-      !(Maybe Text),
-    _cmwEndDate ::
-      !(Maybe Text),
-    _cmwClientToken ::
-      !(Maybe Text),
-    _cmwName :: !Text,
-    _cmwSchedule :: !Text,
-    _cmwDuration :: !Nat,
-    _cmwCutoff :: !Nat,
-    _cmwAllowUnassociatedTargets ::
-      !Bool
+  { -- | The date and time, in ISO-8601 Extended format, for when you want the
+    -- maintenance window to become active. StartDate allows you to delay
+    -- activation of the maintenance window until the specified future date.
+    startDate :: Prelude.Maybe Prelude.Text,
+    -- | The number of days to wait after the date and time specified by a CRON
+    -- expression before running the maintenance window.
+    --
+    -- For example, the following cron expression schedules a maintenance
+    -- window to run on the third Tuesday of every month at 11:30 PM.
+    --
+    -- @cron(30 23 ? * TUE#3 *)@
+    --
+    -- If the schedule offset is @2@, the maintenance window won\'t run until
+    -- two days later.
+    scheduleOffset :: Prelude.Maybe Prelude.Nat,
+    -- | Optional metadata that you assign to a resource. Tags enable you to
+    -- categorize a resource in different ways, such as by purpose, owner, or
+    -- environment. For example, you might want to tag a maintenance window to
+    -- identify the type of tasks it will run, the types of targets, and the
+    -- environment it will run in. In this case, you could specify the
+    -- following key name\/value pairs:
+    --
+    -- -   @Key=TaskType,Value=AgentUpdate@
+    --
+    -- -   @Key=OS,Value=Windows@
+    --
+    -- -   @Key=Environment,Value=Production@
+    --
+    -- To add tags to an existing maintenance window, use the AddTagsToResource
+    -- action.
+    tags :: Prelude.Maybe [Tag],
+    -- | An optional description for the maintenance window. We recommend
+    -- specifying a description to help you organize your maintenance windows.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The time zone that the scheduled maintenance window executions are based
+    -- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+    -- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+    -- information, see the
+    -- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+    -- website.
+    scheduleTimezone :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in ISO-8601 Extended format, for when you want the
+    -- maintenance window to become inactive. EndDate allows you to set a date
+    -- and time in the future when the maintenance window will no longer run.
+    endDate :: Prelude.Maybe Prelude.Text,
+    -- | User-provided idempotency token.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the maintenance window.
+    name :: Prelude.Text,
+    -- | The schedule of the maintenance window in the form of a cron or rate
+    -- expression.
+    schedule :: Prelude.Text,
+    -- | The duration of the maintenance window in hours.
+    duration :: Prelude.Nat,
+    -- | The number of hours before the end of the maintenance window that
+    -- Systems Manager stops scheduling new tasks for execution.
+    cutoff :: Prelude.Nat,
+    -- | Enables a maintenance window task to run on managed instances, even if
+    -- you have not registered those instances as targets. If enabled, then you
+    -- must specify the unregistered instances (by instance ID) when you
+    -- register a task with the maintenance window.
+    --
+    -- If you don\'t enable this option, then you must specify
+    -- previously-registered targets when you register a task with the
+    -- maintenance window.
+    allowUnassociatedTargets :: Prelude.Bool
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMaintenanceWindow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMaintenanceWindow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmwStartDate' - The date and time, in ISO-8601 Extended format, for when you want the maintenance window to become active. StartDate allows you to delay activation of the maintenance window until the specified future date.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmwScheduleOffset' - The number of days to wait after the date and time specified by a CRON expression before running the maintenance window. For example, the following cron expression schedules a maintenance window to run on the third Tuesday of every month at 11:30 PM. @cron(30 23 ? * TUE#3 *)@  If the schedule offset is @2@ , the maintenance window won't run until two days later.
+-- 'startDate', 'createMaintenanceWindow_startDate' - The date and time, in ISO-8601 Extended format, for when you want the
+-- maintenance window to become active. StartDate allows you to delay
+-- activation of the maintenance window until the specified future date.
 --
--- * 'cmwTags' - Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example, you might want to tag a maintenance window to identify the type of tasks it will run, the types of targets, and the environment it will run in. In this case, you could specify the following key name/value pairs:     * @Key=TaskType,Value=AgentUpdate@      * @Key=OS,Value=Windows@      * @Key=Environment,Value=Production@
+-- 'scheduleOffset', 'createMaintenanceWindow_scheduleOffset' - The number of days to wait after the date and time specified by a CRON
+-- expression before running the maintenance window.
 --
--- * 'cmwDescription' - An optional description for the maintenance window. We recommend specifying a description to help you organize your maintenance windows.
+-- For example, the following cron expression schedules a maintenance
+-- window to run on the third Tuesday of every month at 11:30 PM.
 --
--- * 'cmwScheduleTimezone' - The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <https://www.iana.org/time-zones Time Zone Database> on the IANA website.
+-- @cron(30 23 ? * TUE#3 *)@
 --
--- * 'cmwEndDate' - The date and time, in ISO-8601 Extended format, for when you want the maintenance window to become inactive. EndDate allows you to set a date and time in the future when the maintenance window will no longer run.
+-- If the schedule offset is @2@, the maintenance window won\'t run until
+-- two days later.
 --
--- * 'cmwClientToken' - User-provided idempotency token.
+-- 'tags', 'createMaintenanceWindow_tags' - Optional metadata that you assign to a resource. Tags enable you to
+-- categorize a resource in different ways, such as by purpose, owner, or
+-- environment. For example, you might want to tag a maintenance window to
+-- identify the type of tasks it will run, the types of targets, and the
+-- environment it will run in. In this case, you could specify the
+-- following key name\/value pairs:
 --
--- * 'cmwName' - The name of the maintenance window.
+-- -   @Key=TaskType,Value=AgentUpdate@
 --
--- * 'cmwSchedule' - The schedule of the maintenance window in the form of a cron or rate expression.
+-- -   @Key=OS,Value=Windows@
 --
--- * 'cmwDuration' - The duration of the maintenance window in hours.
+-- -   @Key=Environment,Value=Production@
 --
--- * 'cmwCutoff' - The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for execution.
+-- To add tags to an existing maintenance window, use the AddTagsToResource
+-- action.
 --
--- * 'cmwAllowUnassociatedTargets' - Enables a maintenance window task to run on managed instances, even if you have not registered those instances as targets. If enabled, then you must specify the unregistered instances (by instance ID) when you register a task with the maintenance window. If you don't enable this option, then you must specify previously-registered targets when you register a task with the maintenance window.
-createMaintenanceWindow ::
-  -- | 'cmwName'
-  Text ->
-  -- | 'cmwSchedule'
-  Text ->
-  -- | 'cmwDuration'
-  Natural ->
-  -- | 'cmwCutoff'
-  Natural ->
-  -- | 'cmwAllowUnassociatedTargets'
-  Bool ->
+-- 'description', 'createMaintenanceWindow_description' - An optional description for the maintenance window. We recommend
+-- specifying a description to help you organize your maintenance windows.
+--
+-- 'scheduleTimezone', 'createMaintenanceWindow_scheduleTimezone' - The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+-- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+-- information, see the
+-- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+-- website.
+--
+-- 'endDate', 'createMaintenanceWindow_endDate' - The date and time, in ISO-8601 Extended format, for when you want the
+-- maintenance window to become inactive. EndDate allows you to set a date
+-- and time in the future when the maintenance window will no longer run.
+--
+-- 'clientToken', 'createMaintenanceWindow_clientToken' - User-provided idempotency token.
+--
+-- 'name', 'createMaintenanceWindow_name' - The name of the maintenance window.
+--
+-- 'schedule', 'createMaintenanceWindow_schedule' - The schedule of the maintenance window in the form of a cron or rate
+-- expression.
+--
+-- 'duration', 'createMaintenanceWindow_duration' - The duration of the maintenance window in hours.
+--
+-- 'cutoff', 'createMaintenanceWindow_cutoff' - The number of hours before the end of the maintenance window that
+-- Systems Manager stops scheduling new tasks for execution.
+--
+-- 'allowUnassociatedTargets', 'createMaintenanceWindow_allowUnassociatedTargets' - Enables a maintenance window task to run on managed instances, even if
+-- you have not registered those instances as targets. If enabled, then you
+-- must specify the unregistered instances (by instance ID) when you
+-- register a task with the maintenance window.
+--
+-- If you don\'t enable this option, then you must specify
+-- previously-registered targets when you register a task with the
+-- maintenance window.
+newCreateMaintenanceWindow ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'schedule'
+  Prelude.Text ->
+  -- | 'duration'
+  Prelude.Natural ->
+  -- | 'cutoff'
+  Prelude.Natural ->
+  -- | 'allowUnassociatedTargets'
+  Prelude.Bool ->
   CreateMaintenanceWindow
-createMaintenanceWindow
+newCreateMaintenanceWindow
   pName_
   pSchedule_
   pDuration_
   pCutoff_
   pAllowUnassociatedTargets_ =
     CreateMaintenanceWindow'
-      { _cmwStartDate = Nothing,
-        _cmwScheduleOffset = Nothing,
-        _cmwTags = Nothing,
-        _cmwDescription = Nothing,
-        _cmwScheduleTimezone = Nothing,
-        _cmwEndDate = Nothing,
-        _cmwClientToken = Nothing,
-        _cmwName = pName_,
-        _cmwSchedule = pSchedule_,
-        _cmwDuration = _Nat # pDuration_,
-        _cmwCutoff = _Nat # pCutoff_,
-        _cmwAllowUnassociatedTargets =
+      { startDate =
+          Prelude.Nothing,
+        scheduleOffset = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        description = Prelude.Nothing,
+        scheduleTimezone = Prelude.Nothing,
+        endDate = Prelude.Nothing,
+        clientToken = Prelude.Nothing,
+        name = pName_,
+        schedule = pSchedule_,
+        duration = Prelude._Nat Lens.# pDuration_,
+        cutoff = Prelude._Nat Lens.# pCutoff_,
+        allowUnassociatedTargets =
           pAllowUnassociatedTargets_
       }
 
--- | The date and time, in ISO-8601 Extended format, for when you want the maintenance window to become active. StartDate allows you to delay activation of the maintenance window until the specified future date.
-cmwStartDate :: Lens' CreateMaintenanceWindow (Maybe Text)
-cmwStartDate = lens _cmwStartDate (\s a -> s {_cmwStartDate = a})
+-- | The date and time, in ISO-8601 Extended format, for when you want the
+-- maintenance window to become active. StartDate allows you to delay
+-- activation of the maintenance window until the specified future date.
+createMaintenanceWindow_startDate :: Lens.Lens' CreateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+createMaintenanceWindow_startDate = Lens.lens (\CreateMaintenanceWindow' {startDate} -> startDate) (\s@CreateMaintenanceWindow' {} a -> s {startDate = a} :: CreateMaintenanceWindow)
 
--- | The number of days to wait after the date and time specified by a CRON expression before running the maintenance window. For example, the following cron expression schedules a maintenance window to run on the third Tuesday of every month at 11:30 PM. @cron(30 23 ? * TUE#3 *)@  If the schedule offset is @2@ , the maintenance window won't run until two days later.
-cmwScheduleOffset :: Lens' CreateMaintenanceWindow (Maybe Natural)
-cmwScheduleOffset = lens _cmwScheduleOffset (\s a -> s {_cmwScheduleOffset = a}) . mapping _Nat
+-- | The number of days to wait after the date and time specified by a CRON
+-- expression before running the maintenance window.
+--
+-- For example, the following cron expression schedules a maintenance
+-- window to run on the third Tuesday of every month at 11:30 PM.
+--
+-- @cron(30 23 ? * TUE#3 *)@
+--
+-- If the schedule offset is @2@, the maintenance window won\'t run until
+-- two days later.
+createMaintenanceWindow_scheduleOffset :: Lens.Lens' CreateMaintenanceWindow (Prelude.Maybe Prelude.Natural)
+createMaintenanceWindow_scheduleOffset = Lens.lens (\CreateMaintenanceWindow' {scheduleOffset} -> scheduleOffset) (\s@CreateMaintenanceWindow' {} a -> s {scheduleOffset = a} :: CreateMaintenanceWindow) Prelude.. Lens.mapping Prelude._Nat
 
--- | Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example, you might want to tag a maintenance window to identify the type of tasks it will run, the types of targets, and the environment it will run in. In this case, you could specify the following key name/value pairs:     * @Key=TaskType,Value=AgentUpdate@      * @Key=OS,Value=Windows@      * @Key=Environment,Value=Production@
-cmwTags :: Lens' CreateMaintenanceWindow [Tag]
-cmwTags = lens _cmwTags (\s a -> s {_cmwTags = a}) . _Default . _Coerce
+-- | Optional metadata that you assign to a resource. Tags enable you to
+-- categorize a resource in different ways, such as by purpose, owner, or
+-- environment. For example, you might want to tag a maintenance window to
+-- identify the type of tasks it will run, the types of targets, and the
+-- environment it will run in. In this case, you could specify the
+-- following key name\/value pairs:
+--
+-- -   @Key=TaskType,Value=AgentUpdate@
+--
+-- -   @Key=OS,Value=Windows@
+--
+-- -   @Key=Environment,Value=Production@
+--
+-- To add tags to an existing maintenance window, use the AddTagsToResource
+-- action.
+createMaintenanceWindow_tags :: Lens.Lens' CreateMaintenanceWindow (Prelude.Maybe [Tag])
+createMaintenanceWindow_tags = Lens.lens (\CreateMaintenanceWindow' {tags} -> tags) (\s@CreateMaintenanceWindow' {} a -> s {tags = a} :: CreateMaintenanceWindow) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional description for the maintenance window. We recommend specifying a description to help you organize your maintenance windows.
-cmwDescription :: Lens' CreateMaintenanceWindow (Maybe Text)
-cmwDescription = lens _cmwDescription (\s a -> s {_cmwDescription = a}) . mapping _Sensitive
+-- | An optional description for the maintenance window. We recommend
+-- specifying a description to help you organize your maintenance windows.
+createMaintenanceWindow_description :: Lens.Lens' CreateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+createMaintenanceWindow_description = Lens.lens (\CreateMaintenanceWindow' {description} -> description) (\s@CreateMaintenanceWindow' {} a -> s {description = a} :: CreateMaintenanceWindow) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <https://www.iana.org/time-zones Time Zone Database> on the IANA website.
-cmwScheduleTimezone :: Lens' CreateMaintenanceWindow (Maybe Text)
-cmwScheduleTimezone = lens _cmwScheduleTimezone (\s a -> s {_cmwScheduleTimezone = a})
+-- | The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+-- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+-- information, see the
+-- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+-- website.
+createMaintenanceWindow_scheduleTimezone :: Lens.Lens' CreateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+createMaintenanceWindow_scheduleTimezone = Lens.lens (\CreateMaintenanceWindow' {scheduleTimezone} -> scheduleTimezone) (\s@CreateMaintenanceWindow' {} a -> s {scheduleTimezone = a} :: CreateMaintenanceWindow)
 
--- | The date and time, in ISO-8601 Extended format, for when you want the maintenance window to become inactive. EndDate allows you to set a date and time in the future when the maintenance window will no longer run.
-cmwEndDate :: Lens' CreateMaintenanceWindow (Maybe Text)
-cmwEndDate = lens _cmwEndDate (\s a -> s {_cmwEndDate = a})
+-- | The date and time, in ISO-8601 Extended format, for when you want the
+-- maintenance window to become inactive. EndDate allows you to set a date
+-- and time in the future when the maintenance window will no longer run.
+createMaintenanceWindow_endDate :: Lens.Lens' CreateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+createMaintenanceWindow_endDate = Lens.lens (\CreateMaintenanceWindow' {endDate} -> endDate) (\s@CreateMaintenanceWindow' {} a -> s {endDate = a} :: CreateMaintenanceWindow)
 
 -- | User-provided idempotency token.
-cmwClientToken :: Lens' CreateMaintenanceWindow (Maybe Text)
-cmwClientToken = lens _cmwClientToken (\s a -> s {_cmwClientToken = a})
+createMaintenanceWindow_clientToken :: Lens.Lens' CreateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+createMaintenanceWindow_clientToken = Lens.lens (\CreateMaintenanceWindow' {clientToken} -> clientToken) (\s@CreateMaintenanceWindow' {} a -> s {clientToken = a} :: CreateMaintenanceWindow)
 
 -- | The name of the maintenance window.
-cmwName :: Lens' CreateMaintenanceWindow Text
-cmwName = lens _cmwName (\s a -> s {_cmwName = a})
+createMaintenanceWindow_name :: Lens.Lens' CreateMaintenanceWindow Prelude.Text
+createMaintenanceWindow_name = Lens.lens (\CreateMaintenanceWindow' {name} -> name) (\s@CreateMaintenanceWindow' {} a -> s {name = a} :: CreateMaintenanceWindow)
 
--- | The schedule of the maintenance window in the form of a cron or rate expression.
-cmwSchedule :: Lens' CreateMaintenanceWindow Text
-cmwSchedule = lens _cmwSchedule (\s a -> s {_cmwSchedule = a})
+-- | The schedule of the maintenance window in the form of a cron or rate
+-- expression.
+createMaintenanceWindow_schedule :: Lens.Lens' CreateMaintenanceWindow Prelude.Text
+createMaintenanceWindow_schedule = Lens.lens (\CreateMaintenanceWindow' {schedule} -> schedule) (\s@CreateMaintenanceWindow' {} a -> s {schedule = a} :: CreateMaintenanceWindow)
 
 -- | The duration of the maintenance window in hours.
-cmwDuration :: Lens' CreateMaintenanceWindow Natural
-cmwDuration = lens _cmwDuration (\s a -> s {_cmwDuration = a}) . _Nat
+createMaintenanceWindow_duration :: Lens.Lens' CreateMaintenanceWindow Prelude.Natural
+createMaintenanceWindow_duration = Lens.lens (\CreateMaintenanceWindow' {duration} -> duration) (\s@CreateMaintenanceWindow' {} a -> s {duration = a} :: CreateMaintenanceWindow) Prelude.. Prelude._Nat
 
--- | The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for execution.
-cmwCutoff :: Lens' CreateMaintenanceWindow Natural
-cmwCutoff = lens _cmwCutoff (\s a -> s {_cmwCutoff = a}) . _Nat
+-- | The number of hours before the end of the maintenance window that
+-- Systems Manager stops scheduling new tasks for execution.
+createMaintenanceWindow_cutoff :: Lens.Lens' CreateMaintenanceWindow Prelude.Natural
+createMaintenanceWindow_cutoff = Lens.lens (\CreateMaintenanceWindow' {cutoff} -> cutoff) (\s@CreateMaintenanceWindow' {} a -> s {cutoff = a} :: CreateMaintenanceWindow) Prelude.. Prelude._Nat
 
--- | Enables a maintenance window task to run on managed instances, even if you have not registered those instances as targets. If enabled, then you must specify the unregistered instances (by instance ID) when you register a task with the maintenance window. If you don't enable this option, then you must specify previously-registered targets when you register a task with the maintenance window.
-cmwAllowUnassociatedTargets :: Lens' CreateMaintenanceWindow Bool
-cmwAllowUnassociatedTargets = lens _cmwAllowUnassociatedTargets (\s a -> s {_cmwAllowUnassociatedTargets = a})
+-- | Enables a maintenance window task to run on managed instances, even if
+-- you have not registered those instances as targets. If enabled, then you
+-- must specify the unregistered instances (by instance ID) when you
+-- register a task with the maintenance window.
+--
+-- If you don\'t enable this option, then you must specify
+-- previously-registered targets when you register a task with the
+-- maintenance window.
+createMaintenanceWindow_allowUnassociatedTargets :: Lens.Lens' CreateMaintenanceWindow Prelude.Bool
+createMaintenanceWindow_allowUnassociatedTargets = Lens.lens (\CreateMaintenanceWindow' {allowUnassociatedTargets} -> allowUnassociatedTargets) (\s@CreateMaintenanceWindow' {} a -> s {allowUnassociatedTargets = a} :: CreateMaintenanceWindow)
 
-instance AWSRequest CreateMaintenanceWindow where
+instance Prelude.AWSRequest CreateMaintenanceWindow where
   type
     Rs CreateMaintenanceWindow =
       CreateMaintenanceWindowResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateMaintenanceWindowResponse'
-            <$> (x .?> "WindowId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "WindowId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateMaintenanceWindow
+instance Prelude.Hashable CreateMaintenanceWindow
 
-instance NFData CreateMaintenanceWindow
+instance Prelude.NFData CreateMaintenanceWindow
 
-instance ToHeaders CreateMaintenanceWindow where
+instance Prelude.ToHeaders CreateMaintenanceWindow where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.CreateMaintenanceWindow" :: ByteString),
+              Prelude.=# ( "AmazonSSM.CreateMaintenanceWindow" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateMaintenanceWindow where
+instance Prelude.ToJSON CreateMaintenanceWindow where
   toJSON CreateMaintenanceWindow' {..} =
-    object
-      ( catMaybes
-          [ ("StartDate" .=) <$> _cmwStartDate,
-            ("ScheduleOffset" .=) <$> _cmwScheduleOffset,
-            ("Tags" .=) <$> _cmwTags,
-            ("Description" .=) <$> _cmwDescription,
-            ("ScheduleTimezone" .=) <$> _cmwScheduleTimezone,
-            ("EndDate" .=) <$> _cmwEndDate,
-            ("ClientToken" .=) <$> _cmwClientToken,
-            Just ("Name" .= _cmwName),
-            Just ("Schedule" .= _cmwSchedule),
-            Just ("Duration" .= _cmwDuration),
-            Just ("Cutoff" .= _cmwCutoff),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StartDate" Prelude..=) Prelude.<$> startDate,
+            ("ScheduleOffset" Prelude..=)
+              Prelude.<$> scheduleOffset,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("ScheduleTimezone" Prelude..=)
+              Prelude.<$> scheduleTimezone,
+            ("EndDate" Prelude..=) Prelude.<$> endDate,
+            ("ClientToken" Prelude..=) Prelude.<$> clientToken,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Schedule" Prelude..= schedule),
+            Prelude.Just ("Duration" Prelude..= duration),
+            Prelude.Just ("Cutoff" Prelude..= cutoff),
+            Prelude.Just
               ( "AllowUnassociatedTargets"
-                  .= _cmwAllowUnassociatedTargets
+                  Prelude..= allowUnassociatedTargets
               )
           ]
       )
 
-instance ToPath CreateMaintenanceWindow where
-  toPath = const "/"
+instance Prelude.ToPath CreateMaintenanceWindow where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateMaintenanceWindow where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateMaintenanceWindow where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createMaintenanceWindowResponse' smart constructor.
+-- | /See:/ 'newCreateMaintenanceWindowResponse' smart constructor.
 data CreateMaintenanceWindowResponse = CreateMaintenanceWindowResponse'
-  { _cmwrrsWindowId ::
-      !( Maybe
-           Text
-       ),
-    _cmwrrsResponseStatus ::
-      !Int
+  { -- | The ID of the created maintenance window.
+    windowId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMaintenanceWindowResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMaintenanceWindowResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmwrrsWindowId' - The ID of the created maintenance window.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmwrrsResponseStatus' - -- | The response status code.
-createMaintenanceWindowResponse ::
-  -- | 'cmwrrsResponseStatus'
-  Int ->
+-- 'windowId', 'createMaintenanceWindowResponse_windowId' - The ID of the created maintenance window.
+--
+-- 'httpStatus', 'createMaintenanceWindowResponse_httpStatus' - The response's http status code.
+newCreateMaintenanceWindowResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateMaintenanceWindowResponse
-createMaintenanceWindowResponse pResponseStatus_ =
+newCreateMaintenanceWindowResponse pHttpStatus_ =
   CreateMaintenanceWindowResponse'
-    { _cmwrrsWindowId =
-        Nothing,
-      _cmwrrsResponseStatus = pResponseStatus_
+    { windowId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the created maintenance window.
-cmwrrsWindowId :: Lens' CreateMaintenanceWindowResponse (Maybe Text)
-cmwrrsWindowId = lens _cmwrrsWindowId (\s a -> s {_cmwrrsWindowId = a})
+createMaintenanceWindowResponse_windowId :: Lens.Lens' CreateMaintenanceWindowResponse (Prelude.Maybe Prelude.Text)
+createMaintenanceWindowResponse_windowId = Lens.lens (\CreateMaintenanceWindowResponse' {windowId} -> windowId) (\s@CreateMaintenanceWindowResponse' {} a -> s {windowId = a} :: CreateMaintenanceWindowResponse)
 
--- | -- | The response status code.
-cmwrrsResponseStatus :: Lens' CreateMaintenanceWindowResponse Int
-cmwrrsResponseStatus = lens _cmwrrsResponseStatus (\s a -> s {_cmwrrsResponseStatus = a})
+-- | The response's http status code.
+createMaintenanceWindowResponse_httpStatus :: Lens.Lens' CreateMaintenanceWindowResponse Prelude.Int
+createMaintenanceWindowResponse_httpStatus = Lens.lens (\CreateMaintenanceWindowResponse' {httpStatus} -> httpStatus) (\s@CreateMaintenanceWindowResponse' {} a -> s {httpStatus = a} :: CreateMaintenanceWindowResponse)
 
-instance NFData CreateMaintenanceWindowResponse
+instance
+  Prelude.NFData
+    CreateMaintenanceWindowResponse

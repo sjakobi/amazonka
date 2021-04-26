@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,107 +19,105 @@
 module Network.AWS.SSM.Types.AutomationExecutionFilterKey
   ( AutomationExecutionFilterKey
       ( ..,
-        AutomationSubtype,
-        AutomationType,
-        CurrentAction,
-        DocumentNamePrefix,
-        ExecutionId,
-        ExecutionStatus,
-        OpsItemId,
-        ParentExecutionId,
-        StartTimeAfter,
-        StartTimeBefore,
-        TagKey,
-        TargetResourceGroup
+        AutomationExecutionFilterKeyAutomationSubtype,
+        AutomationExecutionFilterKeyAutomationType,
+        AutomationExecutionFilterKeyCurrentAction,
+        AutomationExecutionFilterKeyDocumentNamePrefix,
+        AutomationExecutionFilterKeyExecutionId,
+        AutomationExecutionFilterKeyExecutionStatus,
+        AutomationExecutionFilterKeyOpsItemId,
+        AutomationExecutionFilterKeyParentExecutionId,
+        AutomationExecutionFilterKeyStartTimeAfter,
+        AutomationExecutionFilterKeyStartTimeBefore,
+        AutomationExecutionFilterKeyTagKey,
+        AutomationExecutionFilterKeyTargetResourceGroup
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutomationExecutionFilterKey
-  = AutomationExecutionFilterKey'
-      ( CI
-          Text
-      )
+newtype AutomationExecutionFilterKey = AutomationExecutionFilterKey'
+  { fromAutomationExecutionFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AutomationSubtype :: AutomationExecutionFilterKey
-pattern AutomationSubtype = AutomationExecutionFilterKey' "AutomationSubtype"
+pattern AutomationExecutionFilterKeyAutomationSubtype :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyAutomationSubtype = AutomationExecutionFilterKey' "AutomationSubtype"
 
-pattern AutomationType :: AutomationExecutionFilterKey
-pattern AutomationType = AutomationExecutionFilterKey' "AutomationType"
+pattern AutomationExecutionFilterKeyAutomationType :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyAutomationType = AutomationExecutionFilterKey' "AutomationType"
 
-pattern CurrentAction :: AutomationExecutionFilterKey
-pattern CurrentAction = AutomationExecutionFilterKey' "CurrentAction"
+pattern AutomationExecutionFilterKeyCurrentAction :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyCurrentAction = AutomationExecutionFilterKey' "CurrentAction"
 
-pattern DocumentNamePrefix :: AutomationExecutionFilterKey
-pattern DocumentNamePrefix = AutomationExecutionFilterKey' "DocumentNamePrefix"
+pattern AutomationExecutionFilterKeyDocumentNamePrefix :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyDocumentNamePrefix = AutomationExecutionFilterKey' "DocumentNamePrefix"
 
-pattern ExecutionId :: AutomationExecutionFilterKey
-pattern ExecutionId = AutomationExecutionFilterKey' "ExecutionId"
+pattern AutomationExecutionFilterKeyExecutionId :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyExecutionId = AutomationExecutionFilterKey' "ExecutionId"
 
-pattern ExecutionStatus :: AutomationExecutionFilterKey
-pattern ExecutionStatus = AutomationExecutionFilterKey' "ExecutionStatus"
+pattern AutomationExecutionFilterKeyExecutionStatus :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyExecutionStatus = AutomationExecutionFilterKey' "ExecutionStatus"
 
-pattern OpsItemId :: AutomationExecutionFilterKey
-pattern OpsItemId = AutomationExecutionFilterKey' "OpsItemId"
+pattern AutomationExecutionFilterKeyOpsItemId :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyOpsItemId = AutomationExecutionFilterKey' "OpsItemId"
 
-pattern ParentExecutionId :: AutomationExecutionFilterKey
-pattern ParentExecutionId = AutomationExecutionFilterKey' "ParentExecutionId"
+pattern AutomationExecutionFilterKeyParentExecutionId :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyParentExecutionId = AutomationExecutionFilterKey' "ParentExecutionId"
 
-pattern StartTimeAfter :: AutomationExecutionFilterKey
-pattern StartTimeAfter = AutomationExecutionFilterKey' "StartTimeAfter"
+pattern AutomationExecutionFilterKeyStartTimeAfter :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyStartTimeAfter = AutomationExecutionFilterKey' "StartTimeAfter"
 
-pattern StartTimeBefore :: AutomationExecutionFilterKey
-pattern StartTimeBefore = AutomationExecutionFilterKey' "StartTimeBefore"
+pattern AutomationExecutionFilterKeyStartTimeBefore :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyStartTimeBefore = AutomationExecutionFilterKey' "StartTimeBefore"
 
-pattern TagKey :: AutomationExecutionFilterKey
-pattern TagKey = AutomationExecutionFilterKey' "TagKey"
+pattern AutomationExecutionFilterKeyTagKey :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyTagKey = AutomationExecutionFilterKey' "TagKey"
 
-pattern TargetResourceGroup :: AutomationExecutionFilterKey
-pattern TargetResourceGroup = AutomationExecutionFilterKey' "TargetResourceGroup"
+pattern AutomationExecutionFilterKeyTargetResourceGroup :: AutomationExecutionFilterKey
+pattern AutomationExecutionFilterKeyTargetResourceGroup = AutomationExecutionFilterKey' "TargetResourceGroup"
 
 {-# COMPLETE
-  AutomationSubtype,
-  AutomationType,
-  CurrentAction,
-  DocumentNamePrefix,
-  ExecutionId,
-  ExecutionStatus,
-  OpsItemId,
-  ParentExecutionId,
-  StartTimeAfter,
-  StartTimeBefore,
-  TagKey,
-  TargetResourceGroup,
+  AutomationExecutionFilterKeyAutomationSubtype,
+  AutomationExecutionFilterKeyAutomationType,
+  AutomationExecutionFilterKeyCurrentAction,
+  AutomationExecutionFilterKeyDocumentNamePrefix,
+  AutomationExecutionFilterKeyExecutionId,
+  AutomationExecutionFilterKeyExecutionStatus,
+  AutomationExecutionFilterKeyOpsItemId,
+  AutomationExecutionFilterKeyParentExecutionId,
+  AutomationExecutionFilterKeyStartTimeAfter,
+  AutomationExecutionFilterKeyStartTimeBefore,
+  AutomationExecutionFilterKeyTagKey,
+  AutomationExecutionFilterKeyTargetResourceGroup,
   AutomationExecutionFilterKey'
   #-}
 
-instance FromText AutomationExecutionFilterKey where
-  parser = (AutomationExecutionFilterKey' . mk) <$> takeText
+instance Prelude.FromText AutomationExecutionFilterKey where
+  parser = AutomationExecutionFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText AutomationExecutionFilterKey where
-  toText (AutomationExecutionFilterKey' ci) = original ci
+instance Prelude.ToText AutomationExecutionFilterKey where
+  toText (AutomationExecutionFilterKey' x) = x
 
-instance Hashable AutomationExecutionFilterKey
+instance Prelude.Hashable AutomationExecutionFilterKey
 
-instance NFData AutomationExecutionFilterKey
+instance Prelude.NFData AutomationExecutionFilterKey
 
-instance ToByteString AutomationExecutionFilterKey
+instance Prelude.ToByteString AutomationExecutionFilterKey
 
-instance ToQuery AutomationExecutionFilterKey
+instance Prelude.ToQuery AutomationExecutionFilterKey
 
-instance ToHeader AutomationExecutionFilterKey
+instance Prelude.ToHeader AutomationExecutionFilterKey
 
-instance ToJSON AutomationExecutionFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutomationExecutionFilterKey where
+  toJSON = Prelude.toJSONText

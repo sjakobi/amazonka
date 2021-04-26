@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,162 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates information related to approval reviews for a specific version of a document.
+-- Updates information related to approval reviews for a specific version
+-- of a document.
 module Network.AWS.SSM.UpdateDocumentMetadata
   ( -- * Creating a Request
-    updateDocumentMetadata,
-    UpdateDocumentMetadata,
+    UpdateDocumentMetadata (..),
+    newUpdateDocumentMetadata,
 
     -- * Request Lenses
-    udmDocumentVersion,
-    udmName,
-    udmDocumentReviews,
+    updateDocumentMetadata_documentVersion,
+    updateDocumentMetadata_name,
+    updateDocumentMetadata_documentReviews,
 
     -- * Destructuring the Response
-    updateDocumentMetadataResponse,
-    UpdateDocumentMetadataResponse,
+    UpdateDocumentMetadataResponse (..),
+    newUpdateDocumentMetadataResponse,
 
     -- * Response Lenses
-    udmrrsResponseStatus,
+    updateDocumentMetadataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'updateDocumentMetadata' smart constructor.
+-- | /See:/ 'newUpdateDocumentMetadata' smart constructor.
 data UpdateDocumentMetadata = UpdateDocumentMetadata'
-  { _udmDocumentVersion ::
-      !(Maybe Text),
-    _udmName :: !Text,
-    _udmDocumentReviews ::
-      !DocumentReviews
+  { -- | The version of a document to update.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the document for which a version is to be updated.
+    name :: Prelude.Text,
+    -- | The document review details to update.
+    documentReviews :: DocumentReviews
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDocumentMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDocumentMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udmDocumentVersion' - The version of a document to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udmName' - The name of the document for which a version is to be updated.
+-- 'documentVersion', 'updateDocumentMetadata_documentVersion' - The version of a document to update.
 --
--- * 'udmDocumentReviews' - The document review details to update.
-updateDocumentMetadata ::
-  -- | 'udmName'
-  Text ->
-  -- | 'udmDocumentReviews'
+-- 'name', 'updateDocumentMetadata_name' - The name of the document for which a version is to be updated.
+--
+-- 'documentReviews', 'updateDocumentMetadata_documentReviews' - The document review details to update.
+newUpdateDocumentMetadata ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'documentReviews'
   DocumentReviews ->
   UpdateDocumentMetadata
-updateDocumentMetadata pName_ pDocumentReviews_ =
+newUpdateDocumentMetadata pName_ pDocumentReviews_ =
   UpdateDocumentMetadata'
-    { _udmDocumentVersion =
-        Nothing,
-      _udmName = pName_,
-      _udmDocumentReviews = pDocumentReviews_
+    { documentVersion =
+        Prelude.Nothing,
+      name = pName_,
+      documentReviews = pDocumentReviews_
     }
 
 -- | The version of a document to update.
-udmDocumentVersion :: Lens' UpdateDocumentMetadata (Maybe Text)
-udmDocumentVersion = lens _udmDocumentVersion (\s a -> s {_udmDocumentVersion = a})
+updateDocumentMetadata_documentVersion :: Lens.Lens' UpdateDocumentMetadata (Prelude.Maybe Prelude.Text)
+updateDocumentMetadata_documentVersion = Lens.lens (\UpdateDocumentMetadata' {documentVersion} -> documentVersion) (\s@UpdateDocumentMetadata' {} a -> s {documentVersion = a} :: UpdateDocumentMetadata)
 
 -- | The name of the document for which a version is to be updated.
-udmName :: Lens' UpdateDocumentMetadata Text
-udmName = lens _udmName (\s a -> s {_udmName = a})
+updateDocumentMetadata_name :: Lens.Lens' UpdateDocumentMetadata Prelude.Text
+updateDocumentMetadata_name = Lens.lens (\UpdateDocumentMetadata' {name} -> name) (\s@UpdateDocumentMetadata' {} a -> s {name = a} :: UpdateDocumentMetadata)
 
 -- | The document review details to update.
-udmDocumentReviews :: Lens' UpdateDocumentMetadata DocumentReviews
-udmDocumentReviews = lens _udmDocumentReviews (\s a -> s {_udmDocumentReviews = a})
+updateDocumentMetadata_documentReviews :: Lens.Lens' UpdateDocumentMetadata DocumentReviews
+updateDocumentMetadata_documentReviews = Lens.lens (\UpdateDocumentMetadata' {documentReviews} -> documentReviews) (\s@UpdateDocumentMetadata' {} a -> s {documentReviews = a} :: UpdateDocumentMetadata)
 
-instance AWSRequest UpdateDocumentMetadata where
+instance Prelude.AWSRequest UpdateDocumentMetadata where
   type
     Rs UpdateDocumentMetadata =
       UpdateDocumentMetadataResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateDocumentMetadataResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDocumentMetadata
+instance Prelude.Hashable UpdateDocumentMetadata
 
-instance NFData UpdateDocumentMetadata
+instance Prelude.NFData UpdateDocumentMetadata
 
-instance ToHeaders UpdateDocumentMetadata where
+instance Prelude.ToHeaders UpdateDocumentMetadata where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.UpdateDocumentMetadata" :: ByteString),
+              Prelude.=# ( "AmazonSSM.UpdateDocumentMetadata" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateDocumentMetadata where
+instance Prelude.ToJSON UpdateDocumentMetadata where
   toJSON UpdateDocumentMetadata' {..} =
-    object
-      ( catMaybes
-          [ ("DocumentVersion" .=) <$> _udmDocumentVersion,
-            Just ("Name" .= _udmName),
-            Just ("DocumentReviews" .= _udmDocumentReviews)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DocumentVersion" Prelude..=)
+              Prelude.<$> documentVersion,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("DocumentReviews" Prelude..= documentReviews)
           ]
       )
 
-instance ToPath UpdateDocumentMetadata where
-  toPath = const "/"
+instance Prelude.ToPath UpdateDocumentMetadata where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateDocumentMetadata where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDocumentMetadata where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDocumentMetadataResponse' smart constructor.
-newtype UpdateDocumentMetadataResponse = UpdateDocumentMetadataResponse'
-  { _udmrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateDocumentMetadataResponse' smart constructor.
+data UpdateDocumentMetadataResponse = UpdateDocumentMetadataResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDocumentMetadataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDocumentMetadataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udmrrsResponseStatus' - -- | The response status code.
-updateDocumentMetadataResponse ::
-  -- | 'udmrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateDocumentMetadataResponse_httpStatus' - The response's http status code.
+newUpdateDocumentMetadataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDocumentMetadataResponse
-updateDocumentMetadataResponse pResponseStatus_ =
+newUpdateDocumentMetadataResponse pHttpStatus_ =
   UpdateDocumentMetadataResponse'
-    { _udmrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-udmrrsResponseStatus :: Lens' UpdateDocumentMetadataResponse Int
-udmrrsResponseStatus = lens _udmrrsResponseStatus (\s a -> s {_udmrrsResponseStatus = a})
+-- | The response's http status code.
+updateDocumentMetadataResponse_httpStatus :: Lens.Lens' UpdateDocumentMetadataResponse Prelude.Int
+updateDocumentMetadataResponse_httpStatus = Lens.lens (\UpdateDocumentMetadataResponse' {httpStatus} -> httpStatus) (\s@UpdateDocumentMetadataResponse' {} a -> s {httpStatus = a} :: UpdateDocumentMetadataResponse)
 
-instance NFData UpdateDocumentMetadataResponse
+instance
+  Prelude.NFData
+    UpdateDocumentMetadataResponse

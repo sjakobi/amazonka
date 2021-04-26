@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,121 +24,129 @@
 -- Delete OpsMetadata related to an application.
 module Network.AWS.SSM.DeleteOpsMetadata
   ( -- * Creating a Request
-    deleteOpsMetadata,
-    DeleteOpsMetadata,
+    DeleteOpsMetadata (..),
+    newDeleteOpsMetadata,
 
     -- * Request Lenses
-    domOpsMetadataARN,
+    deleteOpsMetadata_opsMetadataArn,
 
     -- * Destructuring the Response
-    deleteOpsMetadataResponse,
-    DeleteOpsMetadataResponse,
+    DeleteOpsMetadataResponse (..),
+    newDeleteOpsMetadataResponse,
 
     -- * Response Lenses
-    domrrsResponseStatus,
+    deleteOpsMetadataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'deleteOpsMetadata' smart constructor.
-newtype DeleteOpsMetadata = DeleteOpsMetadata'
-  { _domOpsMetadataARN ::
-      Text
+-- | /See:/ 'newDeleteOpsMetadata' smart constructor.
+data DeleteOpsMetadata = DeleteOpsMetadata'
+  { -- | The Amazon Resource Name (ARN) of an OpsMetadata Object to delete.
+    opsMetadataArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOpsMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteOpsMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'domOpsMetadataARN' - The Amazon Resource Name (ARN) of an OpsMetadata Object to delete.
-deleteOpsMetadata ::
-  -- | 'domOpsMetadataARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'opsMetadataArn', 'deleteOpsMetadata_opsMetadataArn' - The Amazon Resource Name (ARN) of an OpsMetadata Object to delete.
+newDeleteOpsMetadata ::
+  -- | 'opsMetadataArn'
+  Prelude.Text ->
   DeleteOpsMetadata
-deleteOpsMetadata pOpsMetadataARN_ =
+newDeleteOpsMetadata pOpsMetadataArn_ =
   DeleteOpsMetadata'
-    { _domOpsMetadataARN =
-        pOpsMetadataARN_
+    { opsMetadataArn =
+        pOpsMetadataArn_
     }
 
 -- | The Amazon Resource Name (ARN) of an OpsMetadata Object to delete.
-domOpsMetadataARN :: Lens' DeleteOpsMetadata Text
-domOpsMetadataARN = lens _domOpsMetadataARN (\s a -> s {_domOpsMetadataARN = a})
+deleteOpsMetadata_opsMetadataArn :: Lens.Lens' DeleteOpsMetadata Prelude.Text
+deleteOpsMetadata_opsMetadataArn = Lens.lens (\DeleteOpsMetadata' {opsMetadataArn} -> opsMetadataArn) (\s@DeleteOpsMetadata' {} a -> s {opsMetadataArn = a} :: DeleteOpsMetadata)
 
-instance AWSRequest DeleteOpsMetadata where
+instance Prelude.AWSRequest DeleteOpsMetadata where
   type Rs DeleteOpsMetadata = DeleteOpsMetadataResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteOpsMetadataResponse' <$> (pure (fromEnum s))
+          DeleteOpsMetadataResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteOpsMetadata
+instance Prelude.Hashable DeleteOpsMetadata
 
-instance NFData DeleteOpsMetadata
+instance Prelude.NFData DeleteOpsMetadata
 
-instance ToHeaders DeleteOpsMetadata where
+instance Prelude.ToHeaders DeleteOpsMetadata where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.DeleteOpsMetadata" :: ByteString),
+              Prelude.=# ( "AmazonSSM.DeleteOpsMetadata" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteOpsMetadata where
+instance Prelude.ToJSON DeleteOpsMetadata where
   toJSON DeleteOpsMetadata' {..} =
-    object
-      ( catMaybes
-          [Just ("OpsMetadataArn" .= _domOpsMetadataARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OpsMetadataArn" Prelude..= opsMetadataArn)
+          ]
       )
 
-instance ToPath DeleteOpsMetadata where
-  toPath = const "/"
+instance Prelude.ToPath DeleteOpsMetadata where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteOpsMetadata where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteOpsMetadata where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteOpsMetadataResponse' smart constructor.
-newtype DeleteOpsMetadataResponse = DeleteOpsMetadataResponse'
-  { _domrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteOpsMetadataResponse' smart constructor.
+data DeleteOpsMetadataResponse = DeleteOpsMetadataResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOpsMetadataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteOpsMetadataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'domrrsResponseStatus' - -- | The response status code.
-deleteOpsMetadataResponse ::
-  -- | 'domrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteOpsMetadataResponse_httpStatus' - The response's http status code.
+newDeleteOpsMetadataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteOpsMetadataResponse
-deleteOpsMetadataResponse pResponseStatus_ =
+newDeleteOpsMetadataResponse pHttpStatus_ =
   DeleteOpsMetadataResponse'
-    { _domrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-domrrsResponseStatus :: Lens' DeleteOpsMetadataResponse Int
-domrrsResponseStatus = lens _domrrsResponseStatus (\s a -> s {_domrrsResponseStatus = a})
+-- | The response's http status code.
+deleteOpsMetadataResponse_httpStatus :: Lens.Lens' DeleteOpsMetadataResponse Prelude.Int
+deleteOpsMetadataResponse_httpStatus = Lens.lens (\DeleteOpsMetadataResponse' {httpStatus} -> httpStatus) (\s@DeleteOpsMetadataResponse' {} a -> s {httpStatus = a} :: DeleteOpsMetadataResponse)
 
-instance NFData DeleteOpsMetadataResponse
+instance Prelude.NFData DeleteOpsMetadataResponse

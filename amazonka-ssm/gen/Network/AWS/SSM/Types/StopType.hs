@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SSM.Types.StopType
   ( StopType
       ( ..,
-        STCancel,
-        STComplete
+        StopTypeCancel,
+        StopTypeComplete
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StopType = StopType' (CI Text)
+newtype StopType = StopType'
+  { fromStopType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern STCancel :: StopType
-pattern STCancel = StopType' "Cancel"
+pattern StopTypeCancel :: StopType
+pattern StopTypeCancel = StopType' "Cancel"
 
-pattern STComplete :: StopType
-pattern STComplete = StopType' "Complete"
+pattern StopTypeComplete :: StopType
+pattern StopTypeComplete = StopType' "Complete"
 
 {-# COMPLETE
-  STCancel,
-  STComplete,
+  StopTypeCancel,
+  StopTypeComplete,
   StopType'
   #-}
 
-instance FromText StopType where
-  parser = (StopType' . mk) <$> takeText
+instance Prelude.FromText StopType where
+  parser = StopType' Prelude.<$> Prelude.takeText
 
-instance ToText StopType where
-  toText (StopType' ci) = original ci
+instance Prelude.ToText StopType where
+  toText (StopType' x) = x
 
-instance Hashable StopType
+instance Prelude.Hashable StopType
 
-instance NFData StopType
+instance Prelude.NFData StopType
 
-instance ToByteString StopType
+instance Prelude.ToByteString StopType
 
-instance ToQuery StopType
+instance Prelude.ToQuery StopType
 
-instance ToHeader StopType
+instance Prelude.ToHeader StopType
 
-instance ToJSON StopType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StopType where
+  toJSON = Prelude.toJSONText

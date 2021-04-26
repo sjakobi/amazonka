@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InventoryResultEntity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.InventoryResultItem
 
 -- | Inventory query results.
 --
---
---
--- /See:/ 'inventoryResultEntity' smart constructor.
+-- /See:/ 'newInventoryResultEntity' smart constructor.
 data InventoryResultEntity = InventoryResultEntity'
-  { _ireData ::
-      !( Maybe
-           ( Map
-               Text
-               InventoryResultItem
-           )
-       ),
-    _ireId :: !(Maybe Text)
+  { -- | The data section in the inventory result entity JSON.
+    data' :: Prelude.Maybe (Prelude.Map Prelude.Text InventoryResultItem),
+    -- | ID of the inventory result entity. For example, for managed instance
+    -- inventory the result will be the managed instance ID. For EC2 instance
+    -- inventory, the result will be the instance ID.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryResultEntity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryResultEntity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ireData' - The data section in the inventory result entity JSON.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ireId' - ID of the inventory result entity. For example, for managed instance inventory the result will be the managed instance ID. For EC2 instance inventory, the result will be the instance ID.
-inventoryResultEntity ::
+-- 'data'', 'inventoryResultEntity_data' - The data section in the inventory result entity JSON.
+--
+-- 'id', 'inventoryResultEntity_id' - ID of the inventory result entity. For example, for managed instance
+-- inventory the result will be the managed instance ID. For EC2 instance
+-- inventory, the result will be the instance ID.
+newInventoryResultEntity ::
   InventoryResultEntity
-inventoryResultEntity =
+newInventoryResultEntity =
   InventoryResultEntity'
-    { _ireData = Nothing,
-      _ireId = Nothing
+    { data' = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
 -- | The data section in the inventory result entity JSON.
-ireData :: Lens' InventoryResultEntity (HashMap Text InventoryResultItem)
-ireData = lens _ireData (\s a -> s {_ireData = a}) . _Default . _Map
+inventoryResultEntity_data :: Lens.Lens' InventoryResultEntity (Prelude.Maybe (Prelude.HashMap Prelude.Text InventoryResultItem))
+inventoryResultEntity_data = Lens.lens (\InventoryResultEntity' {data'} -> data') (\s@InventoryResultEntity' {} a -> s {data' = a} :: InventoryResultEntity) Prelude.. Lens.mapping Prelude._Map
 
--- | ID of the inventory result entity. For example, for managed instance inventory the result will be the managed instance ID. For EC2 instance inventory, the result will be the instance ID.
-ireId :: Lens' InventoryResultEntity (Maybe Text)
-ireId = lens _ireId (\s a -> s {_ireId = a})
+-- | ID of the inventory result entity. For example, for managed instance
+-- inventory the result will be the managed instance ID. For EC2 instance
+-- inventory, the result will be the instance ID.
+inventoryResultEntity_id :: Lens.Lens' InventoryResultEntity (Prelude.Maybe Prelude.Text)
+inventoryResultEntity_id = Lens.lens (\InventoryResultEntity' {id} -> id) (\s@InventoryResultEntity' {} a -> s {id = a} :: InventoryResultEntity)
 
-instance FromJSON InventoryResultEntity where
+instance Prelude.FromJSON InventoryResultEntity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InventoryResultEntity"
       ( \x ->
           InventoryResultEntity'
-            <$> (x .:? "Data" .!= mempty) <*> (x .:? "Id")
+            Prelude.<$> (x Prelude..:? "Data" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Id")
       )
 
-instance Hashable InventoryResultEntity
+instance Prelude.Hashable InventoryResultEntity
 
-instance NFData InventoryResultEntity
+instance Prelude.NFData InventoryResultEntity

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,135 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ParameterStringFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | One or more filters. Use a filter to return a more specific list of results.
+-- | One or more filters. Use a filter to return a more specific list of
+-- results.
 --
---
---
--- /See:/ 'parameterStringFilter' smart constructor.
+-- /See:/ 'newParameterStringFilter' smart constructor.
 data ParameterStringFilter = ParameterStringFilter'
-  { _psfValues ::
-      !(Maybe (List1 Text)),
-    _psfOption :: !(Maybe Text),
-    _psfKey :: !Text
+  { -- | The value you want to search for.
+    values :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | For all filters used with DescribeParameters, valid options include
+    -- @Equals@ and @BeginsWith@. The @Name@ filter additionally supports the
+    -- @Contains@ option. (Exception: For filters using the key @Path@, valid
+    -- options include @Recursive@ and @OneLevel@.)
+    --
+    -- For filters used with GetParametersByPath, valid options include
+    -- @Equals@ and @BeginsWith@. (Exception: For filters using @Label@ as the
+    -- Key name, the only valid option is @Equals@.)
+    option :: Prelude.Maybe Prelude.Text,
+    -- | The name of the filter.
+    --
+    -- The @ParameterStringFilter@ object is used by the DescribeParameters and
+    -- GetParametersByPath API actions. However, not all of the pattern values
+    -- listed for @Key@ can be used with both actions.
+    --
+    -- For @DescribeActions@, all of the listed patterns are valid, with the
+    -- exception of @Label@.
+    --
+    -- For @GetParametersByPath@, the following patterns listed for @Key@ are
+    -- not valid: @tag@, @Name@, @Path@, and @Tier@.
+    --
+    -- For examples of CLI commands demonstrating valid parameter filter
+    -- constructions, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html Searching for Systems Manager parameters>
+    -- in the /AWS Systems Manager User Guide/.
+    key :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParameterStringFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParameterStringFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psfValues' - The value you want to search for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psfOption' - For all filters used with 'DescribeParameters' , valid options include @Equals@ and @BeginsWith@ . The @Name@ filter additionally supports the @Contains@ option. (Exception: For filters using the key @Path@ , valid options include @Recursive@ and @OneLevel@ .) For filters used with 'GetParametersByPath' , valid options include @Equals@ and @BeginsWith@ . (Exception: For filters using @Label@ as the Key name, the only valid option is @Equals@ .)
+-- 'values', 'parameterStringFilter_values' - The value you want to search for.
 --
--- * 'psfKey' - The name of the filter.
-parameterStringFilter ::
-  -- | 'psfKey'
-  Text ->
+-- 'option', 'parameterStringFilter_option' - For all filters used with DescribeParameters, valid options include
+-- @Equals@ and @BeginsWith@. The @Name@ filter additionally supports the
+-- @Contains@ option. (Exception: For filters using the key @Path@, valid
+-- options include @Recursive@ and @OneLevel@.)
+--
+-- For filters used with GetParametersByPath, valid options include
+-- @Equals@ and @BeginsWith@. (Exception: For filters using @Label@ as the
+-- Key name, the only valid option is @Equals@.)
+--
+-- 'key', 'parameterStringFilter_key' - The name of the filter.
+--
+-- The @ParameterStringFilter@ object is used by the DescribeParameters and
+-- GetParametersByPath API actions. However, not all of the pattern values
+-- listed for @Key@ can be used with both actions.
+--
+-- For @DescribeActions@, all of the listed patterns are valid, with the
+-- exception of @Label@.
+--
+-- For @GetParametersByPath@, the following patterns listed for @Key@ are
+-- not valid: @tag@, @Name@, @Path@, and @Tier@.
+--
+-- For examples of CLI commands demonstrating valid parameter filter
+-- constructions, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html Searching for Systems Manager parameters>
+-- in the /AWS Systems Manager User Guide/.
+newParameterStringFilter ::
+  -- | 'key'
+  Prelude.Text ->
   ParameterStringFilter
-parameterStringFilter pKey_ =
+newParameterStringFilter pKey_ =
   ParameterStringFilter'
-    { _psfValues = Nothing,
-      _psfOption = Nothing,
-      _psfKey = pKey_
+    { values = Prelude.Nothing,
+      option = Prelude.Nothing,
+      key = pKey_
     }
 
 -- | The value you want to search for.
-psfValues :: Lens' ParameterStringFilter (Maybe (NonEmpty Text))
-psfValues = lens _psfValues (\s a -> s {_psfValues = a}) . mapping _List1
+parameterStringFilter_values :: Lens.Lens' ParameterStringFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+parameterStringFilter_values = Lens.lens (\ParameterStringFilter' {values} -> values) (\s@ParameterStringFilter' {} a -> s {values = a} :: ParameterStringFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | For all filters used with 'DescribeParameters' , valid options include @Equals@ and @BeginsWith@ . The @Name@ filter additionally supports the @Contains@ option. (Exception: For filters using the key @Path@ , valid options include @Recursive@ and @OneLevel@ .) For filters used with 'GetParametersByPath' , valid options include @Equals@ and @BeginsWith@ . (Exception: For filters using @Label@ as the Key name, the only valid option is @Equals@ .)
-psfOption :: Lens' ParameterStringFilter (Maybe Text)
-psfOption = lens _psfOption (\s a -> s {_psfOption = a})
+-- | For all filters used with DescribeParameters, valid options include
+-- @Equals@ and @BeginsWith@. The @Name@ filter additionally supports the
+-- @Contains@ option. (Exception: For filters using the key @Path@, valid
+-- options include @Recursive@ and @OneLevel@.)
+--
+-- For filters used with GetParametersByPath, valid options include
+-- @Equals@ and @BeginsWith@. (Exception: For filters using @Label@ as the
+-- Key name, the only valid option is @Equals@.)
+parameterStringFilter_option :: Lens.Lens' ParameterStringFilter (Prelude.Maybe Prelude.Text)
+parameterStringFilter_option = Lens.lens (\ParameterStringFilter' {option} -> option) (\s@ParameterStringFilter' {} a -> s {option = a} :: ParameterStringFilter)
 
 -- | The name of the filter.
-psfKey :: Lens' ParameterStringFilter Text
-psfKey = lens _psfKey (\s a -> s {_psfKey = a})
+--
+-- The @ParameterStringFilter@ object is used by the DescribeParameters and
+-- GetParametersByPath API actions. However, not all of the pattern values
+-- listed for @Key@ can be used with both actions.
+--
+-- For @DescribeActions@, all of the listed patterns are valid, with the
+-- exception of @Label@.
+--
+-- For @GetParametersByPath@, the following patterns listed for @Key@ are
+-- not valid: @tag@, @Name@, @Path@, and @Tier@.
+--
+-- For examples of CLI commands demonstrating valid parameter filter
+-- constructions, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html Searching for Systems Manager parameters>
+-- in the /AWS Systems Manager User Guide/.
+parameterStringFilter_key :: Lens.Lens' ParameterStringFilter Prelude.Text
+parameterStringFilter_key = Lens.lens (\ParameterStringFilter' {key} -> key) (\s@ParameterStringFilter' {} a -> s {key = a} :: ParameterStringFilter)
 
-instance Hashable ParameterStringFilter
+instance Prelude.Hashable ParameterStringFilter
 
-instance NFData ParameterStringFilter
+instance Prelude.NFData ParameterStringFilter
 
-instance ToJSON ParameterStringFilter where
+instance Prelude.ToJSON ParameterStringFilter where
   toJSON ParameterStringFilter' {..} =
-    object
-      ( catMaybes
-          [ ("Values" .=) <$> _psfValues,
-            ("Option" .=) <$> _psfOption,
-            Just ("Key" .= _psfKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Values" Prelude..=) Prelude.<$> values,
+            ("Option" Prelude..=) Prelude.<$> option,
+            Prelude.Just ("Key" Prelude..= key)
           ]
       )

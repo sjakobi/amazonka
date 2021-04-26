@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.Command where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.CloudWatchOutputConfig
 import Network.AWS.SSM.Types.CommandStatus
 import Network.AWS.SSM.Types.NotificationConfig
@@ -24,248 +28,471 @@ import Network.AWS.SSM.Types.Target
 
 -- | Describes a command request.
 --
---
---
--- /See:/ 'command' smart constructor.
+-- /See:/ 'newCommand' smart constructor.
 data Command = Command'
-  { _cNotificationConfig ::
-      !(Maybe NotificationConfig),
-    _cInstanceIds :: !(Maybe [Text]),
-    _cMaxErrors :: !(Maybe Text),
-    _cExpiresAfter :: !(Maybe POSIX),
-    _cStatus :: !(Maybe CommandStatus),
-    _cServiceRole :: !(Maybe Text),
-    _cRequestedDateTime :: !(Maybe POSIX),
-    _cStatusDetails :: !(Maybe Text),
-    _cCompletedCount :: !(Maybe Int),
-    _cOutputS3BucketName :: !(Maybe Text),
-    _cComment :: !(Maybe Text),
-    _cErrorCount :: !(Maybe Int),
-    _cDocumentName :: !(Maybe Text),
-    _cCommandId :: !(Maybe Text),
-    _cTargets :: !(Maybe [Target]),
-    _cOutputS3Region :: !(Maybe Text),
-    _cMaxConcurrency :: !(Maybe Text),
-    _cOutputS3KeyPrefix :: !(Maybe Text),
-    _cTimeoutSeconds :: !(Maybe Nat),
-    _cDeliveryTimedOutCount :: !(Maybe Int),
-    _cCloudWatchOutputConfig ::
-      !(Maybe CloudWatchOutputConfig),
-    _cDocumentVersion :: !(Maybe Text),
-    _cParameters :: !(Maybe (Map Text [Text])),
-    _cTargetCount :: !(Maybe Int)
+  { -- | Configurations for sending notifications about command status changes.
+    notificationConfig :: Prelude.Maybe NotificationConfig,
+    -- | The instance IDs against which this command was requested.
+    instanceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of errors allowed before the system stops sending the
+    -- command to additional targets. You can specify a number of errors, such
+    -- as 10, or a percentage or errors, such as 10%. The default value is 0.
+    -- For more information about how to use MaxErrors, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command>
+    -- in the /AWS Systems Manager User Guide/.
+    maxErrors :: Prelude.Maybe Prelude.Text,
+    -- | If this time is reached and the command has not already started running,
+    -- it will not run. Calculated based on the ExpiresAfter user input
+    -- provided as part of the SendCommand API.
+    expiresAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the command.
+    status :: Prelude.Maybe CommandStatus,
+    -- | The IAM service role that Run Command uses to act on your behalf when
+    -- sending notifications about command status changes.
+    serviceRole :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the command was requested.
+    requestedDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A detailed status of the command execution. StatusDetails includes more
+    -- information than Status because it includes states resulting from error
+    -- and concurrency control parameters. StatusDetails can show different
+    -- results than Status. For more information about these statuses, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses>
+    -- in the /AWS Systems Manager User Guide/. StatusDetails can be one of the
+    -- following values:
+    --
+    -- -   Pending: The command has not been sent to any instances.
+    --
+    -- -   In Progress: The command has been sent to at least one instance but
+    --     has not reached a final state on all instances.
+    --
+    -- -   Success: The command successfully ran on all invocations. This is a
+    --     terminal state.
+    --
+    -- -   Delivery Timed Out: The value of MaxErrors or more command
+    --     invocations shows a status of Delivery Timed Out. This is a terminal
+    --     state.
+    --
+    -- -   Execution Timed Out: The value of MaxErrors or more command
+    --     invocations shows a status of Execution Timed Out. This is a
+    --     terminal state.
+    --
+    -- -   Failed: The value of MaxErrors or more command invocations shows a
+    --     status of Failed. This is a terminal state.
+    --
+    -- -   Incomplete: The command was attempted on all instances and one or
+    --     more invocations does not have a value of Success but not enough
+    --     invocations failed for the status to be Failed. This is a terminal
+    --     state.
+    --
+    -- -   Canceled: The command was terminated before it was completed. This
+    --     is a terminal state.
+    --
+    -- -   Rate Exceeded: The number of instances targeted by the command
+    --     exceeded the account limit for pending invocations. The system has
+    --     canceled the command before running it on any instance. This is a
+    --     terminal state.
+    statusDetails :: Prelude.Maybe Prelude.Text,
+    -- | The number of targets for which the command invocation reached a
+    -- terminal state. Terminal states include the following: Success, Failed,
+    -- Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or
+    -- Undeliverable.
+    completedCount :: Prelude.Maybe Prelude.Int,
+    -- | The S3 bucket where the responses to the command executions should be
+    -- stored. This was requested when issuing the command.
+    outputS3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | User-specified information about the command, such as a brief
+    -- description of what the command should do.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | The number of targets for which the status is Failed or Execution Timed
+    -- Out.
+    errorCount :: Prelude.Maybe Prelude.Int,
+    -- | The name of the document requested for execution.
+    documentName :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for this command.
+    commandId :: Prelude.Maybe Prelude.Text,
+    -- | An array of search criteria that targets instances using a Key,Value
+    -- combination that you specify. Targets is required if you don\'t provide
+    -- one or more instance IDs in the call.
+    targets :: Prelude.Maybe [Target],
+    -- | (Deprecated) You can no longer specify this parameter. The system
+    -- ignores it. Instead, Systems Manager automatically determines the Region
+    -- of the S3 bucket.
+    outputS3Region :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of instances that are allowed to run the command at
+    -- the same time. You can specify a number of instances, such as 10, or a
+    -- percentage of instances, such as 10%. The default value is 50. For more
+    -- information about how to use MaxConcurrency, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command>
+    -- in the /AWS Systems Manager User Guide/.
+    maxConcurrency :: Prelude.Maybe Prelude.Text,
+    -- | The S3 directory path inside the bucket where the responses to the
+    -- command executions should be stored. This was requested when issuing the
+    -- command.
+    outputS3KeyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The @TimeoutSeconds@ value specified for a command.
+    timeoutSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The number of targets for which the status is Delivery Timed Out.
+    deliveryTimedOutCount :: Prelude.Maybe Prelude.Int,
+    -- | CloudWatch Logs information where you want Systems Manager to send the
+    -- command output.
+    cloudWatchOutputConfig :: Prelude.Maybe CloudWatchOutputConfig,
+    -- | The SSM document version.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The parameter values to be inserted in the document when running the
+    -- command.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The number of targets for the command.
+    targetCount :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Command' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Command' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cNotificationConfig' - Configurations for sending notifications about command status changes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cInstanceIds' - The instance IDs against which this command was requested.
+-- 'notificationConfig', 'command_notificationConfig' - Configurations for sending notifications about command status changes.
 --
--- * 'cMaxErrors' - The maximum number of errors allowed before the system stops sending the command to additional targets. You can specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is 0. For more information about how to use MaxErrors, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command> in the /AWS Systems Manager User Guide/ .
+-- 'instanceIds', 'command_instanceIds' - The instance IDs against which this command was requested.
 --
--- * 'cExpiresAfter' - If this time is reached and the command has not already started running, it will not run. Calculated based on the ExpiresAfter user input provided as part of the SendCommand API.
+-- 'maxErrors', 'command_maxErrors' - The maximum number of errors allowed before the system stops sending the
+-- command to additional targets. You can specify a number of errors, such
+-- as 10, or a percentage or errors, such as 10%. The default value is 0.
+-- For more information about how to use MaxErrors, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command>
+-- in the /AWS Systems Manager User Guide/.
 --
--- * 'cStatus' - The status of the command.
+-- 'expiresAfter', 'command_expiresAfter' - If this time is reached and the command has not already started running,
+-- it will not run. Calculated based on the ExpiresAfter user input
+-- provided as part of the SendCommand API.
 --
--- * 'cServiceRole' - The IAM service role that Run Command uses to act on your behalf when sending notifications about command status changes.
+-- 'status', 'command_status' - The status of the command.
 --
--- * 'cRequestedDateTime' - The date and time the command was requested.
+-- 'serviceRole', 'command_serviceRole' - The IAM service role that Run Command uses to act on your behalf when
+-- sending notifications about command status changes.
 --
--- * 'cStatusDetails' - A detailed status of the command execution. StatusDetails includes more information than Status because it includes states resulting from error and concurrency control parameters. StatusDetails can show different results than Status. For more information about these statuses, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses> in the /AWS Systems Manager User Guide/ . StatusDetails can be one of the following values:     * Pending: The command has not been sent to any instances.     * In Progress: The command has been sent to at least one instance but has not reached a final state on all instances.     * Success: The command successfully ran on all invocations. This is a terminal state.     * Delivery Timed Out: The value of MaxErrors or more command invocations shows a status of Delivery Timed Out. This is a terminal state.     * Execution Timed Out: The value of MaxErrors or more command invocations shows a status of Execution Timed Out. This is a terminal state.     * Failed: The value of MaxErrors or more command invocations shows a status of Failed. This is a terminal state.     * Incomplete: The command was attempted on all instances and one or more invocations does not have a value of Success but not enough invocations failed for the status to be Failed. This is a terminal state.     * Canceled: The command was terminated before it was completed. This is a terminal state.     * Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending invocations. The system has canceled the command before running it on any instance. This is a terminal state.
+-- 'requestedDateTime', 'command_requestedDateTime' - The date and time the command was requested.
 --
--- * 'cCompletedCount' - The number of targets for which the command invocation reached a terminal state. Terminal states include the following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or Undeliverable.
+-- 'statusDetails', 'command_statusDetails' - A detailed status of the command execution. StatusDetails includes more
+-- information than Status because it includes states resulting from error
+-- and concurrency control parameters. StatusDetails can show different
+-- results than Status. For more information about these statuses, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses>
+-- in the /AWS Systems Manager User Guide/. StatusDetails can be one of the
+-- following values:
 --
--- * 'cOutputS3BucketName' - The S3 bucket where the responses to the command executions should be stored. This was requested when issuing the command.
+-- -   Pending: The command has not been sent to any instances.
 --
--- * 'cComment' - User-specified information about the command, such as a brief description of what the command should do.
+-- -   In Progress: The command has been sent to at least one instance but
+--     has not reached a final state on all instances.
 --
--- * 'cErrorCount' - The number of targets for which the status is Failed or Execution Timed Out.
+-- -   Success: The command successfully ran on all invocations. This is a
+--     terminal state.
 --
--- * 'cDocumentName' - The name of the document requested for execution.
+-- -   Delivery Timed Out: The value of MaxErrors or more command
+--     invocations shows a status of Delivery Timed Out. This is a terminal
+--     state.
 --
--- * 'cCommandId' - A unique identifier for this command.
+-- -   Execution Timed Out: The value of MaxErrors or more command
+--     invocations shows a status of Execution Timed Out. This is a
+--     terminal state.
 --
--- * 'cTargets' - An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is required if you don't provide one or more instance IDs in the call.
+-- -   Failed: The value of MaxErrors or more command invocations shows a
+--     status of Failed. This is a terminal state.
 --
--- * 'cOutputS3Region' - (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager automatically determines the Region of the S3 bucket.
+-- -   Incomplete: The command was attempted on all instances and one or
+--     more invocations does not have a value of Success but not enough
+--     invocations failed for the status to be Failed. This is a terminal
+--     state.
 --
--- * 'cMaxConcurrency' - The maximum number of instances that are allowed to run the command at the same time. You can specify a number of instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For more information about how to use MaxConcurrency, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command> in the /AWS Systems Manager User Guide/ .
+-- -   Canceled: The command was terminated before it was completed. This
+--     is a terminal state.
 --
--- * 'cOutputS3KeyPrefix' - The S3 directory path inside the bucket where the responses to the command executions should be stored. This was requested when issuing the command.
+-- -   Rate Exceeded: The number of instances targeted by the command
+--     exceeded the account limit for pending invocations. The system has
+--     canceled the command before running it on any instance. This is a
+--     terminal state.
 --
--- * 'cTimeoutSeconds' - The @TimeoutSeconds@ value specified for a command.
+-- 'completedCount', 'command_completedCount' - The number of targets for which the command invocation reached a
+-- terminal state. Terminal states include the following: Success, Failed,
+-- Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or
+-- Undeliverable.
 --
--- * 'cDeliveryTimedOutCount' - The number of targets for which the status is Delivery Timed Out.
+-- 'outputS3BucketName', 'command_outputS3BucketName' - The S3 bucket where the responses to the command executions should be
+-- stored. This was requested when issuing the command.
 --
--- * 'cCloudWatchOutputConfig' - CloudWatch Logs information where you want Systems Manager to send the command output.
+-- 'comment', 'command_comment' - User-specified information about the command, such as a brief
+-- description of what the command should do.
 --
--- * 'cDocumentVersion' - The SSM document version.
+-- 'errorCount', 'command_errorCount' - The number of targets for which the status is Failed or Execution Timed
+-- Out.
 --
--- * 'cParameters' - The parameter values to be inserted in the document when running the command.
+-- 'documentName', 'command_documentName' - The name of the document requested for execution.
 --
--- * 'cTargetCount' - The number of targets for the command.
-command ::
+-- 'commandId', 'command_commandId' - A unique identifier for this command.
+--
+-- 'targets', 'command_targets' - An array of search criteria that targets instances using a Key,Value
+-- combination that you specify. Targets is required if you don\'t provide
+-- one or more instance IDs in the call.
+--
+-- 'outputS3Region', 'command_outputS3Region' - (Deprecated) You can no longer specify this parameter. The system
+-- ignores it. Instead, Systems Manager automatically determines the Region
+-- of the S3 bucket.
+--
+-- 'maxConcurrency', 'command_maxConcurrency' - The maximum number of instances that are allowed to run the command at
+-- the same time. You can specify a number of instances, such as 10, or a
+-- percentage of instances, such as 10%. The default value is 50. For more
+-- information about how to use MaxConcurrency, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command>
+-- in the /AWS Systems Manager User Guide/.
+--
+-- 'outputS3KeyPrefix', 'command_outputS3KeyPrefix' - The S3 directory path inside the bucket where the responses to the
+-- command executions should be stored. This was requested when issuing the
+-- command.
+--
+-- 'timeoutSeconds', 'command_timeoutSeconds' - The @TimeoutSeconds@ value specified for a command.
+--
+-- 'deliveryTimedOutCount', 'command_deliveryTimedOutCount' - The number of targets for which the status is Delivery Timed Out.
+--
+-- 'cloudWatchOutputConfig', 'command_cloudWatchOutputConfig' - CloudWatch Logs information where you want Systems Manager to send the
+-- command output.
+--
+-- 'documentVersion', 'command_documentVersion' - The SSM document version.
+--
+-- 'parameters', 'command_parameters' - The parameter values to be inserted in the document when running the
+-- command.
+--
+-- 'targetCount', 'command_targetCount' - The number of targets for the command.
+newCommand ::
   Command
-command =
+newCommand =
   Command'
-    { _cNotificationConfig = Nothing,
-      _cInstanceIds = Nothing,
-      _cMaxErrors = Nothing,
-      _cExpiresAfter = Nothing,
-      _cStatus = Nothing,
-      _cServiceRole = Nothing,
-      _cRequestedDateTime = Nothing,
-      _cStatusDetails = Nothing,
-      _cCompletedCount = Nothing,
-      _cOutputS3BucketName = Nothing,
-      _cComment = Nothing,
-      _cErrorCount = Nothing,
-      _cDocumentName = Nothing,
-      _cCommandId = Nothing,
-      _cTargets = Nothing,
-      _cOutputS3Region = Nothing,
-      _cMaxConcurrency = Nothing,
-      _cOutputS3KeyPrefix = Nothing,
-      _cTimeoutSeconds = Nothing,
-      _cDeliveryTimedOutCount = Nothing,
-      _cCloudWatchOutputConfig = Nothing,
-      _cDocumentVersion = Nothing,
-      _cParameters = Nothing,
-      _cTargetCount = Nothing
+    { notificationConfig = Prelude.Nothing,
+      instanceIds = Prelude.Nothing,
+      maxErrors = Prelude.Nothing,
+      expiresAfter = Prelude.Nothing,
+      status = Prelude.Nothing,
+      serviceRole = Prelude.Nothing,
+      requestedDateTime = Prelude.Nothing,
+      statusDetails = Prelude.Nothing,
+      completedCount = Prelude.Nothing,
+      outputS3BucketName = Prelude.Nothing,
+      comment = Prelude.Nothing,
+      errorCount = Prelude.Nothing,
+      documentName = Prelude.Nothing,
+      commandId = Prelude.Nothing,
+      targets = Prelude.Nothing,
+      outputS3Region = Prelude.Nothing,
+      maxConcurrency = Prelude.Nothing,
+      outputS3KeyPrefix = Prelude.Nothing,
+      timeoutSeconds = Prelude.Nothing,
+      deliveryTimedOutCount = Prelude.Nothing,
+      cloudWatchOutputConfig = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      targetCount = Prelude.Nothing
     }
 
 -- | Configurations for sending notifications about command status changes.
-cNotificationConfig :: Lens' Command (Maybe NotificationConfig)
-cNotificationConfig = lens _cNotificationConfig (\s a -> s {_cNotificationConfig = a})
+command_notificationConfig :: Lens.Lens' Command (Prelude.Maybe NotificationConfig)
+command_notificationConfig = Lens.lens (\Command' {notificationConfig} -> notificationConfig) (\s@Command' {} a -> s {notificationConfig = a} :: Command)
 
 -- | The instance IDs against which this command was requested.
-cInstanceIds :: Lens' Command [Text]
-cInstanceIds = lens _cInstanceIds (\s a -> s {_cInstanceIds = a}) . _Default . _Coerce
+command_instanceIds :: Lens.Lens' Command (Prelude.Maybe [Prelude.Text])
+command_instanceIds = Lens.lens (\Command' {instanceIds} -> instanceIds) (\s@Command' {} a -> s {instanceIds = a} :: Command) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of errors allowed before the system stops sending the command to additional targets. You can specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is 0. For more information about how to use MaxErrors, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command> in the /AWS Systems Manager User Guide/ .
-cMaxErrors :: Lens' Command (Maybe Text)
-cMaxErrors = lens _cMaxErrors (\s a -> s {_cMaxErrors = a})
+-- | The maximum number of errors allowed before the system stops sending the
+-- command to additional targets. You can specify a number of errors, such
+-- as 10, or a percentage or errors, such as 10%. The default value is 0.
+-- For more information about how to use MaxErrors, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command>
+-- in the /AWS Systems Manager User Guide/.
+command_maxErrors :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_maxErrors = Lens.lens (\Command' {maxErrors} -> maxErrors) (\s@Command' {} a -> s {maxErrors = a} :: Command)
 
--- | If this time is reached and the command has not already started running, it will not run. Calculated based on the ExpiresAfter user input provided as part of the SendCommand API.
-cExpiresAfter :: Lens' Command (Maybe UTCTime)
-cExpiresAfter = lens _cExpiresAfter (\s a -> s {_cExpiresAfter = a}) . mapping _Time
+-- | If this time is reached and the command has not already started running,
+-- it will not run. Calculated based on the ExpiresAfter user input
+-- provided as part of the SendCommand API.
+command_expiresAfter :: Lens.Lens' Command (Prelude.Maybe Prelude.UTCTime)
+command_expiresAfter = Lens.lens (\Command' {expiresAfter} -> expiresAfter) (\s@Command' {} a -> s {expiresAfter = a} :: Command) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the command.
-cStatus :: Lens' Command (Maybe CommandStatus)
-cStatus = lens _cStatus (\s a -> s {_cStatus = a})
+command_status :: Lens.Lens' Command (Prelude.Maybe CommandStatus)
+command_status = Lens.lens (\Command' {status} -> status) (\s@Command' {} a -> s {status = a} :: Command)
 
--- | The IAM service role that Run Command uses to act on your behalf when sending notifications about command status changes.
-cServiceRole :: Lens' Command (Maybe Text)
-cServiceRole = lens _cServiceRole (\s a -> s {_cServiceRole = a})
+-- | The IAM service role that Run Command uses to act on your behalf when
+-- sending notifications about command status changes.
+command_serviceRole :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_serviceRole = Lens.lens (\Command' {serviceRole} -> serviceRole) (\s@Command' {} a -> s {serviceRole = a} :: Command)
 
 -- | The date and time the command was requested.
-cRequestedDateTime :: Lens' Command (Maybe UTCTime)
-cRequestedDateTime = lens _cRequestedDateTime (\s a -> s {_cRequestedDateTime = a}) . mapping _Time
+command_requestedDateTime :: Lens.Lens' Command (Prelude.Maybe Prelude.UTCTime)
+command_requestedDateTime = Lens.lens (\Command' {requestedDateTime} -> requestedDateTime) (\s@Command' {} a -> s {requestedDateTime = a} :: Command) Prelude.. Lens.mapping Prelude._Time
 
--- | A detailed status of the command execution. StatusDetails includes more information than Status because it includes states resulting from error and concurrency control parameters. StatusDetails can show different results than Status. For more information about these statuses, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses> in the /AWS Systems Manager User Guide/ . StatusDetails can be one of the following values:     * Pending: The command has not been sent to any instances.     * In Progress: The command has been sent to at least one instance but has not reached a final state on all instances.     * Success: The command successfully ran on all invocations. This is a terminal state.     * Delivery Timed Out: The value of MaxErrors or more command invocations shows a status of Delivery Timed Out. This is a terminal state.     * Execution Timed Out: The value of MaxErrors or more command invocations shows a status of Execution Timed Out. This is a terminal state.     * Failed: The value of MaxErrors or more command invocations shows a status of Failed. This is a terminal state.     * Incomplete: The command was attempted on all instances and one or more invocations does not have a value of Success but not enough invocations failed for the status to be Failed. This is a terminal state.     * Canceled: The command was terminated before it was completed. This is a terminal state.     * Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending invocations. The system has canceled the command before running it on any instance. This is a terminal state.
-cStatusDetails :: Lens' Command (Maybe Text)
-cStatusDetails = lens _cStatusDetails (\s a -> s {_cStatusDetails = a})
+-- | A detailed status of the command execution. StatusDetails includes more
+-- information than Status because it includes states resulting from error
+-- and concurrency control parameters. StatusDetails can show different
+-- results than Status. For more information about these statuses, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses>
+-- in the /AWS Systems Manager User Guide/. StatusDetails can be one of the
+-- following values:
+--
+-- -   Pending: The command has not been sent to any instances.
+--
+-- -   In Progress: The command has been sent to at least one instance but
+--     has not reached a final state on all instances.
+--
+-- -   Success: The command successfully ran on all invocations. This is a
+--     terminal state.
+--
+-- -   Delivery Timed Out: The value of MaxErrors or more command
+--     invocations shows a status of Delivery Timed Out. This is a terminal
+--     state.
+--
+-- -   Execution Timed Out: The value of MaxErrors or more command
+--     invocations shows a status of Execution Timed Out. This is a
+--     terminal state.
+--
+-- -   Failed: The value of MaxErrors or more command invocations shows a
+--     status of Failed. This is a terminal state.
+--
+-- -   Incomplete: The command was attempted on all instances and one or
+--     more invocations does not have a value of Success but not enough
+--     invocations failed for the status to be Failed. This is a terminal
+--     state.
+--
+-- -   Canceled: The command was terminated before it was completed. This
+--     is a terminal state.
+--
+-- -   Rate Exceeded: The number of instances targeted by the command
+--     exceeded the account limit for pending invocations. The system has
+--     canceled the command before running it on any instance. This is a
+--     terminal state.
+command_statusDetails :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_statusDetails = Lens.lens (\Command' {statusDetails} -> statusDetails) (\s@Command' {} a -> s {statusDetails = a} :: Command)
 
--- | The number of targets for which the command invocation reached a terminal state. Terminal states include the following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or Undeliverable.
-cCompletedCount :: Lens' Command (Maybe Int)
-cCompletedCount = lens _cCompletedCount (\s a -> s {_cCompletedCount = a})
+-- | The number of targets for which the command invocation reached a
+-- terminal state. Terminal states include the following: Success, Failed,
+-- Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or
+-- Undeliverable.
+command_completedCount :: Lens.Lens' Command (Prelude.Maybe Prelude.Int)
+command_completedCount = Lens.lens (\Command' {completedCount} -> completedCount) (\s@Command' {} a -> s {completedCount = a} :: Command)
 
--- | The S3 bucket where the responses to the command executions should be stored. This was requested when issuing the command.
-cOutputS3BucketName :: Lens' Command (Maybe Text)
-cOutputS3BucketName = lens _cOutputS3BucketName (\s a -> s {_cOutputS3BucketName = a})
+-- | The S3 bucket where the responses to the command executions should be
+-- stored. This was requested when issuing the command.
+command_outputS3BucketName :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_outputS3BucketName = Lens.lens (\Command' {outputS3BucketName} -> outputS3BucketName) (\s@Command' {} a -> s {outputS3BucketName = a} :: Command)
 
--- | User-specified information about the command, such as a brief description of what the command should do.
-cComment :: Lens' Command (Maybe Text)
-cComment = lens _cComment (\s a -> s {_cComment = a})
+-- | User-specified information about the command, such as a brief
+-- description of what the command should do.
+command_comment :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_comment = Lens.lens (\Command' {comment} -> comment) (\s@Command' {} a -> s {comment = a} :: Command)
 
--- | The number of targets for which the status is Failed or Execution Timed Out.
-cErrorCount :: Lens' Command (Maybe Int)
-cErrorCount = lens _cErrorCount (\s a -> s {_cErrorCount = a})
+-- | The number of targets for which the status is Failed or Execution Timed
+-- Out.
+command_errorCount :: Lens.Lens' Command (Prelude.Maybe Prelude.Int)
+command_errorCount = Lens.lens (\Command' {errorCount} -> errorCount) (\s@Command' {} a -> s {errorCount = a} :: Command)
 
 -- | The name of the document requested for execution.
-cDocumentName :: Lens' Command (Maybe Text)
-cDocumentName = lens _cDocumentName (\s a -> s {_cDocumentName = a})
+command_documentName :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_documentName = Lens.lens (\Command' {documentName} -> documentName) (\s@Command' {} a -> s {documentName = a} :: Command)
 
 -- | A unique identifier for this command.
-cCommandId :: Lens' Command (Maybe Text)
-cCommandId = lens _cCommandId (\s a -> s {_cCommandId = a})
+command_commandId :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_commandId = Lens.lens (\Command' {commandId} -> commandId) (\s@Command' {} a -> s {commandId = a} :: Command)
 
--- | An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is required if you don't provide one or more instance IDs in the call.
-cTargets :: Lens' Command [Target]
-cTargets = lens _cTargets (\s a -> s {_cTargets = a}) . _Default . _Coerce
+-- | An array of search criteria that targets instances using a Key,Value
+-- combination that you specify. Targets is required if you don\'t provide
+-- one or more instance IDs in the call.
+command_targets :: Lens.Lens' Command (Prelude.Maybe [Target])
+command_targets = Lens.lens (\Command' {targets} -> targets) (\s@Command' {} a -> s {targets = a} :: Command) Prelude.. Lens.mapping Prelude._Coerce
 
--- | (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager automatically determines the Region of the S3 bucket.
-cOutputS3Region :: Lens' Command (Maybe Text)
-cOutputS3Region = lens _cOutputS3Region (\s a -> s {_cOutputS3Region = a})
+-- | (Deprecated) You can no longer specify this parameter. The system
+-- ignores it. Instead, Systems Manager automatically determines the Region
+-- of the S3 bucket.
+command_outputS3Region :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_outputS3Region = Lens.lens (\Command' {outputS3Region} -> outputS3Region) (\s@Command' {} a -> s {outputS3Region = a} :: Command)
 
--- | The maximum number of instances that are allowed to run the command at the same time. You can specify a number of instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For more information about how to use MaxConcurrency, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command> in the /AWS Systems Manager User Guide/ .
-cMaxConcurrency :: Lens' Command (Maybe Text)
-cMaxConcurrency = lens _cMaxConcurrency (\s a -> s {_cMaxConcurrency = a})
+-- | The maximum number of instances that are allowed to run the command at
+-- the same time. You can specify a number of instances, such as 10, or a
+-- percentage of instances, such as 10%. The default value is 50. For more
+-- information about how to use MaxConcurrency, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html Running commands using Systems Manager Run Command>
+-- in the /AWS Systems Manager User Guide/.
+command_maxConcurrency :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_maxConcurrency = Lens.lens (\Command' {maxConcurrency} -> maxConcurrency) (\s@Command' {} a -> s {maxConcurrency = a} :: Command)
 
--- | The S3 directory path inside the bucket where the responses to the command executions should be stored. This was requested when issuing the command.
-cOutputS3KeyPrefix :: Lens' Command (Maybe Text)
-cOutputS3KeyPrefix = lens _cOutputS3KeyPrefix (\s a -> s {_cOutputS3KeyPrefix = a})
+-- | The S3 directory path inside the bucket where the responses to the
+-- command executions should be stored. This was requested when issuing the
+-- command.
+command_outputS3KeyPrefix :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_outputS3KeyPrefix = Lens.lens (\Command' {outputS3KeyPrefix} -> outputS3KeyPrefix) (\s@Command' {} a -> s {outputS3KeyPrefix = a} :: Command)
 
 -- | The @TimeoutSeconds@ value specified for a command.
-cTimeoutSeconds :: Lens' Command (Maybe Natural)
-cTimeoutSeconds = lens _cTimeoutSeconds (\s a -> s {_cTimeoutSeconds = a}) . mapping _Nat
+command_timeoutSeconds :: Lens.Lens' Command (Prelude.Maybe Prelude.Natural)
+command_timeoutSeconds = Lens.lens (\Command' {timeoutSeconds} -> timeoutSeconds) (\s@Command' {} a -> s {timeoutSeconds = a} :: Command) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The number of targets for which the status is Delivery Timed Out.
-cDeliveryTimedOutCount :: Lens' Command (Maybe Int)
-cDeliveryTimedOutCount = lens _cDeliveryTimedOutCount (\s a -> s {_cDeliveryTimedOutCount = a})
+command_deliveryTimedOutCount :: Lens.Lens' Command (Prelude.Maybe Prelude.Int)
+command_deliveryTimedOutCount = Lens.lens (\Command' {deliveryTimedOutCount} -> deliveryTimedOutCount) (\s@Command' {} a -> s {deliveryTimedOutCount = a} :: Command)
 
--- | CloudWatch Logs information where you want Systems Manager to send the command output.
-cCloudWatchOutputConfig :: Lens' Command (Maybe CloudWatchOutputConfig)
-cCloudWatchOutputConfig = lens _cCloudWatchOutputConfig (\s a -> s {_cCloudWatchOutputConfig = a})
+-- | CloudWatch Logs information where you want Systems Manager to send the
+-- command output.
+command_cloudWatchOutputConfig :: Lens.Lens' Command (Prelude.Maybe CloudWatchOutputConfig)
+command_cloudWatchOutputConfig = Lens.lens (\Command' {cloudWatchOutputConfig} -> cloudWatchOutputConfig) (\s@Command' {} a -> s {cloudWatchOutputConfig = a} :: Command)
 
 -- | The SSM document version.
-cDocumentVersion :: Lens' Command (Maybe Text)
-cDocumentVersion = lens _cDocumentVersion (\s a -> s {_cDocumentVersion = a})
+command_documentVersion :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_documentVersion = Lens.lens (\Command' {documentVersion} -> documentVersion) (\s@Command' {} a -> s {documentVersion = a} :: Command)
 
--- | The parameter values to be inserted in the document when running the command.
-cParameters :: Lens' Command (HashMap Text [Text])
-cParameters = lens _cParameters (\s a -> s {_cParameters = a}) . _Default . _Map
+-- | The parameter values to be inserted in the document when running the
+-- command.
+command_parameters :: Lens.Lens' Command (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+command_parameters = Lens.lens (\Command' {parameters} -> parameters) (\s@Command' {} a -> s {parameters = a} :: Command) Prelude.. Lens.mapping Prelude._Map
 
 -- | The number of targets for the command.
-cTargetCount :: Lens' Command (Maybe Int)
-cTargetCount = lens _cTargetCount (\s a -> s {_cTargetCount = a})
+command_targetCount :: Lens.Lens' Command (Prelude.Maybe Prelude.Int)
+command_targetCount = Lens.lens (\Command' {targetCount} -> targetCount) (\s@Command' {} a -> s {targetCount = a} :: Command)
 
-instance FromJSON Command where
+instance Prelude.FromJSON Command where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Command"
       ( \x ->
           Command'
-            <$> (x .:? "NotificationConfig")
-            <*> (x .:? "InstanceIds" .!= mempty)
-            <*> (x .:? "MaxErrors")
-            <*> (x .:? "ExpiresAfter")
-            <*> (x .:? "Status")
-            <*> (x .:? "ServiceRole")
-            <*> (x .:? "RequestedDateTime")
-            <*> (x .:? "StatusDetails")
-            <*> (x .:? "CompletedCount")
-            <*> (x .:? "OutputS3BucketName")
-            <*> (x .:? "Comment")
-            <*> (x .:? "ErrorCount")
-            <*> (x .:? "DocumentName")
-            <*> (x .:? "CommandId")
-            <*> (x .:? "Targets" .!= mempty)
-            <*> (x .:? "OutputS3Region")
-            <*> (x .:? "MaxConcurrency")
-            <*> (x .:? "OutputS3KeyPrefix")
-            <*> (x .:? "TimeoutSeconds")
-            <*> (x .:? "DeliveryTimedOutCount")
-            <*> (x .:? "CloudWatchOutputConfig")
-            <*> (x .:? "DocumentVersion")
-            <*> (x .:? "Parameters" .!= mempty)
-            <*> (x .:? "TargetCount")
+            Prelude.<$> (x Prelude..:? "NotificationConfig")
+            Prelude.<*> ( x Prelude..:? "InstanceIds"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "MaxErrors")
+            Prelude.<*> (x Prelude..:? "ExpiresAfter")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "ServiceRole")
+            Prelude.<*> (x Prelude..:? "RequestedDateTime")
+            Prelude.<*> (x Prelude..:? "StatusDetails")
+            Prelude.<*> (x Prelude..:? "CompletedCount")
+            Prelude.<*> (x Prelude..:? "OutputS3BucketName")
+            Prelude.<*> (x Prelude..:? "Comment")
+            Prelude.<*> (x Prelude..:? "ErrorCount")
+            Prelude.<*> (x Prelude..:? "DocumentName")
+            Prelude.<*> (x Prelude..:? "CommandId")
+            Prelude.<*> (x Prelude..:? "Targets" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "OutputS3Region")
+            Prelude.<*> (x Prelude..:? "MaxConcurrency")
+            Prelude.<*> (x Prelude..:? "OutputS3KeyPrefix")
+            Prelude.<*> (x Prelude..:? "TimeoutSeconds")
+            Prelude.<*> (x Prelude..:? "DeliveryTimedOutCount")
+            Prelude.<*> (x Prelude..:? "CloudWatchOutputConfig")
+            Prelude.<*> (x Prelude..:? "DocumentVersion")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "TargetCount")
       )
 
-instance Hashable Command
+instance Prelude.Hashable Command
 
-instance NFData Command
+instance Prelude.NFData Command

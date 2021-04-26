@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.OpsMetadataFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A filter to limit the number of OpsMetadata objects displayed.
 --
---
---
--- /See:/ 'opsMetadataFilter' smart constructor.
+-- /See:/ 'newOpsMetadataFilter' smart constructor.
 data OpsMetadataFilter = OpsMetadataFilter'
-  { _omfKey ::
-      !Text,
-    _omfValues :: !(List1 Text)
+  { -- | A filter key.
+    key :: Prelude.Text,
+    -- | A filter value.
+    values :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpsMetadataFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpsMetadataFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'omfKey' - A filter key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'omfValues' - A filter value.
-opsMetadataFilter ::
-  -- | 'omfKey'
-  Text ->
-  -- | 'omfValues'
-  NonEmpty Text ->
+-- 'key', 'opsMetadataFilter_key' - A filter key.
+--
+-- 'values', 'opsMetadataFilter_values' - A filter value.
+newOpsMetadataFilter ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
   OpsMetadataFilter
-opsMetadataFilter pKey_ pValues_ =
+newOpsMetadataFilter pKey_ pValues_ =
   OpsMetadataFilter'
-    { _omfKey = pKey_,
-      _omfValues = _List1 # pValues_
+    { key = pKey_,
+      values = Prelude._List1 Lens.# pValues_
     }
 
 -- | A filter key.
-omfKey :: Lens' OpsMetadataFilter Text
-omfKey = lens _omfKey (\s a -> s {_omfKey = a})
+opsMetadataFilter_key :: Lens.Lens' OpsMetadataFilter Prelude.Text
+opsMetadataFilter_key = Lens.lens (\OpsMetadataFilter' {key} -> key) (\s@OpsMetadataFilter' {} a -> s {key = a} :: OpsMetadataFilter)
 
 -- | A filter value.
-omfValues :: Lens' OpsMetadataFilter (NonEmpty Text)
-omfValues = lens _omfValues (\s a -> s {_omfValues = a}) . _List1
+opsMetadataFilter_values :: Lens.Lens' OpsMetadataFilter (Prelude.NonEmpty Prelude.Text)
+opsMetadataFilter_values = Lens.lens (\OpsMetadataFilter' {values} -> values) (\s@OpsMetadataFilter' {} a -> s {values = a} :: OpsMetadataFilter) Prelude.. Prelude._List1
 
-instance Hashable OpsMetadataFilter
+instance Prelude.Hashable OpsMetadataFilter
 
-instance NFData OpsMetadataFilter
+instance Prelude.NFData OpsMetadataFilter
 
-instance ToJSON OpsMetadataFilter where
+instance Prelude.ToJSON OpsMetadataFilter where
   toJSON OpsMetadataFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("Key" .= _omfKey),
-            Just ("Values" .= _omfValues)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Values" Prelude..= values)
           ]
       )

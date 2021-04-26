@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ComplianceStringFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.ComplianceQueryOperatorType
 
--- | One or more filters. Use a filter to return a more specific list of results.
+-- | One or more filters. Use a filter to return a more specific list of
+-- results.
 --
---
---
--- /See:/ 'complianceStringFilter' smart constructor.
+-- /See:/ 'newComplianceStringFilter' smart constructor.
 data ComplianceStringFilter = ComplianceStringFilter'
-  { _csfKey ::
-      !(Maybe Text),
-    _csfValues ::
-      !(Maybe (List1 Text)),
-    _csfType ::
-      !( Maybe
-           ComplianceQueryOperatorType
-       )
+  { -- | The name of the filter.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value for which to search.
+    values :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The type of comparison that should be performed for the value: Equal,
+    -- NotEqual, BeginWith, LessThan, or GreaterThan.
+    type' :: Prelude.Maybe ComplianceQueryOperatorType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComplianceStringFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComplianceStringFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csfKey' - The name of the filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csfValues' - The value for which to search.
+-- 'key', 'complianceStringFilter_key' - The name of the filter.
 --
--- * 'csfType' - The type of comparison that should be performed for the value: Equal, NotEqual, BeginWith, LessThan, or GreaterThan.
-complianceStringFilter ::
+-- 'values', 'complianceStringFilter_values' - The value for which to search.
+--
+-- 'type'', 'complianceStringFilter_type' - The type of comparison that should be performed for the value: Equal,
+-- NotEqual, BeginWith, LessThan, or GreaterThan.
+newComplianceStringFilter ::
   ComplianceStringFilter
-complianceStringFilter =
+newComplianceStringFilter =
   ComplianceStringFilter'
-    { _csfKey = Nothing,
-      _csfValues = Nothing,
-      _csfType = Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The name of the filter.
-csfKey :: Lens' ComplianceStringFilter (Maybe Text)
-csfKey = lens _csfKey (\s a -> s {_csfKey = a})
+complianceStringFilter_key :: Lens.Lens' ComplianceStringFilter (Prelude.Maybe Prelude.Text)
+complianceStringFilter_key = Lens.lens (\ComplianceStringFilter' {key} -> key) (\s@ComplianceStringFilter' {} a -> s {key = a} :: ComplianceStringFilter)
 
 -- | The value for which to search.
-csfValues :: Lens' ComplianceStringFilter (Maybe (NonEmpty Text))
-csfValues = lens _csfValues (\s a -> s {_csfValues = a}) . mapping _List1
+complianceStringFilter_values :: Lens.Lens' ComplianceStringFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+complianceStringFilter_values = Lens.lens (\ComplianceStringFilter' {values} -> values) (\s@ComplianceStringFilter' {} a -> s {values = a} :: ComplianceStringFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | The type of comparison that should be performed for the value: Equal, NotEqual, BeginWith, LessThan, or GreaterThan.
-csfType :: Lens' ComplianceStringFilter (Maybe ComplianceQueryOperatorType)
-csfType = lens _csfType (\s a -> s {_csfType = a})
+-- | The type of comparison that should be performed for the value: Equal,
+-- NotEqual, BeginWith, LessThan, or GreaterThan.
+complianceStringFilter_type :: Lens.Lens' ComplianceStringFilter (Prelude.Maybe ComplianceQueryOperatorType)
+complianceStringFilter_type = Lens.lens (\ComplianceStringFilter' {type'} -> type') (\s@ComplianceStringFilter' {} a -> s {type' = a} :: ComplianceStringFilter)
 
-instance Hashable ComplianceStringFilter
+instance Prelude.Hashable ComplianceStringFilter
 
-instance NFData ComplianceStringFilter
+instance Prelude.NFData ComplianceStringFilter
 
-instance ToJSON ComplianceStringFilter where
+instance Prelude.ToJSON ComplianceStringFilter where
   toJSON ComplianceStringFilter' {..} =
-    object
-      ( catMaybes
-          [ ("Key" .=) <$> _csfKey,
-            ("Values" .=) <$> _csfValues,
-            ("Type" .=) <$> _csfType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Values" Prelude..=) Prelude.<$> values,
+            ("Type" Prelude..=) Prelude.<$> type'
           ]
       )

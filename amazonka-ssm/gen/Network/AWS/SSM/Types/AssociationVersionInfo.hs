@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.AssociationVersionInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.AssociationComplianceSeverity
 import Network.AWS.SSM.Types.AssociationSyncCompliance
 import Network.AWS.SSM.Types.InstanceAssociationOutputLocation
@@ -25,208 +29,330 @@ import Network.AWS.SSM.Types.TargetLocation
 
 -- | Information about the association version.
 --
---
---
--- /See:/ 'associationVersionInfo' smart constructor.
+-- /See:/ 'newAssociationVersionInfo' smart constructor.
 data AssociationVersionInfo = AssociationVersionInfo'
-  { _aviMaxErrors ::
-      !(Maybe Text),
-    _aviCreatedDate ::
-      !(Maybe POSIX),
-    _aviComplianceSeverity ::
-      !( Maybe
-           AssociationComplianceSeverity
-       ),
-    _aviTargets ::
-      !(Maybe [Target]),
-    _aviTargetLocations ::
-      !( Maybe
-           ( List1
-               TargetLocation
-           )
-       ),
-    _aviScheduleExpression ::
-      !(Maybe Text),
-    _aviName :: !(Maybe Text),
-    _aviAssociationId ::
-      !(Maybe Text),
-    _aviMaxConcurrency ::
-      !(Maybe Text),
-    _aviAssociationName ::
-      !(Maybe Text),
-    _aviAssociationVersion ::
-      !(Maybe Text),
-    _aviDocumentVersion ::
-      !(Maybe Text),
-    _aviParameters ::
-      !( Maybe
-           (Map Text [Text])
-       ),
-    _aviOutputLocation ::
-      !( Maybe
-           InstanceAssociationOutputLocation
-       ),
-    _aviApplyOnlyAtCronInterval ::
-      !(Maybe Bool),
-    _aviSyncCompliance ::
-      !( Maybe
-           AssociationSyncCompliance
-       )
+  { -- | The number of errors that are allowed before the system stops sending
+    -- requests to run the association on additional targets. You can specify
+    -- either an absolute number of errors, for example 10, or a percentage of
+    -- the target set, for example 10%. If you specify 3, for example, the
+    -- system stops sending requests when the fourth error is received. If you
+    -- specify 0, then the system stops sending requests after the first error
+    -- is returned. If you run an association on 50 instances and set MaxError
+    -- to 10%, then the system stops sending the request when the sixth error
+    -- is received.
+    --
+    -- Executions that are already running an association when MaxErrors is
+    -- reached are allowed to complete, but some of these executions may fail
+    -- as well. If you need to ensure that there won\'t be more than max-errors
+    -- failed executions, set MaxConcurrency to 1 so that executions proceed
+    -- one at a time.
+    maxErrors :: Prelude.Maybe Prelude.Text,
+    -- | The date the association version was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The severity level that is assigned to the association.
+    complianceSeverity :: Prelude.Maybe AssociationComplianceSeverity,
+    -- | The targets specified for the association when the association version
+    -- was created.
+    targets :: Prelude.Maybe [Target],
+    -- | The combination of AWS Regions and AWS accounts where you wanted to run
+    -- the association when this association version was created.
+    targetLocations :: Prelude.Maybe (Prelude.List1 TargetLocation),
+    -- | The cron or rate schedule specified for the association when the
+    -- association version was created.
+    scheduleExpression :: Prelude.Maybe Prelude.Text,
+    -- | The name specified when the association was created.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ID created by the system when the association was created.
+    associationId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of targets allowed to run the association at the same
+    -- time. You can specify a number, for example 10, or a percentage of the
+    -- target set, for example 10%. The default value is 100%, which means all
+    -- targets run the association at the same time.
+    --
+    -- If a new instance starts and attempts to run an association while
+    -- Systems Manager is running MaxConcurrency associations, the association
+    -- is allowed to run. During the next association interval, the new
+    -- instance will process its association within the limit specified for
+    -- MaxConcurrency.
+    maxConcurrency :: Prelude.Maybe Prelude.Text,
+    -- | The name specified for the association version when the association
+    -- version was created.
+    associationName :: Prelude.Maybe Prelude.Text,
+    -- | The association version.
+    associationVersion :: Prelude.Maybe Prelude.Text,
+    -- | The version of a Systems Manager document used when the association
+    -- version was created.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | Parameters specified when the association version was created.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The location in Amazon S3 specified for the association when the
+    -- association version was created.
+    outputLocation :: Prelude.Maybe InstanceAssociationOutputLocation,
+    -- | By default, when you create a new associations, the system runs it
+    -- immediately after it is created and then according to the schedule you
+    -- specified. Specify this option if you don\'t want an association to run
+    -- immediately after you create it. This parameter is not supported for
+    -- rate expressions.
+    applyOnlyAtCronInterval :: Prelude.Maybe Prelude.Bool,
+    -- | The mode for generating association compliance. You can specify @AUTO@
+    -- or @MANUAL@. In @AUTO@ mode, the system uses the status of the
+    -- association execution to determine the compliance status. If the
+    -- association execution runs successfully, then the association is
+    -- @COMPLIANT@. If the association execution doesn\'t run successfully, the
+    -- association is @NON-COMPLIANT@.
+    --
+    -- In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter
+    -- for the PutComplianceItems API action. In this case, compliance data is
+    -- not managed by State Manager. It is managed by your direct call to the
+    -- PutComplianceItems API action.
+    --
+    -- By default, all associations use @AUTO@ mode.
+    syncCompliance :: Prelude.Maybe AssociationSyncCompliance
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociationVersionInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociationVersionInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aviMaxErrors' - The number of errors that are allowed before the system stops sending requests to run the association on additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth error is received. If you specify 0, then the system stops sending requests after the first error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when the sixth error is received. Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of these executions may fail as well. If you need to ensure that there won't be more than max-errors failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aviCreatedDate' - The date the association version was created.
+-- 'maxErrors', 'associationVersionInfo_maxErrors' - The number of errors that are allowed before the system stops sending
+-- requests to run the association on additional targets. You can specify
+-- either an absolute number of errors, for example 10, or a percentage of
+-- the target set, for example 10%. If you specify 3, for example, the
+-- system stops sending requests when the fourth error is received. If you
+-- specify 0, then the system stops sending requests after the first error
+-- is returned. If you run an association on 50 instances and set MaxError
+-- to 10%, then the system stops sending the request when the sixth error
+-- is received.
 --
--- * 'aviComplianceSeverity' - The severity level that is assigned to the association.
+-- Executions that are already running an association when MaxErrors is
+-- reached are allowed to complete, but some of these executions may fail
+-- as well. If you need to ensure that there won\'t be more than max-errors
+-- failed executions, set MaxConcurrency to 1 so that executions proceed
+-- one at a time.
 --
--- * 'aviTargets' - The targets specified for the association when the association version was created.
+-- 'createdDate', 'associationVersionInfo_createdDate' - The date the association version was created.
 --
--- * 'aviTargetLocations' - The combination of AWS Regions and AWS accounts where you wanted to run the association when this association version was created.
+-- 'complianceSeverity', 'associationVersionInfo_complianceSeverity' - The severity level that is assigned to the association.
 --
--- * 'aviScheduleExpression' - The cron or rate schedule specified for the association when the association version was created.
+-- 'targets', 'associationVersionInfo_targets' - The targets specified for the association when the association version
+-- was created.
 --
--- * 'aviName' - The name specified when the association was created.
+-- 'targetLocations', 'associationVersionInfo_targetLocations' - The combination of AWS Regions and AWS accounts where you wanted to run
+-- the association when this association version was created.
 --
--- * 'aviAssociationId' - The ID created by the system when the association was created.
+-- 'scheduleExpression', 'associationVersionInfo_scheduleExpression' - The cron or rate schedule specified for the association when the
+-- association version was created.
 --
--- * 'aviMaxConcurrency' - The maximum number of targets allowed to run the association at the same time. You can specify a number, for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which means all targets run the association at the same time. If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency associations, the association is allowed to run. During the next association interval, the new instance will process its association within the limit specified for MaxConcurrency.
+-- 'name', 'associationVersionInfo_name' - The name specified when the association was created.
 --
--- * 'aviAssociationName' - The name specified for the association version when the association version was created.
+-- 'associationId', 'associationVersionInfo_associationId' - The ID created by the system when the association was created.
 --
--- * 'aviAssociationVersion' - The association version.
+-- 'maxConcurrency', 'associationVersionInfo_maxConcurrency' - The maximum number of targets allowed to run the association at the same
+-- time. You can specify a number, for example 10, or a percentage of the
+-- target set, for example 10%. The default value is 100%, which means all
+-- targets run the association at the same time.
 --
--- * 'aviDocumentVersion' - The version of a Systems Manager document used when the association version was created.
+-- If a new instance starts and attempts to run an association while
+-- Systems Manager is running MaxConcurrency associations, the association
+-- is allowed to run. During the next association interval, the new
+-- instance will process its association within the limit specified for
+-- MaxConcurrency.
 --
--- * 'aviParameters' - Parameters specified when the association version was created.
+-- 'associationName', 'associationVersionInfo_associationName' - The name specified for the association version when the association
+-- version was created.
 --
--- * 'aviOutputLocation' - The location in Amazon S3 specified for the association when the association version was created.
+-- 'associationVersion', 'associationVersionInfo_associationVersion' - The association version.
 --
--- * 'aviApplyOnlyAtCronInterval' - By default, when you create a new associations, the system runs it immediately after it is created and then according to the schedule you specified. Specify this option if you don't want an association to run immediately after you create it. This parameter is not supported for rate expressions.
+-- 'documentVersion', 'associationVersionInfo_documentVersion' - The version of a Systems Manager document used when the association
+-- version was created.
 --
--- * 'aviSyncCompliance' - The mode for generating association compliance. You can specify @AUTO@ or @MANUAL@ . In @AUTO@ mode, the system uses the status of the association execution to determine the compliance status. If the association execution runs successfully, then the association is @COMPLIANT@ . If the association execution doesn't run successfully, the association is @NON-COMPLIANT@ . In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter for the 'PutComplianceItems' API action. In this case, compliance data is not managed by State Manager. It is managed by your direct call to the 'PutComplianceItems' API action. By default, all associations use @AUTO@ mode.
-associationVersionInfo ::
+-- 'parameters', 'associationVersionInfo_parameters' - Parameters specified when the association version was created.
+--
+-- 'outputLocation', 'associationVersionInfo_outputLocation' - The location in Amazon S3 specified for the association when the
+-- association version was created.
+--
+-- 'applyOnlyAtCronInterval', 'associationVersionInfo_applyOnlyAtCronInterval' - By default, when you create a new associations, the system runs it
+-- immediately after it is created and then according to the schedule you
+-- specified. Specify this option if you don\'t want an association to run
+-- immediately after you create it. This parameter is not supported for
+-- rate expressions.
+--
+-- 'syncCompliance', 'associationVersionInfo_syncCompliance' - The mode for generating association compliance. You can specify @AUTO@
+-- or @MANUAL@. In @AUTO@ mode, the system uses the status of the
+-- association execution to determine the compliance status. If the
+-- association execution runs successfully, then the association is
+-- @COMPLIANT@. If the association execution doesn\'t run successfully, the
+-- association is @NON-COMPLIANT@.
+--
+-- In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter
+-- for the PutComplianceItems API action. In this case, compliance data is
+-- not managed by State Manager. It is managed by your direct call to the
+-- PutComplianceItems API action.
+--
+-- By default, all associations use @AUTO@ mode.
+newAssociationVersionInfo ::
   AssociationVersionInfo
-associationVersionInfo =
+newAssociationVersionInfo =
   AssociationVersionInfo'
-    { _aviMaxErrors = Nothing,
-      _aviCreatedDate = Nothing,
-      _aviComplianceSeverity = Nothing,
-      _aviTargets = Nothing,
-      _aviTargetLocations = Nothing,
-      _aviScheduleExpression = Nothing,
-      _aviName = Nothing,
-      _aviAssociationId = Nothing,
-      _aviMaxConcurrency = Nothing,
-      _aviAssociationName = Nothing,
-      _aviAssociationVersion = Nothing,
-      _aviDocumentVersion = Nothing,
-      _aviParameters = Nothing,
-      _aviOutputLocation = Nothing,
-      _aviApplyOnlyAtCronInterval = Nothing,
-      _aviSyncCompliance = Nothing
+    { maxErrors =
+        Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      complianceSeverity = Prelude.Nothing,
+      targets = Prelude.Nothing,
+      targetLocations = Prelude.Nothing,
+      scheduleExpression = Prelude.Nothing,
+      name = Prelude.Nothing,
+      associationId = Prelude.Nothing,
+      maxConcurrency = Prelude.Nothing,
+      associationName = Prelude.Nothing,
+      associationVersion = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      outputLocation = Prelude.Nothing,
+      applyOnlyAtCronInterval = Prelude.Nothing,
+      syncCompliance = Prelude.Nothing
     }
 
--- | The number of errors that are allowed before the system stops sending requests to run the association on additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth error is received. If you specify 0, then the system stops sending requests after the first error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when the sixth error is received. Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of these executions may fail as well. If you need to ensure that there won't be more than max-errors failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
-aviMaxErrors :: Lens' AssociationVersionInfo (Maybe Text)
-aviMaxErrors = lens _aviMaxErrors (\s a -> s {_aviMaxErrors = a})
+-- | The number of errors that are allowed before the system stops sending
+-- requests to run the association on additional targets. You can specify
+-- either an absolute number of errors, for example 10, or a percentage of
+-- the target set, for example 10%. If you specify 3, for example, the
+-- system stops sending requests when the fourth error is received. If you
+-- specify 0, then the system stops sending requests after the first error
+-- is returned. If you run an association on 50 instances and set MaxError
+-- to 10%, then the system stops sending the request when the sixth error
+-- is received.
+--
+-- Executions that are already running an association when MaxErrors is
+-- reached are allowed to complete, but some of these executions may fail
+-- as well. If you need to ensure that there won\'t be more than max-errors
+-- failed executions, set MaxConcurrency to 1 so that executions proceed
+-- one at a time.
+associationVersionInfo_maxErrors :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.Text)
+associationVersionInfo_maxErrors = Lens.lens (\AssociationVersionInfo' {maxErrors} -> maxErrors) (\s@AssociationVersionInfo' {} a -> s {maxErrors = a} :: AssociationVersionInfo)
 
 -- | The date the association version was created.
-aviCreatedDate :: Lens' AssociationVersionInfo (Maybe UTCTime)
-aviCreatedDate = lens _aviCreatedDate (\s a -> s {_aviCreatedDate = a}) . mapping _Time
+associationVersionInfo_createdDate :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.UTCTime)
+associationVersionInfo_createdDate = Lens.lens (\AssociationVersionInfo' {createdDate} -> createdDate) (\s@AssociationVersionInfo' {} a -> s {createdDate = a} :: AssociationVersionInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | The severity level that is assigned to the association.
-aviComplianceSeverity :: Lens' AssociationVersionInfo (Maybe AssociationComplianceSeverity)
-aviComplianceSeverity = lens _aviComplianceSeverity (\s a -> s {_aviComplianceSeverity = a})
+associationVersionInfo_complianceSeverity :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe AssociationComplianceSeverity)
+associationVersionInfo_complianceSeverity = Lens.lens (\AssociationVersionInfo' {complianceSeverity} -> complianceSeverity) (\s@AssociationVersionInfo' {} a -> s {complianceSeverity = a} :: AssociationVersionInfo)
 
--- | The targets specified for the association when the association version was created.
-aviTargets :: Lens' AssociationVersionInfo [Target]
-aviTargets = lens _aviTargets (\s a -> s {_aviTargets = a}) . _Default . _Coerce
+-- | The targets specified for the association when the association version
+-- was created.
+associationVersionInfo_targets :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe [Target])
+associationVersionInfo_targets = Lens.lens (\AssociationVersionInfo' {targets} -> targets) (\s@AssociationVersionInfo' {} a -> s {targets = a} :: AssociationVersionInfo) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The combination of AWS Regions and AWS accounts where you wanted to run the association when this association version was created.
-aviTargetLocations :: Lens' AssociationVersionInfo (Maybe (NonEmpty TargetLocation))
-aviTargetLocations = lens _aviTargetLocations (\s a -> s {_aviTargetLocations = a}) . mapping _List1
+-- | The combination of AWS Regions and AWS accounts where you wanted to run
+-- the association when this association version was created.
+associationVersionInfo_targetLocations :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe (Prelude.NonEmpty TargetLocation))
+associationVersionInfo_targetLocations = Lens.lens (\AssociationVersionInfo' {targetLocations} -> targetLocations) (\s@AssociationVersionInfo' {} a -> s {targetLocations = a} :: AssociationVersionInfo) Prelude.. Lens.mapping Prelude._List1
 
--- | The cron or rate schedule specified for the association when the association version was created.
-aviScheduleExpression :: Lens' AssociationVersionInfo (Maybe Text)
-aviScheduleExpression = lens _aviScheduleExpression (\s a -> s {_aviScheduleExpression = a})
+-- | The cron or rate schedule specified for the association when the
+-- association version was created.
+associationVersionInfo_scheduleExpression :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.Text)
+associationVersionInfo_scheduleExpression = Lens.lens (\AssociationVersionInfo' {scheduleExpression} -> scheduleExpression) (\s@AssociationVersionInfo' {} a -> s {scheduleExpression = a} :: AssociationVersionInfo)
 
 -- | The name specified when the association was created.
-aviName :: Lens' AssociationVersionInfo (Maybe Text)
-aviName = lens _aviName (\s a -> s {_aviName = a})
+associationVersionInfo_name :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.Text)
+associationVersionInfo_name = Lens.lens (\AssociationVersionInfo' {name} -> name) (\s@AssociationVersionInfo' {} a -> s {name = a} :: AssociationVersionInfo)
 
 -- | The ID created by the system when the association was created.
-aviAssociationId :: Lens' AssociationVersionInfo (Maybe Text)
-aviAssociationId = lens _aviAssociationId (\s a -> s {_aviAssociationId = a})
+associationVersionInfo_associationId :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.Text)
+associationVersionInfo_associationId = Lens.lens (\AssociationVersionInfo' {associationId} -> associationId) (\s@AssociationVersionInfo' {} a -> s {associationId = a} :: AssociationVersionInfo)
 
--- | The maximum number of targets allowed to run the association at the same time. You can specify a number, for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which means all targets run the association at the same time. If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency associations, the association is allowed to run. During the next association interval, the new instance will process its association within the limit specified for MaxConcurrency.
-aviMaxConcurrency :: Lens' AssociationVersionInfo (Maybe Text)
-aviMaxConcurrency = lens _aviMaxConcurrency (\s a -> s {_aviMaxConcurrency = a})
+-- | The maximum number of targets allowed to run the association at the same
+-- time. You can specify a number, for example 10, or a percentage of the
+-- target set, for example 10%. The default value is 100%, which means all
+-- targets run the association at the same time.
+--
+-- If a new instance starts and attempts to run an association while
+-- Systems Manager is running MaxConcurrency associations, the association
+-- is allowed to run. During the next association interval, the new
+-- instance will process its association within the limit specified for
+-- MaxConcurrency.
+associationVersionInfo_maxConcurrency :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.Text)
+associationVersionInfo_maxConcurrency = Lens.lens (\AssociationVersionInfo' {maxConcurrency} -> maxConcurrency) (\s@AssociationVersionInfo' {} a -> s {maxConcurrency = a} :: AssociationVersionInfo)
 
--- | The name specified for the association version when the association version was created.
-aviAssociationName :: Lens' AssociationVersionInfo (Maybe Text)
-aviAssociationName = lens _aviAssociationName (\s a -> s {_aviAssociationName = a})
+-- | The name specified for the association version when the association
+-- version was created.
+associationVersionInfo_associationName :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.Text)
+associationVersionInfo_associationName = Lens.lens (\AssociationVersionInfo' {associationName} -> associationName) (\s@AssociationVersionInfo' {} a -> s {associationName = a} :: AssociationVersionInfo)
 
 -- | The association version.
-aviAssociationVersion :: Lens' AssociationVersionInfo (Maybe Text)
-aviAssociationVersion = lens _aviAssociationVersion (\s a -> s {_aviAssociationVersion = a})
+associationVersionInfo_associationVersion :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.Text)
+associationVersionInfo_associationVersion = Lens.lens (\AssociationVersionInfo' {associationVersion} -> associationVersion) (\s@AssociationVersionInfo' {} a -> s {associationVersion = a} :: AssociationVersionInfo)
 
--- | The version of a Systems Manager document used when the association version was created.
-aviDocumentVersion :: Lens' AssociationVersionInfo (Maybe Text)
-aviDocumentVersion = lens _aviDocumentVersion (\s a -> s {_aviDocumentVersion = a})
+-- | The version of a Systems Manager document used when the association
+-- version was created.
+associationVersionInfo_documentVersion :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.Text)
+associationVersionInfo_documentVersion = Lens.lens (\AssociationVersionInfo' {documentVersion} -> documentVersion) (\s@AssociationVersionInfo' {} a -> s {documentVersion = a} :: AssociationVersionInfo)
 
 -- | Parameters specified when the association version was created.
-aviParameters :: Lens' AssociationVersionInfo (HashMap Text [Text])
-aviParameters = lens _aviParameters (\s a -> s {_aviParameters = a}) . _Default . _Map
+associationVersionInfo_parameters :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+associationVersionInfo_parameters = Lens.lens (\AssociationVersionInfo' {parameters} -> parameters) (\s@AssociationVersionInfo' {} a -> s {parameters = a} :: AssociationVersionInfo) Prelude.. Lens.mapping Prelude._Map
 
--- | The location in Amazon S3 specified for the association when the association version was created.
-aviOutputLocation :: Lens' AssociationVersionInfo (Maybe InstanceAssociationOutputLocation)
-aviOutputLocation = lens _aviOutputLocation (\s a -> s {_aviOutputLocation = a})
+-- | The location in Amazon S3 specified for the association when the
+-- association version was created.
+associationVersionInfo_outputLocation :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe InstanceAssociationOutputLocation)
+associationVersionInfo_outputLocation = Lens.lens (\AssociationVersionInfo' {outputLocation} -> outputLocation) (\s@AssociationVersionInfo' {} a -> s {outputLocation = a} :: AssociationVersionInfo)
 
--- | By default, when you create a new associations, the system runs it immediately after it is created and then according to the schedule you specified. Specify this option if you don't want an association to run immediately after you create it. This parameter is not supported for rate expressions.
-aviApplyOnlyAtCronInterval :: Lens' AssociationVersionInfo (Maybe Bool)
-aviApplyOnlyAtCronInterval = lens _aviApplyOnlyAtCronInterval (\s a -> s {_aviApplyOnlyAtCronInterval = a})
+-- | By default, when you create a new associations, the system runs it
+-- immediately after it is created and then according to the schedule you
+-- specified. Specify this option if you don\'t want an association to run
+-- immediately after you create it. This parameter is not supported for
+-- rate expressions.
+associationVersionInfo_applyOnlyAtCronInterval :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe Prelude.Bool)
+associationVersionInfo_applyOnlyAtCronInterval = Lens.lens (\AssociationVersionInfo' {applyOnlyAtCronInterval} -> applyOnlyAtCronInterval) (\s@AssociationVersionInfo' {} a -> s {applyOnlyAtCronInterval = a} :: AssociationVersionInfo)
 
--- | The mode for generating association compliance. You can specify @AUTO@ or @MANUAL@ . In @AUTO@ mode, the system uses the status of the association execution to determine the compliance status. If the association execution runs successfully, then the association is @COMPLIANT@ . If the association execution doesn't run successfully, the association is @NON-COMPLIANT@ . In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter for the 'PutComplianceItems' API action. In this case, compliance data is not managed by State Manager. It is managed by your direct call to the 'PutComplianceItems' API action. By default, all associations use @AUTO@ mode.
-aviSyncCompliance :: Lens' AssociationVersionInfo (Maybe AssociationSyncCompliance)
-aviSyncCompliance = lens _aviSyncCompliance (\s a -> s {_aviSyncCompliance = a})
+-- | The mode for generating association compliance. You can specify @AUTO@
+-- or @MANUAL@. In @AUTO@ mode, the system uses the status of the
+-- association execution to determine the compliance status. If the
+-- association execution runs successfully, then the association is
+-- @COMPLIANT@. If the association execution doesn\'t run successfully, the
+-- association is @NON-COMPLIANT@.
+--
+-- In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter
+-- for the PutComplianceItems API action. In this case, compliance data is
+-- not managed by State Manager. It is managed by your direct call to the
+-- PutComplianceItems API action.
+--
+-- By default, all associations use @AUTO@ mode.
+associationVersionInfo_syncCompliance :: Lens.Lens' AssociationVersionInfo (Prelude.Maybe AssociationSyncCompliance)
+associationVersionInfo_syncCompliance = Lens.lens (\AssociationVersionInfo' {syncCompliance} -> syncCompliance) (\s@AssociationVersionInfo' {} a -> s {syncCompliance = a} :: AssociationVersionInfo)
 
-instance FromJSON AssociationVersionInfo where
+instance Prelude.FromJSON AssociationVersionInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AssociationVersionInfo"
       ( \x ->
           AssociationVersionInfo'
-            <$> (x .:? "MaxErrors")
-            <*> (x .:? "CreatedDate")
-            <*> (x .:? "ComplianceSeverity")
-            <*> (x .:? "Targets" .!= mempty)
-            <*> (x .:? "TargetLocations")
-            <*> (x .:? "ScheduleExpression")
-            <*> (x .:? "Name")
-            <*> (x .:? "AssociationId")
-            <*> (x .:? "MaxConcurrency")
-            <*> (x .:? "AssociationName")
-            <*> (x .:? "AssociationVersion")
-            <*> (x .:? "DocumentVersion")
-            <*> (x .:? "Parameters" .!= mempty)
-            <*> (x .:? "OutputLocation")
-            <*> (x .:? "ApplyOnlyAtCronInterval")
-            <*> (x .:? "SyncCompliance")
+            Prelude.<$> (x Prelude..:? "MaxErrors")
+            Prelude.<*> (x Prelude..:? "CreatedDate")
+            Prelude.<*> (x Prelude..:? "ComplianceSeverity")
+            Prelude.<*> (x Prelude..:? "Targets" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "TargetLocations")
+            Prelude.<*> (x Prelude..:? "ScheduleExpression")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "AssociationId")
+            Prelude.<*> (x Prelude..:? "MaxConcurrency")
+            Prelude.<*> (x Prelude..:? "AssociationName")
+            Prelude.<*> (x Prelude..:? "AssociationVersion")
+            Prelude.<*> (x Prelude..:? "DocumentVersion")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "OutputLocation")
+            Prelude.<*> (x Prelude..:? "ApplyOnlyAtCronInterval")
+            Prelude.<*> (x Prelude..:? "SyncCompliance")
       )
 
-instance Hashable AssociationVersionInfo
+instance Prelude.Hashable AssociationVersionInfo
 
-instance NFData AssociationVersionInfo
+instance Prelude.NFData AssociationVersionInfo

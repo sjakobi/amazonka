@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,122 +19,165 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ComplianceItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.ComplianceExecutionSummary
 import Network.AWS.SSM.Types.ComplianceSeverity
 import Network.AWS.SSM.Types.ComplianceStatus
 
--- | Information about the compliance as defined by the resource type. For example, for a patch resource type, @Items@ includes information about the PatchSeverity, Classification, and so on.
+-- | Information about the compliance as defined by the resource type. For
+-- example, for a patch resource type, @Items@ includes information about
+-- the PatchSeverity, Classification, and so on.
 --
---
---
--- /See:/ 'complianceItem' smart constructor.
+-- /See:/ 'newComplianceItem' smart constructor.
 data ComplianceItem = ComplianceItem'
-  { _ciiResourceId ::
-      !(Maybe Text),
-    _ciiStatus :: !(Maybe ComplianceStatus),
-    _ciiSeverity ::
-      !(Maybe ComplianceSeverity),
-    _ciiTitle :: !(Maybe Text),
-    _ciiId :: !(Maybe Text),
-    _ciiComplianceType :: !(Maybe Text),
-    _ciiResourceType :: !(Maybe Text),
-    _ciiDetails :: !(Maybe (Map Text Text)),
-    _ciiExecutionSummary ::
-      !(Maybe ComplianceExecutionSummary)
+  { -- | An ID for the resource. For a managed instance, this is the instance ID.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the compliance item. An item is either COMPLIANT,
+    -- NON_COMPLIANT, or an empty string (for Windows patches that aren\'t
+    -- applicable).
+    status :: Prelude.Maybe ComplianceStatus,
+    -- | The severity of the compliance status. Severity can be one of the
+    -- following: Critical, High, Medium, Low, Informational, Unspecified.
+    severity :: Prelude.Maybe ComplianceSeverity,
+    -- | A title for the compliance item. For example, if the compliance item is
+    -- a Windows patch, the title could be the title of the KB article for the
+    -- patch; for example: Security Update for Active Directory Federation
+    -- Services.
+    title :: Prelude.Maybe Prelude.Text,
+    -- | An ID for the compliance item. For example, if the compliance item is a
+    -- Windows patch, the ID could be the number of the KB article; for
+    -- example: KB4010320.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The compliance type. For example, Association (for a State Manager
+    -- association), Patch, or Custom:@string@ are all valid compliance types.
+    complianceType :: Prelude.Maybe Prelude.Text,
+    -- | The type of resource. @ManagedInstance@ is currently the only supported
+    -- resource type.
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | A \"Key\": \"Value\" tag combination for the compliance item.
+    details :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A summary for the compliance item. The summary includes an execution ID,
+    -- the execution type (for example, command), and the execution time.
+    executionSummary :: Prelude.Maybe ComplianceExecutionSummary
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComplianceItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComplianceItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciiResourceId' - An ID for the resource. For a managed instance, this is the instance ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciiStatus' - The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for Windows patches that aren't applicable).
+-- 'resourceId', 'complianceItem_resourceId' - An ID for the resource. For a managed instance, this is the instance ID.
 --
--- * 'ciiSeverity' - The severity of the compliance status. Severity can be one of the following: Critical, High, Medium, Low, Informational, Unspecified.
+-- 'status', 'complianceItem_status' - The status of the compliance item. An item is either COMPLIANT,
+-- NON_COMPLIANT, or an empty string (for Windows patches that aren\'t
+-- applicable).
 --
--- * 'ciiTitle' - A title for the compliance item. For example, if the compliance item is a Windows patch, the title could be the title of the KB article for the patch; for example: Security Update for Active Directory Federation Services.
+-- 'severity', 'complianceItem_severity' - The severity of the compliance status. Severity can be one of the
+-- following: Critical, High, Medium, Low, Informational, Unspecified.
 --
--- * 'ciiId' - An ID for the compliance item. For example, if the compliance item is a Windows patch, the ID could be the number of the KB article; for example: KB4010320.
+-- 'title', 'complianceItem_title' - A title for the compliance item. For example, if the compliance item is
+-- a Windows patch, the title could be the title of the KB article for the
+-- patch; for example: Security Update for Active Directory Federation
+-- Services.
 --
--- * 'ciiComplianceType' - The compliance type. For example, Association (for a State Manager association), Patch, or Custom:@string@ are all valid compliance types.
+-- 'id', 'complianceItem_id' - An ID for the compliance item. For example, if the compliance item is a
+-- Windows patch, the ID could be the number of the KB article; for
+-- example: KB4010320.
 --
--- * 'ciiResourceType' - The type of resource. @ManagedInstance@ is currently the only supported resource type.
+-- 'complianceType', 'complianceItem_complianceType' - The compliance type. For example, Association (for a State Manager
+-- association), Patch, or Custom:@string@ are all valid compliance types.
 --
--- * 'ciiDetails' - A "Key": "Value" tag combination for the compliance item.
+-- 'resourceType', 'complianceItem_resourceType' - The type of resource. @ManagedInstance@ is currently the only supported
+-- resource type.
 --
--- * 'ciiExecutionSummary' - A summary for the compliance item. The summary includes an execution ID, the execution type (for example, command), and the execution time.
-complianceItem ::
+-- 'details', 'complianceItem_details' - A \"Key\": \"Value\" tag combination for the compliance item.
+--
+-- 'executionSummary', 'complianceItem_executionSummary' - A summary for the compliance item. The summary includes an execution ID,
+-- the execution type (for example, command), and the execution time.
+newComplianceItem ::
   ComplianceItem
-complianceItem =
+newComplianceItem =
   ComplianceItem'
-    { _ciiResourceId = Nothing,
-      _ciiStatus = Nothing,
-      _ciiSeverity = Nothing,
-      _ciiTitle = Nothing,
-      _ciiId = Nothing,
-      _ciiComplianceType = Nothing,
-      _ciiResourceType = Nothing,
-      _ciiDetails = Nothing,
-      _ciiExecutionSummary = Nothing
+    { resourceId = Prelude.Nothing,
+      status = Prelude.Nothing,
+      severity = Prelude.Nothing,
+      title = Prelude.Nothing,
+      id = Prelude.Nothing,
+      complianceType = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      details = Prelude.Nothing,
+      executionSummary = Prelude.Nothing
     }
 
 -- | An ID for the resource. For a managed instance, this is the instance ID.
-ciiResourceId :: Lens' ComplianceItem (Maybe Text)
-ciiResourceId = lens _ciiResourceId (\s a -> s {_ciiResourceId = a})
+complianceItem_resourceId :: Lens.Lens' ComplianceItem (Prelude.Maybe Prelude.Text)
+complianceItem_resourceId = Lens.lens (\ComplianceItem' {resourceId} -> resourceId) (\s@ComplianceItem' {} a -> s {resourceId = a} :: ComplianceItem)
 
--- | The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for Windows patches that aren't applicable).
-ciiStatus :: Lens' ComplianceItem (Maybe ComplianceStatus)
-ciiStatus = lens _ciiStatus (\s a -> s {_ciiStatus = a})
+-- | The status of the compliance item. An item is either COMPLIANT,
+-- NON_COMPLIANT, or an empty string (for Windows patches that aren\'t
+-- applicable).
+complianceItem_status :: Lens.Lens' ComplianceItem (Prelude.Maybe ComplianceStatus)
+complianceItem_status = Lens.lens (\ComplianceItem' {status} -> status) (\s@ComplianceItem' {} a -> s {status = a} :: ComplianceItem)
 
--- | The severity of the compliance status. Severity can be one of the following: Critical, High, Medium, Low, Informational, Unspecified.
-ciiSeverity :: Lens' ComplianceItem (Maybe ComplianceSeverity)
-ciiSeverity = lens _ciiSeverity (\s a -> s {_ciiSeverity = a})
+-- | The severity of the compliance status. Severity can be one of the
+-- following: Critical, High, Medium, Low, Informational, Unspecified.
+complianceItem_severity :: Lens.Lens' ComplianceItem (Prelude.Maybe ComplianceSeverity)
+complianceItem_severity = Lens.lens (\ComplianceItem' {severity} -> severity) (\s@ComplianceItem' {} a -> s {severity = a} :: ComplianceItem)
 
--- | A title for the compliance item. For example, if the compliance item is a Windows patch, the title could be the title of the KB article for the patch; for example: Security Update for Active Directory Federation Services.
-ciiTitle :: Lens' ComplianceItem (Maybe Text)
-ciiTitle = lens _ciiTitle (\s a -> s {_ciiTitle = a})
+-- | A title for the compliance item. For example, if the compliance item is
+-- a Windows patch, the title could be the title of the KB article for the
+-- patch; for example: Security Update for Active Directory Federation
+-- Services.
+complianceItem_title :: Lens.Lens' ComplianceItem (Prelude.Maybe Prelude.Text)
+complianceItem_title = Lens.lens (\ComplianceItem' {title} -> title) (\s@ComplianceItem' {} a -> s {title = a} :: ComplianceItem)
 
--- | An ID for the compliance item. For example, if the compliance item is a Windows patch, the ID could be the number of the KB article; for example: KB4010320.
-ciiId :: Lens' ComplianceItem (Maybe Text)
-ciiId = lens _ciiId (\s a -> s {_ciiId = a})
+-- | An ID for the compliance item. For example, if the compliance item is a
+-- Windows patch, the ID could be the number of the KB article; for
+-- example: KB4010320.
+complianceItem_id :: Lens.Lens' ComplianceItem (Prelude.Maybe Prelude.Text)
+complianceItem_id = Lens.lens (\ComplianceItem' {id} -> id) (\s@ComplianceItem' {} a -> s {id = a} :: ComplianceItem)
 
--- | The compliance type. For example, Association (for a State Manager association), Patch, or Custom:@string@ are all valid compliance types.
-ciiComplianceType :: Lens' ComplianceItem (Maybe Text)
-ciiComplianceType = lens _ciiComplianceType (\s a -> s {_ciiComplianceType = a})
+-- | The compliance type. For example, Association (for a State Manager
+-- association), Patch, or Custom:@string@ are all valid compliance types.
+complianceItem_complianceType :: Lens.Lens' ComplianceItem (Prelude.Maybe Prelude.Text)
+complianceItem_complianceType = Lens.lens (\ComplianceItem' {complianceType} -> complianceType) (\s@ComplianceItem' {} a -> s {complianceType = a} :: ComplianceItem)
 
--- | The type of resource. @ManagedInstance@ is currently the only supported resource type.
-ciiResourceType :: Lens' ComplianceItem (Maybe Text)
-ciiResourceType = lens _ciiResourceType (\s a -> s {_ciiResourceType = a})
+-- | The type of resource. @ManagedInstance@ is currently the only supported
+-- resource type.
+complianceItem_resourceType :: Lens.Lens' ComplianceItem (Prelude.Maybe Prelude.Text)
+complianceItem_resourceType = Lens.lens (\ComplianceItem' {resourceType} -> resourceType) (\s@ComplianceItem' {} a -> s {resourceType = a} :: ComplianceItem)
 
--- | A "Key": "Value" tag combination for the compliance item.
-ciiDetails :: Lens' ComplianceItem (HashMap Text Text)
-ciiDetails = lens _ciiDetails (\s a -> s {_ciiDetails = a}) . _Default . _Map
+-- | A \"Key\": \"Value\" tag combination for the compliance item.
+complianceItem_details :: Lens.Lens' ComplianceItem (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+complianceItem_details = Lens.lens (\ComplianceItem' {details} -> details) (\s@ComplianceItem' {} a -> s {details = a} :: ComplianceItem) Prelude.. Lens.mapping Prelude._Map
 
--- | A summary for the compliance item. The summary includes an execution ID, the execution type (for example, command), and the execution time.
-ciiExecutionSummary :: Lens' ComplianceItem (Maybe ComplianceExecutionSummary)
-ciiExecutionSummary = lens _ciiExecutionSummary (\s a -> s {_ciiExecutionSummary = a})
+-- | A summary for the compliance item. The summary includes an execution ID,
+-- the execution type (for example, command), and the execution time.
+complianceItem_executionSummary :: Lens.Lens' ComplianceItem (Prelude.Maybe ComplianceExecutionSummary)
+complianceItem_executionSummary = Lens.lens (\ComplianceItem' {executionSummary} -> executionSummary) (\s@ComplianceItem' {} a -> s {executionSummary = a} :: ComplianceItem)
 
-instance FromJSON ComplianceItem where
+instance Prelude.FromJSON ComplianceItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ComplianceItem"
       ( \x ->
           ComplianceItem'
-            <$> (x .:? "ResourceId")
-            <*> (x .:? "Status")
-            <*> (x .:? "Severity")
-            <*> (x .:? "Title")
-            <*> (x .:? "Id")
-            <*> (x .:? "ComplianceType")
-            <*> (x .:? "ResourceType")
-            <*> (x .:? "Details" .!= mempty)
-            <*> (x .:? "ExecutionSummary")
+            Prelude.<$> (x Prelude..:? "ResourceId")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "Severity")
+            Prelude.<*> (x Prelude..:? "Title")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "ComplianceType")
+            Prelude.<*> (x Prelude..:? "ResourceType")
+            Prelude.<*> (x Prelude..:? "Details" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ExecutionSummary")
       )
 
-instance Hashable ComplianceItem
+instance Prelude.Hashable ComplianceItem
 
-instance NFData ComplianceItem
+instance Prelude.NFData ComplianceItem

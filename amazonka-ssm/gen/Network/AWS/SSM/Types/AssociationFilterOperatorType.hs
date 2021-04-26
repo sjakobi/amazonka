@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SSM.Types.AssociationFilterOperatorType
   ( AssociationFilterOperatorType
       ( ..,
-        AFOTEqual,
-        AFOTGreaterThan,
-        AFOTLessThan
+        AssociationFilterOperatorTypeEQUAL,
+        AssociationFilterOperatorTypeGREATERTHAN,
+        AssociationFilterOperatorTypeLESSTHAN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationFilterOperatorType
-  = AssociationFilterOperatorType'
-      ( CI
-          Text
-      )
+newtype AssociationFilterOperatorType = AssociationFilterOperatorType'
+  { fromAssociationFilterOperatorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AFOTEqual :: AssociationFilterOperatorType
-pattern AFOTEqual = AssociationFilterOperatorType' "EQUAL"
+pattern AssociationFilterOperatorTypeEQUAL :: AssociationFilterOperatorType
+pattern AssociationFilterOperatorTypeEQUAL = AssociationFilterOperatorType' "EQUAL"
 
-pattern AFOTGreaterThan :: AssociationFilterOperatorType
-pattern AFOTGreaterThan = AssociationFilterOperatorType' "GREATER_THAN"
+pattern AssociationFilterOperatorTypeGREATERTHAN :: AssociationFilterOperatorType
+pattern AssociationFilterOperatorTypeGREATERTHAN = AssociationFilterOperatorType' "GREATER_THAN"
 
-pattern AFOTLessThan :: AssociationFilterOperatorType
-pattern AFOTLessThan = AssociationFilterOperatorType' "LESS_THAN"
+pattern AssociationFilterOperatorTypeLESSTHAN :: AssociationFilterOperatorType
+pattern AssociationFilterOperatorTypeLESSTHAN = AssociationFilterOperatorType' "LESS_THAN"
 
 {-# COMPLETE
-  AFOTEqual,
-  AFOTGreaterThan,
-  AFOTLessThan,
+  AssociationFilterOperatorTypeEQUAL,
+  AssociationFilterOperatorTypeGREATERTHAN,
+  AssociationFilterOperatorTypeLESSTHAN,
   AssociationFilterOperatorType'
   #-}
 
-instance FromText AssociationFilterOperatorType where
-  parser = (AssociationFilterOperatorType' . mk) <$> takeText
+instance Prelude.FromText AssociationFilterOperatorType where
+  parser = AssociationFilterOperatorType' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationFilterOperatorType where
-  toText (AssociationFilterOperatorType' ci) = original ci
+instance Prelude.ToText AssociationFilterOperatorType where
+  toText (AssociationFilterOperatorType' x) = x
 
-instance Hashable AssociationFilterOperatorType
+instance Prelude.Hashable AssociationFilterOperatorType
 
-instance NFData AssociationFilterOperatorType
+instance Prelude.NFData AssociationFilterOperatorType
 
-instance ToByteString AssociationFilterOperatorType
+instance Prelude.ToByteString AssociationFilterOperatorType
 
-instance ToQuery AssociationFilterOperatorType
+instance Prelude.ToQuery AssociationFilterOperatorType
 
-instance ToHeader AssociationFilterOperatorType
+instance Prelude.ToHeader AssociationFilterOperatorType
 
-instance ToJSON AssociationFilterOperatorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssociationFilterOperatorType where
+  toJSON = Prelude.toJSONText

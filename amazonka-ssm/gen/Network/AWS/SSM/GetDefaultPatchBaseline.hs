@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,162 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the default patch baseline. Note that Systems Manager supports creating multiple default patch baselines. For example, you can create a default patch baseline for each operating system.
+-- Retrieves the default patch baseline. Note that Systems Manager supports
+-- creating multiple default patch baselines. For example, you can create a
+-- default patch baseline for each operating system.
 --
---
--- If you do not specify an operating system value, the default patch baseline for Windows is returned.
+-- If you do not specify an operating system value, the default patch
+-- baseline for Windows is returned.
 module Network.AWS.SSM.GetDefaultPatchBaseline
   ( -- * Creating a Request
-    getDefaultPatchBaseline,
-    GetDefaultPatchBaseline,
+    GetDefaultPatchBaseline (..),
+    newGetDefaultPatchBaseline,
 
     -- * Request Lenses
-    gdpbOperatingSystem,
+    getDefaultPatchBaseline_operatingSystem,
 
     -- * Destructuring the Response
-    getDefaultPatchBaselineResponse,
-    GetDefaultPatchBaselineResponse,
+    GetDefaultPatchBaselineResponse (..),
+    newGetDefaultPatchBaselineResponse,
 
     -- * Response Lenses
-    gdpbrrsBaselineId,
-    gdpbrrsOperatingSystem,
-    gdpbrrsResponseStatus,
+    getDefaultPatchBaselineResponse_baselineId,
+    getDefaultPatchBaselineResponse_operatingSystem,
+    getDefaultPatchBaselineResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.OperatingSystem
 
--- | /See:/ 'getDefaultPatchBaseline' smart constructor.
-newtype GetDefaultPatchBaseline = GetDefaultPatchBaseline'
-  { _gdpbOperatingSystem ::
-      Maybe
-        OperatingSystem
+-- | /See:/ 'newGetDefaultPatchBaseline' smart constructor.
+data GetDefaultPatchBaseline = GetDefaultPatchBaseline'
+  { -- | Returns the default patch baseline for the specified operating system.
+    operatingSystem :: Prelude.Maybe OperatingSystem
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDefaultPatchBaseline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDefaultPatchBaseline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdpbOperatingSystem' - Returns the default patch baseline for the specified operating system.
-getDefaultPatchBaseline ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'operatingSystem', 'getDefaultPatchBaseline_operatingSystem' - Returns the default patch baseline for the specified operating system.
+newGetDefaultPatchBaseline ::
   GetDefaultPatchBaseline
-getDefaultPatchBaseline =
+newGetDefaultPatchBaseline =
   GetDefaultPatchBaseline'
-    { _gdpbOperatingSystem =
-        Nothing
+    { operatingSystem =
+        Prelude.Nothing
     }
 
 -- | Returns the default patch baseline for the specified operating system.
-gdpbOperatingSystem :: Lens' GetDefaultPatchBaseline (Maybe OperatingSystem)
-gdpbOperatingSystem = lens _gdpbOperatingSystem (\s a -> s {_gdpbOperatingSystem = a})
+getDefaultPatchBaseline_operatingSystem :: Lens.Lens' GetDefaultPatchBaseline (Prelude.Maybe OperatingSystem)
+getDefaultPatchBaseline_operatingSystem = Lens.lens (\GetDefaultPatchBaseline' {operatingSystem} -> operatingSystem) (\s@GetDefaultPatchBaseline' {} a -> s {operatingSystem = a} :: GetDefaultPatchBaseline)
 
-instance AWSRequest GetDefaultPatchBaseline where
+instance Prelude.AWSRequest GetDefaultPatchBaseline where
   type
     Rs GetDefaultPatchBaseline =
       GetDefaultPatchBaselineResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDefaultPatchBaselineResponse'
-            <$> (x .?> "BaselineId")
-            <*> (x .?> "OperatingSystem")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "BaselineId")
+            Prelude.<*> (x Prelude..?> "OperatingSystem")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDefaultPatchBaseline
+instance Prelude.Hashable GetDefaultPatchBaseline
 
-instance NFData GetDefaultPatchBaseline
+instance Prelude.NFData GetDefaultPatchBaseline
 
-instance ToHeaders GetDefaultPatchBaseline where
+instance Prelude.ToHeaders GetDefaultPatchBaseline where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.GetDefaultPatchBaseline" :: ByteString),
+              Prelude.=# ( "AmazonSSM.GetDefaultPatchBaseline" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDefaultPatchBaseline where
+instance Prelude.ToJSON GetDefaultPatchBaseline where
   toJSON GetDefaultPatchBaseline' {..} =
-    object
-      ( catMaybes
-          [("OperatingSystem" .=) <$> _gdpbOperatingSystem]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OperatingSystem" Prelude..=)
+              Prelude.<$> operatingSystem
+          ]
       )
 
-instance ToPath GetDefaultPatchBaseline where
-  toPath = const "/"
+instance Prelude.ToPath GetDefaultPatchBaseline where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDefaultPatchBaseline where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDefaultPatchBaseline where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDefaultPatchBaselineResponse' smart constructor.
+-- | /See:/ 'newGetDefaultPatchBaselineResponse' smart constructor.
 data GetDefaultPatchBaselineResponse = GetDefaultPatchBaselineResponse'
-  { _gdpbrrsBaselineId ::
-      !( Maybe
-           Text
-       ),
-    _gdpbrrsOperatingSystem ::
-      !( Maybe
-           OperatingSystem
-       ),
-    _gdpbrrsResponseStatus ::
-      !Int
+  { -- | The ID of the default patch baseline.
+    baselineId :: Prelude.Maybe Prelude.Text,
+    -- | The operating system for the returned patch baseline.
+    operatingSystem :: Prelude.Maybe OperatingSystem,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDefaultPatchBaselineResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDefaultPatchBaselineResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdpbrrsBaselineId' - The ID of the default patch baseline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdpbrrsOperatingSystem' - The operating system for the returned patch baseline.
+-- 'baselineId', 'getDefaultPatchBaselineResponse_baselineId' - The ID of the default patch baseline.
 --
--- * 'gdpbrrsResponseStatus' - -- | The response status code.
-getDefaultPatchBaselineResponse ::
-  -- | 'gdpbrrsResponseStatus'
-  Int ->
+-- 'operatingSystem', 'getDefaultPatchBaselineResponse_operatingSystem' - The operating system for the returned patch baseline.
+--
+-- 'httpStatus', 'getDefaultPatchBaselineResponse_httpStatus' - The response's http status code.
+newGetDefaultPatchBaselineResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDefaultPatchBaselineResponse
-getDefaultPatchBaselineResponse pResponseStatus_ =
+newGetDefaultPatchBaselineResponse pHttpStatus_ =
   GetDefaultPatchBaselineResponse'
-    { _gdpbrrsBaselineId =
-        Nothing,
-      _gdpbrrsOperatingSystem = Nothing,
-      _gdpbrrsResponseStatus = pResponseStatus_
+    { baselineId =
+        Prelude.Nothing,
+      operatingSystem = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the default patch baseline.
-gdpbrrsBaselineId :: Lens' GetDefaultPatchBaselineResponse (Maybe Text)
-gdpbrrsBaselineId = lens _gdpbrrsBaselineId (\s a -> s {_gdpbrrsBaselineId = a})
+getDefaultPatchBaselineResponse_baselineId :: Lens.Lens' GetDefaultPatchBaselineResponse (Prelude.Maybe Prelude.Text)
+getDefaultPatchBaselineResponse_baselineId = Lens.lens (\GetDefaultPatchBaselineResponse' {baselineId} -> baselineId) (\s@GetDefaultPatchBaselineResponse' {} a -> s {baselineId = a} :: GetDefaultPatchBaselineResponse)
 
 -- | The operating system for the returned patch baseline.
-gdpbrrsOperatingSystem :: Lens' GetDefaultPatchBaselineResponse (Maybe OperatingSystem)
-gdpbrrsOperatingSystem = lens _gdpbrrsOperatingSystem (\s a -> s {_gdpbrrsOperatingSystem = a})
+getDefaultPatchBaselineResponse_operatingSystem :: Lens.Lens' GetDefaultPatchBaselineResponse (Prelude.Maybe OperatingSystem)
+getDefaultPatchBaselineResponse_operatingSystem = Lens.lens (\GetDefaultPatchBaselineResponse' {operatingSystem} -> operatingSystem) (\s@GetDefaultPatchBaselineResponse' {} a -> s {operatingSystem = a} :: GetDefaultPatchBaselineResponse)
 
--- | -- | The response status code.
-gdpbrrsResponseStatus :: Lens' GetDefaultPatchBaselineResponse Int
-gdpbrrsResponseStatus = lens _gdpbrrsResponseStatus (\s a -> s {_gdpbrrsResponseStatus = a})
+-- | The response's http status code.
+getDefaultPatchBaselineResponse_httpStatus :: Lens.Lens' GetDefaultPatchBaselineResponse Prelude.Int
+getDefaultPatchBaselineResponse_httpStatus = Lens.lens (\GetDefaultPatchBaselineResponse' {httpStatus} -> httpStatus) (\s@GetDefaultPatchBaselineResponse' {} a -> s {httpStatus = a} :: GetDefaultPatchBaselineResponse)
 
-instance NFData GetDefaultPatchBaselineResponse
+instance
+  Prelude.NFData
+    GetDefaultPatchBaselineResponse

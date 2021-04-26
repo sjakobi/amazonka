@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SSM.Types.DocumentReviewAction
   ( DocumentReviewAction
       ( ..,
-        DRAApprove,
-        DRAReject,
-        DRASendForReview,
-        DRAUpdateReview
+        DocumentReviewActionApprove,
+        DocumentReviewActionReject,
+        DocumentReviewActionSendForReview,
+        DocumentReviewActionUpdateReview
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentReviewAction
-  = DocumentReviewAction'
-      ( CI
-          Text
-      )
+newtype DocumentReviewAction = DocumentReviewAction'
+  { fromDocumentReviewAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DRAApprove :: DocumentReviewAction
-pattern DRAApprove = DocumentReviewAction' "Approve"
+pattern DocumentReviewActionApprove :: DocumentReviewAction
+pattern DocumentReviewActionApprove = DocumentReviewAction' "Approve"
 
-pattern DRAReject :: DocumentReviewAction
-pattern DRAReject = DocumentReviewAction' "Reject"
+pattern DocumentReviewActionReject :: DocumentReviewAction
+pattern DocumentReviewActionReject = DocumentReviewAction' "Reject"
 
-pattern DRASendForReview :: DocumentReviewAction
-pattern DRASendForReview = DocumentReviewAction' "SendForReview"
+pattern DocumentReviewActionSendForReview :: DocumentReviewAction
+pattern DocumentReviewActionSendForReview = DocumentReviewAction' "SendForReview"
 
-pattern DRAUpdateReview :: DocumentReviewAction
-pattern DRAUpdateReview = DocumentReviewAction' "UpdateReview"
+pattern DocumentReviewActionUpdateReview :: DocumentReviewAction
+pattern DocumentReviewActionUpdateReview = DocumentReviewAction' "UpdateReview"
 
 {-# COMPLETE
-  DRAApprove,
-  DRAReject,
-  DRASendForReview,
-  DRAUpdateReview,
+  DocumentReviewActionApprove,
+  DocumentReviewActionReject,
+  DocumentReviewActionSendForReview,
+  DocumentReviewActionUpdateReview,
   DocumentReviewAction'
   #-}
 
-instance FromText DocumentReviewAction where
-  parser = (DocumentReviewAction' . mk) <$> takeText
+instance Prelude.FromText DocumentReviewAction where
+  parser = DocumentReviewAction' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentReviewAction where
-  toText (DocumentReviewAction' ci) = original ci
+instance Prelude.ToText DocumentReviewAction where
+  toText (DocumentReviewAction' x) = x
 
-instance Hashable DocumentReviewAction
+instance Prelude.Hashable DocumentReviewAction
 
-instance NFData DocumentReviewAction
+instance Prelude.NFData DocumentReviewAction
 
-instance ToByteString DocumentReviewAction
+instance Prelude.ToByteString DocumentReviewAction
 
-instance ToQuery DocumentReviewAction
+instance Prelude.ToQuery DocumentReviewAction
 
-instance ToHeader DocumentReviewAction
+instance Prelude.ToHeader DocumentReviewAction
 
-instance ToJSON DocumentReviewAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentReviewAction where
+  toJSON = Prelude.toJSONText

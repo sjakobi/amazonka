@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SSM.Types.InstancePatchStateOperatorType
   ( InstancePatchStateOperatorType
       ( ..,
-        IPSOTEqual,
-        IPSOTGreaterThan,
-        IPSOTLessThan,
-        IPSOTNotEqual
+        InstancePatchStateOperatorTypeEqual,
+        InstancePatchStateOperatorTypeGreaterThan,
+        InstancePatchStateOperatorTypeLessThan,
+        InstancePatchStateOperatorTypeNotEqual
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstancePatchStateOperatorType
-  = InstancePatchStateOperatorType'
-      ( CI
-          Text
-      )
+newtype InstancePatchStateOperatorType = InstancePatchStateOperatorType'
+  { fromInstancePatchStateOperatorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IPSOTEqual :: InstancePatchStateOperatorType
-pattern IPSOTEqual = InstancePatchStateOperatorType' "Equal"
+pattern InstancePatchStateOperatorTypeEqual :: InstancePatchStateOperatorType
+pattern InstancePatchStateOperatorTypeEqual = InstancePatchStateOperatorType' "Equal"
 
-pattern IPSOTGreaterThan :: InstancePatchStateOperatorType
-pattern IPSOTGreaterThan = InstancePatchStateOperatorType' "GreaterThan"
+pattern InstancePatchStateOperatorTypeGreaterThan :: InstancePatchStateOperatorType
+pattern InstancePatchStateOperatorTypeGreaterThan = InstancePatchStateOperatorType' "GreaterThan"
 
-pattern IPSOTLessThan :: InstancePatchStateOperatorType
-pattern IPSOTLessThan = InstancePatchStateOperatorType' "LessThan"
+pattern InstancePatchStateOperatorTypeLessThan :: InstancePatchStateOperatorType
+pattern InstancePatchStateOperatorTypeLessThan = InstancePatchStateOperatorType' "LessThan"
 
-pattern IPSOTNotEqual :: InstancePatchStateOperatorType
-pattern IPSOTNotEqual = InstancePatchStateOperatorType' "NotEqual"
+pattern InstancePatchStateOperatorTypeNotEqual :: InstancePatchStateOperatorType
+pattern InstancePatchStateOperatorTypeNotEqual = InstancePatchStateOperatorType' "NotEqual"
 
 {-# COMPLETE
-  IPSOTEqual,
-  IPSOTGreaterThan,
-  IPSOTLessThan,
-  IPSOTNotEqual,
+  InstancePatchStateOperatorTypeEqual,
+  InstancePatchStateOperatorTypeGreaterThan,
+  InstancePatchStateOperatorTypeLessThan,
+  InstancePatchStateOperatorTypeNotEqual,
   InstancePatchStateOperatorType'
   #-}
 
-instance FromText InstancePatchStateOperatorType where
-  parser = (InstancePatchStateOperatorType' . mk) <$> takeText
+instance Prelude.FromText InstancePatchStateOperatorType where
+  parser = InstancePatchStateOperatorType' Prelude.<$> Prelude.takeText
 
-instance ToText InstancePatchStateOperatorType where
-  toText (InstancePatchStateOperatorType' ci) = original ci
+instance Prelude.ToText InstancePatchStateOperatorType where
+  toText (InstancePatchStateOperatorType' x) = x
 
-instance Hashable InstancePatchStateOperatorType
+instance Prelude.Hashable InstancePatchStateOperatorType
 
-instance NFData InstancePatchStateOperatorType
+instance Prelude.NFData InstancePatchStateOperatorType
 
-instance ToByteString InstancePatchStateOperatorType
+instance Prelude.ToByteString InstancePatchStateOperatorType
 
-instance ToQuery InstancePatchStateOperatorType
+instance Prelude.ToQuery InstancePatchStateOperatorType
 
-instance ToHeader InstancePatchStateOperatorType
+instance Prelude.ToHeader InstancePatchStateOperatorType
 
-instance ToJSON InstancePatchStateOperatorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstancePatchStateOperatorType where
+  toJSON = Prelude.toJSONText

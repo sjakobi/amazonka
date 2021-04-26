@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,112 +19,162 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ResourceDataSyncSourceWithState where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.SSM.Types.ResourceDataSyncAWSOrganizationsSource
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import Network.AWS.SSM.Types.ResourceDataSyncAwsOrganizationsSource
 
--- | The data type name for including resource data sync state. There are four sync states:
+-- | The data type name for including resource data sync state. There are
+-- four sync states:
 --
+-- @OrganizationNotExists@ (Your organization doesn\'t exist)
 --
--- @OrganizationNotExists@ (Your organization doesn't exist)
+-- @NoPermissions@ (The system can\'t locate the service-linked role. This
+-- role is automatically created when a user creates a resource data sync
+-- in Explorer.)
 --
--- @NoPermissions@ (The system can't locate the service-linked role. This role is automatically created when a user creates a resource data sync in Explorer.)
+-- @InvalidOrganizationalUnit@ (You specified or selected an invalid unit
+-- in the resource data sync configuration.)
 --
--- @InvalidOrganizationalUnit@ (You specified or selected an invalid unit in the resource data sync configuration.)
+-- @TrustedAccessDisabled@ (You disabled Systems Manager access in the
+-- organization in AWS Organizations.)
 --
--- @TrustedAccessDisabled@ (You disabled Systems Manager access in the organization in AWS Organizations.)
---
---
--- /See:/ 'resourceDataSyncSourceWithState' smart constructor.
+-- /See:/ 'newResourceDataSyncSourceWithState' smart constructor.
 data ResourceDataSyncSourceWithState = ResourceDataSyncSourceWithState'
-  { _rdsswsIncludeFutureRegions ::
-      !( Maybe
-           Bool
-       ),
-    _rdsswsState ::
-      !( Maybe
-           Text
-       ),
-    _rdsswsSourceRegions ::
-      !( Maybe
-           [Text]
-       ),
-    _rdsswsAWSOrganizationsSource ::
-      !( Maybe
-           ResourceDataSyncAWSOrganizationsSource
-       ),
-    _rdsswsSourceType ::
-      !( Maybe
-           Text
-       )
+  { -- | Whether to automatically synchronize and aggregate data from new AWS
+    -- Regions when those Regions come online.
+    includeFutureRegions :: Prelude.Maybe Prelude.Bool,
+    -- | The data type name for including resource data sync state. There are
+    -- four sync states:
+    --
+    -- @OrganizationNotExists@: Your organization doesn\'t exist.
+    --
+    -- @NoPermissions@: The system can\'t locate the service-linked role. This
+    -- role is automatically created when a user creates a resource data sync
+    -- in Explorer.
+    --
+    -- @InvalidOrganizationalUnit@: You specified or selected an invalid unit
+    -- in the resource data sync configuration.
+    --
+    -- @TrustedAccessDisabled@: You disabled Systems Manager access in the
+    -- organization in AWS Organizations.
+    state :: Prelude.Maybe Prelude.Text,
+    -- | The @SyncSource@ AWS Regions included in the resource data sync.
+    sourceRegions :: Prelude.Maybe [Prelude.Text],
+    -- | The field name in @SyncSource@ for the
+    -- @ResourceDataSyncAwsOrganizationsSource@ type.
+    awsOrganizationsSource :: Prelude.Maybe ResourceDataSyncAwsOrganizationsSource,
+    -- | The type of data source for the resource data sync. @SourceType@ is
+    -- either @AwsOrganizations@ (if an organization is present in AWS
+    -- Organizations) or @singleAccountMultiRegions@.
+    sourceType :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceDataSyncSourceWithState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceDataSyncSourceWithState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdsswsIncludeFutureRegions' - Whether to automatically synchronize and aggregate data from new AWS Regions when those Regions come online.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdsswsState' - The data type name for including resource data sync state. There are four sync states: @OrganizationNotExists@ : Your organization doesn't exist. @NoPermissions@ : The system can't locate the service-linked role. This role is automatically created when a user creates a resource data sync in Explorer. @InvalidOrganizationalUnit@ : You specified or selected an invalid unit in the resource data sync configuration. @TrustedAccessDisabled@ : You disabled Systems Manager access in the organization in AWS Organizations.
+-- 'includeFutureRegions', 'resourceDataSyncSourceWithState_includeFutureRegions' - Whether to automatically synchronize and aggregate data from new AWS
+-- Regions when those Regions come online.
 --
--- * 'rdsswsSourceRegions' - The @SyncSource@ AWS Regions included in the resource data sync.
+-- 'state', 'resourceDataSyncSourceWithState_state' - The data type name for including resource data sync state. There are
+-- four sync states:
 --
--- * 'rdsswsAWSOrganizationsSource' - The field name in @SyncSource@ for the @ResourceDataSyncAwsOrganizationsSource@ type.
+-- @OrganizationNotExists@: Your organization doesn\'t exist.
 --
--- * 'rdsswsSourceType' - The type of data source for the resource data sync. @SourceType@ is either @AwsOrganizations@ (if an organization is present in AWS Organizations) or @singleAccountMultiRegions@ .
-resourceDataSyncSourceWithState ::
+-- @NoPermissions@: The system can\'t locate the service-linked role. This
+-- role is automatically created when a user creates a resource data sync
+-- in Explorer.
+--
+-- @InvalidOrganizationalUnit@: You specified or selected an invalid unit
+-- in the resource data sync configuration.
+--
+-- @TrustedAccessDisabled@: You disabled Systems Manager access in the
+-- organization in AWS Organizations.
+--
+-- 'sourceRegions', 'resourceDataSyncSourceWithState_sourceRegions' - The @SyncSource@ AWS Regions included in the resource data sync.
+--
+-- 'awsOrganizationsSource', 'resourceDataSyncSourceWithState_awsOrganizationsSource' - The field name in @SyncSource@ for the
+-- @ResourceDataSyncAwsOrganizationsSource@ type.
+--
+-- 'sourceType', 'resourceDataSyncSourceWithState_sourceType' - The type of data source for the resource data sync. @SourceType@ is
+-- either @AwsOrganizations@ (if an organization is present in AWS
+-- Organizations) or @singleAccountMultiRegions@.
+newResourceDataSyncSourceWithState ::
   ResourceDataSyncSourceWithState
-resourceDataSyncSourceWithState =
+newResourceDataSyncSourceWithState =
   ResourceDataSyncSourceWithState'
-    { _rdsswsIncludeFutureRegions =
-        Nothing,
-      _rdsswsState = Nothing,
-      _rdsswsSourceRegions = Nothing,
-      _rdsswsAWSOrganizationsSource = Nothing,
-      _rdsswsSourceType = Nothing
+    { includeFutureRegions =
+        Prelude.Nothing,
+      state = Prelude.Nothing,
+      sourceRegions = Prelude.Nothing,
+      awsOrganizationsSource = Prelude.Nothing,
+      sourceType = Prelude.Nothing
     }
 
--- | Whether to automatically synchronize and aggregate data from new AWS Regions when those Regions come online.
-rdsswsIncludeFutureRegions :: Lens' ResourceDataSyncSourceWithState (Maybe Bool)
-rdsswsIncludeFutureRegions = lens _rdsswsIncludeFutureRegions (\s a -> s {_rdsswsIncludeFutureRegions = a})
+-- | Whether to automatically synchronize and aggregate data from new AWS
+-- Regions when those Regions come online.
+resourceDataSyncSourceWithState_includeFutureRegions :: Lens.Lens' ResourceDataSyncSourceWithState (Prelude.Maybe Prelude.Bool)
+resourceDataSyncSourceWithState_includeFutureRegions = Lens.lens (\ResourceDataSyncSourceWithState' {includeFutureRegions} -> includeFutureRegions) (\s@ResourceDataSyncSourceWithState' {} a -> s {includeFutureRegions = a} :: ResourceDataSyncSourceWithState)
 
--- | The data type name for including resource data sync state. There are four sync states: @OrganizationNotExists@ : Your organization doesn't exist. @NoPermissions@ : The system can't locate the service-linked role. This role is automatically created when a user creates a resource data sync in Explorer. @InvalidOrganizationalUnit@ : You specified or selected an invalid unit in the resource data sync configuration. @TrustedAccessDisabled@ : You disabled Systems Manager access in the organization in AWS Organizations.
-rdsswsState :: Lens' ResourceDataSyncSourceWithState (Maybe Text)
-rdsswsState = lens _rdsswsState (\s a -> s {_rdsswsState = a})
+-- | The data type name for including resource data sync state. There are
+-- four sync states:
+--
+-- @OrganizationNotExists@: Your organization doesn\'t exist.
+--
+-- @NoPermissions@: The system can\'t locate the service-linked role. This
+-- role is automatically created when a user creates a resource data sync
+-- in Explorer.
+--
+-- @InvalidOrganizationalUnit@: You specified or selected an invalid unit
+-- in the resource data sync configuration.
+--
+-- @TrustedAccessDisabled@: You disabled Systems Manager access in the
+-- organization in AWS Organizations.
+resourceDataSyncSourceWithState_state :: Lens.Lens' ResourceDataSyncSourceWithState (Prelude.Maybe Prelude.Text)
+resourceDataSyncSourceWithState_state = Lens.lens (\ResourceDataSyncSourceWithState' {state} -> state) (\s@ResourceDataSyncSourceWithState' {} a -> s {state = a} :: ResourceDataSyncSourceWithState)
 
 -- | The @SyncSource@ AWS Regions included in the resource data sync.
-rdsswsSourceRegions :: Lens' ResourceDataSyncSourceWithState [Text]
-rdsswsSourceRegions = lens _rdsswsSourceRegions (\s a -> s {_rdsswsSourceRegions = a}) . _Default . _Coerce
+resourceDataSyncSourceWithState_sourceRegions :: Lens.Lens' ResourceDataSyncSourceWithState (Prelude.Maybe [Prelude.Text])
+resourceDataSyncSourceWithState_sourceRegions = Lens.lens (\ResourceDataSyncSourceWithState' {sourceRegions} -> sourceRegions) (\s@ResourceDataSyncSourceWithState' {} a -> s {sourceRegions = a} :: ResourceDataSyncSourceWithState) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The field name in @SyncSource@ for the @ResourceDataSyncAwsOrganizationsSource@ type.
-rdsswsAWSOrganizationsSource :: Lens' ResourceDataSyncSourceWithState (Maybe ResourceDataSyncAWSOrganizationsSource)
-rdsswsAWSOrganizationsSource = lens _rdsswsAWSOrganizationsSource (\s a -> s {_rdsswsAWSOrganizationsSource = a})
+-- | The field name in @SyncSource@ for the
+-- @ResourceDataSyncAwsOrganizationsSource@ type.
+resourceDataSyncSourceWithState_awsOrganizationsSource :: Lens.Lens' ResourceDataSyncSourceWithState (Prelude.Maybe ResourceDataSyncAwsOrganizationsSource)
+resourceDataSyncSourceWithState_awsOrganizationsSource = Lens.lens (\ResourceDataSyncSourceWithState' {awsOrganizationsSource} -> awsOrganizationsSource) (\s@ResourceDataSyncSourceWithState' {} a -> s {awsOrganizationsSource = a} :: ResourceDataSyncSourceWithState)
 
--- | The type of data source for the resource data sync. @SourceType@ is either @AwsOrganizations@ (if an organization is present in AWS Organizations) or @singleAccountMultiRegions@ .
-rdsswsSourceType :: Lens' ResourceDataSyncSourceWithState (Maybe Text)
-rdsswsSourceType = lens _rdsswsSourceType (\s a -> s {_rdsswsSourceType = a})
+-- | The type of data source for the resource data sync. @SourceType@ is
+-- either @AwsOrganizations@ (if an organization is present in AWS
+-- Organizations) or @singleAccountMultiRegions@.
+resourceDataSyncSourceWithState_sourceType :: Lens.Lens' ResourceDataSyncSourceWithState (Prelude.Maybe Prelude.Text)
+resourceDataSyncSourceWithState_sourceType = Lens.lens (\ResourceDataSyncSourceWithState' {sourceType} -> sourceType) (\s@ResourceDataSyncSourceWithState' {} a -> s {sourceType = a} :: ResourceDataSyncSourceWithState)
 
-instance FromJSON ResourceDataSyncSourceWithState where
+instance
+  Prelude.FromJSON
+    ResourceDataSyncSourceWithState
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceDataSyncSourceWithState"
       ( \x ->
           ResourceDataSyncSourceWithState'
-            <$> (x .:? "IncludeFutureRegions")
-            <*> (x .:? "State")
-            <*> (x .:? "SourceRegions" .!= mempty)
-            <*> (x .:? "AwsOrganizationsSource")
-            <*> (x .:? "SourceType")
+            Prelude.<$> (x Prelude..:? "IncludeFutureRegions")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> ( x Prelude..:? "SourceRegions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "AwsOrganizationsSource")
+            Prelude.<*> (x Prelude..:? "SourceType")
       )
 
-instance Hashable ResourceDataSyncSourceWithState
+instance
+  Prelude.Hashable
+    ResourceDataSyncSourceWithState
 
-instance NFData ResourceDataSyncSourceWithState
+instance
+  Prelude.NFData
+    ResourceDataSyncSourceWithState

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Update a resource data sync. After you create a resource data sync for a Region, you can't change the account options for that sync. For example, if you create a sync in the us-east-2 (Ohio) Region and you choose the Include only the current account option, you can't edit that sync later and choose the Include all accounts from my AWS Organizations configuration option. Instead, you must delete the first resource data sync, and create a new one.
+-- Update a resource data sync. After you create a resource data sync for a
+-- Region, you can\'t change the account options for that sync. For
+-- example, if you create a sync in the us-east-2 (Ohio) Region and you
+-- choose the Include only the current account option, you can\'t edit that
+-- sync later and choose the Include all accounts from my AWS Organizations
+-- configuration option. Instead, you must delete the first resource data
+-- sync, and create a new one.
+--
+-- This API action only supports a resource data sync that was created with
+-- a SyncFromSource @SyncType@.
 module Network.AWS.SSM.UpdateResourceDataSync
   ( -- * Creating a Request
-    updateResourceDataSync,
-    UpdateResourceDataSync,
+    UpdateResourceDataSync (..),
+    newUpdateResourceDataSync,
 
     -- * Request Lenses
-    urdsSyncName,
-    urdsSyncType,
-    urdsSyncSource,
+    updateResourceDataSync_syncName,
+    updateResourceDataSync_syncType,
+    updateResourceDataSync_syncSource,
 
     -- * Destructuring the Response
-    updateResourceDataSyncResponse,
-    UpdateResourceDataSyncResponse,
+    UpdateResourceDataSyncResponse (..),
+    newUpdateResourceDataSyncResponse,
 
     -- * Response Lenses
-    urdsrrsResponseStatus,
+    updateResourceDataSyncResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'updateResourceDataSync' smart constructor.
+-- | /See:/ 'newUpdateResourceDataSync' smart constructor.
 data UpdateResourceDataSync = UpdateResourceDataSync'
-  { _urdsSyncName ::
-      !Text,
-    _urdsSyncType :: !Text,
-    _urdsSyncSource ::
-      !ResourceDataSyncSource
+  { -- | The name of the resource data sync you want to update.
+    syncName :: Prelude.Text,
+    -- | The type of resource data sync. The supported @SyncType@ is
+    -- SyncFromSource.
+    syncType :: Prelude.Text,
+    -- | Specify information about the data sources to synchronize.
+    syncSource :: ResourceDataSyncSource
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateResourceDataSync' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateResourceDataSync' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urdsSyncName' - The name of the resource data sync you want to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urdsSyncType' - The type of resource data sync. The supported @SyncType@ is SyncFromSource.
+-- 'syncName', 'updateResourceDataSync_syncName' - The name of the resource data sync you want to update.
 --
--- * 'urdsSyncSource' - Specify information about the data sources to synchronize.
-updateResourceDataSync ::
-  -- | 'urdsSyncName'
-  Text ->
-  -- | 'urdsSyncType'
-  Text ->
-  -- | 'urdsSyncSource'
+-- 'syncType', 'updateResourceDataSync_syncType' - The type of resource data sync. The supported @SyncType@ is
+-- SyncFromSource.
+--
+-- 'syncSource', 'updateResourceDataSync_syncSource' - Specify information about the data sources to synchronize.
+newUpdateResourceDataSync ::
+  -- | 'syncName'
+  Prelude.Text ->
+  -- | 'syncType'
+  Prelude.Text ->
+  -- | 'syncSource'
   ResourceDataSyncSource ->
   UpdateResourceDataSync
-updateResourceDataSync
+newUpdateResourceDataSync
   pSyncName_
   pSyncType_
   pSyncSource_ =
     UpdateResourceDataSync'
-      { _urdsSyncName = pSyncName_,
-        _urdsSyncType = pSyncType_,
-        _urdsSyncSource = pSyncSource_
+      { syncName = pSyncName_,
+        syncType = pSyncType_,
+        syncSource = pSyncSource_
       }
 
 -- | The name of the resource data sync you want to update.
-urdsSyncName :: Lens' UpdateResourceDataSync Text
-urdsSyncName = lens _urdsSyncName (\s a -> s {_urdsSyncName = a})
+updateResourceDataSync_syncName :: Lens.Lens' UpdateResourceDataSync Prelude.Text
+updateResourceDataSync_syncName = Lens.lens (\UpdateResourceDataSync' {syncName} -> syncName) (\s@UpdateResourceDataSync' {} a -> s {syncName = a} :: UpdateResourceDataSync)
 
--- | The type of resource data sync. The supported @SyncType@ is SyncFromSource.
-urdsSyncType :: Lens' UpdateResourceDataSync Text
-urdsSyncType = lens _urdsSyncType (\s a -> s {_urdsSyncType = a})
+-- | The type of resource data sync. The supported @SyncType@ is
+-- SyncFromSource.
+updateResourceDataSync_syncType :: Lens.Lens' UpdateResourceDataSync Prelude.Text
+updateResourceDataSync_syncType = Lens.lens (\UpdateResourceDataSync' {syncType} -> syncType) (\s@UpdateResourceDataSync' {} a -> s {syncType = a} :: UpdateResourceDataSync)
 
 -- | Specify information about the data sources to synchronize.
-urdsSyncSource :: Lens' UpdateResourceDataSync ResourceDataSyncSource
-urdsSyncSource = lens _urdsSyncSource (\s a -> s {_urdsSyncSource = a})
+updateResourceDataSync_syncSource :: Lens.Lens' UpdateResourceDataSync ResourceDataSyncSource
+updateResourceDataSync_syncSource = Lens.lens (\UpdateResourceDataSync' {syncSource} -> syncSource) (\s@UpdateResourceDataSync' {} a -> s {syncSource = a} :: UpdateResourceDataSync)
 
-instance AWSRequest UpdateResourceDataSync where
+instance Prelude.AWSRequest UpdateResourceDataSync where
   type
     Rs UpdateResourceDataSync =
       UpdateResourceDataSyncResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateResourceDataSyncResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateResourceDataSync
+instance Prelude.Hashable UpdateResourceDataSync
 
-instance NFData UpdateResourceDataSync
+instance Prelude.NFData UpdateResourceDataSync
 
-instance ToHeaders UpdateResourceDataSync where
+instance Prelude.ToHeaders UpdateResourceDataSync where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.UpdateResourceDataSync" :: ByteString),
+              Prelude.=# ( "AmazonSSM.UpdateResourceDataSync" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateResourceDataSync where
+instance Prelude.ToJSON UpdateResourceDataSync where
   toJSON UpdateResourceDataSync' {..} =
-    object
-      ( catMaybes
-          [ Just ("SyncName" .= _urdsSyncName),
-            Just ("SyncType" .= _urdsSyncType),
-            Just ("SyncSource" .= _urdsSyncSource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("SyncName" Prelude..= syncName),
+            Prelude.Just ("SyncType" Prelude..= syncType),
+            Prelude.Just ("SyncSource" Prelude..= syncSource)
           ]
       )
 
-instance ToPath UpdateResourceDataSync where
-  toPath = const "/"
+instance Prelude.ToPath UpdateResourceDataSync where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateResourceDataSync where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateResourceDataSync where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateResourceDataSyncResponse' smart constructor.
-newtype UpdateResourceDataSyncResponse = UpdateResourceDataSyncResponse'
-  { _urdsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateResourceDataSyncResponse' smart constructor.
+data UpdateResourceDataSyncResponse = UpdateResourceDataSyncResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateResourceDataSyncResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateResourceDataSyncResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urdsrrsResponseStatus' - -- | The response status code.
-updateResourceDataSyncResponse ::
-  -- | 'urdsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateResourceDataSyncResponse_httpStatus' - The response's http status code.
+newUpdateResourceDataSyncResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateResourceDataSyncResponse
-updateResourceDataSyncResponse pResponseStatus_ =
+newUpdateResourceDataSyncResponse pHttpStatus_ =
   UpdateResourceDataSyncResponse'
-    { _urdsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-urdsrrsResponseStatus :: Lens' UpdateResourceDataSyncResponse Int
-urdsrrsResponseStatus = lens _urdsrrsResponseStatus (\s a -> s {_urdsrrsResponseStatus = a})
+-- | The response's http status code.
+updateResourceDataSyncResponse_httpStatus :: Lens.Lens' UpdateResourceDataSyncResponse Prelude.Int
+updateResourceDataSyncResponse_httpStatus = Lens.lens (\UpdateResourceDataSyncResponse' {httpStatus} -> httpStatus) (\s@UpdateResourceDataSyncResponse' {} a -> s {httpStatus = a} :: UpdateResourceDataSyncResponse)
 
-instance NFData UpdateResourceDataSyncResponse
+instance
+  Prelude.NFData
+    UpdateResourceDataSyncResponse

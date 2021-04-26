@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ReviewInformation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.ReviewStatus
 
 -- | Information about the result of a document review request.
 --
---
---
--- /See:/ 'reviewInformation' smart constructor.
+-- /See:/ 'newReviewInformation' smart constructor.
 data ReviewInformation = ReviewInformation'
-  { _riStatus ::
-      !(Maybe ReviewStatus),
-    _riReviewedTime :: !(Maybe POSIX),
-    _riReviewer :: !(Maybe Text)
+  { -- | The current status of the document review request.
+    status :: Prelude.Maybe ReviewStatus,
+    -- | The time that the reviewer took action on the document review request.
+    reviewedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The reviewer assigned to take action on the document review request.
+    reviewer :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReviewInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReviewInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riStatus' - The current status of the document review request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'riReviewedTime' - The time that the reviewer took action on the document review request.
+-- 'status', 'reviewInformation_status' - The current status of the document review request.
 --
--- * 'riReviewer' - The reviewer assigned to take action on the document review request.
-reviewInformation ::
+-- 'reviewedTime', 'reviewInformation_reviewedTime' - The time that the reviewer took action on the document review request.
+--
+-- 'reviewer', 'reviewInformation_reviewer' - The reviewer assigned to take action on the document review request.
+newReviewInformation ::
   ReviewInformation
-reviewInformation =
+newReviewInformation =
   ReviewInformation'
-    { _riStatus = Nothing,
-      _riReviewedTime = Nothing,
-      _riReviewer = Nothing
+    { status = Prelude.Nothing,
+      reviewedTime = Prelude.Nothing,
+      reviewer = Prelude.Nothing
     }
 
 -- | The current status of the document review request.
-riStatus :: Lens' ReviewInformation (Maybe ReviewStatus)
-riStatus = lens _riStatus (\s a -> s {_riStatus = a})
+reviewInformation_status :: Lens.Lens' ReviewInformation (Prelude.Maybe ReviewStatus)
+reviewInformation_status = Lens.lens (\ReviewInformation' {status} -> status) (\s@ReviewInformation' {} a -> s {status = a} :: ReviewInformation)
 
 -- | The time that the reviewer took action on the document review request.
-riReviewedTime :: Lens' ReviewInformation (Maybe UTCTime)
-riReviewedTime = lens _riReviewedTime (\s a -> s {_riReviewedTime = a}) . mapping _Time
+reviewInformation_reviewedTime :: Lens.Lens' ReviewInformation (Prelude.Maybe Prelude.UTCTime)
+reviewInformation_reviewedTime = Lens.lens (\ReviewInformation' {reviewedTime} -> reviewedTime) (\s@ReviewInformation' {} a -> s {reviewedTime = a} :: ReviewInformation) Prelude.. Lens.mapping Prelude._Time
 
 -- | The reviewer assigned to take action on the document review request.
-riReviewer :: Lens' ReviewInformation (Maybe Text)
-riReviewer = lens _riReviewer (\s a -> s {_riReviewer = a})
+reviewInformation_reviewer :: Lens.Lens' ReviewInformation (Prelude.Maybe Prelude.Text)
+reviewInformation_reviewer = Lens.lens (\ReviewInformation' {reviewer} -> reviewer) (\s@ReviewInformation' {} a -> s {reviewer = a} :: ReviewInformation)
 
-instance FromJSON ReviewInformation where
+instance Prelude.FromJSON ReviewInformation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReviewInformation"
       ( \x ->
           ReviewInformation'
-            <$> (x .:? "Status")
-            <*> (x .:? "ReviewedTime")
-            <*> (x .:? "Reviewer")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "ReviewedTime")
+            Prelude.<*> (x Prelude..:? "Reviewer")
       )
 
-instance Hashable ReviewInformation
+instance Prelude.Hashable ReviewInformation
 
-instance NFData ReviewInformation
+instance Prelude.NFData ReviewInformation

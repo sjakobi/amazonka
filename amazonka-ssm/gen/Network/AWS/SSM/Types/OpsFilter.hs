@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.OpsFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.OpsFilterOperatorType
 
 -- | A filter for viewing OpsItem summaries.
 --
---
---
--- /See:/ 'opsFilter' smart constructor.
+-- /See:/ 'newOpsFilter' smart constructor.
 data OpsFilter = OpsFilter'
-  { _ofType ::
-      !(Maybe OpsFilterOperatorType),
-    _ofKey :: !Text,
-    _ofValues :: !(List1 Text)
+  { -- | The type of filter.
+    type' :: Prelude.Maybe OpsFilterOperatorType,
+    -- | The name of the filter.
+    key :: Prelude.Text,
+    -- | The filter value.
+    values :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpsFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpsFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ofType' - The type of filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ofKey' - The name of the filter.
+-- 'type'', 'opsFilter_type' - The type of filter.
 --
--- * 'ofValues' - The filter value.
-opsFilter ::
-  -- | 'ofKey'
-  Text ->
-  -- | 'ofValues'
-  NonEmpty Text ->
+-- 'key', 'opsFilter_key' - The name of the filter.
+--
+-- 'values', 'opsFilter_values' - The filter value.
+newOpsFilter ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
   OpsFilter
-opsFilter pKey_ pValues_ =
+newOpsFilter pKey_ pValues_ =
   OpsFilter'
-    { _ofType = Nothing,
-      _ofKey = pKey_,
-      _ofValues = _List1 # pValues_
+    { type' = Prelude.Nothing,
+      key = pKey_,
+      values = Prelude._List1 Lens.# pValues_
     }
 
 -- | The type of filter.
-ofType :: Lens' OpsFilter (Maybe OpsFilterOperatorType)
-ofType = lens _ofType (\s a -> s {_ofType = a})
+opsFilter_type :: Lens.Lens' OpsFilter (Prelude.Maybe OpsFilterOperatorType)
+opsFilter_type = Lens.lens (\OpsFilter' {type'} -> type') (\s@OpsFilter' {} a -> s {type' = a} :: OpsFilter)
 
 -- | The name of the filter.
-ofKey :: Lens' OpsFilter Text
-ofKey = lens _ofKey (\s a -> s {_ofKey = a})
+opsFilter_key :: Lens.Lens' OpsFilter Prelude.Text
+opsFilter_key = Lens.lens (\OpsFilter' {key} -> key) (\s@OpsFilter' {} a -> s {key = a} :: OpsFilter)
 
 -- | The filter value.
-ofValues :: Lens' OpsFilter (NonEmpty Text)
-ofValues = lens _ofValues (\s a -> s {_ofValues = a}) . _List1
+opsFilter_values :: Lens.Lens' OpsFilter (Prelude.NonEmpty Prelude.Text)
+opsFilter_values = Lens.lens (\OpsFilter' {values} -> values) (\s@OpsFilter' {} a -> s {values = a} :: OpsFilter) Prelude.. Prelude._List1
 
-instance Hashable OpsFilter
+instance Prelude.Hashable OpsFilter
 
-instance NFData OpsFilter
+instance Prelude.NFData OpsFilter
 
-instance ToJSON OpsFilter where
+instance Prelude.ToJSON OpsFilter where
   toJSON OpsFilter' {..} =
-    object
-      ( catMaybes
-          [ ("Type" .=) <$> _ofType,
-            Just ("Key" .= _ofKey),
-            Just ("Values" .= _ofValues)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Type" Prelude..=) Prelude.<$> type',
+            Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Values" Prelude..= values)
           ]
       )

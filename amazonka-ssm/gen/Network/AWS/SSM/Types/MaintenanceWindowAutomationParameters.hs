@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,84 +19,137 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.MaintenanceWindowAutomationParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The parameters for an AUTOMATION task type.
 --
---
---
--- /See:/ 'maintenanceWindowAutomationParameters' smart constructor.
+-- /See:/ 'newMaintenanceWindowAutomationParameters' smart constructor.
 data MaintenanceWindowAutomationParameters = MaintenanceWindowAutomationParameters'
-  { _mwapDocumentVersion ::
-      !( Maybe
-           Text
-       ),
-    _mwapParameters ::
-      !( Maybe
-           ( Map
-               Text
-               [Text]
-           )
-       )
+  { -- | The version of an Automation document to use during task execution.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The parameters for the AUTOMATION task.
+    --
+    -- For information about specifying and updating task parameters, see
+    -- RegisterTaskWithMaintenanceWindow and UpdateMaintenanceWindowTask.
+    --
+    -- @LoggingInfo@ has been deprecated. To specify an S3 bucket to contain
+    -- logs, instead use the @OutputS3BucketName@ and @OutputS3KeyPrefix@
+    -- options in the @TaskInvocationParameters@ structure. For information
+    -- about how Systems Manager handles these options for the supported
+    -- maintenance window task types, see
+    -- MaintenanceWindowTaskInvocationParameters.
+    --
+    -- @TaskParameters@ has been deprecated. To specify parameters to pass to a
+    -- task when it runs, instead use the @Parameters@ option in the
+    -- @TaskInvocationParameters@ structure. For information about how Systems
+    -- Manager handles these options for the supported maintenance window task
+    -- types, see MaintenanceWindowTaskInvocationParameters.
+    --
+    -- For AUTOMATION task types, Systems Manager ignores any values specified
+    -- for these parameters.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text])
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MaintenanceWindowAutomationParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MaintenanceWindowAutomationParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwapDocumentVersion' - The version of an Automation document to use during task execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwapParameters' - The parameters for the AUTOMATION task. For information about specifying and updating task parameters, see 'RegisterTaskWithMaintenanceWindow' and 'UpdateMaintenanceWindowTask' .
-maintenanceWindowAutomationParameters ::
+-- 'documentVersion', 'maintenanceWindowAutomationParameters_documentVersion' - The version of an Automation document to use during task execution.
+--
+-- 'parameters', 'maintenanceWindowAutomationParameters_parameters' - The parameters for the AUTOMATION task.
+--
+-- For information about specifying and updating task parameters, see
+-- RegisterTaskWithMaintenanceWindow and UpdateMaintenanceWindowTask.
+--
+-- @LoggingInfo@ has been deprecated. To specify an S3 bucket to contain
+-- logs, instead use the @OutputS3BucketName@ and @OutputS3KeyPrefix@
+-- options in the @TaskInvocationParameters@ structure. For information
+-- about how Systems Manager handles these options for the supported
+-- maintenance window task types, see
+-- MaintenanceWindowTaskInvocationParameters.
+--
+-- @TaskParameters@ has been deprecated. To specify parameters to pass to a
+-- task when it runs, instead use the @Parameters@ option in the
+-- @TaskInvocationParameters@ structure. For information about how Systems
+-- Manager handles these options for the supported maintenance window task
+-- types, see MaintenanceWindowTaskInvocationParameters.
+--
+-- For AUTOMATION task types, Systems Manager ignores any values specified
+-- for these parameters.
+newMaintenanceWindowAutomationParameters ::
   MaintenanceWindowAutomationParameters
-maintenanceWindowAutomationParameters =
+newMaintenanceWindowAutomationParameters =
   MaintenanceWindowAutomationParameters'
-    { _mwapDocumentVersion =
-        Nothing,
-      _mwapParameters = Nothing
+    { documentVersion =
+        Prelude.Nothing,
+      parameters = Prelude.Nothing
     }
 
 -- | The version of an Automation document to use during task execution.
-mwapDocumentVersion :: Lens' MaintenanceWindowAutomationParameters (Maybe Text)
-mwapDocumentVersion = lens _mwapDocumentVersion (\s a -> s {_mwapDocumentVersion = a})
+maintenanceWindowAutomationParameters_documentVersion :: Lens.Lens' MaintenanceWindowAutomationParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowAutomationParameters_documentVersion = Lens.lens (\MaintenanceWindowAutomationParameters' {documentVersion} -> documentVersion) (\s@MaintenanceWindowAutomationParameters' {} a -> s {documentVersion = a} :: MaintenanceWindowAutomationParameters)
 
--- | The parameters for the AUTOMATION task. For information about specifying and updating task parameters, see 'RegisterTaskWithMaintenanceWindow' and 'UpdateMaintenanceWindowTask' .
-mwapParameters :: Lens' MaintenanceWindowAutomationParameters (HashMap Text [Text])
-mwapParameters = lens _mwapParameters (\s a -> s {_mwapParameters = a}) . _Default . _Map
+-- | The parameters for the AUTOMATION task.
+--
+-- For information about specifying and updating task parameters, see
+-- RegisterTaskWithMaintenanceWindow and UpdateMaintenanceWindowTask.
+--
+-- @LoggingInfo@ has been deprecated. To specify an S3 bucket to contain
+-- logs, instead use the @OutputS3BucketName@ and @OutputS3KeyPrefix@
+-- options in the @TaskInvocationParameters@ structure. For information
+-- about how Systems Manager handles these options for the supported
+-- maintenance window task types, see
+-- MaintenanceWindowTaskInvocationParameters.
+--
+-- @TaskParameters@ has been deprecated. To specify parameters to pass to a
+-- task when it runs, instead use the @Parameters@ option in the
+-- @TaskInvocationParameters@ structure. For information about how Systems
+-- Manager handles these options for the supported maintenance window task
+-- types, see MaintenanceWindowTaskInvocationParameters.
+--
+-- For AUTOMATION task types, Systems Manager ignores any values specified
+-- for these parameters.
+maintenanceWindowAutomationParameters_parameters :: Lens.Lens' MaintenanceWindowAutomationParameters (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+maintenanceWindowAutomationParameters_parameters = Lens.lens (\MaintenanceWindowAutomationParameters' {parameters} -> parameters) (\s@MaintenanceWindowAutomationParameters' {} a -> s {parameters = a} :: MaintenanceWindowAutomationParameters) Prelude.. Lens.mapping Prelude._Map
 
 instance
-  FromJSON
+  Prelude.FromJSON
     MaintenanceWindowAutomationParameters
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MaintenanceWindowAutomationParameters"
       ( \x ->
           MaintenanceWindowAutomationParameters'
-            <$> (x .:? "DocumentVersion")
-            <*> (x .:? "Parameters" .!= mempty)
+            Prelude.<$> (x Prelude..:? "DocumentVersion")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     MaintenanceWindowAutomationParameters
 
-instance NFData MaintenanceWindowAutomationParameters
+instance
+  Prelude.NFData
+    MaintenanceWindowAutomationParameters
 
-instance ToJSON MaintenanceWindowAutomationParameters where
+instance
+  Prelude.ToJSON
+    MaintenanceWindowAutomationParameters
+  where
   toJSON MaintenanceWindowAutomationParameters' {..} =
-    object
-      ( catMaybes
-          [ ("DocumentVersion" .=) <$> _mwapDocumentVersion,
-            ("Parameters" .=) <$> _mwapParameters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DocumentVersion" Prelude..=)
+              Prelude.<$> documentVersion,
+            ("Parameters" Prelude..=) Prelude.<$> parameters
           ]
       )

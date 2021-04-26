@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,259 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- @ServiceSetting@ is an account-level setting for an AWS service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an AWS service charges money to the account based on feature or service usage, then the AWS service team might create a default setting of "false". This means the user can't use this feature unless they change the setting to "true" and intentionally opt in for a paid feature.
+-- @ServiceSetting@ is an account-level setting for an AWS service. This
+-- setting defines how a user interacts with or uses a service or a feature
+-- of a service. For example, if an AWS service charges money to the
+-- account based on feature or service usage, then the AWS service team
+-- might create a default setting of \"false\". This means the user can\'t
+-- use this feature unless they change the setting to \"true\" and
+-- intentionally opt in for a paid feature.
 --
---
--- Services map a @SettingId@ object to a setting value. AWS services teams define the default value for a @SettingId@ . You can't create a new @SettingId@ , but you can overwrite the default value if you have the @ssm:UpdateServiceSetting@ permission for the setting. Use the 'GetServiceSetting' API action to view the current value. Or, use the 'ResetServiceSetting' to change the value back to the original value defined by the AWS service team.
+-- Services map a @SettingId@ object to a setting value. AWS services teams
+-- define the default value for a @SettingId@. You can\'t create a new
+-- @SettingId@, but you can overwrite the default value if you have the
+-- @ssm:UpdateServiceSetting@ permission for the setting. Use the
+-- GetServiceSetting API action to view the current value. Or, use the
+-- ResetServiceSetting to change the value back to the original value
+-- defined by the AWS service team.
 --
 -- Update the service setting for the account.
 module Network.AWS.SSM.UpdateServiceSetting
   ( -- * Creating a Request
-    updateServiceSetting,
-    UpdateServiceSetting,
+    UpdateServiceSetting (..),
+    newUpdateServiceSetting,
 
     -- * Request Lenses
-    ussSettingId,
-    ussSettingValue,
+    updateServiceSetting_settingId,
+    updateServiceSetting_settingValue,
 
     -- * Destructuring the Response
-    updateServiceSettingResponse,
-    UpdateServiceSettingResponse,
+    UpdateServiceSettingResponse (..),
+    newUpdateServiceSettingResponse,
 
     -- * Response Lenses
-    ussrrsResponseStatus,
+    updateServiceSettingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
 -- | The request body of the UpdateServiceSetting API action.
 --
---
---
--- /See:/ 'updateServiceSetting' smart constructor.
+-- /See:/ 'newUpdateServiceSetting' smart constructor.
 data UpdateServiceSetting = UpdateServiceSetting'
-  { _ussSettingId ::
-      !Text,
-    _ussSettingValue :: !Text
+  { -- | The Amazon Resource Name (ARN) of the service setting to reset. For
+    -- example,
+    -- @arn:aws:ssm:us-east-1:111122223333:servicesetting\/ssm\/parameter-store\/high-throughput-enabled@.
+    -- The setting ID can be one of the following.
+    --
+    -- -   @\/ssm\/automation\/customer-script-log-destination@
+    --
+    -- -   @\/ssm\/automation\/customer-script-log-group-name@
+    --
+    -- -   @\/ssm\/parameter-store\/default-parameter-tier@
+    --
+    -- -   @\/ssm\/parameter-store\/high-throughput-enabled@
+    --
+    -- -   @\/ssm\/managed-instance\/activation-tier@
+    settingId :: Prelude.Text,
+    -- | The new value to specify for the service setting. For the
+    -- @\/ssm\/parameter-store\/default-parameter-tier@ setting ID, the setting
+    -- value can be one of the following.
+    --
+    -- -   Standard
+    --
+    -- -   Advanced
+    --
+    -- -   Intelligent-Tiering
+    --
+    -- For the @\/ssm\/parameter-store\/high-throughput-enabled@, and
+    -- @\/ssm\/managed-instance\/activation-tier@ setting IDs, the setting
+    -- value can be true or false.
+    --
+    -- For the @\/ssm\/automation\/customer-script-log-destination@ setting ID,
+    -- the setting value can be CloudWatch.
+    --
+    -- For the @\/ssm\/automation\/customer-script-log-group-name@ setting ID,
+    -- the setting value can be the name of a CloudWatch Logs log group.
+    settingValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateServiceSetting' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateServiceSetting' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ussSettingId' - The Amazon Resource Name (ARN) of the service setting to reset. For example, @arn:aws:ssm:us-east-1:111122223333:servicesetting/ssm/parameter-store/high-throughput-enabled@ . The setting ID can be one of the following.     * @/ssm/automation/customer-script-log-destination@      * @/ssm/automation/customer-script-log-group-name@      * @/ssm/parameter-store/default-parameter-tier@      * @/ssm/parameter-store/high-throughput-enabled@      * @/ssm/managed-instance/activation-tier@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ussSettingValue' - The new value to specify for the service setting. For the @/ssm/parameter-store/default-parameter-tier@ setting ID, the setting value can be one of the following.     * Standard     * Advanced     * Intelligent-Tiering For the @/ssm/parameter-store/high-throughput-enabled@ , and @/ssm/managed-instance/activation-tier@ setting IDs, the setting value can be true or false. For the @/ssm/automation/customer-script-log-destination@ setting ID, the setting value can be CloudWatch. For the @/ssm/automation/customer-script-log-group-name@ setting ID, the setting value can be the name of a CloudWatch Logs log group.
-updateServiceSetting ::
-  -- | 'ussSettingId'
-  Text ->
-  -- | 'ussSettingValue'
-  Text ->
+-- 'settingId', 'updateServiceSetting_settingId' - The Amazon Resource Name (ARN) of the service setting to reset. For
+-- example,
+-- @arn:aws:ssm:us-east-1:111122223333:servicesetting\/ssm\/parameter-store\/high-throughput-enabled@.
+-- The setting ID can be one of the following.
+--
+-- -   @\/ssm\/automation\/customer-script-log-destination@
+--
+-- -   @\/ssm\/automation\/customer-script-log-group-name@
+--
+-- -   @\/ssm\/parameter-store\/default-parameter-tier@
+--
+-- -   @\/ssm\/parameter-store\/high-throughput-enabled@
+--
+-- -   @\/ssm\/managed-instance\/activation-tier@
+--
+-- 'settingValue', 'updateServiceSetting_settingValue' - The new value to specify for the service setting. For the
+-- @\/ssm\/parameter-store\/default-parameter-tier@ setting ID, the setting
+-- value can be one of the following.
+--
+-- -   Standard
+--
+-- -   Advanced
+--
+-- -   Intelligent-Tiering
+--
+-- For the @\/ssm\/parameter-store\/high-throughput-enabled@, and
+-- @\/ssm\/managed-instance\/activation-tier@ setting IDs, the setting
+-- value can be true or false.
+--
+-- For the @\/ssm\/automation\/customer-script-log-destination@ setting ID,
+-- the setting value can be CloudWatch.
+--
+-- For the @\/ssm\/automation\/customer-script-log-group-name@ setting ID,
+-- the setting value can be the name of a CloudWatch Logs log group.
+newUpdateServiceSetting ::
+  -- | 'settingId'
+  Prelude.Text ->
+  -- | 'settingValue'
+  Prelude.Text ->
   UpdateServiceSetting
-updateServiceSetting pSettingId_ pSettingValue_ =
+newUpdateServiceSetting pSettingId_ pSettingValue_ =
   UpdateServiceSetting'
-    { _ussSettingId = pSettingId_,
-      _ussSettingValue = pSettingValue_
+    { settingId = pSettingId_,
+      settingValue = pSettingValue_
     }
 
--- | The Amazon Resource Name (ARN) of the service setting to reset. For example, @arn:aws:ssm:us-east-1:111122223333:servicesetting/ssm/parameter-store/high-throughput-enabled@ . The setting ID can be one of the following.     * @/ssm/automation/customer-script-log-destination@      * @/ssm/automation/customer-script-log-group-name@      * @/ssm/parameter-store/default-parameter-tier@      * @/ssm/parameter-store/high-throughput-enabled@      * @/ssm/managed-instance/activation-tier@
-ussSettingId :: Lens' UpdateServiceSetting Text
-ussSettingId = lens _ussSettingId (\s a -> s {_ussSettingId = a})
+-- | The Amazon Resource Name (ARN) of the service setting to reset. For
+-- example,
+-- @arn:aws:ssm:us-east-1:111122223333:servicesetting\/ssm\/parameter-store\/high-throughput-enabled@.
+-- The setting ID can be one of the following.
+--
+-- -   @\/ssm\/automation\/customer-script-log-destination@
+--
+-- -   @\/ssm\/automation\/customer-script-log-group-name@
+--
+-- -   @\/ssm\/parameter-store\/default-parameter-tier@
+--
+-- -   @\/ssm\/parameter-store\/high-throughput-enabled@
+--
+-- -   @\/ssm\/managed-instance\/activation-tier@
+updateServiceSetting_settingId :: Lens.Lens' UpdateServiceSetting Prelude.Text
+updateServiceSetting_settingId = Lens.lens (\UpdateServiceSetting' {settingId} -> settingId) (\s@UpdateServiceSetting' {} a -> s {settingId = a} :: UpdateServiceSetting)
 
--- | The new value to specify for the service setting. For the @/ssm/parameter-store/default-parameter-tier@ setting ID, the setting value can be one of the following.     * Standard     * Advanced     * Intelligent-Tiering For the @/ssm/parameter-store/high-throughput-enabled@ , and @/ssm/managed-instance/activation-tier@ setting IDs, the setting value can be true or false. For the @/ssm/automation/customer-script-log-destination@ setting ID, the setting value can be CloudWatch. For the @/ssm/automation/customer-script-log-group-name@ setting ID, the setting value can be the name of a CloudWatch Logs log group.
-ussSettingValue :: Lens' UpdateServiceSetting Text
-ussSettingValue = lens _ussSettingValue (\s a -> s {_ussSettingValue = a})
+-- | The new value to specify for the service setting. For the
+-- @\/ssm\/parameter-store\/default-parameter-tier@ setting ID, the setting
+-- value can be one of the following.
+--
+-- -   Standard
+--
+-- -   Advanced
+--
+-- -   Intelligent-Tiering
+--
+-- For the @\/ssm\/parameter-store\/high-throughput-enabled@, and
+-- @\/ssm\/managed-instance\/activation-tier@ setting IDs, the setting
+-- value can be true or false.
+--
+-- For the @\/ssm\/automation\/customer-script-log-destination@ setting ID,
+-- the setting value can be CloudWatch.
+--
+-- For the @\/ssm\/automation\/customer-script-log-group-name@ setting ID,
+-- the setting value can be the name of a CloudWatch Logs log group.
+updateServiceSetting_settingValue :: Lens.Lens' UpdateServiceSetting Prelude.Text
+updateServiceSetting_settingValue = Lens.lens (\UpdateServiceSetting' {settingValue} -> settingValue) (\s@UpdateServiceSetting' {} a -> s {settingValue = a} :: UpdateServiceSetting)
 
-instance AWSRequest UpdateServiceSetting where
+instance Prelude.AWSRequest UpdateServiceSetting where
   type
     Rs UpdateServiceSetting =
       UpdateServiceSettingResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateServiceSettingResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateServiceSetting
+instance Prelude.Hashable UpdateServiceSetting
 
-instance NFData UpdateServiceSetting
+instance Prelude.NFData UpdateServiceSetting
 
-instance ToHeaders UpdateServiceSetting where
+instance Prelude.ToHeaders UpdateServiceSetting where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.UpdateServiceSetting" :: ByteString),
+              Prelude.=# ( "AmazonSSM.UpdateServiceSetting" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateServiceSetting where
+instance Prelude.ToJSON UpdateServiceSetting where
   toJSON UpdateServiceSetting' {..} =
-    object
-      ( catMaybes
-          [ Just ("SettingId" .= _ussSettingId),
-            Just ("SettingValue" .= _ussSettingValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("SettingId" Prelude..= settingId),
+            Prelude.Just
+              ("SettingValue" Prelude..= settingValue)
           ]
       )
 
-instance ToPath UpdateServiceSetting where
-  toPath = const "/"
+instance Prelude.ToPath UpdateServiceSetting where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateServiceSetting where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateServiceSetting where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The result body of the UpdateServiceSetting API action.
 --
---
---
--- /See:/ 'updateServiceSettingResponse' smart constructor.
-newtype UpdateServiceSettingResponse = UpdateServiceSettingResponse'
-  { _ussrrsResponseStatus ::
-      Int
+-- /See:/ 'newUpdateServiceSettingResponse' smart constructor.
+data UpdateServiceSettingResponse = UpdateServiceSettingResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateServiceSettingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateServiceSettingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ussrrsResponseStatus' - -- | The response status code.
-updateServiceSettingResponse ::
-  -- | 'ussrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateServiceSettingResponse_httpStatus' - The response's http status code.
+newUpdateServiceSettingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateServiceSettingResponse
-updateServiceSettingResponse pResponseStatus_ =
+newUpdateServiceSettingResponse pHttpStatus_ =
   UpdateServiceSettingResponse'
-    { _ussrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ussrrsResponseStatus :: Lens' UpdateServiceSettingResponse Int
-ussrrsResponseStatus = lens _ussrrsResponseStatus (\s a -> s {_ussrrsResponseStatus = a})
+-- | The response's http status code.
+updateServiceSettingResponse_httpStatus :: Lens.Lens' UpdateServiceSettingResponse Prelude.Int
+updateServiceSettingResponse_httpStatus = Lens.lens (\UpdateServiceSettingResponse' {httpStatus} -> httpStatus) (\s@UpdateServiceSettingResponse' {} a -> s {httpStatus = a} :: UpdateServiceSettingResponse)
 
-instance NFData UpdateServiceSettingResponse
+instance Prelude.NFData UpdateServiceSettingResponse

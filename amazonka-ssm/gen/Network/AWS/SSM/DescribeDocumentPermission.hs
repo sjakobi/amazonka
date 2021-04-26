@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,211 +21,237 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the permissions for a Systems Manager document. If you created the document, you are the owner. If a document is shared, it can either be shared privately (by specifying a user's AWS account ID) or publicly (/All/ ).
+-- Describes the permissions for a Systems Manager document. If you created
+-- the document, you are the owner. If a document is shared, it can either
+-- be shared privately (by specifying a user\'s AWS account ID) or publicly
+-- (/All/).
 module Network.AWS.SSM.DescribeDocumentPermission
   ( -- * Creating a Request
-    describeDocumentPermission,
-    DescribeDocumentPermission,
+    DescribeDocumentPermission (..),
+    newDescribeDocumentPermission,
 
     -- * Request Lenses
-    ddpNextToken,
-    ddpMaxResults,
-    ddpName,
-    ddpPermissionType,
+    describeDocumentPermission_nextToken,
+    describeDocumentPermission_maxResults,
+    describeDocumentPermission_name,
+    describeDocumentPermission_permissionType,
 
     -- * Destructuring the Response
-    describeDocumentPermissionResponse,
-    DescribeDocumentPermissionResponse,
+    DescribeDocumentPermissionResponse (..),
+    newDescribeDocumentPermissionResponse,
 
     -- * Response Lenses
-    ddprrsAccountIds,
-    ddprrsNextToken,
-    ddprrsAccountSharingInfoList,
-    ddprrsResponseStatus,
+    describeDocumentPermissionResponse_accountIds,
+    describeDocumentPermissionResponse_nextToken,
+    describeDocumentPermissionResponse_accountSharingInfoList,
+    describeDocumentPermissionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.AccountSharingInfo
 
--- | /See:/ 'describeDocumentPermission' smart constructor.
+-- | /See:/ 'newDescribeDocumentPermission' smart constructor.
 data DescribeDocumentPermission = DescribeDocumentPermission'
-  { _ddpNextToken ::
-      !(Maybe Text),
-    _ddpMaxResults ::
-      !(Maybe Nat),
-    _ddpName :: !Text,
-    _ddpPermissionType ::
-      !DocumentPermissionType
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the document for which you are the owner.
+    name :: Prelude.Text,
+    -- | The permission type for the document. The permission type can be
+    -- /Share/.
+    permissionType :: DocumentPermissionType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDocumentPermission' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDocumentPermission' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddpNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddpMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'describeDocumentPermission_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'ddpName' - The name of the document for which you are the owner.
+-- 'maxResults', 'describeDocumentPermission_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
--- * 'ddpPermissionType' - The permission type for the document. The permission type can be /Share/ .
-describeDocumentPermission ::
-  -- | 'ddpName'
-  Text ->
-  -- | 'ddpPermissionType'
+-- 'name', 'describeDocumentPermission_name' - The name of the document for which you are the owner.
+--
+-- 'permissionType', 'describeDocumentPermission_permissionType' - The permission type for the document. The permission type can be
+-- /Share/.
+newDescribeDocumentPermission ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'permissionType'
   DocumentPermissionType ->
   DescribeDocumentPermission
-describeDocumentPermission pName_ pPermissionType_ =
+newDescribeDocumentPermission pName_ pPermissionType_ =
   DescribeDocumentPermission'
-    { _ddpNextToken =
-        Nothing,
-      _ddpMaxResults = Nothing,
-      _ddpName = pName_,
-      _ddpPermissionType = pPermissionType_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      name = pName_,
+      permissionType = pPermissionType_
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-ddpNextToken :: Lens' DescribeDocumentPermission (Maybe Text)
-ddpNextToken = lens _ddpNextToken (\s a -> s {_ddpNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeDocumentPermission_nextToken :: Lens.Lens' DescribeDocumentPermission (Prelude.Maybe Prelude.Text)
+describeDocumentPermission_nextToken = Lens.lens (\DescribeDocumentPermission' {nextToken} -> nextToken) (\s@DescribeDocumentPermission' {} a -> s {nextToken = a} :: DescribeDocumentPermission)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-ddpMaxResults :: Lens' DescribeDocumentPermission (Maybe Natural)
-ddpMaxResults = lens _ddpMaxResults (\s a -> s {_ddpMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describeDocumentPermission_maxResults :: Lens.Lens' DescribeDocumentPermission (Prelude.Maybe Prelude.Natural)
+describeDocumentPermission_maxResults = Lens.lens (\DescribeDocumentPermission' {maxResults} -> maxResults) (\s@DescribeDocumentPermission' {} a -> s {maxResults = a} :: DescribeDocumentPermission) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the document for which you are the owner.
-ddpName :: Lens' DescribeDocumentPermission Text
-ddpName = lens _ddpName (\s a -> s {_ddpName = a})
+describeDocumentPermission_name :: Lens.Lens' DescribeDocumentPermission Prelude.Text
+describeDocumentPermission_name = Lens.lens (\DescribeDocumentPermission' {name} -> name) (\s@DescribeDocumentPermission' {} a -> s {name = a} :: DescribeDocumentPermission)
 
--- | The permission type for the document. The permission type can be /Share/ .
-ddpPermissionType :: Lens' DescribeDocumentPermission DocumentPermissionType
-ddpPermissionType = lens _ddpPermissionType (\s a -> s {_ddpPermissionType = a})
+-- | The permission type for the document. The permission type can be
+-- /Share/.
+describeDocumentPermission_permissionType :: Lens.Lens' DescribeDocumentPermission DocumentPermissionType
+describeDocumentPermission_permissionType = Lens.lens (\DescribeDocumentPermission' {permissionType} -> permissionType) (\s@DescribeDocumentPermission' {} a -> s {permissionType = a} :: DescribeDocumentPermission)
 
-instance AWSRequest DescribeDocumentPermission where
+instance
+  Prelude.AWSRequest
+    DescribeDocumentPermission
+  where
   type
     Rs DescribeDocumentPermission =
       DescribeDocumentPermissionResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDocumentPermissionResponse'
-            <$> (x .?> "AccountIds" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (x .?> "AccountSharingInfoList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "AccountIds"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "AccountSharingInfoList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDocumentPermission
+instance Prelude.Hashable DescribeDocumentPermission
 
-instance NFData DescribeDocumentPermission
+instance Prelude.NFData DescribeDocumentPermission
 
-instance ToHeaders DescribeDocumentPermission where
+instance Prelude.ToHeaders DescribeDocumentPermission where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.DescribeDocumentPermission" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.DescribeDocumentPermission" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeDocumentPermission where
+instance Prelude.ToJSON DescribeDocumentPermission where
   toJSON DescribeDocumentPermission' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ddpNextToken,
-            ("MaxResults" .=) <$> _ddpMaxResults,
-            Just ("Name" .= _ddpName),
-            Just ("PermissionType" .= _ddpPermissionType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("PermissionType" Prelude..= permissionType)
           ]
       )
 
-instance ToPath DescribeDocumentPermission where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDocumentPermission where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDocumentPermission where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeDocumentPermission where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeDocumentPermissionResponse' smart constructor.
+-- | /See:/ 'newDescribeDocumentPermissionResponse' smart constructor.
 data DescribeDocumentPermissionResponse = DescribeDocumentPermissionResponse'
-  { _ddprrsAccountIds ::
-      !( Maybe
-           [Text]
-       ),
-    _ddprrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ddprrsAccountSharingInfoList ::
-      !( Maybe
-           [AccountSharingInfo]
-       ),
-    _ddprrsResponseStatus ::
-      !Int
+  { -- | The account IDs that have permission to use this document. The ID can be
+    -- either an AWS account or /All/.
+    accountIds :: Prelude.Maybe [Prelude.Text],
+    -- | The token for the next set of items to return. Use this token to get the
+    -- next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of AWS accounts where the current document is shared and the
+    -- version shared with each account.
+    accountSharingInfoList :: Prelude.Maybe [AccountSharingInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDocumentPermissionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDocumentPermissionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddprrsAccountIds' - The account IDs that have permission to use this document. The ID can be either an AWS account or /All/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddprrsNextToken' - The token for the next set of items to return. Use this token to get the next set of results.
+-- 'accountIds', 'describeDocumentPermissionResponse_accountIds' - The account IDs that have permission to use this document. The ID can be
+-- either an AWS account or /All/.
 --
--- * 'ddprrsAccountSharingInfoList' - A list of AWS accounts where the current document is shared and the version shared with each account.
+-- 'nextToken', 'describeDocumentPermissionResponse_nextToken' - The token for the next set of items to return. Use this token to get the
+-- next set of results.
 --
--- * 'ddprrsResponseStatus' - -- | The response status code.
-describeDocumentPermissionResponse ::
-  -- | 'ddprrsResponseStatus'
-  Int ->
+-- 'accountSharingInfoList', 'describeDocumentPermissionResponse_accountSharingInfoList' - A list of AWS accounts where the current document is shared and the
+-- version shared with each account.
+--
+-- 'httpStatus', 'describeDocumentPermissionResponse_httpStatus' - The response's http status code.
+newDescribeDocumentPermissionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDocumentPermissionResponse
-describeDocumentPermissionResponse pResponseStatus_ =
+newDescribeDocumentPermissionResponse pHttpStatus_ =
   DescribeDocumentPermissionResponse'
-    { _ddprrsAccountIds =
-        Nothing,
-      _ddprrsNextToken = Nothing,
-      _ddprrsAccountSharingInfoList = Nothing,
-      _ddprrsResponseStatus =
-        pResponseStatus_
+    { accountIds =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      accountSharingInfoList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The account IDs that have permission to use this document. The ID can be either an AWS account or /All/ .
-ddprrsAccountIds :: Lens' DescribeDocumentPermissionResponse [Text]
-ddprrsAccountIds = lens _ddprrsAccountIds (\s a -> s {_ddprrsAccountIds = a}) . _Default . _Coerce
+-- | The account IDs that have permission to use this document. The ID can be
+-- either an AWS account or /All/.
+describeDocumentPermissionResponse_accountIds :: Lens.Lens' DescribeDocumentPermissionResponse (Prelude.Maybe [Prelude.Text])
+describeDocumentPermissionResponse_accountIds = Lens.lens (\DescribeDocumentPermissionResponse' {accountIds} -> accountIds) (\s@DescribeDocumentPermissionResponse' {} a -> s {accountIds = a} :: DescribeDocumentPermissionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token for the next set of items to return. Use this token to get the next set of results.
-ddprrsNextToken :: Lens' DescribeDocumentPermissionResponse (Maybe Text)
-ddprrsNextToken = lens _ddprrsNextToken (\s a -> s {_ddprrsNextToken = a})
+-- | The token for the next set of items to return. Use this token to get the
+-- next set of results.
+describeDocumentPermissionResponse_nextToken :: Lens.Lens' DescribeDocumentPermissionResponse (Prelude.Maybe Prelude.Text)
+describeDocumentPermissionResponse_nextToken = Lens.lens (\DescribeDocumentPermissionResponse' {nextToken} -> nextToken) (\s@DescribeDocumentPermissionResponse' {} a -> s {nextToken = a} :: DescribeDocumentPermissionResponse)
 
--- | A list of AWS accounts where the current document is shared and the version shared with each account.
-ddprrsAccountSharingInfoList :: Lens' DescribeDocumentPermissionResponse [AccountSharingInfo]
-ddprrsAccountSharingInfoList = lens _ddprrsAccountSharingInfoList (\s a -> s {_ddprrsAccountSharingInfoList = a}) . _Default . _Coerce
+-- | A list of AWS accounts where the current document is shared and the
+-- version shared with each account.
+describeDocumentPermissionResponse_accountSharingInfoList :: Lens.Lens' DescribeDocumentPermissionResponse (Prelude.Maybe [AccountSharingInfo])
+describeDocumentPermissionResponse_accountSharingInfoList = Lens.lens (\DescribeDocumentPermissionResponse' {accountSharingInfoList} -> accountSharingInfoList) (\s@DescribeDocumentPermissionResponse' {} a -> s {accountSharingInfoList = a} :: DescribeDocumentPermissionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ddprrsResponseStatus :: Lens' DescribeDocumentPermissionResponse Int
-ddprrsResponseStatus = lens _ddprrsResponseStatus (\s a -> s {_ddprrsResponseStatus = a})
+-- | The response's http status code.
+describeDocumentPermissionResponse_httpStatus :: Lens.Lens' DescribeDocumentPermissionResponse Prelude.Int
+describeDocumentPermissionResponse_httpStatus = Lens.lens (\DescribeDocumentPermissionResponse' {httpStatus} -> httpStatus) (\s@DescribeDocumentPermissionResponse' {} a -> s {httpStatus = a} :: DescribeDocumentPermissionResponse)
 
-instance NFData DescribeDocumentPermissionResponse
+instance
+  Prelude.NFData
+    DescribeDocumentPermissionResponse

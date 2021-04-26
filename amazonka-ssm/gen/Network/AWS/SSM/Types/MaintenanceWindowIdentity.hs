@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,159 +19,182 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.MaintenanceWindowIdentity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the maintenance window.
 --
---
---
--- /See:/ 'maintenanceWindowIdentity' smart constructor.
+-- /See:/ 'newMaintenanceWindowIdentity' smart constructor.
 data MaintenanceWindowIdentity = MaintenanceWindowIdentity'
-  { _mwiStartDate ::
-      !(Maybe Text),
-    _mwiDuration ::
-      !(Maybe Nat),
-    _mwiScheduleOffset ::
-      !(Maybe Nat),
-    _mwiEnabled ::
-      !(Maybe Bool),
-    _mwiCutoff ::
-      !(Maybe Nat),
-    _mwiName ::
-      !(Maybe Text),
-    _mwiWindowId ::
-      !(Maybe Text),
-    _mwiDescription ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _mwiScheduleTimezone ::
-      !(Maybe Text),
-    _mwiEndDate ::
-      !(Maybe Text),
-    _mwiNextExecutionTime ::
-      !(Maybe Text),
-    _mwiSchedule ::
-      !(Maybe Text)
+  { -- | The date and time, in ISO-8601 Extended format, for when the maintenance
+    -- window is scheduled to become active.
+    startDate :: Prelude.Maybe Prelude.Text,
+    -- | The duration of the maintenance window in hours.
+    duration :: Prelude.Maybe Prelude.Nat,
+    -- | The number of days to wait to run a maintenance window after the
+    -- scheduled CRON expression date and time.
+    scheduleOffset :: Prelude.Maybe Prelude.Nat,
+    -- | Indicates whether the maintenance window is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The number of hours before the end of the maintenance window that
+    -- Systems Manager stops scheduling new tasks for execution.
+    cutoff :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the maintenance window.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the maintenance window.
+    windowId :: Prelude.Maybe Prelude.Text,
+    -- | A description of the maintenance window.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The time zone that the scheduled maintenance window executions are based
+    -- on, in Internet Assigned Numbers Authority (IANA) format.
+    scheduleTimezone :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in ISO-8601 Extended format, for when the maintenance
+    -- window is scheduled to become inactive.
+    endDate :: Prelude.Maybe Prelude.Text,
+    -- | The next time the maintenance window will actually run, taking into
+    -- account any specified times for the maintenance window to become active
+    -- or inactive.
+    nextExecutionTime :: Prelude.Maybe Prelude.Text,
+    -- | The schedule of the maintenance window in the form of a cron or rate
+    -- expression.
+    schedule :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MaintenanceWindowIdentity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MaintenanceWindowIdentity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwiStartDate' - The date and time, in ISO-8601 Extended format, for when the maintenance window is scheduled to become active.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwiDuration' - The duration of the maintenance window in hours.
+-- 'startDate', 'maintenanceWindowIdentity_startDate' - The date and time, in ISO-8601 Extended format, for when the maintenance
+-- window is scheduled to become active.
 --
--- * 'mwiScheduleOffset' - The number of days to wait to run a maintenance window after the scheduled CRON expression date and time.
+-- 'duration', 'maintenanceWindowIdentity_duration' - The duration of the maintenance window in hours.
 --
--- * 'mwiEnabled' - Indicates whether the maintenance window is enabled.
+-- 'scheduleOffset', 'maintenanceWindowIdentity_scheduleOffset' - The number of days to wait to run a maintenance window after the
+-- scheduled CRON expression date and time.
 --
--- * 'mwiCutoff' - The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for execution.
+-- 'enabled', 'maintenanceWindowIdentity_enabled' - Indicates whether the maintenance window is enabled.
 --
--- * 'mwiName' - The name of the maintenance window.
+-- 'cutoff', 'maintenanceWindowIdentity_cutoff' - The number of hours before the end of the maintenance window that
+-- Systems Manager stops scheduling new tasks for execution.
 --
--- * 'mwiWindowId' - The ID of the maintenance window.
+-- 'name', 'maintenanceWindowIdentity_name' - The name of the maintenance window.
 --
--- * 'mwiDescription' - A description of the maintenance window.
+-- 'windowId', 'maintenanceWindowIdentity_windowId' - The ID of the maintenance window.
 --
--- * 'mwiScheduleTimezone' - The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format.
+-- 'description', 'maintenanceWindowIdentity_description' - A description of the maintenance window.
 --
--- * 'mwiEndDate' - The date and time, in ISO-8601 Extended format, for when the maintenance window is scheduled to become inactive.
+-- 'scheduleTimezone', 'maintenanceWindowIdentity_scheduleTimezone' - The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format.
 --
--- * 'mwiNextExecutionTime' - The next time the maintenance window will actually run, taking into account any specified times for the maintenance window to become active or inactive.
+-- 'endDate', 'maintenanceWindowIdentity_endDate' - The date and time, in ISO-8601 Extended format, for when the maintenance
+-- window is scheduled to become inactive.
 --
--- * 'mwiSchedule' - The schedule of the maintenance window in the form of a cron or rate expression.
-maintenanceWindowIdentity ::
+-- 'nextExecutionTime', 'maintenanceWindowIdentity_nextExecutionTime' - The next time the maintenance window will actually run, taking into
+-- account any specified times for the maintenance window to become active
+-- or inactive.
+--
+-- 'schedule', 'maintenanceWindowIdentity_schedule' - The schedule of the maintenance window in the form of a cron or rate
+-- expression.
+newMaintenanceWindowIdentity ::
   MaintenanceWindowIdentity
-maintenanceWindowIdentity =
+newMaintenanceWindowIdentity =
   MaintenanceWindowIdentity'
-    { _mwiStartDate = Nothing,
-      _mwiDuration = Nothing,
-      _mwiScheduleOffset = Nothing,
-      _mwiEnabled = Nothing,
-      _mwiCutoff = Nothing,
-      _mwiName = Nothing,
-      _mwiWindowId = Nothing,
-      _mwiDescription = Nothing,
-      _mwiScheduleTimezone = Nothing,
-      _mwiEndDate = Nothing,
-      _mwiNextExecutionTime = Nothing,
-      _mwiSchedule = Nothing
+    { startDate =
+        Prelude.Nothing,
+      duration = Prelude.Nothing,
+      scheduleOffset = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      cutoff = Prelude.Nothing,
+      name = Prelude.Nothing,
+      windowId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      scheduleTimezone = Prelude.Nothing,
+      endDate = Prelude.Nothing,
+      nextExecutionTime = Prelude.Nothing,
+      schedule = Prelude.Nothing
     }
 
--- | The date and time, in ISO-8601 Extended format, for when the maintenance window is scheduled to become active.
-mwiStartDate :: Lens' MaintenanceWindowIdentity (Maybe Text)
-mwiStartDate = lens _mwiStartDate (\s a -> s {_mwiStartDate = a})
+-- | The date and time, in ISO-8601 Extended format, for when the maintenance
+-- window is scheduled to become active.
+maintenanceWindowIdentity_startDate :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentity_startDate = Lens.lens (\MaintenanceWindowIdentity' {startDate} -> startDate) (\s@MaintenanceWindowIdentity' {} a -> s {startDate = a} :: MaintenanceWindowIdentity)
 
 -- | The duration of the maintenance window in hours.
-mwiDuration :: Lens' MaintenanceWindowIdentity (Maybe Natural)
-mwiDuration = lens _mwiDuration (\s a -> s {_mwiDuration = a}) . mapping _Nat
+maintenanceWindowIdentity_duration :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Natural)
+maintenanceWindowIdentity_duration = Lens.lens (\MaintenanceWindowIdentity' {duration} -> duration) (\s@MaintenanceWindowIdentity' {} a -> s {duration = a} :: MaintenanceWindowIdentity) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of days to wait to run a maintenance window after the scheduled CRON expression date and time.
-mwiScheduleOffset :: Lens' MaintenanceWindowIdentity (Maybe Natural)
-mwiScheduleOffset = lens _mwiScheduleOffset (\s a -> s {_mwiScheduleOffset = a}) . mapping _Nat
+-- | The number of days to wait to run a maintenance window after the
+-- scheduled CRON expression date and time.
+maintenanceWindowIdentity_scheduleOffset :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Natural)
+maintenanceWindowIdentity_scheduleOffset = Lens.lens (\MaintenanceWindowIdentity' {scheduleOffset} -> scheduleOffset) (\s@MaintenanceWindowIdentity' {} a -> s {scheduleOffset = a} :: MaintenanceWindowIdentity) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Indicates whether the maintenance window is enabled.
-mwiEnabled :: Lens' MaintenanceWindowIdentity (Maybe Bool)
-mwiEnabled = lens _mwiEnabled (\s a -> s {_mwiEnabled = a})
+maintenanceWindowIdentity_enabled :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Bool)
+maintenanceWindowIdentity_enabled = Lens.lens (\MaintenanceWindowIdentity' {enabled} -> enabled) (\s@MaintenanceWindowIdentity' {} a -> s {enabled = a} :: MaintenanceWindowIdentity)
 
--- | The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for execution.
-mwiCutoff :: Lens' MaintenanceWindowIdentity (Maybe Natural)
-mwiCutoff = lens _mwiCutoff (\s a -> s {_mwiCutoff = a}) . mapping _Nat
+-- | The number of hours before the end of the maintenance window that
+-- Systems Manager stops scheduling new tasks for execution.
+maintenanceWindowIdentity_cutoff :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Natural)
+maintenanceWindowIdentity_cutoff = Lens.lens (\MaintenanceWindowIdentity' {cutoff} -> cutoff) (\s@MaintenanceWindowIdentity' {} a -> s {cutoff = a} :: MaintenanceWindowIdentity) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the maintenance window.
-mwiName :: Lens' MaintenanceWindowIdentity (Maybe Text)
-mwiName = lens _mwiName (\s a -> s {_mwiName = a})
+maintenanceWindowIdentity_name :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentity_name = Lens.lens (\MaintenanceWindowIdentity' {name} -> name) (\s@MaintenanceWindowIdentity' {} a -> s {name = a} :: MaintenanceWindowIdentity)
 
 -- | The ID of the maintenance window.
-mwiWindowId :: Lens' MaintenanceWindowIdentity (Maybe Text)
-mwiWindowId = lens _mwiWindowId (\s a -> s {_mwiWindowId = a})
+maintenanceWindowIdentity_windowId :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentity_windowId = Lens.lens (\MaintenanceWindowIdentity' {windowId} -> windowId) (\s@MaintenanceWindowIdentity' {} a -> s {windowId = a} :: MaintenanceWindowIdentity)
 
 -- | A description of the maintenance window.
-mwiDescription :: Lens' MaintenanceWindowIdentity (Maybe Text)
-mwiDescription = lens _mwiDescription (\s a -> s {_mwiDescription = a}) . mapping _Sensitive
+maintenanceWindowIdentity_description :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentity_description = Lens.lens (\MaintenanceWindowIdentity' {description} -> description) (\s@MaintenanceWindowIdentity' {} a -> s {description = a} :: MaintenanceWindowIdentity) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format.
-mwiScheduleTimezone :: Lens' MaintenanceWindowIdentity (Maybe Text)
-mwiScheduleTimezone = lens _mwiScheduleTimezone (\s a -> s {_mwiScheduleTimezone = a})
+-- | The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format.
+maintenanceWindowIdentity_scheduleTimezone :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentity_scheduleTimezone = Lens.lens (\MaintenanceWindowIdentity' {scheduleTimezone} -> scheduleTimezone) (\s@MaintenanceWindowIdentity' {} a -> s {scheduleTimezone = a} :: MaintenanceWindowIdentity)
 
--- | The date and time, in ISO-8601 Extended format, for when the maintenance window is scheduled to become inactive.
-mwiEndDate :: Lens' MaintenanceWindowIdentity (Maybe Text)
-mwiEndDate = lens _mwiEndDate (\s a -> s {_mwiEndDate = a})
+-- | The date and time, in ISO-8601 Extended format, for when the maintenance
+-- window is scheduled to become inactive.
+maintenanceWindowIdentity_endDate :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentity_endDate = Lens.lens (\MaintenanceWindowIdentity' {endDate} -> endDate) (\s@MaintenanceWindowIdentity' {} a -> s {endDate = a} :: MaintenanceWindowIdentity)
 
--- | The next time the maintenance window will actually run, taking into account any specified times for the maintenance window to become active or inactive.
-mwiNextExecutionTime :: Lens' MaintenanceWindowIdentity (Maybe Text)
-mwiNextExecutionTime = lens _mwiNextExecutionTime (\s a -> s {_mwiNextExecutionTime = a})
+-- | The next time the maintenance window will actually run, taking into
+-- account any specified times for the maintenance window to become active
+-- or inactive.
+maintenanceWindowIdentity_nextExecutionTime :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentity_nextExecutionTime = Lens.lens (\MaintenanceWindowIdentity' {nextExecutionTime} -> nextExecutionTime) (\s@MaintenanceWindowIdentity' {} a -> s {nextExecutionTime = a} :: MaintenanceWindowIdentity)
 
--- | The schedule of the maintenance window in the form of a cron or rate expression.
-mwiSchedule :: Lens' MaintenanceWindowIdentity (Maybe Text)
-mwiSchedule = lens _mwiSchedule (\s a -> s {_mwiSchedule = a})
+-- | The schedule of the maintenance window in the form of a cron or rate
+-- expression.
+maintenanceWindowIdentity_schedule :: Lens.Lens' MaintenanceWindowIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentity_schedule = Lens.lens (\MaintenanceWindowIdentity' {schedule} -> schedule) (\s@MaintenanceWindowIdentity' {} a -> s {schedule = a} :: MaintenanceWindowIdentity)
 
-instance FromJSON MaintenanceWindowIdentity where
+instance Prelude.FromJSON MaintenanceWindowIdentity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MaintenanceWindowIdentity"
       ( \x ->
           MaintenanceWindowIdentity'
-            <$> (x .:? "StartDate")
-            <*> (x .:? "Duration")
-            <*> (x .:? "ScheduleOffset")
-            <*> (x .:? "Enabled")
-            <*> (x .:? "Cutoff")
-            <*> (x .:? "Name")
-            <*> (x .:? "WindowId")
-            <*> (x .:? "Description")
-            <*> (x .:? "ScheduleTimezone")
-            <*> (x .:? "EndDate")
-            <*> (x .:? "NextExecutionTime")
-            <*> (x .:? "Schedule")
+            Prelude.<$> (x Prelude..:? "StartDate")
+            Prelude.<*> (x Prelude..:? "Duration")
+            Prelude.<*> (x Prelude..:? "ScheduleOffset")
+            Prelude.<*> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "Cutoff")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "WindowId")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "ScheduleTimezone")
+            Prelude.<*> (x Prelude..:? "EndDate")
+            Prelude.<*> (x Prelude..:? "NextExecutionTime")
+            Prelude.<*> (x Prelude..:? "Schedule")
       )
 
-instance Hashable MaintenanceWindowIdentity
+instance Prelude.Hashable MaintenanceWindowIdentity
 
-instance NFData MaintenanceWindowIdentity
+instance Prelude.NFData MaintenanceWindowIdentity

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.PatchStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.PatchComplianceLevel
 import Network.AWS.SSM.Types.PatchDeploymentStatus
 
 -- | Information about the approval status of a patch.
 --
---
---
--- /See:/ 'patchStatus' smart constructor.
+-- /See:/ 'newPatchStatus' smart constructor.
 data PatchStatus = PatchStatus'
-  { _psApprovalDate ::
-      !(Maybe POSIX),
-    _psComplianceLevel ::
-      !(Maybe PatchComplianceLevel),
-    _psDeploymentStatus ::
-      !(Maybe PatchDeploymentStatus)
+  { -- | The date the patch was approved (or will be approved if the status is
+    -- PENDING_APPROVAL).
+    approvalDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The compliance severity level for a patch.
+    complianceLevel :: Prelude.Maybe PatchComplianceLevel,
+    -- | The approval status of a patch (APPROVED, PENDING_APPROVAL,
+    -- EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+    deploymentStatus :: Prelude.Maybe PatchDeploymentStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PatchStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PatchStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psApprovalDate' - The date the patch was approved (or will be approved if the status is PENDING_APPROVAL).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psComplianceLevel' - The compliance severity level for a patch.
+-- 'approvalDate', 'patchStatus_approvalDate' - The date the patch was approved (or will be approved if the status is
+-- PENDING_APPROVAL).
 --
--- * 'psDeploymentStatus' - The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
-patchStatus ::
+-- 'complianceLevel', 'patchStatus_complianceLevel' - The compliance severity level for a patch.
+--
+-- 'deploymentStatus', 'patchStatus_deploymentStatus' - The approval status of a patch (APPROVED, PENDING_APPROVAL,
+-- EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+newPatchStatus ::
   PatchStatus
-patchStatus =
+newPatchStatus =
   PatchStatus'
-    { _psApprovalDate = Nothing,
-      _psComplianceLevel = Nothing,
-      _psDeploymentStatus = Nothing
+    { approvalDate = Prelude.Nothing,
+      complianceLevel = Prelude.Nothing,
+      deploymentStatus = Prelude.Nothing
     }
 
--- | The date the patch was approved (or will be approved if the status is PENDING_APPROVAL).
-psApprovalDate :: Lens' PatchStatus (Maybe UTCTime)
-psApprovalDate = lens _psApprovalDate (\s a -> s {_psApprovalDate = a}) . mapping _Time
+-- | The date the patch was approved (or will be approved if the status is
+-- PENDING_APPROVAL).
+patchStatus_approvalDate :: Lens.Lens' PatchStatus (Prelude.Maybe Prelude.UTCTime)
+patchStatus_approvalDate = Lens.lens (\PatchStatus' {approvalDate} -> approvalDate) (\s@PatchStatus' {} a -> s {approvalDate = a} :: PatchStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The compliance severity level for a patch.
-psComplianceLevel :: Lens' PatchStatus (Maybe PatchComplianceLevel)
-psComplianceLevel = lens _psComplianceLevel (\s a -> s {_psComplianceLevel = a})
+patchStatus_complianceLevel :: Lens.Lens' PatchStatus (Prelude.Maybe PatchComplianceLevel)
+patchStatus_complianceLevel = Lens.lens (\PatchStatus' {complianceLevel} -> complianceLevel) (\s@PatchStatus' {} a -> s {complianceLevel = a} :: PatchStatus)
 
--- | The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
-psDeploymentStatus :: Lens' PatchStatus (Maybe PatchDeploymentStatus)
-psDeploymentStatus = lens _psDeploymentStatus (\s a -> s {_psDeploymentStatus = a})
+-- | The approval status of a patch (APPROVED, PENDING_APPROVAL,
+-- EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+patchStatus_deploymentStatus :: Lens.Lens' PatchStatus (Prelude.Maybe PatchDeploymentStatus)
+patchStatus_deploymentStatus = Lens.lens (\PatchStatus' {deploymentStatus} -> deploymentStatus) (\s@PatchStatus' {} a -> s {deploymentStatus = a} :: PatchStatus)
 
-instance FromJSON PatchStatus where
+instance Prelude.FromJSON PatchStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PatchStatus"
       ( \x ->
           PatchStatus'
-            <$> (x .:? "ApprovalDate")
-            <*> (x .:? "ComplianceLevel")
-            <*> (x .:? "DeploymentStatus")
+            Prelude.<$> (x Prelude..:? "ApprovalDate")
+            Prelude.<*> (x Prelude..:? "ComplianceLevel")
+            Prelude.<*> (x Prelude..:? "DeploymentStatus")
       )
 
-instance Hashable PatchStatus
+instance Prelude.Hashable PatchStatus
 
-instance NFData PatchStatus
+instance Prelude.NFData PatchStatus

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InstancePatchStateFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.InstancePatchStateOperatorType
 
--- | Defines a filter used in 'DescribeInstancePatchStatesForPatchGroup' used to scope down the information returned by the API.
+-- | Defines a filter used in DescribeInstancePatchStatesForPatchGroup used
+-- to scope down the information returned by the API.
 --
---
---
--- /See:/ 'instancePatchStateFilter' smart constructor.
+-- /See:/ 'newInstancePatchStateFilter' smart constructor.
 data InstancePatchStateFilter = InstancePatchStateFilter'
-  { _ipsfKey ::
-      !Text,
-    _ipsfValues ::
-      !(List1 Text),
-    _ipsfType ::
-      !InstancePatchStateOperatorType
+  { -- | The key for the filter. Supported values are FailedCount,
+    -- InstalledCount, InstalledOtherCount, MissingCount and
+    -- NotApplicableCount.
+    key :: Prelude.Text,
+    -- | The value for the filter, must be an integer greater than or equal to 0.
+    values :: Prelude.List1 Prelude.Text,
+    -- | The type of comparison that should be performed for the value: Equal,
+    -- NotEqual, LessThan or GreaterThan.
+    type' :: InstancePatchStateOperatorType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstancePatchStateFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstancePatchStateFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ipsfKey' - The key for the filter. Supported values are FailedCount, InstalledCount, InstalledOtherCount, MissingCount and NotApplicableCount.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ipsfValues' - The value for the filter, must be an integer greater than or equal to 0.
+-- 'key', 'instancePatchStateFilter_key' - The key for the filter. Supported values are FailedCount,
+-- InstalledCount, InstalledOtherCount, MissingCount and
+-- NotApplicableCount.
 --
--- * 'ipsfType' - The type of comparison that should be performed for the value: Equal, NotEqual, LessThan or GreaterThan.
-instancePatchStateFilter ::
-  -- | 'ipsfKey'
-  Text ->
-  -- | 'ipsfValues'
-  NonEmpty Text ->
-  -- | 'ipsfType'
+-- 'values', 'instancePatchStateFilter_values' - The value for the filter, must be an integer greater than or equal to 0.
+--
+-- 'type'', 'instancePatchStateFilter_type' - The type of comparison that should be performed for the value: Equal,
+-- NotEqual, LessThan or GreaterThan.
+newInstancePatchStateFilter ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'type''
   InstancePatchStateOperatorType ->
   InstancePatchStateFilter
-instancePatchStateFilter pKey_ pValues_ pType_ =
+newInstancePatchStateFilter pKey_ pValues_ pType_ =
   InstancePatchStateFilter'
-    { _ipsfKey = pKey_,
-      _ipsfValues = _List1 # pValues_,
-      _ipsfType = pType_
+    { key = pKey_,
+      values = Prelude._List1 Lens.# pValues_,
+      type' = pType_
     }
 
--- | The key for the filter. Supported values are FailedCount, InstalledCount, InstalledOtherCount, MissingCount and NotApplicableCount.
-ipsfKey :: Lens' InstancePatchStateFilter Text
-ipsfKey = lens _ipsfKey (\s a -> s {_ipsfKey = a})
+-- | The key for the filter. Supported values are FailedCount,
+-- InstalledCount, InstalledOtherCount, MissingCount and
+-- NotApplicableCount.
+instancePatchStateFilter_key :: Lens.Lens' InstancePatchStateFilter Prelude.Text
+instancePatchStateFilter_key = Lens.lens (\InstancePatchStateFilter' {key} -> key) (\s@InstancePatchStateFilter' {} a -> s {key = a} :: InstancePatchStateFilter)
 
 -- | The value for the filter, must be an integer greater than or equal to 0.
-ipsfValues :: Lens' InstancePatchStateFilter (NonEmpty Text)
-ipsfValues = lens _ipsfValues (\s a -> s {_ipsfValues = a}) . _List1
+instancePatchStateFilter_values :: Lens.Lens' InstancePatchStateFilter (Prelude.NonEmpty Prelude.Text)
+instancePatchStateFilter_values = Lens.lens (\InstancePatchStateFilter' {values} -> values) (\s@InstancePatchStateFilter' {} a -> s {values = a} :: InstancePatchStateFilter) Prelude.. Prelude._List1
 
--- | The type of comparison that should be performed for the value: Equal, NotEqual, LessThan or GreaterThan.
-ipsfType :: Lens' InstancePatchStateFilter InstancePatchStateOperatorType
-ipsfType = lens _ipsfType (\s a -> s {_ipsfType = a})
+-- | The type of comparison that should be performed for the value: Equal,
+-- NotEqual, LessThan or GreaterThan.
+instancePatchStateFilter_type :: Lens.Lens' InstancePatchStateFilter InstancePatchStateOperatorType
+instancePatchStateFilter_type = Lens.lens (\InstancePatchStateFilter' {type'} -> type') (\s@InstancePatchStateFilter' {} a -> s {type' = a} :: InstancePatchStateFilter)
 
-instance Hashable InstancePatchStateFilter
+instance Prelude.Hashable InstancePatchStateFilter
 
-instance NFData InstancePatchStateFilter
+instance Prelude.NFData InstancePatchStateFilter
 
-instance ToJSON InstancePatchStateFilter where
+instance Prelude.ToJSON InstancePatchStateFilter where
   toJSON InstancePatchStateFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("Key" .= _ipsfKey),
-            Just ("Values" .= _ipsfValues),
-            Just ("Type" .= _ipsfType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Values" Prelude..= values),
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )

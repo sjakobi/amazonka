@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ComplianceSummaryItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.CompliantSummary
 import Network.AWS.SSM.Types.NonCompliantSummary
 
 -- | A summary of compliance information by compliance type.
 --
---
---
--- /See:/ 'complianceSummaryItem' smart constructor.
+-- /See:/ 'newComplianceSummaryItem' smart constructor.
 data ComplianceSummaryItem = ComplianceSummaryItem'
-  { _csiCompliantSummary ::
-      !(Maybe CompliantSummary),
-    _csiComplianceType ::
-      !(Maybe Text),
-    _csiNonCompliantSummary ::
-      !( Maybe
-           NonCompliantSummary
-       )
+  { -- | A list of COMPLIANT items for the specified compliance type.
+    compliantSummary :: Prelude.Maybe CompliantSummary,
+    -- | The type of compliance item. For example, the compliance type can be
+    -- Association, Patch, or Custom:string.
+    complianceType :: Prelude.Maybe Prelude.Text,
+    -- | A list of NON_COMPLIANT items for the specified compliance type.
+    nonCompliantSummary :: Prelude.Maybe NonCompliantSummary
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComplianceSummaryItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComplianceSummaryItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csiCompliantSummary' - A list of COMPLIANT items for the specified compliance type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csiComplianceType' - The type of compliance item. For example, the compliance type can be Association, Patch, or Custom:string.
+-- 'compliantSummary', 'complianceSummaryItem_compliantSummary' - A list of COMPLIANT items for the specified compliance type.
 --
--- * 'csiNonCompliantSummary' - A list of NON_COMPLIANT items for the specified compliance type.
-complianceSummaryItem ::
+-- 'complianceType', 'complianceSummaryItem_complianceType' - The type of compliance item. For example, the compliance type can be
+-- Association, Patch, or Custom:string.
+--
+-- 'nonCompliantSummary', 'complianceSummaryItem_nonCompliantSummary' - A list of NON_COMPLIANT items for the specified compliance type.
+newComplianceSummaryItem ::
   ComplianceSummaryItem
-complianceSummaryItem =
+newComplianceSummaryItem =
   ComplianceSummaryItem'
-    { _csiCompliantSummary =
-        Nothing,
-      _csiComplianceType = Nothing,
-      _csiNonCompliantSummary = Nothing
+    { compliantSummary =
+        Prelude.Nothing,
+      complianceType = Prelude.Nothing,
+      nonCompliantSummary = Prelude.Nothing
     }
 
 -- | A list of COMPLIANT items for the specified compliance type.
-csiCompliantSummary :: Lens' ComplianceSummaryItem (Maybe CompliantSummary)
-csiCompliantSummary = lens _csiCompliantSummary (\s a -> s {_csiCompliantSummary = a})
+complianceSummaryItem_compliantSummary :: Lens.Lens' ComplianceSummaryItem (Prelude.Maybe CompliantSummary)
+complianceSummaryItem_compliantSummary = Lens.lens (\ComplianceSummaryItem' {compliantSummary} -> compliantSummary) (\s@ComplianceSummaryItem' {} a -> s {compliantSummary = a} :: ComplianceSummaryItem)
 
--- | The type of compliance item. For example, the compliance type can be Association, Patch, or Custom:string.
-csiComplianceType :: Lens' ComplianceSummaryItem (Maybe Text)
-csiComplianceType = lens _csiComplianceType (\s a -> s {_csiComplianceType = a})
+-- | The type of compliance item. For example, the compliance type can be
+-- Association, Patch, or Custom:string.
+complianceSummaryItem_complianceType :: Lens.Lens' ComplianceSummaryItem (Prelude.Maybe Prelude.Text)
+complianceSummaryItem_complianceType = Lens.lens (\ComplianceSummaryItem' {complianceType} -> complianceType) (\s@ComplianceSummaryItem' {} a -> s {complianceType = a} :: ComplianceSummaryItem)
 
 -- | A list of NON_COMPLIANT items for the specified compliance type.
-csiNonCompliantSummary :: Lens' ComplianceSummaryItem (Maybe NonCompliantSummary)
-csiNonCompliantSummary = lens _csiNonCompliantSummary (\s a -> s {_csiNonCompliantSummary = a})
+complianceSummaryItem_nonCompliantSummary :: Lens.Lens' ComplianceSummaryItem (Prelude.Maybe NonCompliantSummary)
+complianceSummaryItem_nonCompliantSummary = Lens.lens (\ComplianceSummaryItem' {nonCompliantSummary} -> nonCompliantSummary) (\s@ComplianceSummaryItem' {} a -> s {nonCompliantSummary = a} :: ComplianceSummaryItem)
 
-instance FromJSON ComplianceSummaryItem where
+instance Prelude.FromJSON ComplianceSummaryItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ComplianceSummaryItem"
       ( \x ->
           ComplianceSummaryItem'
-            <$> (x .:? "CompliantSummary")
-            <*> (x .:? "ComplianceType")
-            <*> (x .:? "NonCompliantSummary")
+            Prelude.<$> (x Prelude..:? "CompliantSummary")
+            Prelude.<*> (x Prelude..:? "ComplianceType")
+            Prelude.<*> (x Prelude..:? "NonCompliantSummary")
       )
 
-instance Hashable ComplianceSummaryItem
+instance Prelude.Hashable ComplianceSummaryItem
 
-instance NFData ComplianceSummaryItem
+instance Prelude.NFData ComplianceSummaryItem

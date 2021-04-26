@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,215 +21,274 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes one or more of your instances, including information about the operating system platform, the version of SSM Agent installed on the instance, instance status, and so on.
+-- Describes one or more of your instances, including information about the
+-- operating system platform, the version of SSM Agent installed on the
+-- instance, instance status, and so on.
 --
+-- If you specify one or more instance IDs, it returns information for
+-- those instances. If you do not specify instance IDs, it returns
+-- information for all your instances. If you specify an instance ID that
+-- is not valid or an instance that you do not own, you receive an error.
 --
--- If you specify one or more instance IDs, it returns information for those instances. If you do not specify instance IDs, it returns information for all your instances. If you specify an instance ID that is not valid or an instance that you do not own, you receive an error.
---
+-- The IamRole field for this API action is the Amazon Identity and Access
+-- Management (IAM) role assigned to on-premises instances. This call does
+-- not return the IAM role for EC2 instances.
 --
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribeInstanceInformation
   ( -- * Creating a Request
-    describeInstanceInformation,
-    DescribeInstanceInformation,
+    DescribeInstanceInformation (..),
+    newDescribeInstanceInformation,
 
     -- * Request Lenses
-    diiNextToken,
-    diiMaxResults,
-    diiInstanceInformationFilterList,
-    diiFilters,
+    describeInstanceInformation_nextToken,
+    describeInstanceInformation_maxResults,
+    describeInstanceInformation_instanceInformationFilterList,
+    describeInstanceInformation_filters,
 
     -- * Destructuring the Response
-    describeInstanceInformationResponse,
-    DescribeInstanceInformationResponse,
+    DescribeInstanceInformationResponse (..),
+    newDescribeInstanceInformationResponse,
 
     -- * Response Lenses
-    diirrsInstanceInformationList,
-    diirrsNextToken,
-    diirrsResponseStatus,
+    describeInstanceInformationResponse_instanceInformationList,
+    describeInstanceInformationResponse_nextToken,
+    describeInstanceInformationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.InstanceInformation
 
--- | /See:/ 'describeInstanceInformation' smart constructor.
+-- | /See:/ 'newDescribeInstanceInformation' smart constructor.
 data DescribeInstanceInformation = DescribeInstanceInformation'
-  { _diiNextToken ::
-      !(Maybe Text),
-    _diiMaxResults ::
-      !(Maybe Nat),
-    _diiInstanceInformationFilterList ::
-      !( Maybe
-           [InstanceInformationFilter]
-       ),
-    _diiFilters ::
-      !( Maybe
-           [InstanceInformationStringFilter]
-       )
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | This is a legacy method. We recommend that you don\'t use this method.
+    -- Instead, use the @Filters@ data type. @Filters@ enables you to return
+    -- instance information by filtering based on tags applied to managed
+    -- instances.
+    --
+    -- Attempting to use @InstanceInformationFilterList@ and @Filters@ leads to
+    -- an exception error.
+    instanceInformationFilterList :: Prelude.Maybe [InstanceInformationFilter],
+    -- | One or more filters. Use a filter to return a more specific list of
+    -- instances. You can filter based on tags applied to EC2 instances. Use
+    -- this @Filters@ data type instead of @InstanceInformationFilterList@,
+    -- which is deprecated.
+    filters :: Prelude.Maybe [InstanceInformationStringFilter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstanceInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstanceInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diiNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diiMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'describeInstanceInformation_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'diiInstanceInformationFilterList' - This is a legacy method. We recommend that you don't use this method. Instead, use the @Filters@ data type. @Filters@ enables you to return instance information by filtering based on tags applied to managed instances.
+-- 'maxResults', 'describeInstanceInformation_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
--- * 'diiFilters' - One or more filters. Use a filter to return a more specific list of instances. You can filter based on tags applied to EC2 instances. Use this @Filters@ data type instead of @InstanceInformationFilterList@ , which is deprecated.
-describeInstanceInformation ::
+-- 'instanceInformationFilterList', 'describeInstanceInformation_instanceInformationFilterList' - This is a legacy method. We recommend that you don\'t use this method.
+-- Instead, use the @Filters@ data type. @Filters@ enables you to return
+-- instance information by filtering based on tags applied to managed
+-- instances.
+--
+-- Attempting to use @InstanceInformationFilterList@ and @Filters@ leads to
+-- an exception error.
+--
+-- 'filters', 'describeInstanceInformation_filters' - One or more filters. Use a filter to return a more specific list of
+-- instances. You can filter based on tags applied to EC2 instances. Use
+-- this @Filters@ data type instead of @InstanceInformationFilterList@,
+-- which is deprecated.
+newDescribeInstanceInformation ::
   DescribeInstanceInformation
-describeInstanceInformation =
+newDescribeInstanceInformation =
   DescribeInstanceInformation'
-    { _diiNextToken =
-        Nothing,
-      _diiMaxResults = Nothing,
-      _diiInstanceInformationFilterList = Nothing,
-      _diiFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      instanceInformationFilterList =
+        Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-diiNextToken :: Lens' DescribeInstanceInformation (Maybe Text)
-diiNextToken = lens _diiNextToken (\s a -> s {_diiNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeInstanceInformation_nextToken :: Lens.Lens' DescribeInstanceInformation (Prelude.Maybe Prelude.Text)
+describeInstanceInformation_nextToken = Lens.lens (\DescribeInstanceInformation' {nextToken} -> nextToken) (\s@DescribeInstanceInformation' {} a -> s {nextToken = a} :: DescribeInstanceInformation)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-diiMaxResults :: Lens' DescribeInstanceInformation (Maybe Natural)
-diiMaxResults = lens _diiMaxResults (\s a -> s {_diiMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describeInstanceInformation_maxResults :: Lens.Lens' DescribeInstanceInformation (Prelude.Maybe Prelude.Natural)
+describeInstanceInformation_maxResults = Lens.lens (\DescribeInstanceInformation' {maxResults} -> maxResults) (\s@DescribeInstanceInformation' {} a -> s {maxResults = a} :: DescribeInstanceInformation) Prelude.. Lens.mapping Prelude._Nat
 
--- | This is a legacy method. We recommend that you don't use this method. Instead, use the @Filters@ data type. @Filters@ enables you to return instance information by filtering based on tags applied to managed instances.
-diiInstanceInformationFilterList :: Lens' DescribeInstanceInformation [InstanceInformationFilter]
-diiInstanceInformationFilterList = lens _diiInstanceInformationFilterList (\s a -> s {_diiInstanceInformationFilterList = a}) . _Default . _Coerce
+-- | This is a legacy method. We recommend that you don\'t use this method.
+-- Instead, use the @Filters@ data type. @Filters@ enables you to return
+-- instance information by filtering based on tags applied to managed
+-- instances.
+--
+-- Attempting to use @InstanceInformationFilterList@ and @Filters@ leads to
+-- an exception error.
+describeInstanceInformation_instanceInformationFilterList :: Lens.Lens' DescribeInstanceInformation (Prelude.Maybe [InstanceInformationFilter])
+describeInstanceInformation_instanceInformationFilterList = Lens.lens (\DescribeInstanceInformation' {instanceInformationFilterList} -> instanceInformationFilterList) (\s@DescribeInstanceInformation' {} a -> s {instanceInformationFilterList = a} :: DescribeInstanceInformation) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more filters. Use a filter to return a more specific list of instances. You can filter based on tags applied to EC2 instances. Use this @Filters@ data type instead of @InstanceInformationFilterList@ , which is deprecated.
-diiFilters :: Lens' DescribeInstanceInformation [InstanceInformationStringFilter]
-diiFilters = lens _diiFilters (\s a -> s {_diiFilters = a}) . _Default . _Coerce
+-- | One or more filters. Use a filter to return a more specific list of
+-- instances. You can filter based on tags applied to EC2 instances. Use
+-- this @Filters@ data type instead of @InstanceInformationFilterList@,
+-- which is deprecated.
+describeInstanceInformation_filters :: Lens.Lens' DescribeInstanceInformation (Prelude.Maybe [InstanceInformationStringFilter])
+describeInstanceInformation_filters = Lens.lens (\DescribeInstanceInformation' {filters} -> filters) (\s@DescribeInstanceInformation' {} a -> s {filters = a} :: DescribeInstanceInformation) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeInstanceInformation where
+instance Pager.AWSPager DescribeInstanceInformation where
   page rq rs
-    | stop (rs ^. diirrsNextToken) = Nothing
-    | stop (rs ^. diirrsInstanceInformationList) =
-      Nothing
-    | otherwise =
-      Just $ rq & diiNextToken .~ rs ^. diirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeInstanceInformationResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeInstanceInformationResponse_instanceInformationList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeInstanceInformation_nextToken
+          Lens..~ rs
+          Lens.^? describeInstanceInformationResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeInstanceInformation where
+instance
+  Prelude.AWSRequest
+    DescribeInstanceInformation
+  where
   type
     Rs DescribeInstanceInformation =
       DescribeInstanceInformationResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeInstanceInformationResponse'
-            <$> (x .?> "InstanceInformationList" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "InstanceInformationList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeInstanceInformation
+instance Prelude.Hashable DescribeInstanceInformation
 
-instance NFData DescribeInstanceInformation
+instance Prelude.NFData DescribeInstanceInformation
 
-instance ToHeaders DescribeInstanceInformation where
+instance
+  Prelude.ToHeaders
+    DescribeInstanceInformation
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.DescribeInstanceInformation" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.DescribeInstanceInformation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeInstanceInformation where
+instance Prelude.ToJSON DescribeInstanceInformation where
   toJSON DescribeInstanceInformation' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _diiNextToken,
-            ("MaxResults" .=) <$> _diiMaxResults,
-            ("InstanceInformationFilterList" .=)
-              <$> _diiInstanceInformationFilterList,
-            ("Filters" .=) <$> _diiFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("InstanceInformationFilterList" Prelude..=)
+              Prelude.<$> instanceInformationFilterList,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath DescribeInstanceInformation where
-  toPath = const "/"
+instance Prelude.ToPath DescribeInstanceInformation where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeInstanceInformation where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeInstanceInformation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeInstanceInformationResponse' smart constructor.
+-- | /See:/ 'newDescribeInstanceInformationResponse' smart constructor.
 data DescribeInstanceInformationResponse = DescribeInstanceInformationResponse'
-  { _diirrsInstanceInformationList ::
-      !( Maybe
-           [InstanceInformation]
-       ),
-    _diirrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _diirrsResponseStatus ::
-      !Int
+  { -- | The instance information list.
+    instanceInformationList :: Prelude.Maybe [InstanceInformation],
+    -- | The token to use when requesting the next set of items. If there are no
+    -- additional items to return, the string is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstanceInformationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstanceInformationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diirrsInstanceInformationList' - The instance information list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diirrsNextToken' - The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
+-- 'instanceInformationList', 'describeInstanceInformationResponse_instanceInformationList' - The instance information list.
 --
--- * 'diirrsResponseStatus' - -- | The response status code.
-describeInstanceInformationResponse ::
-  -- | 'diirrsResponseStatus'
-  Int ->
+-- 'nextToken', 'describeInstanceInformationResponse_nextToken' - The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+--
+-- 'httpStatus', 'describeInstanceInformationResponse_httpStatus' - The response's http status code.
+newDescribeInstanceInformationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeInstanceInformationResponse
-describeInstanceInformationResponse pResponseStatus_ =
+newDescribeInstanceInformationResponse pHttpStatus_ =
   DescribeInstanceInformationResponse'
-    { _diirrsInstanceInformationList =
-        Nothing,
-      _diirrsNextToken = Nothing,
-      _diirrsResponseStatus =
-        pResponseStatus_
+    { instanceInformationList =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The instance information list.
-diirrsInstanceInformationList :: Lens' DescribeInstanceInformationResponse [InstanceInformation]
-diirrsInstanceInformationList = lens _diirrsInstanceInformationList (\s a -> s {_diirrsInstanceInformationList = a}) . _Default . _Coerce
+describeInstanceInformationResponse_instanceInformationList :: Lens.Lens' DescribeInstanceInformationResponse (Prelude.Maybe [InstanceInformation])
+describeInstanceInformationResponse_instanceInformationList = Lens.lens (\DescribeInstanceInformationResponse' {instanceInformationList} -> instanceInformationList) (\s@DescribeInstanceInformationResponse' {} a -> s {instanceInformationList = a} :: DescribeInstanceInformationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
-diirrsNextToken :: Lens' DescribeInstanceInformationResponse (Maybe Text)
-diirrsNextToken = lens _diirrsNextToken (\s a -> s {_diirrsNextToken = a})
+-- | The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+describeInstanceInformationResponse_nextToken :: Lens.Lens' DescribeInstanceInformationResponse (Prelude.Maybe Prelude.Text)
+describeInstanceInformationResponse_nextToken = Lens.lens (\DescribeInstanceInformationResponse' {nextToken} -> nextToken) (\s@DescribeInstanceInformationResponse' {} a -> s {nextToken = a} :: DescribeInstanceInformationResponse)
 
--- | -- | The response status code.
-diirrsResponseStatus :: Lens' DescribeInstanceInformationResponse Int
-diirrsResponseStatus = lens _diirrsResponseStatus (\s a -> s {_diirrsResponseStatus = a})
+-- | The response's http status code.
+describeInstanceInformationResponse_httpStatus :: Lens.Lens' DescribeInstanceInformationResponse Prelude.Int
+describeInstanceInformationResponse_httpStatus = Lens.lens (\DescribeInstanceInformationResponse' {httpStatus} -> httpStatus) (\s@DescribeInstanceInformationResponse' {} a -> s {httpStatus = a} :: DescribeInstanceInformationResponse)
 
-instance NFData DescribeInstanceInformationResponse
+instance
+  Prelude.NFData
+    DescribeInstanceInformationResponse

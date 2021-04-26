@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.SSM.Types.CommandFilterKey
   ( CommandFilterKey
       ( ..,
-        CommandDocumentName,
-        CommandExecutionStage,
-        CommandInvokedAfter,
-        CommandInvokedBefore,
-        CommandStatus
+        CommandFilterKeyDocumentName,
+        CommandFilterKeyExecutionStage,
+        CommandFilterKeyInvokedAfter,
+        CommandFilterKeyInvokedBefore,
+        CommandFilterKeyStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CommandFilterKey = CommandFilterKey' (CI Text)
+newtype CommandFilterKey = CommandFilterKey'
+  { fromCommandFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CommandDocumentName :: CommandFilterKey
-pattern CommandDocumentName = CommandFilterKey' "DocumentName"
+pattern CommandFilterKeyDocumentName :: CommandFilterKey
+pattern CommandFilterKeyDocumentName = CommandFilterKey' "DocumentName"
 
-pattern CommandExecutionStage :: CommandFilterKey
-pattern CommandExecutionStage = CommandFilterKey' "ExecutionStage"
+pattern CommandFilterKeyExecutionStage :: CommandFilterKey
+pattern CommandFilterKeyExecutionStage = CommandFilterKey' "ExecutionStage"
 
-pattern CommandInvokedAfter :: CommandFilterKey
-pattern CommandInvokedAfter = CommandFilterKey' "InvokedAfter"
+pattern CommandFilterKeyInvokedAfter :: CommandFilterKey
+pattern CommandFilterKeyInvokedAfter = CommandFilterKey' "InvokedAfter"
 
-pattern CommandInvokedBefore :: CommandFilterKey
-pattern CommandInvokedBefore = CommandFilterKey' "InvokedBefore"
+pattern CommandFilterKeyInvokedBefore :: CommandFilterKey
+pattern CommandFilterKeyInvokedBefore = CommandFilterKey' "InvokedBefore"
 
-pattern CommandStatus :: CommandFilterKey
-pattern CommandStatus = CommandFilterKey' "Status"
+pattern CommandFilterKeyStatus' :: CommandFilterKey
+pattern CommandFilterKeyStatus' = CommandFilterKey' "Status"
 
 {-# COMPLETE
-  CommandDocumentName,
-  CommandExecutionStage,
-  CommandInvokedAfter,
-  CommandInvokedBefore,
-  CommandStatus,
+  CommandFilterKeyDocumentName,
+  CommandFilterKeyExecutionStage,
+  CommandFilterKeyInvokedAfter,
+  CommandFilterKeyInvokedBefore,
+  CommandFilterKeyStatus',
   CommandFilterKey'
   #-}
 
-instance FromText CommandFilterKey where
-  parser = (CommandFilterKey' . mk) <$> takeText
+instance Prelude.FromText CommandFilterKey where
+  parser = CommandFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText CommandFilterKey where
-  toText (CommandFilterKey' ci) = original ci
+instance Prelude.ToText CommandFilterKey where
+  toText (CommandFilterKey' x) = x
 
-instance Hashable CommandFilterKey
+instance Prelude.Hashable CommandFilterKey
 
-instance NFData CommandFilterKey
+instance Prelude.NFData CommandFilterKey
 
-instance ToByteString CommandFilterKey
+instance Prelude.ToByteString CommandFilterKey
 
-instance ToQuery CommandFilterKey
+instance Prelude.ToQuery CommandFilterKey
 
-instance ToHeader CommandFilterKey
+instance Prelude.ToHeader CommandFilterKey
 
-instance ToJSON CommandFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON CommandFilterKey where
+  toJSON = Prelude.toJSONText

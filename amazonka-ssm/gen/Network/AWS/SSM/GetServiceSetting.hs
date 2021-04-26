@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,174 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- @ServiceSetting@ is an account-level setting for an AWS service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an AWS service charges money to the account based on feature or service usage, then the AWS service team might create a default setting of "false". This means the user can't use this feature unless they change the setting to "true" and intentionally opt in for a paid feature.
+-- @ServiceSetting@ is an account-level setting for an AWS service. This
+-- setting defines how a user interacts with or uses a service or a feature
+-- of a service. For example, if an AWS service charges money to the
+-- account based on feature or service usage, then the AWS service team
+-- might create a default setting of \"false\". This means the user can\'t
+-- use this feature unless they change the setting to \"true\" and
+-- intentionally opt in for a paid feature.
 --
---
--- Services map a @SettingId@ object to a setting value. AWS services teams define the default value for a @SettingId@ . You can't create a new @SettingId@ , but you can overwrite the default value if you have the @ssm:UpdateServiceSetting@ permission for the setting. Use the 'UpdateServiceSetting' API action to change the default setting. Or use the 'ResetServiceSetting' to change the value back to the original value defined by the AWS service team.
+-- Services map a @SettingId@ object to a setting value. AWS services teams
+-- define the default value for a @SettingId@. You can\'t create a new
+-- @SettingId@, but you can overwrite the default value if you have the
+-- @ssm:UpdateServiceSetting@ permission for the setting. Use the
+-- UpdateServiceSetting API action to change the default setting. Or use
+-- the ResetServiceSetting to change the value back to the original value
+-- defined by the AWS service team.
 --
 -- Query the current service setting for the account.
 module Network.AWS.SSM.GetServiceSetting
   ( -- * Creating a Request
-    getServiceSetting,
-    GetServiceSetting,
+    GetServiceSetting (..),
+    newGetServiceSetting,
 
     -- * Request Lenses
-    gssSettingId,
+    getServiceSetting_settingId,
 
     -- * Destructuring the Response
-    getServiceSettingResponse,
-    GetServiceSettingResponse,
+    GetServiceSettingResponse (..),
+    newGetServiceSettingResponse,
 
     -- * Response Lenses
-    gssrrsServiceSetting,
-    gssrrsResponseStatus,
+    getServiceSettingResponse_serviceSetting,
+    getServiceSettingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.ServiceSetting
 
 -- | The request body of the GetServiceSetting API action.
 --
---
---
--- /See:/ 'getServiceSetting' smart constructor.
-newtype GetServiceSetting = GetServiceSetting'
-  { _gssSettingId ::
-      Text
+-- /See:/ 'newGetServiceSetting' smart constructor.
+data GetServiceSetting = GetServiceSetting'
+  { -- | The ID of the service setting to get. The setting ID can be
+    -- @\/ssm\/automation\/customer-script-log-destination@,
+    -- @\/ssm\/automation\/customer-script-log-group-name@,
+    -- @\/ssm\/parameter-store\/default-parameter-tier@,
+    -- @\/ssm\/parameter-store\/high-throughput-enabled@, or
+    -- @\/ssm\/managed-instance\/activation-tier@.
+    settingId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetServiceSetting' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetServiceSetting' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gssSettingId' - The ID of the service setting to get. The setting ID can be @/ssm/automation/customer-script-log-destination@ , @/ssm/automation/customer-script-log-group-name@ , @/ssm/parameter-store/default-parameter-tier@ , @/ssm/parameter-store/high-throughput-enabled@ , or @/ssm/managed-instance/activation-tier@ .
-getServiceSetting ::
-  -- | 'gssSettingId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'settingId', 'getServiceSetting_settingId' - The ID of the service setting to get. The setting ID can be
+-- @\/ssm\/automation\/customer-script-log-destination@,
+-- @\/ssm\/automation\/customer-script-log-group-name@,
+-- @\/ssm\/parameter-store\/default-parameter-tier@,
+-- @\/ssm\/parameter-store\/high-throughput-enabled@, or
+-- @\/ssm\/managed-instance\/activation-tier@.
+newGetServiceSetting ::
+  -- | 'settingId'
+  Prelude.Text ->
   GetServiceSetting
-getServiceSetting pSettingId_ =
-  GetServiceSetting' {_gssSettingId = pSettingId_}
+newGetServiceSetting pSettingId_ =
+  GetServiceSetting' {settingId = pSettingId_}
 
--- | The ID of the service setting to get. The setting ID can be @/ssm/automation/customer-script-log-destination@ , @/ssm/automation/customer-script-log-group-name@ , @/ssm/parameter-store/default-parameter-tier@ , @/ssm/parameter-store/high-throughput-enabled@ , or @/ssm/managed-instance/activation-tier@ .
-gssSettingId :: Lens' GetServiceSetting Text
-gssSettingId = lens _gssSettingId (\s a -> s {_gssSettingId = a})
+-- | The ID of the service setting to get. The setting ID can be
+-- @\/ssm\/automation\/customer-script-log-destination@,
+-- @\/ssm\/automation\/customer-script-log-group-name@,
+-- @\/ssm\/parameter-store\/default-parameter-tier@,
+-- @\/ssm\/parameter-store\/high-throughput-enabled@, or
+-- @\/ssm\/managed-instance\/activation-tier@.
+getServiceSetting_settingId :: Lens.Lens' GetServiceSetting Prelude.Text
+getServiceSetting_settingId = Lens.lens (\GetServiceSetting' {settingId} -> settingId) (\s@GetServiceSetting' {} a -> s {settingId = a} :: GetServiceSetting)
 
-instance AWSRequest GetServiceSetting where
+instance Prelude.AWSRequest GetServiceSetting where
   type Rs GetServiceSetting = GetServiceSettingResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetServiceSettingResponse'
-            <$> (x .?> "ServiceSetting") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ServiceSetting")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetServiceSetting
+instance Prelude.Hashable GetServiceSetting
 
-instance NFData GetServiceSetting
+instance Prelude.NFData GetServiceSetting
 
-instance ToHeaders GetServiceSetting where
+instance Prelude.ToHeaders GetServiceSetting where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.GetServiceSetting" :: ByteString),
+              Prelude.=# ( "AmazonSSM.GetServiceSetting" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetServiceSetting where
+instance Prelude.ToJSON GetServiceSetting where
   toJSON GetServiceSetting' {..} =
-    object
-      (catMaybes [Just ("SettingId" .= _gssSettingId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SettingId" Prelude..= settingId)]
+      )
 
-instance ToPath GetServiceSetting where
-  toPath = const "/"
+instance Prelude.ToPath GetServiceSetting where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetServiceSetting where
-  toQuery = const mempty
+instance Prelude.ToQuery GetServiceSetting where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The query result body of the GetServiceSetting API action.
 --
---
---
--- /See:/ 'getServiceSettingResponse' smart constructor.
+-- /See:/ 'newGetServiceSettingResponse' smart constructor.
 data GetServiceSettingResponse = GetServiceSettingResponse'
-  { _gssrrsServiceSetting ::
-      !( Maybe
-           ServiceSetting
-       ),
-    _gssrrsResponseStatus ::
-      !Int
+  { -- | The query result of the current service setting.
+    serviceSetting :: Prelude.Maybe ServiceSetting,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetServiceSettingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetServiceSettingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gssrrsServiceSetting' - The query result of the current service setting.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gssrrsResponseStatus' - -- | The response status code.
-getServiceSettingResponse ::
-  -- | 'gssrrsResponseStatus'
-  Int ->
+-- 'serviceSetting', 'getServiceSettingResponse_serviceSetting' - The query result of the current service setting.
+--
+-- 'httpStatus', 'getServiceSettingResponse_httpStatus' - The response's http status code.
+newGetServiceSettingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetServiceSettingResponse
-getServiceSettingResponse pResponseStatus_ =
+newGetServiceSettingResponse pHttpStatus_ =
   GetServiceSettingResponse'
-    { _gssrrsServiceSetting =
-        Nothing,
-      _gssrrsResponseStatus = pResponseStatus_
+    { serviceSetting =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The query result of the current service setting.
-gssrrsServiceSetting :: Lens' GetServiceSettingResponse (Maybe ServiceSetting)
-gssrrsServiceSetting = lens _gssrrsServiceSetting (\s a -> s {_gssrrsServiceSetting = a})
+getServiceSettingResponse_serviceSetting :: Lens.Lens' GetServiceSettingResponse (Prelude.Maybe ServiceSetting)
+getServiceSettingResponse_serviceSetting = Lens.lens (\GetServiceSettingResponse' {serviceSetting} -> serviceSetting) (\s@GetServiceSettingResponse' {} a -> s {serviceSetting = a} :: GetServiceSettingResponse)
 
--- | -- | The response status code.
-gssrrsResponseStatus :: Lens' GetServiceSettingResponse Int
-gssrrsResponseStatus = lens _gssrrsResponseStatus (\s a -> s {_gssrrsResponseStatus = a})
+-- | The response's http status code.
+getServiceSettingResponse_httpStatus :: Lens.Lens' GetServiceSettingResponse Prelude.Int
+getServiceSettingResponse_httpStatus = Lens.lens (\GetServiceSettingResponse' {httpStatus} -> httpStatus) (\s@GetServiceSettingResponse' {} a -> s {httpStatus = a} :: GetServiceSettingResponse)
 
-instance NFData GetServiceSettingResponse
+instance Prelude.NFData GetServiceSettingResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,264 +24,352 @@
 -- Gets the contents of the specified Systems Manager document.
 module Network.AWS.SSM.GetDocument
   ( -- * Creating a Request
-    getDocument,
-    GetDocument,
+    GetDocument (..),
+    newGetDocument,
 
     -- * Request Lenses
-    gdVersionName,
-    gdDocumentFormat,
-    gdDocumentVersion,
-    gdName,
+    getDocument_versionName,
+    getDocument_documentFormat,
+    getDocument_documentVersion,
+    getDocument_name,
 
     -- * Destructuring the Response
-    getDocumentResponse,
-    GetDocumentResponse,
+    GetDocumentResponse (..),
+    newGetDocumentResponse,
 
     -- * Response Lenses
-    gdrrsDocumentType,
-    gdrrsStatus,
-    gdrrsRequires,
-    gdrrsAttachmentsContent,
-    gdrrsStatusInformation,
-    gdrrsVersionName,
-    gdrrsName,
-    gdrrsDocumentFormat,
-    gdrrsContent,
-    gdrrsReviewStatus,
-    gdrrsDocumentVersion,
-    gdrrsResponseStatus,
+    getDocumentResponse_documentType,
+    getDocumentResponse_status,
+    getDocumentResponse_requires,
+    getDocumentResponse_attachmentsContent,
+    getDocumentResponse_statusInformation,
+    getDocumentResponse_versionName,
+    getDocumentResponse_name,
+    getDocumentResponse_documentFormat,
+    getDocumentResponse_content,
+    getDocumentResponse_reviewStatus,
+    getDocumentResponse_documentVersion,
+    getDocumentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.AttachmentContent
+import Network.AWS.SSM.Types.DocumentFormat
+import Network.AWS.SSM.Types.DocumentRequires
+import Network.AWS.SSM.Types.DocumentStatus
+import Network.AWS.SSM.Types.DocumentType
+import Network.AWS.SSM.Types.ReviewStatus
 
--- | /See:/ 'getDocument' smart constructor.
+-- | /See:/ 'newGetDocument' smart constructor.
 data GetDocument = GetDocument'
-  { _gdVersionName ::
-      !(Maybe Text),
-    _gdDocumentFormat :: !(Maybe DocumentFormat),
-    _gdDocumentVersion :: !(Maybe Text),
-    _gdName :: !Text
+  { -- | An optional field specifying the version of the artifact associated with
+    -- the document. For example, \"Release 12, Update 6\". This value is
+    -- unique across all versions of a document and can\'t be changed.
+    versionName :: Prelude.Maybe Prelude.Text,
+    -- | Returns the document in the specified format. The document format can be
+    -- either JSON or YAML. JSON is the default format.
+    documentFormat :: Prelude.Maybe DocumentFormat,
+    -- | The document version for which you want information.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Systems Manager document.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDocument' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDocument' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdVersionName' - An optional field specifying the version of the artifact associated with the document. For example, "Release 12, Update 6". This value is unique across all versions of a document and can't be changed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdDocumentFormat' - Returns the document in the specified format. The document format can be either JSON or YAML. JSON is the default format.
+-- 'versionName', 'getDocument_versionName' - An optional field specifying the version of the artifact associated with
+-- the document. For example, \"Release 12, Update 6\". This value is
+-- unique across all versions of a document and can\'t be changed.
 --
--- * 'gdDocumentVersion' - The document version for which you want information.
+-- 'documentFormat', 'getDocument_documentFormat' - Returns the document in the specified format. The document format can be
+-- either JSON or YAML. JSON is the default format.
 --
--- * 'gdName' - The name of the Systems Manager document.
-getDocument ::
-  -- | 'gdName'
-  Text ->
+-- 'documentVersion', 'getDocument_documentVersion' - The document version for which you want information.
+--
+-- 'name', 'getDocument_name' - The name of the Systems Manager document.
+newGetDocument ::
+  -- | 'name'
+  Prelude.Text ->
   GetDocument
-getDocument pName_ =
+newGetDocument pName_ =
   GetDocument'
-    { _gdVersionName = Nothing,
-      _gdDocumentFormat = Nothing,
-      _gdDocumentVersion = Nothing,
-      _gdName = pName_
+    { versionName = Prelude.Nothing,
+      documentFormat = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      name = pName_
     }
 
--- | An optional field specifying the version of the artifact associated with the document. For example, "Release 12, Update 6". This value is unique across all versions of a document and can't be changed.
-gdVersionName :: Lens' GetDocument (Maybe Text)
-gdVersionName = lens _gdVersionName (\s a -> s {_gdVersionName = a})
+-- | An optional field specifying the version of the artifact associated with
+-- the document. For example, \"Release 12, Update 6\". This value is
+-- unique across all versions of a document and can\'t be changed.
+getDocument_versionName :: Lens.Lens' GetDocument (Prelude.Maybe Prelude.Text)
+getDocument_versionName = Lens.lens (\GetDocument' {versionName} -> versionName) (\s@GetDocument' {} a -> s {versionName = a} :: GetDocument)
 
--- | Returns the document in the specified format. The document format can be either JSON or YAML. JSON is the default format.
-gdDocumentFormat :: Lens' GetDocument (Maybe DocumentFormat)
-gdDocumentFormat = lens _gdDocumentFormat (\s a -> s {_gdDocumentFormat = a})
+-- | Returns the document in the specified format. The document format can be
+-- either JSON or YAML. JSON is the default format.
+getDocument_documentFormat :: Lens.Lens' GetDocument (Prelude.Maybe DocumentFormat)
+getDocument_documentFormat = Lens.lens (\GetDocument' {documentFormat} -> documentFormat) (\s@GetDocument' {} a -> s {documentFormat = a} :: GetDocument)
 
 -- | The document version for which you want information.
-gdDocumentVersion :: Lens' GetDocument (Maybe Text)
-gdDocumentVersion = lens _gdDocumentVersion (\s a -> s {_gdDocumentVersion = a})
+getDocument_documentVersion :: Lens.Lens' GetDocument (Prelude.Maybe Prelude.Text)
+getDocument_documentVersion = Lens.lens (\GetDocument' {documentVersion} -> documentVersion) (\s@GetDocument' {} a -> s {documentVersion = a} :: GetDocument)
 
 -- | The name of the Systems Manager document.
-gdName :: Lens' GetDocument Text
-gdName = lens _gdName (\s a -> s {_gdName = a})
+getDocument_name :: Lens.Lens' GetDocument Prelude.Text
+getDocument_name = Lens.lens (\GetDocument' {name} -> name) (\s@GetDocument' {} a -> s {name = a} :: GetDocument)
 
-instance AWSRequest GetDocument where
+instance Prelude.AWSRequest GetDocument where
   type Rs GetDocument = GetDocumentResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDocumentResponse'
-            <$> (x .?> "DocumentType")
-            <*> (x .?> "Status")
-            <*> (x .?> "Requires")
-            <*> (x .?> "AttachmentsContent" .!@ mempty)
-            <*> (x .?> "StatusInformation")
-            <*> (x .?> "VersionName")
-            <*> (x .?> "Name")
-            <*> (x .?> "DocumentFormat")
-            <*> (x .?> "Content")
-            <*> (x .?> "ReviewStatus")
-            <*> (x .?> "DocumentVersion")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DocumentType")
+            Prelude.<*> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "Requires")
+            Prelude.<*> ( x Prelude..?> "AttachmentsContent"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "StatusInformation")
+            Prelude.<*> (x Prelude..?> "VersionName")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "DocumentFormat")
+            Prelude.<*> (x Prelude..?> "Content")
+            Prelude.<*> (x Prelude..?> "ReviewStatus")
+            Prelude.<*> (x Prelude..?> "DocumentVersion")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDocument
+instance Prelude.Hashable GetDocument
 
-instance NFData GetDocument
+instance Prelude.NFData GetDocument
 
-instance ToHeaders GetDocument where
+instance Prelude.ToHeaders GetDocument where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.GetDocument" :: ByteString),
+              Prelude.=# ("AmazonSSM.GetDocument" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDocument where
+instance Prelude.ToJSON GetDocument where
   toJSON GetDocument' {..} =
-    object
-      ( catMaybes
-          [ ("VersionName" .=) <$> _gdVersionName,
-            ("DocumentFormat" .=) <$> _gdDocumentFormat,
-            ("DocumentVersion" .=) <$> _gdDocumentVersion,
-            Just ("Name" .= _gdName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VersionName" Prelude..=) Prelude.<$> versionName,
+            ("DocumentFormat" Prelude..=)
+              Prelude.<$> documentFormat,
+            ("DocumentVersion" Prelude..=)
+              Prelude.<$> documentVersion,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath GetDocument where
-  toPath = const "/"
+instance Prelude.ToPath GetDocument where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDocument where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDocument where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDocumentResponse' smart constructor.
+-- | /See:/ 'newGetDocumentResponse' smart constructor.
 data GetDocumentResponse = GetDocumentResponse'
-  { _gdrrsDocumentType ::
-      !(Maybe DocumentType),
-    _gdrrsStatus ::
-      !(Maybe DocumentStatus),
-    _gdrrsRequires ::
-      !( Maybe
-           (List1 DocumentRequires)
-       ),
-    _gdrrsAttachmentsContent ::
-      !(Maybe [AttachmentContent]),
-    _gdrrsStatusInformation ::
-      !(Maybe Text),
-    _gdrrsVersionName ::
-      !(Maybe Text),
-    _gdrrsName :: !(Maybe Text),
-    _gdrrsDocumentFormat ::
-      !(Maybe DocumentFormat),
-    _gdrrsContent :: !(Maybe Text),
-    _gdrrsReviewStatus ::
-      !(Maybe ReviewStatus),
-    _gdrrsDocumentVersion ::
-      !(Maybe Text),
-    _gdrrsResponseStatus :: !Int
+  { -- | The document type.
+    documentType :: Prelude.Maybe DocumentType,
+    -- | The status of the Systems Manager document, such as @Creating@,
+    -- @Active@, @Updating@, @Failed@, and @Deleting@.
+    status :: Prelude.Maybe DocumentStatus,
+    -- | A list of SSM documents required by a document. For example, an
+    -- @ApplicationConfiguration@ document requires an
+    -- @ApplicationConfigurationSchema@ document.
+    requires :: Prelude.Maybe (Prelude.List1 DocumentRequires),
+    -- | A description of the document attachments, including names, locations,
+    -- sizes, and so on.
+    attachmentsContent :: Prelude.Maybe [AttachmentContent],
+    -- | A message returned by AWS Systems Manager that explains the @Status@
+    -- value. For example, a @Failed@ status might be explained by the
+    -- @StatusInformation@ message, \"The specified S3 bucket does not exist.
+    -- Verify that the URL of the S3 bucket is correct.\"
+    statusInformation :: Prelude.Maybe Prelude.Text,
+    -- | The version of the artifact associated with the document. For example,
+    -- \"Release 12, Update 6\". This value is unique across all versions of a
+    -- document, and cannot be changed.
+    versionName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Systems Manager document.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The document format, either JSON or YAML.
+    documentFormat :: Prelude.Maybe DocumentFormat,
+    -- | The contents of the Systems Manager document.
+    content :: Prelude.Maybe Prelude.Text,
+    -- | The current review status of a new custom Systems Manager document (SSM
+    -- document) created by a member of your organization, or of the latest
+    -- version of an existing SSM document.
+    --
+    -- Only one version of an SSM document can be in the APPROVED state at a
+    -- time. When a new version is approved, the status of the previous version
+    -- changes to REJECTED.
+    --
+    -- Only one version of an SSM document can be in review, or PENDING, at a
+    -- time.
+    reviewStatus :: Prelude.Maybe ReviewStatus,
+    -- | The document version.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDocumentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDocumentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdrrsDocumentType' - The document type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdrrsStatus' - The status of the Systems Manager document, such as @Creating@ , @Active@ , @Updating@ , @Failed@ , and @Deleting@ .
+-- 'documentType', 'getDocumentResponse_documentType' - The document type.
 --
--- * 'gdrrsRequires' - A list of SSM documents required by a document. For example, an @ApplicationConfiguration@ document requires an @ApplicationConfigurationSchema@ document.
+-- 'status', 'getDocumentResponse_status' - The status of the Systems Manager document, such as @Creating@,
+-- @Active@, @Updating@, @Failed@, and @Deleting@.
 --
--- * 'gdrrsAttachmentsContent' - A description of the document attachments, including names, locations, sizes, and so on.
+-- 'requires', 'getDocumentResponse_requires' - A list of SSM documents required by a document. For example, an
+-- @ApplicationConfiguration@ document requires an
+-- @ApplicationConfigurationSchema@ document.
 --
--- * 'gdrrsStatusInformation' - A message returned by AWS Systems Manager that explains the @Status@ value. For example, a @Failed@ status might be explained by the @StatusInformation@ message, "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+-- 'attachmentsContent', 'getDocumentResponse_attachmentsContent' - A description of the document attachments, including names, locations,
+-- sizes, and so on.
 --
--- * 'gdrrsVersionName' - The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+-- 'statusInformation', 'getDocumentResponse_statusInformation' - A message returned by AWS Systems Manager that explains the @Status@
+-- value. For example, a @Failed@ status might be explained by the
+-- @StatusInformation@ message, \"The specified S3 bucket does not exist.
+-- Verify that the URL of the S3 bucket is correct.\"
 --
--- * 'gdrrsName' - The name of the Systems Manager document.
+-- 'versionName', 'getDocumentResponse_versionName' - The version of the artifact associated with the document. For example,
+-- \"Release 12, Update 6\". This value is unique across all versions of a
+-- document, and cannot be changed.
 --
--- * 'gdrrsDocumentFormat' - The document format, either JSON or YAML.
+-- 'name', 'getDocumentResponse_name' - The name of the Systems Manager document.
 --
--- * 'gdrrsContent' - The contents of the Systems Manager document.
+-- 'documentFormat', 'getDocumentResponse_documentFormat' - The document format, either JSON or YAML.
 --
--- * 'gdrrsReviewStatus' - The current review status of a new custom Systems Manager document (SSM document) created by a member of your organization, or of the latest version of an existing SSM document. Only one version of an SSM document can be in the APPROVED state at a time. When a new version is approved, the status of the previous version changes to REJECTED. Only one version of an SSM document can be in review, or PENDING, at a time.
+-- 'content', 'getDocumentResponse_content' - The contents of the Systems Manager document.
 --
--- * 'gdrrsDocumentVersion' - The document version.
+-- 'reviewStatus', 'getDocumentResponse_reviewStatus' - The current review status of a new custom Systems Manager document (SSM
+-- document) created by a member of your organization, or of the latest
+-- version of an existing SSM document.
 --
--- * 'gdrrsResponseStatus' - -- | The response status code.
-getDocumentResponse ::
-  -- | 'gdrrsResponseStatus'
-  Int ->
+-- Only one version of an SSM document can be in the APPROVED state at a
+-- time. When a new version is approved, the status of the previous version
+-- changes to REJECTED.
+--
+-- Only one version of an SSM document can be in review, or PENDING, at a
+-- time.
+--
+-- 'documentVersion', 'getDocumentResponse_documentVersion' - The document version.
+--
+-- 'httpStatus', 'getDocumentResponse_httpStatus' - The response's http status code.
+newGetDocumentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDocumentResponse
-getDocumentResponse pResponseStatus_ =
+newGetDocumentResponse pHttpStatus_ =
   GetDocumentResponse'
-    { _gdrrsDocumentType = Nothing,
-      _gdrrsStatus = Nothing,
-      _gdrrsRequires = Nothing,
-      _gdrrsAttachmentsContent = Nothing,
-      _gdrrsStatusInformation = Nothing,
-      _gdrrsVersionName = Nothing,
-      _gdrrsName = Nothing,
-      _gdrrsDocumentFormat = Nothing,
-      _gdrrsContent = Nothing,
-      _gdrrsReviewStatus = Nothing,
-      _gdrrsDocumentVersion = Nothing,
-      _gdrrsResponseStatus = pResponseStatus_
+    { documentType =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      requires = Prelude.Nothing,
+      attachmentsContent = Prelude.Nothing,
+      statusInformation = Prelude.Nothing,
+      versionName = Prelude.Nothing,
+      name = Prelude.Nothing,
+      documentFormat = Prelude.Nothing,
+      content = Prelude.Nothing,
+      reviewStatus = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The document type.
-gdrrsDocumentType :: Lens' GetDocumentResponse (Maybe DocumentType)
-gdrrsDocumentType = lens _gdrrsDocumentType (\s a -> s {_gdrrsDocumentType = a})
+getDocumentResponse_documentType :: Lens.Lens' GetDocumentResponse (Prelude.Maybe DocumentType)
+getDocumentResponse_documentType = Lens.lens (\GetDocumentResponse' {documentType} -> documentType) (\s@GetDocumentResponse' {} a -> s {documentType = a} :: GetDocumentResponse)
 
--- | The status of the Systems Manager document, such as @Creating@ , @Active@ , @Updating@ , @Failed@ , and @Deleting@ .
-gdrrsStatus :: Lens' GetDocumentResponse (Maybe DocumentStatus)
-gdrrsStatus = lens _gdrrsStatus (\s a -> s {_gdrrsStatus = a})
+-- | The status of the Systems Manager document, such as @Creating@,
+-- @Active@, @Updating@, @Failed@, and @Deleting@.
+getDocumentResponse_status :: Lens.Lens' GetDocumentResponse (Prelude.Maybe DocumentStatus)
+getDocumentResponse_status = Lens.lens (\GetDocumentResponse' {status} -> status) (\s@GetDocumentResponse' {} a -> s {status = a} :: GetDocumentResponse)
 
--- | A list of SSM documents required by a document. For example, an @ApplicationConfiguration@ document requires an @ApplicationConfigurationSchema@ document.
-gdrrsRequires :: Lens' GetDocumentResponse (Maybe (NonEmpty DocumentRequires))
-gdrrsRequires = lens _gdrrsRequires (\s a -> s {_gdrrsRequires = a}) . mapping _List1
+-- | A list of SSM documents required by a document. For example, an
+-- @ApplicationConfiguration@ document requires an
+-- @ApplicationConfigurationSchema@ document.
+getDocumentResponse_requires :: Lens.Lens' GetDocumentResponse (Prelude.Maybe (Prelude.NonEmpty DocumentRequires))
+getDocumentResponse_requires = Lens.lens (\GetDocumentResponse' {requires} -> requires) (\s@GetDocumentResponse' {} a -> s {requires = a} :: GetDocumentResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | A description of the document attachments, including names, locations, sizes, and so on.
-gdrrsAttachmentsContent :: Lens' GetDocumentResponse [AttachmentContent]
-gdrrsAttachmentsContent = lens _gdrrsAttachmentsContent (\s a -> s {_gdrrsAttachmentsContent = a}) . _Default . _Coerce
+-- | A description of the document attachments, including names, locations,
+-- sizes, and so on.
+getDocumentResponse_attachmentsContent :: Lens.Lens' GetDocumentResponse (Prelude.Maybe [AttachmentContent])
+getDocumentResponse_attachmentsContent = Lens.lens (\GetDocumentResponse' {attachmentsContent} -> attachmentsContent) (\s@GetDocumentResponse' {} a -> s {attachmentsContent = a} :: GetDocumentResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A message returned by AWS Systems Manager that explains the @Status@ value. For example, a @Failed@ status might be explained by the @StatusInformation@ message, "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
-gdrrsStatusInformation :: Lens' GetDocumentResponse (Maybe Text)
-gdrrsStatusInformation = lens _gdrrsStatusInformation (\s a -> s {_gdrrsStatusInformation = a})
+-- | A message returned by AWS Systems Manager that explains the @Status@
+-- value. For example, a @Failed@ status might be explained by the
+-- @StatusInformation@ message, \"The specified S3 bucket does not exist.
+-- Verify that the URL of the S3 bucket is correct.\"
+getDocumentResponse_statusInformation :: Lens.Lens' GetDocumentResponse (Prelude.Maybe Prelude.Text)
+getDocumentResponse_statusInformation = Lens.lens (\GetDocumentResponse' {statusInformation} -> statusInformation) (\s@GetDocumentResponse' {} a -> s {statusInformation = a} :: GetDocumentResponse)
 
--- | The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
-gdrrsVersionName :: Lens' GetDocumentResponse (Maybe Text)
-gdrrsVersionName = lens _gdrrsVersionName (\s a -> s {_gdrrsVersionName = a})
+-- | The version of the artifact associated with the document. For example,
+-- \"Release 12, Update 6\". This value is unique across all versions of a
+-- document, and cannot be changed.
+getDocumentResponse_versionName :: Lens.Lens' GetDocumentResponse (Prelude.Maybe Prelude.Text)
+getDocumentResponse_versionName = Lens.lens (\GetDocumentResponse' {versionName} -> versionName) (\s@GetDocumentResponse' {} a -> s {versionName = a} :: GetDocumentResponse)
 
 -- | The name of the Systems Manager document.
-gdrrsName :: Lens' GetDocumentResponse (Maybe Text)
-gdrrsName = lens _gdrrsName (\s a -> s {_gdrrsName = a})
+getDocumentResponse_name :: Lens.Lens' GetDocumentResponse (Prelude.Maybe Prelude.Text)
+getDocumentResponse_name = Lens.lens (\GetDocumentResponse' {name} -> name) (\s@GetDocumentResponse' {} a -> s {name = a} :: GetDocumentResponse)
 
 -- | The document format, either JSON or YAML.
-gdrrsDocumentFormat :: Lens' GetDocumentResponse (Maybe DocumentFormat)
-gdrrsDocumentFormat = lens _gdrrsDocumentFormat (\s a -> s {_gdrrsDocumentFormat = a})
+getDocumentResponse_documentFormat :: Lens.Lens' GetDocumentResponse (Prelude.Maybe DocumentFormat)
+getDocumentResponse_documentFormat = Lens.lens (\GetDocumentResponse' {documentFormat} -> documentFormat) (\s@GetDocumentResponse' {} a -> s {documentFormat = a} :: GetDocumentResponse)
 
 -- | The contents of the Systems Manager document.
-gdrrsContent :: Lens' GetDocumentResponse (Maybe Text)
-gdrrsContent = lens _gdrrsContent (\s a -> s {_gdrrsContent = a})
+getDocumentResponse_content :: Lens.Lens' GetDocumentResponse (Prelude.Maybe Prelude.Text)
+getDocumentResponse_content = Lens.lens (\GetDocumentResponse' {content} -> content) (\s@GetDocumentResponse' {} a -> s {content = a} :: GetDocumentResponse)
 
--- | The current review status of a new custom Systems Manager document (SSM document) created by a member of your organization, or of the latest version of an existing SSM document. Only one version of an SSM document can be in the APPROVED state at a time. When a new version is approved, the status of the previous version changes to REJECTED. Only one version of an SSM document can be in review, or PENDING, at a time.
-gdrrsReviewStatus :: Lens' GetDocumentResponse (Maybe ReviewStatus)
-gdrrsReviewStatus = lens _gdrrsReviewStatus (\s a -> s {_gdrrsReviewStatus = a})
+-- | The current review status of a new custom Systems Manager document (SSM
+-- document) created by a member of your organization, or of the latest
+-- version of an existing SSM document.
+--
+-- Only one version of an SSM document can be in the APPROVED state at a
+-- time. When a new version is approved, the status of the previous version
+-- changes to REJECTED.
+--
+-- Only one version of an SSM document can be in review, or PENDING, at a
+-- time.
+getDocumentResponse_reviewStatus :: Lens.Lens' GetDocumentResponse (Prelude.Maybe ReviewStatus)
+getDocumentResponse_reviewStatus = Lens.lens (\GetDocumentResponse' {reviewStatus} -> reviewStatus) (\s@GetDocumentResponse' {} a -> s {reviewStatus = a} :: GetDocumentResponse)
 
 -- | The document version.
-gdrrsDocumentVersion :: Lens' GetDocumentResponse (Maybe Text)
-gdrrsDocumentVersion = lens _gdrrsDocumentVersion (\s a -> s {_gdrrsDocumentVersion = a})
+getDocumentResponse_documentVersion :: Lens.Lens' GetDocumentResponse (Prelude.Maybe Prelude.Text)
+getDocumentResponse_documentVersion = Lens.lens (\GetDocumentResponse' {documentVersion} -> documentVersion) (\s@GetDocumentResponse' {} a -> s {documentVersion = a} :: GetDocumentResponse)
 
--- | -- | The response status code.
-gdrrsResponseStatus :: Lens' GetDocumentResponse Int
-gdrrsResponseStatus = lens _gdrrsResponseStatus (\s a -> s {_gdrrsResponseStatus = a})
+-- | The response's http status code.
+getDocumentResponse_httpStatus :: Lens.Lens' GetDocumentResponse Prelude.Int
+getDocumentResponse_httpStatus = Lens.lens (\GetDocumentResponse' {httpStatus} -> httpStatus) (\s@GetDocumentResponse' {} a -> s {httpStatus = a} :: GetDocumentResponse)
 
-instance NFData GetDocumentResponse
+instance Prelude.NFData GetDocumentResponse

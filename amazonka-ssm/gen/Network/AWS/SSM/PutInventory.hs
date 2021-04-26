@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,153 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Bulk update custom inventory items on one more instance. The request adds an inventory item, if it doesn't already exist, or updates an inventory item, if it does exist.
+-- Bulk update custom inventory items on one more instance. The request
+-- adds an inventory item, if it doesn\'t already exist, or updates an
+-- inventory item, if it does exist.
 module Network.AWS.SSM.PutInventory
   ( -- * Creating a Request
-    putInventory,
-    PutInventory,
+    PutInventory (..),
+    newPutInventory,
 
     -- * Request Lenses
-    piInstanceId,
-    piItems,
+    putInventory_instanceId,
+    putInventory_items,
 
     -- * Destructuring the Response
-    putInventoryResponse,
-    PutInventoryResponse,
+    PutInventoryResponse (..),
+    newPutInventoryResponse,
 
     -- * Response Lenses
-    pirrsMessage,
-    pirrsResponseStatus,
+    putInventoryResponse_message,
+    putInventoryResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'putInventory' smart constructor.
+-- | /See:/ 'newPutInventory' smart constructor.
 data PutInventory = PutInventory'
-  { _piInstanceId ::
-      !Text,
-    _piItems :: !(List1 InventoryItem)
+  { -- | An instance ID where you want to add or update inventory items.
+    instanceId :: Prelude.Text,
+    -- | The inventory items that you want to add or update on instances.
+    items :: Prelude.List1 InventoryItem
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutInventory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutInventory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'piInstanceId' - An instance ID where you want to add or update inventory items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'piItems' - The inventory items that you want to add or update on instances.
-putInventory ::
-  -- | 'piInstanceId'
-  Text ->
-  -- | 'piItems'
-  NonEmpty InventoryItem ->
+-- 'instanceId', 'putInventory_instanceId' - An instance ID where you want to add or update inventory items.
+--
+-- 'items', 'putInventory_items' - The inventory items that you want to add or update on instances.
+newPutInventory ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'items'
+  Prelude.NonEmpty InventoryItem ->
   PutInventory
-putInventory pInstanceId_ pItems_ =
+newPutInventory pInstanceId_ pItems_ =
   PutInventory'
-    { _piInstanceId = pInstanceId_,
-      _piItems = _List1 # pItems_
+    { instanceId = pInstanceId_,
+      items = Prelude._List1 Lens.# pItems_
     }
 
 -- | An instance ID where you want to add or update inventory items.
-piInstanceId :: Lens' PutInventory Text
-piInstanceId = lens _piInstanceId (\s a -> s {_piInstanceId = a})
+putInventory_instanceId :: Lens.Lens' PutInventory Prelude.Text
+putInventory_instanceId = Lens.lens (\PutInventory' {instanceId} -> instanceId) (\s@PutInventory' {} a -> s {instanceId = a} :: PutInventory)
 
 -- | The inventory items that you want to add or update on instances.
-piItems :: Lens' PutInventory (NonEmpty InventoryItem)
-piItems = lens _piItems (\s a -> s {_piItems = a}) . _List1
+putInventory_items :: Lens.Lens' PutInventory (Prelude.NonEmpty InventoryItem)
+putInventory_items = Lens.lens (\PutInventory' {items} -> items) (\s@PutInventory' {} a -> s {items = a} :: PutInventory) Prelude.. Prelude._List1
 
-instance AWSRequest PutInventory where
+instance Prelude.AWSRequest PutInventory where
   type Rs PutInventory = PutInventoryResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutInventoryResponse'
-            <$> (x .?> "Message") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Message")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutInventory
+instance Prelude.Hashable PutInventory
 
-instance NFData PutInventory
+instance Prelude.NFData PutInventory
 
-instance ToHeaders PutInventory where
+instance Prelude.ToHeaders PutInventory where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.PutInventory" :: ByteString),
+              Prelude.=# ("AmazonSSM.PutInventory" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutInventory where
+instance Prelude.ToJSON PutInventory where
   toJSON PutInventory' {..} =
-    object
-      ( catMaybes
-          [ Just ("InstanceId" .= _piInstanceId),
-            Just ("Items" .= _piItems)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("InstanceId" Prelude..= instanceId),
+            Prelude.Just ("Items" Prelude..= items)
           ]
       )
 
-instance ToPath PutInventory where
-  toPath = const "/"
+instance Prelude.ToPath PutInventory where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutInventory where
-  toQuery = const mempty
+instance Prelude.ToQuery PutInventory where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putInventoryResponse' smart constructor.
+-- | /See:/ 'newPutInventoryResponse' smart constructor.
 data PutInventoryResponse = PutInventoryResponse'
-  { _pirrsMessage ::
-      !(Maybe Text),
-    _pirrsResponseStatus :: !Int
+  { -- | Information about the request.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutInventoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutInventoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pirrsMessage' - Information about the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pirrsResponseStatus' - -- | The response status code.
-putInventoryResponse ::
-  -- | 'pirrsResponseStatus'
-  Int ->
+-- 'message', 'putInventoryResponse_message' - Information about the request.
+--
+-- 'httpStatus', 'putInventoryResponse_httpStatus' - The response's http status code.
+newPutInventoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutInventoryResponse
-putInventoryResponse pResponseStatus_ =
+newPutInventoryResponse pHttpStatus_ =
   PutInventoryResponse'
-    { _pirrsMessage = Nothing,
-      _pirrsResponseStatus = pResponseStatus_
+    { message = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the request.
-pirrsMessage :: Lens' PutInventoryResponse (Maybe Text)
-pirrsMessage = lens _pirrsMessage (\s a -> s {_pirrsMessage = a})
+putInventoryResponse_message :: Lens.Lens' PutInventoryResponse (Prelude.Maybe Prelude.Text)
+putInventoryResponse_message = Lens.lens (\PutInventoryResponse' {message} -> message) (\s@PutInventoryResponse' {} a -> s {message = a} :: PutInventoryResponse)
 
--- | -- | The response status code.
-pirrsResponseStatus :: Lens' PutInventoryResponse Int
-pirrsResponseStatus = lens _pirrsResponseStatus (\s a -> s {_pirrsResponseStatus = a})
+-- | The response's http status code.
+putInventoryResponse_httpStatus :: Lens.Lens' PutInventoryResponse Prelude.Int
+putInventoryResponse_httpStatus = Lens.lens (\PutInventoryResponse' {httpStatus} -> httpStatus) (\s@PutInventoryResponse' {} a -> s {httpStatus = a} :: PutInventoryResponse)
 
-instance NFData PutInventoryResponse
+instance Prelude.NFData PutInventoryResponse

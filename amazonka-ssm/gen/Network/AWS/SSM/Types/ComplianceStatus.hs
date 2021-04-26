@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SSM.Types.ComplianceStatus
   ( ComplianceStatus
       ( ..,
-        Compliant,
-        NonCompliant
+        ComplianceStatusCOMPLIANT,
+        ComplianceStatusNONCOMPLIANT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComplianceStatus = ComplianceStatus' (CI Text)
+newtype ComplianceStatus = ComplianceStatus'
+  { fromComplianceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Compliant :: ComplianceStatus
-pattern Compliant = ComplianceStatus' "COMPLIANT"
+pattern ComplianceStatusCOMPLIANT :: ComplianceStatus
+pattern ComplianceStatusCOMPLIANT = ComplianceStatus' "COMPLIANT"
 
-pattern NonCompliant :: ComplianceStatus
-pattern NonCompliant = ComplianceStatus' "NON_COMPLIANT"
+pattern ComplianceStatusNONCOMPLIANT :: ComplianceStatus
+pattern ComplianceStatusNONCOMPLIANT = ComplianceStatus' "NON_COMPLIANT"
 
 {-# COMPLETE
-  Compliant,
-  NonCompliant,
+  ComplianceStatusCOMPLIANT,
+  ComplianceStatusNONCOMPLIANT,
   ComplianceStatus'
   #-}
 
-instance FromText ComplianceStatus where
-  parser = (ComplianceStatus' . mk) <$> takeText
+instance Prelude.FromText ComplianceStatus where
+  parser = ComplianceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ComplianceStatus where
-  toText (ComplianceStatus' ci) = original ci
+instance Prelude.ToText ComplianceStatus where
+  toText (ComplianceStatus' x) = x
 
-instance Hashable ComplianceStatus
+instance Prelude.Hashable ComplianceStatus
 
-instance NFData ComplianceStatus
+instance Prelude.NFData ComplianceStatus
 
-instance ToByteString ComplianceStatus
+instance Prelude.ToByteString ComplianceStatus
 
-instance ToQuery ComplianceStatus
+instance Prelude.ToQuery ComplianceStatus
 
-instance ToHeader ComplianceStatus
+instance Prelude.ToHeader ComplianceStatus
 
-instance ToJSON ComplianceStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComplianceStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ComplianceStatus where
-  parseJSON = parseJSONText "ComplianceStatus"
+instance Prelude.FromJSON ComplianceStatus where
+  parseJSON = Prelude.parseJSONText "ComplianceStatus"

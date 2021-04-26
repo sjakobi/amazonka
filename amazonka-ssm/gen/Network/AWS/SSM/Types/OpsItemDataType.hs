@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SSM.Types.OpsItemDataType
   ( OpsItemDataType
       ( ..,
-        OIDTSearchableString,
-        OIDTString
+        OpsItemDataTypeSearchableString,
+        OpsItemDataTypeString
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OpsItemDataType = OpsItemDataType' (CI Text)
+newtype OpsItemDataType = OpsItemDataType'
+  { fromOpsItemDataType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OIDTSearchableString :: OpsItemDataType
-pattern OIDTSearchableString = OpsItemDataType' "SearchableString"
+pattern OpsItemDataTypeSearchableString :: OpsItemDataType
+pattern OpsItemDataTypeSearchableString = OpsItemDataType' "SearchableString"
 
-pattern OIDTString :: OpsItemDataType
-pattern OIDTString = OpsItemDataType' "String"
+pattern OpsItemDataTypeString :: OpsItemDataType
+pattern OpsItemDataTypeString = OpsItemDataType' "String"
 
 {-# COMPLETE
-  OIDTSearchableString,
-  OIDTString,
+  OpsItemDataTypeSearchableString,
+  OpsItemDataTypeString,
   OpsItemDataType'
   #-}
 
-instance FromText OpsItemDataType where
-  parser = (OpsItemDataType' . mk) <$> takeText
+instance Prelude.FromText OpsItemDataType where
+  parser = OpsItemDataType' Prelude.<$> Prelude.takeText
 
-instance ToText OpsItemDataType where
-  toText (OpsItemDataType' ci) = original ci
+instance Prelude.ToText OpsItemDataType where
+  toText (OpsItemDataType' x) = x
 
-instance Hashable OpsItemDataType
+instance Prelude.Hashable OpsItemDataType
 
-instance NFData OpsItemDataType
+instance Prelude.NFData OpsItemDataType
 
-instance ToByteString OpsItemDataType
+instance Prelude.ToByteString OpsItemDataType
 
-instance ToQuery OpsItemDataType
+instance Prelude.ToQuery OpsItemDataType
 
-instance ToHeader OpsItemDataType
+instance Prelude.ToHeader OpsItemDataType
 
-instance ToJSON OpsItemDataType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OpsItemDataType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OpsItemDataType where
-  parseJSON = parseJSONText "OpsItemDataType"
+instance Prelude.FromJSON OpsItemDataType where
+  parseJSON = Prelude.parseJSONText "OpsItemDataType"

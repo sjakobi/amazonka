@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.SSM.Types.SessionStatus
   ( SessionStatus
       ( ..,
-        SSConnected,
-        SSConnecting,
-        SSDisconnected,
-        SSFailed,
-        SSTerminated,
-        SSTerminating
+        SessionStatusConnected,
+        SessionStatusConnecting,
+        SessionStatusDisconnected,
+        SessionStatusFailed,
+        SessionStatusTerminated,
+        SessionStatusTerminating
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SessionStatus = SessionStatus' (CI Text)
+newtype SessionStatus = SessionStatus'
+  { fromSessionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSConnected :: SessionStatus
-pattern SSConnected = SessionStatus' "Connected"
+pattern SessionStatusConnected :: SessionStatus
+pattern SessionStatusConnected = SessionStatus' "Connected"
 
-pattern SSConnecting :: SessionStatus
-pattern SSConnecting = SessionStatus' "Connecting"
+pattern SessionStatusConnecting :: SessionStatus
+pattern SessionStatusConnecting = SessionStatus' "Connecting"
 
-pattern SSDisconnected :: SessionStatus
-pattern SSDisconnected = SessionStatus' "Disconnected"
+pattern SessionStatusDisconnected :: SessionStatus
+pattern SessionStatusDisconnected = SessionStatus' "Disconnected"
 
-pattern SSFailed :: SessionStatus
-pattern SSFailed = SessionStatus' "Failed"
+pattern SessionStatusFailed :: SessionStatus
+pattern SessionStatusFailed = SessionStatus' "Failed"
 
-pattern SSTerminated :: SessionStatus
-pattern SSTerminated = SessionStatus' "Terminated"
+pattern SessionStatusTerminated :: SessionStatus
+pattern SessionStatusTerminated = SessionStatus' "Terminated"
 
-pattern SSTerminating :: SessionStatus
-pattern SSTerminating = SessionStatus' "Terminating"
+pattern SessionStatusTerminating :: SessionStatus
+pattern SessionStatusTerminating = SessionStatus' "Terminating"
 
 {-# COMPLETE
-  SSConnected,
-  SSConnecting,
-  SSDisconnected,
-  SSFailed,
-  SSTerminated,
-  SSTerminating,
+  SessionStatusConnected,
+  SessionStatusConnecting,
+  SessionStatusDisconnected,
+  SessionStatusFailed,
+  SessionStatusTerminated,
+  SessionStatusTerminating,
   SessionStatus'
   #-}
 
-instance FromText SessionStatus where
-  parser = (SessionStatus' . mk) <$> takeText
+instance Prelude.FromText SessionStatus where
+  parser = SessionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SessionStatus where
-  toText (SessionStatus' ci) = original ci
+instance Prelude.ToText SessionStatus where
+  toText (SessionStatus' x) = x
 
-instance Hashable SessionStatus
+instance Prelude.Hashable SessionStatus
 
-instance NFData SessionStatus
+instance Prelude.NFData SessionStatus
 
-instance ToByteString SessionStatus
+instance Prelude.ToByteString SessionStatus
 
-instance ToQuery SessionStatus
+instance Prelude.ToQuery SessionStatus
 
-instance ToHeader SessionStatus
+instance Prelude.ToHeader SessionStatus
 
-instance FromJSON SessionStatus where
-  parseJSON = parseJSONText "SessionStatus"
+instance Prelude.FromJSON SessionStatus where
+  parseJSON = Prelude.parseJSONText "SessionStatus"

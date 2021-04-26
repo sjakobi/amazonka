@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a Resource Data Sync configuration. After the configuration is deleted, changes to data on managed instances are no longer synced to or from the target. Deleting a sync configuration does not delete data.
+-- Deletes a Resource Data Sync configuration. After the configuration is
+-- deleted, changes to data on managed instances are no longer synced to or
+-- from the target. Deleting a sync configuration does not delete data.
 module Network.AWS.SSM.DeleteResourceDataSync
   ( -- * Creating a Request
-    deleteResourceDataSync,
-    DeleteResourceDataSync,
+    DeleteResourceDataSync (..),
+    newDeleteResourceDataSync,
 
     -- * Request Lenses
-    drdsSyncType,
-    drdsSyncName,
+    deleteResourceDataSync_syncType,
+    deleteResourceDataSync_syncName,
 
     -- * Destructuring the Response
-    deleteResourceDataSyncResponse,
-    DeleteResourceDataSyncResponse,
+    DeleteResourceDataSyncResponse (..),
+    newDeleteResourceDataSyncResponse,
 
     -- * Response Lenses
-    drdsrrsResponseStatus,
+    deleteResourceDataSyncResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'deleteResourceDataSync' smart constructor.
+-- | /See:/ 'newDeleteResourceDataSync' smart constructor.
 data DeleteResourceDataSync = DeleteResourceDataSync'
-  { _drdsSyncType ::
-      !(Maybe Text),
-    _drdsSyncName :: !Text
+  { -- | Specify the type of resource data sync to delete.
+    syncType :: Prelude.Maybe Prelude.Text,
+    -- | The name of the configuration to delete.
+    syncName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourceDataSync' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteResourceDataSync' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drdsSyncType' - Specify the type of resource data sync to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drdsSyncName' - The name of the configuration to delete.
-deleteResourceDataSync ::
-  -- | 'drdsSyncName'
-  Text ->
+-- 'syncType', 'deleteResourceDataSync_syncType' - Specify the type of resource data sync to delete.
+--
+-- 'syncName', 'deleteResourceDataSync_syncName' - The name of the configuration to delete.
+newDeleteResourceDataSync ::
+  -- | 'syncName'
+  Prelude.Text ->
   DeleteResourceDataSync
-deleteResourceDataSync pSyncName_ =
+newDeleteResourceDataSync pSyncName_ =
   DeleteResourceDataSync'
-    { _drdsSyncType = Nothing,
-      _drdsSyncName = pSyncName_
+    { syncType = Prelude.Nothing,
+      syncName = pSyncName_
     }
 
 -- | Specify the type of resource data sync to delete.
-drdsSyncType :: Lens' DeleteResourceDataSync (Maybe Text)
-drdsSyncType = lens _drdsSyncType (\s a -> s {_drdsSyncType = a})
+deleteResourceDataSync_syncType :: Lens.Lens' DeleteResourceDataSync (Prelude.Maybe Prelude.Text)
+deleteResourceDataSync_syncType = Lens.lens (\DeleteResourceDataSync' {syncType} -> syncType) (\s@DeleteResourceDataSync' {} a -> s {syncType = a} :: DeleteResourceDataSync)
 
 -- | The name of the configuration to delete.
-drdsSyncName :: Lens' DeleteResourceDataSync Text
-drdsSyncName = lens _drdsSyncName (\s a -> s {_drdsSyncName = a})
+deleteResourceDataSync_syncName :: Lens.Lens' DeleteResourceDataSync Prelude.Text
+deleteResourceDataSync_syncName = Lens.lens (\DeleteResourceDataSync' {syncName} -> syncName) (\s@DeleteResourceDataSync' {} a -> s {syncName = a} :: DeleteResourceDataSync)
 
-instance AWSRequest DeleteResourceDataSync where
+instance Prelude.AWSRequest DeleteResourceDataSync where
   type
     Rs DeleteResourceDataSync =
       DeleteResourceDataSyncResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteResourceDataSyncResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteResourceDataSync
+instance Prelude.Hashable DeleteResourceDataSync
 
-instance NFData DeleteResourceDataSync
+instance Prelude.NFData DeleteResourceDataSync
 
-instance ToHeaders DeleteResourceDataSync where
+instance Prelude.ToHeaders DeleteResourceDataSync where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.DeleteResourceDataSync" :: ByteString),
+              Prelude.=# ( "AmazonSSM.DeleteResourceDataSync" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteResourceDataSync where
+instance Prelude.ToJSON DeleteResourceDataSync where
   toJSON DeleteResourceDataSync' {..} =
-    object
-      ( catMaybes
-          [ ("SyncType" .=) <$> _drdsSyncType,
-            Just ("SyncName" .= _drdsSyncName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SyncType" Prelude..=) Prelude.<$> syncType,
+            Prelude.Just ("SyncName" Prelude..= syncName)
           ]
       )
 
-instance ToPath DeleteResourceDataSync where
-  toPath = const "/"
+instance Prelude.ToPath DeleteResourceDataSync where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteResourceDataSync where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteResourceDataSync where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteResourceDataSyncResponse' smart constructor.
-newtype DeleteResourceDataSyncResponse = DeleteResourceDataSyncResponse'
-  { _drdsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteResourceDataSyncResponse' smart constructor.
+data DeleteResourceDataSyncResponse = DeleteResourceDataSyncResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourceDataSyncResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteResourceDataSyncResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drdsrrsResponseStatus' - -- | The response status code.
-deleteResourceDataSyncResponse ::
-  -- | 'drdsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteResourceDataSyncResponse_httpStatus' - The response's http status code.
+newDeleteResourceDataSyncResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteResourceDataSyncResponse
-deleteResourceDataSyncResponse pResponseStatus_ =
+newDeleteResourceDataSyncResponse pHttpStatus_ =
   DeleteResourceDataSyncResponse'
-    { _drdsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drdsrrsResponseStatus :: Lens' DeleteResourceDataSyncResponse Int
-drdsrrsResponseStatus = lens _drdsrrsResponseStatus (\s a -> s {_drdsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteResourceDataSyncResponse_httpStatus :: Lens.Lens' DeleteResourceDataSyncResponse Prelude.Int
+deleteResourceDataSyncResponse_httpStatus = Lens.lens (\DeleteResourceDataSyncResponse' {httpStatus} -> httpStatus) (\s@DeleteResourceDataSyncResponse' {} a -> s {httpStatus = a} :: DeleteResourceDataSyncResponse)
 
-instance NFData DeleteResourceDataSyncResponse
+instance
+  Prelude.NFData
+    DeleteResourceDataSyncResponse

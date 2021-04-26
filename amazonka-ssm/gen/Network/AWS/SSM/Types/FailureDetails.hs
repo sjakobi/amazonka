@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.FailureDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an Automation failure.
 --
---
---
--- /See:/ 'failureDetails' smart constructor.
+-- /See:/ 'newFailureDetails' smart constructor.
 data FailureDetails = FailureDetails'
-  { _fdDetails ::
-      !(Maybe (Map Text [Text])),
-    _fdFailureStage :: !(Maybe Text),
-    _fdFailureType :: !(Maybe Text)
+  { -- | Detailed information about the Automation step failure.
+    details :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The stage of the Automation execution when the failure occurred. The
+    -- stages include the following: InputValidation, PreVerification,
+    -- Invocation, PostVerification.
+    failureStage :: Prelude.Maybe Prelude.Text,
+    -- | The type of Automation failure. Failure types include the following:
+    -- Action, Permission, Throttling, Verification, Internal.
+    failureType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailureDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailureDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdDetails' - Detailed information about the Automation step failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fdFailureStage' - The stage of the Automation execution when the failure occurred. The stages include the following: InputValidation, PreVerification, Invocation, PostVerification.
+-- 'details', 'failureDetails_details' - Detailed information about the Automation step failure.
 --
--- * 'fdFailureType' - The type of Automation failure. Failure types include the following: Action, Permission, Throttling, Verification, Internal.
-failureDetails ::
+-- 'failureStage', 'failureDetails_failureStage' - The stage of the Automation execution when the failure occurred. The
+-- stages include the following: InputValidation, PreVerification,
+-- Invocation, PostVerification.
+--
+-- 'failureType', 'failureDetails_failureType' - The type of Automation failure. Failure types include the following:
+-- Action, Permission, Throttling, Verification, Internal.
+newFailureDetails ::
   FailureDetails
-failureDetails =
+newFailureDetails =
   FailureDetails'
-    { _fdDetails = Nothing,
-      _fdFailureStage = Nothing,
-      _fdFailureType = Nothing
+    { details = Prelude.Nothing,
+      failureStage = Prelude.Nothing,
+      failureType = Prelude.Nothing
     }
 
 -- | Detailed information about the Automation step failure.
-fdDetails :: Lens' FailureDetails (HashMap Text [Text])
-fdDetails = lens _fdDetails (\s a -> s {_fdDetails = a}) . _Default . _Map
+failureDetails_details :: Lens.Lens' FailureDetails (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+failureDetails_details = Lens.lens (\FailureDetails' {details} -> details) (\s@FailureDetails' {} a -> s {details = a} :: FailureDetails) Prelude.. Lens.mapping Prelude._Map
 
--- | The stage of the Automation execution when the failure occurred. The stages include the following: InputValidation, PreVerification, Invocation, PostVerification.
-fdFailureStage :: Lens' FailureDetails (Maybe Text)
-fdFailureStage = lens _fdFailureStage (\s a -> s {_fdFailureStage = a})
+-- | The stage of the Automation execution when the failure occurred. The
+-- stages include the following: InputValidation, PreVerification,
+-- Invocation, PostVerification.
+failureDetails_failureStage :: Lens.Lens' FailureDetails (Prelude.Maybe Prelude.Text)
+failureDetails_failureStage = Lens.lens (\FailureDetails' {failureStage} -> failureStage) (\s@FailureDetails' {} a -> s {failureStage = a} :: FailureDetails)
 
--- | The type of Automation failure. Failure types include the following: Action, Permission, Throttling, Verification, Internal.
-fdFailureType :: Lens' FailureDetails (Maybe Text)
-fdFailureType = lens _fdFailureType (\s a -> s {_fdFailureType = a})
+-- | The type of Automation failure. Failure types include the following:
+-- Action, Permission, Throttling, Verification, Internal.
+failureDetails_failureType :: Lens.Lens' FailureDetails (Prelude.Maybe Prelude.Text)
+failureDetails_failureType = Lens.lens (\FailureDetails' {failureType} -> failureType) (\s@FailureDetails' {} a -> s {failureType = a} :: FailureDetails)
 
-instance FromJSON FailureDetails where
+instance Prelude.FromJSON FailureDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FailureDetails"
       ( \x ->
           FailureDetails'
-            <$> (x .:? "Details" .!= mempty)
-            <*> (x .:? "FailureStage")
-            <*> (x .:? "FailureType")
+            Prelude.<$> (x Prelude..:? "Details" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "FailureStage")
+            Prelude.<*> (x Prelude..:? "FailureType")
       )
 
-instance Hashable FailureDetails
+instance Prelude.Hashable FailureDetails
 
-instance NFData FailureDetails
+instance Prelude.NFData FailureDetails

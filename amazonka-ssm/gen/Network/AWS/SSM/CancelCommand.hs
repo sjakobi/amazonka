@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,149 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Attempts to cancel the command specified by the Command ID. There is no guarantee that the command will be terminated and the underlying process stopped.
+-- Attempts to cancel the command specified by the Command ID. There is no
+-- guarantee that the command will be terminated and the underlying process
+-- stopped.
 module Network.AWS.SSM.CancelCommand
   ( -- * Creating a Request
-    cancelCommand,
-    CancelCommand,
+    CancelCommand (..),
+    newCancelCommand,
 
     -- * Request Lenses
-    ccInstanceIds,
-    ccCommandId,
+    cancelCommand_instanceIds,
+    cancelCommand_commandId,
 
     -- * Destructuring the Response
-    cancelCommandResponse,
-    CancelCommandResponse,
+    CancelCommandResponse (..),
+    newCancelCommandResponse,
 
     -- * Response Lenses
-    ccrrsResponseStatus,
+    cancelCommandResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
 -- |
 --
---
---
--- /See:/ 'cancelCommand' smart constructor.
+-- /See:/ 'newCancelCommand' smart constructor.
 data CancelCommand = CancelCommand'
-  { _ccInstanceIds ::
-      !(Maybe [Text]),
-    _ccCommandId :: !Text
+  { -- | (Optional) A list of instance IDs on which you want to cancel the
+    -- command. If not provided, the command is canceled on every instance on
+    -- which it was requested.
+    instanceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The ID of the command you want to cancel.
+    commandId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelCommand' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelCommand' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccInstanceIds' - (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is canceled on every instance on which it was requested.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccCommandId' - The ID of the command you want to cancel.
-cancelCommand ::
-  -- | 'ccCommandId'
-  Text ->
+-- 'instanceIds', 'cancelCommand_instanceIds' - (Optional) A list of instance IDs on which you want to cancel the
+-- command. If not provided, the command is canceled on every instance on
+-- which it was requested.
+--
+-- 'commandId', 'cancelCommand_commandId' - The ID of the command you want to cancel.
+newCancelCommand ::
+  -- | 'commandId'
+  Prelude.Text ->
   CancelCommand
-cancelCommand pCommandId_ =
+newCancelCommand pCommandId_ =
   CancelCommand'
-    { _ccInstanceIds = Nothing,
-      _ccCommandId = pCommandId_
+    { instanceIds = Prelude.Nothing,
+      commandId = pCommandId_
     }
 
--- | (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is canceled on every instance on which it was requested.
-ccInstanceIds :: Lens' CancelCommand [Text]
-ccInstanceIds = lens _ccInstanceIds (\s a -> s {_ccInstanceIds = a}) . _Default . _Coerce
+-- | (Optional) A list of instance IDs on which you want to cancel the
+-- command. If not provided, the command is canceled on every instance on
+-- which it was requested.
+cancelCommand_instanceIds :: Lens.Lens' CancelCommand (Prelude.Maybe [Prelude.Text])
+cancelCommand_instanceIds = Lens.lens (\CancelCommand' {instanceIds} -> instanceIds) (\s@CancelCommand' {} a -> s {instanceIds = a} :: CancelCommand) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the command you want to cancel.
-ccCommandId :: Lens' CancelCommand Text
-ccCommandId = lens _ccCommandId (\s a -> s {_ccCommandId = a})
+cancelCommand_commandId :: Lens.Lens' CancelCommand Prelude.Text
+cancelCommand_commandId = Lens.lens (\CancelCommand' {commandId} -> commandId) (\s@CancelCommand' {} a -> s {commandId = a} :: CancelCommand)
 
-instance AWSRequest CancelCommand where
+instance Prelude.AWSRequest CancelCommand where
   type Rs CancelCommand = CancelCommandResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CancelCommandResponse' <$> (pure (fromEnum s))
+          CancelCommandResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelCommand
+instance Prelude.Hashable CancelCommand
 
-instance NFData CancelCommand
+instance Prelude.NFData CancelCommand
 
-instance ToHeaders CancelCommand where
+instance Prelude.ToHeaders CancelCommand where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.CancelCommand" :: ByteString),
+              Prelude.=# ("AmazonSSM.CancelCommand" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CancelCommand where
+instance Prelude.ToJSON CancelCommand where
   toJSON CancelCommand' {..} =
-    object
-      ( catMaybes
-          [ ("InstanceIds" .=) <$> _ccInstanceIds,
-            Just ("CommandId" .= _ccCommandId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InstanceIds" Prelude..=) Prelude.<$> instanceIds,
+            Prelude.Just ("CommandId" Prelude..= commandId)
           ]
       )
 
-instance ToPath CancelCommand where
-  toPath = const "/"
+instance Prelude.ToPath CancelCommand where
+  toPath = Prelude.const "/"
 
-instance ToQuery CancelCommand where
-  toQuery = const mempty
+instance Prelude.ToQuery CancelCommand where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Whether or not the command was successfully canceled. There is no guarantee that a request can be canceled.
+-- | Whether or not the command was successfully canceled. There is no
+-- guarantee that a request can be canceled.
 --
---
---
--- /See:/ 'cancelCommandResponse' smart constructor.
-newtype CancelCommandResponse = CancelCommandResponse'
-  { _ccrrsResponseStatus ::
-      Int
+-- /See:/ 'newCancelCommandResponse' smart constructor.
+data CancelCommandResponse = CancelCommandResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelCommandResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelCommandResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrrsResponseStatus' - -- | The response status code.
-cancelCommandResponse ::
-  -- | 'ccrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'cancelCommandResponse_httpStatus' - The response's http status code.
+newCancelCommandResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelCommandResponse
-cancelCommandResponse pResponseStatus_ =
-  CancelCommandResponse'
-    { _ccrrsResponseStatus =
-        pResponseStatus_
-    }
+newCancelCommandResponse pHttpStatus_ =
+  CancelCommandResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ccrrsResponseStatus :: Lens' CancelCommandResponse Int
-ccrrsResponseStatus = lens _ccrrsResponseStatus (\s a -> s {_ccrrsResponseStatus = a})
+-- | The response's http status code.
+cancelCommandResponse_httpStatus :: Lens.Lens' CancelCommandResponse Prelude.Int
+cancelCommandResponse_httpStatus = Lens.lens (\CancelCommandResponse' {httpStatus} -> httpStatus) (\s@CancelCommandResponse' {} a -> s {httpStatus = a} :: CancelCommandResponse)
 
-instance NFData CancelCommandResponse
+instance Prelude.NFData CancelCommandResponse

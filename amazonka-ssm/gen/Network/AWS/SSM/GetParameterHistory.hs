@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,191 +23,230 @@
 --
 -- Retrieves the history of all changes to a parameter.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SSM.GetParameterHistory
   ( -- * Creating a Request
-    getParameterHistory,
-    GetParameterHistory,
+    GetParameterHistory (..),
+    newGetParameterHistory,
 
     -- * Request Lenses
-    gphWithDecryption,
-    gphNextToken,
-    gphMaxResults,
-    gphName,
+    getParameterHistory_withDecryption,
+    getParameterHistory_nextToken,
+    getParameterHistory_maxResults,
+    getParameterHistory_name,
 
     -- * Destructuring the Response
-    getParameterHistoryResponse,
-    GetParameterHistoryResponse,
+    GetParameterHistoryResponse (..),
+    newGetParameterHistoryResponse,
 
     -- * Response Lenses
-    gphrrsNextToken,
-    gphrrsParameters,
-    gphrrsResponseStatus,
+    getParameterHistoryResponse_nextToken,
+    getParameterHistoryResponse_parameters,
+    getParameterHistoryResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.ParameterHistory
 
--- | /See:/ 'getParameterHistory' smart constructor.
+-- | /See:/ 'newGetParameterHistory' smart constructor.
 data GetParameterHistory = GetParameterHistory'
-  { _gphWithDecryption ::
-      !(Maybe Bool),
-    _gphNextToken :: !(Maybe Text),
-    _gphMaxResults :: !(Maybe Nat),
-    _gphName :: !Text
+  { -- | Return decrypted values for secure string parameters. This flag is
+    -- ignored for String and StringList parameter types.
+    withDecryption :: Prelude.Maybe Prelude.Bool,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the parameter for which you want to review history.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetParameterHistory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetParameterHistory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gphWithDecryption' - Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter types.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gphNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- 'withDecryption', 'getParameterHistory_withDecryption' - Return decrypted values for secure string parameters. This flag is
+-- ignored for String and StringList parameter types.
 --
--- * 'gphMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'getParameterHistory_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'gphName' - The name of the parameter for which you want to review history.
-getParameterHistory ::
-  -- | 'gphName'
-  Text ->
+-- 'maxResults', 'getParameterHistory_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+--
+-- 'name', 'getParameterHistory_name' - The name of the parameter for which you want to review history.
+newGetParameterHistory ::
+  -- | 'name'
+  Prelude.Text ->
   GetParameterHistory
-getParameterHistory pName_ =
+newGetParameterHistory pName_ =
   GetParameterHistory'
-    { _gphWithDecryption = Nothing,
-      _gphNextToken = Nothing,
-      _gphMaxResults = Nothing,
-      _gphName = pName_
+    { withDecryption =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      name = pName_
     }
 
--- | Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter types.
-gphWithDecryption :: Lens' GetParameterHistory (Maybe Bool)
-gphWithDecryption = lens _gphWithDecryption (\s a -> s {_gphWithDecryption = a})
+-- | Return decrypted values for secure string parameters. This flag is
+-- ignored for String and StringList parameter types.
+getParameterHistory_withDecryption :: Lens.Lens' GetParameterHistory (Prelude.Maybe Prelude.Bool)
+getParameterHistory_withDecryption = Lens.lens (\GetParameterHistory' {withDecryption} -> withDecryption) (\s@GetParameterHistory' {} a -> s {withDecryption = a} :: GetParameterHistory)
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-gphNextToken :: Lens' GetParameterHistory (Maybe Text)
-gphNextToken = lens _gphNextToken (\s a -> s {_gphNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+getParameterHistory_nextToken :: Lens.Lens' GetParameterHistory (Prelude.Maybe Prelude.Text)
+getParameterHistory_nextToken = Lens.lens (\GetParameterHistory' {nextToken} -> nextToken) (\s@GetParameterHistory' {} a -> s {nextToken = a} :: GetParameterHistory)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-gphMaxResults :: Lens' GetParameterHistory (Maybe Natural)
-gphMaxResults = lens _gphMaxResults (\s a -> s {_gphMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+getParameterHistory_maxResults :: Lens.Lens' GetParameterHistory (Prelude.Maybe Prelude.Natural)
+getParameterHistory_maxResults = Lens.lens (\GetParameterHistory' {maxResults} -> maxResults) (\s@GetParameterHistory' {} a -> s {maxResults = a} :: GetParameterHistory) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the parameter for which you want to review history.
-gphName :: Lens' GetParameterHistory Text
-gphName = lens _gphName (\s a -> s {_gphName = a})
+getParameterHistory_name :: Lens.Lens' GetParameterHistory Prelude.Text
+getParameterHistory_name = Lens.lens (\GetParameterHistory' {name} -> name) (\s@GetParameterHistory' {} a -> s {name = a} :: GetParameterHistory)
 
-instance AWSPager GetParameterHistory where
+instance Pager.AWSPager GetParameterHistory where
   page rq rs
-    | stop (rs ^. gphrrsNextToken) = Nothing
-    | stop (rs ^. gphrrsParameters) = Nothing
-    | otherwise =
-      Just $ rq & gphNextToken .~ rs ^. gphrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getParameterHistoryResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getParameterHistoryResponse_parameters
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getParameterHistory_nextToken
+          Lens..~ rs
+          Lens.^? getParameterHistoryResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetParameterHistory where
+instance Prelude.AWSRequest GetParameterHistory where
   type
     Rs GetParameterHistory =
       GetParameterHistoryResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetParameterHistoryResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Parameters" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Parameters"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetParameterHistory
+instance Prelude.Hashable GetParameterHistory
 
-instance NFData GetParameterHistory
+instance Prelude.NFData GetParameterHistory
 
-instance ToHeaders GetParameterHistory where
+instance Prelude.ToHeaders GetParameterHistory where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.GetParameterHistory" :: ByteString),
+              Prelude.=# ( "AmazonSSM.GetParameterHistory" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetParameterHistory where
+instance Prelude.ToJSON GetParameterHistory where
   toJSON GetParameterHistory' {..} =
-    object
-      ( catMaybes
-          [ ("WithDecryption" .=) <$> _gphWithDecryption,
-            ("NextToken" .=) <$> _gphNextToken,
-            ("MaxResults" .=) <$> _gphMaxResults,
-            Just ("Name" .= _gphName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("WithDecryption" Prelude..=)
+              Prelude.<$> withDecryption,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath GetParameterHistory where
-  toPath = const "/"
+instance Prelude.ToPath GetParameterHistory where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetParameterHistory where
-  toQuery = const mempty
+instance Prelude.ToQuery GetParameterHistory where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getParameterHistoryResponse' smart constructor.
+-- | /See:/ 'newGetParameterHistoryResponse' smart constructor.
 data GetParameterHistoryResponse = GetParameterHistoryResponse'
-  { _gphrrsNextToken ::
-      !(Maybe Text),
-    _gphrrsParameters ::
-      !( Maybe
-           [ParameterHistory]
-       ),
-    _gphrrsResponseStatus ::
-      !Int
+  { -- | The token to use when requesting the next set of items. If there are no
+    -- additional items to return, the string is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of parameters returned by the request.
+    parameters :: Prelude.Maybe [ParameterHistory],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetParameterHistoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetParameterHistoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gphrrsNextToken' - The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gphrrsParameters' - A list of parameters returned by the request.
+-- 'nextToken', 'getParameterHistoryResponse_nextToken' - The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
 --
--- * 'gphrrsResponseStatus' - -- | The response status code.
-getParameterHistoryResponse ::
-  -- | 'gphrrsResponseStatus'
-  Int ->
+-- 'parameters', 'getParameterHistoryResponse_parameters' - A list of parameters returned by the request.
+--
+-- 'httpStatus', 'getParameterHistoryResponse_httpStatus' - The response's http status code.
+newGetParameterHistoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetParameterHistoryResponse
-getParameterHistoryResponse pResponseStatus_ =
+newGetParameterHistoryResponse pHttpStatus_ =
   GetParameterHistoryResponse'
-    { _gphrrsNextToken =
-        Nothing,
-      _gphrrsParameters = Nothing,
-      _gphrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
-gphrrsNextToken :: Lens' GetParameterHistoryResponse (Maybe Text)
-gphrrsNextToken = lens _gphrrsNextToken (\s a -> s {_gphrrsNextToken = a})
+-- | The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+getParameterHistoryResponse_nextToken :: Lens.Lens' GetParameterHistoryResponse (Prelude.Maybe Prelude.Text)
+getParameterHistoryResponse_nextToken = Lens.lens (\GetParameterHistoryResponse' {nextToken} -> nextToken) (\s@GetParameterHistoryResponse' {} a -> s {nextToken = a} :: GetParameterHistoryResponse)
 
 -- | A list of parameters returned by the request.
-gphrrsParameters :: Lens' GetParameterHistoryResponse [ParameterHistory]
-gphrrsParameters = lens _gphrrsParameters (\s a -> s {_gphrrsParameters = a}) . _Default . _Coerce
+getParameterHistoryResponse_parameters :: Lens.Lens' GetParameterHistoryResponse (Prelude.Maybe [ParameterHistory])
+getParameterHistoryResponse_parameters = Lens.lens (\GetParameterHistoryResponse' {parameters} -> parameters) (\s@GetParameterHistoryResponse' {} a -> s {parameters = a} :: GetParameterHistoryResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gphrrsResponseStatus :: Lens' GetParameterHistoryResponse Int
-gphrrsResponseStatus = lens _gphrrsResponseStatus (\s a -> s {_gphrrsResponseStatus = a})
+-- | The response's http status code.
+getParameterHistoryResponse_httpStatus :: Lens.Lens' GetParameterHistoryResponse Prelude.Int
+getParameterHistoryResponse_httpStatus = Lens.lens (\GetParameterHistoryResponse' {httpStatus} -> httpStatus) (\s@GetParameterHistoryResponse' {} a -> s {httpStatus = a} :: GetParameterHistoryResponse)
 
-instance NFData GetParameterHistoryResponse
+instance Prelude.NFData GetParameterHistoryResponse

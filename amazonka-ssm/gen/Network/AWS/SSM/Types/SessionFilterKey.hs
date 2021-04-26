@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.SSM.Types.SessionFilterKey
   ( SessionFilterKey
       ( ..,
-        SFKInvokedAfter,
-        SFKInvokedBefore,
-        SFKOwner,
-        SFKSessionId,
-        SFKStatus,
-        SFKTarget
+        SessionFilterKeyInvokedAfter,
+        SessionFilterKeyInvokedBefore,
+        SessionFilterKeyOwner,
+        SessionFilterKeySessionId,
+        SessionFilterKeyStatus',
+        SessionFilterKeyTarget
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SessionFilterKey = SessionFilterKey' (CI Text)
+newtype SessionFilterKey = SessionFilterKey'
+  { fromSessionFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SFKInvokedAfter :: SessionFilterKey
-pattern SFKInvokedAfter = SessionFilterKey' "InvokedAfter"
+pattern SessionFilterKeyInvokedAfter :: SessionFilterKey
+pattern SessionFilterKeyInvokedAfter = SessionFilterKey' "InvokedAfter"
 
-pattern SFKInvokedBefore :: SessionFilterKey
-pattern SFKInvokedBefore = SessionFilterKey' "InvokedBefore"
+pattern SessionFilterKeyInvokedBefore :: SessionFilterKey
+pattern SessionFilterKeyInvokedBefore = SessionFilterKey' "InvokedBefore"
 
-pattern SFKOwner :: SessionFilterKey
-pattern SFKOwner = SessionFilterKey' "Owner"
+pattern SessionFilterKeyOwner :: SessionFilterKey
+pattern SessionFilterKeyOwner = SessionFilterKey' "Owner"
 
-pattern SFKSessionId :: SessionFilterKey
-pattern SFKSessionId = SessionFilterKey' "SessionId"
+pattern SessionFilterKeySessionId :: SessionFilterKey
+pattern SessionFilterKeySessionId = SessionFilterKey' "SessionId"
 
-pattern SFKStatus :: SessionFilterKey
-pattern SFKStatus = SessionFilterKey' "Status"
+pattern SessionFilterKeyStatus' :: SessionFilterKey
+pattern SessionFilterKeyStatus' = SessionFilterKey' "Status"
 
-pattern SFKTarget :: SessionFilterKey
-pattern SFKTarget = SessionFilterKey' "Target"
+pattern SessionFilterKeyTarget :: SessionFilterKey
+pattern SessionFilterKeyTarget = SessionFilterKey' "Target"
 
 {-# COMPLETE
-  SFKInvokedAfter,
-  SFKInvokedBefore,
-  SFKOwner,
-  SFKSessionId,
-  SFKStatus,
-  SFKTarget,
+  SessionFilterKeyInvokedAfter,
+  SessionFilterKeyInvokedBefore,
+  SessionFilterKeyOwner,
+  SessionFilterKeySessionId,
+  SessionFilterKeyStatus',
+  SessionFilterKeyTarget,
   SessionFilterKey'
   #-}
 
-instance FromText SessionFilterKey where
-  parser = (SessionFilterKey' . mk) <$> takeText
+instance Prelude.FromText SessionFilterKey where
+  parser = SessionFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText SessionFilterKey where
-  toText (SessionFilterKey' ci) = original ci
+instance Prelude.ToText SessionFilterKey where
+  toText (SessionFilterKey' x) = x
 
-instance Hashable SessionFilterKey
+instance Prelude.Hashable SessionFilterKey
 
-instance NFData SessionFilterKey
+instance Prelude.NFData SessionFilterKey
 
-instance ToByteString SessionFilterKey
+instance Prelude.ToByteString SessionFilterKey
 
-instance ToQuery SessionFilterKey
+instance Prelude.ToQuery SessionFilterKey
 
-instance ToHeader SessionFilterKey
+instance Prelude.ToHeader SessionFilterKey
 
-instance ToJSON SessionFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON SessionFilterKey where
+  toJSON = Prelude.toJSONText

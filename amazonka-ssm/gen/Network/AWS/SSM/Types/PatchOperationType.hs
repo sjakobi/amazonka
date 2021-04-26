@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SSM.Types.PatchOperationType
   ( PatchOperationType
       ( ..,
-        Install,
-        Scan
+        PatchOperationTypeInstall,
+        PatchOperationTypeScan
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PatchOperationType
-  = PatchOperationType'
-      ( CI
-          Text
-      )
+newtype PatchOperationType = PatchOperationType'
+  { fromPatchOperationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Install :: PatchOperationType
-pattern Install = PatchOperationType' "Install"
+pattern PatchOperationTypeInstall :: PatchOperationType
+pattern PatchOperationTypeInstall = PatchOperationType' "Install"
 
-pattern Scan :: PatchOperationType
-pattern Scan = PatchOperationType' "Scan"
+pattern PatchOperationTypeScan :: PatchOperationType
+pattern PatchOperationTypeScan = PatchOperationType' "Scan"
 
 {-# COMPLETE
-  Install,
-  Scan,
+  PatchOperationTypeInstall,
+  PatchOperationTypeScan,
   PatchOperationType'
   #-}
 
-instance FromText PatchOperationType where
-  parser = (PatchOperationType' . mk) <$> takeText
+instance Prelude.FromText PatchOperationType where
+  parser = PatchOperationType' Prelude.<$> Prelude.takeText
 
-instance ToText PatchOperationType where
-  toText (PatchOperationType' ci) = original ci
+instance Prelude.ToText PatchOperationType where
+  toText (PatchOperationType' x) = x
 
-instance Hashable PatchOperationType
+instance Prelude.Hashable PatchOperationType
 
-instance NFData PatchOperationType
+instance Prelude.NFData PatchOperationType
 
-instance ToByteString PatchOperationType
+instance Prelude.ToByteString PatchOperationType
 
-instance ToQuery PatchOperationType
+instance Prelude.ToQuery PatchOperationType
 
-instance ToHeader PatchOperationType
+instance Prelude.ToHeader PatchOperationType
 
-instance FromJSON PatchOperationType where
-  parseJSON = parseJSONText "PatchOperationType"
+instance Prelude.FromJSON PatchOperationType where
+  parseJSON = Prelude.parseJSONText "PatchOperationType"

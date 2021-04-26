@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.MaintenanceWindowIdentityForTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The maintenance window to which the specified target belongs.
 --
---
---
--- /See:/ 'maintenanceWindowIdentityForTarget' smart constructor.
+-- /See:/ 'newMaintenanceWindowIdentityForTarget' smart constructor.
 data MaintenanceWindowIdentityForTarget = MaintenanceWindowIdentityForTarget'
-  { _mwiftName ::
-      !( Maybe
-           Text
-       ),
-    _mwiftWindowId ::
-      !( Maybe
-           Text
-       )
+  { -- | The name of the maintenance window.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the maintenance window.
+    windowId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MaintenanceWindowIdentityForTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MaintenanceWindowIdentityForTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwiftName' - The name of the maintenance window.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwiftWindowId' - The ID of the maintenance window.
-maintenanceWindowIdentityForTarget ::
+-- 'name', 'maintenanceWindowIdentityForTarget_name' - The name of the maintenance window.
+--
+-- 'windowId', 'maintenanceWindowIdentityForTarget_windowId' - The ID of the maintenance window.
+newMaintenanceWindowIdentityForTarget ::
   MaintenanceWindowIdentityForTarget
-maintenanceWindowIdentityForTarget =
+newMaintenanceWindowIdentityForTarget =
   MaintenanceWindowIdentityForTarget'
-    { _mwiftName =
-        Nothing,
-      _mwiftWindowId = Nothing
+    { name =
+        Prelude.Nothing,
+      windowId = Prelude.Nothing
     }
 
 -- | The name of the maintenance window.
-mwiftName :: Lens' MaintenanceWindowIdentityForTarget (Maybe Text)
-mwiftName = lens _mwiftName (\s a -> s {_mwiftName = a})
+maintenanceWindowIdentityForTarget_name :: Lens.Lens' MaintenanceWindowIdentityForTarget (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentityForTarget_name = Lens.lens (\MaintenanceWindowIdentityForTarget' {name} -> name) (\s@MaintenanceWindowIdentityForTarget' {} a -> s {name = a} :: MaintenanceWindowIdentityForTarget)
 
 -- | The ID of the maintenance window.
-mwiftWindowId :: Lens' MaintenanceWindowIdentityForTarget (Maybe Text)
-mwiftWindowId = lens _mwiftWindowId (\s a -> s {_mwiftWindowId = a})
+maintenanceWindowIdentityForTarget_windowId :: Lens.Lens' MaintenanceWindowIdentityForTarget (Prelude.Maybe Prelude.Text)
+maintenanceWindowIdentityForTarget_windowId = Lens.lens (\MaintenanceWindowIdentityForTarget' {windowId} -> windowId) (\s@MaintenanceWindowIdentityForTarget' {} a -> s {windowId = a} :: MaintenanceWindowIdentityForTarget)
 
-instance FromJSON MaintenanceWindowIdentityForTarget where
+instance
+  Prelude.FromJSON
+    MaintenanceWindowIdentityForTarget
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MaintenanceWindowIdentityForTarget"
       ( \x ->
           MaintenanceWindowIdentityForTarget'
-            <$> (x .:? "Name") <*> (x .:? "WindowId")
+            Prelude.<$> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "WindowId")
       )
 
-instance Hashable MaintenanceWindowIdentityForTarget
+instance
+  Prelude.Hashable
+    MaintenanceWindowIdentityForTarget
 
-instance NFData MaintenanceWindowIdentityForTarget
+instance
+  Prelude.NFData
+    MaintenanceWindowIdentityForTarget

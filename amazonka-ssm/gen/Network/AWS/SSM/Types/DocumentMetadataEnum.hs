@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.SSM.Types.DocumentMetadataEnum
   ( DocumentMetadataEnum
       ( ..,
-        DocumentReviews
+        DocumentMetadataEnumDocumentReviews
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentMetadataEnum
-  = DocumentMetadataEnum'
-      ( CI
-          Text
-      )
+newtype DocumentMetadataEnum = DocumentMetadataEnum'
+  { fromDocumentMetadataEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DocumentReviews :: DocumentMetadataEnum
-pattern DocumentReviews = DocumentMetadataEnum' "DocumentReviews"
+pattern DocumentMetadataEnumDocumentReviews :: DocumentMetadataEnum
+pattern DocumentMetadataEnumDocumentReviews = DocumentMetadataEnum' "DocumentReviews"
 
 {-# COMPLETE
-  DocumentReviews,
+  DocumentMetadataEnumDocumentReviews,
   DocumentMetadataEnum'
   #-}
 
-instance FromText DocumentMetadataEnum where
-  parser = (DocumentMetadataEnum' . mk) <$> takeText
+instance Prelude.FromText DocumentMetadataEnum where
+  parser = DocumentMetadataEnum' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentMetadataEnum where
-  toText (DocumentMetadataEnum' ci) = original ci
+instance Prelude.ToText DocumentMetadataEnum where
+  toText (DocumentMetadataEnum' x) = x
 
-instance Hashable DocumentMetadataEnum
+instance Prelude.Hashable DocumentMetadataEnum
 
-instance NFData DocumentMetadataEnum
+instance Prelude.NFData DocumentMetadataEnum
 
-instance ToByteString DocumentMetadataEnum
+instance Prelude.ToByteString DocumentMetadataEnum
 
-instance ToQuery DocumentMetadataEnum
+instance Prelude.ToQuery DocumentMetadataEnum
 
-instance ToHeader DocumentMetadataEnum
+instance Prelude.ToHeader DocumentMetadataEnum
 
-instance ToJSON DocumentMetadataEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentMetadataEnum where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SSM.Types.DocumentHashType
   ( DocumentHashType
       ( ..,
-        HashSHA1,
-        HashSHA256
+        DocumentHashTypeSHA1,
+        DocumentHashTypeSHA256
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentHashType = DocumentHashType' (CI Text)
+newtype DocumentHashType = DocumentHashType'
+  { fromDocumentHashType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HashSHA1 :: DocumentHashType
-pattern HashSHA1 = DocumentHashType' "Sha1"
+pattern DocumentHashTypeSHA1 :: DocumentHashType
+pattern DocumentHashTypeSHA1 = DocumentHashType' "Sha1"
 
-pattern HashSHA256 :: DocumentHashType
-pattern HashSHA256 = DocumentHashType' "Sha256"
+pattern DocumentHashTypeSHA256 :: DocumentHashType
+pattern DocumentHashTypeSHA256 = DocumentHashType' "Sha256"
 
 {-# COMPLETE
-  HashSHA1,
-  HashSHA256,
+  DocumentHashTypeSHA1,
+  DocumentHashTypeSHA256,
   DocumentHashType'
   #-}
 
-instance FromText DocumentHashType where
-  parser = (DocumentHashType' . mk) <$> takeText
+instance Prelude.FromText DocumentHashType where
+  parser = DocumentHashType' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentHashType where
-  toText (DocumentHashType' ci) = original ci
+instance Prelude.ToText DocumentHashType where
+  toText (DocumentHashType' x) = x
 
-instance Hashable DocumentHashType
+instance Prelude.Hashable DocumentHashType
 
-instance NFData DocumentHashType
+instance Prelude.NFData DocumentHashType
 
-instance ToByteString DocumentHashType
+instance Prelude.ToByteString DocumentHashType
 
-instance ToQuery DocumentHashType
+instance Prelude.ToQuery DocumentHashType
 
-instance ToHeader DocumentHashType
+instance Prelude.ToHeader DocumentHashType
 
-instance ToJSON DocumentHashType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentHashType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DocumentHashType where
-  parseJSON = parseJSONText "DocumentHashType"
+instance Prelude.FromJSON DocumentHashType where
+  parseJSON = Prelude.parseJSONText "DocumentHashType"

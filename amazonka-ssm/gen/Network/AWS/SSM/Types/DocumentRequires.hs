@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.DocumentRequires where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An SSM document required by the current document.
 --
---
---
--- /See:/ 'documentRequires' smart constructor.
+-- /See:/ 'newDocumentRequires' smart constructor.
 data DocumentRequires = DocumentRequires'
-  { _drVersion ::
-      !(Maybe Text),
-    _drName :: !Text
+  { -- | The document version required by the current document.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the required SSM document. The name can be an Amazon
+    -- Resource Name (ARN).
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentRequires' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentRequires' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drVersion' - The document version required by the current document.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drName' - The name of the required SSM document. The name can be an Amazon Resource Name (ARN).
-documentRequires ::
-  -- | 'drName'
-  Text ->
+-- 'version', 'documentRequires_version' - The document version required by the current document.
+--
+-- 'name', 'documentRequires_name' - The name of the required SSM document. The name can be an Amazon
+-- Resource Name (ARN).
+newDocumentRequires ::
+  -- | 'name'
+  Prelude.Text ->
   DocumentRequires
-documentRequires pName_ =
+newDocumentRequires pName_ =
   DocumentRequires'
-    { _drVersion = Nothing,
-      _drName = pName_
+    { version = Prelude.Nothing,
+      name = pName_
     }
 
 -- | The document version required by the current document.
-drVersion :: Lens' DocumentRequires (Maybe Text)
-drVersion = lens _drVersion (\s a -> s {_drVersion = a})
+documentRequires_version :: Lens.Lens' DocumentRequires (Prelude.Maybe Prelude.Text)
+documentRequires_version = Lens.lens (\DocumentRequires' {version} -> version) (\s@DocumentRequires' {} a -> s {version = a} :: DocumentRequires)
 
--- | The name of the required SSM document. The name can be an Amazon Resource Name (ARN).
-drName :: Lens' DocumentRequires Text
-drName = lens _drName (\s a -> s {_drName = a})
+-- | The name of the required SSM document. The name can be an Amazon
+-- Resource Name (ARN).
+documentRequires_name :: Lens.Lens' DocumentRequires Prelude.Text
+documentRequires_name = Lens.lens (\DocumentRequires' {name} -> name) (\s@DocumentRequires' {} a -> s {name = a} :: DocumentRequires)
 
-instance FromJSON DocumentRequires where
+instance Prelude.FromJSON DocumentRequires where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DocumentRequires"
       ( \x ->
           DocumentRequires'
-            <$> (x .:? "Version") <*> (x .: "Name")
+            Prelude.<$> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable DocumentRequires
+instance Prelude.Hashable DocumentRequires
 
-instance NFData DocumentRequires
+instance Prelude.NFData DocumentRequires
 
-instance ToJSON DocumentRequires where
+instance Prelude.ToJSON DocumentRequires where
   toJSON DocumentRequires' {..} =
-    object
-      ( catMaybes
-          [ ("Version" .=) <$> _drVersion,
-            Just ("Name" .= _drName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Version" Prelude..=) Prelude.<$> version,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

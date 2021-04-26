@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.SSM.Types.AssociationStatusName
   ( AssociationStatusName
       ( ..,
-        Failed,
-        Pending,
-        Success
+        AssociationStatusNameFailed,
+        AssociationStatusNamePending,
+        AssociationStatusNameSuccess
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationStatusName
-  = AssociationStatusName'
-      ( CI
-          Text
-      )
+newtype AssociationStatusName = AssociationStatusName'
+  { fromAssociationStatusName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: AssociationStatusName
-pattern Failed = AssociationStatusName' "Failed"
+pattern AssociationStatusNameFailed :: AssociationStatusName
+pattern AssociationStatusNameFailed = AssociationStatusName' "Failed"
 
-pattern Pending :: AssociationStatusName
-pattern Pending = AssociationStatusName' "Pending"
+pattern AssociationStatusNamePending :: AssociationStatusName
+pattern AssociationStatusNamePending = AssociationStatusName' "Pending"
 
-pattern Success :: AssociationStatusName
-pattern Success = AssociationStatusName' "Success"
+pattern AssociationStatusNameSuccess :: AssociationStatusName
+pattern AssociationStatusNameSuccess = AssociationStatusName' "Success"
 
 {-# COMPLETE
-  Failed,
-  Pending,
-  Success,
+  AssociationStatusNameFailed,
+  AssociationStatusNamePending,
+  AssociationStatusNameSuccess,
   AssociationStatusName'
   #-}
 
-instance FromText AssociationStatusName where
-  parser = (AssociationStatusName' . mk) <$> takeText
+instance Prelude.FromText AssociationStatusName where
+  parser = AssociationStatusName' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationStatusName where
-  toText (AssociationStatusName' ci) = original ci
+instance Prelude.ToText AssociationStatusName where
+  toText (AssociationStatusName' x) = x
 
-instance Hashable AssociationStatusName
+instance Prelude.Hashable AssociationStatusName
 
-instance NFData AssociationStatusName
+instance Prelude.NFData AssociationStatusName
 
-instance ToByteString AssociationStatusName
+instance Prelude.ToByteString AssociationStatusName
 
-instance ToQuery AssociationStatusName
+instance Prelude.ToQuery AssociationStatusName
 
-instance ToHeader AssociationStatusName
+instance Prelude.ToHeader AssociationStatusName
 
-instance ToJSON AssociationStatusName where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssociationStatusName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AssociationStatusName where
-  parseJSON = parseJSONText "AssociationStatusName"
+instance Prelude.FromJSON AssociationStatusName where
+  parseJSON = Prelude.parseJSONText "AssociationStatusName"

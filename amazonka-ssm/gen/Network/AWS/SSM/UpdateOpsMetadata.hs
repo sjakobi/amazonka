@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Systems Manager calls this API action when you edit OpsMetadata in Application Manager.
+-- Systems Manager calls this API action when you edit OpsMetadata in
+-- Application Manager.
 module Network.AWS.SSM.UpdateOpsMetadata
   ( -- * Creating a Request
-    updateOpsMetadata,
-    UpdateOpsMetadata,
+    UpdateOpsMetadata (..),
+    newUpdateOpsMetadata,
 
     -- * Request Lenses
-    uomMetadataToUpdate,
-    uomKeysToDelete,
-    uomOpsMetadataARN,
+    updateOpsMetadata_metadataToUpdate,
+    updateOpsMetadata_keysToDelete,
+    updateOpsMetadata_opsMetadataArn,
 
     -- * Destructuring the Response
-    updateOpsMetadataResponse,
-    UpdateOpsMetadataResponse,
+    UpdateOpsMetadataResponse (..),
+    newUpdateOpsMetadataResponse,
 
     -- * Response Lenses
-    uomrrsOpsMetadataARN,
-    uomrrsResponseStatus,
+    updateOpsMetadataResponse_opsMetadataArn,
+    updateOpsMetadataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'updateOpsMetadata' smart constructor.
+-- | /See:/ 'newUpdateOpsMetadata' smart constructor.
 data UpdateOpsMetadata = UpdateOpsMetadata'
-  { _uomMetadataToUpdate ::
-      !(Maybe (Map Text MetadataValue)),
-    _uomKeysToDelete ::
-      !(Maybe (List1 Text)),
-    _uomOpsMetadataARN :: !Text
+  { -- | Metadata to add to an OpsMetadata object.
+    metadataToUpdate :: Prelude.Maybe (Prelude.Map Prelude.Text MetadataValue),
+    -- | The metadata keys to delete from the OpsMetadata object.
+    keysToDelete :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The Amazon Resoure Name (ARN) of the OpsMetadata Object to update.
+    opsMetadataArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateOpsMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateOpsMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uomMetadataToUpdate' - Metadata to add to an OpsMetadata object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uomKeysToDelete' - The metadata keys to delete from the OpsMetadata object.
+-- 'metadataToUpdate', 'updateOpsMetadata_metadataToUpdate' - Metadata to add to an OpsMetadata object.
 --
--- * 'uomOpsMetadataARN' - The Amazon Resoure Name (ARN) of the OpsMetadata Object to update.
-updateOpsMetadata ::
-  -- | 'uomOpsMetadataARN'
-  Text ->
+-- 'keysToDelete', 'updateOpsMetadata_keysToDelete' - The metadata keys to delete from the OpsMetadata object.
+--
+-- 'opsMetadataArn', 'updateOpsMetadata_opsMetadataArn' - The Amazon Resoure Name (ARN) of the OpsMetadata Object to update.
+newUpdateOpsMetadata ::
+  -- | 'opsMetadataArn'
+  Prelude.Text ->
   UpdateOpsMetadata
-updateOpsMetadata pOpsMetadataARN_ =
+newUpdateOpsMetadata pOpsMetadataArn_ =
   UpdateOpsMetadata'
-    { _uomMetadataToUpdate = Nothing,
-      _uomKeysToDelete = Nothing,
-      _uomOpsMetadataARN = pOpsMetadataARN_
+    { metadataToUpdate =
+        Prelude.Nothing,
+      keysToDelete = Prelude.Nothing,
+      opsMetadataArn = pOpsMetadataArn_
     }
 
 -- | Metadata to add to an OpsMetadata object.
-uomMetadataToUpdate :: Lens' UpdateOpsMetadata (HashMap Text MetadataValue)
-uomMetadataToUpdate = lens _uomMetadataToUpdate (\s a -> s {_uomMetadataToUpdate = a}) . _Default . _Map
+updateOpsMetadata_metadataToUpdate :: Lens.Lens' UpdateOpsMetadata (Prelude.Maybe (Prelude.HashMap Prelude.Text MetadataValue))
+updateOpsMetadata_metadataToUpdate = Lens.lens (\UpdateOpsMetadata' {metadataToUpdate} -> metadataToUpdate) (\s@UpdateOpsMetadata' {} a -> s {metadataToUpdate = a} :: UpdateOpsMetadata) Prelude.. Lens.mapping Prelude._Map
 
 -- | The metadata keys to delete from the OpsMetadata object.
-uomKeysToDelete :: Lens' UpdateOpsMetadata (Maybe (NonEmpty Text))
-uomKeysToDelete = lens _uomKeysToDelete (\s a -> s {_uomKeysToDelete = a}) . mapping _List1
+updateOpsMetadata_keysToDelete :: Lens.Lens' UpdateOpsMetadata (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+updateOpsMetadata_keysToDelete = Lens.lens (\UpdateOpsMetadata' {keysToDelete} -> keysToDelete) (\s@UpdateOpsMetadata' {} a -> s {keysToDelete = a} :: UpdateOpsMetadata) Prelude.. Lens.mapping Prelude._List1
 
 -- | The Amazon Resoure Name (ARN) of the OpsMetadata Object to update.
-uomOpsMetadataARN :: Lens' UpdateOpsMetadata Text
-uomOpsMetadataARN = lens _uomOpsMetadataARN (\s a -> s {_uomOpsMetadataARN = a})
+updateOpsMetadata_opsMetadataArn :: Lens.Lens' UpdateOpsMetadata Prelude.Text
+updateOpsMetadata_opsMetadataArn = Lens.lens (\UpdateOpsMetadata' {opsMetadataArn} -> opsMetadataArn) (\s@UpdateOpsMetadata' {} a -> s {opsMetadataArn = a} :: UpdateOpsMetadata)
 
-instance AWSRequest UpdateOpsMetadata where
+instance Prelude.AWSRequest UpdateOpsMetadata where
   type Rs UpdateOpsMetadata = UpdateOpsMetadataResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateOpsMetadataResponse'
-            <$> (x .?> "OpsMetadataArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "OpsMetadataArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateOpsMetadata
+instance Prelude.Hashable UpdateOpsMetadata
 
-instance NFData UpdateOpsMetadata
+instance Prelude.NFData UpdateOpsMetadata
 
-instance ToHeaders UpdateOpsMetadata where
+instance Prelude.ToHeaders UpdateOpsMetadata where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.UpdateOpsMetadata" :: ByteString),
+              Prelude.=# ( "AmazonSSM.UpdateOpsMetadata" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateOpsMetadata where
+instance Prelude.ToJSON UpdateOpsMetadata where
   toJSON UpdateOpsMetadata' {..} =
-    object
-      ( catMaybes
-          [ ("MetadataToUpdate" .=) <$> _uomMetadataToUpdate,
-            ("KeysToDelete" .=) <$> _uomKeysToDelete,
-            Just ("OpsMetadataArn" .= _uomOpsMetadataARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MetadataToUpdate" Prelude..=)
+              Prelude.<$> metadataToUpdate,
+            ("KeysToDelete" Prelude..=) Prelude.<$> keysToDelete,
+            Prelude.Just
+              ("OpsMetadataArn" Prelude..= opsMetadataArn)
           ]
       )
 
-instance ToPath UpdateOpsMetadata where
-  toPath = const "/"
+instance Prelude.ToPath UpdateOpsMetadata where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateOpsMetadata where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateOpsMetadata where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateOpsMetadataResponse' smart constructor.
+-- | /See:/ 'newUpdateOpsMetadataResponse' smart constructor.
 data UpdateOpsMetadataResponse = UpdateOpsMetadataResponse'
-  { _uomrrsOpsMetadataARN ::
-      !(Maybe Text),
-    _uomrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the OpsMetadata Object that was
+    -- updated.
+    opsMetadataArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateOpsMetadataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateOpsMetadataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uomrrsOpsMetadataARN' - The Amazon Resource Name (ARN) of the OpsMetadata Object that was updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uomrrsResponseStatus' - -- | The response status code.
-updateOpsMetadataResponse ::
-  -- | 'uomrrsResponseStatus'
-  Int ->
+-- 'opsMetadataArn', 'updateOpsMetadataResponse_opsMetadataArn' - The Amazon Resource Name (ARN) of the OpsMetadata Object that was
+-- updated.
+--
+-- 'httpStatus', 'updateOpsMetadataResponse_httpStatus' - The response's http status code.
+newUpdateOpsMetadataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateOpsMetadataResponse
-updateOpsMetadataResponse pResponseStatus_ =
+newUpdateOpsMetadataResponse pHttpStatus_ =
   UpdateOpsMetadataResponse'
-    { _uomrrsOpsMetadataARN =
-        Nothing,
-      _uomrrsResponseStatus = pResponseStatus_
+    { opsMetadataArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) of the OpsMetadata Object that was updated.
-uomrrsOpsMetadataARN :: Lens' UpdateOpsMetadataResponse (Maybe Text)
-uomrrsOpsMetadataARN = lens _uomrrsOpsMetadataARN (\s a -> s {_uomrrsOpsMetadataARN = a})
+-- | The Amazon Resource Name (ARN) of the OpsMetadata Object that was
+-- updated.
+updateOpsMetadataResponse_opsMetadataArn :: Lens.Lens' UpdateOpsMetadataResponse (Prelude.Maybe Prelude.Text)
+updateOpsMetadataResponse_opsMetadataArn = Lens.lens (\UpdateOpsMetadataResponse' {opsMetadataArn} -> opsMetadataArn) (\s@UpdateOpsMetadataResponse' {} a -> s {opsMetadataArn = a} :: UpdateOpsMetadataResponse)
 
--- | -- | The response status code.
-uomrrsResponseStatus :: Lens' UpdateOpsMetadataResponse Int
-uomrrsResponseStatus = lens _uomrrsResponseStatus (\s a -> s {_uomrrsResponseStatus = a})
+-- | The response's http status code.
+updateOpsMetadataResponse_httpStatus :: Lens.Lens' UpdateOpsMetadataResponse Prelude.Int
+updateOpsMetadataResponse_httpStatus = Lens.lens (\UpdateOpsMetadataResponse' {httpStatus} -> httpStatus) (\s@UpdateOpsMetadataResponse' {} a -> s {httpStatus = a} :: UpdateOpsMetadataResponse)
 
-instance NFData UpdateOpsMetadataResponse
+instance Prelude.NFData UpdateOpsMetadataResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.NonCompliantSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.SeveritySummary
 
--- | A summary of resources that are not compliant. The summary is organized according to resource type.
+-- | A summary of resources that are not compliant. The summary is organized
+-- according to resource type.
 --
---
---
--- /See:/ 'nonCompliantSummary' smart constructor.
+-- /See:/ 'newNonCompliantSummary' smart constructor.
 data NonCompliantSummary = NonCompliantSummary'
-  { _ncsSeveritySummary ::
-      !(Maybe SeveritySummary),
-    _ncsNonCompliantCount ::
-      !(Maybe Int)
+  { -- | A summary of the non-compliance severity by compliance type
+    severitySummary :: Prelude.Maybe SeveritySummary,
+    -- | The total number of compliance items that are not compliant.
+    nonCompliantCount :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NonCompliantSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NonCompliantSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncsSeveritySummary' - A summary of the non-compliance severity by compliance type
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ncsNonCompliantCount' - The total number of compliance items that are not compliant.
-nonCompliantSummary ::
+-- 'severitySummary', 'nonCompliantSummary_severitySummary' - A summary of the non-compliance severity by compliance type
+--
+-- 'nonCompliantCount', 'nonCompliantSummary_nonCompliantCount' - The total number of compliance items that are not compliant.
+newNonCompliantSummary ::
   NonCompliantSummary
-nonCompliantSummary =
+newNonCompliantSummary =
   NonCompliantSummary'
-    { _ncsSeveritySummary = Nothing,
-      _ncsNonCompliantCount = Nothing
+    { severitySummary =
+        Prelude.Nothing,
+      nonCompliantCount = Prelude.Nothing
     }
 
 -- | A summary of the non-compliance severity by compliance type
-ncsSeveritySummary :: Lens' NonCompliantSummary (Maybe SeveritySummary)
-ncsSeveritySummary = lens _ncsSeveritySummary (\s a -> s {_ncsSeveritySummary = a})
+nonCompliantSummary_severitySummary :: Lens.Lens' NonCompliantSummary (Prelude.Maybe SeveritySummary)
+nonCompliantSummary_severitySummary = Lens.lens (\NonCompliantSummary' {severitySummary} -> severitySummary) (\s@NonCompliantSummary' {} a -> s {severitySummary = a} :: NonCompliantSummary)
 
 -- | The total number of compliance items that are not compliant.
-ncsNonCompliantCount :: Lens' NonCompliantSummary (Maybe Int)
-ncsNonCompliantCount = lens _ncsNonCompliantCount (\s a -> s {_ncsNonCompliantCount = a})
+nonCompliantSummary_nonCompliantCount :: Lens.Lens' NonCompliantSummary (Prelude.Maybe Prelude.Int)
+nonCompliantSummary_nonCompliantCount = Lens.lens (\NonCompliantSummary' {nonCompliantCount} -> nonCompliantCount) (\s@NonCompliantSummary' {} a -> s {nonCompliantCount = a} :: NonCompliantSummary)
 
-instance FromJSON NonCompliantSummary where
+instance Prelude.FromJSON NonCompliantSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NonCompliantSummary"
       ( \x ->
           NonCompliantSummary'
-            <$> (x .:? "SeveritySummary")
-            <*> (x .:? "NonCompliantCount")
+            Prelude.<$> (x Prelude..:? "SeveritySummary")
+            Prelude.<*> (x Prelude..:? "NonCompliantCount")
       )
 
-instance Hashable NonCompliantSummary
+instance Prelude.Hashable NonCompliantSummary
 
-instance NFData NonCompliantSummary
+instance Prelude.NFData NonCompliantSummary

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.SSM.Types.DocumentStatus
   ( DocumentStatus
       ( ..,
-        DSActive,
-        DSCreating,
-        DSDeleting,
-        DSFailed,
-        DSUpdating
+        DocumentStatusActive,
+        DocumentStatusCreating,
+        DocumentStatusDeleting,
+        DocumentStatusFailed,
+        DocumentStatusUpdating
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of a document.
-data DocumentStatus = DocumentStatus' (CI Text)
+newtype DocumentStatus = DocumentStatus'
+  { fromDocumentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSActive :: DocumentStatus
-pattern DSActive = DocumentStatus' "Active"
+pattern DocumentStatusActive :: DocumentStatus
+pattern DocumentStatusActive = DocumentStatus' "Active"
 
-pattern DSCreating :: DocumentStatus
-pattern DSCreating = DocumentStatus' "Creating"
+pattern DocumentStatusCreating :: DocumentStatus
+pattern DocumentStatusCreating = DocumentStatus' "Creating"
 
-pattern DSDeleting :: DocumentStatus
-pattern DSDeleting = DocumentStatus' "Deleting"
+pattern DocumentStatusDeleting :: DocumentStatus
+pattern DocumentStatusDeleting = DocumentStatus' "Deleting"
 
-pattern DSFailed :: DocumentStatus
-pattern DSFailed = DocumentStatus' "Failed"
+pattern DocumentStatusFailed :: DocumentStatus
+pattern DocumentStatusFailed = DocumentStatus' "Failed"
 
-pattern DSUpdating :: DocumentStatus
-pattern DSUpdating = DocumentStatus' "Updating"
+pattern DocumentStatusUpdating :: DocumentStatus
+pattern DocumentStatusUpdating = DocumentStatus' "Updating"
 
 {-# COMPLETE
-  DSActive,
-  DSCreating,
-  DSDeleting,
-  DSFailed,
-  DSUpdating,
+  DocumentStatusActive,
+  DocumentStatusCreating,
+  DocumentStatusDeleting,
+  DocumentStatusFailed,
+  DocumentStatusUpdating,
   DocumentStatus'
   #-}
 
-instance FromText DocumentStatus where
-  parser = (DocumentStatus' . mk) <$> takeText
+instance Prelude.FromText DocumentStatus where
+  parser = DocumentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentStatus where
-  toText (DocumentStatus' ci) = original ci
+instance Prelude.ToText DocumentStatus where
+  toText (DocumentStatus' x) = x
 
-instance Hashable DocumentStatus
+instance Prelude.Hashable DocumentStatus
 
-instance NFData DocumentStatus
+instance Prelude.NFData DocumentStatus
 
-instance ToByteString DocumentStatus
+instance Prelude.ToByteString DocumentStatus
 
-instance ToQuery DocumentStatus
+instance Prelude.ToQuery DocumentStatus
 
-instance ToHeader DocumentStatus
+instance Prelude.ToHeader DocumentStatus
 
-instance FromJSON DocumentStatus where
-  parseJSON = parseJSONText "DocumentStatus"
+instance Prelude.FromJSON DocumentStatus where
+  parseJSON = Prelude.parseJSONText "DocumentStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,190 +19,382 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.CommandInvocation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.CloudWatchOutputConfig
 import Network.AWS.SSM.Types.CommandInvocationStatus
 import Network.AWS.SSM.Types.CommandPlugin
 import Network.AWS.SSM.Types.NotificationConfig
 
--- | An invocation is copy of a command sent to a specific instance. A command can apply to one or more instances. A command invocation applies to one instance. For example, if a user runs SendCommand against three instances, then a command invocation is created for each requested instance ID. A command invocation returns status and detail information about a command you ran.
+-- | An invocation is copy of a command sent to a specific instance. A
+-- command can apply to one or more instances. A command invocation applies
+-- to one instance. For example, if a user runs SendCommand against three
+-- instances, then a command invocation is created for each requested
+-- instance ID. A command invocation returns status and detail information
+-- about a command you ran.
 --
---
---
--- /See:/ 'commandInvocation' smart constructor.
+-- /See:/ 'newCommandInvocation' smart constructor.
 data CommandInvocation = CommandInvocation'
-  { _ciNotificationConfig ::
-      !(Maybe NotificationConfig),
-    _ciStandardOutputURL ::
-      !(Maybe Text),
-    _ciStatus ::
-      !(Maybe CommandInvocationStatus),
-    _ciInstanceId :: !(Maybe Text),
-    _ciServiceRole :: !(Maybe Text),
-    _ciRequestedDateTime ::
-      !(Maybe POSIX),
-    _ciStatusDetails :: !(Maybe Text),
-    _ciInstanceName :: !(Maybe Text),
-    _ciComment :: !(Maybe Text),
-    _ciStandardErrorURL ::
-      !(Maybe Text),
-    _ciDocumentName :: !(Maybe Text),
-    _ciCommandId :: !(Maybe Text),
-    _ciTraceOutput :: !(Maybe Text),
-    _ciCloudWatchOutputConfig ::
-      !(Maybe CloudWatchOutputConfig),
-    _ciCommandPlugins ::
-      !(Maybe [CommandPlugin]),
-    _ciDocumentVersion :: !(Maybe Text)
+  { -- | Configurations for sending notifications about command status changes on
+    -- a per instance basis.
+    notificationConfig :: Prelude.Maybe NotificationConfig,
+    -- | The URL to the plugin\'s StdOut file in Amazon S3, if the S3 bucket was
+    -- defined for the parent command. For an invocation, StandardOutputUrl is
+    -- populated if there is just one plugin defined for the command, and the
+    -- S3 bucket was defined for the command.
+    standardOutputUrl :: Prelude.Maybe Prelude.Text,
+    -- | Whether or not the invocation succeeded, failed, or is pending.
+    status :: Prelude.Maybe CommandInvocationStatus,
+    -- | The instance ID in which this invocation was requested.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The IAM service role that Run Command uses to act on your behalf when
+    -- sending notifications about command status changes on a per instance
+    -- basis.
+    serviceRole :: Prelude.Maybe Prelude.Text,
+    -- | The time and date the request was sent to this instance.
+    requestedDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A detailed status of the command execution for each invocation (each
+    -- instance targeted by the command). StatusDetails includes more
+    -- information than Status because it includes states resulting from error
+    -- and concurrency control parameters. StatusDetails can show different
+    -- results than Status. For more information about these statuses, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses>
+    -- in the /AWS Systems Manager User Guide/. StatusDetails can be one of the
+    -- following values:
+    --
+    -- -   Pending: The command has not been sent to the instance.
+    --
+    -- -   In Progress: The command has been sent to the instance but has not
+    --     reached a terminal state.
+    --
+    -- -   Success: The execution of the command or plugin was successfully
+    --     completed. This is a terminal state.
+    --
+    -- -   Delivery Timed Out: The command was not delivered to the instance
+    --     before the delivery timeout expired. Delivery timeouts do not count
+    --     against the parent command\'s MaxErrors limit, but they do
+    --     contribute to whether the parent command status is Success or
+    --     Incomplete. This is a terminal state.
+    --
+    -- -   Execution Timed Out: Command execution started on the instance, but
+    --     the execution was not complete before the execution timeout expired.
+    --     Execution timeouts count against the MaxErrors limit of the parent
+    --     command. This is a terminal state.
+    --
+    -- -   Failed: The command was not successful on the instance. For a
+    --     plugin, this indicates that the result code was not zero. For a
+    --     command invocation, this indicates that the result code for one or
+    --     more plugins was not zero. Invocation failures count against the
+    --     MaxErrors limit of the parent command. This is a terminal state.
+    --
+    -- -   Canceled: The command was terminated before it was completed. This
+    --     is a terminal state.
+    --
+    -- -   Undeliverable: The command can\'t be delivered to the instance. The
+    --     instance might not exist or might not be responding. Undeliverable
+    --     invocations don\'t count against the parent command\'s MaxErrors
+    --     limit and don\'t contribute to whether the parent command status is
+    --     Success or Incomplete. This is a terminal state.
+    --
+    -- -   Terminated: The parent command exceeded its MaxErrors limit and
+    --     subsequent command invocations were canceled by the system. This is
+    --     a terminal state.
+    statusDetails :: Prelude.Maybe Prelude.Text,
+    -- | The name of the invocation target. For EC2 instances this is the value
+    -- for the aws:Name tag. For on-premises instances, this is the name of the
+    -- instance.
+    instanceName :: Prelude.Maybe Prelude.Text,
+    -- | User-specified information about the command, such as a brief
+    -- description of what the command should do.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | The URL to the plugin\'s StdErr file in Amazon S3, if the S3 bucket was
+    -- defined for the parent command. For an invocation, StandardErrorUrl is
+    -- populated if there is just one plugin defined for the command, and the
+    -- S3 bucket was defined for the command.
+    standardErrorUrl :: Prelude.Maybe Prelude.Text,
+    -- | The document name that was requested for execution.
+    documentName :: Prelude.Maybe Prelude.Text,
+    -- | The command against which this invocation was requested.
+    commandId :: Prelude.Maybe Prelude.Text,
+    -- | Gets the trace output sent by the agent.
+    traceOutput :: Prelude.Maybe Prelude.Text,
+    -- | CloudWatch Logs information where you want Systems Manager to send the
+    -- command output.
+    cloudWatchOutputConfig :: Prelude.Maybe CloudWatchOutputConfig,
+    commandPlugins :: Prelude.Maybe [CommandPlugin],
+    -- | The SSM document version.
+    documentVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CommandInvocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CommandInvocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciNotificationConfig' - Configurations for sending notifications about command status changes on a per instance basis.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciStandardOutputURL' - The URL to the plugin's StdOut file in Amazon S3, if the S3 bucket was defined for the parent command. For an invocation, StandardOutputUrl is populated if there is just one plugin defined for the command, and the S3 bucket was defined for the command.
+-- 'notificationConfig', 'commandInvocation_notificationConfig' - Configurations for sending notifications about command status changes on
+-- a per instance basis.
 --
--- * 'ciStatus' - Whether or not the invocation succeeded, failed, or is pending.
+-- 'standardOutputUrl', 'commandInvocation_standardOutputUrl' - The URL to the plugin\'s StdOut file in Amazon S3, if the S3 bucket was
+-- defined for the parent command. For an invocation, StandardOutputUrl is
+-- populated if there is just one plugin defined for the command, and the
+-- S3 bucket was defined for the command.
 --
--- * 'ciInstanceId' - The instance ID in which this invocation was requested.
+-- 'status', 'commandInvocation_status' - Whether or not the invocation succeeded, failed, or is pending.
 --
--- * 'ciServiceRole' - The IAM service role that Run Command uses to act on your behalf when sending notifications about command status changes on a per instance basis.
+-- 'instanceId', 'commandInvocation_instanceId' - The instance ID in which this invocation was requested.
 --
--- * 'ciRequestedDateTime' - The time and date the request was sent to this instance.
+-- 'serviceRole', 'commandInvocation_serviceRole' - The IAM service role that Run Command uses to act on your behalf when
+-- sending notifications about command status changes on a per instance
+-- basis.
 --
--- * 'ciStatusDetails' - A detailed status of the command execution for each invocation (each instance targeted by the command). StatusDetails includes more information than Status because it includes states resulting from error and concurrency control parameters. StatusDetails can show different results than Status. For more information about these statuses, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses> in the /AWS Systems Manager User Guide/ . StatusDetails can be one of the following values:     * Pending: The command has not been sent to the instance.     * In Progress: The command has been sent to the instance but has not reached a terminal state.     * Success: The execution of the command or plugin was successfully completed. This is a terminal state.     * Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent command status is Success or Incomplete. This is a terminal state.     * Execution Timed Out: Command execution started on the instance, but the execution was not complete before the execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a terminal state.     * Failed: The command was not successful on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.     * Canceled: The command was terminated before it was completed. This is a terminal state.     * Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't contribute to whether the parent command status is Success or Incomplete. This is a terminal state.     * Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were canceled by the system. This is a terminal state.
+-- 'requestedDateTime', 'commandInvocation_requestedDateTime' - The time and date the request was sent to this instance.
 --
--- * 'ciInstanceName' - The name of the invocation target. For EC2 instances this is the value for the aws:Name tag. For on-premises instances, this is the name of the instance.
+-- 'statusDetails', 'commandInvocation_statusDetails' - A detailed status of the command execution for each invocation (each
+-- instance targeted by the command). StatusDetails includes more
+-- information than Status because it includes states resulting from error
+-- and concurrency control parameters. StatusDetails can show different
+-- results than Status. For more information about these statuses, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses>
+-- in the /AWS Systems Manager User Guide/. StatusDetails can be one of the
+-- following values:
 --
--- * 'ciComment' - User-specified information about the command, such as a brief description of what the command should do.
+-- -   Pending: The command has not been sent to the instance.
 --
--- * 'ciStandardErrorURL' - The URL to the plugin's StdErr file in Amazon S3, if the S3 bucket was defined for the parent command. For an invocation, StandardErrorUrl is populated if there is just one plugin defined for the command, and the S3 bucket was defined for the command.
+-- -   In Progress: The command has been sent to the instance but has not
+--     reached a terminal state.
 --
--- * 'ciDocumentName' - The document name that was requested for execution.
+-- -   Success: The execution of the command or plugin was successfully
+--     completed. This is a terminal state.
 --
--- * 'ciCommandId' - The command against which this invocation was requested.
+-- -   Delivery Timed Out: The command was not delivered to the instance
+--     before the delivery timeout expired. Delivery timeouts do not count
+--     against the parent command\'s MaxErrors limit, but they do
+--     contribute to whether the parent command status is Success or
+--     Incomplete. This is a terminal state.
 --
--- * 'ciTraceOutput' - Gets the trace output sent by the agent.
+-- -   Execution Timed Out: Command execution started on the instance, but
+--     the execution was not complete before the execution timeout expired.
+--     Execution timeouts count against the MaxErrors limit of the parent
+--     command. This is a terminal state.
 --
--- * 'ciCloudWatchOutputConfig' - CloudWatch Logs information where you want Systems Manager to send the command output.
+-- -   Failed: The command was not successful on the instance. For a
+--     plugin, this indicates that the result code was not zero. For a
+--     command invocation, this indicates that the result code for one or
+--     more plugins was not zero. Invocation failures count against the
+--     MaxErrors limit of the parent command. This is a terminal state.
 --
--- * 'ciCommandPlugins' - Undocumented member.
+-- -   Canceled: The command was terminated before it was completed. This
+--     is a terminal state.
 --
--- * 'ciDocumentVersion' - The SSM document version.
-commandInvocation ::
+-- -   Undeliverable: The command can\'t be delivered to the instance. The
+--     instance might not exist or might not be responding. Undeliverable
+--     invocations don\'t count against the parent command\'s MaxErrors
+--     limit and don\'t contribute to whether the parent command status is
+--     Success or Incomplete. This is a terminal state.
+--
+-- -   Terminated: The parent command exceeded its MaxErrors limit and
+--     subsequent command invocations were canceled by the system. This is
+--     a terminal state.
+--
+-- 'instanceName', 'commandInvocation_instanceName' - The name of the invocation target. For EC2 instances this is the value
+-- for the aws:Name tag. For on-premises instances, this is the name of the
+-- instance.
+--
+-- 'comment', 'commandInvocation_comment' - User-specified information about the command, such as a brief
+-- description of what the command should do.
+--
+-- 'standardErrorUrl', 'commandInvocation_standardErrorUrl' - The URL to the plugin\'s StdErr file in Amazon S3, if the S3 bucket was
+-- defined for the parent command. For an invocation, StandardErrorUrl is
+-- populated if there is just one plugin defined for the command, and the
+-- S3 bucket was defined for the command.
+--
+-- 'documentName', 'commandInvocation_documentName' - The document name that was requested for execution.
+--
+-- 'commandId', 'commandInvocation_commandId' - The command against which this invocation was requested.
+--
+-- 'traceOutput', 'commandInvocation_traceOutput' - Gets the trace output sent by the agent.
+--
+-- 'cloudWatchOutputConfig', 'commandInvocation_cloudWatchOutputConfig' - CloudWatch Logs information where you want Systems Manager to send the
+-- command output.
+--
+-- 'commandPlugins', 'commandInvocation_commandPlugins' - Undocumented member.
+--
+-- 'documentVersion', 'commandInvocation_documentVersion' - The SSM document version.
+newCommandInvocation ::
   CommandInvocation
-commandInvocation =
+newCommandInvocation =
   CommandInvocation'
-    { _ciNotificationConfig = Nothing,
-      _ciStandardOutputURL = Nothing,
-      _ciStatus = Nothing,
-      _ciInstanceId = Nothing,
-      _ciServiceRole = Nothing,
-      _ciRequestedDateTime = Nothing,
-      _ciStatusDetails = Nothing,
-      _ciInstanceName = Nothing,
-      _ciComment = Nothing,
-      _ciStandardErrorURL = Nothing,
-      _ciDocumentName = Nothing,
-      _ciCommandId = Nothing,
-      _ciTraceOutput = Nothing,
-      _ciCloudWatchOutputConfig = Nothing,
-      _ciCommandPlugins = Nothing,
-      _ciDocumentVersion = Nothing
+    { notificationConfig =
+        Prelude.Nothing,
+      standardOutputUrl = Prelude.Nothing,
+      status = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      serviceRole = Prelude.Nothing,
+      requestedDateTime = Prelude.Nothing,
+      statusDetails = Prelude.Nothing,
+      instanceName = Prelude.Nothing,
+      comment = Prelude.Nothing,
+      standardErrorUrl = Prelude.Nothing,
+      documentName = Prelude.Nothing,
+      commandId = Prelude.Nothing,
+      traceOutput = Prelude.Nothing,
+      cloudWatchOutputConfig = Prelude.Nothing,
+      commandPlugins = Prelude.Nothing,
+      documentVersion = Prelude.Nothing
     }
 
--- | Configurations for sending notifications about command status changes on a per instance basis.
-ciNotificationConfig :: Lens' CommandInvocation (Maybe NotificationConfig)
-ciNotificationConfig = lens _ciNotificationConfig (\s a -> s {_ciNotificationConfig = a})
+-- | Configurations for sending notifications about command status changes on
+-- a per instance basis.
+commandInvocation_notificationConfig :: Lens.Lens' CommandInvocation (Prelude.Maybe NotificationConfig)
+commandInvocation_notificationConfig = Lens.lens (\CommandInvocation' {notificationConfig} -> notificationConfig) (\s@CommandInvocation' {} a -> s {notificationConfig = a} :: CommandInvocation)
 
--- | The URL to the plugin's StdOut file in Amazon S3, if the S3 bucket was defined for the parent command. For an invocation, StandardOutputUrl is populated if there is just one plugin defined for the command, and the S3 bucket was defined for the command.
-ciStandardOutputURL :: Lens' CommandInvocation (Maybe Text)
-ciStandardOutputURL = lens _ciStandardOutputURL (\s a -> s {_ciStandardOutputURL = a})
+-- | The URL to the plugin\'s StdOut file in Amazon S3, if the S3 bucket was
+-- defined for the parent command. For an invocation, StandardOutputUrl is
+-- populated if there is just one plugin defined for the command, and the
+-- S3 bucket was defined for the command.
+commandInvocation_standardOutputUrl :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_standardOutputUrl = Lens.lens (\CommandInvocation' {standardOutputUrl} -> standardOutputUrl) (\s@CommandInvocation' {} a -> s {standardOutputUrl = a} :: CommandInvocation)
 
 -- | Whether or not the invocation succeeded, failed, or is pending.
-ciStatus :: Lens' CommandInvocation (Maybe CommandInvocationStatus)
-ciStatus = lens _ciStatus (\s a -> s {_ciStatus = a})
+commandInvocation_status :: Lens.Lens' CommandInvocation (Prelude.Maybe CommandInvocationStatus)
+commandInvocation_status = Lens.lens (\CommandInvocation' {status} -> status) (\s@CommandInvocation' {} a -> s {status = a} :: CommandInvocation)
 
 -- | The instance ID in which this invocation was requested.
-ciInstanceId :: Lens' CommandInvocation (Maybe Text)
-ciInstanceId = lens _ciInstanceId (\s a -> s {_ciInstanceId = a})
+commandInvocation_instanceId :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_instanceId = Lens.lens (\CommandInvocation' {instanceId} -> instanceId) (\s@CommandInvocation' {} a -> s {instanceId = a} :: CommandInvocation)
 
--- | The IAM service role that Run Command uses to act on your behalf when sending notifications about command status changes on a per instance basis.
-ciServiceRole :: Lens' CommandInvocation (Maybe Text)
-ciServiceRole = lens _ciServiceRole (\s a -> s {_ciServiceRole = a})
+-- | The IAM service role that Run Command uses to act on your behalf when
+-- sending notifications about command status changes on a per instance
+-- basis.
+commandInvocation_serviceRole :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_serviceRole = Lens.lens (\CommandInvocation' {serviceRole} -> serviceRole) (\s@CommandInvocation' {} a -> s {serviceRole = a} :: CommandInvocation)
 
 -- | The time and date the request was sent to this instance.
-ciRequestedDateTime :: Lens' CommandInvocation (Maybe UTCTime)
-ciRequestedDateTime = lens _ciRequestedDateTime (\s a -> s {_ciRequestedDateTime = a}) . mapping _Time
+commandInvocation_requestedDateTime :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.UTCTime)
+commandInvocation_requestedDateTime = Lens.lens (\CommandInvocation' {requestedDateTime} -> requestedDateTime) (\s@CommandInvocation' {} a -> s {requestedDateTime = a} :: CommandInvocation) Prelude.. Lens.mapping Prelude._Time
 
--- | A detailed status of the command execution for each invocation (each instance targeted by the command). StatusDetails includes more information than Status because it includes states resulting from error and concurrency control parameters. StatusDetails can show different results than Status. For more information about these statuses, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses> in the /AWS Systems Manager User Guide/ . StatusDetails can be one of the following values:     * Pending: The command has not been sent to the instance.     * In Progress: The command has been sent to the instance but has not reached a terminal state.     * Success: The execution of the command or plugin was successfully completed. This is a terminal state.     * Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent command status is Success or Incomplete. This is a terminal state.     * Execution Timed Out: Command execution started on the instance, but the execution was not complete before the execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a terminal state.     * Failed: The command was not successful on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.     * Canceled: The command was terminated before it was completed. This is a terminal state.     * Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't contribute to whether the parent command status is Success or Incomplete. This is a terminal state.     * Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were canceled by the system. This is a terminal state.
-ciStatusDetails :: Lens' CommandInvocation (Maybe Text)
-ciStatusDetails = lens _ciStatusDetails (\s a -> s {_ciStatusDetails = a})
+-- | A detailed status of the command execution for each invocation (each
+-- instance targeted by the command). StatusDetails includes more
+-- information than Status because it includes states resulting from error
+-- and concurrency control parameters. StatusDetails can show different
+-- results than Status. For more information about these statuses, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses>
+-- in the /AWS Systems Manager User Guide/. StatusDetails can be one of the
+-- following values:
+--
+-- -   Pending: The command has not been sent to the instance.
+--
+-- -   In Progress: The command has been sent to the instance but has not
+--     reached a terminal state.
+--
+-- -   Success: The execution of the command or plugin was successfully
+--     completed. This is a terminal state.
+--
+-- -   Delivery Timed Out: The command was not delivered to the instance
+--     before the delivery timeout expired. Delivery timeouts do not count
+--     against the parent command\'s MaxErrors limit, but they do
+--     contribute to whether the parent command status is Success or
+--     Incomplete. This is a terminal state.
+--
+-- -   Execution Timed Out: Command execution started on the instance, but
+--     the execution was not complete before the execution timeout expired.
+--     Execution timeouts count against the MaxErrors limit of the parent
+--     command. This is a terminal state.
+--
+-- -   Failed: The command was not successful on the instance. For a
+--     plugin, this indicates that the result code was not zero. For a
+--     command invocation, this indicates that the result code for one or
+--     more plugins was not zero. Invocation failures count against the
+--     MaxErrors limit of the parent command. This is a terminal state.
+--
+-- -   Canceled: The command was terminated before it was completed. This
+--     is a terminal state.
+--
+-- -   Undeliverable: The command can\'t be delivered to the instance. The
+--     instance might not exist or might not be responding. Undeliverable
+--     invocations don\'t count against the parent command\'s MaxErrors
+--     limit and don\'t contribute to whether the parent command status is
+--     Success or Incomplete. This is a terminal state.
+--
+-- -   Terminated: The parent command exceeded its MaxErrors limit and
+--     subsequent command invocations were canceled by the system. This is
+--     a terminal state.
+commandInvocation_statusDetails :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_statusDetails = Lens.lens (\CommandInvocation' {statusDetails} -> statusDetails) (\s@CommandInvocation' {} a -> s {statusDetails = a} :: CommandInvocation)
 
--- | The name of the invocation target. For EC2 instances this is the value for the aws:Name tag. For on-premises instances, this is the name of the instance.
-ciInstanceName :: Lens' CommandInvocation (Maybe Text)
-ciInstanceName = lens _ciInstanceName (\s a -> s {_ciInstanceName = a})
+-- | The name of the invocation target. For EC2 instances this is the value
+-- for the aws:Name tag. For on-premises instances, this is the name of the
+-- instance.
+commandInvocation_instanceName :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_instanceName = Lens.lens (\CommandInvocation' {instanceName} -> instanceName) (\s@CommandInvocation' {} a -> s {instanceName = a} :: CommandInvocation)
 
--- | User-specified information about the command, such as a brief description of what the command should do.
-ciComment :: Lens' CommandInvocation (Maybe Text)
-ciComment = lens _ciComment (\s a -> s {_ciComment = a})
+-- | User-specified information about the command, such as a brief
+-- description of what the command should do.
+commandInvocation_comment :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_comment = Lens.lens (\CommandInvocation' {comment} -> comment) (\s@CommandInvocation' {} a -> s {comment = a} :: CommandInvocation)
 
--- | The URL to the plugin's StdErr file in Amazon S3, if the S3 bucket was defined for the parent command. For an invocation, StandardErrorUrl is populated if there is just one plugin defined for the command, and the S3 bucket was defined for the command.
-ciStandardErrorURL :: Lens' CommandInvocation (Maybe Text)
-ciStandardErrorURL = lens _ciStandardErrorURL (\s a -> s {_ciStandardErrorURL = a})
+-- | The URL to the plugin\'s StdErr file in Amazon S3, if the S3 bucket was
+-- defined for the parent command. For an invocation, StandardErrorUrl is
+-- populated if there is just one plugin defined for the command, and the
+-- S3 bucket was defined for the command.
+commandInvocation_standardErrorUrl :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_standardErrorUrl = Lens.lens (\CommandInvocation' {standardErrorUrl} -> standardErrorUrl) (\s@CommandInvocation' {} a -> s {standardErrorUrl = a} :: CommandInvocation)
 
 -- | The document name that was requested for execution.
-ciDocumentName :: Lens' CommandInvocation (Maybe Text)
-ciDocumentName = lens _ciDocumentName (\s a -> s {_ciDocumentName = a})
+commandInvocation_documentName :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_documentName = Lens.lens (\CommandInvocation' {documentName} -> documentName) (\s@CommandInvocation' {} a -> s {documentName = a} :: CommandInvocation)
 
 -- | The command against which this invocation was requested.
-ciCommandId :: Lens' CommandInvocation (Maybe Text)
-ciCommandId = lens _ciCommandId (\s a -> s {_ciCommandId = a})
+commandInvocation_commandId :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_commandId = Lens.lens (\CommandInvocation' {commandId} -> commandId) (\s@CommandInvocation' {} a -> s {commandId = a} :: CommandInvocation)
 
 -- | Gets the trace output sent by the agent.
-ciTraceOutput :: Lens' CommandInvocation (Maybe Text)
-ciTraceOutput = lens _ciTraceOutput (\s a -> s {_ciTraceOutput = a})
+commandInvocation_traceOutput :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_traceOutput = Lens.lens (\CommandInvocation' {traceOutput} -> traceOutput) (\s@CommandInvocation' {} a -> s {traceOutput = a} :: CommandInvocation)
 
--- | CloudWatch Logs information where you want Systems Manager to send the command output.
-ciCloudWatchOutputConfig :: Lens' CommandInvocation (Maybe CloudWatchOutputConfig)
-ciCloudWatchOutputConfig = lens _ciCloudWatchOutputConfig (\s a -> s {_ciCloudWatchOutputConfig = a})
+-- | CloudWatch Logs information where you want Systems Manager to send the
+-- command output.
+commandInvocation_cloudWatchOutputConfig :: Lens.Lens' CommandInvocation (Prelude.Maybe CloudWatchOutputConfig)
+commandInvocation_cloudWatchOutputConfig = Lens.lens (\CommandInvocation' {cloudWatchOutputConfig} -> cloudWatchOutputConfig) (\s@CommandInvocation' {} a -> s {cloudWatchOutputConfig = a} :: CommandInvocation)
 
 -- | Undocumented member.
-ciCommandPlugins :: Lens' CommandInvocation [CommandPlugin]
-ciCommandPlugins = lens _ciCommandPlugins (\s a -> s {_ciCommandPlugins = a}) . _Default . _Coerce
+commandInvocation_commandPlugins :: Lens.Lens' CommandInvocation (Prelude.Maybe [CommandPlugin])
+commandInvocation_commandPlugins = Lens.lens (\CommandInvocation' {commandPlugins} -> commandPlugins) (\s@CommandInvocation' {} a -> s {commandPlugins = a} :: CommandInvocation) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The SSM document version.
-ciDocumentVersion :: Lens' CommandInvocation (Maybe Text)
-ciDocumentVersion = lens _ciDocumentVersion (\s a -> s {_ciDocumentVersion = a})
+commandInvocation_documentVersion :: Lens.Lens' CommandInvocation (Prelude.Maybe Prelude.Text)
+commandInvocation_documentVersion = Lens.lens (\CommandInvocation' {documentVersion} -> documentVersion) (\s@CommandInvocation' {} a -> s {documentVersion = a} :: CommandInvocation)
 
-instance FromJSON CommandInvocation where
+instance Prelude.FromJSON CommandInvocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CommandInvocation"
       ( \x ->
           CommandInvocation'
-            <$> (x .:? "NotificationConfig")
-            <*> (x .:? "StandardOutputUrl")
-            <*> (x .:? "Status")
-            <*> (x .:? "InstanceId")
-            <*> (x .:? "ServiceRole")
-            <*> (x .:? "RequestedDateTime")
-            <*> (x .:? "StatusDetails")
-            <*> (x .:? "InstanceName")
-            <*> (x .:? "Comment")
-            <*> (x .:? "StandardErrorUrl")
-            <*> (x .:? "DocumentName")
-            <*> (x .:? "CommandId")
-            <*> (x .:? "TraceOutput")
-            <*> (x .:? "CloudWatchOutputConfig")
-            <*> (x .:? "CommandPlugins" .!= mempty)
-            <*> (x .:? "DocumentVersion")
+            Prelude.<$> (x Prelude..:? "NotificationConfig")
+            Prelude.<*> (x Prelude..:? "StandardOutputUrl")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "InstanceId")
+            Prelude.<*> (x Prelude..:? "ServiceRole")
+            Prelude.<*> (x Prelude..:? "RequestedDateTime")
+            Prelude.<*> (x Prelude..:? "StatusDetails")
+            Prelude.<*> (x Prelude..:? "InstanceName")
+            Prelude.<*> (x Prelude..:? "Comment")
+            Prelude.<*> (x Prelude..:? "StandardErrorUrl")
+            Prelude.<*> (x Prelude..:? "DocumentName")
+            Prelude.<*> (x Prelude..:? "CommandId")
+            Prelude.<*> (x Prelude..:? "TraceOutput")
+            Prelude.<*> (x Prelude..:? "CloudWatchOutputConfig")
+            Prelude.<*> ( x Prelude..:? "CommandPlugins"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DocumentVersion")
       )
 
-instance Hashable CommandInvocation
+instance Prelude.Hashable CommandInvocation
 
-instance NFData CommandInvocation
+instance Prelude.NFData CommandInvocation

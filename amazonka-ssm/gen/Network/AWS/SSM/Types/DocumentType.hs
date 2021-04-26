@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,96 +19,98 @@
 module Network.AWS.SSM.Types.DocumentType
   ( DocumentType
       ( ..,
-        DTApplicationConfiguration,
-        DTApplicationConfigurationSchema,
-        DTAutomation,
-        DTAutomation_ChangeTemplate,
-        DTChangeCalendar,
-        DTCommand,
-        DTDeploymentStrategy,
-        DTPackage,
-        DTPolicy,
-        DTSession
+        DocumentTypeApplicationConfiguration,
+        DocumentTypeApplicationConfigurationSchema,
+        DocumentTypeAutomation,
+        DocumentTypeAutomation_ChangeTemplate,
+        DocumentTypeChangeCalendar,
+        DocumentTypeCommand,
+        DocumentTypeDeploymentStrategy,
+        DocumentTypePackage,
+        DocumentTypePolicy,
+        DocumentTypeSession
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentType = DocumentType' (CI Text)
+newtype DocumentType = DocumentType'
+  { fromDocumentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DTApplicationConfiguration :: DocumentType
-pattern DTApplicationConfiguration = DocumentType' "ApplicationConfiguration"
+pattern DocumentTypeApplicationConfiguration :: DocumentType
+pattern DocumentTypeApplicationConfiguration = DocumentType' "ApplicationConfiguration"
 
-pattern DTApplicationConfigurationSchema :: DocumentType
-pattern DTApplicationConfigurationSchema = DocumentType' "ApplicationConfigurationSchema"
+pattern DocumentTypeApplicationConfigurationSchema :: DocumentType
+pattern DocumentTypeApplicationConfigurationSchema = DocumentType' "ApplicationConfigurationSchema"
 
-pattern DTAutomation :: DocumentType
-pattern DTAutomation = DocumentType' "Automation"
+pattern DocumentTypeAutomation :: DocumentType
+pattern DocumentTypeAutomation = DocumentType' "Automation"
 
-pattern DTAutomation_ChangeTemplate :: DocumentType
-pattern DTAutomation_ChangeTemplate = DocumentType' "Automation.ChangeTemplate"
+pattern DocumentTypeAutomation_ChangeTemplate :: DocumentType
+pattern DocumentTypeAutomation_ChangeTemplate = DocumentType' "Automation.ChangeTemplate"
 
-pattern DTChangeCalendar :: DocumentType
-pattern DTChangeCalendar = DocumentType' "ChangeCalendar"
+pattern DocumentTypeChangeCalendar :: DocumentType
+pattern DocumentTypeChangeCalendar = DocumentType' "ChangeCalendar"
 
-pattern DTCommand :: DocumentType
-pattern DTCommand = DocumentType' "Command"
+pattern DocumentTypeCommand :: DocumentType
+pattern DocumentTypeCommand = DocumentType' "Command"
 
-pattern DTDeploymentStrategy :: DocumentType
-pattern DTDeploymentStrategy = DocumentType' "DeploymentStrategy"
+pattern DocumentTypeDeploymentStrategy :: DocumentType
+pattern DocumentTypeDeploymentStrategy = DocumentType' "DeploymentStrategy"
 
-pattern DTPackage :: DocumentType
-pattern DTPackage = DocumentType' "Package"
+pattern DocumentTypePackage :: DocumentType
+pattern DocumentTypePackage = DocumentType' "Package"
 
-pattern DTPolicy :: DocumentType
-pattern DTPolicy = DocumentType' "Policy"
+pattern DocumentTypePolicy :: DocumentType
+pattern DocumentTypePolicy = DocumentType' "Policy"
 
-pattern DTSession :: DocumentType
-pattern DTSession = DocumentType' "Session"
+pattern DocumentTypeSession :: DocumentType
+pattern DocumentTypeSession = DocumentType' "Session"
 
 {-# COMPLETE
-  DTApplicationConfiguration,
-  DTApplicationConfigurationSchema,
-  DTAutomation,
-  DTAutomation_ChangeTemplate,
-  DTChangeCalendar,
-  DTCommand,
-  DTDeploymentStrategy,
-  DTPackage,
-  DTPolicy,
-  DTSession,
+  DocumentTypeApplicationConfiguration,
+  DocumentTypeApplicationConfigurationSchema,
+  DocumentTypeAutomation,
+  DocumentTypeAutomation_ChangeTemplate,
+  DocumentTypeChangeCalendar,
+  DocumentTypeCommand,
+  DocumentTypeDeploymentStrategy,
+  DocumentTypePackage,
+  DocumentTypePolicy,
+  DocumentTypeSession,
   DocumentType'
   #-}
 
-instance FromText DocumentType where
-  parser = (DocumentType' . mk) <$> takeText
+instance Prelude.FromText DocumentType where
+  parser = DocumentType' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentType where
-  toText (DocumentType' ci) = original ci
+instance Prelude.ToText DocumentType where
+  toText (DocumentType' x) = x
 
-instance Hashable DocumentType
+instance Prelude.Hashable DocumentType
 
-instance NFData DocumentType
+instance Prelude.NFData DocumentType
 
-instance ToByteString DocumentType
+instance Prelude.ToByteString DocumentType
 
-instance ToQuery DocumentType
+instance Prelude.ToQuery DocumentType
 
-instance ToHeader DocumentType
+instance Prelude.ToHeader DocumentType
 
-instance ToJSON DocumentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DocumentType where
-  parseJSON = parseJSONText "DocumentType"
+instance Prelude.FromJSON DocumentType where
+  parseJSON = Prelude.parseJSONText "DocumentType"

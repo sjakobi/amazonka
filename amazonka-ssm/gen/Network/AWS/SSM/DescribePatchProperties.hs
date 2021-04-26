@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,245 +21,293 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the properties of available patches organized by product, product family, classification, severity, and other properties of available patches. You can use the reported properties in the filters you specify in requests for actions such as 'CreatePatchBaseline' , 'UpdatePatchBaseline' , 'DescribeAvailablePatches' , and 'DescribePatchBaselines' .
+-- Lists the properties of available patches organized by product, product
+-- family, classification, severity, and other properties of available
+-- patches. You can use the reported properties in the filters you specify
+-- in requests for actions such as CreatePatchBaseline,
+-- UpdatePatchBaseline, DescribeAvailablePatches, and
+-- DescribePatchBaselines.
 --
+-- The following section lists the properties that can be used in filters
+-- for each major operating system type:
 --
--- The following section lists the properties that can be used in filters for each major operating system type:
+-- [AMAZON_LINUX]
+--     Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
 --
---     * AMAZON_LINUX    * Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
+-- [AMAZON_LINUX_2]
+--     Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
 --
---     * AMAZON_LINUX_2    * Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
+-- [CENTOS]
+--     Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
 --
---     * CENTOS    * Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
+-- [DEBIAN]
+--     Valid properties: PRODUCT, PRIORITY
 --
---     * DEBIAN    * Valid properties: PRODUCT, PRIORITY
+-- [MACOS]
+--     Valid properties: PRODUCT, CLASSIFICATION
 --
---     * MACOS    * Valid properties: PRODUCT, CLASSIFICATION
+-- [ORACLE_LINUX]
+--     Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
 --
---     * ORACLE_LINUX    * Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
+-- [REDHAT_ENTERPRISE_LINUX]
+--     Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
 --
---     * REDHAT_ENTERPRISE_LINUX    * Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
+-- [SUSE]
+--     Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
 --
---     * SUSE    * Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
+-- [UBUNTU]
+--     Valid properties: PRODUCT, PRIORITY
 --
---     * UBUNTU    * Valid properties: PRODUCT, PRIORITY
---
---     * WINDOWS    * Valid properties: PRODUCT, PRODUCT_FAMILY, CLASSIFICATION, MSRC_SEVERITY
---
---
---
+-- [WINDOWS]
+--     Valid properties: PRODUCT, PRODUCT_FAMILY, CLASSIFICATION,
+--     MSRC_SEVERITY
 --
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribePatchProperties
   ( -- * Creating a Request
-    describePatchProperties,
-    DescribePatchProperties,
+    DescribePatchProperties (..),
+    newDescribePatchProperties,
 
     -- * Request Lenses
-    dppNextToken,
-    dppMaxResults,
-    dppPatchSet,
-    dppOperatingSystem,
-    dppProperty,
+    describePatchProperties_nextToken,
+    describePatchProperties_maxResults,
+    describePatchProperties_patchSet,
+    describePatchProperties_operatingSystem,
+    describePatchProperties_property,
 
     -- * Destructuring the Response
-    describePatchPropertiesResponse,
-    DescribePatchPropertiesResponse,
+    DescribePatchPropertiesResponse (..),
+    newDescribePatchPropertiesResponse,
 
     -- * Response Lenses
-    dpprrsNextToken,
-    dpprrsProperties,
-    dpprrsResponseStatus,
+    describePatchPropertiesResponse_nextToken,
+    describePatchPropertiesResponse_properties,
+    describePatchPropertiesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'describePatchProperties' smart constructor.
+-- | /See:/ 'newDescribePatchProperties' smart constructor.
 data DescribePatchProperties = DescribePatchProperties'
-  { _dppNextToken ::
-      !(Maybe Text),
-    _dppMaxResults ::
-      !(Maybe Nat),
-    _dppPatchSet ::
-      !(Maybe PatchSet),
-    _dppOperatingSystem ::
-      !OperatingSystem,
-    _dppProperty ::
-      !PatchProperty
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Indicates whether to list patches for the Windows operating system or
+    -- for Microsoft applications. Not applicable for the Linux or macOS
+    -- operating systems.
+    patchSet :: Prelude.Maybe PatchSet,
+    -- | The operating system type for which to list patches.
+    operatingSystem :: OperatingSystem,
+    -- | The patch property for which you want to view patch details.
+    property :: PatchProperty
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePatchProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePatchProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dppNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dppMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'describePatchProperties_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'dppPatchSet' - Indicates whether to list patches for the Windows operating system or for Microsoft applications. Not applicable for the Linux or macOS operating systems.
+-- 'maxResults', 'describePatchProperties_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
--- * 'dppOperatingSystem' - The operating system type for which to list patches.
+-- 'patchSet', 'describePatchProperties_patchSet' - Indicates whether to list patches for the Windows operating system or
+-- for Microsoft applications. Not applicable for the Linux or macOS
+-- operating systems.
 --
--- * 'dppProperty' - The patch property for which you want to view patch details.
-describePatchProperties ::
-  -- | 'dppOperatingSystem'
+-- 'operatingSystem', 'describePatchProperties_operatingSystem' - The operating system type for which to list patches.
+--
+-- 'property', 'describePatchProperties_property' - The patch property for which you want to view patch details.
+newDescribePatchProperties ::
+  -- | 'operatingSystem'
   OperatingSystem ->
-  -- | 'dppProperty'
+  -- | 'property'
   PatchProperty ->
   DescribePatchProperties
-describePatchProperties pOperatingSystem_ pProperty_ =
-  DescribePatchProperties'
-    { _dppNextToken = Nothing,
-      _dppMaxResults = Nothing,
-      _dppPatchSet = Nothing,
-      _dppOperatingSystem = pOperatingSystem_,
-      _dppProperty = pProperty_
-    }
+newDescribePatchProperties
+  pOperatingSystem_
+  pProperty_ =
+    DescribePatchProperties'
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        patchSet = Prelude.Nothing,
+        operatingSystem = pOperatingSystem_,
+        property = pProperty_
+      }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-dppNextToken :: Lens' DescribePatchProperties (Maybe Text)
-dppNextToken = lens _dppNextToken (\s a -> s {_dppNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describePatchProperties_nextToken :: Lens.Lens' DescribePatchProperties (Prelude.Maybe Prelude.Text)
+describePatchProperties_nextToken = Lens.lens (\DescribePatchProperties' {nextToken} -> nextToken) (\s@DescribePatchProperties' {} a -> s {nextToken = a} :: DescribePatchProperties)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-dppMaxResults :: Lens' DescribePatchProperties (Maybe Natural)
-dppMaxResults = lens _dppMaxResults (\s a -> s {_dppMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describePatchProperties_maxResults :: Lens.Lens' DescribePatchProperties (Prelude.Maybe Prelude.Natural)
+describePatchProperties_maxResults = Lens.lens (\DescribePatchProperties' {maxResults} -> maxResults) (\s@DescribePatchProperties' {} a -> s {maxResults = a} :: DescribePatchProperties) Prelude.. Lens.mapping Prelude._Nat
 
--- | Indicates whether to list patches for the Windows operating system or for Microsoft applications. Not applicable for the Linux or macOS operating systems.
-dppPatchSet :: Lens' DescribePatchProperties (Maybe PatchSet)
-dppPatchSet = lens _dppPatchSet (\s a -> s {_dppPatchSet = a})
+-- | Indicates whether to list patches for the Windows operating system or
+-- for Microsoft applications. Not applicable for the Linux or macOS
+-- operating systems.
+describePatchProperties_patchSet :: Lens.Lens' DescribePatchProperties (Prelude.Maybe PatchSet)
+describePatchProperties_patchSet = Lens.lens (\DescribePatchProperties' {patchSet} -> patchSet) (\s@DescribePatchProperties' {} a -> s {patchSet = a} :: DescribePatchProperties)
 
 -- | The operating system type for which to list patches.
-dppOperatingSystem :: Lens' DescribePatchProperties OperatingSystem
-dppOperatingSystem = lens _dppOperatingSystem (\s a -> s {_dppOperatingSystem = a})
+describePatchProperties_operatingSystem :: Lens.Lens' DescribePatchProperties OperatingSystem
+describePatchProperties_operatingSystem = Lens.lens (\DescribePatchProperties' {operatingSystem} -> operatingSystem) (\s@DescribePatchProperties' {} a -> s {operatingSystem = a} :: DescribePatchProperties)
 
 -- | The patch property for which you want to view patch details.
-dppProperty :: Lens' DescribePatchProperties PatchProperty
-dppProperty = lens _dppProperty (\s a -> s {_dppProperty = a})
+describePatchProperties_property :: Lens.Lens' DescribePatchProperties PatchProperty
+describePatchProperties_property = Lens.lens (\DescribePatchProperties' {property} -> property) (\s@DescribePatchProperties' {} a -> s {property = a} :: DescribePatchProperties)
 
-instance AWSPager DescribePatchProperties where
+instance Pager.AWSPager DescribePatchProperties where
   page rq rs
-    | stop (rs ^. dpprrsNextToken) = Nothing
-    | stop (rs ^. dpprrsProperties) = Nothing
-    | otherwise =
-      Just $ rq & dppNextToken .~ rs ^. dpprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describePatchPropertiesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describePatchPropertiesResponse_properties
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describePatchProperties_nextToken
+          Lens..~ rs
+          Lens.^? describePatchPropertiesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribePatchProperties where
+instance Prelude.AWSRequest DescribePatchProperties where
   type
     Rs DescribePatchProperties =
       DescribePatchPropertiesResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribePatchPropertiesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Properties" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Properties"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribePatchProperties
+instance Prelude.Hashable DescribePatchProperties
 
-instance NFData DescribePatchProperties
+instance Prelude.NFData DescribePatchProperties
 
-instance ToHeaders DescribePatchProperties where
+instance Prelude.ToHeaders DescribePatchProperties where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.DescribePatchProperties" :: ByteString),
+              Prelude.=# ( "AmazonSSM.DescribePatchProperties" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribePatchProperties where
+instance Prelude.ToJSON DescribePatchProperties where
   toJSON DescribePatchProperties' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dppNextToken,
-            ("MaxResults" .=) <$> _dppMaxResults,
-            ("PatchSet" .=) <$> _dppPatchSet,
-            Just ("OperatingSystem" .= _dppOperatingSystem),
-            Just ("Property" .= _dppProperty)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("PatchSet" Prelude..=) Prelude.<$> patchSet,
+            Prelude.Just
+              ("OperatingSystem" Prelude..= operatingSystem),
+            Prelude.Just ("Property" Prelude..= property)
           ]
       )
 
-instance ToPath DescribePatchProperties where
-  toPath = const "/"
+instance Prelude.ToPath DescribePatchProperties where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribePatchProperties where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribePatchProperties where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describePatchPropertiesResponse' smart constructor.
+-- | /See:/ 'newDescribePatchPropertiesResponse' smart constructor.
 data DescribePatchPropertiesResponse = DescribePatchPropertiesResponse'
-  { _dpprrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dpprrsProperties ::
-      !( Maybe
-           [ Map
-               Text
-               Text
-           ]
-       ),
-    _dpprrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of items to return. (You use this token in
+    -- the next call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the properties for patches matching the filter request
+    -- parameters.
+    properties :: Prelude.Maybe [Prelude.Map Prelude.Text Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePatchPropertiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePatchPropertiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpprrsNextToken' - The token for the next set of items to return. (You use this token in the next call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpprrsProperties' - A list of the properties for patches matching the filter request parameters.
+-- 'nextToken', 'describePatchPropertiesResponse_nextToken' - The token for the next set of items to return. (You use this token in
+-- the next call.)
 --
--- * 'dpprrsResponseStatus' - -- | The response status code.
-describePatchPropertiesResponse ::
-  -- | 'dpprrsResponseStatus'
-  Int ->
+-- 'properties', 'describePatchPropertiesResponse_properties' - A list of the properties for patches matching the filter request
+-- parameters.
+--
+-- 'httpStatus', 'describePatchPropertiesResponse_httpStatus' - The response's http status code.
+newDescribePatchPropertiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribePatchPropertiesResponse
-describePatchPropertiesResponse pResponseStatus_ =
+newDescribePatchPropertiesResponse pHttpStatus_ =
   DescribePatchPropertiesResponse'
-    { _dpprrsNextToken =
-        Nothing,
-      _dpprrsProperties = Nothing,
-      _dpprrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      properties = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of items to return. (You use this token in the next call.)
-dpprrsNextToken :: Lens' DescribePatchPropertiesResponse (Maybe Text)
-dpprrsNextToken = lens _dpprrsNextToken (\s a -> s {_dpprrsNextToken = a})
+-- | The token for the next set of items to return. (You use this token in
+-- the next call.)
+describePatchPropertiesResponse_nextToken :: Lens.Lens' DescribePatchPropertiesResponse (Prelude.Maybe Prelude.Text)
+describePatchPropertiesResponse_nextToken = Lens.lens (\DescribePatchPropertiesResponse' {nextToken} -> nextToken) (\s@DescribePatchPropertiesResponse' {} a -> s {nextToken = a} :: DescribePatchPropertiesResponse)
 
--- | A list of the properties for patches matching the filter request parameters.
-dpprrsProperties :: Lens' DescribePatchPropertiesResponse [HashMap Text Text]
-dpprrsProperties = lens _dpprrsProperties (\s a -> s {_dpprrsProperties = a}) . _Default . _Coerce
+-- | A list of the properties for patches matching the filter request
+-- parameters.
+describePatchPropertiesResponse_properties :: Lens.Lens' DescribePatchPropertiesResponse (Prelude.Maybe [Prelude.HashMap Prelude.Text Prelude.Text])
+describePatchPropertiesResponse_properties = Lens.lens (\DescribePatchPropertiesResponse' {properties} -> properties) (\s@DescribePatchPropertiesResponse' {} a -> s {properties = a} :: DescribePatchPropertiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dpprrsResponseStatus :: Lens' DescribePatchPropertiesResponse Int
-dpprrsResponseStatus = lens _dpprrsResponseStatus (\s a -> s {_dpprrsResponseStatus = a})
+-- | The response's http status code.
+describePatchPropertiesResponse_httpStatus :: Lens.Lens' DescribePatchPropertiesResponse Prelude.Int
+describePatchPropertiesResponse_httpStatus = Lens.lens (\DescribePatchPropertiesResponse' {httpStatus} -> httpStatus) (\s@DescribePatchPropertiesResponse' {} a -> s {httpStatus = a} :: DescribePatchPropertiesResponse)
 
-instance NFData DescribePatchPropertiesResponse
+instance
+  Prelude.NFData
+    DescribePatchPropertiesResponse

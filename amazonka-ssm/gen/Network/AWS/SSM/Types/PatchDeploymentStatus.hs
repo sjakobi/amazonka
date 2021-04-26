@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SSM.Types.PatchDeploymentStatus
   ( PatchDeploymentStatus
       ( ..,
-        Approved,
-        ExplicitApproved,
-        ExplicitRejected,
-        PendingApproval
+        PatchDeploymentStatusAPPROVED,
+        PatchDeploymentStatusEXPLICITAPPROVED,
+        PatchDeploymentStatusEXPLICITREJECTED,
+        PatchDeploymentStatusPENDINGAPPROVAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PatchDeploymentStatus
-  = PatchDeploymentStatus'
-      ( CI
-          Text
-      )
+newtype PatchDeploymentStatus = PatchDeploymentStatus'
+  { fromPatchDeploymentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Approved :: PatchDeploymentStatus
-pattern Approved = PatchDeploymentStatus' "APPROVED"
+pattern PatchDeploymentStatusAPPROVED :: PatchDeploymentStatus
+pattern PatchDeploymentStatusAPPROVED = PatchDeploymentStatus' "APPROVED"
 
-pattern ExplicitApproved :: PatchDeploymentStatus
-pattern ExplicitApproved = PatchDeploymentStatus' "EXPLICIT_APPROVED"
+pattern PatchDeploymentStatusEXPLICITAPPROVED :: PatchDeploymentStatus
+pattern PatchDeploymentStatusEXPLICITAPPROVED = PatchDeploymentStatus' "EXPLICIT_APPROVED"
 
-pattern ExplicitRejected :: PatchDeploymentStatus
-pattern ExplicitRejected = PatchDeploymentStatus' "EXPLICIT_REJECTED"
+pattern PatchDeploymentStatusEXPLICITREJECTED :: PatchDeploymentStatus
+pattern PatchDeploymentStatusEXPLICITREJECTED = PatchDeploymentStatus' "EXPLICIT_REJECTED"
 
-pattern PendingApproval :: PatchDeploymentStatus
-pattern PendingApproval = PatchDeploymentStatus' "PENDING_APPROVAL"
+pattern PatchDeploymentStatusPENDINGAPPROVAL :: PatchDeploymentStatus
+pattern PatchDeploymentStatusPENDINGAPPROVAL = PatchDeploymentStatus' "PENDING_APPROVAL"
 
 {-# COMPLETE
-  Approved,
-  ExplicitApproved,
-  ExplicitRejected,
-  PendingApproval,
+  PatchDeploymentStatusAPPROVED,
+  PatchDeploymentStatusEXPLICITAPPROVED,
+  PatchDeploymentStatusEXPLICITREJECTED,
+  PatchDeploymentStatusPENDINGAPPROVAL,
   PatchDeploymentStatus'
   #-}
 
-instance FromText PatchDeploymentStatus where
-  parser = (PatchDeploymentStatus' . mk) <$> takeText
+instance Prelude.FromText PatchDeploymentStatus where
+  parser = PatchDeploymentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PatchDeploymentStatus where
-  toText (PatchDeploymentStatus' ci) = original ci
+instance Prelude.ToText PatchDeploymentStatus where
+  toText (PatchDeploymentStatus' x) = x
 
-instance Hashable PatchDeploymentStatus
+instance Prelude.Hashable PatchDeploymentStatus
 
-instance NFData PatchDeploymentStatus
+instance Prelude.NFData PatchDeploymentStatus
 
-instance ToByteString PatchDeploymentStatus
+instance Prelude.ToByteString PatchDeploymentStatus
 
-instance ToQuery PatchDeploymentStatus
+instance Prelude.ToQuery PatchDeploymentStatus
 
-instance ToHeader PatchDeploymentStatus
+instance Prelude.ToHeader PatchDeploymentStatus
 
-instance FromJSON PatchDeploymentStatus where
-  parseJSON = parseJSONText "PatchDeploymentStatus"
+instance Prelude.FromJSON PatchDeploymentStatus where
+  parseJSON = Prelude.parseJSONText "PatchDeploymentStatus"

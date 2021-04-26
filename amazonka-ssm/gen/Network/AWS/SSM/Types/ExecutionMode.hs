@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SSM.Types.ExecutionMode
   ( ExecutionMode
       ( ..,
-        EMAuto,
-        EMInteractive
+        ExecutionModeAuto,
+        ExecutionModeInteractive
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutionMode = ExecutionMode' (CI Text)
+newtype ExecutionMode = ExecutionMode'
+  { fromExecutionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EMAuto :: ExecutionMode
-pattern EMAuto = ExecutionMode' "Auto"
+pattern ExecutionModeAuto :: ExecutionMode
+pattern ExecutionModeAuto = ExecutionMode' "Auto"
 
-pattern EMInteractive :: ExecutionMode
-pattern EMInteractive = ExecutionMode' "Interactive"
+pattern ExecutionModeInteractive :: ExecutionMode
+pattern ExecutionModeInteractive = ExecutionMode' "Interactive"
 
 {-# COMPLETE
-  EMAuto,
-  EMInteractive,
+  ExecutionModeAuto,
+  ExecutionModeInteractive,
   ExecutionMode'
   #-}
 
-instance FromText ExecutionMode where
-  parser = (ExecutionMode' . mk) <$> takeText
+instance Prelude.FromText ExecutionMode where
+  parser = ExecutionMode' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutionMode where
-  toText (ExecutionMode' ci) = original ci
+instance Prelude.ToText ExecutionMode where
+  toText (ExecutionMode' x) = x
 
-instance Hashable ExecutionMode
+instance Prelude.Hashable ExecutionMode
 
-instance NFData ExecutionMode
+instance Prelude.NFData ExecutionMode
 
-instance ToByteString ExecutionMode
+instance Prelude.ToByteString ExecutionMode
 
-instance ToQuery ExecutionMode
+instance Prelude.ToQuery ExecutionMode
 
-instance ToHeader ExecutionMode
+instance Prelude.ToHeader ExecutionMode
 
-instance ToJSON ExecutionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExecutionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExecutionMode where
-  parseJSON = parseJSONText "ExecutionMode"
+instance Prelude.FromJSON ExecutionMode where
+  parseJSON = Prelude.parseJSONText "ExecutionMode"

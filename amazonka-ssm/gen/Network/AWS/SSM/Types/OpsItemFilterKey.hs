@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,173 +19,175 @@
 module Network.AWS.SSM.Types.OpsItemFilterKey
   ( OpsItemFilterKey
       ( ..,
-        OIFKActualEndTime,
-        OIFKActualStartTime,
-        OIFKAutomationId,
-        OIFKCategory,
-        OIFKChangeRequestByApproverARN,
-        OIFKChangeRequestByApproverName,
-        OIFKChangeRequestByRequesterARN,
-        OIFKChangeRequestByRequesterName,
-        OIFKChangeRequestByTargetsResourceGroup,
-        OIFKChangeRequestByTemplate,
-        OIFKCreatedBy,
-        OIFKCreatedTime,
-        OIFKLastModifiedTime,
-        OIFKOperationalData,
-        OIFKOperationalDataKey,
-        OIFKOperationalDataValue,
-        OIFKOpsItemId,
-        OIFKOpsItemType,
-        OIFKPlannedEndTime,
-        OIFKPlannedStartTime,
-        OIFKPriority,
-        OIFKResourceId,
-        OIFKSeverity,
-        OIFKSource,
-        OIFKStatus,
-        OIFKTitle
+        OpsItemFilterKeyActualEndTime,
+        OpsItemFilterKeyActualStartTime,
+        OpsItemFilterKeyAutomationId,
+        OpsItemFilterKeyCategory,
+        OpsItemFilterKeyChangeRequestByApproverArn,
+        OpsItemFilterKeyChangeRequestByApproverName,
+        OpsItemFilterKeyChangeRequestByRequesterArn,
+        OpsItemFilterKeyChangeRequestByRequesterName,
+        OpsItemFilterKeyChangeRequestByTargetsResourceGroup,
+        OpsItemFilterKeyChangeRequestByTemplate,
+        OpsItemFilterKeyCreatedBy,
+        OpsItemFilterKeyCreatedTime,
+        OpsItemFilterKeyLastModifiedTime,
+        OpsItemFilterKeyOperationalData,
+        OpsItemFilterKeyOperationalDataKey,
+        OpsItemFilterKeyOperationalDataValue,
+        OpsItemFilterKeyOpsItemId,
+        OpsItemFilterKeyOpsItemType,
+        OpsItemFilterKeyPlannedEndTime,
+        OpsItemFilterKeyPlannedStartTime,
+        OpsItemFilterKeyPriority,
+        OpsItemFilterKeyResourceId,
+        OpsItemFilterKeySeverity,
+        OpsItemFilterKeySource,
+        OpsItemFilterKeyStatus',
+        OpsItemFilterKeyTitle
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OpsItemFilterKey = OpsItemFilterKey' (CI Text)
+newtype OpsItemFilterKey = OpsItemFilterKey'
+  { fromOpsItemFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OIFKActualEndTime :: OpsItemFilterKey
-pattern OIFKActualEndTime = OpsItemFilterKey' "ActualEndTime"
+pattern OpsItemFilterKeyActualEndTime :: OpsItemFilterKey
+pattern OpsItemFilterKeyActualEndTime = OpsItemFilterKey' "ActualEndTime"
 
-pattern OIFKActualStartTime :: OpsItemFilterKey
-pattern OIFKActualStartTime = OpsItemFilterKey' "ActualStartTime"
+pattern OpsItemFilterKeyActualStartTime :: OpsItemFilterKey
+pattern OpsItemFilterKeyActualStartTime = OpsItemFilterKey' "ActualStartTime"
 
-pattern OIFKAutomationId :: OpsItemFilterKey
-pattern OIFKAutomationId = OpsItemFilterKey' "AutomationId"
+pattern OpsItemFilterKeyAutomationId :: OpsItemFilterKey
+pattern OpsItemFilterKeyAutomationId = OpsItemFilterKey' "AutomationId"
 
-pattern OIFKCategory :: OpsItemFilterKey
-pattern OIFKCategory = OpsItemFilterKey' "Category"
+pattern OpsItemFilterKeyCategory :: OpsItemFilterKey
+pattern OpsItemFilterKeyCategory = OpsItemFilterKey' "Category"
 
-pattern OIFKChangeRequestByApproverARN :: OpsItemFilterKey
-pattern OIFKChangeRequestByApproverARN = OpsItemFilterKey' "ChangeRequestByApproverArn"
+pattern OpsItemFilterKeyChangeRequestByApproverArn :: OpsItemFilterKey
+pattern OpsItemFilterKeyChangeRequestByApproverArn = OpsItemFilterKey' "ChangeRequestByApproverArn"
 
-pattern OIFKChangeRequestByApproverName :: OpsItemFilterKey
-pattern OIFKChangeRequestByApproverName = OpsItemFilterKey' "ChangeRequestByApproverName"
+pattern OpsItemFilterKeyChangeRequestByApproverName :: OpsItemFilterKey
+pattern OpsItemFilterKeyChangeRequestByApproverName = OpsItemFilterKey' "ChangeRequestByApproverName"
 
-pattern OIFKChangeRequestByRequesterARN :: OpsItemFilterKey
-pattern OIFKChangeRequestByRequesterARN = OpsItemFilterKey' "ChangeRequestByRequesterArn"
+pattern OpsItemFilterKeyChangeRequestByRequesterArn :: OpsItemFilterKey
+pattern OpsItemFilterKeyChangeRequestByRequesterArn = OpsItemFilterKey' "ChangeRequestByRequesterArn"
 
-pattern OIFKChangeRequestByRequesterName :: OpsItemFilterKey
-pattern OIFKChangeRequestByRequesterName = OpsItemFilterKey' "ChangeRequestByRequesterName"
+pattern OpsItemFilterKeyChangeRequestByRequesterName :: OpsItemFilterKey
+pattern OpsItemFilterKeyChangeRequestByRequesterName = OpsItemFilterKey' "ChangeRequestByRequesterName"
 
-pattern OIFKChangeRequestByTargetsResourceGroup :: OpsItemFilterKey
-pattern OIFKChangeRequestByTargetsResourceGroup = OpsItemFilterKey' "ChangeRequestByTargetsResourceGroup"
+pattern OpsItemFilterKeyChangeRequestByTargetsResourceGroup :: OpsItemFilterKey
+pattern OpsItemFilterKeyChangeRequestByTargetsResourceGroup = OpsItemFilterKey' "ChangeRequestByTargetsResourceGroup"
 
-pattern OIFKChangeRequestByTemplate :: OpsItemFilterKey
-pattern OIFKChangeRequestByTemplate = OpsItemFilterKey' "ChangeRequestByTemplate"
+pattern OpsItemFilterKeyChangeRequestByTemplate :: OpsItemFilterKey
+pattern OpsItemFilterKeyChangeRequestByTemplate = OpsItemFilterKey' "ChangeRequestByTemplate"
 
-pattern OIFKCreatedBy :: OpsItemFilterKey
-pattern OIFKCreatedBy = OpsItemFilterKey' "CreatedBy"
+pattern OpsItemFilterKeyCreatedBy :: OpsItemFilterKey
+pattern OpsItemFilterKeyCreatedBy = OpsItemFilterKey' "CreatedBy"
 
-pattern OIFKCreatedTime :: OpsItemFilterKey
-pattern OIFKCreatedTime = OpsItemFilterKey' "CreatedTime"
+pattern OpsItemFilterKeyCreatedTime :: OpsItemFilterKey
+pattern OpsItemFilterKeyCreatedTime = OpsItemFilterKey' "CreatedTime"
 
-pattern OIFKLastModifiedTime :: OpsItemFilterKey
-pattern OIFKLastModifiedTime = OpsItemFilterKey' "LastModifiedTime"
+pattern OpsItemFilterKeyLastModifiedTime :: OpsItemFilterKey
+pattern OpsItemFilterKeyLastModifiedTime = OpsItemFilterKey' "LastModifiedTime"
 
-pattern OIFKOperationalData :: OpsItemFilterKey
-pattern OIFKOperationalData = OpsItemFilterKey' "OperationalData"
+pattern OpsItemFilterKeyOperationalData :: OpsItemFilterKey
+pattern OpsItemFilterKeyOperationalData = OpsItemFilterKey' "OperationalData"
 
-pattern OIFKOperationalDataKey :: OpsItemFilterKey
-pattern OIFKOperationalDataKey = OpsItemFilterKey' "OperationalDataKey"
+pattern OpsItemFilterKeyOperationalDataKey :: OpsItemFilterKey
+pattern OpsItemFilterKeyOperationalDataKey = OpsItemFilterKey' "OperationalDataKey"
 
-pattern OIFKOperationalDataValue :: OpsItemFilterKey
-pattern OIFKOperationalDataValue = OpsItemFilterKey' "OperationalDataValue"
+pattern OpsItemFilterKeyOperationalDataValue :: OpsItemFilterKey
+pattern OpsItemFilterKeyOperationalDataValue = OpsItemFilterKey' "OperationalDataValue"
 
-pattern OIFKOpsItemId :: OpsItemFilterKey
-pattern OIFKOpsItemId = OpsItemFilterKey' "OpsItemId"
+pattern OpsItemFilterKeyOpsItemId :: OpsItemFilterKey
+pattern OpsItemFilterKeyOpsItemId = OpsItemFilterKey' "OpsItemId"
 
-pattern OIFKOpsItemType :: OpsItemFilterKey
-pattern OIFKOpsItemType = OpsItemFilterKey' "OpsItemType"
+pattern OpsItemFilterKeyOpsItemType :: OpsItemFilterKey
+pattern OpsItemFilterKeyOpsItemType = OpsItemFilterKey' "OpsItemType"
 
-pattern OIFKPlannedEndTime :: OpsItemFilterKey
-pattern OIFKPlannedEndTime = OpsItemFilterKey' "PlannedEndTime"
+pattern OpsItemFilterKeyPlannedEndTime :: OpsItemFilterKey
+pattern OpsItemFilterKeyPlannedEndTime = OpsItemFilterKey' "PlannedEndTime"
 
-pattern OIFKPlannedStartTime :: OpsItemFilterKey
-pattern OIFKPlannedStartTime = OpsItemFilterKey' "PlannedStartTime"
+pattern OpsItemFilterKeyPlannedStartTime :: OpsItemFilterKey
+pattern OpsItemFilterKeyPlannedStartTime = OpsItemFilterKey' "PlannedStartTime"
 
-pattern OIFKPriority :: OpsItemFilterKey
-pattern OIFKPriority = OpsItemFilterKey' "Priority"
+pattern OpsItemFilterKeyPriority :: OpsItemFilterKey
+pattern OpsItemFilterKeyPriority = OpsItemFilterKey' "Priority"
 
-pattern OIFKResourceId :: OpsItemFilterKey
-pattern OIFKResourceId = OpsItemFilterKey' "ResourceId"
+pattern OpsItemFilterKeyResourceId :: OpsItemFilterKey
+pattern OpsItemFilterKeyResourceId = OpsItemFilterKey' "ResourceId"
 
-pattern OIFKSeverity :: OpsItemFilterKey
-pattern OIFKSeverity = OpsItemFilterKey' "Severity"
+pattern OpsItemFilterKeySeverity :: OpsItemFilterKey
+pattern OpsItemFilterKeySeverity = OpsItemFilterKey' "Severity"
 
-pattern OIFKSource :: OpsItemFilterKey
-pattern OIFKSource = OpsItemFilterKey' "Source"
+pattern OpsItemFilterKeySource :: OpsItemFilterKey
+pattern OpsItemFilterKeySource = OpsItemFilterKey' "Source"
 
-pattern OIFKStatus :: OpsItemFilterKey
-pattern OIFKStatus = OpsItemFilterKey' "Status"
+pattern OpsItemFilterKeyStatus' :: OpsItemFilterKey
+pattern OpsItemFilterKeyStatus' = OpsItemFilterKey' "Status"
 
-pattern OIFKTitle :: OpsItemFilterKey
-pattern OIFKTitle = OpsItemFilterKey' "Title"
+pattern OpsItemFilterKeyTitle :: OpsItemFilterKey
+pattern OpsItemFilterKeyTitle = OpsItemFilterKey' "Title"
 
 {-# COMPLETE
-  OIFKActualEndTime,
-  OIFKActualStartTime,
-  OIFKAutomationId,
-  OIFKCategory,
-  OIFKChangeRequestByApproverARN,
-  OIFKChangeRequestByApproverName,
-  OIFKChangeRequestByRequesterARN,
-  OIFKChangeRequestByRequesterName,
-  OIFKChangeRequestByTargetsResourceGroup,
-  OIFKChangeRequestByTemplate,
-  OIFKCreatedBy,
-  OIFKCreatedTime,
-  OIFKLastModifiedTime,
-  OIFKOperationalData,
-  OIFKOperationalDataKey,
-  OIFKOperationalDataValue,
-  OIFKOpsItemId,
-  OIFKOpsItemType,
-  OIFKPlannedEndTime,
-  OIFKPlannedStartTime,
-  OIFKPriority,
-  OIFKResourceId,
-  OIFKSeverity,
-  OIFKSource,
-  OIFKStatus,
-  OIFKTitle,
+  OpsItemFilterKeyActualEndTime,
+  OpsItemFilterKeyActualStartTime,
+  OpsItemFilterKeyAutomationId,
+  OpsItemFilterKeyCategory,
+  OpsItemFilterKeyChangeRequestByApproverArn,
+  OpsItemFilterKeyChangeRequestByApproverName,
+  OpsItemFilterKeyChangeRequestByRequesterArn,
+  OpsItemFilterKeyChangeRequestByRequesterName,
+  OpsItemFilterKeyChangeRequestByTargetsResourceGroup,
+  OpsItemFilterKeyChangeRequestByTemplate,
+  OpsItemFilterKeyCreatedBy,
+  OpsItemFilterKeyCreatedTime,
+  OpsItemFilterKeyLastModifiedTime,
+  OpsItemFilterKeyOperationalData,
+  OpsItemFilterKeyOperationalDataKey,
+  OpsItemFilterKeyOperationalDataValue,
+  OpsItemFilterKeyOpsItemId,
+  OpsItemFilterKeyOpsItemType,
+  OpsItemFilterKeyPlannedEndTime,
+  OpsItemFilterKeyPlannedStartTime,
+  OpsItemFilterKeyPriority,
+  OpsItemFilterKeyResourceId,
+  OpsItemFilterKeySeverity,
+  OpsItemFilterKeySource,
+  OpsItemFilterKeyStatus',
+  OpsItemFilterKeyTitle,
   OpsItemFilterKey'
   #-}
 
-instance FromText OpsItemFilterKey where
-  parser = (OpsItemFilterKey' . mk) <$> takeText
+instance Prelude.FromText OpsItemFilterKey where
+  parser = OpsItemFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText OpsItemFilterKey where
-  toText (OpsItemFilterKey' ci) = original ci
+instance Prelude.ToText OpsItemFilterKey where
+  toText (OpsItemFilterKey' x) = x
 
-instance Hashable OpsItemFilterKey
+instance Prelude.Hashable OpsItemFilterKey
 
-instance NFData OpsItemFilterKey
+instance Prelude.NFData OpsItemFilterKey
 
-instance ToByteString OpsItemFilterKey
+instance Prelude.ToByteString OpsItemFilterKey
 
-instance ToQuery OpsItemFilterKey
+instance Prelude.ToQuery OpsItemFilterKey
 
-instance ToHeader OpsItemFilterKey
+instance Prelude.ToHeader OpsItemFilterKey
 
-instance ToJSON OpsItemFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON OpsItemFilterKey where
+  toJSON = Prelude.toJSONText

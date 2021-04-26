@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.SSM.Types.PatchComplianceDataState
   ( PatchComplianceDataState
       ( ..,
-        PCDSFailed,
-        PCDSInstalled,
-        PCDSInstalledOther,
-        PCDSInstalledPendingReboot,
-        PCDSInstalledRejected,
-        PCDSMissing,
-        PCDSNotApplicable
+        PatchComplianceDataStateFAILED,
+        PatchComplianceDataStateINSTALLED,
+        PatchComplianceDataStateINSTALLEDOTHER,
+        PatchComplianceDataStateINSTALLEDPENDINGREBOOT,
+        PatchComplianceDataStateINSTALLEDREJECTED,
+        PatchComplianceDataStateMISSING,
+        PatchComplianceDataStateNOTAPPLICABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PatchComplianceDataState
-  = PatchComplianceDataState'
-      ( CI
-          Text
-      )
+newtype PatchComplianceDataState = PatchComplianceDataState'
+  { fromPatchComplianceDataState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PCDSFailed :: PatchComplianceDataState
-pattern PCDSFailed = PatchComplianceDataState' "FAILED"
+pattern PatchComplianceDataStateFAILED :: PatchComplianceDataState
+pattern PatchComplianceDataStateFAILED = PatchComplianceDataState' "FAILED"
 
-pattern PCDSInstalled :: PatchComplianceDataState
-pattern PCDSInstalled = PatchComplianceDataState' "INSTALLED"
+pattern PatchComplianceDataStateINSTALLED :: PatchComplianceDataState
+pattern PatchComplianceDataStateINSTALLED = PatchComplianceDataState' "INSTALLED"
 
-pattern PCDSInstalledOther :: PatchComplianceDataState
-pattern PCDSInstalledOther = PatchComplianceDataState' "INSTALLED_OTHER"
+pattern PatchComplianceDataStateINSTALLEDOTHER :: PatchComplianceDataState
+pattern PatchComplianceDataStateINSTALLEDOTHER = PatchComplianceDataState' "INSTALLED_OTHER"
 
-pattern PCDSInstalledPendingReboot :: PatchComplianceDataState
-pattern PCDSInstalledPendingReboot = PatchComplianceDataState' "INSTALLED_PENDING_REBOOT"
+pattern PatchComplianceDataStateINSTALLEDPENDINGREBOOT :: PatchComplianceDataState
+pattern PatchComplianceDataStateINSTALLEDPENDINGREBOOT = PatchComplianceDataState' "INSTALLED_PENDING_REBOOT"
 
-pattern PCDSInstalledRejected :: PatchComplianceDataState
-pattern PCDSInstalledRejected = PatchComplianceDataState' "INSTALLED_REJECTED"
+pattern PatchComplianceDataStateINSTALLEDREJECTED :: PatchComplianceDataState
+pattern PatchComplianceDataStateINSTALLEDREJECTED = PatchComplianceDataState' "INSTALLED_REJECTED"
 
-pattern PCDSMissing :: PatchComplianceDataState
-pattern PCDSMissing = PatchComplianceDataState' "MISSING"
+pattern PatchComplianceDataStateMISSING :: PatchComplianceDataState
+pattern PatchComplianceDataStateMISSING = PatchComplianceDataState' "MISSING"
 
-pattern PCDSNotApplicable :: PatchComplianceDataState
-pattern PCDSNotApplicable = PatchComplianceDataState' "NOT_APPLICABLE"
+pattern PatchComplianceDataStateNOTAPPLICABLE :: PatchComplianceDataState
+pattern PatchComplianceDataStateNOTAPPLICABLE = PatchComplianceDataState' "NOT_APPLICABLE"
 
 {-# COMPLETE
-  PCDSFailed,
-  PCDSInstalled,
-  PCDSInstalledOther,
-  PCDSInstalledPendingReboot,
-  PCDSInstalledRejected,
-  PCDSMissing,
-  PCDSNotApplicable,
+  PatchComplianceDataStateFAILED,
+  PatchComplianceDataStateINSTALLED,
+  PatchComplianceDataStateINSTALLEDOTHER,
+  PatchComplianceDataStateINSTALLEDPENDINGREBOOT,
+  PatchComplianceDataStateINSTALLEDREJECTED,
+  PatchComplianceDataStateMISSING,
+  PatchComplianceDataStateNOTAPPLICABLE,
   PatchComplianceDataState'
   #-}
 
-instance FromText PatchComplianceDataState where
-  parser = (PatchComplianceDataState' . mk) <$> takeText
+instance Prelude.FromText PatchComplianceDataState where
+  parser = PatchComplianceDataState' Prelude.<$> Prelude.takeText
 
-instance ToText PatchComplianceDataState where
-  toText (PatchComplianceDataState' ci) = original ci
+instance Prelude.ToText PatchComplianceDataState where
+  toText (PatchComplianceDataState' x) = x
 
-instance Hashable PatchComplianceDataState
+instance Prelude.Hashable PatchComplianceDataState
 
-instance NFData PatchComplianceDataState
+instance Prelude.NFData PatchComplianceDataState
 
-instance ToByteString PatchComplianceDataState
+instance Prelude.ToByteString PatchComplianceDataState
 
-instance ToQuery PatchComplianceDataState
+instance Prelude.ToQuery PatchComplianceDataState
 
-instance ToHeader PatchComplianceDataState
+instance Prelude.ToHeader PatchComplianceDataState
 
-instance FromJSON PatchComplianceDataState where
-  parseJSON = parseJSONText "PatchComplianceDataState"
+instance Prelude.FromJSON PatchComplianceDataState where
+  parseJSON = Prelude.parseJSONText "PatchComplianceDataState"

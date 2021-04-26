@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.MaintenanceWindowTask where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.LoggingInfo
 import Network.AWS.SSM.Types.MaintenanceWindowTaskParameterValueExpression
 import Network.AWS.SSM.Types.MaintenanceWindowTaskType
@@ -24,170 +28,236 @@ import Network.AWS.SSM.Types.Target
 
 -- | Information about a task defined for a maintenance window.
 --
---
---
--- /See:/ 'maintenanceWindowTask' smart constructor.
+-- /See:/ 'newMaintenanceWindowTask' smart constructor.
 data MaintenanceWindowTask = MaintenanceWindowTask'
-  { _mwtMaxErrors ::
-      !(Maybe Text),
-    _mwtTaskParameters ::
-      !( Maybe
-           ( Sensitive
-               ( Map
-                   Text
-                   ( Sensitive
-                       MaintenanceWindowTaskParameterValueExpression
-                   )
-               )
-           )
-       ),
-    _mwtWindowTaskId ::
-      !(Maybe Text),
-    _mwtServiceRoleARN ::
-      !(Maybe Text),
-    _mwtPriority ::
-      !(Maybe Nat),
-    _mwtTargets ::
-      !(Maybe [Target]),
-    _mwtName :: !(Maybe Text),
-    _mwtMaxConcurrency ::
-      !(Maybe Text),
-    _mwtWindowId ::
-      !(Maybe Text),
-    _mwtDescription ::
-      !(Maybe (Sensitive Text)),
-    _mwtType ::
-      !( Maybe
-           MaintenanceWindowTaskType
-       ),
-    _mwtTaskARN ::
-      !(Maybe Text),
-    _mwtLoggingInfo ::
-      !(Maybe LoggingInfo)
+  { -- | The maximum number of errors allowed before this task stops being
+    -- scheduled.
+    maxErrors :: Prelude.Maybe Prelude.Text,
+    -- | The parameters that should be passed to the task when it is run.
+    --
+    -- @TaskParameters@ has been deprecated. To specify parameters to pass to a
+    -- task when it runs, instead use the @Parameters@ option in the
+    -- @TaskInvocationParameters@ structure. For information about how Systems
+    -- Manager handles these options for the supported maintenance window task
+    -- types, see MaintenanceWindowTaskInvocationParameters.
+    taskParameters :: Prelude.Maybe (Prelude.Sensitive (Prelude.Map Prelude.Text (Prelude.Sensitive MaintenanceWindowTaskParameterValueExpression))),
+    -- | The task ID.
+    windowTaskId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the IAM service role to use to publish Amazon Simple
+    -- Notification Service (Amazon SNS) notifications for maintenance window
+    -- Run Command tasks.
+    serviceRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The priority of the task in the maintenance window. The lower the
+    -- number, the higher the priority. Tasks that have the same priority are
+    -- scheduled in parallel.
+    priority :: Prelude.Maybe Prelude.Nat,
+    -- | The targets (either instances or tags). Instances are specified using
+    -- Key=instanceids,Values=\<instanceid1>,\<instanceid2>. Tags are specified
+    -- using Key=\<tag name>,Values=\<tag value>.
+    targets :: Prelude.Maybe [Target],
+    -- | The task name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of targets this task can be run for, in parallel.
+    maxConcurrency :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the maintenance window where the task is registered.
+    windowId :: Prelude.Maybe Prelude.Text,
+    -- | A description of the task.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The type of task. The type can be one of the following: RUN_COMMAND,
+    -- AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+    type' :: Prelude.Maybe MaintenanceWindowTaskType,
+    -- | The resource that the task uses during execution. For RUN_COMMAND and
+    -- AUTOMATION task types, @TaskArn@ is the Systems Manager document name or
+    -- ARN. For LAMBDA tasks, it\'s the function name or ARN. For
+    -- STEP_FUNCTIONS tasks, it\'s the state machine ARN.
+    taskArn :: Prelude.Maybe Prelude.Text,
+    -- | Information about an S3 bucket to write task-level logs to.
+    --
+    -- @LoggingInfo@ has been deprecated. To specify an S3 bucket to contain
+    -- logs, instead use the @OutputS3BucketName@ and @OutputS3KeyPrefix@
+    -- options in the @TaskInvocationParameters@ structure. For information
+    -- about how Systems Manager handles these options for the supported
+    -- maintenance window task types, see
+    -- MaintenanceWindowTaskInvocationParameters.
+    loggingInfo :: Prelude.Maybe LoggingInfo
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MaintenanceWindowTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MaintenanceWindowTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwtMaxErrors' - The maximum number of errors allowed before this task stops being scheduled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwtTaskParameters' - The parameters that should be passed to the task when it is run.
+-- 'maxErrors', 'maintenanceWindowTask_maxErrors' - The maximum number of errors allowed before this task stops being
+-- scheduled.
 --
--- * 'mwtWindowTaskId' - The task ID.
+-- 'taskParameters', 'maintenanceWindowTask_taskParameters' - The parameters that should be passed to the task when it is run.
 --
--- * 'mwtServiceRoleARN' - The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
+-- @TaskParameters@ has been deprecated. To specify parameters to pass to a
+-- task when it runs, instead use the @Parameters@ option in the
+-- @TaskInvocationParameters@ structure. For information about how Systems
+-- Manager handles these options for the supported maintenance window task
+-- types, see MaintenanceWindowTaskInvocationParameters.
 --
--- * 'mwtPriority' - The priority of the task in the maintenance window. The lower the number, the higher the priority. Tasks that have the same priority are scheduled in parallel.
+-- 'windowTaskId', 'maintenanceWindowTask_windowTaskId' - The task ID.
 --
--- * 'mwtTargets' - The targets (either instances or tags). Instances are specified using Key=instanceids,Values=<instanceid1>,<instanceid2>. Tags are specified using Key=<tag name>,Values=<tag value>.
+-- 'serviceRoleArn', 'maintenanceWindowTask_serviceRoleArn' - The ARN of the IAM service role to use to publish Amazon Simple
+-- Notification Service (Amazon SNS) notifications for maintenance window
+-- Run Command tasks.
 --
--- * 'mwtName' - The task name.
+-- 'priority', 'maintenanceWindowTask_priority' - The priority of the task in the maintenance window. The lower the
+-- number, the higher the priority. Tasks that have the same priority are
+-- scheduled in parallel.
 --
--- * 'mwtMaxConcurrency' - The maximum number of targets this task can be run for, in parallel.
+-- 'targets', 'maintenanceWindowTask_targets' - The targets (either instances or tags). Instances are specified using
+-- Key=instanceids,Values=\<instanceid1>,\<instanceid2>. Tags are specified
+-- using Key=\<tag name>,Values=\<tag value>.
 --
--- * 'mwtWindowId' - The ID of the maintenance window where the task is registered.
+-- 'name', 'maintenanceWindowTask_name' - The task name.
 --
--- * 'mwtDescription' - A description of the task.
+-- 'maxConcurrency', 'maintenanceWindowTask_maxConcurrency' - The maximum number of targets this task can be run for, in parallel.
 --
--- * 'mwtType' - The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+-- 'windowId', 'maintenanceWindowTask_windowId' - The ID of the maintenance window where the task is registered.
 --
--- * 'mwtTaskARN' - The resource that the task uses during execution. For RUN_COMMAND and AUTOMATION task types, @TaskArn@ is the Systems Manager document name or ARN. For LAMBDA tasks, it's the function name or ARN. For STEP_FUNCTIONS tasks, it's the state machine ARN.
+-- 'description', 'maintenanceWindowTask_description' - A description of the task.
 --
--- * 'mwtLoggingInfo' - Information about an S3 bucket to write task-level logs to.
-maintenanceWindowTask ::
+-- 'type'', 'maintenanceWindowTask_type' - The type of task. The type can be one of the following: RUN_COMMAND,
+-- AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+--
+-- 'taskArn', 'maintenanceWindowTask_taskArn' - The resource that the task uses during execution. For RUN_COMMAND and
+-- AUTOMATION task types, @TaskArn@ is the Systems Manager document name or
+-- ARN. For LAMBDA tasks, it\'s the function name or ARN. For
+-- STEP_FUNCTIONS tasks, it\'s the state machine ARN.
+--
+-- 'loggingInfo', 'maintenanceWindowTask_loggingInfo' - Information about an S3 bucket to write task-level logs to.
+--
+-- @LoggingInfo@ has been deprecated. To specify an S3 bucket to contain
+-- logs, instead use the @OutputS3BucketName@ and @OutputS3KeyPrefix@
+-- options in the @TaskInvocationParameters@ structure. For information
+-- about how Systems Manager handles these options for the supported
+-- maintenance window task types, see
+-- MaintenanceWindowTaskInvocationParameters.
+newMaintenanceWindowTask ::
   MaintenanceWindowTask
-maintenanceWindowTask =
+newMaintenanceWindowTask =
   MaintenanceWindowTask'
-    { _mwtMaxErrors = Nothing,
-      _mwtTaskParameters = Nothing,
-      _mwtWindowTaskId = Nothing,
-      _mwtServiceRoleARN = Nothing,
-      _mwtPriority = Nothing,
-      _mwtTargets = Nothing,
-      _mwtName = Nothing,
-      _mwtMaxConcurrency = Nothing,
-      _mwtWindowId = Nothing,
-      _mwtDescription = Nothing,
-      _mwtType = Nothing,
-      _mwtTaskARN = Nothing,
-      _mwtLoggingInfo = Nothing
+    { maxErrors = Prelude.Nothing,
+      taskParameters = Prelude.Nothing,
+      windowTaskId = Prelude.Nothing,
+      serviceRoleArn = Prelude.Nothing,
+      priority = Prelude.Nothing,
+      targets = Prelude.Nothing,
+      name = Prelude.Nothing,
+      maxConcurrency = Prelude.Nothing,
+      windowId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      taskArn = Prelude.Nothing,
+      loggingInfo = Prelude.Nothing
     }
 
--- | The maximum number of errors allowed before this task stops being scheduled.
-mwtMaxErrors :: Lens' MaintenanceWindowTask (Maybe Text)
-mwtMaxErrors = lens _mwtMaxErrors (\s a -> s {_mwtMaxErrors = a})
+-- | The maximum number of errors allowed before this task stops being
+-- scheduled.
+maintenanceWindowTask_maxErrors :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe Prelude.Text)
+maintenanceWindowTask_maxErrors = Lens.lens (\MaintenanceWindowTask' {maxErrors} -> maxErrors) (\s@MaintenanceWindowTask' {} a -> s {maxErrors = a} :: MaintenanceWindowTask)
 
 -- | The parameters that should be passed to the task when it is run.
-mwtTaskParameters :: Lens' MaintenanceWindowTask (Maybe (HashMap Text MaintenanceWindowTaskParameterValueExpression))
-mwtTaskParameters = lens _mwtTaskParameters (\s a -> s {_mwtTaskParameters = a}) . mapping (_Sensitive . _Map)
+--
+-- @TaskParameters@ has been deprecated. To specify parameters to pass to a
+-- task when it runs, instead use the @Parameters@ option in the
+-- @TaskInvocationParameters@ structure. For information about how Systems
+-- Manager handles these options for the supported maintenance window task
+-- types, see MaintenanceWindowTaskInvocationParameters.
+maintenanceWindowTask_taskParameters :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe (Prelude.HashMap Prelude.Text MaintenanceWindowTaskParameterValueExpression))
+maintenanceWindowTask_taskParameters = Lens.lens (\MaintenanceWindowTask' {taskParameters} -> taskParameters) (\s@MaintenanceWindowTask' {} a -> s {taskParameters = a} :: MaintenanceWindowTask) Prelude.. Lens.mapping (Prelude._Sensitive Prelude.. Prelude._Map)
 
 -- | The task ID.
-mwtWindowTaskId :: Lens' MaintenanceWindowTask (Maybe Text)
-mwtWindowTaskId = lens _mwtWindowTaskId (\s a -> s {_mwtWindowTaskId = a})
+maintenanceWindowTask_windowTaskId :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe Prelude.Text)
+maintenanceWindowTask_windowTaskId = Lens.lens (\MaintenanceWindowTask' {windowTaskId} -> windowTaskId) (\s@MaintenanceWindowTask' {} a -> s {windowTaskId = a} :: MaintenanceWindowTask)
 
--- | The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
-mwtServiceRoleARN :: Lens' MaintenanceWindowTask (Maybe Text)
-mwtServiceRoleARN = lens _mwtServiceRoleARN (\s a -> s {_mwtServiceRoleARN = a})
+-- | The ARN of the IAM service role to use to publish Amazon Simple
+-- Notification Service (Amazon SNS) notifications for maintenance window
+-- Run Command tasks.
+maintenanceWindowTask_serviceRoleArn :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe Prelude.Text)
+maintenanceWindowTask_serviceRoleArn = Lens.lens (\MaintenanceWindowTask' {serviceRoleArn} -> serviceRoleArn) (\s@MaintenanceWindowTask' {} a -> s {serviceRoleArn = a} :: MaintenanceWindowTask)
 
--- | The priority of the task in the maintenance window. The lower the number, the higher the priority. Tasks that have the same priority are scheduled in parallel.
-mwtPriority :: Lens' MaintenanceWindowTask (Maybe Natural)
-mwtPriority = lens _mwtPriority (\s a -> s {_mwtPriority = a}) . mapping _Nat
+-- | The priority of the task in the maintenance window. The lower the
+-- number, the higher the priority. Tasks that have the same priority are
+-- scheduled in parallel.
+maintenanceWindowTask_priority :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe Prelude.Natural)
+maintenanceWindowTask_priority = Lens.lens (\MaintenanceWindowTask' {priority} -> priority) (\s@MaintenanceWindowTask' {} a -> s {priority = a} :: MaintenanceWindowTask) Prelude.. Lens.mapping Prelude._Nat
 
--- | The targets (either instances or tags). Instances are specified using Key=instanceids,Values=<instanceid1>,<instanceid2>. Tags are specified using Key=<tag name>,Values=<tag value>.
-mwtTargets :: Lens' MaintenanceWindowTask [Target]
-mwtTargets = lens _mwtTargets (\s a -> s {_mwtTargets = a}) . _Default . _Coerce
+-- | The targets (either instances or tags). Instances are specified using
+-- Key=instanceids,Values=\<instanceid1>,\<instanceid2>. Tags are specified
+-- using Key=\<tag name>,Values=\<tag value>.
+maintenanceWindowTask_targets :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe [Target])
+maintenanceWindowTask_targets = Lens.lens (\MaintenanceWindowTask' {targets} -> targets) (\s@MaintenanceWindowTask' {} a -> s {targets = a} :: MaintenanceWindowTask) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The task name.
-mwtName :: Lens' MaintenanceWindowTask (Maybe Text)
-mwtName = lens _mwtName (\s a -> s {_mwtName = a})
+maintenanceWindowTask_name :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe Prelude.Text)
+maintenanceWindowTask_name = Lens.lens (\MaintenanceWindowTask' {name} -> name) (\s@MaintenanceWindowTask' {} a -> s {name = a} :: MaintenanceWindowTask)
 
 -- | The maximum number of targets this task can be run for, in parallel.
-mwtMaxConcurrency :: Lens' MaintenanceWindowTask (Maybe Text)
-mwtMaxConcurrency = lens _mwtMaxConcurrency (\s a -> s {_mwtMaxConcurrency = a})
+maintenanceWindowTask_maxConcurrency :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe Prelude.Text)
+maintenanceWindowTask_maxConcurrency = Lens.lens (\MaintenanceWindowTask' {maxConcurrency} -> maxConcurrency) (\s@MaintenanceWindowTask' {} a -> s {maxConcurrency = a} :: MaintenanceWindowTask)
 
 -- | The ID of the maintenance window where the task is registered.
-mwtWindowId :: Lens' MaintenanceWindowTask (Maybe Text)
-mwtWindowId = lens _mwtWindowId (\s a -> s {_mwtWindowId = a})
+maintenanceWindowTask_windowId :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe Prelude.Text)
+maintenanceWindowTask_windowId = Lens.lens (\MaintenanceWindowTask' {windowId} -> windowId) (\s@MaintenanceWindowTask' {} a -> s {windowId = a} :: MaintenanceWindowTask)
 
 -- | A description of the task.
-mwtDescription :: Lens' MaintenanceWindowTask (Maybe Text)
-mwtDescription = lens _mwtDescription (\s a -> s {_mwtDescription = a}) . mapping _Sensitive
+maintenanceWindowTask_description :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe Prelude.Text)
+maintenanceWindowTask_description = Lens.lens (\MaintenanceWindowTask' {description} -> description) (\s@MaintenanceWindowTask' {} a -> s {description = a} :: MaintenanceWindowTask) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
-mwtType :: Lens' MaintenanceWindowTask (Maybe MaintenanceWindowTaskType)
-mwtType = lens _mwtType (\s a -> s {_mwtType = a})
+-- | The type of task. The type can be one of the following: RUN_COMMAND,
+-- AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+maintenanceWindowTask_type :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe MaintenanceWindowTaskType)
+maintenanceWindowTask_type = Lens.lens (\MaintenanceWindowTask' {type'} -> type') (\s@MaintenanceWindowTask' {} a -> s {type' = a} :: MaintenanceWindowTask)
 
--- | The resource that the task uses during execution. For RUN_COMMAND and AUTOMATION task types, @TaskArn@ is the Systems Manager document name or ARN. For LAMBDA tasks, it's the function name or ARN. For STEP_FUNCTIONS tasks, it's the state machine ARN.
-mwtTaskARN :: Lens' MaintenanceWindowTask (Maybe Text)
-mwtTaskARN = lens _mwtTaskARN (\s a -> s {_mwtTaskARN = a})
+-- | The resource that the task uses during execution. For RUN_COMMAND and
+-- AUTOMATION task types, @TaskArn@ is the Systems Manager document name or
+-- ARN. For LAMBDA tasks, it\'s the function name or ARN. For
+-- STEP_FUNCTIONS tasks, it\'s the state machine ARN.
+maintenanceWindowTask_taskArn :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe Prelude.Text)
+maintenanceWindowTask_taskArn = Lens.lens (\MaintenanceWindowTask' {taskArn} -> taskArn) (\s@MaintenanceWindowTask' {} a -> s {taskArn = a} :: MaintenanceWindowTask)
 
 -- | Information about an S3 bucket to write task-level logs to.
-mwtLoggingInfo :: Lens' MaintenanceWindowTask (Maybe LoggingInfo)
-mwtLoggingInfo = lens _mwtLoggingInfo (\s a -> s {_mwtLoggingInfo = a})
+--
+-- @LoggingInfo@ has been deprecated. To specify an S3 bucket to contain
+-- logs, instead use the @OutputS3BucketName@ and @OutputS3KeyPrefix@
+-- options in the @TaskInvocationParameters@ structure. For information
+-- about how Systems Manager handles these options for the supported
+-- maintenance window task types, see
+-- MaintenanceWindowTaskInvocationParameters.
+maintenanceWindowTask_loggingInfo :: Lens.Lens' MaintenanceWindowTask (Prelude.Maybe LoggingInfo)
+maintenanceWindowTask_loggingInfo = Lens.lens (\MaintenanceWindowTask' {loggingInfo} -> loggingInfo) (\s@MaintenanceWindowTask' {} a -> s {loggingInfo = a} :: MaintenanceWindowTask)
 
-instance FromJSON MaintenanceWindowTask where
+instance Prelude.FromJSON MaintenanceWindowTask where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MaintenanceWindowTask"
       ( \x ->
           MaintenanceWindowTask'
-            <$> (x .:? "MaxErrors")
-            <*> (x .:? "TaskParameters" .!= mempty)
-            <*> (x .:? "WindowTaskId")
-            <*> (x .:? "ServiceRoleArn")
-            <*> (x .:? "Priority")
-            <*> (x .:? "Targets" .!= mempty)
-            <*> (x .:? "Name")
-            <*> (x .:? "MaxConcurrency")
-            <*> (x .:? "WindowId")
-            <*> (x .:? "Description")
-            <*> (x .:? "Type")
-            <*> (x .:? "TaskArn")
-            <*> (x .:? "LoggingInfo")
+            Prelude.<$> (x Prelude..:? "MaxErrors")
+            Prelude.<*> ( x Prelude..:? "TaskParameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "WindowTaskId")
+            Prelude.<*> (x Prelude..:? "ServiceRoleArn")
+            Prelude.<*> (x Prelude..:? "Priority")
+            Prelude.<*> (x Prelude..:? "Targets" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "MaxConcurrency")
+            Prelude.<*> (x Prelude..:? "WindowId")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "TaskArn")
+            Prelude.<*> (x Prelude..:? "LoggingInfo")
       )
 
-instance Hashable MaintenanceWindowTask
+instance Prelude.Hashable MaintenanceWindowTask
 
-instance NFData MaintenanceWindowTask
+instance Prelude.NFData MaintenanceWindowTask

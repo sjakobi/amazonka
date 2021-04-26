@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,242 +19,337 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.Patch where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents metadata about a patch.
 --
---
---
--- /See:/ 'patch' smart constructor.
+-- /See:/ 'newPatch' smart constructor.
 data Patch = Patch'
-  { _pMsrcSeverity :: !(Maybe Text),
-    _pVendor :: !(Maybe Text),
-    _pEpoch :: !(Maybe Int),
-    _pProduct :: !(Maybe Text),
-    _pSeverity :: !(Maybe Text),
-    _pTitle :: !(Maybe Text),
-    _pId :: !(Maybe Text),
-    _pProductFamily :: !(Maybe Text),
-    _pVersion :: !(Maybe Text),
-    _pRepository :: !(Maybe Text),
-    _pName :: !(Maybe Text),
-    _pBugzillaIds :: !(Maybe [Text]),
-    _pMsrcNumber :: !(Maybe Text),
-    _pRelease :: !(Maybe Text),
-    _pCVEIds :: !(Maybe [Text]),
-    _pClassification :: !(Maybe Text),
-    _pDescription :: !(Maybe Text),
-    _pAdvisoryIds :: !(Maybe [Text]),
-    _pArch :: !(Maybe Text),
-    _pReleaseDate :: !(Maybe POSIX),
-    _pLanguage :: !(Maybe Text),
-    _pKbNumber :: !(Maybe Text),
-    _pContentURL :: !(Maybe Text)
+  { -- | The severity of the patch, such as @Critical@, @Important@, or
+    -- @Moderate@. Applies to Windows patches only.
+    msrcSeverity :: Prelude.Maybe Prelude.Text,
+    -- | The name of the vendor providing the patch.
+    vendor :: Prelude.Maybe Prelude.Text,
+    -- | The epoch of the patch. For example in
+    -- @pkg-example-EE-20180914-2.2.amzn1.noarch@, the epoch value is
+    -- @20180914-2@. Applies to Linux-based instances only.
+    epoch :: Prelude.Maybe Prelude.Int,
+    -- | The specific product the patch is applicable for. For example,
+    -- @WindowsServer2016@ or @AmazonLinux2018.03@.
+    product :: Prelude.Maybe Prelude.Text,
+    -- | The severity level of the patch. For example, @CRITICAL@ or @MODERATE@.
+    severity :: Prelude.Maybe Prelude.Text,
+    -- | The title of the patch.
+    title :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the patch. Applies to Windows patches only.
+    --
+    -- This ID is not the same as the Microsoft Knowledge Base ID.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The product family the patch is applicable for. For example, @Windows@
+    -- or @Amazon Linux 2@.
+    productFamily :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the patch. For example, in
+    -- @example-pkg-1.710.10-2.7.abcd.x86_64@, the version number is indicated
+    -- by @-1@. Applies to Linux-based instances only.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The source patch repository for the operating system and version, such
+    -- as @trusty-security@ for Ubuntu Server 14.04 LTE and @focal-security@
+    -- for Ubuntu Server 20.04 LTE. Applies to Linux-based instances only.
+    repository :: Prelude.Maybe Prelude.Text,
+    -- | The name of the patch. Applies to Linux-based instances only.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The Bugzilla ID of the patch. For example, @1600646@. Applies to
+    -- Linux-based instances only.
+    bugzillaIds :: Prelude.Maybe [Prelude.Text],
+    -- | The ID of the Microsoft Security Response Center (MSRC) bulletin the
+    -- patch is related to. For example, @MS14-045@. Applies to Windows patches
+    -- only.
+    msrcNumber :: Prelude.Maybe Prelude.Text,
+    -- | The particular release of a patch. For example, in
+    -- @pkg-example-EE-20180914-2.2.amzn1.noarch@, the release is @2.amaz1@.
+    -- Applies to Linux-based instances only.
+    release :: Prelude.Maybe Prelude.Text,
+    -- | The Common Vulnerabilities and Exposures (CVE) ID of the patch. For
+    -- example, @CVE-2011-3192@. Applies to Linux-based instances only.
+    cVEIds :: Prelude.Maybe [Prelude.Text],
+    -- | The classification of the patch. For example, @SecurityUpdates@,
+    -- @Updates@, or @CriticalUpdates@.
+    classification :: Prelude.Maybe Prelude.Text,
+    -- | The description of the patch.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The Advisory ID of the patch. For example, @RHSA-2020:3779@. Applies to
+    -- Linux-based instances only.
+    advisoryIds :: Prelude.Maybe [Prelude.Text],
+    -- | The architecture of the patch. For example, in
+    -- @example-pkg-0.710.10-2.7.abcd.x86_64@, the architecture is indicated by
+    -- @x86_64@. Applies to Linux-based instances only.
+    arch :: Prelude.Maybe Prelude.Text,
+    -- | The date the patch was released.
+    releaseDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The language of the patch if it\'s language-specific.
+    language :: Prelude.Maybe Prelude.Text,
+    -- | The Microsoft Knowledge Base ID of the patch. Applies to Windows patches
+    -- only.
+    kbNumber :: Prelude.Maybe Prelude.Text,
+    -- | The URL where more information can be obtained about the patch.
+    contentUrl :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Patch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Patch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pMsrcSeverity' - The severity of the patch, such as @Critical@ , @Important@ , or @Moderate@ . Applies to Windows patches only.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pVendor' - The name of the vendor providing the patch.
+-- 'msrcSeverity', 'patch_msrcSeverity' - The severity of the patch, such as @Critical@, @Important@, or
+-- @Moderate@. Applies to Windows patches only.
 --
--- * 'pEpoch' - The epoch of the patch. For example in @pkg-example-EE-20180914-2.2.amzn1.noarch@ , the epoch value is @20180914-2@ . Applies to Linux-based instances only.
+-- 'vendor', 'patch_vendor' - The name of the vendor providing the patch.
 --
--- * 'pProduct' - The specific product the patch is applicable for. For example, @WindowsServer2016@ or @AmazonLinux2018.03@ .
+-- 'epoch', 'patch_epoch' - The epoch of the patch. For example in
+-- @pkg-example-EE-20180914-2.2.amzn1.noarch@, the epoch value is
+-- @20180914-2@. Applies to Linux-based instances only.
 --
--- * 'pSeverity' - The severity level of the patch. For example, @CRITICAL@ or @MODERATE@ .
+-- 'product', 'patch_product' - The specific product the patch is applicable for. For example,
+-- @WindowsServer2016@ or @AmazonLinux2018.03@.
 --
--- * 'pTitle' - The title of the patch.
+-- 'severity', 'patch_severity' - The severity level of the patch. For example, @CRITICAL@ or @MODERATE@.
 --
--- * 'pId' - The ID of the patch. Applies to Windows patches only.
+-- 'title', 'patch_title' - The title of the patch.
 --
--- * 'pProductFamily' - The product family the patch is applicable for. For example, @Windows@ or @Amazon Linux 2@ .
+-- 'id', 'patch_id' - The ID of the patch. Applies to Windows patches only.
 --
--- * 'pVersion' - The version number of the patch. For example, in @example-pkg-1.710.10-2.7.abcd.x86_64@ , the version number is indicated by @-1@ . Applies to Linux-based instances only.
+-- This ID is not the same as the Microsoft Knowledge Base ID.
 --
--- * 'pRepository' - The source patch repository for the operating system and version, such as @trusty-security@ for Ubuntu Server 14.04 LTE and @focal-security@ for Ubuntu Server 20.04 LTE. Applies to Linux-based instances only.
+-- 'productFamily', 'patch_productFamily' - The product family the patch is applicable for. For example, @Windows@
+-- or @Amazon Linux 2@.
 --
--- * 'pName' - The name of the patch. Applies to Linux-based instances only.
+-- 'version', 'patch_version' - The version number of the patch. For example, in
+-- @example-pkg-1.710.10-2.7.abcd.x86_64@, the version number is indicated
+-- by @-1@. Applies to Linux-based instances only.
 --
--- * 'pBugzillaIds' - The Bugzilla ID of the patch. For example, @1600646@ . Applies to Linux-based instances only.
+-- 'repository', 'patch_repository' - The source patch repository for the operating system and version, such
+-- as @trusty-security@ for Ubuntu Server 14.04 LTE and @focal-security@
+-- for Ubuntu Server 20.04 LTE. Applies to Linux-based instances only.
 --
--- * 'pMsrcNumber' - The ID of the Microsoft Security Response Center (MSRC) bulletin the patch is related to. For example, @MS14-045@ . Applies to Windows patches only.
+-- 'name', 'patch_name' - The name of the patch. Applies to Linux-based instances only.
 --
--- * 'pRelease' - The particular release of a patch. For example, in @pkg-example-EE-20180914-2.2.amzn1.noarch@ , the release is @2.amaz1@ . Applies to Linux-based instances only.
+-- 'bugzillaIds', 'patch_bugzillaIds' - The Bugzilla ID of the patch. For example, @1600646@. Applies to
+-- Linux-based instances only.
 --
--- * 'pCVEIds' - The Common Vulnerabilities and Exposures (CVE) ID of the patch. For example, @CVE-2011-3192@ . Applies to Linux-based instances only.
+-- 'msrcNumber', 'patch_msrcNumber' - The ID of the Microsoft Security Response Center (MSRC) bulletin the
+-- patch is related to. For example, @MS14-045@. Applies to Windows patches
+-- only.
 --
--- * 'pClassification' - The classification of the patch. For example, @SecurityUpdates@ , @Updates@ , or @CriticalUpdates@ .
+-- 'release', 'patch_release' - The particular release of a patch. For example, in
+-- @pkg-example-EE-20180914-2.2.amzn1.noarch@, the release is @2.amaz1@.
+-- Applies to Linux-based instances only.
 --
--- * 'pDescription' - The description of the patch.
+-- 'cVEIds', 'patch_cVEIds' - The Common Vulnerabilities and Exposures (CVE) ID of the patch. For
+-- example, @CVE-2011-3192@. Applies to Linux-based instances only.
 --
--- * 'pAdvisoryIds' - The Advisory ID of the patch. For example, @RHSA-2020:3779@ . Applies to Linux-based instances only.
+-- 'classification', 'patch_classification' - The classification of the patch. For example, @SecurityUpdates@,
+-- @Updates@, or @CriticalUpdates@.
 --
--- * 'pArch' - The architecture of the patch. For example, in @example-pkg-0.710.10-2.7.abcd.x86_64@ , the architecture is indicated by @x86_64@ . Applies to Linux-based instances only.
+-- 'description', 'patch_description' - The description of the patch.
 --
--- * 'pReleaseDate' - The date the patch was released.
+-- 'advisoryIds', 'patch_advisoryIds' - The Advisory ID of the patch. For example, @RHSA-2020:3779@. Applies to
+-- Linux-based instances only.
 --
--- * 'pLanguage' - The language of the patch if it's language-specific.
+-- 'arch', 'patch_arch' - The architecture of the patch. For example, in
+-- @example-pkg-0.710.10-2.7.abcd.x86_64@, the architecture is indicated by
+-- @x86_64@. Applies to Linux-based instances only.
 --
--- * 'pKbNumber' - The Microsoft Knowledge Base ID of the patch. Applies to Windows patches only.
+-- 'releaseDate', 'patch_releaseDate' - The date the patch was released.
 --
--- * 'pContentURL' - The URL where more information can be obtained about the patch.
-patch ::
+-- 'language', 'patch_language' - The language of the patch if it\'s language-specific.
+--
+-- 'kbNumber', 'patch_kbNumber' - The Microsoft Knowledge Base ID of the patch. Applies to Windows patches
+-- only.
+--
+-- 'contentUrl', 'patch_contentUrl' - The URL where more information can be obtained about the patch.
+newPatch ::
   Patch
-patch =
+newPatch =
   Patch'
-    { _pMsrcSeverity = Nothing,
-      _pVendor = Nothing,
-      _pEpoch = Nothing,
-      _pProduct = Nothing,
-      _pSeverity = Nothing,
-      _pTitle = Nothing,
-      _pId = Nothing,
-      _pProductFamily = Nothing,
-      _pVersion = Nothing,
-      _pRepository = Nothing,
-      _pName = Nothing,
-      _pBugzillaIds = Nothing,
-      _pMsrcNumber = Nothing,
-      _pRelease = Nothing,
-      _pCVEIds = Nothing,
-      _pClassification = Nothing,
-      _pDescription = Nothing,
-      _pAdvisoryIds = Nothing,
-      _pArch = Nothing,
-      _pReleaseDate = Nothing,
-      _pLanguage = Nothing,
-      _pKbNumber = Nothing,
-      _pContentURL = Nothing
+    { msrcSeverity = Prelude.Nothing,
+      vendor = Prelude.Nothing,
+      epoch = Prelude.Nothing,
+      product = Prelude.Nothing,
+      severity = Prelude.Nothing,
+      title = Prelude.Nothing,
+      id = Prelude.Nothing,
+      productFamily = Prelude.Nothing,
+      version = Prelude.Nothing,
+      repository = Prelude.Nothing,
+      name = Prelude.Nothing,
+      bugzillaIds = Prelude.Nothing,
+      msrcNumber = Prelude.Nothing,
+      release = Prelude.Nothing,
+      cVEIds = Prelude.Nothing,
+      classification = Prelude.Nothing,
+      description = Prelude.Nothing,
+      advisoryIds = Prelude.Nothing,
+      arch = Prelude.Nothing,
+      releaseDate = Prelude.Nothing,
+      language = Prelude.Nothing,
+      kbNumber = Prelude.Nothing,
+      contentUrl = Prelude.Nothing
     }
 
--- | The severity of the patch, such as @Critical@ , @Important@ , or @Moderate@ . Applies to Windows patches only.
-pMsrcSeverity :: Lens' Patch (Maybe Text)
-pMsrcSeverity = lens _pMsrcSeverity (\s a -> s {_pMsrcSeverity = a})
+-- | The severity of the patch, such as @Critical@, @Important@, or
+-- @Moderate@. Applies to Windows patches only.
+patch_msrcSeverity :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_msrcSeverity = Lens.lens (\Patch' {msrcSeverity} -> msrcSeverity) (\s@Patch' {} a -> s {msrcSeverity = a} :: Patch)
 
 -- | The name of the vendor providing the patch.
-pVendor :: Lens' Patch (Maybe Text)
-pVendor = lens _pVendor (\s a -> s {_pVendor = a})
+patch_vendor :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_vendor = Lens.lens (\Patch' {vendor} -> vendor) (\s@Patch' {} a -> s {vendor = a} :: Patch)
 
--- | The epoch of the patch. For example in @pkg-example-EE-20180914-2.2.amzn1.noarch@ , the epoch value is @20180914-2@ . Applies to Linux-based instances only.
-pEpoch :: Lens' Patch (Maybe Int)
-pEpoch = lens _pEpoch (\s a -> s {_pEpoch = a})
+-- | The epoch of the patch. For example in
+-- @pkg-example-EE-20180914-2.2.amzn1.noarch@, the epoch value is
+-- @20180914-2@. Applies to Linux-based instances only.
+patch_epoch :: Lens.Lens' Patch (Prelude.Maybe Prelude.Int)
+patch_epoch = Lens.lens (\Patch' {epoch} -> epoch) (\s@Patch' {} a -> s {epoch = a} :: Patch)
 
--- | The specific product the patch is applicable for. For example, @WindowsServer2016@ or @AmazonLinux2018.03@ .
-pProduct :: Lens' Patch (Maybe Text)
-pProduct = lens _pProduct (\s a -> s {_pProduct = a})
+-- | The specific product the patch is applicable for. For example,
+-- @WindowsServer2016@ or @AmazonLinux2018.03@.
+patch_product :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_product = Lens.lens (\Patch' {product} -> product) (\s@Patch' {} a -> s {product = a} :: Patch)
 
--- | The severity level of the patch. For example, @CRITICAL@ or @MODERATE@ .
-pSeverity :: Lens' Patch (Maybe Text)
-pSeverity = lens _pSeverity (\s a -> s {_pSeverity = a})
+-- | The severity level of the patch. For example, @CRITICAL@ or @MODERATE@.
+patch_severity :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_severity = Lens.lens (\Patch' {severity} -> severity) (\s@Patch' {} a -> s {severity = a} :: Patch)
 
 -- | The title of the patch.
-pTitle :: Lens' Patch (Maybe Text)
-pTitle = lens _pTitle (\s a -> s {_pTitle = a})
+patch_title :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_title = Lens.lens (\Patch' {title} -> title) (\s@Patch' {} a -> s {title = a} :: Patch)
 
 -- | The ID of the patch. Applies to Windows patches only.
-pId :: Lens' Patch (Maybe Text)
-pId = lens _pId (\s a -> s {_pId = a})
+--
+-- This ID is not the same as the Microsoft Knowledge Base ID.
+patch_id :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_id = Lens.lens (\Patch' {id} -> id) (\s@Patch' {} a -> s {id = a} :: Patch)
 
--- | The product family the patch is applicable for. For example, @Windows@ or @Amazon Linux 2@ .
-pProductFamily :: Lens' Patch (Maybe Text)
-pProductFamily = lens _pProductFamily (\s a -> s {_pProductFamily = a})
+-- | The product family the patch is applicable for. For example, @Windows@
+-- or @Amazon Linux 2@.
+patch_productFamily :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_productFamily = Lens.lens (\Patch' {productFamily} -> productFamily) (\s@Patch' {} a -> s {productFamily = a} :: Patch)
 
--- | The version number of the patch. For example, in @example-pkg-1.710.10-2.7.abcd.x86_64@ , the version number is indicated by @-1@ . Applies to Linux-based instances only.
-pVersion :: Lens' Patch (Maybe Text)
-pVersion = lens _pVersion (\s a -> s {_pVersion = a})
+-- | The version number of the patch. For example, in
+-- @example-pkg-1.710.10-2.7.abcd.x86_64@, the version number is indicated
+-- by @-1@. Applies to Linux-based instances only.
+patch_version :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_version = Lens.lens (\Patch' {version} -> version) (\s@Patch' {} a -> s {version = a} :: Patch)
 
--- | The source patch repository for the operating system and version, such as @trusty-security@ for Ubuntu Server 14.04 LTE and @focal-security@ for Ubuntu Server 20.04 LTE. Applies to Linux-based instances only.
-pRepository :: Lens' Patch (Maybe Text)
-pRepository = lens _pRepository (\s a -> s {_pRepository = a})
+-- | The source patch repository for the operating system and version, such
+-- as @trusty-security@ for Ubuntu Server 14.04 LTE and @focal-security@
+-- for Ubuntu Server 20.04 LTE. Applies to Linux-based instances only.
+patch_repository :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_repository = Lens.lens (\Patch' {repository} -> repository) (\s@Patch' {} a -> s {repository = a} :: Patch)
 
 -- | The name of the patch. Applies to Linux-based instances only.
-pName :: Lens' Patch (Maybe Text)
-pName = lens _pName (\s a -> s {_pName = a})
+patch_name :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_name = Lens.lens (\Patch' {name} -> name) (\s@Patch' {} a -> s {name = a} :: Patch)
 
--- | The Bugzilla ID of the patch. For example, @1600646@ . Applies to Linux-based instances only.
-pBugzillaIds :: Lens' Patch [Text]
-pBugzillaIds = lens _pBugzillaIds (\s a -> s {_pBugzillaIds = a}) . _Default . _Coerce
+-- | The Bugzilla ID of the patch. For example, @1600646@. Applies to
+-- Linux-based instances only.
+patch_bugzillaIds :: Lens.Lens' Patch (Prelude.Maybe [Prelude.Text])
+patch_bugzillaIds = Lens.lens (\Patch' {bugzillaIds} -> bugzillaIds) (\s@Patch' {} a -> s {bugzillaIds = a} :: Patch) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The ID of the Microsoft Security Response Center (MSRC) bulletin the patch is related to. For example, @MS14-045@ . Applies to Windows patches only.
-pMsrcNumber :: Lens' Patch (Maybe Text)
-pMsrcNumber = lens _pMsrcNumber (\s a -> s {_pMsrcNumber = a})
+-- | The ID of the Microsoft Security Response Center (MSRC) bulletin the
+-- patch is related to. For example, @MS14-045@. Applies to Windows patches
+-- only.
+patch_msrcNumber :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_msrcNumber = Lens.lens (\Patch' {msrcNumber} -> msrcNumber) (\s@Patch' {} a -> s {msrcNumber = a} :: Patch)
 
--- | The particular release of a patch. For example, in @pkg-example-EE-20180914-2.2.amzn1.noarch@ , the release is @2.amaz1@ . Applies to Linux-based instances only.
-pRelease :: Lens' Patch (Maybe Text)
-pRelease = lens _pRelease (\s a -> s {_pRelease = a})
+-- | The particular release of a patch. For example, in
+-- @pkg-example-EE-20180914-2.2.amzn1.noarch@, the release is @2.amaz1@.
+-- Applies to Linux-based instances only.
+patch_release :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_release = Lens.lens (\Patch' {release} -> release) (\s@Patch' {} a -> s {release = a} :: Patch)
 
--- | The Common Vulnerabilities and Exposures (CVE) ID of the patch. For example, @CVE-2011-3192@ . Applies to Linux-based instances only.
-pCVEIds :: Lens' Patch [Text]
-pCVEIds = lens _pCVEIds (\s a -> s {_pCVEIds = a}) . _Default . _Coerce
+-- | The Common Vulnerabilities and Exposures (CVE) ID of the patch. For
+-- example, @CVE-2011-3192@. Applies to Linux-based instances only.
+patch_cVEIds :: Lens.Lens' Patch (Prelude.Maybe [Prelude.Text])
+patch_cVEIds = Lens.lens (\Patch' {cVEIds} -> cVEIds) (\s@Patch' {} a -> s {cVEIds = a} :: Patch) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The classification of the patch. For example, @SecurityUpdates@ , @Updates@ , or @CriticalUpdates@ .
-pClassification :: Lens' Patch (Maybe Text)
-pClassification = lens _pClassification (\s a -> s {_pClassification = a})
+-- | The classification of the patch. For example, @SecurityUpdates@,
+-- @Updates@, or @CriticalUpdates@.
+patch_classification :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_classification = Lens.lens (\Patch' {classification} -> classification) (\s@Patch' {} a -> s {classification = a} :: Patch)
 
 -- | The description of the patch.
-pDescription :: Lens' Patch (Maybe Text)
-pDescription = lens _pDescription (\s a -> s {_pDescription = a})
+patch_description :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_description = Lens.lens (\Patch' {description} -> description) (\s@Patch' {} a -> s {description = a} :: Patch)
 
--- | The Advisory ID of the patch. For example, @RHSA-2020:3779@ . Applies to Linux-based instances only.
-pAdvisoryIds :: Lens' Patch [Text]
-pAdvisoryIds = lens _pAdvisoryIds (\s a -> s {_pAdvisoryIds = a}) . _Default . _Coerce
+-- | The Advisory ID of the patch. For example, @RHSA-2020:3779@. Applies to
+-- Linux-based instances only.
+patch_advisoryIds :: Lens.Lens' Patch (Prelude.Maybe [Prelude.Text])
+patch_advisoryIds = Lens.lens (\Patch' {advisoryIds} -> advisoryIds) (\s@Patch' {} a -> s {advisoryIds = a} :: Patch) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The architecture of the patch. For example, in @example-pkg-0.710.10-2.7.abcd.x86_64@ , the architecture is indicated by @x86_64@ . Applies to Linux-based instances only.
-pArch :: Lens' Patch (Maybe Text)
-pArch = lens _pArch (\s a -> s {_pArch = a})
+-- | The architecture of the patch. For example, in
+-- @example-pkg-0.710.10-2.7.abcd.x86_64@, the architecture is indicated by
+-- @x86_64@. Applies to Linux-based instances only.
+patch_arch :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_arch = Lens.lens (\Patch' {arch} -> arch) (\s@Patch' {} a -> s {arch = a} :: Patch)
 
 -- | The date the patch was released.
-pReleaseDate :: Lens' Patch (Maybe UTCTime)
-pReleaseDate = lens _pReleaseDate (\s a -> s {_pReleaseDate = a}) . mapping _Time
+patch_releaseDate :: Lens.Lens' Patch (Prelude.Maybe Prelude.UTCTime)
+patch_releaseDate = Lens.lens (\Patch' {releaseDate} -> releaseDate) (\s@Patch' {} a -> s {releaseDate = a} :: Patch) Prelude.. Lens.mapping Prelude._Time
 
--- | The language of the patch if it's language-specific.
-pLanguage :: Lens' Patch (Maybe Text)
-pLanguage = lens _pLanguage (\s a -> s {_pLanguage = a})
+-- | The language of the patch if it\'s language-specific.
+patch_language :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_language = Lens.lens (\Patch' {language} -> language) (\s@Patch' {} a -> s {language = a} :: Patch)
 
--- | The Microsoft Knowledge Base ID of the patch. Applies to Windows patches only.
-pKbNumber :: Lens' Patch (Maybe Text)
-pKbNumber = lens _pKbNumber (\s a -> s {_pKbNumber = a})
+-- | The Microsoft Knowledge Base ID of the patch. Applies to Windows patches
+-- only.
+patch_kbNumber :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_kbNumber = Lens.lens (\Patch' {kbNumber} -> kbNumber) (\s@Patch' {} a -> s {kbNumber = a} :: Patch)
 
 -- | The URL where more information can be obtained about the patch.
-pContentURL :: Lens' Patch (Maybe Text)
-pContentURL = lens _pContentURL (\s a -> s {_pContentURL = a})
+patch_contentUrl :: Lens.Lens' Patch (Prelude.Maybe Prelude.Text)
+patch_contentUrl = Lens.lens (\Patch' {contentUrl} -> contentUrl) (\s@Patch' {} a -> s {contentUrl = a} :: Patch)
 
-instance FromJSON Patch where
+instance Prelude.FromJSON Patch where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Patch"
       ( \x ->
           Patch'
-            <$> (x .:? "MsrcSeverity")
-            <*> (x .:? "Vendor")
-            <*> (x .:? "Epoch")
-            <*> (x .:? "Product")
-            <*> (x .:? "Severity")
-            <*> (x .:? "Title")
-            <*> (x .:? "Id")
-            <*> (x .:? "ProductFamily")
-            <*> (x .:? "Version")
-            <*> (x .:? "Repository")
-            <*> (x .:? "Name")
-            <*> (x .:? "BugzillaIds" .!= mempty)
-            <*> (x .:? "MsrcNumber")
-            <*> (x .:? "Release")
-            <*> (x .:? "CVEIds" .!= mempty)
-            <*> (x .:? "Classification")
-            <*> (x .:? "Description")
-            <*> (x .:? "AdvisoryIds" .!= mempty)
-            <*> (x .:? "Arch")
-            <*> (x .:? "ReleaseDate")
-            <*> (x .:? "Language")
-            <*> (x .:? "KbNumber")
-            <*> (x .:? "ContentUrl")
+            Prelude.<$> (x Prelude..:? "MsrcSeverity")
+            Prelude.<*> (x Prelude..:? "Vendor")
+            Prelude.<*> (x Prelude..:? "Epoch")
+            Prelude.<*> (x Prelude..:? "Product")
+            Prelude.<*> (x Prelude..:? "Severity")
+            Prelude.<*> (x Prelude..:? "Title")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "ProductFamily")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "Repository")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> ( x Prelude..:? "BugzillaIds"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "MsrcNumber")
+            Prelude.<*> (x Prelude..:? "Release")
+            Prelude.<*> (x Prelude..:? "CVEIds" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Classification")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> ( x Prelude..:? "AdvisoryIds"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Arch")
+            Prelude.<*> (x Prelude..:? "ReleaseDate")
+            Prelude.<*> (x Prelude..:? "Language")
+            Prelude.<*> (x Prelude..:? "KbNumber")
+            Prelude.<*> (x Prelude..:? "ContentUrl")
       )
 
-instance Hashable Patch
+instance Prelude.Hashable Patch
 
-instance NFData Patch
+instance Prelude.NFData Patch

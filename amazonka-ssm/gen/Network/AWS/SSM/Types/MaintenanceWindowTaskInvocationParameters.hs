@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.MaintenanceWindowTaskInvocationParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.MaintenanceWindowAutomationParameters
 import Network.AWS.SSM.Types.MaintenanceWindowLambdaParameters
 import Network.AWS.SSM.Types.MaintenanceWindowRunCommandParameters
@@ -24,106 +28,95 @@ import Network.AWS.SSM.Types.MaintenanceWindowStepFunctionsParameters
 
 -- | The parameters for task execution.
 --
---
---
--- /See:/ 'maintenanceWindowTaskInvocationParameters' smart constructor.
+-- /See:/ 'newMaintenanceWindowTaskInvocationParameters' smart constructor.
 data MaintenanceWindowTaskInvocationParameters = MaintenanceWindowTaskInvocationParameters'
-  { _mwtipAutomation ::
-      !( Maybe
-           MaintenanceWindowAutomationParameters
-       ),
-    _mwtipLambda ::
-      !( Maybe
-           MaintenanceWindowLambdaParameters
-       ),
-    _mwtipRunCommand ::
-      !( Maybe
-           MaintenanceWindowRunCommandParameters
-       ),
-    _mwtipStepFunctions ::
-      !( Maybe
-           MaintenanceWindowStepFunctionsParameters
-       )
+  { -- | The parameters for an AUTOMATION task type.
+    automation :: Prelude.Maybe MaintenanceWindowAutomationParameters,
+    -- | The parameters for a LAMBDA task type.
+    lambda :: Prelude.Maybe MaintenanceWindowLambdaParameters,
+    -- | The parameters for a RUN_COMMAND task type.
+    runCommand :: Prelude.Maybe MaintenanceWindowRunCommandParameters,
+    -- | The parameters for a STEP_FUNCTIONS task type.
+    stepFunctions :: Prelude.Maybe MaintenanceWindowStepFunctionsParameters
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MaintenanceWindowTaskInvocationParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MaintenanceWindowTaskInvocationParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwtipAutomation' - The parameters for an AUTOMATION task type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwtipLambda' - The parameters for a LAMBDA task type.
+-- 'automation', 'maintenanceWindowTaskInvocationParameters_automation' - The parameters for an AUTOMATION task type.
 --
--- * 'mwtipRunCommand' - The parameters for a RUN_COMMAND task type.
+-- 'lambda', 'maintenanceWindowTaskInvocationParameters_lambda' - The parameters for a LAMBDA task type.
 --
--- * 'mwtipStepFunctions' - The parameters for a STEP_FUNCTIONS task type.
-maintenanceWindowTaskInvocationParameters ::
+-- 'runCommand', 'maintenanceWindowTaskInvocationParameters_runCommand' - The parameters for a RUN_COMMAND task type.
+--
+-- 'stepFunctions', 'maintenanceWindowTaskInvocationParameters_stepFunctions' - The parameters for a STEP_FUNCTIONS task type.
+newMaintenanceWindowTaskInvocationParameters ::
   MaintenanceWindowTaskInvocationParameters
-maintenanceWindowTaskInvocationParameters =
+newMaintenanceWindowTaskInvocationParameters =
   MaintenanceWindowTaskInvocationParameters'
-    { _mwtipAutomation =
-        Nothing,
-      _mwtipLambda = Nothing,
-      _mwtipRunCommand = Nothing,
-      _mwtipStepFunctions = Nothing
+    { automation =
+        Prelude.Nothing,
+      lambda = Prelude.Nothing,
+      runCommand = Prelude.Nothing,
+      stepFunctions = Prelude.Nothing
     }
 
 -- | The parameters for an AUTOMATION task type.
-mwtipAutomation :: Lens' MaintenanceWindowTaskInvocationParameters (Maybe MaintenanceWindowAutomationParameters)
-mwtipAutomation = lens _mwtipAutomation (\s a -> s {_mwtipAutomation = a})
+maintenanceWindowTaskInvocationParameters_automation :: Lens.Lens' MaintenanceWindowTaskInvocationParameters (Prelude.Maybe MaintenanceWindowAutomationParameters)
+maintenanceWindowTaskInvocationParameters_automation = Lens.lens (\MaintenanceWindowTaskInvocationParameters' {automation} -> automation) (\s@MaintenanceWindowTaskInvocationParameters' {} a -> s {automation = a} :: MaintenanceWindowTaskInvocationParameters)
 
 -- | The parameters for a LAMBDA task type.
-mwtipLambda :: Lens' MaintenanceWindowTaskInvocationParameters (Maybe MaintenanceWindowLambdaParameters)
-mwtipLambda = lens _mwtipLambda (\s a -> s {_mwtipLambda = a})
+maintenanceWindowTaskInvocationParameters_lambda :: Lens.Lens' MaintenanceWindowTaskInvocationParameters (Prelude.Maybe MaintenanceWindowLambdaParameters)
+maintenanceWindowTaskInvocationParameters_lambda = Lens.lens (\MaintenanceWindowTaskInvocationParameters' {lambda} -> lambda) (\s@MaintenanceWindowTaskInvocationParameters' {} a -> s {lambda = a} :: MaintenanceWindowTaskInvocationParameters)
 
 -- | The parameters for a RUN_COMMAND task type.
-mwtipRunCommand :: Lens' MaintenanceWindowTaskInvocationParameters (Maybe MaintenanceWindowRunCommandParameters)
-mwtipRunCommand = lens _mwtipRunCommand (\s a -> s {_mwtipRunCommand = a})
+maintenanceWindowTaskInvocationParameters_runCommand :: Lens.Lens' MaintenanceWindowTaskInvocationParameters (Prelude.Maybe MaintenanceWindowRunCommandParameters)
+maintenanceWindowTaskInvocationParameters_runCommand = Lens.lens (\MaintenanceWindowTaskInvocationParameters' {runCommand} -> runCommand) (\s@MaintenanceWindowTaskInvocationParameters' {} a -> s {runCommand = a} :: MaintenanceWindowTaskInvocationParameters)
 
 -- | The parameters for a STEP_FUNCTIONS task type.
-mwtipStepFunctions :: Lens' MaintenanceWindowTaskInvocationParameters (Maybe MaintenanceWindowStepFunctionsParameters)
-mwtipStepFunctions = lens _mwtipStepFunctions (\s a -> s {_mwtipStepFunctions = a})
+maintenanceWindowTaskInvocationParameters_stepFunctions :: Lens.Lens' MaintenanceWindowTaskInvocationParameters (Prelude.Maybe MaintenanceWindowStepFunctionsParameters)
+maintenanceWindowTaskInvocationParameters_stepFunctions = Lens.lens (\MaintenanceWindowTaskInvocationParameters' {stepFunctions} -> stepFunctions) (\s@MaintenanceWindowTaskInvocationParameters' {} a -> s {stepFunctions = a} :: MaintenanceWindowTaskInvocationParameters)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     MaintenanceWindowTaskInvocationParameters
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MaintenanceWindowTaskInvocationParameters"
       ( \x ->
           MaintenanceWindowTaskInvocationParameters'
-            <$> (x .:? "Automation")
-            <*> (x .:? "Lambda")
-            <*> (x .:? "RunCommand")
-            <*> (x .:? "StepFunctions")
+            Prelude.<$> (x Prelude..:? "Automation")
+              Prelude.<*> (x Prelude..:? "Lambda")
+              Prelude.<*> (x Prelude..:? "RunCommand")
+              Prelude.<*> (x Prelude..:? "StepFunctions")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     MaintenanceWindowTaskInvocationParameters
 
 instance
-  NFData
+  Prelude.NFData
     MaintenanceWindowTaskInvocationParameters
 
 instance
-  ToJSON
+  Prelude.ToJSON
     MaintenanceWindowTaskInvocationParameters
   where
   toJSON MaintenanceWindowTaskInvocationParameters' {..} =
-    object
-      ( catMaybes
-          [ ("Automation" .=) <$> _mwtipAutomation,
-            ("Lambda" .=) <$> _mwtipLambda,
-            ("RunCommand" .=) <$> _mwtipRunCommand,
-            ("StepFunctions" .=) <$> _mwtipStepFunctions
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Automation" Prelude..=) Prelude.<$> automation,
+            ("Lambda" Prelude..=) Prelude.<$> lambda,
+            ("RunCommand" Prelude..=) Prelude.<$> runCommand,
+            ("StepFunctions" Prelude..=)
+              Prelude.<$> stepFunctions
           ]
       )

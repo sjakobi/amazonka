@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.AssociationStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.AssociationStatusName
 
 -- | Describes an association status.
 --
---
---
--- /See:/ 'associationStatus' smart constructor.
+-- /See:/ 'newAssociationStatus' smart constructor.
 data AssociationStatus = AssociationStatus'
-  { _asAdditionalInfo ::
-      !(Maybe Text),
-    _asDate :: !POSIX,
-    _asName :: !AssociationStatusName,
-    _asMessage :: !Text
+  { -- | A user-defined string.
+    additionalInfo :: Prelude.Maybe Prelude.Text,
+    -- | The date when the status changed.
+    date :: Prelude.POSIX,
+    -- | The status.
+    name :: AssociationStatusName,
+    -- | The reason for the status.
+    message :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociationStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociationStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asAdditionalInfo' - A user-defined string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asDate' - The date when the status changed.
+-- 'additionalInfo', 'associationStatus_additionalInfo' - A user-defined string.
 --
--- * 'asName' - The status.
+-- 'date', 'associationStatus_date' - The date when the status changed.
 --
--- * 'asMessage' - The reason for the status.
-associationStatus ::
-  -- | 'asDate'
-  UTCTime ->
-  -- | 'asName'
+-- 'name', 'associationStatus_name' - The status.
+--
+-- 'message', 'associationStatus_message' - The reason for the status.
+newAssociationStatus ::
+  -- | 'date'
+  Prelude.UTCTime ->
+  -- | 'name'
   AssociationStatusName ->
-  -- | 'asMessage'
-  Text ->
+  -- | 'message'
+  Prelude.Text ->
   AssociationStatus
-associationStatus pDate_ pName_ pMessage_ =
+newAssociationStatus pDate_ pName_ pMessage_ =
   AssociationStatus'
-    { _asAdditionalInfo = Nothing,
-      _asDate = _Time # pDate_,
-      _asName = pName_,
-      _asMessage = pMessage_
+    { additionalInfo =
+        Prelude.Nothing,
+      date = Prelude._Time Lens.# pDate_,
+      name = pName_,
+      message = pMessage_
     }
 
 -- | A user-defined string.
-asAdditionalInfo :: Lens' AssociationStatus (Maybe Text)
-asAdditionalInfo = lens _asAdditionalInfo (\s a -> s {_asAdditionalInfo = a})
+associationStatus_additionalInfo :: Lens.Lens' AssociationStatus (Prelude.Maybe Prelude.Text)
+associationStatus_additionalInfo = Lens.lens (\AssociationStatus' {additionalInfo} -> additionalInfo) (\s@AssociationStatus' {} a -> s {additionalInfo = a} :: AssociationStatus)
 
 -- | The date when the status changed.
-asDate :: Lens' AssociationStatus UTCTime
-asDate = lens _asDate (\s a -> s {_asDate = a}) . _Time
+associationStatus_date :: Lens.Lens' AssociationStatus Prelude.UTCTime
+associationStatus_date = Lens.lens (\AssociationStatus' {date} -> date) (\s@AssociationStatus' {} a -> s {date = a} :: AssociationStatus) Prelude.. Prelude._Time
 
 -- | The status.
-asName :: Lens' AssociationStatus AssociationStatusName
-asName = lens _asName (\s a -> s {_asName = a})
+associationStatus_name :: Lens.Lens' AssociationStatus AssociationStatusName
+associationStatus_name = Lens.lens (\AssociationStatus' {name} -> name) (\s@AssociationStatus' {} a -> s {name = a} :: AssociationStatus)
 
 -- | The reason for the status.
-asMessage :: Lens' AssociationStatus Text
-asMessage = lens _asMessage (\s a -> s {_asMessage = a})
+associationStatus_message :: Lens.Lens' AssociationStatus Prelude.Text
+associationStatus_message = Lens.lens (\AssociationStatus' {message} -> message) (\s@AssociationStatus' {} a -> s {message = a} :: AssociationStatus)
 
-instance FromJSON AssociationStatus where
+instance Prelude.FromJSON AssociationStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AssociationStatus"
       ( \x ->
           AssociationStatus'
-            <$> (x .:? "AdditionalInfo")
-            <*> (x .: "Date")
-            <*> (x .: "Name")
-            <*> (x .: "Message")
+            Prelude.<$> (x Prelude..:? "AdditionalInfo")
+            Prelude.<*> (x Prelude..: "Date")
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Message")
       )
 
-instance Hashable AssociationStatus
+instance Prelude.Hashable AssociationStatus
 
-instance NFData AssociationStatus
+instance Prelude.NFData AssociationStatus
 
-instance ToJSON AssociationStatus where
+instance Prelude.ToJSON AssociationStatus where
   toJSON AssociationStatus' {..} =
-    object
-      ( catMaybes
-          [ ("AdditionalInfo" .=) <$> _asAdditionalInfo,
-            Just ("Date" .= _asDate),
-            Just ("Name" .= _asName),
-            Just ("Message" .= _asMessage)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AdditionalInfo" Prelude..=)
+              Prelude.<$> additionalInfo,
+            Prelude.Just ("Date" Prelude..= date),
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Message" Prelude..= message)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,217 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of all OpsItem events in the current AWS account and Region. You can limit the results to events associated with specific OpsItems by specifying a filter.
---
---
+-- Returns a list of all OpsItem events in the current AWS account and
+-- Region. You can limit the results to events associated with specific
+-- OpsItems by specifying a filter.
 --
 -- This operation returns paginated results.
 module Network.AWS.SSM.ListOpsItemEvents
   ( -- * Creating a Request
-    listOpsItemEvents,
-    ListOpsItemEvents,
+    ListOpsItemEvents (..),
+    newListOpsItemEvents,
 
     -- * Request Lenses
-    loieNextToken,
-    loieMaxResults,
-    loieFilters,
+    listOpsItemEvents_nextToken,
+    listOpsItemEvents_maxResults,
+    listOpsItemEvents_filters,
 
     -- * Destructuring the Response
-    listOpsItemEventsResponse,
-    ListOpsItemEventsResponse,
+    ListOpsItemEventsResponse (..),
+    newListOpsItemEventsResponse,
 
     -- * Response Lenses
-    loierrsNextToken,
-    loierrsSummaries,
-    loierrsResponseStatus,
+    listOpsItemEventsResponse_nextToken,
+    listOpsItemEventsResponse_summaries,
+    listOpsItemEventsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.OpsItemEventSummary
 
--- | /See:/ 'listOpsItemEvents' smart constructor.
+-- | /See:/ 'newListOpsItemEvents' smart constructor.
 data ListOpsItemEvents = ListOpsItemEvents'
-  { _loieNextToken ::
-      !(Maybe Text),
-    _loieMaxResults :: !(Maybe Nat),
-    _loieFilters ::
-      !(Maybe [OpsItemEventFilter])
+  { -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more OpsItem filters. Use a filter to return a more specific list
+    -- of results.
+    filters :: Prelude.Maybe [OpsItemEventFilter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOpsItemEvents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOpsItemEvents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'loieNextToken' - A token to start the list. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'loieMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'listOpsItemEvents_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 --
--- * 'loieFilters' - One or more OpsItem filters. Use a filter to return a more specific list of results.
-listOpsItemEvents ::
+-- 'maxResults', 'listOpsItemEvents_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+--
+-- 'filters', 'listOpsItemEvents_filters' - One or more OpsItem filters. Use a filter to return a more specific list
+-- of results.
+newListOpsItemEvents ::
   ListOpsItemEvents
-listOpsItemEvents =
+newListOpsItemEvents =
   ListOpsItemEvents'
-    { _loieNextToken = Nothing,
-      _loieMaxResults = Nothing,
-      _loieFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | A token to start the list. Use this token to get the next set of results.
-loieNextToken :: Lens' ListOpsItemEvents (Maybe Text)
-loieNextToken = lens _loieNextToken (\s a -> s {_loieNextToken = a})
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+listOpsItemEvents_nextToken :: Lens.Lens' ListOpsItemEvents (Prelude.Maybe Prelude.Text)
+listOpsItemEvents_nextToken = Lens.lens (\ListOpsItemEvents' {nextToken} -> nextToken) (\s@ListOpsItemEvents' {} a -> s {nextToken = a} :: ListOpsItemEvents)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-loieMaxResults :: Lens' ListOpsItemEvents (Maybe Natural)
-loieMaxResults = lens _loieMaxResults (\s a -> s {_loieMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+listOpsItemEvents_maxResults :: Lens.Lens' ListOpsItemEvents (Prelude.Maybe Prelude.Natural)
+listOpsItemEvents_maxResults = Lens.lens (\ListOpsItemEvents' {maxResults} -> maxResults) (\s@ListOpsItemEvents' {} a -> s {maxResults = a} :: ListOpsItemEvents) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more OpsItem filters. Use a filter to return a more specific list of results.
-loieFilters :: Lens' ListOpsItemEvents [OpsItemEventFilter]
-loieFilters = lens _loieFilters (\s a -> s {_loieFilters = a}) . _Default . _Coerce
+-- | One or more OpsItem filters. Use a filter to return a more specific list
+-- of results.
+listOpsItemEvents_filters :: Lens.Lens' ListOpsItemEvents (Prelude.Maybe [OpsItemEventFilter])
+listOpsItemEvents_filters = Lens.lens (\ListOpsItemEvents' {filters} -> filters) (\s@ListOpsItemEvents' {} a -> s {filters = a} :: ListOpsItemEvents) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager ListOpsItemEvents where
+instance Pager.AWSPager ListOpsItemEvents where
   page rq rs
-    | stop (rs ^. loierrsNextToken) = Nothing
-    | stop (rs ^. loierrsSummaries) = Nothing
-    | otherwise =
-      Just $ rq & loieNextToken .~ rs ^. loierrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listOpsItemEventsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listOpsItemEventsResponse_summaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listOpsItemEvents_nextToken
+          Lens..~ rs
+          Lens.^? listOpsItemEventsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListOpsItemEvents where
+instance Prelude.AWSRequest ListOpsItemEvents where
   type Rs ListOpsItemEvents = ListOpsItemEventsResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListOpsItemEventsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Summaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Summaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListOpsItemEvents
+instance Prelude.Hashable ListOpsItemEvents
 
-instance NFData ListOpsItemEvents
+instance Prelude.NFData ListOpsItemEvents
 
-instance ToHeaders ListOpsItemEvents where
+instance Prelude.ToHeaders ListOpsItemEvents where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.ListOpsItemEvents" :: ByteString),
+              Prelude.=# ( "AmazonSSM.ListOpsItemEvents" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListOpsItemEvents where
+instance Prelude.ToJSON ListOpsItemEvents where
   toJSON ListOpsItemEvents' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _loieNextToken,
-            ("MaxResults" .=) <$> _loieMaxResults,
-            ("Filters" .=) <$> _loieFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath ListOpsItemEvents where
-  toPath = const "/"
+instance Prelude.ToPath ListOpsItemEvents where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListOpsItemEvents where
-  toQuery = const mempty
+instance Prelude.ToQuery ListOpsItemEvents where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listOpsItemEventsResponse' smart constructor.
+-- | /See:/ 'newListOpsItemEventsResponse' smart constructor.
 data ListOpsItemEventsResponse = ListOpsItemEventsResponse'
-  { _loierrsNextToken ::
-      !(Maybe Text),
-    _loierrsSummaries ::
-      !( Maybe
-           [OpsItemEventSummary]
-       ),
-    _loierrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of items to return. Use this token to get the
+    -- next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of event information for the specified OpsItems.
+    summaries :: Prelude.Maybe [OpsItemEventSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOpsItemEventsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOpsItemEventsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'loierrsNextToken' - The token for the next set of items to return. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'loierrsSummaries' - A list of event information for the specified OpsItems.
+-- 'nextToken', 'listOpsItemEventsResponse_nextToken' - The token for the next set of items to return. Use this token to get the
+-- next set of results.
 --
--- * 'loierrsResponseStatus' - -- | The response status code.
-listOpsItemEventsResponse ::
-  -- | 'loierrsResponseStatus'
-  Int ->
+-- 'summaries', 'listOpsItemEventsResponse_summaries' - A list of event information for the specified OpsItems.
+--
+-- 'httpStatus', 'listOpsItemEventsResponse_httpStatus' - The response's http status code.
+newListOpsItemEventsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListOpsItemEventsResponse
-listOpsItemEventsResponse pResponseStatus_ =
+newListOpsItemEventsResponse pHttpStatus_ =
   ListOpsItemEventsResponse'
-    { _loierrsNextToken =
-        Nothing,
-      _loierrsSummaries = Nothing,
-      _loierrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      summaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of items to return. Use this token to get the next set of results.
-loierrsNextToken :: Lens' ListOpsItemEventsResponse (Maybe Text)
-loierrsNextToken = lens _loierrsNextToken (\s a -> s {_loierrsNextToken = a})
+-- | The token for the next set of items to return. Use this token to get the
+-- next set of results.
+listOpsItemEventsResponse_nextToken :: Lens.Lens' ListOpsItemEventsResponse (Prelude.Maybe Prelude.Text)
+listOpsItemEventsResponse_nextToken = Lens.lens (\ListOpsItemEventsResponse' {nextToken} -> nextToken) (\s@ListOpsItemEventsResponse' {} a -> s {nextToken = a} :: ListOpsItemEventsResponse)
 
 -- | A list of event information for the specified OpsItems.
-loierrsSummaries :: Lens' ListOpsItemEventsResponse [OpsItemEventSummary]
-loierrsSummaries = lens _loierrsSummaries (\s a -> s {_loierrsSummaries = a}) . _Default . _Coerce
+listOpsItemEventsResponse_summaries :: Lens.Lens' ListOpsItemEventsResponse (Prelude.Maybe [OpsItemEventSummary])
+listOpsItemEventsResponse_summaries = Lens.lens (\ListOpsItemEventsResponse' {summaries} -> summaries) (\s@ListOpsItemEventsResponse' {} a -> s {summaries = a} :: ListOpsItemEventsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-loierrsResponseStatus :: Lens' ListOpsItemEventsResponse Int
-loierrsResponseStatus = lens _loierrsResponseStatus (\s a -> s {_loierrsResponseStatus = a})
+-- | The response's http status code.
+listOpsItemEventsResponse_httpStatus :: Lens.Lens' ListOpsItemEventsResponse Prelude.Int
+listOpsItemEventsResponse_httpStatus = Lens.lens (\ListOpsItemEventsResponse' {httpStatus} -> httpStatus) (\s@ListOpsItemEventsResponse' {} a -> s {httpStatus = a} :: ListOpsItemEventsResponse)
 
-instance NFData ListOpsItemEventsResponse
+instance Prelude.NFData ListOpsItemEventsResponse

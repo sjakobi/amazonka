@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,146 +24,148 @@
 -- Stop an Automation that is currently running.
 module Network.AWS.SSM.StopAutomationExecution
   ( -- * Creating a Request
-    stopAutomationExecution,
-    StopAutomationExecution,
+    StopAutomationExecution (..),
+    newStopAutomationExecution,
 
     -- * Request Lenses
-    saeType,
-    saeAutomationExecutionId,
+    stopAutomationExecution_type,
+    stopAutomationExecution_automationExecutionId,
 
     -- * Destructuring the Response
-    stopAutomationExecutionResponse,
-    StopAutomationExecutionResponse,
+    StopAutomationExecutionResponse (..),
+    newStopAutomationExecutionResponse,
 
     -- * Response Lenses
-    srsResponseStatus,
+    stopAutomationExecutionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'stopAutomationExecution' smart constructor.
+-- | /See:/ 'newStopAutomationExecution' smart constructor.
 data StopAutomationExecution = StopAutomationExecution'
-  { _saeType ::
-      !(Maybe StopType),
-    _saeAutomationExecutionId ::
-      !Text
+  { -- | The stop request type. Valid types include the following: Cancel and
+    -- Complete. The default type is Cancel.
+    type' :: Prelude.Maybe StopType,
+    -- | The execution ID of the Automation to stop.
+    automationExecutionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopAutomationExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopAutomationExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saeType' - The stop request type. Valid types include the following: Cancel and Complete. The default type is Cancel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'saeAutomationExecutionId' - The execution ID of the Automation to stop.
-stopAutomationExecution ::
-  -- | 'saeAutomationExecutionId'
-  Text ->
+-- 'type'', 'stopAutomationExecution_type' - The stop request type. Valid types include the following: Cancel and
+-- Complete. The default type is Cancel.
+--
+-- 'automationExecutionId', 'stopAutomationExecution_automationExecutionId' - The execution ID of the Automation to stop.
+newStopAutomationExecution ::
+  -- | 'automationExecutionId'
+  Prelude.Text ->
   StopAutomationExecution
-stopAutomationExecution pAutomationExecutionId_ =
+newStopAutomationExecution pAutomationExecutionId_ =
   StopAutomationExecution'
-    { _saeType = Nothing,
-      _saeAutomationExecutionId =
-        pAutomationExecutionId_
+    { type' = Prelude.Nothing,
+      automationExecutionId = pAutomationExecutionId_
     }
 
--- | The stop request type. Valid types include the following: Cancel and Complete. The default type is Cancel.
-saeType :: Lens' StopAutomationExecution (Maybe StopType)
-saeType = lens _saeType (\s a -> s {_saeType = a})
+-- | The stop request type. Valid types include the following: Cancel and
+-- Complete. The default type is Cancel.
+stopAutomationExecution_type :: Lens.Lens' StopAutomationExecution (Prelude.Maybe StopType)
+stopAutomationExecution_type = Lens.lens (\StopAutomationExecution' {type'} -> type') (\s@StopAutomationExecution' {} a -> s {type' = a} :: StopAutomationExecution)
 
 -- | The execution ID of the Automation to stop.
-saeAutomationExecutionId :: Lens' StopAutomationExecution Text
-saeAutomationExecutionId = lens _saeAutomationExecutionId (\s a -> s {_saeAutomationExecutionId = a})
+stopAutomationExecution_automationExecutionId :: Lens.Lens' StopAutomationExecution Prelude.Text
+stopAutomationExecution_automationExecutionId = Lens.lens (\StopAutomationExecution' {automationExecutionId} -> automationExecutionId) (\s@StopAutomationExecution' {} a -> s {automationExecutionId = a} :: StopAutomationExecution)
 
-instance AWSRequest StopAutomationExecution where
+instance Prelude.AWSRequest StopAutomationExecution where
   type
     Rs StopAutomationExecution =
       StopAutomationExecutionResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           StopAutomationExecutionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopAutomationExecution
+instance Prelude.Hashable StopAutomationExecution
 
-instance NFData StopAutomationExecution
+instance Prelude.NFData StopAutomationExecution
 
-instance ToHeaders StopAutomationExecution where
+instance Prelude.ToHeaders StopAutomationExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.StopAutomationExecution" :: ByteString),
+              Prelude.=# ( "AmazonSSM.StopAutomationExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopAutomationExecution where
+instance Prelude.ToJSON StopAutomationExecution where
   toJSON StopAutomationExecution' {..} =
-    object
-      ( catMaybes
-          [ ("Type" .=) <$> _saeType,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Type" Prelude..=) Prelude.<$> type',
+            Prelude.Just
               ( "AutomationExecutionId"
-                  .= _saeAutomationExecutionId
+                  Prelude..= automationExecutionId
               )
           ]
       )
 
-instance ToPath StopAutomationExecution where
-  toPath = const "/"
+instance Prelude.ToPath StopAutomationExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopAutomationExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery StopAutomationExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopAutomationExecutionResponse' smart constructor.
-newtype StopAutomationExecutionResponse = StopAutomationExecutionResponse'
-  { _srsResponseStatus ::
-      Int
+-- | /See:/ 'newStopAutomationExecutionResponse' smart constructor.
+data StopAutomationExecutionResponse = StopAutomationExecutionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopAutomationExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopAutomationExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsResponseStatus' - -- | The response status code.
-stopAutomationExecutionResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'stopAutomationExecutionResponse_httpStatus' - The response's http status code.
+newStopAutomationExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopAutomationExecutionResponse
-stopAutomationExecutionResponse pResponseStatus_ =
+newStopAutomationExecutionResponse pHttpStatus_ =
   StopAutomationExecutionResponse'
-    { _srsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StopAutomationExecutionResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+stopAutomationExecutionResponse_httpStatus :: Lens.Lens' StopAutomationExecutionResponse Prelude.Int
+stopAutomationExecutionResponse_httpStatus = Lens.lens (\StopAutomationExecutionResponse' {httpStatus} -> httpStatus) (\s@StopAutomationExecutionResponse' {} a -> s {httpStatus = a} :: StopAutomationExecutionResponse)
 
-instance NFData StopAutomationExecutionResponse
+instance
+  Prelude.NFData
+    StopAutomationExecutionResponse

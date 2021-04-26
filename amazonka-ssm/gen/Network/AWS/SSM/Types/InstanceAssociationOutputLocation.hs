@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InstanceAssociationOutputLocation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.S3OutputLocation
 
 -- | An S3 bucket where you want to store the results of this request.
 --
---
---
--- /See:/ 'instanceAssociationOutputLocation' smart constructor.
-newtype InstanceAssociationOutputLocation = InstanceAssociationOutputLocation'
-  { _iaolS3Location ::
-      Maybe
-        S3OutputLocation
+-- /See:/ 'newInstanceAssociationOutputLocation' smart constructor.
+data InstanceAssociationOutputLocation = InstanceAssociationOutputLocation'
+  { -- | An S3 bucket where you want to store the results of this request.
+    s3Location :: Prelude.Maybe S3OutputLocation
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceAssociationOutputLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceAssociationOutputLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iaolS3Location' - An S3 bucket where you want to store the results of this request.
-instanceAssociationOutputLocation ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Location', 'instanceAssociationOutputLocation_s3Location' - An S3 bucket where you want to store the results of this request.
+newInstanceAssociationOutputLocation ::
   InstanceAssociationOutputLocation
-instanceAssociationOutputLocation =
+newInstanceAssociationOutputLocation =
   InstanceAssociationOutputLocation'
-    { _iaolS3Location =
-        Nothing
+    { s3Location =
+        Prelude.Nothing
     }
 
 -- | An S3 bucket where you want to store the results of this request.
-iaolS3Location :: Lens' InstanceAssociationOutputLocation (Maybe S3OutputLocation)
-iaolS3Location = lens _iaolS3Location (\s a -> s {_iaolS3Location = a})
+instanceAssociationOutputLocation_s3Location :: Lens.Lens' InstanceAssociationOutputLocation (Prelude.Maybe S3OutputLocation)
+instanceAssociationOutputLocation_s3Location = Lens.lens (\InstanceAssociationOutputLocation' {s3Location} -> s3Location) (\s@InstanceAssociationOutputLocation' {} a -> s {s3Location = a} :: InstanceAssociationOutputLocation)
 
-instance FromJSON InstanceAssociationOutputLocation where
+instance
+  Prelude.FromJSON
+    InstanceAssociationOutputLocation
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceAssociationOutputLocation"
       ( \x ->
           InstanceAssociationOutputLocation'
-            <$> (x .:? "S3Location")
+            Prelude.<$> (x Prelude..:? "S3Location")
       )
 
-instance Hashable InstanceAssociationOutputLocation
+instance
+  Prelude.Hashable
+    InstanceAssociationOutputLocation
 
-instance NFData InstanceAssociationOutputLocation
+instance
+  Prelude.NFData
+    InstanceAssociationOutputLocation
 
-instance ToJSON InstanceAssociationOutputLocation where
+instance
+  Prelude.ToJSON
+    InstanceAssociationOutputLocation
+  where
   toJSON InstanceAssociationOutputLocation' {..} =
-    object
-      (catMaybes [("S3Location" .=) <$> _iaolS3Location])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("S3Location" Prelude..=) Prelude.<$> s3Location]
+      )

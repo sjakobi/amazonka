@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.OpsItemFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.OpsItemFilterKey
 import Network.AWS.SSM.Types.OpsItemFilterOperator
 
 -- | Describes an OpsItem filter.
 --
---
---
--- /See:/ 'opsItemFilter' smart constructor.
+-- /See:/ 'newOpsItemFilter' smart constructor.
 data OpsItemFilter = OpsItemFilter'
-  { _oifKey ::
-      !OpsItemFilterKey,
-    _oifValues :: ![Text],
-    _oifOperator :: !OpsItemFilterOperator
+  { -- | The name of the filter.
+    key :: OpsItemFilterKey,
+    -- | The filter value.
+    values :: [Prelude.Text],
+    -- | The operator used by the filter call.
+    operator :: OpsItemFilterOperator
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpsItemFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpsItemFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oifKey' - The name of the filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oifValues' - The filter value.
+-- 'key', 'opsItemFilter_key' - The name of the filter.
 --
--- * 'oifOperator' - The operator used by the filter call.
-opsItemFilter ::
-  -- | 'oifKey'
+-- 'values', 'opsItemFilter_values' - The filter value.
+--
+-- 'operator', 'opsItemFilter_operator' - The operator used by the filter call.
+newOpsItemFilter ::
+  -- | 'key'
   OpsItemFilterKey ->
-  -- | 'oifOperator'
+  -- | 'operator'
   OpsItemFilterOperator ->
   OpsItemFilter
-opsItemFilter pKey_ pOperator_ =
+newOpsItemFilter pKey_ pOperator_ =
   OpsItemFilter'
-    { _oifKey = pKey_,
-      _oifValues = mempty,
-      _oifOperator = pOperator_
+    { key = pKey_,
+      values = Prelude.mempty,
+      operator = pOperator_
     }
 
 -- | The name of the filter.
-oifKey :: Lens' OpsItemFilter OpsItemFilterKey
-oifKey = lens _oifKey (\s a -> s {_oifKey = a})
+opsItemFilter_key :: Lens.Lens' OpsItemFilter OpsItemFilterKey
+opsItemFilter_key = Lens.lens (\OpsItemFilter' {key} -> key) (\s@OpsItemFilter' {} a -> s {key = a} :: OpsItemFilter)
 
 -- | The filter value.
-oifValues :: Lens' OpsItemFilter [Text]
-oifValues = lens _oifValues (\s a -> s {_oifValues = a}) . _Coerce
+opsItemFilter_values :: Lens.Lens' OpsItemFilter [Prelude.Text]
+opsItemFilter_values = Lens.lens (\OpsItemFilter' {values} -> values) (\s@OpsItemFilter' {} a -> s {values = a} :: OpsItemFilter) Prelude.. Prelude._Coerce
 
 -- | The operator used by the filter call.
-oifOperator :: Lens' OpsItemFilter OpsItemFilterOperator
-oifOperator = lens _oifOperator (\s a -> s {_oifOperator = a})
+opsItemFilter_operator :: Lens.Lens' OpsItemFilter OpsItemFilterOperator
+opsItemFilter_operator = Lens.lens (\OpsItemFilter' {operator} -> operator) (\s@OpsItemFilter' {} a -> s {operator = a} :: OpsItemFilter)
 
-instance Hashable OpsItemFilter
+instance Prelude.Hashable OpsItemFilter
 
-instance NFData OpsItemFilter
+instance Prelude.NFData OpsItemFilter
 
-instance ToJSON OpsItemFilter where
+instance Prelude.ToJSON OpsItemFilter where
   toJSON OpsItemFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("Key" .= _oifKey),
-            Just ("Values" .= _oifValues),
-            Just ("Operator" .= _oifOperator)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Values" Prelude..= values),
+            Prelude.Just ("Operator" Prelude..= operator)
           ]
       )

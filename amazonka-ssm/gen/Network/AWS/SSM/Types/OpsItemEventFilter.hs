@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.OpsItemEventFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.OpsItemEventFilterKey
 import Network.AWS.SSM.Types.OpsItemEventFilterOperator
 
--- | Describes a filter for a specific list of OpsItem events. You can filter event information by using tags. You specify tags by using a key-value pair mapping.
+-- | Describes a filter for a specific list of OpsItem events. You can filter
+-- event information by using tags. You specify tags by using a key-value
+-- pair mapping.
 --
---
---
--- /See:/ 'opsItemEventFilter' smart constructor.
+-- /See:/ 'newOpsItemEventFilter' smart constructor.
 data OpsItemEventFilter = OpsItemEventFilter'
-  { _oiefKey ::
-      !OpsItemEventFilterKey,
-    _oiefValues :: ![Text],
-    _oiefOperator ::
-      !OpsItemEventFilterOperator
+  { -- | The name of the filter key. Currently, the only supported value is
+    -- @OpsItemId@.
+    key :: OpsItemEventFilterKey,
+    -- | The values for the filter, consisting of one or more OpsItem IDs.
+    values :: [Prelude.Text],
+    -- | The operator used by the filter call. Currently, the only supported
+    -- value is @Equal@.
+    operator :: OpsItemEventFilterOperator
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpsItemEventFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpsItemEventFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oiefKey' - The name of the filter key. Currently, the only supported value is @OpsItemId@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oiefValues' - The values for the filter, consisting of one or more OpsItem IDs.
+-- 'key', 'opsItemEventFilter_key' - The name of the filter key. Currently, the only supported value is
+-- @OpsItemId@.
 --
--- * 'oiefOperator' - The operator used by the filter call. Currently, the only supported value is @Equal@ .
-opsItemEventFilter ::
-  -- | 'oiefKey'
+-- 'values', 'opsItemEventFilter_values' - The values for the filter, consisting of one or more OpsItem IDs.
+--
+-- 'operator', 'opsItemEventFilter_operator' - The operator used by the filter call. Currently, the only supported
+-- value is @Equal@.
+newOpsItemEventFilter ::
+  -- | 'key'
   OpsItemEventFilterKey ->
-  -- | 'oiefOperator'
+  -- | 'operator'
   OpsItemEventFilterOperator ->
   OpsItemEventFilter
-opsItemEventFilter pKey_ pOperator_ =
+newOpsItemEventFilter pKey_ pOperator_ =
   OpsItemEventFilter'
-    { _oiefKey = pKey_,
-      _oiefValues = mempty,
-      _oiefOperator = pOperator_
+    { key = pKey_,
+      values = Prelude.mempty,
+      operator = pOperator_
     }
 
--- | The name of the filter key. Currently, the only supported value is @OpsItemId@ .
-oiefKey :: Lens' OpsItemEventFilter OpsItemEventFilterKey
-oiefKey = lens _oiefKey (\s a -> s {_oiefKey = a})
+-- | The name of the filter key. Currently, the only supported value is
+-- @OpsItemId@.
+opsItemEventFilter_key :: Lens.Lens' OpsItemEventFilter OpsItemEventFilterKey
+opsItemEventFilter_key = Lens.lens (\OpsItemEventFilter' {key} -> key) (\s@OpsItemEventFilter' {} a -> s {key = a} :: OpsItemEventFilter)
 
 -- | The values for the filter, consisting of one or more OpsItem IDs.
-oiefValues :: Lens' OpsItemEventFilter [Text]
-oiefValues = lens _oiefValues (\s a -> s {_oiefValues = a}) . _Coerce
+opsItemEventFilter_values :: Lens.Lens' OpsItemEventFilter [Prelude.Text]
+opsItemEventFilter_values = Lens.lens (\OpsItemEventFilter' {values} -> values) (\s@OpsItemEventFilter' {} a -> s {values = a} :: OpsItemEventFilter) Prelude.. Prelude._Coerce
 
--- | The operator used by the filter call. Currently, the only supported value is @Equal@ .
-oiefOperator :: Lens' OpsItemEventFilter OpsItemEventFilterOperator
-oiefOperator = lens _oiefOperator (\s a -> s {_oiefOperator = a})
+-- | The operator used by the filter call. Currently, the only supported
+-- value is @Equal@.
+opsItemEventFilter_operator :: Lens.Lens' OpsItemEventFilter OpsItemEventFilterOperator
+opsItemEventFilter_operator = Lens.lens (\OpsItemEventFilter' {operator} -> operator) (\s@OpsItemEventFilter' {} a -> s {operator = a} :: OpsItemEventFilter)
 
-instance Hashable OpsItemEventFilter
+instance Prelude.Hashable OpsItemEventFilter
 
-instance NFData OpsItemEventFilter
+instance Prelude.NFData OpsItemEventFilter
 
-instance ToJSON OpsItemEventFilter where
+instance Prelude.ToJSON OpsItemEventFilter where
   toJSON OpsItemEventFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("Key" .= _oiefKey),
-            Just ("Values" .= _oiefValues),
-            Just ("Operator" .= _oiefOperator)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Values" Prelude..= values),
+            Prelude.Just ("Operator" Prelude..= operator)
           ]
       )

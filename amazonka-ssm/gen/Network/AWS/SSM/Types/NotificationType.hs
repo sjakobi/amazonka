@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SSM.Types.NotificationType
   ( NotificationType
       ( ..,
-        Command,
-        Invocation
+        NotificationTypeCommand,
+        NotificationTypeInvocation
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotificationType = NotificationType' (CI Text)
+newtype NotificationType = NotificationType'
+  { fromNotificationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Command :: NotificationType
-pattern Command = NotificationType' "Command"
+pattern NotificationTypeCommand :: NotificationType
+pattern NotificationTypeCommand = NotificationType' "Command"
 
-pattern Invocation :: NotificationType
-pattern Invocation = NotificationType' "Invocation"
+pattern NotificationTypeInvocation :: NotificationType
+pattern NotificationTypeInvocation = NotificationType' "Invocation"
 
 {-# COMPLETE
-  Command,
-  Invocation,
+  NotificationTypeCommand,
+  NotificationTypeInvocation,
   NotificationType'
   #-}
 
-instance FromText NotificationType where
-  parser = (NotificationType' . mk) <$> takeText
+instance Prelude.FromText NotificationType where
+  parser = NotificationType' Prelude.<$> Prelude.takeText
 
-instance ToText NotificationType where
-  toText (NotificationType' ci) = original ci
+instance Prelude.ToText NotificationType where
+  toText (NotificationType' x) = x
 
-instance Hashable NotificationType
+instance Prelude.Hashable NotificationType
 
-instance NFData NotificationType
+instance Prelude.NFData NotificationType
 
-instance ToByteString NotificationType
+instance Prelude.ToByteString NotificationType
 
-instance ToQuery NotificationType
+instance Prelude.ToQuery NotificationType
 
-instance ToHeader NotificationType
+instance Prelude.ToHeader NotificationType
 
-instance ToJSON NotificationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotificationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NotificationType where
-  parseJSON = parseJSONText "NotificationType"
+instance Prelude.FromJSON NotificationType where
+  parseJSON = Prelude.parseJSONText "NotificationType"

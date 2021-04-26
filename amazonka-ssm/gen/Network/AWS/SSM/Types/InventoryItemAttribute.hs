@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InventoryItemAttribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.InventoryAttributeDataType
 
--- | Attributes are the entries within the inventory item content. It contains name and value.
+-- | Attributes are the entries within the inventory item content. It
+-- contains name and value.
 --
---
---
--- /See:/ 'inventoryItemAttribute' smart constructor.
+-- /See:/ 'newInventoryItemAttribute' smart constructor.
 data InventoryItemAttribute = InventoryItemAttribute'
-  { _iiaName ::
-      !Text,
-    _iiaDataType ::
-      !InventoryAttributeDataType
+  { -- | Name of the inventory item attribute.
+    name :: Prelude.Text,
+    -- | The data type of the inventory item attribute.
+    dataType :: InventoryAttributeDataType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryItemAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryItemAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iiaName' - Name of the inventory item attribute.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iiaDataType' - The data type of the inventory item attribute.
-inventoryItemAttribute ::
-  -- | 'iiaName'
-  Text ->
-  -- | 'iiaDataType'
+-- 'name', 'inventoryItemAttribute_name' - Name of the inventory item attribute.
+--
+-- 'dataType', 'inventoryItemAttribute_dataType' - The data type of the inventory item attribute.
+newInventoryItemAttribute ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'dataType'
   InventoryAttributeDataType ->
   InventoryItemAttribute
-inventoryItemAttribute pName_ pDataType_ =
+newInventoryItemAttribute pName_ pDataType_ =
   InventoryItemAttribute'
-    { _iiaName = pName_,
-      _iiaDataType = pDataType_
+    { name = pName_,
+      dataType = pDataType_
     }
 
 -- | Name of the inventory item attribute.
-iiaName :: Lens' InventoryItemAttribute Text
-iiaName = lens _iiaName (\s a -> s {_iiaName = a})
+inventoryItemAttribute_name :: Lens.Lens' InventoryItemAttribute Prelude.Text
+inventoryItemAttribute_name = Lens.lens (\InventoryItemAttribute' {name} -> name) (\s@InventoryItemAttribute' {} a -> s {name = a} :: InventoryItemAttribute)
 
 -- | The data type of the inventory item attribute.
-iiaDataType :: Lens' InventoryItemAttribute InventoryAttributeDataType
-iiaDataType = lens _iiaDataType (\s a -> s {_iiaDataType = a})
+inventoryItemAttribute_dataType :: Lens.Lens' InventoryItemAttribute InventoryAttributeDataType
+inventoryItemAttribute_dataType = Lens.lens (\InventoryItemAttribute' {dataType} -> dataType) (\s@InventoryItemAttribute' {} a -> s {dataType = a} :: InventoryItemAttribute)
 
-instance FromJSON InventoryItemAttribute where
+instance Prelude.FromJSON InventoryItemAttribute where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InventoryItemAttribute"
       ( \x ->
           InventoryItemAttribute'
-            <$> (x .: "Name") <*> (x .: "DataType")
+            Prelude.<$> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "DataType")
       )
 
-instance Hashable InventoryItemAttribute
+instance Prelude.Hashable InventoryItemAttribute
 
-instance NFData InventoryItemAttribute
+instance Prelude.NFData InventoryItemAttribute

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,244 +23,284 @@
 --
 -- Retrieves information about upcoming executions of a maintenance window.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribeMaintenanceWindowSchedule
   ( -- * Creating a Request
-    describeMaintenanceWindowSchedule,
-    DescribeMaintenanceWindowSchedule,
+    DescribeMaintenanceWindowSchedule (..),
+    newDescribeMaintenanceWindowSchedule,
 
     -- * Request Lenses
-    dmwsNextToken,
-    dmwsMaxResults,
-    dmwsResourceType,
-    dmwsTargets,
-    dmwsWindowId,
-    dmwsFilters,
+    describeMaintenanceWindowSchedule_nextToken,
+    describeMaintenanceWindowSchedule_maxResults,
+    describeMaintenanceWindowSchedule_resourceType,
+    describeMaintenanceWindowSchedule_targets,
+    describeMaintenanceWindowSchedule_windowId,
+    describeMaintenanceWindowSchedule_filters,
 
     -- * Destructuring the Response
-    describeMaintenanceWindowScheduleResponse,
-    DescribeMaintenanceWindowScheduleResponse,
+    DescribeMaintenanceWindowScheduleResponse (..),
+    newDescribeMaintenanceWindowScheduleResponse,
 
     -- * Response Lenses
-    dmwsrrsNextToken,
-    dmwsrrsScheduledWindowExecutions,
-    dmwsrrsResponseStatus,
+    describeMaintenanceWindowScheduleResponse_nextToken,
+    describeMaintenanceWindowScheduleResponse_scheduledWindowExecutions,
+    describeMaintenanceWindowScheduleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.ScheduledWindowExecution
 
--- | /See:/ 'describeMaintenanceWindowSchedule' smart constructor.
+-- | /See:/ 'newDescribeMaintenanceWindowSchedule' smart constructor.
 data DescribeMaintenanceWindowSchedule = DescribeMaintenanceWindowSchedule'
-  { _dmwsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dmwsMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dmwsResourceType ::
-      !( Maybe
-           MaintenanceWindowResourceType
-       ),
-    _dmwsTargets ::
-      !( Maybe
-           [Target]
-       ),
-    _dmwsWindowId ::
-      !( Maybe
-           Text
-       ),
-    _dmwsFilters ::
-      !( Maybe
-           [PatchOrchestratorFilter]
-       )
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The type of resource you want to retrieve information about. For
+    -- example, \"INSTANCE\".
+    resourceType :: Prelude.Maybe MaintenanceWindowResourceType,
+    -- | The instance ID or key\/value pair to retrieve information about.
+    targets :: Prelude.Maybe [Target],
+    -- | The ID of the maintenance window to retrieve information about.
+    windowId :: Prelude.Maybe Prelude.Text,
+    -- | Filters used to limit the range of results. For example, you can limit
+    -- maintenance window executions to only those scheduled before or after a
+    -- certain date and time.
+    filters :: Prelude.Maybe [PatchOrchestratorFilter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeMaintenanceWindowSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeMaintenanceWindowSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmwsNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmwsMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'describeMaintenanceWindowSchedule_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'dmwsResourceType' - The type of resource you want to retrieve information about. For example, "INSTANCE".
+-- 'maxResults', 'describeMaintenanceWindowSchedule_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
--- * 'dmwsTargets' - The instance ID or key/value pair to retrieve information about.
+-- 'resourceType', 'describeMaintenanceWindowSchedule_resourceType' - The type of resource you want to retrieve information about. For
+-- example, \"INSTANCE\".
 --
--- * 'dmwsWindowId' - The ID of the maintenance window to retrieve information about.
+-- 'targets', 'describeMaintenanceWindowSchedule_targets' - The instance ID or key\/value pair to retrieve information about.
 --
--- * 'dmwsFilters' - Filters used to limit the range of results. For example, you can limit maintenance window executions to only those scheduled before or after a certain date and time.
-describeMaintenanceWindowSchedule ::
+-- 'windowId', 'describeMaintenanceWindowSchedule_windowId' - The ID of the maintenance window to retrieve information about.
+--
+-- 'filters', 'describeMaintenanceWindowSchedule_filters' - Filters used to limit the range of results. For example, you can limit
+-- maintenance window executions to only those scheduled before or after a
+-- certain date and time.
+newDescribeMaintenanceWindowSchedule ::
   DescribeMaintenanceWindowSchedule
-describeMaintenanceWindowSchedule =
+newDescribeMaintenanceWindowSchedule =
   DescribeMaintenanceWindowSchedule'
-    { _dmwsNextToken =
-        Nothing,
-      _dmwsMaxResults = Nothing,
-      _dmwsResourceType = Nothing,
-      _dmwsTargets = Nothing,
-      _dmwsWindowId = Nothing,
-      _dmwsFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      targets = Prelude.Nothing,
+      windowId = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-dmwsNextToken :: Lens' DescribeMaintenanceWindowSchedule (Maybe Text)
-dmwsNextToken = lens _dmwsNextToken (\s a -> s {_dmwsNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeMaintenanceWindowSchedule_nextToken :: Lens.Lens' DescribeMaintenanceWindowSchedule (Prelude.Maybe Prelude.Text)
+describeMaintenanceWindowSchedule_nextToken = Lens.lens (\DescribeMaintenanceWindowSchedule' {nextToken} -> nextToken) (\s@DescribeMaintenanceWindowSchedule' {} a -> s {nextToken = a} :: DescribeMaintenanceWindowSchedule)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-dmwsMaxResults :: Lens' DescribeMaintenanceWindowSchedule (Maybe Natural)
-dmwsMaxResults = lens _dmwsMaxResults (\s a -> s {_dmwsMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describeMaintenanceWindowSchedule_maxResults :: Lens.Lens' DescribeMaintenanceWindowSchedule (Prelude.Maybe Prelude.Natural)
+describeMaintenanceWindowSchedule_maxResults = Lens.lens (\DescribeMaintenanceWindowSchedule' {maxResults} -> maxResults) (\s@DescribeMaintenanceWindowSchedule' {} a -> s {maxResults = a} :: DescribeMaintenanceWindowSchedule) Prelude.. Lens.mapping Prelude._Nat
 
--- | The type of resource you want to retrieve information about. For example, "INSTANCE".
-dmwsResourceType :: Lens' DescribeMaintenanceWindowSchedule (Maybe MaintenanceWindowResourceType)
-dmwsResourceType = lens _dmwsResourceType (\s a -> s {_dmwsResourceType = a})
+-- | The type of resource you want to retrieve information about. For
+-- example, \"INSTANCE\".
+describeMaintenanceWindowSchedule_resourceType :: Lens.Lens' DescribeMaintenanceWindowSchedule (Prelude.Maybe MaintenanceWindowResourceType)
+describeMaintenanceWindowSchedule_resourceType = Lens.lens (\DescribeMaintenanceWindowSchedule' {resourceType} -> resourceType) (\s@DescribeMaintenanceWindowSchedule' {} a -> s {resourceType = a} :: DescribeMaintenanceWindowSchedule)
 
--- | The instance ID or key/value pair to retrieve information about.
-dmwsTargets :: Lens' DescribeMaintenanceWindowSchedule [Target]
-dmwsTargets = lens _dmwsTargets (\s a -> s {_dmwsTargets = a}) . _Default . _Coerce
+-- | The instance ID or key\/value pair to retrieve information about.
+describeMaintenanceWindowSchedule_targets :: Lens.Lens' DescribeMaintenanceWindowSchedule (Prelude.Maybe [Target])
+describeMaintenanceWindowSchedule_targets = Lens.lens (\DescribeMaintenanceWindowSchedule' {targets} -> targets) (\s@DescribeMaintenanceWindowSchedule' {} a -> s {targets = a} :: DescribeMaintenanceWindowSchedule) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the maintenance window to retrieve information about.
-dmwsWindowId :: Lens' DescribeMaintenanceWindowSchedule (Maybe Text)
-dmwsWindowId = lens _dmwsWindowId (\s a -> s {_dmwsWindowId = a})
+describeMaintenanceWindowSchedule_windowId :: Lens.Lens' DescribeMaintenanceWindowSchedule (Prelude.Maybe Prelude.Text)
+describeMaintenanceWindowSchedule_windowId = Lens.lens (\DescribeMaintenanceWindowSchedule' {windowId} -> windowId) (\s@DescribeMaintenanceWindowSchedule' {} a -> s {windowId = a} :: DescribeMaintenanceWindowSchedule)
 
--- | Filters used to limit the range of results. For example, you can limit maintenance window executions to only those scheduled before or after a certain date and time.
-dmwsFilters :: Lens' DescribeMaintenanceWindowSchedule [PatchOrchestratorFilter]
-dmwsFilters = lens _dmwsFilters (\s a -> s {_dmwsFilters = a}) . _Default . _Coerce
+-- | Filters used to limit the range of results. For example, you can limit
+-- maintenance window executions to only those scheduled before or after a
+-- certain date and time.
+describeMaintenanceWindowSchedule_filters :: Lens.Lens' DescribeMaintenanceWindowSchedule (Prelude.Maybe [PatchOrchestratorFilter])
+describeMaintenanceWindowSchedule_filters = Lens.lens (\DescribeMaintenanceWindowSchedule' {filters} -> filters) (\s@DescribeMaintenanceWindowSchedule' {} a -> s {filters = a} :: DescribeMaintenanceWindowSchedule) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeMaintenanceWindowSchedule where
+instance
+  Pager.AWSPager
+    DescribeMaintenanceWindowSchedule
+  where
   page rq rs
-    | stop (rs ^. dmwsrrsNextToken) = Nothing
-    | stop (rs ^. dmwsrrsScheduledWindowExecutions) =
-      Nothing
-    | otherwise =
-      Just $ rq & dmwsNextToken .~ rs ^. dmwsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeMaintenanceWindowScheduleResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeMaintenanceWindowScheduleResponse_scheduledWindowExecutions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeMaintenanceWindowSchedule_nextToken
+          Lens..~ rs
+          Lens.^? describeMaintenanceWindowScheduleResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeMaintenanceWindowSchedule where
+instance
+  Prelude.AWSRequest
+    DescribeMaintenanceWindowSchedule
+  where
   type
     Rs DescribeMaintenanceWindowSchedule =
       DescribeMaintenanceWindowScheduleResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeMaintenanceWindowScheduleResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ScheduledWindowExecutions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> ( x Prelude..?> "ScheduledWindowExecutions"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable DescribeMaintenanceWindowSchedule
-
-instance NFData DescribeMaintenanceWindowSchedule
-
-instance ToHeaders DescribeMaintenanceWindowSchedule where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "AmazonSSM.DescribeMaintenanceWindowSchedule" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON DescribeMaintenanceWindowSchedule where
-  toJSON DescribeMaintenanceWindowSchedule' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dmwsNextToken,
-            ("MaxResults" .=) <$> _dmwsMaxResults,
-            ("ResourceType" .=) <$> _dmwsResourceType,
-            ("Targets" .=) <$> _dmwsTargets,
-            ("WindowId" .=) <$> _dmwsWindowId,
-            ("Filters" .=) <$> _dmwsFilters
-          ]
-      )
-
-instance ToPath DescribeMaintenanceWindowSchedule where
-  toPath = const "/"
-
-instance ToQuery DescribeMaintenanceWindowSchedule where
-  toQuery = const mempty
-
--- | /See:/ 'describeMaintenanceWindowScheduleResponse' smart constructor.
-data DescribeMaintenanceWindowScheduleResponse = DescribeMaintenanceWindowScheduleResponse'
-  { _dmwsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dmwsrrsScheduledWindowExecutions ::
-      !( Maybe
-           [ScheduledWindowExecution]
-       ),
-    _dmwsrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeMaintenanceWindowScheduleResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dmwsrrsNextToken' - The token for the next set of items to return. (You use this token in the next call.)
---
--- * 'dmwsrrsScheduledWindowExecutions' - Information about maintenance window executions scheduled for the specified time range.
---
--- * 'dmwsrrsResponseStatus' - -- | The response status code.
-describeMaintenanceWindowScheduleResponse ::
-  -- | 'dmwsrrsResponseStatus'
-  Int ->
-  DescribeMaintenanceWindowScheduleResponse
-describeMaintenanceWindowScheduleResponse
-  pResponseStatus_ =
-    DescribeMaintenanceWindowScheduleResponse'
-      { _dmwsrrsNextToken =
-          Nothing,
-        _dmwsrrsScheduledWindowExecutions =
-          Nothing,
-        _dmwsrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The token for the next set of items to return. (You use this token in the next call.)
-dmwsrrsNextToken :: Lens' DescribeMaintenanceWindowScheduleResponse (Maybe Text)
-dmwsrrsNextToken = lens _dmwsrrsNextToken (\s a -> s {_dmwsrrsNextToken = a})
-
--- | Information about maintenance window executions scheduled for the specified time range.
-dmwsrrsScheduledWindowExecutions :: Lens' DescribeMaintenanceWindowScheduleResponse [ScheduledWindowExecution]
-dmwsrrsScheduledWindowExecutions = lens _dmwsrrsScheduledWindowExecutions (\s a -> s {_dmwsrrsScheduledWindowExecutions = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-dmwsrrsResponseStatus :: Lens' DescribeMaintenanceWindowScheduleResponse Int
-dmwsrrsResponseStatus = lens _dmwsrrsResponseStatus (\s a -> s {_dmwsrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    DescribeMaintenanceWindowSchedule
+
+instance
+  Prelude.NFData
+    DescribeMaintenanceWindowSchedule
+
+instance
+  Prelude.ToHeaders
+    DescribeMaintenanceWindowSchedule
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "AmazonSSM.DescribeMaintenanceWindowSchedule" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    DescribeMaintenanceWindowSchedule
+  where
+  toJSON DescribeMaintenanceWindowSchedule' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("ResourceType" Prelude..=) Prelude.<$> resourceType,
+            ("Targets" Prelude..=) Prelude.<$> targets,
+            ("WindowId" Prelude..=) Prelude.<$> windowId,
+            ("Filters" Prelude..=) Prelude.<$> filters
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    DescribeMaintenanceWindowSchedule
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeMaintenanceWindowSchedule
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDescribeMaintenanceWindowScheduleResponse' smart constructor.
+data DescribeMaintenanceWindowScheduleResponse = DescribeMaintenanceWindowScheduleResponse'
+  { -- | The token for the next set of items to return. (You use this token in
+    -- the next call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about maintenance window executions scheduled for the
+    -- specified time range.
+    scheduledWindowExecutions :: Prelude.Maybe [ScheduledWindowExecution],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeMaintenanceWindowScheduleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'describeMaintenanceWindowScheduleResponse_nextToken' - The token for the next set of items to return. (You use this token in
+-- the next call.)
+--
+-- 'scheduledWindowExecutions', 'describeMaintenanceWindowScheduleResponse_scheduledWindowExecutions' - Information about maintenance window executions scheduled for the
+-- specified time range.
+--
+-- 'httpStatus', 'describeMaintenanceWindowScheduleResponse_httpStatus' - The response's http status code.
+newDescribeMaintenanceWindowScheduleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeMaintenanceWindowScheduleResponse
+newDescribeMaintenanceWindowScheduleResponse
+  pHttpStatus_ =
+    DescribeMaintenanceWindowScheduleResponse'
+      { nextToken =
+          Prelude.Nothing,
+        scheduledWindowExecutions =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The token for the next set of items to return. (You use this token in
+-- the next call.)
+describeMaintenanceWindowScheduleResponse_nextToken :: Lens.Lens' DescribeMaintenanceWindowScheduleResponse (Prelude.Maybe Prelude.Text)
+describeMaintenanceWindowScheduleResponse_nextToken = Lens.lens (\DescribeMaintenanceWindowScheduleResponse' {nextToken} -> nextToken) (\s@DescribeMaintenanceWindowScheduleResponse' {} a -> s {nextToken = a} :: DescribeMaintenanceWindowScheduleResponse)
+
+-- | Information about maintenance window executions scheduled for the
+-- specified time range.
+describeMaintenanceWindowScheduleResponse_scheduledWindowExecutions :: Lens.Lens' DescribeMaintenanceWindowScheduleResponse (Prelude.Maybe [ScheduledWindowExecution])
+describeMaintenanceWindowScheduleResponse_scheduledWindowExecutions = Lens.lens (\DescribeMaintenanceWindowScheduleResponse' {scheduledWindowExecutions} -> scheduledWindowExecutions) (\s@DescribeMaintenanceWindowScheduleResponse' {} a -> s {scheduledWindowExecutions = a} :: DescribeMaintenanceWindowScheduleResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+describeMaintenanceWindowScheduleResponse_httpStatus :: Lens.Lens' DescribeMaintenanceWindowScheduleResponse Prelude.Int
+describeMaintenanceWindowScheduleResponse_httpStatus = Lens.lens (\DescribeMaintenanceWindowScheduleResponse' {httpStatus} -> httpStatus) (\s@DescribeMaintenanceWindowScheduleResponse' {} a -> s {httpStatus = a} :: DescribeMaintenanceWindowScheduleResponse)
+
+instance
+  Prelude.NFData
     DescribeMaintenanceWindowScheduleResponse

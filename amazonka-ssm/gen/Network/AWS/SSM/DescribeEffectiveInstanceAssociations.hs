@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,218 +23,241 @@
 --
 -- All associations for the instance(s).
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribeEffectiveInstanceAssociations
   ( -- * Creating a Request
-    describeEffectiveInstanceAssociations,
-    DescribeEffectiveInstanceAssociations,
+    DescribeEffectiveInstanceAssociations (..),
+    newDescribeEffectiveInstanceAssociations,
 
     -- * Request Lenses
-    deiaNextToken,
-    deiaMaxResults,
-    deiaInstanceId,
+    describeEffectiveInstanceAssociations_nextToken,
+    describeEffectiveInstanceAssociations_maxResults,
+    describeEffectiveInstanceAssociations_instanceId,
 
     -- * Destructuring the Response
-    describeEffectiveInstanceAssociationsResponse,
-    DescribeEffectiveInstanceAssociationsResponse,
+    DescribeEffectiveInstanceAssociationsResponse (..),
+    newDescribeEffectiveInstanceAssociationsResponse,
 
     -- * Response Lenses
-    deiarrsNextToken,
-    deiarrsAssociations,
-    deiarrsResponseStatus,
+    describeEffectiveInstanceAssociationsResponse_nextToken,
+    describeEffectiveInstanceAssociationsResponse_associations,
+    describeEffectiveInstanceAssociationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.InstanceAssociation
 
--- | /See:/ 'describeEffectiveInstanceAssociations' smart constructor.
+-- | /See:/ 'newDescribeEffectiveInstanceAssociations' smart constructor.
 data DescribeEffectiveInstanceAssociations = DescribeEffectiveInstanceAssociations'
-  { _deiaNextToken ::
-      !( Maybe
-           Text
-       ),
-    _deiaMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _deiaInstanceId ::
-      !Text
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The instance ID for which you want to view all associations.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEffectiveInstanceAssociations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEffectiveInstanceAssociations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deiaNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deiaMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'describeEffectiveInstanceAssociations_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'deiaInstanceId' - The instance ID for which you want to view all associations.
-describeEffectiveInstanceAssociations ::
-  -- | 'deiaInstanceId'
-  Text ->
+-- 'maxResults', 'describeEffectiveInstanceAssociations_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+--
+-- 'instanceId', 'describeEffectiveInstanceAssociations_instanceId' - The instance ID for which you want to view all associations.
+newDescribeEffectiveInstanceAssociations ::
+  -- | 'instanceId'
+  Prelude.Text ->
   DescribeEffectiveInstanceAssociations
-describeEffectiveInstanceAssociations pInstanceId_ =
+newDescribeEffectiveInstanceAssociations pInstanceId_ =
   DescribeEffectiveInstanceAssociations'
-    { _deiaNextToken =
-        Nothing,
-      _deiaMaxResults = Nothing,
-      _deiaInstanceId = pInstanceId_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-deiaNextToken :: Lens' DescribeEffectiveInstanceAssociations (Maybe Text)
-deiaNextToken = lens _deiaNextToken (\s a -> s {_deiaNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeEffectiveInstanceAssociations_nextToken :: Lens.Lens' DescribeEffectiveInstanceAssociations (Prelude.Maybe Prelude.Text)
+describeEffectiveInstanceAssociations_nextToken = Lens.lens (\DescribeEffectiveInstanceAssociations' {nextToken} -> nextToken) (\s@DescribeEffectiveInstanceAssociations' {} a -> s {nextToken = a} :: DescribeEffectiveInstanceAssociations)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-deiaMaxResults :: Lens' DescribeEffectiveInstanceAssociations (Maybe Natural)
-deiaMaxResults = lens _deiaMaxResults (\s a -> s {_deiaMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describeEffectiveInstanceAssociations_maxResults :: Lens.Lens' DescribeEffectiveInstanceAssociations (Prelude.Maybe Prelude.Natural)
+describeEffectiveInstanceAssociations_maxResults = Lens.lens (\DescribeEffectiveInstanceAssociations' {maxResults} -> maxResults) (\s@DescribeEffectiveInstanceAssociations' {} a -> s {maxResults = a} :: DescribeEffectiveInstanceAssociations) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The instance ID for which you want to view all associations.
-deiaInstanceId :: Lens' DescribeEffectiveInstanceAssociations Text
-deiaInstanceId = lens _deiaInstanceId (\s a -> s {_deiaInstanceId = a})
+describeEffectiveInstanceAssociations_instanceId :: Lens.Lens' DescribeEffectiveInstanceAssociations Prelude.Text
+describeEffectiveInstanceAssociations_instanceId = Lens.lens (\DescribeEffectiveInstanceAssociations' {instanceId} -> instanceId) (\s@DescribeEffectiveInstanceAssociations' {} a -> s {instanceId = a} :: DescribeEffectiveInstanceAssociations)
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeEffectiveInstanceAssociations
   where
   page rq rs
-    | stop (rs ^. deiarrsNextToken) = Nothing
-    | stop (rs ^. deiarrsAssociations) = Nothing
-    | otherwise =
-      Just $ rq & deiaNextToken .~ rs ^. deiarrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeEffectiveInstanceAssociationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeEffectiveInstanceAssociationsResponse_associations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeEffectiveInstanceAssociations_nextToken
+          Lens..~ rs
+            Lens.^? describeEffectiveInstanceAssociationsResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeEffectiveInstanceAssociations
   where
   type
     Rs DescribeEffectiveInstanceAssociations =
       DescribeEffectiveInstanceAssociationsResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEffectiveInstanceAssociationsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Associations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> ( x Prelude..?> "Associations"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeEffectiveInstanceAssociations
 
-instance NFData DescribeEffectiveInstanceAssociations
+instance
+  Prelude.NFData
+    DescribeEffectiveInstanceAssociations
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DescribeEffectiveInstanceAssociations
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.DescribeEffectiveInstanceAssociations" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.DescribeEffectiveInstanceAssociations" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
-
-instance ToJSON DescribeEffectiveInstanceAssociations where
-  toJSON DescribeEffectiveInstanceAssociations' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _deiaNextToken,
-            ("MaxResults" .=) <$> _deiaMaxResults,
-            Just ("InstanceId" .= _deiaInstanceId)
-          ]
-      )
-
-instance ToPath DescribeEffectiveInstanceAssociations where
-  toPath = const "/"
 
 instance
-  ToQuery
+  Prelude.ToJSON
     DescribeEffectiveInstanceAssociations
   where
-  toQuery = const mempty
-
--- | /See:/ 'describeEffectiveInstanceAssociationsResponse' smart constructor.
-data DescribeEffectiveInstanceAssociationsResponse = DescribeEffectiveInstanceAssociationsResponse'
-  { _deiarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _deiarrsAssociations ::
-      !( Maybe
-           [InstanceAssociation]
-       ),
-    _deiarrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeEffectiveInstanceAssociationsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'deiarrsNextToken' - The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
---
--- * 'deiarrsAssociations' - The associations for the requested instance.
---
--- * 'deiarrsResponseStatus' - -- | The response status code.
-describeEffectiveInstanceAssociationsResponse ::
-  -- | 'deiarrsResponseStatus'
-  Int ->
-  DescribeEffectiveInstanceAssociationsResponse
-describeEffectiveInstanceAssociationsResponse
-  pResponseStatus_ =
-    DescribeEffectiveInstanceAssociationsResponse'
-      { _deiarrsNextToken =
-          Nothing,
-        _deiarrsAssociations =
-          Nothing,
-        _deiarrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
-deiarrsNextToken :: Lens' DescribeEffectiveInstanceAssociationsResponse (Maybe Text)
-deiarrsNextToken = lens _deiarrsNextToken (\s a -> s {_deiarrsNextToken = a})
-
--- | The associations for the requested instance.
-deiarrsAssociations :: Lens' DescribeEffectiveInstanceAssociationsResponse [InstanceAssociation]
-deiarrsAssociations = lens _deiarrsAssociations (\s a -> s {_deiarrsAssociations = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-deiarrsResponseStatus :: Lens' DescribeEffectiveInstanceAssociationsResponse Int
-deiarrsResponseStatus = lens _deiarrsResponseStatus (\s a -> s {_deiarrsResponseStatus = a})
+  toJSON DescribeEffectiveInstanceAssociations' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("InstanceId" Prelude..= instanceId)
+          ]
+      )
 
 instance
-  NFData
+  Prelude.ToPath
+    DescribeEffectiveInstanceAssociations
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeEffectiveInstanceAssociations
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDescribeEffectiveInstanceAssociationsResponse' smart constructor.
+data DescribeEffectiveInstanceAssociationsResponse = DescribeEffectiveInstanceAssociationsResponse'
+  { -- | The token to use when requesting the next set of items. If there are no
+    -- additional items to return, the string is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The associations for the requested instance.
+    associations :: Prelude.Maybe [InstanceAssociation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeEffectiveInstanceAssociationsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'describeEffectiveInstanceAssociationsResponse_nextToken' - The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+--
+-- 'associations', 'describeEffectiveInstanceAssociationsResponse_associations' - The associations for the requested instance.
+--
+-- 'httpStatus', 'describeEffectiveInstanceAssociationsResponse_httpStatus' - The response's http status code.
+newDescribeEffectiveInstanceAssociationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeEffectiveInstanceAssociationsResponse
+newDescribeEffectiveInstanceAssociationsResponse
+  pHttpStatus_ =
+    DescribeEffectiveInstanceAssociationsResponse'
+      { nextToken =
+          Prelude.Nothing,
+        associations =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+describeEffectiveInstanceAssociationsResponse_nextToken :: Lens.Lens' DescribeEffectiveInstanceAssociationsResponse (Prelude.Maybe Prelude.Text)
+describeEffectiveInstanceAssociationsResponse_nextToken = Lens.lens (\DescribeEffectiveInstanceAssociationsResponse' {nextToken} -> nextToken) (\s@DescribeEffectiveInstanceAssociationsResponse' {} a -> s {nextToken = a} :: DescribeEffectiveInstanceAssociationsResponse)
+
+-- | The associations for the requested instance.
+describeEffectiveInstanceAssociationsResponse_associations :: Lens.Lens' DescribeEffectiveInstanceAssociationsResponse (Prelude.Maybe [InstanceAssociation])
+describeEffectiveInstanceAssociationsResponse_associations = Lens.lens (\DescribeEffectiveInstanceAssociationsResponse' {associations} -> associations) (\s@DescribeEffectiveInstanceAssociationsResponse' {} a -> s {associations = a} :: DescribeEffectiveInstanceAssociationsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+describeEffectiveInstanceAssociationsResponse_httpStatus :: Lens.Lens' DescribeEffectiveInstanceAssociationsResponse Prelude.Int
+describeEffectiveInstanceAssociationsResponse_httpStatus = Lens.lens (\DescribeEffectiveInstanceAssociationsResponse' {httpStatus} -> httpStatus) (\s@DescribeEffectiveInstanceAssociationsResponse' {} a -> s {httpStatus = a} :: DescribeEffectiveInstanceAssociationsResponse)
+
+instance
+  Prelude.NFData
     DescribeEffectiveInstanceAssociationsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.SSM.Types.MaintenanceWindowExecutionStatus
   ( MaintenanceWindowExecutionStatus
       ( ..,
-        MWESCancelled,
-        MWESCancelling,
-        MWESFailed,
-        MWESInProgress,
-        MWESPending,
-        MWESSkippedOverlapping,
-        MWESSuccess,
-        MWESTimedOut
+        MaintenanceWindowExecutionStatusCANCELLED,
+        MaintenanceWindowExecutionStatusCANCELLING,
+        MaintenanceWindowExecutionStatusFAILED,
+        MaintenanceWindowExecutionStatusINPROGRESS,
+        MaintenanceWindowExecutionStatusPENDING,
+        MaintenanceWindowExecutionStatusSKIPPEDOVERLAPPING,
+        MaintenanceWindowExecutionStatusSUCCESS,
+        MaintenanceWindowExecutionStatusTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MaintenanceWindowExecutionStatus
-  = MaintenanceWindowExecutionStatus'
-      ( CI
-          Text
-      )
+newtype MaintenanceWindowExecutionStatus = MaintenanceWindowExecutionStatus'
+  { fromMaintenanceWindowExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MWESCancelled :: MaintenanceWindowExecutionStatus
-pattern MWESCancelled = MaintenanceWindowExecutionStatus' "CANCELLED"
+pattern MaintenanceWindowExecutionStatusCANCELLED :: MaintenanceWindowExecutionStatus
+pattern MaintenanceWindowExecutionStatusCANCELLED = MaintenanceWindowExecutionStatus' "CANCELLED"
 
-pattern MWESCancelling :: MaintenanceWindowExecutionStatus
-pattern MWESCancelling = MaintenanceWindowExecutionStatus' "CANCELLING"
+pattern MaintenanceWindowExecutionStatusCANCELLING :: MaintenanceWindowExecutionStatus
+pattern MaintenanceWindowExecutionStatusCANCELLING = MaintenanceWindowExecutionStatus' "CANCELLING"
 
-pattern MWESFailed :: MaintenanceWindowExecutionStatus
-pattern MWESFailed = MaintenanceWindowExecutionStatus' "FAILED"
+pattern MaintenanceWindowExecutionStatusFAILED :: MaintenanceWindowExecutionStatus
+pattern MaintenanceWindowExecutionStatusFAILED = MaintenanceWindowExecutionStatus' "FAILED"
 
-pattern MWESInProgress :: MaintenanceWindowExecutionStatus
-pattern MWESInProgress = MaintenanceWindowExecutionStatus' "IN_PROGRESS"
+pattern MaintenanceWindowExecutionStatusINPROGRESS :: MaintenanceWindowExecutionStatus
+pattern MaintenanceWindowExecutionStatusINPROGRESS = MaintenanceWindowExecutionStatus' "IN_PROGRESS"
 
-pattern MWESPending :: MaintenanceWindowExecutionStatus
-pattern MWESPending = MaintenanceWindowExecutionStatus' "PENDING"
+pattern MaintenanceWindowExecutionStatusPENDING :: MaintenanceWindowExecutionStatus
+pattern MaintenanceWindowExecutionStatusPENDING = MaintenanceWindowExecutionStatus' "PENDING"
 
-pattern MWESSkippedOverlapping :: MaintenanceWindowExecutionStatus
-pattern MWESSkippedOverlapping = MaintenanceWindowExecutionStatus' "SKIPPED_OVERLAPPING"
+pattern MaintenanceWindowExecutionStatusSKIPPEDOVERLAPPING :: MaintenanceWindowExecutionStatus
+pattern MaintenanceWindowExecutionStatusSKIPPEDOVERLAPPING = MaintenanceWindowExecutionStatus' "SKIPPED_OVERLAPPING"
 
-pattern MWESSuccess :: MaintenanceWindowExecutionStatus
-pattern MWESSuccess = MaintenanceWindowExecutionStatus' "SUCCESS"
+pattern MaintenanceWindowExecutionStatusSUCCESS :: MaintenanceWindowExecutionStatus
+pattern MaintenanceWindowExecutionStatusSUCCESS = MaintenanceWindowExecutionStatus' "SUCCESS"
 
-pattern MWESTimedOut :: MaintenanceWindowExecutionStatus
-pattern MWESTimedOut = MaintenanceWindowExecutionStatus' "TIMED_OUT"
+pattern MaintenanceWindowExecutionStatusTIMEDOUT :: MaintenanceWindowExecutionStatus
+pattern MaintenanceWindowExecutionStatusTIMEDOUT = MaintenanceWindowExecutionStatus' "TIMED_OUT"
 
 {-# COMPLETE
-  MWESCancelled,
-  MWESCancelling,
-  MWESFailed,
-  MWESInProgress,
-  MWESPending,
-  MWESSkippedOverlapping,
-  MWESSuccess,
-  MWESTimedOut,
+  MaintenanceWindowExecutionStatusCANCELLED,
+  MaintenanceWindowExecutionStatusCANCELLING,
+  MaintenanceWindowExecutionStatusFAILED,
+  MaintenanceWindowExecutionStatusINPROGRESS,
+  MaintenanceWindowExecutionStatusPENDING,
+  MaintenanceWindowExecutionStatusSKIPPEDOVERLAPPING,
+  MaintenanceWindowExecutionStatusSUCCESS,
+  MaintenanceWindowExecutionStatusTIMEDOUT,
   MaintenanceWindowExecutionStatus'
   #-}
 
-instance FromText MaintenanceWindowExecutionStatus where
-  parser = (MaintenanceWindowExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText MaintenanceWindowExecutionStatus where
+  parser = MaintenanceWindowExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText MaintenanceWindowExecutionStatus where
-  toText (MaintenanceWindowExecutionStatus' ci) = original ci
+instance Prelude.ToText MaintenanceWindowExecutionStatus where
+  toText (MaintenanceWindowExecutionStatus' x) = x
 
-instance Hashable MaintenanceWindowExecutionStatus
+instance Prelude.Hashable MaintenanceWindowExecutionStatus
 
-instance NFData MaintenanceWindowExecutionStatus
+instance Prelude.NFData MaintenanceWindowExecutionStatus
 
-instance ToByteString MaintenanceWindowExecutionStatus
+instance Prelude.ToByteString MaintenanceWindowExecutionStatus
 
-instance ToQuery MaintenanceWindowExecutionStatus
+instance Prelude.ToQuery MaintenanceWindowExecutionStatus
 
-instance ToHeader MaintenanceWindowExecutionStatus
+instance Prelude.ToHeader MaintenanceWindowExecutionStatus
 
-instance FromJSON MaintenanceWindowExecutionStatus where
-  parseJSON = parseJSONText "MaintenanceWindowExecutionStatus"
+instance Prelude.FromJSON MaintenanceWindowExecutionStatus where
+  parseJSON = Prelude.parseJSONText "MaintenanceWindowExecutionStatus"

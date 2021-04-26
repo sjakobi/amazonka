@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.SSM.Types.InventoryQueryOperatorType
   ( InventoryQueryOperatorType
       ( ..,
-        IQOTBeginWith,
-        IQOTEqual,
-        IQOTExists,
-        IQOTGreaterThan,
-        IQOTLessThan,
-        IQOTNotEqual
+        InventoryQueryOperatorTypeBeginWith,
+        InventoryQueryOperatorTypeEqual,
+        InventoryQueryOperatorTypeExists,
+        InventoryQueryOperatorTypeGreaterThan,
+        InventoryQueryOperatorTypeLessThan,
+        InventoryQueryOperatorTypeNotEqual
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InventoryQueryOperatorType
-  = InventoryQueryOperatorType'
-      ( CI
-          Text
-      )
+newtype InventoryQueryOperatorType = InventoryQueryOperatorType'
+  { fromInventoryQueryOperatorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IQOTBeginWith :: InventoryQueryOperatorType
-pattern IQOTBeginWith = InventoryQueryOperatorType' "BeginWith"
+pattern InventoryQueryOperatorTypeBeginWith :: InventoryQueryOperatorType
+pattern InventoryQueryOperatorTypeBeginWith = InventoryQueryOperatorType' "BeginWith"
 
-pattern IQOTEqual :: InventoryQueryOperatorType
-pattern IQOTEqual = InventoryQueryOperatorType' "Equal"
+pattern InventoryQueryOperatorTypeEqual :: InventoryQueryOperatorType
+pattern InventoryQueryOperatorTypeEqual = InventoryQueryOperatorType' "Equal"
 
-pattern IQOTExists :: InventoryQueryOperatorType
-pattern IQOTExists = InventoryQueryOperatorType' "Exists"
+pattern InventoryQueryOperatorTypeExists :: InventoryQueryOperatorType
+pattern InventoryQueryOperatorTypeExists = InventoryQueryOperatorType' "Exists"
 
-pattern IQOTGreaterThan :: InventoryQueryOperatorType
-pattern IQOTGreaterThan = InventoryQueryOperatorType' "GreaterThan"
+pattern InventoryQueryOperatorTypeGreaterThan :: InventoryQueryOperatorType
+pattern InventoryQueryOperatorTypeGreaterThan = InventoryQueryOperatorType' "GreaterThan"
 
-pattern IQOTLessThan :: InventoryQueryOperatorType
-pattern IQOTLessThan = InventoryQueryOperatorType' "LessThan"
+pattern InventoryQueryOperatorTypeLessThan :: InventoryQueryOperatorType
+pattern InventoryQueryOperatorTypeLessThan = InventoryQueryOperatorType' "LessThan"
 
-pattern IQOTNotEqual :: InventoryQueryOperatorType
-pattern IQOTNotEqual = InventoryQueryOperatorType' "NotEqual"
+pattern InventoryQueryOperatorTypeNotEqual :: InventoryQueryOperatorType
+pattern InventoryQueryOperatorTypeNotEqual = InventoryQueryOperatorType' "NotEqual"
 
 {-# COMPLETE
-  IQOTBeginWith,
-  IQOTEqual,
-  IQOTExists,
-  IQOTGreaterThan,
-  IQOTLessThan,
-  IQOTNotEqual,
+  InventoryQueryOperatorTypeBeginWith,
+  InventoryQueryOperatorTypeEqual,
+  InventoryQueryOperatorTypeExists,
+  InventoryQueryOperatorTypeGreaterThan,
+  InventoryQueryOperatorTypeLessThan,
+  InventoryQueryOperatorTypeNotEqual,
   InventoryQueryOperatorType'
   #-}
 
-instance FromText InventoryQueryOperatorType where
-  parser = (InventoryQueryOperatorType' . mk) <$> takeText
+instance Prelude.FromText InventoryQueryOperatorType where
+  parser = InventoryQueryOperatorType' Prelude.<$> Prelude.takeText
 
-instance ToText InventoryQueryOperatorType where
-  toText (InventoryQueryOperatorType' ci) = original ci
+instance Prelude.ToText InventoryQueryOperatorType where
+  toText (InventoryQueryOperatorType' x) = x
 
-instance Hashable InventoryQueryOperatorType
+instance Prelude.Hashable InventoryQueryOperatorType
 
-instance NFData InventoryQueryOperatorType
+instance Prelude.NFData InventoryQueryOperatorType
 
-instance ToByteString InventoryQueryOperatorType
+instance Prelude.ToByteString InventoryQueryOperatorType
 
-instance ToQuery InventoryQueryOperatorType
+instance Prelude.ToQuery InventoryQueryOperatorType
 
-instance ToHeader InventoryQueryOperatorType
+instance Prelude.ToHeader InventoryQueryOperatorType
 
-instance ToJSON InventoryQueryOperatorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InventoryQueryOperatorType where
+  toJSON = Prelude.toJSONText

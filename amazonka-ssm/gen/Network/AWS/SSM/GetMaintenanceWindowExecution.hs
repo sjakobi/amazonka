@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,215 +24,214 @@
 -- Retrieves details about a specific a maintenance window execution.
 module Network.AWS.SSM.GetMaintenanceWindowExecution
   ( -- * Creating a Request
-    getMaintenanceWindowExecution,
-    GetMaintenanceWindowExecution,
+    GetMaintenanceWindowExecution (..),
+    newGetMaintenanceWindowExecution,
 
     -- * Request Lenses
-    gmweWindowExecutionId,
+    getMaintenanceWindowExecution_windowExecutionId,
 
     -- * Destructuring the Response
-    getMaintenanceWindowExecutionResponse,
-    GetMaintenanceWindowExecutionResponse,
+    GetMaintenanceWindowExecutionResponse (..),
+    newGetMaintenanceWindowExecutionResponse,
 
     -- * Response Lenses
-    gmwerrsStatus,
-    gmwerrsStatusDetails,
-    gmwerrsTaskIds,
-    gmwerrsStartTime,
-    gmwerrsEndTime,
-    gmwerrsWindowExecutionId,
-    gmwerrsResponseStatus,
+    getMaintenanceWindowExecutionResponse_status,
+    getMaintenanceWindowExecutionResponse_statusDetails,
+    getMaintenanceWindowExecutionResponse_taskIds,
+    getMaintenanceWindowExecutionResponse_startTime,
+    getMaintenanceWindowExecutionResponse_endTime,
+    getMaintenanceWindowExecutionResponse_windowExecutionId,
+    getMaintenanceWindowExecutionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.MaintenanceWindowExecutionStatus
 
--- | /See:/ 'getMaintenanceWindowExecution' smart constructor.
-newtype GetMaintenanceWindowExecution = GetMaintenanceWindowExecution'
-  { _gmweWindowExecutionId ::
-      Text
+-- | /See:/ 'newGetMaintenanceWindowExecution' smart constructor.
+data GetMaintenanceWindowExecution = GetMaintenanceWindowExecution'
+  { -- | The ID of the maintenance window execution that includes the task.
+    windowExecutionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMaintenanceWindowExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMaintenanceWindowExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmweWindowExecutionId' - The ID of the maintenance window execution that includes the task.
-getMaintenanceWindowExecution ::
-  -- | 'gmweWindowExecutionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'windowExecutionId', 'getMaintenanceWindowExecution_windowExecutionId' - The ID of the maintenance window execution that includes the task.
+newGetMaintenanceWindowExecution ::
+  -- | 'windowExecutionId'
+  Prelude.Text ->
   GetMaintenanceWindowExecution
-getMaintenanceWindowExecution pWindowExecutionId_ =
+newGetMaintenanceWindowExecution pWindowExecutionId_ =
   GetMaintenanceWindowExecution'
-    { _gmweWindowExecutionId =
+    { windowExecutionId =
         pWindowExecutionId_
     }
 
 -- | The ID of the maintenance window execution that includes the task.
-gmweWindowExecutionId :: Lens' GetMaintenanceWindowExecution Text
-gmweWindowExecutionId = lens _gmweWindowExecutionId (\s a -> s {_gmweWindowExecutionId = a})
+getMaintenanceWindowExecution_windowExecutionId :: Lens.Lens' GetMaintenanceWindowExecution Prelude.Text
+getMaintenanceWindowExecution_windowExecutionId = Lens.lens (\GetMaintenanceWindowExecution' {windowExecutionId} -> windowExecutionId) (\s@GetMaintenanceWindowExecution' {} a -> s {windowExecutionId = a} :: GetMaintenanceWindowExecution)
 
-instance AWSRequest GetMaintenanceWindowExecution where
+instance
+  Prelude.AWSRequest
+    GetMaintenanceWindowExecution
+  where
   type
     Rs GetMaintenanceWindowExecution =
       GetMaintenanceWindowExecutionResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetMaintenanceWindowExecutionResponse'
-            <$> (x .?> "Status")
-            <*> (x .?> "StatusDetails")
-            <*> (x .?> "TaskIds" .!@ mempty)
-            <*> (x .?> "StartTime")
-            <*> (x .?> "EndTime")
-            <*> (x .?> "WindowExecutionId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "StatusDetails")
+            Prelude.<*> (x Prelude..?> "TaskIds" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "StartTime")
+            Prelude.<*> (x Prelude..?> "EndTime")
+            Prelude.<*> (x Prelude..?> "WindowExecutionId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetMaintenanceWindowExecution
+instance
+  Prelude.Hashable
+    GetMaintenanceWindowExecution
 
-instance NFData GetMaintenanceWindowExecution
+instance Prelude.NFData GetMaintenanceWindowExecution
 
-instance ToHeaders GetMaintenanceWindowExecution where
+instance
+  Prelude.ToHeaders
+    GetMaintenanceWindowExecution
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.GetMaintenanceWindowExecution" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.GetMaintenanceWindowExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetMaintenanceWindowExecution where
+instance Prelude.ToJSON GetMaintenanceWindowExecution where
   toJSON GetMaintenanceWindowExecution' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("WindowExecutionId" .= _gmweWindowExecutionId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("WindowExecutionId" Prelude..= windowExecutionId)
           ]
       )
 
-instance ToPath GetMaintenanceWindowExecution where
-  toPath = const "/"
+instance Prelude.ToPath GetMaintenanceWindowExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetMaintenanceWindowExecution where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetMaintenanceWindowExecution
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMaintenanceWindowExecutionResponse' smart constructor.
+-- | /See:/ 'newGetMaintenanceWindowExecutionResponse' smart constructor.
 data GetMaintenanceWindowExecutionResponse = GetMaintenanceWindowExecutionResponse'
-  { _gmwerrsStatus ::
-      !( Maybe
-           MaintenanceWindowExecutionStatus
-       ),
-    _gmwerrsStatusDetails ::
-      !( Maybe
-           Text
-       ),
-    _gmwerrsTaskIds ::
-      !( Maybe
-           [Text]
-       ),
-    _gmwerrsStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _gmwerrsEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _gmwerrsWindowExecutionId ::
-      !( Maybe
-           Text
-       ),
-    _gmwerrsResponseStatus ::
-      !Int
+  { -- | The status of the maintenance window execution.
+    status :: Prelude.Maybe MaintenanceWindowExecutionStatus,
+    -- | The details explaining the Status. Only available for certain status
+    -- values.
+    statusDetails :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the task executions from the maintenance window execution.
+    taskIds :: Prelude.Maybe [Prelude.Text],
+    -- | The time the maintenance window started running.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time the maintenance window finished running.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the maintenance window execution.
+    windowExecutionId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMaintenanceWindowExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMaintenanceWindowExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmwerrsStatus' - The status of the maintenance window execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmwerrsStatusDetails' - The details explaining the Status. Only available for certain status values.
+-- 'status', 'getMaintenanceWindowExecutionResponse_status' - The status of the maintenance window execution.
 --
--- * 'gmwerrsTaskIds' - The ID of the task executions from the maintenance window execution.
+-- 'statusDetails', 'getMaintenanceWindowExecutionResponse_statusDetails' - The details explaining the Status. Only available for certain status
+-- values.
 --
--- * 'gmwerrsStartTime' - The time the maintenance window started running.
+-- 'taskIds', 'getMaintenanceWindowExecutionResponse_taskIds' - The ID of the task executions from the maintenance window execution.
 --
--- * 'gmwerrsEndTime' - The time the maintenance window finished running.
+-- 'startTime', 'getMaintenanceWindowExecutionResponse_startTime' - The time the maintenance window started running.
 --
--- * 'gmwerrsWindowExecutionId' - The ID of the maintenance window execution.
+-- 'endTime', 'getMaintenanceWindowExecutionResponse_endTime' - The time the maintenance window finished running.
 --
--- * 'gmwerrsResponseStatus' - -- | The response status code.
-getMaintenanceWindowExecutionResponse ::
-  -- | 'gmwerrsResponseStatus'
-  Int ->
+-- 'windowExecutionId', 'getMaintenanceWindowExecutionResponse_windowExecutionId' - The ID of the maintenance window execution.
+--
+-- 'httpStatus', 'getMaintenanceWindowExecutionResponse_httpStatus' - The response's http status code.
+newGetMaintenanceWindowExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetMaintenanceWindowExecutionResponse
-getMaintenanceWindowExecutionResponse
-  pResponseStatus_ =
-    GetMaintenanceWindowExecutionResponse'
-      { _gmwerrsStatus =
-          Nothing,
-        _gmwerrsStatusDetails = Nothing,
-        _gmwerrsTaskIds = Nothing,
-        _gmwerrsStartTime = Nothing,
-        _gmwerrsEndTime = Nothing,
-        _gmwerrsWindowExecutionId = Nothing,
-        _gmwerrsResponseStatus =
-          pResponseStatus_
-      }
+newGetMaintenanceWindowExecutionResponse pHttpStatus_ =
+  GetMaintenanceWindowExecutionResponse'
+    { status =
+        Prelude.Nothing,
+      statusDetails = Prelude.Nothing,
+      taskIds = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      windowExecutionId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | The status of the maintenance window execution.
-gmwerrsStatus :: Lens' GetMaintenanceWindowExecutionResponse (Maybe MaintenanceWindowExecutionStatus)
-gmwerrsStatus = lens _gmwerrsStatus (\s a -> s {_gmwerrsStatus = a})
+getMaintenanceWindowExecutionResponse_status :: Lens.Lens' GetMaintenanceWindowExecutionResponse (Prelude.Maybe MaintenanceWindowExecutionStatus)
+getMaintenanceWindowExecutionResponse_status = Lens.lens (\GetMaintenanceWindowExecutionResponse' {status} -> status) (\s@GetMaintenanceWindowExecutionResponse' {} a -> s {status = a} :: GetMaintenanceWindowExecutionResponse)
 
--- | The details explaining the Status. Only available for certain status values.
-gmwerrsStatusDetails :: Lens' GetMaintenanceWindowExecutionResponse (Maybe Text)
-gmwerrsStatusDetails = lens _gmwerrsStatusDetails (\s a -> s {_gmwerrsStatusDetails = a})
+-- | The details explaining the Status. Only available for certain status
+-- values.
+getMaintenanceWindowExecutionResponse_statusDetails :: Lens.Lens' GetMaintenanceWindowExecutionResponse (Prelude.Maybe Prelude.Text)
+getMaintenanceWindowExecutionResponse_statusDetails = Lens.lens (\GetMaintenanceWindowExecutionResponse' {statusDetails} -> statusDetails) (\s@GetMaintenanceWindowExecutionResponse' {} a -> s {statusDetails = a} :: GetMaintenanceWindowExecutionResponse)
 
 -- | The ID of the task executions from the maintenance window execution.
-gmwerrsTaskIds :: Lens' GetMaintenanceWindowExecutionResponse [Text]
-gmwerrsTaskIds = lens _gmwerrsTaskIds (\s a -> s {_gmwerrsTaskIds = a}) . _Default . _Coerce
+getMaintenanceWindowExecutionResponse_taskIds :: Lens.Lens' GetMaintenanceWindowExecutionResponse (Prelude.Maybe [Prelude.Text])
+getMaintenanceWindowExecutionResponse_taskIds = Lens.lens (\GetMaintenanceWindowExecutionResponse' {taskIds} -> taskIds) (\s@GetMaintenanceWindowExecutionResponse' {} a -> s {taskIds = a} :: GetMaintenanceWindowExecutionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time the maintenance window started running.
-gmwerrsStartTime :: Lens' GetMaintenanceWindowExecutionResponse (Maybe UTCTime)
-gmwerrsStartTime = lens _gmwerrsStartTime (\s a -> s {_gmwerrsStartTime = a}) . mapping _Time
+getMaintenanceWindowExecutionResponse_startTime :: Lens.Lens' GetMaintenanceWindowExecutionResponse (Prelude.Maybe Prelude.UTCTime)
+getMaintenanceWindowExecutionResponse_startTime = Lens.lens (\GetMaintenanceWindowExecutionResponse' {startTime} -> startTime) (\s@GetMaintenanceWindowExecutionResponse' {} a -> s {startTime = a} :: GetMaintenanceWindowExecutionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time the maintenance window finished running.
-gmwerrsEndTime :: Lens' GetMaintenanceWindowExecutionResponse (Maybe UTCTime)
-gmwerrsEndTime = lens _gmwerrsEndTime (\s a -> s {_gmwerrsEndTime = a}) . mapping _Time
+getMaintenanceWindowExecutionResponse_endTime :: Lens.Lens' GetMaintenanceWindowExecutionResponse (Prelude.Maybe Prelude.UTCTime)
+getMaintenanceWindowExecutionResponse_endTime = Lens.lens (\GetMaintenanceWindowExecutionResponse' {endTime} -> endTime) (\s@GetMaintenanceWindowExecutionResponse' {} a -> s {endTime = a} :: GetMaintenanceWindowExecutionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the maintenance window execution.
-gmwerrsWindowExecutionId :: Lens' GetMaintenanceWindowExecutionResponse (Maybe Text)
-gmwerrsWindowExecutionId = lens _gmwerrsWindowExecutionId (\s a -> s {_gmwerrsWindowExecutionId = a})
+getMaintenanceWindowExecutionResponse_windowExecutionId :: Lens.Lens' GetMaintenanceWindowExecutionResponse (Prelude.Maybe Prelude.Text)
+getMaintenanceWindowExecutionResponse_windowExecutionId = Lens.lens (\GetMaintenanceWindowExecutionResponse' {windowExecutionId} -> windowExecutionId) (\s@GetMaintenanceWindowExecutionResponse' {} a -> s {windowExecutionId = a} :: GetMaintenanceWindowExecutionResponse)
 
--- | -- | The response status code.
-gmwerrsResponseStatus :: Lens' GetMaintenanceWindowExecutionResponse Int
-gmwerrsResponseStatus = lens _gmwerrsResponseStatus (\s a -> s {_gmwerrsResponseStatus = a})
+-- | The response's http status code.
+getMaintenanceWindowExecutionResponse_httpStatus :: Lens.Lens' GetMaintenanceWindowExecutionResponse Prelude.Int
+getMaintenanceWindowExecutionResponse_httpStatus = Lens.lens (\GetMaintenanceWindowExecutionResponse' {httpStatus} -> httpStatus) (\s@GetMaintenanceWindowExecutionResponse' {} a -> s {httpStatus = a} :: GetMaintenanceWindowExecutionResponse)
 
-instance NFData GetMaintenanceWindowExecutionResponse
+instance
+  Prelude.NFData
+    GetMaintenanceWindowExecutionResponse

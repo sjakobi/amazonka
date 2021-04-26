@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,105 +19,130 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.DocumentReviewerResponseSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.DocumentReviewCommentSource
 import Network.AWS.SSM.Types.ReviewStatus
 
--- | Information about a reviewer's response to a document review request.
+-- | Information about a reviewer\'s response to a document review request.
 --
---
---
--- /See:/ 'documentReviewerResponseSource' smart constructor.
+-- /See:/ 'newDocumentReviewerResponseSource' smart constructor.
 data DocumentReviewerResponseSource = DocumentReviewerResponseSource'
-  { _drrsComment ::
-      !( Maybe
-           [DocumentReviewCommentSource]
-       ),
-    _drrsUpdatedTime ::
-      !( Maybe
-           POSIX
-       ),
-    _drrsCreateTime ::
-      !( Maybe
-           POSIX
-       ),
-    _drrsReviewStatus ::
-      !( Maybe
-           ReviewStatus
-       ),
-    _drrsReviewer ::
-      !( Maybe
-           Text
-       )
+  { -- | The comment entered by a reviewer as part of their document review
+    -- response.
+    comment :: Prelude.Maybe [DocumentReviewCommentSource],
+    -- | The date and time that a reviewer last updated a response to a document
+    -- review request.
+    updatedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time that a reviewer entered a response to a document
+    -- review request.
+    createTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The current review status of a new custom SSM document created by a
+    -- member of your organization, or of the latest version of an existing SSM
+    -- document.
+    --
+    -- Only one version of a document can be in the APPROVED state at a time.
+    -- When a new version is approved, the status of the previous version
+    -- changes to REJECTED.
+    --
+    -- Only one version of a document can be in review, or PENDING, at a time.
+    reviewStatus :: Prelude.Maybe ReviewStatus,
+    -- | The user in your organization assigned to review a document request.
+    reviewer :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentReviewerResponseSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentReviewerResponseSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drrsComment' - The comment entered by a reviewer as part of their document review response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drrsUpdatedTime' - The date and time that a reviewer last updated a response to a document review request.
+-- 'comment', 'documentReviewerResponseSource_comment' - The comment entered by a reviewer as part of their document review
+-- response.
 --
--- * 'drrsCreateTime' - The date and time that a reviewer entered a response to a document review request.
+-- 'updatedTime', 'documentReviewerResponseSource_updatedTime' - The date and time that a reviewer last updated a response to a document
+-- review request.
 --
--- * 'drrsReviewStatus' - The current review status of a new custom SSM document created by a member of your organization, or of the latest version of an existing SSM document. Only one version of a document can be in the APPROVED state at a time. When a new version is approved, the status of the previous version changes to REJECTED. Only one version of a document can be in review, or PENDING, at a time.
+-- 'createTime', 'documentReviewerResponseSource_createTime' - The date and time that a reviewer entered a response to a document
+-- review request.
 --
--- * 'drrsReviewer' - The user in your organization assigned to review a document request.
-documentReviewerResponseSource ::
+-- 'reviewStatus', 'documentReviewerResponseSource_reviewStatus' - The current review status of a new custom SSM document created by a
+-- member of your organization, or of the latest version of an existing SSM
+-- document.
+--
+-- Only one version of a document can be in the APPROVED state at a time.
+-- When a new version is approved, the status of the previous version
+-- changes to REJECTED.
+--
+-- Only one version of a document can be in review, or PENDING, at a time.
+--
+-- 'reviewer', 'documentReviewerResponseSource_reviewer' - The user in your organization assigned to review a document request.
+newDocumentReviewerResponseSource ::
   DocumentReviewerResponseSource
-documentReviewerResponseSource =
+newDocumentReviewerResponseSource =
   DocumentReviewerResponseSource'
-    { _drrsComment =
-        Nothing,
-      _drrsUpdatedTime = Nothing,
-      _drrsCreateTime = Nothing,
-      _drrsReviewStatus = Nothing,
-      _drrsReviewer = Nothing
+    { comment =
+        Prelude.Nothing,
+      updatedTime = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      reviewStatus = Prelude.Nothing,
+      reviewer = Prelude.Nothing
     }
 
--- | The comment entered by a reviewer as part of their document review response.
-drrsComment :: Lens' DocumentReviewerResponseSource [DocumentReviewCommentSource]
-drrsComment = lens _drrsComment (\s a -> s {_drrsComment = a}) . _Default . _Coerce
+-- | The comment entered by a reviewer as part of their document review
+-- response.
+documentReviewerResponseSource_comment :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe [DocumentReviewCommentSource])
+documentReviewerResponseSource_comment = Lens.lens (\DocumentReviewerResponseSource' {comment} -> comment) (\s@DocumentReviewerResponseSource' {} a -> s {comment = a} :: DocumentReviewerResponseSource) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The date and time that a reviewer last updated a response to a document review request.
-drrsUpdatedTime :: Lens' DocumentReviewerResponseSource (Maybe UTCTime)
-drrsUpdatedTime = lens _drrsUpdatedTime (\s a -> s {_drrsUpdatedTime = a}) . mapping _Time
+-- | The date and time that a reviewer last updated a response to a document
+-- review request.
+documentReviewerResponseSource_updatedTime :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe Prelude.UTCTime)
+documentReviewerResponseSource_updatedTime = Lens.lens (\DocumentReviewerResponseSource' {updatedTime} -> updatedTime) (\s@DocumentReviewerResponseSource' {} a -> s {updatedTime = a} :: DocumentReviewerResponseSource) Prelude.. Lens.mapping Prelude._Time
 
--- | The date and time that a reviewer entered a response to a document review request.
-drrsCreateTime :: Lens' DocumentReviewerResponseSource (Maybe UTCTime)
-drrsCreateTime = lens _drrsCreateTime (\s a -> s {_drrsCreateTime = a}) . mapping _Time
+-- | The date and time that a reviewer entered a response to a document
+-- review request.
+documentReviewerResponseSource_createTime :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe Prelude.UTCTime)
+documentReviewerResponseSource_createTime = Lens.lens (\DocumentReviewerResponseSource' {createTime} -> createTime) (\s@DocumentReviewerResponseSource' {} a -> s {createTime = a} :: DocumentReviewerResponseSource) Prelude.. Lens.mapping Prelude._Time
 
--- | The current review status of a new custom SSM document created by a member of your organization, or of the latest version of an existing SSM document. Only one version of a document can be in the APPROVED state at a time. When a new version is approved, the status of the previous version changes to REJECTED. Only one version of a document can be in review, or PENDING, at a time.
-drrsReviewStatus :: Lens' DocumentReviewerResponseSource (Maybe ReviewStatus)
-drrsReviewStatus = lens _drrsReviewStatus (\s a -> s {_drrsReviewStatus = a})
+-- | The current review status of a new custom SSM document created by a
+-- member of your organization, or of the latest version of an existing SSM
+-- document.
+--
+-- Only one version of a document can be in the APPROVED state at a time.
+-- When a new version is approved, the status of the previous version
+-- changes to REJECTED.
+--
+-- Only one version of a document can be in review, or PENDING, at a time.
+documentReviewerResponseSource_reviewStatus :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe ReviewStatus)
+documentReviewerResponseSource_reviewStatus = Lens.lens (\DocumentReviewerResponseSource' {reviewStatus} -> reviewStatus) (\s@DocumentReviewerResponseSource' {} a -> s {reviewStatus = a} :: DocumentReviewerResponseSource)
 
 -- | The user in your organization assigned to review a document request.
-drrsReviewer :: Lens' DocumentReviewerResponseSource (Maybe Text)
-drrsReviewer = lens _drrsReviewer (\s a -> s {_drrsReviewer = a})
+documentReviewerResponseSource_reviewer :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe Prelude.Text)
+documentReviewerResponseSource_reviewer = Lens.lens (\DocumentReviewerResponseSource' {reviewer} -> reviewer) (\s@DocumentReviewerResponseSource' {} a -> s {reviewer = a} :: DocumentReviewerResponseSource)
 
-instance FromJSON DocumentReviewerResponseSource where
+instance
+  Prelude.FromJSON
+    DocumentReviewerResponseSource
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DocumentReviewerResponseSource"
       ( \x ->
           DocumentReviewerResponseSource'
-            <$> (x .:? "Comment" .!= mempty)
-            <*> (x .:? "UpdatedTime")
-            <*> (x .:? "CreateTime")
-            <*> (x .:? "ReviewStatus")
-            <*> (x .:? "Reviewer")
+            Prelude.<$> (x Prelude..:? "Comment" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "UpdatedTime")
+            Prelude.<*> (x Prelude..:? "CreateTime")
+            Prelude.<*> (x Prelude..:? "ReviewStatus")
+            Prelude.<*> (x Prelude..:? "Reviewer")
       )
 
-instance Hashable DocumentReviewerResponseSource
+instance
+  Prelude.Hashable
+    DocumentReviewerResponseSource
 
-instance NFData DocumentReviewerResponseSource
+instance
+  Prelude.NFData
+    DocumentReviewerResponseSource

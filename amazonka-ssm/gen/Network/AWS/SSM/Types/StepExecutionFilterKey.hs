@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.SSM.Types.StepExecutionFilterKey
   ( StepExecutionFilterKey
       ( ..,
-        SEFKAction,
-        SEFKStartTimeAfter,
-        SEFKStartTimeBefore,
-        SEFKStepExecutionId,
-        SEFKStepExecutionStatus,
-        SEFKStepName
+        StepExecutionFilterKeyAction,
+        StepExecutionFilterKeyStartTimeAfter,
+        StepExecutionFilterKeyStartTimeBefore,
+        StepExecutionFilterKeyStepExecutionId,
+        StepExecutionFilterKeyStepExecutionStatus,
+        StepExecutionFilterKeyStepName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StepExecutionFilterKey
-  = StepExecutionFilterKey'
-      ( CI
-          Text
-      )
+newtype StepExecutionFilterKey = StepExecutionFilterKey'
+  { fromStepExecutionFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SEFKAction :: StepExecutionFilterKey
-pattern SEFKAction = StepExecutionFilterKey' "Action"
+pattern StepExecutionFilterKeyAction :: StepExecutionFilterKey
+pattern StepExecutionFilterKeyAction = StepExecutionFilterKey' "Action"
 
-pattern SEFKStartTimeAfter :: StepExecutionFilterKey
-pattern SEFKStartTimeAfter = StepExecutionFilterKey' "StartTimeAfter"
+pattern StepExecutionFilterKeyStartTimeAfter :: StepExecutionFilterKey
+pattern StepExecutionFilterKeyStartTimeAfter = StepExecutionFilterKey' "StartTimeAfter"
 
-pattern SEFKStartTimeBefore :: StepExecutionFilterKey
-pattern SEFKStartTimeBefore = StepExecutionFilterKey' "StartTimeBefore"
+pattern StepExecutionFilterKeyStartTimeBefore :: StepExecutionFilterKey
+pattern StepExecutionFilterKeyStartTimeBefore = StepExecutionFilterKey' "StartTimeBefore"
 
-pattern SEFKStepExecutionId :: StepExecutionFilterKey
-pattern SEFKStepExecutionId = StepExecutionFilterKey' "StepExecutionId"
+pattern StepExecutionFilterKeyStepExecutionId :: StepExecutionFilterKey
+pattern StepExecutionFilterKeyStepExecutionId = StepExecutionFilterKey' "StepExecutionId"
 
-pattern SEFKStepExecutionStatus :: StepExecutionFilterKey
-pattern SEFKStepExecutionStatus = StepExecutionFilterKey' "StepExecutionStatus"
+pattern StepExecutionFilterKeyStepExecutionStatus :: StepExecutionFilterKey
+pattern StepExecutionFilterKeyStepExecutionStatus = StepExecutionFilterKey' "StepExecutionStatus"
 
-pattern SEFKStepName :: StepExecutionFilterKey
-pattern SEFKStepName = StepExecutionFilterKey' "StepName"
+pattern StepExecutionFilterKeyStepName :: StepExecutionFilterKey
+pattern StepExecutionFilterKeyStepName = StepExecutionFilterKey' "StepName"
 
 {-# COMPLETE
-  SEFKAction,
-  SEFKStartTimeAfter,
-  SEFKStartTimeBefore,
-  SEFKStepExecutionId,
-  SEFKStepExecutionStatus,
-  SEFKStepName,
+  StepExecutionFilterKeyAction,
+  StepExecutionFilterKeyStartTimeAfter,
+  StepExecutionFilterKeyStartTimeBefore,
+  StepExecutionFilterKeyStepExecutionId,
+  StepExecutionFilterKeyStepExecutionStatus,
+  StepExecutionFilterKeyStepName,
   StepExecutionFilterKey'
   #-}
 
-instance FromText StepExecutionFilterKey where
-  parser = (StepExecutionFilterKey' . mk) <$> takeText
+instance Prelude.FromText StepExecutionFilterKey where
+  parser = StepExecutionFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText StepExecutionFilterKey where
-  toText (StepExecutionFilterKey' ci) = original ci
+instance Prelude.ToText StepExecutionFilterKey where
+  toText (StepExecutionFilterKey' x) = x
 
-instance Hashable StepExecutionFilterKey
+instance Prelude.Hashable StepExecutionFilterKey
 
-instance NFData StepExecutionFilterKey
+instance Prelude.NFData StepExecutionFilterKey
 
-instance ToByteString StepExecutionFilterKey
+instance Prelude.ToByteString StepExecutionFilterKey
 
-instance ToQuery StepExecutionFilterKey
+instance Prelude.ToQuery StepExecutionFilterKey
 
-instance ToHeader StepExecutionFilterKey
+instance Prelude.ToHeader StepExecutionFilterKey
 
-instance ToJSON StepExecutionFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON StepExecutionFilterKey where
+  toJSON = Prelude.toJSONText

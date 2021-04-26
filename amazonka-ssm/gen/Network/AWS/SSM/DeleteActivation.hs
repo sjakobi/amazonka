@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,131 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an activation. You are not required to delete an activation. If you delete an activation, you can no longer use it to register additional managed instances. Deleting an activation does not de-register managed instances. You must manually de-register managed instances.
+-- Deletes an activation. You are not required to delete an activation. If
+-- you delete an activation, you can no longer use it to register
+-- additional managed instances. Deleting an activation does not
+-- de-register managed instances. You must manually de-register managed
+-- instances.
 module Network.AWS.SSM.DeleteActivation
   ( -- * Creating a Request
-    deleteActivation,
-    DeleteActivation,
+    DeleteActivation (..),
+    newDeleteActivation,
 
     -- * Request Lenses
-    daActivationId,
+    deleteActivation_activationId,
 
     -- * Destructuring the Response
-    deleteActivationResponse,
-    DeleteActivationResponse,
+    DeleteActivationResponse (..),
+    newDeleteActivationResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deleteActivationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'deleteActivation' smart constructor.
-newtype DeleteActivation = DeleteActivation'
-  { _daActivationId ::
-      Text
+-- | /See:/ 'newDeleteActivation' smart constructor.
+data DeleteActivation = DeleteActivation'
+  { -- | The ID of the activation that you want to delete.
+    activationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteActivation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteActivation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daActivationId' - The ID of the activation that you want to delete.
-deleteActivation ::
-  -- | 'daActivationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'activationId', 'deleteActivation_activationId' - The ID of the activation that you want to delete.
+newDeleteActivation ::
+  -- | 'activationId'
+  Prelude.Text ->
   DeleteActivation
-deleteActivation pActivationId_ =
-  DeleteActivation' {_daActivationId = pActivationId_}
+newDeleteActivation pActivationId_ =
+  DeleteActivation' {activationId = pActivationId_}
 
 -- | The ID of the activation that you want to delete.
-daActivationId :: Lens' DeleteActivation Text
-daActivationId = lens _daActivationId (\s a -> s {_daActivationId = a})
+deleteActivation_activationId :: Lens.Lens' DeleteActivation Prelude.Text
+deleteActivation_activationId = Lens.lens (\DeleteActivation' {activationId} -> activationId) (\s@DeleteActivation' {} a -> s {activationId = a} :: DeleteActivation)
 
-instance AWSRequest DeleteActivation where
+instance Prelude.AWSRequest DeleteActivation where
   type Rs DeleteActivation = DeleteActivationResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteActivationResponse' <$> (pure (fromEnum s))
+          DeleteActivationResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteActivation
+instance Prelude.Hashable DeleteActivation
 
-instance NFData DeleteActivation
+instance Prelude.NFData DeleteActivation
 
-instance ToHeaders DeleteActivation where
+instance Prelude.ToHeaders DeleteActivation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.DeleteActivation" :: ByteString),
+              Prelude.=# ("AmazonSSM.DeleteActivation" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteActivation where
+instance Prelude.ToJSON DeleteActivation where
   toJSON DeleteActivation' {..} =
-    object
-      ( catMaybes
-          [Just ("ActivationId" .= _daActivationId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ActivationId" Prelude..= activationId)
+          ]
       )
 
-instance ToPath DeleteActivation where
-  toPath = const "/"
+instance Prelude.ToPath DeleteActivation where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteActivation where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteActivation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteActivationResponse' smart constructor.
-newtype DeleteActivationResponse = DeleteActivationResponse'
-  { _drsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteActivationResponse' smart constructor.
+data DeleteActivationResponse = DeleteActivationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteActivationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteActivationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteActivationResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteActivationResponse_httpStatus' - The response's http status code.
+newDeleteActivationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteActivationResponse
-deleteActivationResponse pResponseStatus_ =
+newDeleteActivationResponse pHttpStatus_ =
   DeleteActivationResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteActivationResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteActivationResponse_httpStatus :: Lens.Lens' DeleteActivationResponse Prelude.Int
+deleteActivationResponse_httpStatus = Lens.lens (\DeleteActivationResponse' {httpStatus} -> httpStatus) (\s@DeleteActivationResponse' {} a -> s {httpStatus = a} :: DeleteActivationResponse)
 
-instance NFData DeleteActivationResponse
+instance Prelude.NFData DeleteActivationResponse

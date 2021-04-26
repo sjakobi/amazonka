@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.SSM.Types.CommandPluginStatus
   ( CommandPluginStatus
       ( ..,
-        CPSCancelled,
-        CPSFailed,
-        CPSInProgress,
-        CPSPending,
-        CPSSuccess,
-        CPSTimedOut
+        CommandPluginStatusCancelled,
+        CommandPluginStatusFailed,
+        CommandPluginStatusInProgress,
+        CommandPluginStatusPending,
+        CommandPluginStatusSuccess,
+        CommandPluginStatusTimedOut
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CommandPluginStatus
-  = CommandPluginStatus'
-      ( CI
-          Text
-      )
+newtype CommandPluginStatus = CommandPluginStatus'
+  { fromCommandPluginStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CPSCancelled :: CommandPluginStatus
-pattern CPSCancelled = CommandPluginStatus' "Cancelled"
+pattern CommandPluginStatusCancelled :: CommandPluginStatus
+pattern CommandPluginStatusCancelled = CommandPluginStatus' "Cancelled"
 
-pattern CPSFailed :: CommandPluginStatus
-pattern CPSFailed = CommandPluginStatus' "Failed"
+pattern CommandPluginStatusFailed :: CommandPluginStatus
+pattern CommandPluginStatusFailed = CommandPluginStatus' "Failed"
 
-pattern CPSInProgress :: CommandPluginStatus
-pattern CPSInProgress = CommandPluginStatus' "InProgress"
+pattern CommandPluginStatusInProgress :: CommandPluginStatus
+pattern CommandPluginStatusInProgress = CommandPluginStatus' "InProgress"
 
-pattern CPSPending :: CommandPluginStatus
-pattern CPSPending = CommandPluginStatus' "Pending"
+pattern CommandPluginStatusPending :: CommandPluginStatus
+pattern CommandPluginStatusPending = CommandPluginStatus' "Pending"
 
-pattern CPSSuccess :: CommandPluginStatus
-pattern CPSSuccess = CommandPluginStatus' "Success"
+pattern CommandPluginStatusSuccess :: CommandPluginStatus
+pattern CommandPluginStatusSuccess = CommandPluginStatus' "Success"
 
-pattern CPSTimedOut :: CommandPluginStatus
-pattern CPSTimedOut = CommandPluginStatus' "TimedOut"
+pattern CommandPluginStatusTimedOut :: CommandPluginStatus
+pattern CommandPluginStatusTimedOut = CommandPluginStatus' "TimedOut"
 
 {-# COMPLETE
-  CPSCancelled,
-  CPSFailed,
-  CPSInProgress,
-  CPSPending,
-  CPSSuccess,
-  CPSTimedOut,
+  CommandPluginStatusCancelled,
+  CommandPluginStatusFailed,
+  CommandPluginStatusInProgress,
+  CommandPluginStatusPending,
+  CommandPluginStatusSuccess,
+  CommandPluginStatusTimedOut,
   CommandPluginStatus'
   #-}
 
-instance FromText CommandPluginStatus where
-  parser = (CommandPluginStatus' . mk) <$> takeText
+instance Prelude.FromText CommandPluginStatus where
+  parser = CommandPluginStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CommandPluginStatus where
-  toText (CommandPluginStatus' ci) = original ci
+instance Prelude.ToText CommandPluginStatus where
+  toText (CommandPluginStatus' x) = x
 
-instance Hashable CommandPluginStatus
+instance Prelude.Hashable CommandPluginStatus
 
-instance NFData CommandPluginStatus
+instance Prelude.NFData CommandPluginStatus
 
-instance ToByteString CommandPluginStatus
+instance Prelude.ToByteString CommandPluginStatus
 
-instance ToQuery CommandPluginStatus
+instance Prelude.ToQuery CommandPluginStatus
 
-instance ToHeader CommandPluginStatus
+instance Prelude.ToHeader CommandPluginStatus
 
-instance FromJSON CommandPluginStatus where
-  parseJSON = parseJSONText "CommandPluginStatus"
+instance Prelude.FromJSON CommandPluginStatus where
+  parseJSON = Prelude.parseJSONText "CommandPluginStatus"

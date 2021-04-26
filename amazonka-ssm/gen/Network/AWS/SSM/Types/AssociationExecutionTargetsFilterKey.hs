@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SSM.Types.AssociationExecutionTargetsFilterKey
   ( AssociationExecutionTargetsFilterKey
       ( ..,
-        ResourceId,
-        ResourceType,
-        Status
+        AssociationExecutionTargetsFilterKeyResourceId,
+        AssociationExecutionTargetsFilterKeyResourceType,
+        AssociationExecutionTargetsFilterKeyStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationExecutionTargetsFilterKey
-  = AssociationExecutionTargetsFilterKey'
-      ( CI
-          Text
-      )
+newtype AssociationExecutionTargetsFilterKey = AssociationExecutionTargetsFilterKey'
+  { fromAssociationExecutionTargetsFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ResourceId :: AssociationExecutionTargetsFilterKey
-pattern ResourceId = AssociationExecutionTargetsFilterKey' "ResourceId"
+pattern AssociationExecutionTargetsFilterKeyResourceId :: AssociationExecutionTargetsFilterKey
+pattern AssociationExecutionTargetsFilterKeyResourceId = AssociationExecutionTargetsFilterKey' "ResourceId"
 
-pattern ResourceType :: AssociationExecutionTargetsFilterKey
-pattern ResourceType = AssociationExecutionTargetsFilterKey' "ResourceType"
+pattern AssociationExecutionTargetsFilterKeyResourceType :: AssociationExecutionTargetsFilterKey
+pattern AssociationExecutionTargetsFilterKeyResourceType = AssociationExecutionTargetsFilterKey' "ResourceType"
 
-pattern Status :: AssociationExecutionTargetsFilterKey
-pattern Status = AssociationExecutionTargetsFilterKey' "Status"
+pattern AssociationExecutionTargetsFilterKeyStatus' :: AssociationExecutionTargetsFilterKey
+pattern AssociationExecutionTargetsFilterKeyStatus' = AssociationExecutionTargetsFilterKey' "Status"
 
 {-# COMPLETE
-  ResourceId,
-  ResourceType,
-  Status,
+  AssociationExecutionTargetsFilterKeyResourceId,
+  AssociationExecutionTargetsFilterKeyResourceType,
+  AssociationExecutionTargetsFilterKeyStatus',
   AssociationExecutionTargetsFilterKey'
   #-}
 
-instance FromText AssociationExecutionTargetsFilterKey where
-  parser = (AssociationExecutionTargetsFilterKey' . mk) <$> takeText
+instance Prelude.FromText AssociationExecutionTargetsFilterKey where
+  parser = AssociationExecutionTargetsFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationExecutionTargetsFilterKey where
-  toText (AssociationExecutionTargetsFilterKey' ci) = original ci
+instance Prelude.ToText AssociationExecutionTargetsFilterKey where
+  toText (AssociationExecutionTargetsFilterKey' x) = x
 
-instance Hashable AssociationExecutionTargetsFilterKey
+instance Prelude.Hashable AssociationExecutionTargetsFilterKey
 
-instance NFData AssociationExecutionTargetsFilterKey
+instance Prelude.NFData AssociationExecutionTargetsFilterKey
 
-instance ToByteString AssociationExecutionTargetsFilterKey
+instance Prelude.ToByteString AssociationExecutionTargetsFilterKey
 
-instance ToQuery AssociationExecutionTargetsFilterKey
+instance Prelude.ToQuery AssociationExecutionTargetsFilterKey
 
-instance ToHeader AssociationExecutionTargetsFilterKey
+instance Prelude.ToHeader AssociationExecutionTargetsFilterKey
 
-instance ToJSON AssociationExecutionTargetsFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssociationExecutionTargetsFilterKey where
+  toJSON = Prelude.toJSONText

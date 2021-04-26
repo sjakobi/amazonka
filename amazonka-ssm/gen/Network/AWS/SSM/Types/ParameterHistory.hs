@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,157 +19,192 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ParameterHistory where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.ParameterInlinePolicy
 import Network.AWS.SSM.Types.ParameterTier
 import Network.AWS.SSM.Types.ParameterType
 
 -- | Information about parameter usage.
 --
---
---
--- /See:/ 'parameterHistory' smart constructor.
+-- /See:/ 'newParameterHistory' smart constructor.
 data ParameterHistory = ParameterHistory'
-  { _phLastModifiedDate ::
-      !(Maybe POSIX),
-    _phPolicies ::
-      !(Maybe [ParameterInlinePolicy]),
-    _phLabels :: !(Maybe (List1 Text)),
-    _phVersion :: !(Maybe Integer),
-    _phName :: !(Maybe Text),
-    _phDescription :: !(Maybe Text),
-    _phValue :: !(Maybe Text),
-    _phType :: !(Maybe ParameterType),
-    _phDataType :: !(Maybe Text),
-    _phAllowedPattern :: !(Maybe Text),
-    _phLastModifiedUser :: !(Maybe Text),
-    _phTier :: !(Maybe ParameterTier),
-    _phKeyId :: !(Maybe Text)
+  { -- | Date the parameter was last changed or updated.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Information about the policies assigned to a parameter.
+    --
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html Assigning parameter policies>
+    -- in the /AWS Systems Manager User Guide/.
+    policies :: Prelude.Maybe [ParameterInlinePolicy],
+    -- | Labels assigned to the parameter version.
+    labels :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The parameter version.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the parameter.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Information about the parameter.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The parameter value.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The type of parameter used.
+    type' :: Prelude.Maybe ParameterType,
+    -- | The data type of the parameter, such as @text@ or @aws:ec2:image@. The
+    -- default is @text@.
+    dataType :: Prelude.Maybe Prelude.Text,
+    -- | Parameter names can include the following letters and symbols.
+    --
+    -- a-zA-Z0-9_.-
+    allowedPattern :: Prelude.Maybe Prelude.Text,
+    -- | Amazon Resource Name (ARN) of the AWS user who last changed the
+    -- parameter.
+    lastModifiedUser :: Prelude.Maybe Prelude.Text,
+    -- | The parameter tier.
+    tier :: Prelude.Maybe ParameterTier,
+    -- | The ID of the query key used for this parameter.
+    keyId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParameterHistory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParameterHistory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'phLastModifiedDate' - Date the parameter was last changed or updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'phPolicies' - Information about the policies assigned to a parameter. <https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html Assigning parameter policies> in the /AWS Systems Manager User Guide/ .
+-- 'lastModifiedDate', 'parameterHistory_lastModifiedDate' - Date the parameter was last changed or updated.
 --
--- * 'phLabels' - Labels assigned to the parameter version.
+-- 'policies', 'parameterHistory_policies' - Information about the policies assigned to a parameter.
 --
--- * 'phVersion' - The parameter version.
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html Assigning parameter policies>
+-- in the /AWS Systems Manager User Guide/.
 --
--- * 'phName' - The name of the parameter.
+-- 'labels', 'parameterHistory_labels' - Labels assigned to the parameter version.
 --
--- * 'phDescription' - Information about the parameter.
+-- 'version', 'parameterHistory_version' - The parameter version.
 --
--- * 'phValue' - The parameter value.
+-- 'name', 'parameterHistory_name' - The name of the parameter.
 --
--- * 'phType' - The type of parameter used.
+-- 'description', 'parameterHistory_description' - Information about the parameter.
 --
--- * 'phDataType' - The data type of the parameter, such as @text@ or @aws:ec2:image@ . The default is @text@ .
+-- 'value', 'parameterHistory_value' - The parameter value.
 --
--- * 'phAllowedPattern' - Parameter names can include the following letters and symbols. a-zA-Z0-9_.-
+-- 'type'', 'parameterHistory_type' - The type of parameter used.
 --
--- * 'phLastModifiedUser' - Amazon Resource Name (ARN) of the AWS user who last changed the parameter.
+-- 'dataType', 'parameterHistory_dataType' - The data type of the parameter, such as @text@ or @aws:ec2:image@. The
+-- default is @text@.
 --
--- * 'phTier' - The parameter tier.
+-- 'allowedPattern', 'parameterHistory_allowedPattern' - Parameter names can include the following letters and symbols.
 --
--- * 'phKeyId' - The ID of the query key used for this parameter.
-parameterHistory ::
+-- a-zA-Z0-9_.-
+--
+-- 'lastModifiedUser', 'parameterHistory_lastModifiedUser' - Amazon Resource Name (ARN) of the AWS user who last changed the
+-- parameter.
+--
+-- 'tier', 'parameterHistory_tier' - The parameter tier.
+--
+-- 'keyId', 'parameterHistory_keyId' - The ID of the query key used for this parameter.
+newParameterHistory ::
   ParameterHistory
-parameterHistory =
+newParameterHistory =
   ParameterHistory'
-    { _phLastModifiedDate = Nothing,
-      _phPolicies = Nothing,
-      _phLabels = Nothing,
-      _phVersion = Nothing,
-      _phName = Nothing,
-      _phDescription = Nothing,
-      _phValue = Nothing,
-      _phType = Nothing,
-      _phDataType = Nothing,
-      _phAllowedPattern = Nothing,
-      _phLastModifiedUser = Nothing,
-      _phTier = Nothing,
-      _phKeyId = Nothing
+    { lastModifiedDate =
+        Prelude.Nothing,
+      policies = Prelude.Nothing,
+      labels = Prelude.Nothing,
+      version = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      value = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      dataType = Prelude.Nothing,
+      allowedPattern = Prelude.Nothing,
+      lastModifiedUser = Prelude.Nothing,
+      tier = Prelude.Nothing,
+      keyId = Prelude.Nothing
     }
 
 -- | Date the parameter was last changed or updated.
-phLastModifiedDate :: Lens' ParameterHistory (Maybe UTCTime)
-phLastModifiedDate = lens _phLastModifiedDate (\s a -> s {_phLastModifiedDate = a}) . mapping _Time
+parameterHistory_lastModifiedDate :: Lens.Lens' ParameterHistory (Prelude.Maybe Prelude.UTCTime)
+parameterHistory_lastModifiedDate = Lens.lens (\ParameterHistory' {lastModifiedDate} -> lastModifiedDate) (\s@ParameterHistory' {} a -> s {lastModifiedDate = a} :: ParameterHistory) Prelude.. Lens.mapping Prelude._Time
 
--- | Information about the policies assigned to a parameter. <https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html Assigning parameter policies> in the /AWS Systems Manager User Guide/ .
-phPolicies :: Lens' ParameterHistory [ParameterInlinePolicy]
-phPolicies = lens _phPolicies (\s a -> s {_phPolicies = a}) . _Default . _Coerce
+-- | Information about the policies assigned to a parameter.
+--
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html Assigning parameter policies>
+-- in the /AWS Systems Manager User Guide/.
+parameterHistory_policies :: Lens.Lens' ParameterHistory (Prelude.Maybe [ParameterInlinePolicy])
+parameterHistory_policies = Lens.lens (\ParameterHistory' {policies} -> policies) (\s@ParameterHistory' {} a -> s {policies = a} :: ParameterHistory) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Labels assigned to the parameter version.
-phLabels :: Lens' ParameterHistory (Maybe (NonEmpty Text))
-phLabels = lens _phLabels (\s a -> s {_phLabels = a}) . mapping _List1
+parameterHistory_labels :: Lens.Lens' ParameterHistory (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+parameterHistory_labels = Lens.lens (\ParameterHistory' {labels} -> labels) (\s@ParameterHistory' {} a -> s {labels = a} :: ParameterHistory) Prelude.. Lens.mapping Prelude._List1
 
 -- | The parameter version.
-phVersion :: Lens' ParameterHistory (Maybe Integer)
-phVersion = lens _phVersion (\s a -> s {_phVersion = a})
+parameterHistory_version :: Lens.Lens' ParameterHistory (Prelude.Maybe Prelude.Integer)
+parameterHistory_version = Lens.lens (\ParameterHistory' {version} -> version) (\s@ParameterHistory' {} a -> s {version = a} :: ParameterHistory)
 
 -- | The name of the parameter.
-phName :: Lens' ParameterHistory (Maybe Text)
-phName = lens _phName (\s a -> s {_phName = a})
+parameterHistory_name :: Lens.Lens' ParameterHistory (Prelude.Maybe Prelude.Text)
+parameterHistory_name = Lens.lens (\ParameterHistory' {name} -> name) (\s@ParameterHistory' {} a -> s {name = a} :: ParameterHistory)
 
 -- | Information about the parameter.
-phDescription :: Lens' ParameterHistory (Maybe Text)
-phDescription = lens _phDescription (\s a -> s {_phDescription = a})
+parameterHistory_description :: Lens.Lens' ParameterHistory (Prelude.Maybe Prelude.Text)
+parameterHistory_description = Lens.lens (\ParameterHistory' {description} -> description) (\s@ParameterHistory' {} a -> s {description = a} :: ParameterHistory)
 
 -- | The parameter value.
-phValue :: Lens' ParameterHistory (Maybe Text)
-phValue = lens _phValue (\s a -> s {_phValue = a})
+parameterHistory_value :: Lens.Lens' ParameterHistory (Prelude.Maybe Prelude.Text)
+parameterHistory_value = Lens.lens (\ParameterHistory' {value} -> value) (\s@ParameterHistory' {} a -> s {value = a} :: ParameterHistory)
 
 -- | The type of parameter used.
-phType :: Lens' ParameterHistory (Maybe ParameterType)
-phType = lens _phType (\s a -> s {_phType = a})
+parameterHistory_type :: Lens.Lens' ParameterHistory (Prelude.Maybe ParameterType)
+parameterHistory_type = Lens.lens (\ParameterHistory' {type'} -> type') (\s@ParameterHistory' {} a -> s {type' = a} :: ParameterHistory)
 
--- | The data type of the parameter, such as @text@ or @aws:ec2:image@ . The default is @text@ .
-phDataType :: Lens' ParameterHistory (Maybe Text)
-phDataType = lens _phDataType (\s a -> s {_phDataType = a})
+-- | The data type of the parameter, such as @text@ or @aws:ec2:image@. The
+-- default is @text@.
+parameterHistory_dataType :: Lens.Lens' ParameterHistory (Prelude.Maybe Prelude.Text)
+parameterHistory_dataType = Lens.lens (\ParameterHistory' {dataType} -> dataType) (\s@ParameterHistory' {} a -> s {dataType = a} :: ParameterHistory)
 
--- | Parameter names can include the following letters and symbols. a-zA-Z0-9_.-
-phAllowedPattern :: Lens' ParameterHistory (Maybe Text)
-phAllowedPattern = lens _phAllowedPattern (\s a -> s {_phAllowedPattern = a})
+-- | Parameter names can include the following letters and symbols.
+--
+-- a-zA-Z0-9_.-
+parameterHistory_allowedPattern :: Lens.Lens' ParameterHistory (Prelude.Maybe Prelude.Text)
+parameterHistory_allowedPattern = Lens.lens (\ParameterHistory' {allowedPattern} -> allowedPattern) (\s@ParameterHistory' {} a -> s {allowedPattern = a} :: ParameterHistory)
 
--- | Amazon Resource Name (ARN) of the AWS user who last changed the parameter.
-phLastModifiedUser :: Lens' ParameterHistory (Maybe Text)
-phLastModifiedUser = lens _phLastModifiedUser (\s a -> s {_phLastModifiedUser = a})
+-- | Amazon Resource Name (ARN) of the AWS user who last changed the
+-- parameter.
+parameterHistory_lastModifiedUser :: Lens.Lens' ParameterHistory (Prelude.Maybe Prelude.Text)
+parameterHistory_lastModifiedUser = Lens.lens (\ParameterHistory' {lastModifiedUser} -> lastModifiedUser) (\s@ParameterHistory' {} a -> s {lastModifiedUser = a} :: ParameterHistory)
 
 -- | The parameter tier.
-phTier :: Lens' ParameterHistory (Maybe ParameterTier)
-phTier = lens _phTier (\s a -> s {_phTier = a})
+parameterHistory_tier :: Lens.Lens' ParameterHistory (Prelude.Maybe ParameterTier)
+parameterHistory_tier = Lens.lens (\ParameterHistory' {tier} -> tier) (\s@ParameterHistory' {} a -> s {tier = a} :: ParameterHistory)
 
 -- | The ID of the query key used for this parameter.
-phKeyId :: Lens' ParameterHistory (Maybe Text)
-phKeyId = lens _phKeyId (\s a -> s {_phKeyId = a})
+parameterHistory_keyId :: Lens.Lens' ParameterHistory (Prelude.Maybe Prelude.Text)
+parameterHistory_keyId = Lens.lens (\ParameterHistory' {keyId} -> keyId) (\s@ParameterHistory' {} a -> s {keyId = a} :: ParameterHistory)
 
-instance FromJSON ParameterHistory where
+instance Prelude.FromJSON ParameterHistory where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ParameterHistory"
       ( \x ->
           ParameterHistory'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "Policies" .!= mempty)
-            <*> (x .:? "Labels")
-            <*> (x .:? "Version")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
-            <*> (x .:? "Value")
-            <*> (x .:? "Type")
-            <*> (x .:? "DataType")
-            <*> (x .:? "AllowedPattern")
-            <*> (x .:? "LastModifiedUser")
-            <*> (x .:? "Tier")
-            <*> (x .:? "KeyId")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "Policies" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Labels")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "DataType")
+            Prelude.<*> (x Prelude..:? "AllowedPattern")
+            Prelude.<*> (x Prelude..:? "LastModifiedUser")
+            Prelude.<*> (x Prelude..:? "Tier")
+            Prelude.<*> (x Prelude..:? "KeyId")
       )
 
-instance Hashable ParameterHistory
+instance Prelude.Hashable ParameterHistory
 
-instance NFData ParameterHistory
+instance Prelude.NFData ParameterHistory

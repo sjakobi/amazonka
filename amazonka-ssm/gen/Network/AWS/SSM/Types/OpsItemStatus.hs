@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,136 +19,138 @@
 module Network.AWS.SSM.Types.OpsItemStatus
   ( OpsItemStatus
       ( ..,
-        OISApproved,
-        OISCancelled,
-        OISCancelling,
-        OISChangeCalendarOverrideApproved,
-        OISChangeCalendarOverrideRejected,
-        OISCompletedWithFailure,
-        OISCompletedWithSuccess,
-        OISFailed,
-        OISInProgress,
-        OISOpen,
-        OISPending,
-        OISPendingApproval,
-        OISPendingChangeCalendarOverride,
-        OISRejected,
-        OISResolved,
-        OISRunbookInProgress,
-        OISScheduled,
-        OISTimedOut
+        OpsItemStatusApproved,
+        OpsItemStatusCancelled,
+        OpsItemStatusCancelling,
+        OpsItemStatusChangeCalendarOverrideApproved,
+        OpsItemStatusChangeCalendarOverrideRejected,
+        OpsItemStatusCompletedWithFailure,
+        OpsItemStatusCompletedWithSuccess,
+        OpsItemStatusFailed,
+        OpsItemStatusInProgress,
+        OpsItemStatusOpen,
+        OpsItemStatusPending,
+        OpsItemStatusPendingApproval,
+        OpsItemStatusPendingChangeCalendarOverride,
+        OpsItemStatusRejected,
+        OpsItemStatusResolved,
+        OpsItemStatusRunbookInProgress,
+        OpsItemStatusScheduled,
+        OpsItemStatusTimedOut
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OpsItemStatus = OpsItemStatus' (CI Text)
+newtype OpsItemStatus = OpsItemStatus'
+  { fromOpsItemStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OISApproved :: OpsItemStatus
-pattern OISApproved = OpsItemStatus' "Approved"
+pattern OpsItemStatusApproved :: OpsItemStatus
+pattern OpsItemStatusApproved = OpsItemStatus' "Approved"
 
-pattern OISCancelled :: OpsItemStatus
-pattern OISCancelled = OpsItemStatus' "Cancelled"
+pattern OpsItemStatusCancelled :: OpsItemStatus
+pattern OpsItemStatusCancelled = OpsItemStatus' "Cancelled"
 
-pattern OISCancelling :: OpsItemStatus
-pattern OISCancelling = OpsItemStatus' "Cancelling"
+pattern OpsItemStatusCancelling :: OpsItemStatus
+pattern OpsItemStatusCancelling = OpsItemStatus' "Cancelling"
 
-pattern OISChangeCalendarOverrideApproved :: OpsItemStatus
-pattern OISChangeCalendarOverrideApproved = OpsItemStatus' "ChangeCalendarOverrideApproved"
+pattern OpsItemStatusChangeCalendarOverrideApproved :: OpsItemStatus
+pattern OpsItemStatusChangeCalendarOverrideApproved = OpsItemStatus' "ChangeCalendarOverrideApproved"
 
-pattern OISChangeCalendarOverrideRejected :: OpsItemStatus
-pattern OISChangeCalendarOverrideRejected = OpsItemStatus' "ChangeCalendarOverrideRejected"
+pattern OpsItemStatusChangeCalendarOverrideRejected :: OpsItemStatus
+pattern OpsItemStatusChangeCalendarOverrideRejected = OpsItemStatus' "ChangeCalendarOverrideRejected"
 
-pattern OISCompletedWithFailure :: OpsItemStatus
-pattern OISCompletedWithFailure = OpsItemStatus' "CompletedWithFailure"
+pattern OpsItemStatusCompletedWithFailure :: OpsItemStatus
+pattern OpsItemStatusCompletedWithFailure = OpsItemStatus' "CompletedWithFailure"
 
-pattern OISCompletedWithSuccess :: OpsItemStatus
-pattern OISCompletedWithSuccess = OpsItemStatus' "CompletedWithSuccess"
+pattern OpsItemStatusCompletedWithSuccess :: OpsItemStatus
+pattern OpsItemStatusCompletedWithSuccess = OpsItemStatus' "CompletedWithSuccess"
 
-pattern OISFailed :: OpsItemStatus
-pattern OISFailed = OpsItemStatus' "Failed"
+pattern OpsItemStatusFailed :: OpsItemStatus
+pattern OpsItemStatusFailed = OpsItemStatus' "Failed"
 
-pattern OISInProgress :: OpsItemStatus
-pattern OISInProgress = OpsItemStatus' "InProgress"
+pattern OpsItemStatusInProgress :: OpsItemStatus
+pattern OpsItemStatusInProgress = OpsItemStatus' "InProgress"
 
-pattern OISOpen :: OpsItemStatus
-pattern OISOpen = OpsItemStatus' "Open"
+pattern OpsItemStatusOpen :: OpsItemStatus
+pattern OpsItemStatusOpen = OpsItemStatus' "Open"
 
-pattern OISPending :: OpsItemStatus
-pattern OISPending = OpsItemStatus' "Pending"
+pattern OpsItemStatusPending :: OpsItemStatus
+pattern OpsItemStatusPending = OpsItemStatus' "Pending"
 
-pattern OISPendingApproval :: OpsItemStatus
-pattern OISPendingApproval = OpsItemStatus' "PendingApproval"
+pattern OpsItemStatusPendingApproval :: OpsItemStatus
+pattern OpsItemStatusPendingApproval = OpsItemStatus' "PendingApproval"
 
-pattern OISPendingChangeCalendarOverride :: OpsItemStatus
-pattern OISPendingChangeCalendarOverride = OpsItemStatus' "PendingChangeCalendarOverride"
+pattern OpsItemStatusPendingChangeCalendarOverride :: OpsItemStatus
+pattern OpsItemStatusPendingChangeCalendarOverride = OpsItemStatus' "PendingChangeCalendarOverride"
 
-pattern OISRejected :: OpsItemStatus
-pattern OISRejected = OpsItemStatus' "Rejected"
+pattern OpsItemStatusRejected :: OpsItemStatus
+pattern OpsItemStatusRejected = OpsItemStatus' "Rejected"
 
-pattern OISResolved :: OpsItemStatus
-pattern OISResolved = OpsItemStatus' "Resolved"
+pattern OpsItemStatusResolved :: OpsItemStatus
+pattern OpsItemStatusResolved = OpsItemStatus' "Resolved"
 
-pattern OISRunbookInProgress :: OpsItemStatus
-pattern OISRunbookInProgress = OpsItemStatus' "RunbookInProgress"
+pattern OpsItemStatusRunbookInProgress :: OpsItemStatus
+pattern OpsItemStatusRunbookInProgress = OpsItemStatus' "RunbookInProgress"
 
-pattern OISScheduled :: OpsItemStatus
-pattern OISScheduled = OpsItemStatus' "Scheduled"
+pattern OpsItemStatusScheduled :: OpsItemStatus
+pattern OpsItemStatusScheduled = OpsItemStatus' "Scheduled"
 
-pattern OISTimedOut :: OpsItemStatus
-pattern OISTimedOut = OpsItemStatus' "TimedOut"
+pattern OpsItemStatusTimedOut :: OpsItemStatus
+pattern OpsItemStatusTimedOut = OpsItemStatus' "TimedOut"
 
 {-# COMPLETE
-  OISApproved,
-  OISCancelled,
-  OISCancelling,
-  OISChangeCalendarOverrideApproved,
-  OISChangeCalendarOverrideRejected,
-  OISCompletedWithFailure,
-  OISCompletedWithSuccess,
-  OISFailed,
-  OISInProgress,
-  OISOpen,
-  OISPending,
-  OISPendingApproval,
-  OISPendingChangeCalendarOverride,
-  OISRejected,
-  OISResolved,
-  OISRunbookInProgress,
-  OISScheduled,
-  OISTimedOut,
+  OpsItemStatusApproved,
+  OpsItemStatusCancelled,
+  OpsItemStatusCancelling,
+  OpsItemStatusChangeCalendarOverrideApproved,
+  OpsItemStatusChangeCalendarOverrideRejected,
+  OpsItemStatusCompletedWithFailure,
+  OpsItemStatusCompletedWithSuccess,
+  OpsItemStatusFailed,
+  OpsItemStatusInProgress,
+  OpsItemStatusOpen,
+  OpsItemStatusPending,
+  OpsItemStatusPendingApproval,
+  OpsItemStatusPendingChangeCalendarOverride,
+  OpsItemStatusRejected,
+  OpsItemStatusResolved,
+  OpsItemStatusRunbookInProgress,
+  OpsItemStatusScheduled,
+  OpsItemStatusTimedOut,
   OpsItemStatus'
   #-}
 
-instance FromText OpsItemStatus where
-  parser = (OpsItemStatus' . mk) <$> takeText
+instance Prelude.FromText OpsItemStatus where
+  parser = OpsItemStatus' Prelude.<$> Prelude.takeText
 
-instance ToText OpsItemStatus where
-  toText (OpsItemStatus' ci) = original ci
+instance Prelude.ToText OpsItemStatus where
+  toText (OpsItemStatus' x) = x
 
-instance Hashable OpsItemStatus
+instance Prelude.Hashable OpsItemStatus
 
-instance NFData OpsItemStatus
+instance Prelude.NFData OpsItemStatus
 
-instance ToByteString OpsItemStatus
+instance Prelude.ToByteString OpsItemStatus
 
-instance ToQuery OpsItemStatus
+instance Prelude.ToQuery OpsItemStatus
 
-instance ToHeader OpsItemStatus
+instance Prelude.ToHeader OpsItemStatus
 
-instance ToJSON OpsItemStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON OpsItemStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OpsItemStatus where
-  parseJSON = parseJSONText "OpsItemStatus"
+instance Prelude.FromJSON OpsItemStatus where
+  parseJSON = Prelude.parseJSONText "OpsItemStatus"

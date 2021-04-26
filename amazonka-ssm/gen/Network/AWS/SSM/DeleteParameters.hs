@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,138 +24,150 @@
 -- Delete a list of parameters.
 module Network.AWS.SSM.DeleteParameters
   ( -- * Creating a Request
-    deleteParameters,
-    DeleteParameters,
+    DeleteParameters (..),
+    newDeleteParameters,
 
     -- * Request Lenses
-    dpNames,
+    deleteParameters_names,
 
     -- * Destructuring the Response
-    deleteParametersResponse,
-    DeleteParametersResponse,
+    DeleteParametersResponse (..),
+    newDeleteParametersResponse,
 
     -- * Response Lenses
-    ddrsInvalidParameters,
-    ddrsDeletedParameters,
-    ddrsResponseStatus,
+    deleteParametersResponse_invalidParameters,
+    deleteParametersResponse_deletedParameters,
+    deleteParametersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'deleteParameters' smart constructor.
-newtype DeleteParameters = DeleteParameters'
-  { _dpNames ::
-      List1 Text
+-- | /See:/ 'newDeleteParameters' smart constructor.
+data DeleteParameters = DeleteParameters'
+  { -- | The names of the parameters to delete.
+    names :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpNames' - The names of the parameters to delete.
-deleteParameters ::
-  -- | 'dpNames'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'names', 'deleteParameters_names' - The names of the parameters to delete.
+newDeleteParameters ::
+  -- | 'names'
+  Prelude.NonEmpty Prelude.Text ->
   DeleteParameters
-deleteParameters pNames_ =
-  DeleteParameters' {_dpNames = _List1 # pNames_}
+newDeleteParameters pNames_ =
+  DeleteParameters'
+    { names =
+        Prelude._List1 Lens.# pNames_
+    }
 
 -- | The names of the parameters to delete.
-dpNames :: Lens' DeleteParameters (NonEmpty Text)
-dpNames = lens _dpNames (\s a -> s {_dpNames = a}) . _List1
+deleteParameters_names :: Lens.Lens' DeleteParameters (Prelude.NonEmpty Prelude.Text)
+deleteParameters_names = Lens.lens (\DeleteParameters' {names} -> names) (\s@DeleteParameters' {} a -> s {names = a} :: DeleteParameters) Prelude.. Prelude._List1
 
-instance AWSRequest DeleteParameters where
+instance Prelude.AWSRequest DeleteParameters where
   type Rs DeleteParameters = DeleteParametersResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteParametersResponse'
-            <$> (x .?> "InvalidParameters")
-            <*> (x .?> "DeletedParameters")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "InvalidParameters")
+            Prelude.<*> (x Prelude..?> "DeletedParameters")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteParameters
+instance Prelude.Hashable DeleteParameters
 
-instance NFData DeleteParameters
+instance Prelude.NFData DeleteParameters
 
-instance ToHeaders DeleteParameters where
+instance Prelude.ToHeaders DeleteParameters where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.DeleteParameters" :: ByteString),
+              Prelude.=# ("AmazonSSM.DeleteParameters" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteParameters where
+instance Prelude.ToJSON DeleteParameters where
   toJSON DeleteParameters' {..} =
-    object (catMaybes [Just ("Names" .= _dpNames)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Names" Prelude..= names)]
+      )
 
-instance ToPath DeleteParameters where
-  toPath = const "/"
+instance Prelude.ToPath DeleteParameters where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteParameters where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteParameters where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteParametersResponse' smart constructor.
+-- | /See:/ 'newDeleteParametersResponse' smart constructor.
 data DeleteParametersResponse = DeleteParametersResponse'
-  { _ddrsInvalidParameters ::
-      !(Maybe (List1 Text)),
-    _ddrsDeletedParameters ::
-      !(Maybe (List1 Text)),
-    _ddrsResponseStatus ::
-      !Int
+  { -- | The names of parameters that weren\'t deleted because the parameters are
+    -- not valid.
+    invalidParameters :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The names of the deleted parameters.
+    deletedParameters :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteParametersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteParametersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrsInvalidParameters' - The names of parameters that weren't deleted because the parameters are not valid.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddrsDeletedParameters' - The names of the deleted parameters.
+-- 'invalidParameters', 'deleteParametersResponse_invalidParameters' - The names of parameters that weren\'t deleted because the parameters are
+-- not valid.
 --
--- * 'ddrsResponseStatus' - -- | The response status code.
-deleteParametersResponse ::
-  -- | 'ddrsResponseStatus'
-  Int ->
+-- 'deletedParameters', 'deleteParametersResponse_deletedParameters' - The names of the deleted parameters.
+--
+-- 'httpStatus', 'deleteParametersResponse_httpStatus' - The response's http status code.
+newDeleteParametersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteParametersResponse
-deleteParametersResponse pResponseStatus_ =
+newDeleteParametersResponse pHttpStatus_ =
   DeleteParametersResponse'
-    { _ddrsInvalidParameters =
-        Nothing,
-      _ddrsDeletedParameters = Nothing,
-      _ddrsResponseStatus = pResponseStatus_
+    { invalidParameters =
+        Prelude.Nothing,
+      deletedParameters = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The names of parameters that weren't deleted because the parameters are not valid.
-ddrsInvalidParameters :: Lens' DeleteParametersResponse (Maybe (NonEmpty Text))
-ddrsInvalidParameters = lens _ddrsInvalidParameters (\s a -> s {_ddrsInvalidParameters = a}) . mapping _List1
+-- | The names of parameters that weren\'t deleted because the parameters are
+-- not valid.
+deleteParametersResponse_invalidParameters :: Lens.Lens' DeleteParametersResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+deleteParametersResponse_invalidParameters = Lens.lens (\DeleteParametersResponse' {invalidParameters} -> invalidParameters) (\s@DeleteParametersResponse' {} a -> s {invalidParameters = a} :: DeleteParametersResponse) Prelude.. Lens.mapping Prelude._List1
 
 -- | The names of the deleted parameters.
-ddrsDeletedParameters :: Lens' DeleteParametersResponse (Maybe (NonEmpty Text))
-ddrsDeletedParameters = lens _ddrsDeletedParameters (\s a -> s {_ddrsDeletedParameters = a}) . mapping _List1
+deleteParametersResponse_deletedParameters :: Lens.Lens' DeleteParametersResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+deleteParametersResponse_deletedParameters = Lens.lens (\DeleteParametersResponse' {deletedParameters} -> deletedParameters) (\s@DeleteParametersResponse' {} a -> s {deletedParameters = a} :: DeleteParametersResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-ddrsResponseStatus :: Lens' DeleteParametersResponse Int
-ddrsResponseStatus = lens _ddrsResponseStatus (\s a -> s {_ddrsResponseStatus = a})
+-- | The response's http status code.
+deleteParametersResponse_httpStatus :: Lens.Lens' DeleteParametersResponse Prelude.Int
+deleteParametersResponse_httpStatus = Lens.lens (\DeleteParametersResponse' {httpStatus} -> httpStatus) (\s@DeleteParametersResponse' {} a -> s {httpStatus = a} :: DeleteParametersResponse)
 
-instance NFData DeleteParametersResponse
+instance Prelude.NFData DeleteParametersResponse

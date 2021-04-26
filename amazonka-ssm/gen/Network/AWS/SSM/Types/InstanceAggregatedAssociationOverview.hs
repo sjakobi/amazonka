@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InstanceAggregatedAssociationOverview where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Status information about the aggregated associations.
 --
---
---
--- /See:/ 'instanceAggregatedAssociationOverview' smart constructor.
+-- /See:/ 'newInstanceAggregatedAssociationOverview' smart constructor.
 data InstanceAggregatedAssociationOverview = InstanceAggregatedAssociationOverview'
-  { _iaaoDetailedStatus ::
-      !( Maybe
-           Text
-       ),
-    _iaaoInstanceAssociationStatusAggregatedCount ::
-      !( Maybe
-           ( Map
-               Text
-               Int
-           )
-       )
+  { -- | Detailed status information about the aggregated associations.
+    detailedStatus :: Prelude.Maybe Prelude.Text,
+    -- | The number of associations for the instance(s).
+    instanceAssociationStatusAggregatedCount :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Int)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceAggregatedAssociationOverview' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceAggregatedAssociationOverview' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iaaoDetailedStatus' - Detailed status information about the aggregated associations.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iaaoInstanceAssociationStatusAggregatedCount' - The number of associations for the instance(s).
-instanceAggregatedAssociationOverview ::
+-- 'detailedStatus', 'instanceAggregatedAssociationOverview_detailedStatus' - Detailed status information about the aggregated associations.
+--
+-- 'instanceAssociationStatusAggregatedCount', 'instanceAggregatedAssociationOverview_instanceAssociationStatusAggregatedCount' - The number of associations for the instance(s).
+newInstanceAggregatedAssociationOverview ::
   InstanceAggregatedAssociationOverview
-instanceAggregatedAssociationOverview =
+newInstanceAggregatedAssociationOverview =
   InstanceAggregatedAssociationOverview'
-    { _iaaoDetailedStatus =
-        Nothing,
-      _iaaoInstanceAssociationStatusAggregatedCount =
-        Nothing
+    { detailedStatus =
+        Prelude.Nothing,
+      instanceAssociationStatusAggregatedCount =
+        Prelude.Nothing
     }
 
 -- | Detailed status information about the aggregated associations.
-iaaoDetailedStatus :: Lens' InstanceAggregatedAssociationOverview (Maybe Text)
-iaaoDetailedStatus = lens _iaaoDetailedStatus (\s a -> s {_iaaoDetailedStatus = a})
+instanceAggregatedAssociationOverview_detailedStatus :: Lens.Lens' InstanceAggregatedAssociationOverview (Prelude.Maybe Prelude.Text)
+instanceAggregatedAssociationOverview_detailedStatus = Lens.lens (\InstanceAggregatedAssociationOverview' {detailedStatus} -> detailedStatus) (\s@InstanceAggregatedAssociationOverview' {} a -> s {detailedStatus = a} :: InstanceAggregatedAssociationOverview)
 
 -- | The number of associations for the instance(s).
-iaaoInstanceAssociationStatusAggregatedCount :: Lens' InstanceAggregatedAssociationOverview (HashMap Text Int)
-iaaoInstanceAssociationStatusAggregatedCount = lens _iaaoInstanceAssociationStatusAggregatedCount (\s a -> s {_iaaoInstanceAssociationStatusAggregatedCount = a}) . _Default . _Map
+instanceAggregatedAssociationOverview_instanceAssociationStatusAggregatedCount :: Lens.Lens' InstanceAggregatedAssociationOverview (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Int))
+instanceAggregatedAssociationOverview_instanceAssociationStatusAggregatedCount = Lens.lens (\InstanceAggregatedAssociationOverview' {instanceAssociationStatusAggregatedCount} -> instanceAssociationStatusAggregatedCount) (\s@InstanceAggregatedAssociationOverview' {} a -> s {instanceAssociationStatusAggregatedCount = a} :: InstanceAggregatedAssociationOverview) Prelude.. Lens.mapping Prelude._Map
 
 instance
-  FromJSON
+  Prelude.FromJSON
     InstanceAggregatedAssociationOverview
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceAggregatedAssociationOverview"
       ( \x ->
           InstanceAggregatedAssociationOverview'
-            <$> (x .:? "DetailedStatus")
-            <*> ( x .:? "InstanceAssociationStatusAggregatedCount"
-                    .!= mempty
-                )
+            Prelude.<$> (x Prelude..:? "DetailedStatus")
+            Prelude.<*> ( x
+                            Prelude..:? "InstanceAssociationStatusAggregatedCount"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     InstanceAggregatedAssociationOverview
 
-instance NFData InstanceAggregatedAssociationOverview
+instance
+  Prelude.NFData
+    InstanceAggregatedAssociationOverview

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,188 +19,167 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InstanceAssociationStatusInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.SSM.Types.InstanceAssociationOutputURL
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import Network.AWS.SSM.Types.InstanceAssociationOutputUrl
 
 -- | Status information about the instance association.
 --
---
---
--- /See:/ 'instanceAssociationStatusInfo' smart constructor.
+-- /See:/ 'newInstanceAssociationStatusInfo' smart constructor.
 data InstanceAssociationStatusInfo = InstanceAssociationStatusInfo'
-  { _iasiStatus ::
-      !( Maybe
-           Text
-       ),
-    _iasiInstanceId ::
-      !( Maybe
-           Text
-       ),
-    _iasiDetailedStatus ::
-      !( Maybe
-           Text
-       ),
-    _iasiName ::
-      !( Maybe
-           Text
-       ),
-    _iasiOutputURL ::
-      !( Maybe
-           InstanceAssociationOutputURL
-       ),
-    _iasiAssociationId ::
-      !( Maybe
-           Text
-       ),
-    _iasiAssociationName ::
-      !( Maybe
-           Text
-       ),
-    _iasiExecutionDate ::
-      !( Maybe
-           POSIX
-       ),
-    _iasiExecutionSummary ::
-      !( Maybe
-           Text
-       ),
-    _iasiAssociationVersion ::
-      !( Maybe
-           Text
-       ),
-    _iasiDocumentVersion ::
-      !( Maybe
-           Text
-       ),
-    _iasiErrorCode ::
-      !( Maybe
-           Text
-       )
+  { -- | Status information about the instance association.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The instance ID where the association was created.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | Detailed status information about the instance association.
+    detailedStatus :: Prelude.Maybe Prelude.Text,
+    -- | The name of the association.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A URL for an S3 bucket where you want to store the results of this
+    -- request.
+    outputUrl :: Prelude.Maybe InstanceAssociationOutputUrl,
+    -- | The association ID.
+    associationId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the association applied to the instance.
+    associationName :: Prelude.Maybe Prelude.Text,
+    -- | The date the instance association ran.
+    executionDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Summary information about association execution.
+    executionSummary :: Prelude.Maybe Prelude.Text,
+    -- | The version of the association applied to the instance.
+    associationVersion :: Prelude.Maybe Prelude.Text,
+    -- | The association document versions.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | An error code returned by the request to create the association.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceAssociationStatusInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceAssociationStatusInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iasiStatus' - Status information about the instance association.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iasiInstanceId' - The instance ID where the association was created.
+-- 'status', 'instanceAssociationStatusInfo_status' - Status information about the instance association.
 --
--- * 'iasiDetailedStatus' - Detailed status information about the instance association.
+-- 'instanceId', 'instanceAssociationStatusInfo_instanceId' - The instance ID where the association was created.
 --
--- * 'iasiName' - The name of the association.
+-- 'detailedStatus', 'instanceAssociationStatusInfo_detailedStatus' - Detailed status information about the instance association.
 --
--- * 'iasiOutputURL' - A URL for an S3 bucket where you want to store the results of this request.
+-- 'name', 'instanceAssociationStatusInfo_name' - The name of the association.
 --
--- * 'iasiAssociationId' - The association ID.
+-- 'outputUrl', 'instanceAssociationStatusInfo_outputUrl' - A URL for an S3 bucket where you want to store the results of this
+-- request.
 --
--- * 'iasiAssociationName' - The name of the association applied to the instance.
+-- 'associationId', 'instanceAssociationStatusInfo_associationId' - The association ID.
 --
--- * 'iasiExecutionDate' - The date the instance association ran.
+-- 'associationName', 'instanceAssociationStatusInfo_associationName' - The name of the association applied to the instance.
 --
--- * 'iasiExecutionSummary' - Summary information about association execution.
+-- 'executionDate', 'instanceAssociationStatusInfo_executionDate' - The date the instance association ran.
 --
--- * 'iasiAssociationVersion' - The version of the association applied to the instance.
+-- 'executionSummary', 'instanceAssociationStatusInfo_executionSummary' - Summary information about association execution.
 --
--- * 'iasiDocumentVersion' - The association document versions.
+-- 'associationVersion', 'instanceAssociationStatusInfo_associationVersion' - The version of the association applied to the instance.
 --
--- * 'iasiErrorCode' - An error code returned by the request to create the association.
-instanceAssociationStatusInfo ::
+-- 'documentVersion', 'instanceAssociationStatusInfo_documentVersion' - The association document versions.
+--
+-- 'errorCode', 'instanceAssociationStatusInfo_errorCode' - An error code returned by the request to create the association.
+newInstanceAssociationStatusInfo ::
   InstanceAssociationStatusInfo
-instanceAssociationStatusInfo =
+newInstanceAssociationStatusInfo =
   InstanceAssociationStatusInfo'
-    { _iasiStatus =
-        Nothing,
-      _iasiInstanceId = Nothing,
-      _iasiDetailedStatus = Nothing,
-      _iasiName = Nothing,
-      _iasiOutputURL = Nothing,
-      _iasiAssociationId = Nothing,
-      _iasiAssociationName = Nothing,
-      _iasiExecutionDate = Nothing,
-      _iasiExecutionSummary = Nothing,
-      _iasiAssociationVersion = Nothing,
-      _iasiDocumentVersion = Nothing,
-      _iasiErrorCode = Nothing
+    { status =
+        Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      detailedStatus = Prelude.Nothing,
+      name = Prelude.Nothing,
+      outputUrl = Prelude.Nothing,
+      associationId = Prelude.Nothing,
+      associationName = Prelude.Nothing,
+      executionDate = Prelude.Nothing,
+      executionSummary = Prelude.Nothing,
+      associationVersion = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | Status information about the instance association.
-iasiStatus :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiStatus = lens _iasiStatus (\s a -> s {_iasiStatus = a})
+instanceAssociationStatusInfo_status :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_status = Lens.lens (\InstanceAssociationStatusInfo' {status} -> status) (\s@InstanceAssociationStatusInfo' {} a -> s {status = a} :: InstanceAssociationStatusInfo)
 
 -- | The instance ID where the association was created.
-iasiInstanceId :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiInstanceId = lens _iasiInstanceId (\s a -> s {_iasiInstanceId = a})
+instanceAssociationStatusInfo_instanceId :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_instanceId = Lens.lens (\InstanceAssociationStatusInfo' {instanceId} -> instanceId) (\s@InstanceAssociationStatusInfo' {} a -> s {instanceId = a} :: InstanceAssociationStatusInfo)
 
 -- | Detailed status information about the instance association.
-iasiDetailedStatus :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiDetailedStatus = lens _iasiDetailedStatus (\s a -> s {_iasiDetailedStatus = a})
+instanceAssociationStatusInfo_detailedStatus :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_detailedStatus = Lens.lens (\InstanceAssociationStatusInfo' {detailedStatus} -> detailedStatus) (\s@InstanceAssociationStatusInfo' {} a -> s {detailedStatus = a} :: InstanceAssociationStatusInfo)
 
 -- | The name of the association.
-iasiName :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiName = lens _iasiName (\s a -> s {_iasiName = a})
+instanceAssociationStatusInfo_name :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_name = Lens.lens (\InstanceAssociationStatusInfo' {name} -> name) (\s@InstanceAssociationStatusInfo' {} a -> s {name = a} :: InstanceAssociationStatusInfo)
 
--- | A URL for an S3 bucket where you want to store the results of this request.
-iasiOutputURL :: Lens' InstanceAssociationStatusInfo (Maybe InstanceAssociationOutputURL)
-iasiOutputURL = lens _iasiOutputURL (\s a -> s {_iasiOutputURL = a})
+-- | A URL for an S3 bucket where you want to store the results of this
+-- request.
+instanceAssociationStatusInfo_outputUrl :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe InstanceAssociationOutputUrl)
+instanceAssociationStatusInfo_outputUrl = Lens.lens (\InstanceAssociationStatusInfo' {outputUrl} -> outputUrl) (\s@InstanceAssociationStatusInfo' {} a -> s {outputUrl = a} :: InstanceAssociationStatusInfo)
 
 -- | The association ID.
-iasiAssociationId :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiAssociationId = lens _iasiAssociationId (\s a -> s {_iasiAssociationId = a})
+instanceAssociationStatusInfo_associationId :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_associationId = Lens.lens (\InstanceAssociationStatusInfo' {associationId} -> associationId) (\s@InstanceAssociationStatusInfo' {} a -> s {associationId = a} :: InstanceAssociationStatusInfo)
 
 -- | The name of the association applied to the instance.
-iasiAssociationName :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiAssociationName = lens _iasiAssociationName (\s a -> s {_iasiAssociationName = a})
+instanceAssociationStatusInfo_associationName :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_associationName = Lens.lens (\InstanceAssociationStatusInfo' {associationName} -> associationName) (\s@InstanceAssociationStatusInfo' {} a -> s {associationName = a} :: InstanceAssociationStatusInfo)
 
 -- | The date the instance association ran.
-iasiExecutionDate :: Lens' InstanceAssociationStatusInfo (Maybe UTCTime)
-iasiExecutionDate = lens _iasiExecutionDate (\s a -> s {_iasiExecutionDate = a}) . mapping _Time
+instanceAssociationStatusInfo_executionDate :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.UTCTime)
+instanceAssociationStatusInfo_executionDate = Lens.lens (\InstanceAssociationStatusInfo' {executionDate} -> executionDate) (\s@InstanceAssociationStatusInfo' {} a -> s {executionDate = a} :: InstanceAssociationStatusInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | Summary information about association execution.
-iasiExecutionSummary :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiExecutionSummary = lens _iasiExecutionSummary (\s a -> s {_iasiExecutionSummary = a})
+instanceAssociationStatusInfo_executionSummary :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_executionSummary = Lens.lens (\InstanceAssociationStatusInfo' {executionSummary} -> executionSummary) (\s@InstanceAssociationStatusInfo' {} a -> s {executionSummary = a} :: InstanceAssociationStatusInfo)
 
 -- | The version of the association applied to the instance.
-iasiAssociationVersion :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiAssociationVersion = lens _iasiAssociationVersion (\s a -> s {_iasiAssociationVersion = a})
+instanceAssociationStatusInfo_associationVersion :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_associationVersion = Lens.lens (\InstanceAssociationStatusInfo' {associationVersion} -> associationVersion) (\s@InstanceAssociationStatusInfo' {} a -> s {associationVersion = a} :: InstanceAssociationStatusInfo)
 
 -- | The association document versions.
-iasiDocumentVersion :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiDocumentVersion = lens _iasiDocumentVersion (\s a -> s {_iasiDocumentVersion = a})
+instanceAssociationStatusInfo_documentVersion :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_documentVersion = Lens.lens (\InstanceAssociationStatusInfo' {documentVersion} -> documentVersion) (\s@InstanceAssociationStatusInfo' {} a -> s {documentVersion = a} :: InstanceAssociationStatusInfo)
 
 -- | An error code returned by the request to create the association.
-iasiErrorCode :: Lens' InstanceAssociationStatusInfo (Maybe Text)
-iasiErrorCode = lens _iasiErrorCode (\s a -> s {_iasiErrorCode = a})
+instanceAssociationStatusInfo_errorCode :: Lens.Lens' InstanceAssociationStatusInfo (Prelude.Maybe Prelude.Text)
+instanceAssociationStatusInfo_errorCode = Lens.lens (\InstanceAssociationStatusInfo' {errorCode} -> errorCode) (\s@InstanceAssociationStatusInfo' {} a -> s {errorCode = a} :: InstanceAssociationStatusInfo)
 
-instance FromJSON InstanceAssociationStatusInfo where
+instance
+  Prelude.FromJSON
+    InstanceAssociationStatusInfo
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceAssociationStatusInfo"
       ( \x ->
           InstanceAssociationStatusInfo'
-            <$> (x .:? "Status")
-            <*> (x .:? "InstanceId")
-            <*> (x .:? "DetailedStatus")
-            <*> (x .:? "Name")
-            <*> (x .:? "OutputUrl")
-            <*> (x .:? "AssociationId")
-            <*> (x .:? "AssociationName")
-            <*> (x .:? "ExecutionDate")
-            <*> (x .:? "ExecutionSummary")
-            <*> (x .:? "AssociationVersion")
-            <*> (x .:? "DocumentVersion")
-            <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "InstanceId")
+            Prelude.<*> (x Prelude..:? "DetailedStatus")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "OutputUrl")
+            Prelude.<*> (x Prelude..:? "AssociationId")
+            Prelude.<*> (x Prelude..:? "AssociationName")
+            Prelude.<*> (x Prelude..:? "ExecutionDate")
+            Prelude.<*> (x Prelude..:? "ExecutionSummary")
+            Prelude.<*> (x Prelude..:? "AssociationVersion")
+            Prelude.<*> (x Prelude..:? "DocumentVersion")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable InstanceAssociationStatusInfo
+instance
+  Prelude.Hashable
+    InstanceAssociationStatusInfo
 
-instance NFData InstanceAssociationStatusInfo
+instance Prelude.NFData InstanceAssociationStatusInfo

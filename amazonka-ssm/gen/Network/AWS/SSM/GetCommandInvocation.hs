@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,340 +21,595 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns detailed information about command execution for an invocation or plugin.
+-- Returns detailed information about command execution for an invocation
+-- or plugin.
 module Network.AWS.SSM.GetCommandInvocation
   ( -- * Creating a Request
-    getCommandInvocation,
-    GetCommandInvocation,
+    GetCommandInvocation (..),
+    newGetCommandInvocation,
 
     -- * Request Lenses
-    gciPluginName,
-    gciCommandId,
-    gciInstanceId,
+    getCommandInvocation_pluginName,
+    getCommandInvocation_commandId,
+    getCommandInvocation_instanceId,
 
     -- * Destructuring the Response
-    getCommandInvocationResponse,
-    GetCommandInvocationResponse,
+    GetCommandInvocationResponse (..),
+    newGetCommandInvocationResponse,
 
     -- * Response Lenses
-    gcirrsStandardOutputURL,
-    gcirrsStatus,
-    gcirrsInstanceId,
-    gcirrsStatusDetails,
-    gcirrsPluginName,
-    gcirrsComment,
-    gcirrsExecutionStartDateTime,
-    gcirrsStandardErrorURL,
-    gcirrsDocumentName,
-    gcirrsCommandId,
-    gcirrsStandardErrorContent,
-    gcirrsExecutionEndDateTime,
-    gcirrsResponseCode,
-    gcirrsCloudWatchOutputConfig,
-    gcirrsExecutionElapsedTime,
-    gcirrsDocumentVersion,
-    gcirrsStandardOutputContent,
-    gcirrsResponseStatus,
+    getCommandInvocationResponse_standardOutputUrl,
+    getCommandInvocationResponse_status,
+    getCommandInvocationResponse_instanceId,
+    getCommandInvocationResponse_statusDetails,
+    getCommandInvocationResponse_pluginName,
+    getCommandInvocationResponse_comment,
+    getCommandInvocationResponse_executionStartDateTime,
+    getCommandInvocationResponse_standardErrorUrl,
+    getCommandInvocationResponse_documentName,
+    getCommandInvocationResponse_commandId,
+    getCommandInvocationResponse_standardErrorContent,
+    getCommandInvocationResponse_executionEndDateTime,
+    getCommandInvocationResponse_responseCode,
+    getCommandInvocationResponse_cloudWatchOutputConfig,
+    getCommandInvocationResponse_executionElapsedTime,
+    getCommandInvocationResponse_documentVersion,
+    getCommandInvocationResponse_standardOutputContent,
+    getCommandInvocationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.CloudWatchOutputConfig
+import Network.AWS.SSM.Types.CommandInvocationStatus
 
--- | /See:/ 'getCommandInvocation' smart constructor.
+-- | /See:/ 'newGetCommandInvocation' smart constructor.
 data GetCommandInvocation = GetCommandInvocation'
-  { _gciPluginName ::
-      !(Maybe Text),
-    _gciCommandId :: !Text,
-    _gciInstanceId :: !Text
+  { -- | (Optional) The name of the plugin for which you want detailed results.
+    -- If the document contains only one plugin, the name can be omitted and
+    -- the details will be returned.
+    --
+    -- Plugin names are also referred to as step names in Systems Manager
+    -- documents.
+    pluginName :: Prelude.Maybe Prelude.Text,
+    -- | (Required) The parent command ID of the invocation plugin.
+    commandId :: Prelude.Text,
+    -- | (Required) The ID of the managed instance targeted by the command. A
+    -- managed instance can be an EC2 instance or an instance in your hybrid
+    -- environment that is configured for Systems Manager.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCommandInvocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCommandInvocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gciPluginName' - (Optional) The name of the plugin for which you want detailed results. If the document contains only one plugin, the name can be omitted and the details will be returned. Plugin names are also referred to as step names in Systems Manager documents.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gciCommandId' - (Required) The parent command ID of the invocation plugin.
+-- 'pluginName', 'getCommandInvocation_pluginName' - (Optional) The name of the plugin for which you want detailed results.
+-- If the document contains only one plugin, the name can be omitted and
+-- the details will be returned.
 --
--- * 'gciInstanceId' - (Required) The ID of the managed instance targeted by the command. A managed instance can be an EC2 instance or an instance in your hybrid environment that is configured for Systems Manager.
-getCommandInvocation ::
-  -- | 'gciCommandId'
-  Text ->
-  -- | 'gciInstanceId'
-  Text ->
+-- Plugin names are also referred to as step names in Systems Manager
+-- documents.
+--
+-- 'commandId', 'getCommandInvocation_commandId' - (Required) The parent command ID of the invocation plugin.
+--
+-- 'instanceId', 'getCommandInvocation_instanceId' - (Required) The ID of the managed instance targeted by the command. A
+-- managed instance can be an EC2 instance or an instance in your hybrid
+-- environment that is configured for Systems Manager.
+newGetCommandInvocation ::
+  -- | 'commandId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   GetCommandInvocation
-getCommandInvocation pCommandId_ pInstanceId_ =
+newGetCommandInvocation pCommandId_ pInstanceId_ =
   GetCommandInvocation'
-    { _gciPluginName = Nothing,
-      _gciCommandId = pCommandId_,
-      _gciInstanceId = pInstanceId_
+    { pluginName = Prelude.Nothing,
+      commandId = pCommandId_,
+      instanceId = pInstanceId_
     }
 
--- | (Optional) The name of the plugin for which you want detailed results. If the document contains only one plugin, the name can be omitted and the details will be returned. Plugin names are also referred to as step names in Systems Manager documents.
-gciPluginName :: Lens' GetCommandInvocation (Maybe Text)
-gciPluginName = lens _gciPluginName (\s a -> s {_gciPluginName = a})
+-- | (Optional) The name of the plugin for which you want detailed results.
+-- If the document contains only one plugin, the name can be omitted and
+-- the details will be returned.
+--
+-- Plugin names are also referred to as step names in Systems Manager
+-- documents.
+getCommandInvocation_pluginName :: Lens.Lens' GetCommandInvocation (Prelude.Maybe Prelude.Text)
+getCommandInvocation_pluginName = Lens.lens (\GetCommandInvocation' {pluginName} -> pluginName) (\s@GetCommandInvocation' {} a -> s {pluginName = a} :: GetCommandInvocation)
 
 -- | (Required) The parent command ID of the invocation plugin.
-gciCommandId :: Lens' GetCommandInvocation Text
-gciCommandId = lens _gciCommandId (\s a -> s {_gciCommandId = a})
+getCommandInvocation_commandId :: Lens.Lens' GetCommandInvocation Prelude.Text
+getCommandInvocation_commandId = Lens.lens (\GetCommandInvocation' {commandId} -> commandId) (\s@GetCommandInvocation' {} a -> s {commandId = a} :: GetCommandInvocation)
 
--- | (Required) The ID of the managed instance targeted by the command. A managed instance can be an EC2 instance or an instance in your hybrid environment that is configured for Systems Manager.
-gciInstanceId :: Lens' GetCommandInvocation Text
-gciInstanceId = lens _gciInstanceId (\s a -> s {_gciInstanceId = a})
+-- | (Required) The ID of the managed instance targeted by the command. A
+-- managed instance can be an EC2 instance or an instance in your hybrid
+-- environment that is configured for Systems Manager.
+getCommandInvocation_instanceId :: Lens.Lens' GetCommandInvocation Prelude.Text
+getCommandInvocation_instanceId = Lens.lens (\GetCommandInvocation' {instanceId} -> instanceId) (\s@GetCommandInvocation' {} a -> s {instanceId = a} :: GetCommandInvocation)
 
-instance AWSRequest GetCommandInvocation where
+instance Prelude.AWSRequest GetCommandInvocation where
   type
     Rs GetCommandInvocation =
       GetCommandInvocationResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCommandInvocationResponse'
-            <$> (x .?> "StandardOutputUrl")
-            <*> (x .?> "Status")
-            <*> (x .?> "InstanceId")
-            <*> (x .?> "StatusDetails")
-            <*> (x .?> "PluginName")
-            <*> (x .?> "Comment")
-            <*> (x .?> "ExecutionStartDateTime")
-            <*> (x .?> "StandardErrorUrl")
-            <*> (x .?> "DocumentName")
-            <*> (x .?> "CommandId")
-            <*> (x .?> "StandardErrorContent")
-            <*> (x .?> "ExecutionEndDateTime")
-            <*> (x .?> "ResponseCode")
-            <*> (x .?> "CloudWatchOutputConfig")
-            <*> (x .?> "ExecutionElapsedTime")
-            <*> (x .?> "DocumentVersion")
-            <*> (x .?> "StandardOutputContent")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "StandardOutputUrl")
+            Prelude.<*> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "InstanceId")
+            Prelude.<*> (x Prelude..?> "StatusDetails")
+            Prelude.<*> (x Prelude..?> "PluginName")
+            Prelude.<*> (x Prelude..?> "Comment")
+            Prelude.<*> (x Prelude..?> "ExecutionStartDateTime")
+            Prelude.<*> (x Prelude..?> "StandardErrorUrl")
+            Prelude.<*> (x Prelude..?> "DocumentName")
+            Prelude.<*> (x Prelude..?> "CommandId")
+            Prelude.<*> (x Prelude..?> "StandardErrorContent")
+            Prelude.<*> (x Prelude..?> "ExecutionEndDateTime")
+            Prelude.<*> (x Prelude..?> "ResponseCode")
+            Prelude.<*> (x Prelude..?> "CloudWatchOutputConfig")
+            Prelude.<*> (x Prelude..?> "ExecutionElapsedTime")
+            Prelude.<*> (x Prelude..?> "DocumentVersion")
+            Prelude.<*> (x Prelude..?> "StandardOutputContent")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCommandInvocation
+instance Prelude.Hashable GetCommandInvocation
 
-instance NFData GetCommandInvocation
+instance Prelude.NFData GetCommandInvocation
 
-instance ToHeaders GetCommandInvocation where
+instance Prelude.ToHeaders GetCommandInvocation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.GetCommandInvocation" :: ByteString),
+              Prelude.=# ( "AmazonSSM.GetCommandInvocation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCommandInvocation where
+instance Prelude.ToJSON GetCommandInvocation where
   toJSON GetCommandInvocation' {..} =
-    object
-      ( catMaybes
-          [ ("PluginName" .=) <$> _gciPluginName,
-            Just ("CommandId" .= _gciCommandId),
-            Just ("InstanceId" .= _gciInstanceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PluginName" Prelude..=) Prelude.<$> pluginName,
+            Prelude.Just ("CommandId" Prelude..= commandId),
+            Prelude.Just ("InstanceId" Prelude..= instanceId)
           ]
       )
 
-instance ToPath GetCommandInvocation where
-  toPath = const "/"
+instance Prelude.ToPath GetCommandInvocation where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCommandInvocation where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCommandInvocation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCommandInvocationResponse' smart constructor.
+-- | /See:/ 'newGetCommandInvocationResponse' smart constructor.
 data GetCommandInvocationResponse = GetCommandInvocationResponse'
-  { _gcirrsStandardOutputURL ::
-      !(Maybe Text),
-    _gcirrsStatus ::
-      !( Maybe
-           CommandInvocationStatus
-       ),
-    _gcirrsInstanceId ::
-      !(Maybe Text),
-    _gcirrsStatusDetails ::
-      !(Maybe Text),
-    _gcirrsPluginName ::
-      !(Maybe Text),
-    _gcirrsComment ::
-      !(Maybe Text),
-    _gcirrsExecutionStartDateTime ::
-      !(Maybe Text),
-    _gcirrsStandardErrorURL ::
-      !(Maybe Text),
-    _gcirrsDocumentName ::
-      !(Maybe Text),
-    _gcirrsCommandId ::
-      !(Maybe Text),
-    _gcirrsStandardErrorContent ::
-      !(Maybe Text),
-    _gcirrsExecutionEndDateTime ::
-      !(Maybe Text),
-    _gcirrsResponseCode ::
-      !(Maybe Int),
-    _gcirrsCloudWatchOutputConfig ::
-      !( Maybe
-           CloudWatchOutputConfig
-       ),
-    _gcirrsExecutionElapsedTime ::
-      !(Maybe Text),
-    _gcirrsDocumentVersion ::
-      !(Maybe Text),
-    _gcirrsStandardOutputContent ::
-      !(Maybe Text),
-    _gcirrsResponseStatus ::
-      !Int
+  { -- | The URL for the complete text written by the plugin to stdout in Amazon
+    -- S3. If an S3 bucket was not specified, then this string is empty.
+    standardOutputUrl :: Prelude.Maybe Prelude.Text,
+    -- | The status of this invocation plugin. This status can be different than
+    -- StatusDetails.
+    status :: Prelude.Maybe CommandInvocationStatus,
+    -- | The ID of the managed instance targeted by the command. A managed
+    -- instance can be an EC2 instance or an instance in your hybrid
+    -- environment that is configured for Systems Manager.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | A detailed status of the command execution for an invocation.
+    -- StatusDetails includes more information than Status because it includes
+    -- states resulting from error and concurrency control parameters.
+    -- StatusDetails can show different results than Status. For more
+    -- information about these statuses, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses>
+    -- in the /AWS Systems Manager User Guide/. StatusDetails can be one of the
+    -- following values:
+    --
+    -- -   Pending: The command has not been sent to the instance.
+    --
+    -- -   In Progress: The command has been sent to the instance but has not
+    --     reached a terminal state.
+    --
+    -- -   Delayed: The system attempted to send the command to the target, but
+    --     the target was not available. The instance might not be available
+    --     because of network issues, because the instance was stopped, or for
+    --     similar reasons. The system will try to send the command again.
+    --
+    -- -   Success: The command or plugin ran successfully. This is a terminal
+    --     state.
+    --
+    -- -   Delivery Timed Out: The command was not delivered to the instance
+    --     before the delivery timeout expired. Delivery timeouts do not count
+    --     against the parent command\'s MaxErrors limit, but they do
+    --     contribute to whether the parent command status is Success or
+    --     Incomplete. This is a terminal state.
+    --
+    -- -   Execution Timed Out: The command started to run on the instance, but
+    --     the execution was not complete before the timeout expired. Execution
+    --     timeouts count against the MaxErrors limit of the parent command.
+    --     This is a terminal state.
+    --
+    -- -   Failed: The command wasn\'t run successfully on the instance. For a
+    --     plugin, this indicates that the result code was not zero. For a
+    --     command invocation, this indicates that the result code for one or
+    --     more plugins was not zero. Invocation failures count against the
+    --     MaxErrors limit of the parent command. This is a terminal state.
+    --
+    -- -   Canceled: The command was terminated before it was completed. This
+    --     is a terminal state.
+    --
+    -- -   Undeliverable: The command can\'t be delivered to the instance. The
+    --     instance might not exist or might not be responding. Undeliverable
+    --     invocations don\'t count against the parent command\'s MaxErrors
+    --     limit and don\'t contribute to whether the parent command status is
+    --     Success or Incomplete. This is a terminal state.
+    --
+    -- -   Terminated: The parent command exceeded its MaxErrors limit and
+    --     subsequent command invocations were canceled by the system. This is
+    --     a terminal state.
+    statusDetails :: Prelude.Maybe Prelude.Text,
+    -- | The name of the plugin for which you want detailed results. For example,
+    -- aws:RunShellScript is a plugin.
+    pluginName :: Prelude.Maybe Prelude.Text,
+    -- | The comment text for the command.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the plugin started running. Date and time are written
+    -- in ISO 8601 format. For example, June 7, 2017 is represented as
+    -- 2017-06-7. The following sample AWS CLI command uses the @InvokedBefore@
+    -- filter.
+    --
+    -- @aws ssm list-commands --filters key=InvokedBefore,value=2017-06-07T00:00:00Z@
+    --
+    -- If the plugin has not started to run, the string is empty.
+    executionStartDateTime :: Prelude.Maybe Prelude.Text,
+    -- | The URL for the complete text written by the plugin to stderr. If the
+    -- command has not finished running, then this string is empty.
+    standardErrorUrl :: Prelude.Maybe Prelude.Text,
+    -- | The name of the document that was run. For example, AWS-RunShellScript.
+    documentName :: Prelude.Maybe Prelude.Text,
+    -- | The parent command ID of the invocation plugin.
+    commandId :: Prelude.Maybe Prelude.Text,
+    -- | The first 8,000 characters written by the plugin to stderr. If the
+    -- command has not finished running, then this string is empty.
+    standardErrorContent :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the plugin was finished running. Date and time are
+    -- written in ISO 8601 format. For example, June 7, 2017 is represented as
+    -- 2017-06-7. The following sample AWS CLI command uses the @InvokedAfter@
+    -- filter.
+    --
+    -- @aws ssm list-commands --filters key=InvokedAfter,value=2017-06-07T00:00:00Z@
+    --
+    -- If the plugin has not started to run, the string is empty.
+    executionEndDateTime :: Prelude.Maybe Prelude.Text,
+    -- | The error level response code for the plugin script. If the response
+    -- code is -1, then the command has not started running on the instance, or
+    -- it was not received by the instance.
+    responseCode :: Prelude.Maybe Prelude.Int,
+    -- | CloudWatch Logs information where Systems Manager sent the command
+    -- output.
+    cloudWatchOutputConfig :: Prelude.Maybe CloudWatchOutputConfig,
+    -- | Duration since ExecutionStartDateTime.
+    executionElapsedTime :: Prelude.Maybe Prelude.Text,
+    -- | The SSM document version used in the request.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The first 24,000 characters written by the plugin to stdout. If the
+    -- command has not finished running, if ExecutionStatus is neither
+    -- Succeeded nor Failed, then this string is empty.
+    standardOutputContent :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCommandInvocationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCommandInvocationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcirrsStandardOutputURL' - The URL for the complete text written by the plugin to stdout in Amazon S3. If an S3 bucket was not specified, then this string is empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcirrsStatus' - The status of this invocation plugin. This status can be different than StatusDetails.
+-- 'standardOutputUrl', 'getCommandInvocationResponse_standardOutputUrl' - The URL for the complete text written by the plugin to stdout in Amazon
+-- S3. If an S3 bucket was not specified, then this string is empty.
 --
--- * 'gcirrsInstanceId' - The ID of the managed instance targeted by the command. A managed instance can be an EC2 instance or an instance in your hybrid environment that is configured for Systems Manager.
+-- 'status', 'getCommandInvocationResponse_status' - The status of this invocation plugin. This status can be different than
+-- StatusDetails.
 --
--- * 'gcirrsStatusDetails' - A detailed status of the command execution for an invocation. StatusDetails includes more information than Status because it includes states resulting from error and concurrency control parameters. StatusDetails can show different results than Status. For more information about these statuses, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses> in the /AWS Systems Manager User Guide/ . StatusDetails can be one of the following values:     * Pending: The command has not been sent to the instance.     * In Progress: The command has been sent to the instance but has not reached a terminal state.     * Delayed: The system attempted to send the command to the target, but the target was not available. The instance might not be available because of network issues, because the instance was stopped, or for similar reasons. The system will try to send the command again.     * Success: The command or plugin ran successfully. This is a terminal state.     * Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent command status is Success or Incomplete. This is a terminal state.     * Execution Timed Out: The command started to run on the instance, but the execution was not complete before the timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a terminal state.     * Failed: The command wasn't run successfully on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.     * Canceled: The command was terminated before it was completed. This is a terminal state.     * Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't contribute to whether the parent command status is Success or Incomplete. This is a terminal state.     * Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were canceled by the system. This is a terminal state.
+-- 'instanceId', 'getCommandInvocationResponse_instanceId' - The ID of the managed instance targeted by the command. A managed
+-- instance can be an EC2 instance or an instance in your hybrid
+-- environment that is configured for Systems Manager.
 --
--- * 'gcirrsPluginName' - The name of the plugin for which you want detailed results. For example, aws:RunShellScript is a plugin.
+-- 'statusDetails', 'getCommandInvocationResponse_statusDetails' - A detailed status of the command execution for an invocation.
+-- StatusDetails includes more information than Status because it includes
+-- states resulting from error and concurrency control parameters.
+-- StatusDetails can show different results than Status. For more
+-- information about these statuses, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses>
+-- in the /AWS Systems Manager User Guide/. StatusDetails can be one of the
+-- following values:
 --
--- * 'gcirrsComment' - The comment text for the command.
+-- -   Pending: The command has not been sent to the instance.
 --
--- * 'gcirrsExecutionStartDateTime' - The date and time the plugin started running. Date and time are written in ISO 8601 format. For example, June 7, 2017 is represented as 2017-06-7. The following sample AWS CLI command uses the @InvokedBefore@ filter. @aws ssm list-commands --filters key=InvokedBefore,value=2017-06-07T00:00:00Z@  If the plugin has not started to run, the string is empty.
+-- -   In Progress: The command has been sent to the instance but has not
+--     reached a terminal state.
 --
--- * 'gcirrsStandardErrorURL' - The URL for the complete text written by the plugin to stderr. If the command has not finished running, then this string is empty.
+-- -   Delayed: The system attempted to send the command to the target, but
+--     the target was not available. The instance might not be available
+--     because of network issues, because the instance was stopped, or for
+--     similar reasons. The system will try to send the command again.
 --
--- * 'gcirrsDocumentName' - The name of the document that was run. For example, AWS-RunShellScript.
+-- -   Success: The command or plugin ran successfully. This is a terminal
+--     state.
 --
--- * 'gcirrsCommandId' - The parent command ID of the invocation plugin.
+-- -   Delivery Timed Out: The command was not delivered to the instance
+--     before the delivery timeout expired. Delivery timeouts do not count
+--     against the parent command\'s MaxErrors limit, but they do
+--     contribute to whether the parent command status is Success or
+--     Incomplete. This is a terminal state.
 --
--- * 'gcirrsStandardErrorContent' - The first 8,000 characters written by the plugin to stderr. If the command has not finished running, then this string is empty.
+-- -   Execution Timed Out: The command started to run on the instance, but
+--     the execution was not complete before the timeout expired. Execution
+--     timeouts count against the MaxErrors limit of the parent command.
+--     This is a terminal state.
 --
--- * 'gcirrsExecutionEndDateTime' - The date and time the plugin was finished running. Date and time are written in ISO 8601 format. For example, June 7, 2017 is represented as 2017-06-7. The following sample AWS CLI command uses the @InvokedAfter@ filter. @aws ssm list-commands --filters key=InvokedAfter,value=2017-06-07T00:00:00Z@  If the plugin has not started to run, the string is empty.
+-- -   Failed: The command wasn\'t run successfully on the instance. For a
+--     plugin, this indicates that the result code was not zero. For a
+--     command invocation, this indicates that the result code for one or
+--     more plugins was not zero. Invocation failures count against the
+--     MaxErrors limit of the parent command. This is a terminal state.
 --
--- * 'gcirrsResponseCode' - The error level response code for the plugin script. If the response code is -1, then the command has not started running on the instance, or it was not received by the instance.
+-- -   Canceled: The command was terminated before it was completed. This
+--     is a terminal state.
 --
--- * 'gcirrsCloudWatchOutputConfig' - CloudWatch Logs information where Systems Manager sent the command output.
+-- -   Undeliverable: The command can\'t be delivered to the instance. The
+--     instance might not exist or might not be responding. Undeliverable
+--     invocations don\'t count against the parent command\'s MaxErrors
+--     limit and don\'t contribute to whether the parent command status is
+--     Success or Incomplete. This is a terminal state.
 --
--- * 'gcirrsExecutionElapsedTime' - Duration since ExecutionStartDateTime.
+-- -   Terminated: The parent command exceeded its MaxErrors limit and
+--     subsequent command invocations were canceled by the system. This is
+--     a terminal state.
 --
--- * 'gcirrsDocumentVersion' - The SSM document version used in the request.
+-- 'pluginName', 'getCommandInvocationResponse_pluginName' - The name of the plugin for which you want detailed results. For example,
+-- aws:RunShellScript is a plugin.
 --
--- * 'gcirrsStandardOutputContent' - The first 24,000 characters written by the plugin to stdout. If the command has not finished running, if ExecutionStatus is neither Succeeded nor Failed, then this string is empty.
+-- 'comment', 'getCommandInvocationResponse_comment' - The comment text for the command.
 --
--- * 'gcirrsResponseStatus' - -- | The response status code.
-getCommandInvocationResponse ::
-  -- | 'gcirrsResponseStatus'
-  Int ->
+-- 'executionStartDateTime', 'getCommandInvocationResponse_executionStartDateTime' - The date and time the plugin started running. Date and time are written
+-- in ISO 8601 format. For example, June 7, 2017 is represented as
+-- 2017-06-7. The following sample AWS CLI command uses the @InvokedBefore@
+-- filter.
+--
+-- @aws ssm list-commands --filters key=InvokedBefore,value=2017-06-07T00:00:00Z@
+--
+-- If the plugin has not started to run, the string is empty.
+--
+-- 'standardErrorUrl', 'getCommandInvocationResponse_standardErrorUrl' - The URL for the complete text written by the plugin to stderr. If the
+-- command has not finished running, then this string is empty.
+--
+-- 'documentName', 'getCommandInvocationResponse_documentName' - The name of the document that was run. For example, AWS-RunShellScript.
+--
+-- 'commandId', 'getCommandInvocationResponse_commandId' - The parent command ID of the invocation plugin.
+--
+-- 'standardErrorContent', 'getCommandInvocationResponse_standardErrorContent' - The first 8,000 characters written by the plugin to stderr. If the
+-- command has not finished running, then this string is empty.
+--
+-- 'executionEndDateTime', 'getCommandInvocationResponse_executionEndDateTime' - The date and time the plugin was finished running. Date and time are
+-- written in ISO 8601 format. For example, June 7, 2017 is represented as
+-- 2017-06-7. The following sample AWS CLI command uses the @InvokedAfter@
+-- filter.
+--
+-- @aws ssm list-commands --filters key=InvokedAfter,value=2017-06-07T00:00:00Z@
+--
+-- If the plugin has not started to run, the string is empty.
+--
+-- 'responseCode', 'getCommandInvocationResponse_responseCode' - The error level response code for the plugin script. If the response
+-- code is -1, then the command has not started running on the instance, or
+-- it was not received by the instance.
+--
+-- 'cloudWatchOutputConfig', 'getCommandInvocationResponse_cloudWatchOutputConfig' - CloudWatch Logs information where Systems Manager sent the command
+-- output.
+--
+-- 'executionElapsedTime', 'getCommandInvocationResponse_executionElapsedTime' - Duration since ExecutionStartDateTime.
+--
+-- 'documentVersion', 'getCommandInvocationResponse_documentVersion' - The SSM document version used in the request.
+--
+-- 'standardOutputContent', 'getCommandInvocationResponse_standardOutputContent' - The first 24,000 characters written by the plugin to stdout. If the
+-- command has not finished running, if ExecutionStatus is neither
+-- Succeeded nor Failed, then this string is empty.
+--
+-- 'httpStatus', 'getCommandInvocationResponse_httpStatus' - The response's http status code.
+newGetCommandInvocationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCommandInvocationResponse
-getCommandInvocationResponse pResponseStatus_ =
+newGetCommandInvocationResponse pHttpStatus_ =
   GetCommandInvocationResponse'
-    { _gcirrsStandardOutputURL =
-        Nothing,
-      _gcirrsStatus = Nothing,
-      _gcirrsInstanceId = Nothing,
-      _gcirrsStatusDetails = Nothing,
-      _gcirrsPluginName = Nothing,
-      _gcirrsComment = Nothing,
-      _gcirrsExecutionStartDateTime = Nothing,
-      _gcirrsStandardErrorURL = Nothing,
-      _gcirrsDocumentName = Nothing,
-      _gcirrsCommandId = Nothing,
-      _gcirrsStandardErrorContent = Nothing,
-      _gcirrsExecutionEndDateTime = Nothing,
-      _gcirrsResponseCode = Nothing,
-      _gcirrsCloudWatchOutputConfig = Nothing,
-      _gcirrsExecutionElapsedTime = Nothing,
-      _gcirrsDocumentVersion = Nothing,
-      _gcirrsStandardOutputContent = Nothing,
-      _gcirrsResponseStatus = pResponseStatus_
+    { standardOutputUrl =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      statusDetails = Prelude.Nothing,
+      pluginName = Prelude.Nothing,
+      comment = Prelude.Nothing,
+      executionStartDateTime = Prelude.Nothing,
+      standardErrorUrl = Prelude.Nothing,
+      documentName = Prelude.Nothing,
+      commandId = Prelude.Nothing,
+      standardErrorContent = Prelude.Nothing,
+      executionEndDateTime = Prelude.Nothing,
+      responseCode = Prelude.Nothing,
+      cloudWatchOutputConfig = Prelude.Nothing,
+      executionElapsedTime = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      standardOutputContent = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The URL for the complete text written by the plugin to stdout in Amazon S3. If an S3 bucket was not specified, then this string is empty.
-gcirrsStandardOutputURL :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsStandardOutputURL = lens _gcirrsStandardOutputURL (\s a -> s {_gcirrsStandardOutputURL = a})
+-- | The URL for the complete text written by the plugin to stdout in Amazon
+-- S3. If an S3 bucket was not specified, then this string is empty.
+getCommandInvocationResponse_standardOutputUrl :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_standardOutputUrl = Lens.lens (\GetCommandInvocationResponse' {standardOutputUrl} -> standardOutputUrl) (\s@GetCommandInvocationResponse' {} a -> s {standardOutputUrl = a} :: GetCommandInvocationResponse)
 
--- | The status of this invocation plugin. This status can be different than StatusDetails.
-gcirrsStatus :: Lens' GetCommandInvocationResponse (Maybe CommandInvocationStatus)
-gcirrsStatus = lens _gcirrsStatus (\s a -> s {_gcirrsStatus = a})
+-- | The status of this invocation plugin. This status can be different than
+-- StatusDetails.
+getCommandInvocationResponse_status :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe CommandInvocationStatus)
+getCommandInvocationResponse_status = Lens.lens (\GetCommandInvocationResponse' {status} -> status) (\s@GetCommandInvocationResponse' {} a -> s {status = a} :: GetCommandInvocationResponse)
 
--- | The ID of the managed instance targeted by the command. A managed instance can be an EC2 instance or an instance in your hybrid environment that is configured for Systems Manager.
-gcirrsInstanceId :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsInstanceId = lens _gcirrsInstanceId (\s a -> s {_gcirrsInstanceId = a})
+-- | The ID of the managed instance targeted by the command. A managed
+-- instance can be an EC2 instance or an instance in your hybrid
+-- environment that is configured for Systems Manager.
+getCommandInvocationResponse_instanceId :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_instanceId = Lens.lens (\GetCommandInvocationResponse' {instanceId} -> instanceId) (\s@GetCommandInvocationResponse' {} a -> s {instanceId = a} :: GetCommandInvocationResponse)
 
--- | A detailed status of the command execution for an invocation. StatusDetails includes more information than Status because it includes states resulting from error and concurrency control parameters. StatusDetails can show different results than Status. For more information about these statuses, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses> in the /AWS Systems Manager User Guide/ . StatusDetails can be one of the following values:     * Pending: The command has not been sent to the instance.     * In Progress: The command has been sent to the instance but has not reached a terminal state.     * Delayed: The system attempted to send the command to the target, but the target was not available. The instance might not be available because of network issues, because the instance was stopped, or for similar reasons. The system will try to send the command again.     * Success: The command or plugin ran successfully. This is a terminal state.     * Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent command status is Success or Incomplete. This is a terminal state.     * Execution Timed Out: The command started to run on the instance, but the execution was not complete before the timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a terminal state.     * Failed: The command wasn't run successfully on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.     * Canceled: The command was terminated before it was completed. This is a terminal state.     * Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't contribute to whether the parent command status is Success or Incomplete. This is a terminal state.     * Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were canceled by the system. This is a terminal state.
-gcirrsStatusDetails :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsStatusDetails = lens _gcirrsStatusDetails (\s a -> s {_gcirrsStatusDetails = a})
+-- | A detailed status of the command execution for an invocation.
+-- StatusDetails includes more information than Status because it includes
+-- states resulting from error and concurrency control parameters.
+-- StatusDetails can show different results than Status. For more
+-- information about these statuses, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html Understanding command statuses>
+-- in the /AWS Systems Manager User Guide/. StatusDetails can be one of the
+-- following values:
+--
+-- -   Pending: The command has not been sent to the instance.
+--
+-- -   In Progress: The command has been sent to the instance but has not
+--     reached a terminal state.
+--
+-- -   Delayed: The system attempted to send the command to the target, but
+--     the target was not available. The instance might not be available
+--     because of network issues, because the instance was stopped, or for
+--     similar reasons. The system will try to send the command again.
+--
+-- -   Success: The command or plugin ran successfully. This is a terminal
+--     state.
+--
+-- -   Delivery Timed Out: The command was not delivered to the instance
+--     before the delivery timeout expired. Delivery timeouts do not count
+--     against the parent command\'s MaxErrors limit, but they do
+--     contribute to whether the parent command status is Success or
+--     Incomplete. This is a terminal state.
+--
+-- -   Execution Timed Out: The command started to run on the instance, but
+--     the execution was not complete before the timeout expired. Execution
+--     timeouts count against the MaxErrors limit of the parent command.
+--     This is a terminal state.
+--
+-- -   Failed: The command wasn\'t run successfully on the instance. For a
+--     plugin, this indicates that the result code was not zero. For a
+--     command invocation, this indicates that the result code for one or
+--     more plugins was not zero. Invocation failures count against the
+--     MaxErrors limit of the parent command. This is a terminal state.
+--
+-- -   Canceled: The command was terminated before it was completed. This
+--     is a terminal state.
+--
+-- -   Undeliverable: The command can\'t be delivered to the instance. The
+--     instance might not exist or might not be responding. Undeliverable
+--     invocations don\'t count against the parent command\'s MaxErrors
+--     limit and don\'t contribute to whether the parent command status is
+--     Success or Incomplete. This is a terminal state.
+--
+-- -   Terminated: The parent command exceeded its MaxErrors limit and
+--     subsequent command invocations were canceled by the system. This is
+--     a terminal state.
+getCommandInvocationResponse_statusDetails :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_statusDetails = Lens.lens (\GetCommandInvocationResponse' {statusDetails} -> statusDetails) (\s@GetCommandInvocationResponse' {} a -> s {statusDetails = a} :: GetCommandInvocationResponse)
 
--- | The name of the plugin for which you want detailed results. For example, aws:RunShellScript is a plugin.
-gcirrsPluginName :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsPluginName = lens _gcirrsPluginName (\s a -> s {_gcirrsPluginName = a})
+-- | The name of the plugin for which you want detailed results. For example,
+-- aws:RunShellScript is a plugin.
+getCommandInvocationResponse_pluginName :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_pluginName = Lens.lens (\GetCommandInvocationResponse' {pluginName} -> pluginName) (\s@GetCommandInvocationResponse' {} a -> s {pluginName = a} :: GetCommandInvocationResponse)
 
 -- | The comment text for the command.
-gcirrsComment :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsComment = lens _gcirrsComment (\s a -> s {_gcirrsComment = a})
+getCommandInvocationResponse_comment :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_comment = Lens.lens (\GetCommandInvocationResponse' {comment} -> comment) (\s@GetCommandInvocationResponse' {} a -> s {comment = a} :: GetCommandInvocationResponse)
 
--- | The date and time the plugin started running. Date and time are written in ISO 8601 format. For example, June 7, 2017 is represented as 2017-06-7. The following sample AWS CLI command uses the @InvokedBefore@ filter. @aws ssm list-commands --filters key=InvokedBefore,value=2017-06-07T00:00:00Z@  If the plugin has not started to run, the string is empty.
-gcirrsExecutionStartDateTime :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsExecutionStartDateTime = lens _gcirrsExecutionStartDateTime (\s a -> s {_gcirrsExecutionStartDateTime = a})
+-- | The date and time the plugin started running. Date and time are written
+-- in ISO 8601 format. For example, June 7, 2017 is represented as
+-- 2017-06-7. The following sample AWS CLI command uses the @InvokedBefore@
+-- filter.
+--
+-- @aws ssm list-commands --filters key=InvokedBefore,value=2017-06-07T00:00:00Z@
+--
+-- If the plugin has not started to run, the string is empty.
+getCommandInvocationResponse_executionStartDateTime :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_executionStartDateTime = Lens.lens (\GetCommandInvocationResponse' {executionStartDateTime} -> executionStartDateTime) (\s@GetCommandInvocationResponse' {} a -> s {executionStartDateTime = a} :: GetCommandInvocationResponse)
 
--- | The URL for the complete text written by the plugin to stderr. If the command has not finished running, then this string is empty.
-gcirrsStandardErrorURL :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsStandardErrorURL = lens _gcirrsStandardErrorURL (\s a -> s {_gcirrsStandardErrorURL = a})
+-- | The URL for the complete text written by the plugin to stderr. If the
+-- command has not finished running, then this string is empty.
+getCommandInvocationResponse_standardErrorUrl :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_standardErrorUrl = Lens.lens (\GetCommandInvocationResponse' {standardErrorUrl} -> standardErrorUrl) (\s@GetCommandInvocationResponse' {} a -> s {standardErrorUrl = a} :: GetCommandInvocationResponse)
 
 -- | The name of the document that was run. For example, AWS-RunShellScript.
-gcirrsDocumentName :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsDocumentName = lens _gcirrsDocumentName (\s a -> s {_gcirrsDocumentName = a})
+getCommandInvocationResponse_documentName :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_documentName = Lens.lens (\GetCommandInvocationResponse' {documentName} -> documentName) (\s@GetCommandInvocationResponse' {} a -> s {documentName = a} :: GetCommandInvocationResponse)
 
 -- | The parent command ID of the invocation plugin.
-gcirrsCommandId :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsCommandId = lens _gcirrsCommandId (\s a -> s {_gcirrsCommandId = a})
+getCommandInvocationResponse_commandId :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_commandId = Lens.lens (\GetCommandInvocationResponse' {commandId} -> commandId) (\s@GetCommandInvocationResponse' {} a -> s {commandId = a} :: GetCommandInvocationResponse)
 
--- | The first 8,000 characters written by the plugin to stderr. If the command has not finished running, then this string is empty.
-gcirrsStandardErrorContent :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsStandardErrorContent = lens _gcirrsStandardErrorContent (\s a -> s {_gcirrsStandardErrorContent = a})
+-- | The first 8,000 characters written by the plugin to stderr. If the
+-- command has not finished running, then this string is empty.
+getCommandInvocationResponse_standardErrorContent :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_standardErrorContent = Lens.lens (\GetCommandInvocationResponse' {standardErrorContent} -> standardErrorContent) (\s@GetCommandInvocationResponse' {} a -> s {standardErrorContent = a} :: GetCommandInvocationResponse)
 
--- | The date and time the plugin was finished running. Date and time are written in ISO 8601 format. For example, June 7, 2017 is represented as 2017-06-7. The following sample AWS CLI command uses the @InvokedAfter@ filter. @aws ssm list-commands --filters key=InvokedAfter,value=2017-06-07T00:00:00Z@  If the plugin has not started to run, the string is empty.
-gcirrsExecutionEndDateTime :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsExecutionEndDateTime = lens _gcirrsExecutionEndDateTime (\s a -> s {_gcirrsExecutionEndDateTime = a})
+-- | The date and time the plugin was finished running. Date and time are
+-- written in ISO 8601 format. For example, June 7, 2017 is represented as
+-- 2017-06-7. The following sample AWS CLI command uses the @InvokedAfter@
+-- filter.
+--
+-- @aws ssm list-commands --filters key=InvokedAfter,value=2017-06-07T00:00:00Z@
+--
+-- If the plugin has not started to run, the string is empty.
+getCommandInvocationResponse_executionEndDateTime :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_executionEndDateTime = Lens.lens (\GetCommandInvocationResponse' {executionEndDateTime} -> executionEndDateTime) (\s@GetCommandInvocationResponse' {} a -> s {executionEndDateTime = a} :: GetCommandInvocationResponse)
 
--- | The error level response code for the plugin script. If the response code is -1, then the command has not started running on the instance, or it was not received by the instance.
-gcirrsResponseCode :: Lens' GetCommandInvocationResponse (Maybe Int)
-gcirrsResponseCode = lens _gcirrsResponseCode (\s a -> s {_gcirrsResponseCode = a})
+-- | The error level response code for the plugin script. If the response
+-- code is -1, then the command has not started running on the instance, or
+-- it was not received by the instance.
+getCommandInvocationResponse_responseCode :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Int)
+getCommandInvocationResponse_responseCode = Lens.lens (\GetCommandInvocationResponse' {responseCode} -> responseCode) (\s@GetCommandInvocationResponse' {} a -> s {responseCode = a} :: GetCommandInvocationResponse)
 
--- | CloudWatch Logs information where Systems Manager sent the command output.
-gcirrsCloudWatchOutputConfig :: Lens' GetCommandInvocationResponse (Maybe CloudWatchOutputConfig)
-gcirrsCloudWatchOutputConfig = lens _gcirrsCloudWatchOutputConfig (\s a -> s {_gcirrsCloudWatchOutputConfig = a})
+-- | CloudWatch Logs information where Systems Manager sent the command
+-- output.
+getCommandInvocationResponse_cloudWatchOutputConfig :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe CloudWatchOutputConfig)
+getCommandInvocationResponse_cloudWatchOutputConfig = Lens.lens (\GetCommandInvocationResponse' {cloudWatchOutputConfig} -> cloudWatchOutputConfig) (\s@GetCommandInvocationResponse' {} a -> s {cloudWatchOutputConfig = a} :: GetCommandInvocationResponse)
 
 -- | Duration since ExecutionStartDateTime.
-gcirrsExecutionElapsedTime :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsExecutionElapsedTime = lens _gcirrsExecutionElapsedTime (\s a -> s {_gcirrsExecutionElapsedTime = a})
+getCommandInvocationResponse_executionElapsedTime :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_executionElapsedTime = Lens.lens (\GetCommandInvocationResponse' {executionElapsedTime} -> executionElapsedTime) (\s@GetCommandInvocationResponse' {} a -> s {executionElapsedTime = a} :: GetCommandInvocationResponse)
 
 -- | The SSM document version used in the request.
-gcirrsDocumentVersion :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsDocumentVersion = lens _gcirrsDocumentVersion (\s a -> s {_gcirrsDocumentVersion = a})
+getCommandInvocationResponse_documentVersion :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_documentVersion = Lens.lens (\GetCommandInvocationResponse' {documentVersion} -> documentVersion) (\s@GetCommandInvocationResponse' {} a -> s {documentVersion = a} :: GetCommandInvocationResponse)
 
--- | The first 24,000 characters written by the plugin to stdout. If the command has not finished running, if ExecutionStatus is neither Succeeded nor Failed, then this string is empty.
-gcirrsStandardOutputContent :: Lens' GetCommandInvocationResponse (Maybe Text)
-gcirrsStandardOutputContent = lens _gcirrsStandardOutputContent (\s a -> s {_gcirrsStandardOutputContent = a})
+-- | The first 24,000 characters written by the plugin to stdout. If the
+-- command has not finished running, if ExecutionStatus is neither
+-- Succeeded nor Failed, then this string is empty.
+getCommandInvocationResponse_standardOutputContent :: Lens.Lens' GetCommandInvocationResponse (Prelude.Maybe Prelude.Text)
+getCommandInvocationResponse_standardOutputContent = Lens.lens (\GetCommandInvocationResponse' {standardOutputContent} -> standardOutputContent) (\s@GetCommandInvocationResponse' {} a -> s {standardOutputContent = a} :: GetCommandInvocationResponse)
 
--- | -- | The response status code.
-gcirrsResponseStatus :: Lens' GetCommandInvocationResponse Int
-gcirrsResponseStatus = lens _gcirrsResponseStatus (\s a -> s {_gcirrsResponseStatus = a})
+-- | The response's http status code.
+getCommandInvocationResponse_httpStatus :: Lens.Lens' GetCommandInvocationResponse Prelude.Int
+getCommandInvocationResponse_httpStatus = Lens.lens (\GetCommandInvocationResponse' {httpStatus} -> httpStatus) (\s@GetCommandInvocationResponse' {} a -> s {httpStatus = a} :: GetCommandInvocationResponse)
 
-instance NFData GetCommandInvocationResponse
+instance Prelude.NFData GetCommandInvocationResponse

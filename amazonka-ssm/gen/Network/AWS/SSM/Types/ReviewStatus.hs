@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.SSM.Types.ReviewStatus
   ( ReviewStatus
       ( ..,
-        RSApproved,
-        RSNotReviewed,
-        RSPending,
-        RSRejected
+        ReviewStatusAPPROVED,
+        ReviewStatusNOTREVIEWED,
+        ReviewStatusPENDING,
+        ReviewStatusREJECTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReviewStatus = ReviewStatus' (CI Text)
+newtype ReviewStatus = ReviewStatus'
+  { fromReviewStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSApproved :: ReviewStatus
-pattern RSApproved = ReviewStatus' "APPROVED"
+pattern ReviewStatusAPPROVED :: ReviewStatus
+pattern ReviewStatusAPPROVED = ReviewStatus' "APPROVED"
 
-pattern RSNotReviewed :: ReviewStatus
-pattern RSNotReviewed = ReviewStatus' "NOT_REVIEWED"
+pattern ReviewStatusNOTREVIEWED :: ReviewStatus
+pattern ReviewStatusNOTREVIEWED = ReviewStatus' "NOT_REVIEWED"
 
-pattern RSPending :: ReviewStatus
-pattern RSPending = ReviewStatus' "PENDING"
+pattern ReviewStatusPENDING :: ReviewStatus
+pattern ReviewStatusPENDING = ReviewStatus' "PENDING"
 
-pattern RSRejected :: ReviewStatus
-pattern RSRejected = ReviewStatus' "REJECTED"
+pattern ReviewStatusREJECTED :: ReviewStatus
+pattern ReviewStatusREJECTED = ReviewStatus' "REJECTED"
 
 {-# COMPLETE
-  RSApproved,
-  RSNotReviewed,
-  RSPending,
-  RSRejected,
+  ReviewStatusAPPROVED,
+  ReviewStatusNOTREVIEWED,
+  ReviewStatusPENDING,
+  ReviewStatusREJECTED,
   ReviewStatus'
   #-}
 
-instance FromText ReviewStatus where
-  parser = (ReviewStatus' . mk) <$> takeText
+instance Prelude.FromText ReviewStatus where
+  parser = ReviewStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReviewStatus where
-  toText (ReviewStatus' ci) = original ci
+instance Prelude.ToText ReviewStatus where
+  toText (ReviewStatus' x) = x
 
-instance Hashable ReviewStatus
+instance Prelude.Hashable ReviewStatus
 
-instance NFData ReviewStatus
+instance Prelude.NFData ReviewStatus
 
-instance ToByteString ReviewStatus
+instance Prelude.ToByteString ReviewStatus
 
-instance ToQuery ReviewStatus
+instance Prelude.ToQuery ReviewStatus
 
-instance ToHeader ReviewStatus
+instance Prelude.ToHeader ReviewStatus
 
-instance FromJSON ReviewStatus where
-  parseJSON = parseJSONText "ReviewStatus"
+instance Prelude.FromJSON ReviewStatus where
+  parseJSON = Prelude.parseJSONText "ReviewStatus"

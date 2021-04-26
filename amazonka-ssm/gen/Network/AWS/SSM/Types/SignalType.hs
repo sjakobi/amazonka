@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.SSM.Types.SignalType
   ( SignalType
       ( ..,
-        Approve,
-        Reject,
-        Resume,
-        StartStep,
-        StopStep
+        SignalTypeApprove,
+        SignalTypeReject,
+        SignalTypeResume,
+        SignalTypeStartStep,
+        SignalTypeStopStep
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SignalType = SignalType' (CI Text)
+newtype SignalType = SignalType'
+  { fromSignalType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Approve :: SignalType
-pattern Approve = SignalType' "Approve"
+pattern SignalTypeApprove :: SignalType
+pattern SignalTypeApprove = SignalType' "Approve"
 
-pattern Reject :: SignalType
-pattern Reject = SignalType' "Reject"
+pattern SignalTypeReject :: SignalType
+pattern SignalTypeReject = SignalType' "Reject"
 
-pattern Resume :: SignalType
-pattern Resume = SignalType' "Resume"
+pattern SignalTypeResume :: SignalType
+pattern SignalTypeResume = SignalType' "Resume"
 
-pattern StartStep :: SignalType
-pattern StartStep = SignalType' "StartStep"
+pattern SignalTypeStartStep :: SignalType
+pattern SignalTypeStartStep = SignalType' "StartStep"
 
-pattern StopStep :: SignalType
-pattern StopStep = SignalType' "StopStep"
+pattern SignalTypeStopStep :: SignalType
+pattern SignalTypeStopStep = SignalType' "StopStep"
 
 {-# COMPLETE
-  Approve,
-  Reject,
-  Resume,
-  StartStep,
-  StopStep,
+  SignalTypeApprove,
+  SignalTypeReject,
+  SignalTypeResume,
+  SignalTypeStartStep,
+  SignalTypeStopStep,
   SignalType'
   #-}
 
-instance FromText SignalType where
-  parser = (SignalType' . mk) <$> takeText
+instance Prelude.FromText SignalType where
+  parser = SignalType' Prelude.<$> Prelude.takeText
 
-instance ToText SignalType where
-  toText (SignalType' ci) = original ci
+instance Prelude.ToText SignalType where
+  toText (SignalType' x) = x
 
-instance Hashable SignalType
+instance Prelude.Hashable SignalType
 
-instance NFData SignalType
+instance Prelude.NFData SignalType
 
-instance ToByteString SignalType
+instance Prelude.ToByteString SignalType
 
-instance ToQuery SignalType
+instance Prelude.ToQuery SignalType
 
-instance ToHeader SignalType
+instance Prelude.ToHeader SignalType
 
-instance ToJSON SignalType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SignalType where
+  toJSON = Prelude.toJSONText

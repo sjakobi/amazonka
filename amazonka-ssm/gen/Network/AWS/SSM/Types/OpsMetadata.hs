@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.OpsMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Operational metadata for an application in Application Manager.
 --
---
---
--- /See:/ 'opsMetadata' smart constructor.
+-- /See:/ 'newOpsMetadata' smart constructor.
 data OpsMetadata = OpsMetadata'
-  { _omResourceId ::
-      !(Maybe Text),
-    _omLastModifiedDate :: !(Maybe POSIX),
-    _omOpsMetadataARN :: !(Maybe Text),
-    _omCreationDate :: !(Maybe POSIX),
-    _omLastModifiedUser :: !(Maybe Text)
+  { -- | The ID of the Application Manager application.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The date the OpsMetadata object was last updated.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the OpsMetadata Object or blob.
+    opsMetadataArn :: Prelude.Maybe Prelude.Text,
+    -- | The date the OpsMetadata objects was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The user name who last updated the OpsMetadata object.
+    lastModifiedUser :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpsMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpsMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'omResourceId' - The ID of the Application Manager application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'omLastModifiedDate' - The date the OpsMetadata object was last updated.
+-- 'resourceId', 'opsMetadata_resourceId' - The ID of the Application Manager application.
 --
--- * 'omOpsMetadataARN' - The Amazon Resource Name (ARN) of the OpsMetadata Object or blob.
+-- 'lastModifiedDate', 'opsMetadata_lastModifiedDate' - The date the OpsMetadata object was last updated.
 --
--- * 'omCreationDate' - The date the OpsMetadata objects was created.
+-- 'opsMetadataArn', 'opsMetadata_opsMetadataArn' - The Amazon Resource Name (ARN) of the OpsMetadata Object or blob.
 --
--- * 'omLastModifiedUser' - The user name who last updated the OpsMetadata object.
-opsMetadata ::
+-- 'creationDate', 'opsMetadata_creationDate' - The date the OpsMetadata objects was created.
+--
+-- 'lastModifiedUser', 'opsMetadata_lastModifiedUser' - The user name who last updated the OpsMetadata object.
+newOpsMetadata ::
   OpsMetadata
-opsMetadata =
+newOpsMetadata =
   OpsMetadata'
-    { _omResourceId = Nothing,
-      _omLastModifiedDate = Nothing,
-      _omOpsMetadataARN = Nothing,
-      _omCreationDate = Nothing,
-      _omLastModifiedUser = Nothing
+    { resourceId = Prelude.Nothing,
+      lastModifiedDate = Prelude.Nothing,
+      opsMetadataArn = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      lastModifiedUser = Prelude.Nothing
     }
 
 -- | The ID of the Application Manager application.
-omResourceId :: Lens' OpsMetadata (Maybe Text)
-omResourceId = lens _omResourceId (\s a -> s {_omResourceId = a})
+opsMetadata_resourceId :: Lens.Lens' OpsMetadata (Prelude.Maybe Prelude.Text)
+opsMetadata_resourceId = Lens.lens (\OpsMetadata' {resourceId} -> resourceId) (\s@OpsMetadata' {} a -> s {resourceId = a} :: OpsMetadata)
 
 -- | The date the OpsMetadata object was last updated.
-omLastModifiedDate :: Lens' OpsMetadata (Maybe UTCTime)
-omLastModifiedDate = lens _omLastModifiedDate (\s a -> s {_omLastModifiedDate = a}) . mapping _Time
+opsMetadata_lastModifiedDate :: Lens.Lens' OpsMetadata (Prelude.Maybe Prelude.UTCTime)
+opsMetadata_lastModifiedDate = Lens.lens (\OpsMetadata' {lastModifiedDate} -> lastModifiedDate) (\s@OpsMetadata' {} a -> s {lastModifiedDate = a} :: OpsMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the OpsMetadata Object or blob.
-omOpsMetadataARN :: Lens' OpsMetadata (Maybe Text)
-omOpsMetadataARN = lens _omOpsMetadataARN (\s a -> s {_omOpsMetadataARN = a})
+opsMetadata_opsMetadataArn :: Lens.Lens' OpsMetadata (Prelude.Maybe Prelude.Text)
+opsMetadata_opsMetadataArn = Lens.lens (\OpsMetadata' {opsMetadataArn} -> opsMetadataArn) (\s@OpsMetadata' {} a -> s {opsMetadataArn = a} :: OpsMetadata)
 
 -- | The date the OpsMetadata objects was created.
-omCreationDate :: Lens' OpsMetadata (Maybe UTCTime)
-omCreationDate = lens _omCreationDate (\s a -> s {_omCreationDate = a}) . mapping _Time
+opsMetadata_creationDate :: Lens.Lens' OpsMetadata (Prelude.Maybe Prelude.UTCTime)
+opsMetadata_creationDate = Lens.lens (\OpsMetadata' {creationDate} -> creationDate) (\s@OpsMetadata' {} a -> s {creationDate = a} :: OpsMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The user name who last updated the OpsMetadata object.
-omLastModifiedUser :: Lens' OpsMetadata (Maybe Text)
-omLastModifiedUser = lens _omLastModifiedUser (\s a -> s {_omLastModifiedUser = a})
+opsMetadata_lastModifiedUser :: Lens.Lens' OpsMetadata (Prelude.Maybe Prelude.Text)
+opsMetadata_lastModifiedUser = Lens.lens (\OpsMetadata' {lastModifiedUser} -> lastModifiedUser) (\s@OpsMetadata' {} a -> s {lastModifiedUser = a} :: OpsMetadata)
 
-instance FromJSON OpsMetadata where
+instance Prelude.FromJSON OpsMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OpsMetadata"
       ( \x ->
           OpsMetadata'
-            <$> (x .:? "ResourceId")
-            <*> (x .:? "LastModifiedDate")
-            <*> (x .:? "OpsMetadataArn")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "LastModifiedUser")
+            Prelude.<$> (x Prelude..:? "ResourceId")
+            Prelude.<*> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "OpsMetadataArn")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "LastModifiedUser")
       )
 
-instance Hashable OpsMetadata
+instance Prelude.Hashable OpsMetadata
 
-instance NFData OpsMetadata
+instance Prelude.NFData OpsMetadata

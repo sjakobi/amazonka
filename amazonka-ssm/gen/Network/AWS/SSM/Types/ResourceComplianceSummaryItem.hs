@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ResourceComplianceSummaryItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.ComplianceExecutionSummary
 import Network.AWS.SSM.Types.ComplianceSeverity
 import Network.AWS.SSM.Types.ComplianceStatus
@@ -25,134 +29,121 @@ import Network.AWS.SSM.Types.NonCompliantSummary
 
 -- | Compliance summary information for a specific resource.
 --
---
---
--- /See:/ 'resourceComplianceSummaryItem' smart constructor.
+-- /See:/ 'newResourceComplianceSummaryItem' smart constructor.
 data ResourceComplianceSummaryItem = ResourceComplianceSummaryItem'
-  { _rcsiResourceId ::
-      !( Maybe
-           Text
-       ),
-    _rcsiStatus ::
-      !( Maybe
-           ComplianceStatus
-       ),
-    _rcsiOverallSeverity ::
-      !( Maybe
-           ComplianceSeverity
-       ),
-    _rcsiCompliantSummary ::
-      !( Maybe
-           CompliantSummary
-       ),
-    _rcsiComplianceType ::
-      !( Maybe
-           Text
-       ),
-    _rcsiResourceType ::
-      !( Maybe
-           Text
-       ),
-    _rcsiNonCompliantSummary ::
-      !( Maybe
-           NonCompliantSummary
-       ),
-    _rcsiExecutionSummary ::
-      !( Maybe
-           ComplianceExecutionSummary
-       )
+  { -- | The resource ID.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The compliance status for the resource.
+    status :: Prelude.Maybe ComplianceStatus,
+    -- | The highest severity item found for the resource. The resource is
+    -- compliant for this item.
+    overallSeverity :: Prelude.Maybe ComplianceSeverity,
+    -- | A list of items that are compliant for the resource.
+    compliantSummary :: Prelude.Maybe CompliantSummary,
+    -- | The compliance type.
+    complianceType :: Prelude.Maybe Prelude.Text,
+    -- | The resource type.
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | A list of items that aren\'t compliant for the resource.
+    nonCompliantSummary :: Prelude.Maybe NonCompliantSummary,
+    -- | Information about the execution.
+    executionSummary :: Prelude.Maybe ComplianceExecutionSummary
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceComplianceSummaryItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceComplianceSummaryItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcsiResourceId' - The resource ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcsiStatus' - The compliance status for the resource.
+-- 'resourceId', 'resourceComplianceSummaryItem_resourceId' - The resource ID.
 --
--- * 'rcsiOverallSeverity' - The highest severity item found for the resource. The resource is compliant for this item.
+-- 'status', 'resourceComplianceSummaryItem_status' - The compliance status for the resource.
 --
--- * 'rcsiCompliantSummary' - A list of items that are compliant for the resource.
+-- 'overallSeverity', 'resourceComplianceSummaryItem_overallSeverity' - The highest severity item found for the resource. The resource is
+-- compliant for this item.
 --
--- * 'rcsiComplianceType' - The compliance type.
+-- 'compliantSummary', 'resourceComplianceSummaryItem_compliantSummary' - A list of items that are compliant for the resource.
 --
--- * 'rcsiResourceType' - The resource type.
+-- 'complianceType', 'resourceComplianceSummaryItem_complianceType' - The compliance type.
 --
--- * 'rcsiNonCompliantSummary' - A list of items that aren't compliant for the resource.
+-- 'resourceType', 'resourceComplianceSummaryItem_resourceType' - The resource type.
 --
--- * 'rcsiExecutionSummary' - Information about the execution.
-resourceComplianceSummaryItem ::
+-- 'nonCompliantSummary', 'resourceComplianceSummaryItem_nonCompliantSummary' - A list of items that aren\'t compliant for the resource.
+--
+-- 'executionSummary', 'resourceComplianceSummaryItem_executionSummary' - Information about the execution.
+newResourceComplianceSummaryItem ::
   ResourceComplianceSummaryItem
-resourceComplianceSummaryItem =
+newResourceComplianceSummaryItem =
   ResourceComplianceSummaryItem'
-    { _rcsiResourceId =
-        Nothing,
-      _rcsiStatus = Nothing,
-      _rcsiOverallSeverity = Nothing,
-      _rcsiCompliantSummary = Nothing,
-      _rcsiComplianceType = Nothing,
-      _rcsiResourceType = Nothing,
-      _rcsiNonCompliantSummary = Nothing,
-      _rcsiExecutionSummary = Nothing
+    { resourceId =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      overallSeverity = Prelude.Nothing,
+      compliantSummary = Prelude.Nothing,
+      complianceType = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      nonCompliantSummary = Prelude.Nothing,
+      executionSummary = Prelude.Nothing
     }
 
 -- | The resource ID.
-rcsiResourceId :: Lens' ResourceComplianceSummaryItem (Maybe Text)
-rcsiResourceId = lens _rcsiResourceId (\s a -> s {_rcsiResourceId = a})
+resourceComplianceSummaryItem_resourceId :: Lens.Lens' ResourceComplianceSummaryItem (Prelude.Maybe Prelude.Text)
+resourceComplianceSummaryItem_resourceId = Lens.lens (\ResourceComplianceSummaryItem' {resourceId} -> resourceId) (\s@ResourceComplianceSummaryItem' {} a -> s {resourceId = a} :: ResourceComplianceSummaryItem)
 
 -- | The compliance status for the resource.
-rcsiStatus :: Lens' ResourceComplianceSummaryItem (Maybe ComplianceStatus)
-rcsiStatus = lens _rcsiStatus (\s a -> s {_rcsiStatus = a})
+resourceComplianceSummaryItem_status :: Lens.Lens' ResourceComplianceSummaryItem (Prelude.Maybe ComplianceStatus)
+resourceComplianceSummaryItem_status = Lens.lens (\ResourceComplianceSummaryItem' {status} -> status) (\s@ResourceComplianceSummaryItem' {} a -> s {status = a} :: ResourceComplianceSummaryItem)
 
--- | The highest severity item found for the resource. The resource is compliant for this item.
-rcsiOverallSeverity :: Lens' ResourceComplianceSummaryItem (Maybe ComplianceSeverity)
-rcsiOverallSeverity = lens _rcsiOverallSeverity (\s a -> s {_rcsiOverallSeverity = a})
+-- | The highest severity item found for the resource. The resource is
+-- compliant for this item.
+resourceComplianceSummaryItem_overallSeverity :: Lens.Lens' ResourceComplianceSummaryItem (Prelude.Maybe ComplianceSeverity)
+resourceComplianceSummaryItem_overallSeverity = Lens.lens (\ResourceComplianceSummaryItem' {overallSeverity} -> overallSeverity) (\s@ResourceComplianceSummaryItem' {} a -> s {overallSeverity = a} :: ResourceComplianceSummaryItem)
 
 -- | A list of items that are compliant for the resource.
-rcsiCompliantSummary :: Lens' ResourceComplianceSummaryItem (Maybe CompliantSummary)
-rcsiCompliantSummary = lens _rcsiCompliantSummary (\s a -> s {_rcsiCompliantSummary = a})
+resourceComplianceSummaryItem_compliantSummary :: Lens.Lens' ResourceComplianceSummaryItem (Prelude.Maybe CompliantSummary)
+resourceComplianceSummaryItem_compliantSummary = Lens.lens (\ResourceComplianceSummaryItem' {compliantSummary} -> compliantSummary) (\s@ResourceComplianceSummaryItem' {} a -> s {compliantSummary = a} :: ResourceComplianceSummaryItem)
 
 -- | The compliance type.
-rcsiComplianceType :: Lens' ResourceComplianceSummaryItem (Maybe Text)
-rcsiComplianceType = lens _rcsiComplianceType (\s a -> s {_rcsiComplianceType = a})
+resourceComplianceSummaryItem_complianceType :: Lens.Lens' ResourceComplianceSummaryItem (Prelude.Maybe Prelude.Text)
+resourceComplianceSummaryItem_complianceType = Lens.lens (\ResourceComplianceSummaryItem' {complianceType} -> complianceType) (\s@ResourceComplianceSummaryItem' {} a -> s {complianceType = a} :: ResourceComplianceSummaryItem)
 
 -- | The resource type.
-rcsiResourceType :: Lens' ResourceComplianceSummaryItem (Maybe Text)
-rcsiResourceType = lens _rcsiResourceType (\s a -> s {_rcsiResourceType = a})
+resourceComplianceSummaryItem_resourceType :: Lens.Lens' ResourceComplianceSummaryItem (Prelude.Maybe Prelude.Text)
+resourceComplianceSummaryItem_resourceType = Lens.lens (\ResourceComplianceSummaryItem' {resourceType} -> resourceType) (\s@ResourceComplianceSummaryItem' {} a -> s {resourceType = a} :: ResourceComplianceSummaryItem)
 
--- | A list of items that aren't compliant for the resource.
-rcsiNonCompliantSummary :: Lens' ResourceComplianceSummaryItem (Maybe NonCompliantSummary)
-rcsiNonCompliantSummary = lens _rcsiNonCompliantSummary (\s a -> s {_rcsiNonCompliantSummary = a})
+-- | A list of items that aren\'t compliant for the resource.
+resourceComplianceSummaryItem_nonCompliantSummary :: Lens.Lens' ResourceComplianceSummaryItem (Prelude.Maybe NonCompliantSummary)
+resourceComplianceSummaryItem_nonCompliantSummary = Lens.lens (\ResourceComplianceSummaryItem' {nonCompliantSummary} -> nonCompliantSummary) (\s@ResourceComplianceSummaryItem' {} a -> s {nonCompliantSummary = a} :: ResourceComplianceSummaryItem)
 
 -- | Information about the execution.
-rcsiExecutionSummary :: Lens' ResourceComplianceSummaryItem (Maybe ComplianceExecutionSummary)
-rcsiExecutionSummary = lens _rcsiExecutionSummary (\s a -> s {_rcsiExecutionSummary = a})
+resourceComplianceSummaryItem_executionSummary :: Lens.Lens' ResourceComplianceSummaryItem (Prelude.Maybe ComplianceExecutionSummary)
+resourceComplianceSummaryItem_executionSummary = Lens.lens (\ResourceComplianceSummaryItem' {executionSummary} -> executionSummary) (\s@ResourceComplianceSummaryItem' {} a -> s {executionSummary = a} :: ResourceComplianceSummaryItem)
 
-instance FromJSON ResourceComplianceSummaryItem where
+instance
+  Prelude.FromJSON
+    ResourceComplianceSummaryItem
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceComplianceSummaryItem"
       ( \x ->
           ResourceComplianceSummaryItem'
-            <$> (x .:? "ResourceId")
-            <*> (x .:? "Status")
-            <*> (x .:? "OverallSeverity")
-            <*> (x .:? "CompliantSummary")
-            <*> (x .:? "ComplianceType")
-            <*> (x .:? "ResourceType")
-            <*> (x .:? "NonCompliantSummary")
-            <*> (x .:? "ExecutionSummary")
+            Prelude.<$> (x Prelude..:? "ResourceId")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "OverallSeverity")
+            Prelude.<*> (x Prelude..:? "CompliantSummary")
+            Prelude.<*> (x Prelude..:? "ComplianceType")
+            Prelude.<*> (x Prelude..:? "ResourceType")
+            Prelude.<*> (x Prelude..:? "NonCompliantSummary")
+            Prelude.<*> (x Prelude..:? "ExecutionSummary")
       )
 
-instance Hashable ResourceComplianceSummaryItem
+instance
+  Prelude.Hashable
+    ResourceComplianceSummaryItem
 
-instance NFData ResourceComplianceSummaryItem
+instance Prelude.NFData ResourceComplianceSummaryItem

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InventoryGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.InventoryFilter
 
--- | A user-defined set of one or more filters on which to aggregate inventory data. Groups return a count of resources that match and don't match the specified criteria.
+-- | A user-defined set of one or more filters on which to aggregate
+-- inventory data. Groups return a count of resources that match and don\'t
+-- match the specified criteria.
 --
---
---
--- /See:/ 'inventoryGroup' smart constructor.
+-- /See:/ 'newInventoryGroup' smart constructor.
 data InventoryGroup = InventoryGroup'
-  { _igName ::
-      !Text,
-    _igFilters :: !(List1 InventoryFilter)
+  { -- | The name of the group.
+    name :: Prelude.Text,
+    -- | Filters define the criteria for the group. The @matchingCount@ field
+    -- displays the number of resources that match the criteria. The
+    -- @notMatchingCount@ field displays the number of resources that don\'t
+    -- match the criteria.
+    filters :: Prelude.List1 InventoryFilter
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'igName' - The name of the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'igFilters' - Filters define the criteria for the group. The @matchingCount@ field displays the number of resources that match the criteria. The @notMatchingCount@ field displays the number of resources that don't match the criteria.
-inventoryGroup ::
-  -- | 'igName'
-  Text ->
-  -- | 'igFilters'
-  NonEmpty InventoryFilter ->
+-- 'name', 'inventoryGroup_name' - The name of the group.
+--
+-- 'filters', 'inventoryGroup_filters' - Filters define the criteria for the group. The @matchingCount@ field
+-- displays the number of resources that match the criteria. The
+-- @notMatchingCount@ field displays the number of resources that don\'t
+-- match the criteria.
+newInventoryGroup ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'filters'
+  Prelude.NonEmpty InventoryFilter ->
   InventoryGroup
-inventoryGroup pName_ pFilters_ =
+newInventoryGroup pName_ pFilters_ =
   InventoryGroup'
-    { _igName = pName_,
-      _igFilters = _List1 # pFilters_
+    { name = pName_,
+      filters = Prelude._List1 Lens.# pFilters_
     }
 
 -- | The name of the group.
-igName :: Lens' InventoryGroup Text
-igName = lens _igName (\s a -> s {_igName = a})
+inventoryGroup_name :: Lens.Lens' InventoryGroup Prelude.Text
+inventoryGroup_name = Lens.lens (\InventoryGroup' {name} -> name) (\s@InventoryGroup' {} a -> s {name = a} :: InventoryGroup)
 
--- | Filters define the criteria for the group. The @matchingCount@ field displays the number of resources that match the criteria. The @notMatchingCount@ field displays the number of resources that don't match the criteria.
-igFilters :: Lens' InventoryGroup (NonEmpty InventoryFilter)
-igFilters = lens _igFilters (\s a -> s {_igFilters = a}) . _List1
+-- | Filters define the criteria for the group. The @matchingCount@ field
+-- displays the number of resources that match the criteria. The
+-- @notMatchingCount@ field displays the number of resources that don\'t
+-- match the criteria.
+inventoryGroup_filters :: Lens.Lens' InventoryGroup (Prelude.NonEmpty InventoryFilter)
+inventoryGroup_filters = Lens.lens (\InventoryGroup' {filters} -> filters) (\s@InventoryGroup' {} a -> s {filters = a} :: InventoryGroup) Prelude.. Prelude._List1
 
-instance Hashable InventoryGroup
+instance Prelude.Hashable InventoryGroup
 
-instance NFData InventoryGroup
+instance Prelude.NFData InventoryGroup
 
-instance ToJSON InventoryGroup where
+instance Prelude.ToJSON InventoryGroup where
   toJSON InventoryGroup' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _igName),
-            Just ("Filters" .= _igFilters)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Filters" Prelude..= filters)
           ]
       )

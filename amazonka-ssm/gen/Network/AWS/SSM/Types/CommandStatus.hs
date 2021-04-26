@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.SSM.Types.CommandStatus
   ( CommandStatus
       ( ..,
-        CSCancelled,
-        CSCancelling,
-        CSFailed,
-        CSInProgress,
-        CSPending,
-        CSSuccess,
-        CSTimedOut
+        CommandStatusCancelled,
+        CommandStatusCancelling,
+        CommandStatusFailed,
+        CommandStatusInProgress,
+        CommandStatusPending,
+        CommandStatusSuccess,
+        CommandStatusTimedOut
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CommandStatus = CommandStatus' (CI Text)
+newtype CommandStatus = CommandStatus'
+  { fromCommandStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCancelled :: CommandStatus
-pattern CSCancelled = CommandStatus' "Cancelled"
+pattern CommandStatusCancelled :: CommandStatus
+pattern CommandStatusCancelled = CommandStatus' "Cancelled"
 
-pattern CSCancelling :: CommandStatus
-pattern CSCancelling = CommandStatus' "Cancelling"
+pattern CommandStatusCancelling :: CommandStatus
+pattern CommandStatusCancelling = CommandStatus' "Cancelling"
 
-pattern CSFailed :: CommandStatus
-pattern CSFailed = CommandStatus' "Failed"
+pattern CommandStatusFailed :: CommandStatus
+pattern CommandStatusFailed = CommandStatus' "Failed"
 
-pattern CSInProgress :: CommandStatus
-pattern CSInProgress = CommandStatus' "InProgress"
+pattern CommandStatusInProgress :: CommandStatus
+pattern CommandStatusInProgress = CommandStatus' "InProgress"
 
-pattern CSPending :: CommandStatus
-pattern CSPending = CommandStatus' "Pending"
+pattern CommandStatusPending :: CommandStatus
+pattern CommandStatusPending = CommandStatus' "Pending"
 
-pattern CSSuccess :: CommandStatus
-pattern CSSuccess = CommandStatus' "Success"
+pattern CommandStatusSuccess :: CommandStatus
+pattern CommandStatusSuccess = CommandStatus' "Success"
 
-pattern CSTimedOut :: CommandStatus
-pattern CSTimedOut = CommandStatus' "TimedOut"
+pattern CommandStatusTimedOut :: CommandStatus
+pattern CommandStatusTimedOut = CommandStatus' "TimedOut"
 
 {-# COMPLETE
-  CSCancelled,
-  CSCancelling,
-  CSFailed,
-  CSInProgress,
-  CSPending,
-  CSSuccess,
-  CSTimedOut,
+  CommandStatusCancelled,
+  CommandStatusCancelling,
+  CommandStatusFailed,
+  CommandStatusInProgress,
+  CommandStatusPending,
+  CommandStatusSuccess,
+  CommandStatusTimedOut,
   CommandStatus'
   #-}
 
-instance FromText CommandStatus where
-  parser = (CommandStatus' . mk) <$> takeText
+instance Prelude.FromText CommandStatus where
+  parser = CommandStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CommandStatus where
-  toText (CommandStatus' ci) = original ci
+instance Prelude.ToText CommandStatus where
+  toText (CommandStatus' x) = x
 
-instance Hashable CommandStatus
+instance Prelude.Hashable CommandStatus
 
-instance NFData CommandStatus
+instance Prelude.NFData CommandStatus
 
-instance ToByteString CommandStatus
+instance Prelude.ToByteString CommandStatus
 
-instance ToQuery CommandStatus
+instance Prelude.ToQuery CommandStatus
 
-instance ToHeader CommandStatus
+instance Prelude.ToHeader CommandStatus
 
-instance FromJSON CommandStatus where
-  parseJSON = parseJSONText "CommandStatus"
+instance Prelude.FromJSON CommandStatus where
+  parseJSON = Prelude.parseJSONText "CommandStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates the specified Systems Manager document with the specified instances or targets.
+-- Associates the specified Systems Manager document with the specified
+-- instances or targets.
 --
+-- When you associate a document with one or more instances using instance
+-- IDs or tags, SSM Agent running on the instance processes the document
+-- and configures the instance as specified.
 --
--- When you associate a document with one or more instances using instance IDs or tags, SSM Agent running on the instance processes the document and configures the instance as specified.
---
--- If you associate a document with an instance that already has an associated document, the system returns the AssociationAlreadyExists exception.
+-- If you associate a document with an instance that already has an
+-- associated document, the system returns the AssociationAlreadyExists
+-- exception.
 module Network.AWS.SSM.CreateAssociationBatch
   ( -- * Creating a Request
-    createAssociationBatch,
-    CreateAssociationBatch,
+    CreateAssociationBatch (..),
+    newCreateAssociationBatch,
 
     -- * Request Lenses
-    cabEntries,
+    createAssociationBatch_entries,
 
     -- * Destructuring the Response
-    createAssociationBatchResponse,
-    CreateAssociationBatchResponse,
+    CreateAssociationBatchResponse (..),
+    newCreateAssociationBatchResponse,
 
     -- * Response Lenses
-    cabrrsSuccessful,
-    cabrrsFailed,
-    cabrrsResponseStatus,
+    createAssociationBatchResponse_successful,
+    createAssociationBatchResponse_failed,
+    createAssociationBatchResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.AssociationDescription
+import Network.AWS.SSM.Types.FailedCreateAssociation
 
--- | /See:/ 'createAssociationBatch' smart constructor.
-newtype CreateAssociationBatch = CreateAssociationBatch'
-  { _cabEntries ::
-      List1
-        CreateAssociationBatchRequestEntry
+-- | /See:/ 'newCreateAssociationBatch' smart constructor.
+data CreateAssociationBatch = CreateAssociationBatch'
+  { -- | One or more associations.
+    entries :: Prelude.List1 CreateAssociationBatchRequestEntry
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAssociationBatch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAssociationBatch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cabEntries' - One or more associations.
-createAssociationBatch ::
-  -- | 'cabEntries'
-  NonEmpty CreateAssociationBatchRequestEntry ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'entries', 'createAssociationBatch_entries' - One or more associations.
+newCreateAssociationBatch ::
+  -- | 'entries'
+  Prelude.NonEmpty CreateAssociationBatchRequestEntry ->
   CreateAssociationBatch
-createAssociationBatch pEntries_ =
+newCreateAssociationBatch pEntries_ =
   CreateAssociationBatch'
-    { _cabEntries =
-        _List1 # pEntries_
+    { entries =
+        Prelude._List1 Lens.# pEntries_
     }
 
 -- | One or more associations.
-cabEntries :: Lens' CreateAssociationBatch (NonEmpty CreateAssociationBatchRequestEntry)
-cabEntries = lens _cabEntries (\s a -> s {_cabEntries = a}) . _List1
+createAssociationBatch_entries :: Lens.Lens' CreateAssociationBatch (Prelude.NonEmpty CreateAssociationBatchRequestEntry)
+createAssociationBatch_entries = Lens.lens (\CreateAssociationBatch' {entries} -> entries) (\s@CreateAssociationBatch' {} a -> s {entries = a} :: CreateAssociationBatch) Prelude.. Prelude._List1
 
-instance AWSRequest CreateAssociationBatch where
+instance Prelude.AWSRequest CreateAssociationBatch where
   type
     Rs CreateAssociationBatch =
       CreateAssociationBatchResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateAssociationBatchResponse'
-            <$> (x .?> "Successful" .!@ mempty)
-            <*> (x .?> "Failed" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Successful"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Failed" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateAssociationBatch
+instance Prelude.Hashable CreateAssociationBatch
 
-instance NFData CreateAssociationBatch
+instance Prelude.NFData CreateAssociationBatch
 
-instance ToHeaders CreateAssociationBatch where
+instance Prelude.ToHeaders CreateAssociationBatch where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.CreateAssociationBatch" :: ByteString),
+              Prelude.=# ( "AmazonSSM.CreateAssociationBatch" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateAssociationBatch where
+instance Prelude.ToJSON CreateAssociationBatch where
   toJSON CreateAssociationBatch' {..} =
-    object
-      (catMaybes [Just ("Entries" .= _cabEntries)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Entries" Prelude..= entries)]
+      )
 
-instance ToPath CreateAssociationBatch where
-  toPath = const "/"
+instance Prelude.ToPath CreateAssociationBatch where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateAssociationBatch where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAssociationBatch where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAssociationBatchResponse' smart constructor.
+-- | /See:/ 'newCreateAssociationBatchResponse' smart constructor.
 data CreateAssociationBatchResponse = CreateAssociationBatchResponse'
-  { _cabrrsSuccessful ::
-      !( Maybe
-           [AssociationDescription]
-       ),
-    _cabrrsFailed ::
-      !( Maybe
-           [FailedCreateAssociation]
-       ),
-    _cabrrsResponseStatus ::
-      !Int
+  { -- | Information about the associations that succeeded.
+    successful :: Prelude.Maybe [AssociationDescription],
+    -- | Information about the associations that failed.
+    failed :: Prelude.Maybe [FailedCreateAssociation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAssociationBatchResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAssociationBatchResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cabrrsSuccessful' - Information about the associations that succeeded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cabrrsFailed' - Information about the associations that failed.
+-- 'successful', 'createAssociationBatchResponse_successful' - Information about the associations that succeeded.
 --
--- * 'cabrrsResponseStatus' - -- | The response status code.
-createAssociationBatchResponse ::
-  -- | 'cabrrsResponseStatus'
-  Int ->
+-- 'failed', 'createAssociationBatchResponse_failed' - Information about the associations that failed.
+--
+-- 'httpStatus', 'createAssociationBatchResponse_httpStatus' - The response's http status code.
+newCreateAssociationBatchResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateAssociationBatchResponse
-createAssociationBatchResponse pResponseStatus_ =
+newCreateAssociationBatchResponse pHttpStatus_ =
   CreateAssociationBatchResponse'
-    { _cabrrsSuccessful =
-        Nothing,
-      _cabrrsFailed = Nothing,
-      _cabrrsResponseStatus = pResponseStatus_
+    { successful =
+        Prelude.Nothing,
+      failed = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the associations that succeeded.
-cabrrsSuccessful :: Lens' CreateAssociationBatchResponse [AssociationDescription]
-cabrrsSuccessful = lens _cabrrsSuccessful (\s a -> s {_cabrrsSuccessful = a}) . _Default . _Coerce
+createAssociationBatchResponse_successful :: Lens.Lens' CreateAssociationBatchResponse (Prelude.Maybe [AssociationDescription])
+createAssociationBatchResponse_successful = Lens.lens (\CreateAssociationBatchResponse' {successful} -> successful) (\s@CreateAssociationBatchResponse' {} a -> s {successful = a} :: CreateAssociationBatchResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the associations that failed.
-cabrrsFailed :: Lens' CreateAssociationBatchResponse [FailedCreateAssociation]
-cabrrsFailed = lens _cabrrsFailed (\s a -> s {_cabrrsFailed = a}) . _Default . _Coerce
+createAssociationBatchResponse_failed :: Lens.Lens' CreateAssociationBatchResponse (Prelude.Maybe [FailedCreateAssociation])
+createAssociationBatchResponse_failed = Lens.lens (\CreateAssociationBatchResponse' {failed} -> failed) (\s@CreateAssociationBatchResponse' {} a -> s {failed = a} :: CreateAssociationBatchResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-cabrrsResponseStatus :: Lens' CreateAssociationBatchResponse Int
-cabrrsResponseStatus = lens _cabrrsResponseStatus (\s a -> s {_cabrrsResponseStatus = a})
+-- | The response's http status code.
+createAssociationBatchResponse_httpStatus :: Lens.Lens' CreateAssociationBatchResponse Prelude.Int
+createAssociationBatchResponse_httpStatus = Lens.lens (\CreateAssociationBatchResponse' {httpStatus} -> httpStatus) (\s@CreateAssociationBatchResponse' {} a -> s {httpStatus = a} :: CreateAssociationBatchResponse)
 
-instance NFData CreateAssociationBatchResponse
+instance
+  Prelude.NFData
+    CreateAssociationBatchResponse

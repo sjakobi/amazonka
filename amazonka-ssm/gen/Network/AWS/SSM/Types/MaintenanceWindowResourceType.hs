@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SSM.Types.MaintenanceWindowResourceType
   ( MaintenanceWindowResourceType
       ( ..,
-        Instance,
-        ResourceGroup
+        MaintenanceWindowResourceTypeINSTANCE,
+        MaintenanceWindowResourceTypeRESOURCEGROUP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MaintenanceWindowResourceType
-  = MaintenanceWindowResourceType'
-      ( CI
-          Text
-      )
+newtype MaintenanceWindowResourceType = MaintenanceWindowResourceType'
+  { fromMaintenanceWindowResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Instance :: MaintenanceWindowResourceType
-pattern Instance = MaintenanceWindowResourceType' "INSTANCE"
+pattern MaintenanceWindowResourceTypeINSTANCE :: MaintenanceWindowResourceType
+pattern MaintenanceWindowResourceTypeINSTANCE = MaintenanceWindowResourceType' "INSTANCE"
 
-pattern ResourceGroup :: MaintenanceWindowResourceType
-pattern ResourceGroup = MaintenanceWindowResourceType' "RESOURCE_GROUP"
+pattern MaintenanceWindowResourceTypeRESOURCEGROUP :: MaintenanceWindowResourceType
+pattern MaintenanceWindowResourceTypeRESOURCEGROUP = MaintenanceWindowResourceType' "RESOURCE_GROUP"
 
 {-# COMPLETE
-  Instance,
-  ResourceGroup,
+  MaintenanceWindowResourceTypeINSTANCE,
+  MaintenanceWindowResourceTypeRESOURCEGROUP,
   MaintenanceWindowResourceType'
   #-}
 
-instance FromText MaintenanceWindowResourceType where
-  parser = (MaintenanceWindowResourceType' . mk) <$> takeText
+instance Prelude.FromText MaintenanceWindowResourceType where
+  parser = MaintenanceWindowResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText MaintenanceWindowResourceType where
-  toText (MaintenanceWindowResourceType' ci) = original ci
+instance Prelude.ToText MaintenanceWindowResourceType where
+  toText (MaintenanceWindowResourceType' x) = x
 
-instance Hashable MaintenanceWindowResourceType
+instance Prelude.Hashable MaintenanceWindowResourceType
 
-instance NFData MaintenanceWindowResourceType
+instance Prelude.NFData MaintenanceWindowResourceType
 
-instance ToByteString MaintenanceWindowResourceType
+instance Prelude.ToByteString MaintenanceWindowResourceType
 
-instance ToQuery MaintenanceWindowResourceType
+instance Prelude.ToQuery MaintenanceWindowResourceType
 
-instance ToHeader MaintenanceWindowResourceType
+instance Prelude.ToHeader MaintenanceWindowResourceType
 
-instance ToJSON MaintenanceWindowResourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MaintenanceWindowResourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MaintenanceWindowResourceType where
-  parseJSON = parseJSONText "MaintenanceWindowResourceType"
+instance Prelude.FromJSON MaintenanceWindowResourceType where
+  parseJSON = Prelude.parseJSONText "MaintenanceWindowResourceType"

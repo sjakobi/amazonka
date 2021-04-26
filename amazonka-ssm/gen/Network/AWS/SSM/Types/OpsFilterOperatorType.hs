@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.SSM.Types.OpsFilterOperatorType
   ( OpsFilterOperatorType
       ( ..,
-        OFOTBeginWith,
-        OFOTEqual,
-        OFOTExists,
-        OFOTGreaterThan,
-        OFOTLessThan,
-        OFOTNotEqual
+        OpsFilterOperatorTypeBeginWith,
+        OpsFilterOperatorTypeEqual,
+        OpsFilterOperatorTypeExists,
+        OpsFilterOperatorTypeGreaterThan,
+        OpsFilterOperatorTypeLessThan,
+        OpsFilterOperatorTypeNotEqual
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OpsFilterOperatorType
-  = OpsFilterOperatorType'
-      ( CI
-          Text
-      )
+newtype OpsFilterOperatorType = OpsFilterOperatorType'
+  { fromOpsFilterOperatorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OFOTBeginWith :: OpsFilterOperatorType
-pattern OFOTBeginWith = OpsFilterOperatorType' "BeginWith"
+pattern OpsFilterOperatorTypeBeginWith :: OpsFilterOperatorType
+pattern OpsFilterOperatorTypeBeginWith = OpsFilterOperatorType' "BeginWith"
 
-pattern OFOTEqual :: OpsFilterOperatorType
-pattern OFOTEqual = OpsFilterOperatorType' "Equal"
+pattern OpsFilterOperatorTypeEqual :: OpsFilterOperatorType
+pattern OpsFilterOperatorTypeEqual = OpsFilterOperatorType' "Equal"
 
-pattern OFOTExists :: OpsFilterOperatorType
-pattern OFOTExists = OpsFilterOperatorType' "Exists"
+pattern OpsFilterOperatorTypeExists :: OpsFilterOperatorType
+pattern OpsFilterOperatorTypeExists = OpsFilterOperatorType' "Exists"
 
-pattern OFOTGreaterThan :: OpsFilterOperatorType
-pattern OFOTGreaterThan = OpsFilterOperatorType' "GreaterThan"
+pattern OpsFilterOperatorTypeGreaterThan :: OpsFilterOperatorType
+pattern OpsFilterOperatorTypeGreaterThan = OpsFilterOperatorType' "GreaterThan"
 
-pattern OFOTLessThan :: OpsFilterOperatorType
-pattern OFOTLessThan = OpsFilterOperatorType' "LessThan"
+pattern OpsFilterOperatorTypeLessThan :: OpsFilterOperatorType
+pattern OpsFilterOperatorTypeLessThan = OpsFilterOperatorType' "LessThan"
 
-pattern OFOTNotEqual :: OpsFilterOperatorType
-pattern OFOTNotEqual = OpsFilterOperatorType' "NotEqual"
+pattern OpsFilterOperatorTypeNotEqual :: OpsFilterOperatorType
+pattern OpsFilterOperatorTypeNotEqual = OpsFilterOperatorType' "NotEqual"
 
 {-# COMPLETE
-  OFOTBeginWith,
-  OFOTEqual,
-  OFOTExists,
-  OFOTGreaterThan,
-  OFOTLessThan,
-  OFOTNotEqual,
+  OpsFilterOperatorTypeBeginWith,
+  OpsFilterOperatorTypeEqual,
+  OpsFilterOperatorTypeExists,
+  OpsFilterOperatorTypeGreaterThan,
+  OpsFilterOperatorTypeLessThan,
+  OpsFilterOperatorTypeNotEqual,
   OpsFilterOperatorType'
   #-}
 
-instance FromText OpsFilterOperatorType where
-  parser = (OpsFilterOperatorType' . mk) <$> takeText
+instance Prelude.FromText OpsFilterOperatorType where
+  parser = OpsFilterOperatorType' Prelude.<$> Prelude.takeText
 
-instance ToText OpsFilterOperatorType where
-  toText (OpsFilterOperatorType' ci) = original ci
+instance Prelude.ToText OpsFilterOperatorType where
+  toText (OpsFilterOperatorType' x) = x
 
-instance Hashable OpsFilterOperatorType
+instance Prelude.Hashable OpsFilterOperatorType
 
-instance NFData OpsFilterOperatorType
+instance Prelude.NFData OpsFilterOperatorType
 
-instance ToByteString OpsFilterOperatorType
+instance Prelude.ToByteString OpsFilterOperatorType
 
-instance ToQuery OpsFilterOperatorType
+instance Prelude.ToQuery OpsFilterOperatorType
 
-instance ToHeader OpsFilterOperatorType
+instance Prelude.ToHeader OpsFilterOperatorType
 
-instance ToJSON OpsFilterOperatorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OpsFilterOperatorType where
+  toJSON = Prelude.toJSONText

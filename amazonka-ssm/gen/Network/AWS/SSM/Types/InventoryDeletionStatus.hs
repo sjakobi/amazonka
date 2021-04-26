@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SSM.Types.InventoryDeletionStatus
   ( InventoryDeletionStatus
       ( ..,
-        Complete,
-        InProgress
+        InventoryDeletionStatusComplete,
+        InventoryDeletionStatusInProgress
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InventoryDeletionStatus
-  = InventoryDeletionStatus'
-      ( CI
-          Text
-      )
+newtype InventoryDeletionStatus = InventoryDeletionStatus'
+  { fromInventoryDeletionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Complete :: InventoryDeletionStatus
-pattern Complete = InventoryDeletionStatus' "Complete"
+pattern InventoryDeletionStatusComplete :: InventoryDeletionStatus
+pattern InventoryDeletionStatusComplete = InventoryDeletionStatus' "Complete"
 
-pattern InProgress :: InventoryDeletionStatus
-pattern InProgress = InventoryDeletionStatus' "InProgress"
+pattern InventoryDeletionStatusInProgress :: InventoryDeletionStatus
+pattern InventoryDeletionStatusInProgress = InventoryDeletionStatus' "InProgress"
 
 {-# COMPLETE
-  Complete,
-  InProgress,
+  InventoryDeletionStatusComplete,
+  InventoryDeletionStatusInProgress,
   InventoryDeletionStatus'
   #-}
 
-instance FromText InventoryDeletionStatus where
-  parser = (InventoryDeletionStatus' . mk) <$> takeText
+instance Prelude.FromText InventoryDeletionStatus where
+  parser = InventoryDeletionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText InventoryDeletionStatus where
-  toText (InventoryDeletionStatus' ci) = original ci
+instance Prelude.ToText InventoryDeletionStatus where
+  toText (InventoryDeletionStatus' x) = x
 
-instance Hashable InventoryDeletionStatus
+instance Prelude.Hashable InventoryDeletionStatus
 
-instance NFData InventoryDeletionStatus
+instance Prelude.NFData InventoryDeletionStatus
 
-instance ToByteString InventoryDeletionStatus
+instance Prelude.ToByteString InventoryDeletionStatus
 
-instance ToQuery InventoryDeletionStatus
+instance Prelude.ToQuery InventoryDeletionStatus
 
-instance ToHeader InventoryDeletionStatus
+instance Prelude.ToHeader InventoryDeletionStatus
 
-instance FromJSON InventoryDeletionStatus where
-  parseJSON = parseJSONText "InventoryDeletionStatus"
+instance Prelude.FromJSON InventoryDeletionStatus where
+  parseJSON = Prelude.parseJSONText "InventoryDeletionStatus"

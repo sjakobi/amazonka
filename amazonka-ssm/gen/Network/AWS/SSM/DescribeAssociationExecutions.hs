@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,219 +21,265 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Use this API action to view all executions for a specific association ID.
---
---
+-- Use this API action to view all executions for a specific association
+-- ID.
 --
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribeAssociationExecutions
   ( -- * Creating a Request
-    describeAssociationExecutions,
-    DescribeAssociationExecutions,
+    DescribeAssociationExecutions (..),
+    newDescribeAssociationExecutions,
 
     -- * Request Lenses
-    dNextToken,
-    dMaxResults,
-    dFilters,
-    dAssociationId,
+    describeAssociationExecutions_nextToken,
+    describeAssociationExecutions_maxResults,
+    describeAssociationExecutions_filters,
+    describeAssociationExecutions_associationId,
 
     -- * Destructuring the Response
-    describeAssociationExecutionsResponse,
-    DescribeAssociationExecutionsResponse,
+    DescribeAssociationExecutionsResponse (..),
+    newDescribeAssociationExecutionsResponse,
 
     -- * Response Lenses
-    daerrsNextToken,
-    daerrsAssociationExecutions,
-    daerrsResponseStatus,
+    describeAssociationExecutionsResponse_nextToken,
+    describeAssociationExecutionsResponse_associationExecutions,
+    describeAssociationExecutionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.AssociationExecution
 
--- | /See:/ 'describeAssociationExecutions' smart constructor.
+-- | /See:/ 'newDescribeAssociationExecutions' smart constructor.
 data DescribeAssociationExecutions = DescribeAssociationExecutions'
-  { _dNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dFilters ::
-      !( Maybe
-           ( List1
-               AssociationExecutionFilter
-           )
-       ),
-    _dAssociationId ::
-      !Text
+  { -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filters for the request. You can specify the following filters and
+    -- values.
+    --
+    -- ExecutionId (EQUAL)
+    --
+    -- Status (EQUAL)
+    --
+    -- CreatedTime (EQUAL, GREATER_THAN, LESS_THAN)
+    filters :: Prelude.Maybe (Prelude.List1 AssociationExecutionFilter),
+    -- | The association ID for which you want to view execution history details.
+    associationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAssociationExecutions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAssociationExecutions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dNextToken' - A token to start the list. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'describeAssociationExecutions_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 --
--- * 'dFilters' - Filters for the request. You can specify the following filters and values. ExecutionId (EQUAL) Status (EQUAL) CreatedTime (EQUAL, GREATER_THAN, LESS_THAN)
+-- 'maxResults', 'describeAssociationExecutions_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
--- * 'dAssociationId' - The association ID for which you want to view execution history details.
-describeAssociationExecutions ::
-  -- | 'dAssociationId'
-  Text ->
+-- 'filters', 'describeAssociationExecutions_filters' - Filters for the request. You can specify the following filters and
+-- values.
+--
+-- ExecutionId (EQUAL)
+--
+-- Status (EQUAL)
+--
+-- CreatedTime (EQUAL, GREATER_THAN, LESS_THAN)
+--
+-- 'associationId', 'describeAssociationExecutions_associationId' - The association ID for which you want to view execution history details.
+newDescribeAssociationExecutions ::
+  -- | 'associationId'
+  Prelude.Text ->
   DescribeAssociationExecutions
-describeAssociationExecutions pAssociationId_ =
+newDescribeAssociationExecutions pAssociationId_ =
   DescribeAssociationExecutions'
-    { _dNextToken =
-        Nothing,
-      _dMaxResults = Nothing,
-      _dFilters = Nothing,
-      _dAssociationId = pAssociationId_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      associationId = pAssociationId_
     }
 
--- | A token to start the list. Use this token to get the next set of results.
-dNextToken :: Lens' DescribeAssociationExecutions (Maybe Text)
-dNextToken = lens _dNextToken (\s a -> s {_dNextToken = a})
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+describeAssociationExecutions_nextToken :: Lens.Lens' DescribeAssociationExecutions (Prelude.Maybe Prelude.Text)
+describeAssociationExecutions_nextToken = Lens.lens (\DescribeAssociationExecutions' {nextToken} -> nextToken) (\s@DescribeAssociationExecutions' {} a -> s {nextToken = a} :: DescribeAssociationExecutions)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-dMaxResults :: Lens' DescribeAssociationExecutions (Maybe Natural)
-dMaxResults = lens _dMaxResults (\s a -> s {_dMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describeAssociationExecutions_maxResults :: Lens.Lens' DescribeAssociationExecutions (Prelude.Maybe Prelude.Natural)
+describeAssociationExecutions_maxResults = Lens.lens (\DescribeAssociationExecutions' {maxResults} -> maxResults) (\s@DescribeAssociationExecutions' {} a -> s {maxResults = a} :: DescribeAssociationExecutions) Prelude.. Lens.mapping Prelude._Nat
 
--- | Filters for the request. You can specify the following filters and values. ExecutionId (EQUAL) Status (EQUAL) CreatedTime (EQUAL, GREATER_THAN, LESS_THAN)
-dFilters :: Lens' DescribeAssociationExecutions (Maybe (NonEmpty AssociationExecutionFilter))
-dFilters = lens _dFilters (\s a -> s {_dFilters = a}) . mapping _List1
+-- | Filters for the request. You can specify the following filters and
+-- values.
+--
+-- ExecutionId (EQUAL)
+--
+-- Status (EQUAL)
+--
+-- CreatedTime (EQUAL, GREATER_THAN, LESS_THAN)
+describeAssociationExecutions_filters :: Lens.Lens' DescribeAssociationExecutions (Prelude.Maybe (Prelude.NonEmpty AssociationExecutionFilter))
+describeAssociationExecutions_filters = Lens.lens (\DescribeAssociationExecutions' {filters} -> filters) (\s@DescribeAssociationExecutions' {} a -> s {filters = a} :: DescribeAssociationExecutions) Prelude.. Lens.mapping Prelude._List1
 
 -- | The association ID for which you want to view execution history details.
-dAssociationId :: Lens' DescribeAssociationExecutions Text
-dAssociationId = lens _dAssociationId (\s a -> s {_dAssociationId = a})
+describeAssociationExecutions_associationId :: Lens.Lens' DescribeAssociationExecutions Prelude.Text
+describeAssociationExecutions_associationId = Lens.lens (\DescribeAssociationExecutions' {associationId} -> associationId) (\s@DescribeAssociationExecutions' {} a -> s {associationId = a} :: DescribeAssociationExecutions)
 
-instance AWSPager DescribeAssociationExecutions where
+instance Pager.AWSPager DescribeAssociationExecutions where
   page rq rs
-    | stop (rs ^. daerrsNextToken) = Nothing
-    | stop (rs ^. daerrsAssociationExecutions) = Nothing
-    | otherwise =
-      Just $ rq & dNextToken .~ rs ^. daerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeAssociationExecutionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeAssociationExecutionsResponse_associationExecutions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeAssociationExecutions_nextToken
+          Lens..~ rs
+          Lens.^? describeAssociationExecutionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeAssociationExecutions where
+instance
+  Prelude.AWSRequest
+    DescribeAssociationExecutions
+  where
   type
     Rs DescribeAssociationExecutions =
       DescribeAssociationExecutionsResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAssociationExecutionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "AssociationExecutions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "AssociationExecutions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAssociationExecutions
+instance
+  Prelude.Hashable
+    DescribeAssociationExecutions
 
-instance NFData DescribeAssociationExecutions
+instance Prelude.NFData DescribeAssociationExecutions
 
-instance ToHeaders DescribeAssociationExecutions where
+instance
+  Prelude.ToHeaders
+    DescribeAssociationExecutions
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.DescribeAssociationExecutions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.DescribeAssociationExecutions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAssociationExecutions where
+instance Prelude.ToJSON DescribeAssociationExecutions where
   toJSON DescribeAssociationExecutions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dNextToken,
-            ("MaxResults" .=) <$> _dMaxResults,
-            ("Filters" .=) <$> _dFilters,
-            Just ("AssociationId" .= _dAssociationId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters,
+            Prelude.Just
+              ("AssociationId" Prelude..= associationId)
           ]
       )
 
-instance ToPath DescribeAssociationExecutions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAssociationExecutions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAssociationExecutions where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeAssociationExecutions
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAssociationExecutionsResponse' smart constructor.
+-- | /See:/ 'newDescribeAssociationExecutionsResponse' smart constructor.
 data DescribeAssociationExecutionsResponse = DescribeAssociationExecutionsResponse'
-  { _daerrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _daerrsAssociationExecutions ::
-      !( Maybe
-           [AssociationExecution]
-       ),
-    _daerrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of items to return. Use this token to get the
+    -- next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the executions for the specified association ID.
+    associationExecutions :: Prelude.Maybe [AssociationExecution],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAssociationExecutionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAssociationExecutionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daerrsNextToken' - The token for the next set of items to return. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daerrsAssociationExecutions' - A list of the executions for the specified association ID.
+-- 'nextToken', 'describeAssociationExecutionsResponse_nextToken' - The token for the next set of items to return. Use this token to get the
+-- next set of results.
 --
--- * 'daerrsResponseStatus' - -- | The response status code.
-describeAssociationExecutionsResponse ::
-  -- | 'daerrsResponseStatus'
-  Int ->
+-- 'associationExecutions', 'describeAssociationExecutionsResponse_associationExecutions' - A list of the executions for the specified association ID.
+--
+-- 'httpStatus', 'describeAssociationExecutionsResponse_httpStatus' - The response's http status code.
+newDescribeAssociationExecutionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAssociationExecutionsResponse
-describeAssociationExecutionsResponse
-  pResponseStatus_ =
-    DescribeAssociationExecutionsResponse'
-      { _daerrsNextToken =
-          Nothing,
-        _daerrsAssociationExecutions =
-          Nothing,
-        _daerrsResponseStatus =
-          pResponseStatus_
-      }
+newDescribeAssociationExecutionsResponse pHttpStatus_ =
+  DescribeAssociationExecutionsResponse'
+    { nextToken =
+        Prelude.Nothing,
+      associationExecutions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | The token for the next set of items to return. Use this token to get the next set of results.
-daerrsNextToken :: Lens' DescribeAssociationExecutionsResponse (Maybe Text)
-daerrsNextToken = lens _daerrsNextToken (\s a -> s {_daerrsNextToken = a})
+-- | The token for the next set of items to return. Use this token to get the
+-- next set of results.
+describeAssociationExecutionsResponse_nextToken :: Lens.Lens' DescribeAssociationExecutionsResponse (Prelude.Maybe Prelude.Text)
+describeAssociationExecutionsResponse_nextToken = Lens.lens (\DescribeAssociationExecutionsResponse' {nextToken} -> nextToken) (\s@DescribeAssociationExecutionsResponse' {} a -> s {nextToken = a} :: DescribeAssociationExecutionsResponse)
 
 -- | A list of the executions for the specified association ID.
-daerrsAssociationExecutions :: Lens' DescribeAssociationExecutionsResponse [AssociationExecution]
-daerrsAssociationExecutions = lens _daerrsAssociationExecutions (\s a -> s {_daerrsAssociationExecutions = a}) . _Default . _Coerce
+describeAssociationExecutionsResponse_associationExecutions :: Lens.Lens' DescribeAssociationExecutionsResponse (Prelude.Maybe [AssociationExecution])
+describeAssociationExecutionsResponse_associationExecutions = Lens.lens (\DescribeAssociationExecutionsResponse' {associationExecutions} -> associationExecutions) (\s@DescribeAssociationExecutionsResponse' {} a -> s {associationExecutions = a} :: DescribeAssociationExecutionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-daerrsResponseStatus :: Lens' DescribeAssociationExecutionsResponse Int
-daerrsResponseStatus = lens _daerrsResponseStatus (\s a -> s {_daerrsResponseStatus = a})
+-- | The response's http status code.
+describeAssociationExecutionsResponse_httpStatus :: Lens.Lens' DescribeAssociationExecutionsResponse Prelude.Int
+describeAssociationExecutionsResponse_httpStatus = Lens.lens (\DescribeAssociationExecutionsResponse' {httpStatus} -> httpStatus) (\s@DescribeAssociationExecutionsResponse' {} a -> s {httpStatus = a} :: DescribeAssociationExecutionsResponse)
 
-instance NFData DescribeAssociationExecutionsResponse
+instance
+  Prelude.NFData
+    DescribeAssociationExecutionsResponse

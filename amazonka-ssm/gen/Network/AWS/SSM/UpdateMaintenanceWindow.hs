@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,418 +21,528 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing maintenance window. Only specified parameters are modified.
+-- Updates an existing maintenance window. Only specified parameters are
+-- modified.
+--
+-- The value you specify for @Duration@ determines the specific end time
+-- for the maintenance window based on the time it begins. No maintenance
+-- window tasks are permitted to start after the resulting endtime minus
+-- the number of hours you specify for @Cutoff@. For example, if the
+-- maintenance window starts at 3 PM, the duration is three hours, and the
+-- value you specify for @Cutoff@ is one hour, no maintenance window tasks
+-- can start after 5 PM.
 module Network.AWS.SSM.UpdateMaintenanceWindow
   ( -- * Creating a Request
-    updateMaintenanceWindow,
-    UpdateMaintenanceWindow,
+    UpdateMaintenanceWindow (..),
+    newUpdateMaintenanceWindow,
 
     -- * Request Lenses
-    umwStartDate,
-    umwDuration,
-    umwScheduleOffset,
-    umwEnabled,
-    umwCutoff,
-    umwName,
-    umwReplace,
-    umwDescription,
-    umwScheduleTimezone,
-    umwEndDate,
-    umwAllowUnassociatedTargets,
-    umwSchedule,
-    umwWindowId,
+    updateMaintenanceWindow_startDate,
+    updateMaintenanceWindow_duration,
+    updateMaintenanceWindow_scheduleOffset,
+    updateMaintenanceWindow_enabled,
+    updateMaintenanceWindow_cutoff,
+    updateMaintenanceWindow_name,
+    updateMaintenanceWindow_replace,
+    updateMaintenanceWindow_description,
+    updateMaintenanceWindow_scheduleTimezone,
+    updateMaintenanceWindow_endDate,
+    updateMaintenanceWindow_allowUnassociatedTargets,
+    updateMaintenanceWindow_schedule,
+    updateMaintenanceWindow_windowId,
 
     -- * Destructuring the Response
-    updateMaintenanceWindowResponse,
-    UpdateMaintenanceWindowResponse,
+    UpdateMaintenanceWindowResponse (..),
+    newUpdateMaintenanceWindowResponse,
 
     -- * Response Lenses
-    umwrrsStartDate,
-    umwrrsDuration,
-    umwrrsScheduleOffset,
-    umwrrsEnabled,
-    umwrrsCutoff,
-    umwrrsName,
-    umwrrsWindowId,
-    umwrrsDescription,
-    umwrrsScheduleTimezone,
-    umwrrsEndDate,
-    umwrrsAllowUnassociatedTargets,
-    umwrrsSchedule,
-    umwrrsResponseStatus,
+    updateMaintenanceWindowResponse_startDate,
+    updateMaintenanceWindowResponse_duration,
+    updateMaintenanceWindowResponse_scheduleOffset,
+    updateMaintenanceWindowResponse_enabled,
+    updateMaintenanceWindowResponse_cutoff,
+    updateMaintenanceWindowResponse_name,
+    updateMaintenanceWindowResponse_windowId,
+    updateMaintenanceWindowResponse_description,
+    updateMaintenanceWindowResponse_scheduleTimezone,
+    updateMaintenanceWindowResponse_endDate,
+    updateMaintenanceWindowResponse_allowUnassociatedTargets,
+    updateMaintenanceWindowResponse_schedule,
+    updateMaintenanceWindowResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'updateMaintenanceWindow' smart constructor.
+-- | /See:/ 'newUpdateMaintenanceWindow' smart constructor.
 data UpdateMaintenanceWindow = UpdateMaintenanceWindow'
-  { _umwStartDate ::
-      !(Maybe Text),
-    _umwDuration ::
-      !(Maybe Nat),
-    _umwScheduleOffset ::
-      !(Maybe Nat),
-    _umwEnabled ::
-      !(Maybe Bool),
-    _umwCutoff ::
-      !(Maybe Nat),
-    _umwName ::
-      !(Maybe Text),
-    _umwReplace ::
-      !(Maybe Bool),
-    _umwDescription ::
-      !( Maybe
-           (Sensitive Text)
-       ),
-    _umwScheduleTimezone ::
-      !(Maybe Text),
-    _umwEndDate ::
-      !(Maybe Text),
-    _umwAllowUnassociatedTargets ::
-      !(Maybe Bool),
-    _umwSchedule ::
-      !(Maybe Text),
-    _umwWindowId :: !Text
+  { -- | The time zone that the scheduled maintenance window executions are based
+    -- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+    -- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+    -- information, see the
+    -- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+    -- website.
+    startDate :: Prelude.Maybe Prelude.Text,
+    -- | The duration of the maintenance window in hours.
+    duration :: Prelude.Maybe Prelude.Nat,
+    -- | The number of days to wait after the date and time specified by a CRON
+    -- expression before running the maintenance window.
+    --
+    -- For example, the following cron expression schedules a maintenance
+    -- window to run the third Tuesday of every month at 11:30 PM.
+    --
+    -- @cron(30 23 ? * TUE#3 *)@
+    --
+    -- If the schedule offset is @2@, the maintenance window won\'t run until
+    -- two days later.
+    scheduleOffset :: Prelude.Maybe Prelude.Nat,
+    -- | Whether the maintenance window is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The number of hours before the end of the maintenance window that
+    -- Systems Manager stops scheduling new tasks for execution.
+    cutoff :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the maintenance window.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If True, then all fields that are required by the
+    -- CreateMaintenanceWindow action are also required for this API request.
+    -- Optional fields that are not specified are set to null.
+    replace :: Prelude.Maybe Prelude.Bool,
+    -- | An optional description for the update request.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The time zone that the scheduled maintenance window executions are based
+    -- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+    -- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+    -- information, see the
+    -- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+    -- website.
+    scheduleTimezone :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in ISO-8601 Extended format, for when you want the
+    -- maintenance window to become inactive. EndDate allows you to set a date
+    -- and time in the future when the maintenance window will no longer run.
+    endDate :: Prelude.Maybe Prelude.Text,
+    -- | Whether targets must be registered with the maintenance window before
+    -- tasks can be defined for those targets.
+    allowUnassociatedTargets :: Prelude.Maybe Prelude.Bool,
+    -- | The schedule of the maintenance window in the form of a cron or rate
+    -- expression.
+    schedule :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the maintenance window to update.
+    windowId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMaintenanceWindow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMaintenanceWindow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umwStartDate' - The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <https://www.iana.org/time-zones Time Zone Database> on the IANA website.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umwDuration' - The duration of the maintenance window in hours.
+-- 'startDate', 'updateMaintenanceWindow_startDate' - The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+-- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+-- information, see the
+-- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+-- website.
 --
--- * 'umwScheduleOffset' - The number of days to wait after the date and time specified by a CRON expression before running the maintenance window. For example, the following cron expression schedules a maintenance window to run the third Tuesday of every month at 11:30 PM. @cron(30 23 ? * TUE#3 *)@  If the schedule offset is @2@ , the maintenance window won't run until two days later.
+-- 'duration', 'updateMaintenanceWindow_duration' - The duration of the maintenance window in hours.
 --
--- * 'umwEnabled' - Whether the maintenance window is enabled.
+-- 'scheduleOffset', 'updateMaintenanceWindow_scheduleOffset' - The number of days to wait after the date and time specified by a CRON
+-- expression before running the maintenance window.
 --
--- * 'umwCutoff' - The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for execution.
+-- For example, the following cron expression schedules a maintenance
+-- window to run the third Tuesday of every month at 11:30 PM.
 --
--- * 'umwName' - The name of the maintenance window.
+-- @cron(30 23 ? * TUE#3 *)@
 --
--- * 'umwReplace' - If True, then all fields that are required by the CreateMaintenanceWindow action are also required for this API request. Optional fields that are not specified are set to null.
+-- If the schedule offset is @2@, the maintenance window won\'t run until
+-- two days later.
 --
--- * 'umwDescription' - An optional description for the update request.
+-- 'enabled', 'updateMaintenanceWindow_enabled' - Whether the maintenance window is enabled.
 --
--- * 'umwScheduleTimezone' - The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <https://www.iana.org/time-zones Time Zone Database> on the IANA website.
+-- 'cutoff', 'updateMaintenanceWindow_cutoff' - The number of hours before the end of the maintenance window that
+-- Systems Manager stops scheduling new tasks for execution.
 --
--- * 'umwEndDate' - The date and time, in ISO-8601 Extended format, for when you want the maintenance window to become inactive. EndDate allows you to set a date and time in the future when the maintenance window will no longer run.
+-- 'name', 'updateMaintenanceWindow_name' - The name of the maintenance window.
 --
--- * 'umwAllowUnassociatedTargets' - Whether targets must be registered with the maintenance window before tasks can be defined for those targets.
+-- 'replace', 'updateMaintenanceWindow_replace' - If True, then all fields that are required by the
+-- CreateMaintenanceWindow action are also required for this API request.
+-- Optional fields that are not specified are set to null.
 --
--- * 'umwSchedule' - The schedule of the maintenance window in the form of a cron or rate expression.
+-- 'description', 'updateMaintenanceWindow_description' - An optional description for the update request.
 --
--- * 'umwWindowId' - The ID of the maintenance window to update.
-updateMaintenanceWindow ::
-  -- | 'umwWindowId'
-  Text ->
+-- 'scheduleTimezone', 'updateMaintenanceWindow_scheduleTimezone' - The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+-- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+-- information, see the
+-- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+-- website.
+--
+-- 'endDate', 'updateMaintenanceWindow_endDate' - The date and time, in ISO-8601 Extended format, for when you want the
+-- maintenance window to become inactive. EndDate allows you to set a date
+-- and time in the future when the maintenance window will no longer run.
+--
+-- 'allowUnassociatedTargets', 'updateMaintenanceWindow_allowUnassociatedTargets' - Whether targets must be registered with the maintenance window before
+-- tasks can be defined for those targets.
+--
+-- 'schedule', 'updateMaintenanceWindow_schedule' - The schedule of the maintenance window in the form of a cron or rate
+-- expression.
+--
+-- 'windowId', 'updateMaintenanceWindow_windowId' - The ID of the maintenance window to update.
+newUpdateMaintenanceWindow ::
+  -- | 'windowId'
+  Prelude.Text ->
   UpdateMaintenanceWindow
-updateMaintenanceWindow pWindowId_ =
+newUpdateMaintenanceWindow pWindowId_ =
   UpdateMaintenanceWindow'
-    { _umwStartDate = Nothing,
-      _umwDuration = Nothing,
-      _umwScheduleOffset = Nothing,
-      _umwEnabled = Nothing,
-      _umwCutoff = Nothing,
-      _umwName = Nothing,
-      _umwReplace = Nothing,
-      _umwDescription = Nothing,
-      _umwScheduleTimezone = Nothing,
-      _umwEndDate = Nothing,
-      _umwAllowUnassociatedTargets = Nothing,
-      _umwSchedule = Nothing,
-      _umwWindowId = pWindowId_
+    { startDate =
+        Prelude.Nothing,
+      duration = Prelude.Nothing,
+      scheduleOffset = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      cutoff = Prelude.Nothing,
+      name = Prelude.Nothing,
+      replace = Prelude.Nothing,
+      description = Prelude.Nothing,
+      scheduleTimezone = Prelude.Nothing,
+      endDate = Prelude.Nothing,
+      allowUnassociatedTargets = Prelude.Nothing,
+      schedule = Prelude.Nothing,
+      windowId = pWindowId_
     }
 
--- | The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <https://www.iana.org/time-zones Time Zone Database> on the IANA website.
-umwStartDate :: Lens' UpdateMaintenanceWindow (Maybe Text)
-umwStartDate = lens _umwStartDate (\s a -> s {_umwStartDate = a})
+-- | The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+-- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+-- information, see the
+-- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+-- website.
+updateMaintenanceWindow_startDate :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindow_startDate = Lens.lens (\UpdateMaintenanceWindow' {startDate} -> startDate) (\s@UpdateMaintenanceWindow' {} a -> s {startDate = a} :: UpdateMaintenanceWindow)
 
 -- | The duration of the maintenance window in hours.
-umwDuration :: Lens' UpdateMaintenanceWindow (Maybe Natural)
-umwDuration = lens _umwDuration (\s a -> s {_umwDuration = a}) . mapping _Nat
+updateMaintenanceWindow_duration :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Natural)
+updateMaintenanceWindow_duration = Lens.lens (\UpdateMaintenanceWindow' {duration} -> duration) (\s@UpdateMaintenanceWindow' {} a -> s {duration = a} :: UpdateMaintenanceWindow) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of days to wait after the date and time specified by a CRON expression before running the maintenance window. For example, the following cron expression schedules a maintenance window to run the third Tuesday of every month at 11:30 PM. @cron(30 23 ? * TUE#3 *)@  If the schedule offset is @2@ , the maintenance window won't run until two days later.
-umwScheduleOffset :: Lens' UpdateMaintenanceWindow (Maybe Natural)
-umwScheduleOffset = lens _umwScheduleOffset (\s a -> s {_umwScheduleOffset = a}) . mapping _Nat
+-- | The number of days to wait after the date and time specified by a CRON
+-- expression before running the maintenance window.
+--
+-- For example, the following cron expression schedules a maintenance
+-- window to run the third Tuesday of every month at 11:30 PM.
+--
+-- @cron(30 23 ? * TUE#3 *)@
+--
+-- If the schedule offset is @2@, the maintenance window won\'t run until
+-- two days later.
+updateMaintenanceWindow_scheduleOffset :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Natural)
+updateMaintenanceWindow_scheduleOffset = Lens.lens (\UpdateMaintenanceWindow' {scheduleOffset} -> scheduleOffset) (\s@UpdateMaintenanceWindow' {} a -> s {scheduleOffset = a} :: UpdateMaintenanceWindow) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Whether the maintenance window is enabled.
-umwEnabled :: Lens' UpdateMaintenanceWindow (Maybe Bool)
-umwEnabled = lens _umwEnabled (\s a -> s {_umwEnabled = a})
+updateMaintenanceWindow_enabled :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Bool)
+updateMaintenanceWindow_enabled = Lens.lens (\UpdateMaintenanceWindow' {enabled} -> enabled) (\s@UpdateMaintenanceWindow' {} a -> s {enabled = a} :: UpdateMaintenanceWindow)
 
--- | The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for execution.
-umwCutoff :: Lens' UpdateMaintenanceWindow (Maybe Natural)
-umwCutoff = lens _umwCutoff (\s a -> s {_umwCutoff = a}) . mapping _Nat
+-- | The number of hours before the end of the maintenance window that
+-- Systems Manager stops scheduling new tasks for execution.
+updateMaintenanceWindow_cutoff :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Natural)
+updateMaintenanceWindow_cutoff = Lens.lens (\UpdateMaintenanceWindow' {cutoff} -> cutoff) (\s@UpdateMaintenanceWindow' {} a -> s {cutoff = a} :: UpdateMaintenanceWindow) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the maintenance window.
-umwName :: Lens' UpdateMaintenanceWindow (Maybe Text)
-umwName = lens _umwName (\s a -> s {_umwName = a})
+updateMaintenanceWindow_name :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindow_name = Lens.lens (\UpdateMaintenanceWindow' {name} -> name) (\s@UpdateMaintenanceWindow' {} a -> s {name = a} :: UpdateMaintenanceWindow)
 
--- | If True, then all fields that are required by the CreateMaintenanceWindow action are also required for this API request. Optional fields that are not specified are set to null.
-umwReplace :: Lens' UpdateMaintenanceWindow (Maybe Bool)
-umwReplace = lens _umwReplace (\s a -> s {_umwReplace = a})
+-- | If True, then all fields that are required by the
+-- CreateMaintenanceWindow action are also required for this API request.
+-- Optional fields that are not specified are set to null.
+updateMaintenanceWindow_replace :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Bool)
+updateMaintenanceWindow_replace = Lens.lens (\UpdateMaintenanceWindow' {replace} -> replace) (\s@UpdateMaintenanceWindow' {} a -> s {replace = a} :: UpdateMaintenanceWindow)
 
 -- | An optional description for the update request.
-umwDescription :: Lens' UpdateMaintenanceWindow (Maybe Text)
-umwDescription = lens _umwDescription (\s a -> s {_umwDescription = a}) . mapping _Sensitive
+updateMaintenanceWindow_description :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindow_description = Lens.lens (\UpdateMaintenanceWindow' {description} -> description) (\s@UpdateMaintenanceWindow' {} a -> s {description = a} :: UpdateMaintenanceWindow) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <https://www.iana.org/time-zones Time Zone Database> on the IANA website.
-umwScheduleTimezone :: Lens' UpdateMaintenanceWindow (Maybe Text)
-umwScheduleTimezone = lens _umwScheduleTimezone (\s a -> s {_umwScheduleTimezone = a})
+-- | The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+-- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+-- information, see the
+-- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+-- website.
+updateMaintenanceWindow_scheduleTimezone :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindow_scheduleTimezone = Lens.lens (\UpdateMaintenanceWindow' {scheduleTimezone} -> scheduleTimezone) (\s@UpdateMaintenanceWindow' {} a -> s {scheduleTimezone = a} :: UpdateMaintenanceWindow)
 
--- | The date and time, in ISO-8601 Extended format, for when you want the maintenance window to become inactive. EndDate allows you to set a date and time in the future when the maintenance window will no longer run.
-umwEndDate :: Lens' UpdateMaintenanceWindow (Maybe Text)
-umwEndDate = lens _umwEndDate (\s a -> s {_umwEndDate = a})
+-- | The date and time, in ISO-8601 Extended format, for when you want the
+-- maintenance window to become inactive. EndDate allows you to set a date
+-- and time in the future when the maintenance window will no longer run.
+updateMaintenanceWindow_endDate :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindow_endDate = Lens.lens (\UpdateMaintenanceWindow' {endDate} -> endDate) (\s@UpdateMaintenanceWindow' {} a -> s {endDate = a} :: UpdateMaintenanceWindow)
 
--- | Whether targets must be registered with the maintenance window before tasks can be defined for those targets.
-umwAllowUnassociatedTargets :: Lens' UpdateMaintenanceWindow (Maybe Bool)
-umwAllowUnassociatedTargets = lens _umwAllowUnassociatedTargets (\s a -> s {_umwAllowUnassociatedTargets = a})
+-- | Whether targets must be registered with the maintenance window before
+-- tasks can be defined for those targets.
+updateMaintenanceWindow_allowUnassociatedTargets :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Bool)
+updateMaintenanceWindow_allowUnassociatedTargets = Lens.lens (\UpdateMaintenanceWindow' {allowUnassociatedTargets} -> allowUnassociatedTargets) (\s@UpdateMaintenanceWindow' {} a -> s {allowUnassociatedTargets = a} :: UpdateMaintenanceWindow)
 
--- | The schedule of the maintenance window in the form of a cron or rate expression.
-umwSchedule :: Lens' UpdateMaintenanceWindow (Maybe Text)
-umwSchedule = lens _umwSchedule (\s a -> s {_umwSchedule = a})
+-- | The schedule of the maintenance window in the form of a cron or rate
+-- expression.
+updateMaintenanceWindow_schedule :: Lens.Lens' UpdateMaintenanceWindow (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindow_schedule = Lens.lens (\UpdateMaintenanceWindow' {schedule} -> schedule) (\s@UpdateMaintenanceWindow' {} a -> s {schedule = a} :: UpdateMaintenanceWindow)
 
 -- | The ID of the maintenance window to update.
-umwWindowId :: Lens' UpdateMaintenanceWindow Text
-umwWindowId = lens _umwWindowId (\s a -> s {_umwWindowId = a})
+updateMaintenanceWindow_windowId :: Lens.Lens' UpdateMaintenanceWindow Prelude.Text
+updateMaintenanceWindow_windowId = Lens.lens (\UpdateMaintenanceWindow' {windowId} -> windowId) (\s@UpdateMaintenanceWindow' {} a -> s {windowId = a} :: UpdateMaintenanceWindow)
 
-instance AWSRequest UpdateMaintenanceWindow where
+instance Prelude.AWSRequest UpdateMaintenanceWindow where
   type
     Rs UpdateMaintenanceWindow =
       UpdateMaintenanceWindowResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateMaintenanceWindowResponse'
-            <$> (x .?> "StartDate")
-            <*> (x .?> "Duration")
-            <*> (x .?> "ScheduleOffset")
-            <*> (x .?> "Enabled")
-            <*> (x .?> "Cutoff")
-            <*> (x .?> "Name")
-            <*> (x .?> "WindowId")
-            <*> (x .?> "Description")
-            <*> (x .?> "ScheduleTimezone")
-            <*> (x .?> "EndDate")
-            <*> (x .?> "AllowUnassociatedTargets")
-            <*> (x .?> "Schedule")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "StartDate")
+            Prelude.<*> (x Prelude..?> "Duration")
+            Prelude.<*> (x Prelude..?> "ScheduleOffset")
+            Prelude.<*> (x Prelude..?> "Enabled")
+            Prelude.<*> (x Prelude..?> "Cutoff")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "WindowId")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "ScheduleTimezone")
+            Prelude.<*> (x Prelude..?> "EndDate")
+            Prelude.<*> (x Prelude..?> "AllowUnassociatedTargets")
+            Prelude.<*> (x Prelude..?> "Schedule")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateMaintenanceWindow
+instance Prelude.Hashable UpdateMaintenanceWindow
 
-instance NFData UpdateMaintenanceWindow
+instance Prelude.NFData UpdateMaintenanceWindow
 
-instance ToHeaders UpdateMaintenanceWindow where
+instance Prelude.ToHeaders UpdateMaintenanceWindow where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.UpdateMaintenanceWindow" :: ByteString),
+              Prelude.=# ( "AmazonSSM.UpdateMaintenanceWindow" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateMaintenanceWindow where
+instance Prelude.ToJSON UpdateMaintenanceWindow where
   toJSON UpdateMaintenanceWindow' {..} =
-    object
-      ( catMaybes
-          [ ("StartDate" .=) <$> _umwStartDate,
-            ("Duration" .=) <$> _umwDuration,
-            ("ScheduleOffset" .=) <$> _umwScheduleOffset,
-            ("Enabled" .=) <$> _umwEnabled,
-            ("Cutoff" .=) <$> _umwCutoff,
-            ("Name" .=) <$> _umwName,
-            ("Replace" .=) <$> _umwReplace,
-            ("Description" .=) <$> _umwDescription,
-            ("ScheduleTimezone" .=) <$> _umwScheduleTimezone,
-            ("EndDate" .=) <$> _umwEndDate,
-            ("AllowUnassociatedTargets" .=)
-              <$> _umwAllowUnassociatedTargets,
-            ("Schedule" .=) <$> _umwSchedule,
-            Just ("WindowId" .= _umwWindowId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StartDate" Prelude..=) Prelude.<$> startDate,
+            ("Duration" Prelude..=) Prelude.<$> duration,
+            ("ScheduleOffset" Prelude..=)
+              Prelude.<$> scheduleOffset,
+            ("Enabled" Prelude..=) Prelude.<$> enabled,
+            ("Cutoff" Prelude..=) Prelude.<$> cutoff,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Replace" Prelude..=) Prelude.<$> replace,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("ScheduleTimezone" Prelude..=)
+              Prelude.<$> scheduleTimezone,
+            ("EndDate" Prelude..=) Prelude.<$> endDate,
+            ("AllowUnassociatedTargets" Prelude..=)
+              Prelude.<$> allowUnassociatedTargets,
+            ("Schedule" Prelude..=) Prelude.<$> schedule,
+            Prelude.Just ("WindowId" Prelude..= windowId)
           ]
       )
 
-instance ToPath UpdateMaintenanceWindow where
-  toPath = const "/"
+instance Prelude.ToPath UpdateMaintenanceWindow where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateMaintenanceWindow where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateMaintenanceWindow where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateMaintenanceWindowResponse' smart constructor.
+-- | /See:/ 'newUpdateMaintenanceWindowResponse' smart constructor.
 data UpdateMaintenanceWindowResponse = UpdateMaintenanceWindowResponse'
-  { _umwrrsStartDate ::
-      !( Maybe
-           Text
-       ),
-    _umwrrsDuration ::
-      !( Maybe
-           Nat
-       ),
-    _umwrrsScheduleOffset ::
-      !( Maybe
-           Nat
-       ),
-    _umwrrsEnabled ::
-      !( Maybe
-           Bool
-       ),
-    _umwrrsCutoff ::
-      !( Maybe
-           Nat
-       ),
-    _umwrrsName ::
-      !( Maybe
-           Text
-       ),
-    _umwrrsWindowId ::
-      !( Maybe
-           Text
-       ),
-    _umwrrsDescription ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _umwrrsScheduleTimezone ::
-      !( Maybe
-           Text
-       ),
-    _umwrrsEndDate ::
-      !( Maybe
-           Text
-       ),
-    _umwrrsAllowUnassociatedTargets ::
-      !( Maybe
-           Bool
-       ),
-    _umwrrsSchedule ::
-      !( Maybe
-           Text
-       ),
-    _umwrrsResponseStatus ::
-      !Int
+  { -- | The date and time, in ISO-8601 Extended format, for when the maintenance
+    -- window is scheduled to become active. The maintenance window will not
+    -- run before this specified time.
+    startDate :: Prelude.Maybe Prelude.Text,
+    -- | The duration of the maintenance window in hours.
+    duration :: Prelude.Maybe Prelude.Nat,
+    -- | The number of days to wait to run a maintenance window after the
+    -- scheduled CRON expression date and time.
+    scheduleOffset :: Prelude.Maybe Prelude.Nat,
+    -- | Whether the maintenance window is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The number of hours before the end of the maintenance window that
+    -- Systems Manager stops scheduling new tasks for execution.
+    cutoff :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the maintenance window.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the created maintenance window.
+    windowId :: Prelude.Maybe Prelude.Text,
+    -- | An optional description of the update.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The time zone that the scheduled maintenance window executions are based
+    -- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+    -- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+    -- information, see the
+    -- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+    -- website.
+    scheduleTimezone :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in ISO-8601 Extended format, for when the maintenance
+    -- window is scheduled to become inactive. The maintenance window will not
+    -- run after this specified time.
+    endDate :: Prelude.Maybe Prelude.Text,
+    -- | Whether targets must be registered with the maintenance window before
+    -- tasks can be defined for those targets.
+    allowUnassociatedTargets :: Prelude.Maybe Prelude.Bool,
+    -- | The schedule of the maintenance window in the form of a cron or rate
+    -- expression.
+    schedule :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMaintenanceWindowResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMaintenanceWindowResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umwrrsStartDate' - The date and time, in ISO-8601 Extended format, for when the maintenance window is scheduled to become active. The maintenance window will not run before this specified time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umwrrsDuration' - The duration of the maintenance window in hours.
+-- 'startDate', 'updateMaintenanceWindowResponse_startDate' - The date and time, in ISO-8601 Extended format, for when the maintenance
+-- window is scheduled to become active. The maintenance window will not
+-- run before this specified time.
 --
--- * 'umwrrsScheduleOffset' - The number of days to wait to run a maintenance window after the scheduled CRON expression date and time.
+-- 'duration', 'updateMaintenanceWindowResponse_duration' - The duration of the maintenance window in hours.
 --
--- * 'umwrrsEnabled' - Whether the maintenance window is enabled.
+-- 'scheduleOffset', 'updateMaintenanceWindowResponse_scheduleOffset' - The number of days to wait to run a maintenance window after the
+-- scheduled CRON expression date and time.
 --
--- * 'umwrrsCutoff' - The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for execution.
+-- 'enabled', 'updateMaintenanceWindowResponse_enabled' - Whether the maintenance window is enabled.
 --
--- * 'umwrrsName' - The name of the maintenance window.
+-- 'cutoff', 'updateMaintenanceWindowResponse_cutoff' - The number of hours before the end of the maintenance window that
+-- Systems Manager stops scheduling new tasks for execution.
 --
--- * 'umwrrsWindowId' - The ID of the created maintenance window.
+-- 'name', 'updateMaintenanceWindowResponse_name' - The name of the maintenance window.
 --
--- * 'umwrrsDescription' - An optional description of the update.
+-- 'windowId', 'updateMaintenanceWindowResponse_windowId' - The ID of the created maintenance window.
 --
--- * 'umwrrsScheduleTimezone' - The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <https://www.iana.org/time-zones Time Zone Database> on the IANA website.
+-- 'description', 'updateMaintenanceWindowResponse_description' - An optional description of the update.
 --
--- * 'umwrrsEndDate' - The date and time, in ISO-8601 Extended format, for when the maintenance window is scheduled to become inactive. The maintenance window will not run after this specified time.
+-- 'scheduleTimezone', 'updateMaintenanceWindowResponse_scheduleTimezone' - The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+-- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+-- information, see the
+-- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+-- website.
 --
--- * 'umwrrsAllowUnassociatedTargets' - Whether targets must be registered with the maintenance window before tasks can be defined for those targets.
+-- 'endDate', 'updateMaintenanceWindowResponse_endDate' - The date and time, in ISO-8601 Extended format, for when the maintenance
+-- window is scheduled to become inactive. The maintenance window will not
+-- run after this specified time.
 --
--- * 'umwrrsSchedule' - The schedule of the maintenance window in the form of a cron or rate expression.
+-- 'allowUnassociatedTargets', 'updateMaintenanceWindowResponse_allowUnassociatedTargets' - Whether targets must be registered with the maintenance window before
+-- tasks can be defined for those targets.
 --
--- * 'umwrrsResponseStatus' - -- | The response status code.
-updateMaintenanceWindowResponse ::
-  -- | 'umwrrsResponseStatus'
-  Int ->
+-- 'schedule', 'updateMaintenanceWindowResponse_schedule' - The schedule of the maintenance window in the form of a cron or rate
+-- expression.
+--
+-- 'httpStatus', 'updateMaintenanceWindowResponse_httpStatus' - The response's http status code.
+newUpdateMaintenanceWindowResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateMaintenanceWindowResponse
-updateMaintenanceWindowResponse pResponseStatus_ =
+newUpdateMaintenanceWindowResponse pHttpStatus_ =
   UpdateMaintenanceWindowResponse'
-    { _umwrrsStartDate =
-        Nothing,
-      _umwrrsDuration = Nothing,
-      _umwrrsScheduleOffset = Nothing,
-      _umwrrsEnabled = Nothing,
-      _umwrrsCutoff = Nothing,
-      _umwrrsName = Nothing,
-      _umwrrsWindowId = Nothing,
-      _umwrrsDescription = Nothing,
-      _umwrrsScheduleTimezone = Nothing,
-      _umwrrsEndDate = Nothing,
-      _umwrrsAllowUnassociatedTargets = Nothing,
-      _umwrrsSchedule = Nothing,
-      _umwrrsResponseStatus = pResponseStatus_
+    { startDate =
+        Prelude.Nothing,
+      duration = Prelude.Nothing,
+      scheduleOffset = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      cutoff = Prelude.Nothing,
+      name = Prelude.Nothing,
+      windowId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      scheduleTimezone = Prelude.Nothing,
+      endDate = Prelude.Nothing,
+      allowUnassociatedTargets = Prelude.Nothing,
+      schedule = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The date and time, in ISO-8601 Extended format, for when the maintenance window is scheduled to become active. The maintenance window will not run before this specified time.
-umwrrsStartDate :: Lens' UpdateMaintenanceWindowResponse (Maybe Text)
-umwrrsStartDate = lens _umwrrsStartDate (\s a -> s {_umwrrsStartDate = a})
+-- | The date and time, in ISO-8601 Extended format, for when the maintenance
+-- window is scheduled to become active. The maintenance window will not
+-- run before this specified time.
+updateMaintenanceWindowResponse_startDate :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowResponse_startDate = Lens.lens (\UpdateMaintenanceWindowResponse' {startDate} -> startDate) (\s@UpdateMaintenanceWindowResponse' {} a -> s {startDate = a} :: UpdateMaintenanceWindowResponse)
 
 -- | The duration of the maintenance window in hours.
-umwrrsDuration :: Lens' UpdateMaintenanceWindowResponse (Maybe Natural)
-umwrrsDuration = lens _umwrrsDuration (\s a -> s {_umwrrsDuration = a}) . mapping _Nat
+updateMaintenanceWindowResponse_duration :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Natural)
+updateMaintenanceWindowResponse_duration = Lens.lens (\UpdateMaintenanceWindowResponse' {duration} -> duration) (\s@UpdateMaintenanceWindowResponse' {} a -> s {duration = a} :: UpdateMaintenanceWindowResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of days to wait to run a maintenance window after the scheduled CRON expression date and time.
-umwrrsScheduleOffset :: Lens' UpdateMaintenanceWindowResponse (Maybe Natural)
-umwrrsScheduleOffset = lens _umwrrsScheduleOffset (\s a -> s {_umwrrsScheduleOffset = a}) . mapping _Nat
+-- | The number of days to wait to run a maintenance window after the
+-- scheduled CRON expression date and time.
+updateMaintenanceWindowResponse_scheduleOffset :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Natural)
+updateMaintenanceWindowResponse_scheduleOffset = Lens.lens (\UpdateMaintenanceWindowResponse' {scheduleOffset} -> scheduleOffset) (\s@UpdateMaintenanceWindowResponse' {} a -> s {scheduleOffset = a} :: UpdateMaintenanceWindowResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Whether the maintenance window is enabled.
-umwrrsEnabled :: Lens' UpdateMaintenanceWindowResponse (Maybe Bool)
-umwrrsEnabled = lens _umwrrsEnabled (\s a -> s {_umwrrsEnabled = a})
+updateMaintenanceWindowResponse_enabled :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Bool)
+updateMaintenanceWindowResponse_enabled = Lens.lens (\UpdateMaintenanceWindowResponse' {enabled} -> enabled) (\s@UpdateMaintenanceWindowResponse' {} a -> s {enabled = a} :: UpdateMaintenanceWindowResponse)
 
--- | The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for execution.
-umwrrsCutoff :: Lens' UpdateMaintenanceWindowResponse (Maybe Natural)
-umwrrsCutoff = lens _umwrrsCutoff (\s a -> s {_umwrrsCutoff = a}) . mapping _Nat
+-- | The number of hours before the end of the maintenance window that
+-- Systems Manager stops scheduling new tasks for execution.
+updateMaintenanceWindowResponse_cutoff :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Natural)
+updateMaintenanceWindowResponse_cutoff = Lens.lens (\UpdateMaintenanceWindowResponse' {cutoff} -> cutoff) (\s@UpdateMaintenanceWindowResponse' {} a -> s {cutoff = a} :: UpdateMaintenanceWindowResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the maintenance window.
-umwrrsName :: Lens' UpdateMaintenanceWindowResponse (Maybe Text)
-umwrrsName = lens _umwrrsName (\s a -> s {_umwrrsName = a})
+updateMaintenanceWindowResponse_name :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowResponse_name = Lens.lens (\UpdateMaintenanceWindowResponse' {name} -> name) (\s@UpdateMaintenanceWindowResponse' {} a -> s {name = a} :: UpdateMaintenanceWindowResponse)
 
 -- | The ID of the created maintenance window.
-umwrrsWindowId :: Lens' UpdateMaintenanceWindowResponse (Maybe Text)
-umwrrsWindowId = lens _umwrrsWindowId (\s a -> s {_umwrrsWindowId = a})
+updateMaintenanceWindowResponse_windowId :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowResponse_windowId = Lens.lens (\UpdateMaintenanceWindowResponse' {windowId} -> windowId) (\s@UpdateMaintenanceWindowResponse' {} a -> s {windowId = a} :: UpdateMaintenanceWindowResponse)
 
 -- | An optional description of the update.
-umwrrsDescription :: Lens' UpdateMaintenanceWindowResponse (Maybe Text)
-umwrrsDescription = lens _umwrrsDescription (\s a -> s {_umwrrsDescription = a}) . mapping _Sensitive
+updateMaintenanceWindowResponse_description :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowResponse_description = Lens.lens (\UpdateMaintenanceWindowResponse' {description} -> description) (\s@UpdateMaintenanceWindowResponse' {} a -> s {description = a} :: UpdateMaintenanceWindowResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The time zone that the scheduled maintenance window executions are based on, in Internet Assigned Numbers Authority (IANA) format. For example: "America/Los_Angeles", "UTC", or "Asia/Seoul". For more information, see the <https://www.iana.org/time-zones Time Zone Database> on the IANA website.
-umwrrsScheduleTimezone :: Lens' UpdateMaintenanceWindowResponse (Maybe Text)
-umwrrsScheduleTimezone = lens _umwrrsScheduleTimezone (\s a -> s {_umwrrsScheduleTimezone = a})
+-- | The time zone that the scheduled maintenance window executions are based
+-- on, in Internet Assigned Numbers Authority (IANA) format. For example:
+-- \"America\/Los_Angeles\", \"UTC\", or \"Asia\/Seoul\". For more
+-- information, see the
+-- <https://www.iana.org/time-zones Time Zone Database> on the IANA
+-- website.
+updateMaintenanceWindowResponse_scheduleTimezone :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowResponse_scheduleTimezone = Lens.lens (\UpdateMaintenanceWindowResponse' {scheduleTimezone} -> scheduleTimezone) (\s@UpdateMaintenanceWindowResponse' {} a -> s {scheduleTimezone = a} :: UpdateMaintenanceWindowResponse)
 
--- | The date and time, in ISO-8601 Extended format, for when the maintenance window is scheduled to become inactive. The maintenance window will not run after this specified time.
-umwrrsEndDate :: Lens' UpdateMaintenanceWindowResponse (Maybe Text)
-umwrrsEndDate = lens _umwrrsEndDate (\s a -> s {_umwrrsEndDate = a})
+-- | The date and time, in ISO-8601 Extended format, for when the maintenance
+-- window is scheduled to become inactive. The maintenance window will not
+-- run after this specified time.
+updateMaintenanceWindowResponse_endDate :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowResponse_endDate = Lens.lens (\UpdateMaintenanceWindowResponse' {endDate} -> endDate) (\s@UpdateMaintenanceWindowResponse' {} a -> s {endDate = a} :: UpdateMaintenanceWindowResponse)
 
--- | Whether targets must be registered with the maintenance window before tasks can be defined for those targets.
-umwrrsAllowUnassociatedTargets :: Lens' UpdateMaintenanceWindowResponse (Maybe Bool)
-umwrrsAllowUnassociatedTargets = lens _umwrrsAllowUnassociatedTargets (\s a -> s {_umwrrsAllowUnassociatedTargets = a})
+-- | Whether targets must be registered with the maintenance window before
+-- tasks can be defined for those targets.
+updateMaintenanceWindowResponse_allowUnassociatedTargets :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Bool)
+updateMaintenanceWindowResponse_allowUnassociatedTargets = Lens.lens (\UpdateMaintenanceWindowResponse' {allowUnassociatedTargets} -> allowUnassociatedTargets) (\s@UpdateMaintenanceWindowResponse' {} a -> s {allowUnassociatedTargets = a} :: UpdateMaintenanceWindowResponse)
 
--- | The schedule of the maintenance window in the form of a cron or rate expression.
-umwrrsSchedule :: Lens' UpdateMaintenanceWindowResponse (Maybe Text)
-umwrrsSchedule = lens _umwrrsSchedule (\s a -> s {_umwrrsSchedule = a})
+-- | The schedule of the maintenance window in the form of a cron or rate
+-- expression.
+updateMaintenanceWindowResponse_schedule :: Lens.Lens' UpdateMaintenanceWindowResponse (Prelude.Maybe Prelude.Text)
+updateMaintenanceWindowResponse_schedule = Lens.lens (\UpdateMaintenanceWindowResponse' {schedule} -> schedule) (\s@UpdateMaintenanceWindowResponse' {} a -> s {schedule = a} :: UpdateMaintenanceWindowResponse)
 
--- | -- | The response status code.
-umwrrsResponseStatus :: Lens' UpdateMaintenanceWindowResponse Int
-umwrrsResponseStatus = lens _umwrrsResponseStatus (\s a -> s {_umwrrsResponseStatus = a})
+-- | The response's http status code.
+updateMaintenanceWindowResponse_httpStatus :: Lens.Lens' UpdateMaintenanceWindowResponse Prelude.Int
+updateMaintenanceWindowResponse_httpStatus = Lens.lens (\UpdateMaintenanceWindowResponse' {httpStatus} -> httpStatus) (\s@UpdateMaintenanceWindowResponse' {} a -> s {httpStatus = a} :: UpdateMaintenanceWindowResponse)
 
-instance NFData UpdateMaintenanceWindowResponse
+instance
+  Prelude.NFData
+    UpdateMaintenanceWindowResponse

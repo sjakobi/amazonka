@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.SSM.Types.PingStatus
   ( PingStatus
       ( ..,
-        ConnectionLost,
-        Inactive,
-        Online
+        PingStatusConnectionLost,
+        PingStatusInactive,
+        PingStatusOnline
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PingStatus = PingStatus' (CI Text)
+newtype PingStatus = PingStatus'
+  { fromPingStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConnectionLost :: PingStatus
-pattern ConnectionLost = PingStatus' "ConnectionLost"
+pattern PingStatusConnectionLost :: PingStatus
+pattern PingStatusConnectionLost = PingStatus' "ConnectionLost"
 
-pattern Inactive :: PingStatus
-pattern Inactive = PingStatus' "Inactive"
+pattern PingStatusInactive :: PingStatus
+pattern PingStatusInactive = PingStatus' "Inactive"
 
-pattern Online :: PingStatus
-pattern Online = PingStatus' "Online"
+pattern PingStatusOnline :: PingStatus
+pattern PingStatusOnline = PingStatus' "Online"
 
 {-# COMPLETE
-  ConnectionLost,
-  Inactive,
-  Online,
+  PingStatusConnectionLost,
+  PingStatusInactive,
+  PingStatusOnline,
   PingStatus'
   #-}
 
-instance FromText PingStatus where
-  parser = (PingStatus' . mk) <$> takeText
+instance Prelude.FromText PingStatus where
+  parser = PingStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PingStatus where
-  toText (PingStatus' ci) = original ci
+instance Prelude.ToText PingStatus where
+  toText (PingStatus' x) = x
 
-instance Hashable PingStatus
+instance Prelude.Hashable PingStatus
 
-instance NFData PingStatus
+instance Prelude.NFData PingStatus
 
-instance ToByteString PingStatus
+instance Prelude.ToByteString PingStatus
 
-instance ToQuery PingStatus
+instance Prelude.ToQuery PingStatus
 
-instance ToHeader PingStatus
+instance Prelude.ToHeader PingStatus
 
-instance FromJSON PingStatus where
-  parseJSON = parseJSONText "PingStatus"
+instance Prelude.FromJSON PingStatus where
+  parseJSON = Prelude.parseJSONText "PingStatus"

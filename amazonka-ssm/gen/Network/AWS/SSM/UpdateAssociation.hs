@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,308 +21,545 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an association. You can update the association name and version, the document version, schedule, parameters, and Amazon S3 output.
+-- Updates an association. You can update the association name and version,
+-- the document version, schedule, parameters, and Amazon S3 output.
 --
+-- In order to call this API action, your IAM user account, group, or role
+-- must be configured with permission to call the DescribeAssociation API
+-- action. If you don\'t have permission to call DescribeAssociation, then
+-- you receive the following error:
+-- @An error occurred (AccessDeniedException) when calling the UpdateAssociation operation: User: \<user_arn> is not authorized to perform: ssm:DescribeAssociation on resource: \<resource_arn>@
 --
--- In order to call this API action, your IAM user account, group, or role must be configured with permission to call the 'DescribeAssociation' API action. If you don't have permission to call DescribeAssociation, then you receive the following error: @An error occurred (AccessDeniedException) when calling the UpdateAssociation operation: User: <user_arn> is not authorized to perform: ssm:DescribeAssociation on resource: <resource_arn>@
---
--- /Important:/ When you update an association, the association immediately runs against the specified targets.
+-- When you update an association, the association immediately runs against
+-- the specified targets.
 module Network.AWS.SSM.UpdateAssociation
   ( -- * Creating a Request
-    updateAssociation,
-    UpdateAssociation,
+    UpdateAssociation (..),
+    newUpdateAssociation,
 
     -- * Request Lenses
-    uaMaxErrors,
-    uaComplianceSeverity,
-    uaAutomationTargetParameterName,
-    uaTargets,
-    uaTargetLocations,
-    uaScheduleExpression,
-    uaName,
-    uaMaxConcurrency,
-    uaAssociationName,
-    uaAssociationVersion,
-    uaDocumentVersion,
-    uaParameters,
-    uaOutputLocation,
-    uaApplyOnlyAtCronInterval,
-    uaSyncCompliance,
-    uaAssociationId,
+    updateAssociation_maxErrors,
+    updateAssociation_complianceSeverity,
+    updateAssociation_automationTargetParameterName,
+    updateAssociation_targets,
+    updateAssociation_targetLocations,
+    updateAssociation_scheduleExpression,
+    updateAssociation_name,
+    updateAssociation_maxConcurrency,
+    updateAssociation_associationName,
+    updateAssociation_associationVersion,
+    updateAssociation_documentVersion,
+    updateAssociation_parameters,
+    updateAssociation_outputLocation,
+    updateAssociation_applyOnlyAtCronInterval,
+    updateAssociation_syncCompliance,
+    updateAssociation_associationId,
 
     -- * Destructuring the Response
-    updateAssociationResponse,
-    UpdateAssociationResponse,
+    UpdateAssociationResponse (..),
+    newUpdateAssociationResponse,
 
     -- * Response Lenses
-    uarrsAssociationDescription,
-    uarrsResponseStatus,
+    updateAssociationResponse_associationDescription,
+    updateAssociationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.AssociationDescription
 
--- | /See:/ 'updateAssociation' smart constructor.
+-- | /See:/ 'newUpdateAssociation' smart constructor.
 data UpdateAssociation = UpdateAssociation'
-  { _uaMaxErrors ::
-      !(Maybe Text),
-    _uaComplianceSeverity ::
-      !( Maybe
-           AssociationComplianceSeverity
-       ),
-    _uaAutomationTargetParameterName ::
-      !(Maybe Text),
-    _uaTargets :: !(Maybe [Target]),
-    _uaTargetLocations ::
-      !(Maybe (List1 TargetLocation)),
-    _uaScheduleExpression ::
-      !(Maybe Text),
-    _uaName :: !(Maybe Text),
-    _uaMaxConcurrency :: !(Maybe Text),
-    _uaAssociationName :: !(Maybe Text),
-    _uaAssociationVersion ::
-      !(Maybe Text),
-    _uaDocumentVersion :: !(Maybe Text),
-    _uaParameters ::
-      !(Maybe (Map Text [Text])),
-    _uaOutputLocation ::
-      !( Maybe
-           InstanceAssociationOutputLocation
-       ),
-    _uaApplyOnlyAtCronInterval ::
-      !(Maybe Bool),
-    _uaSyncCompliance ::
-      !(Maybe AssociationSyncCompliance),
-    _uaAssociationId :: !Text
+  { -- | The number of errors that are allowed before the system stops sending
+    -- requests to run the association on additional targets. You can specify
+    -- either an absolute number of errors, for example 10, or a percentage of
+    -- the target set, for example 10%. If you specify 3, for example, the
+    -- system stops sending requests when the fourth error is received. If you
+    -- specify 0, then the system stops sending requests after the first error
+    -- is returned. If you run an association on 50 instances and set MaxError
+    -- to 10%, then the system stops sending the request when the sixth error
+    -- is received.
+    --
+    -- Executions that are already running an association when MaxErrors is
+    -- reached are allowed to complete, but some of these executions may fail
+    -- as well. If you need to ensure that there won\'t be more than max-errors
+    -- failed executions, set MaxConcurrency to 1 so that executions proceed
+    -- one at a time.
+    maxErrors :: Prelude.Maybe Prelude.Text,
+    -- | The severity level to assign to the association.
+    complianceSeverity :: Prelude.Maybe AssociationComplianceSeverity,
+    -- | Specify the target for the association. This target is required for
+    -- associations that use an Automation document and target resources by
+    -- using rate controls.
+    automationTargetParameterName :: Prelude.Maybe Prelude.Text,
+    -- | The targets of the association.
+    targets :: Prelude.Maybe [Target],
+    -- | A location is a combination of AWS Regions and AWS accounts where you
+    -- want to run the association. Use this action to update an association in
+    -- multiple Regions and multiple accounts.
+    targetLocations :: Prelude.Maybe (Prelude.List1 TargetLocation),
+    -- | The cron expression used to schedule the association that you want to
+    -- update.
+    scheduleExpression :: Prelude.Maybe Prelude.Text,
+    -- | The name of the SSM document that contains the configuration information
+    -- for the instance. You can specify Command or Automation documents.
+    --
+    -- You can specify AWS-predefined documents, documents you created, or a
+    -- document that is shared with you from another account.
+    --
+    -- For SSM documents that are shared with you from other AWS accounts, you
+    -- must specify the complete SSM document ARN, in the following format:
+    --
+    -- @arn:aws:ssm:region:account-id:document\/document-name @
+    --
+    -- For example:
+    --
+    -- @arn:aws:ssm:us-east-2:12345678912:document\/My-Shared-Document@
+    --
+    -- For AWS-predefined documents and SSM documents you created in your
+    -- account, you only need to specify the document name. For example,
+    -- @AWS-ApplyPatchBaseline@ or @My-Document@.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of targets allowed to run the association at the same
+    -- time. You can specify a number, for example 10, or a percentage of the
+    -- target set, for example 10%. The default value is 100%, which means all
+    -- targets run the association at the same time.
+    --
+    -- If a new instance starts and attempts to run an association while
+    -- Systems Manager is running MaxConcurrency associations, the association
+    -- is allowed to run. During the next association interval, the new
+    -- instance will process its association within the limit specified for
+    -- MaxConcurrency.
+    maxConcurrency :: Prelude.Maybe Prelude.Text,
+    -- | The name of the association that you want to update.
+    associationName :: Prelude.Maybe Prelude.Text,
+    -- | This parameter is provided for concurrency control purposes. You must
+    -- specify the latest association version in the service. If you want to
+    -- ensure that this request succeeds, either specify @$LATEST@, or omit
+    -- this parameter.
+    associationVersion :: Prelude.Maybe Prelude.Text,
+    -- | The document version you want update for the association.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The parameters you want to update for the association. If you create a
+    -- parameter using Parameter Store, you can reference the parameter using
+    -- {{ssm:parameter-name}}
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | An S3 bucket where you want to store the results of this request.
+    outputLocation :: Prelude.Maybe InstanceAssociationOutputLocation,
+    -- | By default, when you update an association, the system runs it
+    -- immediately after it is updated and then according to the schedule you
+    -- specified. Specify this option if you don\'t want an association to run
+    -- immediately after you update it. This parameter is not supported for
+    -- rate expressions.
+    --
+    -- Also, if you specified this option when you created the association, you
+    -- can reset it. To do so, specify the @no-apply-only-at-cron-interval@
+    -- parameter when you update the association from the command line. This
+    -- parameter forces the association to run immediately after updating it
+    -- and according to the interval specified.
+    applyOnlyAtCronInterval :: Prelude.Maybe Prelude.Bool,
+    -- | The mode for generating association compliance. You can specify @AUTO@
+    -- or @MANUAL@. In @AUTO@ mode, the system uses the status of the
+    -- association execution to determine the compliance status. If the
+    -- association execution runs successfully, then the association is
+    -- @COMPLIANT@. If the association execution doesn\'t run successfully, the
+    -- association is @NON-COMPLIANT@.
+    --
+    -- In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter
+    -- for the PutComplianceItems API action. In this case, compliance data is
+    -- not managed by State Manager. It is managed by your direct call to the
+    -- PutComplianceItems API action.
+    --
+    -- By default, all associations use @AUTO@ mode.
+    syncCompliance :: Prelude.Maybe AssociationSyncCompliance,
+    -- | The ID of the association you want to update.
+    associationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaMaxErrors' - The number of errors that are allowed before the system stops sending requests to run the association on additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth error is received. If you specify 0, then the system stops sending requests after the first error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when the sixth error is received. Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of these executions may fail as well. If you need to ensure that there won't be more than max-errors failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaComplianceSeverity' - The severity level to assign to the association.
+-- 'maxErrors', 'updateAssociation_maxErrors' - The number of errors that are allowed before the system stops sending
+-- requests to run the association on additional targets. You can specify
+-- either an absolute number of errors, for example 10, or a percentage of
+-- the target set, for example 10%. If you specify 3, for example, the
+-- system stops sending requests when the fourth error is received. If you
+-- specify 0, then the system stops sending requests after the first error
+-- is returned. If you run an association on 50 instances and set MaxError
+-- to 10%, then the system stops sending the request when the sixth error
+-- is received.
 --
--- * 'uaAutomationTargetParameterName' - Specify the target for the association. This target is required for associations that use an Automation document and target resources by using rate controls.
+-- Executions that are already running an association when MaxErrors is
+-- reached are allowed to complete, but some of these executions may fail
+-- as well. If you need to ensure that there won\'t be more than max-errors
+-- failed executions, set MaxConcurrency to 1 so that executions proceed
+-- one at a time.
 --
--- * 'uaTargets' - The targets of the association.
+-- 'complianceSeverity', 'updateAssociation_complianceSeverity' - The severity level to assign to the association.
 --
--- * 'uaTargetLocations' - A location is a combination of AWS Regions and AWS accounts where you want to run the association. Use this action to update an association in multiple Regions and multiple accounts.
+-- 'automationTargetParameterName', 'updateAssociation_automationTargetParameterName' - Specify the target for the association. This target is required for
+-- associations that use an Automation document and target resources by
+-- using rate controls.
 --
--- * 'uaScheduleExpression' - The cron expression used to schedule the association that you want to update.
+-- 'targets', 'updateAssociation_targets' - The targets of the association.
 --
--- * 'uaName' - The name of the SSM document that contains the configuration information for the instance. You can specify Command or Automation documents. You can specify AWS-predefined documents, documents you created, or a document that is shared with you from another account. For SSM documents that are shared with you from other AWS accounts, you must specify the complete SSM document ARN, in the following format: @arn:aws:ssm:/region/ :/account-id/ :document//document-name/ @  For example: @arn:aws:ssm:us-east-2:12345678912:document/My-Shared-Document@  For AWS-predefined documents and SSM documents you created in your account, you only need to specify the document name. For example, @AWS-ApplyPatchBaseline@ or @My-Document@ .
+-- 'targetLocations', 'updateAssociation_targetLocations' - A location is a combination of AWS Regions and AWS accounts where you
+-- want to run the association. Use this action to update an association in
+-- multiple Regions and multiple accounts.
 --
--- * 'uaMaxConcurrency' - The maximum number of targets allowed to run the association at the same time. You can specify a number, for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which means all targets run the association at the same time. If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency associations, the association is allowed to run. During the next association interval, the new instance will process its association within the limit specified for MaxConcurrency.
+-- 'scheduleExpression', 'updateAssociation_scheduleExpression' - The cron expression used to schedule the association that you want to
+-- update.
 --
--- * 'uaAssociationName' - The name of the association that you want to update.
+-- 'name', 'updateAssociation_name' - The name of the SSM document that contains the configuration information
+-- for the instance. You can specify Command or Automation documents.
 --
--- * 'uaAssociationVersion' - This parameter is provided for concurrency control purposes. You must specify the latest association version in the service. If you want to ensure that this request succeeds, either specify @> LATEST@ , or omit this parameter.
+-- You can specify AWS-predefined documents, documents you created, or a
+-- document that is shared with you from another account.
 --
--- * 'uaDocumentVersion' - The document version you want update for the association.
+-- For SSM documents that are shared with you from other AWS accounts, you
+-- must specify the complete SSM document ARN, in the following format:
 --
--- * 'uaParameters' - The parameters you want to update for the association. If you create a parameter using Parameter Store, you can reference the parameter using {{ssm:parameter-name}}
+-- @arn:aws:ssm:region:account-id:document\/document-name @
 --
--- * 'uaOutputLocation' - An S3 bucket where you want to store the results of this request.
+-- For example:
 --
--- * 'uaApplyOnlyAtCronInterval' - By default, when you update an association, the system runs it immediately after it is updated and then according to the schedule you specified. Specify this option if you don't want an association to run immediately after you update it. This parameter is not supported for rate expressions. Also, if you specified this option when you created the association, you can reset it. To do so, specify the @no-apply-only-at-cron-interval@ parameter when you update the association from the command line. This parameter forces the association to run immediately after updating it and according to the interval specified.
+-- @arn:aws:ssm:us-east-2:12345678912:document\/My-Shared-Document@
 --
--- * 'uaSyncCompliance' - The mode for generating association compliance. You can specify @AUTO@ or @MANUAL@ . In @AUTO@ mode, the system uses the status of the association execution to determine the compliance status. If the association execution runs successfully, then the association is @COMPLIANT@ . If the association execution doesn't run successfully, the association is @NON-COMPLIANT@ . In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter for the 'PutComplianceItems' API action. In this case, compliance data is not managed by State Manager. It is managed by your direct call to the 'PutComplianceItems' API action. By default, all associations use @AUTO@ mode.
+-- For AWS-predefined documents and SSM documents you created in your
+-- account, you only need to specify the document name. For example,
+-- @AWS-ApplyPatchBaseline@ or @My-Document@.
 --
--- * 'uaAssociationId' - The ID of the association you want to update.
-updateAssociation ::
-  -- | 'uaAssociationId'
-  Text ->
+-- 'maxConcurrency', 'updateAssociation_maxConcurrency' - The maximum number of targets allowed to run the association at the same
+-- time. You can specify a number, for example 10, or a percentage of the
+-- target set, for example 10%. The default value is 100%, which means all
+-- targets run the association at the same time.
+--
+-- If a new instance starts and attempts to run an association while
+-- Systems Manager is running MaxConcurrency associations, the association
+-- is allowed to run. During the next association interval, the new
+-- instance will process its association within the limit specified for
+-- MaxConcurrency.
+--
+-- 'associationName', 'updateAssociation_associationName' - The name of the association that you want to update.
+--
+-- 'associationVersion', 'updateAssociation_associationVersion' - This parameter is provided for concurrency control purposes. You must
+-- specify the latest association version in the service. If you want to
+-- ensure that this request succeeds, either specify @$LATEST@, or omit
+-- this parameter.
+--
+-- 'documentVersion', 'updateAssociation_documentVersion' - The document version you want update for the association.
+--
+-- 'parameters', 'updateAssociation_parameters' - The parameters you want to update for the association. If you create a
+-- parameter using Parameter Store, you can reference the parameter using
+-- {{ssm:parameter-name}}
+--
+-- 'outputLocation', 'updateAssociation_outputLocation' - An S3 bucket where you want to store the results of this request.
+--
+-- 'applyOnlyAtCronInterval', 'updateAssociation_applyOnlyAtCronInterval' - By default, when you update an association, the system runs it
+-- immediately after it is updated and then according to the schedule you
+-- specified. Specify this option if you don\'t want an association to run
+-- immediately after you update it. This parameter is not supported for
+-- rate expressions.
+--
+-- Also, if you specified this option when you created the association, you
+-- can reset it. To do so, specify the @no-apply-only-at-cron-interval@
+-- parameter when you update the association from the command line. This
+-- parameter forces the association to run immediately after updating it
+-- and according to the interval specified.
+--
+-- 'syncCompliance', 'updateAssociation_syncCompliance' - The mode for generating association compliance. You can specify @AUTO@
+-- or @MANUAL@. In @AUTO@ mode, the system uses the status of the
+-- association execution to determine the compliance status. If the
+-- association execution runs successfully, then the association is
+-- @COMPLIANT@. If the association execution doesn\'t run successfully, the
+-- association is @NON-COMPLIANT@.
+--
+-- In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter
+-- for the PutComplianceItems API action. In this case, compliance data is
+-- not managed by State Manager. It is managed by your direct call to the
+-- PutComplianceItems API action.
+--
+-- By default, all associations use @AUTO@ mode.
+--
+-- 'associationId', 'updateAssociation_associationId' - The ID of the association you want to update.
+newUpdateAssociation ::
+  -- | 'associationId'
+  Prelude.Text ->
   UpdateAssociation
-updateAssociation pAssociationId_ =
+newUpdateAssociation pAssociationId_ =
   UpdateAssociation'
-    { _uaMaxErrors = Nothing,
-      _uaComplianceSeverity = Nothing,
-      _uaAutomationTargetParameterName = Nothing,
-      _uaTargets = Nothing,
-      _uaTargetLocations = Nothing,
-      _uaScheduleExpression = Nothing,
-      _uaName = Nothing,
-      _uaMaxConcurrency = Nothing,
-      _uaAssociationName = Nothing,
-      _uaAssociationVersion = Nothing,
-      _uaDocumentVersion = Nothing,
-      _uaParameters = Nothing,
-      _uaOutputLocation = Nothing,
-      _uaApplyOnlyAtCronInterval = Nothing,
-      _uaSyncCompliance = Nothing,
-      _uaAssociationId = pAssociationId_
+    { maxErrors = Prelude.Nothing,
+      complianceSeverity = Prelude.Nothing,
+      automationTargetParameterName = Prelude.Nothing,
+      targets = Prelude.Nothing,
+      targetLocations = Prelude.Nothing,
+      scheduleExpression = Prelude.Nothing,
+      name = Prelude.Nothing,
+      maxConcurrency = Prelude.Nothing,
+      associationName = Prelude.Nothing,
+      associationVersion = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      outputLocation = Prelude.Nothing,
+      applyOnlyAtCronInterval = Prelude.Nothing,
+      syncCompliance = Prelude.Nothing,
+      associationId = pAssociationId_
     }
 
--- | The number of errors that are allowed before the system stops sending requests to run the association on additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth error is received. If you specify 0, then the system stops sending requests after the first error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when the sixth error is received. Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of these executions may fail as well. If you need to ensure that there won't be more than max-errors failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
-uaMaxErrors :: Lens' UpdateAssociation (Maybe Text)
-uaMaxErrors = lens _uaMaxErrors (\s a -> s {_uaMaxErrors = a})
+-- | The number of errors that are allowed before the system stops sending
+-- requests to run the association on additional targets. You can specify
+-- either an absolute number of errors, for example 10, or a percentage of
+-- the target set, for example 10%. If you specify 3, for example, the
+-- system stops sending requests when the fourth error is received. If you
+-- specify 0, then the system stops sending requests after the first error
+-- is returned. If you run an association on 50 instances and set MaxError
+-- to 10%, then the system stops sending the request when the sixth error
+-- is received.
+--
+-- Executions that are already running an association when MaxErrors is
+-- reached are allowed to complete, but some of these executions may fail
+-- as well. If you need to ensure that there won\'t be more than max-errors
+-- failed executions, set MaxConcurrency to 1 so that executions proceed
+-- one at a time.
+updateAssociation_maxErrors :: Lens.Lens' UpdateAssociation (Prelude.Maybe Prelude.Text)
+updateAssociation_maxErrors = Lens.lens (\UpdateAssociation' {maxErrors} -> maxErrors) (\s@UpdateAssociation' {} a -> s {maxErrors = a} :: UpdateAssociation)
 
 -- | The severity level to assign to the association.
-uaComplianceSeverity :: Lens' UpdateAssociation (Maybe AssociationComplianceSeverity)
-uaComplianceSeverity = lens _uaComplianceSeverity (\s a -> s {_uaComplianceSeverity = a})
+updateAssociation_complianceSeverity :: Lens.Lens' UpdateAssociation (Prelude.Maybe AssociationComplianceSeverity)
+updateAssociation_complianceSeverity = Lens.lens (\UpdateAssociation' {complianceSeverity} -> complianceSeverity) (\s@UpdateAssociation' {} a -> s {complianceSeverity = a} :: UpdateAssociation)
 
--- | Specify the target for the association. This target is required for associations that use an Automation document and target resources by using rate controls.
-uaAutomationTargetParameterName :: Lens' UpdateAssociation (Maybe Text)
-uaAutomationTargetParameterName = lens _uaAutomationTargetParameterName (\s a -> s {_uaAutomationTargetParameterName = a})
+-- | Specify the target for the association. This target is required for
+-- associations that use an Automation document and target resources by
+-- using rate controls.
+updateAssociation_automationTargetParameterName :: Lens.Lens' UpdateAssociation (Prelude.Maybe Prelude.Text)
+updateAssociation_automationTargetParameterName = Lens.lens (\UpdateAssociation' {automationTargetParameterName} -> automationTargetParameterName) (\s@UpdateAssociation' {} a -> s {automationTargetParameterName = a} :: UpdateAssociation)
 
 -- | The targets of the association.
-uaTargets :: Lens' UpdateAssociation [Target]
-uaTargets = lens _uaTargets (\s a -> s {_uaTargets = a}) . _Default . _Coerce
+updateAssociation_targets :: Lens.Lens' UpdateAssociation (Prelude.Maybe [Target])
+updateAssociation_targets = Lens.lens (\UpdateAssociation' {targets} -> targets) (\s@UpdateAssociation' {} a -> s {targets = a} :: UpdateAssociation) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A location is a combination of AWS Regions and AWS accounts where you want to run the association. Use this action to update an association in multiple Regions and multiple accounts.
-uaTargetLocations :: Lens' UpdateAssociation (Maybe (NonEmpty TargetLocation))
-uaTargetLocations = lens _uaTargetLocations (\s a -> s {_uaTargetLocations = a}) . mapping _List1
+-- | A location is a combination of AWS Regions and AWS accounts where you
+-- want to run the association. Use this action to update an association in
+-- multiple Regions and multiple accounts.
+updateAssociation_targetLocations :: Lens.Lens' UpdateAssociation (Prelude.Maybe (Prelude.NonEmpty TargetLocation))
+updateAssociation_targetLocations = Lens.lens (\UpdateAssociation' {targetLocations} -> targetLocations) (\s@UpdateAssociation' {} a -> s {targetLocations = a} :: UpdateAssociation) Prelude.. Lens.mapping Prelude._List1
 
--- | The cron expression used to schedule the association that you want to update.
-uaScheduleExpression :: Lens' UpdateAssociation (Maybe Text)
-uaScheduleExpression = lens _uaScheduleExpression (\s a -> s {_uaScheduleExpression = a})
+-- | The cron expression used to schedule the association that you want to
+-- update.
+updateAssociation_scheduleExpression :: Lens.Lens' UpdateAssociation (Prelude.Maybe Prelude.Text)
+updateAssociation_scheduleExpression = Lens.lens (\UpdateAssociation' {scheduleExpression} -> scheduleExpression) (\s@UpdateAssociation' {} a -> s {scheduleExpression = a} :: UpdateAssociation)
 
--- | The name of the SSM document that contains the configuration information for the instance. You can specify Command or Automation documents. You can specify AWS-predefined documents, documents you created, or a document that is shared with you from another account. For SSM documents that are shared with you from other AWS accounts, you must specify the complete SSM document ARN, in the following format: @arn:aws:ssm:/region/ :/account-id/ :document//document-name/ @  For example: @arn:aws:ssm:us-east-2:12345678912:document/My-Shared-Document@  For AWS-predefined documents and SSM documents you created in your account, you only need to specify the document name. For example, @AWS-ApplyPatchBaseline@ or @My-Document@ .
-uaName :: Lens' UpdateAssociation (Maybe Text)
-uaName = lens _uaName (\s a -> s {_uaName = a})
+-- | The name of the SSM document that contains the configuration information
+-- for the instance. You can specify Command or Automation documents.
+--
+-- You can specify AWS-predefined documents, documents you created, or a
+-- document that is shared with you from another account.
+--
+-- For SSM documents that are shared with you from other AWS accounts, you
+-- must specify the complete SSM document ARN, in the following format:
+--
+-- @arn:aws:ssm:region:account-id:document\/document-name @
+--
+-- For example:
+--
+-- @arn:aws:ssm:us-east-2:12345678912:document\/My-Shared-Document@
+--
+-- For AWS-predefined documents and SSM documents you created in your
+-- account, you only need to specify the document name. For example,
+-- @AWS-ApplyPatchBaseline@ or @My-Document@.
+updateAssociation_name :: Lens.Lens' UpdateAssociation (Prelude.Maybe Prelude.Text)
+updateAssociation_name = Lens.lens (\UpdateAssociation' {name} -> name) (\s@UpdateAssociation' {} a -> s {name = a} :: UpdateAssociation)
 
--- | The maximum number of targets allowed to run the association at the same time. You can specify a number, for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which means all targets run the association at the same time. If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency associations, the association is allowed to run. During the next association interval, the new instance will process its association within the limit specified for MaxConcurrency.
-uaMaxConcurrency :: Lens' UpdateAssociation (Maybe Text)
-uaMaxConcurrency = lens _uaMaxConcurrency (\s a -> s {_uaMaxConcurrency = a})
+-- | The maximum number of targets allowed to run the association at the same
+-- time. You can specify a number, for example 10, or a percentage of the
+-- target set, for example 10%. The default value is 100%, which means all
+-- targets run the association at the same time.
+--
+-- If a new instance starts and attempts to run an association while
+-- Systems Manager is running MaxConcurrency associations, the association
+-- is allowed to run. During the next association interval, the new
+-- instance will process its association within the limit specified for
+-- MaxConcurrency.
+updateAssociation_maxConcurrency :: Lens.Lens' UpdateAssociation (Prelude.Maybe Prelude.Text)
+updateAssociation_maxConcurrency = Lens.lens (\UpdateAssociation' {maxConcurrency} -> maxConcurrency) (\s@UpdateAssociation' {} a -> s {maxConcurrency = a} :: UpdateAssociation)
 
 -- | The name of the association that you want to update.
-uaAssociationName :: Lens' UpdateAssociation (Maybe Text)
-uaAssociationName = lens _uaAssociationName (\s a -> s {_uaAssociationName = a})
+updateAssociation_associationName :: Lens.Lens' UpdateAssociation (Prelude.Maybe Prelude.Text)
+updateAssociation_associationName = Lens.lens (\UpdateAssociation' {associationName} -> associationName) (\s@UpdateAssociation' {} a -> s {associationName = a} :: UpdateAssociation)
 
--- | This parameter is provided for concurrency control purposes. You must specify the latest association version in the service. If you want to ensure that this request succeeds, either specify @> LATEST@ , or omit this parameter.
-uaAssociationVersion :: Lens' UpdateAssociation (Maybe Text)
-uaAssociationVersion = lens _uaAssociationVersion (\s a -> s {_uaAssociationVersion = a})
+-- | This parameter is provided for concurrency control purposes. You must
+-- specify the latest association version in the service. If you want to
+-- ensure that this request succeeds, either specify @$LATEST@, or omit
+-- this parameter.
+updateAssociation_associationVersion :: Lens.Lens' UpdateAssociation (Prelude.Maybe Prelude.Text)
+updateAssociation_associationVersion = Lens.lens (\UpdateAssociation' {associationVersion} -> associationVersion) (\s@UpdateAssociation' {} a -> s {associationVersion = a} :: UpdateAssociation)
 
 -- | The document version you want update for the association.
-uaDocumentVersion :: Lens' UpdateAssociation (Maybe Text)
-uaDocumentVersion = lens _uaDocumentVersion (\s a -> s {_uaDocumentVersion = a})
+updateAssociation_documentVersion :: Lens.Lens' UpdateAssociation (Prelude.Maybe Prelude.Text)
+updateAssociation_documentVersion = Lens.lens (\UpdateAssociation' {documentVersion} -> documentVersion) (\s@UpdateAssociation' {} a -> s {documentVersion = a} :: UpdateAssociation)
 
--- | The parameters you want to update for the association. If you create a parameter using Parameter Store, you can reference the parameter using {{ssm:parameter-name}}
-uaParameters :: Lens' UpdateAssociation (HashMap Text [Text])
-uaParameters = lens _uaParameters (\s a -> s {_uaParameters = a}) . _Default . _Map
+-- | The parameters you want to update for the association. If you create a
+-- parameter using Parameter Store, you can reference the parameter using
+-- {{ssm:parameter-name}}
+updateAssociation_parameters :: Lens.Lens' UpdateAssociation (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+updateAssociation_parameters = Lens.lens (\UpdateAssociation' {parameters} -> parameters) (\s@UpdateAssociation' {} a -> s {parameters = a} :: UpdateAssociation) Prelude.. Lens.mapping Prelude._Map
 
 -- | An S3 bucket where you want to store the results of this request.
-uaOutputLocation :: Lens' UpdateAssociation (Maybe InstanceAssociationOutputLocation)
-uaOutputLocation = lens _uaOutputLocation (\s a -> s {_uaOutputLocation = a})
+updateAssociation_outputLocation :: Lens.Lens' UpdateAssociation (Prelude.Maybe InstanceAssociationOutputLocation)
+updateAssociation_outputLocation = Lens.lens (\UpdateAssociation' {outputLocation} -> outputLocation) (\s@UpdateAssociation' {} a -> s {outputLocation = a} :: UpdateAssociation)
 
--- | By default, when you update an association, the system runs it immediately after it is updated and then according to the schedule you specified. Specify this option if you don't want an association to run immediately after you update it. This parameter is not supported for rate expressions. Also, if you specified this option when you created the association, you can reset it. To do so, specify the @no-apply-only-at-cron-interval@ parameter when you update the association from the command line. This parameter forces the association to run immediately after updating it and according to the interval specified.
-uaApplyOnlyAtCronInterval :: Lens' UpdateAssociation (Maybe Bool)
-uaApplyOnlyAtCronInterval = lens _uaApplyOnlyAtCronInterval (\s a -> s {_uaApplyOnlyAtCronInterval = a})
+-- | By default, when you update an association, the system runs it
+-- immediately after it is updated and then according to the schedule you
+-- specified. Specify this option if you don\'t want an association to run
+-- immediately after you update it. This parameter is not supported for
+-- rate expressions.
+--
+-- Also, if you specified this option when you created the association, you
+-- can reset it. To do so, specify the @no-apply-only-at-cron-interval@
+-- parameter when you update the association from the command line. This
+-- parameter forces the association to run immediately after updating it
+-- and according to the interval specified.
+updateAssociation_applyOnlyAtCronInterval :: Lens.Lens' UpdateAssociation (Prelude.Maybe Prelude.Bool)
+updateAssociation_applyOnlyAtCronInterval = Lens.lens (\UpdateAssociation' {applyOnlyAtCronInterval} -> applyOnlyAtCronInterval) (\s@UpdateAssociation' {} a -> s {applyOnlyAtCronInterval = a} :: UpdateAssociation)
 
--- | The mode for generating association compliance. You can specify @AUTO@ or @MANUAL@ . In @AUTO@ mode, the system uses the status of the association execution to determine the compliance status. If the association execution runs successfully, then the association is @COMPLIANT@ . If the association execution doesn't run successfully, the association is @NON-COMPLIANT@ . In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter for the 'PutComplianceItems' API action. In this case, compliance data is not managed by State Manager. It is managed by your direct call to the 'PutComplianceItems' API action. By default, all associations use @AUTO@ mode.
-uaSyncCompliance :: Lens' UpdateAssociation (Maybe AssociationSyncCompliance)
-uaSyncCompliance = lens _uaSyncCompliance (\s a -> s {_uaSyncCompliance = a})
+-- | The mode for generating association compliance. You can specify @AUTO@
+-- or @MANUAL@. In @AUTO@ mode, the system uses the status of the
+-- association execution to determine the compliance status. If the
+-- association execution runs successfully, then the association is
+-- @COMPLIANT@. If the association execution doesn\'t run successfully, the
+-- association is @NON-COMPLIANT@.
+--
+-- In @MANUAL@ mode, you must specify the @AssociationId@ as a parameter
+-- for the PutComplianceItems API action. In this case, compliance data is
+-- not managed by State Manager. It is managed by your direct call to the
+-- PutComplianceItems API action.
+--
+-- By default, all associations use @AUTO@ mode.
+updateAssociation_syncCompliance :: Lens.Lens' UpdateAssociation (Prelude.Maybe AssociationSyncCompliance)
+updateAssociation_syncCompliance = Lens.lens (\UpdateAssociation' {syncCompliance} -> syncCompliance) (\s@UpdateAssociation' {} a -> s {syncCompliance = a} :: UpdateAssociation)
 
 -- | The ID of the association you want to update.
-uaAssociationId :: Lens' UpdateAssociation Text
-uaAssociationId = lens _uaAssociationId (\s a -> s {_uaAssociationId = a})
+updateAssociation_associationId :: Lens.Lens' UpdateAssociation Prelude.Text
+updateAssociation_associationId = Lens.lens (\UpdateAssociation' {associationId} -> associationId) (\s@UpdateAssociation' {} a -> s {associationId = a} :: UpdateAssociation)
 
-instance AWSRequest UpdateAssociation where
+instance Prelude.AWSRequest UpdateAssociation where
   type Rs UpdateAssociation = UpdateAssociationResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateAssociationResponse'
-            <$> (x .?> "AssociationDescription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AssociationDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateAssociation
+instance Prelude.Hashable UpdateAssociation
 
-instance NFData UpdateAssociation
+instance Prelude.NFData UpdateAssociation
 
-instance ToHeaders UpdateAssociation where
+instance Prelude.ToHeaders UpdateAssociation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.UpdateAssociation" :: ByteString),
+              Prelude.=# ( "AmazonSSM.UpdateAssociation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateAssociation where
+instance Prelude.ToJSON UpdateAssociation where
   toJSON UpdateAssociation' {..} =
-    object
-      ( catMaybes
-          [ ("MaxErrors" .=) <$> _uaMaxErrors,
-            ("ComplianceSeverity" .=) <$> _uaComplianceSeverity,
-            ("AutomationTargetParameterName" .=)
-              <$> _uaAutomationTargetParameterName,
-            ("Targets" .=) <$> _uaTargets,
-            ("TargetLocations" .=) <$> _uaTargetLocations,
-            ("ScheduleExpression" .=) <$> _uaScheduleExpression,
-            ("Name" .=) <$> _uaName,
-            ("MaxConcurrency" .=) <$> _uaMaxConcurrency,
-            ("AssociationName" .=) <$> _uaAssociationName,
-            ("AssociationVersion" .=) <$> _uaAssociationVersion,
-            ("DocumentVersion" .=) <$> _uaDocumentVersion,
-            ("Parameters" .=) <$> _uaParameters,
-            ("OutputLocation" .=) <$> _uaOutputLocation,
-            ("ApplyOnlyAtCronInterval" .=)
-              <$> _uaApplyOnlyAtCronInterval,
-            ("SyncCompliance" .=) <$> _uaSyncCompliance,
-            Just ("AssociationId" .= _uaAssociationId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxErrors" Prelude..=) Prelude.<$> maxErrors,
+            ("ComplianceSeverity" Prelude..=)
+              Prelude.<$> complianceSeverity,
+            ("AutomationTargetParameterName" Prelude..=)
+              Prelude.<$> automationTargetParameterName,
+            ("Targets" Prelude..=) Prelude.<$> targets,
+            ("TargetLocations" Prelude..=)
+              Prelude.<$> targetLocations,
+            ("ScheduleExpression" Prelude..=)
+              Prelude.<$> scheduleExpression,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("MaxConcurrency" Prelude..=)
+              Prelude.<$> maxConcurrency,
+            ("AssociationName" Prelude..=)
+              Prelude.<$> associationName,
+            ("AssociationVersion" Prelude..=)
+              Prelude.<$> associationVersion,
+            ("DocumentVersion" Prelude..=)
+              Prelude.<$> documentVersion,
+            ("Parameters" Prelude..=) Prelude.<$> parameters,
+            ("OutputLocation" Prelude..=)
+              Prelude.<$> outputLocation,
+            ("ApplyOnlyAtCronInterval" Prelude..=)
+              Prelude.<$> applyOnlyAtCronInterval,
+            ("SyncCompliance" Prelude..=)
+              Prelude.<$> syncCompliance,
+            Prelude.Just
+              ("AssociationId" Prelude..= associationId)
           ]
       )
 
-instance ToPath UpdateAssociation where
-  toPath = const "/"
+instance Prelude.ToPath UpdateAssociation where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateAssociation where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateAssociation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateAssociationResponse' smart constructor.
+-- | /See:/ 'newUpdateAssociationResponse' smart constructor.
 data UpdateAssociationResponse = UpdateAssociationResponse'
-  { _uarrsAssociationDescription ::
-      !( Maybe
-           AssociationDescription
-       ),
-    _uarrsResponseStatus ::
-      !Int
+  { -- | The description of the association that was updated.
+    associationDescription :: Prelude.Maybe AssociationDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAssociationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAssociationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uarrsAssociationDescription' - The description of the association that was updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uarrsResponseStatus' - -- | The response status code.
-updateAssociationResponse ::
-  -- | 'uarrsResponseStatus'
-  Int ->
+-- 'associationDescription', 'updateAssociationResponse_associationDescription' - The description of the association that was updated.
+--
+-- 'httpStatus', 'updateAssociationResponse_httpStatus' - The response's http status code.
+newUpdateAssociationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateAssociationResponse
-updateAssociationResponse pResponseStatus_ =
+newUpdateAssociationResponse pHttpStatus_ =
   UpdateAssociationResponse'
-    { _uarrsAssociationDescription =
-        Nothing,
-      _uarrsResponseStatus = pResponseStatus_
+    { associationDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The description of the association that was updated.
-uarrsAssociationDescription :: Lens' UpdateAssociationResponse (Maybe AssociationDescription)
-uarrsAssociationDescription = lens _uarrsAssociationDescription (\s a -> s {_uarrsAssociationDescription = a})
+updateAssociationResponse_associationDescription :: Lens.Lens' UpdateAssociationResponse (Prelude.Maybe AssociationDescription)
+updateAssociationResponse_associationDescription = Lens.lens (\UpdateAssociationResponse' {associationDescription} -> associationDescription) (\s@UpdateAssociationResponse' {} a -> s {associationDescription = a} :: UpdateAssociationResponse)
 
--- | -- | The response status code.
-uarrsResponseStatus :: Lens' UpdateAssociationResponse Int
-uarrsResponseStatus = lens _uarrsResponseStatus (\s a -> s {_uarrsResponseStatus = a})
+-- | The response's http status code.
+updateAssociationResponse_httpStatus :: Lens.Lens' UpdateAssociationResponse Prelude.Int
+updateAssociationResponse_httpStatus = Lens.lens (\UpdateAssociationResponse' {httpStatus} -> httpStatus) (\s@UpdateAssociationResponse' {} a -> s {httpStatus = a} :: UpdateAssociationResponse)
 
-instance NFData UpdateAssociationResponse
+instance Prelude.NFData UpdateAssociationResponse

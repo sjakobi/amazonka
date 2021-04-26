@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,184 +23,213 @@
 --
 -- List all versions for a document.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SSM.ListDocumentVersions
   ( -- * Creating a Request
-    listDocumentVersions,
-    ListDocumentVersions,
+    ListDocumentVersions (..),
+    newListDocumentVersions,
 
     -- * Request Lenses
-    ldvNextToken,
-    ldvMaxResults,
-    ldvName,
+    listDocumentVersions_nextToken,
+    listDocumentVersions_maxResults,
+    listDocumentVersions_name,
 
     -- * Destructuring the Response
-    listDocumentVersionsResponse,
-    ListDocumentVersionsResponse,
+    ListDocumentVersionsResponse (..),
+    newListDocumentVersionsResponse,
 
     -- * Response Lenses
-    ldvrrsNextToken,
-    ldvrrsDocumentVersions,
-    ldvrrsResponseStatus,
+    listDocumentVersionsResponse_nextToken,
+    listDocumentVersionsResponse_documentVersions,
+    listDocumentVersionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.DocumentVersionInfo
 
--- | /See:/ 'listDocumentVersions' smart constructor.
+-- | /See:/ 'newListDocumentVersions' smart constructor.
 data ListDocumentVersions = ListDocumentVersions'
-  { _ldvNextToken ::
-      !(Maybe Text),
-    _ldvMaxResults ::
-      !(Maybe Nat),
-    _ldvName :: !Text
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the document. You can specify an Amazon Resource Name (ARN).
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDocumentVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDocumentVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldvNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldvMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'listDocumentVersions_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'ldvName' - The name of the document. You can specify an Amazon Resource Name (ARN).
-listDocumentVersions ::
-  -- | 'ldvName'
-  Text ->
+-- 'maxResults', 'listDocumentVersions_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+--
+-- 'name', 'listDocumentVersions_name' - The name of the document. You can specify an Amazon Resource Name (ARN).
+newListDocumentVersions ::
+  -- | 'name'
+  Prelude.Text ->
   ListDocumentVersions
-listDocumentVersions pName_ =
+newListDocumentVersions pName_ =
   ListDocumentVersions'
-    { _ldvNextToken = Nothing,
-      _ldvMaxResults = Nothing,
-      _ldvName = pName_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      name = pName_
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-ldvNextToken :: Lens' ListDocumentVersions (Maybe Text)
-ldvNextToken = lens _ldvNextToken (\s a -> s {_ldvNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+listDocumentVersions_nextToken :: Lens.Lens' ListDocumentVersions (Prelude.Maybe Prelude.Text)
+listDocumentVersions_nextToken = Lens.lens (\ListDocumentVersions' {nextToken} -> nextToken) (\s@ListDocumentVersions' {} a -> s {nextToken = a} :: ListDocumentVersions)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-ldvMaxResults :: Lens' ListDocumentVersions (Maybe Natural)
-ldvMaxResults = lens _ldvMaxResults (\s a -> s {_ldvMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+listDocumentVersions_maxResults :: Lens.Lens' ListDocumentVersions (Prelude.Maybe Prelude.Natural)
+listDocumentVersions_maxResults = Lens.lens (\ListDocumentVersions' {maxResults} -> maxResults) (\s@ListDocumentVersions' {} a -> s {maxResults = a} :: ListDocumentVersions) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the document. You can specify an Amazon Resource Name (ARN).
-ldvName :: Lens' ListDocumentVersions Text
-ldvName = lens _ldvName (\s a -> s {_ldvName = a})
+listDocumentVersions_name :: Lens.Lens' ListDocumentVersions Prelude.Text
+listDocumentVersions_name = Lens.lens (\ListDocumentVersions' {name} -> name) (\s@ListDocumentVersions' {} a -> s {name = a} :: ListDocumentVersions)
 
-instance AWSPager ListDocumentVersions where
+instance Pager.AWSPager ListDocumentVersions where
   page rq rs
-    | stop (rs ^. ldvrrsNextToken) = Nothing
-    | stop (rs ^. ldvrrsDocumentVersions) = Nothing
-    | otherwise =
-      Just $ rq & ldvNextToken .~ rs ^. ldvrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDocumentVersionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDocumentVersionsResponse_documentVersions
+              Prelude.. Lens._Just
+              Prelude.. Lens.to Prelude.toList
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDocumentVersions_nextToken
+          Lens..~ rs
+          Lens.^? listDocumentVersionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDocumentVersions where
+instance Prelude.AWSRequest ListDocumentVersions where
   type
     Rs ListDocumentVersions =
       ListDocumentVersionsResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDocumentVersionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "DocumentVersions")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "DocumentVersions")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDocumentVersions
+instance Prelude.Hashable ListDocumentVersions
 
-instance NFData ListDocumentVersions
+instance Prelude.NFData ListDocumentVersions
 
-instance ToHeaders ListDocumentVersions where
+instance Prelude.ToHeaders ListDocumentVersions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.ListDocumentVersions" :: ByteString),
+              Prelude.=# ( "AmazonSSM.ListDocumentVersions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDocumentVersions where
+instance Prelude.ToJSON ListDocumentVersions where
   toJSON ListDocumentVersions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ldvNextToken,
-            ("MaxResults" .=) <$> _ldvMaxResults,
-            Just ("Name" .= _ldvName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath ListDocumentVersions where
-  toPath = const "/"
+instance Prelude.ToPath ListDocumentVersions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDocumentVersions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDocumentVersions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listDocumentVersionsResponse' smart constructor.
+-- | /See:/ 'newListDocumentVersionsResponse' smart constructor.
 data ListDocumentVersionsResponse = ListDocumentVersionsResponse'
-  { _ldvrrsNextToken ::
-      !(Maybe Text),
-    _ldvrrsDocumentVersions ::
-      !( Maybe
-           ( List1
-               DocumentVersionInfo
-           )
-       ),
-    _ldvrrsResponseStatus ::
-      !Int
+  { -- | The token to use when requesting the next set of items. If there are no
+    -- additional items to return, the string is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The document versions.
+    documentVersions :: Prelude.Maybe (Prelude.List1 DocumentVersionInfo),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDocumentVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDocumentVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldvrrsNextToken' - The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldvrrsDocumentVersions' - The document versions.
+-- 'nextToken', 'listDocumentVersionsResponse_nextToken' - The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
 --
--- * 'ldvrrsResponseStatus' - -- | The response status code.
-listDocumentVersionsResponse ::
-  -- | 'ldvrrsResponseStatus'
-  Int ->
+-- 'documentVersions', 'listDocumentVersionsResponse_documentVersions' - The document versions.
+--
+-- 'httpStatus', 'listDocumentVersionsResponse_httpStatus' - The response's http status code.
+newListDocumentVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDocumentVersionsResponse
-listDocumentVersionsResponse pResponseStatus_ =
+newListDocumentVersionsResponse pHttpStatus_ =
   ListDocumentVersionsResponse'
-    { _ldvrrsNextToken =
-        Nothing,
-      _ldvrrsDocumentVersions = Nothing,
-      _ldvrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      documentVersions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
-ldvrrsNextToken :: Lens' ListDocumentVersionsResponse (Maybe Text)
-ldvrrsNextToken = lens _ldvrrsNextToken (\s a -> s {_ldvrrsNextToken = a})
+-- | The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+listDocumentVersionsResponse_nextToken :: Lens.Lens' ListDocumentVersionsResponse (Prelude.Maybe Prelude.Text)
+listDocumentVersionsResponse_nextToken = Lens.lens (\ListDocumentVersionsResponse' {nextToken} -> nextToken) (\s@ListDocumentVersionsResponse' {} a -> s {nextToken = a} :: ListDocumentVersionsResponse)
 
 -- | The document versions.
-ldvrrsDocumentVersions :: Lens' ListDocumentVersionsResponse (Maybe (NonEmpty DocumentVersionInfo))
-ldvrrsDocumentVersions = lens _ldvrrsDocumentVersions (\s a -> s {_ldvrrsDocumentVersions = a}) . mapping _List1
+listDocumentVersionsResponse_documentVersions :: Lens.Lens' ListDocumentVersionsResponse (Prelude.Maybe (Prelude.NonEmpty DocumentVersionInfo))
+listDocumentVersionsResponse_documentVersions = Lens.lens (\ListDocumentVersionsResponse' {documentVersions} -> documentVersions) (\s@ListDocumentVersionsResponse' {} a -> s {documentVersions = a} :: ListDocumentVersionsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-ldvrrsResponseStatus :: Lens' ListDocumentVersionsResponse Int
-ldvrrsResponseStatus = lens _ldvrrsResponseStatus (\s a -> s {_ldvrrsResponseStatus = a})
+-- | The response's http status code.
+listDocumentVersionsResponse_httpStatus :: Lens.Lens' ListDocumentVersionsResponse Prelude.Int
+listDocumentVersionsResponse_httpStatus = Lens.lens (\ListDocumentVersionsResponse' {httpStatus} -> httpStatus) (\s@ListDocumentVersionsResponse' {} a -> s {httpStatus = a} :: ListDocumentVersionsResponse)
 
-instance NFData ListDocumentVersionsResponse
+instance Prelude.NFData ListDocumentVersionsResponse

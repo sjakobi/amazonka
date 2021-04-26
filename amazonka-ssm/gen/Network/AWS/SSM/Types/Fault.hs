@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,57 @@
 module Network.AWS.SSM.Types.Fault
   ( Fault
       ( ..,
-        Client,
-        Server,
-        Unknown
+        FaultClient,
+        FaultServer,
+        FaultUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Fault = Fault' (CI Text)
+newtype Fault = Fault' {fromFault :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Client :: Fault
-pattern Client = Fault' "Client"
+pattern FaultClient :: Fault
+pattern FaultClient = Fault' "Client"
 
-pattern Server :: Fault
-pattern Server = Fault' "Server"
+pattern FaultServer :: Fault
+pattern FaultServer = Fault' "Server"
 
-pattern Unknown :: Fault
-pattern Unknown = Fault' "Unknown"
+pattern FaultUnknown :: Fault
+pattern FaultUnknown = Fault' "Unknown"
 
 {-# COMPLETE
-  Client,
-  Server,
-  Unknown,
+  FaultClient,
+  FaultServer,
+  FaultUnknown,
   Fault'
   #-}
 
-instance FromText Fault where
-  parser = (Fault' . mk) <$> takeText
+instance Prelude.FromText Fault where
+  parser = Fault' Prelude.<$> Prelude.takeText
 
-instance ToText Fault where
-  toText (Fault' ci) = original ci
+instance Prelude.ToText Fault where
+  toText (Fault' x) = x
 
-instance Hashable Fault
+instance Prelude.Hashable Fault
 
-instance NFData Fault
+instance Prelude.NFData Fault
 
-instance ToByteString Fault
+instance Prelude.ToByteString Fault
 
-instance ToQuery Fault
+instance Prelude.ToQuery Fault
 
-instance ToHeader Fault
+instance Prelude.ToHeader Fault
 
-instance FromJSON Fault where
-  parseJSON = parseJSONText "Fault"
+instance Prelude.FromJSON Fault where
+  parseJSON = Prelude.parseJSONText "Fault"

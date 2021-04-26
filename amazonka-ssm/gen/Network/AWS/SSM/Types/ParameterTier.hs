@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.SSM.Types.ParameterTier
   ( ParameterTier
       ( ..,
-        Advanced,
-        IntelligentTiering,
-        Standard
+        ParameterTierAdvanced,
+        ParameterTierIntelligentTiering,
+        ParameterTierStandard
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParameterTier = ParameterTier' (CI Text)
+newtype ParameterTier = ParameterTier'
+  { fromParameterTier ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Advanced :: ParameterTier
-pattern Advanced = ParameterTier' "Advanced"
+pattern ParameterTierAdvanced :: ParameterTier
+pattern ParameterTierAdvanced = ParameterTier' "Advanced"
 
-pattern IntelligentTiering :: ParameterTier
-pattern IntelligentTiering = ParameterTier' "Intelligent-Tiering"
+pattern ParameterTierIntelligentTiering :: ParameterTier
+pattern ParameterTierIntelligentTiering = ParameterTier' "Intelligent-Tiering"
 
-pattern Standard :: ParameterTier
-pattern Standard = ParameterTier' "Standard"
+pattern ParameterTierStandard :: ParameterTier
+pattern ParameterTierStandard = ParameterTier' "Standard"
 
 {-# COMPLETE
-  Advanced,
-  IntelligentTiering,
-  Standard,
+  ParameterTierAdvanced,
+  ParameterTierIntelligentTiering,
+  ParameterTierStandard,
   ParameterTier'
   #-}
 
-instance FromText ParameterTier where
-  parser = (ParameterTier' . mk) <$> takeText
+instance Prelude.FromText ParameterTier where
+  parser = ParameterTier' Prelude.<$> Prelude.takeText
 
-instance ToText ParameterTier where
-  toText (ParameterTier' ci) = original ci
+instance Prelude.ToText ParameterTier where
+  toText (ParameterTier' x) = x
 
-instance Hashable ParameterTier
+instance Prelude.Hashable ParameterTier
 
-instance NFData ParameterTier
+instance Prelude.NFData ParameterTier
 
-instance ToByteString ParameterTier
+instance Prelude.ToByteString ParameterTier
 
-instance ToQuery ParameterTier
+instance Prelude.ToQuery ParameterTier
 
-instance ToHeader ParameterTier
+instance Prelude.ToHeader ParameterTier
 
-instance ToJSON ParameterTier where
-  toJSON = toJSONText
+instance Prelude.ToJSON ParameterTier where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ParameterTier where
-  parseJSON = parseJSONText "ParameterTier"
+instance Prelude.FromJSON ParameterTier where
+  parseJSON = Prelude.parseJSONText "ParameterTier"

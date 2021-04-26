@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,198 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- View operational metadata related to an application in Application Manager.
+-- View operational metadata related to an application in Application
+-- Manager.
 module Network.AWS.SSM.GetOpsMetadata
   ( -- * Creating a Request
-    getOpsMetadata,
-    GetOpsMetadata,
+    GetOpsMetadata (..),
+    newGetOpsMetadata,
 
     -- * Request Lenses
-    gomNextToken,
-    gomMaxResults,
-    gomOpsMetadataARN,
+    getOpsMetadata_nextToken,
+    getOpsMetadata_maxResults,
+    getOpsMetadata_opsMetadataArn,
 
     -- * Destructuring the Response
-    getOpsMetadataResponse,
-    GetOpsMetadataResponse,
+    GetOpsMetadataResponse (..),
+    newGetOpsMetadataResponse,
 
     -- * Response Lenses
-    gomrrsResourceId,
-    gomrrsNextToken,
-    gomrrsMetadata,
-    gomrrsResponseStatus,
+    getOpsMetadataResponse_resourceId,
+    getOpsMetadataResponse_nextToken,
+    getOpsMetadataResponse_metadata,
+    getOpsMetadataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.MetadataValue
 
--- | /See:/ 'getOpsMetadata' smart constructor.
+-- | /See:/ 'newGetOpsMetadata' smart constructor.
 data GetOpsMetadata = GetOpsMetadata'
-  { _gomNextToken ::
-      !(Maybe Text),
-    _gomMaxResults :: !(Maybe Nat),
-    _gomOpsMetadataARN :: !Text
+  { -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Name (ARN) of an OpsMetadata Object to view.
+    opsMetadataArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOpsMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOpsMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gomNextToken' - A token to start the list. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gomMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'getOpsMetadata_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 --
--- * 'gomOpsMetadataARN' - The Amazon Resource Name (ARN) of an OpsMetadata Object to view.
-getOpsMetadata ::
-  -- | 'gomOpsMetadataARN'
-  Text ->
+-- 'maxResults', 'getOpsMetadata_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+--
+-- 'opsMetadataArn', 'getOpsMetadata_opsMetadataArn' - The Amazon Resource Name (ARN) of an OpsMetadata Object to view.
+newGetOpsMetadata ::
+  -- | 'opsMetadataArn'
+  Prelude.Text ->
   GetOpsMetadata
-getOpsMetadata pOpsMetadataARN_ =
+newGetOpsMetadata pOpsMetadataArn_ =
   GetOpsMetadata'
-    { _gomNextToken = Nothing,
-      _gomMaxResults = Nothing,
-      _gomOpsMetadataARN = pOpsMetadataARN_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      opsMetadataArn = pOpsMetadataArn_
     }
 
--- | A token to start the list. Use this token to get the next set of results.
-gomNextToken :: Lens' GetOpsMetadata (Maybe Text)
-gomNextToken = lens _gomNextToken (\s a -> s {_gomNextToken = a})
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+getOpsMetadata_nextToken :: Lens.Lens' GetOpsMetadata (Prelude.Maybe Prelude.Text)
+getOpsMetadata_nextToken = Lens.lens (\GetOpsMetadata' {nextToken} -> nextToken) (\s@GetOpsMetadata' {} a -> s {nextToken = a} :: GetOpsMetadata)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-gomMaxResults :: Lens' GetOpsMetadata (Maybe Natural)
-gomMaxResults = lens _gomMaxResults (\s a -> s {_gomMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+getOpsMetadata_maxResults :: Lens.Lens' GetOpsMetadata (Prelude.Maybe Prelude.Natural)
+getOpsMetadata_maxResults = Lens.lens (\GetOpsMetadata' {maxResults} -> maxResults) (\s@GetOpsMetadata' {} a -> s {maxResults = a} :: GetOpsMetadata) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The Amazon Resource Name (ARN) of an OpsMetadata Object to view.
-gomOpsMetadataARN :: Lens' GetOpsMetadata Text
-gomOpsMetadataARN = lens _gomOpsMetadataARN (\s a -> s {_gomOpsMetadataARN = a})
+getOpsMetadata_opsMetadataArn :: Lens.Lens' GetOpsMetadata Prelude.Text
+getOpsMetadata_opsMetadataArn = Lens.lens (\GetOpsMetadata' {opsMetadataArn} -> opsMetadataArn) (\s@GetOpsMetadata' {} a -> s {opsMetadataArn = a} :: GetOpsMetadata)
 
-instance AWSRequest GetOpsMetadata where
+instance Prelude.AWSRequest GetOpsMetadata where
   type Rs GetOpsMetadata = GetOpsMetadataResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetOpsMetadataResponse'
-            <$> (x .?> "ResourceId")
-            <*> (x .?> "NextToken")
-            <*> (x .?> "Metadata" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ResourceId")
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Metadata" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetOpsMetadata
+instance Prelude.Hashable GetOpsMetadata
 
-instance NFData GetOpsMetadata
+instance Prelude.NFData GetOpsMetadata
 
-instance ToHeaders GetOpsMetadata where
+instance Prelude.ToHeaders GetOpsMetadata where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.GetOpsMetadata" :: ByteString),
+              Prelude.=# ("AmazonSSM.GetOpsMetadata" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetOpsMetadata where
+instance Prelude.ToJSON GetOpsMetadata where
   toJSON GetOpsMetadata' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gomNextToken,
-            ("MaxResults" .=) <$> _gomMaxResults,
-            Just ("OpsMetadataArn" .= _gomOpsMetadataARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("OpsMetadataArn" Prelude..= opsMetadataArn)
           ]
       )
 
-instance ToPath GetOpsMetadata where
-  toPath = const "/"
+instance Prelude.ToPath GetOpsMetadata where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetOpsMetadata where
-  toQuery = const mempty
+instance Prelude.ToQuery GetOpsMetadata where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getOpsMetadataResponse' smart constructor.
+-- | /See:/ 'newGetOpsMetadataResponse' smart constructor.
 data GetOpsMetadataResponse = GetOpsMetadataResponse'
-  { _gomrrsResourceId ::
-      !(Maybe Text),
-    _gomrrsNextToken ::
-      !(Maybe Text),
-    _gomrrsMetadata ::
-      !( Maybe
-           ( Map
-               Text
-               MetadataValue
-           )
-       ),
-    _gomrrsResponseStatus ::
-      !Int
+  { -- | The resource ID of the Application Manager application.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The token for the next set of items to return. Use this token to get the
+    -- next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | OpsMetadata for an Application Manager application.
+    metadata :: Prelude.Maybe (Prelude.Map Prelude.Text MetadataValue),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOpsMetadataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOpsMetadataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gomrrsResourceId' - The resource ID of the Application Manager application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gomrrsNextToken' - The token for the next set of items to return. Use this token to get the next set of results.
+-- 'resourceId', 'getOpsMetadataResponse_resourceId' - The resource ID of the Application Manager application.
 --
--- * 'gomrrsMetadata' - OpsMetadata for an Application Manager application.
+-- 'nextToken', 'getOpsMetadataResponse_nextToken' - The token for the next set of items to return. Use this token to get the
+-- next set of results.
 --
--- * 'gomrrsResponseStatus' - -- | The response status code.
-getOpsMetadataResponse ::
-  -- | 'gomrrsResponseStatus'
-  Int ->
+-- 'metadata', 'getOpsMetadataResponse_metadata' - OpsMetadata for an Application Manager application.
+--
+-- 'httpStatus', 'getOpsMetadataResponse_httpStatus' - The response's http status code.
+newGetOpsMetadataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetOpsMetadataResponse
-getOpsMetadataResponse pResponseStatus_ =
+newGetOpsMetadataResponse pHttpStatus_ =
   GetOpsMetadataResponse'
-    { _gomrrsResourceId =
-        Nothing,
-      _gomrrsNextToken = Nothing,
-      _gomrrsMetadata = Nothing,
-      _gomrrsResponseStatus = pResponseStatus_
+    { resourceId =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      metadata = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The resource ID of the Application Manager application.
-gomrrsResourceId :: Lens' GetOpsMetadataResponse (Maybe Text)
-gomrrsResourceId = lens _gomrrsResourceId (\s a -> s {_gomrrsResourceId = a})
+getOpsMetadataResponse_resourceId :: Lens.Lens' GetOpsMetadataResponse (Prelude.Maybe Prelude.Text)
+getOpsMetadataResponse_resourceId = Lens.lens (\GetOpsMetadataResponse' {resourceId} -> resourceId) (\s@GetOpsMetadataResponse' {} a -> s {resourceId = a} :: GetOpsMetadataResponse)
 
--- | The token for the next set of items to return. Use this token to get the next set of results.
-gomrrsNextToken :: Lens' GetOpsMetadataResponse (Maybe Text)
-gomrrsNextToken = lens _gomrrsNextToken (\s a -> s {_gomrrsNextToken = a})
+-- | The token for the next set of items to return. Use this token to get the
+-- next set of results.
+getOpsMetadataResponse_nextToken :: Lens.Lens' GetOpsMetadataResponse (Prelude.Maybe Prelude.Text)
+getOpsMetadataResponse_nextToken = Lens.lens (\GetOpsMetadataResponse' {nextToken} -> nextToken) (\s@GetOpsMetadataResponse' {} a -> s {nextToken = a} :: GetOpsMetadataResponse)
 
 -- | OpsMetadata for an Application Manager application.
-gomrrsMetadata :: Lens' GetOpsMetadataResponse (HashMap Text MetadataValue)
-gomrrsMetadata = lens _gomrrsMetadata (\s a -> s {_gomrrsMetadata = a}) . _Default . _Map
+getOpsMetadataResponse_metadata :: Lens.Lens' GetOpsMetadataResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text MetadataValue))
+getOpsMetadataResponse_metadata = Lens.lens (\GetOpsMetadataResponse' {metadata} -> metadata) (\s@GetOpsMetadataResponse' {} a -> s {metadata = a} :: GetOpsMetadataResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gomrrsResponseStatus :: Lens' GetOpsMetadataResponse Int
-gomrrsResponseStatus = lens _gomrrsResponseStatus (\s a -> s {_gomrrsResponseStatus = a})
+-- | The response's http status code.
+getOpsMetadataResponse_httpStatus :: Lens.Lens' GetOpsMetadataResponse Prelude.Int
+getOpsMetadataResponse_httpStatus = Lens.lens (\GetOpsMetadataResponse' {httpStatus} -> httpStatus) (\s@GetOpsMetadataResponse' {} a -> s {httpStatus = a} :: GetOpsMetadataResponse)
 
-instance NFData GetOpsMetadataResponse
+instance Prelude.NFData GetOpsMetadataResponse

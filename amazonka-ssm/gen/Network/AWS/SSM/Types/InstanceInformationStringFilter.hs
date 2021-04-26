@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InstanceInformationStringFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The filters to describe or get information about your managed instances.
 --
---
---
--- /See:/ 'instanceInformationStringFilter' smart constructor.
+-- /See:/ 'newInstanceInformationStringFilter' smart constructor.
 data InstanceInformationStringFilter = InstanceInformationStringFilter'
-  { _iisfKey ::
-      !Text,
-    _iisfValues ::
-      !( List1
-           Text
-       )
+  { -- | The filter key name to describe your instances. For example:
+    --
+    -- \"InstanceIds\"|\"AgentVersion\"|\"PingStatus\"|\"PlatformTypes\"|\"ActivationIds\"|\"IamRole\"|\"ResourceType\"|\"AssociationStatus\"|\"Tag
+    -- Key\"
+    --
+    -- @Tag key@ is not a valid filter. You must specify either @tag-key@ or
+    -- @tag:keyname@ and a string. Here are some valid examples: tag-key,
+    -- tag:123, tag:al!, tag:Windows. Here are some /invalid/ examples:
+    -- tag-keys, Tag Key, tag:, tagKey, abc:keyname.
+    key :: Prelude.Text,
+    -- | The filter values.
+    values :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceInformationStringFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceInformationStringFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iisfKey' - The filter key name to describe your instances. For example: "InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|"AssociationStatus"|"Tag Key" /Important:/ @Tag key@ is not a valid filter. You must specify either @tag-key@ or @tag:keyname@ and a string. Here are some valid examples: tag-key, tag:123, tag:al!, tag:Windows. Here are some /invalid/ examples: tag-keys, Tag Key, tag:, tagKey, abc:keyname.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iisfValues' - The filter values.
-instanceInformationStringFilter ::
-  -- | 'iisfKey'
-  Text ->
-  -- | 'iisfValues'
-  NonEmpty Text ->
+-- 'key', 'instanceInformationStringFilter_key' - The filter key name to describe your instances. For example:
+--
+-- \"InstanceIds\"|\"AgentVersion\"|\"PingStatus\"|\"PlatformTypes\"|\"ActivationIds\"|\"IamRole\"|\"ResourceType\"|\"AssociationStatus\"|\"Tag
+-- Key\"
+--
+-- @Tag key@ is not a valid filter. You must specify either @tag-key@ or
+-- @tag:keyname@ and a string. Here are some valid examples: tag-key,
+-- tag:123, tag:al!, tag:Windows. Here are some /invalid/ examples:
+-- tag-keys, Tag Key, tag:, tagKey, abc:keyname.
+--
+-- 'values', 'instanceInformationStringFilter_values' - The filter values.
+newInstanceInformationStringFilter ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
   InstanceInformationStringFilter
-instanceInformationStringFilter pKey_ pValues_ =
+newInstanceInformationStringFilter pKey_ pValues_ =
   InstanceInformationStringFilter'
-    { _iisfKey = pKey_,
-      _iisfValues = _List1 # pValues_
+    { key = pKey_,
+      values = Prelude._List1 Lens.# pValues_
     }
 
--- | The filter key name to describe your instances. For example: "InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|"AssociationStatus"|"Tag Key" /Important:/ @Tag key@ is not a valid filter. You must specify either @tag-key@ or @tag:keyname@ and a string. Here are some valid examples: tag-key, tag:123, tag:al!, tag:Windows. Here are some /invalid/ examples: tag-keys, Tag Key, tag:, tagKey, abc:keyname.
-iisfKey :: Lens' InstanceInformationStringFilter Text
-iisfKey = lens _iisfKey (\s a -> s {_iisfKey = a})
+-- | The filter key name to describe your instances. For example:
+--
+-- \"InstanceIds\"|\"AgentVersion\"|\"PingStatus\"|\"PlatformTypes\"|\"ActivationIds\"|\"IamRole\"|\"ResourceType\"|\"AssociationStatus\"|\"Tag
+-- Key\"
+--
+-- @Tag key@ is not a valid filter. You must specify either @tag-key@ or
+-- @tag:keyname@ and a string. Here are some valid examples: tag-key,
+-- tag:123, tag:al!, tag:Windows. Here are some /invalid/ examples:
+-- tag-keys, Tag Key, tag:, tagKey, abc:keyname.
+instanceInformationStringFilter_key :: Lens.Lens' InstanceInformationStringFilter Prelude.Text
+instanceInformationStringFilter_key = Lens.lens (\InstanceInformationStringFilter' {key} -> key) (\s@InstanceInformationStringFilter' {} a -> s {key = a} :: InstanceInformationStringFilter)
 
 -- | The filter values.
-iisfValues :: Lens' InstanceInformationStringFilter (NonEmpty Text)
-iisfValues = lens _iisfValues (\s a -> s {_iisfValues = a}) . _List1
+instanceInformationStringFilter_values :: Lens.Lens' InstanceInformationStringFilter (Prelude.NonEmpty Prelude.Text)
+instanceInformationStringFilter_values = Lens.lens (\InstanceInformationStringFilter' {values} -> values) (\s@InstanceInformationStringFilter' {} a -> s {values = a} :: InstanceInformationStringFilter) Prelude.. Prelude._List1
 
-instance Hashable InstanceInformationStringFilter
+instance
+  Prelude.Hashable
+    InstanceInformationStringFilter
 
-instance NFData InstanceInformationStringFilter
+instance
+  Prelude.NFData
+    InstanceInformationStringFilter
 
-instance ToJSON InstanceInformationStringFilter where
+instance
+  Prelude.ToJSON
+    InstanceInformationStringFilter
+  where
   toJSON InstanceInformationStringFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("Key" .= _iisfKey),
-            Just ("Values" .= _iisfValues)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Values" Prelude..= values)
           ]
       )

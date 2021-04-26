@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,130 +21,138 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Permanently ends a session and closes the data connection between the Session Manager client and SSM Agent on the instance. A terminated session cannot be resumed.
+-- Permanently ends a session and closes the data connection between the
+-- Session Manager client and SSM Agent on the instance. A terminated
+-- session cannot be resumed.
 module Network.AWS.SSM.TerminateSession
   ( -- * Creating a Request
-    terminateSession,
-    TerminateSession,
+    TerminateSession (..),
+    newTerminateSession,
 
     -- * Request Lenses
-    tsSessionId,
+    terminateSession_sessionId,
 
     -- * Destructuring the Response
-    terminateSessionResponse,
-    TerminateSessionResponse,
+    TerminateSessionResponse (..),
+    newTerminateSessionResponse,
 
     -- * Response Lenses
-    tsrrsSessionId,
-    tsrrsResponseStatus,
+    terminateSessionResponse_sessionId,
+    terminateSessionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'terminateSession' smart constructor.
-newtype TerminateSession = TerminateSession'
-  { _tsSessionId ::
-      Text
+-- | /See:/ 'newTerminateSession' smart constructor.
+data TerminateSession = TerminateSession'
+  { -- | The ID of the session to terminate.
+    sessionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsSessionId' - The ID of the session to terminate.
-terminateSession ::
-  -- | 'tsSessionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'sessionId', 'terminateSession_sessionId' - The ID of the session to terminate.
+newTerminateSession ::
+  -- | 'sessionId'
+  Prelude.Text ->
   TerminateSession
-terminateSession pSessionId_ =
-  TerminateSession' {_tsSessionId = pSessionId_}
+newTerminateSession pSessionId_ =
+  TerminateSession' {sessionId = pSessionId_}
 
 -- | The ID of the session to terminate.
-tsSessionId :: Lens' TerminateSession Text
-tsSessionId = lens _tsSessionId (\s a -> s {_tsSessionId = a})
+terminateSession_sessionId :: Lens.Lens' TerminateSession Prelude.Text
+terminateSession_sessionId = Lens.lens (\TerminateSession' {sessionId} -> sessionId) (\s@TerminateSession' {} a -> s {sessionId = a} :: TerminateSession)
 
-instance AWSRequest TerminateSession where
+instance Prelude.AWSRequest TerminateSession where
   type Rs TerminateSession = TerminateSessionResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TerminateSessionResponse'
-            <$> (x .?> "SessionId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SessionId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TerminateSession
+instance Prelude.Hashable TerminateSession
 
-instance NFData TerminateSession
+instance Prelude.NFData TerminateSession
 
-instance ToHeaders TerminateSession where
+instance Prelude.ToHeaders TerminateSession where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.TerminateSession" :: ByteString),
+              Prelude.=# ("AmazonSSM.TerminateSession" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TerminateSession where
+instance Prelude.ToJSON TerminateSession where
   toJSON TerminateSession' {..} =
-    object
-      (catMaybes [Just ("SessionId" .= _tsSessionId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SessionId" Prelude..= sessionId)]
+      )
 
-instance ToPath TerminateSession where
-  toPath = const "/"
+instance Prelude.ToPath TerminateSession where
+  toPath = Prelude.const "/"
 
-instance ToQuery TerminateSession where
-  toQuery = const mempty
+instance Prelude.ToQuery TerminateSession where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'terminateSessionResponse' smart constructor.
+-- | /See:/ 'newTerminateSessionResponse' smart constructor.
 data TerminateSessionResponse = TerminateSessionResponse'
-  { _tsrrsSessionId ::
-      !(Maybe Text),
-    _tsrrsResponseStatus ::
-      !Int
+  { -- | The ID of the session that has been terminated.
+    sessionId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateSessionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateSessionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsrrsSessionId' - The ID of the session that has been terminated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsrrsResponseStatus' - -- | The response status code.
-terminateSessionResponse ::
-  -- | 'tsrrsResponseStatus'
-  Int ->
+-- 'sessionId', 'terminateSessionResponse_sessionId' - The ID of the session that has been terminated.
+--
+-- 'httpStatus', 'terminateSessionResponse_httpStatus' - The response's http status code.
+newTerminateSessionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TerminateSessionResponse
-terminateSessionResponse pResponseStatus_ =
+newTerminateSessionResponse pHttpStatus_ =
   TerminateSessionResponse'
-    { _tsrrsSessionId =
-        Nothing,
-      _tsrrsResponseStatus = pResponseStatus_
+    { sessionId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the session that has been terminated.
-tsrrsSessionId :: Lens' TerminateSessionResponse (Maybe Text)
-tsrrsSessionId = lens _tsrrsSessionId (\s a -> s {_tsrrsSessionId = a})
+terminateSessionResponse_sessionId :: Lens.Lens' TerminateSessionResponse (Prelude.Maybe Prelude.Text)
+terminateSessionResponse_sessionId = Lens.lens (\TerminateSessionResponse' {sessionId} -> sessionId) (\s@TerminateSessionResponse' {} a -> s {sessionId = a} :: TerminateSessionResponse)
 
--- | -- | The response status code.
-tsrrsResponseStatus :: Lens' TerminateSessionResponse Int
-tsrrsResponseStatus = lens _tsrrsResponseStatus (\s a -> s {_tsrrsResponseStatus = a})
+-- | The response's http status code.
+terminateSessionResponse_httpStatus :: Lens.Lens' TerminateSessionResponse Prelude.Int
+terminateSessionResponse_httpStatus = Lens.lens (\TerminateSessionResponse' {httpStatus} -> httpStatus) (\s@TerminateSessionResponse' {} a -> s {httpStatus = a} :: TerminateSessionResponse)
 
-instance NFData TerminateSessionResponse
+instance Prelude.NFData TerminateSessionResponse

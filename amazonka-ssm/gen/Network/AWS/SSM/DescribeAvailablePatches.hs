@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,192 +23,207 @@
 --
 -- Lists all patches eligible to be included in a patch baseline.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribeAvailablePatches
   ( -- * Creating a Request
-    describeAvailablePatches,
-    DescribeAvailablePatches,
+    DescribeAvailablePatches (..),
+    newDescribeAvailablePatches,
 
     -- * Request Lenses
-    dapNextToken,
-    dapMaxResults,
-    dapFilters,
+    describeAvailablePatches_nextToken,
+    describeAvailablePatches_maxResults,
+    describeAvailablePatches_filters,
 
     -- * Destructuring the Response
-    describeAvailablePatchesResponse,
-    DescribeAvailablePatchesResponse,
+    DescribeAvailablePatchesResponse (..),
+    newDescribeAvailablePatchesResponse,
 
     -- * Response Lenses
-    daprrsNextToken,
-    daprrsPatches,
-    daprrsResponseStatus,
+    describeAvailablePatchesResponse_nextToken,
+    describeAvailablePatchesResponse_patches,
+    describeAvailablePatchesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Patch
 
--- | /See:/ 'describeAvailablePatches' smart constructor.
+-- | /See:/ 'newDescribeAvailablePatches' smart constructor.
 data DescribeAvailablePatches = DescribeAvailablePatches'
-  { _dapNextToken ::
-      !(Maybe Text),
-    _dapMaxResults ::
-      !(Maybe Nat),
-    _dapFilters ::
-      !( Maybe
-           [PatchOrchestratorFilter]
-       )
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of patches to return (per page).
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filters used to scope down the returned patches.
+    filters :: Prelude.Maybe [PatchOrchestratorFilter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAvailablePatches' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAvailablePatches' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dapNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dapMaxResults' - The maximum number of patches to return (per page).
+-- 'nextToken', 'describeAvailablePatches_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'dapFilters' - Filters used to scope down the returned patches.
-describeAvailablePatches ::
+-- 'maxResults', 'describeAvailablePatches_maxResults' - The maximum number of patches to return (per page).
+--
+-- 'filters', 'describeAvailablePatches_filters' - Filters used to scope down the returned patches.
+newDescribeAvailablePatches ::
   DescribeAvailablePatches
-describeAvailablePatches =
+newDescribeAvailablePatches =
   DescribeAvailablePatches'
-    { _dapNextToken = Nothing,
-      _dapMaxResults = Nothing,
-      _dapFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-dapNextToken :: Lens' DescribeAvailablePatches (Maybe Text)
-dapNextToken = lens _dapNextToken (\s a -> s {_dapNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeAvailablePatches_nextToken :: Lens.Lens' DescribeAvailablePatches (Prelude.Maybe Prelude.Text)
+describeAvailablePatches_nextToken = Lens.lens (\DescribeAvailablePatches' {nextToken} -> nextToken) (\s@DescribeAvailablePatches' {} a -> s {nextToken = a} :: DescribeAvailablePatches)
 
 -- | The maximum number of patches to return (per page).
-dapMaxResults :: Lens' DescribeAvailablePatches (Maybe Natural)
-dapMaxResults = lens _dapMaxResults (\s a -> s {_dapMaxResults = a}) . mapping _Nat
+describeAvailablePatches_maxResults :: Lens.Lens' DescribeAvailablePatches (Prelude.Maybe Prelude.Natural)
+describeAvailablePatches_maxResults = Lens.lens (\DescribeAvailablePatches' {maxResults} -> maxResults) (\s@DescribeAvailablePatches' {} a -> s {maxResults = a} :: DescribeAvailablePatches) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Filters used to scope down the returned patches.
-dapFilters :: Lens' DescribeAvailablePatches [PatchOrchestratorFilter]
-dapFilters = lens _dapFilters (\s a -> s {_dapFilters = a}) . _Default . _Coerce
+describeAvailablePatches_filters :: Lens.Lens' DescribeAvailablePatches (Prelude.Maybe [PatchOrchestratorFilter])
+describeAvailablePatches_filters = Lens.lens (\DescribeAvailablePatches' {filters} -> filters) (\s@DescribeAvailablePatches' {} a -> s {filters = a} :: DescribeAvailablePatches) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeAvailablePatches where
+instance Pager.AWSPager DescribeAvailablePatches where
   page rq rs
-    | stop (rs ^. daprrsNextToken) = Nothing
-    | stop (rs ^. daprrsPatches) = Nothing
-    | otherwise =
-      Just $ rq & dapNextToken .~ rs ^. daprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeAvailablePatchesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeAvailablePatchesResponse_patches
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeAvailablePatches_nextToken
+          Lens..~ rs
+          Lens.^? describeAvailablePatchesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeAvailablePatches where
+instance Prelude.AWSRequest DescribeAvailablePatches where
   type
     Rs DescribeAvailablePatches =
       DescribeAvailablePatchesResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAvailablePatchesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Patches" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Patches" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAvailablePatches
+instance Prelude.Hashable DescribeAvailablePatches
 
-instance NFData DescribeAvailablePatches
+instance Prelude.NFData DescribeAvailablePatches
 
-instance ToHeaders DescribeAvailablePatches where
+instance Prelude.ToHeaders DescribeAvailablePatches where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.DescribeAvailablePatches" :: ByteString),
+              Prelude.=# ( "AmazonSSM.DescribeAvailablePatches" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAvailablePatches where
+instance Prelude.ToJSON DescribeAvailablePatches where
   toJSON DescribeAvailablePatches' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dapNextToken,
-            ("MaxResults" .=) <$> _dapMaxResults,
-            ("Filters" .=) <$> _dapFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath DescribeAvailablePatches where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAvailablePatches where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAvailablePatches where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAvailablePatches where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAvailablePatchesResponse' smart constructor.
+-- | /See:/ 'newDescribeAvailablePatchesResponse' smart constructor.
 data DescribeAvailablePatchesResponse = DescribeAvailablePatchesResponse'
-  { _daprrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _daprrsPatches ::
-      !( Maybe
-           [Patch]
-       ),
-    _daprrsResponseStatus ::
-      !Int
+  { -- | The token to use when requesting the next set of items. If there are no
+    -- additional items to return, the string is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of patches. Each entry in the array is a patch structure.
+    patches :: Prelude.Maybe [Patch],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAvailablePatchesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAvailablePatchesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daprrsNextToken' - The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daprrsPatches' - An array of patches. Each entry in the array is a patch structure.
+-- 'nextToken', 'describeAvailablePatchesResponse_nextToken' - The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
 --
--- * 'daprrsResponseStatus' - -- | The response status code.
-describeAvailablePatchesResponse ::
-  -- | 'daprrsResponseStatus'
-  Int ->
+-- 'patches', 'describeAvailablePatchesResponse_patches' - An array of patches. Each entry in the array is a patch structure.
+--
+-- 'httpStatus', 'describeAvailablePatchesResponse_httpStatus' - The response's http status code.
+newDescribeAvailablePatchesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAvailablePatchesResponse
-describeAvailablePatchesResponse pResponseStatus_ =
+newDescribeAvailablePatchesResponse pHttpStatus_ =
   DescribeAvailablePatchesResponse'
-    { _daprrsNextToken =
-        Nothing,
-      _daprrsPatches = Nothing,
-      _daprrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      patches = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
-daprrsNextToken :: Lens' DescribeAvailablePatchesResponse (Maybe Text)
-daprrsNextToken = lens _daprrsNextToken (\s a -> s {_daprrsNextToken = a})
+-- | The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+describeAvailablePatchesResponse_nextToken :: Lens.Lens' DescribeAvailablePatchesResponse (Prelude.Maybe Prelude.Text)
+describeAvailablePatchesResponse_nextToken = Lens.lens (\DescribeAvailablePatchesResponse' {nextToken} -> nextToken) (\s@DescribeAvailablePatchesResponse' {} a -> s {nextToken = a} :: DescribeAvailablePatchesResponse)
 
 -- | An array of patches. Each entry in the array is a patch structure.
-daprrsPatches :: Lens' DescribeAvailablePatchesResponse [Patch]
-daprrsPatches = lens _daprrsPatches (\s a -> s {_daprrsPatches = a}) . _Default . _Coerce
+describeAvailablePatchesResponse_patches :: Lens.Lens' DescribeAvailablePatchesResponse (Prelude.Maybe [Patch])
+describeAvailablePatchesResponse_patches = Lens.lens (\DescribeAvailablePatchesResponse' {patches} -> patches) (\s@DescribeAvailablePatchesResponse' {} a -> s {patches = a} :: DescribeAvailablePatchesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-daprrsResponseStatus :: Lens' DescribeAvailablePatchesResponse Int
-daprrsResponseStatus = lens _daprrsResponseStatus (\s a -> s {_daprrsResponseStatus = a})
+-- | The response's http status code.
+describeAvailablePatchesResponse_httpStatus :: Lens.Lens' DescribeAvailablePatchesResponse Prelude.Int
+describeAvailablePatchesResponse_httpStatus = Lens.lens (\DescribeAvailablePatchesResponse' {httpStatus} -> httpStatus) (\s@DescribeAvailablePatchesResponse' {} a -> s {httpStatus = a} :: DescribeAvailablePatchesResponse)
 
-instance NFData DescribeAvailablePatchesResponse
+instance
+  Prelude.NFData
+    DescribeAvailablePatchesResponse

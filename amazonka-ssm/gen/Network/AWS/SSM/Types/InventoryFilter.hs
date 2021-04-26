@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InventoryFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.InventoryQueryOperatorType
 
--- | One or more filters. Use a filter to return a more specific list of results.
+-- | One or more filters. Use a filter to return a more specific list of
+-- results.
 --
---
---
--- /See:/ 'inventoryFilter' smart constructor.
+-- /See:/ 'newInventoryFilter' smart constructor.
 data InventoryFilter = InventoryFilter'
-  { _ifType ::
-      !(Maybe InventoryQueryOperatorType),
-    _ifKey :: !Text,
-    _ifValues :: !(List1 Text)
+  { -- | The type of filter.
+    --
+    -- The @Exists@ filter must be used with aggregators. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html Aggregating inventory data>
+    -- in the /AWS Systems Manager User Guide/.
+    type' :: Prelude.Maybe InventoryQueryOperatorType,
+    -- | The name of the filter key.
+    key :: Prelude.Text,
+    -- | Inventory filter values. Example: inventory filter where instance IDs
+    -- are specified as values Key=AWS:InstanceInformation.InstanceId,Values=
+    -- i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+    values :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ifType' - The type of filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ifKey' - The name of the filter key.
+-- 'type'', 'inventoryFilter_type' - The type of filter.
 --
--- * 'ifValues' - Inventory filter values. Example: inventory filter where instance IDs are specified as values Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
-inventoryFilter ::
-  -- | 'ifKey'
-  Text ->
-  -- | 'ifValues'
-  NonEmpty Text ->
+-- The @Exists@ filter must be used with aggregators. For more information,
+-- see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html Aggregating inventory data>
+-- in the /AWS Systems Manager User Guide/.
+--
+-- 'key', 'inventoryFilter_key' - The name of the filter key.
+--
+-- 'values', 'inventoryFilter_values' - Inventory filter values. Example: inventory filter where instance IDs
+-- are specified as values Key=AWS:InstanceInformation.InstanceId,Values=
+-- i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+newInventoryFilter ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
   InventoryFilter
-inventoryFilter pKey_ pValues_ =
+newInventoryFilter pKey_ pValues_ =
   InventoryFilter'
-    { _ifType = Nothing,
-      _ifKey = pKey_,
-      _ifValues = _List1 # pValues_
+    { type' = Prelude.Nothing,
+      key = pKey_,
+      values = Prelude._List1 Lens.# pValues_
     }
 
 -- | The type of filter.
-ifType :: Lens' InventoryFilter (Maybe InventoryQueryOperatorType)
-ifType = lens _ifType (\s a -> s {_ifType = a})
+--
+-- The @Exists@ filter must be used with aggregators. For more information,
+-- see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html Aggregating inventory data>
+-- in the /AWS Systems Manager User Guide/.
+inventoryFilter_type :: Lens.Lens' InventoryFilter (Prelude.Maybe InventoryQueryOperatorType)
+inventoryFilter_type = Lens.lens (\InventoryFilter' {type'} -> type') (\s@InventoryFilter' {} a -> s {type' = a} :: InventoryFilter)
 
 -- | The name of the filter key.
-ifKey :: Lens' InventoryFilter Text
-ifKey = lens _ifKey (\s a -> s {_ifKey = a})
+inventoryFilter_key :: Lens.Lens' InventoryFilter Prelude.Text
+inventoryFilter_key = Lens.lens (\InventoryFilter' {key} -> key) (\s@InventoryFilter' {} a -> s {key = a} :: InventoryFilter)
 
--- | Inventory filter values. Example: inventory filter where instance IDs are specified as values Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
-ifValues :: Lens' InventoryFilter (NonEmpty Text)
-ifValues = lens _ifValues (\s a -> s {_ifValues = a}) . _List1
+-- | Inventory filter values. Example: inventory filter where instance IDs
+-- are specified as values Key=AWS:InstanceInformation.InstanceId,Values=
+-- i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+inventoryFilter_values :: Lens.Lens' InventoryFilter (Prelude.NonEmpty Prelude.Text)
+inventoryFilter_values = Lens.lens (\InventoryFilter' {values} -> values) (\s@InventoryFilter' {} a -> s {values = a} :: InventoryFilter) Prelude.. Prelude._List1
 
-instance Hashable InventoryFilter
+instance Prelude.Hashable InventoryFilter
 
-instance NFData InventoryFilter
+instance Prelude.NFData InventoryFilter
 
-instance ToJSON InventoryFilter where
+instance Prelude.ToJSON InventoryFilter where
   toJSON InventoryFilter' {..} =
-    object
-      ( catMaybes
-          [ ("Type" .=) <$> _ifType,
-            Just ("Key" .= _ifKey),
-            Just ("Values" .= _ifValues)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Type" Prelude..=) Prelude.<$> type',
+            Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Values" Prelude..= values)
           ]
       )

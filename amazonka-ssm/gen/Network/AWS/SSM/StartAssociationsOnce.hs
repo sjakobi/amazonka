@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Use this API action to run an association immediately and only one time. This action can be helpful when troubleshooting associations.
+-- Use this API action to run an association immediately and only one time.
+-- This action can be helpful when troubleshooting associations.
 module Network.AWS.SSM.StartAssociationsOnce
   ( -- * Creating a Request
-    startAssociationsOnce,
-    StartAssociationsOnce,
+    StartAssociationsOnce (..),
+    newStartAssociationsOnce,
 
     -- * Request Lenses
-    saoAssociationIds,
+    startAssociationsOnce_associationIds,
 
     -- * Destructuring the Response
-    startAssociationsOnceResponse,
-    StartAssociationsOnceResponse,
+    StartAssociationsOnceResponse (..),
+    newStartAssociationsOnceResponse,
 
     -- * Response Lenses
-    saorrsResponseStatus,
+    startAssociationsOnceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'startAssociationsOnce' smart constructor.
-newtype StartAssociationsOnce = StartAssociationsOnce'
-  { _saoAssociationIds ::
-      List1 Text
+-- | /See:/ 'newStartAssociationsOnce' smart constructor.
+data StartAssociationsOnce = StartAssociationsOnce'
+  { -- | The association IDs that you want to run immediately and only one time.
+    associationIds :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartAssociationsOnce' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartAssociationsOnce' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saoAssociationIds' - The association IDs that you want to run immediately and only one time.
-startAssociationsOnce ::
-  -- | 'saoAssociationIds'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'associationIds', 'startAssociationsOnce_associationIds' - The association IDs that you want to run immediately and only one time.
+newStartAssociationsOnce ::
+  -- | 'associationIds'
+  Prelude.NonEmpty Prelude.Text ->
   StartAssociationsOnce
-startAssociationsOnce pAssociationIds_ =
+newStartAssociationsOnce pAssociationIds_ =
   StartAssociationsOnce'
-    { _saoAssociationIds =
-        _List1 # pAssociationIds_
+    { associationIds =
+        Prelude._List1 Lens.# pAssociationIds_
     }
 
 -- | The association IDs that you want to run immediately and only one time.
-saoAssociationIds :: Lens' StartAssociationsOnce (NonEmpty Text)
-saoAssociationIds = lens _saoAssociationIds (\s a -> s {_saoAssociationIds = a}) . _List1
+startAssociationsOnce_associationIds :: Lens.Lens' StartAssociationsOnce (Prelude.NonEmpty Prelude.Text)
+startAssociationsOnce_associationIds = Lens.lens (\StartAssociationsOnce' {associationIds} -> associationIds) (\s@StartAssociationsOnce' {} a -> s {associationIds = a} :: StartAssociationsOnce) Prelude.. Prelude._List1
 
-instance AWSRequest StartAssociationsOnce where
+instance Prelude.AWSRequest StartAssociationsOnce where
   type
     Rs StartAssociationsOnce =
       StartAssociationsOnceResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           StartAssociationsOnceResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartAssociationsOnce
+instance Prelude.Hashable StartAssociationsOnce
 
-instance NFData StartAssociationsOnce
+instance Prelude.NFData StartAssociationsOnce
 
-instance ToHeaders StartAssociationsOnce where
+instance Prelude.ToHeaders StartAssociationsOnce where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.StartAssociationsOnce" :: ByteString),
+              Prelude.=# ( "AmazonSSM.StartAssociationsOnce" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartAssociationsOnce where
+instance Prelude.ToJSON StartAssociationsOnce where
   toJSON StartAssociationsOnce' {..} =
-    object
-      ( catMaybes
-          [Just ("AssociationIds" .= _saoAssociationIds)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("AssociationIds" Prelude..= associationIds)
+          ]
       )
 
-instance ToPath StartAssociationsOnce where
-  toPath = const "/"
+instance Prelude.ToPath StartAssociationsOnce where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartAssociationsOnce where
-  toQuery = const mempty
+instance Prelude.ToQuery StartAssociationsOnce where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startAssociationsOnceResponse' smart constructor.
-newtype StartAssociationsOnceResponse = StartAssociationsOnceResponse'
-  { _saorrsResponseStatus ::
-      Int
+-- | /See:/ 'newStartAssociationsOnceResponse' smart constructor.
+data StartAssociationsOnceResponse = StartAssociationsOnceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartAssociationsOnceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartAssociationsOnceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saorrsResponseStatus' - -- | The response status code.
-startAssociationsOnceResponse ::
-  -- | 'saorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startAssociationsOnceResponse_httpStatus' - The response's http status code.
+newStartAssociationsOnceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartAssociationsOnceResponse
-startAssociationsOnceResponse pResponseStatus_ =
+newStartAssociationsOnceResponse pHttpStatus_ =
   StartAssociationsOnceResponse'
-    { _saorrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-saorrsResponseStatus :: Lens' StartAssociationsOnceResponse Int
-saorrsResponseStatus = lens _saorrsResponseStatus (\s a -> s {_saorrsResponseStatus = a})
+-- | The response's http status code.
+startAssociationsOnceResponse_httpStatus :: Lens.Lens' StartAssociationsOnceResponse Prelude.Int
+startAssociationsOnceResponse_httpStatus = Lens.lens (\StartAssociationsOnceResponse' {httpStatus} -> httpStatus) (\s@StartAssociationsOnceResponse' {} a -> s {httpStatus = a} :: StartAssociationsOnceResponse)
 
-instance NFData StartAssociationsOnceResponse
+instance Prelude.NFData StartAssociationsOnceResponse

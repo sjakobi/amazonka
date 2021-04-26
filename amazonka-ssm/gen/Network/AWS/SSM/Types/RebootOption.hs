@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SSM.Types.RebootOption
   ( RebootOption
       ( ..,
-        NoReboot,
-        RebootIfNeeded
+        RebootOptionNoReboot,
+        RebootOptionRebootIfNeeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RebootOption = RebootOption' (CI Text)
+newtype RebootOption = RebootOption'
+  { fromRebootOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NoReboot :: RebootOption
-pattern NoReboot = RebootOption' "NoReboot"
+pattern RebootOptionNoReboot :: RebootOption
+pattern RebootOptionNoReboot = RebootOption' "NoReboot"
 
-pattern RebootIfNeeded :: RebootOption
-pattern RebootIfNeeded = RebootOption' "RebootIfNeeded"
+pattern RebootOptionRebootIfNeeded :: RebootOption
+pattern RebootOptionRebootIfNeeded = RebootOption' "RebootIfNeeded"
 
 {-# COMPLETE
-  NoReboot,
-  RebootIfNeeded,
+  RebootOptionNoReboot,
+  RebootOptionRebootIfNeeded,
   RebootOption'
   #-}
 
-instance FromText RebootOption where
-  parser = (RebootOption' . mk) <$> takeText
+instance Prelude.FromText RebootOption where
+  parser = RebootOption' Prelude.<$> Prelude.takeText
 
-instance ToText RebootOption where
-  toText (RebootOption' ci) = original ci
+instance Prelude.ToText RebootOption where
+  toText (RebootOption' x) = x
 
-instance Hashable RebootOption
+instance Prelude.Hashable RebootOption
 
-instance NFData RebootOption
+instance Prelude.NFData RebootOption
 
-instance ToByteString RebootOption
+instance Prelude.ToByteString RebootOption
 
-instance ToQuery RebootOption
+instance Prelude.ToQuery RebootOption
 
-instance ToHeader RebootOption
+instance Prelude.ToHeader RebootOption
 
-instance FromJSON RebootOption where
-  parseJSON = parseJSONText "RebootOption"
+instance Prelude.FromJSON RebootOption where
+  parseJSON = Prelude.parseJSONText "RebootOption"

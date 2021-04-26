@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SSM.Types.PatchAction
   ( PatchAction
       ( ..,
-        AllowAsDependency,
-        Block
+        PatchActionALLOWASDEPENDENCY,
+        PatchActionBLOCK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PatchAction = PatchAction' (CI Text)
+newtype PatchAction = PatchAction'
+  { fromPatchAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AllowAsDependency :: PatchAction
-pattern AllowAsDependency = PatchAction' "ALLOW_AS_DEPENDENCY"
+pattern PatchActionALLOWASDEPENDENCY :: PatchAction
+pattern PatchActionALLOWASDEPENDENCY = PatchAction' "ALLOW_AS_DEPENDENCY"
 
-pattern Block :: PatchAction
-pattern Block = PatchAction' "BLOCK"
+pattern PatchActionBLOCK :: PatchAction
+pattern PatchActionBLOCK = PatchAction' "BLOCK"
 
 {-# COMPLETE
-  AllowAsDependency,
-  Block,
+  PatchActionALLOWASDEPENDENCY,
+  PatchActionBLOCK,
   PatchAction'
   #-}
 
-instance FromText PatchAction where
-  parser = (PatchAction' . mk) <$> takeText
+instance Prelude.FromText PatchAction where
+  parser = PatchAction' Prelude.<$> Prelude.takeText
 
-instance ToText PatchAction where
-  toText (PatchAction' ci) = original ci
+instance Prelude.ToText PatchAction where
+  toText (PatchAction' x) = x
 
-instance Hashable PatchAction
+instance Prelude.Hashable PatchAction
 
-instance NFData PatchAction
+instance Prelude.NFData PatchAction
 
-instance ToByteString PatchAction
+instance Prelude.ToByteString PatchAction
 
-instance ToQuery PatchAction
+instance Prelude.ToQuery PatchAction
 
-instance ToHeader PatchAction
+instance Prelude.ToHeader PatchAction
 
-instance ToJSON PatchAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON PatchAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PatchAction where
-  parseJSON = parseJSONText "PatchAction"
+instance Prelude.FromJSON PatchAction where
+  parseJSON = Prelude.parseJSONText "PatchAction"

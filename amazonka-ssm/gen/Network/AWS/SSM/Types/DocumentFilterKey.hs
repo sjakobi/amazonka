@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.SSM.Types.DocumentFilterKey
   ( DocumentFilterKey
       ( ..,
-        DocumentType,
-        Name,
-        Owner,
-        PlatformTypes
+        DocumentFilterKeyDocumentType,
+        DocumentFilterKeyName,
+        DocumentFilterKeyOwner,
+        DocumentFilterKeyPlatformTypes
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentFilterKey = DocumentFilterKey' (CI Text)
+newtype DocumentFilterKey = DocumentFilterKey'
+  { fromDocumentFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DocumentType :: DocumentFilterKey
-pattern DocumentType = DocumentFilterKey' "DocumentType"
+pattern DocumentFilterKeyDocumentType :: DocumentFilterKey
+pattern DocumentFilterKeyDocumentType = DocumentFilterKey' "DocumentType"
 
-pattern Name :: DocumentFilterKey
-pattern Name = DocumentFilterKey' "Name"
+pattern DocumentFilterKeyName :: DocumentFilterKey
+pattern DocumentFilterKeyName = DocumentFilterKey' "Name"
 
-pattern Owner :: DocumentFilterKey
-pattern Owner = DocumentFilterKey' "Owner"
+pattern DocumentFilterKeyOwner :: DocumentFilterKey
+pattern DocumentFilterKeyOwner = DocumentFilterKey' "Owner"
 
-pattern PlatformTypes :: DocumentFilterKey
-pattern PlatformTypes = DocumentFilterKey' "PlatformTypes"
+pattern DocumentFilterKeyPlatformTypes :: DocumentFilterKey
+pattern DocumentFilterKeyPlatformTypes = DocumentFilterKey' "PlatformTypes"
 
 {-# COMPLETE
-  DocumentType,
-  Name,
-  Owner,
-  PlatformTypes,
+  DocumentFilterKeyDocumentType,
+  DocumentFilterKeyName,
+  DocumentFilterKeyOwner,
+  DocumentFilterKeyPlatformTypes,
   DocumentFilterKey'
   #-}
 
-instance FromText DocumentFilterKey where
-  parser = (DocumentFilterKey' . mk) <$> takeText
+instance Prelude.FromText DocumentFilterKey where
+  parser = DocumentFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentFilterKey where
-  toText (DocumentFilterKey' ci) = original ci
+instance Prelude.ToText DocumentFilterKey where
+  toText (DocumentFilterKey' x) = x
 
-instance Hashable DocumentFilterKey
+instance Prelude.Hashable DocumentFilterKey
 
-instance NFData DocumentFilterKey
+instance Prelude.NFData DocumentFilterKey
 
-instance ToByteString DocumentFilterKey
+instance Prelude.ToByteString DocumentFilterKey
 
-instance ToQuery DocumentFilterKey
+instance Prelude.ToQuery DocumentFilterKey
 
-instance ToHeader DocumentFilterKey
+instance Prelude.ToHeader DocumentFilterKey
 
-instance ToJSON DocumentFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentFilterKey where
+  toJSON = Prelude.toJSONText

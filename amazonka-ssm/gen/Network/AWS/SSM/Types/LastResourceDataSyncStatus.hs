@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SSM.Types.LastResourceDataSyncStatus
   ( LastResourceDataSyncStatus
       ( ..,
-        LRDSSFailed,
-        LRDSSInProgress,
-        LRDSSSuccessful
+        LastResourceDataSyncStatusFailed,
+        LastResourceDataSyncStatusInProgress,
+        LastResourceDataSyncStatusSuccessful
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LastResourceDataSyncStatus
-  = LastResourceDataSyncStatus'
-      ( CI
-          Text
-      )
+newtype LastResourceDataSyncStatus = LastResourceDataSyncStatus'
+  { fromLastResourceDataSyncStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LRDSSFailed :: LastResourceDataSyncStatus
-pattern LRDSSFailed = LastResourceDataSyncStatus' "Failed"
+pattern LastResourceDataSyncStatusFailed :: LastResourceDataSyncStatus
+pattern LastResourceDataSyncStatusFailed = LastResourceDataSyncStatus' "Failed"
 
-pattern LRDSSInProgress :: LastResourceDataSyncStatus
-pattern LRDSSInProgress = LastResourceDataSyncStatus' "InProgress"
+pattern LastResourceDataSyncStatusInProgress :: LastResourceDataSyncStatus
+pattern LastResourceDataSyncStatusInProgress = LastResourceDataSyncStatus' "InProgress"
 
-pattern LRDSSSuccessful :: LastResourceDataSyncStatus
-pattern LRDSSSuccessful = LastResourceDataSyncStatus' "Successful"
+pattern LastResourceDataSyncStatusSuccessful :: LastResourceDataSyncStatus
+pattern LastResourceDataSyncStatusSuccessful = LastResourceDataSyncStatus' "Successful"
 
 {-# COMPLETE
-  LRDSSFailed,
-  LRDSSInProgress,
-  LRDSSSuccessful,
+  LastResourceDataSyncStatusFailed,
+  LastResourceDataSyncStatusInProgress,
+  LastResourceDataSyncStatusSuccessful,
   LastResourceDataSyncStatus'
   #-}
 
-instance FromText LastResourceDataSyncStatus where
-  parser = (LastResourceDataSyncStatus' . mk) <$> takeText
+instance Prelude.FromText LastResourceDataSyncStatus where
+  parser = LastResourceDataSyncStatus' Prelude.<$> Prelude.takeText
 
-instance ToText LastResourceDataSyncStatus where
-  toText (LastResourceDataSyncStatus' ci) = original ci
+instance Prelude.ToText LastResourceDataSyncStatus where
+  toText (LastResourceDataSyncStatus' x) = x
 
-instance Hashable LastResourceDataSyncStatus
+instance Prelude.Hashable LastResourceDataSyncStatus
 
-instance NFData LastResourceDataSyncStatus
+instance Prelude.NFData LastResourceDataSyncStatus
 
-instance ToByteString LastResourceDataSyncStatus
+instance Prelude.ToByteString LastResourceDataSyncStatus
 
-instance ToQuery LastResourceDataSyncStatus
+instance Prelude.ToQuery LastResourceDataSyncStatus
 
-instance ToHeader LastResourceDataSyncStatus
+instance Prelude.ToHeader LastResourceDataSyncStatus
 
-instance FromJSON LastResourceDataSyncStatus where
-  parseJSON = parseJSONText "LastResourceDataSyncStatus"
+instance Prelude.FromJSON LastResourceDataSyncStatus where
+  parseJSON = Prelude.parseJSONText "LastResourceDataSyncStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SSM.Types.PatchSet
   ( PatchSet
       ( ..,
-        Application,
-        OS
+        PatchSetAPPLICATION,
+        PatchSetOS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PatchSet = PatchSet' (CI Text)
+newtype PatchSet = PatchSet'
+  { fromPatchSet ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Application :: PatchSet
-pattern Application = PatchSet' "APPLICATION"
+pattern PatchSetAPPLICATION :: PatchSet
+pattern PatchSetAPPLICATION = PatchSet' "APPLICATION"
 
-pattern OS :: PatchSet
-pattern OS = PatchSet' "OS"
+pattern PatchSetOS :: PatchSet
+pattern PatchSetOS = PatchSet' "OS"
 
 {-# COMPLETE
-  Application,
-  OS,
+  PatchSetAPPLICATION,
+  PatchSetOS,
   PatchSet'
   #-}
 
-instance FromText PatchSet where
-  parser = (PatchSet' . mk) <$> takeText
+instance Prelude.FromText PatchSet where
+  parser = PatchSet' Prelude.<$> Prelude.takeText
 
-instance ToText PatchSet where
-  toText (PatchSet' ci) = original ci
+instance Prelude.ToText PatchSet where
+  toText (PatchSet' x) = x
 
-instance Hashable PatchSet
+instance Prelude.Hashable PatchSet
 
-instance NFData PatchSet
+instance Prelude.NFData PatchSet
 
-instance ToByteString PatchSet
+instance Prelude.ToByteString PatchSet
 
-instance ToQuery PatchSet
+instance Prelude.ToQuery PatchSet
 
-instance ToHeader PatchSet
+instance Prelude.ToHeader PatchSet
 
-instance ToJSON PatchSet where
-  toJSON = toJSONText
+instance Prelude.ToJSON PatchSet where
+  toJSON = Prelude.toJSONText

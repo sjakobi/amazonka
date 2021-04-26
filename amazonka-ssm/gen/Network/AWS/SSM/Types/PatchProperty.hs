@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.SSM.Types.PatchProperty
   ( PatchProperty
       ( ..,
-        Classification,
-        MsrcSeverity,
-        Priority,
-        Product,
-        ProductFamily,
-        Severity
+        PatchPropertyCLASSIFICATION,
+        PatchPropertyMSRCSEVERITY,
+        PatchPropertyPRIORITY,
+        PatchPropertyPRODUCT,
+        PatchPropertyPRODUCTFAMILY,
+        PatchPropertySEVERITY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PatchProperty = PatchProperty' (CI Text)
+newtype PatchProperty = PatchProperty'
+  { fromPatchProperty ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Classification :: PatchProperty
-pattern Classification = PatchProperty' "CLASSIFICATION"
+pattern PatchPropertyCLASSIFICATION :: PatchProperty
+pattern PatchPropertyCLASSIFICATION = PatchProperty' "CLASSIFICATION"
 
-pattern MsrcSeverity :: PatchProperty
-pattern MsrcSeverity = PatchProperty' "MSRC_SEVERITY"
+pattern PatchPropertyMSRCSEVERITY :: PatchProperty
+pattern PatchPropertyMSRCSEVERITY = PatchProperty' "MSRC_SEVERITY"
 
-pattern Priority :: PatchProperty
-pattern Priority = PatchProperty' "PRIORITY"
+pattern PatchPropertyPRIORITY :: PatchProperty
+pattern PatchPropertyPRIORITY = PatchProperty' "PRIORITY"
 
-pattern Product :: PatchProperty
-pattern Product = PatchProperty' "PRODUCT"
+pattern PatchPropertyPRODUCT :: PatchProperty
+pattern PatchPropertyPRODUCT = PatchProperty' "PRODUCT"
 
-pattern ProductFamily :: PatchProperty
-pattern ProductFamily = PatchProperty' "PRODUCT_FAMILY"
+pattern PatchPropertyPRODUCTFAMILY :: PatchProperty
+pattern PatchPropertyPRODUCTFAMILY = PatchProperty' "PRODUCT_FAMILY"
 
-pattern Severity :: PatchProperty
-pattern Severity = PatchProperty' "SEVERITY"
+pattern PatchPropertySEVERITY :: PatchProperty
+pattern PatchPropertySEVERITY = PatchProperty' "SEVERITY"
 
 {-# COMPLETE
-  Classification,
-  MsrcSeverity,
-  Priority,
-  Product,
-  ProductFamily,
-  Severity,
+  PatchPropertyCLASSIFICATION,
+  PatchPropertyMSRCSEVERITY,
+  PatchPropertyPRIORITY,
+  PatchPropertyPRODUCT,
+  PatchPropertyPRODUCTFAMILY,
+  PatchPropertySEVERITY,
   PatchProperty'
   #-}
 
-instance FromText PatchProperty where
-  parser = (PatchProperty' . mk) <$> takeText
+instance Prelude.FromText PatchProperty where
+  parser = PatchProperty' Prelude.<$> Prelude.takeText
 
-instance ToText PatchProperty where
-  toText (PatchProperty' ci) = original ci
+instance Prelude.ToText PatchProperty where
+  toText (PatchProperty' x) = x
 
-instance Hashable PatchProperty
+instance Prelude.Hashable PatchProperty
 
-instance NFData PatchProperty
+instance Prelude.NFData PatchProperty
 
-instance ToByteString PatchProperty
+instance Prelude.ToByteString PatchProperty
 
-instance ToQuery PatchProperty
+instance Prelude.ToQuery PatchProperty
 
-instance ToHeader PatchProperty
+instance Prelude.ToHeader PatchProperty
 
-instance ToJSON PatchProperty where
-  toJSON = toJSONText
+instance Prelude.ToJSON PatchProperty where
+  toJSON = Prelude.toJSONText

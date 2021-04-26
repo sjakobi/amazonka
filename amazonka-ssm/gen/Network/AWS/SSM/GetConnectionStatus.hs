@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the Session Manager connection status for an instance to determine whether it is running and ready to receive Session Manager connections.
+-- Retrieves the Session Manager connection status for an instance to
+-- determine whether it is running and ready to receive Session Manager
+-- connections.
 module Network.AWS.SSM.GetConnectionStatus
   ( -- * Creating a Request
-    getConnectionStatus,
-    GetConnectionStatus,
+    GetConnectionStatus (..),
+    newGetConnectionStatus,
 
     -- * Request Lenses
-    gcsTarget,
+    getConnectionStatus_target,
 
     -- * Destructuring the Response
-    getConnectionStatusResponse,
-    GetConnectionStatusResponse,
+    GetConnectionStatusResponse (..),
+    newGetConnectionStatusResponse,
 
     -- * Response Lenses
-    getrsStatus,
-    getrsTarget,
-    getrsResponseStatus,
+    getConnectionStatusResponse_status,
+    getConnectionStatusResponse_target,
+    getConnectionStatusResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.ConnectionStatus
 
--- | /See:/ 'getConnectionStatus' smart constructor.
-newtype GetConnectionStatus = GetConnectionStatus'
-  { _gcsTarget ::
-      Text
+-- | /See:/ 'newGetConnectionStatus' smart constructor.
+data GetConnectionStatus = GetConnectionStatus'
+  { -- | The ID of the instance.
+    target :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConnectionStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConnectionStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsTarget' - The ID of the instance.
-getConnectionStatus ::
-  -- | 'gcsTarget'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'target', 'getConnectionStatus_target' - The ID of the instance.
+newGetConnectionStatus ::
+  -- | 'target'
+  Prelude.Text ->
   GetConnectionStatus
-getConnectionStatus pTarget_ =
-  GetConnectionStatus' {_gcsTarget = pTarget_}
+newGetConnectionStatus pTarget_ =
+  GetConnectionStatus' {target = pTarget_}
 
 -- | The ID of the instance.
-gcsTarget :: Lens' GetConnectionStatus Text
-gcsTarget = lens _gcsTarget (\s a -> s {_gcsTarget = a})
+getConnectionStatus_target :: Lens.Lens' GetConnectionStatus Prelude.Text
+getConnectionStatus_target = Lens.lens (\GetConnectionStatus' {target} -> target) (\s@GetConnectionStatus' {} a -> s {target = a} :: GetConnectionStatus)
 
-instance AWSRequest GetConnectionStatus where
+instance Prelude.AWSRequest GetConnectionStatus where
   type
     Rs GetConnectionStatus =
       GetConnectionStatusResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetConnectionStatusResponse'
-            <$> (x .?> "Status")
-            <*> (x .?> "Target")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "Target")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetConnectionStatus
+instance Prelude.Hashable GetConnectionStatus
 
-instance NFData GetConnectionStatus
+instance Prelude.NFData GetConnectionStatus
 
-instance ToHeaders GetConnectionStatus where
+instance Prelude.ToHeaders GetConnectionStatus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.GetConnectionStatus" :: ByteString),
+              Prelude.=# ( "AmazonSSM.GetConnectionStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetConnectionStatus where
+instance Prelude.ToJSON GetConnectionStatus where
   toJSON GetConnectionStatus' {..} =
-    object (catMaybes [Just ("Target" .= _gcsTarget)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Target" Prelude..= target)]
+      )
 
-instance ToPath GetConnectionStatus where
-  toPath = const "/"
+instance Prelude.ToPath GetConnectionStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetConnectionStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery GetConnectionStatus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getConnectionStatusResponse' smart constructor.
+-- | /See:/ 'newGetConnectionStatusResponse' smart constructor.
 data GetConnectionStatusResponse = GetConnectionStatusResponse'
-  { _getrsStatus ::
-      !( Maybe
-           ConnectionStatus
-       ),
-    _getrsTarget ::
-      !(Maybe Text),
-    _getrsResponseStatus ::
-      !Int
+  { -- | The status of the connection to the instance. For example, \'Connected\'
+    -- or \'Not Connected\'.
+    status :: Prelude.Maybe ConnectionStatus,
+    -- | The ID of the instance to check connection status.
+    target :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConnectionStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConnectionStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'getrsStatus' - The status of the connection to the instance. For example, 'Connected' or 'Not Connected'.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'getrsTarget' - The ID of the instance to check connection status.
+-- 'status', 'getConnectionStatusResponse_status' - The status of the connection to the instance. For example, \'Connected\'
+-- or \'Not Connected\'.
 --
--- * 'getrsResponseStatus' - -- | The response status code.
-getConnectionStatusResponse ::
-  -- | 'getrsResponseStatus'
-  Int ->
+-- 'target', 'getConnectionStatusResponse_target' - The ID of the instance to check connection status.
+--
+-- 'httpStatus', 'getConnectionStatusResponse_httpStatus' - The response's http status code.
+newGetConnectionStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetConnectionStatusResponse
-getConnectionStatusResponse pResponseStatus_ =
+newGetConnectionStatusResponse pHttpStatus_ =
   GetConnectionStatusResponse'
-    { _getrsStatus =
-        Nothing,
-      _getrsTarget = Nothing,
-      _getrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      target = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The status of the connection to the instance. For example, 'Connected' or 'Not Connected'.
-getrsStatus :: Lens' GetConnectionStatusResponse (Maybe ConnectionStatus)
-getrsStatus = lens _getrsStatus (\s a -> s {_getrsStatus = a})
+-- | The status of the connection to the instance. For example, \'Connected\'
+-- or \'Not Connected\'.
+getConnectionStatusResponse_status :: Lens.Lens' GetConnectionStatusResponse (Prelude.Maybe ConnectionStatus)
+getConnectionStatusResponse_status = Lens.lens (\GetConnectionStatusResponse' {status} -> status) (\s@GetConnectionStatusResponse' {} a -> s {status = a} :: GetConnectionStatusResponse)
 
 -- | The ID of the instance to check connection status.
-getrsTarget :: Lens' GetConnectionStatusResponse (Maybe Text)
-getrsTarget = lens _getrsTarget (\s a -> s {_getrsTarget = a})
+getConnectionStatusResponse_target :: Lens.Lens' GetConnectionStatusResponse (Prelude.Maybe Prelude.Text)
+getConnectionStatusResponse_target = Lens.lens (\GetConnectionStatusResponse' {target} -> target) (\s@GetConnectionStatusResponse' {} a -> s {target = a} :: GetConnectionStatusResponse)
 
--- | -- | The response status code.
-getrsResponseStatus :: Lens' GetConnectionStatusResponse Int
-getrsResponseStatus = lens _getrsResponseStatus (\s a -> s {_getrsResponseStatus = a})
+-- | The response's http status code.
+getConnectionStatusResponse_httpStatus :: Lens.Lens' GetConnectionStatusResponse Prelude.Int
+getConnectionStatusResponse_httpStatus = Lens.lens (\GetConnectionStatusResponse' {httpStatus} -> httpStatus) (\s@GetConnectionStatusResponse' {} a -> s {httpStatus = a} :: GetConnectionStatusResponse)
 
-instance NFData GetConnectionStatusResponse
+instance Prelude.NFData GetConnectionStatusResponse

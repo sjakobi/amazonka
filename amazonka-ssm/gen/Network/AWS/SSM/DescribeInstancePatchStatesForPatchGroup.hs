@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,245 +21,270 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the high-level patch state for the instances in the specified patch group.
---
---
+-- Retrieves the high-level patch state for the instances in the specified
+-- patch group.
 --
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribeInstancePatchStatesForPatchGroup
   ( -- * Creating a Request
-    describeInstancePatchStatesForPatchGroup,
-    DescribeInstancePatchStatesForPatchGroup,
+    DescribeInstancePatchStatesForPatchGroup (..),
+    newDescribeInstancePatchStatesForPatchGroup,
 
     -- * Request Lenses
-    dipsfpgNextToken,
-    dipsfpgMaxResults,
-    dipsfpgFilters,
-    dipsfpgPatchGroup,
+    describeInstancePatchStatesForPatchGroup_nextToken,
+    describeInstancePatchStatesForPatchGroup_maxResults,
+    describeInstancePatchStatesForPatchGroup_filters,
+    describeInstancePatchStatesForPatchGroup_patchGroup,
 
     -- * Destructuring the Response
-    describeInstancePatchStatesForPatchGroupResponse,
-    DescribeInstancePatchStatesForPatchGroupResponse,
+    DescribeInstancePatchStatesForPatchGroupResponse (..),
+    newDescribeInstancePatchStatesForPatchGroupResponse,
 
     -- * Response Lenses
-    dipsfpgrrsNextToken,
-    dipsfpgrrsInstancePatchStates,
-    dipsfpgrrsResponseStatus,
+    describeInstancePatchStatesForPatchGroupResponse_nextToken,
+    describeInstancePatchStatesForPatchGroupResponse_instancePatchStates,
+    describeInstancePatchStatesForPatchGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.InstancePatchState
 
--- | /See:/ 'describeInstancePatchStatesForPatchGroup' smart constructor.
+-- | /See:/ 'newDescribeInstancePatchStatesForPatchGroup' smart constructor.
 data DescribeInstancePatchStatesForPatchGroup = DescribeInstancePatchStatesForPatchGroup'
-  { _dipsfpgNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dipsfpgMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dipsfpgFilters ::
-      !( Maybe
-           [InstancePatchStateFilter]
-       ),
-    _dipsfpgPatchGroup ::
-      !Text
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of patches to return (per page).
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Each entry in the array is a structure containing:
+    --
+    -- Key (string between 1 and 200 characters)
+    --
+    -- Values (array containing a single string)
+    --
+    -- Type (string \"Equal\", \"NotEqual\", \"LessThan\", \"GreaterThan\")
+    filters :: Prelude.Maybe [InstancePatchStateFilter],
+    -- | The name of the patch group for which the patch state information should
+    -- be retrieved.
+    patchGroup :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstancePatchStatesForPatchGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstancePatchStatesForPatchGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dipsfpgNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dipsfpgMaxResults' - The maximum number of patches to return (per page).
+-- 'nextToken', 'describeInstancePatchStatesForPatchGroup_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'dipsfpgFilters' - Each entry in the array is a structure containing: Key (string between 1 and 200 characters) Values (array containing a single string) Type (string "Equal", "NotEqual", "LessThan", "GreaterThan")
+-- 'maxResults', 'describeInstancePatchStatesForPatchGroup_maxResults' - The maximum number of patches to return (per page).
 --
--- * 'dipsfpgPatchGroup' - The name of the patch group for which the patch state information should be retrieved.
-describeInstancePatchStatesForPatchGroup ::
-  -- | 'dipsfpgPatchGroup'
-  Text ->
+-- 'filters', 'describeInstancePatchStatesForPatchGroup_filters' - Each entry in the array is a structure containing:
+--
+-- Key (string between 1 and 200 characters)
+--
+-- Values (array containing a single string)
+--
+-- Type (string \"Equal\", \"NotEqual\", \"LessThan\", \"GreaterThan\")
+--
+-- 'patchGroup', 'describeInstancePatchStatesForPatchGroup_patchGroup' - The name of the patch group for which the patch state information should
+-- be retrieved.
+newDescribeInstancePatchStatesForPatchGroup ::
+  -- | 'patchGroup'
+  Prelude.Text ->
   DescribeInstancePatchStatesForPatchGroup
-describeInstancePatchStatesForPatchGroup pPatchGroup_ =
-  DescribeInstancePatchStatesForPatchGroup'
-    { _dipsfpgNextToken =
-        Nothing,
-      _dipsfpgMaxResults = Nothing,
-      _dipsfpgFilters = Nothing,
-      _dipsfpgPatchGroup = pPatchGroup_
-    }
+newDescribeInstancePatchStatesForPatchGroup
+  pPatchGroup_ =
+    DescribeInstancePatchStatesForPatchGroup'
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        filters = Prelude.Nothing,
+        patchGroup = pPatchGroup_
+      }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-dipsfpgNextToken :: Lens' DescribeInstancePatchStatesForPatchGroup (Maybe Text)
-dipsfpgNextToken = lens _dipsfpgNextToken (\s a -> s {_dipsfpgNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeInstancePatchStatesForPatchGroup_nextToken :: Lens.Lens' DescribeInstancePatchStatesForPatchGroup (Prelude.Maybe Prelude.Text)
+describeInstancePatchStatesForPatchGroup_nextToken = Lens.lens (\DescribeInstancePatchStatesForPatchGroup' {nextToken} -> nextToken) (\s@DescribeInstancePatchStatesForPatchGroup' {} a -> s {nextToken = a} :: DescribeInstancePatchStatesForPatchGroup)
 
 -- | The maximum number of patches to return (per page).
-dipsfpgMaxResults :: Lens' DescribeInstancePatchStatesForPatchGroup (Maybe Natural)
-dipsfpgMaxResults = lens _dipsfpgMaxResults (\s a -> s {_dipsfpgMaxResults = a}) . mapping _Nat
+describeInstancePatchStatesForPatchGroup_maxResults :: Lens.Lens' DescribeInstancePatchStatesForPatchGroup (Prelude.Maybe Prelude.Natural)
+describeInstancePatchStatesForPatchGroup_maxResults = Lens.lens (\DescribeInstancePatchStatesForPatchGroup' {maxResults} -> maxResults) (\s@DescribeInstancePatchStatesForPatchGroup' {} a -> s {maxResults = a} :: DescribeInstancePatchStatesForPatchGroup) Prelude.. Lens.mapping Prelude._Nat
 
--- | Each entry in the array is a structure containing: Key (string between 1 and 200 characters) Values (array containing a single string) Type (string "Equal", "NotEqual", "LessThan", "GreaterThan")
-dipsfpgFilters :: Lens' DescribeInstancePatchStatesForPatchGroup [InstancePatchStateFilter]
-dipsfpgFilters = lens _dipsfpgFilters (\s a -> s {_dipsfpgFilters = a}) . _Default . _Coerce
+-- | Each entry in the array is a structure containing:
+--
+-- Key (string between 1 and 200 characters)
+--
+-- Values (array containing a single string)
+--
+-- Type (string \"Equal\", \"NotEqual\", \"LessThan\", \"GreaterThan\")
+describeInstancePatchStatesForPatchGroup_filters :: Lens.Lens' DescribeInstancePatchStatesForPatchGroup (Prelude.Maybe [InstancePatchStateFilter])
+describeInstancePatchStatesForPatchGroup_filters = Lens.lens (\DescribeInstancePatchStatesForPatchGroup' {filters} -> filters) (\s@DescribeInstancePatchStatesForPatchGroup' {} a -> s {filters = a} :: DescribeInstancePatchStatesForPatchGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the patch group for which the patch state information should be retrieved.
-dipsfpgPatchGroup :: Lens' DescribeInstancePatchStatesForPatchGroup Text
-dipsfpgPatchGroup = lens _dipsfpgPatchGroup (\s a -> s {_dipsfpgPatchGroup = a})
+-- | The name of the patch group for which the patch state information should
+-- be retrieved.
+describeInstancePatchStatesForPatchGroup_patchGroup :: Lens.Lens' DescribeInstancePatchStatesForPatchGroup Prelude.Text
+describeInstancePatchStatesForPatchGroup_patchGroup = Lens.lens (\DescribeInstancePatchStatesForPatchGroup' {patchGroup} -> patchGroup) (\s@DescribeInstancePatchStatesForPatchGroup' {} a -> s {patchGroup = a} :: DescribeInstancePatchStatesForPatchGroup)
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeInstancePatchStatesForPatchGroup
   where
   page rq rs
-    | stop (rs ^. dipsfpgrrsNextToken) = Nothing
-    | stop (rs ^. dipsfpgrrsInstancePatchStates) =
-      Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? describeInstancePatchStatesForPatchGroupResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeInstancePatchStatesForPatchGroupResponse_instancePatchStates
+              Prelude.. Lens._Just
+              Prelude.. Lens.to Prelude.toList
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & dipsfpgNextToken .~ rs ^. dipsfpgrrsNextToken
+          Lens.& describeInstancePatchStatesForPatchGroup_nextToken
+          Lens..~ rs
+            Lens.^? describeInstancePatchStatesForPatchGroupResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeInstancePatchStatesForPatchGroup
   where
   type
     Rs DescribeInstancePatchStatesForPatchGroup =
       DescribeInstancePatchStatesForPatchGroupResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeInstancePatchStatesForPatchGroupResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "InstancePatchStates")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> (x Prelude..?> "InstancePatchStates")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeInstancePatchStatesForPatchGroup
 
 instance
-  NFData
+  Prelude.NFData
     DescribeInstancePatchStatesForPatchGroup
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DescribeInstancePatchStatesForPatchGroup
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.DescribeInstancePatchStatesForPatchGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.DescribeInstancePatchStatesForPatchGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     DescribeInstancePatchStatesForPatchGroup
   where
   toJSON DescribeInstancePatchStatesForPatchGroup' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dipsfpgNextToken,
-            ("MaxResults" .=) <$> _dipsfpgMaxResults,
-            ("Filters" .=) <$> _dipsfpgFilters,
-            Just ("PatchGroup" .= _dipsfpgPatchGroup)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters,
+            Prelude.Just ("PatchGroup" Prelude..= patchGroup)
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     DescribeInstancePatchStatesForPatchGroup
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     DescribeInstancePatchStatesForPatchGroup
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeInstancePatchStatesForPatchGroupResponse' smart constructor.
+-- | /See:/ 'newDescribeInstancePatchStatesForPatchGroupResponse' smart constructor.
 data DescribeInstancePatchStatesForPatchGroupResponse = DescribeInstancePatchStatesForPatchGroupResponse'
-  { _dipsfpgrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dipsfpgrrsInstancePatchStates ::
-      !( Maybe
-           ( List1
-               InstancePatchState
-           )
-       ),
-    _dipsfpgrrsResponseStatus ::
-      !Int
+  { -- | The token to use when requesting the next set of items. If there are no
+    -- additional items to return, the string is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The high-level patch state for the requested instances.
+    instancePatchStates :: Prelude.Maybe (Prelude.List1 InstancePatchState),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstancePatchStatesForPatchGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstancePatchStatesForPatchGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dipsfpgrrsNextToken' - The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dipsfpgrrsInstancePatchStates' - The high-level patch state for the requested instances.
+-- 'nextToken', 'describeInstancePatchStatesForPatchGroupResponse_nextToken' - The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
 --
--- * 'dipsfpgrrsResponseStatus' - -- | The response status code.
-describeInstancePatchStatesForPatchGroupResponse ::
-  -- | 'dipsfpgrrsResponseStatus'
-  Int ->
+-- 'instancePatchStates', 'describeInstancePatchStatesForPatchGroupResponse_instancePatchStates' - The high-level patch state for the requested instances.
+--
+-- 'httpStatus', 'describeInstancePatchStatesForPatchGroupResponse_httpStatus' - The response's http status code.
+newDescribeInstancePatchStatesForPatchGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeInstancePatchStatesForPatchGroupResponse
-describeInstancePatchStatesForPatchGroupResponse
-  pResponseStatus_ =
+newDescribeInstancePatchStatesForPatchGroupResponse
+  pHttpStatus_ =
     DescribeInstancePatchStatesForPatchGroupResponse'
-      { _dipsfpgrrsNextToken =
-          Nothing,
-        _dipsfpgrrsInstancePatchStates =
-          Nothing,
-        _dipsfpgrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        instancePatchStates =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
-dipsfpgrrsNextToken :: Lens' DescribeInstancePatchStatesForPatchGroupResponse (Maybe Text)
-dipsfpgrrsNextToken = lens _dipsfpgrrsNextToken (\s a -> s {_dipsfpgrrsNextToken = a})
+-- | The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+describeInstancePatchStatesForPatchGroupResponse_nextToken :: Lens.Lens' DescribeInstancePatchStatesForPatchGroupResponse (Prelude.Maybe Prelude.Text)
+describeInstancePatchStatesForPatchGroupResponse_nextToken = Lens.lens (\DescribeInstancePatchStatesForPatchGroupResponse' {nextToken} -> nextToken) (\s@DescribeInstancePatchStatesForPatchGroupResponse' {} a -> s {nextToken = a} :: DescribeInstancePatchStatesForPatchGroupResponse)
 
 -- | The high-level patch state for the requested instances.
-dipsfpgrrsInstancePatchStates :: Lens' DescribeInstancePatchStatesForPatchGroupResponse (Maybe (NonEmpty InstancePatchState))
-dipsfpgrrsInstancePatchStates = lens _dipsfpgrrsInstancePatchStates (\s a -> s {_dipsfpgrrsInstancePatchStates = a}) . mapping _List1
+describeInstancePatchStatesForPatchGroupResponse_instancePatchStates :: Lens.Lens' DescribeInstancePatchStatesForPatchGroupResponse (Prelude.Maybe (Prelude.NonEmpty InstancePatchState))
+describeInstancePatchStatesForPatchGroupResponse_instancePatchStates = Lens.lens (\DescribeInstancePatchStatesForPatchGroupResponse' {instancePatchStates} -> instancePatchStates) (\s@DescribeInstancePatchStatesForPatchGroupResponse' {} a -> s {instancePatchStates = a} :: DescribeInstancePatchStatesForPatchGroupResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-dipsfpgrrsResponseStatus :: Lens' DescribeInstancePatchStatesForPatchGroupResponse Int
-dipsfpgrrsResponseStatus = lens _dipsfpgrrsResponseStatus (\s a -> s {_dipsfpgrrsResponseStatus = a})
+-- | The response's http status code.
+describeInstancePatchStatesForPatchGroupResponse_httpStatus :: Lens.Lens' DescribeInstancePatchStatesForPatchGroupResponse Prelude.Int
+describeInstancePatchStatesForPatchGroupResponse_httpStatus = Lens.lens (\DescribeInstancePatchStatesForPatchGroupResponse' {httpStatus} -> httpStatus) (\s@DescribeInstancePatchStatesForPatchGroupResponse' {} a -> s {httpStatus = a} :: DescribeInstancePatchStatesForPatchGroupResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeInstancePatchStatesForPatchGroupResponse

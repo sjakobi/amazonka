@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SSM.Types.AssociationSyncCompliance
   ( AssociationSyncCompliance
       ( ..,
-        Auto,
-        Manual
+        AssociationSyncComplianceAUTO,
+        AssociationSyncComplianceMANUAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationSyncCompliance
-  = AssociationSyncCompliance'
-      ( CI
-          Text
-      )
+newtype AssociationSyncCompliance = AssociationSyncCompliance'
+  { fromAssociationSyncCompliance ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Auto :: AssociationSyncCompliance
-pattern Auto = AssociationSyncCompliance' "AUTO"
+pattern AssociationSyncComplianceAUTO :: AssociationSyncCompliance
+pattern AssociationSyncComplianceAUTO = AssociationSyncCompliance' "AUTO"
 
-pattern Manual :: AssociationSyncCompliance
-pattern Manual = AssociationSyncCompliance' "MANUAL"
+pattern AssociationSyncComplianceMANUAL :: AssociationSyncCompliance
+pattern AssociationSyncComplianceMANUAL = AssociationSyncCompliance' "MANUAL"
 
 {-# COMPLETE
-  Auto,
-  Manual,
+  AssociationSyncComplianceAUTO,
+  AssociationSyncComplianceMANUAL,
   AssociationSyncCompliance'
   #-}
 
-instance FromText AssociationSyncCompliance where
-  parser = (AssociationSyncCompliance' . mk) <$> takeText
+instance Prelude.FromText AssociationSyncCompliance where
+  parser = AssociationSyncCompliance' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationSyncCompliance where
-  toText (AssociationSyncCompliance' ci) = original ci
+instance Prelude.ToText AssociationSyncCompliance where
+  toText (AssociationSyncCompliance' x) = x
 
-instance Hashable AssociationSyncCompliance
+instance Prelude.Hashable AssociationSyncCompliance
 
-instance NFData AssociationSyncCompliance
+instance Prelude.NFData AssociationSyncCompliance
 
-instance ToByteString AssociationSyncCompliance
+instance Prelude.ToByteString AssociationSyncCompliance
 
-instance ToQuery AssociationSyncCompliance
+instance Prelude.ToQuery AssociationSyncCompliance
 
-instance ToHeader AssociationSyncCompliance
+instance Prelude.ToHeader AssociationSyncCompliance
 
-instance ToJSON AssociationSyncCompliance where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssociationSyncCompliance where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AssociationSyncCompliance where
-  parseJSON = parseJSONText "AssociationSyncCompliance"
+instance Prelude.FromJSON AssociationSyncCompliance where
+  parseJSON = Prelude.parseJSONText "AssociationSyncCompliance"

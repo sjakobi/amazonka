@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SSM.Types.AttachmentsSourceKey
   ( AttachmentsSourceKey
       ( ..,
-        AttachmentReference,
-        S3FileURL,
-        SourceURL
+        AttachmentsSourceKeyAttachmentReference,
+        AttachmentsSourceKeyS3FileUrl,
+        AttachmentsSourceKeySourceUrl
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AttachmentsSourceKey
-  = AttachmentsSourceKey'
-      ( CI
-          Text
-      )
+newtype AttachmentsSourceKey = AttachmentsSourceKey'
+  { fromAttachmentsSourceKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AttachmentReference :: AttachmentsSourceKey
-pattern AttachmentReference = AttachmentsSourceKey' "AttachmentReference"
+pattern AttachmentsSourceKeyAttachmentReference :: AttachmentsSourceKey
+pattern AttachmentsSourceKeyAttachmentReference = AttachmentsSourceKey' "AttachmentReference"
 
-pattern S3FileURL :: AttachmentsSourceKey
-pattern S3FileURL = AttachmentsSourceKey' "S3FileUrl"
+pattern AttachmentsSourceKeyS3FileUrl :: AttachmentsSourceKey
+pattern AttachmentsSourceKeyS3FileUrl = AttachmentsSourceKey' "S3FileUrl"
 
-pattern SourceURL :: AttachmentsSourceKey
-pattern SourceURL = AttachmentsSourceKey' "SourceUrl"
+pattern AttachmentsSourceKeySourceUrl :: AttachmentsSourceKey
+pattern AttachmentsSourceKeySourceUrl = AttachmentsSourceKey' "SourceUrl"
 
 {-# COMPLETE
-  AttachmentReference,
-  S3FileURL,
-  SourceURL,
+  AttachmentsSourceKeyAttachmentReference,
+  AttachmentsSourceKeyS3FileUrl,
+  AttachmentsSourceKeySourceUrl,
   AttachmentsSourceKey'
   #-}
 
-instance FromText AttachmentsSourceKey where
-  parser = (AttachmentsSourceKey' . mk) <$> takeText
+instance Prelude.FromText AttachmentsSourceKey where
+  parser = AttachmentsSourceKey' Prelude.<$> Prelude.takeText
 
-instance ToText AttachmentsSourceKey where
-  toText (AttachmentsSourceKey' ci) = original ci
+instance Prelude.ToText AttachmentsSourceKey where
+  toText (AttachmentsSourceKey' x) = x
 
-instance Hashable AttachmentsSourceKey
+instance Prelude.Hashable AttachmentsSourceKey
 
-instance NFData AttachmentsSourceKey
+instance Prelude.NFData AttachmentsSourceKey
 
-instance ToByteString AttachmentsSourceKey
+instance Prelude.ToByteString AttachmentsSourceKey
 
-instance ToQuery AttachmentsSourceKey
+instance Prelude.ToQuery AttachmentsSourceKey
 
-instance ToHeader AttachmentsSourceKey
+instance Prelude.ToHeader AttachmentsSourceKey
 
-instance ToJSON AttachmentsSourceKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON AttachmentsSourceKey where
+  toJSON = Prelude.toJSONText

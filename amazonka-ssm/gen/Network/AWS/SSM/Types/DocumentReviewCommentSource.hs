@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.DocumentReviewCommentSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.DocumentReviewCommentType
 
 -- | Information about comments added to a document review request.
 --
---
---
--- /See:/ 'documentReviewCommentSource' smart constructor.
+-- /See:/ 'newDocumentReviewCommentSource' smart constructor.
 data DocumentReviewCommentSource = DocumentReviewCommentSource'
-  { _drcsContent ::
-      !(Maybe Text),
-    _drcsType ::
-      !( Maybe
-           DocumentReviewCommentType
-       )
+  { -- | The content of a comment entered by a user who requests a review of a
+    -- new document version, or who reviews the new version.
+    content :: Prelude.Maybe Prelude.Text,
+    -- | The type of information added to a review request. Currently, only the
+    -- value @Comment@ is supported.
+    type' :: Prelude.Maybe DocumentReviewCommentType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentReviewCommentSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentReviewCommentSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcsContent' - The content of a comment entered by a user who requests a review of a new document version, or who reviews the new version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drcsType' - The type of information added to a review request. Currently, only the value @Comment@ is supported.
-documentReviewCommentSource ::
+-- 'content', 'documentReviewCommentSource_content' - The content of a comment entered by a user who requests a review of a
+-- new document version, or who reviews the new version.
+--
+-- 'type'', 'documentReviewCommentSource_type' - The type of information added to a review request. Currently, only the
+-- value @Comment@ is supported.
+newDocumentReviewCommentSource ::
   DocumentReviewCommentSource
-documentReviewCommentSource =
+newDocumentReviewCommentSource =
   DocumentReviewCommentSource'
-    { _drcsContent =
-        Nothing,
-      _drcsType = Nothing
+    { content =
+        Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The content of a comment entered by a user who requests a review of a new document version, or who reviews the new version.
-drcsContent :: Lens' DocumentReviewCommentSource (Maybe Text)
-drcsContent = lens _drcsContent (\s a -> s {_drcsContent = a})
+-- | The content of a comment entered by a user who requests a review of a
+-- new document version, or who reviews the new version.
+documentReviewCommentSource_content :: Lens.Lens' DocumentReviewCommentSource (Prelude.Maybe Prelude.Text)
+documentReviewCommentSource_content = Lens.lens (\DocumentReviewCommentSource' {content} -> content) (\s@DocumentReviewCommentSource' {} a -> s {content = a} :: DocumentReviewCommentSource)
 
--- | The type of information added to a review request. Currently, only the value @Comment@ is supported.
-drcsType :: Lens' DocumentReviewCommentSource (Maybe DocumentReviewCommentType)
-drcsType = lens _drcsType (\s a -> s {_drcsType = a})
+-- | The type of information added to a review request. Currently, only the
+-- value @Comment@ is supported.
+documentReviewCommentSource_type :: Lens.Lens' DocumentReviewCommentSource (Prelude.Maybe DocumentReviewCommentType)
+documentReviewCommentSource_type = Lens.lens (\DocumentReviewCommentSource' {type'} -> type') (\s@DocumentReviewCommentSource' {} a -> s {type' = a} :: DocumentReviewCommentSource)
 
-instance FromJSON DocumentReviewCommentSource where
+instance Prelude.FromJSON DocumentReviewCommentSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DocumentReviewCommentSource"
       ( \x ->
           DocumentReviewCommentSource'
-            <$> (x .:? "Content") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Content")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable DocumentReviewCommentSource
+instance Prelude.Hashable DocumentReviewCommentSource
 
-instance NFData DocumentReviewCommentSource
+instance Prelude.NFData DocumentReviewCommentSource
 
-instance ToJSON DocumentReviewCommentSource where
+instance Prelude.ToJSON DocumentReviewCommentSource where
   toJSON DocumentReviewCommentSource' {..} =
-    object
-      ( catMaybes
-          [ ("Content" .=) <$> _drcsContent,
-            ("Type" .=) <$> _drcsType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Content" Prelude..=) Prelude.<$> content,
+            ("Type" Prelude..=) Prelude.<$> type'
           ]
       )

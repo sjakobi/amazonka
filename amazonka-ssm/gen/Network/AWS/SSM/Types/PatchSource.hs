@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,132 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.PatchSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the patches to use to update the instances, including target operating systems and source repository. Applies to Linux instances only.
+-- | Information about the patches to use to update the instances, including
+-- target operating systems and source repository. Applies to Linux
+-- instances only.
 --
---
---
--- /See:/ 'patchSource' smart constructor.
+-- /See:/ 'newPatchSource' smart constructor.
 data PatchSource = PatchSource'
-  { _psName :: !Text,
-    _psProducts :: !(List1 Text),
-    _psConfiguration :: !(Sensitive Text)
+  { -- | The name specified to identify the patch source.
+    name :: Prelude.Text,
+    -- | The specific operating system versions a patch repository applies to,
+    -- such as \"Ubuntu16.04\", \"AmazonLinux2016.09\",
+    -- \"RedhatEnterpriseLinux7.2\" or \"Suse12.7\". For lists of supported
+    -- product values, see PatchFilter.
+    products :: Prelude.List1 Prelude.Text,
+    -- | The value of the yum repo configuration. For example:
+    --
+    -- @[main]@
+    --
+    -- @name=MyCustomRepository@
+    --
+    -- @baseurl=https:\/\/my-custom-repository@
+    --
+    -- @enabled=1@
+    --
+    -- For information about other options available for your yum repository
+    -- configuration, see
+    -- <https://man7.org/linux/man-pages/man5/dnf.conf.5.html dnf.conf(5)>.
+    configuration :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PatchSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PatchSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psName' - The name specified to identify the patch source.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psProducts' - The specific operating system versions a patch repository applies to, such as "Ubuntu16.04", "AmazonLinux2016.09", "RedhatEnterpriseLinux7.2" or "Suse12.7". For lists of supported product values, see 'PatchFilter' .
+-- 'name', 'patchSource_name' - The name specified to identify the patch source.
 --
--- * 'psConfiguration' - The value of the yum repo configuration. For example: @[main]@  @name=MyCustomRepository@  @baseurl=https://my-custom-repository@  @enabled=1@
-patchSource ::
-  -- | 'psName'
-  Text ->
-  -- | 'psProducts'
-  NonEmpty Text ->
-  -- | 'psConfiguration'
-  Text ->
+-- 'products', 'patchSource_products' - The specific operating system versions a patch repository applies to,
+-- such as \"Ubuntu16.04\", \"AmazonLinux2016.09\",
+-- \"RedhatEnterpriseLinux7.2\" or \"Suse12.7\". For lists of supported
+-- product values, see PatchFilter.
+--
+-- 'configuration', 'patchSource_configuration' - The value of the yum repo configuration. For example:
+--
+-- @[main]@
+--
+-- @name=MyCustomRepository@
+--
+-- @baseurl=https:\/\/my-custom-repository@
+--
+-- @enabled=1@
+--
+-- For information about other options available for your yum repository
+-- configuration, see
+-- <https://man7.org/linux/man-pages/man5/dnf.conf.5.html dnf.conf(5)>.
+newPatchSource ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'products'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'configuration'
+  Prelude.Text ->
   PatchSource
-patchSource pName_ pProducts_ pConfiguration_ =
+newPatchSource pName_ pProducts_ pConfiguration_ =
   PatchSource'
-    { _psName = pName_,
-      _psProducts = _List1 # pProducts_,
-      _psConfiguration = _Sensitive # pConfiguration_
+    { name = pName_,
+      products = Prelude._List1 Lens.# pProducts_,
+      configuration =
+        Prelude._Sensitive Lens.# pConfiguration_
     }
 
 -- | The name specified to identify the patch source.
-psName :: Lens' PatchSource Text
-psName = lens _psName (\s a -> s {_psName = a})
+patchSource_name :: Lens.Lens' PatchSource Prelude.Text
+patchSource_name = Lens.lens (\PatchSource' {name} -> name) (\s@PatchSource' {} a -> s {name = a} :: PatchSource)
 
--- | The specific operating system versions a patch repository applies to, such as "Ubuntu16.04", "AmazonLinux2016.09", "RedhatEnterpriseLinux7.2" or "Suse12.7". For lists of supported product values, see 'PatchFilter' .
-psProducts :: Lens' PatchSource (NonEmpty Text)
-psProducts = lens _psProducts (\s a -> s {_psProducts = a}) . _List1
+-- | The specific operating system versions a patch repository applies to,
+-- such as \"Ubuntu16.04\", \"AmazonLinux2016.09\",
+-- \"RedhatEnterpriseLinux7.2\" or \"Suse12.7\". For lists of supported
+-- product values, see PatchFilter.
+patchSource_products :: Lens.Lens' PatchSource (Prelude.NonEmpty Prelude.Text)
+patchSource_products = Lens.lens (\PatchSource' {products} -> products) (\s@PatchSource' {} a -> s {products = a} :: PatchSource) Prelude.. Prelude._List1
 
--- | The value of the yum repo configuration. For example: @[main]@  @name=MyCustomRepository@  @baseurl=https://my-custom-repository@  @enabled=1@
-psConfiguration :: Lens' PatchSource Text
-psConfiguration = lens _psConfiguration (\s a -> s {_psConfiguration = a}) . _Sensitive
+-- | The value of the yum repo configuration. For example:
+--
+-- @[main]@
+--
+-- @name=MyCustomRepository@
+--
+-- @baseurl=https:\/\/my-custom-repository@
+--
+-- @enabled=1@
+--
+-- For information about other options available for your yum repository
+-- configuration, see
+-- <https://man7.org/linux/man-pages/man5/dnf.conf.5.html dnf.conf(5)>.
+patchSource_configuration :: Lens.Lens' PatchSource Prelude.Text
+patchSource_configuration = Lens.lens (\PatchSource' {configuration} -> configuration) (\s@PatchSource' {} a -> s {configuration = a} :: PatchSource) Prelude.. Prelude._Sensitive
 
-instance FromJSON PatchSource where
+instance Prelude.FromJSON PatchSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PatchSource"
       ( \x ->
           PatchSource'
-            <$> (x .: "Name")
-            <*> (x .: "Products")
-            <*> (x .: "Configuration")
+            Prelude.<$> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Products")
+            Prelude.<*> (x Prelude..: "Configuration")
       )
 
-instance Hashable PatchSource
+instance Prelude.Hashable PatchSource
 
-instance NFData PatchSource
+instance Prelude.NFData PatchSource
 
-instance ToJSON PatchSource where
+instance Prelude.ToJSON PatchSource where
   toJSON PatchSource' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _psName),
-            Just ("Products" .= _psProducts),
-            Just ("Configuration" .= _psConfiguration)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Products" Prelude..= products),
+            Prelude.Just
+              ("Configuration" Prelude..= configuration)
           ]
       )

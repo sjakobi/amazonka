@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.SSM.Types.OpsItemEventFilterKey
   ( OpsItemEventFilterKey
       ( ..,
-        OIEFKOpsItemId
+        OpsItemEventFilterKeyOpsItemId
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OpsItemEventFilterKey
-  = OpsItemEventFilterKey'
-      ( CI
-          Text
-      )
+newtype OpsItemEventFilterKey = OpsItemEventFilterKey'
+  { fromOpsItemEventFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OIEFKOpsItemId :: OpsItemEventFilterKey
-pattern OIEFKOpsItemId = OpsItemEventFilterKey' "OpsItemId"
+pattern OpsItemEventFilterKeyOpsItemId :: OpsItemEventFilterKey
+pattern OpsItemEventFilterKeyOpsItemId = OpsItemEventFilterKey' "OpsItemId"
 
 {-# COMPLETE
-  OIEFKOpsItemId,
+  OpsItemEventFilterKeyOpsItemId,
   OpsItemEventFilterKey'
   #-}
 
-instance FromText OpsItemEventFilterKey where
-  parser = (OpsItemEventFilterKey' . mk) <$> takeText
+instance Prelude.FromText OpsItemEventFilterKey where
+  parser = OpsItemEventFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText OpsItemEventFilterKey where
-  toText (OpsItemEventFilterKey' ci) = original ci
+instance Prelude.ToText OpsItemEventFilterKey where
+  toText (OpsItemEventFilterKey' x) = x
 
-instance Hashable OpsItemEventFilterKey
+instance Prelude.Hashable OpsItemEventFilterKey
 
-instance NFData OpsItemEventFilterKey
+instance Prelude.NFData OpsItemEventFilterKey
 
-instance ToByteString OpsItemEventFilterKey
+instance Prelude.ToByteString OpsItemEventFilterKey
 
-instance ToQuery OpsItemEventFilterKey
+instance Prelude.ToQuery OpsItemEventFilterKey
 
-instance ToHeader OpsItemEventFilterKey
+instance Prelude.ToHeader OpsItemEventFilterKey
 
-instance ToJSON OpsItemEventFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON OpsItemEventFilterKey where
+  toJSON = Prelude.toJSONText

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,231 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns all State Manager associations in the current AWS account and Region. You can limit the results to a specific State Manager association document or instance by specifying a filter.
---
---
+-- Returns all State Manager associations in the current AWS account and
+-- Region. You can limit the results to a specific State Manager
+-- association document or instance by specifying a filter.
 --
 -- This operation returns paginated results.
 module Network.AWS.SSM.ListAssociations
   ( -- * Creating a Request
-    listAssociations,
-    ListAssociations,
+    ListAssociations (..),
+    newListAssociations,
 
     -- * Request Lenses
-    laNextToken,
-    laMaxResults,
-    laAssociationFilterList,
+    listAssociations_nextToken,
+    listAssociations_maxResults,
+    listAssociations_associationFilterList,
 
     -- * Destructuring the Response
-    listAssociationsResponse,
-    ListAssociationsResponse,
+    ListAssociationsResponse (..),
+    newListAssociationsResponse,
 
     -- * Response Lenses
-    larrsNextToken,
-    larrsAssociations,
-    larrsResponseStatus,
+    listAssociationsResponse_nextToken,
+    listAssociationsResponse_associations,
+    listAssociationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Association
 
--- | /See:/ 'listAssociations' smart constructor.
+-- | /See:/ 'newListAssociations' smart constructor.
 data ListAssociations = ListAssociations'
-  { _laNextToken ::
-      !(Maybe Text),
-    _laMaxResults :: !(Maybe Nat),
-    _laAssociationFilterList ::
-      !(Maybe (List1 AssociationFilter))
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters. Use a filter to return a more specific list of
+    -- results.
+    --
+    -- Filtering associations using the @InstanceID@ attribute only returns
+    -- legacy associations created using the @InstanceID@ attribute.
+    -- Associations targeting the instance that are part of the Target
+    -- Attributes @ResourceGroup@ or @Tags@ are not returned.
+    associationFilterList :: Prelude.Maybe (Prelude.List1 AssociationFilter)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAssociations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAssociations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'listAssociations_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'laAssociationFilterList' - One or more filters. Use a filter to return a more specific list of results.
-listAssociations ::
+-- 'maxResults', 'listAssociations_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+--
+-- 'associationFilterList', 'listAssociations_associationFilterList' - One or more filters. Use a filter to return a more specific list of
+-- results.
+--
+-- Filtering associations using the @InstanceID@ attribute only returns
+-- legacy associations created using the @InstanceID@ attribute.
+-- Associations targeting the instance that are part of the Target
+-- Attributes @ResourceGroup@ or @Tags@ are not returned.
+newListAssociations ::
   ListAssociations
-listAssociations =
+newListAssociations =
   ListAssociations'
-    { _laNextToken = Nothing,
-      _laMaxResults = Nothing,
-      _laAssociationFilterList = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      associationFilterList = Prelude.Nothing
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-laNextToken :: Lens' ListAssociations (Maybe Text)
-laNextToken = lens _laNextToken (\s a -> s {_laNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+listAssociations_nextToken :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.Text)
+listAssociations_nextToken = Lens.lens (\ListAssociations' {nextToken} -> nextToken) (\s@ListAssociations' {} a -> s {nextToken = a} :: ListAssociations)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-laMaxResults :: Lens' ListAssociations (Maybe Natural)
-laMaxResults = lens _laMaxResults (\s a -> s {_laMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+listAssociations_maxResults :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.Natural)
+listAssociations_maxResults = Lens.lens (\ListAssociations' {maxResults} -> maxResults) (\s@ListAssociations' {} a -> s {maxResults = a} :: ListAssociations) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters. Use a filter to return a more specific list of results.
-laAssociationFilterList :: Lens' ListAssociations (Maybe (NonEmpty AssociationFilter))
-laAssociationFilterList = lens _laAssociationFilterList (\s a -> s {_laAssociationFilterList = a}) . mapping _List1
+-- | One or more filters. Use a filter to return a more specific list of
+-- results.
+--
+-- Filtering associations using the @InstanceID@ attribute only returns
+-- legacy associations created using the @InstanceID@ attribute.
+-- Associations targeting the instance that are part of the Target
+-- Attributes @ResourceGroup@ or @Tags@ are not returned.
+listAssociations_associationFilterList :: Lens.Lens' ListAssociations (Prelude.Maybe (Prelude.NonEmpty AssociationFilter))
+listAssociations_associationFilterList = Lens.lens (\ListAssociations' {associationFilterList} -> associationFilterList) (\s@ListAssociations' {} a -> s {associationFilterList = a} :: ListAssociations) Prelude.. Lens.mapping Prelude._List1
 
-instance AWSPager ListAssociations where
+instance Pager.AWSPager ListAssociations where
   page rq rs
-    | stop (rs ^. larrsNextToken) = Nothing
-    | stop (rs ^. larrsAssociations) = Nothing
-    | otherwise =
-      Just $ rq & laNextToken .~ rs ^. larrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAssociationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAssociationsResponse_associations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAssociations_nextToken
+          Lens..~ rs
+          Lens.^? listAssociationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListAssociations where
+instance Prelude.AWSRequest ListAssociations where
   type Rs ListAssociations = ListAssociationsResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAssociationsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Associations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Associations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAssociations
+instance Prelude.Hashable ListAssociations
 
-instance NFData ListAssociations
+instance Prelude.NFData ListAssociations
 
-instance ToHeaders ListAssociations where
+instance Prelude.ToHeaders ListAssociations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.ListAssociations" :: ByteString),
+              Prelude.=# ("AmazonSSM.ListAssociations" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListAssociations where
+instance Prelude.ToJSON ListAssociations where
   toJSON ListAssociations' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _laNextToken,
-            ("MaxResults" .=) <$> _laMaxResults,
-            ("AssociationFilterList" .=)
-              <$> _laAssociationFilterList
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("AssociationFilterList" Prelude..=)
+              Prelude.<$> associationFilterList
           ]
       )
 
-instance ToPath ListAssociations where
-  toPath = const "/"
+instance Prelude.ToPath ListAssociations where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListAssociations where
-  toQuery = const mempty
+instance Prelude.ToQuery ListAssociations where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listAssociationsResponse' smart constructor.
+-- | /See:/ 'newListAssociationsResponse' smart constructor.
 data ListAssociationsResponse = ListAssociationsResponse'
-  { _larrsNextToken ::
-      !(Maybe Text),
-    _larrsAssociations ::
-      !( Maybe
-           [Association]
-       ),
-    _larrsResponseStatus ::
-      !Int
+  { -- | The token to use when requesting the next set of items. If there are no
+    -- additional items to return, the string is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The associations.
+    associations :: Prelude.Maybe [Association],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAssociationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAssociationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'larrsNextToken' - The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'larrsAssociations' - The associations.
+-- 'nextToken', 'listAssociationsResponse_nextToken' - The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
 --
--- * 'larrsResponseStatus' - -- | The response status code.
-listAssociationsResponse ::
-  -- | 'larrsResponseStatus'
-  Int ->
+-- 'associations', 'listAssociationsResponse_associations' - The associations.
+--
+-- 'httpStatus', 'listAssociationsResponse_httpStatus' - The response's http status code.
+newListAssociationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAssociationsResponse
-listAssociationsResponse pResponseStatus_ =
+newListAssociationsResponse pHttpStatus_ =
   ListAssociationsResponse'
-    { _larrsNextToken =
-        Nothing,
-      _larrsAssociations = Nothing,
-      _larrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      associations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
-larrsNextToken :: Lens' ListAssociationsResponse (Maybe Text)
-larrsNextToken = lens _larrsNextToken (\s a -> s {_larrsNextToken = a})
+-- | The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+listAssociationsResponse_nextToken :: Lens.Lens' ListAssociationsResponse (Prelude.Maybe Prelude.Text)
+listAssociationsResponse_nextToken = Lens.lens (\ListAssociationsResponse' {nextToken} -> nextToken) (\s@ListAssociationsResponse' {} a -> s {nextToken = a} :: ListAssociationsResponse)
 
 -- | The associations.
-larrsAssociations :: Lens' ListAssociationsResponse [Association]
-larrsAssociations = lens _larrsAssociations (\s a -> s {_larrsAssociations = a}) . _Default . _Coerce
+listAssociationsResponse_associations :: Lens.Lens' ListAssociationsResponse (Prelude.Maybe [Association])
+listAssociationsResponse_associations = Lens.lens (\ListAssociationsResponse' {associations} -> associations) (\s@ListAssociationsResponse' {} a -> s {associations = a} :: ListAssociationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-larrsResponseStatus :: Lens' ListAssociationsResponse Int
-larrsResponseStatus = lens _larrsResponseStatus (\s a -> s {_larrsResponseStatus = a})
+-- | The response's http status code.
+listAssociationsResponse_httpStatus :: Lens.Lens' ListAssociationsResponse Prelude.Int
+listAssociationsResponse_httpStatus = Lens.lens (\ListAssociationsResponse' {httpStatus} -> httpStatus) (\s@ListAssociationsResponse' {} a -> s {httpStatus = a} :: ListAssociationsResponse)
 
-instance NFData ListAssociationsResponse
+instance Prelude.NFData ListAssociationsResponse

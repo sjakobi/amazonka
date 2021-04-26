@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,199 +21,335 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates an activation code and activation ID you can use to register your on-premises server or virtual machine (VM) with Systems Manager. Registering these machines with Systems Manager makes it possible to manage them using Systems Manager capabilities. You use the activation code and ID when installing SSM Agent on machines in your hybrid environment. For more information about requirements for managing on-premises instances and VMs using Systems Manager, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html Setting up AWS Systems Manager for hybrid environments> in the /AWS Systems Manager User Guide/ .
+-- Generates an activation code and activation ID you can use to register
+-- your on-premises server or virtual machine (VM) with Systems Manager.
+-- Registering these machines with Systems Manager makes it possible to
+-- manage them using Systems Manager capabilities. You use the activation
+-- code and ID when installing SSM Agent on machines in your hybrid
+-- environment. For more information about requirements for managing
+-- on-premises instances and VMs using Systems Manager, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html Setting up AWS Systems Manager for hybrid environments>
+-- in the /AWS Systems Manager User Guide/.
+--
+-- On-premises servers or VMs that are registered with Systems Manager and
+-- EC2 instances that you manage with Systems Manager are all called
+-- /managed instances/.
 module Network.AWS.SSM.CreateActivation
   ( -- * Creating a Request
-    createActivation,
-    CreateActivation,
+    CreateActivation (..),
+    newCreateActivation,
 
     -- * Request Lenses
-    caRegistrationLimit,
-    caDefaultInstanceName,
-    caExpirationDate,
-    caTags,
-    caDescription,
-    caIAMRole,
+    createActivation_registrationLimit,
+    createActivation_defaultInstanceName,
+    createActivation_expirationDate,
+    createActivation_tags,
+    createActivation_description,
+    createActivation_iamRole,
 
     -- * Destructuring the Response
-    createActivationResponse,
-    CreateActivationResponse,
+    CreateActivationResponse (..),
+    newCreateActivationResponse,
 
     -- * Response Lenses
-    carrsActivationCode,
-    carrsActivationId,
-    carrsResponseStatus,
+    createActivationResponse_activationCode,
+    createActivationResponse_activationId,
+    createActivationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'createActivation' smart constructor.
+-- | /See:/ 'newCreateActivation' smart constructor.
 data CreateActivation = CreateActivation'
-  { _caRegistrationLimit ::
-      !(Maybe Nat),
-    _caDefaultInstanceName ::
-      !(Maybe Text),
-    _caExpirationDate :: !(Maybe POSIX),
-    _caTags :: !(Maybe [Tag]),
-    _caDescription :: !(Maybe Text),
-    _caIAMRole :: !Text
+  { -- | Specify the maximum number of managed instances you want to register.
+    -- The default value is 1 instance.
+    registrationLimit :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the registered, managed instance as it will appear in the
+    -- Systems Manager console or when you use the AWS command line tools to
+    -- list Systems Manager resources.
+    --
+    -- Do not enter personally identifiable information in this field.
+    defaultInstanceName :: Prelude.Maybe Prelude.Text,
+    -- | The date by which this activation request should expire. The default
+    -- value is 24 hours.
+    expirationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Optional metadata that you assign to a resource. Tags enable you to
+    -- categorize a resource in different ways, such as by purpose, owner, or
+    -- environment. For example, you might want to tag an activation to
+    -- identify which servers or virtual machines (VMs) in your on-premises
+    -- environment you intend to activate. In this case, you could specify the
+    -- following key name\/value pairs:
+    --
+    -- -   @Key=OS,Value=Windows@
+    --
+    -- -   @Key=Environment,Value=Production@
+    --
+    -- When you install SSM Agent on your on-premises servers and VMs, you
+    -- specify an activation ID and code. When you specify the activation ID
+    -- and code, tags assigned to the activation are automatically applied to
+    -- the on-premises servers or VMs.
+    --
+    -- You can\'t add tags to or delete tags from an existing activation. You
+    -- can tag your on-premises servers and VMs after they connect to Systems
+    -- Manager for the first time and are assigned a managed instance ID. This
+    -- means they are listed in the AWS Systems Manager console with an ID that
+    -- is prefixed with \"mi-\". For information about how to add tags to your
+    -- managed instances, see AddTagsToResource. For information about how to
+    -- remove tags from your managed instances, see RemoveTagsFromResource.
+    tags :: Prelude.Maybe [Tag],
+    -- | A user-defined description of the resource that you want to register
+    -- with Systems Manager.
+    --
+    -- Do not enter personally identifiable information in this field.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Identity and Access Management (IAM) role that you want to
+    -- assign to the managed instance. This IAM role must provide AssumeRole
+    -- permissions for the Systems Manager service principal
+    -- @ssm.amazonaws.com@. For more information, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment>
+    -- in the /AWS Systems Manager User Guide/.
+    iamRole :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateActivation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateActivation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caRegistrationLimit' - Specify the maximum number of managed instances you want to register. The default value is 1 instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caDefaultInstanceName' - The name of the registered, managed instance as it will appear in the Systems Manager console or when you use the AWS command line tools to list Systems Manager resources. /Important:/ Do not enter personally identifiable information in this field.
+-- 'registrationLimit', 'createActivation_registrationLimit' - Specify the maximum number of managed instances you want to register.
+-- The default value is 1 instance.
 --
--- * 'caExpirationDate' - The date by which this activation request should expire. The default value is 24 hours.
+-- 'defaultInstanceName', 'createActivation_defaultInstanceName' - The name of the registered, managed instance as it will appear in the
+-- Systems Manager console or when you use the AWS command line tools to
+-- list Systems Manager resources.
 --
--- * 'caTags' - Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example, you might want to tag an activation to identify which servers or virtual machines (VMs) in your on-premises environment you intend to activate. In this case, you could specify the following key name/value pairs:     * @Key=OS,Value=Windows@      * @Key=Environment,Value=Production@  /Important:/ When you install SSM Agent on your on-premises servers and VMs, you specify an activation ID and code. When you specify the activation ID and code, tags assigned to the activation are automatically applied to the on-premises servers or VMs. You can't add tags to or delete tags from an existing activation. You can tag your on-premises servers and VMs after they connect to Systems Manager for the first time and are assigned a managed instance ID. This means they are listed in the AWS Systems Manager console with an ID that is prefixed with "mi-". For information about how to add tags to your managed instances, see 'AddTagsToResource' . For information about how to remove tags from your managed instances, see 'RemoveTagsFromResource' .
+-- Do not enter personally identifiable information in this field.
 --
--- * 'caDescription' - A user-defined description of the resource that you want to register with Systems Manager.  /Important:/ Do not enter personally identifiable information in this field.
+-- 'expirationDate', 'createActivation_expirationDate' - The date by which this activation request should expire. The default
+-- value is 24 hours.
 --
--- * 'caIAMRole' - The Amazon Identity and Access Management (IAM) role that you want to assign to the managed instance. This IAM role must provide AssumeRole permissions for the Systems Manager service principal @ssm.amazonaws.com@ . For more information, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment> in the /AWS Systems Manager User Guide/ .
-createActivation ::
-  -- | 'caIAMRole'
-  Text ->
+-- 'tags', 'createActivation_tags' - Optional metadata that you assign to a resource. Tags enable you to
+-- categorize a resource in different ways, such as by purpose, owner, or
+-- environment. For example, you might want to tag an activation to
+-- identify which servers or virtual machines (VMs) in your on-premises
+-- environment you intend to activate. In this case, you could specify the
+-- following key name\/value pairs:
+--
+-- -   @Key=OS,Value=Windows@
+--
+-- -   @Key=Environment,Value=Production@
+--
+-- When you install SSM Agent on your on-premises servers and VMs, you
+-- specify an activation ID and code. When you specify the activation ID
+-- and code, tags assigned to the activation are automatically applied to
+-- the on-premises servers or VMs.
+--
+-- You can\'t add tags to or delete tags from an existing activation. You
+-- can tag your on-premises servers and VMs after they connect to Systems
+-- Manager for the first time and are assigned a managed instance ID. This
+-- means they are listed in the AWS Systems Manager console with an ID that
+-- is prefixed with \"mi-\". For information about how to add tags to your
+-- managed instances, see AddTagsToResource. For information about how to
+-- remove tags from your managed instances, see RemoveTagsFromResource.
+--
+-- 'description', 'createActivation_description' - A user-defined description of the resource that you want to register
+-- with Systems Manager.
+--
+-- Do not enter personally identifiable information in this field.
+--
+-- 'iamRole', 'createActivation_iamRole' - The Amazon Identity and Access Management (IAM) role that you want to
+-- assign to the managed instance. This IAM role must provide AssumeRole
+-- permissions for the Systems Manager service principal
+-- @ssm.amazonaws.com@. For more information, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment>
+-- in the /AWS Systems Manager User Guide/.
+newCreateActivation ::
+  -- | 'iamRole'
+  Prelude.Text ->
   CreateActivation
-createActivation pIAMRole_ =
+newCreateActivation pIamRole_ =
   CreateActivation'
-    { _caRegistrationLimit = Nothing,
-      _caDefaultInstanceName = Nothing,
-      _caExpirationDate = Nothing,
-      _caTags = Nothing,
-      _caDescription = Nothing,
-      _caIAMRole = pIAMRole_
+    { registrationLimit =
+        Prelude.Nothing,
+      defaultInstanceName = Prelude.Nothing,
+      expirationDate = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      iamRole = pIamRole_
     }
 
--- | Specify the maximum number of managed instances you want to register. The default value is 1 instance.
-caRegistrationLimit :: Lens' CreateActivation (Maybe Natural)
-caRegistrationLimit = lens _caRegistrationLimit (\s a -> s {_caRegistrationLimit = a}) . mapping _Nat
+-- | Specify the maximum number of managed instances you want to register.
+-- The default value is 1 instance.
+createActivation_registrationLimit :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.Natural)
+createActivation_registrationLimit = Lens.lens (\CreateActivation' {registrationLimit} -> registrationLimit) (\s@CreateActivation' {} a -> s {registrationLimit = a} :: CreateActivation) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of the registered, managed instance as it will appear in the Systems Manager console or when you use the AWS command line tools to list Systems Manager resources. /Important:/ Do not enter personally identifiable information in this field.
-caDefaultInstanceName :: Lens' CreateActivation (Maybe Text)
-caDefaultInstanceName = lens _caDefaultInstanceName (\s a -> s {_caDefaultInstanceName = a})
+-- | The name of the registered, managed instance as it will appear in the
+-- Systems Manager console or when you use the AWS command line tools to
+-- list Systems Manager resources.
+--
+-- Do not enter personally identifiable information in this field.
+createActivation_defaultInstanceName :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.Text)
+createActivation_defaultInstanceName = Lens.lens (\CreateActivation' {defaultInstanceName} -> defaultInstanceName) (\s@CreateActivation' {} a -> s {defaultInstanceName = a} :: CreateActivation)
 
--- | The date by which this activation request should expire. The default value is 24 hours.
-caExpirationDate :: Lens' CreateActivation (Maybe UTCTime)
-caExpirationDate = lens _caExpirationDate (\s a -> s {_caExpirationDate = a}) . mapping _Time
+-- | The date by which this activation request should expire. The default
+-- value is 24 hours.
+createActivation_expirationDate :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.UTCTime)
+createActivation_expirationDate = Lens.lens (\CreateActivation' {expirationDate} -> expirationDate) (\s@CreateActivation' {} a -> s {expirationDate = a} :: CreateActivation) Prelude.. Lens.mapping Prelude._Time
 
--- | Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example, you might want to tag an activation to identify which servers or virtual machines (VMs) in your on-premises environment you intend to activate. In this case, you could specify the following key name/value pairs:     * @Key=OS,Value=Windows@      * @Key=Environment,Value=Production@  /Important:/ When you install SSM Agent on your on-premises servers and VMs, you specify an activation ID and code. When you specify the activation ID and code, tags assigned to the activation are automatically applied to the on-premises servers or VMs. You can't add tags to or delete tags from an existing activation. You can tag your on-premises servers and VMs after they connect to Systems Manager for the first time and are assigned a managed instance ID. This means they are listed in the AWS Systems Manager console with an ID that is prefixed with "mi-". For information about how to add tags to your managed instances, see 'AddTagsToResource' . For information about how to remove tags from your managed instances, see 'RemoveTagsFromResource' .
-caTags :: Lens' CreateActivation [Tag]
-caTags = lens _caTags (\s a -> s {_caTags = a}) . _Default . _Coerce
+-- | Optional metadata that you assign to a resource. Tags enable you to
+-- categorize a resource in different ways, such as by purpose, owner, or
+-- environment. For example, you might want to tag an activation to
+-- identify which servers or virtual machines (VMs) in your on-premises
+-- environment you intend to activate. In this case, you could specify the
+-- following key name\/value pairs:
+--
+-- -   @Key=OS,Value=Windows@
+--
+-- -   @Key=Environment,Value=Production@
+--
+-- When you install SSM Agent on your on-premises servers and VMs, you
+-- specify an activation ID and code. When you specify the activation ID
+-- and code, tags assigned to the activation are automatically applied to
+-- the on-premises servers or VMs.
+--
+-- You can\'t add tags to or delete tags from an existing activation. You
+-- can tag your on-premises servers and VMs after they connect to Systems
+-- Manager for the first time and are assigned a managed instance ID. This
+-- means they are listed in the AWS Systems Manager console with an ID that
+-- is prefixed with \"mi-\". For information about how to add tags to your
+-- managed instances, see AddTagsToResource. For information about how to
+-- remove tags from your managed instances, see RemoveTagsFromResource.
+createActivation_tags :: Lens.Lens' CreateActivation (Prelude.Maybe [Tag])
+createActivation_tags = Lens.lens (\CreateActivation' {tags} -> tags) (\s@CreateActivation' {} a -> s {tags = a} :: CreateActivation) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A user-defined description of the resource that you want to register with Systems Manager.  /Important:/ Do not enter personally identifiable information in this field.
-caDescription :: Lens' CreateActivation (Maybe Text)
-caDescription = lens _caDescription (\s a -> s {_caDescription = a})
+-- | A user-defined description of the resource that you want to register
+-- with Systems Manager.
+--
+-- Do not enter personally identifiable information in this field.
+createActivation_description :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.Text)
+createActivation_description = Lens.lens (\CreateActivation' {description} -> description) (\s@CreateActivation' {} a -> s {description = a} :: CreateActivation)
 
--- | The Amazon Identity and Access Management (IAM) role that you want to assign to the managed instance. This IAM role must provide AssumeRole permissions for the Systems Manager service principal @ssm.amazonaws.com@ . For more information, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment> in the /AWS Systems Manager User Guide/ .
-caIAMRole :: Lens' CreateActivation Text
-caIAMRole = lens _caIAMRole (\s a -> s {_caIAMRole = a})
+-- | The Amazon Identity and Access Management (IAM) role that you want to
+-- assign to the managed instance. This IAM role must provide AssumeRole
+-- permissions for the Systems Manager service principal
+-- @ssm.amazonaws.com@. For more information, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment>
+-- in the /AWS Systems Manager User Guide/.
+createActivation_iamRole :: Lens.Lens' CreateActivation Prelude.Text
+createActivation_iamRole = Lens.lens (\CreateActivation' {iamRole} -> iamRole) (\s@CreateActivation' {} a -> s {iamRole = a} :: CreateActivation)
 
-instance AWSRequest CreateActivation where
+instance Prelude.AWSRequest CreateActivation where
   type Rs CreateActivation = CreateActivationResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateActivationResponse'
-            <$> (x .?> "ActivationCode")
-            <*> (x .?> "ActivationId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ActivationCode")
+            Prelude.<*> (x Prelude..?> "ActivationId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateActivation
+instance Prelude.Hashable CreateActivation
 
-instance NFData CreateActivation
+instance Prelude.NFData CreateActivation
 
-instance ToHeaders CreateActivation where
+instance Prelude.ToHeaders CreateActivation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.CreateActivation" :: ByteString),
+              Prelude.=# ("AmazonSSM.CreateActivation" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateActivation where
+instance Prelude.ToJSON CreateActivation where
   toJSON CreateActivation' {..} =
-    object
-      ( catMaybes
-          [ ("RegistrationLimit" .=) <$> _caRegistrationLimit,
-            ("DefaultInstanceName" .=)
-              <$> _caDefaultInstanceName,
-            ("ExpirationDate" .=) <$> _caExpirationDate,
-            ("Tags" .=) <$> _caTags,
-            ("Description" .=) <$> _caDescription,
-            Just ("IamRole" .= _caIAMRole)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RegistrationLimit" Prelude..=)
+              Prelude.<$> registrationLimit,
+            ("DefaultInstanceName" Prelude..=)
+              Prelude.<$> defaultInstanceName,
+            ("ExpirationDate" Prelude..=)
+              Prelude.<$> expirationDate,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("IamRole" Prelude..= iamRole)
           ]
       )
 
-instance ToPath CreateActivation where
-  toPath = const "/"
+instance Prelude.ToPath CreateActivation where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateActivation where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateActivation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createActivationResponse' smart constructor.
+-- | /See:/ 'newCreateActivationResponse' smart constructor.
 data CreateActivationResponse = CreateActivationResponse'
-  { _carrsActivationCode ::
-      !(Maybe Text),
-    _carrsActivationId ::
-      !(Maybe Text),
-    _carrsResponseStatus ::
-      !Int
+  { -- | The code the system generates when it processes the activation. The
+    -- activation code functions like a password to validate the activation ID.
+    activationCode :: Prelude.Maybe Prelude.Text,
+    -- | The ID number generated by the system when it processed the activation.
+    -- The activation ID functions like a user name.
+    activationId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateActivationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateActivationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'carrsActivationCode' - The code the system generates when it processes the activation. The activation code functions like a password to validate the activation ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'carrsActivationId' - The ID number generated by the system when it processed the activation. The activation ID functions like a user name.
+-- 'activationCode', 'createActivationResponse_activationCode' - The code the system generates when it processes the activation. The
+-- activation code functions like a password to validate the activation ID.
 --
--- * 'carrsResponseStatus' - -- | The response status code.
-createActivationResponse ::
-  -- | 'carrsResponseStatus'
-  Int ->
+-- 'activationId', 'createActivationResponse_activationId' - The ID number generated by the system when it processed the activation.
+-- The activation ID functions like a user name.
+--
+-- 'httpStatus', 'createActivationResponse_httpStatus' - The response's http status code.
+newCreateActivationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateActivationResponse
-createActivationResponse pResponseStatus_ =
+newCreateActivationResponse pHttpStatus_ =
   CreateActivationResponse'
-    { _carrsActivationCode =
-        Nothing,
-      _carrsActivationId = Nothing,
-      _carrsResponseStatus = pResponseStatus_
+    { activationCode =
+        Prelude.Nothing,
+      activationId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The code the system generates when it processes the activation. The activation code functions like a password to validate the activation ID.
-carrsActivationCode :: Lens' CreateActivationResponse (Maybe Text)
-carrsActivationCode = lens _carrsActivationCode (\s a -> s {_carrsActivationCode = a})
+-- | The code the system generates when it processes the activation. The
+-- activation code functions like a password to validate the activation ID.
+createActivationResponse_activationCode :: Lens.Lens' CreateActivationResponse (Prelude.Maybe Prelude.Text)
+createActivationResponse_activationCode = Lens.lens (\CreateActivationResponse' {activationCode} -> activationCode) (\s@CreateActivationResponse' {} a -> s {activationCode = a} :: CreateActivationResponse)
 
--- | The ID number generated by the system when it processed the activation. The activation ID functions like a user name.
-carrsActivationId :: Lens' CreateActivationResponse (Maybe Text)
-carrsActivationId = lens _carrsActivationId (\s a -> s {_carrsActivationId = a})
+-- | The ID number generated by the system when it processed the activation.
+-- The activation ID functions like a user name.
+createActivationResponse_activationId :: Lens.Lens' CreateActivationResponse (Prelude.Maybe Prelude.Text)
+createActivationResponse_activationId = Lens.lens (\CreateActivationResponse' {activationId} -> activationId) (\s@CreateActivationResponse' {} a -> s {activationId = a} :: CreateActivationResponse)
 
--- | -- | The response status code.
-carrsResponseStatus :: Lens' CreateActivationResponse Int
-carrsResponseStatus = lens _carrsResponseStatus (\s a -> s {_carrsResponseStatus = a})
+-- | The response's http status code.
+createActivationResponse_httpStatus :: Lens.Lens' CreateActivationResponse Prelude.Int
+createActivationResponse_httpStatus = Lens.lens (\CreateActivationResponse' {httpStatus} -> httpStatus) (\s@CreateActivationResponse' {} a -> s {httpStatus = a} :: CreateActivationResponse)
 
-instance NFData CreateActivationResponse
+instance Prelude.NFData CreateActivationResponse

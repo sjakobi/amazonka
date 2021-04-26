@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,194 +23,221 @@
 --
 -- Describes a specific delete inventory operation.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribeInventoryDeletions
   ( -- * Creating a Request
-    describeInventoryDeletions,
-    DescribeInventoryDeletions,
+    DescribeInventoryDeletions (..),
+    newDescribeInventoryDeletions,
 
     -- * Request Lenses
-    didNextToken,
-    didMaxResults,
-    didDeletionId,
+    describeInventoryDeletions_nextToken,
+    describeInventoryDeletions_maxResults,
+    describeInventoryDeletions_deletionId,
 
     -- * Destructuring the Response
-    describeInventoryDeletionsResponse,
-    DescribeInventoryDeletionsResponse,
+    DescribeInventoryDeletionsResponse (..),
+    newDescribeInventoryDeletionsResponse,
 
     -- * Response Lenses
-    didrrsNextToken,
-    didrrsInventoryDeletions,
-    didrrsResponseStatus,
+    describeInventoryDeletionsResponse_nextToken,
+    describeInventoryDeletionsResponse_inventoryDeletions,
+    describeInventoryDeletionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.InventoryDeletionStatusItem
 
--- | /See:/ 'describeInventoryDeletions' smart constructor.
+-- | /See:/ 'newDescribeInventoryDeletions' smart constructor.
 data DescribeInventoryDeletions = DescribeInventoryDeletions'
-  { _didNextToken ::
-      !(Maybe Text),
-    _didMaxResults ::
-      !(Maybe Nat),
-    _didDeletionId ::
-      !(Maybe Text)
+  { -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the delete inventory ID for which you want information. This ID
+    -- was returned by the @DeleteInventory@ action.
+    deletionId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInventoryDeletions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInventoryDeletions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'didNextToken' - A token to start the list. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'didMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'describeInventoryDeletions_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 --
--- * 'didDeletionId' - Specify the delete inventory ID for which you want information. This ID was returned by the @DeleteInventory@ action.
-describeInventoryDeletions ::
+-- 'maxResults', 'describeInventoryDeletions_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+--
+-- 'deletionId', 'describeInventoryDeletions_deletionId' - Specify the delete inventory ID for which you want information. This ID
+-- was returned by the @DeleteInventory@ action.
+newDescribeInventoryDeletions ::
   DescribeInventoryDeletions
-describeInventoryDeletions =
+newDescribeInventoryDeletions =
   DescribeInventoryDeletions'
-    { _didNextToken =
-        Nothing,
-      _didMaxResults = Nothing,
-      _didDeletionId = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      deletionId = Prelude.Nothing
     }
 
--- | A token to start the list. Use this token to get the next set of results.
-didNextToken :: Lens' DescribeInventoryDeletions (Maybe Text)
-didNextToken = lens _didNextToken (\s a -> s {_didNextToken = a})
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+describeInventoryDeletions_nextToken :: Lens.Lens' DescribeInventoryDeletions (Prelude.Maybe Prelude.Text)
+describeInventoryDeletions_nextToken = Lens.lens (\DescribeInventoryDeletions' {nextToken} -> nextToken) (\s@DescribeInventoryDeletions' {} a -> s {nextToken = a} :: DescribeInventoryDeletions)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-didMaxResults :: Lens' DescribeInventoryDeletions (Maybe Natural)
-didMaxResults = lens _didMaxResults (\s a -> s {_didMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describeInventoryDeletions_maxResults :: Lens.Lens' DescribeInventoryDeletions (Prelude.Maybe Prelude.Natural)
+describeInventoryDeletions_maxResults = Lens.lens (\DescribeInventoryDeletions' {maxResults} -> maxResults) (\s@DescribeInventoryDeletions' {} a -> s {maxResults = a} :: DescribeInventoryDeletions) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the delete inventory ID for which you want information. This ID was returned by the @DeleteInventory@ action.
-didDeletionId :: Lens' DescribeInventoryDeletions (Maybe Text)
-didDeletionId = lens _didDeletionId (\s a -> s {_didDeletionId = a})
+-- | Specify the delete inventory ID for which you want information. This ID
+-- was returned by the @DeleteInventory@ action.
+describeInventoryDeletions_deletionId :: Lens.Lens' DescribeInventoryDeletions (Prelude.Maybe Prelude.Text)
+describeInventoryDeletions_deletionId = Lens.lens (\DescribeInventoryDeletions' {deletionId} -> deletionId) (\s@DescribeInventoryDeletions' {} a -> s {deletionId = a} :: DescribeInventoryDeletions)
 
-instance AWSPager DescribeInventoryDeletions where
+instance Pager.AWSPager DescribeInventoryDeletions where
   page rq rs
-    | stop (rs ^. didrrsNextToken) = Nothing
-    | stop (rs ^. didrrsInventoryDeletions) = Nothing
-    | otherwise =
-      Just $ rq & didNextToken .~ rs ^. didrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeInventoryDeletionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeInventoryDeletionsResponse_inventoryDeletions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeInventoryDeletions_nextToken
+          Lens..~ rs
+          Lens.^? describeInventoryDeletionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeInventoryDeletions where
+instance
+  Prelude.AWSRequest
+    DescribeInventoryDeletions
+  where
   type
     Rs DescribeInventoryDeletions =
       DescribeInventoryDeletionsResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeInventoryDeletionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "InventoryDeletions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "InventoryDeletions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeInventoryDeletions
+instance Prelude.Hashable DescribeInventoryDeletions
 
-instance NFData DescribeInventoryDeletions
+instance Prelude.NFData DescribeInventoryDeletions
 
-instance ToHeaders DescribeInventoryDeletions where
+instance Prelude.ToHeaders DescribeInventoryDeletions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.DescribeInventoryDeletions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.DescribeInventoryDeletions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeInventoryDeletions where
+instance Prelude.ToJSON DescribeInventoryDeletions where
   toJSON DescribeInventoryDeletions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _didNextToken,
-            ("MaxResults" .=) <$> _didMaxResults,
-            ("DeletionId" .=) <$> _didDeletionId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("DeletionId" Prelude..=) Prelude.<$> deletionId
           ]
       )
 
-instance ToPath DescribeInventoryDeletions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeInventoryDeletions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeInventoryDeletions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeInventoryDeletions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeInventoryDeletionsResponse' smart constructor.
+-- | /See:/ 'newDescribeInventoryDeletionsResponse' smart constructor.
 data DescribeInventoryDeletionsResponse = DescribeInventoryDeletionsResponse'
-  { _didrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _didrrsInventoryDeletions ::
-      !( Maybe
-           [InventoryDeletionStatusItem]
-       ),
-    _didrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of items to return. Use this token to get the
+    -- next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of status items for deleted inventory.
+    inventoryDeletions :: Prelude.Maybe [InventoryDeletionStatusItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInventoryDeletionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInventoryDeletionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'didrrsNextToken' - The token for the next set of items to return. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'didrrsInventoryDeletions' - A list of status items for deleted inventory.
+-- 'nextToken', 'describeInventoryDeletionsResponse_nextToken' - The token for the next set of items to return. Use this token to get the
+-- next set of results.
 --
--- * 'didrrsResponseStatus' - -- | The response status code.
-describeInventoryDeletionsResponse ::
-  -- | 'didrrsResponseStatus'
-  Int ->
+-- 'inventoryDeletions', 'describeInventoryDeletionsResponse_inventoryDeletions' - A list of status items for deleted inventory.
+--
+-- 'httpStatus', 'describeInventoryDeletionsResponse_httpStatus' - The response's http status code.
+newDescribeInventoryDeletionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeInventoryDeletionsResponse
-describeInventoryDeletionsResponse pResponseStatus_ =
+newDescribeInventoryDeletionsResponse pHttpStatus_ =
   DescribeInventoryDeletionsResponse'
-    { _didrrsNextToken =
-        Nothing,
-      _didrrsInventoryDeletions = Nothing,
-      _didrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      inventoryDeletions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of items to return. Use this token to get the next set of results.
-didrrsNextToken :: Lens' DescribeInventoryDeletionsResponse (Maybe Text)
-didrrsNextToken = lens _didrrsNextToken (\s a -> s {_didrrsNextToken = a})
+-- | The token for the next set of items to return. Use this token to get the
+-- next set of results.
+describeInventoryDeletionsResponse_nextToken :: Lens.Lens' DescribeInventoryDeletionsResponse (Prelude.Maybe Prelude.Text)
+describeInventoryDeletionsResponse_nextToken = Lens.lens (\DescribeInventoryDeletionsResponse' {nextToken} -> nextToken) (\s@DescribeInventoryDeletionsResponse' {} a -> s {nextToken = a} :: DescribeInventoryDeletionsResponse)
 
 -- | A list of status items for deleted inventory.
-didrrsInventoryDeletions :: Lens' DescribeInventoryDeletionsResponse [InventoryDeletionStatusItem]
-didrrsInventoryDeletions = lens _didrrsInventoryDeletions (\s a -> s {_didrrsInventoryDeletions = a}) . _Default . _Coerce
+describeInventoryDeletionsResponse_inventoryDeletions :: Lens.Lens' DescribeInventoryDeletionsResponse (Prelude.Maybe [InventoryDeletionStatusItem])
+describeInventoryDeletionsResponse_inventoryDeletions = Lens.lens (\DescribeInventoryDeletionsResponse' {inventoryDeletions} -> inventoryDeletions) (\s@DescribeInventoryDeletionsResponse' {} a -> s {inventoryDeletions = a} :: DescribeInventoryDeletionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-didrrsResponseStatus :: Lens' DescribeInventoryDeletionsResponse Int
-didrrsResponseStatus = lens _didrrsResponseStatus (\s a -> s {_didrrsResponseStatus = a})
+-- | The response's http status code.
+describeInventoryDeletionsResponse_httpStatus :: Lens.Lens' DescribeInventoryDeletionsResponse Prelude.Int
+describeInventoryDeletionsResponse_httpStatus = Lens.lens (\DescribeInventoryDeletionsResponse' {httpStatus} -> httpStatus) (\s@DescribeInventoryDeletionsResponse' {} a -> s {httpStatus = a} :: DescribeInventoryDeletionsResponse)
 
-instance NFData DescribeInventoryDeletionsResponse
+instance
+  Prelude.NFData
+    DescribeInventoryDeletionsResponse

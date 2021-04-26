@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,94 +19,146 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ServiceSetting where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The service setting data structure.
 --
+-- @ServiceSetting@ is an account-level setting for an AWS service. This
+-- setting defines how a user interacts with or uses a service or a feature
+-- of a service. For example, if an AWS service charges money to the
+-- account based on feature or service usage, then the AWS service team
+-- might create a default setting of \"false\". This means the user can\'t
+-- use this feature unless they change the setting to \"true\" and
+-- intentionally opt in for a paid feature.
 --
--- @ServiceSetting@ is an account-level setting for an AWS service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an AWS service charges money to the account based on feature or service usage, then the AWS service team might create a default setting of "false". This means the user can't use this feature unless they change the setting to "true" and intentionally opt in for a paid feature.
+-- Services map a @SettingId@ object to a setting value. AWS services teams
+-- define the default value for a @SettingId@. You can\'t create a new
+-- @SettingId@, but you can overwrite the default value if you have the
+-- @ssm:UpdateServiceSetting@ permission for the setting. Use the
+-- UpdateServiceSetting API action to change the default setting. Or, use
+-- the ResetServiceSetting to change the value back to the original value
+-- defined by the AWS service team.
 --
--- Services map a @SettingId@ object to a setting value. AWS services teams define the default value for a @SettingId@ . You can't create a new @SettingId@ , but you can overwrite the default value if you have the @ssm:UpdateServiceSetting@ permission for the setting. Use the 'UpdateServiceSetting' API action to change the default setting. Or, use the 'ResetServiceSetting' to change the value back to the original value defined by the AWS service team.
---
---
--- /See:/ 'serviceSetting' smart constructor.
+-- /See:/ 'newServiceSetting' smart constructor.
 data ServiceSetting = ServiceSetting'
-  { _ssLastModifiedDate ::
-      !(Maybe POSIX),
-    _ssStatus :: !(Maybe Text),
-    _ssARN :: !(Maybe Text),
-    _ssSettingValue :: !(Maybe Text),
-    _ssSettingId :: !(Maybe Text),
-    _ssLastModifiedUser :: !(Maybe Text)
+  { -- | The last time the service setting was modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the service setting. The value can be Default, Customized
+    -- or PendingUpdate.
+    --
+    -- -   Default: The current setting uses a default value provisioned by the
+    --     AWS service team.
+    --
+    -- -   Customized: The current setting use a custom value specified by the
+    --     customer.
+    --
+    -- -   PendingUpdate: The current setting uses a default or custom value,
+    --     but a setting change request is pending approval.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the service setting.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The value of the service setting.
+    settingValue :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the service setting.
+    settingId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the last modified user. This field is populated only if the
+    -- setting value was overwritten.
+    lastModifiedUser :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceSetting' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceSetting' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssLastModifiedDate' - The last time the service setting was modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssStatus' - The status of the service setting. The value can be Default, Customized or PendingUpdate.     * Default: The current setting uses a default value provisioned by the AWS service team.     * Customized: The current setting use a custom value specified by the customer.     * PendingUpdate: The current setting uses a default or custom value, but a setting change request is pending approval.
+-- 'lastModifiedDate', 'serviceSetting_lastModifiedDate' - The last time the service setting was modified.
 --
--- * 'ssARN' - The ARN of the service setting.
+-- 'status', 'serviceSetting_status' - The status of the service setting. The value can be Default, Customized
+-- or PendingUpdate.
 --
--- * 'ssSettingValue' - The value of the service setting.
+-- -   Default: The current setting uses a default value provisioned by the
+--     AWS service team.
 --
--- * 'ssSettingId' - The ID of the service setting.
+-- -   Customized: The current setting use a custom value specified by the
+--     customer.
 --
--- * 'ssLastModifiedUser' - The ARN of the last modified user. This field is populated only if the setting value was overwritten.
-serviceSetting ::
+-- -   PendingUpdate: The current setting uses a default or custom value,
+--     but a setting change request is pending approval.
+--
+-- 'aRN', 'serviceSetting_aRN' - The ARN of the service setting.
+--
+-- 'settingValue', 'serviceSetting_settingValue' - The value of the service setting.
+--
+-- 'settingId', 'serviceSetting_settingId' - The ID of the service setting.
+--
+-- 'lastModifiedUser', 'serviceSetting_lastModifiedUser' - The ARN of the last modified user. This field is populated only if the
+-- setting value was overwritten.
+newServiceSetting ::
   ServiceSetting
-serviceSetting =
+newServiceSetting =
   ServiceSetting'
-    { _ssLastModifiedDate = Nothing,
-      _ssStatus = Nothing,
-      _ssARN = Nothing,
-      _ssSettingValue = Nothing,
-      _ssSettingId = Nothing,
-      _ssLastModifiedUser = Nothing
+    { lastModifiedDate = Prelude.Nothing,
+      status = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      settingValue = Prelude.Nothing,
+      settingId = Prelude.Nothing,
+      lastModifiedUser = Prelude.Nothing
     }
 
 -- | The last time the service setting was modified.
-ssLastModifiedDate :: Lens' ServiceSetting (Maybe UTCTime)
-ssLastModifiedDate = lens _ssLastModifiedDate (\s a -> s {_ssLastModifiedDate = a}) . mapping _Time
+serviceSetting_lastModifiedDate :: Lens.Lens' ServiceSetting (Prelude.Maybe Prelude.UTCTime)
+serviceSetting_lastModifiedDate = Lens.lens (\ServiceSetting' {lastModifiedDate} -> lastModifiedDate) (\s@ServiceSetting' {} a -> s {lastModifiedDate = a} :: ServiceSetting) Prelude.. Lens.mapping Prelude._Time
 
--- | The status of the service setting. The value can be Default, Customized or PendingUpdate.     * Default: The current setting uses a default value provisioned by the AWS service team.     * Customized: The current setting use a custom value specified by the customer.     * PendingUpdate: The current setting uses a default or custom value, but a setting change request is pending approval.
-ssStatus :: Lens' ServiceSetting (Maybe Text)
-ssStatus = lens _ssStatus (\s a -> s {_ssStatus = a})
+-- | The status of the service setting. The value can be Default, Customized
+-- or PendingUpdate.
+--
+-- -   Default: The current setting uses a default value provisioned by the
+--     AWS service team.
+--
+-- -   Customized: The current setting use a custom value specified by the
+--     customer.
+--
+-- -   PendingUpdate: The current setting uses a default or custom value,
+--     but a setting change request is pending approval.
+serviceSetting_status :: Lens.Lens' ServiceSetting (Prelude.Maybe Prelude.Text)
+serviceSetting_status = Lens.lens (\ServiceSetting' {status} -> status) (\s@ServiceSetting' {} a -> s {status = a} :: ServiceSetting)
 
 -- | The ARN of the service setting.
-ssARN :: Lens' ServiceSetting (Maybe Text)
-ssARN = lens _ssARN (\s a -> s {_ssARN = a})
+serviceSetting_aRN :: Lens.Lens' ServiceSetting (Prelude.Maybe Prelude.Text)
+serviceSetting_aRN = Lens.lens (\ServiceSetting' {aRN} -> aRN) (\s@ServiceSetting' {} a -> s {aRN = a} :: ServiceSetting)
 
 -- | The value of the service setting.
-ssSettingValue :: Lens' ServiceSetting (Maybe Text)
-ssSettingValue = lens _ssSettingValue (\s a -> s {_ssSettingValue = a})
+serviceSetting_settingValue :: Lens.Lens' ServiceSetting (Prelude.Maybe Prelude.Text)
+serviceSetting_settingValue = Lens.lens (\ServiceSetting' {settingValue} -> settingValue) (\s@ServiceSetting' {} a -> s {settingValue = a} :: ServiceSetting)
 
 -- | The ID of the service setting.
-ssSettingId :: Lens' ServiceSetting (Maybe Text)
-ssSettingId = lens _ssSettingId (\s a -> s {_ssSettingId = a})
+serviceSetting_settingId :: Lens.Lens' ServiceSetting (Prelude.Maybe Prelude.Text)
+serviceSetting_settingId = Lens.lens (\ServiceSetting' {settingId} -> settingId) (\s@ServiceSetting' {} a -> s {settingId = a} :: ServiceSetting)
 
--- | The ARN of the last modified user. This field is populated only if the setting value was overwritten.
-ssLastModifiedUser :: Lens' ServiceSetting (Maybe Text)
-ssLastModifiedUser = lens _ssLastModifiedUser (\s a -> s {_ssLastModifiedUser = a})
+-- | The ARN of the last modified user. This field is populated only if the
+-- setting value was overwritten.
+serviceSetting_lastModifiedUser :: Lens.Lens' ServiceSetting (Prelude.Maybe Prelude.Text)
+serviceSetting_lastModifiedUser = Lens.lens (\ServiceSetting' {lastModifiedUser} -> lastModifiedUser) (\s@ServiceSetting' {} a -> s {lastModifiedUser = a} :: ServiceSetting)
 
-instance FromJSON ServiceSetting where
+instance Prelude.FromJSON ServiceSetting where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceSetting"
       ( \x ->
           ServiceSetting'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "Status")
-            <*> (x .:? "ARN")
-            <*> (x .:? "SettingValue")
-            <*> (x .:? "SettingId")
-            <*> (x .:? "LastModifiedUser")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "ARN")
+            Prelude.<*> (x Prelude..:? "SettingValue")
+            Prelude.<*> (x Prelude..:? "SettingId")
+            Prelude.<*> (x Prelude..:? "LastModifiedUser")
       )
 
-instance Hashable ServiceSetting
+instance Prelude.Hashable ServiceSetting
 
-instance NFData ServiceSetting
+instance Prelude.NFData ServiceSetting

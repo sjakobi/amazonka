@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.SSM.Types.ResourceDataSyncS3Format
   ( ResourceDataSyncS3Format
       ( ..,
-        JSONSerDe
+        ResourceDataSyncS3FormatJsonSerDe
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceDataSyncS3Format
-  = ResourceDataSyncS3Format'
-      ( CI
-          Text
-      )
+newtype ResourceDataSyncS3Format = ResourceDataSyncS3Format'
+  { fromResourceDataSyncS3Format ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSONSerDe :: ResourceDataSyncS3Format
-pattern JSONSerDe = ResourceDataSyncS3Format' "JsonSerDe"
+pattern ResourceDataSyncS3FormatJsonSerDe :: ResourceDataSyncS3Format
+pattern ResourceDataSyncS3FormatJsonSerDe = ResourceDataSyncS3Format' "JsonSerDe"
 
 {-# COMPLETE
-  JSONSerDe,
+  ResourceDataSyncS3FormatJsonSerDe,
   ResourceDataSyncS3Format'
   #-}
 
-instance FromText ResourceDataSyncS3Format where
-  parser = (ResourceDataSyncS3Format' . mk) <$> takeText
+instance Prelude.FromText ResourceDataSyncS3Format where
+  parser = ResourceDataSyncS3Format' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceDataSyncS3Format where
-  toText (ResourceDataSyncS3Format' ci) = original ci
+instance Prelude.ToText ResourceDataSyncS3Format where
+  toText (ResourceDataSyncS3Format' x) = x
 
-instance Hashable ResourceDataSyncS3Format
+instance Prelude.Hashable ResourceDataSyncS3Format
 
-instance NFData ResourceDataSyncS3Format
+instance Prelude.NFData ResourceDataSyncS3Format
 
-instance ToByteString ResourceDataSyncS3Format
+instance Prelude.ToByteString ResourceDataSyncS3Format
 
-instance ToQuery ResourceDataSyncS3Format
+instance Prelude.ToQuery ResourceDataSyncS3Format
 
-instance ToHeader ResourceDataSyncS3Format
+instance Prelude.ToHeader ResourceDataSyncS3Format
 
-instance ToJSON ResourceDataSyncS3Format where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceDataSyncS3Format where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ResourceDataSyncS3Format where
-  parseJSON = parseJSONText "ResourceDataSyncS3Format"
+instance Prelude.FromJSON ResourceDataSyncS3Format where
+  parseJSON = Prelude.parseJSONText "ResourceDataSyncS3Format"

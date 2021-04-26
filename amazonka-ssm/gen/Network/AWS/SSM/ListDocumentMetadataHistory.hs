@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,246 +24,262 @@
 -- Information about approval reviews for a version of an SSM document.
 module Network.AWS.SSM.ListDocumentMetadataHistory
   ( -- * Creating a Request
-    listDocumentMetadataHistory,
-    ListDocumentMetadataHistory,
+    ListDocumentMetadataHistory (..),
+    newListDocumentMetadataHistory,
 
     -- * Request Lenses
-    ldmhNextToken,
-    ldmhMaxResults,
-    ldmhDocumentVersion,
-    ldmhName,
-    ldmhMetadata,
+    listDocumentMetadataHistory_nextToken,
+    listDocumentMetadataHistory_maxResults,
+    listDocumentMetadataHistory_documentVersion,
+    listDocumentMetadataHistory_name,
+    listDocumentMetadataHistory_metadata,
 
     -- * Destructuring the Response
-    listDocumentMetadataHistoryResponse,
-    ListDocumentMetadataHistoryResponse,
+    ListDocumentMetadataHistoryResponse (..),
+    newListDocumentMetadataHistoryResponse,
 
     -- * Response Lenses
-    ldmhrrsNextToken,
-    ldmhrrsAuthor,
-    ldmhrrsMetadata,
-    ldmhrrsName,
-    ldmhrrsDocumentVersion,
-    ldmhrrsResponseStatus,
+    listDocumentMetadataHistoryResponse_nextToken,
+    listDocumentMetadataHistoryResponse_author,
+    listDocumentMetadataHistoryResponse_metadata,
+    listDocumentMetadataHistoryResponse_name,
+    listDocumentMetadataHistoryResponse_documentVersion,
+    listDocumentMetadataHistoryResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.DocumentMetadataResponseInfo
 
--- | /See:/ 'listDocumentMetadataHistory' smart constructor.
+-- | /See:/ 'newListDocumentMetadataHistory' smart constructor.
 data ListDocumentMetadataHistory = ListDocumentMetadataHistory'
-  { _ldmhNextToken ::
-      !(Maybe Text),
-    _ldmhMaxResults ::
-      !(Maybe Nat),
-    _ldmhDocumentVersion ::
-      !(Maybe Text),
-    _ldmhName ::
-      !Text,
-    _ldmhMetadata ::
-      !DocumentMetadataEnum
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The version of the document.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the document.
+    name :: Prelude.Text,
+    -- | The type of data for which details are being requested. Currently, the
+    -- only supported value is @DocumentReviews@.
+    metadata :: DocumentMetadataEnum
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDocumentMetadataHistory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDocumentMetadataHistory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldmhNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldmhMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'listDocumentMetadataHistory_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'ldmhDocumentVersion' - The version of the document.
+-- 'maxResults', 'listDocumentMetadataHistory_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
--- * 'ldmhName' - The name of the document.
+-- 'documentVersion', 'listDocumentMetadataHistory_documentVersion' - The version of the document.
 --
--- * 'ldmhMetadata' - The type of data for which details are being requested. Currently, the only supported value is @DocumentReviews@ .
-listDocumentMetadataHistory ::
-  -- | 'ldmhName'
-  Text ->
-  -- | 'ldmhMetadata'
+-- 'name', 'listDocumentMetadataHistory_name' - The name of the document.
+--
+-- 'metadata', 'listDocumentMetadataHistory_metadata' - The type of data for which details are being requested. Currently, the
+-- only supported value is @DocumentReviews@.
+newListDocumentMetadataHistory ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'metadata'
   DocumentMetadataEnum ->
   ListDocumentMetadataHistory
-listDocumentMetadataHistory pName_ pMetadata_ =
+newListDocumentMetadataHistory pName_ pMetadata_ =
   ListDocumentMetadataHistory'
-    { _ldmhNextToken =
-        Nothing,
-      _ldmhMaxResults = Nothing,
-      _ldmhDocumentVersion = Nothing,
-      _ldmhName = pName_,
-      _ldmhMetadata = pMetadata_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      name = pName_,
+      metadata = pMetadata_
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-ldmhNextToken :: Lens' ListDocumentMetadataHistory (Maybe Text)
-ldmhNextToken = lens _ldmhNextToken (\s a -> s {_ldmhNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+listDocumentMetadataHistory_nextToken :: Lens.Lens' ListDocumentMetadataHistory (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistory_nextToken = Lens.lens (\ListDocumentMetadataHistory' {nextToken} -> nextToken) (\s@ListDocumentMetadataHistory' {} a -> s {nextToken = a} :: ListDocumentMetadataHistory)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-ldmhMaxResults :: Lens' ListDocumentMetadataHistory (Maybe Natural)
-ldmhMaxResults = lens _ldmhMaxResults (\s a -> s {_ldmhMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+listDocumentMetadataHistory_maxResults :: Lens.Lens' ListDocumentMetadataHistory (Prelude.Maybe Prelude.Natural)
+listDocumentMetadataHistory_maxResults = Lens.lens (\ListDocumentMetadataHistory' {maxResults} -> maxResults) (\s@ListDocumentMetadataHistory' {} a -> s {maxResults = a} :: ListDocumentMetadataHistory) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The version of the document.
-ldmhDocumentVersion :: Lens' ListDocumentMetadataHistory (Maybe Text)
-ldmhDocumentVersion = lens _ldmhDocumentVersion (\s a -> s {_ldmhDocumentVersion = a})
+listDocumentMetadataHistory_documentVersion :: Lens.Lens' ListDocumentMetadataHistory (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistory_documentVersion = Lens.lens (\ListDocumentMetadataHistory' {documentVersion} -> documentVersion) (\s@ListDocumentMetadataHistory' {} a -> s {documentVersion = a} :: ListDocumentMetadataHistory)
 
 -- | The name of the document.
-ldmhName :: Lens' ListDocumentMetadataHistory Text
-ldmhName = lens _ldmhName (\s a -> s {_ldmhName = a})
+listDocumentMetadataHistory_name :: Lens.Lens' ListDocumentMetadataHistory Prelude.Text
+listDocumentMetadataHistory_name = Lens.lens (\ListDocumentMetadataHistory' {name} -> name) (\s@ListDocumentMetadataHistory' {} a -> s {name = a} :: ListDocumentMetadataHistory)
 
--- | The type of data for which details are being requested. Currently, the only supported value is @DocumentReviews@ .
-ldmhMetadata :: Lens' ListDocumentMetadataHistory DocumentMetadataEnum
-ldmhMetadata = lens _ldmhMetadata (\s a -> s {_ldmhMetadata = a})
+-- | The type of data for which details are being requested. Currently, the
+-- only supported value is @DocumentReviews@.
+listDocumentMetadataHistory_metadata :: Lens.Lens' ListDocumentMetadataHistory DocumentMetadataEnum
+listDocumentMetadataHistory_metadata = Lens.lens (\ListDocumentMetadataHistory' {metadata} -> metadata) (\s@ListDocumentMetadataHistory' {} a -> s {metadata = a} :: ListDocumentMetadataHistory)
 
-instance AWSRequest ListDocumentMetadataHistory where
+instance
+  Prelude.AWSRequest
+    ListDocumentMetadataHistory
+  where
   type
     Rs ListDocumentMetadataHistory =
       ListDocumentMetadataHistoryResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDocumentMetadataHistoryResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Author")
-            <*> (x .?> "Metadata")
-            <*> (x .?> "Name")
-            <*> (x .?> "DocumentVersion")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Author")
+            Prelude.<*> (x Prelude..?> "Metadata")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "DocumentVersion")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDocumentMetadataHistory
+instance Prelude.Hashable ListDocumentMetadataHistory
 
-instance NFData ListDocumentMetadataHistory
+instance Prelude.NFData ListDocumentMetadataHistory
 
-instance ToHeaders ListDocumentMetadataHistory where
+instance
+  Prelude.ToHeaders
+    ListDocumentMetadataHistory
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.ListDocumentMetadataHistory" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.ListDocumentMetadataHistory" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDocumentMetadataHistory where
+instance Prelude.ToJSON ListDocumentMetadataHistory where
   toJSON ListDocumentMetadataHistory' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ldmhNextToken,
-            ("MaxResults" .=) <$> _ldmhMaxResults,
-            ("DocumentVersion" .=) <$> _ldmhDocumentVersion,
-            Just ("Name" .= _ldmhName),
-            Just ("Metadata" .= _ldmhMetadata)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("DocumentVersion" Prelude..=)
+              Prelude.<$> documentVersion,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Metadata" Prelude..= metadata)
           ]
       )
 
-instance ToPath ListDocumentMetadataHistory where
-  toPath = const "/"
+instance Prelude.ToPath ListDocumentMetadataHistory where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDocumentMetadataHistory where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDocumentMetadataHistory where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listDocumentMetadataHistoryResponse' smart constructor.
+-- | /See:/ 'newListDocumentMetadataHistoryResponse' smart constructor.
 data ListDocumentMetadataHistoryResponse = ListDocumentMetadataHistoryResponse'
-  { _ldmhrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldmhrrsAuthor ::
-      !( Maybe
-           Text
-       ),
-    _ldmhrrsMetadata ::
-      !( Maybe
-           DocumentMetadataResponseInfo
-       ),
-    _ldmhrrsName ::
-      !( Maybe
-           Text
-       ),
-    _ldmhrrsDocumentVersion ::
-      !( Maybe
-           Text
-       ),
-    _ldmhrrsResponseStatus ::
-      !Int
+  { -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The user ID of the person in the organization who requested the document
+    -- review.
+    author :: Prelude.Maybe Prelude.Text,
+    -- | Information about the response to the document approval request.
+    metadata :: Prelude.Maybe DocumentMetadataResponseInfo,
+    -- | The name of the document.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The version of the document.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDocumentMetadataHistoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDocumentMetadataHistoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldmhrrsNextToken' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldmhrrsAuthor' - The user ID of the person in the organization who requested the document review.
+-- 'nextToken', 'listDocumentMetadataHistoryResponse_nextToken' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
--- * 'ldmhrrsMetadata' - Information about the response to the document approval request.
+-- 'author', 'listDocumentMetadataHistoryResponse_author' - The user ID of the person in the organization who requested the document
+-- review.
 --
--- * 'ldmhrrsName' - The name of the document.
+-- 'metadata', 'listDocumentMetadataHistoryResponse_metadata' - Information about the response to the document approval request.
 --
--- * 'ldmhrrsDocumentVersion' - The version of the document.
+-- 'name', 'listDocumentMetadataHistoryResponse_name' - The name of the document.
 --
--- * 'ldmhrrsResponseStatus' - -- | The response status code.
-listDocumentMetadataHistoryResponse ::
-  -- | 'ldmhrrsResponseStatus'
-  Int ->
+-- 'documentVersion', 'listDocumentMetadataHistoryResponse_documentVersion' - The version of the document.
+--
+-- 'httpStatus', 'listDocumentMetadataHistoryResponse_httpStatus' - The response's http status code.
+newListDocumentMetadataHistoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDocumentMetadataHistoryResponse
-listDocumentMetadataHistoryResponse pResponseStatus_ =
+newListDocumentMetadataHistoryResponse pHttpStatus_ =
   ListDocumentMetadataHistoryResponse'
-    { _ldmhrrsNextToken =
-        Nothing,
-      _ldmhrrsAuthor = Nothing,
-      _ldmhrrsMetadata = Nothing,
-      _ldmhrrsName = Nothing,
-      _ldmhrrsDocumentVersion = Nothing,
-      _ldmhrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      author = Prelude.Nothing,
+      metadata = Prelude.Nothing,
+      name = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-ldmhrrsNextToken :: Lens' ListDocumentMetadataHistoryResponse (Maybe Text)
-ldmhrrsNextToken = lens _ldmhrrsNextToken (\s a -> s {_ldmhrrsNextToken = a})
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+listDocumentMetadataHistoryResponse_nextToken :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistoryResponse_nextToken = Lens.lens (\ListDocumentMetadataHistoryResponse' {nextToken} -> nextToken) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {nextToken = a} :: ListDocumentMetadataHistoryResponse)
 
--- | The user ID of the person in the organization who requested the document review.
-ldmhrrsAuthor :: Lens' ListDocumentMetadataHistoryResponse (Maybe Text)
-ldmhrrsAuthor = lens _ldmhrrsAuthor (\s a -> s {_ldmhrrsAuthor = a})
+-- | The user ID of the person in the organization who requested the document
+-- review.
+listDocumentMetadataHistoryResponse_author :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistoryResponse_author = Lens.lens (\ListDocumentMetadataHistoryResponse' {author} -> author) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {author = a} :: ListDocumentMetadataHistoryResponse)
 
 -- | Information about the response to the document approval request.
-ldmhrrsMetadata :: Lens' ListDocumentMetadataHistoryResponse (Maybe DocumentMetadataResponseInfo)
-ldmhrrsMetadata = lens _ldmhrrsMetadata (\s a -> s {_ldmhrrsMetadata = a})
+listDocumentMetadataHistoryResponse_metadata :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe DocumentMetadataResponseInfo)
+listDocumentMetadataHistoryResponse_metadata = Lens.lens (\ListDocumentMetadataHistoryResponse' {metadata} -> metadata) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {metadata = a} :: ListDocumentMetadataHistoryResponse)
 
 -- | The name of the document.
-ldmhrrsName :: Lens' ListDocumentMetadataHistoryResponse (Maybe Text)
-ldmhrrsName = lens _ldmhrrsName (\s a -> s {_ldmhrrsName = a})
+listDocumentMetadataHistoryResponse_name :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistoryResponse_name = Lens.lens (\ListDocumentMetadataHistoryResponse' {name} -> name) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {name = a} :: ListDocumentMetadataHistoryResponse)
 
 -- | The version of the document.
-ldmhrrsDocumentVersion :: Lens' ListDocumentMetadataHistoryResponse (Maybe Text)
-ldmhrrsDocumentVersion = lens _ldmhrrsDocumentVersion (\s a -> s {_ldmhrrsDocumentVersion = a})
+listDocumentMetadataHistoryResponse_documentVersion :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistoryResponse_documentVersion = Lens.lens (\ListDocumentMetadataHistoryResponse' {documentVersion} -> documentVersion) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {documentVersion = a} :: ListDocumentMetadataHistoryResponse)
 
--- | -- | The response status code.
-ldmhrrsResponseStatus :: Lens' ListDocumentMetadataHistoryResponse Int
-ldmhrrsResponseStatus = lens _ldmhrrsResponseStatus (\s a -> s {_ldmhrrsResponseStatus = a})
+-- | The response's http status code.
+listDocumentMetadataHistoryResponse_httpStatus :: Lens.Lens' ListDocumentMetadataHistoryResponse Prelude.Int
+listDocumentMetadataHistoryResponse_httpStatus = Lens.lens (\ListDocumentMetadataHistoryResponse' {httpStatus} -> httpStatus) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {httpStatus = a} :: ListDocumentMetadataHistoryResponse)
 
-instance NFData ListDocumentMetadataHistoryResponse
+instance
+  Prelude.NFData
+    ListDocumentMetadataHistoryResponse

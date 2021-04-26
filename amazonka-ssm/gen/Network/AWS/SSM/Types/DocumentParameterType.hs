@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SSM.Types.DocumentParameterType
   ( DocumentParameterType
       ( ..,
-        String,
-        StringList
+        DocumentParameterTypeString,
+        DocumentParameterTypeStringList
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentParameterType
-  = DocumentParameterType'
-      ( CI
-          Text
-      )
+newtype DocumentParameterType = DocumentParameterType'
+  { fromDocumentParameterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern String :: DocumentParameterType
-pattern String = DocumentParameterType' "String"
+pattern DocumentParameterTypeString :: DocumentParameterType
+pattern DocumentParameterTypeString = DocumentParameterType' "String"
 
-pattern StringList :: DocumentParameterType
-pattern StringList = DocumentParameterType' "StringList"
+pattern DocumentParameterTypeStringList :: DocumentParameterType
+pattern DocumentParameterTypeStringList = DocumentParameterType' "StringList"
 
 {-# COMPLETE
-  String,
-  StringList,
+  DocumentParameterTypeString,
+  DocumentParameterTypeStringList,
   DocumentParameterType'
   #-}
 
-instance FromText DocumentParameterType where
-  parser = (DocumentParameterType' . mk) <$> takeText
+instance Prelude.FromText DocumentParameterType where
+  parser = DocumentParameterType' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentParameterType where
-  toText (DocumentParameterType' ci) = original ci
+instance Prelude.ToText DocumentParameterType where
+  toText (DocumentParameterType' x) = x
 
-instance Hashable DocumentParameterType
+instance Prelude.Hashable DocumentParameterType
 
-instance NFData DocumentParameterType
+instance Prelude.NFData DocumentParameterType
 
-instance ToByteString DocumentParameterType
+instance Prelude.ToByteString DocumentParameterType
 
-instance ToQuery DocumentParameterType
+instance Prelude.ToQuery DocumentParameterType
 
-instance ToHeader DocumentParameterType
+instance Prelude.ToHeader DocumentParameterType
 
-instance FromJSON DocumentParameterType where
-  parseJSON = parseJSONText "DocumentParameterType"
+instance Prelude.FromJSON DocumentParameterType where
+  parseJSON = Prelude.parseJSONText "DocumentParameterType"

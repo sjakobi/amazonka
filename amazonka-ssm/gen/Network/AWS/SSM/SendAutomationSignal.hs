@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,213 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sends a signal to an Automation execution to change the current behavior or status of the execution.
+-- Sends a signal to an Automation execution to change the current behavior
+-- or status of the execution.
 module Network.AWS.SSM.SendAutomationSignal
   ( -- * Creating a Request
-    sendAutomationSignal,
-    SendAutomationSignal,
+    SendAutomationSignal (..),
+    newSendAutomationSignal,
 
     -- * Request Lenses
-    sasPayload,
-    sasAutomationExecutionId,
-    sasSignalType,
+    sendAutomationSignal_payload,
+    sendAutomationSignal_automationExecutionId,
+    sendAutomationSignal_signalType,
 
     -- * Destructuring the Response
-    sendAutomationSignalResponse,
-    SendAutomationSignalResponse,
+    SendAutomationSignalResponse (..),
+    newSendAutomationSignalResponse,
 
     -- * Response Lenses
-    sasrrsResponseStatus,
+    sendAutomationSignalResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'sendAutomationSignal' smart constructor.
+-- | /See:/ 'newSendAutomationSignal' smart constructor.
 data SendAutomationSignal = SendAutomationSignal'
-  { _sasPayload ::
-      !(Maybe (Map Text [Text])),
-    _sasAutomationExecutionId ::
-      !Text,
-    _sasSignalType :: !SignalType
+  { -- | The data sent with the signal. The data schema depends on the type of
+    -- signal used in the request.
+    --
+    -- For @Approve@ and @Reject@ signal types, the payload is an optional
+    -- comment that you can send with the signal type. For example:
+    --
+    -- @Comment=\"Looks good\"@
+    --
+    -- For @StartStep@ and @Resume@ signal types, you must send the name of the
+    -- Automation step to start or resume as the payload. For example:
+    --
+    -- @StepName=\"step1\"@
+    --
+    -- For the @StopStep@ signal type, you must send the step execution ID as
+    -- the payload. For example:
+    --
+    -- @StepExecutionId=\"97fff367-fc5a-4299-aed8-0123456789ab\"@
+    payload :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The unique identifier for an existing Automation execution that you want
+    -- to send the signal to.
+    automationExecutionId :: Prelude.Text,
+    -- | The type of signal to send to an Automation execution.
+    signalType :: SignalType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SendAutomationSignal' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SendAutomationSignal' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sasPayload' - The data sent with the signal. The data schema depends on the type of signal used in the request. For @Approve@ and @Reject@ signal types, the payload is an optional comment that you can send with the signal type. For example: @Comment="Looks good"@  For @StartStep@ and @Resume@ signal types, you must send the name of the Automation step to start or resume as the payload. For example: @StepName="step1"@  For the @StopStep@ signal type, you must send the step execution ID as the payload. For example: @StepExecutionId="97fff367-fc5a-4299-aed8-0123456789ab"@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sasAutomationExecutionId' - The unique identifier for an existing Automation execution that you want to send the signal to.
+-- 'payload', 'sendAutomationSignal_payload' - The data sent with the signal. The data schema depends on the type of
+-- signal used in the request.
 --
--- * 'sasSignalType' - The type of signal to send to an Automation execution.
-sendAutomationSignal ::
-  -- | 'sasAutomationExecutionId'
-  Text ->
-  -- | 'sasSignalType'
+-- For @Approve@ and @Reject@ signal types, the payload is an optional
+-- comment that you can send with the signal type. For example:
+--
+-- @Comment=\"Looks good\"@
+--
+-- For @StartStep@ and @Resume@ signal types, you must send the name of the
+-- Automation step to start or resume as the payload. For example:
+--
+-- @StepName=\"step1\"@
+--
+-- For the @StopStep@ signal type, you must send the step execution ID as
+-- the payload. For example:
+--
+-- @StepExecutionId=\"97fff367-fc5a-4299-aed8-0123456789ab\"@
+--
+-- 'automationExecutionId', 'sendAutomationSignal_automationExecutionId' - The unique identifier for an existing Automation execution that you want
+-- to send the signal to.
+--
+-- 'signalType', 'sendAutomationSignal_signalType' - The type of signal to send to an Automation execution.
+newSendAutomationSignal ::
+  -- | 'automationExecutionId'
+  Prelude.Text ->
+  -- | 'signalType'
   SignalType ->
   SendAutomationSignal
-sendAutomationSignal
+newSendAutomationSignal
   pAutomationExecutionId_
   pSignalType_ =
     SendAutomationSignal'
-      { _sasPayload = Nothing,
-        _sasAutomationExecutionId = pAutomationExecutionId_,
-        _sasSignalType = pSignalType_
+      { payload = Prelude.Nothing,
+        automationExecutionId = pAutomationExecutionId_,
+        signalType = pSignalType_
       }
 
--- | The data sent with the signal. The data schema depends on the type of signal used in the request. For @Approve@ and @Reject@ signal types, the payload is an optional comment that you can send with the signal type. For example: @Comment="Looks good"@  For @StartStep@ and @Resume@ signal types, you must send the name of the Automation step to start or resume as the payload. For example: @StepName="step1"@  For the @StopStep@ signal type, you must send the step execution ID as the payload. For example: @StepExecutionId="97fff367-fc5a-4299-aed8-0123456789ab"@
-sasPayload :: Lens' SendAutomationSignal (HashMap Text [Text])
-sasPayload = lens _sasPayload (\s a -> s {_sasPayload = a}) . _Default . _Map
+-- | The data sent with the signal. The data schema depends on the type of
+-- signal used in the request.
+--
+-- For @Approve@ and @Reject@ signal types, the payload is an optional
+-- comment that you can send with the signal type. For example:
+--
+-- @Comment=\"Looks good\"@
+--
+-- For @StartStep@ and @Resume@ signal types, you must send the name of the
+-- Automation step to start or resume as the payload. For example:
+--
+-- @StepName=\"step1\"@
+--
+-- For the @StopStep@ signal type, you must send the step execution ID as
+-- the payload. For example:
+--
+-- @StepExecutionId=\"97fff367-fc5a-4299-aed8-0123456789ab\"@
+sendAutomationSignal_payload :: Lens.Lens' SendAutomationSignal (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+sendAutomationSignal_payload = Lens.lens (\SendAutomationSignal' {payload} -> payload) (\s@SendAutomationSignal' {} a -> s {payload = a} :: SendAutomationSignal) Prelude.. Lens.mapping Prelude._Map
 
--- | The unique identifier for an existing Automation execution that you want to send the signal to.
-sasAutomationExecutionId :: Lens' SendAutomationSignal Text
-sasAutomationExecutionId = lens _sasAutomationExecutionId (\s a -> s {_sasAutomationExecutionId = a})
+-- | The unique identifier for an existing Automation execution that you want
+-- to send the signal to.
+sendAutomationSignal_automationExecutionId :: Lens.Lens' SendAutomationSignal Prelude.Text
+sendAutomationSignal_automationExecutionId = Lens.lens (\SendAutomationSignal' {automationExecutionId} -> automationExecutionId) (\s@SendAutomationSignal' {} a -> s {automationExecutionId = a} :: SendAutomationSignal)
 
 -- | The type of signal to send to an Automation execution.
-sasSignalType :: Lens' SendAutomationSignal SignalType
-sasSignalType = lens _sasSignalType (\s a -> s {_sasSignalType = a})
+sendAutomationSignal_signalType :: Lens.Lens' SendAutomationSignal SignalType
+sendAutomationSignal_signalType = Lens.lens (\SendAutomationSignal' {signalType} -> signalType) (\s@SendAutomationSignal' {} a -> s {signalType = a} :: SendAutomationSignal)
 
-instance AWSRequest SendAutomationSignal where
+instance Prelude.AWSRequest SendAutomationSignal where
   type
     Rs SendAutomationSignal =
       SendAutomationSignalResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           SendAutomationSignalResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SendAutomationSignal
+instance Prelude.Hashable SendAutomationSignal
 
-instance NFData SendAutomationSignal
+instance Prelude.NFData SendAutomationSignal
 
-instance ToHeaders SendAutomationSignal where
+instance Prelude.ToHeaders SendAutomationSignal where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.SendAutomationSignal" :: ByteString),
+              Prelude.=# ( "AmazonSSM.SendAutomationSignal" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SendAutomationSignal where
+instance Prelude.ToJSON SendAutomationSignal where
   toJSON SendAutomationSignal' {..} =
-    object
-      ( catMaybes
-          [ ("Payload" .=) <$> _sasPayload,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Payload" Prelude..=) Prelude.<$> payload,
+            Prelude.Just
               ( "AutomationExecutionId"
-                  .= _sasAutomationExecutionId
+                  Prelude..= automationExecutionId
               ),
-            Just ("SignalType" .= _sasSignalType)
+            Prelude.Just ("SignalType" Prelude..= signalType)
           ]
       )
 
-instance ToPath SendAutomationSignal where
-  toPath = const "/"
+instance Prelude.ToPath SendAutomationSignal where
+  toPath = Prelude.const "/"
 
-instance ToQuery SendAutomationSignal where
-  toQuery = const mempty
+instance Prelude.ToQuery SendAutomationSignal where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'sendAutomationSignalResponse' smart constructor.
-newtype SendAutomationSignalResponse = SendAutomationSignalResponse'
-  { _sasrrsResponseStatus ::
-      Int
+-- | /See:/ 'newSendAutomationSignalResponse' smart constructor.
+data SendAutomationSignalResponse = SendAutomationSignalResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SendAutomationSignalResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SendAutomationSignalResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sasrrsResponseStatus' - -- | The response status code.
-sendAutomationSignalResponse ::
-  -- | 'sasrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'sendAutomationSignalResponse_httpStatus' - The response's http status code.
+newSendAutomationSignalResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SendAutomationSignalResponse
-sendAutomationSignalResponse pResponseStatus_ =
+newSendAutomationSignalResponse pHttpStatus_ =
   SendAutomationSignalResponse'
-    { _sasrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-sasrrsResponseStatus :: Lens' SendAutomationSignalResponse Int
-sasrrsResponseStatus = lens _sasrrsResponseStatus (\s a -> s {_sasrrsResponseStatus = a})
+-- | The response's http status code.
+sendAutomationSignalResponse_httpStatus :: Lens.Lens' SendAutomationSignalResponse Prelude.Int
+sendAutomationSignalResponse_httpStatus = Lens.lens (\SendAutomationSignalResponse' {httpStatus} -> httpStatus) (\s@SendAutomationSignalResponse' {} a -> s {httpStatus = a} :: SendAutomationSignalResponse)
 
-instance NFData SendAutomationSignalResponse
+instance Prelude.NFData SendAutomationSignalResponse

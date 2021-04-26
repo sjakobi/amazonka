@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the status of the Systems Manager document associated with the specified instance.
+-- Updates the status of the Systems Manager document associated with the
+-- specified instance.
 module Network.AWS.SSM.UpdateAssociationStatus
   ( -- * Creating a Request
-    updateAssociationStatus,
-    UpdateAssociationStatus,
+    UpdateAssociationStatus (..),
+    newUpdateAssociationStatus,
 
     -- * Request Lenses
-    uasName,
-    uasInstanceId,
-    uasAssociationStatus,
+    updateAssociationStatus_name,
+    updateAssociationStatus_instanceId,
+    updateAssociationStatus_associationStatus,
 
     -- * Destructuring the Response
-    updateAssociationStatusResponse,
-    UpdateAssociationStatusResponse,
+    UpdateAssociationStatusResponse (..),
+    newUpdateAssociationStatusResponse,
 
     -- * Response Lenses
-    uasrrsAssociationDescription,
-    uasrrsResponseStatus,
+    updateAssociationStatusResponse_associationDescription,
+    updateAssociationStatusResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.AssociationDescription
 
--- | /See:/ 'updateAssociationStatus' smart constructor.
+-- | /See:/ 'newUpdateAssociationStatus' smart constructor.
 data UpdateAssociationStatus = UpdateAssociationStatus'
-  { _uasName ::
-      !Text,
-    _uasInstanceId :: !Text,
-    _uasAssociationStatus ::
-      !AssociationStatus
+  { -- | The name of the Systems Manager document.
+    name :: Prelude.Text,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Text,
+    -- | The association status.
+    associationStatus :: AssociationStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAssociationStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAssociationStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uasName' - The name of the Systems Manager document.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uasInstanceId' - The ID of the instance.
+-- 'name', 'updateAssociationStatus_name' - The name of the Systems Manager document.
 --
--- * 'uasAssociationStatus' - The association status.
-updateAssociationStatus ::
-  -- | 'uasName'
-  Text ->
-  -- | 'uasInstanceId'
-  Text ->
-  -- | 'uasAssociationStatus'
+-- 'instanceId', 'updateAssociationStatus_instanceId' - The ID of the instance.
+--
+-- 'associationStatus', 'updateAssociationStatus_associationStatus' - The association status.
+newUpdateAssociationStatus ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'associationStatus'
   AssociationStatus ->
   UpdateAssociationStatus
-updateAssociationStatus
+newUpdateAssociationStatus
   pName_
   pInstanceId_
   pAssociationStatus_ =
     UpdateAssociationStatus'
-      { _uasName = pName_,
-        _uasInstanceId = pInstanceId_,
-        _uasAssociationStatus = pAssociationStatus_
+      { name = pName_,
+        instanceId = pInstanceId_,
+        associationStatus = pAssociationStatus_
       }
 
 -- | The name of the Systems Manager document.
-uasName :: Lens' UpdateAssociationStatus Text
-uasName = lens _uasName (\s a -> s {_uasName = a})
+updateAssociationStatus_name :: Lens.Lens' UpdateAssociationStatus Prelude.Text
+updateAssociationStatus_name = Lens.lens (\UpdateAssociationStatus' {name} -> name) (\s@UpdateAssociationStatus' {} a -> s {name = a} :: UpdateAssociationStatus)
 
 -- | The ID of the instance.
-uasInstanceId :: Lens' UpdateAssociationStatus Text
-uasInstanceId = lens _uasInstanceId (\s a -> s {_uasInstanceId = a})
+updateAssociationStatus_instanceId :: Lens.Lens' UpdateAssociationStatus Prelude.Text
+updateAssociationStatus_instanceId = Lens.lens (\UpdateAssociationStatus' {instanceId} -> instanceId) (\s@UpdateAssociationStatus' {} a -> s {instanceId = a} :: UpdateAssociationStatus)
 
 -- | The association status.
-uasAssociationStatus :: Lens' UpdateAssociationStatus AssociationStatus
-uasAssociationStatus = lens _uasAssociationStatus (\s a -> s {_uasAssociationStatus = a})
+updateAssociationStatus_associationStatus :: Lens.Lens' UpdateAssociationStatus AssociationStatus
+updateAssociationStatus_associationStatus = Lens.lens (\UpdateAssociationStatus' {associationStatus} -> associationStatus) (\s@UpdateAssociationStatus' {} a -> s {associationStatus = a} :: UpdateAssociationStatus)
 
-instance AWSRequest UpdateAssociationStatus where
+instance Prelude.AWSRequest UpdateAssociationStatus where
   type
     Rs UpdateAssociationStatus =
       UpdateAssociationStatusResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateAssociationStatusResponse'
-            <$> (x .?> "AssociationDescription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AssociationDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateAssociationStatus
+instance Prelude.Hashable UpdateAssociationStatus
 
-instance NFData UpdateAssociationStatus
+instance Prelude.NFData UpdateAssociationStatus
 
-instance ToHeaders UpdateAssociationStatus where
+instance Prelude.ToHeaders UpdateAssociationStatus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.UpdateAssociationStatus" :: ByteString),
+              Prelude.=# ( "AmazonSSM.UpdateAssociationStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateAssociationStatus where
+instance Prelude.ToJSON UpdateAssociationStatus where
   toJSON UpdateAssociationStatus' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _uasName),
-            Just ("InstanceId" .= _uasInstanceId),
-            Just ("AssociationStatus" .= _uasAssociationStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("InstanceId" Prelude..= instanceId),
+            Prelude.Just
+              ("AssociationStatus" Prelude..= associationStatus)
           ]
       )
 
-instance ToPath UpdateAssociationStatus where
-  toPath = const "/"
+instance Prelude.ToPath UpdateAssociationStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateAssociationStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateAssociationStatus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateAssociationStatusResponse' smart constructor.
+-- | /See:/ 'newUpdateAssociationStatusResponse' smart constructor.
 data UpdateAssociationStatusResponse = UpdateAssociationStatusResponse'
-  { _uasrrsAssociationDescription ::
-      !( Maybe
-           AssociationDescription
-       ),
-    _uasrrsResponseStatus ::
-      !Int
+  { -- | Information about the association.
+    associationDescription :: Prelude.Maybe AssociationDescription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAssociationStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAssociationStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uasrrsAssociationDescription' - Information about the association.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uasrrsResponseStatus' - -- | The response status code.
-updateAssociationStatusResponse ::
-  -- | 'uasrrsResponseStatus'
-  Int ->
+-- 'associationDescription', 'updateAssociationStatusResponse_associationDescription' - Information about the association.
+--
+-- 'httpStatus', 'updateAssociationStatusResponse_httpStatus' - The response's http status code.
+newUpdateAssociationStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateAssociationStatusResponse
-updateAssociationStatusResponse pResponseStatus_ =
+newUpdateAssociationStatusResponse pHttpStatus_ =
   UpdateAssociationStatusResponse'
-    { _uasrrsAssociationDescription =
-        Nothing,
-      _uasrrsResponseStatus = pResponseStatus_
+    { associationDescription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the association.
-uasrrsAssociationDescription :: Lens' UpdateAssociationStatusResponse (Maybe AssociationDescription)
-uasrrsAssociationDescription = lens _uasrrsAssociationDescription (\s a -> s {_uasrrsAssociationDescription = a})
+updateAssociationStatusResponse_associationDescription :: Lens.Lens' UpdateAssociationStatusResponse (Prelude.Maybe AssociationDescription)
+updateAssociationStatusResponse_associationDescription = Lens.lens (\UpdateAssociationStatusResponse' {associationDescription} -> associationDescription) (\s@UpdateAssociationStatusResponse' {} a -> s {associationDescription = a} :: UpdateAssociationStatusResponse)
 
--- | -- | The response status code.
-uasrrsResponseStatus :: Lens' UpdateAssociationStatusResponse Int
-uasrrsResponseStatus = lens _uasrrsResponseStatus (\s a -> s {_uasrrsResponseStatus = a})
+-- | The response's http status code.
+updateAssociationStatusResponse_httpStatus :: Lens.Lens' UpdateAssociationStatusResponse Prelude.Int
+updateAssociationStatusResponse_httpStatus = Lens.lens (\UpdateAssociationStatusResponse' {httpStatus} -> httpStatus) (\s@UpdateAssociationStatusResponse' {} a -> s {httpStatus = a} :: UpdateAssociationStatusResponse)
 
-instance NFData UpdateAssociationStatusResponse
+instance
+  Prelude.NFData
+    UpdateAssociationStatusResponse

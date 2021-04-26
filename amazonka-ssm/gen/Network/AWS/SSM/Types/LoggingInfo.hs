@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.LoggingInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an S3 bucket to write instance-level logs to.
 --
+-- @LoggingInfo@ has been deprecated. To specify an S3 bucket to contain
+-- logs, instead use the @OutputS3BucketName@ and @OutputS3KeyPrefix@
+-- options in the @TaskInvocationParameters@ structure. For information
+-- about how Systems Manager handles these options for the supported
+-- maintenance window task types, see
+-- MaintenanceWindowTaskInvocationParameters.
 --
---
--- /See:/ 'loggingInfo' smart constructor.
+-- /See:/ 'newLoggingInfo' smart constructor.
 data LoggingInfo = LoggingInfo'
-  { _liS3KeyPrefix ::
-      !(Maybe Text),
-    _liS3BucketName :: !Text,
-    _liS3Region :: !Text
+  { -- | (Optional) The S3 bucket subfolder.
+    s3KeyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The name of an S3 bucket where execution logs are stored .
+    s3BucketName :: Prelude.Text,
+    -- | The Region where the S3 bucket is located.
+    s3Region :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoggingInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoggingInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'liS3KeyPrefix' - (Optional) The S3 bucket subfolder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'liS3BucketName' - The name of an S3 bucket where execution logs are stored .
+-- 's3KeyPrefix', 'loggingInfo_s3KeyPrefix' - (Optional) The S3 bucket subfolder.
 --
--- * 'liS3Region' - The Region where the S3 bucket is located.
-loggingInfo ::
-  -- | 'liS3BucketName'
-  Text ->
-  -- | 'liS3Region'
-  Text ->
+-- 's3BucketName', 'loggingInfo_s3BucketName' - The name of an S3 bucket where execution logs are stored .
+--
+-- 's3Region', 'loggingInfo_s3Region' - The Region where the S3 bucket is located.
+newLoggingInfo ::
+  -- | 's3BucketName'
+  Prelude.Text ->
+  -- | 's3Region'
+  Prelude.Text ->
   LoggingInfo
-loggingInfo pS3BucketName_ pS3Region_ =
+newLoggingInfo pS3BucketName_ pS3Region_ =
   LoggingInfo'
-    { _liS3KeyPrefix = Nothing,
-      _liS3BucketName = pS3BucketName_,
-      _liS3Region = pS3Region_
+    { s3KeyPrefix = Prelude.Nothing,
+      s3BucketName = pS3BucketName_,
+      s3Region = pS3Region_
     }
 
 -- | (Optional) The S3 bucket subfolder.
-liS3KeyPrefix :: Lens' LoggingInfo (Maybe Text)
-liS3KeyPrefix = lens _liS3KeyPrefix (\s a -> s {_liS3KeyPrefix = a})
+loggingInfo_s3KeyPrefix :: Lens.Lens' LoggingInfo (Prelude.Maybe Prelude.Text)
+loggingInfo_s3KeyPrefix = Lens.lens (\LoggingInfo' {s3KeyPrefix} -> s3KeyPrefix) (\s@LoggingInfo' {} a -> s {s3KeyPrefix = a} :: LoggingInfo)
 
 -- | The name of an S3 bucket where execution logs are stored .
-liS3BucketName :: Lens' LoggingInfo Text
-liS3BucketName = lens _liS3BucketName (\s a -> s {_liS3BucketName = a})
+loggingInfo_s3BucketName :: Lens.Lens' LoggingInfo Prelude.Text
+loggingInfo_s3BucketName = Lens.lens (\LoggingInfo' {s3BucketName} -> s3BucketName) (\s@LoggingInfo' {} a -> s {s3BucketName = a} :: LoggingInfo)
 
 -- | The Region where the S3 bucket is located.
-liS3Region :: Lens' LoggingInfo Text
-liS3Region = lens _liS3Region (\s a -> s {_liS3Region = a})
+loggingInfo_s3Region :: Lens.Lens' LoggingInfo Prelude.Text
+loggingInfo_s3Region = Lens.lens (\LoggingInfo' {s3Region} -> s3Region) (\s@LoggingInfo' {} a -> s {s3Region = a} :: LoggingInfo)
 
-instance FromJSON LoggingInfo where
+instance Prelude.FromJSON LoggingInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LoggingInfo"
       ( \x ->
           LoggingInfo'
-            <$> (x .:? "S3KeyPrefix")
-            <*> (x .: "S3BucketName")
-            <*> (x .: "S3Region")
+            Prelude.<$> (x Prelude..:? "S3KeyPrefix")
+            Prelude.<*> (x Prelude..: "S3BucketName")
+            Prelude.<*> (x Prelude..: "S3Region")
       )
 
-instance Hashable LoggingInfo
+instance Prelude.Hashable LoggingInfo
 
-instance NFData LoggingInfo
+instance Prelude.NFData LoggingInfo
 
-instance ToJSON LoggingInfo where
+instance Prelude.ToJSON LoggingInfo where
   toJSON LoggingInfo' {..} =
-    object
-      ( catMaybes
-          [ ("S3KeyPrefix" .=) <$> _liS3KeyPrefix,
-            Just ("S3BucketName" .= _liS3BucketName),
-            Just ("S3Region" .= _liS3Region)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3KeyPrefix" Prelude..=) Prelude.<$> s3KeyPrefix,
+            Prelude.Just
+              ("S3BucketName" Prelude..= s3BucketName),
+            Prelude.Just ("S3Region" Prelude..= s3Region)
           ]
       )

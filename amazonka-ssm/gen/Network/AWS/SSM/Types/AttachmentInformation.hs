@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,47 +19,45 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.AttachmentInformation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An attribute of an attachment, such as the attachment name.
 --
---
---
--- /See:/ 'attachmentInformation' smart constructor.
-newtype AttachmentInformation = AttachmentInformation'
-  { _aiName ::
-      Maybe Text
+-- /See:/ 'newAttachmentInformation' smart constructor.
+data AttachmentInformation = AttachmentInformation'
+  { -- | The name of the attachment.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachmentInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachmentInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aiName' - The name of the attachment.
-attachmentInformation ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'attachmentInformation_name' - The name of the attachment.
+newAttachmentInformation ::
   AttachmentInformation
-attachmentInformation =
-  AttachmentInformation' {_aiName = Nothing}
+newAttachmentInformation =
+  AttachmentInformation' {name = Prelude.Nothing}
 
 -- | The name of the attachment.
-aiName :: Lens' AttachmentInformation (Maybe Text)
-aiName = lens _aiName (\s a -> s {_aiName = a})
+attachmentInformation_name :: Lens.Lens' AttachmentInformation (Prelude.Maybe Prelude.Text)
+attachmentInformation_name = Lens.lens (\AttachmentInformation' {name} -> name) (\s@AttachmentInformation' {} a -> s {name = a} :: AttachmentInformation)
 
-instance FromJSON AttachmentInformation where
+instance Prelude.FromJSON AttachmentInformation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttachmentInformation"
-      (\x -> AttachmentInformation' <$> (x .:? "Name"))
+      ( \x ->
+          AttachmentInformation'
+            Prelude.<$> (x Prelude..:? "Name")
+      )
 
-instance Hashable AttachmentInformation
+instance Prelude.Hashable AttachmentInformation
 
-instance NFData AttachmentInformation
+instance Prelude.NFData AttachmentInformation

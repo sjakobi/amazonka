@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SSM.Types.InventorySchemaDeleteOption
   ( InventorySchemaDeleteOption
       ( ..,
-        DeleteSchema,
-        DisableSchema
+        InventorySchemaDeleteOptionDeleteSchema,
+        InventorySchemaDeleteOptionDisableSchema
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InventorySchemaDeleteOption
-  = InventorySchemaDeleteOption'
-      ( CI
-          Text
-      )
+newtype InventorySchemaDeleteOption = InventorySchemaDeleteOption'
+  { fromInventorySchemaDeleteOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeleteSchema :: InventorySchemaDeleteOption
-pattern DeleteSchema = InventorySchemaDeleteOption' "DeleteSchema"
+pattern InventorySchemaDeleteOptionDeleteSchema :: InventorySchemaDeleteOption
+pattern InventorySchemaDeleteOptionDeleteSchema = InventorySchemaDeleteOption' "DeleteSchema"
 
-pattern DisableSchema :: InventorySchemaDeleteOption
-pattern DisableSchema = InventorySchemaDeleteOption' "DisableSchema"
+pattern InventorySchemaDeleteOptionDisableSchema :: InventorySchemaDeleteOption
+pattern InventorySchemaDeleteOptionDisableSchema = InventorySchemaDeleteOption' "DisableSchema"
 
 {-# COMPLETE
-  DeleteSchema,
-  DisableSchema,
+  InventorySchemaDeleteOptionDeleteSchema,
+  InventorySchemaDeleteOptionDisableSchema,
   InventorySchemaDeleteOption'
   #-}
 
-instance FromText InventorySchemaDeleteOption where
-  parser = (InventorySchemaDeleteOption' . mk) <$> takeText
+instance Prelude.FromText InventorySchemaDeleteOption where
+  parser = InventorySchemaDeleteOption' Prelude.<$> Prelude.takeText
 
-instance ToText InventorySchemaDeleteOption where
-  toText (InventorySchemaDeleteOption' ci) = original ci
+instance Prelude.ToText InventorySchemaDeleteOption where
+  toText (InventorySchemaDeleteOption' x) = x
 
-instance Hashable InventorySchemaDeleteOption
+instance Prelude.Hashable InventorySchemaDeleteOption
 
-instance NFData InventorySchemaDeleteOption
+instance Prelude.NFData InventorySchemaDeleteOption
 
-instance ToByteString InventorySchemaDeleteOption
+instance Prelude.ToByteString InventorySchemaDeleteOption
 
-instance ToQuery InventorySchemaDeleteOption
+instance Prelude.ToQuery InventorySchemaDeleteOption
 
-instance ToHeader InventorySchemaDeleteOption
+instance Prelude.ToHeader InventorySchemaDeleteOption
 
-instance ToJSON InventorySchemaDeleteOption where
-  toJSON = toJSONText
+instance Prelude.ToJSON InventorySchemaDeleteOption where
+  toJSON = Prelude.toJSONText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,127 +19,150 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.Activation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.Tag
 
--- | An activation registers one or more on-premises servers or virtual machines (VMs) with AWS so that you can configure those servers or VMs using Run Command. A server or VM that has been registered with AWS is called a managed instance.
+-- | An activation registers one or more on-premises servers or virtual
+-- machines (VMs) with AWS so that you can configure those servers or VMs
+-- using Run Command. A server or VM that has been registered with AWS is
+-- called a managed instance.
 --
---
---
--- /See:/ 'activation' smart constructor.
+-- /See:/ 'newActivation' smart constructor.
 data Activation = Activation'
-  { _aRegistrationLimit ::
-      !(Maybe Nat),
-    _aCreatedDate :: !(Maybe POSIX),
-    _aActivationId :: !(Maybe Text),
-    _aIAMRole :: !(Maybe Text),
-    _aDefaultInstanceName :: !(Maybe Text),
-    _aExpirationDate :: !(Maybe POSIX),
-    _aExpired :: !(Maybe Bool),
-    _aRegistrationsCount :: !(Maybe Nat),
-    _aTags :: !(Maybe [Tag]),
-    _aDescription :: !(Maybe Text)
+  { -- | The maximum number of managed instances that can be registered using
+    -- this activation.
+    registrationLimit :: Prelude.Maybe Prelude.Nat,
+    -- | The date the activation was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID created by Systems Manager when you submitted the activation.
+    activationId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Identity and Access Management (IAM) role to assign to the
+    -- managed instance.
+    iamRole :: Prelude.Maybe Prelude.Text,
+    -- | A name for the managed instance when it is created.
+    defaultInstanceName :: Prelude.Maybe Prelude.Text,
+    -- | The date when this activation can no longer be used to register managed
+    -- instances.
+    expirationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Whether or not the activation is expired.
+    expired :: Prelude.Maybe Prelude.Bool,
+    -- | The number of managed instances already registered with this activation.
+    registrationsCount :: Prelude.Maybe Prelude.Nat,
+    -- | Tags assigned to the activation.
+    tags :: Prelude.Maybe [Tag],
+    -- | A user defined description of the activation.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Activation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Activation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aRegistrationLimit' - The maximum number of managed instances that can be registered using this activation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aCreatedDate' - The date the activation was created.
+-- 'registrationLimit', 'activation_registrationLimit' - The maximum number of managed instances that can be registered using
+-- this activation.
 --
--- * 'aActivationId' - The ID created by Systems Manager when you submitted the activation.
+-- 'createdDate', 'activation_createdDate' - The date the activation was created.
 --
--- * 'aIAMRole' - The Amazon Identity and Access Management (IAM) role to assign to the managed instance.
+-- 'activationId', 'activation_activationId' - The ID created by Systems Manager when you submitted the activation.
 --
--- * 'aDefaultInstanceName' - A name for the managed instance when it is created.
+-- 'iamRole', 'activation_iamRole' - The Amazon Identity and Access Management (IAM) role to assign to the
+-- managed instance.
 --
--- * 'aExpirationDate' - The date when this activation can no longer be used to register managed instances.
+-- 'defaultInstanceName', 'activation_defaultInstanceName' - A name for the managed instance when it is created.
 --
--- * 'aExpired' - Whether or not the activation is expired.
+-- 'expirationDate', 'activation_expirationDate' - The date when this activation can no longer be used to register managed
+-- instances.
 --
--- * 'aRegistrationsCount' - The number of managed instances already registered with this activation.
+-- 'expired', 'activation_expired' - Whether or not the activation is expired.
 --
--- * 'aTags' - Tags assigned to the activation.
+-- 'registrationsCount', 'activation_registrationsCount' - The number of managed instances already registered with this activation.
 --
--- * 'aDescription' - A user defined description of the activation.
-activation ::
+-- 'tags', 'activation_tags' - Tags assigned to the activation.
+--
+-- 'description', 'activation_description' - A user defined description of the activation.
+newActivation ::
   Activation
-activation =
+newActivation =
   Activation'
-    { _aRegistrationLimit = Nothing,
-      _aCreatedDate = Nothing,
-      _aActivationId = Nothing,
-      _aIAMRole = Nothing,
-      _aDefaultInstanceName = Nothing,
-      _aExpirationDate = Nothing,
-      _aExpired = Nothing,
-      _aRegistrationsCount = Nothing,
-      _aTags = Nothing,
-      _aDescription = Nothing
+    { registrationLimit = Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      activationId = Prelude.Nothing,
+      iamRole = Prelude.Nothing,
+      defaultInstanceName = Prelude.Nothing,
+      expirationDate = Prelude.Nothing,
+      expired = Prelude.Nothing,
+      registrationsCount = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
--- | The maximum number of managed instances that can be registered using this activation.
-aRegistrationLimit :: Lens' Activation (Maybe Natural)
-aRegistrationLimit = lens _aRegistrationLimit (\s a -> s {_aRegistrationLimit = a}) . mapping _Nat
+-- | The maximum number of managed instances that can be registered using
+-- this activation.
+activation_registrationLimit :: Lens.Lens' Activation (Prelude.Maybe Prelude.Natural)
+activation_registrationLimit = Lens.lens (\Activation' {registrationLimit} -> registrationLimit) (\s@Activation' {} a -> s {registrationLimit = a} :: Activation) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The date the activation was created.
-aCreatedDate :: Lens' Activation (Maybe UTCTime)
-aCreatedDate = lens _aCreatedDate (\s a -> s {_aCreatedDate = a}) . mapping _Time
+activation_createdDate :: Lens.Lens' Activation (Prelude.Maybe Prelude.UTCTime)
+activation_createdDate = Lens.lens (\Activation' {createdDate} -> createdDate) (\s@Activation' {} a -> s {createdDate = a} :: Activation) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID created by Systems Manager when you submitted the activation.
-aActivationId :: Lens' Activation (Maybe Text)
-aActivationId = lens _aActivationId (\s a -> s {_aActivationId = a})
+activation_activationId :: Lens.Lens' Activation (Prelude.Maybe Prelude.Text)
+activation_activationId = Lens.lens (\Activation' {activationId} -> activationId) (\s@Activation' {} a -> s {activationId = a} :: Activation)
 
--- | The Amazon Identity and Access Management (IAM) role to assign to the managed instance.
-aIAMRole :: Lens' Activation (Maybe Text)
-aIAMRole = lens _aIAMRole (\s a -> s {_aIAMRole = a})
+-- | The Amazon Identity and Access Management (IAM) role to assign to the
+-- managed instance.
+activation_iamRole :: Lens.Lens' Activation (Prelude.Maybe Prelude.Text)
+activation_iamRole = Lens.lens (\Activation' {iamRole} -> iamRole) (\s@Activation' {} a -> s {iamRole = a} :: Activation)
 
 -- | A name for the managed instance when it is created.
-aDefaultInstanceName :: Lens' Activation (Maybe Text)
-aDefaultInstanceName = lens _aDefaultInstanceName (\s a -> s {_aDefaultInstanceName = a})
+activation_defaultInstanceName :: Lens.Lens' Activation (Prelude.Maybe Prelude.Text)
+activation_defaultInstanceName = Lens.lens (\Activation' {defaultInstanceName} -> defaultInstanceName) (\s@Activation' {} a -> s {defaultInstanceName = a} :: Activation)
 
--- | The date when this activation can no longer be used to register managed instances.
-aExpirationDate :: Lens' Activation (Maybe UTCTime)
-aExpirationDate = lens _aExpirationDate (\s a -> s {_aExpirationDate = a}) . mapping _Time
+-- | The date when this activation can no longer be used to register managed
+-- instances.
+activation_expirationDate :: Lens.Lens' Activation (Prelude.Maybe Prelude.UTCTime)
+activation_expirationDate = Lens.lens (\Activation' {expirationDate} -> expirationDate) (\s@Activation' {} a -> s {expirationDate = a} :: Activation) Prelude.. Lens.mapping Prelude._Time
 
 -- | Whether or not the activation is expired.
-aExpired :: Lens' Activation (Maybe Bool)
-aExpired = lens _aExpired (\s a -> s {_aExpired = a})
+activation_expired :: Lens.Lens' Activation (Prelude.Maybe Prelude.Bool)
+activation_expired = Lens.lens (\Activation' {expired} -> expired) (\s@Activation' {} a -> s {expired = a} :: Activation)
 
 -- | The number of managed instances already registered with this activation.
-aRegistrationsCount :: Lens' Activation (Maybe Natural)
-aRegistrationsCount = lens _aRegistrationsCount (\s a -> s {_aRegistrationsCount = a}) . mapping _Nat
+activation_registrationsCount :: Lens.Lens' Activation (Prelude.Maybe Prelude.Natural)
+activation_registrationsCount = Lens.lens (\Activation' {registrationsCount} -> registrationsCount) (\s@Activation' {} a -> s {registrationsCount = a} :: Activation) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Tags assigned to the activation.
-aTags :: Lens' Activation [Tag]
-aTags = lens _aTags (\s a -> s {_aTags = a}) . _Default . _Coerce
+activation_tags :: Lens.Lens' Activation (Prelude.Maybe [Tag])
+activation_tags = Lens.lens (\Activation' {tags} -> tags) (\s@Activation' {} a -> s {tags = a} :: Activation) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A user defined description of the activation.
-aDescription :: Lens' Activation (Maybe Text)
-aDescription = lens _aDescription (\s a -> s {_aDescription = a})
+activation_description :: Lens.Lens' Activation (Prelude.Maybe Prelude.Text)
+activation_description = Lens.lens (\Activation' {description} -> description) (\s@Activation' {} a -> s {description = a} :: Activation)
 
-instance FromJSON Activation where
+instance Prelude.FromJSON Activation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Activation"
       ( \x ->
           Activation'
-            <$> (x .:? "RegistrationLimit")
-            <*> (x .:? "CreatedDate")
-            <*> (x .:? "ActivationId")
-            <*> (x .:? "IamRole")
-            <*> (x .:? "DefaultInstanceName")
-            <*> (x .:? "ExpirationDate")
-            <*> (x .:? "Expired")
-            <*> (x .:? "RegistrationsCount")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "RegistrationLimit")
+            Prelude.<*> (x Prelude..:? "CreatedDate")
+            Prelude.<*> (x Prelude..:? "ActivationId")
+            Prelude.<*> (x Prelude..:? "IamRole")
+            Prelude.<*> (x Prelude..:? "DefaultInstanceName")
+            Prelude.<*> (x Prelude..:? "ExpirationDate")
+            Prelude.<*> (x Prelude..:? "Expired")
+            Prelude.<*> (x Prelude..:? "RegistrationsCount")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable Activation
+instance Prelude.Hashable Activation
 
-instance NFData Activation
+instance Prelude.NFData Activation

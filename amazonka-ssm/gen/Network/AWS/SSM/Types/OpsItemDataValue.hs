@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.OpsItemDataValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.OpsItemDataType
 
--- | An object that defines the value of the key and its type in the OperationalData map.
+-- | An object that defines the value of the key and its type in the
+-- OperationalData map.
 --
---
---
--- /See:/ 'opsItemDataValue' smart constructor.
+-- /See:/ 'newOpsItemDataValue' smart constructor.
 data OpsItemDataValue = OpsItemDataValue'
-  { _oidvValue ::
-      !(Maybe Text),
-    _oidvType :: !(Maybe OpsItemDataType)
+  { -- | The value of the OperationalData key.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The type of key-value pair. Valid types include @SearchableString@ and
+    -- @String@.
+    type' :: Prelude.Maybe OpsItemDataType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpsItemDataValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpsItemDataValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oidvValue' - The value of the OperationalData key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oidvType' - The type of key-value pair. Valid types include @SearchableString@ and @String@ .
-opsItemDataValue ::
+-- 'value', 'opsItemDataValue_value' - The value of the OperationalData key.
+--
+-- 'type'', 'opsItemDataValue_type' - The type of key-value pair. Valid types include @SearchableString@ and
+-- @String@.
+newOpsItemDataValue ::
   OpsItemDataValue
-opsItemDataValue =
+newOpsItemDataValue =
   OpsItemDataValue'
-    { _oidvValue = Nothing,
-      _oidvType = Nothing
+    { value = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The value of the OperationalData key.
-oidvValue :: Lens' OpsItemDataValue (Maybe Text)
-oidvValue = lens _oidvValue (\s a -> s {_oidvValue = a})
+opsItemDataValue_value :: Lens.Lens' OpsItemDataValue (Prelude.Maybe Prelude.Text)
+opsItemDataValue_value = Lens.lens (\OpsItemDataValue' {value} -> value) (\s@OpsItemDataValue' {} a -> s {value = a} :: OpsItemDataValue)
 
--- | The type of key-value pair. Valid types include @SearchableString@ and @String@ .
-oidvType :: Lens' OpsItemDataValue (Maybe OpsItemDataType)
-oidvType = lens _oidvType (\s a -> s {_oidvType = a})
+-- | The type of key-value pair. Valid types include @SearchableString@ and
+-- @String@.
+opsItemDataValue_type :: Lens.Lens' OpsItemDataValue (Prelude.Maybe OpsItemDataType)
+opsItemDataValue_type = Lens.lens (\OpsItemDataValue' {type'} -> type') (\s@OpsItemDataValue' {} a -> s {type' = a} :: OpsItemDataValue)
 
-instance FromJSON OpsItemDataValue where
+instance Prelude.FromJSON OpsItemDataValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OpsItemDataValue"
       ( \x ->
           OpsItemDataValue'
-            <$> (x .:? "Value") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable OpsItemDataValue
+instance Prelude.Hashable OpsItemDataValue
 
-instance NFData OpsItemDataValue
+instance Prelude.NFData OpsItemDataValue
 
-instance ToJSON OpsItemDataValue where
+instance Prelude.ToJSON OpsItemDataValue where
   toJSON OpsItemDataValue' {..} =
-    object
-      ( catMaybes
-          [ ("Value" .=) <$> _oidvValue,
-            ("Type" .=) <$> _oidvType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Value" Prelude..=) Prelude.<$> value,
+            ("Type" Prelude..=) Prelude.<$> type'
           ]
       )

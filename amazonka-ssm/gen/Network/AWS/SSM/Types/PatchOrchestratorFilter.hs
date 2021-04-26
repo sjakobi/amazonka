@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.PatchOrchestratorFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines a filter used in Patch Manager APIs.
 --
---
---
--- /See:/ 'patchOrchestratorFilter' smart constructor.
+-- /See:/ 'newPatchOrchestratorFilter' smart constructor.
 data PatchOrchestratorFilter = PatchOrchestratorFilter'
-  { _pofKey ::
-      !(Maybe Text),
-    _pofValues ::
-      !(Maybe [Text])
+  { -- | The key for the filter.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value for the filter.
+    values :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PatchOrchestratorFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PatchOrchestratorFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pofKey' - The key for the filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pofValues' - The value for the filter.
-patchOrchestratorFilter ::
+-- 'key', 'patchOrchestratorFilter_key' - The key for the filter.
+--
+-- 'values', 'patchOrchestratorFilter_values' - The value for the filter.
+newPatchOrchestratorFilter ::
   PatchOrchestratorFilter
-patchOrchestratorFilter =
+newPatchOrchestratorFilter =
   PatchOrchestratorFilter'
-    { _pofKey = Nothing,
-      _pofValues = Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
     }
 
 -- | The key for the filter.
-pofKey :: Lens' PatchOrchestratorFilter (Maybe Text)
-pofKey = lens _pofKey (\s a -> s {_pofKey = a})
+patchOrchestratorFilter_key :: Lens.Lens' PatchOrchestratorFilter (Prelude.Maybe Prelude.Text)
+patchOrchestratorFilter_key = Lens.lens (\PatchOrchestratorFilter' {key} -> key) (\s@PatchOrchestratorFilter' {} a -> s {key = a} :: PatchOrchestratorFilter)
 
 -- | The value for the filter.
-pofValues :: Lens' PatchOrchestratorFilter [Text]
-pofValues = lens _pofValues (\s a -> s {_pofValues = a}) . _Default . _Coerce
+patchOrchestratorFilter_values :: Lens.Lens' PatchOrchestratorFilter (Prelude.Maybe [Prelude.Text])
+patchOrchestratorFilter_values = Lens.lens (\PatchOrchestratorFilter' {values} -> values) (\s@PatchOrchestratorFilter' {} a -> s {values = a} :: PatchOrchestratorFilter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable PatchOrchestratorFilter
+instance Prelude.Hashable PatchOrchestratorFilter
 
-instance NFData PatchOrchestratorFilter
+instance Prelude.NFData PatchOrchestratorFilter
 
-instance ToJSON PatchOrchestratorFilter where
+instance Prelude.ToJSON PatchOrchestratorFilter where
   toJSON PatchOrchestratorFilter' {..} =
-    object
-      ( catMaybes
-          [ ("Key" .=) <$> _pofKey,
-            ("Values" .=) <$> _pofValues
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Values" Prelude..=) Prelude.<$> values
           ]
       )

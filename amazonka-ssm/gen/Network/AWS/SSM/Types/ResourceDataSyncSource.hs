@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,88 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ResourceDataSyncSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.SSM.Types.ResourceDataSyncAWSOrganizationsSource
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import Network.AWS.SSM.Types.ResourceDataSyncAwsOrganizationsSource
 
--- | Information about the source of the data included in the resource data sync.
+-- | Information about the source of the data included in the resource data
+-- sync.
 --
---
---
--- /See:/ 'resourceDataSyncSource' smart constructor.
+-- /See:/ 'newResourceDataSyncSource' smart constructor.
 data ResourceDataSyncSource = ResourceDataSyncSource'
-  { _rdssIncludeFutureRegions ::
-      !(Maybe Bool),
-    _rdssAWSOrganizationsSource ::
-      !( Maybe
-           ResourceDataSyncAWSOrganizationsSource
-       ),
-    _rdssSourceType :: !Text,
-    _rdssSourceRegions ::
-      ![Text]
+  { -- | Whether to automatically synchronize and aggregate data from new AWS
+    -- Regions when those Regions come online.
+    includeFutureRegions :: Prelude.Maybe Prelude.Bool,
+    -- | Information about the AwsOrganizationsSource resource data sync source.
+    -- A sync source of this type can synchronize data from AWS Organizations.
+    awsOrganizationsSource :: Prelude.Maybe ResourceDataSyncAwsOrganizationsSource,
+    -- | The type of data source for the resource data sync. @SourceType@ is
+    -- either @AwsOrganizations@ (if an organization is present in AWS
+    -- Organizations) or @singleAccountMultiRegions@.
+    sourceType :: Prelude.Text,
+    -- | The @SyncSource@ AWS Regions included in the resource data sync.
+    sourceRegions :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceDataSyncSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceDataSyncSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdssIncludeFutureRegions' - Whether to automatically synchronize and aggregate data from new AWS Regions when those Regions come online.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdssAWSOrganizationsSource' - Information about the AwsOrganizationsSource resource data sync source. A sync source of this type can synchronize data from AWS Organizations.
+-- 'includeFutureRegions', 'resourceDataSyncSource_includeFutureRegions' - Whether to automatically synchronize and aggregate data from new AWS
+-- Regions when those Regions come online.
 --
--- * 'rdssSourceType' - The type of data source for the resource data sync. @SourceType@ is either @AwsOrganizations@ (if an organization is present in AWS Organizations) or @singleAccountMultiRegions@ .
+-- 'awsOrganizationsSource', 'resourceDataSyncSource_awsOrganizationsSource' - Information about the AwsOrganizationsSource resource data sync source.
+-- A sync source of this type can synchronize data from AWS Organizations.
 --
--- * 'rdssSourceRegions' - The @SyncSource@ AWS Regions included in the resource data sync.
-resourceDataSyncSource ::
-  -- | 'rdssSourceType'
-  Text ->
+-- 'sourceType', 'resourceDataSyncSource_sourceType' - The type of data source for the resource data sync. @SourceType@ is
+-- either @AwsOrganizations@ (if an organization is present in AWS
+-- Organizations) or @singleAccountMultiRegions@.
+--
+-- 'sourceRegions', 'resourceDataSyncSource_sourceRegions' - The @SyncSource@ AWS Regions included in the resource data sync.
+newResourceDataSyncSource ::
+  -- | 'sourceType'
+  Prelude.Text ->
   ResourceDataSyncSource
-resourceDataSyncSource pSourceType_ =
+newResourceDataSyncSource pSourceType_ =
   ResourceDataSyncSource'
-    { _rdssIncludeFutureRegions =
-        Nothing,
-      _rdssAWSOrganizationsSource = Nothing,
-      _rdssSourceType = pSourceType_,
-      _rdssSourceRegions = mempty
+    { includeFutureRegions =
+        Prelude.Nothing,
+      awsOrganizationsSource = Prelude.Nothing,
+      sourceType = pSourceType_,
+      sourceRegions = Prelude.mempty
     }
 
--- | Whether to automatically synchronize and aggregate data from new AWS Regions when those Regions come online.
-rdssIncludeFutureRegions :: Lens' ResourceDataSyncSource (Maybe Bool)
-rdssIncludeFutureRegions = lens _rdssIncludeFutureRegions (\s a -> s {_rdssIncludeFutureRegions = a})
+-- | Whether to automatically synchronize and aggregate data from new AWS
+-- Regions when those Regions come online.
+resourceDataSyncSource_includeFutureRegions :: Lens.Lens' ResourceDataSyncSource (Prelude.Maybe Prelude.Bool)
+resourceDataSyncSource_includeFutureRegions = Lens.lens (\ResourceDataSyncSource' {includeFutureRegions} -> includeFutureRegions) (\s@ResourceDataSyncSource' {} a -> s {includeFutureRegions = a} :: ResourceDataSyncSource)
 
--- | Information about the AwsOrganizationsSource resource data sync source. A sync source of this type can synchronize data from AWS Organizations.
-rdssAWSOrganizationsSource :: Lens' ResourceDataSyncSource (Maybe ResourceDataSyncAWSOrganizationsSource)
-rdssAWSOrganizationsSource = lens _rdssAWSOrganizationsSource (\s a -> s {_rdssAWSOrganizationsSource = a})
+-- | Information about the AwsOrganizationsSource resource data sync source.
+-- A sync source of this type can synchronize data from AWS Organizations.
+resourceDataSyncSource_awsOrganizationsSource :: Lens.Lens' ResourceDataSyncSource (Prelude.Maybe ResourceDataSyncAwsOrganizationsSource)
+resourceDataSyncSource_awsOrganizationsSource = Lens.lens (\ResourceDataSyncSource' {awsOrganizationsSource} -> awsOrganizationsSource) (\s@ResourceDataSyncSource' {} a -> s {awsOrganizationsSource = a} :: ResourceDataSyncSource)
 
--- | The type of data source for the resource data sync. @SourceType@ is either @AwsOrganizations@ (if an organization is present in AWS Organizations) or @singleAccountMultiRegions@ .
-rdssSourceType :: Lens' ResourceDataSyncSource Text
-rdssSourceType = lens _rdssSourceType (\s a -> s {_rdssSourceType = a})
+-- | The type of data source for the resource data sync. @SourceType@ is
+-- either @AwsOrganizations@ (if an organization is present in AWS
+-- Organizations) or @singleAccountMultiRegions@.
+resourceDataSyncSource_sourceType :: Lens.Lens' ResourceDataSyncSource Prelude.Text
+resourceDataSyncSource_sourceType = Lens.lens (\ResourceDataSyncSource' {sourceType} -> sourceType) (\s@ResourceDataSyncSource' {} a -> s {sourceType = a} :: ResourceDataSyncSource)
 
 -- | The @SyncSource@ AWS Regions included in the resource data sync.
-rdssSourceRegions :: Lens' ResourceDataSyncSource [Text]
-rdssSourceRegions = lens _rdssSourceRegions (\s a -> s {_rdssSourceRegions = a}) . _Coerce
+resourceDataSyncSource_sourceRegions :: Lens.Lens' ResourceDataSyncSource [Prelude.Text]
+resourceDataSyncSource_sourceRegions = Lens.lens (\ResourceDataSyncSource' {sourceRegions} -> sourceRegions) (\s@ResourceDataSyncSource' {} a -> s {sourceRegions = a} :: ResourceDataSyncSource) Prelude.. Prelude._Coerce
 
-instance Hashable ResourceDataSyncSource
+instance Prelude.Hashable ResourceDataSyncSource
 
-instance NFData ResourceDataSyncSource
+instance Prelude.NFData ResourceDataSyncSource
 
-instance ToJSON ResourceDataSyncSource where
+instance Prelude.ToJSON ResourceDataSyncSource where
   toJSON ResourceDataSyncSource' {..} =
-    object
-      ( catMaybes
-          [ ("IncludeFutureRegions" .=)
-              <$> _rdssIncludeFutureRegions,
-            ("AwsOrganizationsSource" .=)
-              <$> _rdssAWSOrganizationsSource,
-            Just ("SourceType" .= _rdssSourceType),
-            Just ("SourceRegions" .= _rdssSourceRegions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IncludeFutureRegions" Prelude..=)
+              Prelude.<$> includeFutureRegions,
+            ("AwsOrganizationsSource" Prelude..=)
+              Prelude.<$> awsOrganizationsSource,
+            Prelude.Just ("SourceType" Prelude..= sourceType),
+            Prelude.Just
+              ("SourceRegions" Prelude..= sourceRegions)
           ]
       )

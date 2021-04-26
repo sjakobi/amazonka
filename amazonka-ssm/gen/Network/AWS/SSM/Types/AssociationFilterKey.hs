@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.SSM.Types.AssociationFilterKey
   ( AssociationFilterKey
       ( ..,
-        AFKAssociationId,
-        AFKAssociationName,
-        AFKAssociationStatusName,
-        AFKInstanceId,
-        AFKLastExecutedAfter,
-        AFKLastExecutedBefore,
-        AFKName,
-        AFKResourceGroupName
+        AssociationFilterKeyAssociationId,
+        AssociationFilterKeyAssociationName,
+        AssociationFilterKeyAssociationStatusName,
+        AssociationFilterKeyInstanceId,
+        AssociationFilterKeyLastExecutedAfter,
+        AssociationFilterKeyLastExecutedBefore,
+        AssociationFilterKeyName,
+        AssociationFilterKeyResourceGroupName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationFilterKey
-  = AssociationFilterKey'
-      ( CI
-          Text
-      )
+newtype AssociationFilterKey = AssociationFilterKey'
+  { fromAssociationFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AFKAssociationId :: AssociationFilterKey
-pattern AFKAssociationId = AssociationFilterKey' "AssociationId"
+pattern AssociationFilterKeyAssociationId :: AssociationFilterKey
+pattern AssociationFilterKeyAssociationId = AssociationFilterKey' "AssociationId"
 
-pattern AFKAssociationName :: AssociationFilterKey
-pattern AFKAssociationName = AssociationFilterKey' "AssociationName"
+pattern AssociationFilterKeyAssociationName :: AssociationFilterKey
+pattern AssociationFilterKeyAssociationName = AssociationFilterKey' "AssociationName"
 
-pattern AFKAssociationStatusName :: AssociationFilterKey
-pattern AFKAssociationStatusName = AssociationFilterKey' "AssociationStatusName"
+pattern AssociationFilterKeyAssociationStatusName :: AssociationFilterKey
+pattern AssociationFilterKeyAssociationStatusName = AssociationFilterKey' "AssociationStatusName"
 
-pattern AFKInstanceId :: AssociationFilterKey
-pattern AFKInstanceId = AssociationFilterKey' "InstanceId"
+pattern AssociationFilterKeyInstanceId :: AssociationFilterKey
+pattern AssociationFilterKeyInstanceId = AssociationFilterKey' "InstanceId"
 
-pattern AFKLastExecutedAfter :: AssociationFilterKey
-pattern AFKLastExecutedAfter = AssociationFilterKey' "LastExecutedAfter"
+pattern AssociationFilterKeyLastExecutedAfter :: AssociationFilterKey
+pattern AssociationFilterKeyLastExecutedAfter = AssociationFilterKey' "LastExecutedAfter"
 
-pattern AFKLastExecutedBefore :: AssociationFilterKey
-pattern AFKLastExecutedBefore = AssociationFilterKey' "LastExecutedBefore"
+pattern AssociationFilterKeyLastExecutedBefore :: AssociationFilterKey
+pattern AssociationFilterKeyLastExecutedBefore = AssociationFilterKey' "LastExecutedBefore"
 
-pattern AFKName :: AssociationFilterKey
-pattern AFKName = AssociationFilterKey' "Name"
+pattern AssociationFilterKeyName :: AssociationFilterKey
+pattern AssociationFilterKeyName = AssociationFilterKey' "Name"
 
-pattern AFKResourceGroupName :: AssociationFilterKey
-pattern AFKResourceGroupName = AssociationFilterKey' "ResourceGroupName"
+pattern AssociationFilterKeyResourceGroupName :: AssociationFilterKey
+pattern AssociationFilterKeyResourceGroupName = AssociationFilterKey' "ResourceGroupName"
 
 {-# COMPLETE
-  AFKAssociationId,
-  AFKAssociationName,
-  AFKAssociationStatusName,
-  AFKInstanceId,
-  AFKLastExecutedAfter,
-  AFKLastExecutedBefore,
-  AFKName,
-  AFKResourceGroupName,
+  AssociationFilterKeyAssociationId,
+  AssociationFilterKeyAssociationName,
+  AssociationFilterKeyAssociationStatusName,
+  AssociationFilterKeyInstanceId,
+  AssociationFilterKeyLastExecutedAfter,
+  AssociationFilterKeyLastExecutedBefore,
+  AssociationFilterKeyName,
+  AssociationFilterKeyResourceGroupName,
   AssociationFilterKey'
   #-}
 
-instance FromText AssociationFilterKey where
-  parser = (AssociationFilterKey' . mk) <$> takeText
+instance Prelude.FromText AssociationFilterKey where
+  parser = AssociationFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationFilterKey where
-  toText (AssociationFilterKey' ci) = original ci
+instance Prelude.ToText AssociationFilterKey where
+  toText (AssociationFilterKey' x) = x
 
-instance Hashable AssociationFilterKey
+instance Prelude.Hashable AssociationFilterKey
 
-instance NFData AssociationFilterKey
+instance Prelude.NFData AssociationFilterKey
 
-instance ToByteString AssociationFilterKey
+instance Prelude.ToByteString AssociationFilterKey
 
-instance ToQuery AssociationFilterKey
+instance Prelude.ToQuery AssociationFilterKey
 
-instance ToHeader AssociationFilterKey
+instance Prelude.ToHeader AssociationFilterKey
 
-instance ToJSON AssociationFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssociationFilterKey where
+  toJSON = Prelude.toJSONText

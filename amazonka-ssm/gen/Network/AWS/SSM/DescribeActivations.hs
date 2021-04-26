@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,184 +21,217 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes details about the activation, such as the date and time the activation was created, its expiration date, the IAM role assigned to the instances in the activation, and the number of instances registered by using this activation.
---
---
+-- Describes details about the activation, such as the date and time the
+-- activation was created, its expiration date, the IAM role assigned to
+-- the instances in the activation, and the number of instances registered
+-- by using this activation.
 --
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribeActivations
   ( -- * Creating a Request
-    describeActivations,
-    DescribeActivations,
+    DescribeActivations (..),
+    newDescribeActivations,
 
     -- * Request Lenses
-    daNextToken,
-    daMaxResults,
-    daFilters,
+    describeActivations_nextToken,
+    describeActivations_maxResults,
+    describeActivations_filters,
 
     -- * Destructuring the Response
-    describeActivationsResponse,
-    DescribeActivationsResponse,
+    DescribeActivationsResponse (..),
+    newDescribeActivationsResponse,
 
     -- * Response Lenses
-    dararsNextToken,
-    dararsActivationList,
-    dararsResponseStatus,
+    describeActivationsResponse_nextToken,
+    describeActivationsResponse_activationList,
+    describeActivationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Activation
 
--- | /See:/ 'describeActivations' smart constructor.
+-- | /See:/ 'newDescribeActivations' smart constructor.
 data DescribeActivations = DescribeActivations'
-  { _daNextToken ::
-      !(Maybe Text),
-    _daMaxResults :: !(Maybe Nat),
-    _daFilters ::
-      !( Maybe
-           [DescribeActivationsFilter]
-       )
+  { -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter to view information about your activations.
+    filters :: Prelude.Maybe [DescribeActivationsFilter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeActivations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeActivations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daNextToken' - A token to start the list. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'describeActivations_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 --
--- * 'daFilters' - A filter to view information about your activations.
-describeActivations ::
+-- 'maxResults', 'describeActivations_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+--
+-- 'filters', 'describeActivations_filters' - A filter to view information about your activations.
+newDescribeActivations ::
   DescribeActivations
-describeActivations =
+newDescribeActivations =
   DescribeActivations'
-    { _daNextToken = Nothing,
-      _daMaxResults = Nothing,
-      _daFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | A token to start the list. Use this token to get the next set of results.
-daNextToken :: Lens' DescribeActivations (Maybe Text)
-daNextToken = lens _daNextToken (\s a -> s {_daNextToken = a})
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+describeActivations_nextToken :: Lens.Lens' DescribeActivations (Prelude.Maybe Prelude.Text)
+describeActivations_nextToken = Lens.lens (\DescribeActivations' {nextToken} -> nextToken) (\s@DescribeActivations' {} a -> s {nextToken = a} :: DescribeActivations)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-daMaxResults :: Lens' DescribeActivations (Maybe Natural)
-daMaxResults = lens _daMaxResults (\s a -> s {_daMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describeActivations_maxResults :: Lens.Lens' DescribeActivations (Prelude.Maybe Prelude.Natural)
+describeActivations_maxResults = Lens.lens (\DescribeActivations' {maxResults} -> maxResults) (\s@DescribeActivations' {} a -> s {maxResults = a} :: DescribeActivations) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A filter to view information about your activations.
-daFilters :: Lens' DescribeActivations [DescribeActivationsFilter]
-daFilters = lens _daFilters (\s a -> s {_daFilters = a}) . _Default . _Coerce
+describeActivations_filters :: Lens.Lens' DescribeActivations (Prelude.Maybe [DescribeActivationsFilter])
+describeActivations_filters = Lens.lens (\DescribeActivations' {filters} -> filters) (\s@DescribeActivations' {} a -> s {filters = a} :: DescribeActivations) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeActivations where
+instance Pager.AWSPager DescribeActivations where
   page rq rs
-    | stop (rs ^. dararsNextToken) = Nothing
-    | stop (rs ^. dararsActivationList) = Nothing
-    | otherwise =
-      Just $ rq & daNextToken .~ rs ^. dararsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeActivationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeActivationsResponse_activationList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeActivations_nextToken
+          Lens..~ rs
+          Lens.^? describeActivationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeActivations where
+instance Prelude.AWSRequest DescribeActivations where
   type
     Rs DescribeActivations =
       DescribeActivationsResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeActivationsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ActivationList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ActivationList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeActivations
+instance Prelude.Hashable DescribeActivations
 
-instance NFData DescribeActivations
+instance Prelude.NFData DescribeActivations
 
-instance ToHeaders DescribeActivations where
+instance Prelude.ToHeaders DescribeActivations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.DescribeActivations" :: ByteString),
+              Prelude.=# ( "AmazonSSM.DescribeActivations" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeActivations where
+instance Prelude.ToJSON DescribeActivations where
   toJSON DescribeActivations' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _daNextToken,
-            ("MaxResults" .=) <$> _daMaxResults,
-            ("Filters" .=) <$> _daFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath DescribeActivations where
-  toPath = const "/"
+instance Prelude.ToPath DescribeActivations where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeActivations where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeActivations where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeActivationsResponse' smart constructor.
+-- | /See:/ 'newDescribeActivationsResponse' smart constructor.
 data DescribeActivationsResponse = DescribeActivationsResponse'
-  { _dararsNextToken ::
-      !(Maybe Text),
-    _dararsActivationList ::
-      !( Maybe
-           [Activation]
-       ),
-    _dararsResponseStatus ::
-      !Int
+  { -- | The token for the next set of items to return. Use this token to get the
+    -- next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of activations for your AWS account.
+    activationList :: Prelude.Maybe [Activation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeActivationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeActivationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dararsNextToken' - The token for the next set of items to return. Use this token to get the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dararsActivationList' - A list of activations for your AWS account.
+-- 'nextToken', 'describeActivationsResponse_nextToken' - The token for the next set of items to return. Use this token to get the
+-- next set of results.
 --
--- * 'dararsResponseStatus' - -- | The response status code.
-describeActivationsResponse ::
-  -- | 'dararsResponseStatus'
-  Int ->
+-- 'activationList', 'describeActivationsResponse_activationList' - A list of activations for your AWS account.
+--
+-- 'httpStatus', 'describeActivationsResponse_httpStatus' - The response's http status code.
+newDescribeActivationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeActivationsResponse
-describeActivationsResponse pResponseStatus_ =
+newDescribeActivationsResponse pHttpStatus_ =
   DescribeActivationsResponse'
-    { _dararsNextToken =
-        Nothing,
-      _dararsActivationList = Nothing,
-      _dararsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      activationList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of items to return. Use this token to get the next set of results.
-dararsNextToken :: Lens' DescribeActivationsResponse (Maybe Text)
-dararsNextToken = lens _dararsNextToken (\s a -> s {_dararsNextToken = a})
+-- | The token for the next set of items to return. Use this token to get the
+-- next set of results.
+describeActivationsResponse_nextToken :: Lens.Lens' DescribeActivationsResponse (Prelude.Maybe Prelude.Text)
+describeActivationsResponse_nextToken = Lens.lens (\DescribeActivationsResponse' {nextToken} -> nextToken) (\s@DescribeActivationsResponse' {} a -> s {nextToken = a} :: DescribeActivationsResponse)
 
 -- | A list of activations for your AWS account.
-dararsActivationList :: Lens' DescribeActivationsResponse [Activation]
-dararsActivationList = lens _dararsActivationList (\s a -> s {_dararsActivationList = a}) . _Default . _Coerce
+describeActivationsResponse_activationList :: Lens.Lens' DescribeActivationsResponse (Prelude.Maybe [Activation])
+describeActivationsResponse_activationList = Lens.lens (\DescribeActivationsResponse' {activationList} -> activationList) (\s@DescribeActivationsResponse' {} a -> s {activationList = a} :: DescribeActivationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dararsResponseStatus :: Lens' DescribeActivationsResponse Int
-dararsResponseStatus = lens _dararsResponseStatus (\s a -> s {_dararsResponseStatus = a})
+-- | The response's http status code.
+describeActivationsResponse_httpStatus :: Lens.Lens' DescribeActivationsResponse Prelude.Int
+describeActivationsResponse_httpStatus = Lens.lens (\DescribeActivationsResponse' {httpStatus} -> httpStatus) (\s@DescribeActivationsResponse' {} a -> s {httpStatus = a} :: DescribeActivationsResponse)
 
-instance NFData DescribeActivationsResponse
+instance Prelude.NFData DescribeActivationsResponse

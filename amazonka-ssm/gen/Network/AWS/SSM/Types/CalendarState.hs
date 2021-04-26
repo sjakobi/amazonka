@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SSM.Types.CalendarState
   ( CalendarState
       ( ..,
-        Closed,
-        Open
+        CalendarStateCLOSED,
+        CalendarStateOPEN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CalendarState = CalendarState' (CI Text)
+newtype CalendarState = CalendarState'
+  { fromCalendarState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Closed :: CalendarState
-pattern Closed = CalendarState' "CLOSED"
+pattern CalendarStateCLOSED :: CalendarState
+pattern CalendarStateCLOSED = CalendarState' "CLOSED"
 
-pattern Open :: CalendarState
-pattern Open = CalendarState' "OPEN"
+pattern CalendarStateOPEN :: CalendarState
+pattern CalendarStateOPEN = CalendarState' "OPEN"
 
 {-# COMPLETE
-  Closed,
-  Open,
+  CalendarStateCLOSED,
+  CalendarStateOPEN,
   CalendarState'
   #-}
 
-instance FromText CalendarState where
-  parser = (CalendarState' . mk) <$> takeText
+instance Prelude.FromText CalendarState where
+  parser = CalendarState' Prelude.<$> Prelude.takeText
 
-instance ToText CalendarState where
-  toText (CalendarState' ci) = original ci
+instance Prelude.ToText CalendarState where
+  toText (CalendarState' x) = x
 
-instance Hashable CalendarState
+instance Prelude.Hashable CalendarState
 
-instance NFData CalendarState
+instance Prelude.NFData CalendarState
 
-instance ToByteString CalendarState
+instance Prelude.ToByteString CalendarState
 
-instance ToQuery CalendarState
+instance Prelude.ToQuery CalendarState
 
-instance ToHeader CalendarState
+instance Prelude.ToHeader CalendarState
 
-instance FromJSON CalendarState where
-  parseJSON = parseJSONText "CalendarState"
+instance Prelude.FromJSON CalendarState where
+  parseJSON = Prelude.parseJSONText "CalendarState"

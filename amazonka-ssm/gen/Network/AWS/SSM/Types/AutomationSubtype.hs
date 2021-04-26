@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.SSM.Types.AutomationSubtype
   ( AutomationSubtype
       ( ..,
-        ChangeRequest
+        AutomationSubtypeChangeRequest
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutomationSubtype = AutomationSubtype' (CI Text)
+newtype AutomationSubtype = AutomationSubtype'
+  { fromAutomationSubtype ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ChangeRequest :: AutomationSubtype
-pattern ChangeRequest = AutomationSubtype' "ChangeRequest"
+pattern AutomationSubtypeChangeRequest :: AutomationSubtype
+pattern AutomationSubtypeChangeRequest = AutomationSubtype' "ChangeRequest"
 
 {-# COMPLETE
-  ChangeRequest,
+  AutomationSubtypeChangeRequest,
   AutomationSubtype'
   #-}
 
-instance FromText AutomationSubtype where
-  parser = (AutomationSubtype' . mk) <$> takeText
+instance Prelude.FromText AutomationSubtype where
+  parser = AutomationSubtype' Prelude.<$> Prelude.takeText
 
-instance ToText AutomationSubtype where
-  toText (AutomationSubtype' ci) = original ci
+instance Prelude.ToText AutomationSubtype where
+  toText (AutomationSubtype' x) = x
 
-instance Hashable AutomationSubtype
+instance Prelude.Hashable AutomationSubtype
 
-instance NFData AutomationSubtype
+instance Prelude.NFData AutomationSubtype
 
-instance ToByteString AutomationSubtype
+instance Prelude.ToByteString AutomationSubtype
 
-instance ToQuery AutomationSubtype
+instance Prelude.ToQuery AutomationSubtype
 
-instance ToHeader AutomationSubtype
+instance Prelude.ToHeader AutomationSubtype
 
-instance FromJSON AutomationSubtype where
-  parseJSON = parseJSONText "AutomationSubtype"
+instance Prelude.FromJSON AutomationSubtype where
+  parseJSON = Prelude.parseJSONText "AutomationSubtype"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ParameterInlinePolicy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | One or more policies assigned to a parameter.
 --
---
---
--- /See:/ 'parameterInlinePolicy' smart constructor.
+-- /See:/ 'newParameterInlinePolicy' smart constructor.
 data ParameterInlinePolicy = ParameterInlinePolicy'
-  { _pipPolicyType ::
-      !(Maybe Text),
-    _pipPolicyText ::
-      !(Maybe Text),
-    _pipPolicyStatus ::
-      !(Maybe Text)
+  { -- | The type of policy. Parameter Store supports the following policy types:
+    -- Expiration, ExpirationNotification, and NoChangeNotification.
+    policyType :: Prelude.Maybe Prelude.Text,
+    -- | The JSON text of the policy.
+    policyText :: Prelude.Maybe Prelude.Text,
+    -- | The status of the policy. Policies report the following statuses:
+    -- Pending (the policy has not been enforced or applied yet), Finished (the
+    -- policy was applied), Failed (the policy was not applied), or InProgress
+    -- (the policy is being applied now).
+    policyStatus :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParameterInlinePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParameterInlinePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pipPolicyType' - The type of policy. Parameter Store supports the following policy types: Expiration, ExpirationNotification, and NoChangeNotification.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pipPolicyText' - The JSON text of the policy.
+-- 'policyType', 'parameterInlinePolicy_policyType' - The type of policy. Parameter Store supports the following policy types:
+-- Expiration, ExpirationNotification, and NoChangeNotification.
 --
--- * 'pipPolicyStatus' - The status of the policy. Policies report the following statuses: Pending (the policy has not been enforced or applied yet), Finished (the policy was applied), Failed (the policy was not applied), or InProgress (the policy is being applied now).
-parameterInlinePolicy ::
+-- 'policyText', 'parameterInlinePolicy_policyText' - The JSON text of the policy.
+--
+-- 'policyStatus', 'parameterInlinePolicy_policyStatus' - The status of the policy. Policies report the following statuses:
+-- Pending (the policy has not been enforced or applied yet), Finished (the
+-- policy was applied), Failed (the policy was not applied), or InProgress
+-- (the policy is being applied now).
+newParameterInlinePolicy ::
   ParameterInlinePolicy
-parameterInlinePolicy =
+newParameterInlinePolicy =
   ParameterInlinePolicy'
-    { _pipPolicyType = Nothing,
-      _pipPolicyText = Nothing,
-      _pipPolicyStatus = Nothing
+    { policyType =
+        Prelude.Nothing,
+      policyText = Prelude.Nothing,
+      policyStatus = Prelude.Nothing
     }
 
--- | The type of policy. Parameter Store supports the following policy types: Expiration, ExpirationNotification, and NoChangeNotification.
-pipPolicyType :: Lens' ParameterInlinePolicy (Maybe Text)
-pipPolicyType = lens _pipPolicyType (\s a -> s {_pipPolicyType = a})
+-- | The type of policy. Parameter Store supports the following policy types:
+-- Expiration, ExpirationNotification, and NoChangeNotification.
+parameterInlinePolicy_policyType :: Lens.Lens' ParameterInlinePolicy (Prelude.Maybe Prelude.Text)
+parameterInlinePolicy_policyType = Lens.lens (\ParameterInlinePolicy' {policyType} -> policyType) (\s@ParameterInlinePolicy' {} a -> s {policyType = a} :: ParameterInlinePolicy)
 
 -- | The JSON text of the policy.
-pipPolicyText :: Lens' ParameterInlinePolicy (Maybe Text)
-pipPolicyText = lens _pipPolicyText (\s a -> s {_pipPolicyText = a})
+parameterInlinePolicy_policyText :: Lens.Lens' ParameterInlinePolicy (Prelude.Maybe Prelude.Text)
+parameterInlinePolicy_policyText = Lens.lens (\ParameterInlinePolicy' {policyText} -> policyText) (\s@ParameterInlinePolicy' {} a -> s {policyText = a} :: ParameterInlinePolicy)
 
--- | The status of the policy. Policies report the following statuses: Pending (the policy has not been enforced or applied yet), Finished (the policy was applied), Failed (the policy was not applied), or InProgress (the policy is being applied now).
-pipPolicyStatus :: Lens' ParameterInlinePolicy (Maybe Text)
-pipPolicyStatus = lens _pipPolicyStatus (\s a -> s {_pipPolicyStatus = a})
+-- | The status of the policy. Policies report the following statuses:
+-- Pending (the policy has not been enforced or applied yet), Finished (the
+-- policy was applied), Failed (the policy was not applied), or InProgress
+-- (the policy is being applied now).
+parameterInlinePolicy_policyStatus :: Lens.Lens' ParameterInlinePolicy (Prelude.Maybe Prelude.Text)
+parameterInlinePolicy_policyStatus = Lens.lens (\ParameterInlinePolicy' {policyStatus} -> policyStatus) (\s@ParameterInlinePolicy' {} a -> s {policyStatus = a} :: ParameterInlinePolicy)
 
-instance FromJSON ParameterInlinePolicy where
+instance Prelude.FromJSON ParameterInlinePolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ParameterInlinePolicy"
       ( \x ->
           ParameterInlinePolicy'
-            <$> (x .:? "PolicyType")
-            <*> (x .:? "PolicyText")
-            <*> (x .:? "PolicyStatus")
+            Prelude.<$> (x Prelude..:? "PolicyType")
+            Prelude.<*> (x Prelude..:? "PolicyText")
+            Prelude.<*> (x Prelude..:? "PolicyStatus")
       )
 
-instance Hashable ParameterInlinePolicy
+instance Prelude.Hashable ParameterInlinePolicy
 
-instance NFData ParameterInlinePolicy
+instance Prelude.NFData ParameterInlinePolicy

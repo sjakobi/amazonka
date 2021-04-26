@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,144 +19,153 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ResourceDataSyncItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.LastResourceDataSyncStatus
 import Network.AWS.SSM.Types.ResourceDataSyncS3Destination
 import Network.AWS.SSM.Types.ResourceDataSyncSourceWithState
 
--- | Information about a Resource Data Sync configuration, including its current status and last successful sync.
+-- | Information about a Resource Data Sync configuration, including its
+-- current status and last successful sync.
 --
---
---
--- /See:/ 'resourceDataSyncItem' smart constructor.
+-- /See:/ 'newResourceDataSyncItem' smart constructor.
 data ResourceDataSyncItem = ResourceDataSyncItem'
-  { _rdsiSyncType ::
-      !(Maybe Text),
-    _rdsiS3Destination ::
-      !( Maybe
-           ResourceDataSyncS3Destination
-       ),
-    _rdsiSyncLastModifiedTime ::
-      !(Maybe POSIX),
-    _rdsiLastSyncTime ::
-      !(Maybe POSIX),
-    _rdsiSyncName ::
-      !(Maybe Text),
-    _rdsiSyncSource ::
-      !( Maybe
-           ResourceDataSyncSourceWithState
-       ),
-    _rdsiLastSuccessfulSyncTime ::
-      !(Maybe POSIX),
-    _rdsiLastStatus ::
-      !( Maybe
-           LastResourceDataSyncStatus
-       ),
-    _rdsiLastSyncStatusMessage ::
-      !(Maybe Text),
-    _rdsiSyncCreatedTime ::
-      !(Maybe POSIX)
+  { -- | The type of resource data sync. If @SyncType@ is @SyncToDestination@,
+    -- then the resource data sync synchronizes data to an S3 bucket. If the
+    -- @SyncType@ is @SyncFromSource@ then the resource data sync synchronizes
+    -- data from AWS Organizations or from multiple AWS Regions.
+    syncType :: Prelude.Maybe Prelude.Text,
+    -- | Configuration information for the target S3 bucket.
+    s3Destination :: Prelude.Maybe ResourceDataSyncS3Destination,
+    -- | The date and time the resource data sync was changed.
+    syncLastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The last time the configuration attempted to sync (UTC).
+    lastSyncTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the Resource Data Sync.
+    syncName :: Prelude.Maybe Prelude.Text,
+    -- | Information about the source where the data was synchronized.
+    syncSource :: Prelude.Maybe ResourceDataSyncSourceWithState,
+    -- | The last time the sync operations returned a status of @SUCCESSFUL@
+    -- (UTC).
+    lastSuccessfulSyncTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The status reported by the last sync.
+    lastStatus :: Prelude.Maybe LastResourceDataSyncStatus,
+    -- | The status message details reported by the last sync.
+    lastSyncStatusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the configuration was created (UTC).
+    syncCreatedTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceDataSyncItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceDataSyncItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdsiSyncType' - The type of resource data sync. If @SyncType@ is @SyncToDestination@ , then the resource data sync synchronizes data to an S3 bucket. If the @SyncType@ is @SyncFromSource@ then the resource data sync synchronizes data from AWS Organizations or from multiple AWS Regions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdsiS3Destination' - Configuration information for the target S3 bucket.
+-- 'syncType', 'resourceDataSyncItem_syncType' - The type of resource data sync. If @SyncType@ is @SyncToDestination@,
+-- then the resource data sync synchronizes data to an S3 bucket. If the
+-- @SyncType@ is @SyncFromSource@ then the resource data sync synchronizes
+-- data from AWS Organizations or from multiple AWS Regions.
 --
--- * 'rdsiSyncLastModifiedTime' - The date and time the resource data sync was changed.
+-- 's3Destination', 'resourceDataSyncItem_s3Destination' - Configuration information for the target S3 bucket.
 --
--- * 'rdsiLastSyncTime' - The last time the configuration attempted to sync (UTC).
+-- 'syncLastModifiedTime', 'resourceDataSyncItem_syncLastModifiedTime' - The date and time the resource data sync was changed.
 --
--- * 'rdsiSyncName' - The name of the Resource Data Sync.
+-- 'lastSyncTime', 'resourceDataSyncItem_lastSyncTime' - The last time the configuration attempted to sync (UTC).
 --
--- * 'rdsiSyncSource' - Information about the source where the data was synchronized.
+-- 'syncName', 'resourceDataSyncItem_syncName' - The name of the Resource Data Sync.
 --
--- * 'rdsiLastSuccessfulSyncTime' - The last time the sync operations returned a status of @SUCCESSFUL@ (UTC).
+-- 'syncSource', 'resourceDataSyncItem_syncSource' - Information about the source where the data was synchronized.
 --
--- * 'rdsiLastStatus' - The status reported by the last sync.
+-- 'lastSuccessfulSyncTime', 'resourceDataSyncItem_lastSuccessfulSyncTime' - The last time the sync operations returned a status of @SUCCESSFUL@
+-- (UTC).
 --
--- * 'rdsiLastSyncStatusMessage' - The status message details reported by the last sync.
+-- 'lastStatus', 'resourceDataSyncItem_lastStatus' - The status reported by the last sync.
 --
--- * 'rdsiSyncCreatedTime' - The date and time the configuration was created (UTC).
-resourceDataSyncItem ::
+-- 'lastSyncStatusMessage', 'resourceDataSyncItem_lastSyncStatusMessage' - The status message details reported by the last sync.
+--
+-- 'syncCreatedTime', 'resourceDataSyncItem_syncCreatedTime' - The date and time the configuration was created (UTC).
+newResourceDataSyncItem ::
   ResourceDataSyncItem
-resourceDataSyncItem =
+newResourceDataSyncItem =
   ResourceDataSyncItem'
-    { _rdsiSyncType = Nothing,
-      _rdsiS3Destination = Nothing,
-      _rdsiSyncLastModifiedTime = Nothing,
-      _rdsiLastSyncTime = Nothing,
-      _rdsiSyncName = Nothing,
-      _rdsiSyncSource = Nothing,
-      _rdsiLastSuccessfulSyncTime = Nothing,
-      _rdsiLastStatus = Nothing,
-      _rdsiLastSyncStatusMessage = Nothing,
-      _rdsiSyncCreatedTime = Nothing
+    { syncType = Prelude.Nothing,
+      s3Destination = Prelude.Nothing,
+      syncLastModifiedTime = Prelude.Nothing,
+      lastSyncTime = Prelude.Nothing,
+      syncName = Prelude.Nothing,
+      syncSource = Prelude.Nothing,
+      lastSuccessfulSyncTime = Prelude.Nothing,
+      lastStatus = Prelude.Nothing,
+      lastSyncStatusMessage = Prelude.Nothing,
+      syncCreatedTime = Prelude.Nothing
     }
 
--- | The type of resource data sync. If @SyncType@ is @SyncToDestination@ , then the resource data sync synchronizes data to an S3 bucket. If the @SyncType@ is @SyncFromSource@ then the resource data sync synchronizes data from AWS Organizations or from multiple AWS Regions.
-rdsiSyncType :: Lens' ResourceDataSyncItem (Maybe Text)
-rdsiSyncType = lens _rdsiSyncType (\s a -> s {_rdsiSyncType = a})
+-- | The type of resource data sync. If @SyncType@ is @SyncToDestination@,
+-- then the resource data sync synchronizes data to an S3 bucket. If the
+-- @SyncType@ is @SyncFromSource@ then the resource data sync synchronizes
+-- data from AWS Organizations or from multiple AWS Regions.
+resourceDataSyncItem_syncType :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe Prelude.Text)
+resourceDataSyncItem_syncType = Lens.lens (\ResourceDataSyncItem' {syncType} -> syncType) (\s@ResourceDataSyncItem' {} a -> s {syncType = a} :: ResourceDataSyncItem)
 
 -- | Configuration information for the target S3 bucket.
-rdsiS3Destination :: Lens' ResourceDataSyncItem (Maybe ResourceDataSyncS3Destination)
-rdsiS3Destination = lens _rdsiS3Destination (\s a -> s {_rdsiS3Destination = a})
+resourceDataSyncItem_s3Destination :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe ResourceDataSyncS3Destination)
+resourceDataSyncItem_s3Destination = Lens.lens (\ResourceDataSyncItem' {s3Destination} -> s3Destination) (\s@ResourceDataSyncItem' {} a -> s {s3Destination = a} :: ResourceDataSyncItem)
 
 -- | The date and time the resource data sync was changed.
-rdsiSyncLastModifiedTime :: Lens' ResourceDataSyncItem (Maybe UTCTime)
-rdsiSyncLastModifiedTime = lens _rdsiSyncLastModifiedTime (\s a -> s {_rdsiSyncLastModifiedTime = a}) . mapping _Time
+resourceDataSyncItem_syncLastModifiedTime :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe Prelude.UTCTime)
+resourceDataSyncItem_syncLastModifiedTime = Lens.lens (\ResourceDataSyncItem' {syncLastModifiedTime} -> syncLastModifiedTime) (\s@ResourceDataSyncItem' {} a -> s {syncLastModifiedTime = a} :: ResourceDataSyncItem) Prelude.. Lens.mapping Prelude._Time
 
 -- | The last time the configuration attempted to sync (UTC).
-rdsiLastSyncTime :: Lens' ResourceDataSyncItem (Maybe UTCTime)
-rdsiLastSyncTime = lens _rdsiLastSyncTime (\s a -> s {_rdsiLastSyncTime = a}) . mapping _Time
+resourceDataSyncItem_lastSyncTime :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe Prelude.UTCTime)
+resourceDataSyncItem_lastSyncTime = Lens.lens (\ResourceDataSyncItem' {lastSyncTime} -> lastSyncTime) (\s@ResourceDataSyncItem' {} a -> s {lastSyncTime = a} :: ResourceDataSyncItem) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the Resource Data Sync.
-rdsiSyncName :: Lens' ResourceDataSyncItem (Maybe Text)
-rdsiSyncName = lens _rdsiSyncName (\s a -> s {_rdsiSyncName = a})
+resourceDataSyncItem_syncName :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe Prelude.Text)
+resourceDataSyncItem_syncName = Lens.lens (\ResourceDataSyncItem' {syncName} -> syncName) (\s@ResourceDataSyncItem' {} a -> s {syncName = a} :: ResourceDataSyncItem)
 
 -- | Information about the source where the data was synchronized.
-rdsiSyncSource :: Lens' ResourceDataSyncItem (Maybe ResourceDataSyncSourceWithState)
-rdsiSyncSource = lens _rdsiSyncSource (\s a -> s {_rdsiSyncSource = a})
+resourceDataSyncItem_syncSource :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe ResourceDataSyncSourceWithState)
+resourceDataSyncItem_syncSource = Lens.lens (\ResourceDataSyncItem' {syncSource} -> syncSource) (\s@ResourceDataSyncItem' {} a -> s {syncSource = a} :: ResourceDataSyncItem)
 
--- | The last time the sync operations returned a status of @SUCCESSFUL@ (UTC).
-rdsiLastSuccessfulSyncTime :: Lens' ResourceDataSyncItem (Maybe UTCTime)
-rdsiLastSuccessfulSyncTime = lens _rdsiLastSuccessfulSyncTime (\s a -> s {_rdsiLastSuccessfulSyncTime = a}) . mapping _Time
+-- | The last time the sync operations returned a status of @SUCCESSFUL@
+-- (UTC).
+resourceDataSyncItem_lastSuccessfulSyncTime :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe Prelude.UTCTime)
+resourceDataSyncItem_lastSuccessfulSyncTime = Lens.lens (\ResourceDataSyncItem' {lastSuccessfulSyncTime} -> lastSuccessfulSyncTime) (\s@ResourceDataSyncItem' {} a -> s {lastSuccessfulSyncTime = a} :: ResourceDataSyncItem) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status reported by the last sync.
-rdsiLastStatus :: Lens' ResourceDataSyncItem (Maybe LastResourceDataSyncStatus)
-rdsiLastStatus = lens _rdsiLastStatus (\s a -> s {_rdsiLastStatus = a})
+resourceDataSyncItem_lastStatus :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe LastResourceDataSyncStatus)
+resourceDataSyncItem_lastStatus = Lens.lens (\ResourceDataSyncItem' {lastStatus} -> lastStatus) (\s@ResourceDataSyncItem' {} a -> s {lastStatus = a} :: ResourceDataSyncItem)
 
 -- | The status message details reported by the last sync.
-rdsiLastSyncStatusMessage :: Lens' ResourceDataSyncItem (Maybe Text)
-rdsiLastSyncStatusMessage = lens _rdsiLastSyncStatusMessage (\s a -> s {_rdsiLastSyncStatusMessage = a})
+resourceDataSyncItem_lastSyncStatusMessage :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe Prelude.Text)
+resourceDataSyncItem_lastSyncStatusMessage = Lens.lens (\ResourceDataSyncItem' {lastSyncStatusMessage} -> lastSyncStatusMessage) (\s@ResourceDataSyncItem' {} a -> s {lastSyncStatusMessage = a} :: ResourceDataSyncItem)
 
 -- | The date and time the configuration was created (UTC).
-rdsiSyncCreatedTime :: Lens' ResourceDataSyncItem (Maybe UTCTime)
-rdsiSyncCreatedTime = lens _rdsiSyncCreatedTime (\s a -> s {_rdsiSyncCreatedTime = a}) . mapping _Time
+resourceDataSyncItem_syncCreatedTime :: Lens.Lens' ResourceDataSyncItem (Prelude.Maybe Prelude.UTCTime)
+resourceDataSyncItem_syncCreatedTime = Lens.lens (\ResourceDataSyncItem' {syncCreatedTime} -> syncCreatedTime) (\s@ResourceDataSyncItem' {} a -> s {syncCreatedTime = a} :: ResourceDataSyncItem) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ResourceDataSyncItem where
+instance Prelude.FromJSON ResourceDataSyncItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceDataSyncItem"
       ( \x ->
           ResourceDataSyncItem'
-            <$> (x .:? "SyncType")
-            <*> (x .:? "S3Destination")
-            <*> (x .:? "SyncLastModifiedTime")
-            <*> (x .:? "LastSyncTime")
-            <*> (x .:? "SyncName")
-            <*> (x .:? "SyncSource")
-            <*> (x .:? "LastSuccessfulSyncTime")
-            <*> (x .:? "LastStatus")
-            <*> (x .:? "LastSyncStatusMessage")
-            <*> (x .:? "SyncCreatedTime")
+            Prelude.<$> (x Prelude..:? "SyncType")
+            Prelude.<*> (x Prelude..:? "S3Destination")
+            Prelude.<*> (x Prelude..:? "SyncLastModifiedTime")
+            Prelude.<*> (x Prelude..:? "LastSyncTime")
+            Prelude.<*> (x Prelude..:? "SyncName")
+            Prelude.<*> (x Prelude..:? "SyncSource")
+            Prelude.<*> (x Prelude..:? "LastSuccessfulSyncTime")
+            Prelude.<*> (x Prelude..:? "LastStatus")
+            Prelude.<*> (x Prelude..:? "LastSyncStatusMessage")
+            Prelude.<*> (x Prelude..:? "SyncCreatedTime")
       )
 
-instance Hashable ResourceDataSyncItem
+instance Prelude.Hashable ResourceDataSyncItem
 
-instance NFData ResourceDataSyncItem
+instance Prelude.NFData ResourceDataSyncItem

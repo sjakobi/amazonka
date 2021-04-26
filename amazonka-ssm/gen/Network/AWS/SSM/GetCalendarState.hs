@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,172 +21,218 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the state of the AWS Systems Manager Change Calendar at an optional, specified time. If you specify a time, @GetCalendarState@ returns the state of the calendar at a specific time, and returns the next time that the Change Calendar state will transition. If you do not specify a time, @GetCalendarState@ assumes the current time. Change Calendar entries have two possible states: @OPEN@ or @CLOSED@ .
+-- Gets the state of the AWS Systems Manager Change Calendar at an
+-- optional, specified time. If you specify a time, @GetCalendarState@
+-- returns the state of the calendar at a specific time, and returns the
+-- next time that the Change Calendar state will transition. If you do not
+-- specify a time, @GetCalendarState@ assumes the current time. Change
+-- Calendar entries have two possible states: @OPEN@ or @CLOSED@.
 --
+-- If you specify more than one calendar in a request, the command returns
+-- the status of @OPEN@ only if all calendars in the request are open. If
+-- one or more calendars in the request are closed, the status returned is
+-- @CLOSED@.
 --
--- If you specify more than one calendar in a request, the command returns the status of @OPEN@ only if all calendars in the request are open. If one or more calendars in the request are closed, the status returned is @CLOSED@ .
---
--- For more information about Systems Manager Change Calendar, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar.html AWS Systems Manager Change Calendar> in the /AWS Systems Manager User Guide/ .
+-- For more information about Systems Manager Change Calendar, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar.html AWS Systems Manager Change Calendar>
+-- in the /AWS Systems Manager User Guide/.
 module Network.AWS.SSM.GetCalendarState
   ( -- * Creating a Request
-    getCalendarState,
-    GetCalendarState,
+    GetCalendarState (..),
+    newGetCalendarState,
 
     -- * Request Lenses
-    gcsAtTime,
-    gcsCalendarNames,
+    getCalendarState_atTime,
+    getCalendarState_calendarNames,
 
     -- * Destructuring the Response
-    getCalendarStateResponse,
-    GetCalendarStateResponse,
+    GetCalendarStateResponse (..),
+    newGetCalendarStateResponse,
 
     -- * Response Lenses
-    gcsrrsAtTime,
-    gcsrrsState,
-    gcsrrsNextTransitionTime,
-    gcsrrsResponseStatus,
+    getCalendarStateResponse_atTime,
+    getCalendarStateResponse_state,
+    getCalendarStateResponse_nextTransitionTime,
+    getCalendarStateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.CalendarState
 
--- | /See:/ 'getCalendarState' smart constructor.
+-- | /See:/ 'newGetCalendarState' smart constructor.
 data GetCalendarState = GetCalendarState'
-  { _gcsAtTime ::
-      !(Maybe Text),
-    _gcsCalendarNames :: ![Text]
+  { -- | (Optional) The specific time for which you want to get calendar state
+    -- information, in <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+    -- format. If you do not add @AtTime@, the current time is assumed.
+    atTime :: Prelude.Maybe Prelude.Text,
+    -- | The names or Amazon Resource Names (ARNs) of the Systems Manager
+    -- documents that represent the calendar entries for which you want to get
+    -- the state.
+    calendarNames :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCalendarState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCalendarState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsAtTime' - (Optional) The specific time for which you want to get calendar state information, in <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601> format. If you do not add @AtTime@ , the current time is assumed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsCalendarNames' - The names or Amazon Resource Names (ARNs) of the Systems Manager documents that represent the calendar entries for which you want to get the state.
-getCalendarState ::
+-- 'atTime', 'getCalendarState_atTime' - (Optional) The specific time for which you want to get calendar state
+-- information, in <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+-- format. If you do not add @AtTime@, the current time is assumed.
+--
+-- 'calendarNames', 'getCalendarState_calendarNames' - The names or Amazon Resource Names (ARNs) of the Systems Manager
+-- documents that represent the calendar entries for which you want to get
+-- the state.
+newGetCalendarState ::
   GetCalendarState
-getCalendarState =
+newGetCalendarState =
   GetCalendarState'
-    { _gcsAtTime = Nothing,
-      _gcsCalendarNames = mempty
+    { atTime = Prelude.Nothing,
+      calendarNames = Prelude.mempty
     }
 
--- | (Optional) The specific time for which you want to get calendar state information, in <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601> format. If you do not add @AtTime@ , the current time is assumed.
-gcsAtTime :: Lens' GetCalendarState (Maybe Text)
-gcsAtTime = lens _gcsAtTime (\s a -> s {_gcsAtTime = a})
+-- | (Optional) The specific time for which you want to get calendar state
+-- information, in <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+-- format. If you do not add @AtTime@, the current time is assumed.
+getCalendarState_atTime :: Lens.Lens' GetCalendarState (Prelude.Maybe Prelude.Text)
+getCalendarState_atTime = Lens.lens (\GetCalendarState' {atTime} -> atTime) (\s@GetCalendarState' {} a -> s {atTime = a} :: GetCalendarState)
 
--- | The names or Amazon Resource Names (ARNs) of the Systems Manager documents that represent the calendar entries for which you want to get the state.
-gcsCalendarNames :: Lens' GetCalendarState [Text]
-gcsCalendarNames = lens _gcsCalendarNames (\s a -> s {_gcsCalendarNames = a}) . _Coerce
+-- | The names or Amazon Resource Names (ARNs) of the Systems Manager
+-- documents that represent the calendar entries for which you want to get
+-- the state.
+getCalendarState_calendarNames :: Lens.Lens' GetCalendarState [Prelude.Text]
+getCalendarState_calendarNames = Lens.lens (\GetCalendarState' {calendarNames} -> calendarNames) (\s@GetCalendarState' {} a -> s {calendarNames = a} :: GetCalendarState) Prelude.. Prelude._Coerce
 
-instance AWSRequest GetCalendarState where
+instance Prelude.AWSRequest GetCalendarState where
   type Rs GetCalendarState = GetCalendarStateResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCalendarStateResponse'
-            <$> (x .?> "AtTime")
-            <*> (x .?> "State")
-            <*> (x .?> "NextTransitionTime")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AtTime")
+            Prelude.<*> (x Prelude..?> "State")
+            Prelude.<*> (x Prelude..?> "NextTransitionTime")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCalendarState
+instance Prelude.Hashable GetCalendarState
 
-instance NFData GetCalendarState
+instance Prelude.NFData GetCalendarState
 
-instance ToHeaders GetCalendarState where
+instance Prelude.ToHeaders GetCalendarState where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.GetCalendarState" :: ByteString),
+              Prelude.=# ("AmazonSSM.GetCalendarState" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCalendarState where
+instance Prelude.ToJSON GetCalendarState where
   toJSON GetCalendarState' {..} =
-    object
-      ( catMaybes
-          [ ("AtTime" .=) <$> _gcsAtTime,
-            Just ("CalendarNames" .= _gcsCalendarNames)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AtTime" Prelude..=) Prelude.<$> atTime,
+            Prelude.Just
+              ("CalendarNames" Prelude..= calendarNames)
           ]
       )
 
-instance ToPath GetCalendarState where
-  toPath = const "/"
+instance Prelude.ToPath GetCalendarState where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCalendarState where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCalendarState where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCalendarStateResponse' smart constructor.
+-- | /See:/ 'newGetCalendarStateResponse' smart constructor.
 data GetCalendarStateResponse = GetCalendarStateResponse'
-  { _gcsrrsAtTime ::
-      !(Maybe Text),
-    _gcsrrsState ::
-      !( Maybe
-           CalendarState
-       ),
-    _gcsrrsNextTransitionTime ::
-      !(Maybe Text),
-    _gcsrrsResponseStatus ::
-      !Int
+  { -- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+    -- string, that you specified in your command. If you did not specify a
+    -- time, @GetCalendarState@ uses the current time.
+    atTime :: Prelude.Maybe Prelude.Text,
+    -- | The state of the calendar. An @OPEN@ calendar indicates that actions are
+    -- allowed to proceed, and a @CLOSED@ calendar indicates that actions are
+    -- not allowed to proceed.
+    state :: Prelude.Maybe CalendarState,
+    -- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+    -- string, that the calendar state will change. If the current calendar
+    -- state is @OPEN@, @NextTransitionTime@ indicates when the calendar state
+    -- changes to @CLOSED@, and vice-versa.
+    nextTransitionTime :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCalendarStateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCalendarStateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsrrsAtTime' - The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601> string, that you specified in your command. If you did not specify a time, @GetCalendarState@ uses the current time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsrrsState' - The state of the calendar. An @OPEN@ calendar indicates that actions are allowed to proceed, and a @CLOSED@ calendar indicates that actions are not allowed to proceed.
+-- 'atTime', 'getCalendarStateResponse_atTime' - The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+-- string, that you specified in your command. If you did not specify a
+-- time, @GetCalendarState@ uses the current time.
 --
--- * 'gcsrrsNextTransitionTime' - The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601> string, that the calendar state will change. If the current calendar state is @OPEN@ , @NextTransitionTime@ indicates when the calendar state changes to @CLOSED@ , and vice-versa.
+-- 'state', 'getCalendarStateResponse_state' - The state of the calendar. An @OPEN@ calendar indicates that actions are
+-- allowed to proceed, and a @CLOSED@ calendar indicates that actions are
+-- not allowed to proceed.
 --
--- * 'gcsrrsResponseStatus' - -- | The response status code.
-getCalendarStateResponse ::
-  -- | 'gcsrrsResponseStatus'
-  Int ->
+-- 'nextTransitionTime', 'getCalendarStateResponse_nextTransitionTime' - The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+-- string, that the calendar state will change. If the current calendar
+-- state is @OPEN@, @NextTransitionTime@ indicates when the calendar state
+-- changes to @CLOSED@, and vice-versa.
+--
+-- 'httpStatus', 'getCalendarStateResponse_httpStatus' - The response's http status code.
+newGetCalendarStateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCalendarStateResponse
-getCalendarStateResponse pResponseStatus_ =
+newGetCalendarStateResponse pHttpStatus_ =
   GetCalendarStateResponse'
-    { _gcsrrsAtTime = Nothing,
-      _gcsrrsState = Nothing,
-      _gcsrrsNextTransitionTime = Nothing,
-      _gcsrrsResponseStatus = pResponseStatus_
+    { atTime = Prelude.Nothing,
+      state = Prelude.Nothing,
+      nextTransitionTime = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601> string, that you specified in your command. If you did not specify a time, @GetCalendarState@ uses the current time.
-gcsrrsAtTime :: Lens' GetCalendarStateResponse (Maybe Text)
-gcsrrsAtTime = lens _gcsrrsAtTime (\s a -> s {_gcsrrsAtTime = a})
+-- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+-- string, that you specified in your command. If you did not specify a
+-- time, @GetCalendarState@ uses the current time.
+getCalendarStateResponse_atTime :: Lens.Lens' GetCalendarStateResponse (Prelude.Maybe Prelude.Text)
+getCalendarStateResponse_atTime = Lens.lens (\GetCalendarStateResponse' {atTime} -> atTime) (\s@GetCalendarStateResponse' {} a -> s {atTime = a} :: GetCalendarStateResponse)
 
--- | The state of the calendar. An @OPEN@ calendar indicates that actions are allowed to proceed, and a @CLOSED@ calendar indicates that actions are not allowed to proceed.
-gcsrrsState :: Lens' GetCalendarStateResponse (Maybe CalendarState)
-gcsrrsState = lens _gcsrrsState (\s a -> s {_gcsrrsState = a})
+-- | The state of the calendar. An @OPEN@ calendar indicates that actions are
+-- allowed to proceed, and a @CLOSED@ calendar indicates that actions are
+-- not allowed to proceed.
+getCalendarStateResponse_state :: Lens.Lens' GetCalendarStateResponse (Prelude.Maybe CalendarState)
+getCalendarStateResponse_state = Lens.lens (\GetCalendarStateResponse' {state} -> state) (\s@GetCalendarStateResponse' {} a -> s {state = a} :: GetCalendarStateResponse)
 
--- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601> string, that the calendar state will change. If the current calendar state is @OPEN@ , @NextTransitionTime@ indicates when the calendar state changes to @CLOSED@ , and vice-versa.
-gcsrrsNextTransitionTime :: Lens' GetCalendarStateResponse (Maybe Text)
-gcsrrsNextTransitionTime = lens _gcsrrsNextTransitionTime (\s a -> s {_gcsrrsNextTransitionTime = a})
+-- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+-- string, that the calendar state will change. If the current calendar
+-- state is @OPEN@, @NextTransitionTime@ indicates when the calendar state
+-- changes to @CLOSED@, and vice-versa.
+getCalendarStateResponse_nextTransitionTime :: Lens.Lens' GetCalendarStateResponse (Prelude.Maybe Prelude.Text)
+getCalendarStateResponse_nextTransitionTime = Lens.lens (\GetCalendarStateResponse' {nextTransitionTime} -> nextTransitionTime) (\s@GetCalendarStateResponse' {} a -> s {nextTransitionTime = a} :: GetCalendarStateResponse)
 
--- | -- | The response status code.
-gcsrrsResponseStatus :: Lens' GetCalendarStateResponse Int
-gcsrrsResponseStatus = lens _gcsrrsResponseStatus (\s a -> s {_gcsrrsResponseStatus = a})
+-- | The response's http status code.
+getCalendarStateResponse_httpStatus :: Lens.Lens' GetCalendarStateResponse Prelude.Int
+getCalendarStateResponse_httpStatus = Lens.lens (\GetCalendarStateResponse' {httpStatus} -> httpStatus) (\s@GetCalendarStateResponse' {} a -> s {httpStatus = a} :: GetCalendarStateResponse)
 
-instance NFData GetCalendarStateResponse
+instance Prelude.NFData GetCalendarStateResponse

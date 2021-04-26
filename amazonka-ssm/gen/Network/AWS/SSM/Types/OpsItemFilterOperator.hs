@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SSM.Types.OpsItemFilterOperator
   ( OpsItemFilterOperator
       ( ..,
-        OIFOContains,
-        OIFOEqual,
-        OIFOGreaterThan,
-        OIFOLessThan
+        OpsItemFilterOperatorContains,
+        OpsItemFilterOperatorEqual,
+        OpsItemFilterOperatorGreaterThan,
+        OpsItemFilterOperatorLessThan
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OpsItemFilterOperator
-  = OpsItemFilterOperator'
-      ( CI
-          Text
-      )
+newtype OpsItemFilterOperator = OpsItemFilterOperator'
+  { fromOpsItemFilterOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OIFOContains :: OpsItemFilterOperator
-pattern OIFOContains = OpsItemFilterOperator' "Contains"
+pattern OpsItemFilterOperatorContains :: OpsItemFilterOperator
+pattern OpsItemFilterOperatorContains = OpsItemFilterOperator' "Contains"
 
-pattern OIFOEqual :: OpsItemFilterOperator
-pattern OIFOEqual = OpsItemFilterOperator' "Equal"
+pattern OpsItemFilterOperatorEqual :: OpsItemFilterOperator
+pattern OpsItemFilterOperatorEqual = OpsItemFilterOperator' "Equal"
 
-pattern OIFOGreaterThan :: OpsItemFilterOperator
-pattern OIFOGreaterThan = OpsItemFilterOperator' "GreaterThan"
+pattern OpsItemFilterOperatorGreaterThan :: OpsItemFilterOperator
+pattern OpsItemFilterOperatorGreaterThan = OpsItemFilterOperator' "GreaterThan"
 
-pattern OIFOLessThan :: OpsItemFilterOperator
-pattern OIFOLessThan = OpsItemFilterOperator' "LessThan"
+pattern OpsItemFilterOperatorLessThan :: OpsItemFilterOperator
+pattern OpsItemFilterOperatorLessThan = OpsItemFilterOperator' "LessThan"
 
 {-# COMPLETE
-  OIFOContains,
-  OIFOEqual,
-  OIFOGreaterThan,
-  OIFOLessThan,
+  OpsItemFilterOperatorContains,
+  OpsItemFilterOperatorEqual,
+  OpsItemFilterOperatorGreaterThan,
+  OpsItemFilterOperatorLessThan,
   OpsItemFilterOperator'
   #-}
 
-instance FromText OpsItemFilterOperator where
-  parser = (OpsItemFilterOperator' . mk) <$> takeText
+instance Prelude.FromText OpsItemFilterOperator where
+  parser = OpsItemFilterOperator' Prelude.<$> Prelude.takeText
 
-instance ToText OpsItemFilterOperator where
-  toText (OpsItemFilterOperator' ci) = original ci
+instance Prelude.ToText OpsItemFilterOperator where
+  toText (OpsItemFilterOperator' x) = x
 
-instance Hashable OpsItemFilterOperator
+instance Prelude.Hashable OpsItemFilterOperator
 
-instance NFData OpsItemFilterOperator
+instance Prelude.NFData OpsItemFilterOperator
 
-instance ToByteString OpsItemFilterOperator
+instance Prelude.ToByteString OpsItemFilterOperator
 
-instance ToQuery OpsItemFilterOperator
+instance Prelude.ToQuery OpsItemFilterOperator
 
-instance ToHeader OpsItemFilterOperator
+instance Prelude.ToHeader OpsItemFilterOperator
 
-instance ToJSON OpsItemFilterOperator where
-  toJSON = toJSONText
+instance Prelude.ToJSON OpsItemFilterOperator where
+  toJSON = Prelude.toJSONText

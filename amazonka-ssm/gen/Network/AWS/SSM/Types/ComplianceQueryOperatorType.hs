@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.SSM.Types.ComplianceQueryOperatorType
   ( ComplianceQueryOperatorType
       ( ..,
-        BeginWith,
-        Equal,
-        GreaterThan,
-        LessThan,
-        NotEqual
+        ComplianceQueryOperatorTypeBEGINWITH,
+        ComplianceQueryOperatorTypeEQUAL,
+        ComplianceQueryOperatorTypeGREATERTHAN,
+        ComplianceQueryOperatorTypeLESSTHAN,
+        ComplianceQueryOperatorTypeNOTEQUAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComplianceQueryOperatorType
-  = ComplianceQueryOperatorType'
-      ( CI
-          Text
-      )
+newtype ComplianceQueryOperatorType = ComplianceQueryOperatorType'
+  { fromComplianceQueryOperatorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BeginWith :: ComplianceQueryOperatorType
-pattern BeginWith = ComplianceQueryOperatorType' "BEGIN_WITH"
+pattern ComplianceQueryOperatorTypeBEGINWITH :: ComplianceQueryOperatorType
+pattern ComplianceQueryOperatorTypeBEGINWITH = ComplianceQueryOperatorType' "BEGIN_WITH"
 
-pattern Equal :: ComplianceQueryOperatorType
-pattern Equal = ComplianceQueryOperatorType' "EQUAL"
+pattern ComplianceQueryOperatorTypeEQUAL :: ComplianceQueryOperatorType
+pattern ComplianceQueryOperatorTypeEQUAL = ComplianceQueryOperatorType' "EQUAL"
 
-pattern GreaterThan :: ComplianceQueryOperatorType
-pattern GreaterThan = ComplianceQueryOperatorType' "GREATER_THAN"
+pattern ComplianceQueryOperatorTypeGREATERTHAN :: ComplianceQueryOperatorType
+pattern ComplianceQueryOperatorTypeGREATERTHAN = ComplianceQueryOperatorType' "GREATER_THAN"
 
-pattern LessThan :: ComplianceQueryOperatorType
-pattern LessThan = ComplianceQueryOperatorType' "LESS_THAN"
+pattern ComplianceQueryOperatorTypeLESSTHAN :: ComplianceQueryOperatorType
+pattern ComplianceQueryOperatorTypeLESSTHAN = ComplianceQueryOperatorType' "LESS_THAN"
 
-pattern NotEqual :: ComplianceQueryOperatorType
-pattern NotEqual = ComplianceQueryOperatorType' "NOT_EQUAL"
+pattern ComplianceQueryOperatorTypeNOTEQUAL :: ComplianceQueryOperatorType
+pattern ComplianceQueryOperatorTypeNOTEQUAL = ComplianceQueryOperatorType' "NOT_EQUAL"
 
 {-# COMPLETE
-  BeginWith,
-  Equal,
-  GreaterThan,
-  LessThan,
-  NotEqual,
+  ComplianceQueryOperatorTypeBEGINWITH,
+  ComplianceQueryOperatorTypeEQUAL,
+  ComplianceQueryOperatorTypeGREATERTHAN,
+  ComplianceQueryOperatorTypeLESSTHAN,
+  ComplianceQueryOperatorTypeNOTEQUAL,
   ComplianceQueryOperatorType'
   #-}
 
-instance FromText ComplianceQueryOperatorType where
-  parser = (ComplianceQueryOperatorType' . mk) <$> takeText
+instance Prelude.FromText ComplianceQueryOperatorType where
+  parser = ComplianceQueryOperatorType' Prelude.<$> Prelude.takeText
 
-instance ToText ComplianceQueryOperatorType where
-  toText (ComplianceQueryOperatorType' ci) = original ci
+instance Prelude.ToText ComplianceQueryOperatorType where
+  toText (ComplianceQueryOperatorType' x) = x
 
-instance Hashable ComplianceQueryOperatorType
+instance Prelude.Hashable ComplianceQueryOperatorType
 
-instance NFData ComplianceQueryOperatorType
+instance Prelude.NFData ComplianceQueryOperatorType
 
-instance ToByteString ComplianceQueryOperatorType
+instance Prelude.ToByteString ComplianceQueryOperatorType
 
-instance ToQuery ComplianceQueryOperatorType
+instance Prelude.ToQuery ComplianceQueryOperatorType
 
-instance ToHeader ComplianceQueryOperatorType
+instance Prelude.ToHeader ComplianceQueryOperatorType
 
-instance ToJSON ComplianceQueryOperatorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComplianceQueryOperatorType where
+  toJSON = Prelude.toJSONText

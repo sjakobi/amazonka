@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,47 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.RelatedOpsItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An OpsItems that shares something in common with the current OpsItem. For example, related OpsItems can include OpsItems with similar error messages, impacted resources, or statuses for the impacted resource.
+-- | An OpsItems that shares something in common with the current OpsItem.
+-- For example, related OpsItems can include OpsItems with similar error
+-- messages, impacted resources, or statuses for the impacted resource.
 --
---
---
--- /See:/ 'relatedOpsItem' smart constructor.
-newtype RelatedOpsItem = RelatedOpsItem'
-  { _roiOpsItemId ::
-      Text
+-- /See:/ 'newRelatedOpsItem' smart constructor.
+data RelatedOpsItem = RelatedOpsItem'
+  { -- | The ID of an OpsItem related to the current OpsItem.
+    opsItemId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RelatedOpsItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RelatedOpsItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'roiOpsItemId' - The ID of an OpsItem related to the current OpsItem.
-relatedOpsItem ::
-  -- | 'roiOpsItemId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'opsItemId', 'relatedOpsItem_opsItemId' - The ID of an OpsItem related to the current OpsItem.
+newRelatedOpsItem ::
+  -- | 'opsItemId'
+  Prelude.Text ->
   RelatedOpsItem
-relatedOpsItem pOpsItemId_ =
-  RelatedOpsItem' {_roiOpsItemId = pOpsItemId_}
+newRelatedOpsItem pOpsItemId_ =
+  RelatedOpsItem' {opsItemId = pOpsItemId_}
 
 -- | The ID of an OpsItem related to the current OpsItem.
-roiOpsItemId :: Lens' RelatedOpsItem Text
-roiOpsItemId = lens _roiOpsItemId (\s a -> s {_roiOpsItemId = a})
+relatedOpsItem_opsItemId :: Lens.Lens' RelatedOpsItem Prelude.Text
+relatedOpsItem_opsItemId = Lens.lens (\RelatedOpsItem' {opsItemId} -> opsItemId) (\s@RelatedOpsItem' {} a -> s {opsItemId = a} :: RelatedOpsItem)
 
-instance FromJSON RelatedOpsItem where
+instance Prelude.FromJSON RelatedOpsItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RelatedOpsItem"
-      (\x -> RelatedOpsItem' <$> (x .: "OpsItemId"))
+      ( \x ->
+          RelatedOpsItem'
+            Prelude.<$> (x Prelude..: "OpsItemId")
+      )
 
-instance Hashable RelatedOpsItem
+instance Prelude.Hashable RelatedOpsItem
 
-instance NFData RelatedOpsItem
+instance Prelude.NFData RelatedOpsItem
 
-instance ToJSON RelatedOpsItem where
+instance Prelude.ToJSON RelatedOpsItem where
   toJSON RelatedOpsItem' {..} =
-    object
-      (catMaybes [Just ("OpsItemId" .= _roiOpsItemId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("OpsItemId" Prelude..= opsItemId)]
+      )

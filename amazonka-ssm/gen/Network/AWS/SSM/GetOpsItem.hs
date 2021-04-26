@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,124 +21,146 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get information about an OpsItem by using the ID. You must have permission in AWS Identity and Access Management (IAM) to view information about an OpsItem. For more information, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html Getting started with OpsCenter> in the /AWS Systems Manager User Guide/ .
+-- Get information about an OpsItem by using the ID. You must have
+-- permission in AWS Identity and Access Management (IAM) to view
+-- information about an OpsItem. For more information, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html Getting started with OpsCenter>
+-- in the /AWS Systems Manager User Guide/.
 --
---
--- Operations engineers and IT professionals use OpsCenter to view, investigate, and remediate operational issues impacting the performance and health of their AWS resources. For more information, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html AWS Systems Manager OpsCenter> in the /AWS Systems Manager User Guide/ .
+-- Operations engineers and IT professionals use OpsCenter to view,
+-- investigate, and remediate operational issues impacting the performance
+-- and health of their AWS resources. For more information, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html AWS Systems Manager OpsCenter>
+-- in the /AWS Systems Manager User Guide/.
 module Network.AWS.SSM.GetOpsItem
   ( -- * Creating a Request
-    getOpsItem,
-    GetOpsItem,
+    GetOpsItem (..),
+    newGetOpsItem,
 
     -- * Request Lenses
-    goiOpsItemId,
+    getOpsItem_opsItemId,
 
     -- * Destructuring the Response
-    getOpsItemResponse,
-    GetOpsItemResponse,
+    GetOpsItemResponse (..),
+    newGetOpsItemResponse,
 
     -- * Response Lenses
-    goirrsOpsItem,
-    goirrsResponseStatus,
+    getOpsItemResponse_opsItem,
+    getOpsItemResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.OpsItem
 
--- | /See:/ 'getOpsItem' smart constructor.
-newtype GetOpsItem = GetOpsItem'
-  { _goiOpsItemId ::
-      Text
+-- | /See:/ 'newGetOpsItem' smart constructor.
+data GetOpsItem = GetOpsItem'
+  { -- | The ID of the OpsItem that you want to get.
+    opsItemId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOpsItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOpsItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'goiOpsItemId' - The ID of the OpsItem that you want to get.
-getOpsItem ::
-  -- | 'goiOpsItemId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'opsItemId', 'getOpsItem_opsItemId' - The ID of the OpsItem that you want to get.
+newGetOpsItem ::
+  -- | 'opsItemId'
+  Prelude.Text ->
   GetOpsItem
-getOpsItem pOpsItemId_ =
-  GetOpsItem' {_goiOpsItemId = pOpsItemId_}
+newGetOpsItem pOpsItemId_ =
+  GetOpsItem' {opsItemId = pOpsItemId_}
 
 -- | The ID of the OpsItem that you want to get.
-goiOpsItemId :: Lens' GetOpsItem Text
-goiOpsItemId = lens _goiOpsItemId (\s a -> s {_goiOpsItemId = a})
+getOpsItem_opsItemId :: Lens.Lens' GetOpsItem Prelude.Text
+getOpsItem_opsItemId = Lens.lens (\GetOpsItem' {opsItemId} -> opsItemId) (\s@GetOpsItem' {} a -> s {opsItemId = a} :: GetOpsItem)
 
-instance AWSRequest GetOpsItem where
+instance Prelude.AWSRequest GetOpsItem where
   type Rs GetOpsItem = GetOpsItemResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetOpsItemResponse'
-            <$> (x .?> "OpsItem") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "OpsItem")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetOpsItem
+instance Prelude.Hashable GetOpsItem
 
-instance NFData GetOpsItem
+instance Prelude.NFData GetOpsItem
 
-instance ToHeaders GetOpsItem where
+instance Prelude.ToHeaders GetOpsItem where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.GetOpsItem" :: ByteString),
+              Prelude.=# ("AmazonSSM.GetOpsItem" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetOpsItem where
+instance Prelude.ToJSON GetOpsItem where
   toJSON GetOpsItem' {..} =
-    object
-      (catMaybes [Just ("OpsItemId" .= _goiOpsItemId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("OpsItemId" Prelude..= opsItemId)]
+      )
 
-instance ToPath GetOpsItem where
-  toPath = const "/"
+instance Prelude.ToPath GetOpsItem where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetOpsItem where
-  toQuery = const mempty
+instance Prelude.ToQuery GetOpsItem where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getOpsItemResponse' smart constructor.
+-- | /See:/ 'newGetOpsItemResponse' smart constructor.
 data GetOpsItemResponse = GetOpsItemResponse'
-  { _goirrsOpsItem ::
-      !(Maybe OpsItem),
-    _goirrsResponseStatus :: !Int
+  { -- | The OpsItem.
+    opsItem :: Prelude.Maybe OpsItem,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOpsItemResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOpsItemResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'goirrsOpsItem' - The OpsItem.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'goirrsResponseStatus' - -- | The response status code.
-getOpsItemResponse ::
-  -- | 'goirrsResponseStatus'
-  Int ->
+-- 'opsItem', 'getOpsItemResponse_opsItem' - The OpsItem.
+--
+-- 'httpStatus', 'getOpsItemResponse_httpStatus' - The response's http status code.
+newGetOpsItemResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetOpsItemResponse
-getOpsItemResponse pResponseStatus_ =
+newGetOpsItemResponse pHttpStatus_ =
   GetOpsItemResponse'
-    { _goirrsOpsItem = Nothing,
-      _goirrsResponseStatus = pResponseStatus_
+    { opsItem = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The OpsItem.
-goirrsOpsItem :: Lens' GetOpsItemResponse (Maybe OpsItem)
-goirrsOpsItem = lens _goirrsOpsItem (\s a -> s {_goirrsOpsItem = a})
+getOpsItemResponse_opsItem :: Lens.Lens' GetOpsItemResponse (Prelude.Maybe OpsItem)
+getOpsItemResponse_opsItem = Lens.lens (\GetOpsItemResponse' {opsItem} -> opsItem) (\s@GetOpsItemResponse' {} a -> s {opsItem = a} :: GetOpsItemResponse)
 
--- | -- | The response status code.
-goirrsResponseStatus :: Lens' GetOpsItemResponse Int
-goirrsResponseStatus = lens _goirrsResponseStatus (\s a -> s {_goirrsResponseStatus = a})
+-- | The response's http status code.
+getOpsItemResponse_httpStatus :: Lens.Lens' GetOpsItemResponse Prelude.Int
+getOpsItemResponse_httpStatus = Lens.lens (\GetOpsItemResponse' {httpStatus} -> httpStatus) (\s@GetOpsItemResponse' {} a -> s {httpStatus = a} :: GetOpsItemResponse)
 
-instance NFData GetOpsItemResponse
+instance Prelude.NFData GetOpsItemResponse

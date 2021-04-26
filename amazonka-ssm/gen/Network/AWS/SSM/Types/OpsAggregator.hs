@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.OpsAggregator where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.OpsFilter
 
--- | One or more aggregators for viewing counts of OpsItems using different dimensions such as @Source@ , @CreatedTime@ , or @Source and CreatedTime@ , to name a few.
+-- | One or more aggregators for viewing counts of OpsItems using different
+-- dimensions such as @Source@, @CreatedTime@, or @Source and CreatedTime@,
+-- to name a few.
 --
---
---
--- /See:/ 'opsAggregator' smart constructor.
+-- /See:/ 'newOpsAggregator' smart constructor.
 data OpsAggregator = OpsAggregator'
-  { _oaTypeName ::
-      !(Maybe Text),
-    _oaAttributeName :: !(Maybe Text),
-    _oaValues :: !(Maybe (Map Text Text)),
-    _oaAggregatorType :: !(Maybe Text),
-    _oaFilters :: !(Maybe (List1 OpsFilter)),
-    _oaAggregators ::
-      !(Maybe (List1 OpsAggregator))
+  { -- | The data type name to use for viewing counts of OpsItems.
+    typeName :: Prelude.Maybe Prelude.Text,
+    -- | The name of an OpsItem attribute on which to limit the count of
+    -- OpsItems.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The aggregator value.
+    values :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Either a Range or Count aggregator for limiting an OpsItem summary.
+    aggregatorType :: Prelude.Maybe Prelude.Text,
+    -- | The aggregator filters.
+    filters :: Prelude.Maybe (Prelude.List1 OpsFilter),
+    -- | A nested aggregator for viewing counts of OpsItems.
+    aggregators :: Prelude.Maybe (Prelude.List1 OpsAggregator)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpsAggregator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpsAggregator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oaTypeName' - The data type name to use for viewing counts of OpsItems.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oaAttributeName' - The name of an OpsItem attribute on which to limit the count of OpsItems.
+-- 'typeName', 'opsAggregator_typeName' - The data type name to use for viewing counts of OpsItems.
 --
--- * 'oaValues' - The aggregator value.
+-- 'attributeName', 'opsAggregator_attributeName' - The name of an OpsItem attribute on which to limit the count of
+-- OpsItems.
 --
--- * 'oaAggregatorType' - Either a Range or Count aggregator for limiting an OpsItem summary.
+-- 'values', 'opsAggregator_values' - The aggregator value.
 --
--- * 'oaFilters' - The aggregator filters.
+-- 'aggregatorType', 'opsAggregator_aggregatorType' - Either a Range or Count aggregator for limiting an OpsItem summary.
 --
--- * 'oaAggregators' - A nested aggregator for viewing counts of OpsItems.
-opsAggregator ::
+-- 'filters', 'opsAggregator_filters' - The aggregator filters.
+--
+-- 'aggregators', 'opsAggregator_aggregators' - A nested aggregator for viewing counts of OpsItems.
+newOpsAggregator ::
   OpsAggregator
-opsAggregator =
+newOpsAggregator =
   OpsAggregator'
-    { _oaTypeName = Nothing,
-      _oaAttributeName = Nothing,
-      _oaValues = Nothing,
-      _oaAggregatorType = Nothing,
-      _oaFilters = Nothing,
-      _oaAggregators = Nothing
+    { typeName = Prelude.Nothing,
+      attributeName = Prelude.Nothing,
+      values = Prelude.Nothing,
+      aggregatorType = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      aggregators = Prelude.Nothing
     }
 
 -- | The data type name to use for viewing counts of OpsItems.
-oaTypeName :: Lens' OpsAggregator (Maybe Text)
-oaTypeName = lens _oaTypeName (\s a -> s {_oaTypeName = a})
+opsAggregator_typeName :: Lens.Lens' OpsAggregator (Prelude.Maybe Prelude.Text)
+opsAggregator_typeName = Lens.lens (\OpsAggregator' {typeName} -> typeName) (\s@OpsAggregator' {} a -> s {typeName = a} :: OpsAggregator)
 
--- | The name of an OpsItem attribute on which to limit the count of OpsItems.
-oaAttributeName :: Lens' OpsAggregator (Maybe Text)
-oaAttributeName = lens _oaAttributeName (\s a -> s {_oaAttributeName = a})
+-- | The name of an OpsItem attribute on which to limit the count of
+-- OpsItems.
+opsAggregator_attributeName :: Lens.Lens' OpsAggregator (Prelude.Maybe Prelude.Text)
+opsAggregator_attributeName = Lens.lens (\OpsAggregator' {attributeName} -> attributeName) (\s@OpsAggregator' {} a -> s {attributeName = a} :: OpsAggregator)
 
 -- | The aggregator value.
-oaValues :: Lens' OpsAggregator (HashMap Text Text)
-oaValues = lens _oaValues (\s a -> s {_oaValues = a}) . _Default . _Map
+opsAggregator_values :: Lens.Lens' OpsAggregator (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+opsAggregator_values = Lens.lens (\OpsAggregator' {values} -> values) (\s@OpsAggregator' {} a -> s {values = a} :: OpsAggregator) Prelude.. Lens.mapping Prelude._Map
 
 -- | Either a Range or Count aggregator for limiting an OpsItem summary.
-oaAggregatorType :: Lens' OpsAggregator (Maybe Text)
-oaAggregatorType = lens _oaAggregatorType (\s a -> s {_oaAggregatorType = a})
+opsAggregator_aggregatorType :: Lens.Lens' OpsAggregator (Prelude.Maybe Prelude.Text)
+opsAggregator_aggregatorType = Lens.lens (\OpsAggregator' {aggregatorType} -> aggregatorType) (\s@OpsAggregator' {} a -> s {aggregatorType = a} :: OpsAggregator)
 
 -- | The aggregator filters.
-oaFilters :: Lens' OpsAggregator (Maybe (NonEmpty OpsFilter))
-oaFilters = lens _oaFilters (\s a -> s {_oaFilters = a}) . mapping _List1
+opsAggregator_filters :: Lens.Lens' OpsAggregator (Prelude.Maybe (Prelude.NonEmpty OpsFilter))
+opsAggregator_filters = Lens.lens (\OpsAggregator' {filters} -> filters) (\s@OpsAggregator' {} a -> s {filters = a} :: OpsAggregator) Prelude.. Lens.mapping Prelude._List1
 
 -- | A nested aggregator for viewing counts of OpsItems.
-oaAggregators :: Lens' OpsAggregator (Maybe (NonEmpty OpsAggregator))
-oaAggregators = lens _oaAggregators (\s a -> s {_oaAggregators = a}) . mapping _List1
+opsAggregator_aggregators :: Lens.Lens' OpsAggregator (Prelude.Maybe (Prelude.NonEmpty OpsAggregator))
+opsAggregator_aggregators = Lens.lens (\OpsAggregator' {aggregators} -> aggregators) (\s@OpsAggregator' {} a -> s {aggregators = a} :: OpsAggregator) Prelude.. Lens.mapping Prelude._List1
 
-instance Hashable OpsAggregator
+instance Prelude.Hashable OpsAggregator
 
-instance NFData OpsAggregator
+instance Prelude.NFData OpsAggregator
 
-instance ToJSON OpsAggregator where
+instance Prelude.ToJSON OpsAggregator where
   toJSON OpsAggregator' {..} =
-    object
-      ( catMaybes
-          [ ("TypeName" .=) <$> _oaTypeName,
-            ("AttributeName" .=) <$> _oaAttributeName,
-            ("Values" .=) <$> _oaValues,
-            ("AggregatorType" .=) <$> _oaAggregatorType,
-            ("Filters" .=) <$> _oaFilters,
-            ("Aggregators" .=) <$> _oaAggregators
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TypeName" Prelude..=) Prelude.<$> typeName,
+            ("AttributeName" Prelude..=)
+              Prelude.<$> attributeName,
+            ("Values" Prelude..=) Prelude.<$> values,
+            ("AggregatorType" Prelude..=)
+              Prelude.<$> aggregatorType,
+            ("Filters" Prelude..=) Prelude.<$> filters,
+            ("Aggregators" Prelude..=) Prelude.<$> aggregators
           ]
       )

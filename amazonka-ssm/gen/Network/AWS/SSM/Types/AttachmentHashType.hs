@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.SSM.Types.AttachmentHashType
   ( AttachmentHashType
       ( ..,
-        SHA256
+        AttachmentHashTypeSHA256
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AttachmentHashType
-  = AttachmentHashType'
-      ( CI
-          Text
-      )
+newtype AttachmentHashType = AttachmentHashType'
+  { fromAttachmentHashType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SHA256 :: AttachmentHashType
-pattern SHA256 = AttachmentHashType' "Sha256"
+pattern AttachmentHashTypeSHA256 :: AttachmentHashType
+pattern AttachmentHashTypeSHA256 = AttachmentHashType' "Sha256"
 
 {-# COMPLETE
-  SHA256,
+  AttachmentHashTypeSHA256,
   AttachmentHashType'
   #-}
 
-instance FromText AttachmentHashType where
-  parser = (AttachmentHashType' . mk) <$> takeText
+instance Prelude.FromText AttachmentHashType where
+  parser = AttachmentHashType' Prelude.<$> Prelude.takeText
 
-instance ToText AttachmentHashType where
-  toText (AttachmentHashType' ci) = original ci
+instance Prelude.ToText AttachmentHashType where
+  toText (AttachmentHashType' x) = x
 
-instance Hashable AttachmentHashType
+instance Prelude.Hashable AttachmentHashType
 
-instance NFData AttachmentHashType
+instance Prelude.NFData AttachmentHashType
 
-instance ToByteString AttachmentHashType
+instance Prelude.ToByteString AttachmentHashType
 
-instance ToQuery AttachmentHashType
+instance Prelude.ToQuery AttachmentHashType
 
-instance ToHeader AttachmentHashType
+instance Prelude.ToHeader AttachmentHashType
 
-instance FromJSON AttachmentHashType where
-  parseJSON = parseJSONText "AttachmentHashType"
+instance Prelude.FromJSON AttachmentHashType where
+  parseJSON = Prelude.parseJSONText "AttachmentHashType"

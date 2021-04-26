@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,151 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Changes the Amazon Identity and Access Management (IAM) role that is assigned to the on-premises instance or virtual machines (VM). IAM roles are first assigned to these hybrid instances during the activation process. For more information, see 'CreateActivation' .
+-- Changes the Amazon Identity and Access Management (IAM) role that is
+-- assigned to the on-premises instance or virtual machines (VM). IAM roles
+-- are first assigned to these hybrid instances during the activation
+-- process. For more information, see CreateActivation.
 module Network.AWS.SSM.UpdateManagedInstanceRole
   ( -- * Creating a Request
-    updateManagedInstanceRole,
-    UpdateManagedInstanceRole,
+    UpdateManagedInstanceRole (..),
+    newUpdateManagedInstanceRole,
 
     -- * Request Lenses
-    umirInstanceId,
-    umirIAMRole,
+    updateManagedInstanceRole_instanceId,
+    updateManagedInstanceRole_iamRole,
 
     -- * Destructuring the Response
-    updateManagedInstanceRoleResponse,
-    UpdateManagedInstanceRoleResponse,
+    UpdateManagedInstanceRoleResponse (..),
+    newUpdateManagedInstanceRoleResponse,
 
     -- * Response Lenses
-    umirrrsResponseStatus,
+    updateManagedInstanceRoleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
 
--- | /See:/ 'updateManagedInstanceRole' smart constructor.
+-- | /See:/ 'newUpdateManagedInstanceRole' smart constructor.
 data UpdateManagedInstanceRole = UpdateManagedInstanceRole'
-  { _umirInstanceId ::
-      !Text,
-    _umirIAMRole ::
-      !Text
+  { -- | The ID of the managed instance where you want to update the role.
+    instanceId :: Prelude.Text,
+    -- | The IAM role you want to assign or change.
+    iamRole :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateManagedInstanceRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateManagedInstanceRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umirInstanceId' - The ID of the managed instance where you want to update the role.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umirIAMRole' - The IAM role you want to assign or change.
-updateManagedInstanceRole ::
-  -- | 'umirInstanceId'
-  Text ->
-  -- | 'umirIAMRole'
-  Text ->
+-- 'instanceId', 'updateManagedInstanceRole_instanceId' - The ID of the managed instance where you want to update the role.
+--
+-- 'iamRole', 'updateManagedInstanceRole_iamRole' - The IAM role you want to assign or change.
+newUpdateManagedInstanceRole ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'iamRole'
+  Prelude.Text ->
   UpdateManagedInstanceRole
-updateManagedInstanceRole pInstanceId_ pIAMRole_ =
+newUpdateManagedInstanceRole pInstanceId_ pIamRole_ =
   UpdateManagedInstanceRole'
-    { _umirInstanceId =
+    { instanceId =
         pInstanceId_,
-      _umirIAMRole = pIAMRole_
+      iamRole = pIamRole_
     }
 
 -- | The ID of the managed instance where you want to update the role.
-umirInstanceId :: Lens' UpdateManagedInstanceRole Text
-umirInstanceId = lens _umirInstanceId (\s a -> s {_umirInstanceId = a})
+updateManagedInstanceRole_instanceId :: Lens.Lens' UpdateManagedInstanceRole Prelude.Text
+updateManagedInstanceRole_instanceId = Lens.lens (\UpdateManagedInstanceRole' {instanceId} -> instanceId) (\s@UpdateManagedInstanceRole' {} a -> s {instanceId = a} :: UpdateManagedInstanceRole)
 
 -- | The IAM role you want to assign or change.
-umirIAMRole :: Lens' UpdateManagedInstanceRole Text
-umirIAMRole = lens _umirIAMRole (\s a -> s {_umirIAMRole = a})
+updateManagedInstanceRole_iamRole :: Lens.Lens' UpdateManagedInstanceRole Prelude.Text
+updateManagedInstanceRole_iamRole = Lens.lens (\UpdateManagedInstanceRole' {iamRole} -> iamRole) (\s@UpdateManagedInstanceRole' {} a -> s {iamRole = a} :: UpdateManagedInstanceRole)
 
-instance AWSRequest UpdateManagedInstanceRole where
+instance Prelude.AWSRequest UpdateManagedInstanceRole where
   type
     Rs UpdateManagedInstanceRole =
       UpdateManagedInstanceRoleResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateManagedInstanceRoleResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateManagedInstanceRole
+instance Prelude.Hashable UpdateManagedInstanceRole
 
-instance NFData UpdateManagedInstanceRole
+instance Prelude.NFData UpdateManagedInstanceRole
 
-instance ToHeaders UpdateManagedInstanceRole where
+instance Prelude.ToHeaders UpdateManagedInstanceRole where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonSSM.UpdateManagedInstanceRole" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonSSM.UpdateManagedInstanceRole" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateManagedInstanceRole where
+instance Prelude.ToJSON UpdateManagedInstanceRole where
   toJSON UpdateManagedInstanceRole' {..} =
-    object
-      ( catMaybes
-          [ Just ("InstanceId" .= _umirInstanceId),
-            Just ("IamRole" .= _umirIAMRole)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("InstanceId" Prelude..= instanceId),
+            Prelude.Just ("IamRole" Prelude..= iamRole)
           ]
       )
 
-instance ToPath UpdateManagedInstanceRole where
-  toPath = const "/"
+instance Prelude.ToPath UpdateManagedInstanceRole where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateManagedInstanceRole where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateManagedInstanceRole where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateManagedInstanceRoleResponse' smart constructor.
-newtype UpdateManagedInstanceRoleResponse = UpdateManagedInstanceRoleResponse'
-  { _umirrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateManagedInstanceRoleResponse' smart constructor.
+data UpdateManagedInstanceRoleResponse = UpdateManagedInstanceRoleResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateManagedInstanceRoleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateManagedInstanceRoleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umirrrsResponseStatus' - -- | The response status code.
-updateManagedInstanceRoleResponse ::
-  -- | 'umirrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateManagedInstanceRoleResponse_httpStatus' - The response's http status code.
+newUpdateManagedInstanceRoleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateManagedInstanceRoleResponse
-updateManagedInstanceRoleResponse pResponseStatus_ =
+newUpdateManagedInstanceRoleResponse pHttpStatus_ =
   UpdateManagedInstanceRoleResponse'
-    { _umirrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-umirrrsResponseStatus :: Lens' UpdateManagedInstanceRoleResponse Int
-umirrrsResponseStatus = lens _umirrrsResponseStatus (\s a -> s {_umirrrsResponseStatus = a})
+-- | The response's http status code.
+updateManagedInstanceRoleResponse_httpStatus :: Lens.Lens' UpdateManagedInstanceRoleResponse Prelude.Int
+updateManagedInstanceRoleResponse_httpStatus = Lens.lens (\UpdateManagedInstanceRoleResponse' {httpStatus} -> httpStatus) (\s@UpdateManagedInstanceRoleResponse' {} a -> s {httpStatus = a} :: UpdateManagedInstanceRoleResponse)
 
-instance NFData UpdateManagedInstanceRoleResponse
+instance
+  Prelude.NFData
+    UpdateManagedInstanceRoleResponse

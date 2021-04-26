@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,210 +19,254 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.MaintenanceWindowRunCommandParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.CloudWatchOutputConfig
 import Network.AWS.SSM.Types.DocumentHashType
 import Network.AWS.SSM.Types.NotificationConfig
 
 -- | The parameters for a RUN_COMMAND task type.
 --
+-- For information about specifying and updating task parameters, see
+-- RegisterTaskWithMaintenanceWindow and UpdateMaintenanceWindowTask.
 --
--- For information about specifying and updating task parameters, see 'RegisterTaskWithMaintenanceWindow' and 'UpdateMaintenanceWindowTask' .
+-- @LoggingInfo@ has been deprecated. To specify an S3 bucket to contain
+-- logs, instead use the @OutputS3BucketName@ and @OutputS3KeyPrefix@
+-- options in the @TaskInvocationParameters@ structure. For information
+-- about how Systems Manager handles these options for the supported
+-- maintenance window task types, see
+-- MaintenanceWindowTaskInvocationParameters.
 --
+-- @TaskParameters@ has been deprecated. To specify parameters to pass to a
+-- task when it runs, instead use the @Parameters@ option in the
+-- @TaskInvocationParameters@ structure. For information about how Systems
+-- Manager handles these options for the supported maintenance window task
+-- types, see MaintenanceWindowTaskInvocationParameters.
 --
--- /See:/ 'maintenanceWindowRunCommandParameters' smart constructor.
+-- For Run Command tasks, Systems Manager uses specified values for
+-- @TaskParameters@ and @LoggingInfo@ only if no values are specified for
+-- @TaskInvocationParameters@.
+--
+-- /See:/ 'newMaintenanceWindowRunCommandParameters' smart constructor.
 data MaintenanceWindowRunCommandParameters = MaintenanceWindowRunCommandParameters'
-  { _mwrcpNotificationConfig ::
-      !( Maybe
-           NotificationConfig
-       ),
-    _mwrcpServiceRoleARN ::
-      !( Maybe
-           Text
-       ),
-    _mwrcpOutputS3BucketName ::
-      !( Maybe
-           Text
-       ),
-    _mwrcpComment ::
-      !( Maybe
-           Text
-       ),
-    _mwrcpDocumentHash ::
-      !( Maybe
-           Text
-       ),
-    _mwrcpOutputS3KeyPrefix ::
-      !( Maybe
-           Text
-       ),
-    _mwrcpTimeoutSeconds ::
-      !( Maybe
-           Nat
-       ),
-    _mwrcpCloudWatchOutputConfig ::
-      !( Maybe
-           CloudWatchOutputConfig
-       ),
-    _mwrcpDocumentHashType ::
-      !( Maybe
-           DocumentHashType
-       ),
-    _mwrcpDocumentVersion ::
-      !( Maybe
-           Text
-       ),
-    _mwrcpParameters ::
-      !( Maybe
-           ( Map
-               Text
-               [Text]
-           )
-       )
+  { -- | Configurations for sending notifications about command status changes on
+    -- a per-instance basis.
+    notificationConfig :: Prelude.Maybe NotificationConfig,
+    -- | The ARN of the IAM service role to use to publish Amazon Simple
+    -- Notification Service (Amazon SNS) notifications for maintenance window
+    -- Run Command tasks.
+    serviceRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the S3 bucket.
+    outputS3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | Information about the commands to run.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | The SHA-256 or SHA-1 hash created by the system when the document was
+    -- created. SHA-1 hashes have been deprecated.
+    documentHash :: Prelude.Maybe Prelude.Text,
+    -- | The S3 bucket subfolder.
+    outputS3KeyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | If this time is reached and the command has not already started running,
+    -- it doesn\'t run.
+    timeoutSeconds :: Prelude.Maybe Prelude.Nat,
+    cloudWatchOutputConfig :: Prelude.Maybe CloudWatchOutputConfig,
+    -- | SHA-256 or SHA-1. SHA-1 hashes have been deprecated.
+    documentHashType :: Prelude.Maybe DocumentHashType,
+    -- | The SSM document version to use in the request. You can specify
+    -- \$DEFAULT, $LATEST, or a specific version number. If you run commands by
+    -- using the AWS CLI, then you must escape the first two options by using a
+    -- backslash. If you specify a version number, then you don\'t need to use
+    -- the backslash. For example:
+    --
+    -- --document-version \"\\$DEFAULT\"
+    --
+    -- --document-version \"\\$LATEST\"
+    --
+    -- --document-version \"3\"
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The parameters for the RUN_COMMAND task execution.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text])
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MaintenanceWindowRunCommandParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MaintenanceWindowRunCommandParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwrcpNotificationConfig' - Configurations for sending notifications about command status changes on a per-instance basis.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwrcpServiceRoleARN' - The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
+-- 'notificationConfig', 'maintenanceWindowRunCommandParameters_notificationConfig' - Configurations for sending notifications about command status changes on
+-- a per-instance basis.
 --
--- * 'mwrcpOutputS3BucketName' - The name of the S3 bucket.
+-- 'serviceRoleArn', 'maintenanceWindowRunCommandParameters_serviceRoleArn' - The ARN of the IAM service role to use to publish Amazon Simple
+-- Notification Service (Amazon SNS) notifications for maintenance window
+-- Run Command tasks.
 --
--- * 'mwrcpComment' - Information about the commands to run.
+-- 'outputS3BucketName', 'maintenanceWindowRunCommandParameters_outputS3BucketName' - The name of the S3 bucket.
 --
--- * 'mwrcpDocumentHash' - The SHA-256 or SHA-1 hash created by the system when the document was created. SHA-1 hashes have been deprecated.
+-- 'comment', 'maintenanceWindowRunCommandParameters_comment' - Information about the commands to run.
 --
--- * 'mwrcpOutputS3KeyPrefix' - The S3 bucket subfolder.
+-- 'documentHash', 'maintenanceWindowRunCommandParameters_documentHash' - The SHA-256 or SHA-1 hash created by the system when the document was
+-- created. SHA-1 hashes have been deprecated.
 --
--- * 'mwrcpTimeoutSeconds' - If this time is reached and the command has not already started running, it doesn't run.
+-- 'outputS3KeyPrefix', 'maintenanceWindowRunCommandParameters_outputS3KeyPrefix' - The S3 bucket subfolder.
 --
--- * 'mwrcpCloudWatchOutputConfig' - Undocumented member.
+-- 'timeoutSeconds', 'maintenanceWindowRunCommandParameters_timeoutSeconds' - If this time is reached and the command has not already started running,
+-- it doesn\'t run.
 --
--- * 'mwrcpDocumentHashType' - SHA-256 or SHA-1. SHA-1 hashes have been deprecated.
+-- 'cloudWatchOutputConfig', 'maintenanceWindowRunCommandParameters_cloudWatchOutputConfig' - Undocumented member.
 --
--- * 'mwrcpDocumentVersion' - The SSM document version to use in the request. You can specify $DEFAULT, $LATEST, or a specific version number. If you run commands by using the AWS CLI, then you must escape the first two options by using a backslash. If you specify a version number, then you don't need to use the backslash. For example: --document-version "\$DEFAULT" --document-version "\$LATEST" --document-version "3"
+-- 'documentHashType', 'maintenanceWindowRunCommandParameters_documentHashType' - SHA-256 or SHA-1. SHA-1 hashes have been deprecated.
 --
--- * 'mwrcpParameters' - The parameters for the RUN_COMMAND task execution.
-maintenanceWindowRunCommandParameters ::
+-- 'documentVersion', 'maintenanceWindowRunCommandParameters_documentVersion' - The SSM document version to use in the request. You can specify
+-- \$DEFAULT, $LATEST, or a specific version number. If you run commands by
+-- using the AWS CLI, then you must escape the first two options by using a
+-- backslash. If you specify a version number, then you don\'t need to use
+-- the backslash. For example:
+--
+-- --document-version \"\\$DEFAULT\"
+--
+-- --document-version \"\\$LATEST\"
+--
+-- --document-version \"3\"
+--
+-- 'parameters', 'maintenanceWindowRunCommandParameters_parameters' - The parameters for the RUN_COMMAND task execution.
+newMaintenanceWindowRunCommandParameters ::
   MaintenanceWindowRunCommandParameters
-maintenanceWindowRunCommandParameters =
+newMaintenanceWindowRunCommandParameters =
   MaintenanceWindowRunCommandParameters'
-    { _mwrcpNotificationConfig =
-        Nothing,
-      _mwrcpServiceRoleARN = Nothing,
-      _mwrcpOutputS3BucketName = Nothing,
-      _mwrcpComment = Nothing,
-      _mwrcpDocumentHash = Nothing,
-      _mwrcpOutputS3KeyPrefix = Nothing,
-      _mwrcpTimeoutSeconds = Nothing,
-      _mwrcpCloudWatchOutputConfig =
-        Nothing,
-      _mwrcpDocumentHashType = Nothing,
-      _mwrcpDocumentVersion = Nothing,
-      _mwrcpParameters = Nothing
+    { notificationConfig =
+        Prelude.Nothing,
+      serviceRoleArn = Prelude.Nothing,
+      outputS3BucketName = Prelude.Nothing,
+      comment = Prelude.Nothing,
+      documentHash = Prelude.Nothing,
+      outputS3KeyPrefix = Prelude.Nothing,
+      timeoutSeconds = Prelude.Nothing,
+      cloudWatchOutputConfig =
+        Prelude.Nothing,
+      documentHashType = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      parameters = Prelude.Nothing
     }
 
--- | Configurations for sending notifications about command status changes on a per-instance basis.
-mwrcpNotificationConfig :: Lens' MaintenanceWindowRunCommandParameters (Maybe NotificationConfig)
-mwrcpNotificationConfig = lens _mwrcpNotificationConfig (\s a -> s {_mwrcpNotificationConfig = a})
+-- | Configurations for sending notifications about command status changes on
+-- a per-instance basis.
+maintenanceWindowRunCommandParameters_notificationConfig :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe NotificationConfig)
+maintenanceWindowRunCommandParameters_notificationConfig = Lens.lens (\MaintenanceWindowRunCommandParameters' {notificationConfig} -> notificationConfig) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {notificationConfig = a} :: MaintenanceWindowRunCommandParameters)
 
--- | The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
-mwrcpServiceRoleARN :: Lens' MaintenanceWindowRunCommandParameters (Maybe Text)
-mwrcpServiceRoleARN = lens _mwrcpServiceRoleARN (\s a -> s {_mwrcpServiceRoleARN = a})
+-- | The ARN of the IAM service role to use to publish Amazon Simple
+-- Notification Service (Amazon SNS) notifications for maintenance window
+-- Run Command tasks.
+maintenanceWindowRunCommandParameters_serviceRoleArn :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowRunCommandParameters_serviceRoleArn = Lens.lens (\MaintenanceWindowRunCommandParameters' {serviceRoleArn} -> serviceRoleArn) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {serviceRoleArn = a} :: MaintenanceWindowRunCommandParameters)
 
 -- | The name of the S3 bucket.
-mwrcpOutputS3BucketName :: Lens' MaintenanceWindowRunCommandParameters (Maybe Text)
-mwrcpOutputS3BucketName = lens _mwrcpOutputS3BucketName (\s a -> s {_mwrcpOutputS3BucketName = a})
+maintenanceWindowRunCommandParameters_outputS3BucketName :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowRunCommandParameters_outputS3BucketName = Lens.lens (\MaintenanceWindowRunCommandParameters' {outputS3BucketName} -> outputS3BucketName) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {outputS3BucketName = a} :: MaintenanceWindowRunCommandParameters)
 
 -- | Information about the commands to run.
-mwrcpComment :: Lens' MaintenanceWindowRunCommandParameters (Maybe Text)
-mwrcpComment = lens _mwrcpComment (\s a -> s {_mwrcpComment = a})
+maintenanceWindowRunCommandParameters_comment :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowRunCommandParameters_comment = Lens.lens (\MaintenanceWindowRunCommandParameters' {comment} -> comment) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {comment = a} :: MaintenanceWindowRunCommandParameters)
 
--- | The SHA-256 or SHA-1 hash created by the system when the document was created. SHA-1 hashes have been deprecated.
-mwrcpDocumentHash :: Lens' MaintenanceWindowRunCommandParameters (Maybe Text)
-mwrcpDocumentHash = lens _mwrcpDocumentHash (\s a -> s {_mwrcpDocumentHash = a})
+-- | The SHA-256 or SHA-1 hash created by the system when the document was
+-- created. SHA-1 hashes have been deprecated.
+maintenanceWindowRunCommandParameters_documentHash :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowRunCommandParameters_documentHash = Lens.lens (\MaintenanceWindowRunCommandParameters' {documentHash} -> documentHash) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {documentHash = a} :: MaintenanceWindowRunCommandParameters)
 
 -- | The S3 bucket subfolder.
-mwrcpOutputS3KeyPrefix :: Lens' MaintenanceWindowRunCommandParameters (Maybe Text)
-mwrcpOutputS3KeyPrefix = lens _mwrcpOutputS3KeyPrefix (\s a -> s {_mwrcpOutputS3KeyPrefix = a})
+maintenanceWindowRunCommandParameters_outputS3KeyPrefix :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowRunCommandParameters_outputS3KeyPrefix = Lens.lens (\MaintenanceWindowRunCommandParameters' {outputS3KeyPrefix} -> outputS3KeyPrefix) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {outputS3KeyPrefix = a} :: MaintenanceWindowRunCommandParameters)
 
--- | If this time is reached and the command has not already started running, it doesn't run.
-mwrcpTimeoutSeconds :: Lens' MaintenanceWindowRunCommandParameters (Maybe Natural)
-mwrcpTimeoutSeconds = lens _mwrcpTimeoutSeconds (\s a -> s {_mwrcpTimeoutSeconds = a}) . mapping _Nat
+-- | If this time is reached and the command has not already started running,
+-- it doesn\'t run.
+maintenanceWindowRunCommandParameters_timeoutSeconds :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe Prelude.Natural)
+maintenanceWindowRunCommandParameters_timeoutSeconds = Lens.lens (\MaintenanceWindowRunCommandParameters' {timeoutSeconds} -> timeoutSeconds) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {timeoutSeconds = a} :: MaintenanceWindowRunCommandParameters) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Undocumented member.
-mwrcpCloudWatchOutputConfig :: Lens' MaintenanceWindowRunCommandParameters (Maybe CloudWatchOutputConfig)
-mwrcpCloudWatchOutputConfig = lens _mwrcpCloudWatchOutputConfig (\s a -> s {_mwrcpCloudWatchOutputConfig = a})
+maintenanceWindowRunCommandParameters_cloudWatchOutputConfig :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe CloudWatchOutputConfig)
+maintenanceWindowRunCommandParameters_cloudWatchOutputConfig = Lens.lens (\MaintenanceWindowRunCommandParameters' {cloudWatchOutputConfig} -> cloudWatchOutputConfig) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {cloudWatchOutputConfig = a} :: MaintenanceWindowRunCommandParameters)
 
 -- | SHA-256 or SHA-1. SHA-1 hashes have been deprecated.
-mwrcpDocumentHashType :: Lens' MaintenanceWindowRunCommandParameters (Maybe DocumentHashType)
-mwrcpDocumentHashType = lens _mwrcpDocumentHashType (\s a -> s {_mwrcpDocumentHashType = a})
+maintenanceWindowRunCommandParameters_documentHashType :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe DocumentHashType)
+maintenanceWindowRunCommandParameters_documentHashType = Lens.lens (\MaintenanceWindowRunCommandParameters' {documentHashType} -> documentHashType) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {documentHashType = a} :: MaintenanceWindowRunCommandParameters)
 
--- | The SSM document version to use in the request. You can specify $DEFAULT, $LATEST, or a specific version number. If you run commands by using the AWS CLI, then you must escape the first two options by using a backslash. If you specify a version number, then you don't need to use the backslash. For example: --document-version "\$DEFAULT" --document-version "\$LATEST" --document-version "3"
-mwrcpDocumentVersion :: Lens' MaintenanceWindowRunCommandParameters (Maybe Text)
-mwrcpDocumentVersion = lens _mwrcpDocumentVersion (\s a -> s {_mwrcpDocumentVersion = a})
+-- | The SSM document version to use in the request. You can specify
+-- \$DEFAULT, $LATEST, or a specific version number. If you run commands by
+-- using the AWS CLI, then you must escape the first two options by using a
+-- backslash. If you specify a version number, then you don\'t need to use
+-- the backslash. For example:
+--
+-- --document-version \"\\$DEFAULT\"
+--
+-- --document-version \"\\$LATEST\"
+--
+-- --document-version \"3\"
+maintenanceWindowRunCommandParameters_documentVersion :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowRunCommandParameters_documentVersion = Lens.lens (\MaintenanceWindowRunCommandParameters' {documentVersion} -> documentVersion) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {documentVersion = a} :: MaintenanceWindowRunCommandParameters)
 
 -- | The parameters for the RUN_COMMAND task execution.
-mwrcpParameters :: Lens' MaintenanceWindowRunCommandParameters (HashMap Text [Text])
-mwrcpParameters = lens _mwrcpParameters (\s a -> s {_mwrcpParameters = a}) . _Default . _Map
+maintenanceWindowRunCommandParameters_parameters :: Lens.Lens' MaintenanceWindowRunCommandParameters (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+maintenanceWindowRunCommandParameters_parameters = Lens.lens (\MaintenanceWindowRunCommandParameters' {parameters} -> parameters) (\s@MaintenanceWindowRunCommandParameters' {} a -> s {parameters = a} :: MaintenanceWindowRunCommandParameters) Prelude.. Lens.mapping Prelude._Map
 
 instance
-  FromJSON
+  Prelude.FromJSON
     MaintenanceWindowRunCommandParameters
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MaintenanceWindowRunCommandParameters"
       ( \x ->
           MaintenanceWindowRunCommandParameters'
-            <$> (x .:? "NotificationConfig")
-            <*> (x .:? "ServiceRoleArn")
-            <*> (x .:? "OutputS3BucketName")
-            <*> (x .:? "Comment")
-            <*> (x .:? "DocumentHash")
-            <*> (x .:? "OutputS3KeyPrefix")
-            <*> (x .:? "TimeoutSeconds")
-            <*> (x .:? "CloudWatchOutputConfig")
-            <*> (x .:? "DocumentHashType")
-            <*> (x .:? "DocumentVersion")
-            <*> (x .:? "Parameters" .!= mempty)
+            Prelude.<$> (x Prelude..:? "NotificationConfig")
+            Prelude.<*> (x Prelude..:? "ServiceRoleArn")
+            Prelude.<*> (x Prelude..:? "OutputS3BucketName")
+            Prelude.<*> (x Prelude..:? "Comment")
+            Prelude.<*> (x Prelude..:? "DocumentHash")
+            Prelude.<*> (x Prelude..:? "OutputS3KeyPrefix")
+            Prelude.<*> (x Prelude..:? "TimeoutSeconds")
+            Prelude.<*> (x Prelude..:? "CloudWatchOutputConfig")
+            Prelude.<*> (x Prelude..:? "DocumentHashType")
+            Prelude.<*> (x Prelude..:? "DocumentVersion")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     MaintenanceWindowRunCommandParameters
 
-instance NFData MaintenanceWindowRunCommandParameters
+instance
+  Prelude.NFData
+    MaintenanceWindowRunCommandParameters
 
-instance ToJSON MaintenanceWindowRunCommandParameters where
+instance
+  Prelude.ToJSON
+    MaintenanceWindowRunCommandParameters
+  where
   toJSON MaintenanceWindowRunCommandParameters' {..} =
-    object
-      ( catMaybes
-          [ ("NotificationConfig" .=)
-              <$> _mwrcpNotificationConfig,
-            ("ServiceRoleArn" .=) <$> _mwrcpServiceRoleARN,
-            ("OutputS3BucketName" .=)
-              <$> _mwrcpOutputS3BucketName,
-            ("Comment" .=) <$> _mwrcpComment,
-            ("DocumentHash" .=) <$> _mwrcpDocumentHash,
-            ("OutputS3KeyPrefix" .=) <$> _mwrcpOutputS3KeyPrefix,
-            ("TimeoutSeconds" .=) <$> _mwrcpTimeoutSeconds,
-            ("CloudWatchOutputConfig" .=)
-              <$> _mwrcpCloudWatchOutputConfig,
-            ("DocumentHashType" .=) <$> _mwrcpDocumentHashType,
-            ("DocumentVersion" .=) <$> _mwrcpDocumentVersion,
-            ("Parameters" .=) <$> _mwrcpParameters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotificationConfig" Prelude..=)
+              Prelude.<$> notificationConfig,
+            ("ServiceRoleArn" Prelude..=)
+              Prelude.<$> serviceRoleArn,
+            ("OutputS3BucketName" Prelude..=)
+              Prelude.<$> outputS3BucketName,
+            ("Comment" Prelude..=) Prelude.<$> comment,
+            ("DocumentHash" Prelude..=) Prelude.<$> documentHash,
+            ("OutputS3KeyPrefix" Prelude..=)
+              Prelude.<$> outputS3KeyPrefix,
+            ("TimeoutSeconds" Prelude..=)
+              Prelude.<$> timeoutSeconds,
+            ("CloudWatchOutputConfig" Prelude..=)
+              Prelude.<$> cloudWatchOutputConfig,
+            ("DocumentHashType" Prelude..=)
+              Prelude.<$> documentHashType,
+            ("DocumentVersion" Prelude..=)
+              Prelude.<$> documentVersion,
+            ("Parameters" Prelude..=) Prelude.<$> parameters
           ]
       )

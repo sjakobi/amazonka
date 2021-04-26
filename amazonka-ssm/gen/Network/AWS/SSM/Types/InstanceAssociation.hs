@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InstanceAssociation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | One or more association documents on the instance.
 --
---
---
--- /See:/ 'instanceAssociation' smart constructor.
+-- /See:/ 'newInstanceAssociation' smart constructor.
 data InstanceAssociation = InstanceAssociation'
-  { _iaInstanceId ::
-      !(Maybe Text),
-    _iaAssociationId ::
-      !(Maybe Text),
-    _iaContent :: !(Maybe Text),
-    _iaAssociationVersion ::
-      !(Maybe Text)
+  { -- | The instance ID.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The association ID.
+    associationId :: Prelude.Maybe Prelude.Text,
+    -- | The content of the association document for the instance(s).
+    content :: Prelude.Maybe Prelude.Text,
+    -- | Version information for the association on the instance.
+    associationVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iaInstanceId' - The instance ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iaAssociationId' - The association ID.
+-- 'instanceId', 'instanceAssociation_instanceId' - The instance ID.
 --
--- * 'iaContent' - The content of the association document for the instance(s).
+-- 'associationId', 'instanceAssociation_associationId' - The association ID.
 --
--- * 'iaAssociationVersion' - Version information for the association on the instance.
-instanceAssociation ::
+-- 'content', 'instanceAssociation_content' - The content of the association document for the instance(s).
+--
+-- 'associationVersion', 'instanceAssociation_associationVersion' - Version information for the association on the instance.
+newInstanceAssociation ::
   InstanceAssociation
-instanceAssociation =
+newInstanceAssociation =
   InstanceAssociation'
-    { _iaInstanceId = Nothing,
-      _iaAssociationId = Nothing,
-      _iaContent = Nothing,
-      _iaAssociationVersion = Nothing
+    { instanceId = Prelude.Nothing,
+      associationId = Prelude.Nothing,
+      content = Prelude.Nothing,
+      associationVersion = Prelude.Nothing
     }
 
 -- | The instance ID.
-iaInstanceId :: Lens' InstanceAssociation (Maybe Text)
-iaInstanceId = lens _iaInstanceId (\s a -> s {_iaInstanceId = a})
+instanceAssociation_instanceId :: Lens.Lens' InstanceAssociation (Prelude.Maybe Prelude.Text)
+instanceAssociation_instanceId = Lens.lens (\InstanceAssociation' {instanceId} -> instanceId) (\s@InstanceAssociation' {} a -> s {instanceId = a} :: InstanceAssociation)
 
 -- | The association ID.
-iaAssociationId :: Lens' InstanceAssociation (Maybe Text)
-iaAssociationId = lens _iaAssociationId (\s a -> s {_iaAssociationId = a})
+instanceAssociation_associationId :: Lens.Lens' InstanceAssociation (Prelude.Maybe Prelude.Text)
+instanceAssociation_associationId = Lens.lens (\InstanceAssociation' {associationId} -> associationId) (\s@InstanceAssociation' {} a -> s {associationId = a} :: InstanceAssociation)
 
 -- | The content of the association document for the instance(s).
-iaContent :: Lens' InstanceAssociation (Maybe Text)
-iaContent = lens _iaContent (\s a -> s {_iaContent = a})
+instanceAssociation_content :: Lens.Lens' InstanceAssociation (Prelude.Maybe Prelude.Text)
+instanceAssociation_content = Lens.lens (\InstanceAssociation' {content} -> content) (\s@InstanceAssociation' {} a -> s {content = a} :: InstanceAssociation)
 
 -- | Version information for the association on the instance.
-iaAssociationVersion :: Lens' InstanceAssociation (Maybe Text)
-iaAssociationVersion = lens _iaAssociationVersion (\s a -> s {_iaAssociationVersion = a})
+instanceAssociation_associationVersion :: Lens.Lens' InstanceAssociation (Prelude.Maybe Prelude.Text)
+instanceAssociation_associationVersion = Lens.lens (\InstanceAssociation' {associationVersion} -> associationVersion) (\s@InstanceAssociation' {} a -> s {associationVersion = a} :: InstanceAssociation)
 
-instance FromJSON InstanceAssociation where
+instance Prelude.FromJSON InstanceAssociation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceAssociation"
       ( \x ->
           InstanceAssociation'
-            <$> (x .:? "InstanceId")
-            <*> (x .:? "AssociationId")
-            <*> (x .:? "Content")
-            <*> (x .:? "AssociationVersion")
+            Prelude.<$> (x Prelude..:? "InstanceId")
+            Prelude.<*> (x Prelude..:? "AssociationId")
+            Prelude.<*> (x Prelude..:? "Content")
+            Prelude.<*> (x Prelude..:? "AssociationVersion")
       )
 
-instance Hashable InstanceAssociation
+instance Prelude.Hashable InstanceAssociation
 
-instance NFData InstanceAssociation
+instance Prelude.NFData InstanceAssociation

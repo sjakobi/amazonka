@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ParametersFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.ParametersFilterKey
 
--- | This data type is deprecated. Instead, use 'ParameterStringFilter' .
+-- | This data type is deprecated. Instead, use ParameterStringFilter.
 --
---
---
--- /See:/ 'parametersFilter' smart constructor.
+-- /See:/ 'newParametersFilter' smart constructor.
 data ParametersFilter = ParametersFilter'
-  { _pKey ::
-      !ParametersFilterKey,
-    _pValues :: !(List1 Text)
+  { -- | The name of the filter.
+    key :: ParametersFilterKey,
+    -- | The filter values.
+    values :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParametersFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParametersFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pKey' - The name of the filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pValues' - The filter values.
-parametersFilter ::
-  -- | 'pKey'
+-- 'key', 'parametersFilter_key' - The name of the filter.
+--
+-- 'values', 'parametersFilter_values' - The filter values.
+newParametersFilter ::
+  -- | 'key'
   ParametersFilterKey ->
-  -- | 'pValues'
-  NonEmpty Text ->
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
   ParametersFilter
-parametersFilter pKey_ pValues_ =
+newParametersFilter pKey_ pValues_ =
   ParametersFilter'
-    { _pKey = pKey_,
-      _pValues = _List1 # pValues_
+    { key = pKey_,
+      values = Prelude._List1 Lens.# pValues_
     }
 
 -- | The name of the filter.
-pKey :: Lens' ParametersFilter ParametersFilterKey
-pKey = lens _pKey (\s a -> s {_pKey = a})
+parametersFilter_key :: Lens.Lens' ParametersFilter ParametersFilterKey
+parametersFilter_key = Lens.lens (\ParametersFilter' {key} -> key) (\s@ParametersFilter' {} a -> s {key = a} :: ParametersFilter)
 
 -- | The filter values.
-pValues :: Lens' ParametersFilter (NonEmpty Text)
-pValues = lens _pValues (\s a -> s {_pValues = a}) . _List1
+parametersFilter_values :: Lens.Lens' ParametersFilter (Prelude.NonEmpty Prelude.Text)
+parametersFilter_values = Lens.lens (\ParametersFilter' {values} -> values) (\s@ParametersFilter' {} a -> s {values = a} :: ParametersFilter) Prelude.. Prelude._List1
 
-instance Hashable ParametersFilter
+instance Prelude.Hashable ParametersFilter
 
-instance NFData ParametersFilter
+instance Prelude.NFData ParametersFilter
 
-instance ToJSON ParametersFilter where
+instance Prelude.ToJSON ParametersFilter where
   toJSON ParametersFilter' {..} =
-    object
-      ( catMaybes
-          [Just ("Key" .= _pKey), Just ("Values" .= _pValues)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Values" Prelude..= values)
+          ]
       )

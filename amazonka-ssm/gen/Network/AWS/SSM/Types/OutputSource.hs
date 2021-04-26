@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.OutputSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the source where the association execution details are stored.
+-- | Information about the source where the association execution details are
+-- stored.
 --
---
---
--- /See:/ 'outputSource' smart constructor.
+-- /See:/ 'newOutputSource' smart constructor.
 data OutputSource = OutputSource'
-  { _osOutputSourceId ::
-      !(Maybe Text),
-    _osOutputSourceType :: !(Maybe Text)
+  { -- | The ID of the output source, for example the URL of an S3 bucket.
+    outputSourceId :: Prelude.Maybe Prelude.Text,
+    -- | The type of source where the association execution details are stored,
+    -- for example, Amazon S3.
+    outputSourceType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osOutputSourceId' - The ID of the output source, for example the URL of an S3 bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'osOutputSourceType' - The type of source where the association execution details are stored, for example, Amazon S3.
-outputSource ::
+-- 'outputSourceId', 'outputSource_outputSourceId' - The ID of the output source, for example the URL of an S3 bucket.
+--
+-- 'outputSourceType', 'outputSource_outputSourceType' - The type of source where the association execution details are stored,
+-- for example, Amazon S3.
+newOutputSource ::
   OutputSource
-outputSource =
+newOutputSource =
   OutputSource'
-    { _osOutputSourceId = Nothing,
-      _osOutputSourceType = Nothing
+    { outputSourceId = Prelude.Nothing,
+      outputSourceType = Prelude.Nothing
     }
 
 -- | The ID of the output source, for example the URL of an S3 bucket.
-osOutputSourceId :: Lens' OutputSource (Maybe Text)
-osOutputSourceId = lens _osOutputSourceId (\s a -> s {_osOutputSourceId = a})
+outputSource_outputSourceId :: Lens.Lens' OutputSource (Prelude.Maybe Prelude.Text)
+outputSource_outputSourceId = Lens.lens (\OutputSource' {outputSourceId} -> outputSourceId) (\s@OutputSource' {} a -> s {outputSourceId = a} :: OutputSource)
 
--- | The type of source where the association execution details are stored, for example, Amazon S3.
-osOutputSourceType :: Lens' OutputSource (Maybe Text)
-osOutputSourceType = lens _osOutputSourceType (\s a -> s {_osOutputSourceType = a})
+-- | The type of source where the association execution details are stored,
+-- for example, Amazon S3.
+outputSource_outputSourceType :: Lens.Lens' OutputSource (Prelude.Maybe Prelude.Text)
+outputSource_outputSourceType = Lens.lens (\OutputSource' {outputSourceType} -> outputSourceType) (\s@OutputSource' {} a -> s {outputSourceType = a} :: OutputSource)
 
-instance FromJSON OutputSource where
+instance Prelude.FromJSON OutputSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputSource"
       ( \x ->
           OutputSource'
-            <$> (x .:? "OutputSourceId")
-            <*> (x .:? "OutputSourceType")
+            Prelude.<$> (x Prelude..:? "OutputSourceId")
+            Prelude.<*> (x Prelude..:? "OutputSourceType")
       )
 
-instance Hashable OutputSource
+instance Prelude.Hashable OutputSource
 
-instance NFData OutputSource
+instance Prelude.NFData OutputSource

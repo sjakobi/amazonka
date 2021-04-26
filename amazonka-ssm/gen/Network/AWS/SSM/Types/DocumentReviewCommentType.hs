@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.SSM.Types.DocumentReviewCommentType
   ( DocumentReviewCommentType
       ( ..,
-        Comment
+        DocumentReviewCommentTypeComment
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentReviewCommentType
-  = DocumentReviewCommentType'
-      ( CI
-          Text
-      )
+newtype DocumentReviewCommentType = DocumentReviewCommentType'
+  { fromDocumentReviewCommentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Comment :: DocumentReviewCommentType
-pattern Comment = DocumentReviewCommentType' "Comment"
+pattern DocumentReviewCommentTypeComment :: DocumentReviewCommentType
+pattern DocumentReviewCommentTypeComment = DocumentReviewCommentType' "Comment"
 
 {-# COMPLETE
-  Comment,
+  DocumentReviewCommentTypeComment,
   DocumentReviewCommentType'
   #-}
 
-instance FromText DocumentReviewCommentType where
-  parser = (DocumentReviewCommentType' . mk) <$> takeText
+instance Prelude.FromText DocumentReviewCommentType where
+  parser = DocumentReviewCommentType' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentReviewCommentType where
-  toText (DocumentReviewCommentType' ci) = original ci
+instance Prelude.ToText DocumentReviewCommentType where
+  toText (DocumentReviewCommentType' x) = x
 
-instance Hashable DocumentReviewCommentType
+instance Prelude.Hashable DocumentReviewCommentType
 
-instance NFData DocumentReviewCommentType
+instance Prelude.NFData DocumentReviewCommentType
 
-instance ToByteString DocumentReviewCommentType
+instance Prelude.ToByteString DocumentReviewCommentType
 
-instance ToQuery DocumentReviewCommentType
+instance Prelude.ToQuery DocumentReviewCommentType
 
-instance ToHeader DocumentReviewCommentType
+instance Prelude.ToHeader DocumentReviewCommentType
 
-instance ToJSON DocumentReviewCommentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentReviewCommentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DocumentReviewCommentType where
-  parseJSON = parseJSONText "DocumentReviewCommentType"
+instance Prelude.FromJSON DocumentReviewCommentType where
+  parseJSON = Prelude.parseJSONText "DocumentReviewCommentType"

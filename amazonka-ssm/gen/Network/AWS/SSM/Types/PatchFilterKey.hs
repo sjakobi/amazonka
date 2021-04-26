@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,141 +19,143 @@
 module Network.AWS.SSM.Types.PatchFilterKey
   ( PatchFilterKey
       ( ..,
-        PFKAdvisoryId,
-        PFKArch,
-        PFKBugzillaId,
-        PFKClassification,
-        PFKCveId,
-        PFKEpoch,
-        PFKMsrcSeverity,
-        PFKName,
-        PFKPatchId,
-        PFKPatchSet,
-        PFKPriority,
-        PFKProduct,
-        PFKProductFamily,
-        PFKRelease,
-        PFKRepository,
-        PFKSection,
-        PFKSecurity,
-        PFKSeverity,
-        PFKVersion
+        PatchFilterKeyADVISORYID,
+        PatchFilterKeyARCH,
+        PatchFilterKeyBUGZILLAID,
+        PatchFilterKeyCLASSIFICATION,
+        PatchFilterKeyCVEID,
+        PatchFilterKeyEPOCH,
+        PatchFilterKeyMSRCSEVERITY,
+        PatchFilterKeyNAME,
+        PatchFilterKeyPATCHID,
+        PatchFilterKeyPATCHSET,
+        PatchFilterKeyPRIORITY,
+        PatchFilterKeyPRODUCT,
+        PatchFilterKeyPRODUCTFAMILY,
+        PatchFilterKeyRELEASE,
+        PatchFilterKeyREPOSITORY,
+        PatchFilterKeySECTION,
+        PatchFilterKeySECURITY,
+        PatchFilterKeySEVERITY,
+        PatchFilterKeyVERSION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PatchFilterKey = PatchFilterKey' (CI Text)
+newtype PatchFilterKey = PatchFilterKey'
+  { fromPatchFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PFKAdvisoryId :: PatchFilterKey
-pattern PFKAdvisoryId = PatchFilterKey' "ADVISORY_ID"
+pattern PatchFilterKeyADVISORYID :: PatchFilterKey
+pattern PatchFilterKeyADVISORYID = PatchFilterKey' "ADVISORY_ID"
 
-pattern PFKArch :: PatchFilterKey
-pattern PFKArch = PatchFilterKey' "ARCH"
+pattern PatchFilterKeyARCH :: PatchFilterKey
+pattern PatchFilterKeyARCH = PatchFilterKey' "ARCH"
 
-pattern PFKBugzillaId :: PatchFilterKey
-pattern PFKBugzillaId = PatchFilterKey' "BUGZILLA_ID"
+pattern PatchFilterKeyBUGZILLAID :: PatchFilterKey
+pattern PatchFilterKeyBUGZILLAID = PatchFilterKey' "BUGZILLA_ID"
 
-pattern PFKClassification :: PatchFilterKey
-pattern PFKClassification = PatchFilterKey' "CLASSIFICATION"
+pattern PatchFilterKeyCLASSIFICATION :: PatchFilterKey
+pattern PatchFilterKeyCLASSIFICATION = PatchFilterKey' "CLASSIFICATION"
 
-pattern PFKCveId :: PatchFilterKey
-pattern PFKCveId = PatchFilterKey' "CVE_ID"
+pattern PatchFilterKeyCVEID :: PatchFilterKey
+pattern PatchFilterKeyCVEID = PatchFilterKey' "CVE_ID"
 
-pattern PFKEpoch :: PatchFilterKey
-pattern PFKEpoch = PatchFilterKey' "EPOCH"
+pattern PatchFilterKeyEPOCH :: PatchFilterKey
+pattern PatchFilterKeyEPOCH = PatchFilterKey' "EPOCH"
 
-pattern PFKMsrcSeverity :: PatchFilterKey
-pattern PFKMsrcSeverity = PatchFilterKey' "MSRC_SEVERITY"
+pattern PatchFilterKeyMSRCSEVERITY :: PatchFilterKey
+pattern PatchFilterKeyMSRCSEVERITY = PatchFilterKey' "MSRC_SEVERITY"
 
-pattern PFKName :: PatchFilterKey
-pattern PFKName = PatchFilterKey' "NAME"
+pattern PatchFilterKeyNAME :: PatchFilterKey
+pattern PatchFilterKeyNAME = PatchFilterKey' "NAME"
 
-pattern PFKPatchId :: PatchFilterKey
-pattern PFKPatchId = PatchFilterKey' "PATCH_ID"
+pattern PatchFilterKeyPATCHID :: PatchFilterKey
+pattern PatchFilterKeyPATCHID = PatchFilterKey' "PATCH_ID"
 
-pattern PFKPatchSet :: PatchFilterKey
-pattern PFKPatchSet = PatchFilterKey' "PATCH_SET"
+pattern PatchFilterKeyPATCHSET :: PatchFilterKey
+pattern PatchFilterKeyPATCHSET = PatchFilterKey' "PATCH_SET"
 
-pattern PFKPriority :: PatchFilterKey
-pattern PFKPriority = PatchFilterKey' "PRIORITY"
+pattern PatchFilterKeyPRIORITY :: PatchFilterKey
+pattern PatchFilterKeyPRIORITY = PatchFilterKey' "PRIORITY"
 
-pattern PFKProduct :: PatchFilterKey
-pattern PFKProduct = PatchFilterKey' "PRODUCT"
+pattern PatchFilterKeyPRODUCT :: PatchFilterKey
+pattern PatchFilterKeyPRODUCT = PatchFilterKey' "PRODUCT"
 
-pattern PFKProductFamily :: PatchFilterKey
-pattern PFKProductFamily = PatchFilterKey' "PRODUCT_FAMILY"
+pattern PatchFilterKeyPRODUCTFAMILY :: PatchFilterKey
+pattern PatchFilterKeyPRODUCTFAMILY = PatchFilterKey' "PRODUCT_FAMILY"
 
-pattern PFKRelease :: PatchFilterKey
-pattern PFKRelease = PatchFilterKey' "RELEASE"
+pattern PatchFilterKeyRELEASE :: PatchFilterKey
+pattern PatchFilterKeyRELEASE = PatchFilterKey' "RELEASE"
 
-pattern PFKRepository :: PatchFilterKey
-pattern PFKRepository = PatchFilterKey' "REPOSITORY"
+pattern PatchFilterKeyREPOSITORY :: PatchFilterKey
+pattern PatchFilterKeyREPOSITORY = PatchFilterKey' "REPOSITORY"
 
-pattern PFKSection :: PatchFilterKey
-pattern PFKSection = PatchFilterKey' "SECTION"
+pattern PatchFilterKeySECTION :: PatchFilterKey
+pattern PatchFilterKeySECTION = PatchFilterKey' "SECTION"
 
-pattern PFKSecurity :: PatchFilterKey
-pattern PFKSecurity = PatchFilterKey' "SECURITY"
+pattern PatchFilterKeySECURITY :: PatchFilterKey
+pattern PatchFilterKeySECURITY = PatchFilterKey' "SECURITY"
 
-pattern PFKSeverity :: PatchFilterKey
-pattern PFKSeverity = PatchFilterKey' "SEVERITY"
+pattern PatchFilterKeySEVERITY :: PatchFilterKey
+pattern PatchFilterKeySEVERITY = PatchFilterKey' "SEVERITY"
 
-pattern PFKVersion :: PatchFilterKey
-pattern PFKVersion = PatchFilterKey' "VERSION"
+pattern PatchFilterKeyVERSION :: PatchFilterKey
+pattern PatchFilterKeyVERSION = PatchFilterKey' "VERSION"
 
 {-# COMPLETE
-  PFKAdvisoryId,
-  PFKArch,
-  PFKBugzillaId,
-  PFKClassification,
-  PFKCveId,
-  PFKEpoch,
-  PFKMsrcSeverity,
-  PFKName,
-  PFKPatchId,
-  PFKPatchSet,
-  PFKPriority,
-  PFKProduct,
-  PFKProductFamily,
-  PFKRelease,
-  PFKRepository,
-  PFKSection,
-  PFKSecurity,
-  PFKSeverity,
-  PFKVersion,
+  PatchFilterKeyADVISORYID,
+  PatchFilterKeyARCH,
+  PatchFilterKeyBUGZILLAID,
+  PatchFilterKeyCLASSIFICATION,
+  PatchFilterKeyCVEID,
+  PatchFilterKeyEPOCH,
+  PatchFilterKeyMSRCSEVERITY,
+  PatchFilterKeyNAME,
+  PatchFilterKeyPATCHID,
+  PatchFilterKeyPATCHSET,
+  PatchFilterKeyPRIORITY,
+  PatchFilterKeyPRODUCT,
+  PatchFilterKeyPRODUCTFAMILY,
+  PatchFilterKeyRELEASE,
+  PatchFilterKeyREPOSITORY,
+  PatchFilterKeySECTION,
+  PatchFilterKeySECURITY,
+  PatchFilterKeySEVERITY,
+  PatchFilterKeyVERSION,
   PatchFilterKey'
   #-}
 
-instance FromText PatchFilterKey where
-  parser = (PatchFilterKey' . mk) <$> takeText
+instance Prelude.FromText PatchFilterKey where
+  parser = PatchFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText PatchFilterKey where
-  toText (PatchFilterKey' ci) = original ci
+instance Prelude.ToText PatchFilterKey where
+  toText (PatchFilterKey' x) = x
 
-instance Hashable PatchFilterKey
+instance Prelude.Hashable PatchFilterKey
 
-instance NFData PatchFilterKey
+instance Prelude.NFData PatchFilterKey
 
-instance ToByteString PatchFilterKey
+instance Prelude.ToByteString PatchFilterKey
 
-instance ToQuery PatchFilterKey
+instance Prelude.ToQuery PatchFilterKey
 
-instance ToHeader PatchFilterKey
+instance Prelude.ToHeader PatchFilterKey
 
-instance ToJSON PatchFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON PatchFilterKey where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PatchFilterKey where
-  parseJSON = parseJSONText "PatchFilterKey"
+instance Prelude.FromJSON PatchFilterKey where
+  parseJSON = Prelude.parseJSONText "PatchFilterKey"

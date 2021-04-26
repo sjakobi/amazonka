@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.NotificationConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.NotificationEvent
 import Network.AWS.SSM.Types.NotificationType
 
 -- | Configurations for sending notifications.
 --
---
---
--- /See:/ 'notificationConfig' smart constructor.
+-- /See:/ 'newNotificationConfig' smart constructor.
 data NotificationConfig = NotificationConfig'
-  { _ncNotificationARN ::
-      !(Maybe Text),
-    _ncNotificationType ::
-      !(Maybe NotificationType),
-    _ncNotificationEvents ::
-      !(Maybe [NotificationEvent])
+  { -- | An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
+    -- (Amazon SNS) topic. Run Command pushes notifications about command
+    -- status changes to this topic.
+    notificationArn :: Prelude.Maybe Prelude.Text,
+    -- | Command: Receive notification when the status of a command changes.
+    -- Invocation: For commands sent to multiple instances, receive
+    -- notification on a per-instance basis when the status of a command
+    -- changes.
+    notificationType :: Prelude.Maybe NotificationType,
+    -- | The different events for which you can receive notifications. These
+    -- events include the following: All (events), InProgress, Success,
+    -- TimedOut, Cancelled, Failed. To learn more about these events, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html Monitoring Systems Manager status changes using Amazon SNS notifications>
+    -- in the /AWS Systems Manager User Guide/.
+    notificationEvents :: Prelude.Maybe [NotificationEvent]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotificationConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotificationConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncNotificationARN' - An Amazon Resource Name (ARN) for an Amazon Simple Notification Service (Amazon SNS) topic. Run Command pushes notifications about command status changes to this topic.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ncNotificationType' - Command: Receive notification when the status of a command changes. Invocation: For commands sent to multiple instances, receive notification on a per-instance basis when the status of a command changes.
+-- 'notificationArn', 'notificationConfig_notificationArn' - An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
+-- (Amazon SNS) topic. Run Command pushes notifications about command
+-- status changes to this topic.
 --
--- * 'ncNotificationEvents' - The different events for which you can receive notifications. These events include the following: All (events), InProgress, Success, TimedOut, Cancelled, Failed. To learn more about these events, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html Monitoring Systems Manager status changes using Amazon SNS notifications> in the /AWS Systems Manager User Guide/ .
-notificationConfig ::
+-- 'notificationType', 'notificationConfig_notificationType' - Command: Receive notification when the status of a command changes.
+-- Invocation: For commands sent to multiple instances, receive
+-- notification on a per-instance basis when the status of a command
+-- changes.
+--
+-- 'notificationEvents', 'notificationConfig_notificationEvents' - The different events for which you can receive notifications. These
+-- events include the following: All (events), InProgress, Success,
+-- TimedOut, Cancelled, Failed. To learn more about these events, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html Monitoring Systems Manager status changes using Amazon SNS notifications>
+-- in the /AWS Systems Manager User Guide/.
+newNotificationConfig ::
   NotificationConfig
-notificationConfig =
+newNotificationConfig =
   NotificationConfig'
-    { _ncNotificationARN = Nothing,
-      _ncNotificationType = Nothing,
-      _ncNotificationEvents = Nothing
+    { notificationArn =
+        Prelude.Nothing,
+      notificationType = Prelude.Nothing,
+      notificationEvents = Prelude.Nothing
     }
 
--- | An Amazon Resource Name (ARN) for an Amazon Simple Notification Service (Amazon SNS) topic. Run Command pushes notifications about command status changes to this topic.
-ncNotificationARN :: Lens' NotificationConfig (Maybe Text)
-ncNotificationARN = lens _ncNotificationARN (\s a -> s {_ncNotificationARN = a})
+-- | An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
+-- (Amazon SNS) topic. Run Command pushes notifications about command
+-- status changes to this topic.
+notificationConfig_notificationArn :: Lens.Lens' NotificationConfig (Prelude.Maybe Prelude.Text)
+notificationConfig_notificationArn = Lens.lens (\NotificationConfig' {notificationArn} -> notificationArn) (\s@NotificationConfig' {} a -> s {notificationArn = a} :: NotificationConfig)
 
--- | Command: Receive notification when the status of a command changes. Invocation: For commands sent to multiple instances, receive notification on a per-instance basis when the status of a command changes.
-ncNotificationType :: Lens' NotificationConfig (Maybe NotificationType)
-ncNotificationType = lens _ncNotificationType (\s a -> s {_ncNotificationType = a})
+-- | Command: Receive notification when the status of a command changes.
+-- Invocation: For commands sent to multiple instances, receive
+-- notification on a per-instance basis when the status of a command
+-- changes.
+notificationConfig_notificationType :: Lens.Lens' NotificationConfig (Prelude.Maybe NotificationType)
+notificationConfig_notificationType = Lens.lens (\NotificationConfig' {notificationType} -> notificationType) (\s@NotificationConfig' {} a -> s {notificationType = a} :: NotificationConfig)
 
--- | The different events for which you can receive notifications. These events include the following: All (events), InProgress, Success, TimedOut, Cancelled, Failed. To learn more about these events, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html Monitoring Systems Manager status changes using Amazon SNS notifications> in the /AWS Systems Manager User Guide/ .
-ncNotificationEvents :: Lens' NotificationConfig [NotificationEvent]
-ncNotificationEvents = lens _ncNotificationEvents (\s a -> s {_ncNotificationEvents = a}) . _Default . _Coerce
+-- | The different events for which you can receive notifications. These
+-- events include the following: All (events), InProgress, Success,
+-- TimedOut, Cancelled, Failed. To learn more about these events, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html Monitoring Systems Manager status changes using Amazon SNS notifications>
+-- in the /AWS Systems Manager User Guide/.
+notificationConfig_notificationEvents :: Lens.Lens' NotificationConfig (Prelude.Maybe [NotificationEvent])
+notificationConfig_notificationEvents = Lens.lens (\NotificationConfig' {notificationEvents} -> notificationEvents) (\s@NotificationConfig' {} a -> s {notificationEvents = a} :: NotificationConfig) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON NotificationConfig where
+instance Prelude.FromJSON NotificationConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NotificationConfig"
       ( \x ->
           NotificationConfig'
-            <$> (x .:? "NotificationArn")
-            <*> (x .:? "NotificationType")
-            <*> (x .:? "NotificationEvents" .!= mempty)
+            Prelude.<$> (x Prelude..:? "NotificationArn")
+            Prelude.<*> (x Prelude..:? "NotificationType")
+            Prelude.<*> ( x Prelude..:? "NotificationEvents"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable NotificationConfig
+instance Prelude.Hashable NotificationConfig
 
-instance NFData NotificationConfig
+instance Prelude.NFData NotificationConfig
 
-instance ToJSON NotificationConfig where
+instance Prelude.ToJSON NotificationConfig where
   toJSON NotificationConfig' {..} =
-    object
-      ( catMaybes
-          [ ("NotificationArn" .=) <$> _ncNotificationARN,
-            ("NotificationType" .=) <$> _ncNotificationType,
-            ("NotificationEvents" .=) <$> _ncNotificationEvents
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotificationArn" Prelude..=)
+              Prelude.<$> notificationArn,
+            ("NotificationType" Prelude..=)
+              Prelude.<$> notificationType,
+            ("NotificationEvents" Prelude..=)
+              Prelude.<$> notificationEvents
           ]
       )

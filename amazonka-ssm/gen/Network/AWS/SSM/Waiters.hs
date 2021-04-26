@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -13,51 +15,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Waiters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.GetCommandInvocation
+import Network.AWS.SSM.Lens
 import Network.AWS.SSM.Types
-import Network.AWS.Waiter
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.SSM.GetCommandInvocation' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-commandExecuted :: Wait GetCommandInvocation
-commandExecuted =
-  Wait
-    { _waitName = "CommandExecuted",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newCommandExecuted :: Waiter.Wait GetCommandInvocation
+newCommandExecuted =
+  Waiter.Wait
+    { Waiter._waitName = "CommandExecuted",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "Pending"
-            AcceptRetry
-            (gcirrsStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptRetry
+            ( getCommandInvocationResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "InProgress"
-            AcceptRetry
-            (gcirrsStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptRetry
+            ( getCommandInvocationResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Delayed"
-            AcceptRetry
-            (gcirrsStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptRetry
+            ( getCommandInvocationResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Success"
-            AcceptSuccess
-            (gcirrsStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( getCommandInvocationResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Cancelled"
-            AcceptFailure
-            (gcirrsStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptFailure
+            ( getCommandInvocationResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "TimedOut"
-            AcceptFailure
-            (gcirrsStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptFailure
+            ( getCommandInvocationResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            (gcirrsStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptFailure
+            ( getCommandInvocationResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Cancelling"
-            AcceptFailure
-            (gcirrsStatus . to toTextCI)
+            Waiter.AcceptFailure
+            ( getCommandInvocationResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            )
         ]
     }

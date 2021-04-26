@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.CloudWatchOutputConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration options for sending command output to CloudWatch Logs.
 --
---
---
--- /See:/ 'cloudWatchOutputConfig' smart constructor.
+-- /See:/ 'newCloudWatchOutputConfig' smart constructor.
 data CloudWatchOutputConfig = CloudWatchOutputConfig'
-  { _cwocCloudWatchLogGroupName ::
-      !(Maybe Text),
-    _cwocCloudWatchOutputEnabled ::
-      !(Maybe Bool)
+  { -- | The name of the CloudWatch log group where you want to send command
+    -- output. If you don\'t specify a group name, Systems Manager
+    -- automatically creates a log group for you. The log group uses the
+    -- following naming format: aws\/ssm\//SystemsManagerDocumentName/.
+    cloudWatchLogGroupName :: Prelude.Maybe Prelude.Text,
+    -- | Enables Systems Manager to send command output to CloudWatch Logs.
+    cloudWatchOutputEnabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudWatchOutputConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudWatchOutputConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwocCloudWatchLogGroupName' - The name of the CloudWatch log group where you want to send command output. If you don't specify a group name, Systems Manager automatically creates a log group for you. The log group uses the following naming format: aws/ssm//SystemsManagerDocumentName/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwocCloudWatchOutputEnabled' - Enables Systems Manager to send command output to CloudWatch Logs.
-cloudWatchOutputConfig ::
+-- 'cloudWatchLogGroupName', 'cloudWatchOutputConfig_cloudWatchLogGroupName' - The name of the CloudWatch log group where you want to send command
+-- output. If you don\'t specify a group name, Systems Manager
+-- automatically creates a log group for you. The log group uses the
+-- following naming format: aws\/ssm\//SystemsManagerDocumentName/.
+--
+-- 'cloudWatchOutputEnabled', 'cloudWatchOutputConfig_cloudWatchOutputEnabled' - Enables Systems Manager to send command output to CloudWatch Logs.
+newCloudWatchOutputConfig ::
   CloudWatchOutputConfig
-cloudWatchOutputConfig =
+newCloudWatchOutputConfig =
   CloudWatchOutputConfig'
-    { _cwocCloudWatchLogGroupName =
-        Nothing,
-      _cwocCloudWatchOutputEnabled = Nothing
+    { cloudWatchLogGroupName =
+        Prelude.Nothing,
+      cloudWatchOutputEnabled = Prelude.Nothing
     }
 
--- | The name of the CloudWatch log group where you want to send command output. If you don't specify a group name, Systems Manager automatically creates a log group for you. The log group uses the following naming format: aws/ssm//SystemsManagerDocumentName/ .
-cwocCloudWatchLogGroupName :: Lens' CloudWatchOutputConfig (Maybe Text)
-cwocCloudWatchLogGroupName = lens _cwocCloudWatchLogGroupName (\s a -> s {_cwocCloudWatchLogGroupName = a})
+-- | The name of the CloudWatch log group where you want to send command
+-- output. If you don\'t specify a group name, Systems Manager
+-- automatically creates a log group for you. The log group uses the
+-- following naming format: aws\/ssm\//SystemsManagerDocumentName/.
+cloudWatchOutputConfig_cloudWatchLogGroupName :: Lens.Lens' CloudWatchOutputConfig (Prelude.Maybe Prelude.Text)
+cloudWatchOutputConfig_cloudWatchLogGroupName = Lens.lens (\CloudWatchOutputConfig' {cloudWatchLogGroupName} -> cloudWatchLogGroupName) (\s@CloudWatchOutputConfig' {} a -> s {cloudWatchLogGroupName = a} :: CloudWatchOutputConfig)
 
 -- | Enables Systems Manager to send command output to CloudWatch Logs.
-cwocCloudWatchOutputEnabled :: Lens' CloudWatchOutputConfig (Maybe Bool)
-cwocCloudWatchOutputEnabled = lens _cwocCloudWatchOutputEnabled (\s a -> s {_cwocCloudWatchOutputEnabled = a})
+cloudWatchOutputConfig_cloudWatchOutputEnabled :: Lens.Lens' CloudWatchOutputConfig (Prelude.Maybe Prelude.Bool)
+cloudWatchOutputConfig_cloudWatchOutputEnabled = Lens.lens (\CloudWatchOutputConfig' {cloudWatchOutputEnabled} -> cloudWatchOutputEnabled) (\s@CloudWatchOutputConfig' {} a -> s {cloudWatchOutputEnabled = a} :: CloudWatchOutputConfig)
 
-instance FromJSON CloudWatchOutputConfig where
+instance Prelude.FromJSON CloudWatchOutputConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CloudWatchOutputConfig"
       ( \x ->
           CloudWatchOutputConfig'
-            <$> (x .:? "CloudWatchLogGroupName")
-            <*> (x .:? "CloudWatchOutputEnabled")
+            Prelude.<$> (x Prelude..:? "CloudWatchLogGroupName")
+            Prelude.<*> (x Prelude..:? "CloudWatchOutputEnabled")
       )
 
-instance Hashable CloudWatchOutputConfig
+instance Prelude.Hashable CloudWatchOutputConfig
 
-instance NFData CloudWatchOutputConfig
+instance Prelude.NFData CloudWatchOutputConfig
 
-instance ToJSON CloudWatchOutputConfig where
+instance Prelude.ToJSON CloudWatchOutputConfig where
   toJSON CloudWatchOutputConfig' {..} =
-    object
-      ( catMaybes
-          [ ("CloudWatchLogGroupName" .=)
-              <$> _cwocCloudWatchLogGroupName,
-            ("CloudWatchOutputEnabled" .=)
-              <$> _cwocCloudWatchOutputEnabled
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CloudWatchLogGroupName" Prelude..=)
+              Prelude.<$> cloudWatchLogGroupName,
+            ("CloudWatchOutputEnabled" Prelude..=)
+              Prelude.<$> cloudWatchOutputEnabled
           ]
       )

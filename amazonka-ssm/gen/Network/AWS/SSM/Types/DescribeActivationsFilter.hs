@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.DescribeActivationsFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.DescribeActivationsFilterKeys
 
 -- | Filter for the DescribeActivation API.
 --
---
---
--- /See:/ 'describeActivationsFilter' smart constructor.
+-- /See:/ 'newDescribeActivationsFilter' smart constructor.
 data DescribeActivationsFilter = DescribeActivationsFilter'
-  { _dafFilterKey ::
-      !( Maybe
-           DescribeActivationsFilterKeys
-       ),
-    _dafFilterValues ::
-      !(Maybe [Text])
+  { -- | The name of the filter.
+    filterKey :: Prelude.Maybe DescribeActivationsFilterKeys,
+    -- | The filter values.
+    filterValues :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeActivationsFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeActivationsFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dafFilterKey' - The name of the filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dafFilterValues' - The filter values.
-describeActivationsFilter ::
+-- 'filterKey', 'describeActivationsFilter_filterKey' - The name of the filter.
+--
+-- 'filterValues', 'describeActivationsFilter_filterValues' - The filter values.
+newDescribeActivationsFilter ::
   DescribeActivationsFilter
-describeActivationsFilter =
+newDescribeActivationsFilter =
   DescribeActivationsFilter'
-    { _dafFilterKey = Nothing,
-      _dafFilterValues = Nothing
+    { filterKey =
+        Prelude.Nothing,
+      filterValues = Prelude.Nothing
     }
 
 -- | The name of the filter.
-dafFilterKey :: Lens' DescribeActivationsFilter (Maybe DescribeActivationsFilterKeys)
-dafFilterKey = lens _dafFilterKey (\s a -> s {_dafFilterKey = a})
+describeActivationsFilter_filterKey :: Lens.Lens' DescribeActivationsFilter (Prelude.Maybe DescribeActivationsFilterKeys)
+describeActivationsFilter_filterKey = Lens.lens (\DescribeActivationsFilter' {filterKey} -> filterKey) (\s@DescribeActivationsFilter' {} a -> s {filterKey = a} :: DescribeActivationsFilter)
 
 -- | The filter values.
-dafFilterValues :: Lens' DescribeActivationsFilter [Text]
-dafFilterValues = lens _dafFilterValues (\s a -> s {_dafFilterValues = a}) . _Default . _Coerce
+describeActivationsFilter_filterValues :: Lens.Lens' DescribeActivationsFilter (Prelude.Maybe [Prelude.Text])
+describeActivationsFilter_filterValues = Lens.lens (\DescribeActivationsFilter' {filterValues} -> filterValues) (\s@DescribeActivationsFilter' {} a -> s {filterValues = a} :: DescribeActivationsFilter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable DescribeActivationsFilter
+instance Prelude.Hashable DescribeActivationsFilter
 
-instance NFData DescribeActivationsFilter
+instance Prelude.NFData DescribeActivationsFilter
 
-instance ToJSON DescribeActivationsFilter where
+instance Prelude.ToJSON DescribeActivationsFilter where
   toJSON DescribeActivationsFilter' {..} =
-    object
-      ( catMaybes
-          [ ("FilterKey" .=) <$> _dafFilterKey,
-            ("FilterValues" .=) <$> _dafFilterValues
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FilterKey" Prelude..=) Prelude.<$> filterKey,
+            ("FilterValues" Prelude..=)
+              Prelude.<$> filterValues
           ]
       )

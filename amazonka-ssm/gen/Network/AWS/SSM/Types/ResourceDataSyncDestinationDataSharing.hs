@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ResourceDataSyncDestinationDataSharing where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Synchronize Systems Manager Inventory data from multiple AWS accounts defined in AWS Organizations to a centralized S3 bucket. Data is synchronized to individual key prefixes in the central bucket. Each key prefix represents a different AWS account ID.
+-- | Synchronize Systems Manager Inventory data from multiple AWS accounts
+-- defined in AWS Organizations to a centralized S3 bucket. Data is
+-- synchronized to individual key prefixes in the central bucket. Each key
+-- prefix represents a different AWS account ID.
 --
---
---
--- /See:/ 'resourceDataSyncDestinationDataSharing' smart constructor.
-newtype ResourceDataSyncDestinationDataSharing = ResourceDataSyncDestinationDataSharing'
-  { _rdsddsDestinationDataSharingType ::
-      Maybe
-        Text
+-- /See:/ 'newResourceDataSyncDestinationDataSharing' smart constructor.
+data ResourceDataSyncDestinationDataSharing = ResourceDataSyncDestinationDataSharing'
+  { -- | The sharing data type. Only @Organization@ is supported.
+    destinationDataSharingType :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceDataSyncDestinationDataSharing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceDataSyncDestinationDataSharing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdsddsDestinationDataSharingType' - The sharing data type. Only @Organization@ is supported.
-resourceDataSyncDestinationDataSharing ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'destinationDataSharingType', 'resourceDataSyncDestinationDataSharing_destinationDataSharingType' - The sharing data type. Only @Organization@ is supported.
+newResourceDataSyncDestinationDataSharing ::
   ResourceDataSyncDestinationDataSharing
-resourceDataSyncDestinationDataSharing =
+newResourceDataSyncDestinationDataSharing =
   ResourceDataSyncDestinationDataSharing'
-    { _rdsddsDestinationDataSharingType =
-        Nothing
+    { destinationDataSharingType =
+        Prelude.Nothing
     }
 
 -- | The sharing data type. Only @Organization@ is supported.
-rdsddsDestinationDataSharingType :: Lens' ResourceDataSyncDestinationDataSharing (Maybe Text)
-rdsddsDestinationDataSharingType = lens _rdsddsDestinationDataSharingType (\s a -> s {_rdsddsDestinationDataSharingType = a})
+resourceDataSyncDestinationDataSharing_destinationDataSharingType :: Lens.Lens' ResourceDataSyncDestinationDataSharing (Prelude.Maybe Prelude.Text)
+resourceDataSyncDestinationDataSharing_destinationDataSharingType = Lens.lens (\ResourceDataSyncDestinationDataSharing' {destinationDataSharingType} -> destinationDataSharingType) (\s@ResourceDataSyncDestinationDataSharing' {} a -> s {destinationDataSharingType = a} :: ResourceDataSyncDestinationDataSharing)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ResourceDataSyncDestinationDataSharing
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceDataSyncDestinationDataSharing"
       ( \x ->
           ResourceDataSyncDestinationDataSharing'
-            <$> (x .:? "DestinationDataSharingType")
+            Prelude.<$> (x Prelude..:? "DestinationDataSharingType")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ResourceDataSyncDestinationDataSharing
 
 instance
-  NFData
+  Prelude.NFData
     ResourceDataSyncDestinationDataSharing
 
 instance
-  ToJSON
+  Prelude.ToJSON
     ResourceDataSyncDestinationDataSharing
   where
   toJSON ResourceDataSyncDestinationDataSharing' {..} =
-    object
-      ( catMaybes
-          [ ("DestinationDataSharingType" .=)
-              <$> _rdsddsDestinationDataSharingType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DestinationDataSharingType" Prelude..=)
+              Prelude.<$> destinationDataSharingType
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ResolvedTargets where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about targets that resolved during the Automation execution.
 --
---
---
--- /See:/ 'resolvedTargets' smart constructor.
+-- /See:/ 'newResolvedTargets' smart constructor.
 data ResolvedTargets = ResolvedTargets'
-  { _rtParameterValues ::
-      !(Maybe [Text]),
-    _rtTruncated :: !(Maybe Bool)
+  { -- | A list of parameter values sent to targets that resolved during the
+    -- Automation execution.
+    parameterValues :: Prelude.Maybe [Prelude.Text],
+    -- | A boolean value indicating whether the resolved target list is
+    -- truncated.
+    truncated :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResolvedTargets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResolvedTargets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtParameterValues' - A list of parameter values sent to targets that resolved during the Automation execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtTruncated' - A boolean value indicating whether the resolved target list is truncated.
-resolvedTargets ::
+-- 'parameterValues', 'resolvedTargets_parameterValues' - A list of parameter values sent to targets that resolved during the
+-- Automation execution.
+--
+-- 'truncated', 'resolvedTargets_truncated' - A boolean value indicating whether the resolved target list is
+-- truncated.
+newResolvedTargets ::
   ResolvedTargets
-resolvedTargets =
+newResolvedTargets =
   ResolvedTargets'
-    { _rtParameterValues = Nothing,
-      _rtTruncated = Nothing
+    { parameterValues = Prelude.Nothing,
+      truncated = Prelude.Nothing
     }
 
--- | A list of parameter values sent to targets that resolved during the Automation execution.
-rtParameterValues :: Lens' ResolvedTargets [Text]
-rtParameterValues = lens _rtParameterValues (\s a -> s {_rtParameterValues = a}) . _Default . _Coerce
+-- | A list of parameter values sent to targets that resolved during the
+-- Automation execution.
+resolvedTargets_parameterValues :: Lens.Lens' ResolvedTargets (Prelude.Maybe [Prelude.Text])
+resolvedTargets_parameterValues = Lens.lens (\ResolvedTargets' {parameterValues} -> parameterValues) (\s@ResolvedTargets' {} a -> s {parameterValues = a} :: ResolvedTargets) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A boolean value indicating whether the resolved target list is truncated.
-rtTruncated :: Lens' ResolvedTargets (Maybe Bool)
-rtTruncated = lens _rtTruncated (\s a -> s {_rtTruncated = a})
+-- | A boolean value indicating whether the resolved target list is
+-- truncated.
+resolvedTargets_truncated :: Lens.Lens' ResolvedTargets (Prelude.Maybe Prelude.Bool)
+resolvedTargets_truncated = Lens.lens (\ResolvedTargets' {truncated} -> truncated) (\s@ResolvedTargets' {} a -> s {truncated = a} :: ResolvedTargets)
 
-instance FromJSON ResolvedTargets where
+instance Prelude.FromJSON ResolvedTargets where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResolvedTargets"
       ( \x ->
           ResolvedTargets'
-            <$> (x .:? "ParameterValues" .!= mempty)
-            <*> (x .:? "Truncated")
+            Prelude.<$> ( x Prelude..:? "ParameterValues"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Truncated")
       )
 
-instance Hashable ResolvedTargets
+instance Prelude.Hashable ResolvedTargets
 
-instance NFData ResolvedTargets
+instance Prelude.NFData ResolvedTargets

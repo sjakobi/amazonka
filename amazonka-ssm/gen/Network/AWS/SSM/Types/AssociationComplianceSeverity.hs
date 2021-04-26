@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.SSM.Types.AssociationComplianceSeverity
   ( AssociationComplianceSeverity
       ( ..,
-        Critical,
-        High,
-        Low,
-        Medium,
-        Unspecified
+        AssociationComplianceSeverityCRITICAL,
+        AssociationComplianceSeverityHIGH,
+        AssociationComplianceSeverityLOW,
+        AssociationComplianceSeverityMEDIUM,
+        AssociationComplianceSeverityUNSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationComplianceSeverity
-  = AssociationComplianceSeverity'
-      ( CI
-          Text
-      )
+newtype AssociationComplianceSeverity = AssociationComplianceSeverity'
+  { fromAssociationComplianceSeverity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Critical :: AssociationComplianceSeverity
-pattern Critical = AssociationComplianceSeverity' "CRITICAL"
+pattern AssociationComplianceSeverityCRITICAL :: AssociationComplianceSeverity
+pattern AssociationComplianceSeverityCRITICAL = AssociationComplianceSeverity' "CRITICAL"
 
-pattern High :: AssociationComplianceSeverity
-pattern High = AssociationComplianceSeverity' "HIGH"
+pattern AssociationComplianceSeverityHIGH :: AssociationComplianceSeverity
+pattern AssociationComplianceSeverityHIGH = AssociationComplianceSeverity' "HIGH"
 
-pattern Low :: AssociationComplianceSeverity
-pattern Low = AssociationComplianceSeverity' "LOW"
+pattern AssociationComplianceSeverityLOW :: AssociationComplianceSeverity
+pattern AssociationComplianceSeverityLOW = AssociationComplianceSeverity' "LOW"
 
-pattern Medium :: AssociationComplianceSeverity
-pattern Medium = AssociationComplianceSeverity' "MEDIUM"
+pattern AssociationComplianceSeverityMEDIUM :: AssociationComplianceSeverity
+pattern AssociationComplianceSeverityMEDIUM = AssociationComplianceSeverity' "MEDIUM"
 
-pattern Unspecified :: AssociationComplianceSeverity
-pattern Unspecified = AssociationComplianceSeverity' "UNSPECIFIED"
+pattern AssociationComplianceSeverityUNSPECIFIED :: AssociationComplianceSeverity
+pattern AssociationComplianceSeverityUNSPECIFIED = AssociationComplianceSeverity' "UNSPECIFIED"
 
 {-# COMPLETE
-  Critical,
-  High,
-  Low,
-  Medium,
-  Unspecified,
+  AssociationComplianceSeverityCRITICAL,
+  AssociationComplianceSeverityHIGH,
+  AssociationComplianceSeverityLOW,
+  AssociationComplianceSeverityMEDIUM,
+  AssociationComplianceSeverityUNSPECIFIED,
   AssociationComplianceSeverity'
   #-}
 
-instance FromText AssociationComplianceSeverity where
-  parser = (AssociationComplianceSeverity' . mk) <$> takeText
+instance Prelude.FromText AssociationComplianceSeverity where
+  parser = AssociationComplianceSeverity' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationComplianceSeverity where
-  toText (AssociationComplianceSeverity' ci) = original ci
+instance Prelude.ToText AssociationComplianceSeverity where
+  toText (AssociationComplianceSeverity' x) = x
 
-instance Hashable AssociationComplianceSeverity
+instance Prelude.Hashable AssociationComplianceSeverity
 
-instance NFData AssociationComplianceSeverity
+instance Prelude.NFData AssociationComplianceSeverity
 
-instance ToByteString AssociationComplianceSeverity
+instance Prelude.ToByteString AssociationComplianceSeverity
 
-instance ToQuery AssociationComplianceSeverity
+instance Prelude.ToQuery AssociationComplianceSeverity
 
-instance ToHeader AssociationComplianceSeverity
+instance Prelude.ToHeader AssociationComplianceSeverity
 
-instance ToJSON AssociationComplianceSeverity where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssociationComplianceSeverity where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AssociationComplianceSeverity where
-  parseJSON = parseJSONText "AssociationComplianceSeverity"
+instance Prelude.FromJSON AssociationComplianceSeverity where
+  parseJSON = Prelude.parseJSONText "AssociationComplianceSeverity"

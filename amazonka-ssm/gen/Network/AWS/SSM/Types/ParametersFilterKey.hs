@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SSM.Types.ParametersFilterKey
   ( ParametersFilterKey
       ( ..,
-        PKeyId,
-        PName,
-        PType
+        ParametersFilterKeyKeyId,
+        ParametersFilterKeyName,
+        ParametersFilterKeyType
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParametersFilterKey
-  = ParametersFilterKey'
-      ( CI
-          Text
-      )
+newtype ParametersFilterKey = ParametersFilterKey'
+  { fromParametersFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PKeyId :: ParametersFilterKey
-pattern PKeyId = ParametersFilterKey' "KeyId"
+pattern ParametersFilterKeyKeyId :: ParametersFilterKey
+pattern ParametersFilterKeyKeyId = ParametersFilterKey' "KeyId"
 
-pattern PName :: ParametersFilterKey
-pattern PName = ParametersFilterKey' "Name"
+pattern ParametersFilterKeyName :: ParametersFilterKey
+pattern ParametersFilterKeyName = ParametersFilterKey' "Name"
 
-pattern PType :: ParametersFilterKey
-pattern PType = ParametersFilterKey' "Type"
+pattern ParametersFilterKeyType :: ParametersFilterKey
+pattern ParametersFilterKeyType = ParametersFilterKey' "Type"
 
 {-# COMPLETE
-  PKeyId,
-  PName,
-  PType,
+  ParametersFilterKeyKeyId,
+  ParametersFilterKeyName,
+  ParametersFilterKeyType,
   ParametersFilterKey'
   #-}
 
-instance FromText ParametersFilterKey where
-  parser = (ParametersFilterKey' . mk) <$> takeText
+instance Prelude.FromText ParametersFilterKey where
+  parser = ParametersFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText ParametersFilterKey where
-  toText (ParametersFilterKey' ci) = original ci
+instance Prelude.ToText ParametersFilterKey where
+  toText (ParametersFilterKey' x) = x
 
-instance Hashable ParametersFilterKey
+instance Prelude.Hashable ParametersFilterKey
 
-instance NFData ParametersFilterKey
+instance Prelude.NFData ParametersFilterKey
 
-instance ToByteString ParametersFilterKey
+instance Prelude.ToByteString ParametersFilterKey
 
-instance ToQuery ParametersFilterKey
+instance Prelude.ToQuery ParametersFilterKey
 
-instance ToHeader ParametersFilterKey
+instance Prelude.ToHeader ParametersFilterKey
 
-instance ToJSON ParametersFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON ParametersFilterKey where
+  toJSON = Prelude.toJSONText

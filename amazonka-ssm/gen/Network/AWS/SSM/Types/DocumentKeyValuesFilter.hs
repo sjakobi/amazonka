@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,121 +19,126 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.DocumentKeyValuesFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | One or more filters. Use a filter to return a more specific list of documents.
+-- | One or more filters. Use a filter to return a more specific list of
+-- documents.
 --
+-- For keys, you can specify one or more tags that have been applied to a
+-- document.
 --
--- For keys, you can specify one or more tags that have been applied to a document.
+-- You can also use AWS-provided keys, some of which have specific allowed
+-- values. These keys and their associated values are as follows:
 --
--- You can also use AWS-provided keys, some of which have specific allowed values. These keys and their associated values are as follows:
+-- [DocumentType]
+--     -   ApplicationConfiguration
 --
---     * DocumentType    *     * ApplicationConfiguration
+--     -   ApplicationConfigurationSchema
 --
---     * ApplicationConfigurationSchema
+--     -   Automation
 --
---     * Automation
+--     -   ChangeCalendar
 --
---     * ChangeCalendar
+--     -   Command
 --
---     * Command
+--     -   DeploymentStrategy
 --
---     * DeploymentStrategy
+--     -   Package
 --
---     * Package
+--     -   Policy
 --
---     * Policy
+--     -   Session
 --
---     * Session
+-- [Owner]
+--     Note that only one @Owner@ can be specified in a request. For
+--     example: @Key=Owner,Values=Self@.
 --
+--     -   Amazon
 --
+--     -   Private
 --
---     * Owner    * Note that only one @Owner@ can be specified in a request. For example: @Key=Owner,Values=Self@ .
+--     -   Public
 --
---     * Amazon
+--     -   Self
 --
---     * Private
+--     -   ThirdParty
 --
---     * Public
+-- [PlatformTypes]
+--     -   Linux
 --
---     * Self
+--     -   Windows
 --
---     * ThirdParty
---
---
---
---     * PlatformTypes    *     * Linux
---
---     * Windows
---
---
---
---
---
--- @Name@ is another AWS-provided key. If you use @Name@ as a key, you can use a name prefix to return a list of documents. For example, in the AWS CLI, to return a list of all documents that begin with @Te@ , run the following command:
+-- @Name@ is another AWS-provided key. If you use @Name@ as a key, you can
+-- use a name prefix to return a list of documents. For example, in the AWS
+-- CLI, to return a list of all documents that begin with @Te@, run the
+-- following command:
 --
 -- @aws ssm list-documents --filters Key=Name,Values=Te@
 --
--- You can also use the @TargetType@ AWS-provided key. For a list of valid resource type values that can be used with this key, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS resource and property types reference> in the /AWS CloudFormation User Guide/ .
+-- You can also use the @TargetType@ AWS-provided key. For a list of valid
+-- resource type values that can be used with this key, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS resource and property types reference>
+-- in the /AWS CloudFormation User Guide/.
 --
--- If you specify more than two keys, only documents that are identified by all the tags are returned in the results. If you specify more than two values for a key, documents that are identified by any of the values are returned in the results.
+-- If you specify more than two keys, only documents that are identified by
+-- all the tags are returned in the results. If you specify more than two
+-- values for a key, documents that are identified by any of the values are
+-- returned in the results.
 --
--- To specify a custom key and value pair, use the format @Key=tag:tagName,Values=valueName@ .
+-- To specify a custom key and value pair, use the format
+-- @Key=tag:tagName,Values=valueName@.
 --
--- For example, if you created a key called region and are using the AWS CLI to call the @list-documents@ command:
+-- For example, if you created a key called region and are using the AWS
+-- CLI to call the @list-documents@ command:
 --
 -- @aws ssm list-documents --filters Key=tag:region,Values=east,west Key=Owner,Values=Self@
 --
---
--- /See:/ 'documentKeyValuesFilter' smart constructor.
+-- /See:/ 'newDocumentKeyValuesFilter' smart constructor.
 data DocumentKeyValuesFilter = DocumentKeyValuesFilter'
-  { _dkvfKey ::
-      !(Maybe Text),
-    _dkvfValues ::
-      !(Maybe [Text])
+  { -- | The name of the filter key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value for the filter key.
+    values :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentKeyValuesFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentKeyValuesFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dkvfKey' - The name of the filter key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dkvfValues' - The value for the filter key.
-documentKeyValuesFilter ::
+-- 'key', 'documentKeyValuesFilter_key' - The name of the filter key.
+--
+-- 'values', 'documentKeyValuesFilter_values' - The value for the filter key.
+newDocumentKeyValuesFilter ::
   DocumentKeyValuesFilter
-documentKeyValuesFilter =
+newDocumentKeyValuesFilter =
   DocumentKeyValuesFilter'
-    { _dkvfKey = Nothing,
-      _dkvfValues = Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
     }
 
 -- | The name of the filter key.
-dkvfKey :: Lens' DocumentKeyValuesFilter (Maybe Text)
-dkvfKey = lens _dkvfKey (\s a -> s {_dkvfKey = a})
+documentKeyValuesFilter_key :: Lens.Lens' DocumentKeyValuesFilter (Prelude.Maybe Prelude.Text)
+documentKeyValuesFilter_key = Lens.lens (\DocumentKeyValuesFilter' {key} -> key) (\s@DocumentKeyValuesFilter' {} a -> s {key = a} :: DocumentKeyValuesFilter)
 
 -- | The value for the filter key.
-dkvfValues :: Lens' DocumentKeyValuesFilter [Text]
-dkvfValues = lens _dkvfValues (\s a -> s {_dkvfValues = a}) . _Default . _Coerce
+documentKeyValuesFilter_values :: Lens.Lens' DocumentKeyValuesFilter (Prelude.Maybe [Prelude.Text])
+documentKeyValuesFilter_values = Lens.lens (\DocumentKeyValuesFilter' {values} -> values) (\s@DocumentKeyValuesFilter' {} a -> s {values = a} :: DocumentKeyValuesFilter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable DocumentKeyValuesFilter
+instance Prelude.Hashable DocumentKeyValuesFilter
 
-instance NFData DocumentKeyValuesFilter
+instance Prelude.NFData DocumentKeyValuesFilter
 
-instance ToJSON DocumentKeyValuesFilter where
+instance Prelude.ToJSON DocumentKeyValuesFilter where
   toJSON DocumentKeyValuesFilter' {..} =
-    object
-      ( catMaybes
-          [ ("Key" .=) <$> _dkvfKey,
-            ("Values" .=) <$> _dkvfValues
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Values" Prelude..=) Prelude.<$> values
           ]
       )

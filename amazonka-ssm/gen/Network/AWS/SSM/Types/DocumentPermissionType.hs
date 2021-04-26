@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.SSM.Types.DocumentPermissionType
   ( DocumentPermissionType
       ( ..,
-        Share
+        DocumentPermissionTypeShare
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentPermissionType
-  = DocumentPermissionType'
-      ( CI
-          Text
-      )
+newtype DocumentPermissionType = DocumentPermissionType'
+  { fromDocumentPermissionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Share :: DocumentPermissionType
-pattern Share = DocumentPermissionType' "Share"
+pattern DocumentPermissionTypeShare :: DocumentPermissionType
+pattern DocumentPermissionTypeShare = DocumentPermissionType' "Share"
 
 {-# COMPLETE
-  Share,
+  DocumentPermissionTypeShare,
   DocumentPermissionType'
   #-}
 
-instance FromText DocumentPermissionType where
-  parser = (DocumentPermissionType' . mk) <$> takeText
+instance Prelude.FromText DocumentPermissionType where
+  parser = DocumentPermissionType' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentPermissionType where
-  toText (DocumentPermissionType' ci) = original ci
+instance Prelude.ToText DocumentPermissionType where
+  toText (DocumentPermissionType' x) = x
 
-instance Hashable DocumentPermissionType
+instance Prelude.Hashable DocumentPermissionType
 
-instance NFData DocumentPermissionType
+instance Prelude.NFData DocumentPermissionType
 
-instance ToByteString DocumentPermissionType
+instance Prelude.ToByteString DocumentPermissionType
 
-instance ToQuery DocumentPermissionType
+instance Prelude.ToQuery DocumentPermissionType
 
-instance ToHeader DocumentPermissionType
+instance Prelude.ToHeader DocumentPermissionType
 
-instance ToJSON DocumentPermissionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentPermissionType where
+  toJSON = Prelude.toJSONText

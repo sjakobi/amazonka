@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SSM.Types.AutomationType
   ( AutomationType
       ( ..,
-        CrossAccount,
-        Local
+        AutomationTypeCrossAccount,
+        AutomationTypeLocal
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutomationType = AutomationType' (CI Text)
+newtype AutomationType = AutomationType'
+  { fromAutomationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CrossAccount :: AutomationType
-pattern CrossAccount = AutomationType' "CrossAccount"
+pattern AutomationTypeCrossAccount :: AutomationType
+pattern AutomationTypeCrossAccount = AutomationType' "CrossAccount"
 
-pattern Local :: AutomationType
-pattern Local = AutomationType' "Local"
+pattern AutomationTypeLocal :: AutomationType
+pattern AutomationTypeLocal = AutomationType' "Local"
 
 {-# COMPLETE
-  CrossAccount,
-  Local,
+  AutomationTypeCrossAccount,
+  AutomationTypeLocal,
   AutomationType'
   #-}
 
-instance FromText AutomationType where
-  parser = (AutomationType' . mk) <$> takeText
+instance Prelude.FromText AutomationType where
+  parser = AutomationType' Prelude.<$> Prelude.takeText
 
-instance ToText AutomationType where
-  toText (AutomationType' ci) = original ci
+instance Prelude.ToText AutomationType where
+  toText (AutomationType' x) = x
 
-instance Hashable AutomationType
+instance Prelude.Hashable AutomationType
 
-instance NFData AutomationType
+instance Prelude.NFData AutomationType
 
-instance ToByteString AutomationType
+instance Prelude.ToByteString AutomationType
 
-instance ToQuery AutomationType
+instance Prelude.ToQuery AutomationType
 
-instance ToHeader AutomationType
+instance Prelude.ToHeader AutomationType
 
-instance FromJSON AutomationType where
-  parseJSON = parseJSONText "AutomationType"
+instance Prelude.FromJSON AutomationType where
+  parseJSON = Prelude.parseJSONText "AutomationType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.InventoryAggregator where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.InventoryGroup
 
--- | Specifies the inventory type and attribute for the aggregation execution.
+-- | Specifies the inventory type and attribute for the aggregation
+-- execution.
 --
---
---
--- /See:/ 'inventoryAggregator' smart constructor.
+-- /See:/ 'newInventoryAggregator' smart constructor.
 data InventoryAggregator = InventoryAggregator'
-  { _iaGroups ::
-      !(Maybe (List1 InventoryGroup)),
-    _iaAggregators ::
-      !( Maybe
-           ( List1
-               InventoryAggregator
-           )
-       ),
-    _iaExpression :: !(Maybe Text)
+  { -- | A user-defined set of one or more filters on which to aggregate
+    -- inventory data. Groups return a count of resources that match and don\'t
+    -- match the specified criteria.
+    groups :: Prelude.Maybe (Prelude.List1 InventoryGroup),
+    -- | Nested aggregators to further refine aggregation for an inventory type.
+    aggregators :: Prelude.Maybe (Prelude.List1 InventoryAggregator),
+    -- | The inventory type and attribute name for aggregation.
+    expression :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryAggregator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryAggregator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iaGroups' - A user-defined set of one or more filters on which to aggregate inventory data. Groups return a count of resources that match and don't match the specified criteria.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iaAggregators' - Nested aggregators to further refine aggregation for an inventory type.
+-- 'groups', 'inventoryAggregator_groups' - A user-defined set of one or more filters on which to aggregate
+-- inventory data. Groups return a count of resources that match and don\'t
+-- match the specified criteria.
 --
--- * 'iaExpression' - The inventory type and attribute name for aggregation.
-inventoryAggregator ::
+-- 'aggregators', 'inventoryAggregator_aggregators' - Nested aggregators to further refine aggregation for an inventory type.
+--
+-- 'expression', 'inventoryAggregator_expression' - The inventory type and attribute name for aggregation.
+newInventoryAggregator ::
   InventoryAggregator
-inventoryAggregator =
+newInventoryAggregator =
   InventoryAggregator'
-    { _iaGroups = Nothing,
-      _iaAggregators = Nothing,
-      _iaExpression = Nothing
+    { groups = Prelude.Nothing,
+      aggregators = Prelude.Nothing,
+      expression = Prelude.Nothing
     }
 
--- | A user-defined set of one or more filters on which to aggregate inventory data. Groups return a count of resources that match and don't match the specified criteria.
-iaGroups :: Lens' InventoryAggregator (Maybe (NonEmpty InventoryGroup))
-iaGroups = lens _iaGroups (\s a -> s {_iaGroups = a}) . mapping _List1
+-- | A user-defined set of one or more filters on which to aggregate
+-- inventory data. Groups return a count of resources that match and don\'t
+-- match the specified criteria.
+inventoryAggregator_groups :: Lens.Lens' InventoryAggregator (Prelude.Maybe (Prelude.NonEmpty InventoryGroup))
+inventoryAggregator_groups = Lens.lens (\InventoryAggregator' {groups} -> groups) (\s@InventoryAggregator' {} a -> s {groups = a} :: InventoryAggregator) Prelude.. Lens.mapping Prelude._List1
 
 -- | Nested aggregators to further refine aggregation for an inventory type.
-iaAggregators :: Lens' InventoryAggregator (Maybe (NonEmpty InventoryAggregator))
-iaAggregators = lens _iaAggregators (\s a -> s {_iaAggregators = a}) . mapping _List1
+inventoryAggregator_aggregators :: Lens.Lens' InventoryAggregator (Prelude.Maybe (Prelude.NonEmpty InventoryAggregator))
+inventoryAggregator_aggregators = Lens.lens (\InventoryAggregator' {aggregators} -> aggregators) (\s@InventoryAggregator' {} a -> s {aggregators = a} :: InventoryAggregator) Prelude.. Lens.mapping Prelude._List1
 
 -- | The inventory type and attribute name for aggregation.
-iaExpression :: Lens' InventoryAggregator (Maybe Text)
-iaExpression = lens _iaExpression (\s a -> s {_iaExpression = a})
+inventoryAggregator_expression :: Lens.Lens' InventoryAggregator (Prelude.Maybe Prelude.Text)
+inventoryAggregator_expression = Lens.lens (\InventoryAggregator' {expression} -> expression) (\s@InventoryAggregator' {} a -> s {expression = a} :: InventoryAggregator)
 
-instance Hashable InventoryAggregator
+instance Prelude.Hashable InventoryAggregator
 
-instance NFData InventoryAggregator
+instance Prelude.NFData InventoryAggregator
 
-instance ToJSON InventoryAggregator where
+instance Prelude.ToJSON InventoryAggregator where
   toJSON InventoryAggregator' {..} =
-    object
-      ( catMaybes
-          [ ("Groups" .=) <$> _iaGroups,
-            ("Aggregators" .=) <$> _iaAggregators,
-            ("Expression" .=) <$> _iaExpression
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Groups" Prelude..=) Prelude.<$> groups,
+            ("Aggregators" Prelude..=) Prelude.<$> aggregators,
+            ("Expression" Prelude..=) Prelude.<$> expression
           ]
       )

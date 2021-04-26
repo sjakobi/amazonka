@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,88 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.MaintenanceWindowStepFunctionsParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The parameters for a STEP_FUNCTIONS task.
 --
+-- For information about specifying and updating task parameters, see
+-- RegisterTaskWithMaintenanceWindow and UpdateMaintenanceWindowTask.
 --
--- For information about specifying and updating task parameters, see 'RegisterTaskWithMaintenanceWindow' and 'UpdateMaintenanceWindowTask' .
+-- @LoggingInfo@ has been deprecated. To specify an S3 bucket to contain
+-- logs, instead use the @OutputS3BucketName@ and @OutputS3KeyPrefix@
+-- options in the @TaskInvocationParameters@ structure. For information
+-- about how Systems Manager handles these options for the supported
+-- maintenance window task types, see
+-- MaintenanceWindowTaskInvocationParameters.
 --
+-- @TaskParameters@ has been deprecated. To specify parameters to pass to a
+-- task when it runs, instead use the @Parameters@ option in the
+-- @TaskInvocationParameters@ structure. For information about how Systems
+-- Manager handles these options for the supported maintenance window task
+-- types, see MaintenanceWindowTaskInvocationParameters.
 --
--- /See:/ 'maintenanceWindowStepFunctionsParameters' smart constructor.
+-- For Step Functions tasks, Systems Manager ignores any values specified
+-- for @TaskParameters@ and @LoggingInfo@.
+--
+-- /See:/ 'newMaintenanceWindowStepFunctionsParameters' smart constructor.
 data MaintenanceWindowStepFunctionsParameters = MaintenanceWindowStepFunctionsParameters'
-  { _mwsfpInput ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _mwsfpName ::
-      !( Maybe
-           Text
-       )
+  { -- | The inputs for the STEP_FUNCTIONS task.
+    input :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The name of the STEP_FUNCTIONS task.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MaintenanceWindowStepFunctionsParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MaintenanceWindowStepFunctionsParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwsfpInput' - The inputs for the STEP_FUNCTIONS task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwsfpName' - The name of the STEP_FUNCTIONS task.
-maintenanceWindowStepFunctionsParameters ::
+-- 'input', 'maintenanceWindowStepFunctionsParameters_input' - The inputs for the STEP_FUNCTIONS task.
+--
+-- 'name', 'maintenanceWindowStepFunctionsParameters_name' - The name of the STEP_FUNCTIONS task.
+newMaintenanceWindowStepFunctionsParameters ::
   MaintenanceWindowStepFunctionsParameters
-maintenanceWindowStepFunctionsParameters =
+newMaintenanceWindowStepFunctionsParameters =
   MaintenanceWindowStepFunctionsParameters'
-    { _mwsfpInput =
-        Nothing,
-      _mwsfpName = Nothing
+    { input =
+        Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The inputs for the STEP_FUNCTIONS task.
-mwsfpInput :: Lens' MaintenanceWindowStepFunctionsParameters (Maybe Text)
-mwsfpInput = lens _mwsfpInput (\s a -> s {_mwsfpInput = a}) . mapping _Sensitive
+maintenanceWindowStepFunctionsParameters_input :: Lens.Lens' MaintenanceWindowStepFunctionsParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowStepFunctionsParameters_input = Lens.lens (\MaintenanceWindowStepFunctionsParameters' {input} -> input) (\s@MaintenanceWindowStepFunctionsParameters' {} a -> s {input = a} :: MaintenanceWindowStepFunctionsParameters) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The name of the STEP_FUNCTIONS task.
-mwsfpName :: Lens' MaintenanceWindowStepFunctionsParameters (Maybe Text)
-mwsfpName = lens _mwsfpName (\s a -> s {_mwsfpName = a})
+maintenanceWindowStepFunctionsParameters_name :: Lens.Lens' MaintenanceWindowStepFunctionsParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowStepFunctionsParameters_name = Lens.lens (\MaintenanceWindowStepFunctionsParameters' {name} -> name) (\s@MaintenanceWindowStepFunctionsParameters' {} a -> s {name = a} :: MaintenanceWindowStepFunctionsParameters)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     MaintenanceWindowStepFunctionsParameters
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MaintenanceWindowStepFunctionsParameters"
       ( \x ->
           MaintenanceWindowStepFunctionsParameters'
-            <$> (x .:? "Input") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Input")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     MaintenanceWindowStepFunctionsParameters
 
 instance
-  NFData
+  Prelude.NFData
     MaintenanceWindowStepFunctionsParameters
 
 instance
-  ToJSON
+  Prelude.ToJSON
     MaintenanceWindowStepFunctionsParameters
   where
   toJSON MaintenanceWindowStepFunctionsParameters' {..} =
-    object
-      ( catMaybes
-          [ ("Input" .=) <$> _mwsfpInput,
-            ("Name" .=) <$> _mwsfpName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Input" Prelude..=) Prelude.<$> input,
+            ("Name" Prelude..=) Prelude.<$> name
           ]
       )

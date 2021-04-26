@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.SSM.Types.PatchComplianceLevel
   ( PatchComplianceLevel
       ( ..,
-        PCLCritical,
-        PCLHigh,
-        PCLInformational,
-        PCLLow,
-        PCLMedium,
-        PCLUnspecified
+        PatchComplianceLevelCRITICAL,
+        PatchComplianceLevelHIGH,
+        PatchComplianceLevelINFORMATIONAL,
+        PatchComplianceLevelLOW,
+        PatchComplianceLevelMEDIUM,
+        PatchComplianceLevelUNSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PatchComplianceLevel
-  = PatchComplianceLevel'
-      ( CI
-          Text
-      )
+newtype PatchComplianceLevel = PatchComplianceLevel'
+  { fromPatchComplianceLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PCLCritical :: PatchComplianceLevel
-pattern PCLCritical = PatchComplianceLevel' "CRITICAL"
+pattern PatchComplianceLevelCRITICAL :: PatchComplianceLevel
+pattern PatchComplianceLevelCRITICAL = PatchComplianceLevel' "CRITICAL"
 
-pattern PCLHigh :: PatchComplianceLevel
-pattern PCLHigh = PatchComplianceLevel' "HIGH"
+pattern PatchComplianceLevelHIGH :: PatchComplianceLevel
+pattern PatchComplianceLevelHIGH = PatchComplianceLevel' "HIGH"
 
-pattern PCLInformational :: PatchComplianceLevel
-pattern PCLInformational = PatchComplianceLevel' "INFORMATIONAL"
+pattern PatchComplianceLevelINFORMATIONAL :: PatchComplianceLevel
+pattern PatchComplianceLevelINFORMATIONAL = PatchComplianceLevel' "INFORMATIONAL"
 
-pattern PCLLow :: PatchComplianceLevel
-pattern PCLLow = PatchComplianceLevel' "LOW"
+pattern PatchComplianceLevelLOW :: PatchComplianceLevel
+pattern PatchComplianceLevelLOW = PatchComplianceLevel' "LOW"
 
-pattern PCLMedium :: PatchComplianceLevel
-pattern PCLMedium = PatchComplianceLevel' "MEDIUM"
+pattern PatchComplianceLevelMEDIUM :: PatchComplianceLevel
+pattern PatchComplianceLevelMEDIUM = PatchComplianceLevel' "MEDIUM"
 
-pattern PCLUnspecified :: PatchComplianceLevel
-pattern PCLUnspecified = PatchComplianceLevel' "UNSPECIFIED"
+pattern PatchComplianceLevelUNSPECIFIED :: PatchComplianceLevel
+pattern PatchComplianceLevelUNSPECIFIED = PatchComplianceLevel' "UNSPECIFIED"
 
 {-# COMPLETE
-  PCLCritical,
-  PCLHigh,
-  PCLInformational,
-  PCLLow,
-  PCLMedium,
-  PCLUnspecified,
+  PatchComplianceLevelCRITICAL,
+  PatchComplianceLevelHIGH,
+  PatchComplianceLevelINFORMATIONAL,
+  PatchComplianceLevelLOW,
+  PatchComplianceLevelMEDIUM,
+  PatchComplianceLevelUNSPECIFIED,
   PatchComplianceLevel'
   #-}
 
-instance FromText PatchComplianceLevel where
-  parser = (PatchComplianceLevel' . mk) <$> takeText
+instance Prelude.FromText PatchComplianceLevel where
+  parser = PatchComplianceLevel' Prelude.<$> Prelude.takeText
 
-instance ToText PatchComplianceLevel where
-  toText (PatchComplianceLevel' ci) = original ci
+instance Prelude.ToText PatchComplianceLevel where
+  toText (PatchComplianceLevel' x) = x
 
-instance Hashable PatchComplianceLevel
+instance Prelude.Hashable PatchComplianceLevel
 
-instance NFData PatchComplianceLevel
+instance Prelude.NFData PatchComplianceLevel
 
-instance ToByteString PatchComplianceLevel
+instance Prelude.ToByteString PatchComplianceLevel
 
-instance ToQuery PatchComplianceLevel
+instance Prelude.ToQuery PatchComplianceLevel
 
-instance ToHeader PatchComplianceLevel
+instance Prelude.ToHeader PatchComplianceLevel
 
-instance ToJSON PatchComplianceLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON PatchComplianceLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PatchComplianceLevel where
-  parseJSON = parseJSONText "PatchComplianceLevel"
+instance Prelude.FromJSON PatchComplianceLevel where
+  parseJSON = Prelude.parseJSONText "PatchComplianceLevel"

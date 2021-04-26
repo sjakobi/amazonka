@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.SSM.Types.ComplianceSeverity
   ( ComplianceSeverity
       ( ..,
-        CSCritical,
-        CSHigh,
-        CSInformational,
-        CSLow,
-        CSMedium,
-        CSUnspecified
+        ComplianceSeverityCRITICAL,
+        ComplianceSeverityHIGH,
+        ComplianceSeverityINFORMATIONAL,
+        ComplianceSeverityLOW,
+        ComplianceSeverityMEDIUM,
+        ComplianceSeverityUNSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComplianceSeverity
-  = ComplianceSeverity'
-      ( CI
-          Text
-      )
+newtype ComplianceSeverity = ComplianceSeverity'
+  { fromComplianceSeverity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCritical :: ComplianceSeverity
-pattern CSCritical = ComplianceSeverity' "CRITICAL"
+pattern ComplianceSeverityCRITICAL :: ComplianceSeverity
+pattern ComplianceSeverityCRITICAL = ComplianceSeverity' "CRITICAL"
 
-pattern CSHigh :: ComplianceSeverity
-pattern CSHigh = ComplianceSeverity' "HIGH"
+pattern ComplianceSeverityHIGH :: ComplianceSeverity
+pattern ComplianceSeverityHIGH = ComplianceSeverity' "HIGH"
 
-pattern CSInformational :: ComplianceSeverity
-pattern CSInformational = ComplianceSeverity' "INFORMATIONAL"
+pattern ComplianceSeverityINFORMATIONAL :: ComplianceSeverity
+pattern ComplianceSeverityINFORMATIONAL = ComplianceSeverity' "INFORMATIONAL"
 
-pattern CSLow :: ComplianceSeverity
-pattern CSLow = ComplianceSeverity' "LOW"
+pattern ComplianceSeverityLOW :: ComplianceSeverity
+pattern ComplianceSeverityLOW = ComplianceSeverity' "LOW"
 
-pattern CSMedium :: ComplianceSeverity
-pattern CSMedium = ComplianceSeverity' "MEDIUM"
+pattern ComplianceSeverityMEDIUM :: ComplianceSeverity
+pattern ComplianceSeverityMEDIUM = ComplianceSeverity' "MEDIUM"
 
-pattern CSUnspecified :: ComplianceSeverity
-pattern CSUnspecified = ComplianceSeverity' "UNSPECIFIED"
+pattern ComplianceSeverityUNSPECIFIED :: ComplianceSeverity
+pattern ComplianceSeverityUNSPECIFIED = ComplianceSeverity' "UNSPECIFIED"
 
 {-# COMPLETE
-  CSCritical,
-  CSHigh,
-  CSInformational,
-  CSLow,
-  CSMedium,
-  CSUnspecified,
+  ComplianceSeverityCRITICAL,
+  ComplianceSeverityHIGH,
+  ComplianceSeverityINFORMATIONAL,
+  ComplianceSeverityLOW,
+  ComplianceSeverityMEDIUM,
+  ComplianceSeverityUNSPECIFIED,
   ComplianceSeverity'
   #-}
 
-instance FromText ComplianceSeverity where
-  parser = (ComplianceSeverity' . mk) <$> takeText
+instance Prelude.FromText ComplianceSeverity where
+  parser = ComplianceSeverity' Prelude.<$> Prelude.takeText
 
-instance ToText ComplianceSeverity where
-  toText (ComplianceSeverity' ci) = original ci
+instance Prelude.ToText ComplianceSeverity where
+  toText (ComplianceSeverity' x) = x
 
-instance Hashable ComplianceSeverity
+instance Prelude.Hashable ComplianceSeverity
 
-instance NFData ComplianceSeverity
+instance Prelude.NFData ComplianceSeverity
 
-instance ToByteString ComplianceSeverity
+instance Prelude.ToByteString ComplianceSeverity
 
-instance ToQuery ComplianceSeverity
+instance Prelude.ToQuery ComplianceSeverity
 
-instance ToHeader ComplianceSeverity
+instance Prelude.ToHeader ComplianceSeverity
 
-instance ToJSON ComplianceSeverity where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComplianceSeverity where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ComplianceSeverity where
-  parseJSON = parseJSONText "ComplianceSeverity"
+instance Prelude.FromJSON ComplianceSeverity where
+  parseJSON = Prelude.parseJSONText "ComplianceSeverity"

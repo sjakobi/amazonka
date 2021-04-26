@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,228 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list of all active sessions (both connected and disconnected) or terminated sessions from the past 30 days.
---
---
+-- Retrieves a list of all active sessions (both connected and
+-- disconnected) or terminated sessions from the past 30 days.
 --
 -- This operation returns paginated results.
 module Network.AWS.SSM.DescribeSessions
   ( -- * Creating a Request
-    describeSessions,
-    DescribeSessions,
+    DescribeSessions (..),
+    newDescribeSessions,
 
     -- * Request Lenses
-    dsNextToken,
-    dsMaxResults,
-    dsFilters,
-    dsState,
+    describeSessions_nextToken,
+    describeSessions_maxResults,
+    describeSessions_filters,
+    describeSessions_state,
 
     -- * Destructuring the Response
-    describeSessionsResponse,
-    DescribeSessionsResponse,
+    DescribeSessionsResponse (..),
+    newDescribeSessionsResponse,
 
     -- * Response Lenses
-    dsrrsNextToken,
-    dsrrsSessions,
-    dsrrsResponseStatus,
+    describeSessionsResponse_nextToken,
+    describeSessionsResponse_sessions,
+    describeSessionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Session
 
--- | /See:/ 'describeSessions' smart constructor.
+-- | /See:/ 'newDescribeSessions' smart constructor.
 data DescribeSessions = DescribeSessions'
-  { _dsNextToken ::
-      !(Maybe Text),
-    _dsMaxResults :: !(Maybe Nat),
-    _dsFilters ::
-      !(Maybe (List1 SessionFilter)),
-    _dsState :: !SessionState
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters to limit the type of sessions returned by the
+    -- request.
+    filters :: Prelude.Maybe (Prelude.List1 SessionFilter),
+    -- | The session status to retrieve a list of sessions for. For example,
+    -- \"Active\".
+    state :: SessionState
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSessions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSessions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsMaxResults' - The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
+-- 'nextToken', 'describeSessions_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'dsFilters' - One or more filters to limit the type of sessions returned by the request.
+-- 'maxResults', 'describeSessions_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
--- * 'dsState' - The session status to retrieve a list of sessions for. For example, "Active".
-describeSessions ::
-  -- | 'dsState'
+-- 'filters', 'describeSessions_filters' - One or more filters to limit the type of sessions returned by the
+-- request.
+--
+-- 'state', 'describeSessions_state' - The session status to retrieve a list of sessions for. For example,
+-- \"Active\".
+newDescribeSessions ::
+  -- | 'state'
   SessionState ->
   DescribeSessions
-describeSessions pState_ =
+newDescribeSessions pState_ =
   DescribeSessions'
-    { _dsNextToken = Nothing,
-      _dsMaxResults = Nothing,
-      _dsFilters = Nothing,
-      _dsState = pState_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      state = pState_
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-dsNextToken :: Lens' DescribeSessions (Maybe Text)
-dsNextToken = lens _dsNextToken (\s a -> s {_dsNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeSessions_nextToken :: Lens.Lens' DescribeSessions (Prelude.Maybe Prelude.Text)
+describeSessions_nextToken = Lens.lens (\DescribeSessions' {nextToken} -> nextToken) (\s@DescribeSessions' {} a -> s {nextToken = a} :: DescribeSessions)
 
--- | The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-dsMaxResults :: Lens' DescribeSessions (Maybe Natural)
-dsMaxResults = lens _dsMaxResults (\s a -> s {_dsMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describeSessions_maxResults :: Lens.Lens' DescribeSessions (Prelude.Maybe Prelude.Natural)
+describeSessions_maxResults = Lens.lens (\DescribeSessions' {maxResults} -> maxResults) (\s@DescribeSessions' {} a -> s {maxResults = a} :: DescribeSessions) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters to limit the type of sessions returned by the request.
-dsFilters :: Lens' DescribeSessions (Maybe (NonEmpty SessionFilter))
-dsFilters = lens _dsFilters (\s a -> s {_dsFilters = a}) . mapping _List1
+-- | One or more filters to limit the type of sessions returned by the
+-- request.
+describeSessions_filters :: Lens.Lens' DescribeSessions (Prelude.Maybe (Prelude.NonEmpty SessionFilter))
+describeSessions_filters = Lens.lens (\DescribeSessions' {filters} -> filters) (\s@DescribeSessions' {} a -> s {filters = a} :: DescribeSessions) Prelude.. Lens.mapping Prelude._List1
 
--- | The session status to retrieve a list of sessions for. For example, "Active".
-dsState :: Lens' DescribeSessions SessionState
-dsState = lens _dsState (\s a -> s {_dsState = a})
+-- | The session status to retrieve a list of sessions for. For example,
+-- \"Active\".
+describeSessions_state :: Lens.Lens' DescribeSessions SessionState
+describeSessions_state = Lens.lens (\DescribeSessions' {state} -> state) (\s@DescribeSessions' {} a -> s {state = a} :: DescribeSessions)
 
-instance AWSPager DescribeSessions where
+instance Pager.AWSPager DescribeSessions where
   page rq rs
-    | stop (rs ^. dsrrsNextToken) = Nothing
-    | stop (rs ^. dsrrsSessions) = Nothing
-    | otherwise =
-      Just $ rq & dsNextToken .~ rs ^. dsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeSessionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeSessionsResponse_sessions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeSessions_nextToken
+          Lens..~ rs
+          Lens.^? describeSessionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeSessions where
+instance Prelude.AWSRequest DescribeSessions where
   type Rs DescribeSessions = DescribeSessionsResponse
-  request = postJSON ssm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeSessionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Sessions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Sessions" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSessions
+instance Prelude.Hashable DescribeSessions
 
-instance NFData DescribeSessions
+instance Prelude.NFData DescribeSessions
 
-instance ToHeaders DescribeSessions where
+instance Prelude.ToHeaders DescribeSessions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonSSM.DescribeSessions" :: ByteString),
+              Prelude.=# ("AmazonSSM.DescribeSessions" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeSessions where
+instance Prelude.ToJSON DescribeSessions where
   toJSON DescribeSessions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dsNextToken,
-            ("MaxResults" .=) <$> _dsMaxResults,
-            ("Filters" .=) <$> _dsFilters,
-            Just ("State" .= _dsState)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters,
+            Prelude.Just ("State" Prelude..= state)
           ]
       )
 
-instance ToPath DescribeSessions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSessions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSessions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeSessions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeSessionsResponse' smart constructor.
+-- | /See:/ 'newDescribeSessionsResponse' smart constructor.
 data DescribeSessionsResponse = DescribeSessionsResponse'
-  { _dsrrsNextToken ::
-      !(Maybe Text),
-    _dsrrsSessions ::
-      !(Maybe [Session]),
-    _dsrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of sessions meeting the request parameters.
+    sessions :: Prelude.Maybe [Session],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSessionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSessionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsSessions' - A list of sessions meeting the request parameters.
+-- 'nextToken', 'describeSessionsResponse_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-describeSessionsResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'sessions', 'describeSessionsResponse_sessions' - A list of sessions meeting the request parameters.
+--
+-- 'httpStatus', 'describeSessionsResponse_httpStatus' - The response's http status code.
+newDescribeSessionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSessionsResponse
-describeSessionsResponse pResponseStatus_ =
+newDescribeSessionsResponse pHttpStatus_ =
   DescribeSessionsResponse'
-    { _dsrrsNextToken =
-        Nothing,
-      _dsrrsSessions = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      sessions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-dsrrsNextToken :: Lens' DescribeSessionsResponse (Maybe Text)
-dsrrsNextToken = lens _dsrrsNextToken (\s a -> s {_dsrrsNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeSessionsResponse_nextToken :: Lens.Lens' DescribeSessionsResponse (Prelude.Maybe Prelude.Text)
+describeSessionsResponse_nextToken = Lens.lens (\DescribeSessionsResponse' {nextToken} -> nextToken) (\s@DescribeSessionsResponse' {} a -> s {nextToken = a} :: DescribeSessionsResponse)
 
 -- | A list of sessions meeting the request parameters.
-dsrrsSessions :: Lens' DescribeSessionsResponse [Session]
-dsrrsSessions = lens _dsrrsSessions (\s a -> s {_dsrrsSessions = a}) . _Default . _Coerce
+describeSessionsResponse_sessions :: Lens.Lens' DescribeSessionsResponse (Prelude.Maybe [Session])
+describeSessionsResponse_sessions = Lens.lens (\DescribeSessionsResponse' {sessions} -> sessions) (\s@DescribeSessionsResponse' {} a -> s {sessions = a} :: DescribeSessionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DescribeSessionsResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+describeSessionsResponse_httpStatus :: Lens.Lens' DescribeSessionsResponse Prelude.Int
+describeSessionsResponse_httpStatus = Lens.lens (\DescribeSessionsResponse' {httpStatus} -> httpStatus) (\s@DescribeSessionsResponse' {} a -> s {httpStatus = a} :: DescribeSessionsResponse)
 
-instance NFData DescribeSessionsResponse
+instance Prelude.NFData DescribeSessionsResponse

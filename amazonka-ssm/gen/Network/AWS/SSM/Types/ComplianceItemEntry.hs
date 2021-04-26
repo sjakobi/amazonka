@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,88 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ComplianceItemEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.ComplianceSeverity
 import Network.AWS.SSM.Types.ComplianceStatus
 
 -- | Information about a compliance item.
 --
---
---
--- /See:/ 'complianceItemEntry' smart constructor.
+-- /See:/ 'newComplianceItemEntry' smart constructor.
 data ComplianceItemEntry = ComplianceItemEntry'
-  { _cieTitle ::
-      !(Maybe Text),
-    _cieId :: !(Maybe Text),
-    _cieDetails ::
-      !(Maybe (Map Text Text)),
-    _cieSeverity ::
-      !ComplianceSeverity,
-    _cieStatus :: !ComplianceStatus
+  { -- | The title of the compliance item. For example, if the compliance item is
+    -- a Windows patch, the title could be the title of the KB article for the
+    -- patch; for example: Security Update for Active Directory Federation
+    -- Services.
+    title :: Prelude.Maybe Prelude.Text,
+    -- | The compliance item ID. For example, if the compliance item is a Windows
+    -- patch, the ID could be the number of the KB article.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | A \"Key\": \"Value\" tag combination for the compliance item.
+    details :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The severity of the compliance status. Severity can be one of the
+    -- following: Critical, High, Medium, Low, Informational, Unspecified.
+    severity :: ComplianceSeverity,
+    -- | The status of the compliance item. An item is either COMPLIANT or
+    -- NON_COMPLIANT.
+    status :: ComplianceStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComplianceItemEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComplianceItemEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cieTitle' - The title of the compliance item. For example, if the compliance item is a Windows patch, the title could be the title of the KB article for the patch; for example: Security Update for Active Directory Federation Services.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cieId' - The compliance item ID. For example, if the compliance item is a Windows patch, the ID could be the number of the KB article.
+-- 'title', 'complianceItemEntry_title' - The title of the compliance item. For example, if the compliance item is
+-- a Windows patch, the title could be the title of the KB article for the
+-- patch; for example: Security Update for Active Directory Federation
+-- Services.
 --
--- * 'cieDetails' - A "Key": "Value" tag combination for the compliance item.
+-- 'id', 'complianceItemEntry_id' - The compliance item ID. For example, if the compliance item is a Windows
+-- patch, the ID could be the number of the KB article.
 --
--- * 'cieSeverity' - The severity of the compliance status. Severity can be one of the following: Critical, High, Medium, Low, Informational, Unspecified.
+-- 'details', 'complianceItemEntry_details' - A \"Key\": \"Value\" tag combination for the compliance item.
 --
--- * 'cieStatus' - The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
-complianceItemEntry ::
-  -- | 'cieSeverity'
+-- 'severity', 'complianceItemEntry_severity' - The severity of the compliance status. Severity can be one of the
+-- following: Critical, High, Medium, Low, Informational, Unspecified.
+--
+-- 'status', 'complianceItemEntry_status' - The status of the compliance item. An item is either COMPLIANT or
+-- NON_COMPLIANT.
+newComplianceItemEntry ::
+  -- | 'severity'
   ComplianceSeverity ->
-  -- | 'cieStatus'
+  -- | 'status'
   ComplianceStatus ->
   ComplianceItemEntry
-complianceItemEntry pSeverity_ pStatus_ =
+newComplianceItemEntry pSeverity_ pStatus_ =
   ComplianceItemEntry'
-    { _cieTitle = Nothing,
-      _cieId = Nothing,
-      _cieDetails = Nothing,
-      _cieSeverity = pSeverity_,
-      _cieStatus = pStatus_
+    { title = Prelude.Nothing,
+      id = Prelude.Nothing,
+      details = Prelude.Nothing,
+      severity = pSeverity_,
+      status = pStatus_
     }
 
--- | The title of the compliance item. For example, if the compliance item is a Windows patch, the title could be the title of the KB article for the patch; for example: Security Update for Active Directory Federation Services.
-cieTitle :: Lens' ComplianceItemEntry (Maybe Text)
-cieTitle = lens _cieTitle (\s a -> s {_cieTitle = a})
+-- | The title of the compliance item. For example, if the compliance item is
+-- a Windows patch, the title could be the title of the KB article for the
+-- patch; for example: Security Update for Active Directory Federation
+-- Services.
+complianceItemEntry_title :: Lens.Lens' ComplianceItemEntry (Prelude.Maybe Prelude.Text)
+complianceItemEntry_title = Lens.lens (\ComplianceItemEntry' {title} -> title) (\s@ComplianceItemEntry' {} a -> s {title = a} :: ComplianceItemEntry)
 
--- | The compliance item ID. For example, if the compliance item is a Windows patch, the ID could be the number of the KB article.
-cieId :: Lens' ComplianceItemEntry (Maybe Text)
-cieId = lens _cieId (\s a -> s {_cieId = a})
+-- | The compliance item ID. For example, if the compliance item is a Windows
+-- patch, the ID could be the number of the KB article.
+complianceItemEntry_id :: Lens.Lens' ComplianceItemEntry (Prelude.Maybe Prelude.Text)
+complianceItemEntry_id = Lens.lens (\ComplianceItemEntry' {id} -> id) (\s@ComplianceItemEntry' {} a -> s {id = a} :: ComplianceItemEntry)
 
--- | A "Key": "Value" tag combination for the compliance item.
-cieDetails :: Lens' ComplianceItemEntry (HashMap Text Text)
-cieDetails = lens _cieDetails (\s a -> s {_cieDetails = a}) . _Default . _Map
+-- | A \"Key\": \"Value\" tag combination for the compliance item.
+complianceItemEntry_details :: Lens.Lens' ComplianceItemEntry (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+complianceItemEntry_details = Lens.lens (\ComplianceItemEntry' {details} -> details) (\s@ComplianceItemEntry' {} a -> s {details = a} :: ComplianceItemEntry) Prelude.. Lens.mapping Prelude._Map
 
--- | The severity of the compliance status. Severity can be one of the following: Critical, High, Medium, Low, Informational, Unspecified.
-cieSeverity :: Lens' ComplianceItemEntry ComplianceSeverity
-cieSeverity = lens _cieSeverity (\s a -> s {_cieSeverity = a})
+-- | The severity of the compliance status. Severity can be one of the
+-- following: Critical, High, Medium, Low, Informational, Unspecified.
+complianceItemEntry_severity :: Lens.Lens' ComplianceItemEntry ComplianceSeverity
+complianceItemEntry_severity = Lens.lens (\ComplianceItemEntry' {severity} -> severity) (\s@ComplianceItemEntry' {} a -> s {severity = a} :: ComplianceItemEntry)
 
--- | The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
-cieStatus :: Lens' ComplianceItemEntry ComplianceStatus
-cieStatus = lens _cieStatus (\s a -> s {_cieStatus = a})
+-- | The status of the compliance item. An item is either COMPLIANT or
+-- NON_COMPLIANT.
+complianceItemEntry_status :: Lens.Lens' ComplianceItemEntry ComplianceStatus
+complianceItemEntry_status = Lens.lens (\ComplianceItemEntry' {status} -> status) (\s@ComplianceItemEntry' {} a -> s {status = a} :: ComplianceItemEntry)
 
-instance Hashable ComplianceItemEntry
+instance Prelude.Hashable ComplianceItemEntry
 
-instance NFData ComplianceItemEntry
+instance Prelude.NFData ComplianceItemEntry
 
-instance ToJSON ComplianceItemEntry where
+instance Prelude.ToJSON ComplianceItemEntry where
   toJSON ComplianceItemEntry' {..} =
-    object
-      ( catMaybes
-          [ ("Title" .=) <$> _cieTitle,
-            ("Id" .=) <$> _cieId,
-            ("Details" .=) <$> _cieDetails,
-            Just ("Severity" .= _cieSeverity),
-            Just ("Status" .= _cieStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Title" Prelude..=) Prelude.<$> title,
+            ("Id" Prelude..=) Prelude.<$> id,
+            ("Details" Prelude..=) Prelude.<$> details,
+            Prelude.Just ("Severity" Prelude..= severity),
+            Prelude.Just ("Status" Prelude..= status)
           ]
       )

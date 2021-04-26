@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.DocumentDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.AttachmentInformation
 import Network.AWS.SSM.Types.DocumentFormat
 import Network.AWS.SSM.Types.DocumentHashType
@@ -31,297 +35,357 @@ import Network.AWS.SSM.Types.Tag
 
 -- | Describes a Systems Manager document.
 --
---
---
--- /See:/ 'documentDescription' smart constructor.
+-- /See:/ 'newDocumentDescription' smart constructor.
 data DocumentDescription = DocumentDescription'
-  { _ddDocumentType ::
-      !(Maybe DocumentType),
-    _ddStatus ::
-      !(Maybe DocumentStatus),
-    _ddCreatedDate ::
-      !(Maybe POSIX),
-    _ddPlatformTypes ::
-      !(Maybe [PlatformType]),
-    _ddDefaultVersion ::
-      !(Maybe Text),
-    _ddLatestVersion ::
-      !(Maybe Text),
-    _ddTargetType :: !(Maybe Text),
-    _ddApprovedVersion ::
-      !(Maybe Text),
-    _ddRequires ::
-      !( Maybe
-           (List1 DocumentRequires)
-       ),
-    _ddSha1 :: !(Maybe Text),
-    _ddStatusInformation ::
-      !(Maybe Text),
-    _ddVersionName :: !(Maybe Text),
-    _ddAuthor :: !(Maybe Text),
-    _ddHash :: !(Maybe Text),
-    _ddPendingReviewVersion ::
-      !(Maybe Text),
-    _ddName :: !(Maybe Text),
-    _ddDocumentFormat ::
-      !(Maybe DocumentFormat),
-    _ddTags :: !(Maybe [Tag]),
-    _ddOwner :: !(Maybe Text),
-    _ddReviewStatus ::
-      !(Maybe ReviewStatus),
-    _ddReviewInformation ::
-      !( Maybe
-           (List1 ReviewInformation)
-       ),
-    _ddAttachmentsInformation ::
-      !( Maybe
-           [AttachmentInformation]
-       ),
-    _ddDescription :: !(Maybe Text),
-    _ddSchemaVersion ::
-      !(Maybe Text),
-    _ddDocumentVersion ::
-      !(Maybe Text),
-    _ddParameters ::
-      !(Maybe [DocumentParameter]),
-    _ddHashType ::
-      !(Maybe DocumentHashType)
+  { -- | The type of document.
+    documentType :: Prelude.Maybe DocumentType,
+    -- | The status of the Systems Manager document.
+    status :: Prelude.Maybe DocumentStatus,
+    -- | The date when the document was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The list of OS platforms compatible with this Systems Manager document.
+    platformTypes :: Prelude.Maybe [PlatformType],
+    -- | The default version.
+    defaultVersion :: Prelude.Maybe Prelude.Text,
+    -- | The latest version of the document.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The target type which defines the kinds of resources the document can
+    -- run on. For example, \/AWS::EC2::Instance. For a list of valid resource
+    -- types, see
+    -- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS resource and property types reference>
+    -- in the /AWS CloudFormation User Guide/.
+    targetType :: Prelude.Maybe Prelude.Text,
+    -- | The version of the document currently approved for use in the
+    -- organization.
+    approvedVersion :: Prelude.Maybe Prelude.Text,
+    -- | A list of SSM documents required by a document. For example, an
+    -- @ApplicationConfiguration@ document requires an
+    -- @ApplicationConfigurationSchema@ document.
+    requires :: Prelude.Maybe (Prelude.List1 DocumentRequires),
+    -- | The SHA1 hash of the document, which you can use for verification.
+    sha1 :: Prelude.Maybe Prelude.Text,
+    -- | A message returned by AWS Systems Manager that explains the @Status@
+    -- value. For example, a @Failed@ status might be explained by the
+    -- @StatusInformation@ message, \"The specified S3 bucket does not exist.
+    -- Verify that the URL of the S3 bucket is correct.\"
+    statusInformation :: Prelude.Maybe Prelude.Text,
+    -- | The version of the artifact associated with the document.
+    versionName :: Prelude.Maybe Prelude.Text,
+    -- | The user in your organization who created the document.
+    author :: Prelude.Maybe Prelude.Text,
+    -- | The Sha256 or Sha1 hash created by the system when the document was
+    -- created.
+    --
+    -- Sha1 hashes have been deprecated.
+    hash :: Prelude.Maybe Prelude.Text,
+    -- | The version of the document that is currently under review.
+    pendingReviewVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Systems Manager document.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The document format, either JSON or YAML.
+    documentFormat :: Prelude.Maybe DocumentFormat,
+    -- | The tags, or metadata, that have been applied to the document.
+    tags :: Prelude.Maybe [Tag],
+    -- | The AWS user account that created the document.
+    owner :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the review.
+    reviewStatus :: Prelude.Maybe ReviewStatus,
+    -- | Details about the review of a document.
+    reviewInformation :: Prelude.Maybe (Prelude.List1 ReviewInformation),
+    -- | Details about the document attachments, including names, locations,
+    -- sizes, and so on.
+    attachmentsInformation :: Prelude.Maybe [AttachmentInformation],
+    -- | A description of the document.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The schema version.
+    schemaVersion :: Prelude.Maybe Prelude.Text,
+    -- | The document version.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | A description of the parameters for a document.
+    parameters :: Prelude.Maybe [DocumentParameter],
+    -- | The hash type of the document. Valid values include @Sha256@ or @Sha1@.
+    --
+    -- Sha1 hashes have been deprecated.
+    hashType :: Prelude.Maybe DocumentHashType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddDocumentType' - The type of document.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddStatus' - The status of the Systems Manager document.
+-- 'documentType', 'documentDescription_documentType' - The type of document.
 --
--- * 'ddCreatedDate' - The date when the document was created.
+-- 'status', 'documentDescription_status' - The status of the Systems Manager document.
 --
--- * 'ddPlatformTypes' - The list of OS platforms compatible with this Systems Manager document.
+-- 'createdDate', 'documentDescription_createdDate' - The date when the document was created.
 --
--- * 'ddDefaultVersion' - The default version.
+-- 'platformTypes', 'documentDescription_platformTypes' - The list of OS platforms compatible with this Systems Manager document.
 --
--- * 'ddLatestVersion' - The latest version of the document.
+-- 'defaultVersion', 'documentDescription_defaultVersion' - The default version.
 --
--- * 'ddTargetType' - The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance. For a list of valid resource types, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS resource and property types reference> in the /AWS CloudFormation User Guide/ .
+-- 'latestVersion', 'documentDescription_latestVersion' - The latest version of the document.
 --
--- * 'ddApprovedVersion' - The version of the document currently approved for use in the organization.
+-- 'targetType', 'documentDescription_targetType' - The target type which defines the kinds of resources the document can
+-- run on. For example, \/AWS::EC2::Instance. For a list of valid resource
+-- types, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS resource and property types reference>
+-- in the /AWS CloudFormation User Guide/.
 --
--- * 'ddRequires' - A list of SSM documents required by a document. For example, an @ApplicationConfiguration@ document requires an @ApplicationConfigurationSchema@ document.
+-- 'approvedVersion', 'documentDescription_approvedVersion' - The version of the document currently approved for use in the
+-- organization.
 --
--- * 'ddSha1' - The SHA1 hash of the document, which you can use for verification.
+-- 'requires', 'documentDescription_requires' - A list of SSM documents required by a document. For example, an
+-- @ApplicationConfiguration@ document requires an
+-- @ApplicationConfigurationSchema@ document.
 --
--- * 'ddStatusInformation' - A message returned by AWS Systems Manager that explains the @Status@ value. For example, a @Failed@ status might be explained by the @StatusInformation@ message, "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+-- 'sha1', 'documentDescription_sha1' - The SHA1 hash of the document, which you can use for verification.
 --
--- * 'ddVersionName' - The version of the artifact associated with the document.
+-- 'statusInformation', 'documentDescription_statusInformation' - A message returned by AWS Systems Manager that explains the @Status@
+-- value. For example, a @Failed@ status might be explained by the
+-- @StatusInformation@ message, \"The specified S3 bucket does not exist.
+-- Verify that the URL of the S3 bucket is correct.\"
 --
--- * 'ddAuthor' - The user in your organization who created the document.
+-- 'versionName', 'documentDescription_versionName' - The version of the artifact associated with the document.
 --
--- * 'ddHash' - The Sha256 or Sha1 hash created by the system when the document was created.
+-- 'author', 'documentDescription_author' - The user in your organization who created the document.
 --
--- * 'ddPendingReviewVersion' - The version of the document that is currently under review.
+-- 'hash', 'documentDescription_hash' - The Sha256 or Sha1 hash created by the system when the document was
+-- created.
 --
--- * 'ddName' - The name of the Systems Manager document.
+-- Sha1 hashes have been deprecated.
 --
--- * 'ddDocumentFormat' - The document format, either JSON or YAML.
+-- 'pendingReviewVersion', 'documentDescription_pendingReviewVersion' - The version of the document that is currently under review.
 --
--- * 'ddTags' - The tags, or metadata, that have been applied to the document.
+-- 'name', 'documentDescription_name' - The name of the Systems Manager document.
 --
--- * 'ddOwner' - The AWS user account that created the document.
+-- 'documentFormat', 'documentDescription_documentFormat' - The document format, either JSON or YAML.
 --
--- * 'ddReviewStatus' - The current status of the review.
+-- 'tags', 'documentDescription_tags' - The tags, or metadata, that have been applied to the document.
 --
--- * 'ddReviewInformation' - Details about the review of a document.
+-- 'owner', 'documentDescription_owner' - The AWS user account that created the document.
 --
--- * 'ddAttachmentsInformation' - Details about the document attachments, including names, locations, sizes, and so on.
+-- 'reviewStatus', 'documentDescription_reviewStatus' - The current status of the review.
 --
--- * 'ddDescription' - A description of the document.
+-- 'reviewInformation', 'documentDescription_reviewInformation' - Details about the review of a document.
 --
--- * 'ddSchemaVersion' - The schema version.
+-- 'attachmentsInformation', 'documentDescription_attachmentsInformation' - Details about the document attachments, including names, locations,
+-- sizes, and so on.
 --
--- * 'ddDocumentVersion' - The document version.
+-- 'description', 'documentDescription_description' - A description of the document.
 --
--- * 'ddParameters' - A description of the parameters for a document.
+-- 'schemaVersion', 'documentDescription_schemaVersion' - The schema version.
 --
--- * 'ddHashType' - The hash type of the document. Valid values include @Sha256@ or @Sha1@ .
-documentDescription ::
+-- 'documentVersion', 'documentDescription_documentVersion' - The document version.
+--
+-- 'parameters', 'documentDescription_parameters' - A description of the parameters for a document.
+--
+-- 'hashType', 'documentDescription_hashType' - The hash type of the document. Valid values include @Sha256@ or @Sha1@.
+--
+-- Sha1 hashes have been deprecated.
+newDocumentDescription ::
   DocumentDescription
-documentDescription =
+newDocumentDescription =
   DocumentDescription'
-    { _ddDocumentType = Nothing,
-      _ddStatus = Nothing,
-      _ddCreatedDate = Nothing,
-      _ddPlatformTypes = Nothing,
-      _ddDefaultVersion = Nothing,
-      _ddLatestVersion = Nothing,
-      _ddTargetType = Nothing,
-      _ddApprovedVersion = Nothing,
-      _ddRequires = Nothing,
-      _ddSha1 = Nothing,
-      _ddStatusInformation = Nothing,
-      _ddVersionName = Nothing,
-      _ddAuthor = Nothing,
-      _ddHash = Nothing,
-      _ddPendingReviewVersion = Nothing,
-      _ddName = Nothing,
-      _ddDocumentFormat = Nothing,
-      _ddTags = Nothing,
-      _ddOwner = Nothing,
-      _ddReviewStatus = Nothing,
-      _ddReviewInformation = Nothing,
-      _ddAttachmentsInformation = Nothing,
-      _ddDescription = Nothing,
-      _ddSchemaVersion = Nothing,
-      _ddDocumentVersion = Nothing,
-      _ddParameters = Nothing,
-      _ddHashType = Nothing
+    { documentType =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      platformTypes = Prelude.Nothing,
+      defaultVersion = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      targetType = Prelude.Nothing,
+      approvedVersion = Prelude.Nothing,
+      requires = Prelude.Nothing,
+      sha1 = Prelude.Nothing,
+      statusInformation = Prelude.Nothing,
+      versionName = Prelude.Nothing,
+      author = Prelude.Nothing,
+      hash = Prelude.Nothing,
+      pendingReviewVersion = Prelude.Nothing,
+      name = Prelude.Nothing,
+      documentFormat = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      owner = Prelude.Nothing,
+      reviewStatus = Prelude.Nothing,
+      reviewInformation = Prelude.Nothing,
+      attachmentsInformation = Prelude.Nothing,
+      description = Prelude.Nothing,
+      schemaVersion = Prelude.Nothing,
+      documentVersion = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      hashType = Prelude.Nothing
     }
 
 -- | The type of document.
-ddDocumentType :: Lens' DocumentDescription (Maybe DocumentType)
-ddDocumentType = lens _ddDocumentType (\s a -> s {_ddDocumentType = a})
+documentDescription_documentType :: Lens.Lens' DocumentDescription (Prelude.Maybe DocumentType)
+documentDescription_documentType = Lens.lens (\DocumentDescription' {documentType} -> documentType) (\s@DocumentDescription' {} a -> s {documentType = a} :: DocumentDescription)
 
 -- | The status of the Systems Manager document.
-ddStatus :: Lens' DocumentDescription (Maybe DocumentStatus)
-ddStatus = lens _ddStatus (\s a -> s {_ddStatus = a})
+documentDescription_status :: Lens.Lens' DocumentDescription (Prelude.Maybe DocumentStatus)
+documentDescription_status = Lens.lens (\DocumentDescription' {status} -> status) (\s@DocumentDescription' {} a -> s {status = a} :: DocumentDescription)
 
 -- | The date when the document was created.
-ddCreatedDate :: Lens' DocumentDescription (Maybe UTCTime)
-ddCreatedDate = lens _ddCreatedDate (\s a -> s {_ddCreatedDate = a}) . mapping _Time
+documentDescription_createdDate :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.UTCTime)
+documentDescription_createdDate = Lens.lens (\DocumentDescription' {createdDate} -> createdDate) (\s@DocumentDescription' {} a -> s {createdDate = a} :: DocumentDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The list of OS platforms compatible with this Systems Manager document.
-ddPlatformTypes :: Lens' DocumentDescription [PlatformType]
-ddPlatformTypes = lens _ddPlatformTypes (\s a -> s {_ddPlatformTypes = a}) . _Default . _Coerce
+documentDescription_platformTypes :: Lens.Lens' DocumentDescription (Prelude.Maybe [PlatformType])
+documentDescription_platformTypes = Lens.lens (\DocumentDescription' {platformTypes} -> platformTypes) (\s@DocumentDescription' {} a -> s {platformTypes = a} :: DocumentDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The default version.
-ddDefaultVersion :: Lens' DocumentDescription (Maybe Text)
-ddDefaultVersion = lens _ddDefaultVersion (\s a -> s {_ddDefaultVersion = a})
+documentDescription_defaultVersion :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_defaultVersion = Lens.lens (\DocumentDescription' {defaultVersion} -> defaultVersion) (\s@DocumentDescription' {} a -> s {defaultVersion = a} :: DocumentDescription)
 
 -- | The latest version of the document.
-ddLatestVersion :: Lens' DocumentDescription (Maybe Text)
-ddLatestVersion = lens _ddLatestVersion (\s a -> s {_ddLatestVersion = a})
+documentDescription_latestVersion :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_latestVersion = Lens.lens (\DocumentDescription' {latestVersion} -> latestVersion) (\s@DocumentDescription' {} a -> s {latestVersion = a} :: DocumentDescription)
 
--- | The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance. For a list of valid resource types, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS resource and property types reference> in the /AWS CloudFormation User Guide/ .
-ddTargetType :: Lens' DocumentDescription (Maybe Text)
-ddTargetType = lens _ddTargetType (\s a -> s {_ddTargetType = a})
+-- | The target type which defines the kinds of resources the document can
+-- run on. For example, \/AWS::EC2::Instance. For a list of valid resource
+-- types, see
+-- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS resource and property types reference>
+-- in the /AWS CloudFormation User Guide/.
+documentDescription_targetType :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_targetType = Lens.lens (\DocumentDescription' {targetType} -> targetType) (\s@DocumentDescription' {} a -> s {targetType = a} :: DocumentDescription)
 
--- | The version of the document currently approved for use in the organization.
-ddApprovedVersion :: Lens' DocumentDescription (Maybe Text)
-ddApprovedVersion = lens _ddApprovedVersion (\s a -> s {_ddApprovedVersion = a})
+-- | The version of the document currently approved for use in the
+-- organization.
+documentDescription_approvedVersion :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_approvedVersion = Lens.lens (\DocumentDescription' {approvedVersion} -> approvedVersion) (\s@DocumentDescription' {} a -> s {approvedVersion = a} :: DocumentDescription)
 
--- | A list of SSM documents required by a document. For example, an @ApplicationConfiguration@ document requires an @ApplicationConfigurationSchema@ document.
-ddRequires :: Lens' DocumentDescription (Maybe (NonEmpty DocumentRequires))
-ddRequires = lens _ddRequires (\s a -> s {_ddRequires = a}) . mapping _List1
+-- | A list of SSM documents required by a document. For example, an
+-- @ApplicationConfiguration@ document requires an
+-- @ApplicationConfigurationSchema@ document.
+documentDescription_requires :: Lens.Lens' DocumentDescription (Prelude.Maybe (Prelude.NonEmpty DocumentRequires))
+documentDescription_requires = Lens.lens (\DocumentDescription' {requires} -> requires) (\s@DocumentDescription' {} a -> s {requires = a} :: DocumentDescription) Prelude.. Lens.mapping Prelude._List1
 
 -- | The SHA1 hash of the document, which you can use for verification.
-ddSha1 :: Lens' DocumentDescription (Maybe Text)
-ddSha1 = lens _ddSha1 (\s a -> s {_ddSha1 = a})
+documentDescription_sha1 :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_sha1 = Lens.lens (\DocumentDescription' {sha1} -> sha1) (\s@DocumentDescription' {} a -> s {sha1 = a} :: DocumentDescription)
 
--- | A message returned by AWS Systems Manager that explains the @Status@ value. For example, a @Failed@ status might be explained by the @StatusInformation@ message, "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
-ddStatusInformation :: Lens' DocumentDescription (Maybe Text)
-ddStatusInformation = lens _ddStatusInformation (\s a -> s {_ddStatusInformation = a})
+-- | A message returned by AWS Systems Manager that explains the @Status@
+-- value. For example, a @Failed@ status might be explained by the
+-- @StatusInformation@ message, \"The specified S3 bucket does not exist.
+-- Verify that the URL of the S3 bucket is correct.\"
+documentDescription_statusInformation :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_statusInformation = Lens.lens (\DocumentDescription' {statusInformation} -> statusInformation) (\s@DocumentDescription' {} a -> s {statusInformation = a} :: DocumentDescription)
 
 -- | The version of the artifact associated with the document.
-ddVersionName :: Lens' DocumentDescription (Maybe Text)
-ddVersionName = lens _ddVersionName (\s a -> s {_ddVersionName = a})
+documentDescription_versionName :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_versionName = Lens.lens (\DocumentDescription' {versionName} -> versionName) (\s@DocumentDescription' {} a -> s {versionName = a} :: DocumentDescription)
 
 -- | The user in your organization who created the document.
-ddAuthor :: Lens' DocumentDescription (Maybe Text)
-ddAuthor = lens _ddAuthor (\s a -> s {_ddAuthor = a})
+documentDescription_author :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_author = Lens.lens (\DocumentDescription' {author} -> author) (\s@DocumentDescription' {} a -> s {author = a} :: DocumentDescription)
 
--- | The Sha256 or Sha1 hash created by the system when the document was created.
-ddHash :: Lens' DocumentDescription (Maybe Text)
-ddHash = lens _ddHash (\s a -> s {_ddHash = a})
+-- | The Sha256 or Sha1 hash created by the system when the document was
+-- created.
+--
+-- Sha1 hashes have been deprecated.
+documentDescription_hash :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_hash = Lens.lens (\DocumentDescription' {hash} -> hash) (\s@DocumentDescription' {} a -> s {hash = a} :: DocumentDescription)
 
 -- | The version of the document that is currently under review.
-ddPendingReviewVersion :: Lens' DocumentDescription (Maybe Text)
-ddPendingReviewVersion = lens _ddPendingReviewVersion (\s a -> s {_ddPendingReviewVersion = a})
+documentDescription_pendingReviewVersion :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_pendingReviewVersion = Lens.lens (\DocumentDescription' {pendingReviewVersion} -> pendingReviewVersion) (\s@DocumentDescription' {} a -> s {pendingReviewVersion = a} :: DocumentDescription)
 
 -- | The name of the Systems Manager document.
-ddName :: Lens' DocumentDescription (Maybe Text)
-ddName = lens _ddName (\s a -> s {_ddName = a})
+documentDescription_name :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_name = Lens.lens (\DocumentDescription' {name} -> name) (\s@DocumentDescription' {} a -> s {name = a} :: DocumentDescription)
 
 -- | The document format, either JSON or YAML.
-ddDocumentFormat :: Lens' DocumentDescription (Maybe DocumentFormat)
-ddDocumentFormat = lens _ddDocumentFormat (\s a -> s {_ddDocumentFormat = a})
+documentDescription_documentFormat :: Lens.Lens' DocumentDescription (Prelude.Maybe DocumentFormat)
+documentDescription_documentFormat = Lens.lens (\DocumentDescription' {documentFormat} -> documentFormat) (\s@DocumentDescription' {} a -> s {documentFormat = a} :: DocumentDescription)
 
 -- | The tags, or metadata, that have been applied to the document.
-ddTags :: Lens' DocumentDescription [Tag]
-ddTags = lens _ddTags (\s a -> s {_ddTags = a}) . _Default . _Coerce
+documentDescription_tags :: Lens.Lens' DocumentDescription (Prelude.Maybe [Tag])
+documentDescription_tags = Lens.lens (\DocumentDescription' {tags} -> tags) (\s@DocumentDescription' {} a -> s {tags = a} :: DocumentDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The AWS user account that created the document.
-ddOwner :: Lens' DocumentDescription (Maybe Text)
-ddOwner = lens _ddOwner (\s a -> s {_ddOwner = a})
+documentDescription_owner :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_owner = Lens.lens (\DocumentDescription' {owner} -> owner) (\s@DocumentDescription' {} a -> s {owner = a} :: DocumentDescription)
 
 -- | The current status of the review.
-ddReviewStatus :: Lens' DocumentDescription (Maybe ReviewStatus)
-ddReviewStatus = lens _ddReviewStatus (\s a -> s {_ddReviewStatus = a})
+documentDescription_reviewStatus :: Lens.Lens' DocumentDescription (Prelude.Maybe ReviewStatus)
+documentDescription_reviewStatus = Lens.lens (\DocumentDescription' {reviewStatus} -> reviewStatus) (\s@DocumentDescription' {} a -> s {reviewStatus = a} :: DocumentDescription)
 
 -- | Details about the review of a document.
-ddReviewInformation :: Lens' DocumentDescription (Maybe (NonEmpty ReviewInformation))
-ddReviewInformation = lens _ddReviewInformation (\s a -> s {_ddReviewInformation = a}) . mapping _List1
+documentDescription_reviewInformation :: Lens.Lens' DocumentDescription (Prelude.Maybe (Prelude.NonEmpty ReviewInformation))
+documentDescription_reviewInformation = Lens.lens (\DocumentDescription' {reviewInformation} -> reviewInformation) (\s@DocumentDescription' {} a -> s {reviewInformation = a} :: DocumentDescription) Prelude.. Lens.mapping Prelude._List1
 
--- | Details about the document attachments, including names, locations, sizes, and so on.
-ddAttachmentsInformation :: Lens' DocumentDescription [AttachmentInformation]
-ddAttachmentsInformation = lens _ddAttachmentsInformation (\s a -> s {_ddAttachmentsInformation = a}) . _Default . _Coerce
+-- | Details about the document attachments, including names, locations,
+-- sizes, and so on.
+documentDescription_attachmentsInformation :: Lens.Lens' DocumentDescription (Prelude.Maybe [AttachmentInformation])
+documentDescription_attachmentsInformation = Lens.lens (\DocumentDescription' {attachmentsInformation} -> attachmentsInformation) (\s@DocumentDescription' {} a -> s {attachmentsInformation = a} :: DocumentDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the document.
-ddDescription :: Lens' DocumentDescription (Maybe Text)
-ddDescription = lens _ddDescription (\s a -> s {_ddDescription = a})
+documentDescription_description :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_description = Lens.lens (\DocumentDescription' {description} -> description) (\s@DocumentDescription' {} a -> s {description = a} :: DocumentDescription)
 
 -- | The schema version.
-ddSchemaVersion :: Lens' DocumentDescription (Maybe Text)
-ddSchemaVersion = lens _ddSchemaVersion (\s a -> s {_ddSchemaVersion = a})
+documentDescription_schemaVersion :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_schemaVersion = Lens.lens (\DocumentDescription' {schemaVersion} -> schemaVersion) (\s@DocumentDescription' {} a -> s {schemaVersion = a} :: DocumentDescription)
 
 -- | The document version.
-ddDocumentVersion :: Lens' DocumentDescription (Maybe Text)
-ddDocumentVersion = lens _ddDocumentVersion (\s a -> s {_ddDocumentVersion = a})
+documentDescription_documentVersion :: Lens.Lens' DocumentDescription (Prelude.Maybe Prelude.Text)
+documentDescription_documentVersion = Lens.lens (\DocumentDescription' {documentVersion} -> documentVersion) (\s@DocumentDescription' {} a -> s {documentVersion = a} :: DocumentDescription)
 
 -- | A description of the parameters for a document.
-ddParameters :: Lens' DocumentDescription [DocumentParameter]
-ddParameters = lens _ddParameters (\s a -> s {_ddParameters = a}) . _Default . _Coerce
+documentDescription_parameters :: Lens.Lens' DocumentDescription (Prelude.Maybe [DocumentParameter])
+documentDescription_parameters = Lens.lens (\DocumentDescription' {parameters} -> parameters) (\s@DocumentDescription' {} a -> s {parameters = a} :: DocumentDescription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The hash type of the document. Valid values include @Sha256@ or @Sha1@ .
-ddHashType :: Lens' DocumentDescription (Maybe DocumentHashType)
-ddHashType = lens _ddHashType (\s a -> s {_ddHashType = a})
+-- | The hash type of the document. Valid values include @Sha256@ or @Sha1@.
+--
+-- Sha1 hashes have been deprecated.
+documentDescription_hashType :: Lens.Lens' DocumentDescription (Prelude.Maybe DocumentHashType)
+documentDescription_hashType = Lens.lens (\DocumentDescription' {hashType} -> hashType) (\s@DocumentDescription' {} a -> s {hashType = a} :: DocumentDescription)
 
-instance FromJSON DocumentDescription where
+instance Prelude.FromJSON DocumentDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DocumentDescription"
       ( \x ->
           DocumentDescription'
-            <$> (x .:? "DocumentType")
-            <*> (x .:? "Status")
-            <*> (x .:? "CreatedDate")
-            <*> (x .:? "PlatformTypes" .!= mempty)
-            <*> (x .:? "DefaultVersion")
-            <*> (x .:? "LatestVersion")
-            <*> (x .:? "TargetType")
-            <*> (x .:? "ApprovedVersion")
-            <*> (x .:? "Requires")
-            <*> (x .:? "Sha1")
-            <*> (x .:? "StatusInformation")
-            <*> (x .:? "VersionName")
-            <*> (x .:? "Author")
-            <*> (x .:? "Hash")
-            <*> (x .:? "PendingReviewVersion")
-            <*> (x .:? "Name")
-            <*> (x .:? "DocumentFormat")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "Owner")
-            <*> (x .:? "ReviewStatus")
-            <*> (x .:? "ReviewInformation")
-            <*> (x .:? "AttachmentsInformation" .!= mempty)
-            <*> (x .:? "Description")
-            <*> (x .:? "SchemaVersion")
-            <*> (x .:? "DocumentVersion")
-            <*> (x .:? "Parameters" .!= mempty)
-            <*> (x .:? "HashType")
+            Prelude.<$> (x Prelude..:? "DocumentType")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "CreatedDate")
+            Prelude.<*> ( x Prelude..:? "PlatformTypes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DefaultVersion")
+            Prelude.<*> (x Prelude..:? "LatestVersion")
+            Prelude.<*> (x Prelude..:? "TargetType")
+            Prelude.<*> (x Prelude..:? "ApprovedVersion")
+            Prelude.<*> (x Prelude..:? "Requires")
+            Prelude.<*> (x Prelude..:? "Sha1")
+            Prelude.<*> (x Prelude..:? "StatusInformation")
+            Prelude.<*> (x Prelude..:? "VersionName")
+            Prelude.<*> (x Prelude..:? "Author")
+            Prelude.<*> (x Prelude..:? "Hash")
+            Prelude.<*> (x Prelude..:? "PendingReviewVersion")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "DocumentFormat")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Owner")
+            Prelude.<*> (x Prelude..:? "ReviewStatus")
+            Prelude.<*> (x Prelude..:? "ReviewInformation")
+            Prelude.<*> ( x Prelude..:? "AttachmentsInformation"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "SchemaVersion")
+            Prelude.<*> (x Prelude..:? "DocumentVersion")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "HashType")
       )
 
-instance Hashable DocumentDescription
+instance Prelude.Hashable DocumentDescription
 
-instance NFData DocumentDescription
+instance Prelude.NFData DocumentDescription

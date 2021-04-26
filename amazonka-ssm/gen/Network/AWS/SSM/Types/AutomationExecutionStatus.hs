@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,137 +19,135 @@
 module Network.AWS.SSM.Types.AutomationExecutionStatus
   ( AutomationExecutionStatus
       ( ..,
-        AESApproved,
-        AESCancelled,
-        AESCancelling,
-        AESChangeCalendarOverrideApproved,
-        AESChangeCalendarOverrideRejected,
-        AESCompletedWithFailure,
-        AESCompletedWithSuccess,
-        AESFailed,
-        AESInProgress,
-        AESPending,
-        AESPendingApproval,
-        AESPendingChangeCalendarOverride,
-        AESRejected,
-        AESRunbookInProgress,
-        AESScheduled,
-        AESSuccess,
-        AESTimedOut,
-        AESWaiting
+        AutomationExecutionStatusApproved,
+        AutomationExecutionStatusCancelled,
+        AutomationExecutionStatusCancelling,
+        AutomationExecutionStatusChangeCalendarOverrideApproved,
+        AutomationExecutionStatusChangeCalendarOverrideRejected,
+        AutomationExecutionStatusCompletedWithFailure,
+        AutomationExecutionStatusCompletedWithSuccess,
+        AutomationExecutionStatusFailed,
+        AutomationExecutionStatusInProgress,
+        AutomationExecutionStatusPending,
+        AutomationExecutionStatusPendingApproval,
+        AutomationExecutionStatusPendingChangeCalendarOverride,
+        AutomationExecutionStatusRejected,
+        AutomationExecutionStatusRunbookInProgress,
+        AutomationExecutionStatusScheduled,
+        AutomationExecutionStatusSuccess,
+        AutomationExecutionStatusTimedOut,
+        AutomationExecutionStatusWaiting
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutomationExecutionStatus
-  = AutomationExecutionStatus'
-      ( CI
-          Text
-      )
+newtype AutomationExecutionStatus = AutomationExecutionStatus'
+  { fromAutomationExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AESApproved :: AutomationExecutionStatus
-pattern AESApproved = AutomationExecutionStatus' "Approved"
+pattern AutomationExecutionStatusApproved :: AutomationExecutionStatus
+pattern AutomationExecutionStatusApproved = AutomationExecutionStatus' "Approved"
 
-pattern AESCancelled :: AutomationExecutionStatus
-pattern AESCancelled = AutomationExecutionStatus' "Cancelled"
+pattern AutomationExecutionStatusCancelled :: AutomationExecutionStatus
+pattern AutomationExecutionStatusCancelled = AutomationExecutionStatus' "Cancelled"
 
-pattern AESCancelling :: AutomationExecutionStatus
-pattern AESCancelling = AutomationExecutionStatus' "Cancelling"
+pattern AutomationExecutionStatusCancelling :: AutomationExecutionStatus
+pattern AutomationExecutionStatusCancelling = AutomationExecutionStatus' "Cancelling"
 
-pattern AESChangeCalendarOverrideApproved :: AutomationExecutionStatus
-pattern AESChangeCalendarOverrideApproved = AutomationExecutionStatus' "ChangeCalendarOverrideApproved"
+pattern AutomationExecutionStatusChangeCalendarOverrideApproved :: AutomationExecutionStatus
+pattern AutomationExecutionStatusChangeCalendarOverrideApproved = AutomationExecutionStatus' "ChangeCalendarOverrideApproved"
 
-pattern AESChangeCalendarOverrideRejected :: AutomationExecutionStatus
-pattern AESChangeCalendarOverrideRejected = AutomationExecutionStatus' "ChangeCalendarOverrideRejected"
+pattern AutomationExecutionStatusChangeCalendarOverrideRejected :: AutomationExecutionStatus
+pattern AutomationExecutionStatusChangeCalendarOverrideRejected = AutomationExecutionStatus' "ChangeCalendarOverrideRejected"
 
-pattern AESCompletedWithFailure :: AutomationExecutionStatus
-pattern AESCompletedWithFailure = AutomationExecutionStatus' "CompletedWithFailure"
+pattern AutomationExecutionStatusCompletedWithFailure :: AutomationExecutionStatus
+pattern AutomationExecutionStatusCompletedWithFailure = AutomationExecutionStatus' "CompletedWithFailure"
 
-pattern AESCompletedWithSuccess :: AutomationExecutionStatus
-pattern AESCompletedWithSuccess = AutomationExecutionStatus' "CompletedWithSuccess"
+pattern AutomationExecutionStatusCompletedWithSuccess :: AutomationExecutionStatus
+pattern AutomationExecutionStatusCompletedWithSuccess = AutomationExecutionStatus' "CompletedWithSuccess"
 
-pattern AESFailed :: AutomationExecutionStatus
-pattern AESFailed = AutomationExecutionStatus' "Failed"
+pattern AutomationExecutionStatusFailed :: AutomationExecutionStatus
+pattern AutomationExecutionStatusFailed = AutomationExecutionStatus' "Failed"
 
-pattern AESInProgress :: AutomationExecutionStatus
-pattern AESInProgress = AutomationExecutionStatus' "InProgress"
+pattern AutomationExecutionStatusInProgress :: AutomationExecutionStatus
+pattern AutomationExecutionStatusInProgress = AutomationExecutionStatus' "InProgress"
 
-pattern AESPending :: AutomationExecutionStatus
-pattern AESPending = AutomationExecutionStatus' "Pending"
+pattern AutomationExecutionStatusPending :: AutomationExecutionStatus
+pattern AutomationExecutionStatusPending = AutomationExecutionStatus' "Pending"
 
-pattern AESPendingApproval :: AutomationExecutionStatus
-pattern AESPendingApproval = AutomationExecutionStatus' "PendingApproval"
+pattern AutomationExecutionStatusPendingApproval :: AutomationExecutionStatus
+pattern AutomationExecutionStatusPendingApproval = AutomationExecutionStatus' "PendingApproval"
 
-pattern AESPendingChangeCalendarOverride :: AutomationExecutionStatus
-pattern AESPendingChangeCalendarOverride = AutomationExecutionStatus' "PendingChangeCalendarOverride"
+pattern AutomationExecutionStatusPendingChangeCalendarOverride :: AutomationExecutionStatus
+pattern AutomationExecutionStatusPendingChangeCalendarOverride = AutomationExecutionStatus' "PendingChangeCalendarOverride"
 
-pattern AESRejected :: AutomationExecutionStatus
-pattern AESRejected = AutomationExecutionStatus' "Rejected"
+pattern AutomationExecutionStatusRejected :: AutomationExecutionStatus
+pattern AutomationExecutionStatusRejected = AutomationExecutionStatus' "Rejected"
 
-pattern AESRunbookInProgress :: AutomationExecutionStatus
-pattern AESRunbookInProgress = AutomationExecutionStatus' "RunbookInProgress"
+pattern AutomationExecutionStatusRunbookInProgress :: AutomationExecutionStatus
+pattern AutomationExecutionStatusRunbookInProgress = AutomationExecutionStatus' "RunbookInProgress"
 
-pattern AESScheduled :: AutomationExecutionStatus
-pattern AESScheduled = AutomationExecutionStatus' "Scheduled"
+pattern AutomationExecutionStatusScheduled :: AutomationExecutionStatus
+pattern AutomationExecutionStatusScheduled = AutomationExecutionStatus' "Scheduled"
 
-pattern AESSuccess :: AutomationExecutionStatus
-pattern AESSuccess = AutomationExecutionStatus' "Success"
+pattern AutomationExecutionStatusSuccess :: AutomationExecutionStatus
+pattern AutomationExecutionStatusSuccess = AutomationExecutionStatus' "Success"
 
-pattern AESTimedOut :: AutomationExecutionStatus
-pattern AESTimedOut = AutomationExecutionStatus' "TimedOut"
+pattern AutomationExecutionStatusTimedOut :: AutomationExecutionStatus
+pattern AutomationExecutionStatusTimedOut = AutomationExecutionStatus' "TimedOut"
 
-pattern AESWaiting :: AutomationExecutionStatus
-pattern AESWaiting = AutomationExecutionStatus' "Waiting"
+pattern AutomationExecutionStatusWaiting :: AutomationExecutionStatus
+pattern AutomationExecutionStatusWaiting = AutomationExecutionStatus' "Waiting"
 
 {-# COMPLETE
-  AESApproved,
-  AESCancelled,
-  AESCancelling,
-  AESChangeCalendarOverrideApproved,
-  AESChangeCalendarOverrideRejected,
-  AESCompletedWithFailure,
-  AESCompletedWithSuccess,
-  AESFailed,
-  AESInProgress,
-  AESPending,
-  AESPendingApproval,
-  AESPendingChangeCalendarOverride,
-  AESRejected,
-  AESRunbookInProgress,
-  AESScheduled,
-  AESSuccess,
-  AESTimedOut,
-  AESWaiting,
+  AutomationExecutionStatusApproved,
+  AutomationExecutionStatusCancelled,
+  AutomationExecutionStatusCancelling,
+  AutomationExecutionStatusChangeCalendarOverrideApproved,
+  AutomationExecutionStatusChangeCalendarOverrideRejected,
+  AutomationExecutionStatusCompletedWithFailure,
+  AutomationExecutionStatusCompletedWithSuccess,
+  AutomationExecutionStatusFailed,
+  AutomationExecutionStatusInProgress,
+  AutomationExecutionStatusPending,
+  AutomationExecutionStatusPendingApproval,
+  AutomationExecutionStatusPendingChangeCalendarOverride,
+  AutomationExecutionStatusRejected,
+  AutomationExecutionStatusRunbookInProgress,
+  AutomationExecutionStatusScheduled,
+  AutomationExecutionStatusSuccess,
+  AutomationExecutionStatusTimedOut,
+  AutomationExecutionStatusWaiting,
   AutomationExecutionStatus'
   #-}
 
-instance FromText AutomationExecutionStatus where
-  parser = (AutomationExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText AutomationExecutionStatus where
+  parser = AutomationExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AutomationExecutionStatus where
-  toText (AutomationExecutionStatus' ci) = original ci
+instance Prelude.ToText AutomationExecutionStatus where
+  toText (AutomationExecutionStatus' x) = x
 
-instance Hashable AutomationExecutionStatus
+instance Prelude.Hashable AutomationExecutionStatus
 
-instance NFData AutomationExecutionStatus
+instance Prelude.NFData AutomationExecutionStatus
 
-instance ToByteString AutomationExecutionStatus
+instance Prelude.ToByteString AutomationExecutionStatus
 
-instance ToQuery AutomationExecutionStatus
+instance Prelude.ToQuery AutomationExecutionStatus
 
-instance ToHeader AutomationExecutionStatus
+instance Prelude.ToHeader AutomationExecutionStatus
 
-instance FromJSON AutomationExecutionStatus where
-  parseJSON = parseJSONText "AutomationExecutionStatus"
+instance Prelude.FromJSON AutomationExecutionStatus where
+  parseJSON = Prelude.parseJSONText "AutomationExecutionStatus"

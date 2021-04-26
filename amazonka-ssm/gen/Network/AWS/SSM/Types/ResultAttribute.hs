@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,48 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.ResultAttribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The inventory item result attribute.
 --
---
---
--- /See:/ 'resultAttribute' smart constructor.
-newtype ResultAttribute = ResultAttribute'
-  { _raTypeName ::
-      Text
+-- /See:/ 'newResultAttribute' smart constructor.
+data ResultAttribute = ResultAttribute'
+  { -- | Name of the inventory item type. Valid value: AWS:InstanceInformation.
+    -- Default Value: AWS:InstanceInformation.
+    typeName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResultAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResultAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'raTypeName' - Name of the inventory item type. Valid value: AWS:InstanceInformation. Default Value: AWS:InstanceInformation.
-resultAttribute ::
-  -- | 'raTypeName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'typeName', 'resultAttribute_typeName' - Name of the inventory item type. Valid value: AWS:InstanceInformation.
+-- Default Value: AWS:InstanceInformation.
+newResultAttribute ::
+  -- | 'typeName'
+  Prelude.Text ->
   ResultAttribute
-resultAttribute pTypeName_ =
-  ResultAttribute' {_raTypeName = pTypeName_}
+newResultAttribute pTypeName_ =
+  ResultAttribute' {typeName = pTypeName_}
 
--- | Name of the inventory item type. Valid value: AWS:InstanceInformation. Default Value: AWS:InstanceInformation.
-raTypeName :: Lens' ResultAttribute Text
-raTypeName = lens _raTypeName (\s a -> s {_raTypeName = a})
+-- | Name of the inventory item type. Valid value: AWS:InstanceInformation.
+-- Default Value: AWS:InstanceInformation.
+resultAttribute_typeName :: Lens.Lens' ResultAttribute Prelude.Text
+resultAttribute_typeName = Lens.lens (\ResultAttribute' {typeName} -> typeName) (\s@ResultAttribute' {} a -> s {typeName = a} :: ResultAttribute)
 
-instance Hashable ResultAttribute
+instance Prelude.Hashable ResultAttribute
 
-instance NFData ResultAttribute
+instance Prelude.NFData ResultAttribute
 
-instance ToJSON ResultAttribute where
+instance Prelude.ToJSON ResultAttribute where
   toJSON ResultAttribute' {..} =
-    object
-      (catMaybes [Just ("TypeName" .= _raTypeName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("TypeName" Prelude..= typeName)]
+      )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.SSM.Types.ResourceTypeForTagging
   ( ResourceTypeForTagging
       ( ..,
-        RTFTDocument,
-        RTFTMaintenanceWindow,
-        RTFTManagedInstance,
-        RTFTOpsItem,
-        RTFTParameter,
-        RTFTPatchBaseline
+        ResourceTypeForTaggingDocument,
+        ResourceTypeForTaggingMaintenanceWindow,
+        ResourceTypeForTaggingManagedInstance,
+        ResourceTypeForTaggingOpsItem,
+        ResourceTypeForTaggingParameter,
+        ResourceTypeForTaggingPatchBaseline
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceTypeForTagging
-  = ResourceTypeForTagging'
-      ( CI
-          Text
-      )
+newtype ResourceTypeForTagging = ResourceTypeForTagging'
+  { fromResourceTypeForTagging ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RTFTDocument :: ResourceTypeForTagging
-pattern RTFTDocument = ResourceTypeForTagging' "Document"
+pattern ResourceTypeForTaggingDocument :: ResourceTypeForTagging
+pattern ResourceTypeForTaggingDocument = ResourceTypeForTagging' "Document"
 
-pattern RTFTMaintenanceWindow :: ResourceTypeForTagging
-pattern RTFTMaintenanceWindow = ResourceTypeForTagging' "MaintenanceWindow"
+pattern ResourceTypeForTaggingMaintenanceWindow :: ResourceTypeForTagging
+pattern ResourceTypeForTaggingMaintenanceWindow = ResourceTypeForTagging' "MaintenanceWindow"
 
-pattern RTFTManagedInstance :: ResourceTypeForTagging
-pattern RTFTManagedInstance = ResourceTypeForTagging' "ManagedInstance"
+pattern ResourceTypeForTaggingManagedInstance :: ResourceTypeForTagging
+pattern ResourceTypeForTaggingManagedInstance = ResourceTypeForTagging' "ManagedInstance"
 
-pattern RTFTOpsItem :: ResourceTypeForTagging
-pattern RTFTOpsItem = ResourceTypeForTagging' "OpsItem"
+pattern ResourceTypeForTaggingOpsItem :: ResourceTypeForTagging
+pattern ResourceTypeForTaggingOpsItem = ResourceTypeForTagging' "OpsItem"
 
-pattern RTFTParameter :: ResourceTypeForTagging
-pattern RTFTParameter = ResourceTypeForTagging' "Parameter"
+pattern ResourceTypeForTaggingParameter :: ResourceTypeForTagging
+pattern ResourceTypeForTaggingParameter = ResourceTypeForTagging' "Parameter"
 
-pattern RTFTPatchBaseline :: ResourceTypeForTagging
-pattern RTFTPatchBaseline = ResourceTypeForTagging' "PatchBaseline"
+pattern ResourceTypeForTaggingPatchBaseline :: ResourceTypeForTagging
+pattern ResourceTypeForTaggingPatchBaseline = ResourceTypeForTagging' "PatchBaseline"
 
 {-# COMPLETE
-  RTFTDocument,
-  RTFTMaintenanceWindow,
-  RTFTManagedInstance,
-  RTFTOpsItem,
-  RTFTParameter,
-  RTFTPatchBaseline,
+  ResourceTypeForTaggingDocument,
+  ResourceTypeForTaggingMaintenanceWindow,
+  ResourceTypeForTaggingManagedInstance,
+  ResourceTypeForTaggingOpsItem,
+  ResourceTypeForTaggingParameter,
+  ResourceTypeForTaggingPatchBaseline,
   ResourceTypeForTagging'
   #-}
 
-instance FromText ResourceTypeForTagging where
-  parser = (ResourceTypeForTagging' . mk) <$> takeText
+instance Prelude.FromText ResourceTypeForTagging where
+  parser = ResourceTypeForTagging' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceTypeForTagging where
-  toText (ResourceTypeForTagging' ci) = original ci
+instance Prelude.ToText ResourceTypeForTagging where
+  toText (ResourceTypeForTagging' x) = x
 
-instance Hashable ResourceTypeForTagging
+instance Prelude.Hashable ResourceTypeForTagging
 
-instance NFData ResourceTypeForTagging
+instance Prelude.NFData ResourceTypeForTagging
 
-instance ToByteString ResourceTypeForTagging
+instance Prelude.ToByteString ResourceTypeForTagging
 
-instance ToQuery ResourceTypeForTagging
+instance Prelude.ToQuery ResourceTypeForTagging
 
-instance ToHeader ResourceTypeForTagging
+instance Prelude.ToHeader ResourceTypeForTagging
 
-instance ToJSON ResourceTypeForTagging where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceTypeForTagging where
+  toJSON = Prelude.toJSONText

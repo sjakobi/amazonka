@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.SSM.Types.NotificationEvent
   ( NotificationEvent
       ( ..,
-        NEAll,
-        NECancelled,
-        NEFailed,
-        NEInProgress,
-        NESuccess,
-        NETimedOut
+        NotificationEventAll,
+        NotificationEventCancelled,
+        NotificationEventFailed,
+        NotificationEventInProgress,
+        NotificationEventSuccess,
+        NotificationEventTimedOut
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotificationEvent = NotificationEvent' (CI Text)
+newtype NotificationEvent = NotificationEvent'
+  { fromNotificationEvent ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NEAll :: NotificationEvent
-pattern NEAll = NotificationEvent' "All"
+pattern NotificationEventAll :: NotificationEvent
+pattern NotificationEventAll = NotificationEvent' "All"
 
-pattern NECancelled :: NotificationEvent
-pattern NECancelled = NotificationEvent' "Cancelled"
+pattern NotificationEventCancelled :: NotificationEvent
+pattern NotificationEventCancelled = NotificationEvent' "Cancelled"
 
-pattern NEFailed :: NotificationEvent
-pattern NEFailed = NotificationEvent' "Failed"
+pattern NotificationEventFailed :: NotificationEvent
+pattern NotificationEventFailed = NotificationEvent' "Failed"
 
-pattern NEInProgress :: NotificationEvent
-pattern NEInProgress = NotificationEvent' "InProgress"
+pattern NotificationEventInProgress :: NotificationEvent
+pattern NotificationEventInProgress = NotificationEvent' "InProgress"
 
-pattern NESuccess :: NotificationEvent
-pattern NESuccess = NotificationEvent' "Success"
+pattern NotificationEventSuccess :: NotificationEvent
+pattern NotificationEventSuccess = NotificationEvent' "Success"
 
-pattern NETimedOut :: NotificationEvent
-pattern NETimedOut = NotificationEvent' "TimedOut"
+pattern NotificationEventTimedOut :: NotificationEvent
+pattern NotificationEventTimedOut = NotificationEvent' "TimedOut"
 
 {-# COMPLETE
-  NEAll,
-  NECancelled,
-  NEFailed,
-  NEInProgress,
-  NESuccess,
-  NETimedOut,
+  NotificationEventAll,
+  NotificationEventCancelled,
+  NotificationEventFailed,
+  NotificationEventInProgress,
+  NotificationEventSuccess,
+  NotificationEventTimedOut,
   NotificationEvent'
   #-}
 
-instance FromText NotificationEvent where
-  parser = (NotificationEvent' . mk) <$> takeText
+instance Prelude.FromText NotificationEvent where
+  parser = NotificationEvent' Prelude.<$> Prelude.takeText
 
-instance ToText NotificationEvent where
-  toText (NotificationEvent' ci) = original ci
+instance Prelude.ToText NotificationEvent where
+  toText (NotificationEvent' x) = x
 
-instance Hashable NotificationEvent
+instance Prelude.Hashable NotificationEvent
 
-instance NFData NotificationEvent
+instance Prelude.NFData NotificationEvent
 
-instance ToByteString NotificationEvent
+instance Prelude.ToByteString NotificationEvent
 
-instance ToQuery NotificationEvent
+instance Prelude.ToQuery NotificationEvent
 
-instance ToHeader NotificationEvent
+instance Prelude.ToHeader NotificationEvent
 
-instance ToJSON NotificationEvent where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotificationEvent where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NotificationEvent where
-  parseJSON = parseJSONText "NotificationEvent"
+instance Prelude.FromJSON NotificationEvent where
+  parseJSON = Prelude.parseJSONText "NotificationEvent"

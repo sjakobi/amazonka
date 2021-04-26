@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.AttachmentContent where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.AttachmentHashType
 
--- | A structure that includes attributes that describe a document attachment.
+-- | A structure that includes attributes that describe a document
+-- attachment.
 --
---
---
--- /See:/ 'attachmentContent' smart constructor.
+-- /See:/ 'newAttachmentContent' smart constructor.
 data AttachmentContent = AttachmentContent'
-  { _acHash ::
-      !(Maybe Text),
-    _acName :: !(Maybe Text),
-    _acURL :: !(Maybe Text),
-    _acSize :: !(Maybe Integer),
-    _acHashType ::
-      !(Maybe AttachmentHashType)
+  { -- | The cryptographic hash value of the document content.
+    hash :: Prelude.Maybe Prelude.Text,
+    -- | The name of an attachment.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The URL location of the attachment content.
+    url :: Prelude.Maybe Prelude.Text,
+    -- | The size of an attachment in bytes.
+    size :: Prelude.Maybe Prelude.Integer,
+    -- | The hash algorithm used to calculate the hash value.
+    hashType :: Prelude.Maybe AttachmentHashType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachmentContent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachmentContent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acHash' - The cryptographic hash value of the document content.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acName' - The name of an attachment.
+-- 'hash', 'attachmentContent_hash' - The cryptographic hash value of the document content.
 --
--- * 'acURL' - The URL location of the attachment content.
+-- 'name', 'attachmentContent_name' - The name of an attachment.
 --
--- * 'acSize' - The size of an attachment in bytes.
+-- 'url', 'attachmentContent_url' - The URL location of the attachment content.
 --
--- * 'acHashType' - The hash algorithm used to calculate the hash value.
-attachmentContent ::
+-- 'size', 'attachmentContent_size' - The size of an attachment in bytes.
+--
+-- 'hashType', 'attachmentContent_hashType' - The hash algorithm used to calculate the hash value.
+newAttachmentContent ::
   AttachmentContent
-attachmentContent =
+newAttachmentContent =
   AttachmentContent'
-    { _acHash = Nothing,
-      _acName = Nothing,
-      _acURL = Nothing,
-      _acSize = Nothing,
-      _acHashType = Nothing
+    { hash = Prelude.Nothing,
+      name = Prelude.Nothing,
+      url = Prelude.Nothing,
+      size = Prelude.Nothing,
+      hashType = Prelude.Nothing
     }
 
 -- | The cryptographic hash value of the document content.
-acHash :: Lens' AttachmentContent (Maybe Text)
-acHash = lens _acHash (\s a -> s {_acHash = a})
+attachmentContent_hash :: Lens.Lens' AttachmentContent (Prelude.Maybe Prelude.Text)
+attachmentContent_hash = Lens.lens (\AttachmentContent' {hash} -> hash) (\s@AttachmentContent' {} a -> s {hash = a} :: AttachmentContent)
 
 -- | The name of an attachment.
-acName :: Lens' AttachmentContent (Maybe Text)
-acName = lens _acName (\s a -> s {_acName = a})
+attachmentContent_name :: Lens.Lens' AttachmentContent (Prelude.Maybe Prelude.Text)
+attachmentContent_name = Lens.lens (\AttachmentContent' {name} -> name) (\s@AttachmentContent' {} a -> s {name = a} :: AttachmentContent)
 
 -- | The URL location of the attachment content.
-acURL :: Lens' AttachmentContent (Maybe Text)
-acURL = lens _acURL (\s a -> s {_acURL = a})
+attachmentContent_url :: Lens.Lens' AttachmentContent (Prelude.Maybe Prelude.Text)
+attachmentContent_url = Lens.lens (\AttachmentContent' {url} -> url) (\s@AttachmentContent' {} a -> s {url = a} :: AttachmentContent)
 
 -- | The size of an attachment in bytes.
-acSize :: Lens' AttachmentContent (Maybe Integer)
-acSize = lens _acSize (\s a -> s {_acSize = a})
+attachmentContent_size :: Lens.Lens' AttachmentContent (Prelude.Maybe Prelude.Integer)
+attachmentContent_size = Lens.lens (\AttachmentContent' {size} -> size) (\s@AttachmentContent' {} a -> s {size = a} :: AttachmentContent)
 
 -- | The hash algorithm used to calculate the hash value.
-acHashType :: Lens' AttachmentContent (Maybe AttachmentHashType)
-acHashType = lens _acHashType (\s a -> s {_acHashType = a})
+attachmentContent_hashType :: Lens.Lens' AttachmentContent (Prelude.Maybe AttachmentHashType)
+attachmentContent_hashType = Lens.lens (\AttachmentContent' {hashType} -> hashType) (\s@AttachmentContent' {} a -> s {hashType = a} :: AttachmentContent)
 
-instance FromJSON AttachmentContent where
+instance Prelude.FromJSON AttachmentContent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttachmentContent"
       ( \x ->
           AttachmentContent'
-            <$> (x .:? "Hash")
-            <*> (x .:? "Name")
-            <*> (x .:? "Url")
-            <*> (x .:? "Size")
-            <*> (x .:? "HashType")
+            Prelude.<$> (x Prelude..:? "Hash")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Url")
+            Prelude.<*> (x Prelude..:? "Size")
+            Prelude.<*> (x Prelude..:? "HashType")
       )
 
-instance Hashable AttachmentContent
+instance Prelude.Hashable AttachmentContent
 
-instance NFData AttachmentContent
+instance Prelude.NFData AttachmentContent

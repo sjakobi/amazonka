@@ -11,18 +11,34 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Systems Manager__
+-- AWS Systems Manager
 --
--- AWS Systems Manager is a collection of capabilities that helps you automate management tasks such as collecting system inventory, applying operating system (OS) patches, automating the creation of Amazon Machine Images (AMIs), and configuring operating systems (OSs) and applications at scale. Systems Manager lets you remotely and securely manage the configuration of your managed instances. A /managed instance/ is any Amazon Elastic Compute Cloud instance (EC2 instance), or any on-premises server or virtual machine (VM) in your hybrid environment that has been configured for Systems Manager.
+-- AWS Systems Manager is a collection of capabilities that helps you
+-- automate management tasks such as collecting system inventory, applying
+-- operating system (OS) patches, automating the creation of Amazon Machine
+-- Images (AMIs), and configuring operating systems (OSs) and applications
+-- at scale. Systems Manager lets you remotely and securely manage the
+-- configuration of your managed instances. A /managed instance/ is any
+-- Amazon Elastic Compute Cloud instance (EC2 instance), or any on-premises
+-- server or virtual machine (VM) in your hybrid environment that has been
+-- configured for Systems Manager.
 --
--- This reference is intended to be used with the <https://docs.aws.amazon.com/systems-manager/latest/userguide/ AWS Systems Manager User Guide> .
+-- This reference is intended to be used with the
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/ AWS Systems Manager User Guide>.
 --
--- To get started, verify prerequisites and configure managed instances. For more information, see <https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html Setting up AWS Systems Manager> in the /AWS Systems Manager User Guide/ .
+-- To get started, verify prerequisites and configure managed instances.
+-- For more information, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html Setting up AWS Systems Manager>
+-- in the /AWS Systems Manager User Guide/.
 --
--- For information about other API actions you can perform on EC2 instances, see the <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/ Amazon EC2 API Reference> . For information about how to use a Query API, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html Making API requests> .
+-- For information about other API actions you can perform on EC2
+-- instances, see the
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/ Amazon EC2 API Reference>.
+-- For information about how to use a Query API, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html Making API requests>.
 module Network.AWS.SSM
   ( -- * Service Configuration
-    ssm,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -391,403 +407,796 @@ module Network.AWS.SSM
     -- $waiters
 
     -- ** CommandExecuted
-    commandExecuted,
+    newCommandExecuted,
 
     -- * Operations
     -- $operations
 
     -- ** ListResourceComplianceSummaries (Paginated)
-    module Network.AWS.SSM.ListResourceComplianceSummaries,
+    ListResourceComplianceSummaries (ListResourceComplianceSummaries'),
+    newListResourceComplianceSummaries,
+    ListResourceComplianceSummariesResponse (ListResourceComplianceSummariesResponse'),
+    newListResourceComplianceSummariesResponse,
 
     -- ** DescribePatchGroups (Paginated)
-    module Network.AWS.SSM.DescribePatchGroups,
+    DescribePatchGroups (DescribePatchGroups'),
+    newDescribePatchGroups,
+    DescribePatchGroupsResponse (DescribePatchGroupsResponse'),
+    newDescribePatchGroupsResponse,
 
     -- ** DescribeOpsItems (Paginated)
-    module Network.AWS.SSM.DescribeOpsItems,
+    DescribeOpsItems (DescribeOpsItems'),
+    newDescribeOpsItems,
+    DescribeOpsItemsResponse (DescribeOpsItemsResponse'),
+    newDescribeOpsItemsResponse,
 
     -- ** TerminateSession
-    module Network.AWS.SSM.TerminateSession,
+    TerminateSession (TerminateSession'),
+    newTerminateSession,
+    TerminateSessionResponse (TerminateSessionResponse'),
+    newTerminateSessionResponse,
 
     -- ** GetParameter
-    module Network.AWS.SSM.GetParameter,
+    GetParameter (GetParameter'),
+    newGetParameter,
+    GetParameterResponse (GetParameterResponse'),
+    newGetParameterResponse,
 
     -- ** GetOpsMetadata
-    module Network.AWS.SSM.GetOpsMetadata,
+    GetOpsMetadata (GetOpsMetadata'),
+    newGetOpsMetadata,
+    GetOpsMetadataResponse (GetOpsMetadataResponse'),
+    newGetOpsMetadataResponse,
 
     -- ** UpdateDocumentDefaultVersion
-    module Network.AWS.SSM.UpdateDocumentDefaultVersion,
+    UpdateDocumentDefaultVersion (UpdateDocumentDefaultVersion'),
+    newUpdateDocumentDefaultVersion,
+    UpdateDocumentDefaultVersionResponse (UpdateDocumentDefaultVersionResponse'),
+    newUpdateDocumentDefaultVersionResponse,
 
     -- ** ListResourceDataSync (Paginated)
-    module Network.AWS.SSM.ListResourceDataSync,
+    ListResourceDataSync (ListResourceDataSync'),
+    newListResourceDataSync,
+    ListResourceDataSyncResponse (ListResourceDataSyncResponse'),
+    newListResourceDataSyncResponse,
 
     -- ** DescribeParameters (Paginated)
-    module Network.AWS.SSM.DescribeParameters,
+    DescribeParameters (DescribeParameters'),
+    newDescribeParameters,
+    DescribeParametersResponse (DescribeParametersResponse'),
+    newDescribeParametersResponse,
 
     -- ** RegisterTaskWithMaintenanceWindow
-    module Network.AWS.SSM.RegisterTaskWithMaintenanceWindow,
+    RegisterTaskWithMaintenanceWindow (RegisterTaskWithMaintenanceWindow'),
+    newRegisterTaskWithMaintenanceWindow,
+    RegisterTaskWithMaintenanceWindowResponse (RegisterTaskWithMaintenanceWindowResponse'),
+    newRegisterTaskWithMaintenanceWindowResponse,
 
     -- ** GetOpsItem
-    module Network.AWS.SSM.GetOpsItem,
+    GetOpsItem (GetOpsItem'),
+    newGetOpsItem,
+    GetOpsItemResponse (GetOpsItemResponse'),
+    newGetOpsItemResponse,
 
     -- ** GetInventory (Paginated)
-    module Network.AWS.SSM.GetInventory,
+    GetInventory (GetInventory'),
+    newGetInventory,
+    GetInventoryResponse (GetInventoryResponse'),
+    newGetInventoryResponse,
 
     -- ** DescribeAssociation
-    module Network.AWS.SSM.DescribeAssociation,
+    DescribeAssociation (DescribeAssociation'),
+    newDescribeAssociation,
+    DescribeAssociationResponse (DescribeAssociationResponse'),
+    newDescribeAssociationResponse,
 
     -- ** UpdateAssociationStatus
-    module Network.AWS.SSM.UpdateAssociationStatus,
+    UpdateAssociationStatus (UpdateAssociationStatus'),
+    newUpdateAssociationStatus,
+    UpdateAssociationStatusResponse (UpdateAssociationStatusResponse'),
+    newUpdateAssociationStatusResponse,
 
     -- ** DeregisterManagedInstance
-    module Network.AWS.SSM.DeregisterManagedInstance,
+    DeregisterManagedInstance (DeregisterManagedInstance'),
+    newDeregisterManagedInstance,
+    DeregisterManagedInstanceResponse (DeregisterManagedInstanceResponse'),
+    newDeregisterManagedInstanceResponse,
 
     -- ** DescribeAssociationExecutionTargets (Paginated)
-    module Network.AWS.SSM.DescribeAssociationExecutionTargets,
+    DescribeAssociationExecutionTargets (DescribeAssociationExecutionTargets'),
+    newDescribeAssociationExecutionTargets,
+    DescribeAssociationExecutionTargetsResponse (DescribeAssociationExecutionTargetsResponse'),
+    newDescribeAssociationExecutionTargetsResponse,
 
     -- ** UpdateMaintenanceWindowTarget
-    module Network.AWS.SSM.UpdateMaintenanceWindowTarget,
+    UpdateMaintenanceWindowTarget (UpdateMaintenanceWindowTarget'),
+    newUpdateMaintenanceWindowTarget,
+    UpdateMaintenanceWindowTargetResponse (UpdateMaintenanceWindowTargetResponse'),
+    newUpdateMaintenanceWindowTargetResponse,
 
     -- ** DescribeAutomationStepExecutions (Paginated)
-    module Network.AWS.SSM.DescribeAutomationStepExecutions,
+    DescribeAutomationStepExecutions (DescribeAutomationStepExecutions'),
+    newDescribeAutomationStepExecutions,
+    DescribeAutomationStepExecutionsResponse (DescribeAutomationStepExecutionsResponse'),
+    newDescribeAutomationStepExecutionsResponse,
 
     -- ** CreatePatchBaseline
-    module Network.AWS.SSM.CreatePatchBaseline,
+    CreatePatchBaseline (CreatePatchBaseline'),
+    newCreatePatchBaseline,
+    CreatePatchBaselineResponse (CreatePatchBaselineResponse'),
+    newCreatePatchBaselineResponse,
 
     -- ** GetCommandInvocation
-    module Network.AWS.SSM.GetCommandInvocation,
+    GetCommandInvocation (GetCommandInvocation'),
+    newGetCommandInvocation,
+    GetCommandInvocationResponse (GetCommandInvocationResponse'),
+    newGetCommandInvocationResponse,
 
     -- ** ListCommands (Paginated)
-    module Network.AWS.SSM.ListCommands,
+    ListCommands (ListCommands'),
+    newListCommands,
+    ListCommandsResponse (ListCommandsResponse'),
+    newListCommandsResponse,
 
     -- ** DeregisterTargetFromMaintenanceWindow
-    module Network.AWS.SSM.DeregisterTargetFromMaintenanceWindow,
+    DeregisterTargetFromMaintenanceWindow (DeregisterTargetFromMaintenanceWindow'),
+    newDeregisterTargetFromMaintenanceWindow,
+    DeregisterTargetFromMaintenanceWindowResponse (DeregisterTargetFromMaintenanceWindowResponse'),
+    newDeregisterTargetFromMaintenanceWindowResponse,
 
     -- ** DescribeInstancePatchStates (Paginated)
-    module Network.AWS.SSM.DescribeInstancePatchStates,
+    DescribeInstancePatchStates (DescribeInstancePatchStates'),
+    newDescribeInstancePatchStates,
+    DescribeInstancePatchStatesResponse (DescribeInstancePatchStatesResponse'),
+    newDescribeInstancePatchStatesResponse,
 
     -- ** UpdateDocument
-    module Network.AWS.SSM.UpdateDocument,
+    UpdateDocument (UpdateDocument'),
+    newUpdateDocument,
+    UpdateDocumentResponse (UpdateDocumentResponse'),
+    newUpdateDocumentResponse,
 
     -- ** ListDocuments (Paginated)
-    module Network.AWS.SSM.ListDocuments,
+    ListDocuments (ListDocuments'),
+    newListDocuments,
+    ListDocumentsResponse (ListDocumentsResponse'),
+    newListDocumentsResponse,
 
     -- ** ResetServiceSetting
-    module Network.AWS.SSM.ResetServiceSetting,
+    ResetServiceSetting (ResetServiceSetting'),
+    newResetServiceSetting,
+    ResetServiceSettingResponse (ResetServiceSettingResponse'),
+    newResetServiceSettingResponse,
 
     -- ** StartSession
-    module Network.AWS.SSM.StartSession,
+    StartSession (StartSession'),
+    newStartSession,
+    StartSessionResponse (StartSessionResponse'),
+    newStartSessionResponse,
 
     -- ** GetOpsSummary (Paginated)
-    module Network.AWS.SSM.GetOpsSummary,
+    GetOpsSummary (GetOpsSummary'),
+    newGetOpsSummary,
+    GetOpsSummaryResponse (GetOpsSummaryResponse'),
+    newGetOpsSummaryResponse,
 
     -- ** DeleteDocument
-    module Network.AWS.SSM.DeleteDocument,
+    DeleteDocument (DeleteDocument'),
+    newDeleteDocument,
+    DeleteDocumentResponse (DeleteDocumentResponse'),
+    newDeleteDocumentResponse,
 
     -- ** DeleteInventory
-    module Network.AWS.SSM.DeleteInventory,
+    DeleteInventory (DeleteInventory'),
+    newDeleteInventory,
+    DeleteInventoryResponse (DeleteInventoryResponse'),
+    newDeleteInventoryResponse,
 
     -- ** DeleteParameters
-    module Network.AWS.SSM.DeleteParameters,
+    DeleteParameters (DeleteParameters'),
+    newDeleteParameters,
+    DeleteParametersResponse (DeleteParametersResponse'),
+    newDeleteParametersResponse,
 
     -- ** ListOpsMetadata (Paginated)
-    module Network.AWS.SSM.ListOpsMetadata,
+    ListOpsMetadata (ListOpsMetadata'),
+    newListOpsMetadata,
+    ListOpsMetadataResponse (ListOpsMetadataResponse'),
+    newListOpsMetadataResponse,
 
     -- ** SendCommand
-    module Network.AWS.SSM.SendCommand,
+    SendCommand (SendCommand'),
+    newSendCommand,
+    SendCommandResponse (SendCommandResponse'),
+    newSendCommandResponse,
 
     -- ** RemoveTagsFromResource
-    module Network.AWS.SSM.RemoveTagsFromResource,
+    RemoveTagsFromResource (RemoveTagsFromResource'),
+    newRemoveTagsFromResource,
+    RemoveTagsFromResourceResponse (RemoveTagsFromResourceResponse'),
+    newRemoveTagsFromResourceResponse,
 
     -- ** DescribeEffectiveInstanceAssociations (Paginated)
-    module Network.AWS.SSM.DescribeEffectiveInstanceAssociations,
+    DescribeEffectiveInstanceAssociations (DescribeEffectiveInstanceAssociations'),
+    newDescribeEffectiveInstanceAssociations,
+    DescribeEffectiveInstanceAssociationsResponse (DescribeEffectiveInstanceAssociationsResponse'),
+    newDescribeEffectiveInstanceAssociationsResponse,
 
     -- ** CreateDocument
-    module Network.AWS.SSM.CreateDocument,
+    CreateDocument (CreateDocument'),
+    newCreateDocument,
+    CreateDocumentResponse (CreateDocumentResponse'),
+    newCreateDocumentResponse,
 
     -- ** GetCalendarState
-    module Network.AWS.SSM.GetCalendarState,
+    GetCalendarState (GetCalendarState'),
+    newGetCalendarState,
+    GetCalendarStateResponse (GetCalendarStateResponse'),
+    newGetCalendarStateResponse,
 
     -- ** RegisterTargetWithMaintenanceWindow
-    module Network.AWS.SSM.RegisterTargetWithMaintenanceWindow,
+    RegisterTargetWithMaintenanceWindow (RegisterTargetWithMaintenanceWindow'),
+    newRegisterTargetWithMaintenanceWindow,
+    RegisterTargetWithMaintenanceWindowResponse (RegisterTargetWithMaintenanceWindowResponse'),
+    newRegisterTargetWithMaintenanceWindowResponse,
 
     -- ** DescribeSessions (Paginated)
-    module Network.AWS.SSM.DescribeSessions,
+    DescribeSessions (DescribeSessions'),
+    newDescribeSessions,
+    DescribeSessionsResponse (DescribeSessionsResponse'),
+    newDescribeSessionsResponse,
 
     -- ** DeleteOpsMetadata
-    module Network.AWS.SSM.DeleteOpsMetadata,
+    DeleteOpsMetadata (DeleteOpsMetadata'),
+    newDeleteOpsMetadata,
+    DeleteOpsMetadataResponse (DeleteOpsMetadataResponse'),
+    newDeleteOpsMetadataResponse,
 
     -- ** UpdateOpsItem
-    module Network.AWS.SSM.UpdateOpsItem,
+    UpdateOpsItem (UpdateOpsItem'),
+    newUpdateOpsItem,
+    UpdateOpsItemResponse (UpdateOpsItemResponse'),
+    newUpdateOpsItemResponse,
 
     -- ** DeleteAssociation
-    module Network.AWS.SSM.DeleteAssociation,
+    DeleteAssociation (DeleteAssociation'),
+    newDeleteAssociation,
+    DeleteAssociationResponse (DeleteAssociationResponse'),
+    newDeleteAssociationResponse,
 
     -- ** UpdateAssociation
-    module Network.AWS.SSM.UpdateAssociation,
+    UpdateAssociation (UpdateAssociation'),
+    newUpdateAssociation,
+    UpdateAssociationResponse (UpdateAssociationResponse'),
+    newUpdateAssociationResponse,
 
     -- ** UpdateOpsMetadata
-    module Network.AWS.SSM.UpdateOpsMetadata,
+    UpdateOpsMetadata (UpdateOpsMetadata'),
+    newUpdateOpsMetadata,
+    UpdateOpsMetadataResponse (UpdateOpsMetadataResponse'),
+    newUpdateOpsMetadataResponse,
 
     -- ** DescribeInstanceInformation (Paginated)
-    module Network.AWS.SSM.DescribeInstanceInformation,
+    DescribeInstanceInformation (DescribeInstanceInformation'),
+    newDescribeInstanceInformation,
+    DescribeInstanceInformationResponse (DescribeInstanceInformationResponse'),
+    newDescribeInstanceInformationResponse,
 
     -- ** DescribeMaintenanceWindowExecutionTaskInvocations (Paginated)
-    module Network.AWS.SSM.DescribeMaintenanceWindowExecutionTaskInvocations,
+    DescribeMaintenanceWindowExecutionTaskInvocations (DescribeMaintenanceWindowExecutionTaskInvocations'),
+    newDescribeMaintenanceWindowExecutionTaskInvocations,
+    DescribeMaintenanceWindowExecutionTaskInvocationsResponse (DescribeMaintenanceWindowExecutionTaskInvocationsResponse'),
+    newDescribeMaintenanceWindowExecutionTaskInvocationsResponse,
 
     -- ** DeleteParameter
-    module Network.AWS.SSM.DeleteParameter,
+    DeleteParameter (DeleteParameter'),
+    newDeleteParameter,
+    DeleteParameterResponse (DeleteParameterResponse'),
+    newDeleteParameterResponse,
 
     -- ** GetMaintenanceWindowExecutionTaskInvocation
-    module Network.AWS.SSM.GetMaintenanceWindowExecutionTaskInvocation,
+    GetMaintenanceWindowExecutionTaskInvocation (GetMaintenanceWindowExecutionTaskInvocation'),
+    newGetMaintenanceWindowExecutionTaskInvocation,
+    GetMaintenanceWindowExecutionTaskInvocationResponse (GetMaintenanceWindowExecutionTaskInvocationResponse'),
+    newGetMaintenanceWindowExecutionTaskInvocationResponse,
 
     -- ** CreateActivation
-    module Network.AWS.SSM.CreateActivation,
+    CreateActivation (CreateActivation'),
+    newCreateActivation,
+    CreateActivationResponse (CreateActivationResponse'),
+    newCreateActivationResponse,
 
     -- ** CreateOpsMetadata
-    module Network.AWS.SSM.CreateOpsMetadata,
+    CreateOpsMetadata (CreateOpsMetadata'),
+    newCreateOpsMetadata,
+    CreateOpsMetadataResponse (CreateOpsMetadataResponse'),
+    newCreateOpsMetadataResponse,
 
     -- ** SendAutomationSignal
-    module Network.AWS.SSM.SendAutomationSignal,
+    SendAutomationSignal (SendAutomationSignal'),
+    newSendAutomationSignal,
+    SendAutomationSignalResponse (SendAutomationSignalResponse'),
+    newSendAutomationSignalResponse,
 
     -- ** ListComplianceSummaries (Paginated)
-    module Network.AWS.SSM.ListComplianceSummaries,
+    ListComplianceSummaries (ListComplianceSummaries'),
+    newListComplianceSummaries,
+    ListComplianceSummariesResponse (ListComplianceSummariesResponse'),
+    newListComplianceSummariesResponse,
 
     -- ** DescribeMaintenanceWindowExecutions (Paginated)
-    module Network.AWS.SSM.DescribeMaintenanceWindowExecutions,
+    DescribeMaintenanceWindowExecutions (DescribeMaintenanceWindowExecutions'),
+    newDescribeMaintenanceWindowExecutions,
+    DescribeMaintenanceWindowExecutionsResponse (DescribeMaintenanceWindowExecutionsResponse'),
+    newDescribeMaintenanceWindowExecutionsResponse,
 
     -- ** DescribeMaintenanceWindowsForTarget (Paginated)
-    module Network.AWS.SSM.DescribeMaintenanceWindowsForTarget,
+    DescribeMaintenanceWindowsForTarget (DescribeMaintenanceWindowsForTarget'),
+    newDescribeMaintenanceWindowsForTarget,
+    DescribeMaintenanceWindowsForTargetResponse (DescribeMaintenanceWindowsForTargetResponse'),
+    newDescribeMaintenanceWindowsForTargetResponse,
 
     -- ** CreateAssociation
-    module Network.AWS.SSM.CreateAssociation,
+    CreateAssociation (CreateAssociation'),
+    newCreateAssociation,
+    CreateAssociationResponse (CreateAssociationResponse'),
+    newCreateAssociationResponse,
 
     -- ** CreateOpsItem
-    module Network.AWS.SSM.CreateOpsItem,
+    CreateOpsItem (CreateOpsItem'),
+    newCreateOpsItem,
+    CreateOpsItemResponse (CreateOpsItemResponse'),
+    newCreateOpsItemResponse,
 
     -- ** StartChangeRequestExecution
-    module Network.AWS.SSM.StartChangeRequestExecution,
+    StartChangeRequestExecution (StartChangeRequestExecution'),
+    newStartChangeRequestExecution,
+    StartChangeRequestExecutionResponse (StartChangeRequestExecutionResponse'),
+    newStartChangeRequestExecutionResponse,
 
     -- ** ListAssociationVersions (Paginated)
-    module Network.AWS.SSM.ListAssociationVersions,
+    ListAssociationVersions (ListAssociationVersions'),
+    newListAssociationVersions,
+    ListAssociationVersionsResponse (ListAssociationVersionsResponse'),
+    newListAssociationVersionsResponse,
 
     -- ** DescribeDocument
-    module Network.AWS.SSM.DescribeDocument,
+    DescribeDocument (DescribeDocument'),
+    newDescribeDocument,
+    DescribeDocumentResponse (DescribeDocumentResponse'),
+    newDescribeDocumentResponse,
 
     -- ** DeregisterTaskFromMaintenanceWindow
-    module Network.AWS.SSM.DeregisterTaskFromMaintenanceWindow,
+    DeregisterTaskFromMaintenanceWindow (DeregisterTaskFromMaintenanceWindow'),
+    newDeregisterTaskFromMaintenanceWindow,
+    DeregisterTaskFromMaintenanceWindowResponse (DeregisterTaskFromMaintenanceWindowResponse'),
+    newDeregisterTaskFromMaintenanceWindowResponse,
 
     -- ** PutComplianceItems
-    module Network.AWS.SSM.PutComplianceItems,
+    PutComplianceItems (PutComplianceItems'),
+    newPutComplianceItems,
+    PutComplianceItemsResponse (PutComplianceItemsResponse'),
+    newPutComplianceItemsResponse,
 
     -- ** GetMaintenanceWindowTask
-    module Network.AWS.SSM.GetMaintenanceWindowTask,
+    GetMaintenanceWindowTask (GetMaintenanceWindowTask'),
+    newGetMaintenanceWindowTask,
+    GetMaintenanceWindowTaskResponse (GetMaintenanceWindowTaskResponse'),
+    newGetMaintenanceWindowTaskResponse,
 
     -- ** GetDeployablePatchSnapshotForInstance
-    module Network.AWS.SSM.GetDeployablePatchSnapshotForInstance,
+    GetDeployablePatchSnapshotForInstance (GetDeployablePatchSnapshotForInstance'),
+    newGetDeployablePatchSnapshotForInstance,
+    GetDeployablePatchSnapshotForInstanceResponse (GetDeployablePatchSnapshotForInstanceResponse'),
+    newGetDeployablePatchSnapshotForInstanceResponse,
 
     -- ** GetMaintenanceWindow
-    module Network.AWS.SSM.GetMaintenanceWindow,
+    GetMaintenanceWindow (GetMaintenanceWindow'),
+    newGetMaintenanceWindow,
+    GetMaintenanceWindowResponse (GetMaintenanceWindowResponse'),
+    newGetMaintenanceWindowResponse,
 
     -- ** DeregisterPatchBaselineForPatchGroup
-    module Network.AWS.SSM.DeregisterPatchBaselineForPatchGroup,
+    DeregisterPatchBaselineForPatchGroup (DeregisterPatchBaselineForPatchGroup'),
+    newDeregisterPatchBaselineForPatchGroup,
+    DeregisterPatchBaselineForPatchGroupResponse (DeregisterPatchBaselineForPatchGroupResponse'),
+    newDeregisterPatchBaselineForPatchGroupResponse,
 
     -- ** ResumeSession
-    module Network.AWS.SSM.ResumeSession,
+    ResumeSession (ResumeSession'),
+    newResumeSession,
+    ResumeSessionResponse (ResumeSessionResponse'),
+    newResumeSessionResponse,
 
     -- ** RegisterDefaultPatchBaseline
-    module Network.AWS.SSM.RegisterDefaultPatchBaseline,
+    RegisterDefaultPatchBaseline (RegisterDefaultPatchBaseline'),
+    newRegisterDefaultPatchBaseline,
+    RegisterDefaultPatchBaselineResponse (RegisterDefaultPatchBaselineResponse'),
+    newRegisterDefaultPatchBaselineResponse,
 
     -- ** DescribeMaintenanceWindows (Paginated)
-    module Network.AWS.SSM.DescribeMaintenanceWindows,
+    DescribeMaintenanceWindows (DescribeMaintenanceWindows'),
+    newDescribeMaintenanceWindows,
+    DescribeMaintenanceWindowsResponse (DescribeMaintenanceWindowsResponse'),
+    newDescribeMaintenanceWindowsResponse,
 
     -- ** ModifyDocumentPermission
-    module Network.AWS.SSM.ModifyDocumentPermission,
+    ModifyDocumentPermission (ModifyDocumentPermission'),
+    newModifyDocumentPermission,
+    ModifyDocumentPermissionResponse (ModifyDocumentPermissionResponse'),
+    newModifyDocumentPermissionResponse,
 
     -- ** DescribeInstancePatches (Paginated)
-    module Network.AWS.SSM.DescribeInstancePatches,
+    DescribeInstancePatches (DescribeInstancePatches'),
+    newDescribeInstancePatches,
+    DescribeInstancePatchesResponse (DescribeInstancePatchesResponse'),
+    newDescribeInstancePatchesResponse,
 
     -- ** GetParameters
-    module Network.AWS.SSM.GetParameters,
+    GetParameters (GetParameters'),
+    newGetParameters,
+    GetParametersResponse (GetParametersResponse'),
+    newGetParametersResponse,
 
     -- ** ListDocumentVersions (Paginated)
-    module Network.AWS.SSM.ListDocumentVersions,
+    ListDocumentVersions (ListDocumentVersions'),
+    newListDocumentVersions,
+    ListDocumentVersionsResponse (ListDocumentVersionsResponse'),
+    newListDocumentVersionsResponse,
 
     -- ** UpdateResourceDataSync
-    module Network.AWS.SSM.UpdateResourceDataSync,
+    UpdateResourceDataSync (UpdateResourceDataSync'),
+    newUpdateResourceDataSync,
+    UpdateResourceDataSyncResponse (UpdateResourceDataSyncResponse'),
+    newUpdateResourceDataSyncResponse,
 
     -- ** DeletePatchBaseline
-    module Network.AWS.SSM.DeletePatchBaseline,
+    DeletePatchBaseline (DeletePatchBaseline'),
+    newDeletePatchBaseline,
+    DeletePatchBaselineResponse (DeletePatchBaselineResponse'),
+    newDeletePatchBaselineResponse,
 
     -- ** ListOpsItemEvents (Paginated)
-    module Network.AWS.SSM.ListOpsItemEvents,
+    ListOpsItemEvents (ListOpsItemEvents'),
+    newListOpsItemEvents,
+    ListOpsItemEventsResponse (ListOpsItemEventsResponse'),
+    newListOpsItemEventsResponse,
 
     -- ** DeleteResourceDataSync
-    module Network.AWS.SSM.DeleteResourceDataSync,
+    DeleteResourceDataSync (DeleteResourceDataSync'),
+    newDeleteResourceDataSync,
+    DeleteResourceDataSyncResponse (DeleteResourceDataSyncResponse'),
+    newDeleteResourceDataSyncResponse,
 
     -- ** DescribeInstancePatchStatesForPatchGroup (Paginated)
-    module Network.AWS.SSM.DescribeInstancePatchStatesForPatchGroup,
+    DescribeInstancePatchStatesForPatchGroup (DescribeInstancePatchStatesForPatchGroup'),
+    newDescribeInstancePatchStatesForPatchGroup,
+    DescribeInstancePatchStatesForPatchGroupResponse (DescribeInstancePatchStatesForPatchGroupResponse'),
+    newDescribeInstancePatchStatesForPatchGroupResponse,
 
     -- ** GetConnectionStatus
-    module Network.AWS.SSM.GetConnectionStatus,
+    GetConnectionStatus (GetConnectionStatus'),
+    newGetConnectionStatus,
+    GetConnectionStatusResponse (GetConnectionStatusResponse'),
+    newGetConnectionStatusResponse,
 
     -- ** UpdatePatchBaseline
-    module Network.AWS.SSM.UpdatePatchBaseline,
+    UpdatePatchBaseline (UpdatePatchBaseline'),
+    newUpdatePatchBaseline,
+    UpdatePatchBaselineResponse (UpdatePatchBaselineResponse'),
+    newUpdatePatchBaselineResponse,
 
     -- ** DescribeAvailablePatches (Paginated)
-    module Network.AWS.SSM.DescribeAvailablePatches,
+    DescribeAvailablePatches (DescribeAvailablePatches'),
+    newDescribeAvailablePatches,
+    DescribeAvailablePatchesResponse (DescribeAvailablePatchesResponse'),
+    newDescribeAvailablePatchesResponse,
 
     -- ** ListComplianceItems (Paginated)
-    module Network.AWS.SSM.ListComplianceItems,
+    ListComplianceItems (ListComplianceItems'),
+    newListComplianceItems,
+    ListComplianceItemsResponse (ListComplianceItemsResponse'),
+    newListComplianceItemsResponse,
 
     -- ** GetDocument
-    module Network.AWS.SSM.GetDocument,
+    GetDocument (GetDocument'),
+    newGetDocument,
+    GetDocumentResponse (GetDocumentResponse'),
+    newGetDocumentResponse,
 
     -- ** AddTagsToResource
-    module Network.AWS.SSM.AddTagsToResource,
+    AddTagsToResource (AddTagsToResource'),
+    newAddTagsToResource,
+    AddTagsToResourceResponse (AddTagsToResourceResponse'),
+    newAddTagsToResourceResponse,
 
     -- ** GetPatchBaselineForPatchGroup
-    module Network.AWS.SSM.GetPatchBaselineForPatchGroup,
+    GetPatchBaselineForPatchGroup (GetPatchBaselineForPatchGroup'),
+    newGetPatchBaselineForPatchGroup,
+    GetPatchBaselineForPatchGroupResponse (GetPatchBaselineForPatchGroupResponse'),
+    newGetPatchBaselineForPatchGroupResponse,
 
     -- ** UpdateManagedInstanceRole
-    module Network.AWS.SSM.UpdateManagedInstanceRole,
+    UpdateManagedInstanceRole (UpdateManagedInstanceRole'),
+    newUpdateManagedInstanceRole,
+    UpdateManagedInstanceRoleResponse (UpdateManagedInstanceRoleResponse'),
+    newUpdateManagedInstanceRoleResponse,
 
     -- ** DescribeMaintenanceWindowSchedule (Paginated)
-    module Network.AWS.SSM.DescribeMaintenanceWindowSchedule,
+    DescribeMaintenanceWindowSchedule (DescribeMaintenanceWindowSchedule'),
+    newDescribeMaintenanceWindowSchedule,
+    DescribeMaintenanceWindowScheduleResponse (DescribeMaintenanceWindowScheduleResponse'),
+    newDescribeMaintenanceWindowScheduleResponse,
 
     -- ** CreateResourceDataSync
-    module Network.AWS.SSM.CreateResourceDataSync,
+    CreateResourceDataSync (CreateResourceDataSync'),
+    newCreateResourceDataSync,
+    CreateResourceDataSyncResponse (CreateResourceDataSyncResponse'),
+    newCreateResourceDataSyncResponse,
 
     -- ** CreateAssociationBatch
-    module Network.AWS.SSM.CreateAssociationBatch,
+    CreateAssociationBatch (CreateAssociationBatch'),
+    newCreateAssociationBatch,
+    CreateAssociationBatchResponse (CreateAssociationBatchResponse'),
+    newCreateAssociationBatchResponse,
 
     -- ** CancelCommand
-    module Network.AWS.SSM.CancelCommand,
+    CancelCommand (CancelCommand'),
+    newCancelCommand,
+    CancelCommandResponse (CancelCommandResponse'),
+    newCancelCommandResponse,
 
     -- ** DescribeDocumentPermission
-    module Network.AWS.SSM.DescribeDocumentPermission,
+    DescribeDocumentPermission (DescribeDocumentPermission'),
+    newDescribeDocumentPermission,
+    DescribeDocumentPermissionResponse (DescribeDocumentPermissionResponse'),
+    newDescribeDocumentPermissionResponse,
 
     -- ** RegisterPatchBaselineForPatchGroup
-    module Network.AWS.SSM.RegisterPatchBaselineForPatchGroup,
+    RegisterPatchBaselineForPatchGroup (RegisterPatchBaselineForPatchGroup'),
+    newRegisterPatchBaselineForPatchGroup,
+    RegisterPatchBaselineForPatchGroupResponse (RegisterPatchBaselineForPatchGroupResponse'),
+    newRegisterPatchBaselineForPatchGroupResponse,
 
     -- ** DescribeEffectivePatchesForPatchBaseline (Paginated)
-    module Network.AWS.SSM.DescribeEffectivePatchesForPatchBaseline,
+    DescribeEffectivePatchesForPatchBaseline (DescribeEffectivePatchesForPatchBaseline'),
+    newDescribeEffectivePatchesForPatchBaseline,
+    DescribeEffectivePatchesForPatchBaselineResponse (DescribeEffectivePatchesForPatchBaselineResponse'),
+    newDescribeEffectivePatchesForPatchBaselineResponse,
 
     -- ** ListCommandInvocations (Paginated)
-    module Network.AWS.SSM.ListCommandInvocations,
+    ListCommandInvocations (ListCommandInvocations'),
+    newListCommandInvocations,
+    ListCommandInvocationsResponse (ListCommandInvocationsResponse'),
+    newListCommandInvocationsResponse,
 
     -- ** DescribeMaintenanceWindowTargets (Paginated)
-    module Network.AWS.SSM.DescribeMaintenanceWindowTargets,
+    DescribeMaintenanceWindowTargets (DescribeMaintenanceWindowTargets'),
+    newDescribeMaintenanceWindowTargets,
+    DescribeMaintenanceWindowTargetsResponse (DescribeMaintenanceWindowTargetsResponse'),
+    newDescribeMaintenanceWindowTargetsResponse,
 
     -- ** GetAutomationExecution
-    module Network.AWS.SSM.GetAutomationExecution,
+    GetAutomationExecution (GetAutomationExecution'),
+    newGetAutomationExecution,
+    GetAutomationExecutionResponse (GetAutomationExecutionResponse'),
+    newGetAutomationExecutionResponse,
 
     -- ** GetPatchBaseline
-    module Network.AWS.SSM.GetPatchBaseline,
+    GetPatchBaseline (GetPatchBaseline'),
+    newGetPatchBaseline,
+    GetPatchBaselineResponse (GetPatchBaselineResponse'),
+    newGetPatchBaselineResponse,
 
     -- ** DescribePatchGroupState
-    module Network.AWS.SSM.DescribePatchGroupState,
+    DescribePatchGroupState (DescribePatchGroupState'),
+    newDescribePatchGroupState,
+    DescribePatchGroupStateResponse (DescribePatchGroupStateResponse'),
+    newDescribePatchGroupStateResponse,
 
     -- ** DescribePatchBaselines (Paginated)
-    module Network.AWS.SSM.DescribePatchBaselines,
+    DescribePatchBaselines (DescribePatchBaselines'),
+    newDescribePatchBaselines,
+    DescribePatchBaselinesResponse (DescribePatchBaselinesResponse'),
+    newDescribePatchBaselinesResponse,
 
     -- ** UpdateDocumentMetadata
-    module Network.AWS.SSM.UpdateDocumentMetadata,
+    UpdateDocumentMetadata (UpdateDocumentMetadata'),
+    newUpdateDocumentMetadata,
+    UpdateDocumentMetadataResponse (UpdateDocumentMetadataResponse'),
+    newUpdateDocumentMetadataResponse,
 
     -- ** DescribeAutomationExecutions (Paginated)
-    module Network.AWS.SSM.DescribeAutomationExecutions,
+    DescribeAutomationExecutions (DescribeAutomationExecutions'),
+    newDescribeAutomationExecutions,
+    DescribeAutomationExecutionsResponse (DescribeAutomationExecutionsResponse'),
+    newDescribeAutomationExecutionsResponse,
 
     -- ** PutInventory
-    module Network.AWS.SSM.PutInventory,
+    PutInventory (PutInventory'),
+    newPutInventory,
+    PutInventoryResponse (PutInventoryResponse'),
+    newPutInventoryResponse,
 
     -- ** DescribeInventoryDeletions (Paginated)
-    module Network.AWS.SSM.DescribeInventoryDeletions,
+    DescribeInventoryDeletions (DescribeInventoryDeletions'),
+    newDescribeInventoryDeletions,
+    DescribeInventoryDeletionsResponse (DescribeInventoryDeletionsResponse'),
+    newDescribeInventoryDeletionsResponse,
 
     -- ** DescribeMaintenanceWindowExecutionTasks (Paginated)
-    module Network.AWS.SSM.DescribeMaintenanceWindowExecutionTasks,
+    DescribeMaintenanceWindowExecutionTasks (DescribeMaintenanceWindowExecutionTasks'),
+    newDescribeMaintenanceWindowExecutionTasks,
+    DescribeMaintenanceWindowExecutionTasksResponse (DescribeMaintenanceWindowExecutionTasksResponse'),
+    newDescribeMaintenanceWindowExecutionTasksResponse,
 
     -- ** DeleteMaintenanceWindow
-    module Network.AWS.SSM.DeleteMaintenanceWindow,
+    DeleteMaintenanceWindow (DeleteMaintenanceWindow'),
+    newDeleteMaintenanceWindow,
+    DeleteMaintenanceWindowResponse (DeleteMaintenanceWindowResponse'),
+    newDeleteMaintenanceWindowResponse,
 
     -- ** GetDefaultPatchBaseline
-    module Network.AWS.SSM.GetDefaultPatchBaseline,
+    GetDefaultPatchBaseline (GetDefaultPatchBaseline'),
+    newGetDefaultPatchBaseline,
+    GetDefaultPatchBaselineResponse (GetDefaultPatchBaselineResponse'),
+    newGetDefaultPatchBaselineResponse,
 
     -- ** PutParameter
-    module Network.AWS.SSM.PutParameter,
+    PutParameter (PutParameter'),
+    newPutParameter,
+    PutParameterResponse (PutParameterResponse'),
+    newPutParameterResponse,
 
     -- ** UpdateMaintenanceWindow
-    module Network.AWS.SSM.UpdateMaintenanceWindow,
+    UpdateMaintenanceWindow (UpdateMaintenanceWindow'),
+    newUpdateMaintenanceWindow,
+    UpdateMaintenanceWindowResponse (UpdateMaintenanceWindowResponse'),
+    newUpdateMaintenanceWindowResponse,
 
     -- ** ListAssociations (Paginated)
-    module Network.AWS.SSM.ListAssociations,
+    ListAssociations (ListAssociations'),
+    newListAssociations,
+    ListAssociationsResponse (ListAssociationsResponse'),
+    newListAssociationsResponse,
 
     -- ** GetMaintenanceWindowExecutionTask
-    module Network.AWS.SSM.GetMaintenanceWindowExecutionTask,
+    GetMaintenanceWindowExecutionTask (GetMaintenanceWindowExecutionTask'),
+    newGetMaintenanceWindowExecutionTask,
+    GetMaintenanceWindowExecutionTaskResponse (GetMaintenanceWindowExecutionTaskResponse'),
+    newGetMaintenanceWindowExecutionTaskResponse,
 
     -- ** StartAutomationExecution
-    module Network.AWS.SSM.StartAutomationExecution,
+    StartAutomationExecution (StartAutomationExecution'),
+    newStartAutomationExecution,
+    StartAutomationExecutionResponse (StartAutomationExecutionResponse'),
+    newStartAutomationExecutionResponse,
 
     -- ** DeleteActivation
-    module Network.AWS.SSM.DeleteActivation,
+    DeleteActivation (DeleteActivation'),
+    newDeleteActivation,
+    DeleteActivationResponse (DeleteActivationResponse'),
+    newDeleteActivationResponse,
 
     -- ** CreateMaintenanceWindow
-    module Network.AWS.SSM.CreateMaintenanceWindow,
+    CreateMaintenanceWindow (CreateMaintenanceWindow'),
+    newCreateMaintenanceWindow,
+    CreateMaintenanceWindowResponse (CreateMaintenanceWindowResponse'),
+    newCreateMaintenanceWindowResponse,
 
     -- ** DescribeAssociationExecutions (Paginated)
-    module Network.AWS.SSM.DescribeAssociationExecutions,
+    DescribeAssociationExecutions (DescribeAssociationExecutions'),
+    newDescribeAssociationExecutions,
+    DescribeAssociationExecutionsResponse (DescribeAssociationExecutionsResponse'),
+    newDescribeAssociationExecutionsResponse,
 
     -- ** GetMaintenanceWindowExecution
-    module Network.AWS.SSM.GetMaintenanceWindowExecution,
+    GetMaintenanceWindowExecution (GetMaintenanceWindowExecution'),
+    newGetMaintenanceWindowExecution,
+    GetMaintenanceWindowExecutionResponse (GetMaintenanceWindowExecutionResponse'),
+    newGetMaintenanceWindowExecutionResponse,
 
     -- ** StopAutomationExecution
-    module Network.AWS.SSM.StopAutomationExecution,
+    StopAutomationExecution (StopAutomationExecution'),
+    newStopAutomationExecution,
+    StopAutomationExecutionResponse (StopAutomationExecutionResponse'),
+    newStopAutomationExecutionResponse,
 
     -- ** GetInventorySchema (Paginated)
-    module Network.AWS.SSM.GetInventorySchema,
+    GetInventorySchema (GetInventorySchema'),
+    newGetInventorySchema,
+    GetInventorySchemaResponse (GetInventorySchemaResponse'),
+    newGetInventorySchemaResponse,
 
     -- ** StartAssociationsOnce
-    module Network.AWS.SSM.StartAssociationsOnce,
+    StartAssociationsOnce (StartAssociationsOnce'),
+    newStartAssociationsOnce,
+    StartAssociationsOnceResponse (StartAssociationsOnceResponse'),
+    newStartAssociationsOnceResponse,
 
     -- ** CancelMaintenanceWindowExecution
-    module Network.AWS.SSM.CancelMaintenanceWindowExecution,
+    CancelMaintenanceWindowExecution (CancelMaintenanceWindowExecution'),
+    newCancelMaintenanceWindowExecution,
+    CancelMaintenanceWindowExecutionResponse (CancelMaintenanceWindowExecutionResponse'),
+    newCancelMaintenanceWindowExecutionResponse,
 
     -- ** LabelParameterVersion
-    module Network.AWS.SSM.LabelParameterVersion,
+    LabelParameterVersion (LabelParameterVersion'),
+    newLabelParameterVersion,
+    LabelParameterVersionResponse (LabelParameterVersionResponse'),
+    newLabelParameterVersionResponse,
 
     -- ** GetParameterHistory (Paginated)
-    module Network.AWS.SSM.GetParameterHistory,
+    GetParameterHistory (GetParameterHistory'),
+    newGetParameterHistory,
+    GetParameterHistoryResponse (GetParameterHistoryResponse'),
+    newGetParameterHistoryResponse,
 
     -- ** GetServiceSetting
-    module Network.AWS.SSM.GetServiceSetting,
+    GetServiceSetting (GetServiceSetting'),
+    newGetServiceSetting,
+    GetServiceSettingResponse (GetServiceSettingResponse'),
+    newGetServiceSettingResponse,
 
     -- ** UpdateMaintenanceWindowTask
-    module Network.AWS.SSM.UpdateMaintenanceWindowTask,
+    UpdateMaintenanceWindowTask (UpdateMaintenanceWindowTask'),
+    newUpdateMaintenanceWindowTask,
+    UpdateMaintenanceWindowTaskResponse (UpdateMaintenanceWindowTaskResponse'),
+    newUpdateMaintenanceWindowTaskResponse,
 
     -- ** ListDocumentMetadataHistory
-    module Network.AWS.SSM.ListDocumentMetadataHistory,
+    ListDocumentMetadataHistory (ListDocumentMetadataHistory'),
+    newListDocumentMetadataHistory,
+    ListDocumentMetadataHistoryResponse (ListDocumentMetadataHistoryResponse'),
+    newListDocumentMetadataHistoryResponse,
 
     -- ** ListInventoryEntries
-    module Network.AWS.SSM.ListInventoryEntries,
+    ListInventoryEntries (ListInventoryEntries'),
+    newListInventoryEntries,
+    ListInventoryEntriesResponse (ListInventoryEntriesResponse'),
+    newListInventoryEntriesResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.SSM.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** GetParametersByPath (Paginated)
-    module Network.AWS.SSM.GetParametersByPath,
+    GetParametersByPath (GetParametersByPath'),
+    newGetParametersByPath,
+    GetParametersByPathResponse (GetParametersByPathResponse'),
+    newGetParametersByPathResponse,
 
     -- ** DescribeActivations (Paginated)
-    module Network.AWS.SSM.DescribeActivations,
+    DescribeActivations (DescribeActivations'),
+    newDescribeActivations,
+    DescribeActivationsResponse (DescribeActivationsResponse'),
+    newDescribeActivationsResponse,
 
     -- ** DescribeInstanceAssociationsStatus (Paginated)
-    module Network.AWS.SSM.DescribeInstanceAssociationsStatus,
+    DescribeInstanceAssociationsStatus (DescribeInstanceAssociationsStatus'),
+    newDescribeInstanceAssociationsStatus,
+    DescribeInstanceAssociationsStatusResponse (DescribeInstanceAssociationsStatusResponse'),
+    newDescribeInstanceAssociationsStatusResponse,
 
     -- ** DescribePatchProperties (Paginated)
-    module Network.AWS.SSM.DescribePatchProperties,
+    DescribePatchProperties (DescribePatchProperties'),
+    newDescribePatchProperties,
+    DescribePatchPropertiesResponse (DescribePatchPropertiesResponse'),
+    newDescribePatchPropertiesResponse,
 
     -- ** UpdateServiceSetting
-    module Network.AWS.SSM.UpdateServiceSetting,
+    UpdateServiceSetting (UpdateServiceSetting'),
+    newUpdateServiceSetting,
+    UpdateServiceSettingResponse (UpdateServiceSettingResponse'),
+    newUpdateServiceSettingResponse,
 
     -- ** DescribeMaintenanceWindowTasks (Paginated)
-    module Network.AWS.SSM.DescribeMaintenanceWindowTasks,
+    DescribeMaintenanceWindowTasks (DescribeMaintenanceWindowTasks'),
+    newDescribeMaintenanceWindowTasks,
+    DescribeMaintenanceWindowTasksResponse (DescribeMaintenanceWindowTasksResponse'),
+    newDescribeMaintenanceWindowTasksResponse,
 
     -- * Types
 
@@ -1032,1431 +1441,588 @@ module Network.AWS.SSM
     StopType (..),
 
     -- ** AccountSharingInfo
-    AccountSharingInfo,
-    accountSharingInfo,
-    asiAccountId,
-    asiSharedDocumentVersion,
+    AccountSharingInfo (AccountSharingInfo'),
+    newAccountSharingInfo,
 
     -- ** Activation
-    Activation,
-    activation,
-    aRegistrationLimit,
-    aCreatedDate,
-    aActivationId,
-    aIAMRole,
-    aDefaultInstanceName,
-    aExpirationDate,
-    aExpired,
-    aRegistrationsCount,
-    aTags,
-    aDescription,
+    Activation (Activation'),
+    newActivation,
 
     -- ** Association
-    Association,
-    association,
-    assLastExecutionDate,
-    assInstanceId,
-    assOverview,
-    assTargets,
-    assScheduleExpression,
-    assName,
-    assAssociationId,
-    assAssociationName,
-    assAssociationVersion,
-    assDocumentVersion,
+    Association (Association'),
+    newAssociation,
 
     -- ** AssociationDescription
-    AssociationDescription,
-    associationDescription,
-    adMaxErrors,
-    adStatus,
-    adLastExecutionDate,
-    adInstanceId,
-    adLastUpdateAssociationDate,
-    adComplianceSeverity,
-    adOverview,
-    adAutomationTargetParameterName,
-    adTargets,
-    adTargetLocations,
-    adScheduleExpression,
-    adName,
-    adAssociationId,
-    adDate,
-    adMaxConcurrency,
-    adAssociationName,
-    adAssociationVersion,
-    adLastSuccessfulExecutionDate,
-    adDocumentVersion,
-    adParameters,
-    adOutputLocation,
-    adApplyOnlyAtCronInterval,
-    adSyncCompliance,
+    AssociationDescription (AssociationDescription'),
+    newAssociationDescription,
 
     -- ** AssociationExecution
-    AssociationExecution,
-    associationExecution,
-    aeStatus,
-    aeLastExecutionDate,
-    aeDetailedStatus,
-    aeResourceCountByStatus,
-    aeCreatedTime,
-    aeExecutionId,
-    aeAssociationId,
-    aeAssociationVersion,
+    AssociationExecution (AssociationExecution'),
+    newAssociationExecution,
 
     -- ** AssociationExecutionFilter
-    AssociationExecutionFilter,
-    associationExecutionFilter,
-    assKey,
-    assValue,
-    assType,
+    AssociationExecutionFilter (AssociationExecutionFilter'),
+    newAssociationExecutionFilter,
 
     -- ** AssociationExecutionTarget
-    AssociationExecutionTarget,
-    associationExecutionTarget,
-    aetResourceId,
-    aetStatus,
-    aetLastExecutionDate,
-    aetDetailedStatus,
-    aetResourceType,
-    aetOutputSource,
-    aetExecutionId,
-    aetAssociationId,
-    aetAssociationVersion,
+    AssociationExecutionTarget (AssociationExecutionTarget'),
+    newAssociationExecutionTarget,
 
     -- ** AssociationExecutionTargetsFilter
-    AssociationExecutionTargetsFilter,
-    associationExecutionTargetsFilter,
-    aetfKey,
-    aetfValue,
+    AssociationExecutionTargetsFilter (AssociationExecutionTargetsFilter'),
+    newAssociationExecutionTargetsFilter,
 
     -- ** AssociationFilter
-    AssociationFilter,
-    associationFilter,
-    afKey,
-    afValue,
+    AssociationFilter (AssociationFilter'),
+    newAssociationFilter,
 
     -- ** AssociationOverview
-    AssociationOverview,
-    associationOverview,
-    aoStatus,
-    aoDetailedStatus,
-    aoAssociationStatusAggregatedCount,
+    AssociationOverview (AssociationOverview'),
+    newAssociationOverview,
 
     -- ** AssociationStatus
-    AssociationStatus,
-    associationStatus,
-    asAdditionalInfo,
-    asDate,
-    asName,
-    asMessage,
+    AssociationStatus (AssociationStatus'),
+    newAssociationStatus,
 
     -- ** AssociationVersionInfo
-    AssociationVersionInfo,
-    associationVersionInfo,
-    aviMaxErrors,
-    aviCreatedDate,
-    aviComplianceSeverity,
-    aviTargets,
-    aviTargetLocations,
-    aviScheduleExpression,
-    aviName,
-    aviAssociationId,
-    aviMaxConcurrency,
-    aviAssociationName,
-    aviAssociationVersion,
-    aviDocumentVersion,
-    aviParameters,
-    aviOutputLocation,
-    aviApplyOnlyAtCronInterval,
-    aviSyncCompliance,
+    AssociationVersionInfo (AssociationVersionInfo'),
+    newAssociationVersionInfo,
 
     -- ** AttachmentContent
-    AttachmentContent,
-    attachmentContent,
-    acHash,
-    acName,
-    acURL,
-    acSize,
-    acHashType,
+    AttachmentContent (AttachmentContent'),
+    newAttachmentContent,
 
     -- ** AttachmentInformation
-    AttachmentInformation,
-    attachmentInformation,
-    aiName,
+    AttachmentInformation (AttachmentInformation'),
+    newAttachmentInformation,
 
     -- ** AttachmentsSource
-    AttachmentsSource,
-    attachmentsSource,
-    aKey,
-    aValues,
-    aName,
+    AttachmentsSource (AttachmentsSource'),
+    newAttachmentsSource,
 
     -- ** AutomationExecution
-    AutomationExecution,
-    automationExecution,
-    aMaxErrors,
-    aCurrentAction,
-    aParentAutomationExecutionId,
-    aOutputs,
-    aMode,
-    aFailureMessage,
-    aExecutionEndTime,
-    aDocumentName,
-    aAutomationExecutionId,
-    aChangeRequestName,
-    aExecutedBy,
-    aProgressCounters,
-    aResolvedTargets,
-    aTargets,
-    aTargetLocations,
-    aTargetParameterName,
-    aExecutionStartTime,
-    aCurrentStepName,
-    aAssociationId,
-    aOpsItemId,
-    aScheduledTime,
-    aMaxConcurrency,
-    aStepExecutionsTruncated,
-    aTarget,
-    aAutomationExecutionStatus,
-    aTargetMaps,
-    aRunbooks,
-    aStepExecutions,
-    aAutomationSubtype,
-    aDocumentVersion,
-    aParameters,
+    AutomationExecution (AutomationExecution'),
+    newAutomationExecution,
 
     -- ** AutomationExecutionFilter
-    AutomationExecutionFilter,
-    automationExecutionFilter,
-    aefKey,
-    aefValues,
+    AutomationExecutionFilter (AutomationExecutionFilter'),
+    newAutomationExecutionFilter,
 
     -- ** AutomationExecutionMetadata
-    AutomationExecutionMetadata,
-    automationExecutionMetadata,
-    aemMaxErrors,
-    aemCurrentAction,
-    aemParentAutomationExecutionId,
-    aemOutputs,
-    aemMode,
-    aemFailureMessage,
-    aemExecutionEndTime,
-    aemDocumentName,
-    aemAutomationExecutionId,
-    aemChangeRequestName,
-    aemExecutedBy,
-    aemResolvedTargets,
-    aemTargets,
-    aemAutomationType,
-    aemTargetParameterName,
-    aemExecutionStartTime,
-    aemCurrentStepName,
-    aemAssociationId,
-    aemOpsItemId,
-    aemScheduledTime,
-    aemMaxConcurrency,
-    aemTarget,
-    aemAutomationExecutionStatus,
-    aemTargetMaps,
-    aemRunbooks,
-    aemAutomationSubtype,
-    aemDocumentVersion,
-    aemLogFile,
+    AutomationExecutionMetadata (AutomationExecutionMetadata'),
+    newAutomationExecutionMetadata,
 
     -- ** BaselineOverride
-    BaselineOverride,
-    baselineOverride,
-    boSources,
-    boRejectedPatches,
-    boApprovedPatchesEnableNonSecurity,
-    boApprovedPatchesComplianceLevel,
-    boApprovedPatches,
-    boRejectedPatchesAction,
-    boOperatingSystem,
-    boGlobalFilters,
-    boApprovalRules,
+    BaselineOverride (BaselineOverride'),
+    newBaselineOverride,
 
     -- ** CloudWatchOutputConfig
-    CloudWatchOutputConfig,
-    cloudWatchOutputConfig,
-    cwocCloudWatchLogGroupName,
-    cwocCloudWatchOutputEnabled,
+    CloudWatchOutputConfig (CloudWatchOutputConfig'),
+    newCloudWatchOutputConfig,
 
     -- ** Command
-    Command,
-    command,
-    cNotificationConfig,
-    cInstanceIds,
-    cMaxErrors,
-    cExpiresAfter,
-    cStatus,
-    cServiceRole,
-    cRequestedDateTime,
-    cStatusDetails,
-    cCompletedCount,
-    cOutputS3BucketName,
-    cComment,
-    cErrorCount,
-    cDocumentName,
-    cCommandId,
-    cTargets,
-    cOutputS3Region,
-    cMaxConcurrency,
-    cOutputS3KeyPrefix,
-    cTimeoutSeconds,
-    cDeliveryTimedOutCount,
-    cCloudWatchOutputConfig,
-    cDocumentVersion,
-    cParameters,
-    cTargetCount,
+    Command (Command'),
+    newCommand,
 
     -- ** CommandFilter
-    CommandFilter,
-    commandFilter,
-    cfKey,
-    cfValue,
+    CommandFilter (CommandFilter'),
+    newCommandFilter,
 
     -- ** CommandInvocation
-    CommandInvocation,
-    commandInvocation,
-    ciNotificationConfig,
-    ciStandardOutputURL,
-    ciStatus,
-    ciInstanceId,
-    ciServiceRole,
-    ciRequestedDateTime,
-    ciStatusDetails,
-    ciInstanceName,
-    ciComment,
-    ciStandardErrorURL,
-    ciDocumentName,
-    ciCommandId,
-    ciTraceOutput,
-    ciCloudWatchOutputConfig,
-    ciCommandPlugins,
-    ciDocumentVersion,
+    CommandInvocation (CommandInvocation'),
+    newCommandInvocation,
 
     -- ** CommandPlugin
-    CommandPlugin,
-    commandPlugin,
-    cpStandardOutputURL,
-    cpStatus,
-    cpStatusDetails,
-    cpOutputS3BucketName,
-    cpStandardErrorURL,
-    cpOutput,
-    cpOutputS3Region,
-    cpName,
-    cpResponseFinishDateTime,
-    cpResponseCode,
-    cpOutputS3KeyPrefix,
-    cpResponseStartDateTime,
+    CommandPlugin (CommandPlugin'),
+    newCommandPlugin,
 
     -- ** ComplianceExecutionSummary
-    ComplianceExecutionSummary,
-    complianceExecutionSummary,
-    cesExecutionId,
-    cesExecutionType,
-    cesExecutionTime,
+    ComplianceExecutionSummary (ComplianceExecutionSummary'),
+    newComplianceExecutionSummary,
 
     -- ** ComplianceItem
-    ComplianceItem,
-    complianceItem,
-    ciiResourceId,
-    ciiStatus,
-    ciiSeverity,
-    ciiTitle,
-    ciiId,
-    ciiComplianceType,
-    ciiResourceType,
-    ciiDetails,
-    ciiExecutionSummary,
+    ComplianceItem (ComplianceItem'),
+    newComplianceItem,
 
     -- ** ComplianceItemEntry
-    ComplianceItemEntry,
-    complianceItemEntry,
-    cieTitle,
-    cieId,
-    cieDetails,
-    cieSeverity,
-    cieStatus,
+    ComplianceItemEntry (ComplianceItemEntry'),
+    newComplianceItemEntry,
 
     -- ** ComplianceStringFilter
-    ComplianceStringFilter,
-    complianceStringFilter,
-    csfKey,
-    csfValues,
-    csfType,
+    ComplianceStringFilter (ComplianceStringFilter'),
+    newComplianceStringFilter,
 
     -- ** ComplianceSummaryItem
-    ComplianceSummaryItem,
-    complianceSummaryItem,
-    csiCompliantSummary,
-    csiComplianceType,
-    csiNonCompliantSummary,
+    ComplianceSummaryItem (ComplianceSummaryItem'),
+    newComplianceSummaryItem,
 
     -- ** CompliantSummary
-    CompliantSummary,
-    compliantSummary,
-    csSeveritySummary,
-    csCompliantCount,
+    CompliantSummary (CompliantSummary'),
+    newCompliantSummary,
 
     -- ** CreateAssociationBatchRequestEntry
-    CreateAssociationBatchRequestEntry,
-    createAssociationBatchRequestEntry,
-    cabreMaxErrors,
-    cabreInstanceId,
-    cabreComplianceSeverity,
-    cabreAutomationTargetParameterName,
-    cabreTargets,
-    cabreTargetLocations,
-    cabreScheduleExpression,
-    cabreMaxConcurrency,
-    cabreAssociationName,
-    cabreDocumentVersion,
-    cabreParameters,
-    cabreOutputLocation,
-    cabreApplyOnlyAtCronInterval,
-    cabreSyncCompliance,
-    cabreName,
+    CreateAssociationBatchRequestEntry (CreateAssociationBatchRequestEntry'),
+    newCreateAssociationBatchRequestEntry,
 
     -- ** DescribeActivationsFilter
-    DescribeActivationsFilter,
-    describeActivationsFilter,
-    dafFilterKey,
-    dafFilterValues,
+    DescribeActivationsFilter (DescribeActivationsFilter'),
+    newDescribeActivationsFilter,
 
     -- ** DocumentDefaultVersionDescription
-    DocumentDefaultVersionDescription,
-    documentDefaultVersionDescription,
-    ddvdDefaultVersion,
-    ddvdName,
-    ddvdDefaultVersionName,
+    DocumentDefaultVersionDescription (DocumentDefaultVersionDescription'),
+    newDocumentDefaultVersionDescription,
 
     -- ** DocumentDescription
-    DocumentDescription,
-    documentDescription,
-    ddDocumentType,
-    ddStatus,
-    ddCreatedDate,
-    ddPlatformTypes,
-    ddDefaultVersion,
-    ddLatestVersion,
-    ddTargetType,
-    ddApprovedVersion,
-    ddRequires,
-    ddSha1,
-    ddStatusInformation,
-    ddVersionName,
-    ddAuthor,
-    ddHash,
-    ddPendingReviewVersion,
-    ddName,
-    ddDocumentFormat,
-    ddTags,
-    ddOwner,
-    ddReviewStatus,
-    ddReviewInformation,
-    ddAttachmentsInformation,
-    ddDescription,
-    ddSchemaVersion,
-    ddDocumentVersion,
-    ddParameters,
-    ddHashType,
+    DocumentDescription (DocumentDescription'),
+    newDocumentDescription,
 
     -- ** DocumentFilter
-    DocumentFilter,
-    documentFilter,
-    dfKey,
-    dfValue,
+    DocumentFilter (DocumentFilter'),
+    newDocumentFilter,
 
     -- ** DocumentIdentifier
-    DocumentIdentifier,
-    documentIdentifier,
-    diDocumentType,
-    diPlatformTypes,
-    diTargetType,
-    diRequires,
-    diVersionName,
-    diAuthor,
-    diName,
-    diDocumentFormat,
-    diTags,
-    diOwner,
-    diReviewStatus,
-    diSchemaVersion,
-    diDocumentVersion,
+    DocumentIdentifier (DocumentIdentifier'),
+    newDocumentIdentifier,
 
     -- ** DocumentKeyValuesFilter
-    DocumentKeyValuesFilter,
-    documentKeyValuesFilter,
-    dkvfKey,
-    dkvfValues,
+    DocumentKeyValuesFilter (DocumentKeyValuesFilter'),
+    newDocumentKeyValuesFilter,
 
     -- ** DocumentMetadataResponseInfo
-    DocumentMetadataResponseInfo,
-    documentMetadataResponseInfo,
-    dmriReviewerResponse,
+    DocumentMetadataResponseInfo (DocumentMetadataResponseInfo'),
+    newDocumentMetadataResponseInfo,
 
     -- ** DocumentParameter
-    DocumentParameter,
-    documentParameter,
-    dpName,
-    dpDescription,
-    dpType,
-    dpDefaultValue,
+    DocumentParameter (DocumentParameter'),
+    newDocumentParameter,
 
     -- ** DocumentRequires
-    DocumentRequires,
-    documentRequires,
-    drVersion,
-    drName,
+    DocumentRequires (DocumentRequires'),
+    newDocumentRequires,
 
     -- ** DocumentReviewCommentSource
-    DocumentReviewCommentSource,
-    documentReviewCommentSource,
-    drcsContent,
-    drcsType,
+    DocumentReviewCommentSource (DocumentReviewCommentSource'),
+    newDocumentReviewCommentSource,
 
     -- ** DocumentReviewerResponseSource
-    DocumentReviewerResponseSource,
-    documentReviewerResponseSource,
-    drrsComment,
-    drrsUpdatedTime,
-    drrsCreateTime,
-    drrsReviewStatus,
-    drrsReviewer,
+    DocumentReviewerResponseSource (DocumentReviewerResponseSource'),
+    newDocumentReviewerResponseSource,
 
     -- ** DocumentReviews
-    DocumentReviews,
-    documentReviews,
-    drComment,
-    drAction,
+    DocumentReviews (DocumentReviews'),
+    newDocumentReviews,
 
     -- ** DocumentVersionInfo
-    DocumentVersionInfo,
-    documentVersionInfo,
-    dviStatus,
-    dviCreatedDate,
-    dviStatusInformation,
-    dviVersionName,
-    dviName,
-    dviDocumentFormat,
-    dviReviewStatus,
-    dviIsDefaultVersion,
-    dviDocumentVersion,
+    DocumentVersionInfo (DocumentVersionInfo'),
+    newDocumentVersionInfo,
 
     -- ** EffectivePatch
-    EffectivePatch,
-    effectivePatch,
-    epPatch,
-    epPatchStatus,
+    EffectivePatch (EffectivePatch'),
+    newEffectivePatch,
 
     -- ** FailedCreateAssociation
-    FailedCreateAssociation,
-    failedCreateAssociation,
-    fcaEntry,
-    fcaMessage,
-    fcaFault,
+    FailedCreateAssociation (FailedCreateAssociation'),
+    newFailedCreateAssociation,
 
     -- ** FailureDetails
-    FailureDetails,
-    failureDetails,
-    fdDetails,
-    fdFailureStage,
-    fdFailureType,
+    FailureDetails (FailureDetails'),
+    newFailureDetails,
 
     -- ** InstanceAggregatedAssociationOverview
-    InstanceAggregatedAssociationOverview,
-    instanceAggregatedAssociationOverview,
-    iaaoDetailedStatus,
-    iaaoInstanceAssociationStatusAggregatedCount,
+    InstanceAggregatedAssociationOverview (InstanceAggregatedAssociationOverview'),
+    newInstanceAggregatedAssociationOverview,
 
     -- ** InstanceAssociation
-    InstanceAssociation,
-    instanceAssociation,
-    iaInstanceId,
-    iaAssociationId,
-    iaContent,
-    iaAssociationVersion,
+    InstanceAssociation (InstanceAssociation'),
+    newInstanceAssociation,
 
     -- ** InstanceAssociationOutputLocation
-    InstanceAssociationOutputLocation,
-    instanceAssociationOutputLocation,
-    iaolS3Location,
+    InstanceAssociationOutputLocation (InstanceAssociationOutputLocation'),
+    newInstanceAssociationOutputLocation,
 
-    -- ** InstanceAssociationOutputURL
-    InstanceAssociationOutputURL,
-    instanceAssociationOutputURL,
-    iaouS3OutputURL,
+    -- ** InstanceAssociationOutputUrl
+    InstanceAssociationOutputUrl (InstanceAssociationOutputUrl'),
+    newInstanceAssociationOutputUrl,
 
     -- ** InstanceAssociationStatusInfo
-    InstanceAssociationStatusInfo,
-    instanceAssociationStatusInfo,
-    iasiStatus,
-    iasiInstanceId,
-    iasiDetailedStatus,
-    iasiName,
-    iasiOutputURL,
-    iasiAssociationId,
-    iasiAssociationName,
-    iasiExecutionDate,
-    iasiExecutionSummary,
-    iasiAssociationVersion,
-    iasiDocumentVersion,
-    iasiErrorCode,
+    InstanceAssociationStatusInfo (InstanceAssociationStatusInfo'),
+    newInstanceAssociationStatusInfo,
 
     -- ** InstanceInformation
-    InstanceInformation,
-    instanceInformation,
-    iiInstanceId,
-    iiPingStatus,
-    iiActivationId,
-    iiIAMRole,
-    iiLastSuccessfulAssociationExecutionDate,
-    iiLastPingDateTime,
-    iiAgentVersion,
-    iiPlatformVersion,
-    iiLastAssociationExecutionDate,
-    iiResourceType,
-    iiAssociationOverview,
-    iiIPAddress,
-    iiName,
-    iiPlatformType,
-    iiIsLatestVersion,
-    iiComputerName,
-    iiPlatformName,
-    iiRegistrationDate,
-    iiAssociationStatus,
+    InstanceInformation (InstanceInformation'),
+    newInstanceInformation,
 
     -- ** InstanceInformationFilter
-    InstanceInformationFilter,
-    instanceInformationFilter,
-    iifKey,
-    iifValueSet,
+    InstanceInformationFilter (InstanceInformationFilter'),
+    newInstanceInformationFilter,
 
     -- ** InstanceInformationStringFilter
-    InstanceInformationStringFilter,
-    instanceInformationStringFilter,
-    iisfKey,
-    iisfValues,
+    InstanceInformationStringFilter (InstanceInformationStringFilter'),
+    newInstanceInformationStringFilter,
 
     -- ** InstancePatchState
-    InstancePatchState,
-    instancePatchState,
-    ipsInstallOverrideList,
-    ipsUnreportedNotApplicableCount,
-    ipsInstalledOtherCount,
-    ipsInstalledPendingRebootCount,
-    ipsRebootOption,
-    ipsMissingCount,
-    ipsSnapshotId,
-    ipsInstalledCount,
-    ipsLastNoRebootInstallOperationTime,
-    ipsNotApplicableCount,
-    ipsFailedCount,
-    ipsOwnerInformation,
-    ipsInstalledRejectedCount,
-    ipsInstanceId,
-    ipsPatchGroup,
-    ipsBaselineId,
-    ipsOperationStartTime,
-    ipsOperationEndTime,
-    ipsOperation,
+    InstancePatchState (InstancePatchState'),
+    newInstancePatchState,
 
     -- ** InstancePatchStateFilter
-    InstancePatchStateFilter,
-    instancePatchStateFilter,
-    ipsfKey,
-    ipsfValues,
-    ipsfType,
+    InstancePatchStateFilter (InstancePatchStateFilter'),
+    newInstancePatchStateFilter,
 
     -- ** InventoryAggregator
-    InventoryAggregator,
-    inventoryAggregator,
-    iaGroups,
-    iaAggregators,
-    iaExpression,
+    InventoryAggregator (InventoryAggregator'),
+    newInventoryAggregator,
 
     -- ** InventoryDeletionStatusItem
-    InventoryDeletionStatusItem,
-    inventoryDeletionStatusItem,
-    idsiTypeName,
-    idsiLastStatusMessage,
-    idsiLastStatusUpdateTime,
-    idsiDeletionId,
-    idsiDeletionStartTime,
-    idsiLastStatus,
-    idsiDeletionSummary,
+    InventoryDeletionStatusItem (InventoryDeletionStatusItem'),
+    newInventoryDeletionStatusItem,
 
     -- ** InventoryDeletionSummary
-    InventoryDeletionSummary,
-    inventoryDeletionSummary,
-    idsRemainingCount,
-    idsTotalCount,
-    idsSummaryItems,
+    InventoryDeletionSummary (InventoryDeletionSummary'),
+    newInventoryDeletionSummary,
 
     -- ** InventoryDeletionSummaryItem
-    InventoryDeletionSummaryItem,
-    inventoryDeletionSummaryItem,
-    idsiRemainingCount,
-    idsiVersion,
-    idsiCount,
+    InventoryDeletionSummaryItem (InventoryDeletionSummaryItem'),
+    newInventoryDeletionSummaryItem,
 
     -- ** InventoryFilter
-    InventoryFilter,
-    inventoryFilter,
-    ifType,
-    ifKey,
-    ifValues,
+    InventoryFilter (InventoryFilter'),
+    newInventoryFilter,
 
     -- ** InventoryGroup
-    InventoryGroup,
-    inventoryGroup,
-    igName,
-    igFilters,
+    InventoryGroup (InventoryGroup'),
+    newInventoryGroup,
 
     -- ** InventoryItem
-    InventoryItem,
-    inventoryItem,
-    iiContext,
-    iiContent,
-    iiContentHash,
-    iiTypeName,
-    iiSchemaVersion,
-    iiCaptureTime,
+    InventoryItem (InventoryItem'),
+    newInventoryItem,
 
     -- ** InventoryItemAttribute
-    InventoryItemAttribute,
-    inventoryItemAttribute,
-    iiaName,
-    iiaDataType,
+    InventoryItemAttribute (InventoryItemAttribute'),
+    newInventoryItemAttribute,
 
     -- ** InventoryItemSchema
-    InventoryItemSchema,
-    inventoryItemSchema,
-    iisVersion,
-    iisDisplayName,
-    iisTypeName,
-    iisAttributes,
+    InventoryItemSchema (InventoryItemSchema'),
+    newInventoryItemSchema,
 
     -- ** InventoryResultEntity
-    InventoryResultEntity,
-    inventoryResultEntity,
-    ireData,
-    ireId,
+    InventoryResultEntity (InventoryResultEntity'),
+    newInventoryResultEntity,
 
     -- ** InventoryResultItem
-    InventoryResultItem,
-    inventoryResultItem,
-    iriCaptureTime,
-    iriContentHash,
-    iriTypeName,
-    iriSchemaVersion,
-    iriContent,
+    InventoryResultItem (InventoryResultItem'),
+    newInventoryResultItem,
 
     -- ** LoggingInfo
-    LoggingInfo,
-    loggingInfo,
-    liS3KeyPrefix,
-    liS3BucketName,
-    liS3Region,
+    LoggingInfo (LoggingInfo'),
+    newLoggingInfo,
 
     -- ** MaintenanceWindowAutomationParameters
-    MaintenanceWindowAutomationParameters,
-    maintenanceWindowAutomationParameters,
-    mwapDocumentVersion,
-    mwapParameters,
+    MaintenanceWindowAutomationParameters (MaintenanceWindowAutomationParameters'),
+    newMaintenanceWindowAutomationParameters,
 
     -- ** MaintenanceWindowExecution
-    MaintenanceWindowExecution,
-    maintenanceWindowExecution,
-    mweStatus,
-    mweStatusDetails,
-    mweStartTime,
-    mweEndTime,
-    mweWindowId,
-    mweWindowExecutionId,
+    MaintenanceWindowExecution (MaintenanceWindowExecution'),
+    newMaintenanceWindowExecution,
 
     -- ** MaintenanceWindowExecutionTaskIdentity
-    MaintenanceWindowExecutionTaskIdentity,
-    maintenanceWindowExecutionTaskIdentity,
-    mwetiStatus,
-    mwetiStatusDetails,
-    mwetiStartTime,
-    mwetiEndTime,
-    mwetiWindowExecutionId,
-    mwetiTaskARN,
-    mwetiTaskType,
-    mwetiTaskExecutionId,
+    MaintenanceWindowExecutionTaskIdentity (MaintenanceWindowExecutionTaskIdentity'),
+    newMaintenanceWindowExecutionTaskIdentity,
 
     -- ** MaintenanceWindowExecutionTaskInvocationIdentity
-    MaintenanceWindowExecutionTaskInvocationIdentity,
-    maintenanceWindowExecutionTaskInvocationIdentity,
-    mwetiiStatus,
-    mwetiiStatusDetails,
-    mwetiiWindowTargetId,
-    mwetiiStartTime,
-    mwetiiEndTime,
-    mwetiiExecutionId,
-    mwetiiWindowExecutionId,
-    mwetiiOwnerInformation,
-    mwetiiTaskType,
-    mwetiiInvocationId,
-    mwetiiParameters,
-    mwetiiTaskExecutionId,
+    MaintenanceWindowExecutionTaskInvocationIdentity (MaintenanceWindowExecutionTaskInvocationIdentity'),
+    newMaintenanceWindowExecutionTaskInvocationIdentity,
 
     -- ** MaintenanceWindowFilter
-    MaintenanceWindowFilter,
-    maintenanceWindowFilter,
-    mwfKey,
-    mwfValues,
+    MaintenanceWindowFilter (MaintenanceWindowFilter'),
+    newMaintenanceWindowFilter,
 
     -- ** MaintenanceWindowIdentity
-    MaintenanceWindowIdentity,
-    maintenanceWindowIdentity,
-    mwiStartDate,
-    mwiDuration,
-    mwiScheduleOffset,
-    mwiEnabled,
-    mwiCutoff,
-    mwiName,
-    mwiWindowId,
-    mwiDescription,
-    mwiScheduleTimezone,
-    mwiEndDate,
-    mwiNextExecutionTime,
-    mwiSchedule,
+    MaintenanceWindowIdentity (MaintenanceWindowIdentity'),
+    newMaintenanceWindowIdentity,
 
     -- ** MaintenanceWindowIdentityForTarget
-    MaintenanceWindowIdentityForTarget,
-    maintenanceWindowIdentityForTarget,
-    mwiftName,
-    mwiftWindowId,
+    MaintenanceWindowIdentityForTarget (MaintenanceWindowIdentityForTarget'),
+    newMaintenanceWindowIdentityForTarget,
 
     -- ** MaintenanceWindowLambdaParameters
-    MaintenanceWindowLambdaParameters,
-    maintenanceWindowLambdaParameters,
-    mwlpPayload,
-    mwlpQualifier,
-    mwlpClientContext,
+    MaintenanceWindowLambdaParameters (MaintenanceWindowLambdaParameters'),
+    newMaintenanceWindowLambdaParameters,
 
     -- ** MaintenanceWindowRunCommandParameters
-    MaintenanceWindowRunCommandParameters,
-    maintenanceWindowRunCommandParameters,
-    mwrcpNotificationConfig,
-    mwrcpServiceRoleARN,
-    mwrcpOutputS3BucketName,
-    mwrcpComment,
-    mwrcpDocumentHash,
-    mwrcpOutputS3KeyPrefix,
-    mwrcpTimeoutSeconds,
-    mwrcpCloudWatchOutputConfig,
-    mwrcpDocumentHashType,
-    mwrcpDocumentVersion,
-    mwrcpParameters,
+    MaintenanceWindowRunCommandParameters (MaintenanceWindowRunCommandParameters'),
+    newMaintenanceWindowRunCommandParameters,
 
     -- ** MaintenanceWindowStepFunctionsParameters
-    MaintenanceWindowStepFunctionsParameters,
-    maintenanceWindowStepFunctionsParameters,
-    mwsfpInput,
-    mwsfpName,
+    MaintenanceWindowStepFunctionsParameters (MaintenanceWindowStepFunctionsParameters'),
+    newMaintenanceWindowStepFunctionsParameters,
 
     -- ** MaintenanceWindowTarget
-    MaintenanceWindowTarget,
-    maintenanceWindowTarget,
-    mWindowTargetId,
-    mResourceType,
-    mTargets,
-    mName,
-    mWindowId,
-    mDescription,
-    mOwnerInformation,
+    MaintenanceWindowTarget (MaintenanceWindowTarget'),
+    newMaintenanceWindowTarget,
 
     -- ** MaintenanceWindowTask
-    MaintenanceWindowTask,
-    maintenanceWindowTask,
-    mwtMaxErrors,
-    mwtTaskParameters,
-    mwtWindowTaskId,
-    mwtServiceRoleARN,
-    mwtPriority,
-    mwtTargets,
-    mwtName,
-    mwtMaxConcurrency,
-    mwtWindowId,
-    mwtDescription,
-    mwtType,
-    mwtTaskARN,
-    mwtLoggingInfo,
+    MaintenanceWindowTask (MaintenanceWindowTask'),
+    newMaintenanceWindowTask,
 
     -- ** MaintenanceWindowTaskInvocationParameters
-    MaintenanceWindowTaskInvocationParameters,
-    maintenanceWindowTaskInvocationParameters,
-    mwtipAutomation,
-    mwtipLambda,
-    mwtipRunCommand,
-    mwtipStepFunctions,
+    MaintenanceWindowTaskInvocationParameters (MaintenanceWindowTaskInvocationParameters'),
+    newMaintenanceWindowTaskInvocationParameters,
 
     -- ** MaintenanceWindowTaskParameterValueExpression
-    MaintenanceWindowTaskParameterValueExpression,
-    maintenanceWindowTaskParameterValueExpression,
-    mwtpveValues,
+    MaintenanceWindowTaskParameterValueExpression (MaintenanceWindowTaskParameterValueExpression'),
+    newMaintenanceWindowTaskParameterValueExpression,
 
     -- ** MetadataValue
-    MetadataValue,
-    metadataValue,
-    mvValue,
+    MetadataValue (MetadataValue'),
+    newMetadataValue,
 
     -- ** NonCompliantSummary
-    NonCompliantSummary,
-    nonCompliantSummary,
-    ncsSeveritySummary,
-    ncsNonCompliantCount,
+    NonCompliantSummary (NonCompliantSummary'),
+    newNonCompliantSummary,
 
     -- ** NotificationConfig
-    NotificationConfig,
-    notificationConfig,
-    ncNotificationARN,
-    ncNotificationType,
-    ncNotificationEvents,
+    NotificationConfig (NotificationConfig'),
+    newNotificationConfig,
 
     -- ** OpsAggregator
-    OpsAggregator,
-    opsAggregator,
-    oaTypeName,
-    oaAttributeName,
-    oaValues,
-    oaAggregatorType,
-    oaFilters,
-    oaAggregators,
+    OpsAggregator (OpsAggregator'),
+    newOpsAggregator,
 
     -- ** OpsEntity
-    OpsEntity,
-    opsEntity,
-    oeData,
-    oeId,
+    OpsEntity (OpsEntity'),
+    newOpsEntity,
 
     -- ** OpsEntityItem
-    OpsEntityItem,
-    opsEntityItem,
-    oeiCaptureTime,
-    oeiContent,
+    OpsEntityItem (OpsEntityItem'),
+    newOpsEntityItem,
 
     -- ** OpsFilter
-    OpsFilter,
-    opsFilter,
-    ofType,
-    ofKey,
-    ofValues,
+    OpsFilter (OpsFilter'),
+    newOpsFilter,
 
     -- ** OpsItem
-    OpsItem,
-    opsItem,
-    oiStatus,
-    oiPlannedEndTime,
-    oiSeverity,
-    oiActualStartTime,
-    oiCategory,
-    oiOperationalData,
-    oiTitle,
-    oiSource,
-    oiCreatedTime,
-    oiVersion,
-    oiPriority,
-    oiActualEndTime,
-    oiOpsItemId,
-    oiOpsItemType,
-    oiPlannedStartTime,
-    oiLastModifiedTime,
-    oiNotifications,
-    oiDescription,
-    oiCreatedBy,
-    oiLastModifiedBy,
-    oiRelatedOpsItems,
+    OpsItem (OpsItem'),
+    newOpsItem,
 
     -- ** OpsItemDataValue
-    OpsItemDataValue,
-    opsItemDataValue,
-    oidvValue,
-    oidvType,
+    OpsItemDataValue (OpsItemDataValue'),
+    newOpsItemDataValue,
 
     -- ** OpsItemEventFilter
-    OpsItemEventFilter,
-    opsItemEventFilter,
-    oiefKey,
-    oiefValues,
-    oiefOperator,
+    OpsItemEventFilter (OpsItemEventFilter'),
+    newOpsItemEventFilter,
 
     -- ** OpsItemEventSummary
-    OpsItemEventSummary,
-    opsItemEventSummary,
-    oiesEventId,
-    oiesDetailType,
-    oiesSource,
-    oiesCreatedTime,
-    oiesOpsItemId,
-    oiesDetail,
-    oiesCreatedBy,
+    OpsItemEventSummary (OpsItemEventSummary'),
+    newOpsItemEventSummary,
 
     -- ** OpsItemFilter
-    OpsItemFilter,
-    opsItemFilter,
-    oifKey,
-    oifValues,
-    oifOperator,
+    OpsItemFilter (OpsItemFilter'),
+    newOpsItemFilter,
 
     -- ** OpsItemIdentity
-    OpsItemIdentity,
-    opsItemIdentity,
-    oiiARN,
+    OpsItemIdentity (OpsItemIdentity'),
+    newOpsItemIdentity,
 
     -- ** OpsItemNotification
-    OpsItemNotification,
-    opsItemNotification,
-    oinARN,
+    OpsItemNotification (OpsItemNotification'),
+    newOpsItemNotification,
 
     -- ** OpsItemSummary
-    OpsItemSummary,
-    opsItemSummary,
-    oisStatus,
-    oisPlannedEndTime,
-    oisSeverity,
-    oisActualStartTime,
-    oisCategory,
-    oisOperationalData,
-    oisTitle,
-    oisSource,
-    oisCreatedTime,
-    oisPriority,
-    oisActualEndTime,
-    oisOpsItemId,
-    oisOpsItemType,
-    oisPlannedStartTime,
-    oisLastModifiedTime,
-    oisCreatedBy,
-    oisLastModifiedBy,
+    OpsItemSummary (OpsItemSummary'),
+    newOpsItemSummary,
 
     -- ** OpsMetadata
-    OpsMetadata,
-    opsMetadata,
-    omResourceId,
-    omLastModifiedDate,
-    omOpsMetadataARN,
-    omCreationDate,
-    omLastModifiedUser,
+    OpsMetadata (OpsMetadata'),
+    newOpsMetadata,
 
     -- ** OpsMetadataFilter
-    OpsMetadataFilter,
-    opsMetadataFilter,
-    omfKey,
-    omfValues,
+    OpsMetadataFilter (OpsMetadataFilter'),
+    newOpsMetadataFilter,
 
     -- ** OpsResultAttribute
-    OpsResultAttribute,
-    opsResultAttribute,
-    oraTypeName,
+    OpsResultAttribute (OpsResultAttribute'),
+    newOpsResultAttribute,
 
     -- ** OutputSource
-    OutputSource,
-    outputSource,
-    osOutputSourceId,
-    osOutputSourceType,
+    OutputSource (OutputSource'),
+    newOutputSource,
 
     -- ** Parameter
-    Parameter,
-    parameter,
-    parLastModifiedDate,
-    parARN,
-    parVersion,
-    parName,
-    parSourceResult,
-    parValue,
-    parType,
-    parDataType,
-    parSelector,
+    Parameter (Parameter'),
+    newParameter,
 
     -- ** ParameterHistory
-    ParameterHistory,
-    parameterHistory,
-    phLastModifiedDate,
-    phPolicies,
-    phLabels,
-    phVersion,
-    phName,
-    phDescription,
-    phValue,
-    phType,
-    phDataType,
-    phAllowedPattern,
-    phLastModifiedUser,
-    phTier,
-    phKeyId,
+    ParameterHistory (ParameterHistory'),
+    newParameterHistory,
 
     -- ** ParameterInlinePolicy
-    ParameterInlinePolicy,
-    parameterInlinePolicy,
-    pipPolicyType,
-    pipPolicyText,
-    pipPolicyStatus,
+    ParameterInlinePolicy (ParameterInlinePolicy'),
+    newParameterInlinePolicy,
 
     -- ** ParameterMetadata
-    ParameterMetadata,
-    parameterMetadata,
-    pmLastModifiedDate,
-    pmPolicies,
-    pmVersion,
-    pmName,
-    pmDescription,
-    pmType,
-    pmDataType,
-    pmAllowedPattern,
-    pmLastModifiedUser,
-    pmTier,
-    pmKeyId,
+    ParameterMetadata (ParameterMetadata'),
+    newParameterMetadata,
 
     -- ** ParameterStringFilter
-    ParameterStringFilter,
-    parameterStringFilter,
-    psfValues,
-    psfOption,
-    psfKey,
+    ParameterStringFilter (ParameterStringFilter'),
+    newParameterStringFilter,
 
     -- ** ParametersFilter
-    ParametersFilter,
-    parametersFilter,
-    pKey,
-    pValues,
+    ParametersFilter (ParametersFilter'),
+    newParametersFilter,
 
     -- ** Patch
-    Patch,
-    patch,
-    pMsrcSeverity,
-    pVendor,
-    pEpoch,
-    pProduct,
-    pSeverity,
-    pTitle,
-    pId,
-    pProductFamily,
-    pVersion,
-    pRepository,
-    pName,
-    pBugzillaIds,
-    pMsrcNumber,
-    pRelease,
-    pCVEIds,
-    pClassification,
-    pDescription,
-    pAdvisoryIds,
-    pArch,
-    pReleaseDate,
-    pLanguage,
-    pKbNumber,
-    pContentURL,
+    Patch (Patch'),
+    newPatch,
 
     -- ** PatchBaselineIdentity
-    PatchBaselineIdentity,
-    patchBaselineIdentity,
-    pbiBaselineName,
-    pbiBaselineId,
-    pbiDefaultBaseline,
-    pbiBaselineDescription,
-    pbiOperatingSystem,
+    PatchBaselineIdentity (PatchBaselineIdentity'),
+    newPatchBaselineIdentity,
 
     -- ** PatchComplianceData
-    PatchComplianceData,
-    patchComplianceData,
-    pcdCVEIds,
-    pcdTitle,
-    pcdKBId,
-    pcdClassification,
-    pcdSeverity,
-    pcdState,
-    pcdInstalledTime,
+    PatchComplianceData (PatchComplianceData'),
+    newPatchComplianceData,
 
     -- ** PatchFilter
-    PatchFilter,
-    patchFilter,
-    pfKey,
-    pfValues,
+    PatchFilter (PatchFilter'),
+    newPatchFilter,
 
     -- ** PatchFilterGroup
-    PatchFilterGroup,
-    patchFilterGroup,
-    pfgPatchFilters,
+    PatchFilterGroup (PatchFilterGroup'),
+    newPatchFilterGroup,
 
     -- ** PatchGroupPatchBaselineMapping
-    PatchGroupPatchBaselineMapping,
-    patchGroupPatchBaselineMapping,
-    pgpbmBaselineIdentity,
-    pgpbmPatchGroup,
+    PatchGroupPatchBaselineMapping (PatchGroupPatchBaselineMapping'),
+    newPatchGroupPatchBaselineMapping,
 
     -- ** PatchOrchestratorFilter
-    PatchOrchestratorFilter,
-    patchOrchestratorFilter,
-    pofKey,
-    pofValues,
+    PatchOrchestratorFilter (PatchOrchestratorFilter'),
+    newPatchOrchestratorFilter,
 
     -- ** PatchRule
-    PatchRule,
-    patchRule,
-    prApproveAfterDays,
-    prApproveUntilDate,
-    prComplianceLevel,
-    prEnableNonSecurity,
-    prPatchFilterGroup,
+    PatchRule (PatchRule'),
+    newPatchRule,
 
     -- ** PatchRuleGroup
-    PatchRuleGroup,
-    patchRuleGroup,
-    prgPatchRules,
+    PatchRuleGroup (PatchRuleGroup'),
+    newPatchRuleGroup,
 
     -- ** PatchSource
-    PatchSource,
-    patchSource,
-    psName,
-    psProducts,
-    psConfiguration,
+    PatchSource (PatchSource'),
+    newPatchSource,
 
     -- ** PatchStatus
-    PatchStatus,
-    patchStatus,
-    psApprovalDate,
-    psComplianceLevel,
-    psDeploymentStatus,
+    PatchStatus (PatchStatus'),
+    newPatchStatus,
 
     -- ** ProgressCounters
-    ProgressCounters,
-    progressCounters,
-    pcCancelledSteps,
-    pcTimedOutSteps,
-    pcTotalSteps,
-    pcSuccessSteps,
-    pcFailedSteps,
+    ProgressCounters (ProgressCounters'),
+    newProgressCounters,
 
     -- ** RelatedOpsItem
-    RelatedOpsItem,
-    relatedOpsItem,
-    roiOpsItemId,
+    RelatedOpsItem (RelatedOpsItem'),
+    newRelatedOpsItem,
 
     -- ** ResolvedTargets
-    ResolvedTargets,
-    resolvedTargets,
-    rtParameterValues,
-    rtTruncated,
+    ResolvedTargets (ResolvedTargets'),
+    newResolvedTargets,
 
     -- ** ResourceComplianceSummaryItem
-    ResourceComplianceSummaryItem,
-    resourceComplianceSummaryItem,
-    rcsiResourceId,
-    rcsiStatus,
-    rcsiOverallSeverity,
-    rcsiCompliantSummary,
-    rcsiComplianceType,
-    rcsiResourceType,
-    rcsiNonCompliantSummary,
-    rcsiExecutionSummary,
+    ResourceComplianceSummaryItem (ResourceComplianceSummaryItem'),
+    newResourceComplianceSummaryItem,
 
-    -- ** ResourceDataSyncAWSOrganizationsSource
-    ResourceDataSyncAWSOrganizationsSource,
-    resourceDataSyncAWSOrganizationsSource,
-    rdsaosOrganizationalUnits,
-    rdsaosOrganizationSourceType,
+    -- ** ResourceDataSyncAwsOrganizationsSource
+    ResourceDataSyncAwsOrganizationsSource (ResourceDataSyncAwsOrganizationsSource'),
+    newResourceDataSyncAwsOrganizationsSource,
 
     -- ** ResourceDataSyncDestinationDataSharing
-    ResourceDataSyncDestinationDataSharing,
-    resourceDataSyncDestinationDataSharing,
-    rdsddsDestinationDataSharingType,
+    ResourceDataSyncDestinationDataSharing (ResourceDataSyncDestinationDataSharing'),
+    newResourceDataSyncDestinationDataSharing,
 
     -- ** ResourceDataSyncItem
-    ResourceDataSyncItem,
-    resourceDataSyncItem,
-    rdsiSyncType,
-    rdsiS3Destination,
-    rdsiSyncLastModifiedTime,
-    rdsiLastSyncTime,
-    rdsiSyncName,
-    rdsiSyncSource,
-    rdsiLastSuccessfulSyncTime,
-    rdsiLastStatus,
-    rdsiLastSyncStatusMessage,
-    rdsiSyncCreatedTime,
+    ResourceDataSyncItem (ResourceDataSyncItem'),
+    newResourceDataSyncItem,
 
     -- ** ResourceDataSyncOrganizationalUnit
-    ResourceDataSyncOrganizationalUnit,
-    resourceDataSyncOrganizationalUnit,
-    rdsouOrganizationalUnitId,
+    ResourceDataSyncOrganizationalUnit (ResourceDataSyncOrganizationalUnit'),
+    newResourceDataSyncOrganizationalUnit,
 
     -- ** ResourceDataSyncS3Destination
-    ResourceDataSyncS3Destination,
-    resourceDataSyncS3Destination,
-    rdssdPrefix,
-    rdssdDestinationDataSharing,
-    rdssdAWSKMSKeyARN,
-    rdssdBucketName,
-    rdssdSyncFormat,
-    rdssdRegion,
+    ResourceDataSyncS3Destination (ResourceDataSyncS3Destination'),
+    newResourceDataSyncS3Destination,
 
     -- ** ResourceDataSyncSource
-    ResourceDataSyncSource,
-    resourceDataSyncSource,
-    rdssIncludeFutureRegions,
-    rdssAWSOrganizationsSource,
-    rdssSourceType,
-    rdssSourceRegions,
+    ResourceDataSyncSource (ResourceDataSyncSource'),
+    newResourceDataSyncSource,
 
     -- ** ResourceDataSyncSourceWithState
-    ResourceDataSyncSourceWithState,
-    resourceDataSyncSourceWithState,
-    rdsswsIncludeFutureRegions,
-    rdsswsState,
-    rdsswsSourceRegions,
-    rdsswsAWSOrganizationsSource,
-    rdsswsSourceType,
+    ResourceDataSyncSourceWithState (ResourceDataSyncSourceWithState'),
+    newResourceDataSyncSourceWithState,
 
     -- ** ResultAttribute
-    ResultAttribute,
-    resultAttribute,
-    raTypeName,
+    ResultAttribute (ResultAttribute'),
+    newResultAttribute,
 
     -- ** ReviewInformation
-    ReviewInformation,
-    reviewInformation,
-    riStatus,
-    riReviewedTime,
-    riReviewer,
+    ReviewInformation (ReviewInformation'),
+    newReviewInformation,
 
     -- ** Runbook
-    Runbook,
-    runbook,
-    runMaxErrors,
-    runTargets,
-    runTargetLocations,
-    runTargetParameterName,
-    runMaxConcurrency,
-    runDocumentVersion,
-    runParameters,
-    runDocumentName,
+    Runbook (Runbook'),
+    newRunbook,
 
     -- ** S3OutputLocation
-    S3OutputLocation,
-    s3OutputLocation,
-    solOutputS3BucketName,
-    solOutputS3Region,
-    solOutputS3KeyPrefix,
+    S3OutputLocation (S3OutputLocation'),
+    newS3OutputLocation,
 
-    -- ** S3OutputURL
-    S3OutputURL,
-    s3OutputURL,
-    souOutputURL,
+    -- ** S3OutputUrl
+    S3OutputUrl (S3OutputUrl'),
+    newS3OutputUrl,
 
     -- ** ScheduledWindowExecution
-    ScheduledWindowExecution,
-    scheduledWindowExecution,
-    sweExecutionTime,
-    sweName,
-    sweWindowId,
+    ScheduledWindowExecution (ScheduledWindowExecution'),
+    newScheduledWindowExecution,
 
     -- ** ServiceSetting
-    ServiceSetting,
-    serviceSetting,
-    ssLastModifiedDate,
-    ssStatus,
-    ssARN,
-    ssSettingValue,
-    ssSettingId,
-    ssLastModifiedUser,
+    ServiceSetting (ServiceSetting'),
+    newServiceSetting,
 
     -- ** Session
-    Session,
-    session,
-    sesStatus,
-    sesStartDate,
-    sesSessionId,
-    sesDocumentName,
-    sesDetails,
-    sesOutputURL,
-    sesTarget,
-    sesOwner,
-    sesEndDate,
+    Session (Session'),
+    newSession,
 
     -- ** SessionFilter
-    SessionFilter,
-    sessionFilter,
-    sfKey,
-    sfValue,
+    SessionFilter (SessionFilter'),
+    newSessionFilter,
 
-    -- ** SessionManagerOutputURL
-    SessionManagerOutputURL,
-    sessionManagerOutputURL,
-    smouS3OutputURL,
-    smouCloudWatchOutputURL,
+    -- ** SessionManagerOutputUrl
+    SessionManagerOutputUrl (SessionManagerOutputUrl'),
+    newSessionManagerOutputUrl,
 
     -- ** SeveritySummary
-    SeveritySummary,
-    severitySummary,
-    ssLowCount,
-    ssMediumCount,
-    ssCriticalCount,
-    ssHighCount,
-    ssUnspecifiedCount,
-    ssInformationalCount,
+    SeveritySummary (SeveritySummary'),
+    newSeveritySummary,
 
     -- ** StepExecution
-    StepExecution,
-    stepExecution,
-    seOutputs,
-    seOnFailure,
-    seResponse,
-    seFailureMessage,
-    seExecutionEndTime,
-    seNextStep,
-    seIsEnd,
-    seMaxAttempts,
-    seFailureDetails,
-    seTargets,
-    seExecutionStartTime,
-    seTargetLocation,
-    seOverriddenParameters,
-    seIsCritical,
-    seResponseCode,
-    seStepStatus,
-    seAction,
-    seValidNextSteps,
-    seTimeoutSeconds,
-    seInputs,
-    seStepExecutionId,
-    seStepName,
+    StepExecution (StepExecution'),
+    newStepExecution,
 
     -- ** StepExecutionFilter
-    StepExecutionFilter,
-    stepExecutionFilter,
-    sefKey,
-    sefValues,
+    StepExecutionFilter (StepExecutionFilter'),
+    newStepExecutionFilter,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** Target
-    Target,
-    target,
-    tKey,
-    tValues,
+    Target (Target'),
+    newTarget,
 
     -- ** TargetLocation
-    TargetLocation,
-    targetLocation,
-    tlExecutionRoleName,
-    tlAccounts,
-    tlRegions,
-    tlTargetLocationMaxErrors,
-    tlTargetLocationMaxConcurrency,
+    TargetLocation (TargetLocation'),
+    newTargetLocation,
   )
 where
 
@@ -2543,6 +2109,7 @@ import Network.AWS.SSM.GetPatchBaseline
 import Network.AWS.SSM.GetPatchBaselineForPatchGroup
 import Network.AWS.SSM.GetServiceSetting
 import Network.AWS.SSM.LabelParameterVersion
+import Network.AWS.SSM.Lens
 import Network.AWS.SSM.ListAssociationVersions
 import Network.AWS.SSM.ListAssociations
 import Network.AWS.SSM.ListCommandInvocations

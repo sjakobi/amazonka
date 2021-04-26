@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SSM.Types.DescribeActivationsFilterKeys
   ( DescribeActivationsFilterKeys
       ( ..,
-        ActivationIds,
-        DefaultInstanceName,
-        IAMRole
+        DescribeActivationsFilterKeysActivationIds,
+        DescribeActivationsFilterKeysDefaultInstanceName,
+        DescribeActivationsFilterKeysIamRole
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DescribeActivationsFilterKeys
-  = DescribeActivationsFilterKeys'
-      ( CI
-          Text
-      )
+newtype DescribeActivationsFilterKeys = DescribeActivationsFilterKeys'
+  { fromDescribeActivationsFilterKeys ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ActivationIds :: DescribeActivationsFilterKeys
-pattern ActivationIds = DescribeActivationsFilterKeys' "ActivationIds"
+pattern DescribeActivationsFilterKeysActivationIds :: DescribeActivationsFilterKeys
+pattern DescribeActivationsFilterKeysActivationIds = DescribeActivationsFilterKeys' "ActivationIds"
 
-pattern DefaultInstanceName :: DescribeActivationsFilterKeys
-pattern DefaultInstanceName = DescribeActivationsFilterKeys' "DefaultInstanceName"
+pattern DescribeActivationsFilterKeysDefaultInstanceName :: DescribeActivationsFilterKeys
+pattern DescribeActivationsFilterKeysDefaultInstanceName = DescribeActivationsFilterKeys' "DefaultInstanceName"
 
-pattern IAMRole :: DescribeActivationsFilterKeys
-pattern IAMRole = DescribeActivationsFilterKeys' "IamRole"
+pattern DescribeActivationsFilterKeysIamRole :: DescribeActivationsFilterKeys
+pattern DescribeActivationsFilterKeysIamRole = DescribeActivationsFilterKeys' "IamRole"
 
 {-# COMPLETE
-  ActivationIds,
-  DefaultInstanceName,
-  IAMRole,
+  DescribeActivationsFilterKeysActivationIds,
+  DescribeActivationsFilterKeysDefaultInstanceName,
+  DescribeActivationsFilterKeysIamRole,
   DescribeActivationsFilterKeys'
   #-}
 
-instance FromText DescribeActivationsFilterKeys where
-  parser = (DescribeActivationsFilterKeys' . mk) <$> takeText
+instance Prelude.FromText DescribeActivationsFilterKeys where
+  parser = DescribeActivationsFilterKeys' Prelude.<$> Prelude.takeText
 
-instance ToText DescribeActivationsFilterKeys where
-  toText (DescribeActivationsFilterKeys' ci) = original ci
+instance Prelude.ToText DescribeActivationsFilterKeys where
+  toText (DescribeActivationsFilterKeys' x) = x
 
-instance Hashable DescribeActivationsFilterKeys
+instance Prelude.Hashable DescribeActivationsFilterKeys
 
-instance NFData DescribeActivationsFilterKeys
+instance Prelude.NFData DescribeActivationsFilterKeys
 
-instance ToByteString DescribeActivationsFilterKeys
+instance Prelude.ToByteString DescribeActivationsFilterKeys
 
-instance ToQuery DescribeActivationsFilterKeys
+instance Prelude.ToQuery DescribeActivationsFilterKeys
 
-instance ToHeader DescribeActivationsFilterKeys
+instance Prelude.ToHeader DescribeActivationsFilterKeys
 
-instance ToJSON DescribeActivationsFilterKeys where
-  toJSON = toJSONText
+instance Prelude.ToJSON DescribeActivationsFilterKeys where
+  toJSON = Prelude.toJSONText

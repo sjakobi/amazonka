@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.SSM.Types.ParameterType
   ( ParameterType
       ( ..,
-        PTSecureString,
-        PTString,
-        PTStringList
+        ParameterTypeSecureString,
+        ParameterTypeString,
+        ParameterTypeStringList
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParameterType = ParameterType' (CI Text)
+newtype ParameterType = ParameterType'
+  { fromParameterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PTSecureString :: ParameterType
-pattern PTSecureString = ParameterType' "SecureString"
+pattern ParameterTypeSecureString :: ParameterType
+pattern ParameterTypeSecureString = ParameterType' "SecureString"
 
-pattern PTString :: ParameterType
-pattern PTString = ParameterType' "String"
+pattern ParameterTypeString :: ParameterType
+pattern ParameterTypeString = ParameterType' "String"
 
-pattern PTStringList :: ParameterType
-pattern PTStringList = ParameterType' "StringList"
+pattern ParameterTypeStringList :: ParameterType
+pattern ParameterTypeStringList = ParameterType' "StringList"
 
 {-# COMPLETE
-  PTSecureString,
-  PTString,
-  PTStringList,
+  ParameterTypeSecureString,
+  ParameterTypeString,
+  ParameterTypeStringList,
   ParameterType'
   #-}
 
-instance FromText ParameterType where
-  parser = (ParameterType' . mk) <$> takeText
+instance Prelude.FromText ParameterType where
+  parser = ParameterType' Prelude.<$> Prelude.takeText
 
-instance ToText ParameterType where
-  toText (ParameterType' ci) = original ci
+instance Prelude.ToText ParameterType where
+  toText (ParameterType' x) = x
 
-instance Hashable ParameterType
+instance Prelude.Hashable ParameterType
 
-instance NFData ParameterType
+instance Prelude.NFData ParameterType
 
-instance ToByteString ParameterType
+instance Prelude.ToByteString ParameterType
 
-instance ToQuery ParameterType
+instance Prelude.ToQuery ParameterType
 
-instance ToHeader ParameterType
+instance Prelude.ToHeader ParameterType
 
-instance ToJSON ParameterType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ParameterType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ParameterType where
-  parseJSON = parseJSONText "ParameterType"
+instance Prelude.FromJSON ParameterType where
+  parseJSON = Prelude.parseJSONText "ParameterType"

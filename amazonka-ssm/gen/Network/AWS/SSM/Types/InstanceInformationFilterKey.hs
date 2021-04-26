@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.SSM.Types.InstanceInformationFilterKey
   ( InstanceInformationFilterKey
       ( ..,
-        IIFKActivationIds,
-        IIFKAgentVersion,
-        IIFKAssociationStatus,
-        IIFKIAMRole,
-        IIFKInstanceIds,
-        IIFKPingStatus,
-        IIFKPlatformTypes,
-        IIFKResourceType
+        InstanceInformationFilterKeyActivationIds,
+        InstanceInformationFilterKeyAgentVersion,
+        InstanceInformationFilterKeyAssociationStatus,
+        InstanceInformationFilterKeyIamRole,
+        InstanceInformationFilterKeyInstanceIds,
+        InstanceInformationFilterKeyPingStatus,
+        InstanceInformationFilterKeyPlatformTypes,
+        InstanceInformationFilterKeyResourceType
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceInformationFilterKey
-  = InstanceInformationFilterKey'
-      ( CI
-          Text
-      )
+newtype InstanceInformationFilterKey = InstanceInformationFilterKey'
+  { fromInstanceInformationFilterKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IIFKActivationIds :: InstanceInformationFilterKey
-pattern IIFKActivationIds = InstanceInformationFilterKey' "ActivationIds"
+pattern InstanceInformationFilterKeyActivationIds :: InstanceInformationFilterKey
+pattern InstanceInformationFilterKeyActivationIds = InstanceInformationFilterKey' "ActivationIds"
 
-pattern IIFKAgentVersion :: InstanceInformationFilterKey
-pattern IIFKAgentVersion = InstanceInformationFilterKey' "AgentVersion"
+pattern InstanceInformationFilterKeyAgentVersion :: InstanceInformationFilterKey
+pattern InstanceInformationFilterKeyAgentVersion = InstanceInformationFilterKey' "AgentVersion"
 
-pattern IIFKAssociationStatus :: InstanceInformationFilterKey
-pattern IIFKAssociationStatus = InstanceInformationFilterKey' "AssociationStatus"
+pattern InstanceInformationFilterKeyAssociationStatus :: InstanceInformationFilterKey
+pattern InstanceInformationFilterKeyAssociationStatus = InstanceInformationFilterKey' "AssociationStatus"
 
-pattern IIFKIAMRole :: InstanceInformationFilterKey
-pattern IIFKIAMRole = InstanceInformationFilterKey' "IamRole"
+pattern InstanceInformationFilterKeyIamRole :: InstanceInformationFilterKey
+pattern InstanceInformationFilterKeyIamRole = InstanceInformationFilterKey' "IamRole"
 
-pattern IIFKInstanceIds :: InstanceInformationFilterKey
-pattern IIFKInstanceIds = InstanceInformationFilterKey' "InstanceIds"
+pattern InstanceInformationFilterKeyInstanceIds :: InstanceInformationFilterKey
+pattern InstanceInformationFilterKeyInstanceIds = InstanceInformationFilterKey' "InstanceIds"
 
-pattern IIFKPingStatus :: InstanceInformationFilterKey
-pattern IIFKPingStatus = InstanceInformationFilterKey' "PingStatus"
+pattern InstanceInformationFilterKeyPingStatus :: InstanceInformationFilterKey
+pattern InstanceInformationFilterKeyPingStatus = InstanceInformationFilterKey' "PingStatus"
 
-pattern IIFKPlatformTypes :: InstanceInformationFilterKey
-pattern IIFKPlatformTypes = InstanceInformationFilterKey' "PlatformTypes"
+pattern InstanceInformationFilterKeyPlatformTypes :: InstanceInformationFilterKey
+pattern InstanceInformationFilterKeyPlatformTypes = InstanceInformationFilterKey' "PlatformTypes"
 
-pattern IIFKResourceType :: InstanceInformationFilterKey
-pattern IIFKResourceType = InstanceInformationFilterKey' "ResourceType"
+pattern InstanceInformationFilterKeyResourceType :: InstanceInformationFilterKey
+pattern InstanceInformationFilterKeyResourceType = InstanceInformationFilterKey' "ResourceType"
 
 {-# COMPLETE
-  IIFKActivationIds,
-  IIFKAgentVersion,
-  IIFKAssociationStatus,
-  IIFKIAMRole,
-  IIFKInstanceIds,
-  IIFKPingStatus,
-  IIFKPlatformTypes,
-  IIFKResourceType,
+  InstanceInformationFilterKeyActivationIds,
+  InstanceInformationFilterKeyAgentVersion,
+  InstanceInformationFilterKeyAssociationStatus,
+  InstanceInformationFilterKeyIamRole,
+  InstanceInformationFilterKeyInstanceIds,
+  InstanceInformationFilterKeyPingStatus,
+  InstanceInformationFilterKeyPlatformTypes,
+  InstanceInformationFilterKeyResourceType,
   InstanceInformationFilterKey'
   #-}
 
-instance FromText InstanceInformationFilterKey where
-  parser = (InstanceInformationFilterKey' . mk) <$> takeText
+instance Prelude.FromText InstanceInformationFilterKey where
+  parser = InstanceInformationFilterKey' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceInformationFilterKey where
-  toText (InstanceInformationFilterKey' ci) = original ci
+instance Prelude.ToText InstanceInformationFilterKey where
+  toText (InstanceInformationFilterKey' x) = x
 
-instance Hashable InstanceInformationFilterKey
+instance Prelude.Hashable InstanceInformationFilterKey
 
-instance NFData InstanceInformationFilterKey
+instance Prelude.NFData InstanceInformationFilterKey
 
-instance ToByteString InstanceInformationFilterKey
+instance Prelude.ToByteString InstanceInformationFilterKey
 
-instance ToQuery InstanceInformationFilterKey
+instance Prelude.ToQuery InstanceInformationFilterKey
 
-instance ToHeader InstanceInformationFilterKey
+instance Prelude.ToHeader InstanceInformationFilterKey
 
-instance ToJSON InstanceInformationFilterKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceInformationFilterKey where
+  toJSON = Prelude.toJSONText

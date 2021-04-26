@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SSM.Types.SessionState
   ( SessionState
       ( ..,
-        Active,
-        History
+        SessionStateActive,
+        SessionStateHistory
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SessionState = SessionState' (CI Text)
+newtype SessionState = SessionState'
+  { fromSessionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: SessionState
-pattern Active = SessionState' "Active"
+pattern SessionStateActive :: SessionState
+pattern SessionStateActive = SessionState' "Active"
 
-pattern History :: SessionState
-pattern History = SessionState' "History"
+pattern SessionStateHistory :: SessionState
+pattern SessionStateHistory = SessionState' "History"
 
 {-# COMPLETE
-  Active,
-  History,
+  SessionStateActive,
+  SessionStateHistory,
   SessionState'
   #-}
 
-instance FromText SessionState where
-  parser = (SessionState' . mk) <$> takeText
+instance Prelude.FromText SessionState where
+  parser = SessionState' Prelude.<$> Prelude.takeText
 
-instance ToText SessionState where
-  toText (SessionState' ci) = original ci
+instance Prelude.ToText SessionState where
+  toText (SessionState' x) = x
 
-instance Hashable SessionState
+instance Prelude.Hashable SessionState
 
-instance NFData SessionState
+instance Prelude.NFData SessionState
 
-instance ToByteString SessionState
+instance Prelude.ToByteString SessionState
 
-instance ToQuery SessionState
+instance Prelude.ToQuery SessionState
 
-instance ToHeader SessionState
+instance Prelude.ToHeader SessionState
 
-instance ToJSON SessionState where
-  toJSON = toJSONText
+instance Prelude.ToJSON SessionState where
+  toJSON = Prelude.toJSONText

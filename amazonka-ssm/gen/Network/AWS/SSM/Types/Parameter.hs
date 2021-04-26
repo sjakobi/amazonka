@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,118 +19,155 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SSM.Types.Parameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SSM.Types.ParameterType
 
 -- | An Systems Manager parameter in Parameter Store.
 --
---
---
--- /See:/ 'parameter' smart constructor.
+-- /See:/ 'newParameter' smart constructor.
 data Parameter = Parameter'
-  { _parLastModifiedDate ::
-      !(Maybe POSIX),
-    _parARN :: !(Maybe Text),
-    _parVersion :: !(Maybe Integer),
-    _parName :: !(Maybe Text),
-    _parSourceResult :: !(Maybe Text),
-    _parValue :: !(Maybe Text),
-    _parType :: !(Maybe ParameterType),
-    _parDataType :: !(Maybe Text),
-    _parSelector :: !(Maybe Text)
+  { -- | Date the parameter was last changed or updated and the parameter version
+    -- was created.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the parameter.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The parameter version.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the parameter.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Applies to parameters that reference information in other AWS services.
+    -- SourceResult is the raw result or response from the source.
+    sourceResult :: Prelude.Maybe Prelude.Text,
+    -- | The parameter value.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The type of parameter. Valid values include the following: @String@,
+    -- @StringList@, and @SecureString@.
+    type' :: Prelude.Maybe ParameterType,
+    -- | The data type of the parameter, such as @text@ or @aws:ec2:image@. The
+    -- default is @text@.
+    dataType :: Prelude.Maybe Prelude.Text,
+    -- | Either the version number or the label used to retrieve the parameter
+    -- value. Specify selectors by using one of the following formats:
+    --
+    -- parameter_name:version
+    --
+    -- parameter_name:label
+    selector :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Parameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Parameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'parLastModifiedDate' - Date the parameter was last changed or updated and the parameter version was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'parARN' - The Amazon Resource Name (ARN) of the parameter.
+-- 'lastModifiedDate', 'parameter_lastModifiedDate' - Date the parameter was last changed or updated and the parameter version
+-- was created.
 --
--- * 'parVersion' - The parameter version.
+-- 'aRN', 'parameter_aRN' - The Amazon Resource Name (ARN) of the parameter.
 --
--- * 'parName' - The name of the parameter.
+-- 'version', 'parameter_version' - The parameter version.
 --
--- * 'parSourceResult' - Applies to parameters that reference information in other AWS services. SourceResult is the raw result or response from the source.
+-- 'name', 'parameter_name' - The name of the parameter.
 --
--- * 'parValue' - The parameter value.
+-- 'sourceResult', 'parameter_sourceResult' - Applies to parameters that reference information in other AWS services.
+-- SourceResult is the raw result or response from the source.
 --
--- * 'parType' - The type of parameter. Valid values include the following: @String@ , @StringList@ , and @SecureString@ .
+-- 'value', 'parameter_value' - The parameter value.
 --
--- * 'parDataType' - The data type of the parameter, such as @text@ or @aws:ec2:image@ . The default is @text@ .
+-- 'type'', 'parameter_type' - The type of parameter. Valid values include the following: @String@,
+-- @StringList@, and @SecureString@.
 --
--- * 'parSelector' - Either the version number or the label used to retrieve the parameter value. Specify selectors by using one of the following formats: parameter_name:version parameter_name:label
-parameter ::
+-- 'dataType', 'parameter_dataType' - The data type of the parameter, such as @text@ or @aws:ec2:image@. The
+-- default is @text@.
+--
+-- 'selector', 'parameter_selector' - Either the version number or the label used to retrieve the parameter
+-- value. Specify selectors by using one of the following formats:
+--
+-- parameter_name:version
+--
+-- parameter_name:label
+newParameter ::
   Parameter
-parameter =
+newParameter =
   Parameter'
-    { _parLastModifiedDate = Nothing,
-      _parARN = Nothing,
-      _parVersion = Nothing,
-      _parName = Nothing,
-      _parSourceResult = Nothing,
-      _parValue = Nothing,
-      _parType = Nothing,
-      _parDataType = Nothing,
-      _parSelector = Nothing
+    { lastModifiedDate = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      version = Prelude.Nothing,
+      name = Prelude.Nothing,
+      sourceResult = Prelude.Nothing,
+      value = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      dataType = Prelude.Nothing,
+      selector = Prelude.Nothing
     }
 
--- | Date the parameter was last changed or updated and the parameter version was created.
-parLastModifiedDate :: Lens' Parameter (Maybe UTCTime)
-parLastModifiedDate = lens _parLastModifiedDate (\s a -> s {_parLastModifiedDate = a}) . mapping _Time
+-- | Date the parameter was last changed or updated and the parameter version
+-- was created.
+parameter_lastModifiedDate :: Lens.Lens' Parameter (Prelude.Maybe Prelude.UTCTime)
+parameter_lastModifiedDate = Lens.lens (\Parameter' {lastModifiedDate} -> lastModifiedDate) (\s@Parameter' {} a -> s {lastModifiedDate = a} :: Parameter) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the parameter.
-parARN :: Lens' Parameter (Maybe Text)
-parARN = lens _parARN (\s a -> s {_parARN = a})
+parameter_aRN :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_aRN = Lens.lens (\Parameter' {aRN} -> aRN) (\s@Parameter' {} a -> s {aRN = a} :: Parameter)
 
 -- | The parameter version.
-parVersion :: Lens' Parameter (Maybe Integer)
-parVersion = lens _parVersion (\s a -> s {_parVersion = a})
+parameter_version :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Integer)
+parameter_version = Lens.lens (\Parameter' {version} -> version) (\s@Parameter' {} a -> s {version = a} :: Parameter)
 
 -- | The name of the parameter.
-parName :: Lens' Parameter (Maybe Text)
-parName = lens _parName (\s a -> s {_parName = a})
+parameter_name :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_name = Lens.lens (\Parameter' {name} -> name) (\s@Parameter' {} a -> s {name = a} :: Parameter)
 
--- | Applies to parameters that reference information in other AWS services. SourceResult is the raw result or response from the source.
-parSourceResult :: Lens' Parameter (Maybe Text)
-parSourceResult = lens _parSourceResult (\s a -> s {_parSourceResult = a})
+-- | Applies to parameters that reference information in other AWS services.
+-- SourceResult is the raw result or response from the source.
+parameter_sourceResult :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_sourceResult = Lens.lens (\Parameter' {sourceResult} -> sourceResult) (\s@Parameter' {} a -> s {sourceResult = a} :: Parameter)
 
 -- | The parameter value.
-parValue :: Lens' Parameter (Maybe Text)
-parValue = lens _parValue (\s a -> s {_parValue = a})
+parameter_value :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_value = Lens.lens (\Parameter' {value} -> value) (\s@Parameter' {} a -> s {value = a} :: Parameter)
 
--- | The type of parameter. Valid values include the following: @String@ , @StringList@ , and @SecureString@ .
-parType :: Lens' Parameter (Maybe ParameterType)
-parType = lens _parType (\s a -> s {_parType = a})
+-- | The type of parameter. Valid values include the following: @String@,
+-- @StringList@, and @SecureString@.
+parameter_type :: Lens.Lens' Parameter (Prelude.Maybe ParameterType)
+parameter_type = Lens.lens (\Parameter' {type'} -> type') (\s@Parameter' {} a -> s {type' = a} :: Parameter)
 
--- | The data type of the parameter, such as @text@ or @aws:ec2:image@ . The default is @text@ .
-parDataType :: Lens' Parameter (Maybe Text)
-parDataType = lens _parDataType (\s a -> s {_parDataType = a})
+-- | The data type of the parameter, such as @text@ or @aws:ec2:image@. The
+-- default is @text@.
+parameter_dataType :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_dataType = Lens.lens (\Parameter' {dataType} -> dataType) (\s@Parameter' {} a -> s {dataType = a} :: Parameter)
 
--- | Either the version number or the label used to retrieve the parameter value. Specify selectors by using one of the following formats: parameter_name:version parameter_name:label
-parSelector :: Lens' Parameter (Maybe Text)
-parSelector = lens _parSelector (\s a -> s {_parSelector = a})
+-- | Either the version number or the label used to retrieve the parameter
+-- value. Specify selectors by using one of the following formats:
+--
+-- parameter_name:version
+--
+-- parameter_name:label
+parameter_selector :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_selector = Lens.lens (\Parameter' {selector} -> selector) (\s@Parameter' {} a -> s {selector = a} :: Parameter)
 
-instance FromJSON Parameter where
+instance Prelude.FromJSON Parameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Parameter"
       ( \x ->
           Parameter'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "ARN")
-            <*> (x .:? "Version")
-            <*> (x .:? "Name")
-            <*> (x .:? "SourceResult")
-            <*> (x .:? "Value")
-            <*> (x .:? "Type")
-            <*> (x .:? "DataType")
-            <*> (x .:? "Selector")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "ARN")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "SourceResult")
+            Prelude.<*> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "DataType")
+            Prelude.<*> (x Prelude..:? "Selector")
       )
 
-instance Hashable Parameter
+instance Prelude.Hashable Parameter
 
-instance NFData Parameter
+instance Prelude.NFData Parameter

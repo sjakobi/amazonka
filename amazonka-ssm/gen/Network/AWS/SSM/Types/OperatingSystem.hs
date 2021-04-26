@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,96 +19,98 @@
 module Network.AWS.SSM.Types.OperatingSystem
   ( OperatingSystem
       ( ..,
-        AmazonLinux,
-        AmazonLinux2,
-        Centos,
-        Debian,
-        MACos,
-        OracleLinux,
-        RedhatEnterpriseLinux,
-        Suse,
-        Ubuntu,
-        Windows
+        OperatingSystemAMAZONLINUX,
+        OperatingSystemAMAZONLINUX2,
+        OperatingSystemCENTOS,
+        OperatingSystemDEBIAN,
+        OperatingSystemMACOS,
+        OperatingSystemORACLELINUX,
+        OperatingSystemREDHATENTERPRISELINUX,
+        OperatingSystemSUSE,
+        OperatingSystemUBUNTU,
+        OperatingSystemWINDOWS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperatingSystem = OperatingSystem' (CI Text)
+newtype OperatingSystem = OperatingSystem'
+  { fromOperatingSystem ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AmazonLinux :: OperatingSystem
-pattern AmazonLinux = OperatingSystem' "AMAZON_LINUX"
+pattern OperatingSystemAMAZONLINUX :: OperatingSystem
+pattern OperatingSystemAMAZONLINUX = OperatingSystem' "AMAZON_LINUX"
 
-pattern AmazonLinux2 :: OperatingSystem
-pattern AmazonLinux2 = OperatingSystem' "AMAZON_LINUX_2"
+pattern OperatingSystemAMAZONLINUX2 :: OperatingSystem
+pattern OperatingSystemAMAZONLINUX2 = OperatingSystem' "AMAZON_LINUX_2"
 
-pattern Centos :: OperatingSystem
-pattern Centos = OperatingSystem' "CENTOS"
+pattern OperatingSystemCENTOS :: OperatingSystem
+pattern OperatingSystemCENTOS = OperatingSystem' "CENTOS"
 
-pattern Debian :: OperatingSystem
-pattern Debian = OperatingSystem' "DEBIAN"
+pattern OperatingSystemDEBIAN :: OperatingSystem
+pattern OperatingSystemDEBIAN = OperatingSystem' "DEBIAN"
 
-pattern MACos :: OperatingSystem
-pattern MACos = OperatingSystem' "MACOS"
+pattern OperatingSystemMACOS :: OperatingSystem
+pattern OperatingSystemMACOS = OperatingSystem' "MACOS"
 
-pattern OracleLinux :: OperatingSystem
-pattern OracleLinux = OperatingSystem' "ORACLE_LINUX"
+pattern OperatingSystemORACLELINUX :: OperatingSystem
+pattern OperatingSystemORACLELINUX = OperatingSystem' "ORACLE_LINUX"
 
-pattern RedhatEnterpriseLinux :: OperatingSystem
-pattern RedhatEnterpriseLinux = OperatingSystem' "REDHAT_ENTERPRISE_LINUX"
+pattern OperatingSystemREDHATENTERPRISELINUX :: OperatingSystem
+pattern OperatingSystemREDHATENTERPRISELINUX = OperatingSystem' "REDHAT_ENTERPRISE_LINUX"
 
-pattern Suse :: OperatingSystem
-pattern Suse = OperatingSystem' "SUSE"
+pattern OperatingSystemSUSE :: OperatingSystem
+pattern OperatingSystemSUSE = OperatingSystem' "SUSE"
 
-pattern Ubuntu :: OperatingSystem
-pattern Ubuntu = OperatingSystem' "UBUNTU"
+pattern OperatingSystemUBUNTU :: OperatingSystem
+pattern OperatingSystemUBUNTU = OperatingSystem' "UBUNTU"
 
-pattern Windows :: OperatingSystem
-pattern Windows = OperatingSystem' "WINDOWS"
+pattern OperatingSystemWINDOWS :: OperatingSystem
+pattern OperatingSystemWINDOWS = OperatingSystem' "WINDOWS"
 
 {-# COMPLETE
-  AmazonLinux,
-  AmazonLinux2,
-  Centos,
-  Debian,
-  MACos,
-  OracleLinux,
-  RedhatEnterpriseLinux,
-  Suse,
-  Ubuntu,
-  Windows,
+  OperatingSystemAMAZONLINUX,
+  OperatingSystemAMAZONLINUX2,
+  OperatingSystemCENTOS,
+  OperatingSystemDEBIAN,
+  OperatingSystemMACOS,
+  OperatingSystemORACLELINUX,
+  OperatingSystemREDHATENTERPRISELINUX,
+  OperatingSystemSUSE,
+  OperatingSystemUBUNTU,
+  OperatingSystemWINDOWS,
   OperatingSystem'
   #-}
 
-instance FromText OperatingSystem where
-  parser = (OperatingSystem' . mk) <$> takeText
+instance Prelude.FromText OperatingSystem where
+  parser = OperatingSystem' Prelude.<$> Prelude.takeText
 
-instance ToText OperatingSystem where
-  toText (OperatingSystem' ci) = original ci
+instance Prelude.ToText OperatingSystem where
+  toText (OperatingSystem' x) = x
 
-instance Hashable OperatingSystem
+instance Prelude.Hashable OperatingSystem
 
-instance NFData OperatingSystem
+instance Prelude.NFData OperatingSystem
 
-instance ToByteString OperatingSystem
+instance Prelude.ToByteString OperatingSystem
 
-instance ToQuery OperatingSystem
+instance Prelude.ToQuery OperatingSystem
 
-instance ToHeader OperatingSystem
+instance Prelude.ToHeader OperatingSystem
 
-instance ToJSON OperatingSystem where
-  toJSON = toJSONText
+instance Prelude.ToJSON OperatingSystem where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OperatingSystem where
-  parseJSON = parseJSONText "OperatingSystem"
+instance Prelude.FromJSON OperatingSystem where
+  parseJSON = Prelude.parseJSONText "OperatingSystem"
