@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a group that can be used in Amazon WorkMail by calling the 'RegisterToWorkMail' operation.
+-- Creates a group that can be used in Amazon WorkMail by calling the
+-- RegisterToWorkMail operation.
 module Network.AWS.WorkMail.CreateGroup
   ( -- * Creating a Request
-    createGroup,
-    CreateGroup,
+    CreateGroup (..),
+    newCreateGroup,
 
     -- * Request Lenses
-    cgOrganizationId,
-    cgName,
+    createGroup_organizationId,
+    createGroup_name,
 
     -- * Destructuring the Response
-    createGroupResponse,
-    CreateGroupResponse,
+    CreateGroupResponse (..),
+    newCreateGroupResponse,
 
     -- * Response Lenses
-    cgrrsGroupId,
-    cgrrsResponseStatus,
+    createGroupResponse_groupId,
+    createGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'createGroup' smart constructor.
+-- | /See:/ 'newCreateGroup' smart constructor.
 data CreateGroup = CreateGroup'
-  { _cgOrganizationId ::
-      !Text,
-    _cgName :: !Text
+  { -- | The organization under which the group is to be created.
+    organizationId :: Prelude.Text,
+    -- | The name of the group.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgOrganizationId' - The organization under which the group is to be created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgName' - The name of the group.
-createGroup ::
-  -- | 'cgOrganizationId'
-  Text ->
-  -- | 'cgName'
-  Text ->
+-- 'organizationId', 'createGroup_organizationId' - The organization under which the group is to be created.
+--
+-- 'name', 'createGroup_name' - The name of the group.
+newCreateGroup ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   CreateGroup
-createGroup pOrganizationId_ pName_ =
+newCreateGroup pOrganizationId_ pName_ =
   CreateGroup'
-    { _cgOrganizationId = pOrganizationId_,
-      _cgName = pName_
+    { organizationId = pOrganizationId_,
+      name = pName_
     }
 
 -- | The organization under which the group is to be created.
-cgOrganizationId :: Lens' CreateGroup Text
-cgOrganizationId = lens _cgOrganizationId (\s a -> s {_cgOrganizationId = a})
+createGroup_organizationId :: Lens.Lens' CreateGroup Prelude.Text
+createGroup_organizationId = Lens.lens (\CreateGroup' {organizationId} -> organizationId) (\s@CreateGroup' {} a -> s {organizationId = a} :: CreateGroup)
 
 -- | The name of the group.
-cgName :: Lens' CreateGroup Text
-cgName = lens _cgName (\s a -> s {_cgName = a})
+createGroup_name :: Lens.Lens' CreateGroup Prelude.Text
+createGroup_name = Lens.lens (\CreateGroup' {name} -> name) (\s@CreateGroup' {} a -> s {name = a} :: CreateGroup)
 
-instance AWSRequest CreateGroup where
+instance Prelude.AWSRequest CreateGroup where
   type Rs CreateGroup = CreateGroupResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateGroupResponse'
-            <$> (x .?> "GroupId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GroupId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateGroup
+instance Prelude.Hashable CreateGroup
 
-instance NFData CreateGroup
+instance Prelude.NFData CreateGroup
 
-instance ToHeaders CreateGroup where
+instance Prelude.ToHeaders CreateGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.CreateGroup" :: ByteString),
+              Prelude.=# ( "WorkMailService.CreateGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateGroup where
+instance Prelude.ToJSON CreateGroup where
   toJSON CreateGroup' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _cgOrganizationId),
-            Just ("Name" .= _cgName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createGroupResponse' smart constructor.
+-- | /See:/ 'newCreateGroupResponse' smart constructor.
 data CreateGroupResponse = CreateGroupResponse'
-  { _cgrrsGroupId ::
-      !(Maybe Text),
-    _cgrrsResponseStatus :: !Int
+  { -- | The identifier of the group.
+    groupId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgrrsGroupId' - The identifier of the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgrrsResponseStatus' - -- | The response status code.
-createGroupResponse ::
-  -- | 'cgrrsResponseStatus'
-  Int ->
+-- 'groupId', 'createGroupResponse_groupId' - The identifier of the group.
+--
+-- 'httpStatus', 'createGroupResponse_httpStatus' - The response's http status code.
+newCreateGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateGroupResponse
-createGroupResponse pResponseStatus_ =
+newCreateGroupResponse pHttpStatus_ =
   CreateGroupResponse'
-    { _cgrrsGroupId = Nothing,
-      _cgrrsResponseStatus = pResponseStatus_
+    { groupId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier of the group.
-cgrrsGroupId :: Lens' CreateGroupResponse (Maybe Text)
-cgrrsGroupId = lens _cgrrsGroupId (\s a -> s {_cgrrsGroupId = a})
+createGroupResponse_groupId :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
+createGroupResponse_groupId = Lens.lens (\CreateGroupResponse' {groupId} -> groupId) (\s@CreateGroupResponse' {} a -> s {groupId = a} :: CreateGroupResponse)
 
--- | -- | The response status code.
-cgrrsResponseStatus :: Lens' CreateGroupResponse Int
-cgrrsResponseStatus = lens _cgrrsResponseStatus (\s a -> s {_cgrrsResponseStatus = a})
+-- | The response's http status code.
+createGroupResponse_httpStatus :: Lens.Lens' CreateGroupResponse Prelude.Int
+createGroupResponse_httpStatus = Lens.lens (\CreateGroupResponse' {httpStatus} -> httpStatus) (\s@CreateGroupResponse' {} a -> s {httpStatus = a} :: CreateGroupResponse)
 
-instance NFData CreateGroupResponse
+instance Prelude.NFData CreateGroupResponse

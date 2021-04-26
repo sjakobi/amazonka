@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.WorkMail.Types.RetentionAction
   ( RetentionAction
       ( ..,
-        Delete,
-        None,
-        PermanentlyDelete
+        RetentionActionDELETE,
+        RetentionActionNONE,
+        RetentionActionPERMANENTLYDELETE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RetentionAction = RetentionAction' (CI Text)
+newtype RetentionAction = RetentionAction'
+  { fromRetentionAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Delete :: RetentionAction
-pattern Delete = RetentionAction' "DELETE"
+pattern RetentionActionDELETE :: RetentionAction
+pattern RetentionActionDELETE = RetentionAction' "DELETE"
 
-pattern None :: RetentionAction
-pattern None = RetentionAction' "NONE"
+pattern RetentionActionNONE :: RetentionAction
+pattern RetentionActionNONE = RetentionAction' "NONE"
 
-pattern PermanentlyDelete :: RetentionAction
-pattern PermanentlyDelete = RetentionAction' "PERMANENTLY_DELETE"
+pattern RetentionActionPERMANENTLYDELETE :: RetentionAction
+pattern RetentionActionPERMANENTLYDELETE = RetentionAction' "PERMANENTLY_DELETE"
 
 {-# COMPLETE
-  Delete,
-  None,
-  PermanentlyDelete,
+  RetentionActionDELETE,
+  RetentionActionNONE,
+  RetentionActionPERMANENTLYDELETE,
   RetentionAction'
   #-}
 
-instance FromText RetentionAction where
-  parser = (RetentionAction' . mk) <$> takeText
+instance Prelude.FromText RetentionAction where
+  parser = RetentionAction' Prelude.<$> Prelude.takeText
 
-instance ToText RetentionAction where
-  toText (RetentionAction' ci) = original ci
+instance Prelude.ToText RetentionAction where
+  toText (RetentionAction' x) = x
 
-instance Hashable RetentionAction
+instance Prelude.Hashable RetentionAction
 
-instance NFData RetentionAction
+instance Prelude.NFData RetentionAction
 
-instance ToByteString RetentionAction
+instance Prelude.ToByteString RetentionAction
 
-instance ToQuery RetentionAction
+instance Prelude.ToQuery RetentionAction
 
-instance ToHeader RetentionAction
+instance Prelude.ToHeader RetentionAction
 
-instance ToJSON RetentionAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON RetentionAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RetentionAction where
-  parseJSON = parseJSONText "RetentionAction"
+instance Prelude.FromJSON RetentionAction where
+  parseJSON = Prelude.parseJSONText "RetentionAction"

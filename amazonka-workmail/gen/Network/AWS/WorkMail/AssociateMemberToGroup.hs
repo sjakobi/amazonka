@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds a member (user or group) to the group's set.
+-- Adds a member (user or group) to the group\'s set.
 module Network.AWS.WorkMail.AssociateMemberToGroup
   ( -- * Creating a Request
-    associateMemberToGroup,
-    AssociateMemberToGroup,
+    AssociateMemberToGroup (..),
+    newAssociateMemberToGroup,
 
     -- * Request Lenses
-    amtgOrganizationId,
-    amtgGroupId,
-    amtgMemberId,
+    associateMemberToGroup_organizationId,
+    associateMemberToGroup_groupId,
+    associateMemberToGroup_memberId,
 
     -- * Destructuring the Response
-    associateMemberToGroupResponse,
-    AssociateMemberToGroupResponse,
+    AssociateMemberToGroupResponse (..),
+    newAssociateMemberToGroupResponse,
 
     -- * Response Lenses
-    amtgrrsResponseStatus,
+    associateMemberToGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'associateMemberToGroup' smart constructor.
+-- | /See:/ 'newAssociateMemberToGroup' smart constructor.
 data AssociateMemberToGroup = AssociateMemberToGroup'
-  { _amtgOrganizationId ::
-      !Text,
-    _amtgGroupId :: !Text,
-    _amtgMemberId :: !Text
+  { -- | The organization under which the group exists.
+    organizationId :: Prelude.Text,
+    -- | The group to which the member (user or group) is associated.
+    groupId :: Prelude.Text,
+    -- | The member (user or group) to associate to the group.
+    memberId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateMemberToGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateMemberToGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amtgOrganizationId' - The organization under which the group exists.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amtgGroupId' - The group to which the member (user or group) is associated.
+-- 'organizationId', 'associateMemberToGroup_organizationId' - The organization under which the group exists.
 --
--- * 'amtgMemberId' - The member (user or group) to associate to the group.
-associateMemberToGroup ::
-  -- | 'amtgOrganizationId'
-  Text ->
-  -- | 'amtgGroupId'
-  Text ->
-  -- | 'amtgMemberId'
-  Text ->
+-- 'groupId', 'associateMemberToGroup_groupId' - The group to which the member (user or group) is associated.
+--
+-- 'memberId', 'associateMemberToGroup_memberId' - The member (user or group) to associate to the group.
+newAssociateMemberToGroup ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'groupId'
+  Prelude.Text ->
+  -- | 'memberId'
+  Prelude.Text ->
   AssociateMemberToGroup
-associateMemberToGroup
+newAssociateMemberToGroup
   pOrganizationId_
   pGroupId_
   pMemberId_ =
     AssociateMemberToGroup'
-      { _amtgOrganizationId =
+      { organizationId =
           pOrganizationId_,
-        _amtgGroupId = pGroupId_,
-        _amtgMemberId = pMemberId_
+        groupId = pGroupId_,
+        memberId = pMemberId_
       }
 
 -- | The organization under which the group exists.
-amtgOrganizationId :: Lens' AssociateMemberToGroup Text
-amtgOrganizationId = lens _amtgOrganizationId (\s a -> s {_amtgOrganizationId = a})
+associateMemberToGroup_organizationId :: Lens.Lens' AssociateMemberToGroup Prelude.Text
+associateMemberToGroup_organizationId = Lens.lens (\AssociateMemberToGroup' {organizationId} -> organizationId) (\s@AssociateMemberToGroup' {} a -> s {organizationId = a} :: AssociateMemberToGroup)
 
 -- | The group to which the member (user or group) is associated.
-amtgGroupId :: Lens' AssociateMemberToGroup Text
-amtgGroupId = lens _amtgGroupId (\s a -> s {_amtgGroupId = a})
+associateMemberToGroup_groupId :: Lens.Lens' AssociateMemberToGroup Prelude.Text
+associateMemberToGroup_groupId = Lens.lens (\AssociateMemberToGroup' {groupId} -> groupId) (\s@AssociateMemberToGroup' {} a -> s {groupId = a} :: AssociateMemberToGroup)
 
 -- | The member (user or group) to associate to the group.
-amtgMemberId :: Lens' AssociateMemberToGroup Text
-amtgMemberId = lens _amtgMemberId (\s a -> s {_amtgMemberId = a})
+associateMemberToGroup_memberId :: Lens.Lens' AssociateMemberToGroup Prelude.Text
+associateMemberToGroup_memberId = Lens.lens (\AssociateMemberToGroup' {memberId} -> memberId) (\s@AssociateMemberToGroup' {} a -> s {memberId = a} :: AssociateMemberToGroup)
 
-instance AWSRequest AssociateMemberToGroup where
+instance Prelude.AWSRequest AssociateMemberToGroup where
   type
     Rs AssociateMemberToGroup =
       AssociateMemberToGroupResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateMemberToGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateMemberToGroup
+instance Prelude.Hashable AssociateMemberToGroup
 
-instance NFData AssociateMemberToGroup
+instance Prelude.NFData AssociateMemberToGroup
 
-instance ToHeaders AssociateMemberToGroup where
+instance Prelude.ToHeaders AssociateMemberToGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.AssociateMemberToGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.AssociateMemberToGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateMemberToGroup where
+instance Prelude.ToJSON AssociateMemberToGroup where
   toJSON AssociateMemberToGroup' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _amtgOrganizationId),
-            Just ("GroupId" .= _amtgGroupId),
-            Just ("MemberId" .= _amtgMemberId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("GroupId" Prelude..= groupId),
+            Prelude.Just ("MemberId" Prelude..= memberId)
           ]
       )
 
-instance ToPath AssociateMemberToGroup where
-  toPath = const "/"
+instance Prelude.ToPath AssociateMemberToGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateMemberToGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateMemberToGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateMemberToGroupResponse' smart constructor.
-newtype AssociateMemberToGroupResponse = AssociateMemberToGroupResponse'
-  { _amtgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateMemberToGroupResponse' smart constructor.
+data AssociateMemberToGroupResponse = AssociateMemberToGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateMemberToGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateMemberToGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amtgrrsResponseStatus' - -- | The response status code.
-associateMemberToGroupResponse ::
-  -- | 'amtgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateMemberToGroupResponse_httpStatus' - The response's http status code.
+newAssociateMemberToGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateMemberToGroupResponse
-associateMemberToGroupResponse pResponseStatus_ =
+newAssociateMemberToGroupResponse pHttpStatus_ =
   AssociateMemberToGroupResponse'
-    { _amtgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-amtgrrsResponseStatus :: Lens' AssociateMemberToGroupResponse Int
-amtgrrsResponseStatus = lens _amtgrrsResponseStatus (\s a -> s {_amtgrrsResponseStatus = a})
+-- | The response's http status code.
+associateMemberToGroupResponse_httpStatus :: Lens.Lens' AssociateMemberToGroupResponse Prelude.Int
+associateMemberToGroupResponse_httpStatus = Lens.lens (\AssociateMemberToGroupResponse' {httpStatus} -> httpStatus) (\s@AssociateMemberToGroupResponse' {} a -> s {httpStatus = a} :: AssociateMemberToGroupResponse)
 
-instance NFData AssociateMemberToGroupResponse
+instance
+  Prelude.NFData
+    AssociateMemberToGroupResponse

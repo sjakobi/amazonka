@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,194 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new Amazon WorkMail organization. Optionally, you can choose to associate an existing AWS Directory Service directory with your organization. If an AWS Directory Service directory ID is specified, the organization alias must match the directory alias. If you choose not to associate an existing directory with your organization, then we create a new Amazon WorkMail directory for you. For more information, see <https://docs.aws.amazon.com/workmail/latest/adminguide/add_new_organization.html Adding an organization> in the /Amazon WorkMail Administrator Guide/ .
+-- Creates a new Amazon WorkMail organization. Optionally, you can choose
+-- to associate an existing AWS Directory Service directory with your
+-- organization. If an AWS Directory Service directory ID is specified, the
+-- organization alias must match the directory alias. If you choose not to
+-- associate an existing directory with your organization, then we create a
+-- new Amazon WorkMail directory for you. For more information, see
+-- <https://docs.aws.amazon.com/workmail/latest/adminguide/add_new_organization.html Adding an organization>
+-- in the /Amazon WorkMail Administrator Guide/.
 --
+-- You can associate multiple email domains with an organization, then set
+-- your default email domain from the Amazon WorkMail console. You can also
+-- associate a domain that is managed in an Amazon Route 53 public hosted
+-- zone. For more information, see
+-- <https://docs.aws.amazon.com/workmail/latest/adminguide/add_domain.html Adding a domain>
+-- and
+-- <https://docs.aws.amazon.com/workmail/latest/adminguide/default_domain.html Choosing the default domain>
+-- in the /Amazon WorkMail Administrator Guide/.
 --
--- You can associate multiple email domains with an organization, then set your default email domain from the Amazon WorkMail console. You can also associate a domain that is managed in an Amazon Route 53 public hosted zone. For more information, see <https://docs.aws.amazon.com/workmail/latest/adminguide/add_domain.html Adding a domain> and <https://docs.aws.amazon.com/workmail/latest/adminguide/default_domain.html Choosing the default domain> in the /Amazon WorkMail Administrator Guide/ .
---
--- Optionally, you can use a customer managed master key from AWS Key Management Service (AWS KMS) to encrypt email for your organization. If you don't associate an AWS KMS key, Amazon WorkMail creates a default AWS managed master key for you.
+-- Optionally, you can use a customer managed master key from AWS Key
+-- Management Service (AWS KMS) to encrypt email for your organization. If
+-- you don\'t associate an AWS KMS key, Amazon WorkMail creates a default
+-- AWS managed master key for you.
 module Network.AWS.WorkMail.CreateOrganization
   ( -- * Creating a Request
-    createOrganization,
-    CreateOrganization,
+    CreateOrganization (..),
+    newCreateOrganization,
 
     -- * Request Lenses
-    coEnableInteroperability,
-    coDomains,
-    coKMSKeyARN,
-    coDirectoryId,
-    coClientToken,
-    coAlias,
+    createOrganization_enableInteroperability,
+    createOrganization_domains,
+    createOrganization_kmsKeyArn,
+    createOrganization_directoryId,
+    createOrganization_clientToken,
+    createOrganization_alias,
 
     -- * Destructuring the Response
-    createOrganizationResponse,
-    CreateOrganizationResponse,
+    CreateOrganizationResponse (..),
+    newCreateOrganizationResponse,
 
     -- * Response Lenses
-    corrsOrganizationId,
-    corrsResponseStatus,
+    createOrganizationResponse_organizationId,
+    createOrganizationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'createOrganization' smart constructor.
+-- | /See:/ 'newCreateOrganization' smart constructor.
 data CreateOrganization = CreateOrganization'
-  { _coEnableInteroperability ::
-      !(Maybe Bool),
-    _coDomains :: !(Maybe [Domain]),
-    _coKMSKeyARN :: !(Maybe Text),
-    _coDirectoryId :: !(Maybe Text),
-    _coClientToken :: !(Maybe Text),
-    _coAlias :: !Text
+  { -- | When @true@, allows organization interoperability between Amazon
+    -- WorkMail and Microsoft Exchange. Can only be set to @true@ if an AD
+    -- Connector directory ID is included in the request.
+    enableInteroperability :: Prelude.Maybe Prelude.Bool,
+    -- | The email domains to associate with the organization.
+    domains :: Prelude.Maybe [Domain],
+    -- | The Amazon Resource Name (ARN) of a customer managed master key from AWS
+    -- KMS.
+    kmsKeyArn :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Directory Service directory ID.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | The idempotency token associated with the request.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The organization alias.
+    alias :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateOrganization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateOrganization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'coEnableInteroperability' - When @true@ , allows organization interoperability between Amazon WorkMail and Microsoft Exchange. Can only be set to @true@ if an AD Connector directory ID is included in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'coDomains' - The email domains to associate with the organization.
+-- 'enableInteroperability', 'createOrganization_enableInteroperability' - When @true@, allows organization interoperability between Amazon
+-- WorkMail and Microsoft Exchange. Can only be set to @true@ if an AD
+-- Connector directory ID is included in the request.
 --
--- * 'coKMSKeyARN' - The Amazon Resource Name (ARN) of a customer managed master key from AWS KMS.
+-- 'domains', 'createOrganization_domains' - The email domains to associate with the organization.
 --
--- * 'coDirectoryId' - The AWS Directory Service directory ID.
+-- 'kmsKeyArn', 'createOrganization_kmsKeyArn' - The Amazon Resource Name (ARN) of a customer managed master key from AWS
+-- KMS.
 --
--- * 'coClientToken' - The idempotency token associated with the request.
+-- 'directoryId', 'createOrganization_directoryId' - The AWS Directory Service directory ID.
 --
--- * 'coAlias' - The organization alias.
-createOrganization ::
-  -- | 'coAlias'
-  Text ->
+-- 'clientToken', 'createOrganization_clientToken' - The idempotency token associated with the request.
+--
+-- 'alias', 'createOrganization_alias' - The organization alias.
+newCreateOrganization ::
+  -- | 'alias'
+  Prelude.Text ->
   CreateOrganization
-createOrganization pAlias_ =
+newCreateOrganization pAlias_ =
   CreateOrganization'
-    { _coEnableInteroperability =
-        Nothing,
-      _coDomains = Nothing,
-      _coKMSKeyARN = Nothing,
-      _coDirectoryId = Nothing,
-      _coClientToken = Nothing,
-      _coAlias = pAlias_
+    { enableInteroperability =
+        Prelude.Nothing,
+      domains = Prelude.Nothing,
+      kmsKeyArn = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
+      alias = pAlias_
     }
 
--- | When @true@ , allows organization interoperability between Amazon WorkMail and Microsoft Exchange. Can only be set to @true@ if an AD Connector directory ID is included in the request.
-coEnableInteroperability :: Lens' CreateOrganization (Maybe Bool)
-coEnableInteroperability = lens _coEnableInteroperability (\s a -> s {_coEnableInteroperability = a})
+-- | When @true@, allows organization interoperability between Amazon
+-- WorkMail and Microsoft Exchange. Can only be set to @true@ if an AD
+-- Connector directory ID is included in the request.
+createOrganization_enableInteroperability :: Lens.Lens' CreateOrganization (Prelude.Maybe Prelude.Bool)
+createOrganization_enableInteroperability = Lens.lens (\CreateOrganization' {enableInteroperability} -> enableInteroperability) (\s@CreateOrganization' {} a -> s {enableInteroperability = a} :: CreateOrganization)
 
 -- | The email domains to associate with the organization.
-coDomains :: Lens' CreateOrganization [Domain]
-coDomains = lens _coDomains (\s a -> s {_coDomains = a}) . _Default . _Coerce
+createOrganization_domains :: Lens.Lens' CreateOrganization (Prelude.Maybe [Domain])
+createOrganization_domains = Lens.lens (\CreateOrganization' {domains} -> domains) (\s@CreateOrganization' {} a -> s {domains = a} :: CreateOrganization) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon Resource Name (ARN) of a customer managed master key from AWS KMS.
-coKMSKeyARN :: Lens' CreateOrganization (Maybe Text)
-coKMSKeyARN = lens _coKMSKeyARN (\s a -> s {_coKMSKeyARN = a})
+-- | The Amazon Resource Name (ARN) of a customer managed master key from AWS
+-- KMS.
+createOrganization_kmsKeyArn :: Lens.Lens' CreateOrganization (Prelude.Maybe Prelude.Text)
+createOrganization_kmsKeyArn = Lens.lens (\CreateOrganization' {kmsKeyArn} -> kmsKeyArn) (\s@CreateOrganization' {} a -> s {kmsKeyArn = a} :: CreateOrganization)
 
 -- | The AWS Directory Service directory ID.
-coDirectoryId :: Lens' CreateOrganization (Maybe Text)
-coDirectoryId = lens _coDirectoryId (\s a -> s {_coDirectoryId = a})
+createOrganization_directoryId :: Lens.Lens' CreateOrganization (Prelude.Maybe Prelude.Text)
+createOrganization_directoryId = Lens.lens (\CreateOrganization' {directoryId} -> directoryId) (\s@CreateOrganization' {} a -> s {directoryId = a} :: CreateOrganization)
 
 -- | The idempotency token associated with the request.
-coClientToken :: Lens' CreateOrganization (Maybe Text)
-coClientToken = lens _coClientToken (\s a -> s {_coClientToken = a})
+createOrganization_clientToken :: Lens.Lens' CreateOrganization (Prelude.Maybe Prelude.Text)
+createOrganization_clientToken = Lens.lens (\CreateOrganization' {clientToken} -> clientToken) (\s@CreateOrganization' {} a -> s {clientToken = a} :: CreateOrganization)
 
 -- | The organization alias.
-coAlias :: Lens' CreateOrganization Text
-coAlias = lens _coAlias (\s a -> s {_coAlias = a})
+createOrganization_alias :: Lens.Lens' CreateOrganization Prelude.Text
+createOrganization_alias = Lens.lens (\CreateOrganization' {alias} -> alias) (\s@CreateOrganization' {} a -> s {alias = a} :: CreateOrganization)
 
-instance AWSRequest CreateOrganization where
+instance Prelude.AWSRequest CreateOrganization where
   type
     Rs CreateOrganization =
       CreateOrganizationResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateOrganizationResponse'
-            <$> (x .?> "OrganizationId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "OrganizationId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateOrganization
+instance Prelude.Hashable CreateOrganization
 
-instance NFData CreateOrganization
+instance Prelude.NFData CreateOrganization
 
-instance ToHeaders CreateOrganization where
+instance Prelude.ToHeaders CreateOrganization where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.CreateOrganization" :: ByteString),
+              Prelude.=# ( "WorkMailService.CreateOrganization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateOrganization where
+instance Prelude.ToJSON CreateOrganization where
   toJSON CreateOrganization' {..} =
-    object
-      ( catMaybes
-          [ ("EnableInteroperability" .=)
-              <$> _coEnableInteroperability,
-            ("Domains" .=) <$> _coDomains,
-            ("KmsKeyArn" .=) <$> _coKMSKeyARN,
-            ("DirectoryId" .=) <$> _coDirectoryId,
-            ("ClientToken" .=) <$> _coClientToken,
-            Just ("Alias" .= _coAlias)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EnableInteroperability" Prelude..=)
+              Prelude.<$> enableInteroperability,
+            ("Domains" Prelude..=) Prelude.<$> domains,
+            ("KmsKeyArn" Prelude..=) Prelude.<$> kmsKeyArn,
+            ("DirectoryId" Prelude..=) Prelude.<$> directoryId,
+            ("ClientToken" Prelude..=) Prelude.<$> clientToken,
+            Prelude.Just ("Alias" Prelude..= alias)
           ]
       )
 
-instance ToPath CreateOrganization where
-  toPath = const "/"
+instance Prelude.ToPath CreateOrganization where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateOrganization where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateOrganization where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createOrganizationResponse' smart constructor.
+-- | /See:/ 'newCreateOrganizationResponse' smart constructor.
 data CreateOrganizationResponse = CreateOrganizationResponse'
-  { _corrsOrganizationId ::
-      !(Maybe Text),
-    _corrsResponseStatus ::
-      !Int
+  { -- | The organization ID.
+    organizationId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateOrganizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateOrganizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'corrsOrganizationId' - The organization ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'corrsResponseStatus' - -- | The response status code.
-createOrganizationResponse ::
-  -- | 'corrsResponseStatus'
-  Int ->
+-- 'organizationId', 'createOrganizationResponse_organizationId' - The organization ID.
+--
+-- 'httpStatus', 'createOrganizationResponse_httpStatus' - The response's http status code.
+newCreateOrganizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateOrganizationResponse
-createOrganizationResponse pResponseStatus_ =
+newCreateOrganizationResponse pHttpStatus_ =
   CreateOrganizationResponse'
-    { _corrsOrganizationId =
-        Nothing,
-      _corrsResponseStatus = pResponseStatus_
+    { organizationId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The organization ID.
-corrsOrganizationId :: Lens' CreateOrganizationResponse (Maybe Text)
-corrsOrganizationId = lens _corrsOrganizationId (\s a -> s {_corrsOrganizationId = a})
+createOrganizationResponse_organizationId :: Lens.Lens' CreateOrganizationResponse (Prelude.Maybe Prelude.Text)
+createOrganizationResponse_organizationId = Lens.lens (\CreateOrganizationResponse' {organizationId} -> organizationId) (\s@CreateOrganizationResponse' {} a -> s {organizationId = a} :: CreateOrganizationResponse)
 
--- | -- | The response status code.
-corrsResponseStatus :: Lens' CreateOrganizationResponse Int
-corrsResponseStatus = lens _corrsResponseStatus (\s a -> s {_corrsResponseStatus = a})
+-- | The response's http status code.
+createOrganizationResponse_httpStatus :: Lens.Lens' CreateOrganizationResponse Prelude.Int
+createOrganizationResponse_httpStatus = Lens.lens (\CreateOrganizationResponse' {httpStatus} -> httpStatus) (\s@CreateOrganizationResponse' {} a -> s {httpStatus = a} :: CreateOrganizationResponse)
 
-instance NFData CreateOrganizationResponse
+instance Prelude.NFData CreateOrganizationResponse

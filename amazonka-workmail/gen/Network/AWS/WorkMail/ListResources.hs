@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns summaries of the organization's resources.
---
---
+-- Returns summaries of the organization\'s resources.
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkMail.ListResources
   ( -- * Creating a Request
-    listResources,
-    ListResources,
+    ListResources (..),
+    newListResources,
 
     -- * Request Lenses
-    lrNextToken,
-    lrMaxResults,
-    lrOrganizationId,
+    listResources_nextToken,
+    listResources_maxResults,
+    listResources_organizationId,
 
     -- * Destructuring the Response
-    listResourcesResponse,
-    ListResourcesResponse,
+    ListResourcesResponse (..),
+    newListResourcesResponse,
 
     -- * Response Lenses
-    lrrrsNextToken,
-    lrrrsResources,
-    lrrrsResponseStatus,
+    listResourcesResponse_nextToken,
+    listResourcesResponse_resources,
+    listResourcesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
+import Network.AWS.WorkMail.Types.Resource
 
--- | /See:/ 'listResources' smart constructor.
+-- | /See:/ 'newListResources' smart constructor.
 data ListResources = ListResources'
-  { _lrNextToken ::
-      !(Maybe Text),
-    _lrMaxResults :: !(Maybe Nat),
-    _lrOrganizationId :: !Text
+  { -- | The token to use to retrieve the next page of results. The first call
+    -- does not contain any tokens.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier for the organization under which the resources exist.
+    organizationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResources' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResources' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrNextToken' - The token to use to retrieve the next page of results. The first call does not contain any tokens.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrMaxResults' - The maximum number of results to return in a single call.
+-- 'nextToken', 'listResources_nextToken' - The token to use to retrieve the next page of results. The first call
+-- does not contain any tokens.
 --
--- * 'lrOrganizationId' - The identifier for the organization under which the resources exist.
-listResources ::
-  -- | 'lrOrganizationId'
-  Text ->
+-- 'maxResults', 'listResources_maxResults' - The maximum number of results to return in a single call.
+--
+-- 'organizationId', 'listResources_organizationId' - The identifier for the organization under which the resources exist.
+newListResources ::
+  -- | 'organizationId'
+  Prelude.Text ->
   ListResources
-listResources pOrganizationId_ =
+newListResources pOrganizationId_ =
   ListResources'
-    { _lrNextToken = Nothing,
-      _lrMaxResults = Nothing,
-      _lrOrganizationId = pOrganizationId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      organizationId = pOrganizationId_
     }
 
--- | The token to use to retrieve the next page of results. The first call does not contain any tokens.
-lrNextToken :: Lens' ListResources (Maybe Text)
-lrNextToken = lens _lrNextToken (\s a -> s {_lrNextToken = a})
+-- | The token to use to retrieve the next page of results. The first call
+-- does not contain any tokens.
+listResources_nextToken :: Lens.Lens' ListResources (Prelude.Maybe Prelude.Text)
+listResources_nextToken = Lens.lens (\ListResources' {nextToken} -> nextToken) (\s@ListResources' {} a -> s {nextToken = a} :: ListResources)
 
 -- | The maximum number of results to return in a single call.
-lrMaxResults :: Lens' ListResources (Maybe Natural)
-lrMaxResults = lens _lrMaxResults (\s a -> s {_lrMaxResults = a}) . mapping _Nat
+listResources_maxResults :: Lens.Lens' ListResources (Prelude.Maybe Prelude.Natural)
+listResources_maxResults = Lens.lens (\ListResources' {maxResults} -> maxResults) (\s@ListResources' {} a -> s {maxResults = a} :: ListResources) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The identifier for the organization under which the resources exist.
-lrOrganizationId :: Lens' ListResources Text
-lrOrganizationId = lens _lrOrganizationId (\s a -> s {_lrOrganizationId = a})
+listResources_organizationId :: Lens.Lens' ListResources Prelude.Text
+listResources_organizationId = Lens.lens (\ListResources' {organizationId} -> organizationId) (\s@ListResources' {} a -> s {organizationId = a} :: ListResources)
 
-instance AWSPager ListResources where
+instance Pager.AWSPager ListResources where
   page rq rs
-    | stop (rs ^. lrrrsNextToken) = Nothing
-    | stop (rs ^. lrrrsResources) = Nothing
-    | otherwise =
-      Just $ rq & lrNextToken .~ rs ^. lrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listResourcesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listResourcesResponse_resources Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listResources_nextToken
+          Lens..~ rs
+          Lens.^? listResourcesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListResources where
+instance Prelude.AWSRequest ListResources where
   type Rs ListResources = ListResourcesResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListResourcesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Resources" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Resources"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListResources
+instance Prelude.Hashable ListResources
 
-instance NFData ListResources
+instance Prelude.NFData ListResources
 
-instance ToHeaders ListResources where
+instance Prelude.ToHeaders ListResources where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.ListResources" :: ByteString),
+              Prelude.=# ( "WorkMailService.ListResources" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListResources where
+instance Prelude.ToJSON ListResources where
   toJSON ListResources' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lrNextToken,
-            ("MaxResults" .=) <$> _lrMaxResults,
-            Just ("OrganizationId" .= _lrOrganizationId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("OrganizationId" Prelude..= organizationId)
           ]
       )
 
-instance ToPath ListResources where
-  toPath = const "/"
+instance Prelude.ToPath ListResources where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListResources where
-  toQuery = const mempty
+instance Prelude.ToQuery ListResources where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listResourcesResponse' smart constructor.
+-- | /See:/ 'newListResourcesResponse' smart constructor.
 data ListResourcesResponse = ListResourcesResponse'
-  { _lrrrsNextToken ::
-      !(Maybe Text),
-    _lrrrsResources ::
-      !(Maybe [Resource]),
-    _lrrrsResponseStatus ::
-      !Int
+  { -- | The token used to paginate through all the organization\'s resources.
+    -- While results are still available, it has an associated value. When the
+    -- last page is reached, the token is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | One page of the organization\'s resource representation.
+    resources :: Prelude.Maybe [Resource],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResourcesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResourcesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrrrsNextToken' - The token used to paginate through all the organization's resources. While results are still available, it has an associated value. When the last page is reached, the token is empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrrrsResources' - One page of the organization's resource representation.
+-- 'nextToken', 'listResourcesResponse_nextToken' - The token used to paginate through all the organization\'s resources.
+-- While results are still available, it has an associated value. When the
+-- last page is reached, the token is empty.
 --
--- * 'lrrrsResponseStatus' - -- | The response status code.
-listResourcesResponse ::
-  -- | 'lrrrsResponseStatus'
-  Int ->
+-- 'resources', 'listResourcesResponse_resources' - One page of the organization\'s resource representation.
+--
+-- 'httpStatus', 'listResourcesResponse_httpStatus' - The response's http status code.
+newListResourcesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListResourcesResponse
-listResourcesResponse pResponseStatus_ =
+newListResourcesResponse pHttpStatus_ =
   ListResourcesResponse'
-    { _lrrrsNextToken = Nothing,
-      _lrrrsResources = Nothing,
-      _lrrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      resources = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token used to paginate through all the organization's resources. While results are still available, it has an associated value. When the last page is reached, the token is empty.
-lrrrsNextToken :: Lens' ListResourcesResponse (Maybe Text)
-lrrrsNextToken = lens _lrrrsNextToken (\s a -> s {_lrrrsNextToken = a})
+-- | The token used to paginate through all the organization\'s resources.
+-- While results are still available, it has an associated value. When the
+-- last page is reached, the token is empty.
+listResourcesResponse_nextToken :: Lens.Lens' ListResourcesResponse (Prelude.Maybe Prelude.Text)
+listResourcesResponse_nextToken = Lens.lens (\ListResourcesResponse' {nextToken} -> nextToken) (\s@ListResourcesResponse' {} a -> s {nextToken = a} :: ListResourcesResponse)
 
--- | One page of the organization's resource representation.
-lrrrsResources :: Lens' ListResourcesResponse [Resource]
-lrrrsResources = lens _lrrrsResources (\s a -> s {_lrrrsResources = a}) . _Default . _Coerce
+-- | One page of the organization\'s resource representation.
+listResourcesResponse_resources :: Lens.Lens' ListResourcesResponse (Prelude.Maybe [Resource])
+listResourcesResponse_resources = Lens.lens (\ListResourcesResponse' {resources} -> resources) (\s@ListResourcesResponse' {} a -> s {resources = a} :: ListResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrrrsResponseStatus :: Lens' ListResourcesResponse Int
-lrrrsResponseStatus = lens _lrrrsResponseStatus (\s a -> s {_lrrrsResponseStatus = a})
+-- | The response's http status code.
+listResourcesResponse_httpStatus :: Lens.Lens' ListResourcesResponse Prelude.Int
+listResourcesResponse_httpStatus = Lens.lens (\ListResourcesResponse' {httpStatus} -> httpStatus) (\s@ListResourcesResponse' {} a -> s {httpStatus = a} :: ListResourcesResponse)
 
-instance NFData ListResourcesResponse
+instance Prelude.NFData ListResourcesResponse

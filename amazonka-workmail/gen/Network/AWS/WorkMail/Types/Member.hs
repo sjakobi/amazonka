@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkMail.Types.Member where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkMail.Types.EntityState
 import Network.AWS.WorkMail.Types.MemberType
 
 -- | The representation of a user or group.
 --
---
---
--- /See:/ 'member' smart constructor.
+-- /See:/ 'newMember' smart constructor.
 data Member = Member'
-  { _mEnabledDate ::
-      !(Maybe POSIX),
-    _mId :: !(Maybe Text),
-    _mState :: !(Maybe EntityState),
-    _mName :: !(Maybe Text),
-    _mDisabledDate :: !(Maybe POSIX),
-    _mType :: !(Maybe MemberType)
+  { -- | The date indicating when the member was enabled for Amazon WorkMail use.
+    enabledDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The identifier of the member.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The state of the member, which can be ENABLED, DISABLED, or DELETED.
+    state :: Prelude.Maybe EntityState,
+    -- | The name of the member.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The date indicating when the member was disabled from Amazon WorkMail
+    -- use.
+    disabledDate :: Prelude.Maybe Prelude.POSIX,
+    -- | A member can be a user or group.
+    type' :: Prelude.Maybe MemberType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Member' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Member' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mEnabledDate' - The date indicating when the member was enabled for Amazon WorkMail use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mId' - The identifier of the member.
+-- 'enabledDate', 'member_enabledDate' - The date indicating when the member was enabled for Amazon WorkMail use.
 --
--- * 'mState' - The state of the member, which can be ENABLED, DISABLED, or DELETED.
+-- 'id', 'member_id' - The identifier of the member.
 --
--- * 'mName' - The name of the member.
+-- 'state', 'member_state' - The state of the member, which can be ENABLED, DISABLED, or DELETED.
 --
--- * 'mDisabledDate' - The date indicating when the member was disabled from Amazon WorkMail use.
+-- 'name', 'member_name' - The name of the member.
 --
--- * 'mType' - A member can be a user or group.
-member ::
+-- 'disabledDate', 'member_disabledDate' - The date indicating when the member was disabled from Amazon WorkMail
+-- use.
+--
+-- 'type'', 'member_type' - A member can be a user or group.
+newMember ::
   Member
-member =
+newMember =
   Member'
-    { _mEnabledDate = Nothing,
-      _mId = Nothing,
-      _mState = Nothing,
-      _mName = Nothing,
-      _mDisabledDate = Nothing,
-      _mType = Nothing
+    { enabledDate = Prelude.Nothing,
+      id = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      disabledDate = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The date indicating when the member was enabled for Amazon WorkMail use.
-mEnabledDate :: Lens' Member (Maybe UTCTime)
-mEnabledDate = lens _mEnabledDate (\s a -> s {_mEnabledDate = a}) . mapping _Time
+member_enabledDate :: Lens.Lens' Member (Prelude.Maybe Prelude.UTCTime)
+member_enabledDate = Lens.lens (\Member' {enabledDate} -> enabledDate) (\s@Member' {} a -> s {enabledDate = a} :: Member) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identifier of the member.
-mId :: Lens' Member (Maybe Text)
-mId = lens _mId (\s a -> s {_mId = a})
+member_id :: Lens.Lens' Member (Prelude.Maybe Prelude.Text)
+member_id = Lens.lens (\Member' {id} -> id) (\s@Member' {} a -> s {id = a} :: Member)
 
 -- | The state of the member, which can be ENABLED, DISABLED, or DELETED.
-mState :: Lens' Member (Maybe EntityState)
-mState = lens _mState (\s a -> s {_mState = a})
+member_state :: Lens.Lens' Member (Prelude.Maybe EntityState)
+member_state = Lens.lens (\Member' {state} -> state) (\s@Member' {} a -> s {state = a} :: Member)
 
 -- | The name of the member.
-mName :: Lens' Member (Maybe Text)
-mName = lens _mName (\s a -> s {_mName = a})
+member_name :: Lens.Lens' Member (Prelude.Maybe Prelude.Text)
+member_name = Lens.lens (\Member' {name} -> name) (\s@Member' {} a -> s {name = a} :: Member)
 
--- | The date indicating when the member was disabled from Amazon WorkMail use.
-mDisabledDate :: Lens' Member (Maybe UTCTime)
-mDisabledDate = lens _mDisabledDate (\s a -> s {_mDisabledDate = a}) . mapping _Time
+-- | The date indicating when the member was disabled from Amazon WorkMail
+-- use.
+member_disabledDate :: Lens.Lens' Member (Prelude.Maybe Prelude.UTCTime)
+member_disabledDate = Lens.lens (\Member' {disabledDate} -> disabledDate) (\s@Member' {} a -> s {disabledDate = a} :: Member) Prelude.. Lens.mapping Prelude._Time
 
 -- | A member can be a user or group.
-mType :: Lens' Member (Maybe MemberType)
-mType = lens _mType (\s a -> s {_mType = a})
+member_type :: Lens.Lens' Member (Prelude.Maybe MemberType)
+member_type = Lens.lens (\Member' {type'} -> type') (\s@Member' {} a -> s {type' = a} :: Member)
 
-instance FromJSON Member where
+instance Prelude.FromJSON Member where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Member"
       ( \x ->
           Member'
-            <$> (x .:? "EnabledDate")
-            <*> (x .:? "Id")
-            <*> (x .:? "State")
-            <*> (x .:? "Name")
-            <*> (x .:? "DisabledDate")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "EnabledDate")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "DisabledDate")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable Member
+instance Prelude.Hashable Member
 
-instance NFData Member
+instance Prelude.NFData Member

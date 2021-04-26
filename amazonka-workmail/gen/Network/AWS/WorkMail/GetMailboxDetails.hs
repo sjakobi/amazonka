@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Requests a user's mailbox details for a specified organization and user.
+-- Requests a user\'s mailbox details for a specified organization and
+-- user.
 module Network.AWS.WorkMail.GetMailboxDetails
   ( -- * Creating a Request
-    getMailboxDetails,
-    GetMailboxDetails,
+    GetMailboxDetails (..),
+    newGetMailboxDetails,
 
     -- * Request Lenses
-    gmdOrganizationId,
-    gmdUserId,
+    getMailboxDetails_organizationId,
+    getMailboxDetails_userId,
 
     -- * Destructuring the Response
-    getMailboxDetailsResponse,
-    GetMailboxDetailsResponse,
+    GetMailboxDetailsResponse (..),
+    newGetMailboxDetailsResponse,
 
     -- * Response Lenses
-    gmdrrsMailboxQuota,
-    gmdrrsMailboxSize,
-    gmdrrsResponseStatus,
+    getMailboxDetailsResponse_mailboxQuota,
+    getMailboxDetailsResponse_mailboxSize,
+    getMailboxDetailsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'getMailboxDetails' smart constructor.
+-- | /See:/ 'newGetMailboxDetails' smart constructor.
 data GetMailboxDetails = GetMailboxDetails'
-  { _gmdOrganizationId ::
-      !Text,
-    _gmdUserId :: !Text
+  { -- | The identifier for the organization that contains the user whose mailbox
+    -- details are being requested.
+    organizationId :: Prelude.Text,
+    -- | The identifier for the user whose mailbox details are being requested.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMailboxDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMailboxDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmdOrganizationId' - The identifier for the organization that contains the user whose mailbox details are being requested.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmdUserId' - The identifier for the user whose mailbox details are being requested.
-getMailboxDetails ::
-  -- | 'gmdOrganizationId'
-  Text ->
-  -- | 'gmdUserId'
-  Text ->
+-- 'organizationId', 'getMailboxDetails_organizationId' - The identifier for the organization that contains the user whose mailbox
+-- details are being requested.
+--
+-- 'userId', 'getMailboxDetails_userId' - The identifier for the user whose mailbox details are being requested.
+newGetMailboxDetails ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'userId'
+  Prelude.Text ->
   GetMailboxDetails
-getMailboxDetails pOrganizationId_ pUserId_ =
+newGetMailboxDetails pOrganizationId_ pUserId_ =
   GetMailboxDetails'
-    { _gmdOrganizationId =
+    { organizationId =
         pOrganizationId_,
-      _gmdUserId = pUserId_
+      userId = pUserId_
     }
 
--- | The identifier for the organization that contains the user whose mailbox details are being requested.
-gmdOrganizationId :: Lens' GetMailboxDetails Text
-gmdOrganizationId = lens _gmdOrganizationId (\s a -> s {_gmdOrganizationId = a})
+-- | The identifier for the organization that contains the user whose mailbox
+-- details are being requested.
+getMailboxDetails_organizationId :: Lens.Lens' GetMailboxDetails Prelude.Text
+getMailboxDetails_organizationId = Lens.lens (\GetMailboxDetails' {organizationId} -> organizationId) (\s@GetMailboxDetails' {} a -> s {organizationId = a} :: GetMailboxDetails)
 
 -- | The identifier for the user whose mailbox details are being requested.
-gmdUserId :: Lens' GetMailboxDetails Text
-gmdUserId = lens _gmdUserId (\s a -> s {_gmdUserId = a})
+getMailboxDetails_userId :: Lens.Lens' GetMailboxDetails Prelude.Text
+getMailboxDetails_userId = Lens.lens (\GetMailboxDetails' {userId} -> userId) (\s@GetMailboxDetails' {} a -> s {userId = a} :: GetMailboxDetails)
 
-instance AWSRequest GetMailboxDetails where
+instance Prelude.AWSRequest GetMailboxDetails where
   type Rs GetMailboxDetails = GetMailboxDetailsResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetMailboxDetailsResponse'
-            <$> (x .?> "MailboxQuota")
-            <*> (x .?> "MailboxSize")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "MailboxQuota")
+            Prelude.<*> (x Prelude..?> "MailboxSize")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetMailboxDetails
+instance Prelude.Hashable GetMailboxDetails
 
-instance NFData GetMailboxDetails
+instance Prelude.NFData GetMailboxDetails
 
-instance ToHeaders GetMailboxDetails where
+instance Prelude.ToHeaders GetMailboxDetails where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.GetMailboxDetails" :: ByteString),
+              Prelude.=# ( "WorkMailService.GetMailboxDetails" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetMailboxDetails where
+instance Prelude.ToJSON GetMailboxDetails where
   toJSON GetMailboxDetails' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _gmdOrganizationId),
-            Just ("UserId" .= _gmdUserId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("UserId" Prelude..= userId)
           ]
       )
 
-instance ToPath GetMailboxDetails where
-  toPath = const "/"
+instance Prelude.ToPath GetMailboxDetails where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetMailboxDetails where
-  toQuery = const mempty
+instance Prelude.ToQuery GetMailboxDetails where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMailboxDetailsResponse' smart constructor.
+-- | /See:/ 'newGetMailboxDetailsResponse' smart constructor.
 data GetMailboxDetailsResponse = GetMailboxDetailsResponse'
-  { _gmdrrsMailboxQuota ::
-      !(Maybe Nat),
-    _gmdrrsMailboxSize ::
-      !(Maybe Double),
-    _gmdrrsResponseStatus ::
-      !Int
+  { -- | The maximum allowed mailbox size, in MB, for the specified user.
+    mailboxQuota :: Prelude.Maybe Prelude.Nat,
+    -- | The current mailbox size, in MB, for the specified user.
+    mailboxSize :: Prelude.Maybe Prelude.Double,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMailboxDetailsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMailboxDetailsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmdrrsMailboxQuota' - The maximum allowed mailbox size, in MB, for the specified user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmdrrsMailboxSize' - The current mailbox size, in MB, for the specified user.
+-- 'mailboxQuota', 'getMailboxDetailsResponse_mailboxQuota' - The maximum allowed mailbox size, in MB, for the specified user.
 --
--- * 'gmdrrsResponseStatus' - -- | The response status code.
-getMailboxDetailsResponse ::
-  -- | 'gmdrrsResponseStatus'
-  Int ->
+-- 'mailboxSize', 'getMailboxDetailsResponse_mailboxSize' - The current mailbox size, in MB, for the specified user.
+--
+-- 'httpStatus', 'getMailboxDetailsResponse_httpStatus' - The response's http status code.
+newGetMailboxDetailsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetMailboxDetailsResponse
-getMailboxDetailsResponse pResponseStatus_ =
+newGetMailboxDetailsResponse pHttpStatus_ =
   GetMailboxDetailsResponse'
-    { _gmdrrsMailboxQuota =
-        Nothing,
-      _gmdrrsMailboxSize = Nothing,
-      _gmdrrsResponseStatus = pResponseStatus_
+    { mailboxQuota =
+        Prelude.Nothing,
+      mailboxSize = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The maximum allowed mailbox size, in MB, for the specified user.
-gmdrrsMailboxQuota :: Lens' GetMailboxDetailsResponse (Maybe Natural)
-gmdrrsMailboxQuota = lens _gmdrrsMailboxQuota (\s a -> s {_gmdrrsMailboxQuota = a}) . mapping _Nat
+getMailboxDetailsResponse_mailboxQuota :: Lens.Lens' GetMailboxDetailsResponse (Prelude.Maybe Prelude.Natural)
+getMailboxDetailsResponse_mailboxQuota = Lens.lens (\GetMailboxDetailsResponse' {mailboxQuota} -> mailboxQuota) (\s@GetMailboxDetailsResponse' {} a -> s {mailboxQuota = a} :: GetMailboxDetailsResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The current mailbox size, in MB, for the specified user.
-gmdrrsMailboxSize :: Lens' GetMailboxDetailsResponse (Maybe Double)
-gmdrrsMailboxSize = lens _gmdrrsMailboxSize (\s a -> s {_gmdrrsMailboxSize = a})
+getMailboxDetailsResponse_mailboxSize :: Lens.Lens' GetMailboxDetailsResponse (Prelude.Maybe Prelude.Double)
+getMailboxDetailsResponse_mailboxSize = Lens.lens (\GetMailboxDetailsResponse' {mailboxSize} -> mailboxSize) (\s@GetMailboxDetailsResponse' {} a -> s {mailboxSize = a} :: GetMailboxDetailsResponse)
 
--- | -- | The response status code.
-gmdrrsResponseStatus :: Lens' GetMailboxDetailsResponse Int
-gmdrrsResponseStatus = lens _gmdrrsResponseStatus (\s a -> s {_gmdrrsResponseStatus = a})
+-- | The response's http status code.
+getMailboxDetailsResponse_httpStatus :: Lens.Lens' GetMailboxDetailsResponse Prelude.Int
+getMailboxDetailsResponse_httpStatus = Lens.lens (\GetMailboxDetailsResponse' {httpStatus} -> httpStatus) (\s@GetMailboxDetailsResponse' {} a -> s {httpStatus = a} :: GetMailboxDetailsResponse)
 
-instance NFData GetMailboxDetailsResponse
+instance Prelude.NFData GetMailboxDetailsResponse

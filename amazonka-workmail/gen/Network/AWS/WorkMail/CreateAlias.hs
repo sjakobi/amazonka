@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds an alias to the set of a given member (user or group) of Amazon WorkMail.
+-- Adds an alias to the set of a given member (user or group) of Amazon
+-- WorkMail.
 module Network.AWS.WorkMail.CreateAlias
   ( -- * Creating a Request
-    createAlias,
-    CreateAlias,
+    CreateAlias (..),
+    newCreateAlias,
 
     -- * Request Lenses
-    caOrganizationId,
-    caEntityId,
-    caAlias,
+    createAlias_organizationId,
+    createAlias_entityId,
+    createAlias_alias,
 
     -- * Destructuring the Response
-    createAliasResponse,
-    CreateAliasResponse,
+    CreateAliasResponse (..),
+    newCreateAliasResponse,
 
     -- * Response Lenses
-    carrsResponseStatus,
+    createAliasResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'createAlias' smart constructor.
+-- | /See:/ 'newCreateAlias' smart constructor.
 data CreateAlias = CreateAlias'
-  { _caOrganizationId ::
-      !Text,
-    _caEntityId :: !Text,
-    _caAlias :: !Text
+  { -- | The organization under which the member (user or group) exists.
+    organizationId :: Prelude.Text,
+    -- | The member (user or group) to which this alias is added.
+    entityId :: Prelude.Text,
+    -- | The alias to add to the member set.
+    alias :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caOrganizationId' - The organization under which the member (user or group) exists.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caEntityId' - The member (user or group) to which this alias is added.
+-- 'organizationId', 'createAlias_organizationId' - The organization under which the member (user or group) exists.
 --
--- * 'caAlias' - The alias to add to the member set.
-createAlias ::
-  -- | 'caOrganizationId'
-  Text ->
-  -- | 'caEntityId'
-  Text ->
-  -- | 'caAlias'
-  Text ->
+-- 'entityId', 'createAlias_entityId' - The member (user or group) to which this alias is added.
+--
+-- 'alias', 'createAlias_alias' - The alias to add to the member set.
+newCreateAlias ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'entityId'
+  Prelude.Text ->
+  -- | 'alias'
+  Prelude.Text ->
   CreateAlias
-createAlias pOrganizationId_ pEntityId_ pAlias_ =
+newCreateAlias pOrganizationId_ pEntityId_ pAlias_ =
   CreateAlias'
-    { _caOrganizationId = pOrganizationId_,
-      _caEntityId = pEntityId_,
-      _caAlias = pAlias_
+    { organizationId = pOrganizationId_,
+      entityId = pEntityId_,
+      alias = pAlias_
     }
 
 -- | The organization under which the member (user or group) exists.
-caOrganizationId :: Lens' CreateAlias Text
-caOrganizationId = lens _caOrganizationId (\s a -> s {_caOrganizationId = a})
+createAlias_organizationId :: Lens.Lens' CreateAlias Prelude.Text
+createAlias_organizationId = Lens.lens (\CreateAlias' {organizationId} -> organizationId) (\s@CreateAlias' {} a -> s {organizationId = a} :: CreateAlias)
 
 -- | The member (user or group) to which this alias is added.
-caEntityId :: Lens' CreateAlias Text
-caEntityId = lens _caEntityId (\s a -> s {_caEntityId = a})
+createAlias_entityId :: Lens.Lens' CreateAlias Prelude.Text
+createAlias_entityId = Lens.lens (\CreateAlias' {entityId} -> entityId) (\s@CreateAlias' {} a -> s {entityId = a} :: CreateAlias)
 
 -- | The alias to add to the member set.
-caAlias :: Lens' CreateAlias Text
-caAlias = lens _caAlias (\s a -> s {_caAlias = a})
+createAlias_alias :: Lens.Lens' CreateAlias Prelude.Text
+createAlias_alias = Lens.lens (\CreateAlias' {alias} -> alias) (\s@CreateAlias' {} a -> s {alias = a} :: CreateAlias)
 
-instance AWSRequest CreateAlias where
+instance Prelude.AWSRequest CreateAlias where
   type Rs CreateAlias = CreateAliasResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CreateAliasResponse' <$> (pure (fromEnum s))
+          CreateAliasResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateAlias
+instance Prelude.Hashable CreateAlias
 
-instance NFData CreateAlias
+instance Prelude.NFData CreateAlias
 
-instance ToHeaders CreateAlias where
+instance Prelude.ToHeaders CreateAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.CreateAlias" :: ByteString),
+              Prelude.=# ( "WorkMailService.CreateAlias" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateAlias where
+instance Prelude.ToJSON CreateAlias where
   toJSON CreateAlias' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _caOrganizationId),
-            Just ("EntityId" .= _caEntityId),
-            Just ("Alias" .= _caAlias)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("EntityId" Prelude..= entityId),
+            Prelude.Just ("Alias" Prelude..= alias)
           ]
       )
 
-instance ToPath CreateAlias where
-  toPath = const "/"
+instance Prelude.ToPath CreateAlias where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAliasResponse' smart constructor.
-newtype CreateAliasResponse = CreateAliasResponse'
-  { _carrsResponseStatus ::
-      Int
+-- | /See:/ 'newCreateAliasResponse' smart constructor.
+data CreateAliasResponse = CreateAliasResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'carrsResponseStatus' - -- | The response status code.
-createAliasResponse ::
-  -- | 'carrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createAliasResponse_httpStatus' - The response's http status code.
+newCreateAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateAliasResponse
-createAliasResponse pResponseStatus_ =
-  CreateAliasResponse'
-    { _carrsResponseStatus =
-        pResponseStatus_
-    }
+newCreateAliasResponse pHttpStatus_ =
+  CreateAliasResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-carrsResponseStatus :: Lens' CreateAliasResponse Int
-carrsResponseStatus = lens _carrsResponseStatus (\s a -> s {_carrsResponseStatus = a})
+-- | The response's http status code.
+createAliasResponse_httpStatus :: Lens.Lens' CreateAliasResponse Prelude.Int
+createAliasResponse_httpStatus = Lens.lens (\CreateAliasResponse' {httpStatus} -> httpStatus) (\s@CreateAliasResponse' {} a -> s {httpStatus = a} :: CreateAliasResponse)
 
-instance NFData CreateAliasResponse
+instance Prelude.NFData CreateAliasResponse

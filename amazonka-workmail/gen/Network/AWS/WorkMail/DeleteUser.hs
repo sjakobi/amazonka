@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,139 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a user from Amazon WorkMail and all subsequent systems. Before you can delete a user, the user state must be @DISABLED@ . Use the 'DescribeUser' action to confirm the user state.
+-- Deletes a user from Amazon WorkMail and all subsequent systems. Before
+-- you can delete a user, the user state must be @DISABLED@. Use the
+-- DescribeUser action to confirm the user state.
 --
---
--- Deleting a user is permanent and cannot be undone. WorkMail archives user mailboxes for 30 days before they are permanently removed.
+-- Deleting a user is permanent and cannot be undone. WorkMail archives
+-- user mailboxes for 30 days before they are permanently removed.
 module Network.AWS.WorkMail.DeleteUser
   ( -- * Creating a Request
-    deleteUser,
-    DeleteUser,
+    DeleteUser (..),
+    newDeleteUser,
 
     -- * Request Lenses
-    duuOrganizationId,
-    duuUserId,
+    deleteUser_organizationId,
+    deleteUser_userId,
 
     -- * Destructuring the Response
-    deleteUserResponse,
-    DeleteUserResponse,
+    DeleteUserResponse (..),
+    newDeleteUserResponse,
 
     -- * Response Lenses
-    delrsResponseStatus,
+    deleteUserResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'deleteUser' smart constructor.
+-- | /See:/ 'newDeleteUser' smart constructor.
 data DeleteUser = DeleteUser'
-  { _duuOrganizationId ::
-      !Text,
-    _duuUserId :: !Text
+  { -- | The organization that contains the user to be deleted.
+    organizationId :: Prelude.Text,
+    -- | The identifier of the user to be deleted.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duuOrganizationId' - The organization that contains the user to be deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duuUserId' - The identifier of the user to be deleted.
-deleteUser ::
-  -- | 'duuOrganizationId'
-  Text ->
-  -- | 'duuUserId'
-  Text ->
+-- 'organizationId', 'deleteUser_organizationId' - The organization that contains the user to be deleted.
+--
+-- 'userId', 'deleteUser_userId' - The identifier of the user to be deleted.
+newDeleteUser ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'userId'
+  Prelude.Text ->
   DeleteUser
-deleteUser pOrganizationId_ pUserId_ =
+newDeleteUser pOrganizationId_ pUserId_ =
   DeleteUser'
-    { _duuOrganizationId = pOrganizationId_,
-      _duuUserId = pUserId_
+    { organizationId = pOrganizationId_,
+      userId = pUserId_
     }
 
 -- | The organization that contains the user to be deleted.
-duuOrganizationId :: Lens' DeleteUser Text
-duuOrganizationId = lens _duuOrganizationId (\s a -> s {_duuOrganizationId = a})
+deleteUser_organizationId :: Lens.Lens' DeleteUser Prelude.Text
+deleteUser_organizationId = Lens.lens (\DeleteUser' {organizationId} -> organizationId) (\s@DeleteUser' {} a -> s {organizationId = a} :: DeleteUser)
 
 -- | The identifier of the user to be deleted.
-duuUserId :: Lens' DeleteUser Text
-duuUserId = lens _duuUserId (\s a -> s {_duuUserId = a})
+deleteUser_userId :: Lens.Lens' DeleteUser Prelude.Text
+deleteUser_userId = Lens.lens (\DeleteUser' {userId} -> userId) (\s@DeleteUser' {} a -> s {userId = a} :: DeleteUser)
 
-instance AWSRequest DeleteUser where
+instance Prelude.AWSRequest DeleteUser where
   type Rs DeleteUser = DeleteUserResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteUserResponse' <$> (pure (fromEnum s))
+          DeleteUserResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteUser
+instance Prelude.Hashable DeleteUser
 
-instance NFData DeleteUser
+instance Prelude.NFData DeleteUser
 
-instance ToHeaders DeleteUser where
+instance Prelude.ToHeaders DeleteUser where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.DeleteUser" :: ByteString),
+              Prelude.=# ("WorkMailService.DeleteUser" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteUser where
+instance Prelude.ToJSON DeleteUser where
   toJSON DeleteUser' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _duuOrganizationId),
-            Just ("UserId" .= _duuUserId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("UserId" Prelude..= userId)
           ]
       )
 
-instance ToPath DeleteUser where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUser where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUserResponse' smart constructor.
-newtype DeleteUserResponse = DeleteUserResponse'
-  { _delrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteUserResponse' smart constructor.
+data DeleteUserResponse = DeleteUserResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteUserResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteUserResponse_httpStatus' - The response's http status code.
+newDeleteUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteUserResponse
-deleteUserResponse pResponseStatus_ =
-  DeleteUserResponse'
-    { _delrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteUserResponse pHttpStatus_ =
+  DeleteUserResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteUserResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteUserResponse_httpStatus :: Lens.Lens' DeleteUserResponse Prelude.Int
+deleteUserResponse_httpStatus = Lens.lens (\DeleteUserResponse' {httpStatus} -> httpStatus) (\s@DeleteUserResponse' {} a -> s {httpStatus = a} :: DeleteUserResponse)
 
-instance NFData DeleteUserResponse
+instance Prelude.NFData DeleteUserResponse

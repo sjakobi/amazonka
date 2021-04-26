@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,203 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the effects of an organization's access control rules as they apply to a specified IPv4 address, access protocol action, or user ID.
+-- Gets the effects of an organization\'s access control rules as they
+-- apply to a specified IPv4 address, access protocol action, or user ID.
 module Network.AWS.WorkMail.GetAccessControlEffect
   ( -- * Creating a Request
-    getAccessControlEffect,
-    GetAccessControlEffect,
+    GetAccessControlEffect (..),
+    newGetAccessControlEffect,
 
     -- * Request Lenses
-    gaceOrganizationId,
-    gaceIPAddress,
-    gaceAction,
-    gaceUserId,
+    getAccessControlEffect_organizationId,
+    getAccessControlEffect_ipAddress,
+    getAccessControlEffect_action,
+    getAccessControlEffect_userId,
 
     -- * Destructuring the Response
-    getAccessControlEffectResponse,
-    GetAccessControlEffectResponse,
+    GetAccessControlEffectResponse (..),
+    newGetAccessControlEffectResponse,
 
     -- * Response Lenses
-    gacerrsMatchedRules,
-    gacerrsEffect,
-    gacerrsResponseStatus,
+    getAccessControlEffectResponse_matchedRules,
+    getAccessControlEffectResponse_effect,
+    getAccessControlEffectResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
+import Network.AWS.WorkMail.Types.AccessControlRuleEffect
 
--- | /See:/ 'getAccessControlEffect' smart constructor.
+-- | /See:/ 'newGetAccessControlEffect' smart constructor.
 data GetAccessControlEffect = GetAccessControlEffect'
-  { _gaceOrganizationId ::
-      !Text,
-    _gaceIPAddress :: !Text,
-    _gaceAction :: !Text,
-    _gaceUserId :: !Text
+  { -- | The identifier for the organization.
+    organizationId :: Prelude.Text,
+    -- | The IPv4 address.
+    ipAddress :: Prelude.Text,
+    -- | The access protocol action. Valid values include @ActiveSync@,
+    -- @AutoDiscover@, @EWS@, @IMAP@, @SMTP@, @WindowsOutlook@, and @WebMail@.
+    action :: Prelude.Text,
+    -- | The user ID.
+    userId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccessControlEffect' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAccessControlEffect' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaceOrganizationId' - The identifier for the organization.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaceIPAddress' - The IPv4 address.
+-- 'organizationId', 'getAccessControlEffect_organizationId' - The identifier for the organization.
 --
--- * 'gaceAction' - The access protocol action. Valid values include @ActiveSync@ , @AutoDiscover@ , @EWS@ , @IMAP@ , @SMTP@ , @WindowsOutlook@ , and @WebMail@ .
+-- 'ipAddress', 'getAccessControlEffect_ipAddress' - The IPv4 address.
 --
--- * 'gaceUserId' - The user ID.
-getAccessControlEffect ::
-  -- | 'gaceOrganizationId'
-  Text ->
-  -- | 'gaceIPAddress'
-  Text ->
-  -- | 'gaceAction'
-  Text ->
-  -- | 'gaceUserId'
-  Text ->
+-- 'action', 'getAccessControlEffect_action' - The access protocol action. Valid values include @ActiveSync@,
+-- @AutoDiscover@, @EWS@, @IMAP@, @SMTP@, @WindowsOutlook@, and @WebMail@.
+--
+-- 'userId', 'getAccessControlEffect_userId' - The user ID.
+newGetAccessControlEffect ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'ipAddress'
+  Prelude.Text ->
+  -- | 'action'
+  Prelude.Text ->
+  -- | 'userId'
+  Prelude.Text ->
   GetAccessControlEffect
-getAccessControlEffect
+newGetAccessControlEffect
   pOrganizationId_
-  pIPAddress_
+  pIpAddress_
   pAction_
   pUserId_ =
     GetAccessControlEffect'
-      { _gaceOrganizationId =
+      { organizationId =
           pOrganizationId_,
-        _gaceIPAddress = pIPAddress_,
-        _gaceAction = pAction_,
-        _gaceUserId = pUserId_
+        ipAddress = pIpAddress_,
+        action = pAction_,
+        userId = pUserId_
       }
 
 -- | The identifier for the organization.
-gaceOrganizationId :: Lens' GetAccessControlEffect Text
-gaceOrganizationId = lens _gaceOrganizationId (\s a -> s {_gaceOrganizationId = a})
+getAccessControlEffect_organizationId :: Lens.Lens' GetAccessControlEffect Prelude.Text
+getAccessControlEffect_organizationId = Lens.lens (\GetAccessControlEffect' {organizationId} -> organizationId) (\s@GetAccessControlEffect' {} a -> s {organizationId = a} :: GetAccessControlEffect)
 
 -- | The IPv4 address.
-gaceIPAddress :: Lens' GetAccessControlEffect Text
-gaceIPAddress = lens _gaceIPAddress (\s a -> s {_gaceIPAddress = a})
+getAccessControlEffect_ipAddress :: Lens.Lens' GetAccessControlEffect Prelude.Text
+getAccessControlEffect_ipAddress = Lens.lens (\GetAccessControlEffect' {ipAddress} -> ipAddress) (\s@GetAccessControlEffect' {} a -> s {ipAddress = a} :: GetAccessControlEffect)
 
--- | The access protocol action. Valid values include @ActiveSync@ , @AutoDiscover@ , @EWS@ , @IMAP@ , @SMTP@ , @WindowsOutlook@ , and @WebMail@ .
-gaceAction :: Lens' GetAccessControlEffect Text
-gaceAction = lens _gaceAction (\s a -> s {_gaceAction = a})
+-- | The access protocol action. Valid values include @ActiveSync@,
+-- @AutoDiscover@, @EWS@, @IMAP@, @SMTP@, @WindowsOutlook@, and @WebMail@.
+getAccessControlEffect_action :: Lens.Lens' GetAccessControlEffect Prelude.Text
+getAccessControlEffect_action = Lens.lens (\GetAccessControlEffect' {action} -> action) (\s@GetAccessControlEffect' {} a -> s {action = a} :: GetAccessControlEffect)
 
 -- | The user ID.
-gaceUserId :: Lens' GetAccessControlEffect Text
-gaceUserId = lens _gaceUserId (\s a -> s {_gaceUserId = a})
+getAccessControlEffect_userId :: Lens.Lens' GetAccessControlEffect Prelude.Text
+getAccessControlEffect_userId = Lens.lens (\GetAccessControlEffect' {userId} -> userId) (\s@GetAccessControlEffect' {} a -> s {userId = a} :: GetAccessControlEffect)
 
-instance AWSRequest GetAccessControlEffect where
+instance Prelude.AWSRequest GetAccessControlEffect where
   type
     Rs GetAccessControlEffect =
       GetAccessControlEffectResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAccessControlEffectResponse'
-            <$> (x .?> "MatchedRules" .!@ mempty)
-            <*> (x .?> "Effect")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "MatchedRules"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Effect")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAccessControlEffect
+instance Prelude.Hashable GetAccessControlEffect
 
-instance NFData GetAccessControlEffect
+instance Prelude.NFData GetAccessControlEffect
 
-instance ToHeaders GetAccessControlEffect where
+instance Prelude.ToHeaders GetAccessControlEffect where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.GetAccessControlEffect" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.GetAccessControlEffect" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAccessControlEffect where
+instance Prelude.ToJSON GetAccessControlEffect where
   toJSON GetAccessControlEffect' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _gaceOrganizationId),
-            Just ("IpAddress" .= _gaceIPAddress),
-            Just ("Action" .= _gaceAction),
-            Just ("UserId" .= _gaceUserId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("IpAddress" Prelude..= ipAddress),
+            Prelude.Just ("Action" Prelude..= action),
+            Prelude.Just ("UserId" Prelude..= userId)
           ]
       )
 
-instance ToPath GetAccessControlEffect where
-  toPath = const "/"
+instance Prelude.ToPath GetAccessControlEffect where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAccessControlEffect where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAccessControlEffect where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAccessControlEffectResponse' smart constructor.
+-- | /See:/ 'newGetAccessControlEffectResponse' smart constructor.
 data GetAccessControlEffectResponse = GetAccessControlEffectResponse'
-  { _gacerrsMatchedRules ::
-      !( Maybe
-           [Text]
-       ),
-    _gacerrsEffect ::
-      !( Maybe
-           AccessControlRuleEffect
-       ),
-    _gacerrsResponseStatus ::
-      !Int
+  { -- | The rules that match the given parameters, resulting in an effect.
+    matchedRules :: Prelude.Maybe [Prelude.Text],
+    -- | The rule effect.
+    effect :: Prelude.Maybe AccessControlRuleEffect,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccessControlEffectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAccessControlEffectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gacerrsMatchedRules' - The rules that match the given parameters, resulting in an effect.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gacerrsEffect' - The rule effect.
+-- 'matchedRules', 'getAccessControlEffectResponse_matchedRules' - The rules that match the given parameters, resulting in an effect.
 --
--- * 'gacerrsResponseStatus' - -- | The response status code.
-getAccessControlEffectResponse ::
-  -- | 'gacerrsResponseStatus'
-  Int ->
+-- 'effect', 'getAccessControlEffectResponse_effect' - The rule effect.
+--
+-- 'httpStatus', 'getAccessControlEffectResponse_httpStatus' - The response's http status code.
+newGetAccessControlEffectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAccessControlEffectResponse
-getAccessControlEffectResponse pResponseStatus_ =
+newGetAccessControlEffectResponse pHttpStatus_ =
   GetAccessControlEffectResponse'
-    { _gacerrsMatchedRules =
-        Nothing,
-      _gacerrsEffect = Nothing,
-      _gacerrsResponseStatus = pResponseStatus_
+    { matchedRules =
+        Prelude.Nothing,
+      effect = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The rules that match the given parameters, resulting in an effect.
-gacerrsMatchedRules :: Lens' GetAccessControlEffectResponse [Text]
-gacerrsMatchedRules = lens _gacerrsMatchedRules (\s a -> s {_gacerrsMatchedRules = a}) . _Default . _Coerce
+getAccessControlEffectResponse_matchedRules :: Lens.Lens' GetAccessControlEffectResponse (Prelude.Maybe [Prelude.Text])
+getAccessControlEffectResponse_matchedRules = Lens.lens (\GetAccessControlEffectResponse' {matchedRules} -> matchedRules) (\s@GetAccessControlEffectResponse' {} a -> s {matchedRules = a} :: GetAccessControlEffectResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The rule effect.
-gacerrsEffect :: Lens' GetAccessControlEffectResponse (Maybe AccessControlRuleEffect)
-gacerrsEffect = lens _gacerrsEffect (\s a -> s {_gacerrsEffect = a})
+getAccessControlEffectResponse_effect :: Lens.Lens' GetAccessControlEffectResponse (Prelude.Maybe AccessControlRuleEffect)
+getAccessControlEffectResponse_effect = Lens.lens (\GetAccessControlEffectResponse' {effect} -> effect) (\s@GetAccessControlEffectResponse' {} a -> s {effect = a} :: GetAccessControlEffectResponse)
 
--- | -- | The response status code.
-gacerrsResponseStatus :: Lens' GetAccessControlEffectResponse Int
-gacerrsResponseStatus = lens _gacerrsResponseStatus (\s a -> s {_gacerrsResponseStatus = a})
+-- | The response's http status code.
+getAccessControlEffectResponse_httpStatus :: Lens.Lens' GetAccessControlEffectResponse Prelude.Int
+getAccessControlEffectResponse_httpStatus = Lens.lens (\GetAccessControlEffectResponse' {httpStatus} -> httpStatus) (\s@GetAccessControlEffectResponse' {} a -> s {httpStatus = a} :: GetAccessControlEffectResponse)
 
-instance NFData GetAccessControlEffectResponse
+instance
+  Prelude.NFData
+    GetAccessControlEffectResponse

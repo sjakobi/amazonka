@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkMail.Types
   ( -- * Service Configuration
-    workMail,
+    defaultService,
 
     -- * Errors
     _EntityNotFoundException,
@@ -64,128 +67,61 @@ module Network.AWS.WorkMail.Types
 
     -- * AccessControlRule
     AccessControlRule (..),
-    accessControlRule,
-    acrEffect,
-    acrDateCreated,
-    acrNotIPRanges,
-    acrIPRanges,
-    acrDateModified,
-    acrActions,
-    acrUserIds,
-    acrName,
-    acrDescription,
-    acrNotActions,
-    acrNotUserIds,
+    newAccessControlRule,
 
     -- * BookingOptions
     BookingOptions (..),
-    bookingOptions,
-    boAutoDeclineConflictingRequests,
-    boAutoDeclineRecurringRequests,
-    boAutoAcceptRequests,
+    newBookingOptions,
 
     -- * Delegate
     Delegate (..),
-    delegate,
-    dId,
-    dType,
+    newDelegate,
 
     -- * Domain
     Domain (..),
-    domain,
-    dHostedZoneId,
-    dDomainName,
+    newDomain,
 
     -- * FolderConfiguration
     FolderConfiguration (..),
-    folderConfiguration,
-    fcPeriod,
-    fcName,
-    fcAction,
+    newFolderConfiguration,
 
     -- * Group
     Group (..),
-    group',
-    gEnabledDate,
-    gId,
-    gState,
-    gName,
-    gEmail,
-    gDisabledDate,
+    newGroup,
 
     -- * MailboxExportJob
     MailboxExportJob (..),
-    mailboxExportJob,
-    mejEstimatedProgress,
-    mejEntityId,
-    mejStartTime,
-    mejS3Path,
-    mejEndTime,
-    mejState,
-    mejS3BucketName,
-    mejDescription,
-    mejJobId,
+    newMailboxExportJob,
 
     -- * Member
     Member (..),
-    member,
-    mEnabledDate,
-    mId,
-    mState,
-    mName,
-    mDisabledDate,
-    mType,
+    newMember,
 
     -- * OrganizationSummary
     OrganizationSummary (..),
-    organizationSummary,
-    osOrganizationId,
-    osAlias,
-    osDefaultMailDomain,
-    osState,
-    osErrorMessage,
+    newOrganizationSummary,
 
     -- * Permission
     Permission (..),
-    permission,
-    pGranteeId,
-    pGranteeType,
-    pPermissionValues,
+    newPermission,
 
     -- * Resource
     Resource (..),
-    resource,
-    rEnabledDate,
-    rId,
-    rState,
-    rName,
-    rEmail,
-    rDisabledDate,
-    rType,
+    newResource,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * User
     User (..),
-    user,
-    uEnabledDate,
-    uId,
-    uUserRole,
-    uState,
-    uName,
-    uEmail,
-    uDisabledDate,
-    uDisplayName,
+    newUser,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 import Network.AWS.WorkMail.Types.AccessControlRule
 import Network.AWS.WorkMail.Types.AccessControlRuleEffect
 import Network.AWS.WorkMail.Types.BookingOptions
@@ -210,186 +146,226 @@ import Network.AWS.WorkMail.Types.User
 import Network.AWS.WorkMail.Types.UserRole
 
 -- | API version @2017-10-01@ of the Amazon WorkMail SDK configuration.
-workMail :: Service
-workMail =
-  Service
-    { _svcAbbrev = "WorkMail",
-      _svcSigner = v4,
-      _svcPrefix = "workmail",
-      _svcVersion = "2017-10-01",
-      _svcEndpoint = defaultEndpoint workMail,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "WorkMail",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "WorkMail",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "workmail",
+      Prelude._svcVersion = "2017-10-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "WorkMail",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The identifier supplied for the user, group, or resource does not exist in your organization.
-_EntityNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The identifier supplied for the user, group, or resource does not exist
+-- in your organization.
+_EntityNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EntityNotFoundException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "EntityNotFoundException"
 
--- | An operation received a valid organization identifier that either doesn't belong or exist in the system.
-_OrganizationNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An operation received a valid organization identifier that either
+-- doesn\'t belong or exist in the system.
+_OrganizationNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OrganizationNotFoundException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "OrganizationNotFoundException"
 
 -- | This user, group, or resource name is not allowed in Amazon WorkMail.
-_ReservedNameException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReservedNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReservedNameException =
-  _MatchServiceError workMail "ReservedNameException"
+  Prelude._MatchServiceError
+    defaultService
+    "ReservedNameException"
 
--- | After a domain has been added to the organization, it must be verified. The domain is not yet verified.
-_MailDomainStateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | After a domain has been added to the organization, it must be verified.
+-- The domain is not yet verified.
+_MailDomainStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MailDomainStateException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "MailDomainStateException"
 
 -- | The resource can have up to 50 user-applied tags.
-_TooManyTagsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyTagsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyTagsException =
-  _MatchServiceError workMail "TooManyTagsException"
+  Prelude._MatchServiceError
+    defaultService
+    "TooManyTagsException"
 
--- | The user, group, or resource name isn't unique in Amazon WorkMail.
-_NameAvailabilityException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The user, group, or resource name isn\'t unique in Amazon WorkMail.
+_NameAvailabilityException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NameAvailabilityException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "NameAvailabilityException"
 
--- | The configuration for a resource isn't valid. A resource must either be able to auto-respond to requests or have at least one delegate associated that can do so on its behalf.
-_InvalidConfigurationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The configuration for a resource isn\'t valid. A resource must either be
+-- able to auto-respond to requests or have at least one delegate
+-- associated that can do so on its behalf.
+_InvalidConfigurationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidConfigurationException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "InvalidConfigurationException"
 
--- | The organization must have a valid state to perform certain operations on the organization or its members.
-_OrganizationStateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The organization must have a valid state to perform certain operations
+-- on the organization or its members.
+_OrganizationStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OrganizationStateException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "OrganizationStateException"
 
--- | You are performing an operation on a user, group, or resource that isn't in the expected state, such as trying to delete an active user.
-_EntityStateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You are performing an operation on a user, group, or resource that
+-- isn\'t in the expected state, such as trying to delete an active user.
+_EntityStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EntityStateException =
-  _MatchServiceError workMail "EntityStateException"
+  Prelude._MatchServiceError
+    defaultService
+    "EntityStateException"
 
--- | The directory is already in use by another WorkMail organization in the same account and Region.
-_DirectoryInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The directory is already in use by another WorkMail organization in the
+-- same account and Region.
+_DirectoryInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DirectoryInUseException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "DirectoryInUseException"
 
--- | You can't perform a write operation against a read-only directory.
-_UnsupportedOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You can\'t perform a write operation against a read-only directory.
+_UnsupportedOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedOperationException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedOperationException"
 
--- | One or more of the input parameters don't match the service's restrictions.
-_InvalidParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | One or more of the input parameters don\'t match the service\'s
+-- restrictions.
+_InvalidParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterException"
 
--- | The directory is unavailable. It might be located in another Region or deleted.
-_DirectoryUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The directory is unavailable. It might be located in another Region or
+-- deleted.
+_DirectoryUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DirectoryUnavailableException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "DirectoryUnavailableException"
 
 -- | The request exceeds the limit of the resource.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | The supplied password doesn't match the minimum security constraints, such as length or use of special characters.
-_InvalidPasswordException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The supplied password doesn\'t match the minimum security constraints,
+-- such as length or use of special characters.
+_InvalidPasswordException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidPasswordException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "InvalidPasswordException"
 
--- | The email address that you're trying to assign is already created for a different user, group, or resource.
-_EmailAddressInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The email address that you\'re trying to assign is already created for a
+-- different user, group, or resource.
+_EmailAddressInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EmailAddressInUseException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "EmailAddressInUseException"
 
 -- | The resource cannot be found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
--- | The directory service doesn't recognize the credentials supplied by WorkMail.
-_DirectoryServiceAuthenticationFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The directory service doesn\'t recognize the credentials supplied by
+-- WorkMail.
+_DirectoryServiceAuthenticationFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DirectoryServiceAuthenticationFailedException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "DirectoryServiceAuthenticationFailedException"
 
--- | For an email or alias to be created in Amazon WorkMail, the included domain must be defined in the organization.
-_MailDomainNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | For an email or alias to be created in Amazon WorkMail, the included
+-- domain must be defined in the organization.
+_MailDomainNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MailDomainNotFoundException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "MailDomainNotFoundException"
 
--- | The user, group, or resource that you're trying to register is already registered.
-_EntityAlreadyRegisteredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The user, group, or resource that you\'re trying to register is already
+-- registered.
+_EntityAlreadyRegisteredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EntityAlreadyRegisteredException =
-  _MatchServiceError
-    workMail
+  Prelude._MatchServiceError
+    defaultService
     "EntityAlreadyRegisteredException"

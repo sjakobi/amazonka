@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,145 +24,145 @@
 -- Lists the access control rules for the specified organization.
 module Network.AWS.WorkMail.ListAccessControlRules
   ( -- * Creating a Request
-    listAccessControlRules,
-    ListAccessControlRules,
+    ListAccessControlRules (..),
+    newListAccessControlRules,
 
     -- * Request Lenses
-    lacrOrganizationId,
+    listAccessControlRules_organizationId,
 
     -- * Destructuring the Response
-    listAccessControlRulesResponse,
-    ListAccessControlRulesResponse,
+    ListAccessControlRulesResponse (..),
+    newListAccessControlRulesResponse,
 
     -- * Response Lenses
-    lacrrrsRules,
-    lacrrrsResponseStatus,
+    listAccessControlRulesResponse_rules,
+    listAccessControlRulesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
+import Network.AWS.WorkMail.Types.AccessControlRule
 
--- | /See:/ 'listAccessControlRules' smart constructor.
-newtype ListAccessControlRules = ListAccessControlRules'
-  { _lacrOrganizationId ::
-      Text
+-- | /See:/ 'newListAccessControlRules' smart constructor.
+data ListAccessControlRules = ListAccessControlRules'
+  { -- | The identifier for the organization.
+    organizationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAccessControlRules' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAccessControlRules' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lacrOrganizationId' - The identifier for the organization.
-listAccessControlRules ::
-  -- | 'lacrOrganizationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'organizationId', 'listAccessControlRules_organizationId' - The identifier for the organization.
+newListAccessControlRules ::
+  -- | 'organizationId'
+  Prelude.Text ->
   ListAccessControlRules
-listAccessControlRules pOrganizationId_ =
+newListAccessControlRules pOrganizationId_ =
   ListAccessControlRules'
-    { _lacrOrganizationId =
+    { organizationId =
         pOrganizationId_
     }
 
 -- | The identifier for the organization.
-lacrOrganizationId :: Lens' ListAccessControlRules Text
-lacrOrganizationId = lens _lacrOrganizationId (\s a -> s {_lacrOrganizationId = a})
+listAccessControlRules_organizationId :: Lens.Lens' ListAccessControlRules Prelude.Text
+listAccessControlRules_organizationId = Lens.lens (\ListAccessControlRules' {organizationId} -> organizationId) (\s@ListAccessControlRules' {} a -> s {organizationId = a} :: ListAccessControlRules)
 
-instance AWSRequest ListAccessControlRules where
+instance Prelude.AWSRequest ListAccessControlRules where
   type
     Rs ListAccessControlRules =
       ListAccessControlRulesResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAccessControlRulesResponse'
-            <$> (x .?> "Rules" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Rules" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAccessControlRules
+instance Prelude.Hashable ListAccessControlRules
 
-instance NFData ListAccessControlRules
+instance Prelude.NFData ListAccessControlRules
 
-instance ToHeaders ListAccessControlRules where
+instance Prelude.ToHeaders ListAccessControlRules where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.ListAccessControlRules" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.ListAccessControlRules" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListAccessControlRules where
+instance Prelude.ToJSON ListAccessControlRules where
   toJSON ListAccessControlRules' {..} =
-    object
-      ( catMaybes
-          [Just ("OrganizationId" .= _lacrOrganizationId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId)
+          ]
       )
 
-instance ToPath ListAccessControlRules where
-  toPath = const "/"
+instance Prelude.ToPath ListAccessControlRules where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListAccessControlRules where
-  toQuery = const mempty
+instance Prelude.ToQuery ListAccessControlRules where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listAccessControlRulesResponse' smart constructor.
+-- | /See:/ 'newListAccessControlRulesResponse' smart constructor.
 data ListAccessControlRulesResponse = ListAccessControlRulesResponse'
-  { _lacrrrsRules ::
-      !( Maybe
-           [AccessControlRule]
-       ),
-    _lacrrrsResponseStatus ::
-      !Int
+  { -- | The access control rules.
+    rules :: Prelude.Maybe [AccessControlRule],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAccessControlRulesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAccessControlRulesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lacrrrsRules' - The access control rules.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lacrrrsResponseStatus' - -- | The response status code.
-listAccessControlRulesResponse ::
-  -- | 'lacrrrsResponseStatus'
-  Int ->
+-- 'rules', 'listAccessControlRulesResponse_rules' - The access control rules.
+--
+-- 'httpStatus', 'listAccessControlRulesResponse_httpStatus' - The response's http status code.
+newListAccessControlRulesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAccessControlRulesResponse
-listAccessControlRulesResponse pResponseStatus_ =
+newListAccessControlRulesResponse pHttpStatus_ =
   ListAccessControlRulesResponse'
-    { _lacrrrsRules =
-        Nothing,
-      _lacrrrsResponseStatus = pResponseStatus_
+    { rules =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The access control rules.
-lacrrrsRules :: Lens' ListAccessControlRulesResponse [AccessControlRule]
-lacrrrsRules = lens _lacrrrsRules (\s a -> s {_lacrrrsRules = a}) . _Default . _Coerce
+listAccessControlRulesResponse_rules :: Lens.Lens' ListAccessControlRulesResponse (Prelude.Maybe [AccessControlRule])
+listAccessControlRulesResponse_rules = Lens.lens (\ListAccessControlRulesResponse' {rules} -> rules) (\s@ListAccessControlRulesResponse' {} a -> s {rules = a} :: ListAccessControlRulesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lacrrrsResponseStatus :: Lens' ListAccessControlRulesResponse Int
-lacrrrsResponseStatus = lens _lacrrrsResponseStatus (\s a -> s {_lacrrrsResponseStatus = a})
+-- | The response's http status code.
+listAccessControlRulesResponse_httpStatus :: Lens.Lens' ListAccessControlRulesResponse Prelude.Int
+listAccessControlRulesResponse_httpStatus = Lens.lens (\ListAccessControlRulesResponse' {httpStatus} -> httpStatus) (\s@ListAccessControlRulesResponse' {} a -> s {httpStatus = a} :: ListAccessControlRulesResponse)
 
-instance NFData ListAccessControlRulesResponse
+instance
+  Prelude.NFData
+    ListAccessControlRulesResponse

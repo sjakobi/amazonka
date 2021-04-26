@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.WorkMail.Types.UserRole
   ( UserRole
       ( ..,
-        URResource,
-        URSystemUser,
-        URUser
+        UserRoleRESOURCE,
+        UserRoleSYSTEMUSER,
+        UserRoleUSER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UserRole = UserRole' (CI Text)
+newtype UserRole = UserRole'
+  { fromUserRole ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern URResource :: UserRole
-pattern URResource = UserRole' "RESOURCE"
+pattern UserRoleRESOURCE :: UserRole
+pattern UserRoleRESOURCE = UserRole' "RESOURCE"
 
-pattern URSystemUser :: UserRole
-pattern URSystemUser = UserRole' "SYSTEM_USER"
+pattern UserRoleSYSTEMUSER :: UserRole
+pattern UserRoleSYSTEMUSER = UserRole' "SYSTEM_USER"
 
-pattern URUser :: UserRole
-pattern URUser = UserRole' "USER"
+pattern UserRoleUSER :: UserRole
+pattern UserRoleUSER = UserRole' "USER"
 
 {-# COMPLETE
-  URResource,
-  URSystemUser,
-  URUser,
+  UserRoleRESOURCE,
+  UserRoleSYSTEMUSER,
+  UserRoleUSER,
   UserRole'
   #-}
 
-instance FromText UserRole where
-  parser = (UserRole' . mk) <$> takeText
+instance Prelude.FromText UserRole where
+  parser = UserRole' Prelude.<$> Prelude.takeText
 
-instance ToText UserRole where
-  toText (UserRole' ci) = original ci
+instance Prelude.ToText UserRole where
+  toText (UserRole' x) = x
 
-instance Hashable UserRole
+instance Prelude.Hashable UserRole
 
-instance NFData UserRole
+instance Prelude.NFData UserRole
 
-instance ToByteString UserRole
+instance Prelude.ToByteString UserRole
 
-instance ToQuery UserRole
+instance Prelude.ToQuery UserRole
 
-instance ToHeader UserRole
+instance Prelude.ToHeader UserRole
 
-instance FromJSON UserRole where
-  parseJSON = parseJSONText "UserRole"
+instance Prelude.FromJSON UserRole where
+  parseJSON = Prelude.parseJSONText "UserRole"

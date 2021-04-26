@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,109 +19,119 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkMail.Types.User where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkMail.Types.EntityState
 import Network.AWS.WorkMail.Types.UserRole
 
 -- | The representation of an Amazon WorkMail user.
 --
---
---
--- /See:/ 'user' smart constructor.
+-- /See:/ 'newUser' smart constructor.
 data User = User'
-  { _uEnabledDate :: !(Maybe POSIX),
-    _uId :: !(Maybe Text),
-    _uUserRole :: !(Maybe UserRole),
-    _uState :: !(Maybe EntityState),
-    _uName :: !(Maybe Text),
-    _uEmail :: !(Maybe Text),
-    _uDisabledDate :: !(Maybe POSIX),
-    _uDisplayName :: !(Maybe Text)
+  { -- | The date indicating when the user was enabled for Amazon WorkMail use.
+    enabledDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The identifier of the user.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The role of the user.
+    userRole :: Prelude.Maybe UserRole,
+    -- | The state of the user, which can be ENABLED, DISABLED, or DELETED.
+    state :: Prelude.Maybe EntityState,
+    -- | The name of the user.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The email of the user.
+    email :: Prelude.Maybe Prelude.Text,
+    -- | The date indicating when the user was disabled from Amazon WorkMail use.
+    disabledDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The display name of the user.
+    displayName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'User' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'User' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uEnabledDate' - The date indicating when the user was enabled for Amazon WorkMail use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uId' - The identifier of the user.
+-- 'enabledDate', 'user_enabledDate' - The date indicating when the user was enabled for Amazon WorkMail use.
 --
--- * 'uUserRole' - The role of the user.
+-- 'id', 'user_id' - The identifier of the user.
 --
--- * 'uState' - The state of the user, which can be ENABLED, DISABLED, or DELETED.
+-- 'userRole', 'user_userRole' - The role of the user.
 --
--- * 'uName' - The name of the user.
+-- 'state', 'user_state' - The state of the user, which can be ENABLED, DISABLED, or DELETED.
 --
--- * 'uEmail' - The email of the user.
+-- 'name', 'user_name' - The name of the user.
 --
--- * 'uDisabledDate' - The date indicating when the user was disabled from Amazon WorkMail use.
+-- 'email', 'user_email' - The email of the user.
 --
--- * 'uDisplayName' - The display name of the user.
-user ::
+-- 'disabledDate', 'user_disabledDate' - The date indicating when the user was disabled from Amazon WorkMail use.
+--
+-- 'displayName', 'user_displayName' - The display name of the user.
+newUser ::
   User
-user =
+newUser =
   User'
-    { _uEnabledDate = Nothing,
-      _uId = Nothing,
-      _uUserRole = Nothing,
-      _uState = Nothing,
-      _uName = Nothing,
-      _uEmail = Nothing,
-      _uDisabledDate = Nothing,
-      _uDisplayName = Nothing
+    { enabledDate = Prelude.Nothing,
+      id = Prelude.Nothing,
+      userRole = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      email = Prelude.Nothing,
+      disabledDate = Prelude.Nothing,
+      displayName = Prelude.Nothing
     }
 
 -- | The date indicating when the user was enabled for Amazon WorkMail use.
-uEnabledDate :: Lens' User (Maybe UTCTime)
-uEnabledDate = lens _uEnabledDate (\s a -> s {_uEnabledDate = a}) . mapping _Time
+user_enabledDate :: Lens.Lens' User (Prelude.Maybe Prelude.UTCTime)
+user_enabledDate = Lens.lens (\User' {enabledDate} -> enabledDate) (\s@User' {} a -> s {enabledDate = a} :: User) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identifier of the user.
-uId :: Lens' User (Maybe Text)
-uId = lens _uId (\s a -> s {_uId = a})
+user_id :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_id = Lens.lens (\User' {id} -> id) (\s@User' {} a -> s {id = a} :: User)
 
 -- | The role of the user.
-uUserRole :: Lens' User (Maybe UserRole)
-uUserRole = lens _uUserRole (\s a -> s {_uUserRole = a})
+user_userRole :: Lens.Lens' User (Prelude.Maybe UserRole)
+user_userRole = Lens.lens (\User' {userRole} -> userRole) (\s@User' {} a -> s {userRole = a} :: User)
 
 -- | The state of the user, which can be ENABLED, DISABLED, or DELETED.
-uState :: Lens' User (Maybe EntityState)
-uState = lens _uState (\s a -> s {_uState = a})
+user_state :: Lens.Lens' User (Prelude.Maybe EntityState)
+user_state = Lens.lens (\User' {state} -> state) (\s@User' {} a -> s {state = a} :: User)
 
 -- | The name of the user.
-uName :: Lens' User (Maybe Text)
-uName = lens _uName (\s a -> s {_uName = a})
+user_name :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_name = Lens.lens (\User' {name} -> name) (\s@User' {} a -> s {name = a} :: User)
 
 -- | The email of the user.
-uEmail :: Lens' User (Maybe Text)
-uEmail = lens _uEmail (\s a -> s {_uEmail = a})
+user_email :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_email = Lens.lens (\User' {email} -> email) (\s@User' {} a -> s {email = a} :: User)
 
 -- | The date indicating when the user was disabled from Amazon WorkMail use.
-uDisabledDate :: Lens' User (Maybe UTCTime)
-uDisabledDate = lens _uDisabledDate (\s a -> s {_uDisabledDate = a}) . mapping _Time
+user_disabledDate :: Lens.Lens' User (Prelude.Maybe Prelude.UTCTime)
+user_disabledDate = Lens.lens (\User' {disabledDate} -> disabledDate) (\s@User' {} a -> s {disabledDate = a} :: User) Prelude.. Lens.mapping Prelude._Time
 
 -- | The display name of the user.
-uDisplayName :: Lens' User (Maybe Text)
-uDisplayName = lens _uDisplayName (\s a -> s {_uDisplayName = a})
+user_displayName :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_displayName = Lens.lens (\User' {displayName} -> displayName) (\s@User' {} a -> s {displayName = a} :: User)
 
-instance FromJSON User where
+instance Prelude.FromJSON User where
   parseJSON =
-    withObject
+    Prelude.withObject
       "User"
       ( \x ->
           User'
-            <$> (x .:? "EnabledDate")
-            <*> (x .:? "Id")
-            <*> (x .:? "UserRole")
-            <*> (x .:? "State")
-            <*> (x .:? "Name")
-            <*> (x .:? "Email")
-            <*> (x .:? "DisabledDate")
-            <*> (x .:? "DisplayName")
+            Prelude.<$> (x Prelude..:? "EnabledDate")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "UserRole")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Email")
+            Prelude.<*> (x Prelude..:? "DisabledDate")
+            Prelude.<*> (x Prelude..:? "DisplayName")
       )
 
-instance Hashable User
+instance Prelude.Hashable User
 
-instance NFData User
+instance Prelude.NFData User

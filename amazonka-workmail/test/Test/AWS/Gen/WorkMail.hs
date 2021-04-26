@@ -28,301 +28,301 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestCreateOrganization $
---             createOrganization
+--             newCreateOrganization
 --
 --         , requestDeleteAlias $
---             deleteAlias
+--             newDeleteAlias
 --
 --         , requestStartMailboxExportJob $
---             startMailboxExportJob
+--             newStartMailboxExportJob
 --
 --         , requestDescribeResource $
---             describeResource
+--             newDescribeResource
 --
 --         , requestListResourceDelegates $
---             listResourceDelegates
+--             newListResourceDelegates
 --
 --         , requestDeleteAccessControlRule $
---             deleteAccessControlRule
+--             newDeleteAccessControlRule
 --
 --         , requestDisassociateDelegateFromResource $
---             disassociateDelegateFromResource
+--             newDisassociateDelegateFromResource
 --
 --         , requestGetDefaultRetentionPolicy $
---             getDefaultRetentionPolicy
+--             newGetDefaultRetentionPolicy
 --
 --         , requestListGroups $
---             listGroups
+--             newListGroups
 --
 --         , requestListMailboxExportJobs $
---             listMailboxExportJobs
+--             newListMailboxExportJobs
 --
 --         , requestDescribeOrganization $
---             describeOrganization
+--             newDescribeOrganization
 --
 --         , requestCreateResource $
---             createResource
+--             newCreateResource
 --
 --         , requestUpdateResource $
---             updateResource
+--             newUpdateResource
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestDeleteResource $
---             deleteResource
+--             newDeleteResource
 --
 --         , requestCreateGroup $
---             createGroup
+--             newCreateGroup
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestAssociateMemberToGroup $
---             associateMemberToGroup
+--             newAssociateMemberToGroup
 --
 --         , requestCreateUser $
---             createUser
+--             newCreateUser
 --
 --         , requestPutRetentionPolicy $
---             putRetentionPolicy
+--             newPutRetentionPolicy
 --
 --         , requestPutMailboxPermissions $
---             putMailboxPermissions
+--             newPutMailboxPermissions
 --
 --         , requestAssociateDelegateToResource $
---             associateDelegateToResource
+--             newAssociateDelegateToResource
 --
 --         , requestRegisterToWorkMail $
---             registerToWorkMail
+--             newRegisterToWorkMail
 --
 --         , requestDeleteOrganization $
---             deleteOrganization
+--             newDeleteOrganization
 --
 --         , requestDescribeMailboxExportJob $
---             describeMailboxExportJob
+--             newDescribeMailboxExportJob
 --
 --         , requestListOrganizations $
---             listOrganizations
+--             newListOrganizations
 --
 --         , requestUpdatePrimaryEmailAddress $
---             updatePrimaryEmailAddress
+--             newUpdatePrimaryEmailAddress
 --
 --         , requestListAccessControlRules $
---             listAccessControlRules
+--             newListAccessControlRules
 --
 --         , requestPutAccessControlRule $
---             putAccessControlRule
+--             newPutAccessControlRule
 --
 --         , requestDescribeUser $
---             describeUser
+--             newDescribeUser
 --
 --         , requestCancelMailboxExportJob $
---             cancelMailboxExportJob
+--             newCancelMailboxExportJob
 --
 --         , requestDeregisterFromWorkMail $
---             deregisterFromWorkMail
+--             newDeregisterFromWorkMail
 --
 --         , requestListGroupMembers $
---             listGroupMembers
+--             newListGroupMembers
 --
 --         , requestDeleteGroup $
---             deleteGroup
+--             newDeleteGroup
 --
 --         , requestListMailboxPermissions $
---             listMailboxPermissions
+--             newListMailboxPermissions
 --
 --         , requestDisassociateMemberFromGroup $
---             disassociateMemberFromGroup
+--             newDisassociateMemberFromGroup
 --
 --         , requestUpdateMailboxQuota $
---             updateMailboxQuota
+--             newUpdateMailboxQuota
 --
 --         , requestListResources $
---             listResources
+--             newListResources
 --
 --         , requestDeleteUser $
---             deleteUser
+--             newDeleteUser
 --
 --         , requestListUsers $
---             listUsers
+--             newListUsers
 --
 --         , requestGetMailboxDetails $
---             getMailboxDetails
+--             newGetMailboxDetails
 --
 --         , requestDeleteMailboxPermissions $
---             deleteMailboxPermissions
+--             newDeleteMailboxPermissions
 --
 --         , requestDeleteRetentionPolicy $
---             deleteRetentionPolicy
+--             newDeleteRetentionPolicy
 --
 --         , requestDescribeGroup $
---             describeGroup
+--             newDescribeGroup
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestCreateAlias $
---             createAlias
+--             newCreateAlias
 --
 --         , requestGetAccessControlEffect $
---             getAccessControlEffect
+--             newGetAccessControlEffect
 --
 --         , requestListAliases $
---             listAliases
+--             newListAliases
 --
 --         , requestResetPassword $
---             resetPassword
+--             newResetPassword
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseCreateOrganization $
---             createOrganizationResponse
+--             newCreateOrganizationResponse
 --
 --         , responseDeleteAlias $
---             deleteAliasResponse
+--             newDeleteAliasResponse
 --
 --         , responseStartMailboxExportJob $
---             startMailboxExportJobResponse
+--             newStartMailboxExportJobResponse
 --
 --         , responseDescribeResource $
---             describeResourceResponse
+--             newDescribeResourceResponse
 --
 --         , responseListResourceDelegates $
---             listResourceDelegatesResponse
+--             newListResourceDelegatesResponse
 --
 --         , responseDeleteAccessControlRule $
---             deleteAccessControlRuleResponse
+--             newDeleteAccessControlRuleResponse
 --
 --         , responseDisassociateDelegateFromResource $
---             disassociateDelegateFromResourceResponse
+--             newDisassociateDelegateFromResourceResponse
 --
 --         , responseGetDefaultRetentionPolicy $
---             getDefaultRetentionPolicyResponse
+--             newGetDefaultRetentionPolicyResponse
 --
 --         , responseListGroups $
---             listGroupsResponse
+--             newListGroupsResponse
 --
 --         , responseListMailboxExportJobs $
---             listMailboxExportJobsResponse
+--             newListMailboxExportJobsResponse
 --
 --         , responseDescribeOrganization $
---             describeOrganizationResponse
+--             newDescribeOrganizationResponse
 --
 --         , responseCreateResource $
---             createResourceResponse
+--             newCreateResourceResponse
 --
 --         , responseUpdateResource $
---             updateResourceResponse
+--             newUpdateResourceResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseDeleteResource $
---             deleteResourceResponse
+--             newDeleteResourceResponse
 --
 --         , responseCreateGroup $
---             createGroupResponse
+--             newCreateGroupResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseAssociateMemberToGroup $
---             associateMemberToGroupResponse
+--             newAssociateMemberToGroupResponse
 --
 --         , responseCreateUser $
---             createUserResponse
+--             newCreateUserResponse
 --
 --         , responsePutRetentionPolicy $
---             putRetentionPolicyResponse
+--             newPutRetentionPolicyResponse
 --
 --         , responsePutMailboxPermissions $
---             putMailboxPermissionsResponse
+--             newPutMailboxPermissionsResponse
 --
 --         , responseAssociateDelegateToResource $
---             associateDelegateToResourceResponse
+--             newAssociateDelegateToResourceResponse
 --
 --         , responseRegisterToWorkMail $
---             registerToWorkMailResponse
+--             newRegisterToWorkMailResponse
 --
 --         , responseDeleteOrganization $
---             deleteOrganizationResponse
+--             newDeleteOrganizationResponse
 --
 --         , responseDescribeMailboxExportJob $
---             describeMailboxExportJobResponse
+--             newDescribeMailboxExportJobResponse
 --
 --         , responseListOrganizations $
---             listOrganizationsResponse
+--             newListOrganizationsResponse
 --
 --         , responseUpdatePrimaryEmailAddress $
---             updatePrimaryEmailAddressResponse
+--             newUpdatePrimaryEmailAddressResponse
 --
 --         , responseListAccessControlRules $
---             listAccessControlRulesResponse
+--             newListAccessControlRulesResponse
 --
 --         , responsePutAccessControlRule $
---             putAccessControlRuleResponse
+--             newPutAccessControlRuleResponse
 --
 --         , responseDescribeUser $
---             describeUserResponse
+--             newDescribeUserResponse
 --
 --         , responseCancelMailboxExportJob $
---             cancelMailboxExportJobResponse
+--             newCancelMailboxExportJobResponse
 --
 --         , responseDeregisterFromWorkMail $
---             deregisterFromWorkMailResponse
+--             newDeregisterFromWorkMailResponse
 --
 --         , responseListGroupMembers $
---             listGroupMembersResponse
+--             newListGroupMembersResponse
 --
 --         , responseDeleteGroup $
---             deleteGroupResponse
+--             newDeleteGroupResponse
 --
 --         , responseListMailboxPermissions $
---             listMailboxPermissionsResponse
+--             newListMailboxPermissionsResponse
 --
 --         , responseDisassociateMemberFromGroup $
---             disassociateMemberFromGroupResponse
+--             newDisassociateMemberFromGroupResponse
 --
 --         , responseUpdateMailboxQuota $
---             updateMailboxQuotaResponse
+--             newUpdateMailboxQuotaResponse
 --
 --         , responseListResources $
---             listResourcesResponse
+--             newListResourcesResponse
 --
 --         , responseDeleteUser $
---             deleteUserResponse
+--             newDeleteUserResponse
 --
 --         , responseListUsers $
---             listUsersResponse
+--             newListUsersResponse
 --
 --         , responseGetMailboxDetails $
---             getMailboxDetailsResponse
+--             newGetMailboxDetailsResponse
 --
 --         , responseDeleteMailboxPermissions $
---             deleteMailboxPermissionsResponse
+--             newDeleteMailboxPermissionsResponse
 --
 --         , responseDeleteRetentionPolicy $
---             deleteRetentionPolicyResponse
+--             newDeleteRetentionPolicyResponse
 --
 --         , responseDescribeGroup $
---             describeGroupResponse
+--             newDescribeGroupResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseCreateAlias $
---             createAliasResponse
+--             newCreateAliasResponse
 --
 --         , responseGetAccessControlEffect $
---             getAccessControlEffectResponse
+--             newGetAccessControlEffectResponse
 --
 --         , responseListAliases $
---             listAliasesResponse
+--             newListAliasesResponse
 --
 --         , responseResetPassword $
---             resetPasswordResponse
+--             newResetPasswordResponse
 --
 --           ]
 --     ]
@@ -630,7 +630,7 @@ responseCreateOrganization =
   res
     "CreateOrganizationResponse"
     "fixture/CreateOrganizationResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy CreateOrganization)
 
 responseDeleteAlias :: DeleteAliasResponse -> TestTree
@@ -638,7 +638,7 @@ responseDeleteAlias =
   res
     "DeleteAliasResponse"
     "fixture/DeleteAliasResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DeleteAlias)
 
 responseStartMailboxExportJob :: StartMailboxExportJobResponse -> TestTree
@@ -646,7 +646,7 @@ responseStartMailboxExportJob =
   res
     "StartMailboxExportJobResponse"
     "fixture/StartMailboxExportJobResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy StartMailboxExportJob)
 
 responseDescribeResource :: DescribeResourceResponse -> TestTree
@@ -654,7 +654,7 @@ responseDescribeResource =
   res
     "DescribeResourceResponse"
     "fixture/DescribeResourceResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DescribeResource)
 
 responseListResourceDelegates :: ListResourceDelegatesResponse -> TestTree
@@ -662,7 +662,7 @@ responseListResourceDelegates =
   res
     "ListResourceDelegatesResponse"
     "fixture/ListResourceDelegatesResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListResourceDelegates)
 
 responseDeleteAccessControlRule :: DeleteAccessControlRuleResponse -> TestTree
@@ -670,7 +670,7 @@ responseDeleteAccessControlRule =
   res
     "DeleteAccessControlRuleResponse"
     "fixture/DeleteAccessControlRuleResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DeleteAccessControlRule)
 
 responseDisassociateDelegateFromResource :: DisassociateDelegateFromResourceResponse -> TestTree
@@ -678,7 +678,7 @@ responseDisassociateDelegateFromResource =
   res
     "DisassociateDelegateFromResourceResponse"
     "fixture/DisassociateDelegateFromResourceResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DisassociateDelegateFromResource)
 
 responseGetDefaultRetentionPolicy :: GetDefaultRetentionPolicyResponse -> TestTree
@@ -686,7 +686,7 @@ responseGetDefaultRetentionPolicy =
   res
     "GetDefaultRetentionPolicyResponse"
     "fixture/GetDefaultRetentionPolicyResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy GetDefaultRetentionPolicy)
 
 responseListGroups :: ListGroupsResponse -> TestTree
@@ -694,7 +694,7 @@ responseListGroups =
   res
     "ListGroupsResponse"
     "fixture/ListGroupsResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListGroups)
 
 responseListMailboxExportJobs :: ListMailboxExportJobsResponse -> TestTree
@@ -702,7 +702,7 @@ responseListMailboxExportJobs =
   res
     "ListMailboxExportJobsResponse"
     "fixture/ListMailboxExportJobsResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListMailboxExportJobs)
 
 responseDescribeOrganization :: DescribeOrganizationResponse -> TestTree
@@ -710,7 +710,7 @@ responseDescribeOrganization =
   res
     "DescribeOrganizationResponse"
     "fixture/DescribeOrganizationResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DescribeOrganization)
 
 responseCreateResource :: CreateResourceResponse -> TestTree
@@ -718,7 +718,7 @@ responseCreateResource =
   res
     "CreateResourceResponse"
     "fixture/CreateResourceResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy CreateResource)
 
 responseUpdateResource :: UpdateResourceResponse -> TestTree
@@ -726,7 +726,7 @@ responseUpdateResource =
   res
     "UpdateResourceResponse"
     "fixture/UpdateResourceResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy UpdateResource)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -734,7 +734,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseDeleteResource :: DeleteResourceResponse -> TestTree
@@ -742,7 +742,7 @@ responseDeleteResource =
   res
     "DeleteResourceResponse"
     "fixture/DeleteResourceResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DeleteResource)
 
 responseCreateGroup :: CreateGroupResponse -> TestTree
@@ -750,7 +750,7 @@ responseCreateGroup =
   res
     "CreateGroupResponse"
     "fixture/CreateGroupResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy CreateGroup)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -758,7 +758,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseAssociateMemberToGroup :: AssociateMemberToGroupResponse -> TestTree
@@ -766,7 +766,7 @@ responseAssociateMemberToGroup =
   res
     "AssociateMemberToGroupResponse"
     "fixture/AssociateMemberToGroupResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy AssociateMemberToGroup)
 
 responseCreateUser :: CreateUserResponse -> TestTree
@@ -774,7 +774,7 @@ responseCreateUser =
   res
     "CreateUserResponse"
     "fixture/CreateUserResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy CreateUser)
 
 responsePutRetentionPolicy :: PutRetentionPolicyResponse -> TestTree
@@ -782,7 +782,7 @@ responsePutRetentionPolicy =
   res
     "PutRetentionPolicyResponse"
     "fixture/PutRetentionPolicyResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy PutRetentionPolicy)
 
 responsePutMailboxPermissions :: PutMailboxPermissionsResponse -> TestTree
@@ -790,7 +790,7 @@ responsePutMailboxPermissions =
   res
     "PutMailboxPermissionsResponse"
     "fixture/PutMailboxPermissionsResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy PutMailboxPermissions)
 
 responseAssociateDelegateToResource :: AssociateDelegateToResourceResponse -> TestTree
@@ -798,7 +798,7 @@ responseAssociateDelegateToResource =
   res
     "AssociateDelegateToResourceResponse"
     "fixture/AssociateDelegateToResourceResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy AssociateDelegateToResource)
 
 responseRegisterToWorkMail :: RegisterToWorkMailResponse -> TestTree
@@ -806,7 +806,7 @@ responseRegisterToWorkMail =
   res
     "RegisterToWorkMailResponse"
     "fixture/RegisterToWorkMailResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy RegisterToWorkMail)
 
 responseDeleteOrganization :: DeleteOrganizationResponse -> TestTree
@@ -814,7 +814,7 @@ responseDeleteOrganization =
   res
     "DeleteOrganizationResponse"
     "fixture/DeleteOrganizationResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DeleteOrganization)
 
 responseDescribeMailboxExportJob :: DescribeMailboxExportJobResponse -> TestTree
@@ -822,7 +822,7 @@ responseDescribeMailboxExportJob =
   res
     "DescribeMailboxExportJobResponse"
     "fixture/DescribeMailboxExportJobResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DescribeMailboxExportJob)
 
 responseListOrganizations :: ListOrganizationsResponse -> TestTree
@@ -830,7 +830,7 @@ responseListOrganizations =
   res
     "ListOrganizationsResponse"
     "fixture/ListOrganizationsResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListOrganizations)
 
 responseUpdatePrimaryEmailAddress :: UpdatePrimaryEmailAddressResponse -> TestTree
@@ -838,7 +838,7 @@ responseUpdatePrimaryEmailAddress =
   res
     "UpdatePrimaryEmailAddressResponse"
     "fixture/UpdatePrimaryEmailAddressResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy UpdatePrimaryEmailAddress)
 
 responseListAccessControlRules :: ListAccessControlRulesResponse -> TestTree
@@ -846,7 +846,7 @@ responseListAccessControlRules =
   res
     "ListAccessControlRulesResponse"
     "fixture/ListAccessControlRulesResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListAccessControlRules)
 
 responsePutAccessControlRule :: PutAccessControlRuleResponse -> TestTree
@@ -854,7 +854,7 @@ responsePutAccessControlRule =
   res
     "PutAccessControlRuleResponse"
     "fixture/PutAccessControlRuleResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy PutAccessControlRule)
 
 responseDescribeUser :: DescribeUserResponse -> TestTree
@@ -862,7 +862,7 @@ responseDescribeUser =
   res
     "DescribeUserResponse"
     "fixture/DescribeUserResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DescribeUser)
 
 responseCancelMailboxExportJob :: CancelMailboxExportJobResponse -> TestTree
@@ -870,7 +870,7 @@ responseCancelMailboxExportJob =
   res
     "CancelMailboxExportJobResponse"
     "fixture/CancelMailboxExportJobResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy CancelMailboxExportJob)
 
 responseDeregisterFromWorkMail :: DeregisterFromWorkMailResponse -> TestTree
@@ -878,7 +878,7 @@ responseDeregisterFromWorkMail =
   res
     "DeregisterFromWorkMailResponse"
     "fixture/DeregisterFromWorkMailResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DeregisterFromWorkMail)
 
 responseListGroupMembers :: ListGroupMembersResponse -> TestTree
@@ -886,7 +886,7 @@ responseListGroupMembers =
   res
     "ListGroupMembersResponse"
     "fixture/ListGroupMembersResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListGroupMembers)
 
 responseDeleteGroup :: DeleteGroupResponse -> TestTree
@@ -894,7 +894,7 @@ responseDeleteGroup =
   res
     "DeleteGroupResponse"
     "fixture/DeleteGroupResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DeleteGroup)
 
 responseListMailboxPermissions :: ListMailboxPermissionsResponse -> TestTree
@@ -902,7 +902,7 @@ responseListMailboxPermissions =
   res
     "ListMailboxPermissionsResponse"
     "fixture/ListMailboxPermissionsResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListMailboxPermissions)
 
 responseDisassociateMemberFromGroup :: DisassociateMemberFromGroupResponse -> TestTree
@@ -910,7 +910,7 @@ responseDisassociateMemberFromGroup =
   res
     "DisassociateMemberFromGroupResponse"
     "fixture/DisassociateMemberFromGroupResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DisassociateMemberFromGroup)
 
 responseUpdateMailboxQuota :: UpdateMailboxQuotaResponse -> TestTree
@@ -918,7 +918,7 @@ responseUpdateMailboxQuota =
   res
     "UpdateMailboxQuotaResponse"
     "fixture/UpdateMailboxQuotaResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy UpdateMailboxQuota)
 
 responseListResources :: ListResourcesResponse -> TestTree
@@ -926,7 +926,7 @@ responseListResources =
   res
     "ListResourcesResponse"
     "fixture/ListResourcesResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListResources)
 
 responseDeleteUser :: DeleteUserResponse -> TestTree
@@ -934,7 +934,7 @@ responseDeleteUser =
   res
     "DeleteUserResponse"
     "fixture/DeleteUserResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DeleteUser)
 
 responseListUsers :: ListUsersResponse -> TestTree
@@ -942,7 +942,7 @@ responseListUsers =
   res
     "ListUsersResponse"
     "fixture/ListUsersResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListUsers)
 
 responseGetMailboxDetails :: GetMailboxDetailsResponse -> TestTree
@@ -950,7 +950,7 @@ responseGetMailboxDetails =
   res
     "GetMailboxDetailsResponse"
     "fixture/GetMailboxDetailsResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy GetMailboxDetails)
 
 responseDeleteMailboxPermissions :: DeleteMailboxPermissionsResponse -> TestTree
@@ -958,7 +958,7 @@ responseDeleteMailboxPermissions =
   res
     "DeleteMailboxPermissionsResponse"
     "fixture/DeleteMailboxPermissionsResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DeleteMailboxPermissions)
 
 responseDeleteRetentionPolicy :: DeleteRetentionPolicyResponse -> TestTree
@@ -966,7 +966,7 @@ responseDeleteRetentionPolicy =
   res
     "DeleteRetentionPolicyResponse"
     "fixture/DeleteRetentionPolicyResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DeleteRetentionPolicy)
 
 responseDescribeGroup :: DescribeGroupResponse -> TestTree
@@ -974,7 +974,7 @@ responseDescribeGroup =
   res
     "DescribeGroupResponse"
     "fixture/DescribeGroupResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy DescribeGroup)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -982,7 +982,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseCreateAlias :: CreateAliasResponse -> TestTree
@@ -990,7 +990,7 @@ responseCreateAlias =
   res
     "CreateAliasResponse"
     "fixture/CreateAliasResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy CreateAlias)
 
 responseGetAccessControlEffect :: GetAccessControlEffectResponse -> TestTree
@@ -998,7 +998,7 @@ responseGetAccessControlEffect =
   res
     "GetAccessControlEffectResponse"
     "fixture/GetAccessControlEffectResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy GetAccessControlEffect)
 
 responseListAliases :: ListAliasesResponse -> TestTree
@@ -1006,7 +1006,7 @@ responseListAliases =
   res
     "ListAliasesResponse"
     "fixture/ListAliasesResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ListAliases)
 
 responseResetPassword :: ResetPasswordResponse -> TestTree
@@ -1014,5 +1014,5 @@ responseResetPassword =
   res
     "ResetPasswordResponse"
     "fixture/ResetPasswordResponse.proto"
-    workMail
+    defaultService
     (Proxy :: Proxy ResetPassword)

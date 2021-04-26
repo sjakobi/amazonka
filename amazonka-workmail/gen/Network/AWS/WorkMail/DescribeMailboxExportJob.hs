@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,302 +24,290 @@
 -- Describes the current status of a mailbox export job.
 module Network.AWS.WorkMail.DescribeMailboxExportJob
   ( -- * Creating a Request
-    describeMailboxExportJob,
-    DescribeMailboxExportJob,
+    DescribeMailboxExportJob (..),
+    newDescribeMailboxExportJob,
 
     -- * Request Lenses
-    dmejJobId,
-    dmejOrganizationId,
+    describeMailboxExportJob_jobId,
+    describeMailboxExportJob_organizationId,
 
     -- * Destructuring the Response
-    describeMailboxExportJobResponse,
-    DescribeMailboxExportJobResponse,
+    DescribeMailboxExportJobResponse (..),
+    newDescribeMailboxExportJobResponse,
 
     -- * Response Lenses
-    dmejrrsEstimatedProgress,
-    dmejrrsRoleARN,
-    dmejrrsEntityId,
-    dmejrrsStartTime,
-    dmejrrsS3Path,
-    dmejrrsEndTime,
-    dmejrrsState,
-    dmejrrsKMSKeyARN,
-    dmejrrsS3BucketName,
-    dmejrrsErrorInfo,
-    dmejrrsDescription,
-    dmejrrsS3Prefix,
-    dmejrrsResponseStatus,
+    describeMailboxExportJobResponse_estimatedProgress,
+    describeMailboxExportJobResponse_roleArn,
+    describeMailboxExportJobResponse_entityId,
+    describeMailboxExportJobResponse_startTime,
+    describeMailboxExportJobResponse_s3Path,
+    describeMailboxExportJobResponse_endTime,
+    describeMailboxExportJobResponse_state,
+    describeMailboxExportJobResponse_kmsKeyArn,
+    describeMailboxExportJobResponse_s3BucketName,
+    describeMailboxExportJobResponse_errorInfo,
+    describeMailboxExportJobResponse_description,
+    describeMailboxExportJobResponse_s3Prefix,
+    describeMailboxExportJobResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
+import Network.AWS.WorkMail.Types.MailboxExportJobState
 
--- | /See:/ 'describeMailboxExportJob' smart constructor.
+-- | /See:/ 'newDescribeMailboxExportJob' smart constructor.
 data DescribeMailboxExportJob = DescribeMailboxExportJob'
-  { _dmejJobId ::
-      !Text,
-    _dmejOrganizationId ::
-      !Text
+  { -- | The mailbox export job ID.
+    jobId :: Prelude.Text,
+    -- | The organization ID.
+    organizationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeMailboxExportJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeMailboxExportJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmejJobId' - The mailbox export job ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmejOrganizationId' - The organization ID.
-describeMailboxExportJob ::
-  -- | 'dmejJobId'
-  Text ->
-  -- | 'dmejOrganizationId'
-  Text ->
+-- 'jobId', 'describeMailboxExportJob_jobId' - The mailbox export job ID.
+--
+-- 'organizationId', 'describeMailboxExportJob_organizationId' - The organization ID.
+newDescribeMailboxExportJob ::
+  -- | 'jobId'
+  Prelude.Text ->
+  -- | 'organizationId'
+  Prelude.Text ->
   DescribeMailboxExportJob
-describeMailboxExportJob pJobId_ pOrganizationId_ =
+newDescribeMailboxExportJob pJobId_ pOrganizationId_ =
   DescribeMailboxExportJob'
-    { _dmejJobId = pJobId_,
-      _dmejOrganizationId = pOrganizationId_
+    { jobId = pJobId_,
+      organizationId = pOrganizationId_
     }
 
 -- | The mailbox export job ID.
-dmejJobId :: Lens' DescribeMailboxExportJob Text
-dmejJobId = lens _dmejJobId (\s a -> s {_dmejJobId = a})
+describeMailboxExportJob_jobId :: Lens.Lens' DescribeMailboxExportJob Prelude.Text
+describeMailboxExportJob_jobId = Lens.lens (\DescribeMailboxExportJob' {jobId} -> jobId) (\s@DescribeMailboxExportJob' {} a -> s {jobId = a} :: DescribeMailboxExportJob)
 
 -- | The organization ID.
-dmejOrganizationId :: Lens' DescribeMailboxExportJob Text
-dmejOrganizationId = lens _dmejOrganizationId (\s a -> s {_dmejOrganizationId = a})
+describeMailboxExportJob_organizationId :: Lens.Lens' DescribeMailboxExportJob Prelude.Text
+describeMailboxExportJob_organizationId = Lens.lens (\DescribeMailboxExportJob' {organizationId} -> organizationId) (\s@DescribeMailboxExportJob' {} a -> s {organizationId = a} :: DescribeMailboxExportJob)
 
-instance AWSRequest DescribeMailboxExportJob where
+instance Prelude.AWSRequest DescribeMailboxExportJob where
   type
     Rs DescribeMailboxExportJob =
       DescribeMailboxExportJobResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeMailboxExportJobResponse'
-            <$> (x .?> "EstimatedProgress")
-            <*> (x .?> "RoleArn")
-            <*> (x .?> "EntityId")
-            <*> (x .?> "StartTime")
-            <*> (x .?> "S3Path")
-            <*> (x .?> "EndTime")
-            <*> (x .?> "State")
-            <*> (x .?> "KmsKeyArn")
-            <*> (x .?> "S3BucketName")
-            <*> (x .?> "ErrorInfo")
-            <*> (x .?> "Description")
-            <*> (x .?> "S3Prefix")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "EstimatedProgress")
+            Prelude.<*> (x Prelude..?> "RoleArn")
+            Prelude.<*> (x Prelude..?> "EntityId")
+            Prelude.<*> (x Prelude..?> "StartTime")
+            Prelude.<*> (x Prelude..?> "S3Path")
+            Prelude.<*> (x Prelude..?> "EndTime")
+            Prelude.<*> (x Prelude..?> "State")
+            Prelude.<*> (x Prelude..?> "KmsKeyArn")
+            Prelude.<*> (x Prelude..?> "S3BucketName")
+            Prelude.<*> (x Prelude..?> "ErrorInfo")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "S3Prefix")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeMailboxExportJob
+instance Prelude.Hashable DescribeMailboxExportJob
 
-instance NFData DescribeMailboxExportJob
+instance Prelude.NFData DescribeMailboxExportJob
 
-instance ToHeaders DescribeMailboxExportJob where
+instance Prelude.ToHeaders DescribeMailboxExportJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.DescribeMailboxExportJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.DescribeMailboxExportJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeMailboxExportJob where
+instance Prelude.ToJSON DescribeMailboxExportJob where
   toJSON DescribeMailboxExportJob' {..} =
-    object
-      ( catMaybes
-          [ Just ("JobId" .= _dmejJobId),
-            Just ("OrganizationId" .= _dmejOrganizationId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("JobId" Prelude..= jobId),
+            Prelude.Just
+              ("OrganizationId" Prelude..= organizationId)
           ]
       )
 
-instance ToPath DescribeMailboxExportJob where
-  toPath = const "/"
+instance Prelude.ToPath DescribeMailboxExportJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeMailboxExportJob where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeMailboxExportJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeMailboxExportJobResponse' smart constructor.
+-- | /See:/ 'newDescribeMailboxExportJobResponse' smart constructor.
 data DescribeMailboxExportJobResponse = DescribeMailboxExportJobResponse'
-  { _dmejrrsEstimatedProgress ::
-      !( Maybe
-           Nat
-       ),
-    _dmejrrsRoleARN ::
-      !( Maybe
-           Text
-       ),
-    _dmejrrsEntityId ::
-      !( Maybe
-           Text
-       ),
-    _dmejrrsStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _dmejrrsS3Path ::
-      !( Maybe
-           Text
-       ),
-    _dmejrrsEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _dmejrrsState ::
-      !( Maybe
-           MailboxExportJobState
-       ),
-    _dmejrrsKMSKeyARN ::
-      !( Maybe
-           Text
-       ),
-    _dmejrrsS3BucketName ::
-      !( Maybe
-           Text
-       ),
-    _dmejrrsErrorInfo ::
-      !( Maybe
-           Text
-       ),
-    _dmejrrsDescription ::
-      !( Maybe
-           Text
-       ),
-    _dmejrrsS3Prefix ::
-      !( Maybe
-           Text
-       ),
-    _dmejrrsResponseStatus ::
-      !Int
+  { -- | The estimated progress of the mailbox export job, in percentage points.
+    estimatedProgress :: Prelude.Maybe Prelude.Nat,
+    -- | The ARN of the AWS Identity and Access Management (IAM) role that grants
+    -- write permission to the Amazon Simple Storage Service (Amazon S3)
+    -- bucket.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the user or resource associated with the mailbox.
+    entityId :: Prelude.Maybe Prelude.Text,
+    -- | The mailbox export job start timestamp.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The path to the S3 bucket and file that the mailbox export job is
+    -- exporting to.
+    s3Path :: Prelude.Maybe Prelude.Text,
+    -- | The mailbox export job end timestamp.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The state of the mailbox export job.
+    state :: Prelude.Maybe MailboxExportJobState,
+    -- | The Amazon Resource Name (ARN) of the symmetric AWS Key Management
+    -- Service (AWS KMS) key that encrypts the exported mailbox content.
+    kmsKeyArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the S3 bucket.
+    s3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | Error information for failed mailbox export jobs.
+    errorInfo :: Prelude.Maybe Prelude.Text,
+    -- | The mailbox export job description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The S3 bucket prefix.
+    s3Prefix :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeMailboxExportJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeMailboxExportJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmejrrsEstimatedProgress' - The estimated progress of the mailbox export job, in percentage points.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmejrrsRoleARN' - The ARN of the AWS Identity and Access Management (IAM) role that grants write permission to the Amazon Simple Storage Service (Amazon S3) bucket.
+-- 'estimatedProgress', 'describeMailboxExportJobResponse_estimatedProgress' - The estimated progress of the mailbox export job, in percentage points.
 --
--- * 'dmejrrsEntityId' - The identifier of the user or resource associated with the mailbox.
+-- 'roleArn', 'describeMailboxExportJobResponse_roleArn' - The ARN of the AWS Identity and Access Management (IAM) role that grants
+-- write permission to the Amazon Simple Storage Service (Amazon S3)
+-- bucket.
 --
--- * 'dmejrrsStartTime' - The mailbox export job start timestamp.
+-- 'entityId', 'describeMailboxExportJobResponse_entityId' - The identifier of the user or resource associated with the mailbox.
 --
--- * 'dmejrrsS3Path' - The path to the S3 bucket and file that the mailbox export job is exporting to.
+-- 'startTime', 'describeMailboxExportJobResponse_startTime' - The mailbox export job start timestamp.
 --
--- * 'dmejrrsEndTime' - The mailbox export job end timestamp.
+-- 's3Path', 'describeMailboxExportJobResponse_s3Path' - The path to the S3 bucket and file that the mailbox export job is
+-- exporting to.
 --
--- * 'dmejrrsState' - The state of the mailbox export job.
+-- 'endTime', 'describeMailboxExportJobResponse_endTime' - The mailbox export job end timestamp.
 --
--- * 'dmejrrsKMSKeyARN' - The Amazon Resource Name (ARN) of the symmetric AWS Key Management Service (AWS KMS) key that encrypts the exported mailbox content.
+-- 'state', 'describeMailboxExportJobResponse_state' - The state of the mailbox export job.
 --
--- * 'dmejrrsS3BucketName' - The name of the S3 bucket.
+-- 'kmsKeyArn', 'describeMailboxExportJobResponse_kmsKeyArn' - The Amazon Resource Name (ARN) of the symmetric AWS Key Management
+-- Service (AWS KMS) key that encrypts the exported mailbox content.
 --
--- * 'dmejrrsErrorInfo' - Error information for failed mailbox export jobs.
+-- 's3BucketName', 'describeMailboxExportJobResponse_s3BucketName' - The name of the S3 bucket.
 --
--- * 'dmejrrsDescription' - The mailbox export job description.
+-- 'errorInfo', 'describeMailboxExportJobResponse_errorInfo' - Error information for failed mailbox export jobs.
 --
--- * 'dmejrrsS3Prefix' - The S3 bucket prefix.
+-- 'description', 'describeMailboxExportJobResponse_description' - The mailbox export job description.
 --
--- * 'dmejrrsResponseStatus' - -- | The response status code.
-describeMailboxExportJobResponse ::
-  -- | 'dmejrrsResponseStatus'
-  Int ->
+-- 's3Prefix', 'describeMailboxExportJobResponse_s3Prefix' - The S3 bucket prefix.
+--
+-- 'httpStatus', 'describeMailboxExportJobResponse_httpStatus' - The response's http status code.
+newDescribeMailboxExportJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeMailboxExportJobResponse
-describeMailboxExportJobResponse pResponseStatus_ =
+newDescribeMailboxExportJobResponse pHttpStatus_ =
   DescribeMailboxExportJobResponse'
-    { _dmejrrsEstimatedProgress =
-        Nothing,
-      _dmejrrsRoleARN = Nothing,
-      _dmejrrsEntityId = Nothing,
-      _dmejrrsStartTime = Nothing,
-      _dmejrrsS3Path = Nothing,
-      _dmejrrsEndTime = Nothing,
-      _dmejrrsState = Nothing,
-      _dmejrrsKMSKeyARN = Nothing,
-      _dmejrrsS3BucketName = Nothing,
-      _dmejrrsErrorInfo = Nothing,
-      _dmejrrsDescription = Nothing,
-      _dmejrrsS3Prefix = Nothing,
-      _dmejrrsResponseStatus = pResponseStatus_
+    { estimatedProgress =
+        Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      entityId = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      s3Path = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      state = Prelude.Nothing,
+      kmsKeyArn = Prelude.Nothing,
+      s3BucketName = Prelude.Nothing,
+      errorInfo = Prelude.Nothing,
+      description = Prelude.Nothing,
+      s3Prefix = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The estimated progress of the mailbox export job, in percentage points.
-dmejrrsEstimatedProgress :: Lens' DescribeMailboxExportJobResponse (Maybe Natural)
-dmejrrsEstimatedProgress = lens _dmejrrsEstimatedProgress (\s a -> s {_dmejrrsEstimatedProgress = a}) . mapping _Nat
+describeMailboxExportJobResponse_estimatedProgress :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.Natural)
+describeMailboxExportJobResponse_estimatedProgress = Lens.lens (\DescribeMailboxExportJobResponse' {estimatedProgress} -> estimatedProgress) (\s@DescribeMailboxExportJobResponse' {} a -> s {estimatedProgress = a} :: DescribeMailboxExportJobResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | The ARN of the AWS Identity and Access Management (IAM) role that grants write permission to the Amazon Simple Storage Service (Amazon S3) bucket.
-dmejrrsRoleARN :: Lens' DescribeMailboxExportJobResponse (Maybe Text)
-dmejrrsRoleARN = lens _dmejrrsRoleARN (\s a -> s {_dmejrrsRoleARN = a})
+-- | The ARN of the AWS Identity and Access Management (IAM) role that grants
+-- write permission to the Amazon Simple Storage Service (Amazon S3)
+-- bucket.
+describeMailboxExportJobResponse_roleArn :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.Text)
+describeMailboxExportJobResponse_roleArn = Lens.lens (\DescribeMailboxExportJobResponse' {roleArn} -> roleArn) (\s@DescribeMailboxExportJobResponse' {} a -> s {roleArn = a} :: DescribeMailboxExportJobResponse)
 
 -- | The identifier of the user or resource associated with the mailbox.
-dmejrrsEntityId :: Lens' DescribeMailboxExportJobResponse (Maybe Text)
-dmejrrsEntityId = lens _dmejrrsEntityId (\s a -> s {_dmejrrsEntityId = a})
+describeMailboxExportJobResponse_entityId :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.Text)
+describeMailboxExportJobResponse_entityId = Lens.lens (\DescribeMailboxExportJobResponse' {entityId} -> entityId) (\s@DescribeMailboxExportJobResponse' {} a -> s {entityId = a} :: DescribeMailboxExportJobResponse)
 
 -- | The mailbox export job start timestamp.
-dmejrrsStartTime :: Lens' DescribeMailboxExportJobResponse (Maybe UTCTime)
-dmejrrsStartTime = lens _dmejrrsStartTime (\s a -> s {_dmejrrsStartTime = a}) . mapping _Time
+describeMailboxExportJobResponse_startTime :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.UTCTime)
+describeMailboxExportJobResponse_startTime = Lens.lens (\DescribeMailboxExportJobResponse' {startTime} -> startTime) (\s@DescribeMailboxExportJobResponse' {} a -> s {startTime = a} :: DescribeMailboxExportJobResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The path to the S3 bucket and file that the mailbox export job is exporting to.
-dmejrrsS3Path :: Lens' DescribeMailboxExportJobResponse (Maybe Text)
-dmejrrsS3Path = lens _dmejrrsS3Path (\s a -> s {_dmejrrsS3Path = a})
+-- | The path to the S3 bucket and file that the mailbox export job is
+-- exporting to.
+describeMailboxExportJobResponse_s3Path :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.Text)
+describeMailboxExportJobResponse_s3Path = Lens.lens (\DescribeMailboxExportJobResponse' {s3Path} -> s3Path) (\s@DescribeMailboxExportJobResponse' {} a -> s {s3Path = a} :: DescribeMailboxExportJobResponse)
 
 -- | The mailbox export job end timestamp.
-dmejrrsEndTime :: Lens' DescribeMailboxExportJobResponse (Maybe UTCTime)
-dmejrrsEndTime = lens _dmejrrsEndTime (\s a -> s {_dmejrrsEndTime = a}) . mapping _Time
+describeMailboxExportJobResponse_endTime :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.UTCTime)
+describeMailboxExportJobResponse_endTime = Lens.lens (\DescribeMailboxExportJobResponse' {endTime} -> endTime) (\s@DescribeMailboxExportJobResponse' {} a -> s {endTime = a} :: DescribeMailboxExportJobResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The state of the mailbox export job.
-dmejrrsState :: Lens' DescribeMailboxExportJobResponse (Maybe MailboxExportJobState)
-dmejrrsState = lens _dmejrrsState (\s a -> s {_dmejrrsState = a})
+describeMailboxExportJobResponse_state :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe MailboxExportJobState)
+describeMailboxExportJobResponse_state = Lens.lens (\DescribeMailboxExportJobResponse' {state} -> state) (\s@DescribeMailboxExportJobResponse' {} a -> s {state = a} :: DescribeMailboxExportJobResponse)
 
--- | The Amazon Resource Name (ARN) of the symmetric AWS Key Management Service (AWS KMS) key that encrypts the exported mailbox content.
-dmejrrsKMSKeyARN :: Lens' DescribeMailboxExportJobResponse (Maybe Text)
-dmejrrsKMSKeyARN = lens _dmejrrsKMSKeyARN (\s a -> s {_dmejrrsKMSKeyARN = a})
+-- | The Amazon Resource Name (ARN) of the symmetric AWS Key Management
+-- Service (AWS KMS) key that encrypts the exported mailbox content.
+describeMailboxExportJobResponse_kmsKeyArn :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.Text)
+describeMailboxExportJobResponse_kmsKeyArn = Lens.lens (\DescribeMailboxExportJobResponse' {kmsKeyArn} -> kmsKeyArn) (\s@DescribeMailboxExportJobResponse' {} a -> s {kmsKeyArn = a} :: DescribeMailboxExportJobResponse)
 
 -- | The name of the S3 bucket.
-dmejrrsS3BucketName :: Lens' DescribeMailboxExportJobResponse (Maybe Text)
-dmejrrsS3BucketName = lens _dmejrrsS3BucketName (\s a -> s {_dmejrrsS3BucketName = a})
+describeMailboxExportJobResponse_s3BucketName :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.Text)
+describeMailboxExportJobResponse_s3BucketName = Lens.lens (\DescribeMailboxExportJobResponse' {s3BucketName} -> s3BucketName) (\s@DescribeMailboxExportJobResponse' {} a -> s {s3BucketName = a} :: DescribeMailboxExportJobResponse)
 
 -- | Error information for failed mailbox export jobs.
-dmejrrsErrorInfo :: Lens' DescribeMailboxExportJobResponse (Maybe Text)
-dmejrrsErrorInfo = lens _dmejrrsErrorInfo (\s a -> s {_dmejrrsErrorInfo = a})
+describeMailboxExportJobResponse_errorInfo :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.Text)
+describeMailboxExportJobResponse_errorInfo = Lens.lens (\DescribeMailboxExportJobResponse' {errorInfo} -> errorInfo) (\s@DescribeMailboxExportJobResponse' {} a -> s {errorInfo = a} :: DescribeMailboxExportJobResponse)
 
 -- | The mailbox export job description.
-dmejrrsDescription :: Lens' DescribeMailboxExportJobResponse (Maybe Text)
-dmejrrsDescription = lens _dmejrrsDescription (\s a -> s {_dmejrrsDescription = a})
+describeMailboxExportJobResponse_description :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.Text)
+describeMailboxExportJobResponse_description = Lens.lens (\DescribeMailboxExportJobResponse' {description} -> description) (\s@DescribeMailboxExportJobResponse' {} a -> s {description = a} :: DescribeMailboxExportJobResponse)
 
 -- | The S3 bucket prefix.
-dmejrrsS3Prefix :: Lens' DescribeMailboxExportJobResponse (Maybe Text)
-dmejrrsS3Prefix = lens _dmejrrsS3Prefix (\s a -> s {_dmejrrsS3Prefix = a})
+describeMailboxExportJobResponse_s3Prefix :: Lens.Lens' DescribeMailboxExportJobResponse (Prelude.Maybe Prelude.Text)
+describeMailboxExportJobResponse_s3Prefix = Lens.lens (\DescribeMailboxExportJobResponse' {s3Prefix} -> s3Prefix) (\s@DescribeMailboxExportJobResponse' {} a -> s {s3Prefix = a} :: DescribeMailboxExportJobResponse)
 
--- | -- | The response status code.
-dmejrrsResponseStatus :: Lens' DescribeMailboxExportJobResponse Int
-dmejrrsResponseStatus = lens _dmejrrsResponseStatus (\s a -> s {_dmejrrsResponseStatus = a})
+-- | The response's http status code.
+describeMailboxExportJobResponse_httpStatus :: Lens.Lens' DescribeMailboxExportJobResponse Prelude.Int
+describeMailboxExportJobResponse_httpStatus = Lens.lens (\DescribeMailboxExportJobResponse' {httpStatus} -> httpStatus) (\s@DescribeMailboxExportJobResponse' {} a -> s {httpStatus = a} :: DescribeMailboxExportJobResponse)
 
-instance NFData DescribeMailboxExportJobResponse
+instance
+  Prelude.NFData
+    DescribeMailboxExportJobResponse

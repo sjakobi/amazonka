@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,171 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an Amazon WorkMail organization and all underlying AWS resources managed by Amazon WorkMail as part of the organization. You can choose whether to delete the associated directory. For more information, see <https://docs.aws.amazon.com/workmail/latest/adminguide/remove_organization.html Removing an organization> in the /Amazon WorkMail Administrator Guide/ .
+-- Deletes an Amazon WorkMail organization and all underlying AWS resources
+-- managed by Amazon WorkMail as part of the organization. You can choose
+-- whether to delete the associated directory. For more information, see
+-- <https://docs.aws.amazon.com/workmail/latest/adminguide/remove_organization.html Removing an organization>
+-- in the /Amazon WorkMail Administrator Guide/.
 module Network.AWS.WorkMail.DeleteOrganization
   ( -- * Creating a Request
-    deleteOrganization,
-    DeleteOrganization,
+    DeleteOrganization (..),
+    newDeleteOrganization,
 
     -- * Request Lenses
-    delClientToken,
-    delOrganizationId,
-    delDeleteDirectory,
+    deleteOrganization_clientToken,
+    deleteOrganization_organizationId,
+    deleteOrganization_deleteDirectory,
 
     -- * Destructuring the Response
-    deleteOrganizationResponse,
-    DeleteOrganizationResponse,
+    DeleteOrganizationResponse (..),
+    newDeleteOrganizationResponse,
 
     -- * Response Lenses
-    dorrsOrganizationId,
-    dorrsState,
-    dorrsResponseStatus,
+    deleteOrganizationResponse_organizationId,
+    deleteOrganizationResponse_state,
+    deleteOrganizationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'deleteOrganization' smart constructor.
+-- | /See:/ 'newDeleteOrganization' smart constructor.
 data DeleteOrganization = DeleteOrganization'
-  { _delClientToken ::
-      !(Maybe Text),
-    _delOrganizationId :: !Text,
-    _delDeleteDirectory :: !Bool
+  { -- | The idempotency token associated with the request.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The organization ID.
+    organizationId :: Prelude.Text,
+    -- | If true, deletes the AWS Directory Service directory associated with the
+    -- organization.
+    deleteDirectory :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOrganization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteOrganization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delClientToken' - The idempotency token associated with the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delOrganizationId' - The organization ID.
+-- 'clientToken', 'deleteOrganization_clientToken' - The idempotency token associated with the request.
 --
--- * 'delDeleteDirectory' - If true, deletes the AWS Directory Service directory associated with the organization.
-deleteOrganization ::
-  -- | 'delOrganizationId'
-  Text ->
-  -- | 'delDeleteDirectory'
-  Bool ->
+-- 'organizationId', 'deleteOrganization_organizationId' - The organization ID.
+--
+-- 'deleteDirectory', 'deleteOrganization_deleteDirectory' - If true, deletes the AWS Directory Service directory associated with the
+-- organization.
+newDeleteOrganization ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'deleteDirectory'
+  Prelude.Bool ->
   DeleteOrganization
-deleteOrganization pOrganizationId_ pDeleteDirectory_ =
-  DeleteOrganization'
-    { _delClientToken = Nothing,
-      _delOrganizationId = pOrganizationId_,
-      _delDeleteDirectory = pDeleteDirectory_
-    }
+newDeleteOrganization
+  pOrganizationId_
+  pDeleteDirectory_ =
+    DeleteOrganization'
+      { clientToken = Prelude.Nothing,
+        organizationId = pOrganizationId_,
+        deleteDirectory = pDeleteDirectory_
+      }
 
 -- | The idempotency token associated with the request.
-delClientToken :: Lens' DeleteOrganization (Maybe Text)
-delClientToken = lens _delClientToken (\s a -> s {_delClientToken = a})
+deleteOrganization_clientToken :: Lens.Lens' DeleteOrganization (Prelude.Maybe Prelude.Text)
+deleteOrganization_clientToken = Lens.lens (\DeleteOrganization' {clientToken} -> clientToken) (\s@DeleteOrganization' {} a -> s {clientToken = a} :: DeleteOrganization)
 
 -- | The organization ID.
-delOrganizationId :: Lens' DeleteOrganization Text
-delOrganizationId = lens _delOrganizationId (\s a -> s {_delOrganizationId = a})
+deleteOrganization_organizationId :: Lens.Lens' DeleteOrganization Prelude.Text
+deleteOrganization_organizationId = Lens.lens (\DeleteOrganization' {organizationId} -> organizationId) (\s@DeleteOrganization' {} a -> s {organizationId = a} :: DeleteOrganization)
 
--- | If true, deletes the AWS Directory Service directory associated with the organization.
-delDeleteDirectory :: Lens' DeleteOrganization Bool
-delDeleteDirectory = lens _delDeleteDirectory (\s a -> s {_delDeleteDirectory = a})
+-- | If true, deletes the AWS Directory Service directory associated with the
+-- organization.
+deleteOrganization_deleteDirectory :: Lens.Lens' DeleteOrganization Prelude.Bool
+deleteOrganization_deleteDirectory = Lens.lens (\DeleteOrganization' {deleteDirectory} -> deleteDirectory) (\s@DeleteOrganization' {} a -> s {deleteDirectory = a} :: DeleteOrganization)
 
-instance AWSRequest DeleteOrganization where
+instance Prelude.AWSRequest DeleteOrganization where
   type
     Rs DeleteOrganization =
       DeleteOrganizationResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteOrganizationResponse'
-            <$> (x .?> "OrganizationId")
-            <*> (x .?> "State")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "OrganizationId")
+            Prelude.<*> (x Prelude..?> "State")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteOrganization
+instance Prelude.Hashable DeleteOrganization
 
-instance NFData DeleteOrganization
+instance Prelude.NFData DeleteOrganization
 
-instance ToHeaders DeleteOrganization where
+instance Prelude.ToHeaders DeleteOrganization where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.DeleteOrganization" :: ByteString),
+              Prelude.=# ( "WorkMailService.DeleteOrganization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteOrganization where
+instance Prelude.ToJSON DeleteOrganization where
   toJSON DeleteOrganization' {..} =
-    object
-      ( catMaybes
-          [ ("ClientToken" .=) <$> _delClientToken,
-            Just ("OrganizationId" .= _delOrganizationId),
-            Just ("DeleteDirectory" .= _delDeleteDirectory)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClientToken" Prelude..=) Prelude.<$> clientToken,
+            Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just
+              ("DeleteDirectory" Prelude..= deleteDirectory)
           ]
       )
 
-instance ToPath DeleteOrganization where
-  toPath = const "/"
+instance Prelude.ToPath DeleteOrganization where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteOrganization where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteOrganization where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteOrganizationResponse' smart constructor.
+-- | /See:/ 'newDeleteOrganizationResponse' smart constructor.
 data DeleteOrganizationResponse = DeleteOrganizationResponse'
-  { _dorrsOrganizationId ::
-      !(Maybe Text),
-    _dorrsState ::
-      !(Maybe Text),
-    _dorrsResponseStatus ::
-      !Int
+  { -- | The organization ID.
+    organizationId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the organization.
+    state :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOrganizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteOrganizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dorrsOrganizationId' - The organization ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dorrsState' - The state of the organization.
+-- 'organizationId', 'deleteOrganizationResponse_organizationId' - The organization ID.
 --
--- * 'dorrsResponseStatus' - -- | The response status code.
-deleteOrganizationResponse ::
-  -- | 'dorrsResponseStatus'
-  Int ->
+-- 'state', 'deleteOrganizationResponse_state' - The state of the organization.
+--
+-- 'httpStatus', 'deleteOrganizationResponse_httpStatus' - The response's http status code.
+newDeleteOrganizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteOrganizationResponse
-deleteOrganizationResponse pResponseStatus_ =
+newDeleteOrganizationResponse pHttpStatus_ =
   DeleteOrganizationResponse'
-    { _dorrsOrganizationId =
-        Nothing,
-      _dorrsState = Nothing,
-      _dorrsResponseStatus = pResponseStatus_
+    { organizationId =
+        Prelude.Nothing,
+      state = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The organization ID.
-dorrsOrganizationId :: Lens' DeleteOrganizationResponse (Maybe Text)
-dorrsOrganizationId = lens _dorrsOrganizationId (\s a -> s {_dorrsOrganizationId = a})
+deleteOrganizationResponse_organizationId :: Lens.Lens' DeleteOrganizationResponse (Prelude.Maybe Prelude.Text)
+deleteOrganizationResponse_organizationId = Lens.lens (\DeleteOrganizationResponse' {organizationId} -> organizationId) (\s@DeleteOrganizationResponse' {} a -> s {organizationId = a} :: DeleteOrganizationResponse)
 
 -- | The state of the organization.
-dorrsState :: Lens' DeleteOrganizationResponse (Maybe Text)
-dorrsState = lens _dorrsState (\s a -> s {_dorrsState = a})
+deleteOrganizationResponse_state :: Lens.Lens' DeleteOrganizationResponse (Prelude.Maybe Prelude.Text)
+deleteOrganizationResponse_state = Lens.lens (\DeleteOrganizationResponse' {state} -> state) (\s@DeleteOrganizationResponse' {} a -> s {state = a} :: DeleteOrganizationResponse)
 
--- | -- | The response status code.
-dorrsResponseStatus :: Lens' DeleteOrganizationResponse Int
-dorrsResponseStatus = lens _dorrsResponseStatus (\s a -> s {_dorrsResponseStatus = a})
+-- | The response's http status code.
+deleteOrganizationResponse_httpStatus :: Lens.Lens' DeleteOrganizationResponse Prelude.Int
+deleteOrganizationResponse_httpStatus = Lens.lens (\DeleteOrganizationResponse' {httpStatus} -> httpStatus) (\s@DeleteOrganizationResponse' {} a -> s {httpStatus = a} :: DeleteOrganizationResponse)
 
-instance NFData DeleteOrganizationResponse
+instance Prelude.NFData DeleteOrganizationResponse

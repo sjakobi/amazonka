@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkMail.Types.FolderConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkMail.Types.FolderName
 import Network.AWS.WorkMail.Types.RetentionAction
 
--- | The configuration applied to an organization's folders by its retention policy.
+-- | The configuration applied to an organization\'s folders by its retention
+-- policy.
 --
---
---
--- /See:/ 'folderConfiguration' smart constructor.
+-- /See:/ 'newFolderConfiguration' smart constructor.
 data FolderConfiguration = FolderConfiguration'
-  { _fcPeriod ::
-      !(Maybe Nat),
-    _fcName :: !FolderName,
-    _fcAction :: !RetentionAction
+  { -- | The period of time at which the folder configuration action is applied.
+    period :: Prelude.Maybe Prelude.Nat,
+    -- | The folder name.
+    name :: FolderName,
+    -- | The action to take on the folder contents at the end of the folder
+    -- configuration period.
+    action :: RetentionAction
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FolderConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FolderConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fcPeriod' - The period of time at which the folder configuration action is applied.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fcName' - The folder name.
+-- 'period', 'folderConfiguration_period' - The period of time at which the folder configuration action is applied.
 --
--- * 'fcAction' - The action to take on the folder contents at the end of the folder configuration period.
-folderConfiguration ::
-  -- | 'fcName'
+-- 'name', 'folderConfiguration_name' - The folder name.
+--
+-- 'action', 'folderConfiguration_action' - The action to take on the folder contents at the end of the folder
+-- configuration period.
+newFolderConfiguration ::
+  -- | 'name'
   FolderName ->
-  -- | 'fcAction'
+  -- | 'action'
   RetentionAction ->
   FolderConfiguration
-folderConfiguration pName_ pAction_ =
+newFolderConfiguration pName_ pAction_ =
   FolderConfiguration'
-    { _fcPeriod = Nothing,
-      _fcName = pName_,
-      _fcAction = pAction_
+    { period = Prelude.Nothing,
+      name = pName_,
+      action = pAction_
     }
 
 -- | The period of time at which the folder configuration action is applied.
-fcPeriod :: Lens' FolderConfiguration (Maybe Natural)
-fcPeriod = lens _fcPeriod (\s a -> s {_fcPeriod = a}) . mapping _Nat
+folderConfiguration_period :: Lens.Lens' FolderConfiguration (Prelude.Maybe Prelude.Natural)
+folderConfiguration_period = Lens.lens (\FolderConfiguration' {period} -> period) (\s@FolderConfiguration' {} a -> s {period = a} :: FolderConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The folder name.
-fcName :: Lens' FolderConfiguration FolderName
-fcName = lens _fcName (\s a -> s {_fcName = a})
+folderConfiguration_name :: Lens.Lens' FolderConfiguration FolderName
+folderConfiguration_name = Lens.lens (\FolderConfiguration' {name} -> name) (\s@FolderConfiguration' {} a -> s {name = a} :: FolderConfiguration)
 
--- | The action to take on the folder contents at the end of the folder configuration period.
-fcAction :: Lens' FolderConfiguration RetentionAction
-fcAction = lens _fcAction (\s a -> s {_fcAction = a})
+-- | The action to take on the folder contents at the end of the folder
+-- configuration period.
+folderConfiguration_action :: Lens.Lens' FolderConfiguration RetentionAction
+folderConfiguration_action = Lens.lens (\FolderConfiguration' {action} -> action) (\s@FolderConfiguration' {} a -> s {action = a} :: FolderConfiguration)
 
-instance FromJSON FolderConfiguration where
+instance Prelude.FromJSON FolderConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FolderConfiguration"
       ( \x ->
           FolderConfiguration'
-            <$> (x .:? "Period")
-            <*> (x .: "Name")
-            <*> (x .: "Action")
+            Prelude.<$> (x Prelude..:? "Period")
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Action")
       )
 
-instance Hashable FolderConfiguration
+instance Prelude.Hashable FolderConfiguration
 
-instance NFData FolderConfiguration
+instance Prelude.NFData FolderConfiguration
 
-instance ToJSON FolderConfiguration where
+instance Prelude.ToJSON FolderConfiguration where
   toJSON FolderConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("Period" .=) <$> _fcPeriod,
-            Just ("Name" .= _fcName),
-            Just ("Action" .= _fcAction)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Period" Prelude..=) Prelude.<$> period,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Action" Prelude..= action)
           ]
       )

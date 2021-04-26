@@ -11,31 +11,38 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon WorkMail is a secure, managed business email and calendaring service with support for existing desktop and mobile email clients. You can access your email, contacts, and calendars using Microsoft Outlook, your browser, or other native iOS and Android email applications. You can integrate WorkMail with your existing corporate directory and control both the keys that encrypt your data and the location in which your data is stored.
---
+-- Amazon WorkMail is a secure, managed business email and calendaring
+-- service with support for existing desktop and mobile email clients. You
+-- can access your email, contacts, and calendars using Microsoft Outlook,
+-- your browser, or other native iOS and Android email applications. You
+-- can integrate WorkMail with your existing corporate directory and
+-- control both the keys that encrypt your data and the location in which
+-- your data is stored.
 --
 -- The WorkMail API is designed for the following scenarios:
 --
---     * Listing and describing organizations
+-- -   Listing and describing organizations
 --
+-- -   Managing users
 --
+-- -   Managing groups
 --
---     * Managing users
+-- -   Managing resources
 --
---
---
---     * Managing groups
---
---
---
---     * Managing resources
---
---
---
--- All WorkMail API operations are Amazon-authenticated and certificate-signed. They not only require the use of the AWS SDK, but also allow for the exclusive use of AWS Identity and Access Management users and roles to help facilitate access, trust, and permission policies. By creating a role and allowing an IAM user to access the WorkMail site, the IAM user gains full administrative visibility into the entire WorkMail organization (or as set in the IAM policy). This includes, but is not limited to, the ability to create, update, and delete users, groups, and resources. This allows developers to perform the scenarios listed above, as well as give users the ability to grant access on a selective basis using the IAM model.
+-- All WorkMail API operations are Amazon-authenticated and
+-- certificate-signed. They not only require the use of the AWS SDK, but
+-- also allow for the exclusive use of AWS Identity and Access Management
+-- users and roles to help facilitate access, trust, and permission
+-- policies. By creating a role and allowing an IAM user to access the
+-- WorkMail site, the IAM user gains full administrative visibility into
+-- the entire WorkMail organization (or as set in the IAM policy). This
+-- includes, but is not limited to, the ability to create, update, and
+-- delete users, groups, and resources. This allows developers to perform
+-- the scenarios listed above, as well as give users the ability to grant
+-- access on a selective basis using the IAM model.
 module Network.AWS.WorkMail
   ( -- * Service Configuration
-    workMail,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -107,151 +114,298 @@ module Network.AWS.WorkMail
     -- $operations
 
     -- ** CreateOrganization
-    module Network.AWS.WorkMail.CreateOrganization,
+    CreateOrganization (CreateOrganization'),
+    newCreateOrganization,
+    CreateOrganizationResponse (CreateOrganizationResponse'),
+    newCreateOrganizationResponse,
 
     -- ** DeleteAlias
-    module Network.AWS.WorkMail.DeleteAlias,
+    DeleteAlias (DeleteAlias'),
+    newDeleteAlias,
+    DeleteAliasResponse (DeleteAliasResponse'),
+    newDeleteAliasResponse,
 
     -- ** StartMailboxExportJob
-    module Network.AWS.WorkMail.StartMailboxExportJob,
+    StartMailboxExportJob (StartMailboxExportJob'),
+    newStartMailboxExportJob,
+    StartMailboxExportJobResponse (StartMailboxExportJobResponse'),
+    newStartMailboxExportJobResponse,
 
     -- ** DescribeResource
-    module Network.AWS.WorkMail.DescribeResource,
+    DescribeResource (DescribeResource'),
+    newDescribeResource,
+    DescribeResourceResponse (DescribeResourceResponse'),
+    newDescribeResourceResponse,
 
     -- ** ListResourceDelegates (Paginated)
-    module Network.AWS.WorkMail.ListResourceDelegates,
+    ListResourceDelegates (ListResourceDelegates'),
+    newListResourceDelegates,
+    ListResourceDelegatesResponse (ListResourceDelegatesResponse'),
+    newListResourceDelegatesResponse,
 
     -- ** DeleteAccessControlRule
-    module Network.AWS.WorkMail.DeleteAccessControlRule,
+    DeleteAccessControlRule (DeleteAccessControlRule'),
+    newDeleteAccessControlRule,
+    DeleteAccessControlRuleResponse (DeleteAccessControlRuleResponse'),
+    newDeleteAccessControlRuleResponse,
 
     -- ** DisassociateDelegateFromResource
-    module Network.AWS.WorkMail.DisassociateDelegateFromResource,
+    DisassociateDelegateFromResource (DisassociateDelegateFromResource'),
+    newDisassociateDelegateFromResource,
+    DisassociateDelegateFromResourceResponse (DisassociateDelegateFromResourceResponse'),
+    newDisassociateDelegateFromResourceResponse,
 
     -- ** GetDefaultRetentionPolicy
-    module Network.AWS.WorkMail.GetDefaultRetentionPolicy,
+    GetDefaultRetentionPolicy (GetDefaultRetentionPolicy'),
+    newGetDefaultRetentionPolicy,
+    GetDefaultRetentionPolicyResponse (GetDefaultRetentionPolicyResponse'),
+    newGetDefaultRetentionPolicyResponse,
 
     -- ** ListGroups (Paginated)
-    module Network.AWS.WorkMail.ListGroups,
+    ListGroups (ListGroups'),
+    newListGroups,
+    ListGroupsResponse (ListGroupsResponse'),
+    newListGroupsResponse,
 
     -- ** ListMailboxExportJobs
-    module Network.AWS.WorkMail.ListMailboxExportJobs,
+    ListMailboxExportJobs (ListMailboxExportJobs'),
+    newListMailboxExportJobs,
+    ListMailboxExportJobsResponse (ListMailboxExportJobsResponse'),
+    newListMailboxExportJobsResponse,
 
     -- ** DescribeOrganization
-    module Network.AWS.WorkMail.DescribeOrganization,
+    DescribeOrganization (DescribeOrganization'),
+    newDescribeOrganization,
+    DescribeOrganizationResponse (DescribeOrganizationResponse'),
+    newDescribeOrganizationResponse,
 
     -- ** CreateResource
-    module Network.AWS.WorkMail.CreateResource,
+    CreateResource (CreateResource'),
+    newCreateResource,
+    CreateResourceResponse (CreateResourceResponse'),
+    newCreateResourceResponse,
 
     -- ** UpdateResource
-    module Network.AWS.WorkMail.UpdateResource,
+    UpdateResource (UpdateResource'),
+    newUpdateResource,
+    UpdateResourceResponse (UpdateResourceResponse'),
+    newUpdateResourceResponse,
 
     -- ** UntagResource
-    module Network.AWS.WorkMail.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DeleteResource
-    module Network.AWS.WorkMail.DeleteResource,
+    DeleteResource (DeleteResource'),
+    newDeleteResource,
+    DeleteResourceResponse (DeleteResourceResponse'),
+    newDeleteResourceResponse,
 
     -- ** CreateGroup
-    module Network.AWS.WorkMail.CreateGroup,
+    CreateGroup (CreateGroup'),
+    newCreateGroup,
+    CreateGroupResponse (CreateGroupResponse'),
+    newCreateGroupResponse,
 
     -- ** TagResource
-    module Network.AWS.WorkMail.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** AssociateMemberToGroup
-    module Network.AWS.WorkMail.AssociateMemberToGroup,
+    AssociateMemberToGroup (AssociateMemberToGroup'),
+    newAssociateMemberToGroup,
+    AssociateMemberToGroupResponse (AssociateMemberToGroupResponse'),
+    newAssociateMemberToGroupResponse,
 
     -- ** CreateUser
-    module Network.AWS.WorkMail.CreateUser,
+    CreateUser (CreateUser'),
+    newCreateUser,
+    CreateUserResponse (CreateUserResponse'),
+    newCreateUserResponse,
 
     -- ** PutRetentionPolicy
-    module Network.AWS.WorkMail.PutRetentionPolicy,
+    PutRetentionPolicy (PutRetentionPolicy'),
+    newPutRetentionPolicy,
+    PutRetentionPolicyResponse (PutRetentionPolicyResponse'),
+    newPutRetentionPolicyResponse,
 
     -- ** PutMailboxPermissions
-    module Network.AWS.WorkMail.PutMailboxPermissions,
+    PutMailboxPermissions (PutMailboxPermissions'),
+    newPutMailboxPermissions,
+    PutMailboxPermissionsResponse (PutMailboxPermissionsResponse'),
+    newPutMailboxPermissionsResponse,
 
     -- ** AssociateDelegateToResource
-    module Network.AWS.WorkMail.AssociateDelegateToResource,
+    AssociateDelegateToResource (AssociateDelegateToResource'),
+    newAssociateDelegateToResource,
+    AssociateDelegateToResourceResponse (AssociateDelegateToResourceResponse'),
+    newAssociateDelegateToResourceResponse,
 
     -- ** RegisterToWorkMail
-    module Network.AWS.WorkMail.RegisterToWorkMail,
+    RegisterToWorkMail (RegisterToWorkMail'),
+    newRegisterToWorkMail,
+    RegisterToWorkMailResponse (RegisterToWorkMailResponse'),
+    newRegisterToWorkMailResponse,
 
     -- ** DeleteOrganization
-    module Network.AWS.WorkMail.DeleteOrganization,
+    DeleteOrganization (DeleteOrganization'),
+    newDeleteOrganization,
+    DeleteOrganizationResponse (DeleteOrganizationResponse'),
+    newDeleteOrganizationResponse,
 
     -- ** DescribeMailboxExportJob
-    module Network.AWS.WorkMail.DescribeMailboxExportJob,
+    DescribeMailboxExportJob (DescribeMailboxExportJob'),
+    newDescribeMailboxExportJob,
+    DescribeMailboxExportJobResponse (DescribeMailboxExportJobResponse'),
+    newDescribeMailboxExportJobResponse,
 
     -- ** ListOrganizations (Paginated)
-    module Network.AWS.WorkMail.ListOrganizations,
+    ListOrganizations (ListOrganizations'),
+    newListOrganizations,
+    ListOrganizationsResponse (ListOrganizationsResponse'),
+    newListOrganizationsResponse,
 
     -- ** UpdatePrimaryEmailAddress
-    module Network.AWS.WorkMail.UpdatePrimaryEmailAddress,
+    UpdatePrimaryEmailAddress (UpdatePrimaryEmailAddress'),
+    newUpdatePrimaryEmailAddress,
+    UpdatePrimaryEmailAddressResponse (UpdatePrimaryEmailAddressResponse'),
+    newUpdatePrimaryEmailAddressResponse,
 
     -- ** ListAccessControlRules
-    module Network.AWS.WorkMail.ListAccessControlRules,
+    ListAccessControlRules (ListAccessControlRules'),
+    newListAccessControlRules,
+    ListAccessControlRulesResponse (ListAccessControlRulesResponse'),
+    newListAccessControlRulesResponse,
 
     -- ** PutAccessControlRule
-    module Network.AWS.WorkMail.PutAccessControlRule,
+    PutAccessControlRule (PutAccessControlRule'),
+    newPutAccessControlRule,
+    PutAccessControlRuleResponse (PutAccessControlRuleResponse'),
+    newPutAccessControlRuleResponse,
 
     -- ** DescribeUser
-    module Network.AWS.WorkMail.DescribeUser,
+    DescribeUser (DescribeUser'),
+    newDescribeUser,
+    DescribeUserResponse (DescribeUserResponse'),
+    newDescribeUserResponse,
 
     -- ** CancelMailboxExportJob
-    module Network.AWS.WorkMail.CancelMailboxExportJob,
+    CancelMailboxExportJob (CancelMailboxExportJob'),
+    newCancelMailboxExportJob,
+    CancelMailboxExportJobResponse (CancelMailboxExportJobResponse'),
+    newCancelMailboxExportJobResponse,
 
     -- ** DeregisterFromWorkMail
-    module Network.AWS.WorkMail.DeregisterFromWorkMail,
+    DeregisterFromWorkMail (DeregisterFromWorkMail'),
+    newDeregisterFromWorkMail,
+    DeregisterFromWorkMailResponse (DeregisterFromWorkMailResponse'),
+    newDeregisterFromWorkMailResponse,
 
     -- ** ListGroupMembers (Paginated)
-    module Network.AWS.WorkMail.ListGroupMembers,
+    ListGroupMembers (ListGroupMembers'),
+    newListGroupMembers,
+    ListGroupMembersResponse (ListGroupMembersResponse'),
+    newListGroupMembersResponse,
 
     -- ** DeleteGroup
-    module Network.AWS.WorkMail.DeleteGroup,
+    DeleteGroup (DeleteGroup'),
+    newDeleteGroup,
+    DeleteGroupResponse (DeleteGroupResponse'),
+    newDeleteGroupResponse,
 
     -- ** ListMailboxPermissions (Paginated)
-    module Network.AWS.WorkMail.ListMailboxPermissions,
+    ListMailboxPermissions (ListMailboxPermissions'),
+    newListMailboxPermissions,
+    ListMailboxPermissionsResponse (ListMailboxPermissionsResponse'),
+    newListMailboxPermissionsResponse,
 
     -- ** DisassociateMemberFromGroup
-    module Network.AWS.WorkMail.DisassociateMemberFromGroup,
+    DisassociateMemberFromGroup (DisassociateMemberFromGroup'),
+    newDisassociateMemberFromGroup,
+    DisassociateMemberFromGroupResponse (DisassociateMemberFromGroupResponse'),
+    newDisassociateMemberFromGroupResponse,
 
     -- ** UpdateMailboxQuota
-    module Network.AWS.WorkMail.UpdateMailboxQuota,
+    UpdateMailboxQuota (UpdateMailboxQuota'),
+    newUpdateMailboxQuota,
+    UpdateMailboxQuotaResponse (UpdateMailboxQuotaResponse'),
+    newUpdateMailboxQuotaResponse,
 
     -- ** ListResources (Paginated)
-    module Network.AWS.WorkMail.ListResources,
+    ListResources (ListResources'),
+    newListResources,
+    ListResourcesResponse (ListResourcesResponse'),
+    newListResourcesResponse,
 
     -- ** DeleteUser
-    module Network.AWS.WorkMail.DeleteUser,
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    DeleteUserResponse (DeleteUserResponse'),
+    newDeleteUserResponse,
 
     -- ** ListUsers (Paginated)
-    module Network.AWS.WorkMail.ListUsers,
+    ListUsers (ListUsers'),
+    newListUsers,
+    ListUsersResponse (ListUsersResponse'),
+    newListUsersResponse,
 
     -- ** GetMailboxDetails
-    module Network.AWS.WorkMail.GetMailboxDetails,
+    GetMailboxDetails (GetMailboxDetails'),
+    newGetMailboxDetails,
+    GetMailboxDetailsResponse (GetMailboxDetailsResponse'),
+    newGetMailboxDetailsResponse,
 
     -- ** DeleteMailboxPermissions
-    module Network.AWS.WorkMail.DeleteMailboxPermissions,
+    DeleteMailboxPermissions (DeleteMailboxPermissions'),
+    newDeleteMailboxPermissions,
+    DeleteMailboxPermissionsResponse (DeleteMailboxPermissionsResponse'),
+    newDeleteMailboxPermissionsResponse,
 
     -- ** DeleteRetentionPolicy
-    module Network.AWS.WorkMail.DeleteRetentionPolicy,
+    DeleteRetentionPolicy (DeleteRetentionPolicy'),
+    newDeleteRetentionPolicy,
+    DeleteRetentionPolicyResponse (DeleteRetentionPolicyResponse'),
+    newDeleteRetentionPolicyResponse,
 
     -- ** DescribeGroup
-    module Network.AWS.WorkMail.DescribeGroup,
+    DescribeGroup (DescribeGroup'),
+    newDescribeGroup,
+    DescribeGroupResponse (DescribeGroupResponse'),
+    newDescribeGroupResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.WorkMail.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** CreateAlias
-    module Network.AWS.WorkMail.CreateAlias,
+    CreateAlias (CreateAlias'),
+    newCreateAlias,
+    CreateAliasResponse (CreateAliasResponse'),
+    newCreateAliasResponse,
 
     -- ** GetAccessControlEffect
-    module Network.AWS.WorkMail.GetAccessControlEffect,
+    GetAccessControlEffect (GetAccessControlEffect'),
+    newGetAccessControlEffect,
+    GetAccessControlEffectResponse (GetAccessControlEffectResponse'),
+    newGetAccessControlEffectResponse,
 
     -- ** ListAliases (Paginated)
-    module Network.AWS.WorkMail.ListAliases,
+    ListAliases (ListAliases'),
+    newListAliases,
+    ListAliasesResponse (ListAliasesResponse'),
+    newListAliasesResponse,
 
     -- ** ResetPassword
-    module Network.AWS.WorkMail.ResetPassword,
+    ResetPassword (ResetPassword'),
+    newResetPassword,
+    ResetPasswordResponse (ResetPasswordResponse'),
+    newResetPasswordResponse,
 
     -- * Types
 
@@ -283,123 +437,56 @@ module Network.AWS.WorkMail
     UserRole (..),
 
     -- ** AccessControlRule
-    AccessControlRule,
-    accessControlRule,
-    acrEffect,
-    acrDateCreated,
-    acrNotIPRanges,
-    acrIPRanges,
-    acrDateModified,
-    acrActions,
-    acrUserIds,
-    acrName,
-    acrDescription,
-    acrNotActions,
-    acrNotUserIds,
+    AccessControlRule (AccessControlRule'),
+    newAccessControlRule,
 
     -- ** BookingOptions
-    BookingOptions,
-    bookingOptions,
-    boAutoDeclineConflictingRequests,
-    boAutoDeclineRecurringRequests,
-    boAutoAcceptRequests,
+    BookingOptions (BookingOptions'),
+    newBookingOptions,
 
     -- ** Delegate
-    Delegate,
-    delegate,
-    dId,
-    dType,
+    Delegate (Delegate'),
+    newDelegate,
 
     -- ** Domain
-    Domain,
-    domain,
-    dHostedZoneId,
-    dDomainName,
+    Domain (Domain'),
+    newDomain,
 
     -- ** FolderConfiguration
-    FolderConfiguration,
-    folderConfiguration,
-    fcPeriod,
-    fcName,
-    fcAction,
+    FolderConfiguration (FolderConfiguration'),
+    newFolderConfiguration,
 
     -- ** Group
-    Group,
-    group',
-    gEnabledDate,
-    gId,
-    gState,
-    gName,
-    gEmail,
-    gDisabledDate,
+    Group (Group'),
+    newGroup,
 
     -- ** MailboxExportJob
-    MailboxExportJob,
-    mailboxExportJob,
-    mejEstimatedProgress,
-    mejEntityId,
-    mejStartTime,
-    mejS3Path,
-    mejEndTime,
-    mejState,
-    mejS3BucketName,
-    mejDescription,
-    mejJobId,
+    MailboxExportJob (MailboxExportJob'),
+    newMailboxExportJob,
 
     -- ** Member
-    Member,
-    member,
-    mEnabledDate,
-    mId,
-    mState,
-    mName,
-    mDisabledDate,
-    mType,
+    Member (Member'),
+    newMember,
 
     -- ** OrganizationSummary
-    OrganizationSummary,
-    organizationSummary,
-    osOrganizationId,
-    osAlias,
-    osDefaultMailDomain,
-    osState,
-    osErrorMessage,
+    OrganizationSummary (OrganizationSummary'),
+    newOrganizationSummary,
 
     -- ** Permission
-    Permission,
-    permission,
-    pGranteeId,
-    pGranteeType,
-    pPermissionValues,
+    Permission (Permission'),
+    newPermission,
 
     -- ** Resource
-    Resource,
-    resource,
-    rEnabledDate,
-    rId,
-    rState,
-    rName,
-    rEmail,
-    rDisabledDate,
-    rType,
+    Resource (Resource'),
+    newResource,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** User
-    User,
-    user,
-    uEnabledDate,
-    uId,
-    uUserRole,
-    uState,
-    uName,
-    uEmail,
-    uDisabledDate,
-    uDisplayName,
+    User (User'),
+    newUser,
   )
 where
 
@@ -430,6 +517,7 @@ import Network.AWS.WorkMail.DisassociateMemberFromGroup
 import Network.AWS.WorkMail.GetAccessControlEffect
 import Network.AWS.WorkMail.GetDefaultRetentionPolicy
 import Network.AWS.WorkMail.GetMailboxDetails
+import Network.AWS.WorkMail.Lens
 import Network.AWS.WorkMail.ListAccessControlRules
 import Network.AWS.WorkMail.ListAliases
 import Network.AWS.WorkMail.ListGroupMembers

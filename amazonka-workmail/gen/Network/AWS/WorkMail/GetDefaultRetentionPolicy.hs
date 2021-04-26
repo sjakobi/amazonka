@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,189 +21,184 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the default retention policy details for the specified organization.
+-- Gets the default retention policy details for the specified
+-- organization.
 module Network.AWS.WorkMail.GetDefaultRetentionPolicy
   ( -- * Creating a Request
-    getDefaultRetentionPolicy,
-    GetDefaultRetentionPolicy,
+    GetDefaultRetentionPolicy (..),
+    newGetDefaultRetentionPolicy,
 
     -- * Request Lenses
-    gdrpOrganizationId,
+    getDefaultRetentionPolicy_organizationId,
 
     -- * Destructuring the Response
-    getDefaultRetentionPolicyResponse,
-    GetDefaultRetentionPolicyResponse,
+    GetDefaultRetentionPolicyResponse (..),
+    newGetDefaultRetentionPolicyResponse,
 
     -- * Response Lenses
-    gdrprrsId,
-    gdrprrsFolderConfigurations,
-    gdrprrsName,
-    gdrprrsDescription,
-    gdrprrsResponseStatus,
+    getDefaultRetentionPolicyResponse_id,
+    getDefaultRetentionPolicyResponse_folderConfigurations,
+    getDefaultRetentionPolicyResponse_name,
+    getDefaultRetentionPolicyResponse_description,
+    getDefaultRetentionPolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
+import Network.AWS.WorkMail.Types.FolderConfiguration
 
--- | /See:/ 'getDefaultRetentionPolicy' smart constructor.
-newtype GetDefaultRetentionPolicy = GetDefaultRetentionPolicy'
-  { _gdrpOrganizationId ::
-      Text
+-- | /See:/ 'newGetDefaultRetentionPolicy' smart constructor.
+data GetDefaultRetentionPolicy = GetDefaultRetentionPolicy'
+  { -- | The organization ID.
+    organizationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDefaultRetentionPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDefaultRetentionPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdrpOrganizationId' - The organization ID.
-getDefaultRetentionPolicy ::
-  -- | 'gdrpOrganizationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'organizationId', 'getDefaultRetentionPolicy_organizationId' - The organization ID.
+newGetDefaultRetentionPolicy ::
+  -- | 'organizationId'
+  Prelude.Text ->
   GetDefaultRetentionPolicy
-getDefaultRetentionPolicy pOrganizationId_ =
+newGetDefaultRetentionPolicy pOrganizationId_ =
   GetDefaultRetentionPolicy'
-    { _gdrpOrganizationId =
+    { organizationId =
         pOrganizationId_
     }
 
 -- | The organization ID.
-gdrpOrganizationId :: Lens' GetDefaultRetentionPolicy Text
-gdrpOrganizationId = lens _gdrpOrganizationId (\s a -> s {_gdrpOrganizationId = a})
+getDefaultRetentionPolicy_organizationId :: Lens.Lens' GetDefaultRetentionPolicy Prelude.Text
+getDefaultRetentionPolicy_organizationId = Lens.lens (\GetDefaultRetentionPolicy' {organizationId} -> organizationId) (\s@GetDefaultRetentionPolicy' {} a -> s {organizationId = a} :: GetDefaultRetentionPolicy)
 
-instance AWSRequest GetDefaultRetentionPolicy where
+instance Prelude.AWSRequest GetDefaultRetentionPolicy where
   type
     Rs GetDefaultRetentionPolicy =
       GetDefaultRetentionPolicyResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDefaultRetentionPolicyResponse'
-            <$> (x .?> "Id")
-            <*> (x .?> "FolderConfigurations" .!@ mempty)
-            <*> (x .?> "Name")
-            <*> (x .?> "Description")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Id")
+            Prelude.<*> ( x Prelude..?> "FolderConfigurations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDefaultRetentionPolicy
+instance Prelude.Hashable GetDefaultRetentionPolicy
 
-instance NFData GetDefaultRetentionPolicy
+instance Prelude.NFData GetDefaultRetentionPolicy
 
-instance ToHeaders GetDefaultRetentionPolicy where
+instance Prelude.ToHeaders GetDefaultRetentionPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.GetDefaultRetentionPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.GetDefaultRetentionPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDefaultRetentionPolicy where
+instance Prelude.ToJSON GetDefaultRetentionPolicy where
   toJSON GetDefaultRetentionPolicy' {..} =
-    object
-      ( catMaybes
-          [Just ("OrganizationId" .= _gdrpOrganizationId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId)
+          ]
       )
 
-instance ToPath GetDefaultRetentionPolicy where
-  toPath = const "/"
+instance Prelude.ToPath GetDefaultRetentionPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDefaultRetentionPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDefaultRetentionPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDefaultRetentionPolicyResponse' smart constructor.
+-- | /See:/ 'newGetDefaultRetentionPolicyResponse' smart constructor.
 data GetDefaultRetentionPolicyResponse = GetDefaultRetentionPolicyResponse'
-  { _gdrprrsId ::
-      !( Maybe
-           Text
-       ),
-    _gdrprrsFolderConfigurations ::
-      !( Maybe
-           [FolderConfiguration]
-       ),
-    _gdrprrsName ::
-      !( Maybe
-           Text
-       ),
-    _gdrprrsDescription ::
-      !( Maybe
-           Text
-       ),
-    _gdrprrsResponseStatus ::
-      !Int
+  { -- | The retention policy ID.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The retention policy folder configurations.
+    folderConfigurations :: Prelude.Maybe [FolderConfiguration],
+    -- | The retention policy name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The retention policy description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDefaultRetentionPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDefaultRetentionPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdrprrsId' - The retention policy ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdrprrsFolderConfigurations' - The retention policy folder configurations.
+-- 'id', 'getDefaultRetentionPolicyResponse_id' - The retention policy ID.
 --
--- * 'gdrprrsName' - The retention policy name.
+-- 'folderConfigurations', 'getDefaultRetentionPolicyResponse_folderConfigurations' - The retention policy folder configurations.
 --
--- * 'gdrprrsDescription' - The retention policy description.
+-- 'name', 'getDefaultRetentionPolicyResponse_name' - The retention policy name.
 --
--- * 'gdrprrsResponseStatus' - -- | The response status code.
-getDefaultRetentionPolicyResponse ::
-  -- | 'gdrprrsResponseStatus'
-  Int ->
+-- 'description', 'getDefaultRetentionPolicyResponse_description' - The retention policy description.
+--
+-- 'httpStatus', 'getDefaultRetentionPolicyResponse_httpStatus' - The response's http status code.
+newGetDefaultRetentionPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDefaultRetentionPolicyResponse
-getDefaultRetentionPolicyResponse pResponseStatus_ =
+newGetDefaultRetentionPolicyResponse pHttpStatus_ =
   GetDefaultRetentionPolicyResponse'
-    { _gdrprrsId =
-        Nothing,
-      _gdrprrsFolderConfigurations = Nothing,
-      _gdrprrsName = Nothing,
-      _gdrprrsDescription = Nothing,
-      _gdrprrsResponseStatus =
-        pResponseStatus_
+    { id =
+        Prelude.Nothing,
+      folderConfigurations = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The retention policy ID.
-gdrprrsId :: Lens' GetDefaultRetentionPolicyResponse (Maybe Text)
-gdrprrsId = lens _gdrprrsId (\s a -> s {_gdrprrsId = a})
+getDefaultRetentionPolicyResponse_id :: Lens.Lens' GetDefaultRetentionPolicyResponse (Prelude.Maybe Prelude.Text)
+getDefaultRetentionPolicyResponse_id = Lens.lens (\GetDefaultRetentionPolicyResponse' {id} -> id) (\s@GetDefaultRetentionPolicyResponse' {} a -> s {id = a} :: GetDefaultRetentionPolicyResponse)
 
 -- | The retention policy folder configurations.
-gdrprrsFolderConfigurations :: Lens' GetDefaultRetentionPolicyResponse [FolderConfiguration]
-gdrprrsFolderConfigurations = lens _gdrprrsFolderConfigurations (\s a -> s {_gdrprrsFolderConfigurations = a}) . _Default . _Coerce
+getDefaultRetentionPolicyResponse_folderConfigurations :: Lens.Lens' GetDefaultRetentionPolicyResponse (Prelude.Maybe [FolderConfiguration])
+getDefaultRetentionPolicyResponse_folderConfigurations = Lens.lens (\GetDefaultRetentionPolicyResponse' {folderConfigurations} -> folderConfigurations) (\s@GetDefaultRetentionPolicyResponse' {} a -> s {folderConfigurations = a} :: GetDefaultRetentionPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The retention policy name.
-gdrprrsName :: Lens' GetDefaultRetentionPolicyResponse (Maybe Text)
-gdrprrsName = lens _gdrprrsName (\s a -> s {_gdrprrsName = a})
+getDefaultRetentionPolicyResponse_name :: Lens.Lens' GetDefaultRetentionPolicyResponse (Prelude.Maybe Prelude.Text)
+getDefaultRetentionPolicyResponse_name = Lens.lens (\GetDefaultRetentionPolicyResponse' {name} -> name) (\s@GetDefaultRetentionPolicyResponse' {} a -> s {name = a} :: GetDefaultRetentionPolicyResponse)
 
 -- | The retention policy description.
-gdrprrsDescription :: Lens' GetDefaultRetentionPolicyResponse (Maybe Text)
-gdrprrsDescription = lens _gdrprrsDescription (\s a -> s {_gdrprrsDescription = a})
+getDefaultRetentionPolicyResponse_description :: Lens.Lens' GetDefaultRetentionPolicyResponse (Prelude.Maybe Prelude.Text)
+getDefaultRetentionPolicyResponse_description = Lens.lens (\GetDefaultRetentionPolicyResponse' {description} -> description) (\s@GetDefaultRetentionPolicyResponse' {} a -> s {description = a} :: GetDefaultRetentionPolicyResponse)
 
--- | -- | The response status code.
-gdrprrsResponseStatus :: Lens' GetDefaultRetentionPolicyResponse Int
-gdrprrsResponseStatus = lens _gdrprrsResponseStatus (\s a -> s {_gdrprrsResponseStatus = a})
+-- | The response's http status code.
+getDefaultRetentionPolicyResponse_httpStatus :: Lens.Lens' GetDefaultRetentionPolicyResponse Prelude.Int
+getDefaultRetentionPolicyResponse_httpStatus = Lens.lens (\GetDefaultRetentionPolicyResponse' {httpStatus} -> httpStatus) (\s@GetDefaultRetentionPolicyResponse' {} a -> s {httpStatus = a} :: GetDefaultRetentionPolicyResponse)
 
-instance NFData GetDefaultRetentionPolicyResponse
+instance
+  Prelude.NFData
+    GetDefaultRetentionPolicyResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,198 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns summaries of the customer's organizations.
---
---
+-- Returns summaries of the customer\'s organizations.
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkMail.ListOrganizations
   ( -- * Creating a Request
-    listOrganizations,
-    ListOrganizations,
+    ListOrganizations (..),
+    newListOrganizations,
 
     -- * Request Lenses
-    loNextToken,
-    loMaxResults,
+    listOrganizations_nextToken,
+    listOrganizations_maxResults,
 
     -- * Destructuring the Response
-    listOrganizationsResponse,
-    ListOrganizationsResponse,
+    ListOrganizationsResponse (..),
+    newListOrganizationsResponse,
 
     -- * Response Lenses
-    lorrsNextToken,
-    lorrsOrganizationSummaries,
-    lorrsResponseStatus,
+    listOrganizationsResponse_nextToken,
+    listOrganizationsResponse_organizationSummaries,
+    listOrganizationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
+import Network.AWS.WorkMail.Types.OrganizationSummary
 
--- | /See:/ 'listOrganizations' smart constructor.
+-- | /See:/ 'newListOrganizations' smart constructor.
 data ListOrganizations = ListOrganizations'
-  { _loNextToken ::
-      !(Maybe Text),
-    _loMaxResults :: !(Maybe Nat)
+  { -- | The token to use to retrieve the next page of results. The first call
+    -- does not contain any tokens.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOrganizations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOrganizations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'loNextToken' - The token to use to retrieve the next page of results. The first call does not contain any tokens.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'loMaxResults' - The maximum number of results to return in a single call.
-listOrganizations ::
+-- 'nextToken', 'listOrganizations_nextToken' - The token to use to retrieve the next page of results. The first call
+-- does not contain any tokens.
+--
+-- 'maxResults', 'listOrganizations_maxResults' - The maximum number of results to return in a single call.
+newListOrganizations ::
   ListOrganizations
-listOrganizations =
+newListOrganizations =
   ListOrganizations'
-    { _loNextToken = Nothing,
-      _loMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The token to use to retrieve the next page of results. The first call does not contain any tokens.
-loNextToken :: Lens' ListOrganizations (Maybe Text)
-loNextToken = lens _loNextToken (\s a -> s {_loNextToken = a})
+-- | The token to use to retrieve the next page of results. The first call
+-- does not contain any tokens.
+listOrganizations_nextToken :: Lens.Lens' ListOrganizations (Prelude.Maybe Prelude.Text)
+listOrganizations_nextToken = Lens.lens (\ListOrganizations' {nextToken} -> nextToken) (\s@ListOrganizations' {} a -> s {nextToken = a} :: ListOrganizations)
 
 -- | The maximum number of results to return in a single call.
-loMaxResults :: Lens' ListOrganizations (Maybe Natural)
-loMaxResults = lens _loMaxResults (\s a -> s {_loMaxResults = a}) . mapping _Nat
+listOrganizations_maxResults :: Lens.Lens' ListOrganizations (Prelude.Maybe Prelude.Natural)
+listOrganizations_maxResults = Lens.lens (\ListOrganizations' {maxResults} -> maxResults) (\s@ListOrganizations' {} a -> s {maxResults = a} :: ListOrganizations) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListOrganizations where
+instance Pager.AWSPager ListOrganizations where
   page rq rs
-    | stop (rs ^. lorrsNextToken) = Nothing
-    | stop (rs ^. lorrsOrganizationSummaries) = Nothing
-    | otherwise =
-      Just $ rq & loNextToken .~ rs ^. lorrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listOrganizationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listOrganizationsResponse_organizationSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listOrganizations_nextToken
+          Lens..~ rs
+          Lens.^? listOrganizationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListOrganizations where
+instance Prelude.AWSRequest ListOrganizations where
   type Rs ListOrganizations = ListOrganizationsResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListOrganizationsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "OrganizationSummaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "OrganizationSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListOrganizations
+instance Prelude.Hashable ListOrganizations
 
-instance NFData ListOrganizations
+instance Prelude.NFData ListOrganizations
 
-instance ToHeaders ListOrganizations where
+instance Prelude.ToHeaders ListOrganizations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.ListOrganizations" :: ByteString),
+              Prelude.=# ( "WorkMailService.ListOrganizations" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListOrganizations where
+instance Prelude.ToJSON ListOrganizations where
   toJSON ListOrganizations' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _loNextToken,
-            ("MaxResults" .=) <$> _loMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListOrganizations where
-  toPath = const "/"
+instance Prelude.ToPath ListOrganizations where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListOrganizations where
-  toQuery = const mempty
+instance Prelude.ToQuery ListOrganizations where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listOrganizationsResponse' smart constructor.
+-- | /See:/ 'newListOrganizationsResponse' smart constructor.
 data ListOrganizationsResponse = ListOrganizationsResponse'
-  { _lorrsNextToken ::
-      !(Maybe Text),
-    _lorrsOrganizationSummaries ::
-      !( Maybe
-           [OrganizationSummary]
-       ),
-    _lorrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. The value is
+    -- \"null\" when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The overview of owned organizations presented as a list of organization
+    -- summaries.
+    organizationSummaries :: Prelude.Maybe [OrganizationSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOrganizationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOrganizationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lorrsNextToken' - The token to use to retrieve the next page of results. The value is "null" when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lorrsOrganizationSummaries' - The overview of owned organizations presented as a list of organization summaries.
+-- 'nextToken', 'listOrganizationsResponse_nextToken' - The token to use to retrieve the next page of results. The value is
+-- \"null\" when there are no more results to return.
 --
--- * 'lorrsResponseStatus' - -- | The response status code.
-listOrganizationsResponse ::
-  -- | 'lorrsResponseStatus'
-  Int ->
+-- 'organizationSummaries', 'listOrganizationsResponse_organizationSummaries' - The overview of owned organizations presented as a list of organization
+-- summaries.
+--
+-- 'httpStatus', 'listOrganizationsResponse_httpStatus' - The response's http status code.
+newListOrganizationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListOrganizationsResponse
-listOrganizationsResponse pResponseStatus_ =
+newListOrganizationsResponse pHttpStatus_ =
   ListOrganizationsResponse'
-    { _lorrsNextToken =
-        Nothing,
-      _lorrsOrganizationSummaries = Nothing,
-      _lorrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      organizationSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. The value is "null" when there are no more results to return.
-lorrsNextToken :: Lens' ListOrganizationsResponse (Maybe Text)
-lorrsNextToken = lens _lorrsNextToken (\s a -> s {_lorrsNextToken = a})
+-- | The token to use to retrieve the next page of results. The value is
+-- \"null\" when there are no more results to return.
+listOrganizationsResponse_nextToken :: Lens.Lens' ListOrganizationsResponse (Prelude.Maybe Prelude.Text)
+listOrganizationsResponse_nextToken = Lens.lens (\ListOrganizationsResponse' {nextToken} -> nextToken) (\s@ListOrganizationsResponse' {} a -> s {nextToken = a} :: ListOrganizationsResponse)
 
--- | The overview of owned organizations presented as a list of organization summaries.
-lorrsOrganizationSummaries :: Lens' ListOrganizationsResponse [OrganizationSummary]
-lorrsOrganizationSummaries = lens _lorrsOrganizationSummaries (\s a -> s {_lorrsOrganizationSummaries = a}) . _Default . _Coerce
+-- | The overview of owned organizations presented as a list of organization
+-- summaries.
+listOrganizationsResponse_organizationSummaries :: Lens.Lens' ListOrganizationsResponse (Prelude.Maybe [OrganizationSummary])
+listOrganizationsResponse_organizationSummaries = Lens.lens (\ListOrganizationsResponse' {organizationSummaries} -> organizationSummaries) (\s@ListOrganizationsResponse' {} a -> s {organizationSummaries = a} :: ListOrganizationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lorrsResponseStatus :: Lens' ListOrganizationsResponse Int
-lorrsResponseStatus = lens _lorrsResponseStatus (\s a -> s {_lorrsResponseStatus = a})
+-- | The response's http status code.
+listOrganizationsResponse_httpStatus :: Lens.Lens' ListOrganizationsResponse Prelude.Int
+listOrganizationsResponse_httpStatus = Lens.lens (\ListOrganizationsResponse' {httpStatus} -> httpStatus) (\s@ListOrganizationsResponse' {} a -> s {httpStatus = a} :: ListOrganizationsResponse)
 
-instance NFData ListOrganizationsResponse
+instance Prelude.NFData ListOrganizationsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Remove one or more specified aliases from a set of aliases for a given user.
+-- Remove one or more specified aliases from a set of aliases for a given
+-- user.
 module Network.AWS.WorkMail.DeleteAlias
   ( -- * Creating a Request
-    deleteAlias,
-    DeleteAlias,
+    DeleteAlias (..),
+    newDeleteAlias,
 
     -- * Request Lenses
-    daOrganizationId,
-    daEntityId,
-    daAlias,
+    deleteAlias_organizationId,
+    deleteAlias_entityId,
+    deleteAlias_alias,
 
     -- * Destructuring the Response
-    deleteAliasResponse,
-    DeleteAliasResponse,
+    DeleteAliasResponse (..),
+    newDeleteAliasResponse,
 
     -- * Response Lenses
-    darrsResponseStatus,
+    deleteAliasResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'deleteAlias' smart constructor.
+-- | /See:/ 'newDeleteAlias' smart constructor.
 data DeleteAlias = DeleteAlias'
-  { _daOrganizationId ::
-      !Text,
-    _daEntityId :: !Text,
-    _daAlias :: !Text
+  { -- | The identifier for the organization under which the user exists.
+    organizationId :: Prelude.Text,
+    -- | The identifier for the member (user or group) from which to have the
+    -- aliases removed.
+    entityId :: Prelude.Text,
+    -- | The aliases to be removed from the user\'s set of aliases. Duplicate
+    -- entries in the list are collapsed into single entries (the list is
+    -- transformed into a set).
+    alias :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daOrganizationId' - The identifier for the organization under which the user exists.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daEntityId' - The identifier for the member (user or group) from which to have the aliases removed.
+-- 'organizationId', 'deleteAlias_organizationId' - The identifier for the organization under which the user exists.
 --
--- * 'daAlias' - The aliases to be removed from the user's set of aliases. Duplicate entries in the list are collapsed into single entries (the list is transformed into a set).
-deleteAlias ::
-  -- | 'daOrganizationId'
-  Text ->
-  -- | 'daEntityId'
-  Text ->
-  -- | 'daAlias'
-  Text ->
+-- 'entityId', 'deleteAlias_entityId' - The identifier for the member (user or group) from which to have the
+-- aliases removed.
+--
+-- 'alias', 'deleteAlias_alias' - The aliases to be removed from the user\'s set of aliases. Duplicate
+-- entries in the list are collapsed into single entries (the list is
+-- transformed into a set).
+newDeleteAlias ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'entityId'
+  Prelude.Text ->
+  -- | 'alias'
+  Prelude.Text ->
   DeleteAlias
-deleteAlias pOrganizationId_ pEntityId_ pAlias_ =
+newDeleteAlias pOrganizationId_ pEntityId_ pAlias_ =
   DeleteAlias'
-    { _daOrganizationId = pOrganizationId_,
-      _daEntityId = pEntityId_,
-      _daAlias = pAlias_
+    { organizationId = pOrganizationId_,
+      entityId = pEntityId_,
+      alias = pAlias_
     }
 
 -- | The identifier for the organization under which the user exists.
-daOrganizationId :: Lens' DeleteAlias Text
-daOrganizationId = lens _daOrganizationId (\s a -> s {_daOrganizationId = a})
+deleteAlias_organizationId :: Lens.Lens' DeleteAlias Prelude.Text
+deleteAlias_organizationId = Lens.lens (\DeleteAlias' {organizationId} -> organizationId) (\s@DeleteAlias' {} a -> s {organizationId = a} :: DeleteAlias)
 
--- | The identifier for the member (user or group) from which to have the aliases removed.
-daEntityId :: Lens' DeleteAlias Text
-daEntityId = lens _daEntityId (\s a -> s {_daEntityId = a})
+-- | The identifier for the member (user or group) from which to have the
+-- aliases removed.
+deleteAlias_entityId :: Lens.Lens' DeleteAlias Prelude.Text
+deleteAlias_entityId = Lens.lens (\DeleteAlias' {entityId} -> entityId) (\s@DeleteAlias' {} a -> s {entityId = a} :: DeleteAlias)
 
--- | The aliases to be removed from the user's set of aliases. Duplicate entries in the list are collapsed into single entries (the list is transformed into a set).
-daAlias :: Lens' DeleteAlias Text
-daAlias = lens _daAlias (\s a -> s {_daAlias = a})
+-- | The aliases to be removed from the user\'s set of aliases. Duplicate
+-- entries in the list are collapsed into single entries (the list is
+-- transformed into a set).
+deleteAlias_alias :: Lens.Lens' DeleteAlias Prelude.Text
+deleteAlias_alias = Lens.lens (\DeleteAlias' {alias} -> alias) (\s@DeleteAlias' {} a -> s {alias = a} :: DeleteAlias)
 
-instance AWSRequest DeleteAlias where
+instance Prelude.AWSRequest DeleteAlias where
   type Rs DeleteAlias = DeleteAliasResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteAliasResponse' <$> (pure (fromEnum s))
+          DeleteAliasResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAlias
+instance Prelude.Hashable DeleteAlias
 
-instance NFData DeleteAlias
+instance Prelude.NFData DeleteAlias
 
-instance ToHeaders DeleteAlias where
+instance Prelude.ToHeaders DeleteAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.DeleteAlias" :: ByteString),
+              Prelude.=# ( "WorkMailService.DeleteAlias" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAlias where
+instance Prelude.ToJSON DeleteAlias where
   toJSON DeleteAlias' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _daOrganizationId),
-            Just ("EntityId" .= _daEntityId),
-            Just ("Alias" .= _daAlias)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("EntityId" Prelude..= entityId),
+            Prelude.Just ("Alias" Prelude..= alias)
           ]
       )
 
-instance ToPath DeleteAlias where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAlias where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAliasResponse' smart constructor.
-newtype DeleteAliasResponse = DeleteAliasResponse'
-  { _darrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteAliasResponse' smart constructor.
+data DeleteAliasResponse = DeleteAliasResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-deleteAliasResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteAliasResponse_httpStatus' - The response's http status code.
+newDeleteAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteAliasResponse
-deleteAliasResponse pResponseStatus_ =
-  DeleteAliasResponse'
-    { _darrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteAliasResponse pHttpStatus_ =
+  DeleteAliasResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DeleteAliasResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+deleteAliasResponse_httpStatus :: Lens.Lens' DeleteAliasResponse Prelude.Int
+deleteAliasResponse_httpStatus = Lens.lens (\DeleteAliasResponse' {httpStatus} -> httpStatus) (\s@DeleteAliasResponse' {} a -> s {httpStatus = a} :: DeleteAliasResponse)
 
-instance NFData DeleteAliasResponse
+instance Prelude.NFData DeleteAliasResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers an existing and disabled user, group, or resource for Amazon WorkMail use by associating a mailbox and calendaring capabilities. It performs no change if the user, group, or resource is enabled and fails if the user, group, or resource is deleted. This operation results in the accumulation of costs. For more information, see <https://aws.amazon.com/workmail/pricing Pricing> . The equivalent console functionality for this operation is /Enable/ .
+-- Registers an existing and disabled user, group, or resource for Amazon
+-- WorkMail use by associating a mailbox and calendaring capabilities. It
+-- performs no change if the user, group, or resource is enabled and fails
+-- if the user, group, or resource is deleted. This operation results in
+-- the accumulation of costs. For more information, see
+-- <https://aws.amazon.com/workmail/pricing Pricing>. The equivalent
+-- console functionality for this operation is /Enable/.
 --
---
--- Users can either be created by calling the 'CreateUser' API operation or they can be synchronized from your directory. For more information, see 'DeregisterFromWorkMail' .
+-- Users can either be created by calling the CreateUser API operation or
+-- they can be synchronized from your directory. For more information, see
+-- DeregisterFromWorkMail.
 module Network.AWS.WorkMail.RegisterToWorkMail
   ( -- * Creating a Request
-    registerToWorkMail,
-    RegisterToWorkMail,
+    RegisterToWorkMail (..),
+    newRegisterToWorkMail,
 
     -- * Request Lenses
-    rtwmOrganizationId,
-    rtwmEntityId,
-    rtwmEmail,
+    registerToWorkMail_organizationId,
+    registerToWorkMail_entityId,
+    registerToWorkMail_email,
 
     -- * Destructuring the Response
-    registerToWorkMailResponse,
-    RegisterToWorkMailResponse,
+    RegisterToWorkMailResponse (..),
+    newRegisterToWorkMailResponse,
 
     -- * Response Lenses
-    rtwmrrsResponseStatus,
+    registerToWorkMailResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'registerToWorkMail' smart constructor.
+-- | /See:/ 'newRegisterToWorkMail' smart constructor.
 data RegisterToWorkMail = RegisterToWorkMail'
-  { _rtwmOrganizationId ::
-      !Text,
-    _rtwmEntityId :: !Text,
-    _rtwmEmail :: !Text
+  { -- | The identifier for the organization under which the user, group, or
+    -- resource exists.
+    organizationId :: Prelude.Text,
+    -- | The identifier for the user, group, or resource to be updated.
+    entityId :: Prelude.Text,
+    -- | The email for the user, group, or resource to be updated.
+    email :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterToWorkMail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterToWorkMail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtwmOrganizationId' - The identifier for the organization under which the user, group, or resource exists.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtwmEntityId' - The identifier for the user, group, or resource to be updated.
+-- 'organizationId', 'registerToWorkMail_organizationId' - The identifier for the organization under which the user, group, or
+-- resource exists.
 --
--- * 'rtwmEmail' - The email for the user, group, or resource to be updated.
-registerToWorkMail ::
-  -- | 'rtwmOrganizationId'
-  Text ->
-  -- | 'rtwmEntityId'
-  Text ->
-  -- | 'rtwmEmail'
-  Text ->
+-- 'entityId', 'registerToWorkMail_entityId' - The identifier for the user, group, or resource to be updated.
+--
+-- 'email', 'registerToWorkMail_email' - The email for the user, group, or resource to be updated.
+newRegisterToWorkMail ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'entityId'
+  Prelude.Text ->
+  -- | 'email'
+  Prelude.Text ->
   RegisterToWorkMail
-registerToWorkMail
+newRegisterToWorkMail
   pOrganizationId_
   pEntityId_
   pEmail_ =
     RegisterToWorkMail'
-      { _rtwmOrganizationId =
+      { organizationId =
           pOrganizationId_,
-        _rtwmEntityId = pEntityId_,
-        _rtwmEmail = pEmail_
+        entityId = pEntityId_,
+        email = pEmail_
       }
 
--- | The identifier for the organization under which the user, group, or resource exists.
-rtwmOrganizationId :: Lens' RegisterToWorkMail Text
-rtwmOrganizationId = lens _rtwmOrganizationId (\s a -> s {_rtwmOrganizationId = a})
+-- | The identifier for the organization under which the user, group, or
+-- resource exists.
+registerToWorkMail_organizationId :: Lens.Lens' RegisterToWorkMail Prelude.Text
+registerToWorkMail_organizationId = Lens.lens (\RegisterToWorkMail' {organizationId} -> organizationId) (\s@RegisterToWorkMail' {} a -> s {organizationId = a} :: RegisterToWorkMail)
 
 -- | The identifier for the user, group, or resource to be updated.
-rtwmEntityId :: Lens' RegisterToWorkMail Text
-rtwmEntityId = lens _rtwmEntityId (\s a -> s {_rtwmEntityId = a})
+registerToWorkMail_entityId :: Lens.Lens' RegisterToWorkMail Prelude.Text
+registerToWorkMail_entityId = Lens.lens (\RegisterToWorkMail' {entityId} -> entityId) (\s@RegisterToWorkMail' {} a -> s {entityId = a} :: RegisterToWorkMail)
 
 -- | The email for the user, group, or resource to be updated.
-rtwmEmail :: Lens' RegisterToWorkMail Text
-rtwmEmail = lens _rtwmEmail (\s a -> s {_rtwmEmail = a})
+registerToWorkMail_email :: Lens.Lens' RegisterToWorkMail Prelude.Text
+registerToWorkMail_email = Lens.lens (\RegisterToWorkMail' {email} -> email) (\s@RegisterToWorkMail' {} a -> s {email = a} :: RegisterToWorkMail)
 
-instance AWSRequest RegisterToWorkMail where
+instance Prelude.AWSRequest RegisterToWorkMail where
   type
     Rs RegisterToWorkMail =
       RegisterToWorkMailResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          RegisterToWorkMailResponse' <$> (pure (fromEnum s))
+          RegisterToWorkMailResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterToWorkMail
+instance Prelude.Hashable RegisterToWorkMail
 
-instance NFData RegisterToWorkMail
+instance Prelude.NFData RegisterToWorkMail
 
-instance ToHeaders RegisterToWorkMail where
+instance Prelude.ToHeaders RegisterToWorkMail where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.RegisterToWorkMail" :: ByteString),
+              Prelude.=# ( "WorkMailService.RegisterToWorkMail" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterToWorkMail where
+instance Prelude.ToJSON RegisterToWorkMail where
   toJSON RegisterToWorkMail' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _rtwmOrganizationId),
-            Just ("EntityId" .= _rtwmEntityId),
-            Just ("Email" .= _rtwmEmail)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("EntityId" Prelude..= entityId),
+            Prelude.Just ("Email" Prelude..= email)
           ]
       )
 
-instance ToPath RegisterToWorkMail where
-  toPath = const "/"
+instance Prelude.ToPath RegisterToWorkMail where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterToWorkMail where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterToWorkMail where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerToWorkMailResponse' smart constructor.
-newtype RegisterToWorkMailResponse = RegisterToWorkMailResponse'
-  { _rtwmrrsResponseStatus ::
-      Int
+-- | /See:/ 'newRegisterToWorkMailResponse' smart constructor.
+data RegisterToWorkMailResponse = RegisterToWorkMailResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterToWorkMailResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterToWorkMailResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtwmrrsResponseStatus' - -- | The response status code.
-registerToWorkMailResponse ::
-  -- | 'rtwmrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'registerToWorkMailResponse_httpStatus' - The response's http status code.
+newRegisterToWorkMailResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterToWorkMailResponse
-registerToWorkMailResponse pResponseStatus_ =
+newRegisterToWorkMailResponse pHttpStatus_ =
   RegisterToWorkMailResponse'
-    { _rtwmrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-rtwmrrsResponseStatus :: Lens' RegisterToWorkMailResponse Int
-rtwmrrsResponseStatus = lens _rtwmrrsResponseStatus (\s a -> s {_rtwmrrsResponseStatus = a})
+-- | The response's http status code.
+registerToWorkMailResponse_httpStatus :: Lens.Lens' RegisterToWorkMailResponse Prelude.Int
+registerToWorkMailResponse_httpStatus = Lens.lens (\RegisterToWorkMailResponse' {httpStatus} -> httpStatus) (\s@RegisterToWorkMailResponse' {} a -> s {httpStatus = a} :: RegisterToWorkMailResponse)
 
-instance NFData RegisterToWorkMailResponse
+instance Prelude.NFData RegisterToWorkMailResponse

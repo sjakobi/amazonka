@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.WorkMail.Types.EntityState
   ( EntityState
       ( ..,
-        Deleted,
-        Disabled,
-        Enabled
+        EntityStateDELETED,
+        EntityStateDISABLED,
+        EntityStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EntityState = EntityState' (CI Text)
+newtype EntityState = EntityState'
+  { fromEntityState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Deleted :: EntityState
-pattern Deleted = EntityState' "DELETED"
+pattern EntityStateDELETED :: EntityState
+pattern EntityStateDELETED = EntityState' "DELETED"
 
-pattern Disabled :: EntityState
-pattern Disabled = EntityState' "DISABLED"
+pattern EntityStateDISABLED :: EntityState
+pattern EntityStateDISABLED = EntityState' "DISABLED"
 
-pattern Enabled :: EntityState
-pattern Enabled = EntityState' "ENABLED"
+pattern EntityStateENABLED :: EntityState
+pattern EntityStateENABLED = EntityState' "ENABLED"
 
 {-# COMPLETE
-  Deleted,
-  Disabled,
-  Enabled,
+  EntityStateDELETED,
+  EntityStateDISABLED,
+  EntityStateENABLED,
   EntityState'
   #-}
 
-instance FromText EntityState where
-  parser = (EntityState' . mk) <$> takeText
+instance Prelude.FromText EntityState where
+  parser = EntityState' Prelude.<$> Prelude.takeText
 
-instance ToText EntityState where
-  toText (EntityState' ci) = original ci
+instance Prelude.ToText EntityState where
+  toText (EntityState' x) = x
 
-instance Hashable EntityState
+instance Prelude.Hashable EntityState
 
-instance NFData EntityState
+instance Prelude.NFData EntityState
 
-instance ToByteString EntityState
+instance Prelude.ToByteString EntityState
 
-instance ToQuery EntityState
+instance Prelude.ToQuery EntityState
 
-instance ToHeader EntityState
+instance Prelude.ToHeader EntityState
 
-instance FromJSON EntityState where
-  parseJSON = parseJSONText "EntityState"
+instance Prelude.FromJSON EntityState where
+  parseJSON = Prelude.parseJSONText "EntityState"

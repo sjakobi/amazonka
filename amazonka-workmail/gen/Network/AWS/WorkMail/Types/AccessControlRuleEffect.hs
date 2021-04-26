@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.WorkMail.Types.AccessControlRuleEffect
   ( AccessControlRuleEffect
       ( ..,
-        Allow,
-        Deny
+        AccessControlRuleEffectALLOW,
+        AccessControlRuleEffectDENY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccessControlRuleEffect
-  = AccessControlRuleEffect'
-      ( CI
-          Text
-      )
+newtype AccessControlRuleEffect = AccessControlRuleEffect'
+  { fromAccessControlRuleEffect ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allow :: AccessControlRuleEffect
-pattern Allow = AccessControlRuleEffect' "ALLOW"
+pattern AccessControlRuleEffectALLOW :: AccessControlRuleEffect
+pattern AccessControlRuleEffectALLOW = AccessControlRuleEffect' "ALLOW"
 
-pattern Deny :: AccessControlRuleEffect
-pattern Deny = AccessControlRuleEffect' "DENY"
+pattern AccessControlRuleEffectDENY :: AccessControlRuleEffect
+pattern AccessControlRuleEffectDENY = AccessControlRuleEffect' "DENY"
 
 {-# COMPLETE
-  Allow,
-  Deny,
+  AccessControlRuleEffectALLOW,
+  AccessControlRuleEffectDENY,
   AccessControlRuleEffect'
   #-}
 
-instance FromText AccessControlRuleEffect where
-  parser = (AccessControlRuleEffect' . mk) <$> takeText
+instance Prelude.FromText AccessControlRuleEffect where
+  parser = AccessControlRuleEffect' Prelude.<$> Prelude.takeText
 
-instance ToText AccessControlRuleEffect where
-  toText (AccessControlRuleEffect' ci) = original ci
+instance Prelude.ToText AccessControlRuleEffect where
+  toText (AccessControlRuleEffect' x) = x
 
-instance Hashable AccessControlRuleEffect
+instance Prelude.Hashable AccessControlRuleEffect
 
-instance NFData AccessControlRuleEffect
+instance Prelude.NFData AccessControlRuleEffect
 
-instance ToByteString AccessControlRuleEffect
+instance Prelude.ToByteString AccessControlRuleEffect
 
-instance ToQuery AccessControlRuleEffect
+instance Prelude.ToQuery AccessControlRuleEffect
 
-instance ToHeader AccessControlRuleEffect
+instance Prelude.ToHeader AccessControlRuleEffect
 
-instance ToJSON AccessControlRuleEffect where
-  toJSON = toJSONText
+instance Prelude.ToJSON AccessControlRuleEffect where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AccessControlRuleEffect where
-  parseJSON = parseJSONText "AccessControlRuleEffect"
+instance Prelude.FromJSON AccessControlRuleEffect where
+  parseJSON = Prelude.parseJSONText "AccessControlRuleEffect"

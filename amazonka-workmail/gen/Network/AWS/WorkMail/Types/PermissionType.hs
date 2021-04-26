@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.WorkMail.Types.PermissionType
   ( PermissionType
       ( ..,
-        FullAccess,
-        SendAs,
-        SendOnBehalf
+        PermissionTypeFULLACCESS,
+        PermissionTypeSENDAS,
+        PermissionTypeSENDONBEHALF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PermissionType = PermissionType' (CI Text)
+newtype PermissionType = PermissionType'
+  { fromPermissionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FullAccess :: PermissionType
-pattern FullAccess = PermissionType' "FULL_ACCESS"
+pattern PermissionTypeFULLACCESS :: PermissionType
+pattern PermissionTypeFULLACCESS = PermissionType' "FULL_ACCESS"
 
-pattern SendAs :: PermissionType
-pattern SendAs = PermissionType' "SEND_AS"
+pattern PermissionTypeSENDAS :: PermissionType
+pattern PermissionTypeSENDAS = PermissionType' "SEND_AS"
 
-pattern SendOnBehalf :: PermissionType
-pattern SendOnBehalf = PermissionType' "SEND_ON_BEHALF"
+pattern PermissionTypeSENDONBEHALF :: PermissionType
+pattern PermissionTypeSENDONBEHALF = PermissionType' "SEND_ON_BEHALF"
 
 {-# COMPLETE
-  FullAccess,
-  SendAs,
-  SendOnBehalf,
+  PermissionTypeFULLACCESS,
+  PermissionTypeSENDAS,
+  PermissionTypeSENDONBEHALF,
   PermissionType'
   #-}
 
-instance FromText PermissionType where
-  parser = (PermissionType' . mk) <$> takeText
+instance Prelude.FromText PermissionType where
+  parser = PermissionType' Prelude.<$> Prelude.takeText
 
-instance ToText PermissionType where
-  toText (PermissionType' ci) = original ci
+instance Prelude.ToText PermissionType where
+  toText (PermissionType' x) = x
 
-instance Hashable PermissionType
+instance Prelude.Hashable PermissionType
 
-instance NFData PermissionType
+instance Prelude.NFData PermissionType
 
-instance ToByteString PermissionType
+instance Prelude.ToByteString PermissionType
 
-instance ToQuery PermissionType
+instance Prelude.ToQuery PermissionType
 
-instance ToHeader PermissionType
+instance Prelude.ToHeader PermissionType
 
-instance ToJSON PermissionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PermissionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PermissionType where
-  parseJSON = parseJSONText "PermissionType"
+instance Prelude.FromJSON PermissionType where
+  parseJSON = Prelude.parseJSONText "PermissionType"

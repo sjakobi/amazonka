@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,146 +24,144 @@
 -- Deletes the specified retention policy from the specified organization.
 module Network.AWS.WorkMail.DeleteRetentionPolicy
   ( -- * Creating a Request
-    deleteRetentionPolicy,
-    DeleteRetentionPolicy,
+    DeleteRetentionPolicy (..),
+    newDeleteRetentionPolicy,
 
     -- * Request Lenses
-    drpOrganizationId,
-    drpId,
+    deleteRetentionPolicy_organizationId,
+    deleteRetentionPolicy_id,
 
     -- * Destructuring the Response
-    deleteRetentionPolicyResponse,
-    DeleteRetentionPolicyResponse,
+    DeleteRetentionPolicyResponse (..),
+    newDeleteRetentionPolicyResponse,
 
     -- * Response Lenses
-    drprrsResponseStatus,
+    deleteRetentionPolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'deleteRetentionPolicy' smart constructor.
+-- | /See:/ 'newDeleteRetentionPolicy' smart constructor.
 data DeleteRetentionPolicy = DeleteRetentionPolicy'
-  { _drpOrganizationId ::
-      !Text,
-    _drpId :: !Text
+  { -- | The organization ID.
+    organizationId :: Prelude.Text,
+    -- | The retention policy ID.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRetentionPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRetentionPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drpOrganizationId' - The organization ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drpId' - The retention policy ID.
-deleteRetentionPolicy ::
-  -- | 'drpOrganizationId'
-  Text ->
-  -- | 'drpId'
-  Text ->
+-- 'organizationId', 'deleteRetentionPolicy_organizationId' - The organization ID.
+--
+-- 'id', 'deleteRetentionPolicy_id' - The retention policy ID.
+newDeleteRetentionPolicy ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
   DeleteRetentionPolicy
-deleteRetentionPolicy pOrganizationId_ pId_ =
+newDeleteRetentionPolicy pOrganizationId_ pId_ =
   DeleteRetentionPolicy'
-    { _drpOrganizationId =
+    { organizationId =
         pOrganizationId_,
-      _drpId = pId_
+      id = pId_
     }
 
 -- | The organization ID.
-drpOrganizationId :: Lens' DeleteRetentionPolicy Text
-drpOrganizationId = lens _drpOrganizationId (\s a -> s {_drpOrganizationId = a})
+deleteRetentionPolicy_organizationId :: Lens.Lens' DeleteRetentionPolicy Prelude.Text
+deleteRetentionPolicy_organizationId = Lens.lens (\DeleteRetentionPolicy' {organizationId} -> organizationId) (\s@DeleteRetentionPolicy' {} a -> s {organizationId = a} :: DeleteRetentionPolicy)
 
 -- | The retention policy ID.
-drpId :: Lens' DeleteRetentionPolicy Text
-drpId = lens _drpId (\s a -> s {_drpId = a})
+deleteRetentionPolicy_id :: Lens.Lens' DeleteRetentionPolicy Prelude.Text
+deleteRetentionPolicy_id = Lens.lens (\DeleteRetentionPolicy' {id} -> id) (\s@DeleteRetentionPolicy' {} a -> s {id = a} :: DeleteRetentionPolicy)
 
-instance AWSRequest DeleteRetentionPolicy where
+instance Prelude.AWSRequest DeleteRetentionPolicy where
   type
     Rs DeleteRetentionPolicy =
       DeleteRetentionPolicyResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteRetentionPolicyResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteRetentionPolicy
+instance Prelude.Hashable DeleteRetentionPolicy
 
-instance NFData DeleteRetentionPolicy
+instance Prelude.NFData DeleteRetentionPolicy
 
-instance ToHeaders DeleteRetentionPolicy where
+instance Prelude.ToHeaders DeleteRetentionPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.DeleteRetentionPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.DeleteRetentionPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteRetentionPolicy where
+instance Prelude.ToJSON DeleteRetentionPolicy where
   toJSON DeleteRetentionPolicy' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _drpOrganizationId),
-            Just ("Id" .= _drpId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("Id" Prelude..= id)
           ]
       )
 
-instance ToPath DeleteRetentionPolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteRetentionPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteRetentionPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteRetentionPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteRetentionPolicyResponse' smart constructor.
-newtype DeleteRetentionPolicyResponse = DeleteRetentionPolicyResponse'
-  { _drprrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteRetentionPolicyResponse' smart constructor.
+data DeleteRetentionPolicyResponse = DeleteRetentionPolicyResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRetentionPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRetentionPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drprrsResponseStatus' - -- | The response status code.
-deleteRetentionPolicyResponse ::
-  -- | 'drprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteRetentionPolicyResponse_httpStatus' - The response's http status code.
+newDeleteRetentionPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteRetentionPolicyResponse
-deleteRetentionPolicyResponse pResponseStatus_ =
+newDeleteRetentionPolicyResponse pHttpStatus_ =
   DeleteRetentionPolicyResponse'
-    { _drprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drprrsResponseStatus :: Lens' DeleteRetentionPolicyResponse Int
-drprrsResponseStatus = lens _drprrsResponseStatus (\s a -> s {_drprrsResponseStatus = a})
+-- | The response's http status code.
+deleteRetentionPolicyResponse_httpStatus :: Lens.Lens' DeleteRetentionPolicyResponse Prelude.Int
+deleteRetentionPolicyResponse_httpStatus = Lens.lens (\DeleteRetentionPolicyResponse' {httpStatus} -> httpStatus) (\s@DeleteRetentionPolicyResponse' {} a -> s {httpStatus = a} :: DeleteRetentionPolicyResponse)
 
-instance NFData DeleteRetentionPolicyResponse
+instance Prelude.NFData DeleteRetentionPolicyResponse

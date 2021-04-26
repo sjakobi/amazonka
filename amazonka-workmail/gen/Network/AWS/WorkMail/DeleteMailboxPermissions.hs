@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,162 +24,168 @@
 -- Deletes permissions granted to a member (user or group).
 module Network.AWS.WorkMail.DeleteMailboxPermissions
   ( -- * Creating a Request
-    deleteMailboxPermissions,
-    DeleteMailboxPermissions,
+    DeleteMailboxPermissions (..),
+    newDeleteMailboxPermissions,
 
     -- * Request Lenses
-    dmpOrganizationId,
-    dmpEntityId,
-    dmpGranteeId,
+    deleteMailboxPermissions_organizationId,
+    deleteMailboxPermissions_entityId,
+    deleteMailboxPermissions_granteeId,
 
     -- * Destructuring the Response
-    deleteMailboxPermissionsResponse,
-    DeleteMailboxPermissionsResponse,
+    DeleteMailboxPermissionsResponse (..),
+    newDeleteMailboxPermissionsResponse,
 
     -- * Response Lenses
-    dmprrsResponseStatus,
+    deleteMailboxPermissionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'deleteMailboxPermissions' smart constructor.
+-- | /See:/ 'newDeleteMailboxPermissions' smart constructor.
 data DeleteMailboxPermissions = DeleteMailboxPermissions'
-  { _dmpOrganizationId ::
-      !Text,
-    _dmpEntityId :: !Text,
-    _dmpGranteeId ::
-      !Text
+  { -- | The identifier of the organization under which the member (user or
+    -- group) exists.
+    organizationId :: Prelude.Text,
+    -- | The identifier of the member (user or group) that owns the mailbox.
+    entityId :: Prelude.Text,
+    -- | The identifier of the member (user or group) for which to delete granted
+    -- permissions.
+    granteeId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMailboxPermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMailboxPermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmpOrganizationId' - The identifier of the organization under which the member (user or group) exists.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmpEntityId' - The identifier of the member (user or group) that owns the mailbox.
+-- 'organizationId', 'deleteMailboxPermissions_organizationId' - The identifier of the organization under which the member (user or
+-- group) exists.
 --
--- * 'dmpGranteeId' - The identifier of the member (user or group) for which to delete granted permissions.
-deleteMailboxPermissions ::
-  -- | 'dmpOrganizationId'
-  Text ->
-  -- | 'dmpEntityId'
-  Text ->
-  -- | 'dmpGranteeId'
-  Text ->
+-- 'entityId', 'deleteMailboxPermissions_entityId' - The identifier of the member (user or group) that owns the mailbox.
+--
+-- 'granteeId', 'deleteMailboxPermissions_granteeId' - The identifier of the member (user or group) for which to delete granted
+-- permissions.
+newDeleteMailboxPermissions ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'entityId'
+  Prelude.Text ->
+  -- | 'granteeId'
+  Prelude.Text ->
   DeleteMailboxPermissions
-deleteMailboxPermissions
+newDeleteMailboxPermissions
   pOrganizationId_
   pEntityId_
   pGranteeId_ =
     DeleteMailboxPermissions'
-      { _dmpOrganizationId =
+      { organizationId =
           pOrganizationId_,
-        _dmpEntityId = pEntityId_,
-        _dmpGranteeId = pGranteeId_
+        entityId = pEntityId_,
+        granteeId = pGranteeId_
       }
 
--- | The identifier of the organization under which the member (user or group) exists.
-dmpOrganizationId :: Lens' DeleteMailboxPermissions Text
-dmpOrganizationId = lens _dmpOrganizationId (\s a -> s {_dmpOrganizationId = a})
+-- | The identifier of the organization under which the member (user or
+-- group) exists.
+deleteMailboxPermissions_organizationId :: Lens.Lens' DeleteMailboxPermissions Prelude.Text
+deleteMailboxPermissions_organizationId = Lens.lens (\DeleteMailboxPermissions' {organizationId} -> organizationId) (\s@DeleteMailboxPermissions' {} a -> s {organizationId = a} :: DeleteMailboxPermissions)
 
 -- | The identifier of the member (user or group) that owns the mailbox.
-dmpEntityId :: Lens' DeleteMailboxPermissions Text
-dmpEntityId = lens _dmpEntityId (\s a -> s {_dmpEntityId = a})
+deleteMailboxPermissions_entityId :: Lens.Lens' DeleteMailboxPermissions Prelude.Text
+deleteMailboxPermissions_entityId = Lens.lens (\DeleteMailboxPermissions' {entityId} -> entityId) (\s@DeleteMailboxPermissions' {} a -> s {entityId = a} :: DeleteMailboxPermissions)
 
--- | The identifier of the member (user or group) for which to delete granted permissions.
-dmpGranteeId :: Lens' DeleteMailboxPermissions Text
-dmpGranteeId = lens _dmpGranteeId (\s a -> s {_dmpGranteeId = a})
+-- | The identifier of the member (user or group) for which to delete granted
+-- permissions.
+deleteMailboxPermissions_granteeId :: Lens.Lens' DeleteMailboxPermissions Prelude.Text
+deleteMailboxPermissions_granteeId = Lens.lens (\DeleteMailboxPermissions' {granteeId} -> granteeId) (\s@DeleteMailboxPermissions' {} a -> s {granteeId = a} :: DeleteMailboxPermissions)
 
-instance AWSRequest DeleteMailboxPermissions where
+instance Prelude.AWSRequest DeleteMailboxPermissions where
   type
     Rs DeleteMailboxPermissions =
       DeleteMailboxPermissionsResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteMailboxPermissionsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteMailboxPermissions
+instance Prelude.Hashable DeleteMailboxPermissions
 
-instance NFData DeleteMailboxPermissions
+instance Prelude.NFData DeleteMailboxPermissions
 
-instance ToHeaders DeleteMailboxPermissions where
+instance Prelude.ToHeaders DeleteMailboxPermissions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.DeleteMailboxPermissions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.DeleteMailboxPermissions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteMailboxPermissions where
+instance Prelude.ToJSON DeleteMailboxPermissions where
   toJSON DeleteMailboxPermissions' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _dmpOrganizationId),
-            Just ("EntityId" .= _dmpEntityId),
-            Just ("GranteeId" .= _dmpGranteeId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("EntityId" Prelude..= entityId),
+            Prelude.Just ("GranteeId" Prelude..= granteeId)
           ]
       )
 
-instance ToPath DeleteMailboxPermissions where
-  toPath = const "/"
+instance Prelude.ToPath DeleteMailboxPermissions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteMailboxPermissions where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteMailboxPermissions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteMailboxPermissionsResponse' smart constructor.
-newtype DeleteMailboxPermissionsResponse = DeleteMailboxPermissionsResponse'
-  { _dmprrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteMailboxPermissionsResponse' smart constructor.
+data DeleteMailboxPermissionsResponse = DeleteMailboxPermissionsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMailboxPermissionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMailboxPermissionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmprrsResponseStatus' - -- | The response status code.
-deleteMailboxPermissionsResponse ::
-  -- | 'dmprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteMailboxPermissionsResponse_httpStatus' - The response's http status code.
+newDeleteMailboxPermissionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteMailboxPermissionsResponse
-deleteMailboxPermissionsResponse pResponseStatus_ =
+newDeleteMailboxPermissionsResponse pHttpStatus_ =
   DeleteMailboxPermissionsResponse'
-    { _dmprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dmprrsResponseStatus :: Lens' DeleteMailboxPermissionsResponse Int
-dmprrsResponseStatus = lens _dmprrsResponseStatus (\s a -> s {_dmprrsResponseStatus = a})
+-- | The response's http status code.
+deleteMailboxPermissionsResponse_httpStatus :: Lens.Lens' DeleteMailboxPermissionsResponse Prelude.Int
+deleteMailboxPermissionsResponse_httpStatus = Lens.lens (\DeleteMailboxPermissionsResponse' {httpStatus} -> httpStatus) (\s@DeleteMailboxPermissionsResponse' {} a -> s {httpStatus = a} :: DeleteMailboxPermissionsResponse)
 
-instance NFData DeleteMailboxPermissionsResponse
+instance
+  Prelude.NFData
+    DeleteMailboxPermissionsResponse

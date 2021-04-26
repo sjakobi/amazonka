@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,170 +24,179 @@
 -- Puts a retention policy to the specified organization.
 module Network.AWS.WorkMail.PutRetentionPolicy
   ( -- * Creating a Request
-    putRetentionPolicy,
-    PutRetentionPolicy,
+    PutRetentionPolicy (..),
+    newPutRetentionPolicy,
 
     -- * Request Lenses
-    prpId,
-    prpDescription,
-    prpOrganizationId,
-    prpName,
-    prpFolderConfigurations,
+    putRetentionPolicy_id,
+    putRetentionPolicy_description,
+    putRetentionPolicy_organizationId,
+    putRetentionPolicy_name,
+    putRetentionPolicy_folderConfigurations,
 
     -- * Destructuring the Response
-    putRetentionPolicyResponse,
-    PutRetentionPolicyResponse,
+    PutRetentionPolicyResponse (..),
+    newPutRetentionPolicyResponse,
 
     -- * Response Lenses
-    prprrsResponseStatus,
+    putRetentionPolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'putRetentionPolicy' smart constructor.
+-- | /See:/ 'newPutRetentionPolicy' smart constructor.
 data PutRetentionPolicy = PutRetentionPolicy'
-  { _prpId ::
-      !(Maybe Text),
-    _prpDescription ::
-      !(Maybe (Sensitive Text)),
-    _prpOrganizationId :: !Text,
-    _prpName :: !Text,
-    _prpFolderConfigurations ::
-      ![FolderConfiguration]
+  { -- | The retention policy ID.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The retention policy description.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The organization ID.
+    organizationId :: Prelude.Text,
+    -- | The retention policy name.
+    name :: Prelude.Text,
+    -- | The retention policy folder configurations.
+    folderConfigurations :: [FolderConfiguration]
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRetentionPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRetentionPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prpId' - The retention policy ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prpDescription' - The retention policy description.
+-- 'id', 'putRetentionPolicy_id' - The retention policy ID.
 --
--- * 'prpOrganizationId' - The organization ID.
+-- 'description', 'putRetentionPolicy_description' - The retention policy description.
 --
--- * 'prpName' - The retention policy name.
+-- 'organizationId', 'putRetentionPolicy_organizationId' - The organization ID.
 --
--- * 'prpFolderConfigurations' - The retention policy folder configurations.
-putRetentionPolicy ::
-  -- | 'prpOrganizationId'
-  Text ->
-  -- | 'prpName'
-  Text ->
+-- 'name', 'putRetentionPolicy_name' - The retention policy name.
+--
+-- 'folderConfigurations', 'putRetentionPolicy_folderConfigurations' - The retention policy folder configurations.
+newPutRetentionPolicy ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   PutRetentionPolicy
-putRetentionPolicy pOrganizationId_ pName_ =
+newPutRetentionPolicy pOrganizationId_ pName_ =
   PutRetentionPolicy'
-    { _prpId = Nothing,
-      _prpDescription = Nothing,
-      _prpOrganizationId = pOrganizationId_,
-      _prpName = pName_,
-      _prpFolderConfigurations = mempty
+    { id = Prelude.Nothing,
+      description = Prelude.Nothing,
+      organizationId = pOrganizationId_,
+      name = pName_,
+      folderConfigurations = Prelude.mempty
     }
 
 -- | The retention policy ID.
-prpId :: Lens' PutRetentionPolicy (Maybe Text)
-prpId = lens _prpId (\s a -> s {_prpId = a})
+putRetentionPolicy_id :: Lens.Lens' PutRetentionPolicy (Prelude.Maybe Prelude.Text)
+putRetentionPolicy_id = Lens.lens (\PutRetentionPolicy' {id} -> id) (\s@PutRetentionPolicy' {} a -> s {id = a} :: PutRetentionPolicy)
 
 -- | The retention policy description.
-prpDescription :: Lens' PutRetentionPolicy (Maybe Text)
-prpDescription = lens _prpDescription (\s a -> s {_prpDescription = a}) . mapping _Sensitive
+putRetentionPolicy_description :: Lens.Lens' PutRetentionPolicy (Prelude.Maybe Prelude.Text)
+putRetentionPolicy_description = Lens.lens (\PutRetentionPolicy' {description} -> description) (\s@PutRetentionPolicy' {} a -> s {description = a} :: PutRetentionPolicy) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The organization ID.
-prpOrganizationId :: Lens' PutRetentionPolicy Text
-prpOrganizationId = lens _prpOrganizationId (\s a -> s {_prpOrganizationId = a})
+putRetentionPolicy_organizationId :: Lens.Lens' PutRetentionPolicy Prelude.Text
+putRetentionPolicy_organizationId = Lens.lens (\PutRetentionPolicy' {organizationId} -> organizationId) (\s@PutRetentionPolicy' {} a -> s {organizationId = a} :: PutRetentionPolicy)
 
 -- | The retention policy name.
-prpName :: Lens' PutRetentionPolicy Text
-prpName = lens _prpName (\s a -> s {_prpName = a})
+putRetentionPolicy_name :: Lens.Lens' PutRetentionPolicy Prelude.Text
+putRetentionPolicy_name = Lens.lens (\PutRetentionPolicy' {name} -> name) (\s@PutRetentionPolicy' {} a -> s {name = a} :: PutRetentionPolicy)
 
 -- | The retention policy folder configurations.
-prpFolderConfigurations :: Lens' PutRetentionPolicy [FolderConfiguration]
-prpFolderConfigurations = lens _prpFolderConfigurations (\s a -> s {_prpFolderConfigurations = a}) . _Coerce
+putRetentionPolicy_folderConfigurations :: Lens.Lens' PutRetentionPolicy [FolderConfiguration]
+putRetentionPolicy_folderConfigurations = Lens.lens (\PutRetentionPolicy' {folderConfigurations} -> folderConfigurations) (\s@PutRetentionPolicy' {} a -> s {folderConfigurations = a} :: PutRetentionPolicy) Prelude.. Prelude._Coerce
 
-instance AWSRequest PutRetentionPolicy where
+instance Prelude.AWSRequest PutRetentionPolicy where
   type
     Rs PutRetentionPolicy =
       PutRetentionPolicyResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          PutRetentionPolicyResponse' <$> (pure (fromEnum s))
+          PutRetentionPolicyResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutRetentionPolicy
+instance Prelude.Hashable PutRetentionPolicy
 
-instance NFData PutRetentionPolicy
+instance Prelude.NFData PutRetentionPolicy
 
-instance ToHeaders PutRetentionPolicy where
+instance Prelude.ToHeaders PutRetentionPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkMailService.PutRetentionPolicy" :: ByteString),
+              Prelude.=# ( "WorkMailService.PutRetentionPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutRetentionPolicy where
+instance Prelude.ToJSON PutRetentionPolicy where
   toJSON PutRetentionPolicy' {..} =
-    object
-      ( catMaybes
-          [ ("Id" .=) <$> _prpId,
-            ("Description" .=) <$> _prpDescription,
-            Just ("OrganizationId" .= _prpOrganizationId),
-            Just ("Name" .= _prpName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Id" Prelude..=) Prelude.<$> id,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
               ( "FolderConfigurations"
-                  .= _prpFolderConfigurations
+                  Prelude..= folderConfigurations
               )
           ]
       )
 
-instance ToPath PutRetentionPolicy where
-  toPath = const "/"
+instance Prelude.ToPath PutRetentionPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutRetentionPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery PutRetentionPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putRetentionPolicyResponse' smart constructor.
-newtype PutRetentionPolicyResponse = PutRetentionPolicyResponse'
-  { _prprrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutRetentionPolicyResponse' smart constructor.
+data PutRetentionPolicyResponse = PutRetentionPolicyResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRetentionPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRetentionPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prprrsResponseStatus' - -- | The response status code.
-putRetentionPolicyResponse ::
-  -- | 'prprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putRetentionPolicyResponse_httpStatus' - The response's http status code.
+newPutRetentionPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutRetentionPolicyResponse
-putRetentionPolicyResponse pResponseStatus_ =
+newPutRetentionPolicyResponse pHttpStatus_ =
   PutRetentionPolicyResponse'
-    { _prprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-prprrsResponseStatus :: Lens' PutRetentionPolicyResponse Int
-prprrsResponseStatus = lens _prprrsResponseStatus (\s a -> s {_prprrsResponseStatus = a})
+-- | The response's http status code.
+putRetentionPolicyResponse_httpStatus :: Lens.Lens' PutRetentionPolicyResponse Prelude.Int
+putRetentionPolicyResponse_httpStatus = Lens.lens (\PutRetentionPolicyResponse' {httpStatus} -> httpStatus) (\s@PutRetentionPolicyResponse' {} a -> s {httpStatus = a} :: PutRetentionPolicyResponse)
 
-instance NFData PutRetentionPolicyResponse
+instance Prelude.NFData PutRetentionPolicyResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.WorkMail.Types.MailboxExportJobState
   ( MailboxExportJobState
       ( ..,
-        Cancelled,
-        Completed,
-        Failed,
-        Running
+        MailboxExportJobStateCANCELLED,
+        MailboxExportJobStateCOMPLETED,
+        MailboxExportJobStateFAILED,
+        MailboxExportJobStateRUNNING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MailboxExportJobState
-  = MailboxExportJobState'
-      ( CI
-          Text
-      )
+newtype MailboxExportJobState = MailboxExportJobState'
+  { fromMailboxExportJobState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cancelled :: MailboxExportJobState
-pattern Cancelled = MailboxExportJobState' "CANCELLED"
+pattern MailboxExportJobStateCANCELLED :: MailboxExportJobState
+pattern MailboxExportJobStateCANCELLED = MailboxExportJobState' "CANCELLED"
 
-pattern Completed :: MailboxExportJobState
-pattern Completed = MailboxExportJobState' "COMPLETED"
+pattern MailboxExportJobStateCOMPLETED :: MailboxExportJobState
+pattern MailboxExportJobStateCOMPLETED = MailboxExportJobState' "COMPLETED"
 
-pattern Failed :: MailboxExportJobState
-pattern Failed = MailboxExportJobState' "FAILED"
+pattern MailboxExportJobStateFAILED :: MailboxExportJobState
+pattern MailboxExportJobStateFAILED = MailboxExportJobState' "FAILED"
 
-pattern Running :: MailboxExportJobState
-pattern Running = MailboxExportJobState' "RUNNING"
+pattern MailboxExportJobStateRUNNING :: MailboxExportJobState
+pattern MailboxExportJobStateRUNNING = MailboxExportJobState' "RUNNING"
 
 {-# COMPLETE
-  Cancelled,
-  Completed,
-  Failed,
-  Running,
+  MailboxExportJobStateCANCELLED,
+  MailboxExportJobStateCOMPLETED,
+  MailboxExportJobStateFAILED,
+  MailboxExportJobStateRUNNING,
   MailboxExportJobState'
   #-}
 
-instance FromText MailboxExportJobState where
-  parser = (MailboxExportJobState' . mk) <$> takeText
+instance Prelude.FromText MailboxExportJobState where
+  parser = MailboxExportJobState' Prelude.<$> Prelude.takeText
 
-instance ToText MailboxExportJobState where
-  toText (MailboxExportJobState' ci) = original ci
+instance Prelude.ToText MailboxExportJobState where
+  toText (MailboxExportJobState' x) = x
 
-instance Hashable MailboxExportJobState
+instance Prelude.Hashable MailboxExportJobState
 
-instance NFData MailboxExportJobState
+instance Prelude.NFData MailboxExportJobState
 
-instance ToByteString MailboxExportJobState
+instance Prelude.ToByteString MailboxExportJobState
 
-instance ToQuery MailboxExportJobState
+instance Prelude.ToQuery MailboxExportJobState
 
-instance ToHeader MailboxExportJobState
+instance Prelude.ToHeader MailboxExportJobState
 
-instance FromJSON MailboxExportJobState where
-  parseJSON = parseJSONText "MailboxExportJobState"
+instance Prelude.FromJSON MailboxExportJobState where
+  parseJSON = Prelude.parseJSONText "MailboxExportJobState"

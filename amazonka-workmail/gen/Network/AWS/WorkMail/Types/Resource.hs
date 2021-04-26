@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,101 +19,115 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkMail.Types.Resource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkMail.Types.EntityState
 import Network.AWS.WorkMail.Types.ResourceType
 
 -- | The representation of a resource.
 --
---
---
--- /See:/ 'resource' smart constructor.
+-- /See:/ 'newResource' smart constructor.
 data Resource = Resource'
-  { _rEnabledDate ::
-      !(Maybe POSIX),
-    _rId :: !(Maybe Text),
-    _rState :: !(Maybe EntityState),
-    _rName :: !(Maybe Text),
-    _rEmail :: !(Maybe Text),
-    _rDisabledDate :: !(Maybe POSIX),
-    _rType :: !(Maybe ResourceType)
+  { -- | The date indicating when the resource was enabled for Amazon WorkMail
+    -- use.
+    enabledDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The identifier of the resource.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The state of the resource, which can be ENABLED, DISABLED, or DELETED.
+    state :: Prelude.Maybe EntityState,
+    -- | The name of the resource.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The email of the resource.
+    email :: Prelude.Maybe Prelude.Text,
+    -- | The date indicating when the resource was disabled from Amazon WorkMail
+    -- use.
+    disabledDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The type of the resource: equipment or room.
+    type' :: Prelude.Maybe ResourceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Resource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Resource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rEnabledDate' - The date indicating when the resource was enabled for Amazon WorkMail use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rId' - The identifier of the resource.
+-- 'enabledDate', 'resource_enabledDate' - The date indicating when the resource was enabled for Amazon WorkMail
+-- use.
 --
--- * 'rState' - The state of the resource, which can be ENABLED, DISABLED, or DELETED.
+-- 'id', 'resource_id' - The identifier of the resource.
 --
--- * 'rName' - The name of the resource.
+-- 'state', 'resource_state' - The state of the resource, which can be ENABLED, DISABLED, or DELETED.
 --
--- * 'rEmail' - The email of the resource.
+-- 'name', 'resource_name' - The name of the resource.
 --
--- * 'rDisabledDate' - The date indicating when the resource was disabled from Amazon WorkMail use.
+-- 'email', 'resource_email' - The email of the resource.
 --
--- * 'rType' - The type of the resource: equipment or room.
-resource ::
+-- 'disabledDate', 'resource_disabledDate' - The date indicating when the resource was disabled from Amazon WorkMail
+-- use.
+--
+-- 'type'', 'resource_type' - The type of the resource: equipment or room.
+newResource ::
   Resource
-resource =
+newResource =
   Resource'
-    { _rEnabledDate = Nothing,
-      _rId = Nothing,
-      _rState = Nothing,
-      _rName = Nothing,
-      _rEmail = Nothing,
-      _rDisabledDate = Nothing,
-      _rType = Nothing
+    { enabledDate = Prelude.Nothing,
+      id = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      email = Prelude.Nothing,
+      disabledDate = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The date indicating when the resource was enabled for Amazon WorkMail use.
-rEnabledDate :: Lens' Resource (Maybe UTCTime)
-rEnabledDate = lens _rEnabledDate (\s a -> s {_rEnabledDate = a}) . mapping _Time
+-- | The date indicating when the resource was enabled for Amazon WorkMail
+-- use.
+resource_enabledDate :: Lens.Lens' Resource (Prelude.Maybe Prelude.UTCTime)
+resource_enabledDate = Lens.lens (\Resource' {enabledDate} -> enabledDate) (\s@Resource' {} a -> s {enabledDate = a} :: Resource) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identifier of the resource.
-rId :: Lens' Resource (Maybe Text)
-rId = lens _rId (\s a -> s {_rId = a})
+resource_id :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
+resource_id = Lens.lens (\Resource' {id} -> id) (\s@Resource' {} a -> s {id = a} :: Resource)
 
 -- | The state of the resource, which can be ENABLED, DISABLED, or DELETED.
-rState :: Lens' Resource (Maybe EntityState)
-rState = lens _rState (\s a -> s {_rState = a})
+resource_state :: Lens.Lens' Resource (Prelude.Maybe EntityState)
+resource_state = Lens.lens (\Resource' {state} -> state) (\s@Resource' {} a -> s {state = a} :: Resource)
 
 -- | The name of the resource.
-rName :: Lens' Resource (Maybe Text)
-rName = lens _rName (\s a -> s {_rName = a})
+resource_name :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
+resource_name = Lens.lens (\Resource' {name} -> name) (\s@Resource' {} a -> s {name = a} :: Resource)
 
 -- | The email of the resource.
-rEmail :: Lens' Resource (Maybe Text)
-rEmail = lens _rEmail (\s a -> s {_rEmail = a})
+resource_email :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
+resource_email = Lens.lens (\Resource' {email} -> email) (\s@Resource' {} a -> s {email = a} :: Resource)
 
--- | The date indicating when the resource was disabled from Amazon WorkMail use.
-rDisabledDate :: Lens' Resource (Maybe UTCTime)
-rDisabledDate = lens _rDisabledDate (\s a -> s {_rDisabledDate = a}) . mapping _Time
+-- | The date indicating when the resource was disabled from Amazon WorkMail
+-- use.
+resource_disabledDate :: Lens.Lens' Resource (Prelude.Maybe Prelude.UTCTime)
+resource_disabledDate = Lens.lens (\Resource' {disabledDate} -> disabledDate) (\s@Resource' {} a -> s {disabledDate = a} :: Resource) Prelude.. Lens.mapping Prelude._Time
 
 -- | The type of the resource: equipment or room.
-rType :: Lens' Resource (Maybe ResourceType)
-rType = lens _rType (\s a -> s {_rType = a})
+resource_type :: Lens.Lens' Resource (Prelude.Maybe ResourceType)
+resource_type = Lens.lens (\Resource' {type'} -> type') (\s@Resource' {} a -> s {type' = a} :: Resource)
 
-instance FromJSON Resource where
+instance Prelude.FromJSON Resource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Resource"
       ( \x ->
           Resource'
-            <$> (x .:? "EnabledDate")
-            <*> (x .:? "Id")
-            <*> (x .:? "State")
-            <*> (x .:? "Name")
-            <*> (x .:? "Email")
-            <*> (x .:? "DisabledDate")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "EnabledDate")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Email")
+            Prelude.<*> (x Prelude..:? "DisabledDate")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable Resource
+instance Prelude.Hashable Resource
 
-instance NFData Resource
+instance Prelude.NFData Resource

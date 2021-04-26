@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,163 +24,168 @@
 -- Removes a member from a group.
 module Network.AWS.WorkMail.DisassociateMemberFromGroup
   ( -- * Creating a Request
-    disassociateMemberFromGroup,
-    DisassociateMemberFromGroup,
+    DisassociateMemberFromGroup (..),
+    newDisassociateMemberFromGroup,
 
     -- * Request Lenses
-    dmfgOrganizationId,
-    dmfgGroupId,
-    dmfgMemberId,
+    disassociateMemberFromGroup_organizationId,
+    disassociateMemberFromGroup_groupId,
+    disassociateMemberFromGroup_memberId,
 
     -- * Destructuring the Response
-    disassociateMemberFromGroupResponse,
-    DisassociateMemberFromGroupResponse,
+    DisassociateMemberFromGroupResponse (..),
+    newDisassociateMemberFromGroupResponse,
 
     -- * Response Lenses
-    dmfgrrsResponseStatus,
+    disassociateMemberFromGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'disassociateMemberFromGroup' smart constructor.
+-- | /See:/ 'newDisassociateMemberFromGroup' smart constructor.
 data DisassociateMemberFromGroup = DisassociateMemberFromGroup'
-  { _dmfgOrganizationId ::
-      !Text,
-    _dmfgGroupId ::
-      !Text,
-    _dmfgMemberId ::
-      !Text
+  { -- | The identifier for the organization under which the group exists.
+    organizationId :: Prelude.Text,
+    -- | The identifier for the group from which members are removed.
+    groupId :: Prelude.Text,
+    -- | The identifier for the member to be removed to the group.
+    memberId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateMemberFromGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateMemberFromGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmfgOrganizationId' - The identifier for the organization under which the group exists.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmfgGroupId' - The identifier for the group from which members are removed.
+-- 'organizationId', 'disassociateMemberFromGroup_organizationId' - The identifier for the organization under which the group exists.
 --
--- * 'dmfgMemberId' - The identifier for the member to be removed to the group.
-disassociateMemberFromGroup ::
-  -- | 'dmfgOrganizationId'
-  Text ->
-  -- | 'dmfgGroupId'
-  Text ->
-  -- | 'dmfgMemberId'
-  Text ->
+-- 'groupId', 'disassociateMemberFromGroup_groupId' - The identifier for the group from which members are removed.
+--
+-- 'memberId', 'disassociateMemberFromGroup_memberId' - The identifier for the member to be removed to the group.
+newDisassociateMemberFromGroup ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'groupId'
+  Prelude.Text ->
+  -- | 'memberId'
+  Prelude.Text ->
   DisassociateMemberFromGroup
-disassociateMemberFromGroup
+newDisassociateMemberFromGroup
   pOrganizationId_
   pGroupId_
   pMemberId_ =
     DisassociateMemberFromGroup'
-      { _dmfgOrganizationId =
+      { organizationId =
           pOrganizationId_,
-        _dmfgGroupId = pGroupId_,
-        _dmfgMemberId = pMemberId_
+        groupId = pGroupId_,
+        memberId = pMemberId_
       }
 
 -- | The identifier for the organization under which the group exists.
-dmfgOrganizationId :: Lens' DisassociateMemberFromGroup Text
-dmfgOrganizationId = lens _dmfgOrganizationId (\s a -> s {_dmfgOrganizationId = a})
+disassociateMemberFromGroup_organizationId :: Lens.Lens' DisassociateMemberFromGroup Prelude.Text
+disassociateMemberFromGroup_organizationId = Lens.lens (\DisassociateMemberFromGroup' {organizationId} -> organizationId) (\s@DisassociateMemberFromGroup' {} a -> s {organizationId = a} :: DisassociateMemberFromGroup)
 
 -- | The identifier for the group from which members are removed.
-dmfgGroupId :: Lens' DisassociateMemberFromGroup Text
-dmfgGroupId = lens _dmfgGroupId (\s a -> s {_dmfgGroupId = a})
+disassociateMemberFromGroup_groupId :: Lens.Lens' DisassociateMemberFromGroup Prelude.Text
+disassociateMemberFromGroup_groupId = Lens.lens (\DisassociateMemberFromGroup' {groupId} -> groupId) (\s@DisassociateMemberFromGroup' {} a -> s {groupId = a} :: DisassociateMemberFromGroup)
 
 -- | The identifier for the member to be removed to the group.
-dmfgMemberId :: Lens' DisassociateMemberFromGroup Text
-dmfgMemberId = lens _dmfgMemberId (\s a -> s {_dmfgMemberId = a})
+disassociateMemberFromGroup_memberId :: Lens.Lens' DisassociateMemberFromGroup Prelude.Text
+disassociateMemberFromGroup_memberId = Lens.lens (\DisassociateMemberFromGroup' {memberId} -> memberId) (\s@DisassociateMemberFromGroup' {} a -> s {memberId = a} :: DisassociateMemberFromGroup)
 
-instance AWSRequest DisassociateMemberFromGroup where
+instance
+  Prelude.AWSRequest
+    DisassociateMemberFromGroup
+  where
   type
     Rs DisassociateMemberFromGroup =
       DisassociateMemberFromGroupResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DisassociateMemberFromGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisassociateMemberFromGroup
+instance Prelude.Hashable DisassociateMemberFromGroup
 
-instance NFData DisassociateMemberFromGroup
+instance Prelude.NFData DisassociateMemberFromGroup
 
-instance ToHeaders DisassociateMemberFromGroup where
+instance
+  Prelude.ToHeaders
+    DisassociateMemberFromGroup
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.DisassociateMemberFromGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.DisassociateMemberFromGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisassociateMemberFromGroup where
+instance Prelude.ToJSON DisassociateMemberFromGroup where
   toJSON DisassociateMemberFromGroup' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _dmfgOrganizationId),
-            Just ("GroupId" .= _dmfgGroupId),
-            Just ("MemberId" .= _dmfgMemberId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("GroupId" Prelude..= groupId),
+            Prelude.Just ("MemberId" Prelude..= memberId)
           ]
       )
 
-instance ToPath DisassociateMemberFromGroup where
-  toPath = const "/"
+instance Prelude.ToPath DisassociateMemberFromGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisassociateMemberFromGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DisassociateMemberFromGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disassociateMemberFromGroupResponse' smart constructor.
-newtype DisassociateMemberFromGroupResponse = DisassociateMemberFromGroupResponse'
-  { _dmfgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDisassociateMemberFromGroupResponse' smart constructor.
+data DisassociateMemberFromGroupResponse = DisassociateMemberFromGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateMemberFromGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateMemberFromGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmfgrrsResponseStatus' - -- | The response status code.
-disassociateMemberFromGroupResponse ::
-  -- | 'dmfgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disassociateMemberFromGroupResponse_httpStatus' - The response's http status code.
+newDisassociateMemberFromGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisassociateMemberFromGroupResponse
-disassociateMemberFromGroupResponse pResponseStatus_ =
+newDisassociateMemberFromGroupResponse pHttpStatus_ =
   DisassociateMemberFromGroupResponse'
-    { _dmfgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dmfgrrsResponseStatus :: Lens' DisassociateMemberFromGroupResponse Int
-dmfgrrsResponseStatus = lens _dmfgrrsResponseStatus (\s a -> s {_dmfgrrsResponseStatus = a})
+-- | The response's http status code.
+disassociateMemberFromGroupResponse_httpStatus :: Lens.Lens' DisassociateMemberFromGroupResponse Prelude.Int
+disassociateMemberFromGroupResponse_httpStatus = Lens.lens (\DisassociateMemberFromGroupResponse' {httpStatus} -> httpStatus) (\s@DisassociateMemberFromGroupResponse' {} a -> s {httpStatus = a} :: DisassociateMemberFromGroupResponse)
 
-instance NFData DisassociateMemberFromGroupResponse
+instance
+  Prelude.NFData
+    DisassociateMemberFromGroupResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,146 +24,146 @@
 -- Deletes an access control rule for the specified WorkMail organization.
 module Network.AWS.WorkMail.DeleteAccessControlRule
   ( -- * Creating a Request
-    deleteAccessControlRule,
-    DeleteAccessControlRule,
+    DeleteAccessControlRule (..),
+    newDeleteAccessControlRule,
 
     -- * Request Lenses
-    dacrOrganizationId,
-    dacrName,
+    deleteAccessControlRule_organizationId,
+    deleteAccessControlRule_name,
 
     -- * Destructuring the Response
-    deleteAccessControlRuleResponse,
-    DeleteAccessControlRuleResponse,
+    DeleteAccessControlRuleResponse (..),
+    newDeleteAccessControlRuleResponse,
 
     -- * Response Lenses
-    dacrrrsResponseStatus,
+    deleteAccessControlRuleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'deleteAccessControlRule' smart constructor.
+-- | /See:/ 'newDeleteAccessControlRule' smart constructor.
 data DeleteAccessControlRule = DeleteAccessControlRule'
-  { _dacrOrganizationId ::
-      !Text,
-    _dacrName :: !Text
+  { -- | The identifier for the organization.
+    organizationId :: Prelude.Text,
+    -- | The name of the access control rule.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAccessControlRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAccessControlRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dacrOrganizationId' - The identifier for the organization.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dacrName' - The name of the access control rule.
-deleteAccessControlRule ::
-  -- | 'dacrOrganizationId'
-  Text ->
-  -- | 'dacrName'
-  Text ->
+-- 'organizationId', 'deleteAccessControlRule_organizationId' - The identifier for the organization.
+--
+-- 'name', 'deleteAccessControlRule_name' - The name of the access control rule.
+newDeleteAccessControlRule ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   DeleteAccessControlRule
-deleteAccessControlRule pOrganizationId_ pName_ =
+newDeleteAccessControlRule pOrganizationId_ pName_ =
   DeleteAccessControlRule'
-    { _dacrOrganizationId =
+    { organizationId =
         pOrganizationId_,
-      _dacrName = pName_
+      name = pName_
     }
 
 -- | The identifier for the organization.
-dacrOrganizationId :: Lens' DeleteAccessControlRule Text
-dacrOrganizationId = lens _dacrOrganizationId (\s a -> s {_dacrOrganizationId = a})
+deleteAccessControlRule_organizationId :: Lens.Lens' DeleteAccessControlRule Prelude.Text
+deleteAccessControlRule_organizationId = Lens.lens (\DeleteAccessControlRule' {organizationId} -> organizationId) (\s@DeleteAccessControlRule' {} a -> s {organizationId = a} :: DeleteAccessControlRule)
 
 -- | The name of the access control rule.
-dacrName :: Lens' DeleteAccessControlRule Text
-dacrName = lens _dacrName (\s a -> s {_dacrName = a})
+deleteAccessControlRule_name :: Lens.Lens' DeleteAccessControlRule Prelude.Text
+deleteAccessControlRule_name = Lens.lens (\DeleteAccessControlRule' {name} -> name) (\s@DeleteAccessControlRule' {} a -> s {name = a} :: DeleteAccessControlRule)
 
-instance AWSRequest DeleteAccessControlRule where
+instance Prelude.AWSRequest DeleteAccessControlRule where
   type
     Rs DeleteAccessControlRule =
       DeleteAccessControlRuleResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteAccessControlRuleResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAccessControlRule
+instance Prelude.Hashable DeleteAccessControlRule
 
-instance NFData DeleteAccessControlRule
+instance Prelude.NFData DeleteAccessControlRule
 
-instance ToHeaders DeleteAccessControlRule where
+instance Prelude.ToHeaders DeleteAccessControlRule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.DeleteAccessControlRule" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.DeleteAccessControlRule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAccessControlRule where
+instance Prelude.ToJSON DeleteAccessControlRule where
   toJSON DeleteAccessControlRule' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _dacrOrganizationId),
-            Just ("Name" .= _dacrName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath DeleteAccessControlRule where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAccessControlRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAccessControlRule where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAccessControlRule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAccessControlRuleResponse' smart constructor.
-newtype DeleteAccessControlRuleResponse = DeleteAccessControlRuleResponse'
-  { _dacrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteAccessControlRuleResponse' smart constructor.
+data DeleteAccessControlRuleResponse = DeleteAccessControlRuleResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAccessControlRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAccessControlRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dacrrrsResponseStatus' - -- | The response status code.
-deleteAccessControlRuleResponse ::
-  -- | 'dacrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteAccessControlRuleResponse_httpStatus' - The response's http status code.
+newDeleteAccessControlRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteAccessControlRuleResponse
-deleteAccessControlRuleResponse pResponseStatus_ =
+newDeleteAccessControlRuleResponse pHttpStatus_ =
   DeleteAccessControlRuleResponse'
-    { _dacrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dacrrrsResponseStatus :: Lens' DeleteAccessControlRuleResponse Int
-dacrrrsResponseStatus = lens _dacrrrsResponseStatus (\s a -> s {_dacrrrsResponseStatus = a})
+-- | The response's http status code.
+deleteAccessControlRuleResponse_httpStatus :: Lens.Lens' DeleteAccessControlRuleResponse Prelude.Int
+deleteAccessControlRuleResponse_httpStatus = Lens.lens (\DeleteAccessControlRuleResponse' {httpStatus} -> httpStatus) (\s@DeleteAccessControlRuleResponse' {} a -> s {httpStatus = a} :: DeleteAccessControlRuleResponse)
 
-instance NFData DeleteAccessControlRuleResponse
+instance
+  Prelude.NFData
+    DeleteAccessControlRuleResponse

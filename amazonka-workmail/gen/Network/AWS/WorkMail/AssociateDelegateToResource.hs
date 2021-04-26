@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds a member (user or group) to the resource's set of delegates.
+-- Adds a member (user or group) to the resource\'s set of delegates.
 module Network.AWS.WorkMail.AssociateDelegateToResource
   ( -- * Creating a Request
-    associateDelegateToResource,
-    AssociateDelegateToResource,
+    AssociateDelegateToResource (..),
+    newAssociateDelegateToResource,
 
     -- * Request Lenses
-    adtrOrganizationId,
-    adtrResourceId,
-    adtrEntityId,
+    associateDelegateToResource_organizationId,
+    associateDelegateToResource_resourceId,
+    associateDelegateToResource_entityId,
 
     -- * Destructuring the Response
-    associateDelegateToResourceResponse,
-    AssociateDelegateToResourceResponse,
+    AssociateDelegateToResourceResponse (..),
+    newAssociateDelegateToResourceResponse,
 
     -- * Response Lenses
-    adtrrrsResponseStatus,
+    associateDelegateToResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkMail.Types
 
--- | /See:/ 'associateDelegateToResource' smart constructor.
+-- | /See:/ 'newAssociateDelegateToResource' smart constructor.
 data AssociateDelegateToResource = AssociateDelegateToResource'
-  { _adtrOrganizationId ::
-      !Text,
-    _adtrResourceId ::
-      !Text,
-    _adtrEntityId ::
-      !Text
+  { -- | The organization under which the resource exists.
+    organizationId :: Prelude.Text,
+    -- | The resource for which members (users or groups) are associated.
+    resourceId :: Prelude.Text,
+    -- | The member (user or group) to associate to the resource.
+    entityId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDelegateToResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDelegateToResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adtrOrganizationId' - The organization under which the resource exists.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adtrResourceId' - The resource for which members (users or groups) are associated.
+-- 'organizationId', 'associateDelegateToResource_organizationId' - The organization under which the resource exists.
 --
--- * 'adtrEntityId' - The member (user or group) to associate to the resource.
-associateDelegateToResource ::
-  -- | 'adtrOrganizationId'
-  Text ->
-  -- | 'adtrResourceId'
-  Text ->
-  -- | 'adtrEntityId'
-  Text ->
+-- 'resourceId', 'associateDelegateToResource_resourceId' - The resource for which members (users or groups) are associated.
+--
+-- 'entityId', 'associateDelegateToResource_entityId' - The member (user or group) to associate to the resource.
+newAssociateDelegateToResource ::
+  -- | 'organizationId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'entityId'
+  Prelude.Text ->
   AssociateDelegateToResource
-associateDelegateToResource
+newAssociateDelegateToResource
   pOrganizationId_
   pResourceId_
   pEntityId_ =
     AssociateDelegateToResource'
-      { _adtrOrganizationId =
+      { organizationId =
           pOrganizationId_,
-        _adtrResourceId = pResourceId_,
-        _adtrEntityId = pEntityId_
+        resourceId = pResourceId_,
+        entityId = pEntityId_
       }
 
 -- | The organization under which the resource exists.
-adtrOrganizationId :: Lens' AssociateDelegateToResource Text
-adtrOrganizationId = lens _adtrOrganizationId (\s a -> s {_adtrOrganizationId = a})
+associateDelegateToResource_organizationId :: Lens.Lens' AssociateDelegateToResource Prelude.Text
+associateDelegateToResource_organizationId = Lens.lens (\AssociateDelegateToResource' {organizationId} -> organizationId) (\s@AssociateDelegateToResource' {} a -> s {organizationId = a} :: AssociateDelegateToResource)
 
 -- | The resource for which members (users or groups) are associated.
-adtrResourceId :: Lens' AssociateDelegateToResource Text
-adtrResourceId = lens _adtrResourceId (\s a -> s {_adtrResourceId = a})
+associateDelegateToResource_resourceId :: Lens.Lens' AssociateDelegateToResource Prelude.Text
+associateDelegateToResource_resourceId = Lens.lens (\AssociateDelegateToResource' {resourceId} -> resourceId) (\s@AssociateDelegateToResource' {} a -> s {resourceId = a} :: AssociateDelegateToResource)
 
 -- | The member (user or group) to associate to the resource.
-adtrEntityId :: Lens' AssociateDelegateToResource Text
-adtrEntityId = lens _adtrEntityId (\s a -> s {_adtrEntityId = a})
+associateDelegateToResource_entityId :: Lens.Lens' AssociateDelegateToResource Prelude.Text
+associateDelegateToResource_entityId = Lens.lens (\AssociateDelegateToResource' {entityId} -> entityId) (\s@AssociateDelegateToResource' {} a -> s {entityId = a} :: AssociateDelegateToResource)
 
-instance AWSRequest AssociateDelegateToResource where
+instance
+  Prelude.AWSRequest
+    AssociateDelegateToResource
+  where
   type
     Rs AssociateDelegateToResource =
       AssociateDelegateToResourceResponse
-  request = postJSON workMail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateDelegateToResourceResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateDelegateToResource
+instance Prelude.Hashable AssociateDelegateToResource
 
-instance NFData AssociateDelegateToResource
+instance Prelude.NFData AssociateDelegateToResource
 
-instance ToHeaders AssociateDelegateToResource where
+instance
+  Prelude.ToHeaders
+    AssociateDelegateToResource
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkMailService.AssociateDelegateToResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkMailService.AssociateDelegateToResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateDelegateToResource where
+instance Prelude.ToJSON AssociateDelegateToResource where
   toJSON AssociateDelegateToResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("OrganizationId" .= _adtrOrganizationId),
-            Just ("ResourceId" .= _adtrResourceId),
-            Just ("EntityId" .= _adtrEntityId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("OrganizationId" Prelude..= organizationId),
+            Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just ("EntityId" Prelude..= entityId)
           ]
       )
 
-instance ToPath AssociateDelegateToResource where
-  toPath = const "/"
+instance Prelude.ToPath AssociateDelegateToResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateDelegateToResource where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateDelegateToResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateDelegateToResourceResponse' smart constructor.
-newtype AssociateDelegateToResourceResponse = AssociateDelegateToResourceResponse'
-  { _adtrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateDelegateToResourceResponse' smart constructor.
+data AssociateDelegateToResourceResponse = AssociateDelegateToResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDelegateToResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDelegateToResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adtrrrsResponseStatus' - -- | The response status code.
-associateDelegateToResourceResponse ::
-  -- | 'adtrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateDelegateToResourceResponse_httpStatus' - The response's http status code.
+newAssociateDelegateToResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateDelegateToResourceResponse
-associateDelegateToResourceResponse pResponseStatus_ =
+newAssociateDelegateToResourceResponse pHttpStatus_ =
   AssociateDelegateToResourceResponse'
-    { _adtrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-adtrrrsResponseStatus :: Lens' AssociateDelegateToResourceResponse Int
-adtrrrsResponseStatus = lens _adtrrrsResponseStatus (\s a -> s {_adtrrrsResponseStatus = a})
+-- | The response's http status code.
+associateDelegateToResourceResponse_httpStatus :: Lens.Lens' AssociateDelegateToResourceResponse Prelude.Int
+associateDelegateToResourceResponse_httpStatus = Lens.lens (\AssociateDelegateToResourceResponse' {httpStatus} -> httpStatus) (\s@AssociateDelegateToResourceResponse' {} a -> s {httpStatus = a} :: AssociateDelegateToResourceResponse)
 
-instance NFData AssociateDelegateToResourceResponse
+instance
+  Prelude.NFData
+    AssociateDelegateToResourceResponse

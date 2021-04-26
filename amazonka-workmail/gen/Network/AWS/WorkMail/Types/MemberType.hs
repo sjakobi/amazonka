@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.WorkMail.Types.MemberType
   ( MemberType
       ( ..,
-        Group,
-        User
+        MemberTypeGROUP,
+        MemberTypeUSER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MemberType = MemberType' (CI Text)
+newtype MemberType = MemberType'
+  { fromMemberType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Group :: MemberType
-pattern Group = MemberType' "GROUP"
+pattern MemberTypeGROUP :: MemberType
+pattern MemberTypeGROUP = MemberType' "GROUP"
 
-pattern User :: MemberType
-pattern User = MemberType' "USER"
+pattern MemberTypeUSER :: MemberType
+pattern MemberTypeUSER = MemberType' "USER"
 
 {-# COMPLETE
-  Group,
-  User,
+  MemberTypeGROUP,
+  MemberTypeUSER,
   MemberType'
   #-}
 
-instance FromText MemberType where
-  parser = (MemberType' . mk) <$> takeText
+instance Prelude.FromText MemberType where
+  parser = MemberType' Prelude.<$> Prelude.takeText
 
-instance ToText MemberType where
-  toText (MemberType' ci) = original ci
+instance Prelude.ToText MemberType where
+  toText (MemberType' x) = x
 
-instance Hashable MemberType
+instance Prelude.Hashable MemberType
 
-instance NFData MemberType
+instance Prelude.NFData MemberType
 
-instance ToByteString MemberType
+instance Prelude.ToByteString MemberType
 
-instance ToQuery MemberType
+instance Prelude.ToQuery MemberType
 
-instance ToHeader MemberType
+instance Prelude.ToHeader MemberType
 
-instance FromJSON MemberType where
-  parseJSON = parseJSONText "MemberType"
+instance Prelude.FromJSON MemberType where
+  parseJSON = Prelude.parseJSONText "MemberType"
