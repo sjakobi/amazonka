@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,96 +21,108 @@ module Network.AWS.AutoScaling.Types.TargetTrackingConfiguration where
 
 import Network.AWS.AutoScaling.Types.CustomizedMetricSpecification
 import Network.AWS.AutoScaling.Types.PredefinedMetricSpecification
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a target tracking scaling policy configuration to use with Amazon EC2 Auto Scaling.
+-- | Represents a target tracking scaling policy configuration to use with
+-- Amazon EC2 Auto Scaling.
 --
---
---
--- /See:/ 'targetTrackingConfiguration' smart constructor.
+-- /See:/ 'newTargetTrackingConfiguration' smart constructor.
 data TargetTrackingConfiguration = TargetTrackingConfiguration'
-  { _ttcDisableScaleIn ::
-      !(Maybe Bool),
-    _ttcPredefinedMetricSpecification ::
-      !( Maybe
-           PredefinedMetricSpecification
-       ),
-    _ttcCustomizedMetricSpecification ::
-      !( Maybe
-           CustomizedMetricSpecification
-       ),
-    _ttcTargetValue ::
-      !Double
+  { -- | Indicates whether scaling in by the target tracking scaling policy is
+    -- disabled. If scaling in is disabled, the target tracking scaling policy
+    -- doesn\'t remove instances from the Auto Scaling group. Otherwise, the
+    -- target tracking scaling policy can remove instances from the Auto
+    -- Scaling group. The default is @false@.
+    disableScaleIn :: Prelude.Maybe Prelude.Bool,
+    -- | A predefined metric. You must specify either a predefined metric or a
+    -- customized metric.
+    predefinedMetricSpecification :: Prelude.Maybe PredefinedMetricSpecification,
+    -- | A customized metric. You must specify either a predefined metric or a
+    -- customized metric.
+    customizedMetricSpecification :: Prelude.Maybe CustomizedMetricSpecification,
+    -- | The target value for the metric.
+    targetValue :: Prelude.Double
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetTrackingConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetTrackingConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ttcDisableScaleIn' - Indicates whether scaling in by the target tracking scaling policy is disabled. If scaling in is disabled, the target tracking scaling policy doesn't remove instances from the Auto Scaling group. Otherwise, the target tracking scaling policy can remove instances from the Auto Scaling group. The default is @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ttcPredefinedMetricSpecification' - A predefined metric. You must specify either a predefined metric or a customized metric.
+-- 'disableScaleIn', 'targetTrackingConfiguration_disableScaleIn' - Indicates whether scaling in by the target tracking scaling policy is
+-- disabled. If scaling in is disabled, the target tracking scaling policy
+-- doesn\'t remove instances from the Auto Scaling group. Otherwise, the
+-- target tracking scaling policy can remove instances from the Auto
+-- Scaling group. The default is @false@.
 --
--- * 'ttcCustomizedMetricSpecification' - A customized metric. You must specify either a predefined metric or a customized metric.
+-- 'predefinedMetricSpecification', 'targetTrackingConfiguration_predefinedMetricSpecification' - A predefined metric. You must specify either a predefined metric or a
+-- customized metric.
 --
--- * 'ttcTargetValue' - The target value for the metric.
-targetTrackingConfiguration ::
-  -- | 'ttcTargetValue'
-  Double ->
+-- 'customizedMetricSpecification', 'targetTrackingConfiguration_customizedMetricSpecification' - A customized metric. You must specify either a predefined metric or a
+-- customized metric.
+--
+-- 'targetValue', 'targetTrackingConfiguration_targetValue' - The target value for the metric.
+newTargetTrackingConfiguration ::
+  -- | 'targetValue'
+  Prelude.Double ->
   TargetTrackingConfiguration
-targetTrackingConfiguration pTargetValue_ =
+newTargetTrackingConfiguration pTargetValue_ =
   TargetTrackingConfiguration'
-    { _ttcDisableScaleIn =
-        Nothing,
-      _ttcPredefinedMetricSpecification = Nothing,
-      _ttcCustomizedMetricSpecification = Nothing,
-      _ttcTargetValue = pTargetValue_
+    { disableScaleIn =
+        Prelude.Nothing,
+      predefinedMetricSpecification =
+        Prelude.Nothing,
+      customizedMetricSpecification =
+        Prelude.Nothing,
+      targetValue = pTargetValue_
     }
 
--- | Indicates whether scaling in by the target tracking scaling policy is disabled. If scaling in is disabled, the target tracking scaling policy doesn't remove instances from the Auto Scaling group. Otherwise, the target tracking scaling policy can remove instances from the Auto Scaling group. The default is @false@ .
-ttcDisableScaleIn :: Lens' TargetTrackingConfiguration (Maybe Bool)
-ttcDisableScaleIn = lens _ttcDisableScaleIn (\s a -> s {_ttcDisableScaleIn = a})
+-- | Indicates whether scaling in by the target tracking scaling policy is
+-- disabled. If scaling in is disabled, the target tracking scaling policy
+-- doesn\'t remove instances from the Auto Scaling group. Otherwise, the
+-- target tracking scaling policy can remove instances from the Auto
+-- Scaling group. The default is @false@.
+targetTrackingConfiguration_disableScaleIn :: Lens.Lens' TargetTrackingConfiguration (Prelude.Maybe Prelude.Bool)
+targetTrackingConfiguration_disableScaleIn = Lens.lens (\TargetTrackingConfiguration' {disableScaleIn} -> disableScaleIn) (\s@TargetTrackingConfiguration' {} a -> s {disableScaleIn = a} :: TargetTrackingConfiguration)
 
--- | A predefined metric. You must specify either a predefined metric or a customized metric.
-ttcPredefinedMetricSpecification :: Lens' TargetTrackingConfiguration (Maybe PredefinedMetricSpecification)
-ttcPredefinedMetricSpecification = lens _ttcPredefinedMetricSpecification (\s a -> s {_ttcPredefinedMetricSpecification = a})
+-- | A predefined metric. You must specify either a predefined metric or a
+-- customized metric.
+targetTrackingConfiguration_predefinedMetricSpecification :: Lens.Lens' TargetTrackingConfiguration (Prelude.Maybe PredefinedMetricSpecification)
+targetTrackingConfiguration_predefinedMetricSpecification = Lens.lens (\TargetTrackingConfiguration' {predefinedMetricSpecification} -> predefinedMetricSpecification) (\s@TargetTrackingConfiguration' {} a -> s {predefinedMetricSpecification = a} :: TargetTrackingConfiguration)
 
--- | A customized metric. You must specify either a predefined metric or a customized metric.
-ttcCustomizedMetricSpecification :: Lens' TargetTrackingConfiguration (Maybe CustomizedMetricSpecification)
-ttcCustomizedMetricSpecification = lens _ttcCustomizedMetricSpecification (\s a -> s {_ttcCustomizedMetricSpecification = a})
+-- | A customized metric. You must specify either a predefined metric or a
+-- customized metric.
+targetTrackingConfiguration_customizedMetricSpecification :: Lens.Lens' TargetTrackingConfiguration (Prelude.Maybe CustomizedMetricSpecification)
+targetTrackingConfiguration_customizedMetricSpecification = Lens.lens (\TargetTrackingConfiguration' {customizedMetricSpecification} -> customizedMetricSpecification) (\s@TargetTrackingConfiguration' {} a -> s {customizedMetricSpecification = a} :: TargetTrackingConfiguration)
 
 -- | The target value for the metric.
-ttcTargetValue :: Lens' TargetTrackingConfiguration Double
-ttcTargetValue = lens _ttcTargetValue (\s a -> s {_ttcTargetValue = a})
+targetTrackingConfiguration_targetValue :: Lens.Lens' TargetTrackingConfiguration Prelude.Double
+targetTrackingConfiguration_targetValue = Lens.lens (\TargetTrackingConfiguration' {targetValue} -> targetValue) (\s@TargetTrackingConfiguration' {} a -> s {targetValue = a} :: TargetTrackingConfiguration)
 
-instance FromXML TargetTrackingConfiguration where
+instance Prelude.FromXML TargetTrackingConfiguration where
   parseXML x =
     TargetTrackingConfiguration'
-      <$> (x .@? "DisableScaleIn")
-      <*> (x .@? "PredefinedMetricSpecification")
-      <*> (x .@? "CustomizedMetricSpecification")
-      <*> (x .@ "TargetValue")
+      Prelude.<$> (x Prelude..@? "DisableScaleIn")
+      Prelude.<*> (x Prelude..@? "PredefinedMetricSpecification")
+      Prelude.<*> (x Prelude..@? "CustomizedMetricSpecification")
+      Prelude.<*> (x Prelude..@ "TargetValue")
 
-instance Hashable TargetTrackingConfiguration
+instance Prelude.Hashable TargetTrackingConfiguration
 
-instance NFData TargetTrackingConfiguration
+instance Prelude.NFData TargetTrackingConfiguration
 
-instance ToQuery TargetTrackingConfiguration where
+instance Prelude.ToQuery TargetTrackingConfiguration where
   toQuery TargetTrackingConfiguration' {..} =
-    mconcat
-      [ "DisableScaleIn" =: _ttcDisableScaleIn,
+    Prelude.mconcat
+      [ "DisableScaleIn" Prelude.=: disableScaleIn,
         "PredefinedMetricSpecification"
-          =: _ttcPredefinedMetricSpecification,
+          Prelude.=: predefinedMetricSpecification,
         "CustomizedMetricSpecification"
-          =: _ttcCustomizedMetricSpecification,
-        "TargetValue" =: _ttcTargetValue
+          Prelude.=: customizedMetricSpecification,
+        "TargetValue" Prelude.=: targetValue
       ]

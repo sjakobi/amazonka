@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,112 +24,111 @@
 -- Deletes the specified scheduled action.
 module Network.AWS.AutoScaling.DeleteScheduledAction
   ( -- * Creating a Request
-    deleteScheduledAction,
-    DeleteScheduledAction,
+    DeleteScheduledAction (..),
+    newDeleteScheduledAction,
 
     -- * Request Lenses
-    dAutoScalingGroupName,
-    dScheduledActionName,
+    deleteScheduledAction_autoScalingGroupName,
+    deleteScheduledAction_scheduledActionName,
 
     -- * Destructuring the Response
-    deleteScheduledActionResponse,
-    DeleteScheduledActionResponse,
+    DeleteScheduledActionResponse (..),
+    newDeleteScheduledActionResponse,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteScheduledAction' smart constructor.
+-- | /See:/ 'newDeleteScheduledAction' smart constructor.
 data DeleteScheduledAction = DeleteScheduledAction'
-  { _dAutoScalingGroupName ::
-      !Text,
-    _dScheduledActionName ::
-      !Text
+  { -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text,
+    -- | The name of the action to delete.
+    scheduledActionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteScheduledAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteScheduledAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dAutoScalingGroupName' - The name of the Auto Scaling group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dScheduledActionName' - The name of the action to delete.
-deleteScheduledAction ::
-  -- | 'dAutoScalingGroupName'
-  Text ->
-  -- | 'dScheduledActionName'
-  Text ->
+-- 'autoScalingGroupName', 'deleteScheduledAction_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'scheduledActionName', 'deleteScheduledAction_scheduledActionName' - The name of the action to delete.
+newDeleteScheduledAction ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
+  -- | 'scheduledActionName'
+  Prelude.Text ->
   DeleteScheduledAction
-deleteScheduledAction
+newDeleteScheduledAction
   pAutoScalingGroupName_
   pScheduledActionName_ =
     DeleteScheduledAction'
-      { _dAutoScalingGroupName =
+      { autoScalingGroupName =
           pAutoScalingGroupName_,
-        _dScheduledActionName = pScheduledActionName_
+        scheduledActionName = pScheduledActionName_
       }
 
 -- | The name of the Auto Scaling group.
-dAutoScalingGroupName :: Lens' DeleteScheduledAction Text
-dAutoScalingGroupName = lens _dAutoScalingGroupName (\s a -> s {_dAutoScalingGroupName = a})
+deleteScheduledAction_autoScalingGroupName :: Lens.Lens' DeleteScheduledAction Prelude.Text
+deleteScheduledAction_autoScalingGroupName = Lens.lens (\DeleteScheduledAction' {autoScalingGroupName} -> autoScalingGroupName) (\s@DeleteScheduledAction' {} a -> s {autoScalingGroupName = a} :: DeleteScheduledAction)
 
 -- | The name of the action to delete.
-dScheduledActionName :: Lens' DeleteScheduledAction Text
-dScheduledActionName = lens _dScheduledActionName (\s a -> s {_dScheduledActionName = a})
+deleteScheduledAction_scheduledActionName :: Lens.Lens' DeleteScheduledAction Prelude.Text
+deleteScheduledAction_scheduledActionName = Lens.lens (\DeleteScheduledAction' {scheduledActionName} -> scheduledActionName) (\s@DeleteScheduledAction' {} a -> s {scheduledActionName = a} :: DeleteScheduledAction)
 
-instance AWSRequest DeleteScheduledAction where
+instance Prelude.AWSRequest DeleteScheduledAction where
   type
     Rs DeleteScheduledAction =
       DeleteScheduledActionResponse
-  request = postQuery autoScaling
-  response = receiveNull DeleteScheduledActionResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeleteScheduledActionResponse'
 
-instance Hashable DeleteScheduledAction
+instance Prelude.Hashable DeleteScheduledAction
 
-instance NFData DeleteScheduledAction
+instance Prelude.NFData DeleteScheduledAction
 
-instance ToHeaders DeleteScheduledAction where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteScheduledAction where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteScheduledAction where
-  toPath = const "/"
+instance Prelude.ToPath DeleteScheduledAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteScheduledAction where
+instance Prelude.ToQuery DeleteScheduledAction where
   toQuery DeleteScheduledAction' {..} =
-    mconcat
-      [ "Action" =: ("DeleteScheduledAction" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "AutoScalingGroupName" =: _dAutoScalingGroupName,
-        "ScheduledActionName" =: _dScheduledActionName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteScheduledAction" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName,
+        "ScheduledActionName" Prelude.=: scheduledActionName
       ]
 
--- | /See:/ 'deleteScheduledActionResponse' smart constructor.
+-- | /See:/ 'newDeleteScheduledActionResponse' smart constructor.
 data DeleteScheduledActionResponse = DeleteScheduledActionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteScheduledActionResponse' with the minimum fields required to make a request.
-deleteScheduledActionResponse ::
+-- |
+-- Create a value of 'DeleteScheduledActionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteScheduledActionResponse ::
   DeleteScheduledActionResponse
-deleteScheduledActionResponse =
+newDeleteScheduledActionResponse =
   DeleteScheduledActionResponse'
 
-instance NFData DeleteScheduledActionResponse
+instance Prelude.NFData DeleteScheduledActionResponse

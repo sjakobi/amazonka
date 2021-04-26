@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,38 +19,44 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScaling.Types.AdjustmentType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a policy adjustment type.
 --
---
---
--- /See:/ 'adjustmentType' smart constructor.
-newtype AdjustmentType = AdjustmentType'
-  { _atAdjustmentType ::
-      Maybe Text
+-- /See:/ 'newAdjustmentType' smart constructor.
+data AdjustmentType = AdjustmentType'
+  { -- | The policy adjustment type. The valid values are @ChangeInCapacity@,
+    -- @ExactCapacity@, and @PercentChangeInCapacity@.
+    adjustmentType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdjustmentType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdjustmentType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atAdjustmentType' - The policy adjustment type. The valid values are @ChangeInCapacity@ , @ExactCapacity@ , and @PercentChangeInCapacity@ .
-adjustmentType ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'adjustmentType', 'adjustmentType_adjustmentType' - The policy adjustment type. The valid values are @ChangeInCapacity@,
+-- @ExactCapacity@, and @PercentChangeInCapacity@.
+newAdjustmentType ::
   AdjustmentType
-adjustmentType =
-  AdjustmentType' {_atAdjustmentType = Nothing}
+newAdjustmentType =
+  AdjustmentType' {adjustmentType = Prelude.Nothing}
 
--- | The policy adjustment type. The valid values are @ChangeInCapacity@ , @ExactCapacity@ , and @PercentChangeInCapacity@ .
-atAdjustmentType :: Lens' AdjustmentType (Maybe Text)
-atAdjustmentType = lens _atAdjustmentType (\s a -> s {_atAdjustmentType = a})
+-- | The policy adjustment type. The valid values are @ChangeInCapacity@,
+-- @ExactCapacity@, and @PercentChangeInCapacity@.
+adjustmentType_adjustmentType :: Lens.Lens' AdjustmentType (Prelude.Maybe Prelude.Text)
+adjustmentType_adjustmentType = Lens.lens (\AdjustmentType' {adjustmentType} -> adjustmentType) (\s@AdjustmentType' {} a -> s {adjustmentType = a} :: AdjustmentType)
 
-instance FromXML AdjustmentType where
+instance Prelude.FromXML AdjustmentType where
   parseXML x =
-    AdjustmentType' <$> (x .@? "AdjustmentType")
+    AdjustmentType'
+      Prelude.<$> (x Prelude..@? "AdjustmentType")
 
-instance Hashable AdjustmentType
+instance Prelude.Hashable AdjustmentType
 
-instance NFData AdjustmentType
+instance Prelude.NFData AdjustmentType

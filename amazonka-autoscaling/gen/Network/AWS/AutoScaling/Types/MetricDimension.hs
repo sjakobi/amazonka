@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScaling.Types.MetricDimension where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the dimension of a metric.
 --
---
---
--- /See:/ 'metricDimension' smart constructor.
+-- /See:/ 'newMetricDimension' smart constructor.
 data MetricDimension = MetricDimension'
-  { _mdName ::
-      !Text,
-    _mdValue :: !Text
+  { -- | The name of the dimension.
+    name :: Prelude.Text,
+    -- | The value of the dimension.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricDimension' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricDimension' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdName' - The name of the dimension.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdValue' - The value of the dimension.
-metricDimension ::
-  -- | 'mdName'
-  Text ->
-  -- | 'mdValue'
-  Text ->
+-- 'name', 'metricDimension_name' - The name of the dimension.
+--
+-- 'value', 'metricDimension_value' - The value of the dimension.
+newMetricDimension ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   MetricDimension
-metricDimension pName_ pValue_ =
-  MetricDimension'
-    { _mdName = pName_,
-      _mdValue = pValue_
-    }
+newMetricDimension pName_ pValue_ =
+  MetricDimension' {name = pName_, value = pValue_}
 
 -- | The name of the dimension.
-mdName :: Lens' MetricDimension Text
-mdName = lens _mdName (\s a -> s {_mdName = a})
+metricDimension_name :: Lens.Lens' MetricDimension Prelude.Text
+metricDimension_name = Lens.lens (\MetricDimension' {name} -> name) (\s@MetricDimension' {} a -> s {name = a} :: MetricDimension)
 
 -- | The value of the dimension.
-mdValue :: Lens' MetricDimension Text
-mdValue = lens _mdValue (\s a -> s {_mdValue = a})
+metricDimension_value :: Lens.Lens' MetricDimension Prelude.Text
+metricDimension_value = Lens.lens (\MetricDimension' {value} -> value) (\s@MetricDimension' {} a -> s {value = a} :: MetricDimension)
 
-instance FromXML MetricDimension where
+instance Prelude.FromXML MetricDimension where
   parseXML x =
     MetricDimension'
-      <$> (x .@ "Name") <*> (x .@ "Value")
+      Prelude.<$> (x Prelude..@ "Name")
+      Prelude.<*> (x Prelude..@ "Value")
 
-instance Hashable MetricDimension
+instance Prelude.Hashable MetricDimension
 
-instance NFData MetricDimension
+instance Prelude.NFData MetricDimension
 
-instance ToQuery MetricDimension where
+instance Prelude.ToQuery MetricDimension where
   toQuery MetricDimension' {..} =
-    mconcat ["Name" =: _mdName, "Value" =: _mdValue]
+    Prelude.mconcat
+      ["Name" Prelude.=: name, "Value" Prelude.=: value]

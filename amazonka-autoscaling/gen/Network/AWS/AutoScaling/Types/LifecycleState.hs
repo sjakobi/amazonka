@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,108 +19,110 @@
 module Network.AWS.AutoScaling.Types.LifecycleState
   ( LifecycleState
       ( ..,
-        Detached,
-        Detaching,
-        EnteringStandby,
-        InService,
-        Pending,
-        PendingProceed,
-        PendingWait,
-        Quarantined,
-        Standby,
-        Terminated,
-        Terminating,
-        TerminatingProceed,
-        TerminatingWait
+        LifecycleStateDetached,
+        LifecycleStateDetaching,
+        LifecycleStateEnteringStandby,
+        LifecycleStateInService,
+        LifecycleStatePending,
+        LifecycleStatePendingProceed,
+        LifecycleStatePendingWait,
+        LifecycleStateQuarantined,
+        LifecycleStateStandby,
+        LifecycleStateTerminated,
+        LifecycleStateTerminating,
+        LifecycleStateTerminatingProceed,
+        LifecycleStateTerminatingWait
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LifecycleState = LifecycleState' (CI Text)
+newtype LifecycleState = LifecycleState'
+  { fromLifecycleState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Detached :: LifecycleState
-pattern Detached = LifecycleState' "Detached"
+pattern LifecycleStateDetached :: LifecycleState
+pattern LifecycleStateDetached = LifecycleState' "Detached"
 
-pattern Detaching :: LifecycleState
-pattern Detaching = LifecycleState' "Detaching"
+pattern LifecycleStateDetaching :: LifecycleState
+pattern LifecycleStateDetaching = LifecycleState' "Detaching"
 
-pattern EnteringStandby :: LifecycleState
-pattern EnteringStandby = LifecycleState' "EnteringStandby"
+pattern LifecycleStateEnteringStandby :: LifecycleState
+pattern LifecycleStateEnteringStandby = LifecycleState' "EnteringStandby"
 
-pattern InService :: LifecycleState
-pattern InService = LifecycleState' "InService"
+pattern LifecycleStateInService :: LifecycleState
+pattern LifecycleStateInService = LifecycleState' "InService"
 
-pattern Pending :: LifecycleState
-pattern Pending = LifecycleState' "Pending"
+pattern LifecycleStatePending :: LifecycleState
+pattern LifecycleStatePending = LifecycleState' "Pending"
 
-pattern PendingProceed :: LifecycleState
-pattern PendingProceed = LifecycleState' "Pending:Proceed"
+pattern LifecycleStatePendingProceed :: LifecycleState
+pattern LifecycleStatePendingProceed = LifecycleState' "Pending:Proceed"
 
-pattern PendingWait :: LifecycleState
-pattern PendingWait = LifecycleState' "Pending:Wait"
+pattern LifecycleStatePendingWait :: LifecycleState
+pattern LifecycleStatePendingWait = LifecycleState' "Pending:Wait"
 
-pattern Quarantined :: LifecycleState
-pattern Quarantined = LifecycleState' "Quarantined"
+pattern LifecycleStateQuarantined :: LifecycleState
+pattern LifecycleStateQuarantined = LifecycleState' "Quarantined"
 
-pattern Standby :: LifecycleState
-pattern Standby = LifecycleState' "Standby"
+pattern LifecycleStateStandby :: LifecycleState
+pattern LifecycleStateStandby = LifecycleState' "Standby"
 
-pattern Terminated :: LifecycleState
-pattern Terminated = LifecycleState' "Terminated"
+pattern LifecycleStateTerminated :: LifecycleState
+pattern LifecycleStateTerminated = LifecycleState' "Terminated"
 
-pattern Terminating :: LifecycleState
-pattern Terminating = LifecycleState' "Terminating"
+pattern LifecycleStateTerminating :: LifecycleState
+pattern LifecycleStateTerminating = LifecycleState' "Terminating"
 
-pattern TerminatingProceed :: LifecycleState
-pattern TerminatingProceed = LifecycleState' "Terminating:Proceed"
+pattern LifecycleStateTerminatingProceed :: LifecycleState
+pattern LifecycleStateTerminatingProceed = LifecycleState' "Terminating:Proceed"
 
-pattern TerminatingWait :: LifecycleState
-pattern TerminatingWait = LifecycleState' "Terminating:Wait"
+pattern LifecycleStateTerminatingWait :: LifecycleState
+pattern LifecycleStateTerminatingWait = LifecycleState' "Terminating:Wait"
 
 {-# COMPLETE
-  Detached,
-  Detaching,
-  EnteringStandby,
-  InService,
-  Pending,
-  PendingProceed,
-  PendingWait,
-  Quarantined,
-  Standby,
-  Terminated,
-  Terminating,
-  TerminatingProceed,
-  TerminatingWait,
+  LifecycleStateDetached,
+  LifecycleStateDetaching,
+  LifecycleStateEnteringStandby,
+  LifecycleStateInService,
+  LifecycleStatePending,
+  LifecycleStatePendingProceed,
+  LifecycleStatePendingWait,
+  LifecycleStateQuarantined,
+  LifecycleStateStandby,
+  LifecycleStateTerminated,
+  LifecycleStateTerminating,
+  LifecycleStateTerminatingProceed,
+  LifecycleStateTerminatingWait,
   LifecycleState'
   #-}
 
-instance FromText LifecycleState where
-  parser = (LifecycleState' . mk) <$> takeText
+instance Prelude.FromText LifecycleState where
+  parser = LifecycleState' Prelude.<$> Prelude.takeText
 
-instance ToText LifecycleState where
-  toText (LifecycleState' ci) = original ci
+instance Prelude.ToText LifecycleState where
+  toText (LifecycleState' x) = x
 
-instance Hashable LifecycleState
+instance Prelude.Hashable LifecycleState
 
-instance NFData LifecycleState
+instance Prelude.NFData LifecycleState
 
-instance ToByteString LifecycleState
+instance Prelude.ToByteString LifecycleState
 
-instance ToQuery LifecycleState
+instance Prelude.ToQuery LifecycleState
 
-instance ToHeader LifecycleState
+instance Prelude.ToHeader LifecycleState
 
-instance FromXML LifecycleState where
-  parseXML = parseXMLText "LifecycleState"
+instance Prelude.FromXML LifecycleState where
+  parseXML = Prelude.parseXMLText "LifecycleState"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,110 +24,196 @@
 -- Disables group metrics for the specified Auto Scaling group.
 module Network.AWS.AutoScaling.DisableMetricsCollection
   ( -- * Creating a Request
-    disableMetricsCollection,
-    DisableMetricsCollection,
+    DisableMetricsCollection (..),
+    newDisableMetricsCollection,
 
     -- * Request Lenses
-    dmcMetrics,
-    dmcAutoScalingGroupName,
+    disableMetricsCollection_metrics,
+    disableMetricsCollection_autoScalingGroupName,
 
     -- * Destructuring the Response
-    disableMetricsCollectionResponse,
-    DisableMetricsCollectionResponse,
+    DisableMetricsCollectionResponse (..),
+    newDisableMetricsCollectionResponse,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disableMetricsCollection' smart constructor.
+-- | /See:/ 'newDisableMetricsCollection' smart constructor.
 data DisableMetricsCollection = DisableMetricsCollection'
-  { _dmcMetrics ::
-      !(Maybe [Text]),
-    _dmcAutoScalingGroupName ::
-      !Text
+  { -- | Specifies one or more of the following metrics:
+    --
+    -- -   @GroupMinSize@
+    --
+    -- -   @GroupMaxSize@
+    --
+    -- -   @GroupDesiredCapacity@
+    --
+    -- -   @GroupInServiceInstances@
+    --
+    -- -   @GroupPendingInstances@
+    --
+    -- -   @GroupStandbyInstances@
+    --
+    -- -   @GroupTerminatingInstances@
+    --
+    -- -   @GroupTotalInstances@
+    --
+    -- -   @GroupInServiceCapacity@
+    --
+    -- -   @GroupPendingCapacity@
+    --
+    -- -   @GroupStandbyCapacity@
+    --
+    -- -   @GroupTerminatingCapacity@
+    --
+    -- -   @GroupTotalCapacity@
+    --
+    -- If you omit this parameter, all metrics are disabled.
+    metrics :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableMetricsCollection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableMetricsCollection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmcMetrics' - Specifies one or more of the following metrics:     * @GroupMinSize@      * @GroupMaxSize@      * @GroupDesiredCapacity@      * @GroupInServiceInstances@      * @GroupPendingInstances@      * @GroupStandbyInstances@      * @GroupTerminatingInstances@      * @GroupTotalInstances@      * @GroupInServiceCapacity@      * @GroupPendingCapacity@      * @GroupStandbyCapacity@      * @GroupTerminatingCapacity@      * @GroupTotalCapacity@  If you omit this parameter, all metrics are disabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmcAutoScalingGroupName' - The name of the Auto Scaling group.
-disableMetricsCollection ::
-  -- | 'dmcAutoScalingGroupName'
-  Text ->
+-- 'metrics', 'disableMetricsCollection_metrics' - Specifies one or more of the following metrics:
+--
+-- -   @GroupMinSize@
+--
+-- -   @GroupMaxSize@
+--
+-- -   @GroupDesiredCapacity@
+--
+-- -   @GroupInServiceInstances@
+--
+-- -   @GroupPendingInstances@
+--
+-- -   @GroupStandbyInstances@
+--
+-- -   @GroupTerminatingInstances@
+--
+-- -   @GroupTotalInstances@
+--
+-- -   @GroupInServiceCapacity@
+--
+-- -   @GroupPendingCapacity@
+--
+-- -   @GroupStandbyCapacity@
+--
+-- -   @GroupTerminatingCapacity@
+--
+-- -   @GroupTotalCapacity@
+--
+-- If you omit this parameter, all metrics are disabled.
+--
+-- 'autoScalingGroupName', 'disableMetricsCollection_autoScalingGroupName' - The name of the Auto Scaling group.
+newDisableMetricsCollection ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
   DisableMetricsCollection
-disableMetricsCollection pAutoScalingGroupName_ =
+newDisableMetricsCollection pAutoScalingGroupName_ =
   DisableMetricsCollection'
-    { _dmcMetrics = Nothing,
-      _dmcAutoScalingGroupName = pAutoScalingGroupName_
+    { metrics =
+        Prelude.Nothing,
+      autoScalingGroupName = pAutoScalingGroupName_
     }
 
--- | Specifies one or more of the following metrics:     * @GroupMinSize@      * @GroupMaxSize@      * @GroupDesiredCapacity@      * @GroupInServiceInstances@      * @GroupPendingInstances@      * @GroupStandbyInstances@      * @GroupTerminatingInstances@      * @GroupTotalInstances@      * @GroupInServiceCapacity@      * @GroupPendingCapacity@      * @GroupStandbyCapacity@      * @GroupTerminatingCapacity@      * @GroupTotalCapacity@  If you omit this parameter, all metrics are disabled.
-dmcMetrics :: Lens' DisableMetricsCollection [Text]
-dmcMetrics = lens _dmcMetrics (\s a -> s {_dmcMetrics = a}) . _Default . _Coerce
+-- | Specifies one or more of the following metrics:
+--
+-- -   @GroupMinSize@
+--
+-- -   @GroupMaxSize@
+--
+-- -   @GroupDesiredCapacity@
+--
+-- -   @GroupInServiceInstances@
+--
+-- -   @GroupPendingInstances@
+--
+-- -   @GroupStandbyInstances@
+--
+-- -   @GroupTerminatingInstances@
+--
+-- -   @GroupTotalInstances@
+--
+-- -   @GroupInServiceCapacity@
+--
+-- -   @GroupPendingCapacity@
+--
+-- -   @GroupStandbyCapacity@
+--
+-- -   @GroupTerminatingCapacity@
+--
+-- -   @GroupTotalCapacity@
+--
+-- If you omit this parameter, all metrics are disabled.
+disableMetricsCollection_metrics :: Lens.Lens' DisableMetricsCollection (Prelude.Maybe [Prelude.Text])
+disableMetricsCollection_metrics = Lens.lens (\DisableMetricsCollection' {metrics} -> metrics) (\s@DisableMetricsCollection' {} a -> s {metrics = a} :: DisableMetricsCollection) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the Auto Scaling group.
-dmcAutoScalingGroupName :: Lens' DisableMetricsCollection Text
-dmcAutoScalingGroupName = lens _dmcAutoScalingGroupName (\s a -> s {_dmcAutoScalingGroupName = a})
+disableMetricsCollection_autoScalingGroupName :: Lens.Lens' DisableMetricsCollection Prelude.Text
+disableMetricsCollection_autoScalingGroupName = Lens.lens (\DisableMetricsCollection' {autoScalingGroupName} -> autoScalingGroupName) (\s@DisableMetricsCollection' {} a -> s {autoScalingGroupName = a} :: DisableMetricsCollection)
 
-instance AWSRequest DisableMetricsCollection where
+instance Prelude.AWSRequest DisableMetricsCollection where
   type
     Rs DisableMetricsCollection =
       DisableMetricsCollectionResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveNull DisableMetricsCollectionResponse'
+    Response.receiveNull
+      DisableMetricsCollectionResponse'
 
-instance Hashable DisableMetricsCollection
+instance Prelude.Hashable DisableMetricsCollection
 
-instance NFData DisableMetricsCollection
+instance Prelude.NFData DisableMetricsCollection
 
-instance ToHeaders DisableMetricsCollection where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DisableMetricsCollection where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DisableMetricsCollection where
-  toPath = const "/"
+instance Prelude.ToPath DisableMetricsCollection where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableMetricsCollection where
+instance Prelude.ToQuery DisableMetricsCollection where
   toQuery DisableMetricsCollection' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DisableMetricsCollection" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
+          Prelude.=: ("DisableMetricsCollection" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
         "Metrics"
-          =: toQuery (toQueryList "member" <$> _dmcMetrics),
-        "AutoScalingGroupName" =: _dmcAutoScalingGroupName
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> metrics),
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName
       ]
 
--- | /See:/ 'disableMetricsCollectionResponse' smart constructor.
+-- | /See:/ 'newDisableMetricsCollectionResponse' smart constructor.
 data DisableMetricsCollectionResponse = DisableMetricsCollectionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableMetricsCollectionResponse' with the minimum fields required to make a request.
-disableMetricsCollectionResponse ::
+-- |
+-- Create a value of 'DisableMetricsCollectionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDisableMetricsCollectionResponse ::
   DisableMetricsCollectionResponse
-disableMetricsCollectionResponse =
+newDisableMetricsCollectionResponse =
   DisableMetricsCollectionResponse'
 
-instance NFData DisableMetricsCollectionResponse
+instance
+  Prelude.NFData
+    DisableMetricsCollectionResponse

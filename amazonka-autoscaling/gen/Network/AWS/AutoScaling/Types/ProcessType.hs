@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScaling.Types.ProcessType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a process type.
 --
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html#process-types Scaling processes>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 --
--- For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html#process-types Scaling processes> in the /Amazon EC2 Auto Scaling User Guide/ .
---
---
--- /See:/ 'processType' smart constructor.
-newtype ProcessType = ProcessType'
-  { _ptProcessName ::
-      Text
+-- /See:/ 'newProcessType' smart constructor.
+data ProcessType = ProcessType'
+  { -- | One of the following processes:
+    --
+    -- -   @Launch@
+    --
+    -- -   @Terminate@
+    --
+    -- -   @AddToLoadBalancer@
+    --
+    -- -   @AlarmNotification@
+    --
+    -- -   @AZRebalance@
+    --
+    -- -   @HealthCheck@
+    --
+    -- -   @InstanceRefresh@
+    --
+    -- -   @ReplaceUnhealthy@
+    --
+    -- -   @ScheduledActions@
+    processName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ptProcessName' - One of the following processes:     * @Launch@      * @Terminate@      * @AddToLoadBalancer@      * @AlarmNotification@      * @AZRebalance@      * @HealthCheck@      * @InstanceRefresh@      * @ReplaceUnhealthy@      * @ScheduledActions@
-processType ::
-  -- | 'ptProcessName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'processName', 'processType_processName' - One of the following processes:
+--
+-- -   @Launch@
+--
+-- -   @Terminate@
+--
+-- -   @AddToLoadBalancer@
+--
+-- -   @AlarmNotification@
+--
+-- -   @AZRebalance@
+--
+-- -   @HealthCheck@
+--
+-- -   @InstanceRefresh@
+--
+-- -   @ReplaceUnhealthy@
+--
+-- -   @ScheduledActions@
+newProcessType ::
+  -- | 'processName'
+  Prelude.Text ->
   ProcessType
-processType pProcessName_ =
-  ProcessType' {_ptProcessName = pProcessName_}
+newProcessType pProcessName_ =
+  ProcessType' {processName = pProcessName_}
 
--- | One of the following processes:     * @Launch@      * @Terminate@      * @AddToLoadBalancer@      * @AlarmNotification@      * @AZRebalance@      * @HealthCheck@      * @InstanceRefresh@      * @ReplaceUnhealthy@      * @ScheduledActions@
-ptProcessName :: Lens' ProcessType Text
-ptProcessName = lens _ptProcessName (\s a -> s {_ptProcessName = a})
+-- | One of the following processes:
+--
+-- -   @Launch@
+--
+-- -   @Terminate@
+--
+-- -   @AddToLoadBalancer@
+--
+-- -   @AlarmNotification@
+--
+-- -   @AZRebalance@
+--
+-- -   @HealthCheck@
+--
+-- -   @InstanceRefresh@
+--
+-- -   @ReplaceUnhealthy@
+--
+-- -   @ScheduledActions@
+processType_processName :: Lens.Lens' ProcessType Prelude.Text
+processType_processName = Lens.lens (\ProcessType' {processName} -> processName) (\s@ProcessType' {} a -> s {processName = a} :: ProcessType)
 
-instance FromXML ProcessType where
-  parseXML x = ProcessType' <$> (x .@ "ProcessName")
+instance Prelude.FromXML ProcessType where
+  parseXML x =
+    ProcessType'
+      Prelude.<$> (x Prelude..@ "ProcessName")
 
-instance Hashable ProcessType
+instance Prelude.Hashable ProcessType
 
-instance NFData ProcessType
+instance Prelude.NFData ProcessType

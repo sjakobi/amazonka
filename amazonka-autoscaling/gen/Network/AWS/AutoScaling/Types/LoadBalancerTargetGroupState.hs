@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,115 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScaling.Types.LoadBalancerTargetGroupState where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the state of a target group.
 --
+-- If you attach a target group to an existing Auto Scaling group, the
+-- initial state is @Adding@. The state transitions to @Added@ after all
+-- Auto Scaling instances are registered with the target group. If Elastic
+-- Load Balancing health checks are enabled, the state transitions to
+-- @InService@ after at least one Auto Scaling instance passes the health
+-- check. If EC2 health checks are enabled instead, the target group
+-- remains in the @Added@ state.
 --
--- If you attach a target group to an existing Auto Scaling group, the initial state is @Adding@ . The state transitions to @Added@ after all Auto Scaling instances are registered with the target group. If Elastic Load Balancing health checks are enabled, the state transitions to @InService@ after at least one Auto Scaling instance passes the health check. If EC2 health checks are enabled instead, the target group remains in the @Added@ state.
---
---
--- /See:/ 'loadBalancerTargetGroupState' smart constructor.
+-- /See:/ 'newLoadBalancerTargetGroupState' smart constructor.
 data LoadBalancerTargetGroupState = LoadBalancerTargetGroupState'
-  { _lbtgsState ::
-      !(Maybe Text),
-    _lbtgsLoadBalancerTargetGroupARN ::
-      !(Maybe Text)
+  { -- | The state of the target group.
+    --
+    -- -   @Adding@ - The Auto Scaling instances are being registered with the
+    --     target group.
+    --
+    -- -   @Added@ - All Auto Scaling instances are registered with the target
+    --     group.
+    --
+    -- -   @InService@ - At least one Auto Scaling instance passed an ELB
+    --     health check.
+    --
+    -- -   @Removing@ - The Auto Scaling instances are being deregistered from
+    --     the target group. If connection draining is enabled, Elastic Load
+    --     Balancing waits for in-flight requests to complete before
+    --     deregistering the instances.
+    --
+    -- -   @Removed@ - All Auto Scaling instances are deregistered from the
+    --     target group.
+    state :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the target group.
+    loadBalancerTargetGroupARN :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoadBalancerTargetGroupState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoadBalancerTargetGroupState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbtgsState' - The state of the target group.     * @Adding@ - The Auto Scaling instances are being registered with the target group.     * @Added@ - All Auto Scaling instances are registered with the target group.     * @InService@ - At least one Auto Scaling instance passed an ELB health check.     * @Removing@ - The Auto Scaling instances are being deregistered from the target group. If connection draining is enabled, Elastic Load Balancing waits for in-flight requests to complete before deregistering the instances.     * @Removed@ - All Auto Scaling instances are deregistered from the target group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbtgsLoadBalancerTargetGroupARN' - The Amazon Resource Name (ARN) of the target group.
-loadBalancerTargetGroupState ::
+-- 'state', 'loadBalancerTargetGroupState_state' - The state of the target group.
+--
+-- -   @Adding@ - The Auto Scaling instances are being registered with the
+--     target group.
+--
+-- -   @Added@ - All Auto Scaling instances are registered with the target
+--     group.
+--
+-- -   @InService@ - At least one Auto Scaling instance passed an ELB
+--     health check.
+--
+-- -   @Removing@ - The Auto Scaling instances are being deregistered from
+--     the target group. If connection draining is enabled, Elastic Load
+--     Balancing waits for in-flight requests to complete before
+--     deregistering the instances.
+--
+-- -   @Removed@ - All Auto Scaling instances are deregistered from the
+--     target group.
+--
+-- 'loadBalancerTargetGroupARN', 'loadBalancerTargetGroupState_loadBalancerTargetGroupARN' - The Amazon Resource Name (ARN) of the target group.
+newLoadBalancerTargetGroupState ::
   LoadBalancerTargetGroupState
-loadBalancerTargetGroupState =
+newLoadBalancerTargetGroupState =
   LoadBalancerTargetGroupState'
-    { _lbtgsState =
-        Nothing,
-      _lbtgsLoadBalancerTargetGroupARN = Nothing
+    { state =
+        Prelude.Nothing,
+      loadBalancerTargetGroupARN = Prelude.Nothing
     }
 
--- | The state of the target group.     * @Adding@ - The Auto Scaling instances are being registered with the target group.     * @Added@ - All Auto Scaling instances are registered with the target group.     * @InService@ - At least one Auto Scaling instance passed an ELB health check.     * @Removing@ - The Auto Scaling instances are being deregistered from the target group. If connection draining is enabled, Elastic Load Balancing waits for in-flight requests to complete before deregistering the instances.     * @Removed@ - All Auto Scaling instances are deregistered from the target group.
-lbtgsState :: Lens' LoadBalancerTargetGroupState (Maybe Text)
-lbtgsState = lens _lbtgsState (\s a -> s {_lbtgsState = a})
+-- | The state of the target group.
+--
+-- -   @Adding@ - The Auto Scaling instances are being registered with the
+--     target group.
+--
+-- -   @Added@ - All Auto Scaling instances are registered with the target
+--     group.
+--
+-- -   @InService@ - At least one Auto Scaling instance passed an ELB
+--     health check.
+--
+-- -   @Removing@ - The Auto Scaling instances are being deregistered from
+--     the target group. If connection draining is enabled, Elastic Load
+--     Balancing waits for in-flight requests to complete before
+--     deregistering the instances.
+--
+-- -   @Removed@ - All Auto Scaling instances are deregistered from the
+--     target group.
+loadBalancerTargetGroupState_state :: Lens.Lens' LoadBalancerTargetGroupState (Prelude.Maybe Prelude.Text)
+loadBalancerTargetGroupState_state = Lens.lens (\LoadBalancerTargetGroupState' {state} -> state) (\s@LoadBalancerTargetGroupState' {} a -> s {state = a} :: LoadBalancerTargetGroupState)
 
 -- | The Amazon Resource Name (ARN) of the target group.
-lbtgsLoadBalancerTargetGroupARN :: Lens' LoadBalancerTargetGroupState (Maybe Text)
-lbtgsLoadBalancerTargetGroupARN = lens _lbtgsLoadBalancerTargetGroupARN (\s a -> s {_lbtgsLoadBalancerTargetGroupARN = a})
+loadBalancerTargetGroupState_loadBalancerTargetGroupARN :: Lens.Lens' LoadBalancerTargetGroupState (Prelude.Maybe Prelude.Text)
+loadBalancerTargetGroupState_loadBalancerTargetGroupARN = Lens.lens (\LoadBalancerTargetGroupState' {loadBalancerTargetGroupARN} -> loadBalancerTargetGroupARN) (\s@LoadBalancerTargetGroupState' {} a -> s {loadBalancerTargetGroupARN = a} :: LoadBalancerTargetGroupState)
 
-instance FromXML LoadBalancerTargetGroupState where
+instance Prelude.FromXML LoadBalancerTargetGroupState where
   parseXML x =
     LoadBalancerTargetGroupState'
-      <$> (x .@? "State")
-      <*> (x .@? "LoadBalancerTargetGroupARN")
+      Prelude.<$> (x Prelude..@? "State")
+      Prelude.<*> (x Prelude..@? "LoadBalancerTargetGroupARN")
 
-instance Hashable LoadBalancerTargetGroupState
+instance
+  Prelude.Hashable
+    LoadBalancerTargetGroupState
 
-instance NFData LoadBalancerTargetGroupState
+instance Prelude.NFData LoadBalancerTargetGroupState

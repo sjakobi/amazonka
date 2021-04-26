@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,133 +23,153 @@
 --
 -- Moves the specified instances out of the standby state.
 --
+-- After you put the instances back in service, the desired capacity is
+-- incremented.
 --
--- After you put the instances back in service, the desired capacity is incremented.
---
--- For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-enter-exit-standby.html Temporarily removing instances from your Auto Scaling group> in the /Amazon EC2 Auto Scaling User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-enter-exit-standby.html Temporarily removing instances from your Auto Scaling group>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 module Network.AWS.AutoScaling.ExitStandby
   ( -- * Creating a Request
-    exitStandby,
-    ExitStandby,
+    ExitStandby (..),
+    newExitStandby,
 
     -- * Request Lenses
-    eInstanceIds,
-    eAutoScalingGroupName,
+    exitStandby_instanceIds,
+    exitStandby_autoScalingGroupName,
 
     -- * Destructuring the Response
-    exitStandbyResponse,
-    ExitStandbyResponse,
+    ExitStandbyResponse (..),
+    newExitStandbyResponse,
 
     -- * Response Lenses
-    ersActivities,
-    ersResponseStatus,
+    exitStandbyResponse_activities,
+    exitStandbyResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AutoScaling.Types.Activity
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'exitStandby' smart constructor.
+-- | /See:/ 'newExitStandby' smart constructor.
 data ExitStandby = ExitStandby'
-  { _eInstanceIds ::
-      !(Maybe [Text]),
-    _eAutoScalingGroupName :: !Text
+  { -- | The IDs of the instances. You can specify up to 20 instances.
+    instanceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExitStandby' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExitStandby' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eInstanceIds' - The IDs of the instances. You can specify up to 20 instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eAutoScalingGroupName' - The name of the Auto Scaling group.
-exitStandby ::
-  -- | 'eAutoScalingGroupName'
-  Text ->
+-- 'instanceIds', 'exitStandby_instanceIds' - The IDs of the instances. You can specify up to 20 instances.
+--
+-- 'autoScalingGroupName', 'exitStandby_autoScalingGroupName' - The name of the Auto Scaling group.
+newExitStandby ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
   ExitStandby
-exitStandby pAutoScalingGroupName_ =
+newExitStandby pAutoScalingGroupName_ =
   ExitStandby'
-    { _eInstanceIds = Nothing,
-      _eAutoScalingGroupName = pAutoScalingGroupName_
+    { instanceIds = Prelude.Nothing,
+      autoScalingGroupName = pAutoScalingGroupName_
     }
 
 -- | The IDs of the instances. You can specify up to 20 instances.
-eInstanceIds :: Lens' ExitStandby [Text]
-eInstanceIds = lens _eInstanceIds (\s a -> s {_eInstanceIds = a}) . _Default . _Coerce
+exitStandby_instanceIds :: Lens.Lens' ExitStandby (Prelude.Maybe [Prelude.Text])
+exitStandby_instanceIds = Lens.lens (\ExitStandby' {instanceIds} -> instanceIds) (\s@ExitStandby' {} a -> s {instanceIds = a} :: ExitStandby) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the Auto Scaling group.
-eAutoScalingGroupName :: Lens' ExitStandby Text
-eAutoScalingGroupName = lens _eAutoScalingGroupName (\s a -> s {_eAutoScalingGroupName = a})
+exitStandby_autoScalingGroupName :: Lens.Lens' ExitStandby Prelude.Text
+exitStandby_autoScalingGroupName = Lens.lens (\ExitStandby' {autoScalingGroupName} -> autoScalingGroupName) (\s@ExitStandby' {} a -> s {autoScalingGroupName = a} :: ExitStandby)
 
-instance AWSRequest ExitStandby where
+instance Prelude.AWSRequest ExitStandby where
   type Rs ExitStandby = ExitStandbyResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ExitStandbyResult"
       ( \s h x ->
           ExitStandbyResponse'
-            <$> ( x .@? "Activities" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Activities"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ExitStandby
+instance Prelude.Hashable ExitStandby
 
-instance NFData ExitStandby
+instance Prelude.NFData ExitStandby
 
-instance ToHeaders ExitStandby where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ExitStandby where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ExitStandby where
-  toPath = const "/"
+instance Prelude.ToPath ExitStandby where
+  toPath = Prelude.const "/"
 
-instance ToQuery ExitStandby where
+instance Prelude.ToQuery ExitStandby where
   toQuery ExitStandby' {..} =
-    mconcat
-      [ "Action" =: ("ExitStandby" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ExitStandby" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
         "InstanceIds"
-          =: toQuery (toQueryList "member" <$> _eInstanceIds),
-        "AutoScalingGroupName" =: _eAutoScalingGroupName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> instanceIds
+            ),
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName
       ]
 
--- | /See:/ 'exitStandbyResponse' smart constructor.
+-- | /See:/ 'newExitStandbyResponse' smart constructor.
 data ExitStandbyResponse = ExitStandbyResponse'
-  { _ersActivities ::
-      !(Maybe [Activity]),
-    _ersResponseStatus :: !Int
+  { -- | The activities related to moving instances out of @Standby@ mode.
+    activities :: Prelude.Maybe [Activity],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExitStandbyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExitStandbyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ersActivities' - The activities related to moving instances out of @Standby@ mode.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ersResponseStatus' - -- | The response status code.
-exitStandbyResponse ::
-  -- | 'ersResponseStatus'
-  Int ->
+-- 'activities', 'exitStandbyResponse_activities' - The activities related to moving instances out of @Standby@ mode.
+--
+-- 'httpStatus', 'exitStandbyResponse_httpStatus' - The response's http status code.
+newExitStandbyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ExitStandbyResponse
-exitStandbyResponse pResponseStatus_ =
+newExitStandbyResponse pHttpStatus_ =
   ExitStandbyResponse'
-    { _ersActivities = Nothing,
-      _ersResponseStatus = pResponseStatus_
+    { activities = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The activities related to moving instances out of @Standby@ mode.
-ersActivities :: Lens' ExitStandbyResponse [Activity]
-ersActivities = lens _ersActivities (\s a -> s {_ersActivities = a}) . _Default . _Coerce
+exitStandbyResponse_activities :: Lens.Lens' ExitStandbyResponse (Prelude.Maybe [Activity])
+exitStandbyResponse_activities = Lens.lens (\ExitStandbyResponse' {activities} -> activities) (\s@ExitStandbyResponse' {} a -> s {activities = a} :: ExitStandbyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ersResponseStatus :: Lens' ExitStandbyResponse Int
-ersResponseStatus = lens _ersResponseStatus (\s a -> s {_ersResponseStatus = a})
+-- | The response's http status code.
+exitStandbyResponse_httpStatus :: Lens.Lens' ExitStandbyResponse Prelude.Int
+exitStandbyResponse_httpStatus = Lens.lens (\ExitStandbyResponse' {httpStatus} -> httpStatus) (\s@ExitStandbyResponse' {} a -> s {httpStatus = a} :: ExitStandbyResponse)
 
-instance NFData ExitStandbyResponse
+instance Prelude.NFData ExitStandbyResponse

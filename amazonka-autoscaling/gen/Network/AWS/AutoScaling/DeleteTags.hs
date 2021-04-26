@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,71 +24,85 @@
 -- Deletes the specified tags.
 module Network.AWS.AutoScaling.DeleteTags
   ( -- * Creating a Request
-    deleteTags,
-    DeleteTags,
+    DeleteTags (..),
+    newDeleteTags,
 
     -- * Request Lenses
-    dtTags,
+    deleteTags_tags,
 
     -- * Destructuring the Response
-    deleteTagsResponse,
-    DeleteTagsResponse,
+    DeleteTagsResponse (..),
+    newDeleteTagsResponse,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTags' smart constructor.
-newtype DeleteTags = DeleteTags' {_dtTags :: [Tag]}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteTags' smart constructor.
+data DeleteTags = DeleteTags'
+  { -- | One or more tags.
+    tags :: [Tag]
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtTags' - One or more tags.
-deleteTags ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'tags', 'deleteTags_tags' - One or more tags.
+newDeleteTags ::
   DeleteTags
-deleteTags = DeleteTags' {_dtTags = mempty}
+newDeleteTags = DeleteTags' {tags = Prelude.mempty}
 
 -- | One or more tags.
-dtTags :: Lens' DeleteTags [Tag]
-dtTags = lens _dtTags (\s a -> s {_dtTags = a}) . _Coerce
+deleteTags_tags :: Lens.Lens' DeleteTags [Tag]
+deleteTags_tags = Lens.lens (\DeleteTags' {tags} -> tags) (\s@DeleteTags' {} a -> s {tags = a} :: DeleteTags) Prelude.. Prelude._Coerce
 
-instance AWSRequest DeleteTags where
+instance Prelude.AWSRequest DeleteTags where
   type Rs DeleteTags = DeleteTagsResponse
-  request = postQuery autoScaling
-  response = receiveNull DeleteTagsResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull DeleteTagsResponse'
 
-instance Hashable DeleteTags
+instance Prelude.Hashable DeleteTags
 
-instance NFData DeleteTags
+instance Prelude.NFData DeleteTags
 
-instance ToHeaders DeleteTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteTags where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTags where
+instance Prelude.ToQuery DeleteTags where
   toQuery DeleteTags' {..} =
-    mconcat
-      [ "Action" =: ("DeleteTags" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "Tags" =: toQueryList "member" _dtTags
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteTags" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "Tags" Prelude.=: Prelude.toQueryList "member" tags
       ]
 
--- | /See:/ 'deleteTagsResponse' smart constructor.
+-- | /See:/ 'newDeleteTagsResponse' smart constructor.
 data DeleteTagsResponse = DeleteTagsResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTagsResponse' with the minimum fields required to make a request.
-deleteTagsResponse ::
+-- |
+-- Create a value of 'DeleteTagsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteTagsResponse ::
   DeleteTagsResponse
-deleteTagsResponse = DeleteTagsResponse'
+newDeleteTagsResponse = DeleteTagsResponse'
 
-instance NFData DeleteTagsResponse
+instance Prelude.NFData DeleteTagsResponse

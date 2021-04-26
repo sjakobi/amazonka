@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,130 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScaling.Types.BlockDeviceMapping where
 
-import Network.AWS.AutoScaling.Types.EBS
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.AutoScaling.Types.Ebs
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a block device mapping.
 --
---
---
--- /See:/ 'blockDeviceMapping' smart constructor.
+-- /See:/ 'newBlockDeviceMapping' smart constructor.
 data BlockDeviceMapping = BlockDeviceMapping'
-  { _bdmEBS ::
-      !(Maybe EBS),
-    _bdmNoDevice :: !(Maybe Bool),
-    _bdmVirtualName :: !(Maybe Text),
-    _bdmDeviceName :: !Text
+  { -- | Parameters used to automatically set up EBS volumes when an instance is
+    -- launched.
+    --
+    -- You can specify either @VirtualName@ or @Ebs@, but not both.
+    ebs :: Prelude.Maybe Ebs,
+    -- | Setting this value to @true@ suppresses the specified device included in
+    -- the block device mapping of the AMI.
+    --
+    -- If @NoDevice@ is @true@ for the root device, instances might fail the
+    -- EC2 health check. In that case, Amazon EC2 Auto Scaling launches
+    -- replacement instances.
+    --
+    -- If you specify @NoDevice@, you cannot specify @Ebs@.
+    noDevice :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the virtual device (for example, @ephemeral0@).
+    --
+    -- You can specify either @VirtualName@ or @Ebs@, but not both.
+    virtualName :: Prelude.Maybe Prelude.Text,
+    -- | The device name exposed to the EC2 instance (for example, @\/dev\/sdh@
+    -- or @xvdh@). For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html Device Naming on Linux Instances>
+    -- in the /Amazon EC2 User Guide for Linux Instances/.
+    deviceName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BlockDeviceMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BlockDeviceMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdmEBS' - Parameters used to automatically set up EBS volumes when an instance is launched. You can specify either @VirtualName@ or @Ebs@ , but not both.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdmNoDevice' - Setting this value to @true@ suppresses the specified device included in the block device mapping of the AMI. If @NoDevice@ is @true@ for the root device, instances might fail the EC2 health check. In that case, Amazon EC2 Auto Scaling launches replacement instances. If you specify @NoDevice@ , you cannot specify @Ebs@ .
+-- 'ebs', 'blockDeviceMapping_ebs' - Parameters used to automatically set up EBS volumes when an instance is
+-- launched.
 --
--- * 'bdmVirtualName' - The name of the virtual device (for example, @ephemeral0@ ). You can specify either @VirtualName@ or @Ebs@ , but not both.
+-- You can specify either @VirtualName@ or @Ebs@, but not both.
 --
--- * 'bdmDeviceName' - The device name exposed to the EC2 instance (for example, @/dev/sdh@ or @xvdh@ ). For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html Device Naming on Linux Instances> in the /Amazon EC2 User Guide for Linux Instances/ .
-blockDeviceMapping ::
-  -- | 'bdmDeviceName'
-  Text ->
+-- 'noDevice', 'blockDeviceMapping_noDevice' - Setting this value to @true@ suppresses the specified device included in
+-- the block device mapping of the AMI.
+--
+-- If @NoDevice@ is @true@ for the root device, instances might fail the
+-- EC2 health check. In that case, Amazon EC2 Auto Scaling launches
+-- replacement instances.
+--
+-- If you specify @NoDevice@, you cannot specify @Ebs@.
+--
+-- 'virtualName', 'blockDeviceMapping_virtualName' - The name of the virtual device (for example, @ephemeral0@).
+--
+-- You can specify either @VirtualName@ or @Ebs@, but not both.
+--
+-- 'deviceName', 'blockDeviceMapping_deviceName' - The device name exposed to the EC2 instance (for example, @\/dev\/sdh@
+-- or @xvdh@). For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html Device Naming on Linux Instances>
+-- in the /Amazon EC2 User Guide for Linux Instances/.
+newBlockDeviceMapping ::
+  -- | 'deviceName'
+  Prelude.Text ->
   BlockDeviceMapping
-blockDeviceMapping pDeviceName_ =
+newBlockDeviceMapping pDeviceName_ =
   BlockDeviceMapping'
-    { _bdmEBS = Nothing,
-      _bdmNoDevice = Nothing,
-      _bdmVirtualName = Nothing,
-      _bdmDeviceName = pDeviceName_
+    { ebs = Prelude.Nothing,
+      noDevice = Prelude.Nothing,
+      virtualName = Prelude.Nothing,
+      deviceName = pDeviceName_
     }
 
--- | Parameters used to automatically set up EBS volumes when an instance is launched. You can specify either @VirtualName@ or @Ebs@ , but not both.
-bdmEBS :: Lens' BlockDeviceMapping (Maybe EBS)
-bdmEBS = lens _bdmEBS (\s a -> s {_bdmEBS = a})
+-- | Parameters used to automatically set up EBS volumes when an instance is
+-- launched.
+--
+-- You can specify either @VirtualName@ or @Ebs@, but not both.
+blockDeviceMapping_ebs :: Lens.Lens' BlockDeviceMapping (Prelude.Maybe Ebs)
+blockDeviceMapping_ebs = Lens.lens (\BlockDeviceMapping' {ebs} -> ebs) (\s@BlockDeviceMapping' {} a -> s {ebs = a} :: BlockDeviceMapping)
 
--- | Setting this value to @true@ suppresses the specified device included in the block device mapping of the AMI. If @NoDevice@ is @true@ for the root device, instances might fail the EC2 health check. In that case, Amazon EC2 Auto Scaling launches replacement instances. If you specify @NoDevice@ , you cannot specify @Ebs@ .
-bdmNoDevice :: Lens' BlockDeviceMapping (Maybe Bool)
-bdmNoDevice = lens _bdmNoDevice (\s a -> s {_bdmNoDevice = a})
+-- | Setting this value to @true@ suppresses the specified device included in
+-- the block device mapping of the AMI.
+--
+-- If @NoDevice@ is @true@ for the root device, instances might fail the
+-- EC2 health check. In that case, Amazon EC2 Auto Scaling launches
+-- replacement instances.
+--
+-- If you specify @NoDevice@, you cannot specify @Ebs@.
+blockDeviceMapping_noDevice :: Lens.Lens' BlockDeviceMapping (Prelude.Maybe Prelude.Bool)
+blockDeviceMapping_noDevice = Lens.lens (\BlockDeviceMapping' {noDevice} -> noDevice) (\s@BlockDeviceMapping' {} a -> s {noDevice = a} :: BlockDeviceMapping)
 
--- | The name of the virtual device (for example, @ephemeral0@ ). You can specify either @VirtualName@ or @Ebs@ , but not both.
-bdmVirtualName :: Lens' BlockDeviceMapping (Maybe Text)
-bdmVirtualName = lens _bdmVirtualName (\s a -> s {_bdmVirtualName = a})
+-- | The name of the virtual device (for example, @ephemeral0@).
+--
+-- You can specify either @VirtualName@ or @Ebs@, but not both.
+blockDeviceMapping_virtualName :: Lens.Lens' BlockDeviceMapping (Prelude.Maybe Prelude.Text)
+blockDeviceMapping_virtualName = Lens.lens (\BlockDeviceMapping' {virtualName} -> virtualName) (\s@BlockDeviceMapping' {} a -> s {virtualName = a} :: BlockDeviceMapping)
 
--- | The device name exposed to the EC2 instance (for example, @/dev/sdh@ or @xvdh@ ). For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html Device Naming on Linux Instances> in the /Amazon EC2 User Guide for Linux Instances/ .
-bdmDeviceName :: Lens' BlockDeviceMapping Text
-bdmDeviceName = lens _bdmDeviceName (\s a -> s {_bdmDeviceName = a})
+-- | The device name exposed to the EC2 instance (for example, @\/dev\/sdh@
+-- or @xvdh@). For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html Device Naming on Linux Instances>
+-- in the /Amazon EC2 User Guide for Linux Instances/.
+blockDeviceMapping_deviceName :: Lens.Lens' BlockDeviceMapping Prelude.Text
+blockDeviceMapping_deviceName = Lens.lens (\BlockDeviceMapping' {deviceName} -> deviceName) (\s@BlockDeviceMapping' {} a -> s {deviceName = a} :: BlockDeviceMapping)
 
-instance FromXML BlockDeviceMapping where
+instance Prelude.FromXML BlockDeviceMapping where
   parseXML x =
     BlockDeviceMapping'
-      <$> (x .@? "Ebs")
-      <*> (x .@? "NoDevice")
-      <*> (x .@? "VirtualName")
-      <*> (x .@ "DeviceName")
+      Prelude.<$> (x Prelude..@? "Ebs")
+      Prelude.<*> (x Prelude..@? "NoDevice")
+      Prelude.<*> (x Prelude..@? "VirtualName")
+      Prelude.<*> (x Prelude..@ "DeviceName")
 
-instance Hashable BlockDeviceMapping
+instance Prelude.Hashable BlockDeviceMapping
 
-instance NFData BlockDeviceMapping
+instance Prelude.NFData BlockDeviceMapping
 
-instance ToQuery BlockDeviceMapping where
+instance Prelude.ToQuery BlockDeviceMapping where
   toQuery BlockDeviceMapping' {..} =
-    mconcat
-      [ "Ebs" =: _bdmEBS,
-        "NoDevice" =: _bdmNoDevice,
-        "VirtualName" =: _bdmVirtualName,
-        "DeviceName" =: _bdmDeviceName
+    Prelude.mconcat
+      [ "Ebs" Prelude.=: ebs,
+        "NoDevice" Prelude.=: noDevice,
+        "VirtualName" Prelude.=: virtualName,
+        "DeviceName" Prelude.=: deviceName
       ]

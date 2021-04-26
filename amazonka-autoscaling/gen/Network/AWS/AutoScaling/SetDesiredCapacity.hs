@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,119 +23,144 @@
 --
 -- Sets the size of the specified Auto Scaling group.
 --
+-- If a scale-in activity occurs as a result of a new @DesiredCapacity@
+-- value that is lower than the current size of the group, the Auto Scaling
+-- group uses its termination policy to determine which instances to
+-- terminate.
 --
--- If a scale-in activity occurs as a result of a new @DesiredCapacity@ value that is lower than the current size of the group, the Auto Scaling group uses its termination policy to determine which instances to terminate.
---
--- For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-manual-scaling.html Manual scaling> in the /Amazon EC2 Auto Scaling User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-manual-scaling.html Manual scaling>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 module Network.AWS.AutoScaling.SetDesiredCapacity
   ( -- * Creating a Request
-    setDesiredCapacity,
-    SetDesiredCapacity,
+    SetDesiredCapacity (..),
+    newSetDesiredCapacity,
 
     -- * Request Lenses
-    sdcHonorCooldown,
-    sdcAutoScalingGroupName,
-    sdcDesiredCapacity,
+    setDesiredCapacity_honorCooldown,
+    setDesiredCapacity_autoScalingGroupName,
+    setDesiredCapacity_desiredCapacity,
 
     -- * Destructuring the Response
-    setDesiredCapacityResponse,
-    SetDesiredCapacityResponse,
+    SetDesiredCapacityResponse (..),
+    newSetDesiredCapacityResponse,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'setDesiredCapacity' smart constructor.
+-- | /See:/ 'newSetDesiredCapacity' smart constructor.
 data SetDesiredCapacity = SetDesiredCapacity'
-  { _sdcHonorCooldown ::
-      !(Maybe Bool),
-    _sdcAutoScalingGroupName :: !Text,
-    _sdcDesiredCapacity :: !Int
+  { -- | Indicates whether Amazon EC2 Auto Scaling waits for the cooldown period
+    -- to complete before initiating a scaling activity to set your Auto
+    -- Scaling group to its new capacity. By default, Amazon EC2 Auto Scaling
+    -- does not honor the cooldown period during manual scaling activities.
+    honorCooldown :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text,
+    -- | The desired capacity is the initial capacity of the Auto Scaling group
+    -- after this operation completes and the capacity it attempts to maintain.
+    desiredCapacity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetDesiredCapacity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetDesiredCapacity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdcHonorCooldown' - Indicates whether Amazon EC2 Auto Scaling waits for the cooldown period to complete before initiating a scaling activity to set your Auto Scaling group to its new capacity. By default, Amazon EC2 Auto Scaling does not honor the cooldown period during manual scaling activities.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdcAutoScalingGroupName' - The name of the Auto Scaling group.
+-- 'honorCooldown', 'setDesiredCapacity_honorCooldown' - Indicates whether Amazon EC2 Auto Scaling waits for the cooldown period
+-- to complete before initiating a scaling activity to set your Auto
+-- Scaling group to its new capacity. By default, Amazon EC2 Auto Scaling
+-- does not honor the cooldown period during manual scaling activities.
 --
--- * 'sdcDesiredCapacity' - The desired capacity is the initial capacity of the Auto Scaling group after this operation completes and the capacity it attempts to maintain.
-setDesiredCapacity ::
-  -- | 'sdcAutoScalingGroupName'
-  Text ->
-  -- | 'sdcDesiredCapacity'
-  Int ->
+-- 'autoScalingGroupName', 'setDesiredCapacity_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'desiredCapacity', 'setDesiredCapacity_desiredCapacity' - The desired capacity is the initial capacity of the Auto Scaling group
+-- after this operation completes and the capacity it attempts to maintain.
+newSetDesiredCapacity ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
+  -- | 'desiredCapacity'
+  Prelude.Int ->
   SetDesiredCapacity
-setDesiredCapacity
+newSetDesiredCapacity
   pAutoScalingGroupName_
   pDesiredCapacity_ =
     SetDesiredCapacity'
-      { _sdcHonorCooldown = Nothing,
-        _sdcAutoScalingGroupName = pAutoScalingGroupName_,
-        _sdcDesiredCapacity = pDesiredCapacity_
+      { honorCooldown =
+          Prelude.Nothing,
+        autoScalingGroupName = pAutoScalingGroupName_,
+        desiredCapacity = pDesiredCapacity_
       }
 
--- | Indicates whether Amazon EC2 Auto Scaling waits for the cooldown period to complete before initiating a scaling activity to set your Auto Scaling group to its new capacity. By default, Amazon EC2 Auto Scaling does not honor the cooldown period during manual scaling activities.
-sdcHonorCooldown :: Lens' SetDesiredCapacity (Maybe Bool)
-sdcHonorCooldown = lens _sdcHonorCooldown (\s a -> s {_sdcHonorCooldown = a})
+-- | Indicates whether Amazon EC2 Auto Scaling waits for the cooldown period
+-- to complete before initiating a scaling activity to set your Auto
+-- Scaling group to its new capacity. By default, Amazon EC2 Auto Scaling
+-- does not honor the cooldown period during manual scaling activities.
+setDesiredCapacity_honorCooldown :: Lens.Lens' SetDesiredCapacity (Prelude.Maybe Prelude.Bool)
+setDesiredCapacity_honorCooldown = Lens.lens (\SetDesiredCapacity' {honorCooldown} -> honorCooldown) (\s@SetDesiredCapacity' {} a -> s {honorCooldown = a} :: SetDesiredCapacity)
 
 -- | The name of the Auto Scaling group.
-sdcAutoScalingGroupName :: Lens' SetDesiredCapacity Text
-sdcAutoScalingGroupName = lens _sdcAutoScalingGroupName (\s a -> s {_sdcAutoScalingGroupName = a})
+setDesiredCapacity_autoScalingGroupName :: Lens.Lens' SetDesiredCapacity Prelude.Text
+setDesiredCapacity_autoScalingGroupName = Lens.lens (\SetDesiredCapacity' {autoScalingGroupName} -> autoScalingGroupName) (\s@SetDesiredCapacity' {} a -> s {autoScalingGroupName = a} :: SetDesiredCapacity)
 
--- | The desired capacity is the initial capacity of the Auto Scaling group after this operation completes and the capacity it attempts to maintain.
-sdcDesiredCapacity :: Lens' SetDesiredCapacity Int
-sdcDesiredCapacity = lens _sdcDesiredCapacity (\s a -> s {_sdcDesiredCapacity = a})
+-- | The desired capacity is the initial capacity of the Auto Scaling group
+-- after this operation completes and the capacity it attempts to maintain.
+setDesiredCapacity_desiredCapacity :: Lens.Lens' SetDesiredCapacity Prelude.Int
+setDesiredCapacity_desiredCapacity = Lens.lens (\SetDesiredCapacity' {desiredCapacity} -> desiredCapacity) (\s@SetDesiredCapacity' {} a -> s {desiredCapacity = a} :: SetDesiredCapacity)
 
-instance AWSRequest SetDesiredCapacity where
+instance Prelude.AWSRequest SetDesiredCapacity where
   type
     Rs SetDesiredCapacity =
       SetDesiredCapacityResponse
-  request = postQuery autoScaling
-  response = receiveNull SetDesiredCapacityResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull SetDesiredCapacityResponse'
 
-instance Hashable SetDesiredCapacity
+instance Prelude.Hashable SetDesiredCapacity
 
-instance NFData SetDesiredCapacity
+instance Prelude.NFData SetDesiredCapacity
 
-instance ToHeaders SetDesiredCapacity where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SetDesiredCapacity where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath SetDesiredCapacity where
-  toPath = const "/"
+instance Prelude.ToPath SetDesiredCapacity where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetDesiredCapacity where
+instance Prelude.ToQuery SetDesiredCapacity where
   toQuery SetDesiredCapacity' {..} =
-    mconcat
-      [ "Action" =: ("SetDesiredCapacity" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "HonorCooldown" =: _sdcHonorCooldown,
-        "AutoScalingGroupName" =: _sdcAutoScalingGroupName,
-        "DesiredCapacity" =: _sdcDesiredCapacity
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("SetDesiredCapacity" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "HonorCooldown" Prelude.=: honorCooldown,
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName,
+        "DesiredCapacity" Prelude.=: desiredCapacity
       ]
 
--- | /See:/ 'setDesiredCapacityResponse' smart constructor.
+-- | /See:/ 'newSetDesiredCapacityResponse' smart constructor.
 data SetDesiredCapacityResponse = SetDesiredCapacityResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetDesiredCapacityResponse' with the minimum fields required to make a request.
-setDesiredCapacityResponse ::
+-- |
+-- Create a value of 'SetDesiredCapacityResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newSetDesiredCapacityResponse ::
   SetDesiredCapacityResponse
-setDesiredCapacityResponse =
+newSetDesiredCapacityResponse =
   SetDesiredCapacityResponse'
 
-instance NFData SetDesiredCapacityResponse
+instance Prelude.NFData SetDesiredCapacityResponse

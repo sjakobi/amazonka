@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,131 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScaling.Types.EnabledMetric where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an enabled metric.
 --
---
---
--- /See:/ 'enabledMetric' smart constructor.
+-- /See:/ 'newEnabledMetric' smart constructor.
 data EnabledMetric = EnabledMetric'
-  { _emGranularity ::
-      !(Maybe Text),
-    _emMetric :: !(Maybe Text)
+  { -- | The granularity of the metric. The only valid value is @1Minute@.
+    granularity :: Prelude.Maybe Prelude.Text,
+    -- | One of the following metrics:
+    --
+    -- -   @GroupMinSize@
+    --
+    -- -   @GroupMaxSize@
+    --
+    -- -   @GroupDesiredCapacity@
+    --
+    -- -   @GroupInServiceInstances@
+    --
+    -- -   @GroupPendingInstances@
+    --
+    -- -   @GroupStandbyInstances@
+    --
+    -- -   @GroupTerminatingInstances@
+    --
+    -- -   @GroupTotalInstances@
+    --
+    -- -   @GroupInServiceCapacity@
+    --
+    -- -   @GroupPendingCapacity@
+    --
+    -- -   @GroupStandbyCapacity@
+    --
+    -- -   @GroupTerminatingCapacity@
+    --
+    -- -   @GroupTotalCapacity@
+    metric :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnabledMetric' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnabledMetric' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'emGranularity' - The granularity of the metric. The only valid value is @1Minute@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'emMetric' - One of the following metrics:     * @GroupMinSize@      * @GroupMaxSize@      * @GroupDesiredCapacity@      * @GroupInServiceInstances@      * @GroupPendingInstances@      * @GroupStandbyInstances@      * @GroupTerminatingInstances@      * @GroupTotalInstances@      * @GroupInServiceCapacity@      * @GroupPendingCapacity@      * @GroupStandbyCapacity@      * @GroupTerminatingCapacity@      * @GroupTotalCapacity@
-enabledMetric ::
+-- 'granularity', 'enabledMetric_granularity' - The granularity of the metric. The only valid value is @1Minute@.
+--
+-- 'metric', 'enabledMetric_metric' - One of the following metrics:
+--
+-- -   @GroupMinSize@
+--
+-- -   @GroupMaxSize@
+--
+-- -   @GroupDesiredCapacity@
+--
+-- -   @GroupInServiceInstances@
+--
+-- -   @GroupPendingInstances@
+--
+-- -   @GroupStandbyInstances@
+--
+-- -   @GroupTerminatingInstances@
+--
+-- -   @GroupTotalInstances@
+--
+-- -   @GroupInServiceCapacity@
+--
+-- -   @GroupPendingCapacity@
+--
+-- -   @GroupStandbyCapacity@
+--
+-- -   @GroupTerminatingCapacity@
+--
+-- -   @GroupTotalCapacity@
+newEnabledMetric ::
   EnabledMetric
-enabledMetric =
+newEnabledMetric =
   EnabledMetric'
-    { _emGranularity = Nothing,
-      _emMetric = Nothing
+    { granularity = Prelude.Nothing,
+      metric = Prelude.Nothing
     }
 
--- | The granularity of the metric. The only valid value is @1Minute@ .
-emGranularity :: Lens' EnabledMetric (Maybe Text)
-emGranularity = lens _emGranularity (\s a -> s {_emGranularity = a})
+-- | The granularity of the metric. The only valid value is @1Minute@.
+enabledMetric_granularity :: Lens.Lens' EnabledMetric (Prelude.Maybe Prelude.Text)
+enabledMetric_granularity = Lens.lens (\EnabledMetric' {granularity} -> granularity) (\s@EnabledMetric' {} a -> s {granularity = a} :: EnabledMetric)
 
--- | One of the following metrics:     * @GroupMinSize@      * @GroupMaxSize@      * @GroupDesiredCapacity@      * @GroupInServiceInstances@      * @GroupPendingInstances@      * @GroupStandbyInstances@      * @GroupTerminatingInstances@      * @GroupTotalInstances@      * @GroupInServiceCapacity@      * @GroupPendingCapacity@      * @GroupStandbyCapacity@      * @GroupTerminatingCapacity@      * @GroupTotalCapacity@
-emMetric :: Lens' EnabledMetric (Maybe Text)
-emMetric = lens _emMetric (\s a -> s {_emMetric = a})
+-- | One of the following metrics:
+--
+-- -   @GroupMinSize@
+--
+-- -   @GroupMaxSize@
+--
+-- -   @GroupDesiredCapacity@
+--
+-- -   @GroupInServiceInstances@
+--
+-- -   @GroupPendingInstances@
+--
+-- -   @GroupStandbyInstances@
+--
+-- -   @GroupTerminatingInstances@
+--
+-- -   @GroupTotalInstances@
+--
+-- -   @GroupInServiceCapacity@
+--
+-- -   @GroupPendingCapacity@
+--
+-- -   @GroupStandbyCapacity@
+--
+-- -   @GroupTerminatingCapacity@
+--
+-- -   @GroupTotalCapacity@
+enabledMetric_metric :: Lens.Lens' EnabledMetric (Prelude.Maybe Prelude.Text)
+enabledMetric_metric = Lens.lens (\EnabledMetric' {metric} -> metric) (\s@EnabledMetric' {} a -> s {metric = a} :: EnabledMetric)
 
-instance FromXML EnabledMetric where
+instance Prelude.FromXML EnabledMetric where
   parseXML x =
     EnabledMetric'
-      <$> (x .@? "Granularity") <*> (x .@? "Metric")
+      Prelude.<$> (x Prelude..@? "Granularity")
+      Prelude.<*> (x Prelude..@? "Metric")
 
-instance Hashable EnabledMetric
+instance Prelude.Hashable EnabledMetric
 
-instance NFData EnabledMetric
+instance Prelude.NFData EnabledMetric

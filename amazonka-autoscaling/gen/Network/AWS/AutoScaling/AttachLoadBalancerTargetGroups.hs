@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,154 +23,184 @@
 --
 -- Attaches one or more target groups to the specified Auto Scaling group.
 --
---
 -- This operation is used with the following load balancer types:
 --
---     * Application Load Balancer - Operates at the application layer (layer 7) and supports HTTP and HTTPS.
+-- -   Application Load Balancer - Operates at the application layer (layer
+--     7) and supports HTTP and HTTPS.
 --
---     * Network Load Balancer - Operates at the transport layer (layer 4) and supports TCP, TLS, and UDP.
+-- -   Network Load Balancer - Operates at the transport layer (layer 4)
+--     and supports TCP, TLS, and UDP.
 --
---     * Gateway Load Balancer - Operates at the network layer (layer 3).
+-- -   Gateway Load Balancer - Operates at the network layer (layer 3).
 --
+-- To describe the target groups for an Auto Scaling group, call the
+-- DescribeLoadBalancerTargetGroups API. To detach the target group from
+-- the Auto Scaling group, call the DetachLoadBalancerTargetGroups API.
 --
---
--- To describe the target groups for an Auto Scaling group, call the 'DescribeLoadBalancerTargetGroups' API. To detach the target group from the Auto Scaling group, call the 'DetachLoadBalancerTargetGroups' API.
---
--- For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Elastic Load Balancing and Amazon EC2 Auto Scaling> in the /Amazon EC2 Auto Scaling User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Elastic Load Balancing and Amazon EC2 Auto Scaling>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 module Network.AWS.AutoScaling.AttachLoadBalancerTargetGroups
   ( -- * Creating a Request
-    attachLoadBalancerTargetGroups,
-    AttachLoadBalancerTargetGroups,
+    AttachLoadBalancerTargetGroups (..),
+    newAttachLoadBalancerTargetGroups,
 
     -- * Request Lenses
-    albtgAutoScalingGroupName,
-    albtgTargetGroupARNs,
+    attachLoadBalancerTargetGroups_autoScalingGroupName,
+    attachLoadBalancerTargetGroups_targetGroupARNs,
 
     -- * Destructuring the Response
-    attachLoadBalancerTargetGroupsResponse,
-    AttachLoadBalancerTargetGroupsResponse,
+    AttachLoadBalancerTargetGroupsResponse (..),
+    newAttachLoadBalancerTargetGroupsResponse,
 
     -- * Response Lenses
-    albtgrrsResponseStatus,
+    attachLoadBalancerTargetGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'attachLoadBalancerTargetGroups' smart constructor.
+-- | /See:/ 'newAttachLoadBalancerTargetGroups' smart constructor.
 data AttachLoadBalancerTargetGroups = AttachLoadBalancerTargetGroups'
-  { _albtgAutoScalingGroupName ::
-      !Text,
-    _albtgTargetGroupARNs ::
-      ![Text]
+  { -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text,
+    -- | The Amazon Resource Names (ARN) of the target groups. You can specify up
+    -- to 10 target groups. To get the ARN of a target group, use the Elastic
+    -- Load Balancing
+    -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups>
+    -- API operation.
+    targetGroupARNs :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachLoadBalancerTargetGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachLoadBalancerTargetGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'albtgAutoScalingGroupName' - The name of the Auto Scaling group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'albtgTargetGroupARNs' - The Amazon Resource Names (ARN) of the target groups. You can specify up to 10 target groups. To get the ARN of a target group, use the Elastic Load Balancing <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups> API operation.
-attachLoadBalancerTargetGroups ::
-  -- | 'albtgAutoScalingGroupName'
-  Text ->
+-- 'autoScalingGroupName', 'attachLoadBalancerTargetGroups_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'targetGroupARNs', 'attachLoadBalancerTargetGroups_targetGroupARNs' - The Amazon Resource Names (ARN) of the target groups. You can specify up
+-- to 10 target groups. To get the ARN of a target group, use the Elastic
+-- Load Balancing
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups>
+-- API operation.
+newAttachLoadBalancerTargetGroups ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
   AttachLoadBalancerTargetGroups
-attachLoadBalancerTargetGroups pAutoScalingGroupName_ =
-  AttachLoadBalancerTargetGroups'
-    { _albtgAutoScalingGroupName =
-        pAutoScalingGroupName_,
-      _albtgTargetGroupARNs = mempty
-    }
+newAttachLoadBalancerTargetGroups
+  pAutoScalingGroupName_ =
+    AttachLoadBalancerTargetGroups'
+      { autoScalingGroupName =
+          pAutoScalingGroupName_,
+        targetGroupARNs = Prelude.mempty
+      }
 
 -- | The name of the Auto Scaling group.
-albtgAutoScalingGroupName :: Lens' AttachLoadBalancerTargetGroups Text
-albtgAutoScalingGroupName = lens _albtgAutoScalingGroupName (\s a -> s {_albtgAutoScalingGroupName = a})
+attachLoadBalancerTargetGroups_autoScalingGroupName :: Lens.Lens' AttachLoadBalancerTargetGroups Prelude.Text
+attachLoadBalancerTargetGroups_autoScalingGroupName = Lens.lens (\AttachLoadBalancerTargetGroups' {autoScalingGroupName} -> autoScalingGroupName) (\s@AttachLoadBalancerTargetGroups' {} a -> s {autoScalingGroupName = a} :: AttachLoadBalancerTargetGroups)
 
--- | The Amazon Resource Names (ARN) of the target groups. You can specify up to 10 target groups. To get the ARN of a target group, use the Elastic Load Balancing <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups> API operation.
-albtgTargetGroupARNs :: Lens' AttachLoadBalancerTargetGroups [Text]
-albtgTargetGroupARNs = lens _albtgTargetGroupARNs (\s a -> s {_albtgTargetGroupARNs = a}) . _Coerce
+-- | The Amazon Resource Names (ARN) of the target groups. You can specify up
+-- to 10 target groups. To get the ARN of a target group, use the Elastic
+-- Load Balancing
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups>
+-- API operation.
+attachLoadBalancerTargetGroups_targetGroupARNs :: Lens.Lens' AttachLoadBalancerTargetGroups [Prelude.Text]
+attachLoadBalancerTargetGroups_targetGroupARNs = Lens.lens (\AttachLoadBalancerTargetGroups' {targetGroupARNs} -> targetGroupARNs) (\s@AttachLoadBalancerTargetGroups' {} a -> s {targetGroupARNs = a} :: AttachLoadBalancerTargetGroups) Prelude.. Prelude._Coerce
 
-instance AWSRequest AttachLoadBalancerTargetGroups where
+instance
+  Prelude.AWSRequest
+    AttachLoadBalancerTargetGroups
+  where
   type
     Rs AttachLoadBalancerTargetGroups =
       AttachLoadBalancerTargetGroupsResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "AttachLoadBalancerTargetGroupsResult"
       ( \s h x ->
           AttachLoadBalancerTargetGroupsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AttachLoadBalancerTargetGroups
-
-instance NFData AttachLoadBalancerTargetGroups
-
-instance ToHeaders AttachLoadBalancerTargetGroups where
-  toHeaders = const mempty
-
-instance ToPath AttachLoadBalancerTargetGroups where
-  toPath = const "/"
-
-instance ToQuery AttachLoadBalancerTargetGroups where
-  toQuery AttachLoadBalancerTargetGroups' {..} =
-    mconcat
-      [ "Action"
-          =: ("AttachLoadBalancerTargetGroups" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "AutoScalingGroupName" =: _albtgAutoScalingGroupName,
-        "TargetGroupARNs"
-          =: toQueryList "member" _albtgTargetGroupARNs
-      ]
-
--- | /See:/ 'attachLoadBalancerTargetGroupsResponse' smart constructor.
-newtype AttachLoadBalancerTargetGroupsResponse = AttachLoadBalancerTargetGroupsResponse'
-  { _albtgrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'AttachLoadBalancerTargetGroupsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'albtgrrsResponseStatus' - -- | The response status code.
-attachLoadBalancerTargetGroupsResponse ::
-  -- | 'albtgrrsResponseStatus'
-  Int ->
-  AttachLoadBalancerTargetGroupsResponse
-attachLoadBalancerTargetGroupsResponse
-  pResponseStatus_ =
-    AttachLoadBalancerTargetGroupsResponse'
-      { _albtgrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-albtgrrsResponseStatus :: Lens' AttachLoadBalancerTargetGroupsResponse Int
-albtgrrsResponseStatus = lens _albtgrrsResponseStatus (\s a -> s {_albtgrrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    AttachLoadBalancerTargetGroups
 
 instance
-  NFData
+  Prelude.NFData
+    AttachLoadBalancerTargetGroups
+
+instance
+  Prelude.ToHeaders
+    AttachLoadBalancerTargetGroups
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    AttachLoadBalancerTargetGroups
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    AttachLoadBalancerTargetGroups
+  where
+  toQuery AttachLoadBalancerTargetGroups' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "AttachLoadBalancerTargetGroups" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName,
+        "TargetGroupARNs"
+          Prelude.=: Prelude.toQueryList "member" targetGroupARNs
+      ]
+
+-- | /See:/ 'newAttachLoadBalancerTargetGroupsResponse' smart constructor.
+data AttachLoadBalancerTargetGroupsResponse = AttachLoadBalancerTargetGroupsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'AttachLoadBalancerTargetGroupsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'attachLoadBalancerTargetGroupsResponse_httpStatus' - The response's http status code.
+newAttachLoadBalancerTargetGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  AttachLoadBalancerTargetGroupsResponse
+newAttachLoadBalancerTargetGroupsResponse
+  pHttpStatus_ =
+    AttachLoadBalancerTargetGroupsResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+attachLoadBalancerTargetGroupsResponse_httpStatus :: Lens.Lens' AttachLoadBalancerTargetGroupsResponse Prelude.Int
+attachLoadBalancerTargetGroupsResponse_httpStatus = Lens.lens (\AttachLoadBalancerTargetGroupsResponse' {httpStatus} -> httpStatus) (\s@AttachLoadBalancerTargetGroupsResponse' {} a -> s {httpStatus = a} :: AttachLoadBalancerTargetGroupsResponse)
+
+instance
+  Prelude.NFData
     AttachLoadBalancerTargetGroupsResponse

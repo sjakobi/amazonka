@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,133 +23,139 @@
 --
 -- Deletes the specified lifecycle hook.
 --
---
--- If there are any outstanding lifecycle actions, they are completed first (@ABANDON@ for launching instances, @CONTINUE@ for terminating instances).
+-- If there are any outstanding lifecycle actions, they are completed first
+-- (@ABANDON@ for launching instances, @CONTINUE@ for terminating
+-- instances).
 module Network.AWS.AutoScaling.DeleteLifecycleHook
   ( -- * Creating a Request
-    deleteLifecycleHook,
-    DeleteLifecycleHook,
+    DeleteLifecycleHook (..),
+    newDeleteLifecycleHook,
 
     -- * Request Lenses
-    dlhLifecycleHookName,
-    dlhAutoScalingGroupName,
+    deleteLifecycleHook_lifecycleHookName,
+    deleteLifecycleHook_autoScalingGroupName,
 
     -- * Destructuring the Response
-    deleteLifecycleHookResponse,
-    DeleteLifecycleHookResponse,
+    DeleteLifecycleHookResponse (..),
+    newDeleteLifecycleHookResponse,
 
     -- * Response Lenses
-    dlhrrsResponseStatus,
+    deleteLifecycleHookResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLifecycleHook' smart constructor.
+-- | /See:/ 'newDeleteLifecycleHook' smart constructor.
 data DeleteLifecycleHook = DeleteLifecycleHook'
-  { _dlhLifecycleHookName ::
-      !Text,
-    _dlhAutoScalingGroupName ::
-      !Text
+  { -- | The name of the lifecycle hook.
+    lifecycleHookName :: Prelude.Text,
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLifecycleHook' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLifecycleHook' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlhLifecycleHookName' - The name of the lifecycle hook.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlhAutoScalingGroupName' - The name of the Auto Scaling group.
-deleteLifecycleHook ::
-  -- | 'dlhLifecycleHookName'
-  Text ->
-  -- | 'dlhAutoScalingGroupName'
-  Text ->
+-- 'lifecycleHookName', 'deleteLifecycleHook_lifecycleHookName' - The name of the lifecycle hook.
+--
+-- 'autoScalingGroupName', 'deleteLifecycleHook_autoScalingGroupName' - The name of the Auto Scaling group.
+newDeleteLifecycleHook ::
+  -- | 'lifecycleHookName'
+  Prelude.Text ->
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
   DeleteLifecycleHook
-deleteLifecycleHook
+newDeleteLifecycleHook
   pLifecycleHookName_
   pAutoScalingGroupName_ =
     DeleteLifecycleHook'
-      { _dlhLifecycleHookName =
+      { lifecycleHookName =
           pLifecycleHookName_,
-        _dlhAutoScalingGroupName = pAutoScalingGroupName_
+        autoScalingGroupName = pAutoScalingGroupName_
       }
 
 -- | The name of the lifecycle hook.
-dlhLifecycleHookName :: Lens' DeleteLifecycleHook Text
-dlhLifecycleHookName = lens _dlhLifecycleHookName (\s a -> s {_dlhLifecycleHookName = a})
+deleteLifecycleHook_lifecycleHookName :: Lens.Lens' DeleteLifecycleHook Prelude.Text
+deleteLifecycleHook_lifecycleHookName = Lens.lens (\DeleteLifecycleHook' {lifecycleHookName} -> lifecycleHookName) (\s@DeleteLifecycleHook' {} a -> s {lifecycleHookName = a} :: DeleteLifecycleHook)
 
 -- | The name of the Auto Scaling group.
-dlhAutoScalingGroupName :: Lens' DeleteLifecycleHook Text
-dlhAutoScalingGroupName = lens _dlhAutoScalingGroupName (\s a -> s {_dlhAutoScalingGroupName = a})
+deleteLifecycleHook_autoScalingGroupName :: Lens.Lens' DeleteLifecycleHook Prelude.Text
+deleteLifecycleHook_autoScalingGroupName = Lens.lens (\DeleteLifecycleHook' {autoScalingGroupName} -> autoScalingGroupName) (\s@DeleteLifecycleHook' {} a -> s {autoScalingGroupName = a} :: DeleteLifecycleHook)
 
-instance AWSRequest DeleteLifecycleHook where
+instance Prelude.AWSRequest DeleteLifecycleHook where
   type
     Rs DeleteLifecycleHook =
       DeleteLifecycleHookResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteLifecycleHookResult"
       ( \s h x ->
-          DeleteLifecycleHookResponse' <$> (pure (fromEnum s))
+          DeleteLifecycleHookResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteLifecycleHook
+instance Prelude.Hashable DeleteLifecycleHook
 
-instance NFData DeleteLifecycleHook
+instance Prelude.NFData DeleteLifecycleHook
 
-instance ToHeaders DeleteLifecycleHook where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteLifecycleHook where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteLifecycleHook where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLifecycleHook where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLifecycleHook where
+instance Prelude.ToQuery DeleteLifecycleHook where
   toQuery DeleteLifecycleHook' {..} =
-    mconcat
-      [ "Action" =: ("DeleteLifecycleHook" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "LifecycleHookName" =: _dlhLifecycleHookName,
-        "AutoScalingGroupName" =: _dlhAutoScalingGroupName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteLifecycleHook" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "LifecycleHookName" Prelude.=: lifecycleHookName,
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName
       ]
 
--- | /See:/ 'deleteLifecycleHookResponse' smart constructor.
-newtype DeleteLifecycleHookResponse = DeleteLifecycleHookResponse'
-  { _dlhrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteLifecycleHookResponse' smart constructor.
+data DeleteLifecycleHookResponse = DeleteLifecycleHookResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLifecycleHookResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLifecycleHookResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlhrrsResponseStatus' - -- | The response status code.
-deleteLifecycleHookResponse ::
-  -- | 'dlhrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteLifecycleHookResponse_httpStatus' - The response's http status code.
+newDeleteLifecycleHookResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteLifecycleHookResponse
-deleteLifecycleHookResponse pResponseStatus_ =
+newDeleteLifecycleHookResponse pHttpStatus_ =
   DeleteLifecycleHookResponse'
-    { _dlhrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dlhrrsResponseStatus :: Lens' DeleteLifecycleHookResponse Int
-dlhrrsResponseStatus = lens _dlhrrsResponseStatus (\s a -> s {_dlhrrsResponseStatus = a})
+-- | The response's http status code.
+deleteLifecycleHookResponse_httpStatus :: Lens.Lens' DeleteLifecycleHookResponse Prelude.Int
+deleteLifecycleHookResponse_httpStatus = Lens.lens (\DeleteLifecycleHookResponse' {httpStatus} -> httpStatus) (\s@DeleteLifecycleHookResponse' {} a -> s {httpStatus = a} :: DeleteLifecycleHookResponse)
 
-instance NFData DeleteLifecycleHookResponse
+instance Prelude.NFData DeleteLifecycleHookResponse

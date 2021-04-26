@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Detaches one or more Classic Load Balancers from the specified Auto Scaling group.
+-- Detaches one or more Classic Load Balancers from the specified Auto
+-- Scaling group.
 --
+-- This operation detaches only Classic Load Balancers. If you have
+-- Application Load Balancers, Network Load Balancers, or Gateway Load
+-- Balancers, use the DetachLoadBalancerTargetGroups API instead.
 --
--- This operation detaches only Classic Load Balancers. If you have Application Load Balancers, Network Load Balancers, or Gateway Load Balancers, use the 'DetachLoadBalancerTargetGroups' API instead.
---
--- When you detach a load balancer, it enters the @Removing@ state while deregistering the instances in the group. When all instances are deregistered, then you can no longer describe the load balancer using the 'DescribeLoadBalancers' API call. The instances remain running.
+-- When you detach a load balancer, it enters the @Removing@ state while
+-- deregistering the instances in the group. When all instances are
+-- deregistered, then you can no longer describe the load balancer using
+-- the DescribeLoadBalancers API call. The instances remain running.
 module Network.AWS.AutoScaling.DetachLoadBalancers
   ( -- * Creating a Request
-    detachLoadBalancers,
-    DetachLoadBalancers,
+    DetachLoadBalancers (..),
+    newDetachLoadBalancers,
 
     -- * Request Lenses
-    dlbAutoScalingGroupName,
-    dlbLoadBalancerNames,
+    detachLoadBalancers_autoScalingGroupName,
+    detachLoadBalancers_loadBalancerNames,
 
     -- * Destructuring the Response
-    detachLoadBalancersResponse,
-    DetachLoadBalancersResponse,
+    DetachLoadBalancersResponse (..),
+    newDetachLoadBalancersResponse,
 
     -- * Response Lenses
-    detrsResponseStatus,
+    detachLoadBalancersResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'detachLoadBalancers' smart constructor.
+-- | /See:/ 'newDetachLoadBalancers' smart constructor.
 data DetachLoadBalancers = DetachLoadBalancers'
-  { _dlbAutoScalingGroupName ::
-      !Text,
-    _dlbLoadBalancerNames ::
-      ![Text]
+  { -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text,
+    -- | The names of the load balancers. You can specify up to 10 load
+    -- balancers.
+    loadBalancerNames :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetachLoadBalancers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetachLoadBalancers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlbAutoScalingGroupName' - The name of the Auto Scaling group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlbLoadBalancerNames' - The names of the load balancers. You can specify up to 10 load balancers.
-detachLoadBalancers ::
-  -- | 'dlbAutoScalingGroupName'
-  Text ->
+-- 'autoScalingGroupName', 'detachLoadBalancers_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'loadBalancerNames', 'detachLoadBalancers_loadBalancerNames' - The names of the load balancers. You can specify up to 10 load
+-- balancers.
+newDetachLoadBalancers ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
   DetachLoadBalancers
-detachLoadBalancers pAutoScalingGroupName_ =
+newDetachLoadBalancers pAutoScalingGroupName_ =
   DetachLoadBalancers'
-    { _dlbAutoScalingGroupName =
+    { autoScalingGroupName =
         pAutoScalingGroupName_,
-      _dlbLoadBalancerNames = mempty
+      loadBalancerNames = Prelude.mempty
     }
 
 -- | The name of the Auto Scaling group.
-dlbAutoScalingGroupName :: Lens' DetachLoadBalancers Text
-dlbAutoScalingGroupName = lens _dlbAutoScalingGroupName (\s a -> s {_dlbAutoScalingGroupName = a})
+detachLoadBalancers_autoScalingGroupName :: Lens.Lens' DetachLoadBalancers Prelude.Text
+detachLoadBalancers_autoScalingGroupName = Lens.lens (\DetachLoadBalancers' {autoScalingGroupName} -> autoScalingGroupName) (\s@DetachLoadBalancers' {} a -> s {autoScalingGroupName = a} :: DetachLoadBalancers)
 
--- | The names of the load balancers. You can specify up to 10 load balancers.
-dlbLoadBalancerNames :: Lens' DetachLoadBalancers [Text]
-dlbLoadBalancerNames = lens _dlbLoadBalancerNames (\s a -> s {_dlbLoadBalancerNames = a}) . _Coerce
+-- | The names of the load balancers. You can specify up to 10 load
+-- balancers.
+detachLoadBalancers_loadBalancerNames :: Lens.Lens' DetachLoadBalancers [Prelude.Text]
+detachLoadBalancers_loadBalancerNames = Lens.lens (\DetachLoadBalancers' {loadBalancerNames} -> loadBalancerNames) (\s@DetachLoadBalancers' {} a -> s {loadBalancerNames = a} :: DetachLoadBalancers) Prelude.. Prelude._Coerce
 
-instance AWSRequest DetachLoadBalancers where
+instance Prelude.AWSRequest DetachLoadBalancers where
   type
     Rs DetachLoadBalancers =
       DetachLoadBalancersResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DetachLoadBalancersResult"
       ( \s h x ->
-          DetachLoadBalancersResponse' <$> (pure (fromEnum s))
+          DetachLoadBalancersResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DetachLoadBalancers
+instance Prelude.Hashable DetachLoadBalancers
 
-instance NFData DetachLoadBalancers
+instance Prelude.NFData DetachLoadBalancers
 
-instance ToHeaders DetachLoadBalancers where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DetachLoadBalancers where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DetachLoadBalancers where
-  toPath = const "/"
+instance Prelude.ToPath DetachLoadBalancers where
+  toPath = Prelude.const "/"
 
-instance ToQuery DetachLoadBalancers where
+instance Prelude.ToQuery DetachLoadBalancers where
   toQuery DetachLoadBalancers' {..} =
-    mconcat
-      [ "Action" =: ("DetachLoadBalancers" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "AutoScalingGroupName" =: _dlbAutoScalingGroupName,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DetachLoadBalancers" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName,
         "LoadBalancerNames"
-          =: toQueryList "member" _dlbLoadBalancerNames
+          Prelude.=: Prelude.toQueryList "member" loadBalancerNames
       ]
 
--- | /See:/ 'detachLoadBalancersResponse' smart constructor.
-newtype DetachLoadBalancersResponse = DetachLoadBalancersResponse'
-  { _detrsResponseStatus ::
-      Int
+-- | /See:/ 'newDetachLoadBalancersResponse' smart constructor.
+data DetachLoadBalancersResponse = DetachLoadBalancersResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetachLoadBalancersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetachLoadBalancersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detrsResponseStatus' - -- | The response status code.
-detachLoadBalancersResponse ::
-  -- | 'detrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'detachLoadBalancersResponse_httpStatus' - The response's http status code.
+newDetachLoadBalancersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DetachLoadBalancersResponse
-detachLoadBalancersResponse pResponseStatus_ =
+newDetachLoadBalancersResponse pHttpStatus_ =
   DetachLoadBalancersResponse'
-    { _detrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-detrsResponseStatus :: Lens' DetachLoadBalancersResponse Int
-detrsResponseStatus = lens _detrsResponseStatus (\s a -> s {_detrsResponseStatus = a})
+-- | The response's http status code.
+detachLoadBalancersResponse_httpStatus :: Lens.Lens' DetachLoadBalancersResponse Prelude.Int
+detachLoadBalancersResponse_httpStatus = Lens.lens (\DetachLoadBalancersResponse' {httpStatus} -> httpStatus) (\s@DetachLoadBalancersResponse' {} a -> s {httpStatus = a} :: DetachLoadBalancersResponse)
 
-instance NFData DetachLoadBalancersResponse
+instance Prelude.NFData DetachLoadBalancersResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,151 +24,154 @@
 -- Describes the lifecycle hooks for the specified Auto Scaling group.
 module Network.AWS.AutoScaling.DescribeLifecycleHooks
   ( -- * Creating a Request
-    describeLifecycleHooks,
-    DescribeLifecycleHooks,
+    DescribeLifecycleHooks (..),
+    newDescribeLifecycleHooks,
 
     -- * Request Lenses
-    dlhsLifecycleHookNames,
-    dlhsAutoScalingGroupName,
+    describeLifecycleHooks_lifecycleHookNames,
+    describeLifecycleHooks_autoScalingGroupName,
 
     -- * Destructuring the Response
-    describeLifecycleHooksResponse,
-    DescribeLifecycleHooksResponse,
+    DescribeLifecycleHooksResponse (..),
+    newDescribeLifecycleHooksResponse,
 
     -- * Response Lenses
-    drsLifecycleHooks,
-    drsResponseStatus,
+    describeLifecycleHooksResponse_lifecycleHooks,
+    describeLifecycleHooksResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AutoScaling.Types.LifecycleHook
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeLifecycleHooks' smart constructor.
+-- | /See:/ 'newDescribeLifecycleHooks' smart constructor.
 data DescribeLifecycleHooks = DescribeLifecycleHooks'
-  { _dlhsLifecycleHookNames ::
-      !(Maybe [Text]),
-    _dlhsAutoScalingGroupName ::
-      !Text
+  { -- | The names of one or more lifecycle hooks. If you omit this parameter,
+    -- all lifecycle hooks are described.
+    lifecycleHookNames :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLifecycleHooks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLifecycleHooks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlhsLifecycleHookNames' - The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlhsAutoScalingGroupName' - The name of the Auto Scaling group.
-describeLifecycleHooks ::
-  -- | 'dlhsAutoScalingGroupName'
-  Text ->
+-- 'lifecycleHookNames', 'describeLifecycleHooks_lifecycleHookNames' - The names of one or more lifecycle hooks. If you omit this parameter,
+-- all lifecycle hooks are described.
+--
+-- 'autoScalingGroupName', 'describeLifecycleHooks_autoScalingGroupName' - The name of the Auto Scaling group.
+newDescribeLifecycleHooks ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
   DescribeLifecycleHooks
-describeLifecycleHooks pAutoScalingGroupName_ =
+newDescribeLifecycleHooks pAutoScalingGroupName_ =
   DescribeLifecycleHooks'
-    { _dlhsLifecycleHookNames =
-        Nothing,
-      _dlhsAutoScalingGroupName = pAutoScalingGroupName_
+    { lifecycleHookNames =
+        Prelude.Nothing,
+      autoScalingGroupName = pAutoScalingGroupName_
     }
 
--- | The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
-dlhsLifecycleHookNames :: Lens' DescribeLifecycleHooks [Text]
-dlhsLifecycleHookNames = lens _dlhsLifecycleHookNames (\s a -> s {_dlhsLifecycleHookNames = a}) . _Default . _Coerce
+-- | The names of one or more lifecycle hooks. If you omit this parameter,
+-- all lifecycle hooks are described.
+describeLifecycleHooks_lifecycleHookNames :: Lens.Lens' DescribeLifecycleHooks (Prelude.Maybe [Prelude.Text])
+describeLifecycleHooks_lifecycleHookNames = Lens.lens (\DescribeLifecycleHooks' {lifecycleHookNames} -> lifecycleHookNames) (\s@DescribeLifecycleHooks' {} a -> s {lifecycleHookNames = a} :: DescribeLifecycleHooks) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the Auto Scaling group.
-dlhsAutoScalingGroupName :: Lens' DescribeLifecycleHooks Text
-dlhsAutoScalingGroupName = lens _dlhsAutoScalingGroupName (\s a -> s {_dlhsAutoScalingGroupName = a})
+describeLifecycleHooks_autoScalingGroupName :: Lens.Lens' DescribeLifecycleHooks Prelude.Text
+describeLifecycleHooks_autoScalingGroupName = Lens.lens (\DescribeLifecycleHooks' {autoScalingGroupName} -> autoScalingGroupName) (\s@DescribeLifecycleHooks' {} a -> s {autoScalingGroupName = a} :: DescribeLifecycleHooks)
 
-instance AWSRequest DescribeLifecycleHooks where
+instance Prelude.AWSRequest DescribeLifecycleHooks where
   type
     Rs DescribeLifecycleHooks =
       DescribeLifecycleHooksResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeLifecycleHooksResult"
       ( \s h x ->
           DescribeLifecycleHooksResponse'
-            <$> ( x .@? "LifecycleHooks" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "LifecycleHooks"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeLifecycleHooks
+instance Prelude.Hashable DescribeLifecycleHooks
 
-instance NFData DescribeLifecycleHooks
+instance Prelude.NFData DescribeLifecycleHooks
 
-instance ToHeaders DescribeLifecycleHooks where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeLifecycleHooks where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeLifecycleHooks where
-  toPath = const "/"
+instance Prelude.ToPath DescribeLifecycleHooks where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeLifecycleHooks where
+instance Prelude.ToQuery DescribeLifecycleHooks where
   toQuery DescribeLifecycleHooks' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeLifecycleHooks" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
+          Prelude.=: ("DescribeLifecycleHooks" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
         "LifecycleHookNames"
-          =: toQuery
-            (toQueryList "member" <$> _dlhsLifecycleHookNames),
-        "AutoScalingGroupName" =: _dlhsAutoScalingGroupName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> lifecycleHookNames
+            ),
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName
       ]
 
--- | /See:/ 'describeLifecycleHooksResponse' smart constructor.
+-- | /See:/ 'newDescribeLifecycleHooksResponse' smart constructor.
 data DescribeLifecycleHooksResponse = DescribeLifecycleHooksResponse'
-  { _drsLifecycleHooks ::
-      !( Maybe
-           [LifecycleHook]
-       ),
-    _drsResponseStatus ::
-      !Int
+  { -- | The lifecycle hooks for the specified group.
+    lifecycleHooks :: Prelude.Maybe [LifecycleHook],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLifecycleHooksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLifecycleHooksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsLifecycleHooks' - The lifecycle hooks for the specified group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeLifecycleHooksResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'lifecycleHooks', 'describeLifecycleHooksResponse_lifecycleHooks' - The lifecycle hooks for the specified group.
+--
+-- 'httpStatus', 'describeLifecycleHooksResponse_httpStatus' - The response's http status code.
+newDescribeLifecycleHooksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeLifecycleHooksResponse
-describeLifecycleHooksResponse pResponseStatus_ =
+newDescribeLifecycleHooksResponse pHttpStatus_ =
   DescribeLifecycleHooksResponse'
-    { _drsLifecycleHooks =
-        Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { lifecycleHooks =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The lifecycle hooks for the specified group.
-drsLifecycleHooks :: Lens' DescribeLifecycleHooksResponse [LifecycleHook]
-drsLifecycleHooks = lens _drsLifecycleHooks (\s a -> s {_drsLifecycleHooks = a}) . _Default . _Coerce
+describeLifecycleHooksResponse_lifecycleHooks :: Lens.Lens' DescribeLifecycleHooksResponse (Prelude.Maybe [LifecycleHook])
+describeLifecycleHooksResponse_lifecycleHooks = Lens.lens (\DescribeLifecycleHooksResponse' {lifecycleHooks} -> lifecycleHooks) (\s@DescribeLifecycleHooksResponse' {} a -> s {lifecycleHooks = a} :: DescribeLifecycleHooksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeLifecycleHooksResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeLifecycleHooksResponse_httpStatus :: Lens.Lens' DescribeLifecycleHooksResponse Prelude.Int
+describeLifecycleHooksResponse_httpStatus = Lens.lens (\DescribeLifecycleHooksResponse' {httpStatus} -> httpStatus) (\s@DescribeLifecycleHooksResponse' {} a -> s {httpStatus = a} :: DescribeLifecycleHooksResponse)
 
-instance NFData DescribeLifecycleHooksResponse
+instance
+  Prelude.NFData
+    DescribeLifecycleHooksResponse

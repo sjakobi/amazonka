@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,222 +21,265 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the actions scheduled for your Auto Scaling group that haven't run or that have not reached their end time. To describe the actions that have already run, call the 'DescribeScalingActivities' API.
---
---
+-- Describes the actions scheduled for your Auto Scaling group that
+-- haven\'t run or that have not reached their end time. To describe the
+-- actions that have already run, call the DescribeScalingActivities API.
 --
 -- This operation returns paginated results.
 module Network.AWS.AutoScaling.DescribeScheduledActions
   ( -- * Creating a Request
-    describeScheduledActions,
-    DescribeScheduledActions,
+    DescribeScheduledActions (..),
+    newDescribeScheduledActions,
 
     -- * Request Lenses
-    dsaNextToken,
-    dsaStartTime,
-    dsaEndTime,
-    dsaScheduledActionNames,
-    dsaAutoScalingGroupName,
-    dsaMaxRecords,
+    describeScheduledActions_nextToken,
+    describeScheduledActions_startTime,
+    describeScheduledActions_endTime,
+    describeScheduledActions_scheduledActionNames,
+    describeScheduledActions_autoScalingGroupName,
+    describeScheduledActions_maxRecords,
 
     -- * Destructuring the Response
-    describeScheduledActionsResponse,
-    DescribeScheduledActionsResponse,
+    DescribeScheduledActionsResponse (..),
+    newDescribeScheduledActionsResponse,
 
     -- * Response Lenses
-    desrsNextToken,
-    desrsScheduledUpdateGroupActions,
-    desrsResponseStatus,
+    describeScheduledActionsResponse_nextToken,
+    describeScheduledActionsResponse_scheduledUpdateGroupActions,
+    describeScheduledActionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AutoScaling.Types.ScheduledUpdateGroupAction
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeScheduledActions' smart constructor.
+-- | /See:/ 'newDescribeScheduledActions' smart constructor.
 data DescribeScheduledActions = DescribeScheduledActions'
-  { _dsaNextToken ::
-      !(Maybe Text),
-    _dsaStartTime ::
-      !(Maybe ISO8601),
-    _dsaEndTime ::
-      !(Maybe ISO8601),
-    _dsaScheduledActionNames ::
-      !(Maybe [Text]),
-    _dsaAutoScalingGroupName ::
-      !(Maybe Text),
-    _dsaMaxRecords ::
-      !(Maybe Int)
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The earliest scheduled start time to return. If scheduled action names
+    -- are provided, this parameter is ignored.
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The latest scheduled start time to return. If scheduled action names are
+    -- provided, this parameter is ignored.
+    endTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The names of one or more scheduled actions. You can specify up to 50
+    -- actions. If you omit this parameter, all scheduled actions are
+    -- described. If you specify an unknown scheduled action, it is ignored
+    -- with no error.
+    scheduledActionNames :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call. The default value
+    -- is @50@ and the maximum value is @100@.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScheduledActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScheduledActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsaNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsaStartTime' - The earliest scheduled start time to return. If scheduled action names are provided, this parameter is ignored.
+-- 'nextToken', 'describeScheduledActions_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'dsaEndTime' - The latest scheduled start time to return. If scheduled action names are provided, this parameter is ignored.
+-- 'startTime', 'describeScheduledActions_startTime' - The earliest scheduled start time to return. If scheduled action names
+-- are provided, this parameter is ignored.
 --
--- * 'dsaScheduledActionNames' - The names of one or more scheduled actions. You can specify up to 50 actions. If you omit this parameter, all scheduled actions are described. If you specify an unknown scheduled action, it is ignored with no error.
+-- 'endTime', 'describeScheduledActions_endTime' - The latest scheduled start time to return. If scheduled action names are
+-- provided, this parameter is ignored.
 --
--- * 'dsaAutoScalingGroupName' - The name of the Auto Scaling group.
+-- 'scheduledActionNames', 'describeScheduledActions_scheduledActionNames' - The names of one or more scheduled actions. You can specify up to 50
+-- actions. If you omit this parameter, all scheduled actions are
+-- described. If you specify an unknown scheduled action, it is ignored
+-- with no error.
 --
--- * 'dsaMaxRecords' - The maximum number of items to return with this call. The default value is @50@ and the maximum value is @100@ .
-describeScheduledActions ::
+-- 'autoScalingGroupName', 'describeScheduledActions_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'maxRecords', 'describeScheduledActions_maxRecords' - The maximum number of items to return with this call. The default value
+-- is @50@ and the maximum value is @100@.
+newDescribeScheduledActions ::
   DescribeScheduledActions
-describeScheduledActions =
+newDescribeScheduledActions =
   DescribeScheduledActions'
-    { _dsaNextToken = Nothing,
-      _dsaStartTime = Nothing,
-      _dsaEndTime = Nothing,
-      _dsaScheduledActionNames = Nothing,
-      _dsaAutoScalingGroupName = Nothing,
-      _dsaMaxRecords = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      scheduledActionNames = Prelude.Nothing,
+      autoScalingGroupName = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-dsaNextToken :: Lens' DescribeScheduledActions (Maybe Text)
-dsaNextToken = lens _dsaNextToken (\s a -> s {_dsaNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeScheduledActions_nextToken :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.Text)
+describeScheduledActions_nextToken = Lens.lens (\DescribeScheduledActions' {nextToken} -> nextToken) (\s@DescribeScheduledActions' {} a -> s {nextToken = a} :: DescribeScheduledActions)
 
--- | The earliest scheduled start time to return. If scheduled action names are provided, this parameter is ignored.
-dsaStartTime :: Lens' DescribeScheduledActions (Maybe UTCTime)
-dsaStartTime = lens _dsaStartTime (\s a -> s {_dsaStartTime = a}) . mapping _Time
+-- | The earliest scheduled start time to return. If scheduled action names
+-- are provided, this parameter is ignored.
+describeScheduledActions_startTime :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.UTCTime)
+describeScheduledActions_startTime = Lens.lens (\DescribeScheduledActions' {startTime} -> startTime) (\s@DescribeScheduledActions' {} a -> s {startTime = a} :: DescribeScheduledActions) Prelude.. Lens.mapping Prelude._Time
 
--- | The latest scheduled start time to return. If scheduled action names are provided, this parameter is ignored.
-dsaEndTime :: Lens' DescribeScheduledActions (Maybe UTCTime)
-dsaEndTime = lens _dsaEndTime (\s a -> s {_dsaEndTime = a}) . mapping _Time
+-- | The latest scheduled start time to return. If scheduled action names are
+-- provided, this parameter is ignored.
+describeScheduledActions_endTime :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.UTCTime)
+describeScheduledActions_endTime = Lens.lens (\DescribeScheduledActions' {endTime} -> endTime) (\s@DescribeScheduledActions' {} a -> s {endTime = a} :: DescribeScheduledActions) Prelude.. Lens.mapping Prelude._Time
 
--- | The names of one or more scheduled actions. You can specify up to 50 actions. If you omit this parameter, all scheduled actions are described. If you specify an unknown scheduled action, it is ignored with no error.
-dsaScheduledActionNames :: Lens' DescribeScheduledActions [Text]
-dsaScheduledActionNames = lens _dsaScheduledActionNames (\s a -> s {_dsaScheduledActionNames = a}) . _Default . _Coerce
+-- | The names of one or more scheduled actions. You can specify up to 50
+-- actions. If you omit this parameter, all scheduled actions are
+-- described. If you specify an unknown scheduled action, it is ignored
+-- with no error.
+describeScheduledActions_scheduledActionNames :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe [Prelude.Text])
+describeScheduledActions_scheduledActionNames = Lens.lens (\DescribeScheduledActions' {scheduledActionNames} -> scheduledActionNames) (\s@DescribeScheduledActions' {} a -> s {scheduledActionNames = a} :: DescribeScheduledActions) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the Auto Scaling group.
-dsaAutoScalingGroupName :: Lens' DescribeScheduledActions (Maybe Text)
-dsaAutoScalingGroupName = lens _dsaAutoScalingGroupName (\s a -> s {_dsaAutoScalingGroupName = a})
+describeScheduledActions_autoScalingGroupName :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.Text)
+describeScheduledActions_autoScalingGroupName = Lens.lens (\DescribeScheduledActions' {autoScalingGroupName} -> autoScalingGroupName) (\s@DescribeScheduledActions' {} a -> s {autoScalingGroupName = a} :: DescribeScheduledActions)
 
--- | The maximum number of items to return with this call. The default value is @50@ and the maximum value is @100@ .
-dsaMaxRecords :: Lens' DescribeScheduledActions (Maybe Int)
-dsaMaxRecords = lens _dsaMaxRecords (\s a -> s {_dsaMaxRecords = a})
+-- | The maximum number of items to return with this call. The default value
+-- is @50@ and the maximum value is @100@.
+describeScheduledActions_maxRecords :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.Int)
+describeScheduledActions_maxRecords = Lens.lens (\DescribeScheduledActions' {maxRecords} -> maxRecords) (\s@DescribeScheduledActions' {} a -> s {maxRecords = a} :: DescribeScheduledActions)
 
-instance AWSPager DescribeScheduledActions where
+instance Pager.AWSPager DescribeScheduledActions where
   page rq rs
-    | stop (rs ^. desrsNextToken) = Nothing
-    | stop (rs ^. desrsScheduledUpdateGroupActions) =
-      Nothing
-    | otherwise =
-      Just $ rq & dsaNextToken .~ rs ^. desrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeScheduledActionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeScheduledActionsResponse_scheduledUpdateGroupActions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeScheduledActions_nextToken
+          Lens..~ rs
+          Lens.^? describeScheduledActionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeScheduledActions where
+instance Prelude.AWSRequest DescribeScheduledActions where
   type
     Rs DescribeScheduledActions =
       DescribeScheduledActionsResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeScheduledActionsResult"
       ( \s h x ->
           DescribeScheduledActionsResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "ScheduledUpdateGroupActions" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "ScheduledUpdateGroupActions"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeScheduledActions
+instance Prelude.Hashable DescribeScheduledActions
 
-instance NFData DescribeScheduledActions
+instance Prelude.NFData DescribeScheduledActions
 
-instance ToHeaders DescribeScheduledActions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeScheduledActions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeScheduledActions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeScheduledActions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeScheduledActions where
+instance Prelude.ToQuery DescribeScheduledActions where
   toQuery DescribeScheduledActions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeScheduledActions" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "NextToken" =: _dsaNextToken,
-        "StartTime" =: _dsaStartTime,
-        "EndTime" =: _dsaEndTime,
+          Prelude.=: ("DescribeScheduledActions" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "StartTime" Prelude.=: startTime,
+        "EndTime" Prelude.=: endTime,
         "ScheduledActionNames"
-          =: toQuery
-            (toQueryList "member" <$> _dsaScheduledActionNames),
-        "AutoScalingGroupName" =: _dsaAutoScalingGroupName,
-        "MaxRecords" =: _dsaMaxRecords
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> scheduledActionNames
+            ),
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | /See:/ 'describeScheduledActionsResponse' smart constructor.
+-- | /See:/ 'newDescribeScheduledActionsResponse' smart constructor.
 data DescribeScheduledActionsResponse = DescribeScheduledActionsResponse'
-  { _desrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _desrsScheduledUpdateGroupActions ::
-      !( Maybe
-           [ScheduledUpdateGroupAction]
-       ),
-    _desrsResponseStatus ::
-      !Int
+  { -- | A string that indicates that the response contains more items than can
+    -- be returned in a single response. To receive additional items, specify
+    -- this string for the @NextToken@ value when requesting the next set of
+    -- items. This value is null when there are no more items to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The scheduled actions.
+    scheduledUpdateGroupActions :: Prelude.Maybe [ScheduledUpdateGroupAction],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScheduledActionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScheduledActionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsNextToken' - A string that indicates that the response contains more items than can be returned in a single response. To receive additional items, specify this string for the @NextToken@ value when requesting the next set of items. This value is null when there are no more items to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsScheduledUpdateGroupActions' - The scheduled actions.
+-- 'nextToken', 'describeScheduledActionsResponse_nextToken' - A string that indicates that the response contains more items than can
+-- be returned in a single response. To receive additional items, specify
+-- this string for the @NextToken@ value when requesting the next set of
+-- items. This value is null when there are no more items to return.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeScheduledActionsResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'scheduledUpdateGroupActions', 'describeScheduledActionsResponse_scheduledUpdateGroupActions' - The scheduled actions.
+--
+-- 'httpStatus', 'describeScheduledActionsResponse_httpStatus' - The response's http status code.
+newDescribeScheduledActionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeScheduledActionsResponse
-describeScheduledActionsResponse pResponseStatus_ =
+newDescribeScheduledActionsResponse pHttpStatus_ =
   DescribeScheduledActionsResponse'
-    { _desrsNextToken =
-        Nothing,
-      _desrsScheduledUpdateGroupActions =
-        Nothing,
-      _desrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      scheduledUpdateGroupActions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A string that indicates that the response contains more items than can be returned in a single response. To receive additional items, specify this string for the @NextToken@ value when requesting the next set of items. This value is null when there are no more items to return.
-desrsNextToken :: Lens' DescribeScheduledActionsResponse (Maybe Text)
-desrsNextToken = lens _desrsNextToken (\s a -> s {_desrsNextToken = a})
+-- | A string that indicates that the response contains more items than can
+-- be returned in a single response. To receive additional items, specify
+-- this string for the @NextToken@ value when requesting the next set of
+-- items. This value is null when there are no more items to return.
+describeScheduledActionsResponse_nextToken :: Lens.Lens' DescribeScheduledActionsResponse (Prelude.Maybe Prelude.Text)
+describeScheduledActionsResponse_nextToken = Lens.lens (\DescribeScheduledActionsResponse' {nextToken} -> nextToken) (\s@DescribeScheduledActionsResponse' {} a -> s {nextToken = a} :: DescribeScheduledActionsResponse)
 
 -- | The scheduled actions.
-desrsScheduledUpdateGroupActions :: Lens' DescribeScheduledActionsResponse [ScheduledUpdateGroupAction]
-desrsScheduledUpdateGroupActions = lens _desrsScheduledUpdateGroupActions (\s a -> s {_desrsScheduledUpdateGroupActions = a}) . _Default . _Coerce
+describeScheduledActionsResponse_scheduledUpdateGroupActions :: Lens.Lens' DescribeScheduledActionsResponse (Prelude.Maybe [ScheduledUpdateGroupAction])
+describeScheduledActionsResponse_scheduledUpdateGroupActions = Lens.lens (\DescribeScheduledActionsResponse' {scheduledUpdateGroupActions} -> scheduledUpdateGroupActions) (\s@DescribeScheduledActionsResponse' {} a -> s {scheduledUpdateGroupActions = a} :: DescribeScheduledActionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeScheduledActionsResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeScheduledActionsResponse_httpStatus :: Lens.Lens' DescribeScheduledActionsResponse Prelude.Int
+describeScheduledActionsResponse_httpStatus = Lens.lens (\DescribeScheduledActionsResponse' {httpStatus} -> httpStatus) (\s@DescribeScheduledActionsResponse' {} a -> s {httpStatus = a} :: DescribeScheduledActionsResponse)
 
-instance NFData DescribeScheduledActionsResponse
+instance
+  Prelude.NFData
+    DescribeScheduledActionsResponse

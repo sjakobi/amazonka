@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,154 +23,159 @@
 --
 -- Updates the instance protection settings of the specified instances.
 --
+-- For more information about preventing instances that are part of an Auto
+-- Scaling group from terminating on scale in, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection Instance scale-in protection>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 --
--- For more information about preventing instances that are part of an Auto Scaling group from terminating on scale in, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection Instance scale-in protection> in the /Amazon EC2 Auto Scaling User Guide/ .
---
--- If you exceed your maximum limit of instance IDs, which is 50 per Auto Scaling group, the call fails.
+-- If you exceed your maximum limit of instance IDs, which is 50 per Auto
+-- Scaling group, the call fails.
 module Network.AWS.AutoScaling.SetInstanceProtection
   ( -- * Creating a Request
-    setInstanceProtection,
-    SetInstanceProtection,
+    SetInstanceProtection (..),
+    newSetInstanceProtection,
 
     -- * Request Lenses
-    sipInstanceIds,
-    sipAutoScalingGroupName,
-    sipProtectedFromScaleIn,
+    setInstanceProtection_instanceIds,
+    setInstanceProtection_autoScalingGroupName,
+    setInstanceProtection_protectedFromScaleIn,
 
     -- * Destructuring the Response
-    setInstanceProtectionResponse,
-    SetInstanceProtectionResponse,
+    SetInstanceProtectionResponse (..),
+    newSetInstanceProtectionResponse,
 
     -- * Response Lenses
-    siprrsResponseStatus,
+    setInstanceProtectionResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'setInstanceProtection' smart constructor.
+-- | /See:/ 'newSetInstanceProtection' smart constructor.
 data SetInstanceProtection = SetInstanceProtection'
-  { _sipInstanceIds ::
-      ![Text],
-    _sipAutoScalingGroupName ::
-      !Text,
-    _sipProtectedFromScaleIn ::
-      !Bool
+  { -- | One or more instance IDs. You can specify up to 50 instances.
+    instanceIds :: [Prelude.Text],
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text,
+    -- | Indicates whether the instance is protected from termination by Amazon
+    -- EC2 Auto Scaling when scaling in.
+    protectedFromScaleIn :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetInstanceProtection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetInstanceProtection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sipInstanceIds' - One or more instance IDs. You can specify up to 50 instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sipAutoScalingGroupName' - The name of the Auto Scaling group.
+-- 'instanceIds', 'setInstanceProtection_instanceIds' - One or more instance IDs. You can specify up to 50 instances.
 --
--- * 'sipProtectedFromScaleIn' - Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.
-setInstanceProtection ::
-  -- | 'sipAutoScalingGroupName'
-  Text ->
-  -- | 'sipProtectedFromScaleIn'
-  Bool ->
+-- 'autoScalingGroupName', 'setInstanceProtection_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'protectedFromScaleIn', 'setInstanceProtection_protectedFromScaleIn' - Indicates whether the instance is protected from termination by Amazon
+-- EC2 Auto Scaling when scaling in.
+newSetInstanceProtection ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
+  -- | 'protectedFromScaleIn'
+  Prelude.Bool ->
   SetInstanceProtection
-setInstanceProtection
+newSetInstanceProtection
   pAutoScalingGroupName_
   pProtectedFromScaleIn_ =
     SetInstanceProtection'
-      { _sipInstanceIds = mempty,
-        _sipAutoScalingGroupName = pAutoScalingGroupName_,
-        _sipProtectedFromScaleIn = pProtectedFromScaleIn_
+      { instanceIds =
+          Prelude.mempty,
+        autoScalingGroupName = pAutoScalingGroupName_,
+        protectedFromScaleIn = pProtectedFromScaleIn_
       }
 
 -- | One or more instance IDs. You can specify up to 50 instances.
-sipInstanceIds :: Lens' SetInstanceProtection [Text]
-sipInstanceIds = lens _sipInstanceIds (\s a -> s {_sipInstanceIds = a}) . _Coerce
+setInstanceProtection_instanceIds :: Lens.Lens' SetInstanceProtection [Prelude.Text]
+setInstanceProtection_instanceIds = Lens.lens (\SetInstanceProtection' {instanceIds} -> instanceIds) (\s@SetInstanceProtection' {} a -> s {instanceIds = a} :: SetInstanceProtection) Prelude.. Prelude._Coerce
 
 -- | The name of the Auto Scaling group.
-sipAutoScalingGroupName :: Lens' SetInstanceProtection Text
-sipAutoScalingGroupName = lens _sipAutoScalingGroupName (\s a -> s {_sipAutoScalingGroupName = a})
+setInstanceProtection_autoScalingGroupName :: Lens.Lens' SetInstanceProtection Prelude.Text
+setInstanceProtection_autoScalingGroupName = Lens.lens (\SetInstanceProtection' {autoScalingGroupName} -> autoScalingGroupName) (\s@SetInstanceProtection' {} a -> s {autoScalingGroupName = a} :: SetInstanceProtection)
 
--- | Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.
-sipProtectedFromScaleIn :: Lens' SetInstanceProtection Bool
-sipProtectedFromScaleIn = lens _sipProtectedFromScaleIn (\s a -> s {_sipProtectedFromScaleIn = a})
+-- | Indicates whether the instance is protected from termination by Amazon
+-- EC2 Auto Scaling when scaling in.
+setInstanceProtection_protectedFromScaleIn :: Lens.Lens' SetInstanceProtection Prelude.Bool
+setInstanceProtection_protectedFromScaleIn = Lens.lens (\SetInstanceProtection' {protectedFromScaleIn} -> protectedFromScaleIn) (\s@SetInstanceProtection' {} a -> s {protectedFromScaleIn = a} :: SetInstanceProtection)
 
-instance AWSRequest SetInstanceProtection where
+instance Prelude.AWSRequest SetInstanceProtection where
   type
     Rs SetInstanceProtection =
       SetInstanceProtectionResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "SetInstanceProtectionResult"
       ( \s h x ->
           SetInstanceProtectionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SetInstanceProtection
+instance Prelude.Hashable SetInstanceProtection
 
-instance NFData SetInstanceProtection
+instance Prelude.NFData SetInstanceProtection
 
-instance ToHeaders SetInstanceProtection where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SetInstanceProtection where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath SetInstanceProtection where
-  toPath = const "/"
+instance Prelude.ToPath SetInstanceProtection where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetInstanceProtection where
+instance Prelude.ToQuery SetInstanceProtection where
   toQuery SetInstanceProtection' {..} =
-    mconcat
-      [ "Action" =: ("SetInstanceProtection" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("SetInstanceProtection" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
         "InstanceIds"
-          =: toQueryList "member" _sipInstanceIds,
-        "AutoScalingGroupName" =: _sipAutoScalingGroupName,
-        "ProtectedFromScaleIn" =: _sipProtectedFromScaleIn
+          Prelude.=: Prelude.toQueryList "member" instanceIds,
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName,
+        "ProtectedFromScaleIn"
+          Prelude.=: protectedFromScaleIn
       ]
 
--- | /See:/ 'setInstanceProtectionResponse' smart constructor.
-newtype SetInstanceProtectionResponse = SetInstanceProtectionResponse'
-  { _siprrsResponseStatus ::
-      Int
+-- | /See:/ 'newSetInstanceProtectionResponse' smart constructor.
+data SetInstanceProtectionResponse = SetInstanceProtectionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetInstanceProtectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetInstanceProtectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siprrsResponseStatus' - -- | The response status code.
-setInstanceProtectionResponse ::
-  -- | 'siprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'setInstanceProtectionResponse_httpStatus' - The response's http status code.
+newSetInstanceProtectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetInstanceProtectionResponse
-setInstanceProtectionResponse pResponseStatus_ =
+newSetInstanceProtectionResponse pHttpStatus_ =
   SetInstanceProtectionResponse'
-    { _siprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-siprrsResponseStatus :: Lens' SetInstanceProtectionResponse Int
-siprrsResponseStatus = lens _siprrsResponseStatus (\s a -> s {_siprrsResponseStatus = a})
+-- | The response's http status code.
+setInstanceProtectionResponse_httpStatus :: Lens.Lens' SetInstanceProtectionResponse Prelude.Int
+setInstanceProtectionResponse_httpStatus = Lens.lens (\SetInstanceProtectionResponse' {httpStatus} -> httpStatus) (\s@SetInstanceProtectionResponse' {} a -> s {httpStatus = a} :: SetInstanceProtectionResponse)
 
-instance NFData SetInstanceProtectionResponse
+instance Prelude.NFData SetInstanceProtectionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScaling.Types.TagDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a tag for an Auto Scaling group.
 --
---
---
--- /See:/ 'tagDescription' smart constructor.
+-- /See:/ 'newTagDescription' smart constructor.
 data TagDescription = TagDescription'
-  { _tdResourceId ::
-      !Text,
-    _tdResourceType :: !Text,
-    _tdKey :: !Text,
-    _tdPropagateAtLaunch :: !Bool,
-    _tdValue :: !Text
+  { -- | The name of the group.
+    resourceId :: Prelude.Text,
+    -- | The type of resource. The only supported value is @auto-scaling-group@.
+    resourceType :: Prelude.Text,
+    -- | The tag key.
+    key :: Prelude.Text,
+    -- | Determines whether the tag is added to new instances as they are
+    -- launched in the group.
+    propagateAtLaunch :: Prelude.Bool,
+    -- | The tag value.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdResourceId' - The name of the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdResourceType' - The type of resource. The only supported value is @auto-scaling-group@ .
+-- 'resourceId', 'tagDescription_resourceId' - The name of the group.
 --
--- * 'tdKey' - The tag key.
+-- 'resourceType', 'tagDescription_resourceType' - The type of resource. The only supported value is @auto-scaling-group@.
 --
--- * 'tdPropagateAtLaunch' - Determines whether the tag is added to new instances as they are launched in the group.
+-- 'key', 'tagDescription_key' - The tag key.
 --
--- * 'tdValue' - The tag value.
-tagDescription ::
-  -- | 'tdResourceId'
-  Text ->
-  -- | 'tdResourceType'
-  Text ->
-  -- | 'tdKey'
-  Text ->
-  -- | 'tdPropagateAtLaunch'
-  Bool ->
-  -- | 'tdValue'
-  Text ->
+-- 'propagateAtLaunch', 'tagDescription_propagateAtLaunch' - Determines whether the tag is added to new instances as they are
+-- launched in the group.
+--
+-- 'value', 'tagDescription_value' - The tag value.
+newTagDescription ::
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'resourceType'
+  Prelude.Text ->
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'propagateAtLaunch'
+  Prelude.Bool ->
+  -- | 'value'
+  Prelude.Text ->
   TagDescription
-tagDescription
+newTagDescription
   pResourceId_
   pResourceType_
   pKey_
   pPropagateAtLaunch_
   pValue_ =
     TagDescription'
-      { _tdResourceId = pResourceId_,
-        _tdResourceType = pResourceType_,
-        _tdKey = pKey_,
-        _tdPropagateAtLaunch = pPropagateAtLaunch_,
-        _tdValue = pValue_
+      { resourceId = pResourceId_,
+        resourceType = pResourceType_,
+        key = pKey_,
+        propagateAtLaunch = pPropagateAtLaunch_,
+        value = pValue_
       }
 
 -- | The name of the group.
-tdResourceId :: Lens' TagDescription Text
-tdResourceId = lens _tdResourceId (\s a -> s {_tdResourceId = a})
+tagDescription_resourceId :: Lens.Lens' TagDescription Prelude.Text
+tagDescription_resourceId = Lens.lens (\TagDescription' {resourceId} -> resourceId) (\s@TagDescription' {} a -> s {resourceId = a} :: TagDescription)
 
--- | The type of resource. The only supported value is @auto-scaling-group@ .
-tdResourceType :: Lens' TagDescription Text
-tdResourceType = lens _tdResourceType (\s a -> s {_tdResourceType = a})
+-- | The type of resource. The only supported value is @auto-scaling-group@.
+tagDescription_resourceType :: Lens.Lens' TagDescription Prelude.Text
+tagDescription_resourceType = Lens.lens (\TagDescription' {resourceType} -> resourceType) (\s@TagDescription' {} a -> s {resourceType = a} :: TagDescription)
 
 -- | The tag key.
-tdKey :: Lens' TagDescription Text
-tdKey = lens _tdKey (\s a -> s {_tdKey = a})
+tagDescription_key :: Lens.Lens' TagDescription Prelude.Text
+tagDescription_key = Lens.lens (\TagDescription' {key} -> key) (\s@TagDescription' {} a -> s {key = a} :: TagDescription)
 
--- | Determines whether the tag is added to new instances as they are launched in the group.
-tdPropagateAtLaunch :: Lens' TagDescription Bool
-tdPropagateAtLaunch = lens _tdPropagateAtLaunch (\s a -> s {_tdPropagateAtLaunch = a})
+-- | Determines whether the tag is added to new instances as they are
+-- launched in the group.
+tagDescription_propagateAtLaunch :: Lens.Lens' TagDescription Prelude.Bool
+tagDescription_propagateAtLaunch = Lens.lens (\TagDescription' {propagateAtLaunch} -> propagateAtLaunch) (\s@TagDescription' {} a -> s {propagateAtLaunch = a} :: TagDescription)
 
 -- | The tag value.
-tdValue :: Lens' TagDescription Text
-tdValue = lens _tdValue (\s a -> s {_tdValue = a})
+tagDescription_value :: Lens.Lens' TagDescription Prelude.Text
+tagDescription_value = Lens.lens (\TagDescription' {value} -> value) (\s@TagDescription' {} a -> s {value = a} :: TagDescription)
 
-instance FromXML TagDescription where
+instance Prelude.FromXML TagDescription where
   parseXML x =
     TagDescription'
-      <$> (x .@ "ResourceId")
-      <*> (x .@ "ResourceType")
-      <*> (x .@ "Key")
-      <*> (x .@ "PropagateAtLaunch")
-      <*> (x .@ "Value")
+      Prelude.<$> (x Prelude..@ "ResourceId")
+      Prelude.<*> (x Prelude..@ "ResourceType")
+      Prelude.<*> (x Prelude..@ "Key")
+      Prelude.<*> (x Prelude..@ "PropagateAtLaunch")
+      Prelude.<*> (x Prelude..@ "Value")
 
-instance Hashable TagDescription
+instance Prelude.Hashable TagDescription
 
-instance NFData TagDescription
+instance Prelude.NFData TagDescription

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,186 +23,211 @@
 --
 -- Describes the load balancers for the specified Auto Scaling group.
 --
---
--- This operation describes only Classic Load Balancers. If you have Application Load Balancers, Network Load Balancers, or Gateway Load Balancers, use the 'DescribeLoadBalancerTargetGroups' API instead.
---
+-- This operation describes only Classic Load Balancers. If you have
+-- Application Load Balancers, Network Load Balancers, or Gateway Load
+-- Balancers, use the DescribeLoadBalancerTargetGroups API instead.
 --
 -- This operation returns paginated results.
 module Network.AWS.AutoScaling.DescribeLoadBalancers
   ( -- * Creating a Request
-    describeLoadBalancers,
-    DescribeLoadBalancers,
+    DescribeLoadBalancers (..),
+    newDescribeLoadBalancers,
 
     -- * Request Lenses
-    dlbsNextToken,
-    dlbsMaxRecords,
-    dlbsAutoScalingGroupName,
+    describeLoadBalancers_nextToken,
+    describeLoadBalancers_maxRecords,
+    describeLoadBalancers_autoScalingGroupName,
 
     -- * Destructuring the Response
-    describeLoadBalancersResponse,
-    DescribeLoadBalancersResponse,
+    DescribeLoadBalancersResponse (..),
+    newDescribeLoadBalancersResponse,
 
     -- * Response Lenses
-    dlbrrsNextToken,
-    dlbrrsLoadBalancers,
-    dlbrrsResponseStatus,
+    describeLoadBalancersResponse_nextToken,
+    describeLoadBalancersResponse_loadBalancers,
+    describeLoadBalancersResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AutoScaling.Types.LoadBalancerState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeLoadBalancers' smart constructor.
+-- | /See:/ 'newDescribeLoadBalancers' smart constructor.
 data DescribeLoadBalancers = DescribeLoadBalancers'
-  { _dlbsNextToken ::
-      !(Maybe Text),
-    _dlbsMaxRecords ::
-      !(Maybe Int),
-    _dlbsAutoScalingGroupName ::
-      !Text
+  { -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call. The default value
+    -- is @100@ and the maximum value is @100@.
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLoadBalancers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLoadBalancers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlbsNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlbsMaxRecords' - The maximum number of items to return with this call. The default value is @100@ and the maximum value is @100@ .
+-- 'nextToken', 'describeLoadBalancers_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'dlbsAutoScalingGroupName' - The name of the Auto Scaling group.
-describeLoadBalancers ::
-  -- | 'dlbsAutoScalingGroupName'
-  Text ->
+-- 'maxRecords', 'describeLoadBalancers_maxRecords' - The maximum number of items to return with this call. The default value
+-- is @100@ and the maximum value is @100@.
+--
+-- 'autoScalingGroupName', 'describeLoadBalancers_autoScalingGroupName' - The name of the Auto Scaling group.
+newDescribeLoadBalancers ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
   DescribeLoadBalancers
-describeLoadBalancers pAutoScalingGroupName_ =
+newDescribeLoadBalancers pAutoScalingGroupName_ =
   DescribeLoadBalancers'
-    { _dlbsNextToken = Nothing,
-      _dlbsMaxRecords = Nothing,
-      _dlbsAutoScalingGroupName = pAutoScalingGroupName_
+    { nextToken = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      autoScalingGroupName = pAutoScalingGroupName_
     }
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-dlbsNextToken :: Lens' DescribeLoadBalancers (Maybe Text)
-dlbsNextToken = lens _dlbsNextToken (\s a -> s {_dlbsNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeLoadBalancers_nextToken :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe Prelude.Text)
+describeLoadBalancers_nextToken = Lens.lens (\DescribeLoadBalancers' {nextToken} -> nextToken) (\s@DescribeLoadBalancers' {} a -> s {nextToken = a} :: DescribeLoadBalancers)
 
--- | The maximum number of items to return with this call. The default value is @100@ and the maximum value is @100@ .
-dlbsMaxRecords :: Lens' DescribeLoadBalancers (Maybe Int)
-dlbsMaxRecords = lens _dlbsMaxRecords (\s a -> s {_dlbsMaxRecords = a})
+-- | The maximum number of items to return with this call. The default value
+-- is @100@ and the maximum value is @100@.
+describeLoadBalancers_maxRecords :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe Prelude.Int)
+describeLoadBalancers_maxRecords = Lens.lens (\DescribeLoadBalancers' {maxRecords} -> maxRecords) (\s@DescribeLoadBalancers' {} a -> s {maxRecords = a} :: DescribeLoadBalancers)
 
 -- | The name of the Auto Scaling group.
-dlbsAutoScalingGroupName :: Lens' DescribeLoadBalancers Text
-dlbsAutoScalingGroupName = lens _dlbsAutoScalingGroupName (\s a -> s {_dlbsAutoScalingGroupName = a})
+describeLoadBalancers_autoScalingGroupName :: Lens.Lens' DescribeLoadBalancers Prelude.Text
+describeLoadBalancers_autoScalingGroupName = Lens.lens (\DescribeLoadBalancers' {autoScalingGroupName} -> autoScalingGroupName) (\s@DescribeLoadBalancers' {} a -> s {autoScalingGroupName = a} :: DescribeLoadBalancers)
 
-instance AWSPager DescribeLoadBalancers where
+instance Pager.AWSPager DescribeLoadBalancers where
   page rq rs
-    | stop (rs ^. dlbrrsNextToken) = Nothing
-    | stop (rs ^. dlbrrsLoadBalancers) = Nothing
-    | otherwise =
-      Just $ rq & dlbsNextToken .~ rs ^. dlbrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeLoadBalancersResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeLoadBalancersResponse_loadBalancers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeLoadBalancers_nextToken
+          Lens..~ rs
+          Lens.^? describeLoadBalancersResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeLoadBalancers where
+instance Prelude.AWSRequest DescribeLoadBalancers where
   type
     Rs DescribeLoadBalancers =
       DescribeLoadBalancersResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeLoadBalancersResult"
       ( \s h x ->
           DescribeLoadBalancersResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "LoadBalancers" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "LoadBalancers"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeLoadBalancers
+instance Prelude.Hashable DescribeLoadBalancers
 
-instance NFData DescribeLoadBalancers
+instance Prelude.NFData DescribeLoadBalancers
 
-instance ToHeaders DescribeLoadBalancers where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeLoadBalancers where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeLoadBalancers where
-  toPath = const "/"
+instance Prelude.ToPath DescribeLoadBalancers where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeLoadBalancers where
+instance Prelude.ToQuery DescribeLoadBalancers where
   toQuery DescribeLoadBalancers' {..} =
-    mconcat
-      [ "Action" =: ("DescribeLoadBalancers" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "NextToken" =: _dlbsNextToken,
-        "MaxRecords" =: _dlbsMaxRecords,
-        "AutoScalingGroupName" =: _dlbsAutoScalingGroupName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeLoadBalancers" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "MaxRecords" Prelude.=: maxRecords,
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName
       ]
 
--- | /See:/ 'describeLoadBalancersResponse' smart constructor.
+-- | /See:/ 'newDescribeLoadBalancersResponse' smart constructor.
 data DescribeLoadBalancersResponse = DescribeLoadBalancersResponse'
-  { _dlbrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dlbrrsLoadBalancers ::
-      !( Maybe
-           [LoadBalancerState]
-       ),
-    _dlbrrsResponseStatus ::
-      !Int
+  { -- | A string that indicates that the response contains more items than can
+    -- be returned in a single response. To receive additional items, specify
+    -- this string for the @NextToken@ value when requesting the next set of
+    -- items. This value is null when there are no more items to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The load balancers.
+    loadBalancers :: Prelude.Maybe [LoadBalancerState],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLoadBalancersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLoadBalancersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlbrrsNextToken' - A string that indicates that the response contains more items than can be returned in a single response. To receive additional items, specify this string for the @NextToken@ value when requesting the next set of items. This value is null when there are no more items to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlbrrsLoadBalancers' - The load balancers.
+-- 'nextToken', 'describeLoadBalancersResponse_nextToken' - A string that indicates that the response contains more items than can
+-- be returned in a single response. To receive additional items, specify
+-- this string for the @NextToken@ value when requesting the next set of
+-- items. This value is null when there are no more items to return.
 --
--- * 'dlbrrsResponseStatus' - -- | The response status code.
-describeLoadBalancersResponse ::
-  -- | 'dlbrrsResponseStatus'
-  Int ->
+-- 'loadBalancers', 'describeLoadBalancersResponse_loadBalancers' - The load balancers.
+--
+-- 'httpStatus', 'describeLoadBalancersResponse_httpStatus' - The response's http status code.
+newDescribeLoadBalancersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeLoadBalancersResponse
-describeLoadBalancersResponse pResponseStatus_ =
+newDescribeLoadBalancersResponse pHttpStatus_ =
   DescribeLoadBalancersResponse'
-    { _dlbrrsNextToken =
-        Nothing,
-      _dlbrrsLoadBalancers = Nothing,
-      _dlbrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      loadBalancers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A string that indicates that the response contains more items than can be returned in a single response. To receive additional items, specify this string for the @NextToken@ value when requesting the next set of items. This value is null when there are no more items to return.
-dlbrrsNextToken :: Lens' DescribeLoadBalancersResponse (Maybe Text)
-dlbrrsNextToken = lens _dlbrrsNextToken (\s a -> s {_dlbrrsNextToken = a})
+-- | A string that indicates that the response contains more items than can
+-- be returned in a single response. To receive additional items, specify
+-- this string for the @NextToken@ value when requesting the next set of
+-- items. This value is null when there are no more items to return.
+describeLoadBalancersResponse_nextToken :: Lens.Lens' DescribeLoadBalancersResponse (Prelude.Maybe Prelude.Text)
+describeLoadBalancersResponse_nextToken = Lens.lens (\DescribeLoadBalancersResponse' {nextToken} -> nextToken) (\s@DescribeLoadBalancersResponse' {} a -> s {nextToken = a} :: DescribeLoadBalancersResponse)
 
 -- | The load balancers.
-dlbrrsLoadBalancers :: Lens' DescribeLoadBalancersResponse [LoadBalancerState]
-dlbrrsLoadBalancers = lens _dlbrrsLoadBalancers (\s a -> s {_dlbrrsLoadBalancers = a}) . _Default . _Coerce
+describeLoadBalancersResponse_loadBalancers :: Lens.Lens' DescribeLoadBalancersResponse (Prelude.Maybe [LoadBalancerState])
+describeLoadBalancersResponse_loadBalancers = Lens.lens (\DescribeLoadBalancersResponse' {loadBalancers} -> loadBalancers) (\s@DescribeLoadBalancersResponse' {} a -> s {loadBalancers = a} :: DescribeLoadBalancersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dlbrrsResponseStatus :: Lens' DescribeLoadBalancersResponse Int
-dlbrrsResponseStatus = lens _dlbrrsResponseStatus (\s a -> s {_dlbrrsResponseStatus = a})
+-- | The response's http status code.
+describeLoadBalancersResponse_httpStatus :: Lens.Lens' DescribeLoadBalancersResponse Prelude.Int
+describeLoadBalancersResponse_httpStatus = Lens.lens (\DescribeLoadBalancersResponse' {httpStatus} -> httpStatus) (\s@DescribeLoadBalancersResponse' {} a -> s {httpStatus = a} :: DescribeLoadBalancersResponse)
 
-instance NFData DescribeLoadBalancersResponse
+instance Prelude.NFData DescribeLoadBalancersResponse

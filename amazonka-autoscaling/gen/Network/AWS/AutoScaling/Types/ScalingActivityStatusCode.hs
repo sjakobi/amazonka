@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,107 +19,105 @@
 module Network.AWS.AutoScaling.Types.ScalingActivityStatusCode
   ( ScalingActivityStatusCode
       ( ..,
-        Cancelled,
-        Failed,
-        InProgress,
-        MidLifecycleAction,
-        PendingSpotBidPlacement,
-        PreInService,
-        Successful,
-        WaitingForELBConnectionDraining,
-        WaitingForInstanceId,
-        WaitingForInstanceWarmup,
-        WaitingForSpotInstanceId,
-        WaitingForSpotInstanceRequestId
+        ScalingActivityStatusCodeCancelled,
+        ScalingActivityStatusCodeFailed,
+        ScalingActivityStatusCodeInProgress,
+        ScalingActivityStatusCodeMidLifecycleAction,
+        ScalingActivityStatusCodePendingSpotBidPlacement,
+        ScalingActivityStatusCodePreInService,
+        ScalingActivityStatusCodeSuccessful,
+        ScalingActivityStatusCodeWaitingForELBConnectionDraining,
+        ScalingActivityStatusCodeWaitingForInstanceId,
+        ScalingActivityStatusCodeWaitingForInstanceWarmup,
+        ScalingActivityStatusCodeWaitingForSpotInstanceId,
+        ScalingActivityStatusCodeWaitingForSpotInstanceRequestId
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalingActivityStatusCode
-  = ScalingActivityStatusCode'
-      ( CI
-          Text
-      )
+newtype ScalingActivityStatusCode = ScalingActivityStatusCode'
+  { fromScalingActivityStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cancelled :: ScalingActivityStatusCode
-pattern Cancelled = ScalingActivityStatusCode' "Cancelled"
+pattern ScalingActivityStatusCodeCancelled :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeCancelled = ScalingActivityStatusCode' "Cancelled"
 
-pattern Failed :: ScalingActivityStatusCode
-pattern Failed = ScalingActivityStatusCode' "Failed"
+pattern ScalingActivityStatusCodeFailed :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeFailed = ScalingActivityStatusCode' "Failed"
 
-pattern InProgress :: ScalingActivityStatusCode
-pattern InProgress = ScalingActivityStatusCode' "InProgress"
+pattern ScalingActivityStatusCodeInProgress :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeInProgress = ScalingActivityStatusCode' "InProgress"
 
-pattern MidLifecycleAction :: ScalingActivityStatusCode
-pattern MidLifecycleAction = ScalingActivityStatusCode' "MidLifecycleAction"
+pattern ScalingActivityStatusCodeMidLifecycleAction :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeMidLifecycleAction = ScalingActivityStatusCode' "MidLifecycleAction"
 
-pattern PendingSpotBidPlacement :: ScalingActivityStatusCode
-pattern PendingSpotBidPlacement = ScalingActivityStatusCode' "PendingSpotBidPlacement"
+pattern ScalingActivityStatusCodePendingSpotBidPlacement :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodePendingSpotBidPlacement = ScalingActivityStatusCode' "PendingSpotBidPlacement"
 
-pattern PreInService :: ScalingActivityStatusCode
-pattern PreInService = ScalingActivityStatusCode' "PreInService"
+pattern ScalingActivityStatusCodePreInService :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodePreInService = ScalingActivityStatusCode' "PreInService"
 
-pattern Successful :: ScalingActivityStatusCode
-pattern Successful = ScalingActivityStatusCode' "Successful"
+pattern ScalingActivityStatusCodeSuccessful :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeSuccessful = ScalingActivityStatusCode' "Successful"
 
-pattern WaitingForELBConnectionDraining :: ScalingActivityStatusCode
-pattern WaitingForELBConnectionDraining = ScalingActivityStatusCode' "WaitingForELBConnectionDraining"
+pattern ScalingActivityStatusCodeWaitingForELBConnectionDraining :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeWaitingForELBConnectionDraining = ScalingActivityStatusCode' "WaitingForELBConnectionDraining"
 
-pattern WaitingForInstanceId :: ScalingActivityStatusCode
-pattern WaitingForInstanceId = ScalingActivityStatusCode' "WaitingForInstanceId"
+pattern ScalingActivityStatusCodeWaitingForInstanceId :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeWaitingForInstanceId = ScalingActivityStatusCode' "WaitingForInstanceId"
 
-pattern WaitingForInstanceWarmup :: ScalingActivityStatusCode
-pattern WaitingForInstanceWarmup = ScalingActivityStatusCode' "WaitingForInstanceWarmup"
+pattern ScalingActivityStatusCodeWaitingForInstanceWarmup :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeWaitingForInstanceWarmup = ScalingActivityStatusCode' "WaitingForInstanceWarmup"
 
-pattern WaitingForSpotInstanceId :: ScalingActivityStatusCode
-pattern WaitingForSpotInstanceId = ScalingActivityStatusCode' "WaitingForSpotInstanceId"
+pattern ScalingActivityStatusCodeWaitingForSpotInstanceId :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeWaitingForSpotInstanceId = ScalingActivityStatusCode' "WaitingForSpotInstanceId"
 
-pattern WaitingForSpotInstanceRequestId :: ScalingActivityStatusCode
-pattern WaitingForSpotInstanceRequestId = ScalingActivityStatusCode' "WaitingForSpotInstanceRequestId"
+pattern ScalingActivityStatusCodeWaitingForSpotInstanceRequestId :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeWaitingForSpotInstanceRequestId = ScalingActivityStatusCode' "WaitingForSpotInstanceRequestId"
 
 {-# COMPLETE
-  Cancelled,
-  Failed,
-  InProgress,
-  MidLifecycleAction,
-  PendingSpotBidPlacement,
-  PreInService,
-  Successful,
-  WaitingForELBConnectionDraining,
-  WaitingForInstanceId,
-  WaitingForInstanceWarmup,
-  WaitingForSpotInstanceId,
-  WaitingForSpotInstanceRequestId,
+  ScalingActivityStatusCodeCancelled,
+  ScalingActivityStatusCodeFailed,
+  ScalingActivityStatusCodeInProgress,
+  ScalingActivityStatusCodeMidLifecycleAction,
+  ScalingActivityStatusCodePendingSpotBidPlacement,
+  ScalingActivityStatusCodePreInService,
+  ScalingActivityStatusCodeSuccessful,
+  ScalingActivityStatusCodeWaitingForELBConnectionDraining,
+  ScalingActivityStatusCodeWaitingForInstanceId,
+  ScalingActivityStatusCodeWaitingForInstanceWarmup,
+  ScalingActivityStatusCodeWaitingForSpotInstanceId,
+  ScalingActivityStatusCodeWaitingForSpotInstanceRequestId,
   ScalingActivityStatusCode'
   #-}
 
-instance FromText ScalingActivityStatusCode where
-  parser = (ScalingActivityStatusCode' . mk) <$> takeText
+instance Prelude.FromText ScalingActivityStatusCode where
+  parser = ScalingActivityStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingActivityStatusCode where
-  toText (ScalingActivityStatusCode' ci) = original ci
+instance Prelude.ToText ScalingActivityStatusCode where
+  toText (ScalingActivityStatusCode' x) = x
 
-instance Hashable ScalingActivityStatusCode
+instance Prelude.Hashable ScalingActivityStatusCode
 
-instance NFData ScalingActivityStatusCode
+instance Prelude.NFData ScalingActivityStatusCode
 
-instance ToByteString ScalingActivityStatusCode
+instance Prelude.ToByteString ScalingActivityStatusCode
 
-instance ToQuery ScalingActivityStatusCode
+instance Prelude.ToQuery ScalingActivityStatusCode
 
-instance ToHeader ScalingActivityStatusCode
+instance Prelude.ToHeader ScalingActivityStatusCode
 
-instance FromXML ScalingActivityStatusCode where
-  parseXML = parseXMLText "ScalingActivityStatusCode"
+instance Prelude.FromXML ScalingActivityStatusCode where
+  parseXML = Prelude.parseXMLText "ScalingActivityStatusCode"

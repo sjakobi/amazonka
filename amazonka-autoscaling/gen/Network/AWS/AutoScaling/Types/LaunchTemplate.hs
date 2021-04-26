@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +21,83 @@ module Network.AWS.AutoScaling.Types.LaunchTemplate where
 
 import Network.AWS.AutoScaling.Types.LaunchTemplateOverrides
 import Network.AWS.AutoScaling.Types.LaunchTemplateSpecification
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a launch template and overrides.
 --
---
 -- You specify these parameters as part of a mixed instances policy.
 --
--- When you update the launch template or overrides, existing Amazon EC2 instances continue to run. When scale out occurs, Amazon EC2 Auto Scaling launches instances to match the new settings. When scale in occurs, Amazon EC2 Auto Scaling terminates instances according to the group's termination policies.
+-- When you update the launch template or overrides, existing Amazon EC2
+-- instances continue to run. When scale out occurs, Amazon EC2 Auto
+-- Scaling launches instances to match the new settings. When scale in
+-- occurs, Amazon EC2 Auto Scaling terminates instances according to the
+-- group\'s termination policies.
 --
---
--- /See:/ 'launchTemplate' smart constructor.
+-- /See:/ 'newLaunchTemplate' smart constructor.
 data LaunchTemplate = LaunchTemplate'
-  { _ltLaunchTemplateSpecification ::
-      !(Maybe LaunchTemplateSpecification),
-    _ltOverrides ::
-      !(Maybe [LaunchTemplateOverrides])
+  { -- | The launch template to use.
+    launchTemplateSpecification :: Prelude.Maybe LaunchTemplateSpecification,
+    -- | Any parameters that you specify override the same parameters in the
+    -- launch template. If not provided, Amazon EC2 Auto Scaling uses the
+    -- instance type specified in the launch template when it launches an
+    -- instance.
+    overrides :: Prelude.Maybe [LaunchTemplateOverrides]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltLaunchTemplateSpecification' - The launch template to use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltOverrides' - Any parameters that you specify override the same parameters in the launch template. If not provided, Amazon EC2 Auto Scaling uses the instance type specified in the launch template when it launches an instance.
-launchTemplate ::
+-- 'launchTemplateSpecification', 'launchTemplate_launchTemplateSpecification' - The launch template to use.
+--
+-- 'overrides', 'launchTemplate_overrides' - Any parameters that you specify override the same parameters in the
+-- launch template. If not provided, Amazon EC2 Auto Scaling uses the
+-- instance type specified in the launch template when it launches an
+-- instance.
+newLaunchTemplate ::
   LaunchTemplate
-launchTemplate =
+newLaunchTemplate =
   LaunchTemplate'
-    { _ltLaunchTemplateSpecification =
-        Nothing,
-      _ltOverrides = Nothing
+    { launchTemplateSpecification =
+        Prelude.Nothing,
+      overrides = Prelude.Nothing
     }
 
 -- | The launch template to use.
-ltLaunchTemplateSpecification :: Lens' LaunchTemplate (Maybe LaunchTemplateSpecification)
-ltLaunchTemplateSpecification = lens _ltLaunchTemplateSpecification (\s a -> s {_ltLaunchTemplateSpecification = a})
+launchTemplate_launchTemplateSpecification :: Lens.Lens' LaunchTemplate (Prelude.Maybe LaunchTemplateSpecification)
+launchTemplate_launchTemplateSpecification = Lens.lens (\LaunchTemplate' {launchTemplateSpecification} -> launchTemplateSpecification) (\s@LaunchTemplate' {} a -> s {launchTemplateSpecification = a} :: LaunchTemplate)
 
--- | Any parameters that you specify override the same parameters in the launch template. If not provided, Amazon EC2 Auto Scaling uses the instance type specified in the launch template when it launches an instance.
-ltOverrides :: Lens' LaunchTemplate [LaunchTemplateOverrides]
-ltOverrides = lens _ltOverrides (\s a -> s {_ltOverrides = a}) . _Default . _Coerce
+-- | Any parameters that you specify override the same parameters in the
+-- launch template. If not provided, Amazon EC2 Auto Scaling uses the
+-- instance type specified in the launch template when it launches an
+-- instance.
+launchTemplate_overrides :: Lens.Lens' LaunchTemplate (Prelude.Maybe [LaunchTemplateOverrides])
+launchTemplate_overrides = Lens.lens (\LaunchTemplate' {overrides} -> overrides) (\s@LaunchTemplate' {} a -> s {overrides = a} :: LaunchTemplate) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML LaunchTemplate where
+instance Prelude.FromXML LaunchTemplate where
   parseXML x =
     LaunchTemplate'
-      <$> (x .@? "LaunchTemplateSpecification")
-      <*> ( x .@? "Overrides" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> (x Prelude..@? "LaunchTemplateSpecification")
+      Prelude.<*> ( x Prelude..@? "Overrides" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable LaunchTemplate
+instance Prelude.Hashable LaunchTemplate
 
-instance NFData LaunchTemplate
+instance Prelude.NFData LaunchTemplate
 
-instance ToQuery LaunchTemplate where
+instance Prelude.ToQuery LaunchTemplate where
   toQuery LaunchTemplate' {..} =
-    mconcat
+    Prelude.mconcat
       [ "LaunchTemplateSpecification"
-          =: _ltLaunchTemplateSpecification,
+          Prelude.=: launchTemplateSpecification,
         "Overrides"
-          =: toQuery (toQueryList "member" <$> _ltOverrides)
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> overrides)
       ]

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,192 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Terminates the specified instance and optionally adjusts the desired group size.
+-- Terminates the specified instance and optionally adjusts the desired
+-- group size.
 --
+-- This call simply makes a termination request. The instance is not
+-- terminated immediately. When an instance is terminated, the instance
+-- status changes to @terminated@. You can\'t connect to or start an
+-- instance after you\'ve terminated it.
 --
--- This call simply makes a termination request. The instance is not terminated immediately. When an instance is terminated, the instance status changes to @terminated@ . You can't connect to or start an instance after you've terminated it.
+-- If you do not specify the option to decrement the desired capacity,
+-- Amazon EC2 Auto Scaling launches instances to replace the ones that are
+-- terminated.
 --
--- If you do not specify the option to decrement the desired capacity, Amazon EC2 Auto Scaling launches instances to replace the ones that are terminated.
---
--- By default, Amazon EC2 Auto Scaling balances instances across all Availability Zones. If you decrement the desired capacity, your Auto Scaling group can become unbalanced between Availability Zones. Amazon EC2 Auto Scaling tries to rebalance the group, and rebalancing might terminate instances in other zones. For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-benefits.html#AutoScalingBehavior.InstanceUsage Rebalancing activities> in the /Amazon EC2 Auto Scaling User Guide/ .
+-- By default, Amazon EC2 Auto Scaling balances instances across all
+-- Availability Zones. If you decrement the desired capacity, your Auto
+-- Scaling group can become unbalanced between Availability Zones. Amazon
+-- EC2 Auto Scaling tries to rebalance the group, and rebalancing might
+-- terminate instances in other zones. For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-benefits.html#AutoScalingBehavior.InstanceUsage Rebalancing activities>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 module Network.AWS.AutoScaling.TerminateInstanceInAutoScalingGroup
   ( -- * Creating a Request
-    terminateInstanceInAutoScalingGroup,
-    TerminateInstanceInAutoScalingGroup,
+    TerminateInstanceInAutoScalingGroup (..),
+    newTerminateInstanceInAutoScalingGroup,
 
     -- * Request Lenses
-    tiiasgInstanceId,
-    tiiasgShouldDecrementDesiredCapacity,
+    terminateInstanceInAutoScalingGroup_instanceId,
+    terminateInstanceInAutoScalingGroup_shouldDecrementDesiredCapacity,
 
     -- * Destructuring the Response
-    terminateInstanceInAutoScalingGroupResponse,
-    TerminateInstanceInAutoScalingGroupResponse,
+    TerminateInstanceInAutoScalingGroupResponse (..),
+    newTerminateInstanceInAutoScalingGroupResponse,
 
     -- * Response Lenses
-    tiiasgrrsActivity,
-    tiiasgrrsResponseStatus,
+    terminateInstanceInAutoScalingGroupResponse_activity,
+    terminateInstanceInAutoScalingGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AutoScaling.Types.Activity
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'terminateInstanceInAutoScalingGroup' smart constructor.
+-- | /See:/ 'newTerminateInstanceInAutoScalingGroup' smart constructor.
 data TerminateInstanceInAutoScalingGroup = TerminateInstanceInAutoScalingGroup'
-  { _tiiasgInstanceId ::
-      !Text,
-    _tiiasgShouldDecrementDesiredCapacity ::
-      !Bool
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Text,
+    -- | Indicates whether terminating the instance also decrements the size of
+    -- the Auto Scaling group.
+    shouldDecrementDesiredCapacity :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateInstanceInAutoScalingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateInstanceInAutoScalingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tiiasgInstanceId' - The ID of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tiiasgShouldDecrementDesiredCapacity' - Indicates whether terminating the instance also decrements the size of the Auto Scaling group.
-terminateInstanceInAutoScalingGroup ::
-  -- | 'tiiasgInstanceId'
-  Text ->
-  -- | 'tiiasgShouldDecrementDesiredCapacity'
-  Bool ->
+-- 'instanceId', 'terminateInstanceInAutoScalingGroup_instanceId' - The ID of the instance.
+--
+-- 'shouldDecrementDesiredCapacity', 'terminateInstanceInAutoScalingGroup_shouldDecrementDesiredCapacity' - Indicates whether terminating the instance also decrements the size of
+-- the Auto Scaling group.
+newTerminateInstanceInAutoScalingGroup ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'shouldDecrementDesiredCapacity'
+  Prelude.Bool ->
   TerminateInstanceInAutoScalingGroup
-terminateInstanceInAutoScalingGroup
+newTerminateInstanceInAutoScalingGroup
   pInstanceId_
   pShouldDecrementDesiredCapacity_ =
     TerminateInstanceInAutoScalingGroup'
-      { _tiiasgInstanceId =
+      { instanceId =
           pInstanceId_,
-        _tiiasgShouldDecrementDesiredCapacity =
+        shouldDecrementDesiredCapacity =
           pShouldDecrementDesiredCapacity_
       }
 
 -- | The ID of the instance.
-tiiasgInstanceId :: Lens' TerminateInstanceInAutoScalingGroup Text
-tiiasgInstanceId = lens _tiiasgInstanceId (\s a -> s {_tiiasgInstanceId = a})
+terminateInstanceInAutoScalingGroup_instanceId :: Lens.Lens' TerminateInstanceInAutoScalingGroup Prelude.Text
+terminateInstanceInAutoScalingGroup_instanceId = Lens.lens (\TerminateInstanceInAutoScalingGroup' {instanceId} -> instanceId) (\s@TerminateInstanceInAutoScalingGroup' {} a -> s {instanceId = a} :: TerminateInstanceInAutoScalingGroup)
 
--- | Indicates whether terminating the instance also decrements the size of the Auto Scaling group.
-tiiasgShouldDecrementDesiredCapacity :: Lens' TerminateInstanceInAutoScalingGroup Bool
-tiiasgShouldDecrementDesiredCapacity = lens _tiiasgShouldDecrementDesiredCapacity (\s a -> s {_tiiasgShouldDecrementDesiredCapacity = a})
+-- | Indicates whether terminating the instance also decrements the size of
+-- the Auto Scaling group.
+terminateInstanceInAutoScalingGroup_shouldDecrementDesiredCapacity :: Lens.Lens' TerminateInstanceInAutoScalingGroup Prelude.Bool
+terminateInstanceInAutoScalingGroup_shouldDecrementDesiredCapacity = Lens.lens (\TerminateInstanceInAutoScalingGroup' {shouldDecrementDesiredCapacity} -> shouldDecrementDesiredCapacity) (\s@TerminateInstanceInAutoScalingGroup' {} a -> s {shouldDecrementDesiredCapacity = a} :: TerminateInstanceInAutoScalingGroup)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     TerminateInstanceInAutoScalingGroup
   where
   type
     Rs TerminateInstanceInAutoScalingGroup =
       TerminateInstanceInAutoScalingGroupResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "TerminateInstanceInAutoScalingGroupResult"
       ( \s h x ->
           TerminateInstanceInAutoScalingGroupResponse'
-            <$> (x .@? "Activity") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Activity")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TerminateInstanceInAutoScalingGroup
-
-instance NFData TerminateInstanceInAutoScalingGroup
+instance
+  Prelude.Hashable
+    TerminateInstanceInAutoScalingGroup
 
 instance
-  ToHeaders
+  Prelude.NFData
+    TerminateInstanceInAutoScalingGroup
+
+instance
+  Prelude.ToHeaders
     TerminateInstanceInAutoScalingGroup
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath TerminateInstanceInAutoScalingGroup where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    TerminateInstanceInAutoScalingGroup
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery TerminateInstanceInAutoScalingGroup where
+instance
+  Prelude.ToQuery
+    TerminateInstanceInAutoScalingGroup
+  where
   toQuery TerminateInstanceInAutoScalingGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "TerminateInstanceInAutoScalingGroup" ::
-                 ByteString
-             ),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "InstanceId" =: _tiiasgInstanceId,
+          Prelude.=: ( "TerminateInstanceInAutoScalingGroup" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "InstanceId" Prelude.=: instanceId,
         "ShouldDecrementDesiredCapacity"
-          =: _tiiasgShouldDecrementDesiredCapacity
+          Prelude.=: shouldDecrementDesiredCapacity
       ]
 
--- | /See:/ 'terminateInstanceInAutoScalingGroupResponse' smart constructor.
+-- | /See:/ 'newTerminateInstanceInAutoScalingGroupResponse' smart constructor.
 data TerminateInstanceInAutoScalingGroupResponse = TerminateInstanceInAutoScalingGroupResponse'
-  { _tiiasgrrsActivity ::
-      !( Maybe
-           Activity
-       ),
-    _tiiasgrrsResponseStatus ::
-      !Int
+  { -- | A scaling activity.
+    activity :: Prelude.Maybe Activity,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateInstanceInAutoScalingGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateInstanceInAutoScalingGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tiiasgrrsActivity' - A scaling activity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tiiasgrrsResponseStatus' - -- | The response status code.
-terminateInstanceInAutoScalingGroupResponse ::
-  -- | 'tiiasgrrsResponseStatus'
-  Int ->
+-- 'activity', 'terminateInstanceInAutoScalingGroupResponse_activity' - A scaling activity.
+--
+-- 'httpStatus', 'terminateInstanceInAutoScalingGroupResponse_httpStatus' - The response's http status code.
+newTerminateInstanceInAutoScalingGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TerminateInstanceInAutoScalingGroupResponse
-terminateInstanceInAutoScalingGroupResponse
-  pResponseStatus_ =
+newTerminateInstanceInAutoScalingGroupResponse
+  pHttpStatus_ =
     TerminateInstanceInAutoScalingGroupResponse'
-      { _tiiasgrrsActivity =
-          Nothing,
-        _tiiasgrrsResponseStatus =
-          pResponseStatus_
+      { activity =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A scaling activity.
-tiiasgrrsActivity :: Lens' TerminateInstanceInAutoScalingGroupResponse (Maybe Activity)
-tiiasgrrsActivity = lens _tiiasgrrsActivity (\s a -> s {_tiiasgrrsActivity = a})
+terminateInstanceInAutoScalingGroupResponse_activity :: Lens.Lens' TerminateInstanceInAutoScalingGroupResponse (Prelude.Maybe Activity)
+terminateInstanceInAutoScalingGroupResponse_activity = Lens.lens (\TerminateInstanceInAutoScalingGroupResponse' {activity} -> activity) (\s@TerminateInstanceInAutoScalingGroupResponse' {} a -> s {activity = a} :: TerminateInstanceInAutoScalingGroupResponse)
 
--- | -- | The response status code.
-tiiasgrrsResponseStatus :: Lens' TerminateInstanceInAutoScalingGroupResponse Int
-tiiasgrrsResponseStatus = lens _tiiasgrrsResponseStatus (\s a -> s {_tiiasgrrsResponseStatus = a})
+-- | The response's http status code.
+terminateInstanceInAutoScalingGroupResponse_httpStatus :: Lens.Lens' TerminateInstanceInAutoScalingGroupResponse Prelude.Int
+terminateInstanceInAutoScalingGroupResponse_httpStatus = Lens.lens (\TerminateInstanceInAutoScalingGroupResponse' {httpStatus} -> httpStatus) (\s@TerminateInstanceInAutoScalingGroupResponse' {} a -> s {httpStatus = a} :: TerminateInstanceInAutoScalingGroupResponse)
 
 instance
-  NFData
+  Prelude.NFData
     TerminateInstanceInAutoScalingGroupResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,128 +19,177 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScaling.Types.ScheduledUpdateGroupActionRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes information used for one or more scheduled scaling action updates in a 'BatchPutScheduledUpdateGroupAction' operation.
+-- | Describes information used for one or more scheduled scaling action
+-- updates in a BatchPutScheduledUpdateGroupAction operation.
 --
+-- When updating a scheduled scaling action, all optional parameters are
+-- left unchanged if not specified.
 --
--- When updating a scheduled scaling action, all optional parameters are left unchanged if not specified.
---
---
--- /See:/ 'scheduledUpdateGroupActionRequest' smart constructor.
+-- /See:/ 'newScheduledUpdateGroupActionRequest' smart constructor.
 data ScheduledUpdateGroupActionRequest = ScheduledUpdateGroupActionRequest'
-  { _sugarMinSize ::
-      !( Maybe
-           Int
-       ),
-    _sugarDesiredCapacity ::
-      !( Maybe
-           Int
-       ),
-    _sugarStartTime ::
-      !( Maybe
-           ISO8601
-       ),
-    _sugarEndTime ::
-      !( Maybe
-           ISO8601
-       ),
-    _sugarRecurrence ::
-      !( Maybe
-           Text
-       ),
-    _sugarMaxSize ::
-      !( Maybe
-           Int
-       ),
-    _sugarScheduledActionName ::
-      !Text
+  { -- | The minimum size of the Auto Scaling group.
+    minSize :: Prelude.Maybe Prelude.Int,
+    -- | The desired capacity is the initial capacity of the Auto Scaling group
+    -- after the scheduled action runs and the capacity it attempts to
+    -- maintain.
+    desiredCapacity :: Prelude.Maybe Prelude.Int,
+    -- | The date and time for the action to start, in YYYY-MM-DDThh:mm:ssZ
+    -- format in UTC\/GMT only and in quotes (for example,
+    -- @\"2019-06-01T00:00:00Z\"@).
+    --
+    -- If you specify @Recurrence@ and @StartTime@, Amazon EC2 Auto Scaling
+    -- performs the action at this time, and then performs the action based on
+    -- the specified recurrence.
+    --
+    -- If you try to schedule the action in the past, Amazon EC2 Auto Scaling
+    -- returns an error message.
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The date and time for the recurring schedule to end. Amazon EC2 Auto
+    -- Scaling does not perform the action after this time.
+    endTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The recurring schedule for the action, in Unix cron syntax format. This
+    -- format consists of five fields separated by white spaces: [Minute]
+    -- [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. The value must be
+    -- in quotes (for example, @\"30 0 1 1,6,12 *\"@). For more information
+    -- about this format, see <http://crontab.org Crontab>.
+    --
+    -- When @StartTime@ and @EndTime@ are specified with @Recurrence@, they
+    -- form the boundaries of when the recurring action starts and stops.
+    recurrence :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of the Auto Scaling group.
+    maxSize :: Prelude.Maybe Prelude.Int,
+    -- | The name of the scaling action.
+    scheduledActionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduledUpdateGroupActionRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduledUpdateGroupActionRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sugarMinSize' - The minimum size of the Auto Scaling group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sugarDesiredCapacity' - The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the capacity it attempts to maintain.
+-- 'minSize', 'scheduledUpdateGroupActionRequest_minSize' - The minimum size of the Auto Scaling group.
 --
--- * 'sugarStartTime' - The date and time for the action to start, in YYYY-MM-DDThh:mm:ssZ format in UTC/GMT only and in quotes (for example, @"2019-06-01T00:00:00Z"@ ). If you specify @Recurrence@ and @StartTime@ , Amazon EC2 Auto Scaling performs the action at this time, and then performs the action based on the specified recurrence. If you try to schedule the action in the past, Amazon EC2 Auto Scaling returns an error message.
+-- 'desiredCapacity', 'scheduledUpdateGroupActionRequest_desiredCapacity' - The desired capacity is the initial capacity of the Auto Scaling group
+-- after the scheduled action runs and the capacity it attempts to
+-- maintain.
 --
--- * 'sugarEndTime' - The date and time for the recurring schedule to end. Amazon EC2 Auto Scaling does not perform the action after this time.
+-- 'startTime', 'scheduledUpdateGroupActionRequest_startTime' - The date and time for the action to start, in YYYY-MM-DDThh:mm:ssZ
+-- format in UTC\/GMT only and in quotes (for example,
+-- @\"2019-06-01T00:00:00Z\"@).
 --
--- * 'sugarRecurrence' - The recurring schedule for the action, in Unix cron syntax format. This format consists of five fields separated by white spaces: [Minute] [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. The value must be in quotes (for example, @"30 0 1 1,6,12 *"@ ). For more information about this format, see <http://crontab.org Crontab> . When @StartTime@ and @EndTime@ are specified with @Recurrence@ , they form the boundaries of when the recurring action starts and stops.
+-- If you specify @Recurrence@ and @StartTime@, Amazon EC2 Auto Scaling
+-- performs the action at this time, and then performs the action based on
+-- the specified recurrence.
 --
--- * 'sugarMaxSize' - The maximum size of the Auto Scaling group.
+-- If you try to schedule the action in the past, Amazon EC2 Auto Scaling
+-- returns an error message.
 --
--- * 'sugarScheduledActionName' - The name of the scaling action.
-scheduledUpdateGroupActionRequest ::
-  -- | 'sugarScheduledActionName'
-  Text ->
+-- 'endTime', 'scheduledUpdateGroupActionRequest_endTime' - The date and time for the recurring schedule to end. Amazon EC2 Auto
+-- Scaling does not perform the action after this time.
+--
+-- 'recurrence', 'scheduledUpdateGroupActionRequest_recurrence' - The recurring schedule for the action, in Unix cron syntax format. This
+-- format consists of five fields separated by white spaces: [Minute]
+-- [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. The value must be
+-- in quotes (for example, @\"30 0 1 1,6,12 *\"@). For more information
+-- about this format, see <http://crontab.org Crontab>.
+--
+-- When @StartTime@ and @EndTime@ are specified with @Recurrence@, they
+-- form the boundaries of when the recurring action starts and stops.
+--
+-- 'maxSize', 'scheduledUpdateGroupActionRequest_maxSize' - The maximum size of the Auto Scaling group.
+--
+-- 'scheduledActionName', 'scheduledUpdateGroupActionRequest_scheduledActionName' - The name of the scaling action.
+newScheduledUpdateGroupActionRequest ::
+  -- | 'scheduledActionName'
+  Prelude.Text ->
   ScheduledUpdateGroupActionRequest
-scheduledUpdateGroupActionRequest
+newScheduledUpdateGroupActionRequest
   pScheduledActionName_ =
     ScheduledUpdateGroupActionRequest'
-      { _sugarMinSize =
-          Nothing,
-        _sugarDesiredCapacity = Nothing,
-        _sugarStartTime = Nothing,
-        _sugarEndTime = Nothing,
-        _sugarRecurrence = Nothing,
-        _sugarMaxSize = Nothing,
-        _sugarScheduledActionName =
+      { minSize =
+          Prelude.Nothing,
+        desiredCapacity = Prelude.Nothing,
+        startTime = Prelude.Nothing,
+        endTime = Prelude.Nothing,
+        recurrence = Prelude.Nothing,
+        maxSize = Prelude.Nothing,
+        scheduledActionName =
           pScheduledActionName_
       }
 
 -- | The minimum size of the Auto Scaling group.
-sugarMinSize :: Lens' ScheduledUpdateGroupActionRequest (Maybe Int)
-sugarMinSize = lens _sugarMinSize (\s a -> s {_sugarMinSize = a})
+scheduledUpdateGroupActionRequest_minSize :: Lens.Lens' ScheduledUpdateGroupActionRequest (Prelude.Maybe Prelude.Int)
+scheduledUpdateGroupActionRequest_minSize = Lens.lens (\ScheduledUpdateGroupActionRequest' {minSize} -> minSize) (\s@ScheduledUpdateGroupActionRequest' {} a -> s {minSize = a} :: ScheduledUpdateGroupActionRequest)
 
--- | The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the capacity it attempts to maintain.
-sugarDesiredCapacity :: Lens' ScheduledUpdateGroupActionRequest (Maybe Int)
-sugarDesiredCapacity = lens _sugarDesiredCapacity (\s a -> s {_sugarDesiredCapacity = a})
+-- | The desired capacity is the initial capacity of the Auto Scaling group
+-- after the scheduled action runs and the capacity it attempts to
+-- maintain.
+scheduledUpdateGroupActionRequest_desiredCapacity :: Lens.Lens' ScheduledUpdateGroupActionRequest (Prelude.Maybe Prelude.Int)
+scheduledUpdateGroupActionRequest_desiredCapacity = Lens.lens (\ScheduledUpdateGroupActionRequest' {desiredCapacity} -> desiredCapacity) (\s@ScheduledUpdateGroupActionRequest' {} a -> s {desiredCapacity = a} :: ScheduledUpdateGroupActionRequest)
 
--- | The date and time for the action to start, in YYYY-MM-DDThh:mm:ssZ format in UTC/GMT only and in quotes (for example, @"2019-06-01T00:00:00Z"@ ). If you specify @Recurrence@ and @StartTime@ , Amazon EC2 Auto Scaling performs the action at this time, and then performs the action based on the specified recurrence. If you try to schedule the action in the past, Amazon EC2 Auto Scaling returns an error message.
-sugarStartTime :: Lens' ScheduledUpdateGroupActionRequest (Maybe UTCTime)
-sugarStartTime = lens _sugarStartTime (\s a -> s {_sugarStartTime = a}) . mapping _Time
+-- | The date and time for the action to start, in YYYY-MM-DDThh:mm:ssZ
+-- format in UTC\/GMT only and in quotes (for example,
+-- @\"2019-06-01T00:00:00Z\"@).
+--
+-- If you specify @Recurrence@ and @StartTime@, Amazon EC2 Auto Scaling
+-- performs the action at this time, and then performs the action based on
+-- the specified recurrence.
+--
+-- If you try to schedule the action in the past, Amazon EC2 Auto Scaling
+-- returns an error message.
+scheduledUpdateGroupActionRequest_startTime :: Lens.Lens' ScheduledUpdateGroupActionRequest (Prelude.Maybe Prelude.UTCTime)
+scheduledUpdateGroupActionRequest_startTime = Lens.lens (\ScheduledUpdateGroupActionRequest' {startTime} -> startTime) (\s@ScheduledUpdateGroupActionRequest' {} a -> s {startTime = a} :: ScheduledUpdateGroupActionRequest) Prelude.. Lens.mapping Prelude._Time
 
--- | The date and time for the recurring schedule to end. Amazon EC2 Auto Scaling does not perform the action after this time.
-sugarEndTime :: Lens' ScheduledUpdateGroupActionRequest (Maybe UTCTime)
-sugarEndTime = lens _sugarEndTime (\s a -> s {_sugarEndTime = a}) . mapping _Time
+-- | The date and time for the recurring schedule to end. Amazon EC2 Auto
+-- Scaling does not perform the action after this time.
+scheduledUpdateGroupActionRequest_endTime :: Lens.Lens' ScheduledUpdateGroupActionRequest (Prelude.Maybe Prelude.UTCTime)
+scheduledUpdateGroupActionRequest_endTime = Lens.lens (\ScheduledUpdateGroupActionRequest' {endTime} -> endTime) (\s@ScheduledUpdateGroupActionRequest' {} a -> s {endTime = a} :: ScheduledUpdateGroupActionRequest) Prelude.. Lens.mapping Prelude._Time
 
--- | The recurring schedule for the action, in Unix cron syntax format. This format consists of five fields separated by white spaces: [Minute] [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. The value must be in quotes (for example, @"30 0 1 1,6,12 *"@ ). For more information about this format, see <http://crontab.org Crontab> . When @StartTime@ and @EndTime@ are specified with @Recurrence@ , they form the boundaries of when the recurring action starts and stops.
-sugarRecurrence :: Lens' ScheduledUpdateGroupActionRequest (Maybe Text)
-sugarRecurrence = lens _sugarRecurrence (\s a -> s {_sugarRecurrence = a})
+-- | The recurring schedule for the action, in Unix cron syntax format. This
+-- format consists of five fields separated by white spaces: [Minute]
+-- [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. The value must be
+-- in quotes (for example, @\"30 0 1 1,6,12 *\"@). For more information
+-- about this format, see <http://crontab.org Crontab>.
+--
+-- When @StartTime@ and @EndTime@ are specified with @Recurrence@, they
+-- form the boundaries of when the recurring action starts and stops.
+scheduledUpdateGroupActionRequest_recurrence :: Lens.Lens' ScheduledUpdateGroupActionRequest (Prelude.Maybe Prelude.Text)
+scheduledUpdateGroupActionRequest_recurrence = Lens.lens (\ScheduledUpdateGroupActionRequest' {recurrence} -> recurrence) (\s@ScheduledUpdateGroupActionRequest' {} a -> s {recurrence = a} :: ScheduledUpdateGroupActionRequest)
 
 -- | The maximum size of the Auto Scaling group.
-sugarMaxSize :: Lens' ScheduledUpdateGroupActionRequest (Maybe Int)
-sugarMaxSize = lens _sugarMaxSize (\s a -> s {_sugarMaxSize = a})
+scheduledUpdateGroupActionRequest_maxSize :: Lens.Lens' ScheduledUpdateGroupActionRequest (Prelude.Maybe Prelude.Int)
+scheduledUpdateGroupActionRequest_maxSize = Lens.lens (\ScheduledUpdateGroupActionRequest' {maxSize} -> maxSize) (\s@ScheduledUpdateGroupActionRequest' {} a -> s {maxSize = a} :: ScheduledUpdateGroupActionRequest)
 
 -- | The name of the scaling action.
-sugarScheduledActionName :: Lens' ScheduledUpdateGroupActionRequest Text
-sugarScheduledActionName = lens _sugarScheduledActionName (\s a -> s {_sugarScheduledActionName = a})
+scheduledUpdateGroupActionRequest_scheduledActionName :: Lens.Lens' ScheduledUpdateGroupActionRequest Prelude.Text
+scheduledUpdateGroupActionRequest_scheduledActionName = Lens.lens (\ScheduledUpdateGroupActionRequest' {scheduledActionName} -> scheduledActionName) (\s@ScheduledUpdateGroupActionRequest' {} a -> s {scheduledActionName = a} :: ScheduledUpdateGroupActionRequest)
 
-instance Hashable ScheduledUpdateGroupActionRequest
+instance
+  Prelude.Hashable
+    ScheduledUpdateGroupActionRequest
 
-instance NFData ScheduledUpdateGroupActionRequest
+instance
+  Prelude.NFData
+    ScheduledUpdateGroupActionRequest
 
-instance ToQuery ScheduledUpdateGroupActionRequest where
+instance
+  Prelude.ToQuery
+    ScheduledUpdateGroupActionRequest
+  where
   toQuery ScheduledUpdateGroupActionRequest' {..} =
-    mconcat
-      [ "MinSize" =: _sugarMinSize,
-        "DesiredCapacity" =: _sugarDesiredCapacity,
-        "StartTime" =: _sugarStartTime,
-        "EndTime" =: _sugarEndTime,
-        "Recurrence" =: _sugarRecurrence,
-        "MaxSize" =: _sugarMaxSize,
-        "ScheduledActionName" =: _sugarScheduledActionName
+    Prelude.mconcat
+      [ "MinSize" Prelude.=: minSize,
+        "DesiredCapacity" Prelude.=: desiredCapacity,
+        "StartTime" Prelude.=: startTime,
+        "EndTime" Prelude.=: endTime,
+        "Recurrence" Prelude.=: recurrence,
+        "MaxSize" Prelude.=: maxSize,
+        "ScheduledActionName" Prelude.=: scheduledActionName
       ]

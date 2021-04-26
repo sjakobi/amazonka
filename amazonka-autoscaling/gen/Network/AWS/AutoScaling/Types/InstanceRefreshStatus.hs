@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.AutoScaling.Types.InstanceRefreshStatus
   ( InstanceRefreshStatus
       ( ..,
-        IRSCancelled,
-        IRSCancelling,
-        IRSFailed,
-        IRSInProgress,
-        IRSPending,
-        IRSSuccessful
+        InstanceRefreshStatusCancelled,
+        InstanceRefreshStatusCancelling,
+        InstanceRefreshStatusFailed,
+        InstanceRefreshStatusInProgress,
+        InstanceRefreshStatusPending,
+        InstanceRefreshStatusSuccessful
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceRefreshStatus
-  = InstanceRefreshStatus'
-      ( CI
-          Text
-      )
+newtype InstanceRefreshStatus = InstanceRefreshStatus'
+  { fromInstanceRefreshStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IRSCancelled :: InstanceRefreshStatus
-pattern IRSCancelled = InstanceRefreshStatus' "Cancelled"
+pattern InstanceRefreshStatusCancelled :: InstanceRefreshStatus
+pattern InstanceRefreshStatusCancelled = InstanceRefreshStatus' "Cancelled"
 
-pattern IRSCancelling :: InstanceRefreshStatus
-pattern IRSCancelling = InstanceRefreshStatus' "Cancelling"
+pattern InstanceRefreshStatusCancelling :: InstanceRefreshStatus
+pattern InstanceRefreshStatusCancelling = InstanceRefreshStatus' "Cancelling"
 
-pattern IRSFailed :: InstanceRefreshStatus
-pattern IRSFailed = InstanceRefreshStatus' "Failed"
+pattern InstanceRefreshStatusFailed :: InstanceRefreshStatus
+pattern InstanceRefreshStatusFailed = InstanceRefreshStatus' "Failed"
 
-pattern IRSInProgress :: InstanceRefreshStatus
-pattern IRSInProgress = InstanceRefreshStatus' "InProgress"
+pattern InstanceRefreshStatusInProgress :: InstanceRefreshStatus
+pattern InstanceRefreshStatusInProgress = InstanceRefreshStatus' "InProgress"
 
-pattern IRSPending :: InstanceRefreshStatus
-pattern IRSPending = InstanceRefreshStatus' "Pending"
+pattern InstanceRefreshStatusPending :: InstanceRefreshStatus
+pattern InstanceRefreshStatusPending = InstanceRefreshStatus' "Pending"
 
-pattern IRSSuccessful :: InstanceRefreshStatus
-pattern IRSSuccessful = InstanceRefreshStatus' "Successful"
+pattern InstanceRefreshStatusSuccessful :: InstanceRefreshStatus
+pattern InstanceRefreshStatusSuccessful = InstanceRefreshStatus' "Successful"
 
 {-# COMPLETE
-  IRSCancelled,
-  IRSCancelling,
-  IRSFailed,
-  IRSInProgress,
-  IRSPending,
-  IRSSuccessful,
+  InstanceRefreshStatusCancelled,
+  InstanceRefreshStatusCancelling,
+  InstanceRefreshStatusFailed,
+  InstanceRefreshStatusInProgress,
+  InstanceRefreshStatusPending,
+  InstanceRefreshStatusSuccessful,
   InstanceRefreshStatus'
   #-}
 
-instance FromText InstanceRefreshStatus where
-  parser = (InstanceRefreshStatus' . mk) <$> takeText
+instance Prelude.FromText InstanceRefreshStatus where
+  parser = InstanceRefreshStatus' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceRefreshStatus where
-  toText (InstanceRefreshStatus' ci) = original ci
+instance Prelude.ToText InstanceRefreshStatus where
+  toText (InstanceRefreshStatus' x) = x
 
-instance Hashable InstanceRefreshStatus
+instance Prelude.Hashable InstanceRefreshStatus
 
-instance NFData InstanceRefreshStatus
+instance Prelude.NFData InstanceRefreshStatus
 
-instance ToByteString InstanceRefreshStatus
+instance Prelude.ToByteString InstanceRefreshStatus
 
-instance ToQuery InstanceRefreshStatus
+instance Prelude.ToQuery InstanceRefreshStatus
 
-instance ToHeader InstanceRefreshStatus
+instance Prelude.ToHeader InstanceRefreshStatus
 
-instance FromXML InstanceRefreshStatus where
-  parseXML = parseXMLText "InstanceRefreshStatus"
+instance Prelude.FromXML InstanceRefreshStatus where
+  parseXML = Prelude.parseXMLText "InstanceRefreshStatus"

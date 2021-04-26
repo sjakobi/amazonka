@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,128 +21,231 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables group metrics for the specified Auto Scaling group. For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-monitoring.html Monitoring CloudWatch metrics for your Auto Scaling groups and instances> in the /Amazon EC2 Auto Scaling User Guide/ .
+-- Enables group metrics for the specified Auto Scaling group. For more
+-- information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-monitoring.html Monitoring CloudWatch metrics for your Auto Scaling groups and instances>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 module Network.AWS.AutoScaling.EnableMetricsCollection
   ( -- * Creating a Request
-    enableMetricsCollection,
-    EnableMetricsCollection,
+    EnableMetricsCollection (..),
+    newEnableMetricsCollection,
 
     -- * Request Lenses
-    emcMetrics,
-    emcAutoScalingGroupName,
-    emcGranularity,
+    enableMetricsCollection_metrics,
+    enableMetricsCollection_autoScalingGroupName,
+    enableMetricsCollection_granularity,
 
     -- * Destructuring the Response
-    enableMetricsCollectionResponse,
-    EnableMetricsCollectionResponse,
+    EnableMetricsCollectionResponse (..),
+    newEnableMetricsCollectionResponse,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableMetricsCollection' smart constructor.
+-- | /See:/ 'newEnableMetricsCollection' smart constructor.
 data EnableMetricsCollection = EnableMetricsCollection'
-  { _emcMetrics ::
-      !(Maybe [Text]),
-    _emcAutoScalingGroupName ::
-      !Text,
-    _emcGranularity ::
-      !Text
+  { -- | Specifies which group-level metrics to start collecting. You can specify
+    -- one or more of the following metrics:
+    --
+    -- -   @GroupMinSize@
+    --
+    -- -   @GroupMaxSize@
+    --
+    -- -   @GroupDesiredCapacity@
+    --
+    -- -   @GroupInServiceInstances@
+    --
+    -- -   @GroupPendingInstances@
+    --
+    -- -   @GroupStandbyInstances@
+    --
+    -- -   @GroupTerminatingInstances@
+    --
+    -- -   @GroupTotalInstances@
+    --
+    -- The instance weighting feature supports the following additional
+    -- metrics:
+    --
+    -- -   @GroupInServiceCapacity@
+    --
+    -- -   @GroupPendingCapacity@
+    --
+    -- -   @GroupStandbyCapacity@
+    --
+    -- -   @GroupTerminatingCapacity@
+    --
+    -- -   @GroupTotalCapacity@
+    --
+    -- If you omit this parameter, all metrics are enabled.
+    metrics :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text,
+    -- | The granularity to associate with the metrics to collect. The only valid
+    -- value is @1Minute@.
+    granularity :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableMetricsCollection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableMetricsCollection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'emcMetrics' - Specifies which group-level metrics to start collecting. You can specify one or more of the following metrics:     * @GroupMinSize@      * @GroupMaxSize@      * @GroupDesiredCapacity@      * @GroupInServiceInstances@      * @GroupPendingInstances@      * @GroupStandbyInstances@      * @GroupTerminatingInstances@      * @GroupTotalInstances@  The instance weighting feature supports the following additional metrics:      * @GroupInServiceCapacity@      * @GroupPendingCapacity@      * @GroupStandbyCapacity@      * @GroupTerminatingCapacity@      * @GroupTotalCapacity@  If you omit this parameter, all metrics are enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'emcAutoScalingGroupName' - The name of the Auto Scaling group.
+-- 'metrics', 'enableMetricsCollection_metrics' - Specifies which group-level metrics to start collecting. You can specify
+-- one or more of the following metrics:
 --
--- * 'emcGranularity' - The granularity to associate with the metrics to collect. The only valid value is @1Minute@ .
-enableMetricsCollection ::
-  -- | 'emcAutoScalingGroupName'
-  Text ->
-  -- | 'emcGranularity'
-  Text ->
+-- -   @GroupMinSize@
+--
+-- -   @GroupMaxSize@
+--
+-- -   @GroupDesiredCapacity@
+--
+-- -   @GroupInServiceInstances@
+--
+-- -   @GroupPendingInstances@
+--
+-- -   @GroupStandbyInstances@
+--
+-- -   @GroupTerminatingInstances@
+--
+-- -   @GroupTotalInstances@
+--
+-- The instance weighting feature supports the following additional
+-- metrics:
+--
+-- -   @GroupInServiceCapacity@
+--
+-- -   @GroupPendingCapacity@
+--
+-- -   @GroupStandbyCapacity@
+--
+-- -   @GroupTerminatingCapacity@
+--
+-- -   @GroupTotalCapacity@
+--
+-- If you omit this parameter, all metrics are enabled.
+--
+-- 'autoScalingGroupName', 'enableMetricsCollection_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'granularity', 'enableMetricsCollection_granularity' - The granularity to associate with the metrics to collect. The only valid
+-- value is @1Minute@.
+newEnableMetricsCollection ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
+  -- | 'granularity'
+  Prelude.Text ->
   EnableMetricsCollection
-enableMetricsCollection
+newEnableMetricsCollection
   pAutoScalingGroupName_
   pGranularity_ =
     EnableMetricsCollection'
-      { _emcMetrics = Nothing,
-        _emcAutoScalingGroupName = pAutoScalingGroupName_,
-        _emcGranularity = pGranularity_
+      { metrics = Prelude.Nothing,
+        autoScalingGroupName = pAutoScalingGroupName_,
+        granularity = pGranularity_
       }
 
--- | Specifies which group-level metrics to start collecting. You can specify one or more of the following metrics:     * @GroupMinSize@      * @GroupMaxSize@      * @GroupDesiredCapacity@      * @GroupInServiceInstances@      * @GroupPendingInstances@      * @GroupStandbyInstances@      * @GroupTerminatingInstances@      * @GroupTotalInstances@  The instance weighting feature supports the following additional metrics:      * @GroupInServiceCapacity@      * @GroupPendingCapacity@      * @GroupStandbyCapacity@      * @GroupTerminatingCapacity@      * @GroupTotalCapacity@  If you omit this parameter, all metrics are enabled.
-emcMetrics :: Lens' EnableMetricsCollection [Text]
-emcMetrics = lens _emcMetrics (\s a -> s {_emcMetrics = a}) . _Default . _Coerce
+-- | Specifies which group-level metrics to start collecting. You can specify
+-- one or more of the following metrics:
+--
+-- -   @GroupMinSize@
+--
+-- -   @GroupMaxSize@
+--
+-- -   @GroupDesiredCapacity@
+--
+-- -   @GroupInServiceInstances@
+--
+-- -   @GroupPendingInstances@
+--
+-- -   @GroupStandbyInstances@
+--
+-- -   @GroupTerminatingInstances@
+--
+-- -   @GroupTotalInstances@
+--
+-- The instance weighting feature supports the following additional
+-- metrics:
+--
+-- -   @GroupInServiceCapacity@
+--
+-- -   @GroupPendingCapacity@
+--
+-- -   @GroupStandbyCapacity@
+--
+-- -   @GroupTerminatingCapacity@
+--
+-- -   @GroupTotalCapacity@
+--
+-- If you omit this parameter, all metrics are enabled.
+enableMetricsCollection_metrics :: Lens.Lens' EnableMetricsCollection (Prelude.Maybe [Prelude.Text])
+enableMetricsCollection_metrics = Lens.lens (\EnableMetricsCollection' {metrics} -> metrics) (\s@EnableMetricsCollection' {} a -> s {metrics = a} :: EnableMetricsCollection) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the Auto Scaling group.
-emcAutoScalingGroupName :: Lens' EnableMetricsCollection Text
-emcAutoScalingGroupName = lens _emcAutoScalingGroupName (\s a -> s {_emcAutoScalingGroupName = a})
+enableMetricsCollection_autoScalingGroupName :: Lens.Lens' EnableMetricsCollection Prelude.Text
+enableMetricsCollection_autoScalingGroupName = Lens.lens (\EnableMetricsCollection' {autoScalingGroupName} -> autoScalingGroupName) (\s@EnableMetricsCollection' {} a -> s {autoScalingGroupName = a} :: EnableMetricsCollection)
 
--- | The granularity to associate with the metrics to collect. The only valid value is @1Minute@ .
-emcGranularity :: Lens' EnableMetricsCollection Text
-emcGranularity = lens _emcGranularity (\s a -> s {_emcGranularity = a})
+-- | The granularity to associate with the metrics to collect. The only valid
+-- value is @1Minute@.
+enableMetricsCollection_granularity :: Lens.Lens' EnableMetricsCollection Prelude.Text
+enableMetricsCollection_granularity = Lens.lens (\EnableMetricsCollection' {granularity} -> granularity) (\s@EnableMetricsCollection' {} a -> s {granularity = a} :: EnableMetricsCollection)
 
-instance AWSRequest EnableMetricsCollection where
+instance Prelude.AWSRequest EnableMetricsCollection where
   type
     Rs EnableMetricsCollection =
       EnableMetricsCollectionResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveNull EnableMetricsCollectionResponse'
+    Response.receiveNull
+      EnableMetricsCollectionResponse'
 
-instance Hashable EnableMetricsCollection
+instance Prelude.Hashable EnableMetricsCollection
 
-instance NFData EnableMetricsCollection
+instance Prelude.NFData EnableMetricsCollection
 
-instance ToHeaders EnableMetricsCollection where
-  toHeaders = const mempty
+instance Prelude.ToHeaders EnableMetricsCollection where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath EnableMetricsCollection where
-  toPath = const "/"
+instance Prelude.ToPath EnableMetricsCollection where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableMetricsCollection where
+instance Prelude.ToQuery EnableMetricsCollection where
   toQuery EnableMetricsCollection' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("EnableMetricsCollection" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
+          Prelude.=: ("EnableMetricsCollection" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
         "Metrics"
-          =: toQuery (toQueryList "member" <$> _emcMetrics),
-        "AutoScalingGroupName" =: _emcAutoScalingGroupName,
-        "Granularity" =: _emcGranularity
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> metrics),
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName,
+        "Granularity" Prelude.=: granularity
       ]
 
--- | /See:/ 'enableMetricsCollectionResponse' smart constructor.
+-- | /See:/ 'newEnableMetricsCollectionResponse' smart constructor.
 data EnableMetricsCollectionResponse = EnableMetricsCollectionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableMetricsCollectionResponse' with the minimum fields required to make a request.
-enableMetricsCollectionResponse ::
+-- |
+-- Create a value of 'EnableMetricsCollectionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEnableMetricsCollectionResponse ::
   EnableMetricsCollectionResponse
-enableMetricsCollectionResponse =
+newEnableMetricsCollectionResponse =
   EnableMetricsCollectionResponse'
 
-instance NFData EnableMetricsCollectionResponse
+instance
+  Prelude.NFData
+    EnableMetricsCollectionResponse

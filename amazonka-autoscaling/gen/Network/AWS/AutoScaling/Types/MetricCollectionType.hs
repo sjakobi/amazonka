@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,45 +19,119 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScaling.Types.MetricCollectionType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a metric.
 --
---
---
--- /See:/ 'metricCollectionType' smart constructor.
-newtype MetricCollectionType = MetricCollectionType'
-  { _mctMetric ::
-      Maybe Text
+-- /See:/ 'newMetricCollectionType' smart constructor.
+data MetricCollectionType = MetricCollectionType'
+  { -- | One of the following metrics:
+    --
+    -- -   @GroupMinSize@
+    --
+    -- -   @GroupMaxSize@
+    --
+    -- -   @GroupDesiredCapacity@
+    --
+    -- -   @GroupInServiceInstances@
+    --
+    -- -   @GroupPendingInstances@
+    --
+    -- -   @GroupStandbyInstances@
+    --
+    -- -   @GroupTerminatingInstances@
+    --
+    -- -   @GroupTotalInstances@
+    --
+    -- -   @GroupInServiceCapacity@
+    --
+    -- -   @GroupPendingCapacity@
+    --
+    -- -   @GroupStandbyCapacity@
+    --
+    -- -   @GroupTerminatingCapacity@
+    --
+    -- -   @GroupTotalCapacity@
+    metric :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricCollectionType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricCollectionType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mctMetric' - One of the following metrics:     * @GroupMinSize@      * @GroupMaxSize@      * @GroupDesiredCapacity@      * @GroupInServiceInstances@      * @GroupPendingInstances@      * @GroupStandbyInstances@      * @GroupTerminatingInstances@      * @GroupTotalInstances@      * @GroupInServiceCapacity@      * @GroupPendingCapacity@      * @GroupStandbyCapacity@      * @GroupTerminatingCapacity@      * @GroupTotalCapacity@
-metricCollectionType ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'metric', 'metricCollectionType_metric' - One of the following metrics:
+--
+-- -   @GroupMinSize@
+--
+-- -   @GroupMaxSize@
+--
+-- -   @GroupDesiredCapacity@
+--
+-- -   @GroupInServiceInstances@
+--
+-- -   @GroupPendingInstances@
+--
+-- -   @GroupStandbyInstances@
+--
+-- -   @GroupTerminatingInstances@
+--
+-- -   @GroupTotalInstances@
+--
+-- -   @GroupInServiceCapacity@
+--
+-- -   @GroupPendingCapacity@
+--
+-- -   @GroupStandbyCapacity@
+--
+-- -   @GroupTerminatingCapacity@
+--
+-- -   @GroupTotalCapacity@
+newMetricCollectionType ::
   MetricCollectionType
-metricCollectionType =
-  MetricCollectionType' {_mctMetric = Nothing}
+newMetricCollectionType =
+  MetricCollectionType' {metric = Prelude.Nothing}
 
--- | One of the following metrics:     * @GroupMinSize@      * @GroupMaxSize@      * @GroupDesiredCapacity@      * @GroupInServiceInstances@      * @GroupPendingInstances@      * @GroupStandbyInstances@      * @GroupTerminatingInstances@      * @GroupTotalInstances@      * @GroupInServiceCapacity@      * @GroupPendingCapacity@      * @GroupStandbyCapacity@      * @GroupTerminatingCapacity@      * @GroupTotalCapacity@
-mctMetric :: Lens' MetricCollectionType (Maybe Text)
-mctMetric = lens _mctMetric (\s a -> s {_mctMetric = a})
+-- | One of the following metrics:
+--
+-- -   @GroupMinSize@
+--
+-- -   @GroupMaxSize@
+--
+-- -   @GroupDesiredCapacity@
+--
+-- -   @GroupInServiceInstances@
+--
+-- -   @GroupPendingInstances@
+--
+-- -   @GroupStandbyInstances@
+--
+-- -   @GroupTerminatingInstances@
+--
+-- -   @GroupTotalInstances@
+--
+-- -   @GroupInServiceCapacity@
+--
+-- -   @GroupPendingCapacity@
+--
+-- -   @GroupStandbyCapacity@
+--
+-- -   @GroupTerminatingCapacity@
+--
+-- -   @GroupTotalCapacity@
+metricCollectionType_metric :: Lens.Lens' MetricCollectionType (Prelude.Maybe Prelude.Text)
+metricCollectionType_metric = Lens.lens (\MetricCollectionType' {metric} -> metric) (\s@MetricCollectionType' {} a -> s {metric = a} :: MetricCollectionType)
 
-instance FromXML MetricCollectionType where
+instance Prelude.FromXML MetricCollectionType where
   parseXML x =
-    MetricCollectionType' <$> (x .@? "Metric")
+    MetricCollectionType'
+      Prelude.<$> (x Prelude..@? "Metric")
 
-instance Hashable MetricCollectionType
+instance Prelude.Hashable MetricCollectionType
 
-instance NFData MetricCollectionType
+instance Prelude.NFData MetricCollectionType

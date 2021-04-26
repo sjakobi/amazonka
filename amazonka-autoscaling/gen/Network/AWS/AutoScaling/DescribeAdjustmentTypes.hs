@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,131 +21,131 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the available adjustment types for Amazon EC2 Auto Scaling scaling policies. These settings apply to step scaling policies and simple scaling policies; they do not apply to target tracking scaling policies.
---
+-- Describes the available adjustment types for Amazon EC2 Auto Scaling
+-- scaling policies. These settings apply to step scaling policies and
+-- simple scaling policies; they do not apply to target tracking scaling
+-- policies.
 --
 -- The following adjustment types are supported:
 --
---     * ChangeInCapacity
+-- -   ChangeInCapacity
 --
---     * ExactCapacity
+-- -   ExactCapacity
 --
---     * PercentChangeInCapacity
+-- -   PercentChangeInCapacity
 module Network.AWS.AutoScaling.DescribeAdjustmentTypes
   ( -- * Creating a Request
-    describeAdjustmentTypes,
-    DescribeAdjustmentTypes,
+    DescribeAdjustmentTypes (..),
+    newDescribeAdjustmentTypes,
 
     -- * Destructuring the Response
-    describeAdjustmentTypesResponse,
-    DescribeAdjustmentTypesResponse,
+    DescribeAdjustmentTypesResponse (..),
+    newDescribeAdjustmentTypesResponse,
 
     -- * Response Lenses
-    datrrsAdjustmentTypes,
-    datrrsResponseStatus,
+    describeAdjustmentTypesResponse_adjustmentTypes,
+    describeAdjustmentTypesResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AutoScaling.Types.AdjustmentType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAdjustmentTypes' smart constructor.
+-- | /See:/ 'newDescribeAdjustmentTypes' smart constructor.
 data DescribeAdjustmentTypes = DescribeAdjustmentTypes'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAdjustmentTypes' with the minimum fields required to make a request.
-describeAdjustmentTypes ::
+-- |
+-- Create a value of 'DescribeAdjustmentTypes' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeAdjustmentTypes ::
   DescribeAdjustmentTypes
-describeAdjustmentTypes = DescribeAdjustmentTypes'
+newDescribeAdjustmentTypes = DescribeAdjustmentTypes'
 
-instance AWSRequest DescribeAdjustmentTypes where
+instance Prelude.AWSRequest DescribeAdjustmentTypes where
   type
     Rs DescribeAdjustmentTypes =
       DescribeAdjustmentTypesResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeAdjustmentTypesResult"
       ( \s h x ->
           DescribeAdjustmentTypesResponse'
-            <$> ( x .@? "AdjustmentTypes" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "AdjustmentTypes"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAdjustmentTypes
+instance Prelude.Hashable DescribeAdjustmentTypes
 
-instance NFData DescribeAdjustmentTypes
+instance Prelude.NFData DescribeAdjustmentTypes
 
-instance ToHeaders DescribeAdjustmentTypes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAdjustmentTypes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAdjustmentTypes where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAdjustmentTypes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAdjustmentTypes where
+instance Prelude.ToQuery DescribeAdjustmentTypes where
   toQuery =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Action"
-              =: ("DescribeAdjustmentTypes" :: ByteString),
-            "Version" =: ("2011-01-01" :: ByteString)
+              Prelude.=: ("DescribeAdjustmentTypes" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2011-01-01" :: Prelude.ByteString)
           ]
       )
 
--- | /See:/ 'describeAdjustmentTypesResponse' smart constructor.
+-- | /See:/ 'newDescribeAdjustmentTypesResponse' smart constructor.
 data DescribeAdjustmentTypesResponse = DescribeAdjustmentTypesResponse'
-  { _datrrsAdjustmentTypes ::
-      !( Maybe
-           [AdjustmentType]
-       ),
-    _datrrsResponseStatus ::
-      !Int
+  { -- | The policy adjustment types.
+    adjustmentTypes :: Prelude.Maybe [AdjustmentType],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAdjustmentTypesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAdjustmentTypesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datrrsAdjustmentTypes' - The policy adjustment types.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'datrrsResponseStatus' - -- | The response status code.
-describeAdjustmentTypesResponse ::
-  -- | 'datrrsResponseStatus'
-  Int ->
+-- 'adjustmentTypes', 'describeAdjustmentTypesResponse_adjustmentTypes' - The policy adjustment types.
+--
+-- 'httpStatus', 'describeAdjustmentTypesResponse_httpStatus' - The response's http status code.
+newDescribeAdjustmentTypesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAdjustmentTypesResponse
-describeAdjustmentTypesResponse pResponseStatus_ =
+newDescribeAdjustmentTypesResponse pHttpStatus_ =
   DescribeAdjustmentTypesResponse'
-    { _datrrsAdjustmentTypes =
-        Nothing,
-      _datrrsResponseStatus = pResponseStatus_
+    { adjustmentTypes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The policy adjustment types.
-datrrsAdjustmentTypes :: Lens' DescribeAdjustmentTypesResponse [AdjustmentType]
-datrrsAdjustmentTypes = lens _datrrsAdjustmentTypes (\s a -> s {_datrrsAdjustmentTypes = a}) . _Default . _Coerce
+describeAdjustmentTypesResponse_adjustmentTypes :: Lens.Lens' DescribeAdjustmentTypesResponse (Prelude.Maybe [AdjustmentType])
+describeAdjustmentTypesResponse_adjustmentTypes = Lens.lens (\DescribeAdjustmentTypesResponse' {adjustmentTypes} -> adjustmentTypes) (\s@DescribeAdjustmentTypesResponse' {} a -> s {adjustmentTypes = a} :: DescribeAdjustmentTypesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-datrrsResponseStatus :: Lens' DescribeAdjustmentTypesResponse Int
-datrrsResponseStatus = lens _datrrsResponseStatus (\s a -> s {_datrrsResponseStatus = a})
+-- | The response's http status code.
+describeAdjustmentTypesResponse_httpStatus :: Lens.Lens' DescribeAdjustmentTypesResponse Prelude.Int
+describeAdjustmentTypesResponse_httpStatus = Lens.lens (\DescribeAdjustmentTypesResponse' {httpStatus} -> httpStatus) (\s@DescribeAdjustmentTypesResponse' {} a -> s {httpStatus = a} :: DescribeAdjustmentTypesResponse)
 
-instance NFData DescribeAdjustmentTypesResponse
+instance
+  Prelude.NFData
+    DescribeAdjustmentTypesResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,104 +23,105 @@
 --
 -- Deletes the specified launch configuration.
 --
---
--- The launch configuration must not be attached to an Auto Scaling group. When this call completes, the launch configuration is no longer available for use.
+-- The launch configuration must not be attached to an Auto Scaling group.
+-- When this call completes, the launch configuration is no longer
+-- available for use.
 module Network.AWS.AutoScaling.DeleteLaunchConfiguration
   ( -- * Creating a Request
-    deleteLaunchConfiguration,
-    DeleteLaunchConfiguration,
+    DeleteLaunchConfiguration (..),
+    newDeleteLaunchConfiguration,
 
     -- * Request Lenses
-    dlcLaunchConfigurationName,
+    deleteLaunchConfiguration_launchConfigurationName,
 
     -- * Destructuring the Response
-    deleteLaunchConfigurationResponse,
-    DeleteLaunchConfigurationResponse,
+    DeleteLaunchConfigurationResponse (..),
+    newDeleteLaunchConfigurationResponse,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLaunchConfiguration' smart constructor.
-newtype DeleteLaunchConfiguration = DeleteLaunchConfiguration'
-  { _dlcLaunchConfigurationName ::
-      Text
+-- | /See:/ 'newDeleteLaunchConfiguration' smart constructor.
+data DeleteLaunchConfiguration = DeleteLaunchConfiguration'
+  { -- | The name of the launch configuration.
+    launchConfigurationName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLaunchConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLaunchConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlcLaunchConfigurationName' - The name of the launch configuration.
-deleteLaunchConfiguration ::
-  -- | 'dlcLaunchConfigurationName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'launchConfigurationName', 'deleteLaunchConfiguration_launchConfigurationName' - The name of the launch configuration.
+newDeleteLaunchConfiguration ::
+  -- | 'launchConfigurationName'
+  Prelude.Text ->
   DeleteLaunchConfiguration
-deleteLaunchConfiguration pLaunchConfigurationName_ =
-  DeleteLaunchConfiguration'
-    { _dlcLaunchConfigurationName =
-        pLaunchConfigurationName_
-    }
+newDeleteLaunchConfiguration
+  pLaunchConfigurationName_ =
+    DeleteLaunchConfiguration'
+      { launchConfigurationName =
+          pLaunchConfigurationName_
+      }
 
 -- | The name of the launch configuration.
-dlcLaunchConfigurationName :: Lens' DeleteLaunchConfiguration Text
-dlcLaunchConfigurationName = lens _dlcLaunchConfigurationName (\s a -> s {_dlcLaunchConfigurationName = a})
+deleteLaunchConfiguration_launchConfigurationName :: Lens.Lens' DeleteLaunchConfiguration Prelude.Text
+deleteLaunchConfiguration_launchConfigurationName = Lens.lens (\DeleteLaunchConfiguration' {launchConfigurationName} -> launchConfigurationName) (\s@DeleteLaunchConfiguration' {} a -> s {launchConfigurationName = a} :: DeleteLaunchConfiguration)
 
-instance AWSRequest DeleteLaunchConfiguration where
+instance Prelude.AWSRequest DeleteLaunchConfiguration where
   type
     Rs DeleteLaunchConfiguration =
       DeleteLaunchConfigurationResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteLaunchConfigurationResponse'
+    Response.receiveNull
+      DeleteLaunchConfigurationResponse'
 
-instance Hashable DeleteLaunchConfiguration
+instance Prelude.Hashable DeleteLaunchConfiguration
 
-instance NFData DeleteLaunchConfiguration
+instance Prelude.NFData DeleteLaunchConfiguration
 
-instance ToHeaders DeleteLaunchConfiguration where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteLaunchConfiguration where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteLaunchConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLaunchConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLaunchConfiguration where
+instance Prelude.ToQuery DeleteLaunchConfiguration where
   toQuery DeleteLaunchConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteLaunchConfiguration" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
+          Prelude.=: ("DeleteLaunchConfiguration" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
         "LaunchConfigurationName"
-          =: _dlcLaunchConfigurationName
+          Prelude.=: launchConfigurationName
       ]
 
--- | /See:/ 'deleteLaunchConfigurationResponse' smart constructor.
+-- | /See:/ 'newDeleteLaunchConfigurationResponse' smart constructor.
 data DeleteLaunchConfigurationResponse = DeleteLaunchConfigurationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLaunchConfigurationResponse' with the minimum fields required to make a request.
-deleteLaunchConfigurationResponse ::
+-- |
+-- Create a value of 'DeleteLaunchConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteLaunchConfigurationResponse ::
   DeleteLaunchConfigurationResponse
-deleteLaunchConfigurationResponse =
+newDeleteLaunchConfigurationResponse =
   DeleteLaunchConfigurationResponse'
 
-instance NFData DeleteLaunchConfigurationResponse
+instance
+  Prelude.NFData
+    DeleteLaunchConfigurationResponse

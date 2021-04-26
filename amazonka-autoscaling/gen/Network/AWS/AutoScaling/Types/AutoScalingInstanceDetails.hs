@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,85 +20,110 @@
 module Network.AWS.AutoScaling.Types.AutoScalingInstanceDetails where
 
 import Network.AWS.AutoScaling.Types.LaunchTemplateSpecification
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an EC2 instance associated with an Auto Scaling group.
 --
---
---
--- /See:/ 'autoScalingInstanceDetails' smart constructor.
+-- /See:/ 'newAutoScalingInstanceDetails' smart constructor.
 data AutoScalingInstanceDetails = AutoScalingInstanceDetails'
-  { _asidInstanceType ::
-      !(Maybe Text),
-    _asidLaunchTemplate ::
-      !( Maybe
-           LaunchTemplateSpecification
-       ),
-    _asidLaunchConfigurationName ::
-      !(Maybe Text),
-    _asidWeightedCapacity ::
-      !(Maybe Text),
-    _asidInstanceId ::
-      !Text,
-    _asidAutoScalingGroupName ::
-      !Text,
-    _asidAvailabilityZone ::
-      !Text,
-    _asidLifecycleState ::
-      !Text,
-    _asidHealthStatus ::
-      !Text,
-    _asidProtectedFromScaleIn ::
-      !Bool
+  { -- | The instance type of the EC2 instance.
+    instanceType :: Prelude.Maybe Prelude.Text,
+    -- | The launch template for the instance.
+    launchTemplate :: Prelude.Maybe LaunchTemplateSpecification,
+    -- | The launch configuration used to launch the instance. This value is not
+    -- available if you attached the instance to the Auto Scaling group.
+    launchConfigurationName :: Prelude.Maybe Prelude.Text,
+    -- | The number of capacity units contributed by the instance based on its
+    -- instance type.
+    --
+    -- Valid Range: Minimum value of 1. Maximum value of 999.
+    weightedCapacity :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Text,
+    -- | The name of the Auto Scaling group for the instance.
+    autoScalingGroupName :: Prelude.Text,
+    -- | The Availability Zone for the instance.
+    availabilityZone :: Prelude.Text,
+    -- | The lifecycle state for the instance. The @Quarantined@ state is not
+    -- used. For information about lifecycle states, see
+    -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html Instance lifecycle>
+    -- in the /Amazon EC2 Auto Scaling User Guide/.
+    --
+    -- Valid Values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ |
+    -- @Quarantined@ | @InService@ | @Terminating@ | @Terminating:Wait@ |
+    -- @Terminating:Proceed@ | @Terminated@ | @Detaching@ | @Detached@ |
+    -- @EnteringStandby@ | @Standby@
+    lifecycleState :: Prelude.Text,
+    -- | The last reported health status of this instance. \"Healthy\" means that
+    -- the instance is healthy and should remain in service. \"Unhealthy\"
+    -- means that the instance is unhealthy and Amazon EC2 Auto Scaling should
+    -- terminate and replace it.
+    healthStatus :: Prelude.Text,
+    -- | Indicates whether the instance is protected from termination by Amazon
+    -- EC2 Auto Scaling when scaling in.
+    protectedFromScaleIn :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoScalingInstanceDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoScalingInstanceDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asidInstanceType' - The instance type of the EC2 instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asidLaunchTemplate' - The launch template for the instance.
+-- 'instanceType', 'autoScalingInstanceDetails_instanceType' - The instance type of the EC2 instance.
 --
--- * 'asidLaunchConfigurationName' - The launch configuration used to launch the instance. This value is not available if you attached the instance to the Auto Scaling group.
+-- 'launchTemplate', 'autoScalingInstanceDetails_launchTemplate' - The launch template for the instance.
 --
--- * 'asidWeightedCapacity' - The number of capacity units contributed by the instance based on its instance type. Valid Range: Minimum value of 1. Maximum value of 999.
+-- 'launchConfigurationName', 'autoScalingInstanceDetails_launchConfigurationName' - The launch configuration used to launch the instance. This value is not
+-- available if you attached the instance to the Auto Scaling group.
 --
--- * 'asidInstanceId' - The ID of the instance.
+-- 'weightedCapacity', 'autoScalingInstanceDetails_weightedCapacity' - The number of capacity units contributed by the instance based on its
+-- instance type.
 --
--- * 'asidAutoScalingGroupName' - The name of the Auto Scaling group for the instance.
+-- Valid Range: Minimum value of 1. Maximum value of 999.
 --
--- * 'asidAvailabilityZone' - The Availability Zone for the instance.
+-- 'instanceId', 'autoScalingInstanceDetails_instanceId' - The ID of the instance.
 --
--- * 'asidLifecycleState' - The lifecycle state for the instance. The @Quarantined@ state is not used. For information about lifecycle states, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html Instance lifecycle> in the /Amazon EC2 Auto Scaling User Guide/ .  Valid Values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ | @Quarantined@ | @InService@ | @Terminating@ | @Terminating:Wait@ | @Terminating:Proceed@ | @Terminated@ | @Detaching@ | @Detached@ | @EnteringStandby@ | @Standby@
+-- 'autoScalingGroupName', 'autoScalingInstanceDetails_autoScalingGroupName' - The name of the Auto Scaling group for the instance.
 --
--- * 'asidHealthStatus' - The last reported health status of this instance. "Healthy" means that the instance is healthy and should remain in service. "Unhealthy" means that the instance is unhealthy and Amazon EC2 Auto Scaling should terminate and replace it.
+-- 'availabilityZone', 'autoScalingInstanceDetails_availabilityZone' - The Availability Zone for the instance.
 --
--- * 'asidProtectedFromScaleIn' - Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.
-autoScalingInstanceDetails ::
-  -- | 'asidInstanceId'
-  Text ->
-  -- | 'asidAutoScalingGroupName'
-  Text ->
-  -- | 'asidAvailabilityZone'
-  Text ->
-  -- | 'asidLifecycleState'
-  Text ->
-  -- | 'asidHealthStatus'
-  Text ->
-  -- | 'asidProtectedFromScaleIn'
-  Bool ->
+-- 'lifecycleState', 'autoScalingInstanceDetails_lifecycleState' - The lifecycle state for the instance. The @Quarantined@ state is not
+-- used. For information about lifecycle states, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html Instance lifecycle>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
+--
+-- Valid Values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ |
+-- @Quarantined@ | @InService@ | @Terminating@ | @Terminating:Wait@ |
+-- @Terminating:Proceed@ | @Terminated@ | @Detaching@ | @Detached@ |
+-- @EnteringStandby@ | @Standby@
+--
+-- 'healthStatus', 'autoScalingInstanceDetails_healthStatus' - The last reported health status of this instance. \"Healthy\" means that
+-- the instance is healthy and should remain in service. \"Unhealthy\"
+-- means that the instance is unhealthy and Amazon EC2 Auto Scaling should
+-- terminate and replace it.
+--
+-- 'protectedFromScaleIn', 'autoScalingInstanceDetails_protectedFromScaleIn' - Indicates whether the instance is protected from termination by Amazon
+-- EC2 Auto Scaling when scaling in.
+newAutoScalingInstanceDetails ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
+  -- | 'availabilityZone'
+  Prelude.Text ->
+  -- | 'lifecycleState'
+  Prelude.Text ->
+  -- | 'healthStatus'
+  Prelude.Text ->
+  -- | 'protectedFromScaleIn'
+  Prelude.Bool ->
   AutoScalingInstanceDetails
-autoScalingInstanceDetails
+newAutoScalingInstanceDetails
   pInstanceId_
   pAutoScalingGroupName_
   pAvailabilityZone_
@@ -102,75 +131,89 @@ autoScalingInstanceDetails
   pHealthStatus_
   pProtectedFromScaleIn_ =
     AutoScalingInstanceDetails'
-      { _asidInstanceType =
-          Nothing,
-        _asidLaunchTemplate = Nothing,
-        _asidLaunchConfigurationName = Nothing,
-        _asidWeightedCapacity = Nothing,
-        _asidInstanceId = pInstanceId_,
-        _asidAutoScalingGroupName =
-          pAutoScalingGroupName_,
-        _asidAvailabilityZone = pAvailabilityZone_,
-        _asidLifecycleState = pLifecycleState_,
-        _asidHealthStatus = pHealthStatus_,
-        _asidProtectedFromScaleIn =
-          pProtectedFromScaleIn_
+      { instanceType =
+          Prelude.Nothing,
+        launchTemplate = Prelude.Nothing,
+        launchConfigurationName = Prelude.Nothing,
+        weightedCapacity = Prelude.Nothing,
+        instanceId = pInstanceId_,
+        autoScalingGroupName = pAutoScalingGroupName_,
+        availabilityZone = pAvailabilityZone_,
+        lifecycleState = pLifecycleState_,
+        healthStatus = pHealthStatus_,
+        protectedFromScaleIn = pProtectedFromScaleIn_
       }
 
 -- | The instance type of the EC2 instance.
-asidInstanceType :: Lens' AutoScalingInstanceDetails (Maybe Text)
-asidInstanceType = lens _asidInstanceType (\s a -> s {_asidInstanceType = a})
+autoScalingInstanceDetails_instanceType :: Lens.Lens' AutoScalingInstanceDetails (Prelude.Maybe Prelude.Text)
+autoScalingInstanceDetails_instanceType = Lens.lens (\AutoScalingInstanceDetails' {instanceType} -> instanceType) (\s@AutoScalingInstanceDetails' {} a -> s {instanceType = a} :: AutoScalingInstanceDetails)
 
 -- | The launch template for the instance.
-asidLaunchTemplate :: Lens' AutoScalingInstanceDetails (Maybe LaunchTemplateSpecification)
-asidLaunchTemplate = lens _asidLaunchTemplate (\s a -> s {_asidLaunchTemplate = a})
+autoScalingInstanceDetails_launchTemplate :: Lens.Lens' AutoScalingInstanceDetails (Prelude.Maybe LaunchTemplateSpecification)
+autoScalingInstanceDetails_launchTemplate = Lens.lens (\AutoScalingInstanceDetails' {launchTemplate} -> launchTemplate) (\s@AutoScalingInstanceDetails' {} a -> s {launchTemplate = a} :: AutoScalingInstanceDetails)
 
--- | The launch configuration used to launch the instance. This value is not available if you attached the instance to the Auto Scaling group.
-asidLaunchConfigurationName :: Lens' AutoScalingInstanceDetails (Maybe Text)
-asidLaunchConfigurationName = lens _asidLaunchConfigurationName (\s a -> s {_asidLaunchConfigurationName = a})
+-- | The launch configuration used to launch the instance. This value is not
+-- available if you attached the instance to the Auto Scaling group.
+autoScalingInstanceDetails_launchConfigurationName :: Lens.Lens' AutoScalingInstanceDetails (Prelude.Maybe Prelude.Text)
+autoScalingInstanceDetails_launchConfigurationName = Lens.lens (\AutoScalingInstanceDetails' {launchConfigurationName} -> launchConfigurationName) (\s@AutoScalingInstanceDetails' {} a -> s {launchConfigurationName = a} :: AutoScalingInstanceDetails)
 
--- | The number of capacity units contributed by the instance based on its instance type. Valid Range: Minimum value of 1. Maximum value of 999.
-asidWeightedCapacity :: Lens' AutoScalingInstanceDetails (Maybe Text)
-asidWeightedCapacity = lens _asidWeightedCapacity (\s a -> s {_asidWeightedCapacity = a})
+-- | The number of capacity units contributed by the instance based on its
+-- instance type.
+--
+-- Valid Range: Minimum value of 1. Maximum value of 999.
+autoScalingInstanceDetails_weightedCapacity :: Lens.Lens' AutoScalingInstanceDetails (Prelude.Maybe Prelude.Text)
+autoScalingInstanceDetails_weightedCapacity = Lens.lens (\AutoScalingInstanceDetails' {weightedCapacity} -> weightedCapacity) (\s@AutoScalingInstanceDetails' {} a -> s {weightedCapacity = a} :: AutoScalingInstanceDetails)
 
 -- | The ID of the instance.
-asidInstanceId :: Lens' AutoScalingInstanceDetails Text
-asidInstanceId = lens _asidInstanceId (\s a -> s {_asidInstanceId = a})
+autoScalingInstanceDetails_instanceId :: Lens.Lens' AutoScalingInstanceDetails Prelude.Text
+autoScalingInstanceDetails_instanceId = Lens.lens (\AutoScalingInstanceDetails' {instanceId} -> instanceId) (\s@AutoScalingInstanceDetails' {} a -> s {instanceId = a} :: AutoScalingInstanceDetails)
 
 -- | The name of the Auto Scaling group for the instance.
-asidAutoScalingGroupName :: Lens' AutoScalingInstanceDetails Text
-asidAutoScalingGroupName = lens _asidAutoScalingGroupName (\s a -> s {_asidAutoScalingGroupName = a})
+autoScalingInstanceDetails_autoScalingGroupName :: Lens.Lens' AutoScalingInstanceDetails Prelude.Text
+autoScalingInstanceDetails_autoScalingGroupName = Lens.lens (\AutoScalingInstanceDetails' {autoScalingGroupName} -> autoScalingGroupName) (\s@AutoScalingInstanceDetails' {} a -> s {autoScalingGroupName = a} :: AutoScalingInstanceDetails)
 
 -- | The Availability Zone for the instance.
-asidAvailabilityZone :: Lens' AutoScalingInstanceDetails Text
-asidAvailabilityZone = lens _asidAvailabilityZone (\s a -> s {_asidAvailabilityZone = a})
+autoScalingInstanceDetails_availabilityZone :: Lens.Lens' AutoScalingInstanceDetails Prelude.Text
+autoScalingInstanceDetails_availabilityZone = Lens.lens (\AutoScalingInstanceDetails' {availabilityZone} -> availabilityZone) (\s@AutoScalingInstanceDetails' {} a -> s {availabilityZone = a} :: AutoScalingInstanceDetails)
 
--- | The lifecycle state for the instance. The @Quarantined@ state is not used. For information about lifecycle states, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html Instance lifecycle> in the /Amazon EC2 Auto Scaling User Guide/ .  Valid Values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ | @Quarantined@ | @InService@ | @Terminating@ | @Terminating:Wait@ | @Terminating:Proceed@ | @Terminated@ | @Detaching@ | @Detached@ | @EnteringStandby@ | @Standby@
-asidLifecycleState :: Lens' AutoScalingInstanceDetails Text
-asidLifecycleState = lens _asidLifecycleState (\s a -> s {_asidLifecycleState = a})
+-- | The lifecycle state for the instance. The @Quarantined@ state is not
+-- used. For information about lifecycle states, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html Instance lifecycle>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
+--
+-- Valid Values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ |
+-- @Quarantined@ | @InService@ | @Terminating@ | @Terminating:Wait@ |
+-- @Terminating:Proceed@ | @Terminated@ | @Detaching@ | @Detached@ |
+-- @EnteringStandby@ | @Standby@
+autoScalingInstanceDetails_lifecycleState :: Lens.Lens' AutoScalingInstanceDetails Prelude.Text
+autoScalingInstanceDetails_lifecycleState = Lens.lens (\AutoScalingInstanceDetails' {lifecycleState} -> lifecycleState) (\s@AutoScalingInstanceDetails' {} a -> s {lifecycleState = a} :: AutoScalingInstanceDetails)
 
--- | The last reported health status of this instance. "Healthy" means that the instance is healthy and should remain in service. "Unhealthy" means that the instance is unhealthy and Amazon EC2 Auto Scaling should terminate and replace it.
-asidHealthStatus :: Lens' AutoScalingInstanceDetails Text
-asidHealthStatus = lens _asidHealthStatus (\s a -> s {_asidHealthStatus = a})
+-- | The last reported health status of this instance. \"Healthy\" means that
+-- the instance is healthy and should remain in service. \"Unhealthy\"
+-- means that the instance is unhealthy and Amazon EC2 Auto Scaling should
+-- terminate and replace it.
+autoScalingInstanceDetails_healthStatus :: Lens.Lens' AutoScalingInstanceDetails Prelude.Text
+autoScalingInstanceDetails_healthStatus = Lens.lens (\AutoScalingInstanceDetails' {healthStatus} -> healthStatus) (\s@AutoScalingInstanceDetails' {} a -> s {healthStatus = a} :: AutoScalingInstanceDetails)
 
--- | Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.
-asidProtectedFromScaleIn :: Lens' AutoScalingInstanceDetails Bool
-asidProtectedFromScaleIn = lens _asidProtectedFromScaleIn (\s a -> s {_asidProtectedFromScaleIn = a})
+-- | Indicates whether the instance is protected from termination by Amazon
+-- EC2 Auto Scaling when scaling in.
+autoScalingInstanceDetails_protectedFromScaleIn :: Lens.Lens' AutoScalingInstanceDetails Prelude.Bool
+autoScalingInstanceDetails_protectedFromScaleIn = Lens.lens (\AutoScalingInstanceDetails' {protectedFromScaleIn} -> protectedFromScaleIn) (\s@AutoScalingInstanceDetails' {} a -> s {protectedFromScaleIn = a} :: AutoScalingInstanceDetails)
 
-instance FromXML AutoScalingInstanceDetails where
+instance Prelude.FromXML AutoScalingInstanceDetails where
   parseXML x =
     AutoScalingInstanceDetails'
-      <$> (x .@? "InstanceType")
-      <*> (x .@? "LaunchTemplate")
-      <*> (x .@? "LaunchConfigurationName")
-      <*> (x .@? "WeightedCapacity")
-      <*> (x .@ "InstanceId")
-      <*> (x .@ "AutoScalingGroupName")
-      <*> (x .@ "AvailabilityZone")
-      <*> (x .@ "LifecycleState")
-      <*> (x .@ "HealthStatus")
-      <*> (x .@ "ProtectedFromScaleIn")
+      Prelude.<$> (x Prelude..@? "InstanceType")
+      Prelude.<*> (x Prelude..@? "LaunchTemplate")
+      Prelude.<*> (x Prelude..@? "LaunchConfigurationName")
+      Prelude.<*> (x Prelude..@? "WeightedCapacity")
+      Prelude.<*> (x Prelude..@ "InstanceId")
+      Prelude.<*> (x Prelude..@ "AutoScalingGroupName")
+      Prelude.<*> (x Prelude..@ "AvailabilityZone")
+      Prelude.<*> (x Prelude..@ "LifecycleState")
+      Prelude.<*> (x Prelude..@ "HealthStatus")
+      Prelude.<*> (x Prelude..@ "ProtectedFromScaleIn")
 
-instance Hashable AutoScalingInstanceDetails
+instance Prelude.Hashable AutoScalingInstanceDetails
 
-instance NFData AutoScalingInstanceDetails
+instance Prelude.NFData AutoScalingInstanceDetails

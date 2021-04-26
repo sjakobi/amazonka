@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,217 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts a new instance refresh operation, which triggers a rolling replacement of all previously launched instances in the Auto Scaling group with a new group of instances.
+-- Starts a new instance refresh operation, which triggers a rolling
+-- replacement of all previously launched instances in the Auto Scaling
+-- group with a new group of instances.
 --
+-- If successful, this call creates a new instance refresh request with a
+-- unique ID that you can use to track its progress. To query its status,
+-- call the DescribeInstanceRefreshes API. To describe the instance
+-- refreshes that have already run, call the DescribeInstanceRefreshes API.
+-- To cancel an instance refresh operation in progress, use the
+-- CancelInstanceRefresh API.
 --
--- If successful, this call creates a new instance refresh request with a unique ID that you can use to track its progress. To query its status, call the 'DescribeInstanceRefreshes' API. To describe the instance refreshes that have already run, call the 'DescribeInstanceRefreshes' API. To cancel an instance refresh operation in progress, use the 'CancelInstanceRefresh' API.
---
--- For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-instance-refresh.html Replacing Auto Scaling Instances Based on an Instance Refresh> .
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-instance-refresh.html Replacing Auto Scaling Instances Based on an Instance Refresh>.
 module Network.AWS.AutoScaling.StartInstanceRefresh
   ( -- * Creating a Request
-    startInstanceRefresh,
-    StartInstanceRefresh,
+    StartInstanceRefresh (..),
+    newStartInstanceRefresh,
 
     -- * Request Lenses
-    sirStrategy,
-    sirPreferences,
-    sirAutoScalingGroupName,
+    startInstanceRefresh_strategy,
+    startInstanceRefresh_preferences,
+    startInstanceRefresh_autoScalingGroupName,
 
     -- * Destructuring the Response
-    startInstanceRefreshResponse,
-    StartInstanceRefreshResponse,
+    StartInstanceRefreshResponse (..),
+    newStartInstanceRefreshResponse,
 
     -- * Response Lenses
-    sirrrsInstanceRefreshId,
-    sirrrsResponseStatus,
+    startInstanceRefreshResponse_instanceRefreshId,
+    startInstanceRefreshResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startInstanceRefresh' smart constructor.
+-- | /See:/ 'newStartInstanceRefresh' smart constructor.
 data StartInstanceRefresh = StartInstanceRefresh'
-  { _sirStrategy ::
-      !(Maybe RefreshStrategy),
-    _sirPreferences ::
-      !(Maybe RefreshPreferences),
-    _sirAutoScalingGroupName ::
-      !Text
+  { -- | The strategy to use for the instance refresh. The only valid value is
+    -- @Rolling@.
+    --
+    -- A rolling update is an update that is applied to all instances in an
+    -- Auto Scaling group until all instances have been updated. A rolling
+    -- update can fail due to failed health checks or if instances are on
+    -- standby or are protected from scale in. If the rolling update process
+    -- fails, any instances that were already replaced are not rolled back to
+    -- their previous configuration.
+    strategy :: Prelude.Maybe RefreshStrategy,
+    -- | Set of preferences associated with the instance refresh request.
+    --
+    -- If not provided, the default values are used. For
+    -- @MinHealthyPercentage@, the default value is @90@. For @InstanceWarmup@,
+    -- the default is to use the value specified for the health check grace
+    -- period for the Auto Scaling group.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_RefreshPreferences.html RefreshPreferences>
+    -- in the /Amazon EC2 Auto Scaling API Reference/.
+    preferences :: Prelude.Maybe RefreshPreferences,
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartInstanceRefresh' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartInstanceRefresh' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sirStrategy' - The strategy to use for the instance refresh. The only valid value is @Rolling@ . A rolling update is an update that is applied to all instances in an Auto Scaling group until all instances have been updated. A rolling update can fail due to failed health checks or if instances are on standby or are protected from scale in. If the rolling update process fails, any instances that were already replaced are not rolled back to their previous configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sirPreferences' - Set of preferences associated with the instance refresh request. If not provided, the default values are used. For @MinHealthyPercentage@ , the default value is @90@ . For @InstanceWarmup@ , the default is to use the value specified for the health check grace period for the Auto Scaling group. For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_RefreshPreferences.html RefreshPreferences> in the /Amazon EC2 Auto Scaling API Reference/ .
+-- 'strategy', 'startInstanceRefresh_strategy' - The strategy to use for the instance refresh. The only valid value is
+-- @Rolling@.
 --
--- * 'sirAutoScalingGroupName' - The name of the Auto Scaling group.
-startInstanceRefresh ::
-  -- | 'sirAutoScalingGroupName'
-  Text ->
+-- A rolling update is an update that is applied to all instances in an
+-- Auto Scaling group until all instances have been updated. A rolling
+-- update can fail due to failed health checks or if instances are on
+-- standby or are protected from scale in. If the rolling update process
+-- fails, any instances that were already replaced are not rolled back to
+-- their previous configuration.
+--
+-- 'preferences', 'startInstanceRefresh_preferences' - Set of preferences associated with the instance refresh request.
+--
+-- If not provided, the default values are used. For
+-- @MinHealthyPercentage@, the default value is @90@. For @InstanceWarmup@,
+-- the default is to use the value specified for the health check grace
+-- period for the Auto Scaling group.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_RefreshPreferences.html RefreshPreferences>
+-- in the /Amazon EC2 Auto Scaling API Reference/.
+--
+-- 'autoScalingGroupName', 'startInstanceRefresh_autoScalingGroupName' - The name of the Auto Scaling group.
+newStartInstanceRefresh ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
   StartInstanceRefresh
-startInstanceRefresh pAutoScalingGroupName_ =
+newStartInstanceRefresh pAutoScalingGroupName_ =
   StartInstanceRefresh'
-    { _sirStrategy = Nothing,
-      _sirPreferences = Nothing,
-      _sirAutoScalingGroupName = pAutoScalingGroupName_
+    { strategy = Prelude.Nothing,
+      preferences = Prelude.Nothing,
+      autoScalingGroupName = pAutoScalingGroupName_
     }
 
--- | The strategy to use for the instance refresh. The only valid value is @Rolling@ . A rolling update is an update that is applied to all instances in an Auto Scaling group until all instances have been updated. A rolling update can fail due to failed health checks or if instances are on standby or are protected from scale in. If the rolling update process fails, any instances that were already replaced are not rolled back to their previous configuration.
-sirStrategy :: Lens' StartInstanceRefresh (Maybe RefreshStrategy)
-sirStrategy = lens _sirStrategy (\s a -> s {_sirStrategy = a})
+-- | The strategy to use for the instance refresh. The only valid value is
+-- @Rolling@.
+--
+-- A rolling update is an update that is applied to all instances in an
+-- Auto Scaling group until all instances have been updated. A rolling
+-- update can fail due to failed health checks or if instances are on
+-- standby or are protected from scale in. If the rolling update process
+-- fails, any instances that were already replaced are not rolled back to
+-- their previous configuration.
+startInstanceRefresh_strategy :: Lens.Lens' StartInstanceRefresh (Prelude.Maybe RefreshStrategy)
+startInstanceRefresh_strategy = Lens.lens (\StartInstanceRefresh' {strategy} -> strategy) (\s@StartInstanceRefresh' {} a -> s {strategy = a} :: StartInstanceRefresh)
 
--- | Set of preferences associated with the instance refresh request. If not provided, the default values are used. For @MinHealthyPercentage@ , the default value is @90@ . For @InstanceWarmup@ , the default is to use the value specified for the health check grace period for the Auto Scaling group. For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_RefreshPreferences.html RefreshPreferences> in the /Amazon EC2 Auto Scaling API Reference/ .
-sirPreferences :: Lens' StartInstanceRefresh (Maybe RefreshPreferences)
-sirPreferences = lens _sirPreferences (\s a -> s {_sirPreferences = a})
+-- | Set of preferences associated with the instance refresh request.
+--
+-- If not provided, the default values are used. For
+-- @MinHealthyPercentage@, the default value is @90@. For @InstanceWarmup@,
+-- the default is to use the value specified for the health check grace
+-- period for the Auto Scaling group.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_RefreshPreferences.html RefreshPreferences>
+-- in the /Amazon EC2 Auto Scaling API Reference/.
+startInstanceRefresh_preferences :: Lens.Lens' StartInstanceRefresh (Prelude.Maybe RefreshPreferences)
+startInstanceRefresh_preferences = Lens.lens (\StartInstanceRefresh' {preferences} -> preferences) (\s@StartInstanceRefresh' {} a -> s {preferences = a} :: StartInstanceRefresh)
 
 -- | The name of the Auto Scaling group.
-sirAutoScalingGroupName :: Lens' StartInstanceRefresh Text
-sirAutoScalingGroupName = lens _sirAutoScalingGroupName (\s a -> s {_sirAutoScalingGroupName = a})
+startInstanceRefresh_autoScalingGroupName :: Lens.Lens' StartInstanceRefresh Prelude.Text
+startInstanceRefresh_autoScalingGroupName = Lens.lens (\StartInstanceRefresh' {autoScalingGroupName} -> autoScalingGroupName) (\s@StartInstanceRefresh' {} a -> s {autoScalingGroupName = a} :: StartInstanceRefresh)
 
-instance AWSRequest StartInstanceRefresh where
+instance Prelude.AWSRequest StartInstanceRefresh where
   type
     Rs StartInstanceRefresh =
       StartInstanceRefreshResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "StartInstanceRefreshResult"
       ( \s h x ->
           StartInstanceRefreshResponse'
-            <$> (x .@? "InstanceRefreshId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "InstanceRefreshId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartInstanceRefresh
+instance Prelude.Hashable StartInstanceRefresh
 
-instance NFData StartInstanceRefresh
+instance Prelude.NFData StartInstanceRefresh
 
-instance ToHeaders StartInstanceRefresh where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StartInstanceRefresh where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath StartInstanceRefresh where
-  toPath = const "/"
+instance Prelude.ToPath StartInstanceRefresh where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartInstanceRefresh where
+instance Prelude.ToQuery StartInstanceRefresh where
   toQuery StartInstanceRefresh' {..} =
-    mconcat
-      [ "Action" =: ("StartInstanceRefresh" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "Strategy" =: _sirStrategy,
-        "Preferences" =: _sirPreferences,
-        "AutoScalingGroupName" =: _sirAutoScalingGroupName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("StartInstanceRefresh" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "Strategy" Prelude.=: strategy,
+        "Preferences" Prelude.=: preferences,
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName
       ]
 
--- | /See:/ 'startInstanceRefreshResponse' smart constructor.
+-- | /See:/ 'newStartInstanceRefreshResponse' smart constructor.
 data StartInstanceRefreshResponse = StartInstanceRefreshResponse'
-  { _sirrrsInstanceRefreshId ::
-      !(Maybe Text),
-    _sirrrsResponseStatus ::
-      !Int
+  { -- | A unique ID for tracking the progress of the request.
+    instanceRefreshId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartInstanceRefreshResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartInstanceRefreshResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sirrrsInstanceRefreshId' - A unique ID for tracking the progress of the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sirrrsResponseStatus' - -- | The response status code.
-startInstanceRefreshResponse ::
-  -- | 'sirrrsResponseStatus'
-  Int ->
+-- 'instanceRefreshId', 'startInstanceRefreshResponse_instanceRefreshId' - A unique ID for tracking the progress of the request.
+--
+-- 'httpStatus', 'startInstanceRefreshResponse_httpStatus' - The response's http status code.
+newStartInstanceRefreshResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartInstanceRefreshResponse
-startInstanceRefreshResponse pResponseStatus_ =
+newStartInstanceRefreshResponse pHttpStatus_ =
   StartInstanceRefreshResponse'
-    { _sirrrsInstanceRefreshId =
-        Nothing,
-      _sirrrsResponseStatus = pResponseStatus_
+    { instanceRefreshId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A unique ID for tracking the progress of the request.
-sirrrsInstanceRefreshId :: Lens' StartInstanceRefreshResponse (Maybe Text)
-sirrrsInstanceRefreshId = lens _sirrrsInstanceRefreshId (\s a -> s {_sirrrsInstanceRefreshId = a})
+startInstanceRefreshResponse_instanceRefreshId :: Lens.Lens' StartInstanceRefreshResponse (Prelude.Maybe Prelude.Text)
+startInstanceRefreshResponse_instanceRefreshId = Lens.lens (\StartInstanceRefreshResponse' {instanceRefreshId} -> instanceRefreshId) (\s@StartInstanceRefreshResponse' {} a -> s {instanceRefreshId = a} :: StartInstanceRefreshResponse)
 
--- | -- | The response status code.
-sirrrsResponseStatus :: Lens' StartInstanceRefreshResponse Int
-sirrrsResponseStatus = lens _sirrrsResponseStatus (\s a -> s {_sirrrsResponseStatus = a})
+-- | The response's http status code.
+startInstanceRefreshResponse_httpStatus :: Lens.Lens' StartInstanceRefreshResponse Prelude.Int
+startInstanceRefreshResponse_httpStatus = Lens.lens (\StartInstanceRefreshResponse' {httpStatus} -> httpStatus) (\s@StartInstanceRefreshResponse' {} a -> s {httpStatus = a} :: StartInstanceRefreshResponse)
 
-instance NFData StartInstanceRefreshResponse
+instance Prelude.NFData StartInstanceRefreshResponse

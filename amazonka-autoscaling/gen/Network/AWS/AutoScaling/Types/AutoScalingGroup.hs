@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,135 +25,174 @@ import Network.AWS.AutoScaling.Types.LaunchTemplateSpecification
 import Network.AWS.AutoScaling.Types.MixedInstancesPolicy
 import Network.AWS.AutoScaling.Types.SuspendedProcess
 import Network.AWS.AutoScaling.Types.TagDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an Auto Scaling group.
 --
---
---
--- /See:/ 'autoScalingGroup' smart constructor.
+-- /See:/ 'newAutoScalingGroup' smart constructor.
 data AutoScalingGroup = AutoScalingGroup'
-  { _asgStatus ::
-      !(Maybe Text),
-    _asgPlacementGroup :: !(Maybe Text),
-    _asgSuspendedProcesses ::
-      !(Maybe [SuspendedProcess]),
-    _asgMaxInstanceLifetime ::
-      !(Maybe Int),
-    _asgAutoScalingGroupARN ::
-      !(Maybe Text),
-    _asgLaunchTemplate ::
-      !(Maybe LaunchTemplateSpecification),
-    _asgInstances :: !(Maybe [Instance]),
-    _asgLaunchConfigurationName ::
-      !(Maybe Text),
-    _asgMixedInstancesPolicy ::
-      !(Maybe MixedInstancesPolicy),
-    _asgTags :: !(Maybe [TagDescription]),
-    _asgLoadBalancerNames ::
-      !(Maybe [Text]),
-    _asgVPCZoneIdentifier ::
-      !(Maybe Text),
-    _asgTargetGroupARNs ::
-      !(Maybe [Text]),
-    _asgCapacityRebalance ::
-      !(Maybe Bool),
-    _asgNewInstancesProtectedFromScaleIn ::
-      !(Maybe Bool),
-    _asgServiceLinkedRoleARN ::
-      !(Maybe Text),
-    _asgHealthCheckGracePeriod ::
-      !(Maybe Int),
-    _asgEnabledMetrics ::
-      !(Maybe [EnabledMetric]),
-    _asgTerminationPolicies ::
-      !(Maybe [Text]),
-    _asgAutoScalingGroupName :: !Text,
-    _asgMinSize :: !Int,
-    _asgMaxSize :: !Int,
-    _asgDesiredCapacity :: !Int,
-    _asgDefaultCooldown :: !Int,
-    _asgAvailabilityZones :: ![Text],
-    _asgHealthCheckType :: !Text,
-    _asgCreatedTime :: !ISO8601
+  { -- | The current state of the group when the DeleteAutoScalingGroup operation
+    -- is in progress.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The name of the placement group into which to launch your instances, if
+    -- any.
+    placementGroup :: Prelude.Maybe Prelude.Text,
+    -- | The suspended processes associated with the group.
+    suspendedProcesses :: Prelude.Maybe [SuspendedProcess],
+    -- | The maximum amount of time, in seconds, that an instance can be in
+    -- service.
+    --
+    -- Valid Range: Minimum value of 0.
+    maxInstanceLifetime :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the Auto Scaling group.
+    autoScalingGroupARN :: Prelude.Maybe Prelude.Text,
+    -- | The launch template for the group.
+    launchTemplate :: Prelude.Maybe LaunchTemplateSpecification,
+    -- | The EC2 instances associated with the group.
+    instances :: Prelude.Maybe [Instance],
+    -- | The name of the associated launch configuration.
+    launchConfigurationName :: Prelude.Maybe Prelude.Text,
+    -- | The mixed instances policy for the group.
+    mixedInstancesPolicy :: Prelude.Maybe MixedInstancesPolicy,
+    -- | The tags for the group.
+    tags :: Prelude.Maybe [TagDescription],
+    -- | One or more load balancers associated with the group.
+    loadBalancerNames :: Prelude.Maybe [Prelude.Text],
+    -- | One or more subnet IDs, if applicable, separated by commas.
+    vPCZoneIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Names (ARN) of the target groups for your load
+    -- balancer.
+    targetGroupARNs :: Prelude.Maybe [Prelude.Text],
+    -- | Indicates whether Capacity Rebalancing is enabled.
+    capacityRebalance :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether newly launched instances are protected from
+    -- termination by Amazon EC2 Auto Scaling when scaling in.
+    newInstancesProtectedFromScaleIn' :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the service-linked role that the Auto
+    -- Scaling group uses to call other AWS services on your behalf.
+    serviceLinkedRoleARN :: Prelude.Maybe Prelude.Text,
+    -- | The amount of time, in seconds, that Amazon EC2 Auto Scaling waits
+    -- before checking the health status of an EC2 instance that has come into
+    -- service.
+    healthCheckGracePeriod :: Prelude.Maybe Prelude.Int,
+    -- | The metrics enabled for the group.
+    enabledMetrics :: Prelude.Maybe [EnabledMetric],
+    -- | The termination policies for the group.
+    terminationPolicies :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text,
+    -- | The minimum size of the group.
+    minSize :: Prelude.Int,
+    -- | The maximum size of the group.
+    maxSize :: Prelude.Int,
+    -- | The desired size of the group.
+    desiredCapacity :: Prelude.Int,
+    -- | The duration of the default cooldown period, in seconds.
+    defaultCooldown :: Prelude.Int,
+    -- | One or more Availability Zones for the group.
+    availabilityZones :: [Prelude.Text],
+    -- | The service to use for the health checks. The valid values are @EC2@ and
+    -- @ELB@. If you configure an Auto Scaling group to use ELB health checks,
+    -- it considers the instance unhealthy if it fails either the EC2 status
+    -- checks or the load balancer health checks.
+    healthCheckType :: Prelude.Text,
+    -- | The date and time the group was created.
+    createdTime :: Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoScalingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoScalingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asgStatus' - The current state of the group when the 'DeleteAutoScalingGroup' operation is in progress.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asgPlacementGroup' - The name of the placement group into which to launch your instances, if any.
+-- 'status', 'autoScalingGroup_status' - The current state of the group when the DeleteAutoScalingGroup operation
+-- is in progress.
 --
--- * 'asgSuspendedProcesses' - The suspended processes associated with the group.
+-- 'placementGroup', 'autoScalingGroup_placementGroup' - The name of the placement group into which to launch your instances, if
+-- any.
 --
--- * 'asgMaxInstanceLifetime' - The maximum amount of time, in seconds, that an instance can be in service. Valid Range: Minimum value of 0.
+-- 'suspendedProcesses', 'autoScalingGroup_suspendedProcesses' - The suspended processes associated with the group.
 --
--- * 'asgAutoScalingGroupARN' - The Amazon Resource Name (ARN) of the Auto Scaling group.
+-- 'maxInstanceLifetime', 'autoScalingGroup_maxInstanceLifetime' - The maximum amount of time, in seconds, that an instance can be in
+-- service.
 --
--- * 'asgLaunchTemplate' - The launch template for the group.
+-- Valid Range: Minimum value of 0.
 --
--- * 'asgInstances' - The EC2 instances associated with the group.
+-- 'autoScalingGroupARN', 'autoScalingGroup_autoScalingGroupARN' - The Amazon Resource Name (ARN) of the Auto Scaling group.
 --
--- * 'asgLaunchConfigurationName' - The name of the associated launch configuration.
+-- 'launchTemplate', 'autoScalingGroup_launchTemplate' - The launch template for the group.
 --
--- * 'asgMixedInstancesPolicy' - The mixed instances policy for the group.
+-- 'instances', 'autoScalingGroup_instances' - The EC2 instances associated with the group.
 --
--- * 'asgTags' - The tags for the group.
+-- 'launchConfigurationName', 'autoScalingGroup_launchConfigurationName' - The name of the associated launch configuration.
 --
--- * 'asgLoadBalancerNames' - One or more load balancers associated with the group.
+-- 'mixedInstancesPolicy', 'autoScalingGroup_mixedInstancesPolicy' - The mixed instances policy for the group.
 --
--- * 'asgVPCZoneIdentifier' - One or more subnet IDs, if applicable, separated by commas.
+-- 'tags', 'autoScalingGroup_tags' - The tags for the group.
 --
--- * 'asgTargetGroupARNs' - The Amazon Resource Names (ARN) of the target groups for your load balancer.
+-- 'loadBalancerNames', 'autoScalingGroup_loadBalancerNames' - One or more load balancers associated with the group.
 --
--- * 'asgCapacityRebalance' - Indicates whether Capacity Rebalancing is enabled.
+-- 'vPCZoneIdentifier', 'autoScalingGroup_vPCZoneIdentifier' - One or more subnet IDs, if applicable, separated by commas.
 --
--- * 'asgNewInstancesProtectedFromScaleIn' - Indicates whether newly launched instances are protected from termination by Amazon EC2 Auto Scaling when scaling in.
+-- 'targetGroupARNs', 'autoScalingGroup_targetGroupARNs' - The Amazon Resource Names (ARN) of the target groups for your load
+-- balancer.
 --
--- * 'asgServiceLinkedRoleARN' - The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS services on your behalf.
+-- 'capacityRebalance', 'autoScalingGroup_capacityRebalance' - Indicates whether Capacity Rebalancing is enabled.
 --
--- * 'asgHealthCheckGracePeriod' - The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an EC2 instance that has come into service.
+-- 'newInstancesProtectedFromScaleIn'', 'autoScalingGroup_newInstancesProtectedFromScaleIn' - Indicates whether newly launched instances are protected from
+-- termination by Amazon EC2 Auto Scaling when scaling in.
 --
--- * 'asgEnabledMetrics' - The metrics enabled for the group.
+-- 'serviceLinkedRoleARN', 'autoScalingGroup_serviceLinkedRoleARN' - The Amazon Resource Name (ARN) of the service-linked role that the Auto
+-- Scaling group uses to call other AWS services on your behalf.
 --
--- * 'asgTerminationPolicies' - The termination policies for the group.
+-- 'healthCheckGracePeriod', 'autoScalingGroup_healthCheckGracePeriod' - The amount of time, in seconds, that Amazon EC2 Auto Scaling waits
+-- before checking the health status of an EC2 instance that has come into
+-- service.
 --
--- * 'asgAutoScalingGroupName' - The name of the Auto Scaling group.
+-- 'enabledMetrics', 'autoScalingGroup_enabledMetrics' - The metrics enabled for the group.
 --
--- * 'asgMinSize' - The minimum size of the group.
+-- 'terminationPolicies', 'autoScalingGroup_terminationPolicies' - The termination policies for the group.
 --
--- * 'asgMaxSize' - The maximum size of the group.
+-- 'autoScalingGroupName', 'autoScalingGroup_autoScalingGroupName' - The name of the Auto Scaling group.
 --
--- * 'asgDesiredCapacity' - The desired size of the group.
+-- 'minSize', 'autoScalingGroup_minSize' - The minimum size of the group.
 --
--- * 'asgDefaultCooldown' - The duration of the default cooldown period, in seconds.
+-- 'maxSize', 'autoScalingGroup_maxSize' - The maximum size of the group.
 --
--- * 'asgAvailabilityZones' - One or more Availability Zones for the group.
+-- 'desiredCapacity', 'autoScalingGroup_desiredCapacity' - The desired size of the group.
 --
--- * 'asgHealthCheckType' - The service to use for the health checks. The valid values are @EC2@ and @ELB@ . If you configure an Auto Scaling group to use ELB health checks, it considers the instance unhealthy if it fails either the EC2 status checks or the load balancer health checks.
+-- 'defaultCooldown', 'autoScalingGroup_defaultCooldown' - The duration of the default cooldown period, in seconds.
 --
--- * 'asgCreatedTime' - The date and time the group was created.
-autoScalingGroup ::
-  -- | 'asgAutoScalingGroupName'
-  Text ->
-  -- | 'asgMinSize'
-  Int ->
-  -- | 'asgMaxSize'
-  Int ->
-  -- | 'asgDesiredCapacity'
-  Int ->
-  -- | 'asgDefaultCooldown'
-  Int ->
-  -- | 'asgHealthCheckType'
-  Text ->
-  -- | 'asgCreatedTime'
-  UTCTime ->
+-- 'availabilityZones', 'autoScalingGroup_availabilityZones' - One or more Availability Zones for the group.
+--
+-- 'healthCheckType', 'autoScalingGroup_healthCheckType' - The service to use for the health checks. The valid values are @EC2@ and
+-- @ELB@. If you configure an Auto Scaling group to use ELB health checks,
+-- it considers the instance unhealthy if it fails either the EC2 status
+-- checks or the load balancer health checks.
+--
+-- 'createdTime', 'autoScalingGroup_createdTime' - The date and time the group was created.
+newAutoScalingGroup ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
+  -- | 'minSize'
+  Prelude.Int ->
+  -- | 'maxSize'
+  Prelude.Int ->
+  -- | 'desiredCapacity'
+  Prelude.Int ->
+  -- | 'defaultCooldown'
+  Prelude.Int ->
+  -- | 'healthCheckType'
+  Prelude.Text ->
+  -- | 'createdTime'
+  Prelude.UTCTime ->
   AutoScalingGroup
-autoScalingGroup
+newAutoScalingGroup
   pAutoScalingGroupName_
   pMinSize_
   pMaxSize_
@@ -158,190 +201,209 @@ autoScalingGroup
   pHealthCheckType_
   pCreatedTime_ =
     AutoScalingGroup'
-      { _asgStatus = Nothing,
-        _asgPlacementGroup = Nothing,
-        _asgSuspendedProcesses = Nothing,
-        _asgMaxInstanceLifetime = Nothing,
-        _asgAutoScalingGroupARN = Nothing,
-        _asgLaunchTemplate = Nothing,
-        _asgInstances = Nothing,
-        _asgLaunchConfigurationName = Nothing,
-        _asgMixedInstancesPolicy = Nothing,
-        _asgTags = Nothing,
-        _asgLoadBalancerNames = Nothing,
-        _asgVPCZoneIdentifier = Nothing,
-        _asgTargetGroupARNs = Nothing,
-        _asgCapacityRebalance = Nothing,
-        _asgNewInstancesProtectedFromScaleIn = Nothing,
-        _asgServiceLinkedRoleARN = Nothing,
-        _asgHealthCheckGracePeriod = Nothing,
-        _asgEnabledMetrics = Nothing,
-        _asgTerminationPolicies = Nothing,
-        _asgAutoScalingGroupName = pAutoScalingGroupName_,
-        _asgMinSize = pMinSize_,
-        _asgMaxSize = pMaxSize_,
-        _asgDesiredCapacity = pDesiredCapacity_,
-        _asgDefaultCooldown = pDefaultCooldown_,
-        _asgAvailabilityZones = mempty,
-        _asgHealthCheckType = pHealthCheckType_,
-        _asgCreatedTime = _Time # pCreatedTime_
+      { status = Prelude.Nothing,
+        placementGroup = Prelude.Nothing,
+        suspendedProcesses = Prelude.Nothing,
+        maxInstanceLifetime = Prelude.Nothing,
+        autoScalingGroupARN = Prelude.Nothing,
+        launchTemplate = Prelude.Nothing,
+        instances = Prelude.Nothing,
+        launchConfigurationName = Prelude.Nothing,
+        mixedInstancesPolicy = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        loadBalancerNames = Prelude.Nothing,
+        vPCZoneIdentifier = Prelude.Nothing,
+        targetGroupARNs = Prelude.Nothing,
+        capacityRebalance = Prelude.Nothing,
+        newInstancesProtectedFromScaleIn' = Prelude.Nothing,
+        serviceLinkedRoleARN = Prelude.Nothing,
+        healthCheckGracePeriod = Prelude.Nothing,
+        enabledMetrics = Prelude.Nothing,
+        terminationPolicies = Prelude.Nothing,
+        autoScalingGroupName = pAutoScalingGroupName_,
+        minSize = pMinSize_,
+        maxSize = pMaxSize_,
+        desiredCapacity = pDesiredCapacity_,
+        defaultCooldown = pDefaultCooldown_,
+        availabilityZones = Prelude.mempty,
+        healthCheckType = pHealthCheckType_,
+        createdTime = Prelude._Time Lens.# pCreatedTime_
       }
 
--- | The current state of the group when the 'DeleteAutoScalingGroup' operation is in progress.
-asgStatus :: Lens' AutoScalingGroup (Maybe Text)
-asgStatus = lens _asgStatus (\s a -> s {_asgStatus = a})
+-- | The current state of the group when the DeleteAutoScalingGroup operation
+-- is in progress.
+autoScalingGroup_status :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Text)
+autoScalingGroup_status = Lens.lens (\AutoScalingGroup' {status} -> status) (\s@AutoScalingGroup' {} a -> s {status = a} :: AutoScalingGroup)
 
--- | The name of the placement group into which to launch your instances, if any.
-asgPlacementGroup :: Lens' AutoScalingGroup (Maybe Text)
-asgPlacementGroup = lens _asgPlacementGroup (\s a -> s {_asgPlacementGroup = a})
+-- | The name of the placement group into which to launch your instances, if
+-- any.
+autoScalingGroup_placementGroup :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Text)
+autoScalingGroup_placementGroup = Lens.lens (\AutoScalingGroup' {placementGroup} -> placementGroup) (\s@AutoScalingGroup' {} a -> s {placementGroup = a} :: AutoScalingGroup)
 
 -- | The suspended processes associated with the group.
-asgSuspendedProcesses :: Lens' AutoScalingGroup [SuspendedProcess]
-asgSuspendedProcesses = lens _asgSuspendedProcesses (\s a -> s {_asgSuspendedProcesses = a}) . _Default . _Coerce
+autoScalingGroup_suspendedProcesses :: Lens.Lens' AutoScalingGroup (Prelude.Maybe [SuspendedProcess])
+autoScalingGroup_suspendedProcesses = Lens.lens (\AutoScalingGroup' {suspendedProcesses} -> suspendedProcesses) (\s@AutoScalingGroup' {} a -> s {suspendedProcesses = a} :: AutoScalingGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum amount of time, in seconds, that an instance can be in service. Valid Range: Minimum value of 0.
-asgMaxInstanceLifetime :: Lens' AutoScalingGroup (Maybe Int)
-asgMaxInstanceLifetime = lens _asgMaxInstanceLifetime (\s a -> s {_asgMaxInstanceLifetime = a})
+-- | The maximum amount of time, in seconds, that an instance can be in
+-- service.
+--
+-- Valid Range: Minimum value of 0.
+autoScalingGroup_maxInstanceLifetime :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Int)
+autoScalingGroup_maxInstanceLifetime = Lens.lens (\AutoScalingGroup' {maxInstanceLifetime} -> maxInstanceLifetime) (\s@AutoScalingGroup' {} a -> s {maxInstanceLifetime = a} :: AutoScalingGroup)
 
 -- | The Amazon Resource Name (ARN) of the Auto Scaling group.
-asgAutoScalingGroupARN :: Lens' AutoScalingGroup (Maybe Text)
-asgAutoScalingGroupARN = lens _asgAutoScalingGroupARN (\s a -> s {_asgAutoScalingGroupARN = a})
+autoScalingGroup_autoScalingGroupARN :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Text)
+autoScalingGroup_autoScalingGroupARN = Lens.lens (\AutoScalingGroup' {autoScalingGroupARN} -> autoScalingGroupARN) (\s@AutoScalingGroup' {} a -> s {autoScalingGroupARN = a} :: AutoScalingGroup)
 
 -- | The launch template for the group.
-asgLaunchTemplate :: Lens' AutoScalingGroup (Maybe LaunchTemplateSpecification)
-asgLaunchTemplate = lens _asgLaunchTemplate (\s a -> s {_asgLaunchTemplate = a})
+autoScalingGroup_launchTemplate :: Lens.Lens' AutoScalingGroup (Prelude.Maybe LaunchTemplateSpecification)
+autoScalingGroup_launchTemplate = Lens.lens (\AutoScalingGroup' {launchTemplate} -> launchTemplate) (\s@AutoScalingGroup' {} a -> s {launchTemplate = a} :: AutoScalingGroup)
 
 -- | The EC2 instances associated with the group.
-asgInstances :: Lens' AutoScalingGroup [Instance]
-asgInstances = lens _asgInstances (\s a -> s {_asgInstances = a}) . _Default . _Coerce
+autoScalingGroup_instances :: Lens.Lens' AutoScalingGroup (Prelude.Maybe [Instance])
+autoScalingGroup_instances = Lens.lens (\AutoScalingGroup' {instances} -> instances) (\s@AutoScalingGroup' {} a -> s {instances = a} :: AutoScalingGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the associated launch configuration.
-asgLaunchConfigurationName :: Lens' AutoScalingGroup (Maybe Text)
-asgLaunchConfigurationName = lens _asgLaunchConfigurationName (\s a -> s {_asgLaunchConfigurationName = a})
+autoScalingGroup_launchConfigurationName :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Text)
+autoScalingGroup_launchConfigurationName = Lens.lens (\AutoScalingGroup' {launchConfigurationName} -> launchConfigurationName) (\s@AutoScalingGroup' {} a -> s {launchConfigurationName = a} :: AutoScalingGroup)
 
 -- | The mixed instances policy for the group.
-asgMixedInstancesPolicy :: Lens' AutoScalingGroup (Maybe MixedInstancesPolicy)
-asgMixedInstancesPolicy = lens _asgMixedInstancesPolicy (\s a -> s {_asgMixedInstancesPolicy = a})
+autoScalingGroup_mixedInstancesPolicy :: Lens.Lens' AutoScalingGroup (Prelude.Maybe MixedInstancesPolicy)
+autoScalingGroup_mixedInstancesPolicy = Lens.lens (\AutoScalingGroup' {mixedInstancesPolicy} -> mixedInstancesPolicy) (\s@AutoScalingGroup' {} a -> s {mixedInstancesPolicy = a} :: AutoScalingGroup)
 
 -- | The tags for the group.
-asgTags :: Lens' AutoScalingGroup [TagDescription]
-asgTags = lens _asgTags (\s a -> s {_asgTags = a}) . _Default . _Coerce
+autoScalingGroup_tags :: Lens.Lens' AutoScalingGroup (Prelude.Maybe [TagDescription])
+autoScalingGroup_tags = Lens.lens (\AutoScalingGroup' {tags} -> tags) (\s@AutoScalingGroup' {} a -> s {tags = a} :: AutoScalingGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | One or more load balancers associated with the group.
-asgLoadBalancerNames :: Lens' AutoScalingGroup [Text]
-asgLoadBalancerNames = lens _asgLoadBalancerNames (\s a -> s {_asgLoadBalancerNames = a}) . _Default . _Coerce
+autoScalingGroup_loadBalancerNames :: Lens.Lens' AutoScalingGroup (Prelude.Maybe [Prelude.Text])
+autoScalingGroup_loadBalancerNames = Lens.lens (\AutoScalingGroup' {loadBalancerNames} -> loadBalancerNames) (\s@AutoScalingGroup' {} a -> s {loadBalancerNames = a} :: AutoScalingGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | One or more subnet IDs, if applicable, separated by commas.
-asgVPCZoneIdentifier :: Lens' AutoScalingGroup (Maybe Text)
-asgVPCZoneIdentifier = lens _asgVPCZoneIdentifier (\s a -> s {_asgVPCZoneIdentifier = a})
+autoScalingGroup_vPCZoneIdentifier :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Text)
+autoScalingGroup_vPCZoneIdentifier = Lens.lens (\AutoScalingGroup' {vPCZoneIdentifier} -> vPCZoneIdentifier) (\s@AutoScalingGroup' {} a -> s {vPCZoneIdentifier = a} :: AutoScalingGroup)
 
--- | The Amazon Resource Names (ARN) of the target groups for your load balancer.
-asgTargetGroupARNs :: Lens' AutoScalingGroup [Text]
-asgTargetGroupARNs = lens _asgTargetGroupARNs (\s a -> s {_asgTargetGroupARNs = a}) . _Default . _Coerce
+-- | The Amazon Resource Names (ARN) of the target groups for your load
+-- balancer.
+autoScalingGroup_targetGroupARNs :: Lens.Lens' AutoScalingGroup (Prelude.Maybe [Prelude.Text])
+autoScalingGroup_targetGroupARNs = Lens.lens (\AutoScalingGroup' {targetGroupARNs} -> targetGroupARNs) (\s@AutoScalingGroup' {} a -> s {targetGroupARNs = a} :: AutoScalingGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicates whether Capacity Rebalancing is enabled.
-asgCapacityRebalance :: Lens' AutoScalingGroup (Maybe Bool)
-asgCapacityRebalance = lens _asgCapacityRebalance (\s a -> s {_asgCapacityRebalance = a})
+autoScalingGroup_capacityRebalance :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Bool)
+autoScalingGroup_capacityRebalance = Lens.lens (\AutoScalingGroup' {capacityRebalance} -> capacityRebalance) (\s@AutoScalingGroup' {} a -> s {capacityRebalance = a} :: AutoScalingGroup)
 
--- | Indicates whether newly launched instances are protected from termination by Amazon EC2 Auto Scaling when scaling in.
-asgNewInstancesProtectedFromScaleIn :: Lens' AutoScalingGroup (Maybe Bool)
-asgNewInstancesProtectedFromScaleIn = lens _asgNewInstancesProtectedFromScaleIn (\s a -> s {_asgNewInstancesProtectedFromScaleIn = a})
+-- | Indicates whether newly launched instances are protected from
+-- termination by Amazon EC2 Auto Scaling when scaling in.
+autoScalingGroup_newInstancesProtectedFromScaleIn :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Bool)
+autoScalingGroup_newInstancesProtectedFromScaleIn = Lens.lens (\AutoScalingGroup' {newInstancesProtectedFromScaleIn'} -> newInstancesProtectedFromScaleIn') (\s@AutoScalingGroup' {} a -> s {newInstancesProtectedFromScaleIn' = a} :: AutoScalingGroup)
 
--- | The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS services on your behalf.
-asgServiceLinkedRoleARN :: Lens' AutoScalingGroup (Maybe Text)
-asgServiceLinkedRoleARN = lens _asgServiceLinkedRoleARN (\s a -> s {_asgServiceLinkedRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the service-linked role that the Auto
+-- Scaling group uses to call other AWS services on your behalf.
+autoScalingGroup_serviceLinkedRoleARN :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Text)
+autoScalingGroup_serviceLinkedRoleARN = Lens.lens (\AutoScalingGroup' {serviceLinkedRoleARN} -> serviceLinkedRoleARN) (\s@AutoScalingGroup' {} a -> s {serviceLinkedRoleARN = a} :: AutoScalingGroup)
 
--- | The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an EC2 instance that has come into service.
-asgHealthCheckGracePeriod :: Lens' AutoScalingGroup (Maybe Int)
-asgHealthCheckGracePeriod = lens _asgHealthCheckGracePeriod (\s a -> s {_asgHealthCheckGracePeriod = a})
+-- | The amount of time, in seconds, that Amazon EC2 Auto Scaling waits
+-- before checking the health status of an EC2 instance that has come into
+-- service.
+autoScalingGroup_healthCheckGracePeriod :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Int)
+autoScalingGroup_healthCheckGracePeriod = Lens.lens (\AutoScalingGroup' {healthCheckGracePeriod} -> healthCheckGracePeriod) (\s@AutoScalingGroup' {} a -> s {healthCheckGracePeriod = a} :: AutoScalingGroup)
 
 -- | The metrics enabled for the group.
-asgEnabledMetrics :: Lens' AutoScalingGroup [EnabledMetric]
-asgEnabledMetrics = lens _asgEnabledMetrics (\s a -> s {_asgEnabledMetrics = a}) . _Default . _Coerce
+autoScalingGroup_enabledMetrics :: Lens.Lens' AutoScalingGroup (Prelude.Maybe [EnabledMetric])
+autoScalingGroup_enabledMetrics = Lens.lens (\AutoScalingGroup' {enabledMetrics} -> enabledMetrics) (\s@AutoScalingGroup' {} a -> s {enabledMetrics = a} :: AutoScalingGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The termination policies for the group.
-asgTerminationPolicies :: Lens' AutoScalingGroup [Text]
-asgTerminationPolicies = lens _asgTerminationPolicies (\s a -> s {_asgTerminationPolicies = a}) . _Default . _Coerce
+autoScalingGroup_terminationPolicies :: Lens.Lens' AutoScalingGroup (Prelude.Maybe [Prelude.Text])
+autoScalingGroup_terminationPolicies = Lens.lens (\AutoScalingGroup' {terminationPolicies} -> terminationPolicies) (\s@AutoScalingGroup' {} a -> s {terminationPolicies = a} :: AutoScalingGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the Auto Scaling group.
-asgAutoScalingGroupName :: Lens' AutoScalingGroup Text
-asgAutoScalingGroupName = lens _asgAutoScalingGroupName (\s a -> s {_asgAutoScalingGroupName = a})
+autoScalingGroup_autoScalingGroupName :: Lens.Lens' AutoScalingGroup Prelude.Text
+autoScalingGroup_autoScalingGroupName = Lens.lens (\AutoScalingGroup' {autoScalingGroupName} -> autoScalingGroupName) (\s@AutoScalingGroup' {} a -> s {autoScalingGroupName = a} :: AutoScalingGroup)
 
 -- | The minimum size of the group.
-asgMinSize :: Lens' AutoScalingGroup Int
-asgMinSize = lens _asgMinSize (\s a -> s {_asgMinSize = a})
+autoScalingGroup_minSize :: Lens.Lens' AutoScalingGroup Prelude.Int
+autoScalingGroup_minSize = Lens.lens (\AutoScalingGroup' {minSize} -> minSize) (\s@AutoScalingGroup' {} a -> s {minSize = a} :: AutoScalingGroup)
 
 -- | The maximum size of the group.
-asgMaxSize :: Lens' AutoScalingGroup Int
-asgMaxSize = lens _asgMaxSize (\s a -> s {_asgMaxSize = a})
+autoScalingGroup_maxSize :: Lens.Lens' AutoScalingGroup Prelude.Int
+autoScalingGroup_maxSize = Lens.lens (\AutoScalingGroup' {maxSize} -> maxSize) (\s@AutoScalingGroup' {} a -> s {maxSize = a} :: AutoScalingGroup)
 
 -- | The desired size of the group.
-asgDesiredCapacity :: Lens' AutoScalingGroup Int
-asgDesiredCapacity = lens _asgDesiredCapacity (\s a -> s {_asgDesiredCapacity = a})
+autoScalingGroup_desiredCapacity :: Lens.Lens' AutoScalingGroup Prelude.Int
+autoScalingGroup_desiredCapacity = Lens.lens (\AutoScalingGroup' {desiredCapacity} -> desiredCapacity) (\s@AutoScalingGroup' {} a -> s {desiredCapacity = a} :: AutoScalingGroup)
 
 -- | The duration of the default cooldown period, in seconds.
-asgDefaultCooldown :: Lens' AutoScalingGroup Int
-asgDefaultCooldown = lens _asgDefaultCooldown (\s a -> s {_asgDefaultCooldown = a})
+autoScalingGroup_defaultCooldown :: Lens.Lens' AutoScalingGroup Prelude.Int
+autoScalingGroup_defaultCooldown = Lens.lens (\AutoScalingGroup' {defaultCooldown} -> defaultCooldown) (\s@AutoScalingGroup' {} a -> s {defaultCooldown = a} :: AutoScalingGroup)
 
 -- | One or more Availability Zones for the group.
-asgAvailabilityZones :: Lens' AutoScalingGroup [Text]
-asgAvailabilityZones = lens _asgAvailabilityZones (\s a -> s {_asgAvailabilityZones = a}) . _Coerce
+autoScalingGroup_availabilityZones :: Lens.Lens' AutoScalingGroup [Prelude.Text]
+autoScalingGroup_availabilityZones = Lens.lens (\AutoScalingGroup' {availabilityZones} -> availabilityZones) (\s@AutoScalingGroup' {} a -> s {availabilityZones = a} :: AutoScalingGroup) Prelude.. Prelude._Coerce
 
--- | The service to use for the health checks. The valid values are @EC2@ and @ELB@ . If you configure an Auto Scaling group to use ELB health checks, it considers the instance unhealthy if it fails either the EC2 status checks or the load balancer health checks.
-asgHealthCheckType :: Lens' AutoScalingGroup Text
-asgHealthCheckType = lens _asgHealthCheckType (\s a -> s {_asgHealthCheckType = a})
+-- | The service to use for the health checks. The valid values are @EC2@ and
+-- @ELB@. If you configure an Auto Scaling group to use ELB health checks,
+-- it considers the instance unhealthy if it fails either the EC2 status
+-- checks or the load balancer health checks.
+autoScalingGroup_healthCheckType :: Lens.Lens' AutoScalingGroup Prelude.Text
+autoScalingGroup_healthCheckType = Lens.lens (\AutoScalingGroup' {healthCheckType} -> healthCheckType) (\s@AutoScalingGroup' {} a -> s {healthCheckType = a} :: AutoScalingGroup)
 
 -- | The date and time the group was created.
-asgCreatedTime :: Lens' AutoScalingGroup UTCTime
-asgCreatedTime = lens _asgCreatedTime (\s a -> s {_asgCreatedTime = a}) . _Time
+autoScalingGroup_createdTime :: Lens.Lens' AutoScalingGroup Prelude.UTCTime
+autoScalingGroup_createdTime = Lens.lens (\AutoScalingGroup' {createdTime} -> createdTime) (\s@AutoScalingGroup' {} a -> s {createdTime = a} :: AutoScalingGroup) Prelude.. Prelude._Time
 
-instance FromXML AutoScalingGroup where
+instance Prelude.FromXML AutoScalingGroup where
   parseXML x =
     AutoScalingGroup'
-      <$> (x .@? "Status")
-      <*> (x .@? "PlacementGroup")
-      <*> ( x .@? "SuspendedProcesses" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "MaxInstanceLifetime")
-      <*> (x .@? "AutoScalingGroupARN")
-      <*> (x .@? "LaunchTemplate")
-      <*> ( x .@? "Instances" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "LaunchConfigurationName")
-      <*> (x .@? "MixedInstancesPolicy")
-      <*> ( x .@? "Tags" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> ( x .@? "LoadBalancerNames" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "VPCZoneIdentifier")
-      <*> ( x .@? "TargetGroupARNs" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "CapacityRebalance")
-      <*> (x .@? "NewInstancesProtectedFromScaleIn")
-      <*> (x .@? "ServiceLinkedRoleARN")
-      <*> (x .@? "HealthCheckGracePeriod")
-      <*> ( x .@? "EnabledMetrics" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> ( x .@? "TerminationPolicies" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@ "AutoScalingGroupName")
-      <*> (x .@ "MinSize")
-      <*> (x .@ "MaxSize")
-      <*> (x .@ "DesiredCapacity")
-      <*> (x .@ "DefaultCooldown")
-      <*> ( x .@? "AvailabilityZones" .!@ mempty
-              >>= parseXMLList "member"
-          )
-      <*> (x .@ "HealthCheckType")
-      <*> (x .@ "CreatedTime")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "PlacementGroup")
+      Prelude.<*> ( x Prelude..@? "SuspendedProcesses"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "MaxInstanceLifetime")
+      Prelude.<*> (x Prelude..@? "AutoScalingGroupARN")
+      Prelude.<*> (x Prelude..@? "LaunchTemplate")
+      Prelude.<*> ( x Prelude..@? "Instances" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "LaunchConfigurationName")
+      Prelude.<*> (x Prelude..@? "MixedInstancesPolicy")
+      Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> ( x Prelude..@? "LoadBalancerNames"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "VPCZoneIdentifier")
+      Prelude.<*> ( x Prelude..@? "TargetGroupARNs"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "CapacityRebalance")
+      Prelude.<*> (x Prelude..@? "NewInstancesProtectedFromScaleIn")
+      Prelude.<*> (x Prelude..@? "ServiceLinkedRoleARN")
+      Prelude.<*> (x Prelude..@? "HealthCheckGracePeriod")
+      Prelude.<*> ( x Prelude..@? "EnabledMetrics"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> ( x Prelude..@? "TerminationPolicies"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@ "AutoScalingGroupName")
+      Prelude.<*> (x Prelude..@ "MinSize")
+      Prelude.<*> (x Prelude..@ "MaxSize")
+      Prelude.<*> (x Prelude..@ "DesiredCapacity")
+      Prelude.<*> (x Prelude..@ "DefaultCooldown")
+      Prelude.<*> ( x Prelude..@? "AvailabilityZones"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.parseXMLList "member"
+                  )
+      Prelude.<*> (x Prelude..@ "HealthCheckType")
+      Prelude.<*> (x Prelude..@ "CreatedTime")
 
-instance Hashable AutoScalingGroup
+instance Prelude.Hashable AutoScalingGroup
 
-instance NFData AutoScalingGroup
+instance Prelude.NFData AutoScalingGroup

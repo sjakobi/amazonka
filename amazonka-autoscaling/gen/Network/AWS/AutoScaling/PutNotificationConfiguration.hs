@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Configures an Auto Scaling group to send notifications when specified events take place. Subscribers to the specified topic can have messages delivered to an endpoint such as a web server or an email address.
---
+-- Configures an Auto Scaling group to send notifications when specified
+-- events take place. Subscribers to the specified topic can have messages
+-- delivered to an endpoint such as a web server or an email address.
 --
 -- This configuration overwrites any existing configuration.
 --
--- For more information, see <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ASGettingNotifications.html Getting Amazon SNS notifications when your Auto Scaling group scales> in the /Amazon EC2 Auto Scaling User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ASGettingNotifications.html Getting Amazon SNS notifications when your Auto Scaling group scales>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 --
--- If you exceed your maximum limit of SNS topics, which is 10 per Auto Scaling group, the call fails.
+-- If you exceed your maximum limit of SNS topics, which is 10 per Auto
+-- Scaling group, the call fails.
 module Network.AWS.AutoScaling.PutNotificationConfiguration
   ( -- * Creating a Request
-    putNotificationConfiguration,
-    PutNotificationConfiguration,
+    PutNotificationConfiguration (..),
+    newPutNotificationConfiguration,
 
     -- * Request Lenses
-    pncAutoScalingGroupName,
-    pncTopicARN,
-    pncNotificationTypes,
+    putNotificationConfiguration_autoScalingGroupName,
+    putNotificationConfiguration_topicARN,
+    putNotificationConfiguration_notificationTypes,
 
     -- * Destructuring the Response
-    putNotificationConfigurationResponse,
-    PutNotificationConfigurationResponse,
+    PutNotificationConfigurationResponse (..),
+    newPutNotificationConfigurationResponse,
   )
 where
 
 import Network.AWS.AutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putNotificationConfiguration' smart constructor.
+-- | /See:/ 'newPutNotificationConfiguration' smart constructor.
 data PutNotificationConfiguration = PutNotificationConfiguration'
-  { _pncAutoScalingGroupName ::
-      !Text,
-    _pncTopicARN ::
-      !Text,
-    _pncNotificationTypes ::
-      ![Text]
+  { -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
+    -- (Amazon SNS) topic.
+    topicARN :: Prelude.Text,
+    -- | The type of event that causes the notification to be sent. To query the
+    -- notification types supported by Amazon EC2 Auto Scaling, call the
+    -- DescribeAutoScalingNotificationTypes API.
+    notificationTypes :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutNotificationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutNotificationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pncAutoScalingGroupName' - The name of the Auto Scaling group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pncTopicARN' - The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (Amazon SNS) topic.
+-- 'autoScalingGroupName', 'putNotificationConfiguration_autoScalingGroupName' - The name of the Auto Scaling group.
 --
--- * 'pncNotificationTypes' - The type of event that causes the notification to be sent. To query the notification types supported by Amazon EC2 Auto Scaling, call the 'DescribeAutoScalingNotificationTypes' API.
-putNotificationConfiguration ::
-  -- | 'pncAutoScalingGroupName'
-  Text ->
-  -- | 'pncTopicARN'
-  Text ->
+-- 'topicARN', 'putNotificationConfiguration_topicARN' - The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
+-- (Amazon SNS) topic.
+--
+-- 'notificationTypes', 'putNotificationConfiguration_notificationTypes' - The type of event that causes the notification to be sent. To query the
+-- notification types supported by Amazon EC2 Auto Scaling, call the
+-- DescribeAutoScalingNotificationTypes API.
+newPutNotificationConfiguration ::
+  -- | 'autoScalingGroupName'
+  Prelude.Text ->
+  -- | 'topicARN'
+  Prelude.Text ->
   PutNotificationConfiguration
-putNotificationConfiguration
+newPutNotificationConfiguration
   pAutoScalingGroupName_
   pTopicARN_ =
     PutNotificationConfiguration'
-      { _pncAutoScalingGroupName =
+      { autoScalingGroupName =
           pAutoScalingGroupName_,
-        _pncTopicARN = pTopicARN_,
-        _pncNotificationTypes = mempty
+        topicARN = pTopicARN_,
+        notificationTypes = Prelude.mempty
       }
 
 -- | The name of the Auto Scaling group.
-pncAutoScalingGroupName :: Lens' PutNotificationConfiguration Text
-pncAutoScalingGroupName = lens _pncAutoScalingGroupName (\s a -> s {_pncAutoScalingGroupName = a})
+putNotificationConfiguration_autoScalingGroupName :: Lens.Lens' PutNotificationConfiguration Prelude.Text
+putNotificationConfiguration_autoScalingGroupName = Lens.lens (\PutNotificationConfiguration' {autoScalingGroupName} -> autoScalingGroupName) (\s@PutNotificationConfiguration' {} a -> s {autoScalingGroupName = a} :: PutNotificationConfiguration)
 
--- | The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (Amazon SNS) topic.
-pncTopicARN :: Lens' PutNotificationConfiguration Text
-pncTopicARN = lens _pncTopicARN (\s a -> s {_pncTopicARN = a})
+-- | The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
+-- (Amazon SNS) topic.
+putNotificationConfiguration_topicARN :: Lens.Lens' PutNotificationConfiguration Prelude.Text
+putNotificationConfiguration_topicARN = Lens.lens (\PutNotificationConfiguration' {topicARN} -> topicARN) (\s@PutNotificationConfiguration' {} a -> s {topicARN = a} :: PutNotificationConfiguration)
 
--- | The type of event that causes the notification to be sent. To query the notification types supported by Amazon EC2 Auto Scaling, call the 'DescribeAutoScalingNotificationTypes' API.
-pncNotificationTypes :: Lens' PutNotificationConfiguration [Text]
-pncNotificationTypes = lens _pncNotificationTypes (\s a -> s {_pncNotificationTypes = a}) . _Coerce
+-- | The type of event that causes the notification to be sent. To query the
+-- notification types supported by Amazon EC2 Auto Scaling, call the
+-- DescribeAutoScalingNotificationTypes API.
+putNotificationConfiguration_notificationTypes :: Lens.Lens' PutNotificationConfiguration [Prelude.Text]
+putNotificationConfiguration_notificationTypes = Lens.lens (\PutNotificationConfiguration' {notificationTypes} -> notificationTypes) (\s@PutNotificationConfiguration' {} a -> s {notificationTypes = a} :: PutNotificationConfiguration) Prelude.. Prelude._Coerce
 
-instance AWSRequest PutNotificationConfiguration where
+instance
+  Prelude.AWSRequest
+    PutNotificationConfiguration
+  where
   type
     Rs PutNotificationConfiguration =
       PutNotificationConfigurationResponse
-  request = postQuery autoScaling
+  request = Request.postQuery defaultService
   response =
-    receiveNull PutNotificationConfigurationResponse'
+    Response.receiveNull
+      PutNotificationConfigurationResponse'
 
-instance Hashable PutNotificationConfiguration
+instance
+  Prelude.Hashable
+    PutNotificationConfiguration
 
-instance NFData PutNotificationConfiguration
+instance Prelude.NFData PutNotificationConfiguration
 
-instance ToHeaders PutNotificationConfiguration where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    PutNotificationConfiguration
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath PutNotificationConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath PutNotificationConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutNotificationConfiguration where
+instance Prelude.ToQuery PutNotificationConfiguration where
   toQuery PutNotificationConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("PutNotificationConfiguration" :: ByteString),
-        "Version" =: ("2011-01-01" :: ByteString),
-        "AutoScalingGroupName" =: _pncAutoScalingGroupName,
-        "TopicARN" =: _pncTopicARN,
+          Prelude.=: ( "PutNotificationConfiguration" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName"
+          Prelude.=: autoScalingGroupName,
+        "TopicARN" Prelude.=: topicARN,
         "NotificationTypes"
-          =: toQueryList "member" _pncNotificationTypes
+          Prelude.=: Prelude.toQueryList "member" notificationTypes
       ]
 
--- | /See:/ 'putNotificationConfigurationResponse' smart constructor.
+-- | /See:/ 'newPutNotificationConfigurationResponse' smart constructor.
 data PutNotificationConfigurationResponse = PutNotificationConfigurationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutNotificationConfigurationResponse' with the minimum fields required to make a request.
-putNotificationConfigurationResponse ::
+-- |
+-- Create a value of 'PutNotificationConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPutNotificationConfigurationResponse ::
   PutNotificationConfigurationResponse
-putNotificationConfigurationResponse =
+newPutNotificationConfigurationResponse =
   PutNotificationConfigurationResponse'
 
-instance NFData PutNotificationConfigurationResponse
+instance
+  Prelude.NFData
+    PutNotificationConfigurationResponse
