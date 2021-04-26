@@ -28,55 +28,55 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestAssumeRoleWithWebIdentity $
---             assumeRoleWithWebIdentity
+--             newAssumeRoleWithWebIdentity
 --
 --         , requestGetAccessKeyInfo $
---             getAccessKeyInfo
+--             newGetAccessKeyInfo
 --
 --         , requestGetSessionToken $
---             getSessionToken
+--             newGetSessionToken
 --
 --         , requestAssumeRole $
---             assumeRole
+--             newAssumeRole
 --
 --         , requestGetCallerIdentity $
---             getCallerIdentity
+--             newGetCallerIdentity
 --
 --         , requestDecodeAuthorizationMessage $
---             decodeAuthorizationMessage
+--             newDecodeAuthorizationMessage
 --
 --         , requestAssumeRoleWithSAML $
---             assumeRoleWithSAML
+--             newAssumeRoleWithSAML
 --
 --         , requestGetFederationToken $
---             getFederationToken
+--             newGetFederationToken
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseAssumeRoleWithWebIdentity $
---             assumeRoleWithWebIdentityResponse
+--             newAssumeRoleWithWebIdentityResponse
 --
 --         , responseGetAccessKeyInfo $
---             getAccessKeyInfoResponse
+--             newGetAccessKeyInfoResponse
 --
 --         , responseGetSessionToken $
---             getSessionTokenResponse
+--             newGetSessionTokenResponse
 --
 --         , responseAssumeRole $
---             assumeRoleResponse
+--             newAssumeRoleResponse
 --
 --         , responseGetCallerIdentity $
---             getCallerIdentityResponse
+--             newGetCallerIdentityResponse
 --
 --         , responseDecodeAuthorizationMessage $
---             decodeAuthorizationMessageResponse
+--             newDecodeAuthorizationMessageResponse
 --
 --         , responseAssumeRoleWithSAML $
---             assumeRoleWithSAMLResponse
+--             newAssumeRoleWithSAMLResponse
 --
 --         , responseGetFederationToken $
---             getFederationTokenResponse
+--             newGetFederationTokenResponse
 --
 --           ]
 --     ]
@@ -138,7 +138,7 @@ responseAssumeRoleWithWebIdentity =
   res
     "AssumeRoleWithWebIdentityResponse"
     "fixture/AssumeRoleWithWebIdentityResponse.proto"
-    sts
+    defaultService
     (Proxy :: Proxy AssumeRoleWithWebIdentity)
 
 responseGetAccessKeyInfo :: GetAccessKeyInfoResponse -> TestTree
@@ -146,7 +146,7 @@ responseGetAccessKeyInfo =
   res
     "GetAccessKeyInfoResponse"
     "fixture/GetAccessKeyInfoResponse.proto"
-    sts
+    defaultService
     (Proxy :: Proxy GetAccessKeyInfo)
 
 responseGetSessionToken :: GetSessionTokenResponse -> TestTree
@@ -154,7 +154,7 @@ responseGetSessionToken =
   res
     "GetSessionTokenResponse"
     "fixture/GetSessionTokenResponse.proto"
-    sts
+    defaultService
     (Proxy :: Proxy GetSessionToken)
 
 responseAssumeRole :: AssumeRoleResponse -> TestTree
@@ -162,7 +162,7 @@ responseAssumeRole =
   res
     "AssumeRoleResponse"
     "fixture/AssumeRoleResponse.proto"
-    sts
+    defaultService
     (Proxy :: Proxy AssumeRole)
 
 responseGetCallerIdentity :: GetCallerIdentityResponse -> TestTree
@@ -170,7 +170,7 @@ responseGetCallerIdentity =
   res
     "GetCallerIdentityResponse"
     "fixture/GetCallerIdentityResponse.proto"
-    sts
+    defaultService
     (Proxy :: Proxy GetCallerIdentity)
 
 responseDecodeAuthorizationMessage :: DecodeAuthorizationMessageResponse -> TestTree
@@ -178,7 +178,7 @@ responseDecodeAuthorizationMessage =
   res
     "DecodeAuthorizationMessageResponse"
     "fixture/DecodeAuthorizationMessageResponse.proto"
-    sts
+    defaultService
     (Proxy :: Proxy DecodeAuthorizationMessage)
 
 responseAssumeRoleWithSAML :: AssumeRoleWithSAMLResponse -> TestTree
@@ -186,7 +186,7 @@ responseAssumeRoleWithSAML =
   res
     "AssumeRoleWithSAMLResponse"
     "fixture/AssumeRoleWithSAMLResponse.proto"
-    sts
+    defaultService
     (Proxy :: Proxy AssumeRoleWithSAML)
 
 responseGetFederationToken :: GetFederationTokenResponse -> TestTree
@@ -194,5 +194,5 @@ responseGetFederationToken =
   res
     "GetFederationTokenResponse"
     "fixture/GetFederationTokenResponse.proto"
-    sts
+    defaultService
     (Proxy :: Proxy GetFederationToken)

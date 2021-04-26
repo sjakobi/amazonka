@@ -11,12 +11,17 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Security Token Service__
+-- AWS Security Token Service
 --
--- AWS Security Token Service (STS) enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or for users that you authenticate (federated users). This guide provides descriptions of the STS API. For more information about using this service, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html Temporary Security Credentials> .
+-- AWS Security Token Service (STS) enables you to request temporary,
+-- limited-privilege credentials for AWS Identity and Access Management
+-- (IAM) users or for users that you authenticate (federated users). This
+-- guide provides descriptions of the STS API. For more information about
+-- using this service, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html Temporary Security Credentials>.
 module Network.AWS.STS
   ( -- * Service Configuration
-    sts,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -39,11 +44,11 @@ module Network.AWS.STS
     -- ** InvalidAuthorizationMessageException
     _InvalidAuthorizationMessageException,
 
-    -- ** IdPRejectedClaimException
-    _IdPRejectedClaimException,
+    -- ** IDPRejectedClaimException
+    _IDPRejectedClaimException,
 
-    -- ** IdPCommunicationErrorException
-    _IdPCommunicationErrorException,
+    -- ** IDPCommunicationErrorException
+    _IDPCommunicationErrorException,
 
     -- * Waiters
     -- $waiters
@@ -52,53 +57,70 @@ module Network.AWS.STS
     -- $operations
 
     -- ** AssumeRoleWithWebIdentity
-    module Network.AWS.STS.AssumeRoleWithWebIdentity,
+    AssumeRoleWithWebIdentity (AssumeRoleWithWebIdentity'),
+    newAssumeRoleWithWebIdentity,
+    AssumeRoleWithWebIdentityResponse (AssumeRoleWithWebIdentityResponse'),
+    newAssumeRoleWithWebIdentityResponse,
 
     -- ** GetAccessKeyInfo
-    module Network.AWS.STS.GetAccessKeyInfo,
+    GetAccessKeyInfo (GetAccessKeyInfo'),
+    newGetAccessKeyInfo,
+    GetAccessKeyInfoResponse (GetAccessKeyInfoResponse'),
+    newGetAccessKeyInfoResponse,
 
     -- ** GetSessionToken
-    module Network.AWS.STS.GetSessionToken,
+    GetSessionToken (GetSessionToken'),
+    newGetSessionToken,
+    GetSessionTokenResponse (GetSessionTokenResponse'),
+    newGetSessionTokenResponse,
 
     -- ** AssumeRole
-    module Network.AWS.STS.AssumeRole,
+    AssumeRole (AssumeRole'),
+    newAssumeRole,
+    AssumeRoleResponse (AssumeRoleResponse'),
+    newAssumeRoleResponse,
 
     -- ** GetCallerIdentity
-    module Network.AWS.STS.GetCallerIdentity,
+    GetCallerIdentity (GetCallerIdentity'),
+    newGetCallerIdentity,
+    GetCallerIdentityResponse (GetCallerIdentityResponse'),
+    newGetCallerIdentityResponse,
 
     -- ** DecodeAuthorizationMessage
-    module Network.AWS.STS.DecodeAuthorizationMessage,
+    DecodeAuthorizationMessage (DecodeAuthorizationMessage'),
+    newDecodeAuthorizationMessage,
+    DecodeAuthorizationMessageResponse (DecodeAuthorizationMessageResponse'),
+    newDecodeAuthorizationMessageResponse,
 
     -- ** AssumeRoleWithSAML
-    module Network.AWS.STS.AssumeRoleWithSAML,
+    AssumeRoleWithSAML (AssumeRoleWithSAML'),
+    newAssumeRoleWithSAML,
+    AssumeRoleWithSAMLResponse (AssumeRoleWithSAMLResponse'),
+    newAssumeRoleWithSAMLResponse,
 
     -- ** GetFederationToken
-    module Network.AWS.STS.GetFederationToken,
+    GetFederationToken (GetFederationToken'),
+    newGetFederationToken,
+    GetFederationTokenResponse (GetFederationTokenResponse'),
+    newGetFederationTokenResponse,
 
     -- * Types
 
     -- ** AssumedRoleUser
-    AssumedRoleUser,
-    assumedRoleUser,
-    aruAssumedRoleId,
-    aruARN,
+    AssumedRoleUser (AssumedRoleUser'),
+    newAssumedRoleUser,
 
     -- ** FederatedUser
-    FederatedUser,
-    federatedUser,
-    fuFederatedUserId,
-    fuARN,
+    FederatedUser (FederatedUser'),
+    newFederatedUser,
 
     -- ** PolicyDescriptorType
-    PolicyDescriptorType,
-    policyDescriptorType,
-    pdtArn,
+    PolicyDescriptorType (PolicyDescriptorType'),
+    newPolicyDescriptorType,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -110,6 +132,7 @@ import Network.AWS.STS.GetAccessKeyInfo
 import Network.AWS.STS.GetCallerIdentity
 import Network.AWS.STS.GetFederationToken
 import Network.AWS.STS.GetSessionToken
+import Network.AWS.STS.Lens
 import Network.AWS.STS.Types
 import Network.AWS.STS.Waiters
 

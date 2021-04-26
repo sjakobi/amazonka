@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,174 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Decodes additional information about the authorization status of a request from an encoded message returned in response to an AWS request.
+-- Decodes additional information about the authorization status of a
+-- request from an encoded message returned in response to an AWS request.
 --
+-- For example, if a user is not authorized to perform an operation that he
+-- or she has requested, the request returns a
+-- @Client.UnauthorizedOperation@ response (an HTTP 403 response). Some AWS
+-- operations additionally return an encoded message that can provide
+-- details about this authorization failure.
 --
--- For example, if a user is not authorized to perform an operation that he or she has requested, the request returns a @Client.UnauthorizedOperation@ response (an HTTP 403 response). Some AWS operations additionally return an encoded message that can provide details about this authorization failure.
+-- Only certain AWS operations return an encoded authorization message. The
+-- documentation for an individual operation indicates whether that
+-- operation returns an encoded message in addition to returning an HTTP
+-- code.
 --
--- The message is encoded because the details of the authorization status can constitute privileged information that the user who requested the operation should not see. To decode an authorization status message, a user must be granted permissions via an IAM policy to request the @DecodeAuthorizationMessage@ (@sts:DecodeAuthorizationMessage@ ) action.
+-- The message is encoded because the details of the authorization status
+-- can constitute privileged information that the user who requested the
+-- operation should not see. To decode an authorization status message, a
+-- user must be granted permissions via an IAM policy to request the
+-- @DecodeAuthorizationMessage@ (@sts:DecodeAuthorizationMessage@) action.
 --
 -- The decoded message includes the following type of information:
 --
---     * Whether the request was denied due to an explicit deny or due to the absence of an explicit allow. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow Determining Whether a Request is Allowed or Denied> in the /IAM User Guide/ .
+-- -   Whether the request was denied due to an explicit deny or due to the
+--     absence of an explicit allow. For more information, see
+--     <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow Determining Whether a Request is Allowed or Denied>
+--     in the /IAM User Guide/.
 --
---     * The principal who made the request.
+-- -   The principal who made the request.
 --
---     * The requested action.
+-- -   The requested action.
 --
---     * The requested resource.
+-- -   The requested resource.
 --
---     * The values of condition keys in the context of the user's request.
+-- -   The values of condition keys in the context of the user\'s request.
 module Network.AWS.STS.DecodeAuthorizationMessage
   ( -- * Creating a Request
-    decodeAuthorizationMessage,
-    DecodeAuthorizationMessage,
+    DecodeAuthorizationMessage (..),
+    newDecodeAuthorizationMessage,
 
     -- * Request Lenses
-    damEncodedMessage,
+    decodeAuthorizationMessage_encodedMessage,
 
     -- * Destructuring the Response
-    decodeAuthorizationMessageResponse,
-    DecodeAuthorizationMessageResponse,
+    DecodeAuthorizationMessageResponse (..),
+    newDecodeAuthorizationMessageResponse,
 
     -- * Response Lenses
-    damrrsDecodedMessage,
-    damrrsResponseStatus,
+    decodeAuthorizationMessageResponse_decodedMessage,
+    decodeAuthorizationMessageResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.STS.Types
 
--- | /See:/ 'decodeAuthorizationMessage' smart constructor.
-newtype DecodeAuthorizationMessage = DecodeAuthorizationMessage'
-  { _damEncodedMessage ::
-      Text
+-- | /See:/ 'newDecodeAuthorizationMessage' smart constructor.
+data DecodeAuthorizationMessage = DecodeAuthorizationMessage'
+  { -- | The encoded message that was returned with the response.
+    encodedMessage :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DecodeAuthorizationMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DecodeAuthorizationMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'damEncodedMessage' - The encoded message that was returned with the response.
-decodeAuthorizationMessage ::
-  -- | 'damEncodedMessage'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'encodedMessage', 'decodeAuthorizationMessage_encodedMessage' - The encoded message that was returned with the response.
+newDecodeAuthorizationMessage ::
+  -- | 'encodedMessage'
+  Prelude.Text ->
   DecodeAuthorizationMessage
-decodeAuthorizationMessage pEncodedMessage_ =
+newDecodeAuthorizationMessage pEncodedMessage_ =
   DecodeAuthorizationMessage'
-    { _damEncodedMessage =
+    { encodedMessage =
         pEncodedMessage_
     }
 
 -- | The encoded message that was returned with the response.
-damEncodedMessage :: Lens' DecodeAuthorizationMessage Text
-damEncodedMessage = lens _damEncodedMessage (\s a -> s {_damEncodedMessage = a})
+decodeAuthorizationMessage_encodedMessage :: Lens.Lens' DecodeAuthorizationMessage Prelude.Text
+decodeAuthorizationMessage_encodedMessage = Lens.lens (\DecodeAuthorizationMessage' {encodedMessage} -> encodedMessage) (\s@DecodeAuthorizationMessage' {} a -> s {encodedMessage = a} :: DecodeAuthorizationMessage)
 
-instance AWSRequest DecodeAuthorizationMessage where
+instance
+  Prelude.AWSRequest
+    DecodeAuthorizationMessage
+  where
   type
     Rs DecodeAuthorizationMessage =
       DecodeAuthorizationMessageResponse
-  request = postQuery sts
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DecodeAuthorizationMessageResult"
       ( \s h x ->
           DecodeAuthorizationMessageResponse'
-            <$> (x .@? "DecodedMessage") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DecodedMessage")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DecodeAuthorizationMessage
+instance Prelude.Hashable DecodeAuthorizationMessage
 
-instance NFData DecodeAuthorizationMessage
+instance Prelude.NFData DecodeAuthorizationMessage
 
-instance ToHeaders DecodeAuthorizationMessage where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DecodeAuthorizationMessage where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DecodeAuthorizationMessage where
-  toPath = const "/"
+instance Prelude.ToPath DecodeAuthorizationMessage where
+  toPath = Prelude.const "/"
 
-instance ToQuery DecodeAuthorizationMessage where
+instance Prelude.ToQuery DecodeAuthorizationMessage where
   toQuery DecodeAuthorizationMessage' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DecodeAuthorizationMessage" :: ByteString),
-        "Version" =: ("2011-06-15" :: ByteString),
-        "EncodedMessage" =: _damEncodedMessage
+          Prelude.=: ("DecodeAuthorizationMessage" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2011-06-15" :: Prelude.ByteString),
+        "EncodedMessage" Prelude.=: encodedMessage
       ]
 
--- | A document that contains additional information about the authorization status of a request from an encoded message that is returned in response to an AWS request.
+-- | A document that contains additional information about the authorization
+-- status of a request from an encoded message that is returned in response
+-- to an AWS request.
 --
---
---
--- /See:/ 'decodeAuthorizationMessageResponse' smart constructor.
+-- /See:/ 'newDecodeAuthorizationMessageResponse' smart constructor.
 data DecodeAuthorizationMessageResponse = DecodeAuthorizationMessageResponse'
-  { _damrrsDecodedMessage ::
-      !( Maybe
-           Text
-       ),
-    _damrrsResponseStatus ::
-      !Int
+  { -- | An XML document that contains the decoded message.
+    decodedMessage :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DecodeAuthorizationMessageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DecodeAuthorizationMessageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'damrrsDecodedMessage' - An XML document that contains the decoded message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'damrrsResponseStatus' - -- | The response status code.
-decodeAuthorizationMessageResponse ::
-  -- | 'damrrsResponseStatus'
-  Int ->
+-- 'decodedMessage', 'decodeAuthorizationMessageResponse_decodedMessage' - An XML document that contains the decoded message.
+--
+-- 'httpStatus', 'decodeAuthorizationMessageResponse_httpStatus' - The response's http status code.
+newDecodeAuthorizationMessageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DecodeAuthorizationMessageResponse
-decodeAuthorizationMessageResponse pResponseStatus_ =
+newDecodeAuthorizationMessageResponse pHttpStatus_ =
   DecodeAuthorizationMessageResponse'
-    { _damrrsDecodedMessage =
-        Nothing,
-      _damrrsResponseStatus =
-        pResponseStatus_
+    { decodedMessage =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An XML document that contains the decoded message.
-damrrsDecodedMessage :: Lens' DecodeAuthorizationMessageResponse (Maybe Text)
-damrrsDecodedMessage = lens _damrrsDecodedMessage (\s a -> s {_damrrsDecodedMessage = a})
+decodeAuthorizationMessageResponse_decodedMessage :: Lens.Lens' DecodeAuthorizationMessageResponse (Prelude.Maybe Prelude.Text)
+decodeAuthorizationMessageResponse_decodedMessage = Lens.lens (\DecodeAuthorizationMessageResponse' {decodedMessage} -> decodedMessage) (\s@DecodeAuthorizationMessageResponse' {} a -> s {decodedMessage = a} :: DecodeAuthorizationMessageResponse)
 
--- | -- | The response status code.
-damrrsResponseStatus :: Lens' DecodeAuthorizationMessageResponse Int
-damrrsResponseStatus = lens _damrrsResponseStatus (\s a -> s {_damrrsResponseStatus = a})
+-- | The response's http status code.
+decodeAuthorizationMessageResponse_httpStatus :: Lens.Lens' DecodeAuthorizationMessageResponse Prelude.Int
+decodeAuthorizationMessageResponse_httpStatus = Lens.lens (\DecodeAuthorizationMessageResponse' {httpStatus} -> httpStatus) (\s@DecodeAuthorizationMessageResponse' {} a -> s {httpStatus = a} :: DecodeAuthorizationMessageResponse)
 
-instance NFData DecodeAuthorizationMessageResponse
+instance
+  Prelude.NFData
+    DecodeAuthorizationMessageResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,133 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns details about the IAM user or role whose credentials are used to call the operation.
+-- Returns details about the IAM user or role whose credentials are used to
+-- call the operation.
+--
+-- No permissions are required to perform this operation. If an
+-- administrator adds a policy to your IAM user or role that explicitly
+-- denies access to the @sts:GetCallerIdentity@ action, you can still
+-- perform this operation. Permissions are not required because the same
+-- information is returned when an IAM user or role is denied access. To
+-- view an example response, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice>
+-- in the /IAM User Guide/.
 module Network.AWS.STS.GetCallerIdentity
   ( -- * Creating a Request
-    getCallerIdentity,
-    GetCallerIdentity,
+    GetCallerIdentity (..),
+    newGetCallerIdentity,
 
     -- * Destructuring the Response
-    getCallerIdentityResponse,
-    GetCallerIdentityResponse,
+    GetCallerIdentityResponse (..),
+    newGetCallerIdentityResponse,
 
     -- * Response Lenses
-    gcirrsARN,
-    gcirrsUserId,
-    gcirrsAccount,
-    gcirrsResponseStatus,
+    getCallerIdentityResponse_arn,
+    getCallerIdentityResponse_userId,
+    getCallerIdentityResponse_account,
+    getCallerIdentityResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.STS.Types
 
--- | /See:/ 'getCallerIdentity' smart constructor.
+-- | /See:/ 'newGetCallerIdentity' smart constructor.
 data GetCallerIdentity = GetCallerIdentity'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCallerIdentity' with the minimum fields required to make a request.
-getCallerIdentity ::
+-- |
+-- Create a value of 'GetCallerIdentity' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetCallerIdentity ::
   GetCallerIdentity
-getCallerIdentity = GetCallerIdentity'
+newGetCallerIdentity = GetCallerIdentity'
 
-instance AWSRequest GetCallerIdentity where
+instance Prelude.AWSRequest GetCallerIdentity where
   type Rs GetCallerIdentity = GetCallerIdentityResponse
-  request = postQuery sts
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetCallerIdentityResult"
       ( \s h x ->
           GetCallerIdentityResponse'
-            <$> (x .@? "Arn")
-            <*> (x .@? "UserId")
-            <*> (x .@? "Account")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Arn")
+            Prelude.<*> (x Prelude..@? "UserId")
+            Prelude.<*> (x Prelude..@? "Account")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCallerIdentity
+instance Prelude.Hashable GetCallerIdentity
 
-instance NFData GetCallerIdentity
+instance Prelude.NFData GetCallerIdentity
 
-instance ToHeaders GetCallerIdentity where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetCallerIdentity where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetCallerIdentity where
-  toPath = const "/"
+instance Prelude.ToPath GetCallerIdentity where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCallerIdentity where
+instance Prelude.ToQuery GetCallerIdentity where
   toQuery =
-    const
-      ( mconcat
-          [ "Action" =: ("GetCallerIdentity" :: ByteString),
-            "Version" =: ("2011-06-15" :: ByteString)
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Action"
+              Prelude.=: ("GetCallerIdentity" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2011-06-15" :: Prelude.ByteString)
           ]
       )
 
--- | Contains the response to a successful 'GetCallerIdentity' request, including information about the entity making the request.
+-- | Contains the response to a successful GetCallerIdentity request,
+-- including information about the entity making the request.
 --
---
---
--- /See:/ 'getCallerIdentityResponse' smart constructor.
+-- /See:/ 'newGetCallerIdentityResponse' smart constructor.
 data GetCallerIdentityResponse = GetCallerIdentityResponse'
-  { _gcirrsARN ::
-      !(Maybe Text),
-    _gcirrsUserId ::
-      !(Maybe Text),
-    _gcirrsAccount ::
-      !(Maybe Text),
-    _gcirrsResponseStatus ::
-      !Int
+  { -- | The AWS ARN associated with the calling entity.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the calling entity. The exact value depends on
+    -- the type of entity that is making the call. The values returned are
+    -- those listed in the __aws:userid__ column in the
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable Principal table>
+    -- found on the __Policy Variables__ reference page in the /IAM User
+    -- Guide/.
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | The AWS account ID number of the account that owns or contains the
+    -- calling entity.
+    account :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCallerIdentityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCallerIdentityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcirrsARN' - The AWS ARN associated with the calling entity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcirrsUserId' - The unique identifier of the calling entity. The exact value depends on the type of entity that is making the call. The values returned are those listed in the __aws:userid__ column in the <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable Principal table> found on the __Policy Variables__ reference page in the /IAM User Guide/ .
+-- 'arn', 'getCallerIdentityResponse_arn' - The AWS ARN associated with the calling entity.
 --
--- * 'gcirrsAccount' - The AWS account ID number of the account that owns or contains the calling entity.
+-- 'userId', 'getCallerIdentityResponse_userId' - The unique identifier of the calling entity. The exact value depends on
+-- the type of entity that is making the call. The values returned are
+-- those listed in the __aws:userid__ column in the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable Principal table>
+-- found on the __Policy Variables__ reference page in the /IAM User
+-- Guide/.
 --
--- * 'gcirrsResponseStatus' - -- | The response status code.
-getCallerIdentityResponse ::
-  -- | 'gcirrsResponseStatus'
-  Int ->
+-- 'account', 'getCallerIdentityResponse_account' - The AWS account ID number of the account that owns or contains the
+-- calling entity.
+--
+-- 'httpStatus', 'getCallerIdentityResponse_httpStatus' - The response's http status code.
+newGetCallerIdentityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCallerIdentityResponse
-getCallerIdentityResponse pResponseStatus_ =
+newGetCallerIdentityResponse pHttpStatus_ =
   GetCallerIdentityResponse'
-    { _gcirrsARN = Nothing,
-      _gcirrsUserId = Nothing,
-      _gcirrsAccount = Nothing,
-      _gcirrsResponseStatus = pResponseStatus_
+    { arn = Prelude.Nothing,
+      userId = Prelude.Nothing,
+      account = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The AWS ARN associated with the calling entity.
-gcirrsARN :: Lens' GetCallerIdentityResponse (Maybe Text)
-gcirrsARN = lens _gcirrsARN (\s a -> s {_gcirrsARN = a})
+getCallerIdentityResponse_arn :: Lens.Lens' GetCallerIdentityResponse (Prelude.Maybe Prelude.Text)
+getCallerIdentityResponse_arn = Lens.lens (\GetCallerIdentityResponse' {arn} -> arn) (\s@GetCallerIdentityResponse' {} a -> s {arn = a} :: GetCallerIdentityResponse)
 
--- | The unique identifier of the calling entity. The exact value depends on the type of entity that is making the call. The values returned are those listed in the __aws:userid__ column in the <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable Principal table> found on the __Policy Variables__ reference page in the /IAM User Guide/ .
-gcirrsUserId :: Lens' GetCallerIdentityResponse (Maybe Text)
-gcirrsUserId = lens _gcirrsUserId (\s a -> s {_gcirrsUserId = a})
+-- | The unique identifier of the calling entity. The exact value depends on
+-- the type of entity that is making the call. The values returned are
+-- those listed in the __aws:userid__ column in the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable Principal table>
+-- found on the __Policy Variables__ reference page in the /IAM User
+-- Guide/.
+getCallerIdentityResponse_userId :: Lens.Lens' GetCallerIdentityResponse (Prelude.Maybe Prelude.Text)
+getCallerIdentityResponse_userId = Lens.lens (\GetCallerIdentityResponse' {userId} -> userId) (\s@GetCallerIdentityResponse' {} a -> s {userId = a} :: GetCallerIdentityResponse)
 
--- | The AWS account ID number of the account that owns or contains the calling entity.
-gcirrsAccount :: Lens' GetCallerIdentityResponse (Maybe Text)
-gcirrsAccount = lens _gcirrsAccount (\s a -> s {_gcirrsAccount = a})
+-- | The AWS account ID number of the account that owns or contains the
+-- calling entity.
+getCallerIdentityResponse_account :: Lens.Lens' GetCallerIdentityResponse (Prelude.Maybe Prelude.Text)
+getCallerIdentityResponse_account = Lens.lens (\GetCallerIdentityResponse' {account} -> account) (\s@GetCallerIdentityResponse' {} a -> s {account = a} :: GetCallerIdentityResponse)
 
--- | -- | The response status code.
-gcirrsResponseStatus :: Lens' GetCallerIdentityResponse Int
-gcirrsResponseStatus = lens _gcirrsResponseStatus (\s a -> s {_gcirrsResponseStatus = a})
+-- | The response's http status code.
+getCallerIdentityResponse_httpStatus :: Lens.Lens' GetCallerIdentityResponse Prelude.Int
+getCallerIdentityResponse_httpStatus = Lens.lens (\GetCallerIdentityResponse' {httpStatus} -> httpStatus) (\s@GetCallerIdentityResponse' {} a -> s {httpStatus = a} :: GetCallerIdentityResponse)
 
-instance NFData GetCallerIdentityResponse
+instance Prelude.NFData GetCallerIdentityResponse
