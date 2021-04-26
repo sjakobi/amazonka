@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,66 +22,73 @@ module Network.AWS.ELB.Types.Policies where
 import Network.AWS.ELB.Internal
 import Network.AWS.ELB.Types.AppCookieStickinessPolicy
 import Network.AWS.ELB.Types.LBCookieStickinessPolicy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The policies for a load balancer.
 --
---
---
--- /See:/ 'policies' smart constructor.
+-- /See:/ 'newPolicies' smart constructor.
 data Policies = Policies'
-  { _pAppCookieStickinessPolicies ::
-      !(Maybe [AppCookieStickinessPolicy]),
-    _pLBCookieStickinessPolicies ::
-      !(Maybe [LBCookieStickinessPolicy]),
-    _pOtherPolicies :: !(Maybe [Text])
+  { -- | The stickiness policies created using CreateAppCookieStickinessPolicy.
+    appCookieStickinessPolicies :: Prelude.Maybe [AppCookieStickinessPolicy],
+    -- | The stickiness policies created using CreateLBCookieStickinessPolicy.
+    lBCookieStickinessPolicies :: Prelude.Maybe [LBCookieStickinessPolicy],
+    -- | The policies other than the stickiness policies.
+    otherPolicies :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Policies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Policies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pAppCookieStickinessPolicies' - The stickiness policies created using 'CreateAppCookieStickinessPolicy' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pLBCookieStickinessPolicies' - The stickiness policies created using 'CreateLBCookieStickinessPolicy' .
+-- 'appCookieStickinessPolicies', 'policies_appCookieStickinessPolicies' - The stickiness policies created using CreateAppCookieStickinessPolicy.
 --
--- * 'pOtherPolicies' - The policies other than the stickiness policies.
-policies ::
+-- 'lBCookieStickinessPolicies', 'policies_lBCookieStickinessPolicies' - The stickiness policies created using CreateLBCookieStickinessPolicy.
+--
+-- 'otherPolicies', 'policies_otherPolicies' - The policies other than the stickiness policies.
+newPolicies ::
   Policies
-policies =
+newPolicies =
   Policies'
-    { _pAppCookieStickinessPolicies = Nothing,
-      _pLBCookieStickinessPolicies = Nothing,
-      _pOtherPolicies = Nothing
+    { appCookieStickinessPolicies =
+        Prelude.Nothing,
+      lBCookieStickinessPolicies = Prelude.Nothing,
+      otherPolicies = Prelude.Nothing
     }
 
--- | The stickiness policies created using 'CreateAppCookieStickinessPolicy' .
-pAppCookieStickinessPolicies :: Lens' Policies [AppCookieStickinessPolicy]
-pAppCookieStickinessPolicies = lens _pAppCookieStickinessPolicies (\s a -> s {_pAppCookieStickinessPolicies = a}) . _Default . _Coerce
+-- | The stickiness policies created using CreateAppCookieStickinessPolicy.
+policies_appCookieStickinessPolicies :: Lens.Lens' Policies (Prelude.Maybe [AppCookieStickinessPolicy])
+policies_appCookieStickinessPolicies = Lens.lens (\Policies' {appCookieStickinessPolicies} -> appCookieStickinessPolicies) (\s@Policies' {} a -> s {appCookieStickinessPolicies = a} :: Policies) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The stickiness policies created using 'CreateLBCookieStickinessPolicy' .
-pLBCookieStickinessPolicies :: Lens' Policies [LBCookieStickinessPolicy]
-pLBCookieStickinessPolicies = lens _pLBCookieStickinessPolicies (\s a -> s {_pLBCookieStickinessPolicies = a}) . _Default . _Coerce
+-- | The stickiness policies created using CreateLBCookieStickinessPolicy.
+policies_lBCookieStickinessPolicies :: Lens.Lens' Policies (Prelude.Maybe [LBCookieStickinessPolicy])
+policies_lBCookieStickinessPolicies = Lens.lens (\Policies' {lBCookieStickinessPolicies} -> lBCookieStickinessPolicies) (\s@Policies' {} a -> s {lBCookieStickinessPolicies = a} :: Policies) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The policies other than the stickiness policies.
-pOtherPolicies :: Lens' Policies [Text]
-pOtherPolicies = lens _pOtherPolicies (\s a -> s {_pOtherPolicies = a}) . _Default . _Coerce
+policies_otherPolicies :: Lens.Lens' Policies (Prelude.Maybe [Prelude.Text])
+policies_otherPolicies = Lens.lens (\Policies' {otherPolicies} -> otherPolicies) (\s@Policies' {} a -> s {otherPolicies = a} :: Policies) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML Policies where
+instance Prelude.FromXML Policies where
   parseXML x =
     Policies'
-      <$> ( x .@? "AppCookieStickinessPolicies" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> ( x .@? "LBCookieStickinessPolicies" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> ( x .@? "OtherPolicies" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> ( x Prelude..@? "AppCookieStickinessPolicies"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> ( x Prelude..@? "LBCookieStickinessPolicies"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> ( x Prelude..@? "OtherPolicies"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable Policies
+instance Prelude.Hashable Policies
 
-instance NFData Policies
+instance Prelude.NFData Policies

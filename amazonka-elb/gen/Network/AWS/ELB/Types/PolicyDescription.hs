@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +21,66 @@ module Network.AWS.ELB.Types.PolicyDescription where
 
 import Network.AWS.ELB.Internal
 import Network.AWS.ELB.Types.PolicyAttributeDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a policy.
 --
---
---
--- /See:/ 'policyDescription' smart constructor.
+-- /See:/ 'newPolicyDescription' smart constructor.
 data PolicyDescription = PolicyDescription'
-  { _pdPolicyName ::
-      !(Maybe Text),
-    _pdPolicyTypeName :: !(Maybe Text),
-    _pdPolicyAttributeDescriptions ::
-      !( Maybe
-           [PolicyAttributeDescription]
-       )
+  { -- | The name of the policy.
+    policyName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the policy type.
+    policyTypeName :: Prelude.Maybe Prelude.Text,
+    -- | The policy attributes.
+    policyAttributeDescriptions :: Prelude.Maybe [PolicyAttributeDescription]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdPolicyName' - The name of the policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdPolicyTypeName' - The name of the policy type.
+-- 'policyName', 'policyDescription_policyName' - The name of the policy.
 --
--- * 'pdPolicyAttributeDescriptions' - The policy attributes.
-policyDescription ::
+-- 'policyTypeName', 'policyDescription_policyTypeName' - The name of the policy type.
+--
+-- 'policyAttributeDescriptions', 'policyDescription_policyAttributeDescriptions' - The policy attributes.
+newPolicyDescription ::
   PolicyDescription
-policyDescription =
+newPolicyDescription =
   PolicyDescription'
-    { _pdPolicyName = Nothing,
-      _pdPolicyTypeName = Nothing,
-      _pdPolicyAttributeDescriptions = Nothing
+    { policyName = Prelude.Nothing,
+      policyTypeName = Prelude.Nothing,
+      policyAttributeDescriptions = Prelude.Nothing
     }
 
 -- | The name of the policy.
-pdPolicyName :: Lens' PolicyDescription (Maybe Text)
-pdPolicyName = lens _pdPolicyName (\s a -> s {_pdPolicyName = a})
+policyDescription_policyName :: Lens.Lens' PolicyDescription (Prelude.Maybe Prelude.Text)
+policyDescription_policyName = Lens.lens (\PolicyDescription' {policyName} -> policyName) (\s@PolicyDescription' {} a -> s {policyName = a} :: PolicyDescription)
 
 -- | The name of the policy type.
-pdPolicyTypeName :: Lens' PolicyDescription (Maybe Text)
-pdPolicyTypeName = lens _pdPolicyTypeName (\s a -> s {_pdPolicyTypeName = a})
+policyDescription_policyTypeName :: Lens.Lens' PolicyDescription (Prelude.Maybe Prelude.Text)
+policyDescription_policyTypeName = Lens.lens (\PolicyDescription' {policyTypeName} -> policyTypeName) (\s@PolicyDescription' {} a -> s {policyTypeName = a} :: PolicyDescription)
 
 -- | The policy attributes.
-pdPolicyAttributeDescriptions :: Lens' PolicyDescription [PolicyAttributeDescription]
-pdPolicyAttributeDescriptions = lens _pdPolicyAttributeDescriptions (\s a -> s {_pdPolicyAttributeDescriptions = a}) . _Default . _Coerce
+policyDescription_policyAttributeDescriptions :: Lens.Lens' PolicyDescription (Prelude.Maybe [PolicyAttributeDescription])
+policyDescription_policyAttributeDescriptions = Lens.lens (\PolicyDescription' {policyAttributeDescriptions} -> policyAttributeDescriptions) (\s@PolicyDescription' {} a -> s {policyAttributeDescriptions = a} :: PolicyDescription) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML PolicyDescription where
+instance Prelude.FromXML PolicyDescription where
   parseXML x =
     PolicyDescription'
-      <$> (x .@? "PolicyName")
-      <*> (x .@? "PolicyTypeName")
-      <*> ( x .@? "PolicyAttributeDescriptions" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> (x Prelude..@? "PolicyName")
+      Prelude.<*> (x Prelude..@? "PolicyTypeName")
+      Prelude.<*> ( x Prelude..@? "PolicyAttributeDescriptions"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable PolicyDescription
+instance Prelude.Hashable PolicyDescription
 
-instance NFData PolicyDescription
+instance Prelude.NFData PolicyDescription

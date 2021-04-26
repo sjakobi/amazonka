@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,61 +20,57 @@
 module Network.AWS.ELB.Types.BackendServerDescription where
 
 import Network.AWS.ELB.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the configuration of an EC2 instance.
 --
---
---
--- /See:/ 'backendServerDescription' smart constructor.
+-- /See:/ 'newBackendServerDescription' smart constructor.
 data BackendServerDescription = BackendServerDescription'
-  { _bsdInstancePort ::
-      !(Maybe Nat),
-    _bsdPolicyNames ::
-      !(Maybe [Text])
+  { -- | The port on which the EC2 instance is listening.
+    instancePort :: Prelude.Maybe Prelude.Nat,
+    -- | The names of the policies enabled for the EC2 instance.
+    policyNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BackendServerDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BackendServerDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsdInstancePort' - The port on which the EC2 instance is listening.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsdPolicyNames' - The names of the policies enabled for the EC2 instance.
-backendServerDescription ::
+-- 'instancePort', 'backendServerDescription_instancePort' - The port on which the EC2 instance is listening.
+--
+-- 'policyNames', 'backendServerDescription_policyNames' - The names of the policies enabled for the EC2 instance.
+newBackendServerDescription ::
   BackendServerDescription
-backendServerDescription =
+newBackendServerDescription =
   BackendServerDescription'
-    { _bsdInstancePort =
-        Nothing,
-      _bsdPolicyNames = Nothing
+    { instancePort =
+        Prelude.Nothing,
+      policyNames = Prelude.Nothing
     }
 
 -- | The port on which the EC2 instance is listening.
-bsdInstancePort :: Lens' BackendServerDescription (Maybe Natural)
-bsdInstancePort = lens _bsdInstancePort (\s a -> s {_bsdInstancePort = a}) . mapping _Nat
+backendServerDescription_instancePort :: Lens.Lens' BackendServerDescription (Prelude.Maybe Prelude.Natural)
+backendServerDescription_instancePort = Lens.lens (\BackendServerDescription' {instancePort} -> instancePort) (\s@BackendServerDescription' {} a -> s {instancePort = a} :: BackendServerDescription) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The names of the policies enabled for the EC2 instance.
-bsdPolicyNames :: Lens' BackendServerDescription [Text]
-bsdPolicyNames = lens _bsdPolicyNames (\s a -> s {_bsdPolicyNames = a}) . _Default . _Coerce
+backendServerDescription_policyNames :: Lens.Lens' BackendServerDescription (Prelude.Maybe [Prelude.Text])
+backendServerDescription_policyNames = Lens.lens (\BackendServerDescription' {policyNames} -> policyNames) (\s@BackendServerDescription' {} a -> s {policyNames = a} :: BackendServerDescription) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML BackendServerDescription where
+instance Prelude.FromXML BackendServerDescription where
   parseXML x =
     BackendServerDescription'
-      <$> (x .@? "InstancePort")
-      <*> ( x .@? "PolicyNames" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> (x Prelude..@? "InstancePort")
+      Prelude.<*> ( x Prelude..@? "PolicyNames"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable BackendServerDescription
+instance Prelude.Hashable BackendServerDescription
 
-instance NFData BackendServerDescription
+instance Prelude.NFData BackendServerDescription

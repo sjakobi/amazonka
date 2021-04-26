@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,127 +24,136 @@
 -- Describes the tags associated with the specified load balancers.
 module Network.AWS.ELB.DescribeTags
   ( -- * Creating a Request
-    describeTags,
-    DescribeTags,
+    DescribeTags (..),
+    newDescribeTags,
 
     -- * Request Lenses
-    dtLoadBalancerNames,
+    describeTags_loadBalancerNames,
 
     -- * Destructuring the Response
-    describeTagsResponse,
-    DescribeTagsResponse,
+    DescribeTagsResponse (..),
+    newDescribeTagsResponse,
 
     -- * Response Lenses
-    dtrrsTagDescriptions,
-    dtrrsResponseStatus,
+    describeTagsResponse_tagDescriptions,
+    describeTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ELB.Types.TagDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DescribeTags.
 --
---
---
--- /See:/ 'describeTags' smart constructor.
-newtype DescribeTags = DescribeTags'
-  { _dtLoadBalancerNames ::
-      List1 Text
+-- /See:/ 'newDescribeTags' smart constructor.
+data DescribeTags = DescribeTags'
+  { -- | The names of the load balancers.
+    loadBalancerNames :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtLoadBalancerNames' - The names of the load balancers.
-describeTags ::
-  -- | 'dtLoadBalancerNames'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'loadBalancerNames', 'describeTags_loadBalancerNames' - The names of the load balancers.
+newDescribeTags ::
+  -- | 'loadBalancerNames'
+  Prelude.NonEmpty Prelude.Text ->
   DescribeTags
-describeTags pLoadBalancerNames_ =
+newDescribeTags pLoadBalancerNames_ =
   DescribeTags'
-    { _dtLoadBalancerNames =
-        _List1 # pLoadBalancerNames_
+    { loadBalancerNames =
+        Prelude._List1 Lens.# pLoadBalancerNames_
     }
 
 -- | The names of the load balancers.
-dtLoadBalancerNames :: Lens' DescribeTags (NonEmpty Text)
-dtLoadBalancerNames = lens _dtLoadBalancerNames (\s a -> s {_dtLoadBalancerNames = a}) . _List1
+describeTags_loadBalancerNames :: Lens.Lens' DescribeTags (Prelude.NonEmpty Prelude.Text)
+describeTags_loadBalancerNames = Lens.lens (\DescribeTags' {loadBalancerNames} -> loadBalancerNames) (\s@DescribeTags' {} a -> s {loadBalancerNames = a} :: DescribeTags) Prelude.. Prelude._List1
 
-instance AWSRequest DescribeTags where
+instance Prelude.AWSRequest DescribeTags where
   type Rs DescribeTags = DescribeTagsResponse
-  request = postQuery elb
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeTagsResult"
       ( \s h x ->
           DescribeTagsResponse'
-            <$> ( x .@? "TagDescriptions" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "TagDescriptions"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTags
+instance Prelude.Hashable DescribeTags
 
-instance NFData DescribeTags
+instance Prelude.NFData DescribeTags
 
-instance ToHeaders DescribeTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeTags where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTags where
+instance Prelude.ToQuery DescribeTags where
   toQuery DescribeTags' {..} =
-    mconcat
-      [ "Action" =: ("DescribeTags" :: ByteString),
-        "Version" =: ("2012-06-01" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeTags" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-06-01" :: Prelude.ByteString),
         "LoadBalancerNames"
-          =: toQueryList "member" _dtLoadBalancerNames
+          Prelude.=: Prelude.toQueryList "member" loadBalancerNames
       ]
 
 -- | Contains the output for DescribeTags.
 --
---
---
--- /See:/ 'describeTagsResponse' smart constructor.
+-- /See:/ 'newDescribeTagsResponse' smart constructor.
 data DescribeTagsResponse = DescribeTagsResponse'
-  { _dtrrsTagDescriptions ::
-      !(Maybe [TagDescription]),
-    _dtrrsResponseStatus :: !Int
+  { -- | Information about the tags.
+    tagDescriptions :: Prelude.Maybe [TagDescription],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrrsTagDescriptions' - Information about the tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtrrsResponseStatus' - -- | The response status code.
-describeTagsResponse ::
-  -- | 'dtrrsResponseStatus'
-  Int ->
+-- 'tagDescriptions', 'describeTagsResponse_tagDescriptions' - Information about the tags.
+--
+-- 'httpStatus', 'describeTagsResponse_httpStatus' - The response's http status code.
+newDescribeTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTagsResponse
-describeTagsResponse pResponseStatus_ =
+newDescribeTagsResponse pHttpStatus_ =
   DescribeTagsResponse'
-    { _dtrrsTagDescriptions =
-        Nothing,
-      _dtrrsResponseStatus = pResponseStatus_
+    { tagDescriptions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the tags.
-dtrrsTagDescriptions :: Lens' DescribeTagsResponse [TagDescription]
-dtrrsTagDescriptions = lens _dtrrsTagDescriptions (\s a -> s {_dtrrsTagDescriptions = a}) . _Default . _Coerce
+describeTagsResponse_tagDescriptions :: Lens.Lens' DescribeTagsResponse (Prelude.Maybe [TagDescription])
+describeTagsResponse_tagDescriptions = Lens.lens (\DescribeTagsResponse' {tagDescriptions} -> tagDescriptions) (\s@DescribeTagsResponse' {} a -> s {tagDescriptions = a} :: DescribeTagsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dtrrsResponseStatus :: Lens' DescribeTagsResponse Int
-dtrrsResponseStatus = lens _dtrrsResponseStatus (\s a -> s {_dtrrsResponseStatus = a})
+-- | The response's http status code.
+describeTagsResponse_httpStatus :: Lens.Lens' DescribeTagsResponse Prelude.Int
+describeTagsResponse_httpStatus = Lens.lens (\DescribeTagsResponse' {httpStatus} -> httpStatus) (\s@DescribeTagsResponse' {} a -> s {httpStatus = a} :: DescribeTagsResponse)
 
-instance NFData DescribeTagsResponse
+instance Prelude.NFData DescribeTagsResponse

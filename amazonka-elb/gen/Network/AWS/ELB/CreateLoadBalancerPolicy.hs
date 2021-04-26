@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a policy with the specified attributes for the specified load balancer.
+-- Creates a policy with the specified attributes for the specified load
+-- balancer.
 --
---
--- Policies are settings that are saved for your load balancer and that can be applied to the listener or the application server, depending on the policy type.
+-- Policies are settings that are saved for your load balancer and that can
+-- be applied to the listener or the application server, depending on the
+-- policy type.
 module Network.AWS.ELB.CreateLoadBalancerPolicy
   ( -- * Creating a Request
-    createLoadBalancerPolicy,
-    CreateLoadBalancerPolicy,
+    CreateLoadBalancerPolicy (..),
+    newCreateLoadBalancerPolicy,
 
     -- * Request Lenses
-    clbpPolicyAttributes,
-    clbpLoadBalancerName,
-    clbpPolicyName,
-    clbpPolicyTypeName,
+    createLoadBalancerPolicy_policyAttributes,
+    createLoadBalancerPolicy_loadBalancerName,
+    createLoadBalancerPolicy_policyName,
+    createLoadBalancerPolicy_policyTypeName,
 
     -- * Destructuring the Response
-    createLoadBalancerPolicyResponse,
-    CreateLoadBalancerPolicyResponse,
+    CreateLoadBalancerPolicyResponse (..),
+    newCreateLoadBalancerPolicyResponse,
 
     -- * Response Lenses
-    clbprrsResponseStatus,
+    createLoadBalancerPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for CreateLoadBalancerPolicy.
 --
---
---
--- /See:/ 'createLoadBalancerPolicy' smart constructor.
+-- /See:/ 'newCreateLoadBalancerPolicy' smart constructor.
 data CreateLoadBalancerPolicy = CreateLoadBalancerPolicy'
-  { _clbpPolicyAttributes ::
-      !( Maybe
-           [PolicyAttribute]
-       ),
-    _clbpLoadBalancerName ::
-      !Text,
-    _clbpPolicyName ::
-      !Text,
-    _clbpPolicyTypeName ::
-      !Text
+  { -- | The policy attributes.
+    policyAttributes :: Prelude.Maybe [PolicyAttribute],
+    -- | The name of the load balancer.
+    loadBalancerName :: Prelude.Text,
+    -- | The name of the load balancer policy to be created. This name must be
+    -- unique within the set of policies for this load balancer.
+    policyName :: Prelude.Text,
+    -- | The name of the base policy type. To get the list of policy types, use
+    -- DescribeLoadBalancerPolicyTypes.
+    policyTypeName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLoadBalancerPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLoadBalancerPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clbpPolicyAttributes' - The policy attributes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clbpLoadBalancerName' - The name of the load balancer.
+-- 'policyAttributes', 'createLoadBalancerPolicy_policyAttributes' - The policy attributes.
 --
--- * 'clbpPolicyName' - The name of the load balancer policy to be created. This name must be unique within the set of policies for this load balancer.
+-- 'loadBalancerName', 'createLoadBalancerPolicy_loadBalancerName' - The name of the load balancer.
 --
--- * 'clbpPolicyTypeName' - The name of the base policy type. To get the list of policy types, use 'DescribeLoadBalancerPolicyTypes' .
-createLoadBalancerPolicy ::
-  -- | 'clbpLoadBalancerName'
-  Text ->
-  -- | 'clbpPolicyName'
-  Text ->
-  -- | 'clbpPolicyTypeName'
-  Text ->
+-- 'policyName', 'createLoadBalancerPolicy_policyName' - The name of the load balancer policy to be created. This name must be
+-- unique within the set of policies for this load balancer.
+--
+-- 'policyTypeName', 'createLoadBalancerPolicy_policyTypeName' - The name of the base policy type. To get the list of policy types, use
+-- DescribeLoadBalancerPolicyTypes.
+newCreateLoadBalancerPolicy ::
+  -- | 'loadBalancerName'
+  Prelude.Text ->
+  -- | 'policyName'
+  Prelude.Text ->
+  -- | 'policyTypeName'
+  Prelude.Text ->
   CreateLoadBalancerPolicy
-createLoadBalancerPolicy
+newCreateLoadBalancerPolicy
   pLoadBalancerName_
   pPolicyName_
   pPolicyTypeName_ =
     CreateLoadBalancerPolicy'
-      { _clbpPolicyAttributes =
-          Nothing,
-        _clbpLoadBalancerName = pLoadBalancerName_,
-        _clbpPolicyName = pPolicyName_,
-        _clbpPolicyTypeName = pPolicyTypeName_
+      { policyAttributes =
+          Prelude.Nothing,
+        loadBalancerName = pLoadBalancerName_,
+        policyName = pPolicyName_,
+        policyTypeName = pPolicyTypeName_
       }
 
 -- | The policy attributes.
-clbpPolicyAttributes :: Lens' CreateLoadBalancerPolicy [PolicyAttribute]
-clbpPolicyAttributes = lens _clbpPolicyAttributes (\s a -> s {_clbpPolicyAttributes = a}) . _Default . _Coerce
+createLoadBalancerPolicy_policyAttributes :: Lens.Lens' CreateLoadBalancerPolicy (Prelude.Maybe [PolicyAttribute])
+createLoadBalancerPolicy_policyAttributes = Lens.lens (\CreateLoadBalancerPolicy' {policyAttributes} -> policyAttributes) (\s@CreateLoadBalancerPolicy' {} a -> s {policyAttributes = a} :: CreateLoadBalancerPolicy) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the load balancer.
-clbpLoadBalancerName :: Lens' CreateLoadBalancerPolicy Text
-clbpLoadBalancerName = lens _clbpLoadBalancerName (\s a -> s {_clbpLoadBalancerName = a})
+createLoadBalancerPolicy_loadBalancerName :: Lens.Lens' CreateLoadBalancerPolicy Prelude.Text
+createLoadBalancerPolicy_loadBalancerName = Lens.lens (\CreateLoadBalancerPolicy' {loadBalancerName} -> loadBalancerName) (\s@CreateLoadBalancerPolicy' {} a -> s {loadBalancerName = a} :: CreateLoadBalancerPolicy)
 
--- | The name of the load balancer policy to be created. This name must be unique within the set of policies for this load balancer.
-clbpPolicyName :: Lens' CreateLoadBalancerPolicy Text
-clbpPolicyName = lens _clbpPolicyName (\s a -> s {_clbpPolicyName = a})
+-- | The name of the load balancer policy to be created. This name must be
+-- unique within the set of policies for this load balancer.
+createLoadBalancerPolicy_policyName :: Lens.Lens' CreateLoadBalancerPolicy Prelude.Text
+createLoadBalancerPolicy_policyName = Lens.lens (\CreateLoadBalancerPolicy' {policyName} -> policyName) (\s@CreateLoadBalancerPolicy' {} a -> s {policyName = a} :: CreateLoadBalancerPolicy)
 
--- | The name of the base policy type. To get the list of policy types, use 'DescribeLoadBalancerPolicyTypes' .
-clbpPolicyTypeName :: Lens' CreateLoadBalancerPolicy Text
-clbpPolicyTypeName = lens _clbpPolicyTypeName (\s a -> s {_clbpPolicyTypeName = a})
+-- | The name of the base policy type. To get the list of policy types, use
+-- DescribeLoadBalancerPolicyTypes.
+createLoadBalancerPolicy_policyTypeName :: Lens.Lens' CreateLoadBalancerPolicy Prelude.Text
+createLoadBalancerPolicy_policyTypeName = Lens.lens (\CreateLoadBalancerPolicy' {policyTypeName} -> policyTypeName) (\s@CreateLoadBalancerPolicy' {} a -> s {policyTypeName = a} :: CreateLoadBalancerPolicy)
 
-instance AWSRequest CreateLoadBalancerPolicy where
+instance Prelude.AWSRequest CreateLoadBalancerPolicy where
   type
     Rs CreateLoadBalancerPolicy =
       CreateLoadBalancerPolicyResponse
-  request = postQuery elb
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateLoadBalancerPolicyResult"
       ( \s h x ->
           CreateLoadBalancerPolicyResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateLoadBalancerPolicy
+instance Prelude.Hashable CreateLoadBalancerPolicy
 
-instance NFData CreateLoadBalancerPolicy
+instance Prelude.NFData CreateLoadBalancerPolicy
 
-instance ToHeaders CreateLoadBalancerPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateLoadBalancerPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateLoadBalancerPolicy where
-  toPath = const "/"
+instance Prelude.ToPath CreateLoadBalancerPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateLoadBalancerPolicy where
+instance Prelude.ToQuery CreateLoadBalancerPolicy where
   toQuery CreateLoadBalancerPolicy' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateLoadBalancerPolicy" :: ByteString),
-        "Version" =: ("2012-06-01" :: ByteString),
+          Prelude.=: ("CreateLoadBalancerPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-06-01" :: Prelude.ByteString),
         "PolicyAttributes"
-          =: toQuery
-            (toQueryList "member" <$> _clbpPolicyAttributes),
-        "LoadBalancerName" =: _clbpLoadBalancerName,
-        "PolicyName" =: _clbpPolicyName,
-        "PolicyTypeName" =: _clbpPolicyTypeName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> policyAttributes
+            ),
+        "LoadBalancerName" Prelude.=: loadBalancerName,
+        "PolicyName" Prelude.=: policyName,
+        "PolicyTypeName" Prelude.=: policyTypeName
       ]
 
 -- | Contains the output of CreateLoadBalancerPolicy.
 --
---
---
--- /See:/ 'createLoadBalancerPolicyResponse' smart constructor.
-newtype CreateLoadBalancerPolicyResponse = CreateLoadBalancerPolicyResponse'
-  { _clbprrsResponseStatus ::
-      Int
+-- /See:/ 'newCreateLoadBalancerPolicyResponse' smart constructor.
+data CreateLoadBalancerPolicyResponse = CreateLoadBalancerPolicyResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLoadBalancerPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLoadBalancerPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clbprrsResponseStatus' - -- | The response status code.
-createLoadBalancerPolicyResponse ::
-  -- | 'clbprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createLoadBalancerPolicyResponse_httpStatus' - The response's http status code.
+newCreateLoadBalancerPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateLoadBalancerPolicyResponse
-createLoadBalancerPolicyResponse pResponseStatus_ =
+newCreateLoadBalancerPolicyResponse pHttpStatus_ =
   CreateLoadBalancerPolicyResponse'
-    { _clbprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-clbprrsResponseStatus :: Lens' CreateLoadBalancerPolicyResponse Int
-clbprrsResponseStatus = lens _clbprrsResponseStatus (\s a -> s {_clbprrsResponseStatus = a})
+-- | The response's http status code.
+createLoadBalancerPolicyResponse_httpStatus :: Lens.Lens' CreateLoadBalancerPolicyResponse Prelude.Int
+createLoadBalancerPolicyResponse_httpStatus = Lens.lens (\CreateLoadBalancerPolicyResponse' {httpStatus} -> httpStatus) (\s@CreateLoadBalancerPolicyResponse' {} a -> s {httpStatus = a} :: CreateLoadBalancerPolicyResponse)
 
-instance NFData CreateLoadBalancerPolicyResponse
+instance
+  Prelude.NFData
+    CreateLoadBalancerPolicyResponse

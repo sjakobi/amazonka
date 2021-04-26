@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Replaces the set of policies associated with the specified port on which the EC2 instance is listening with a new set of policies. At this time, only the back-end server authentication policy type can be applied to the instance ports; this policy type is composed of multiple public key policies.
+-- Replaces the set of policies associated with the specified port on which
+-- the EC2 instance is listening with a new set of policies. At this time,
+-- only the back-end server authentication policy type can be applied to
+-- the instance ports; this policy type is composed of multiple public key
+-- policies.
 --
+-- Each time you use @SetLoadBalancerPoliciesForBackendServer@ to enable
+-- the policies, use the @PolicyNames@ parameter to list the policies that
+-- you want to enable.
 --
--- Each time you use @SetLoadBalancerPoliciesForBackendServer@ to enable the policies, use the @PolicyNames@ parameter to list the policies that you want to enable.
+-- You can use DescribeLoadBalancers or DescribeLoadBalancerPolicies to
+-- verify that the policy is associated with the EC2 instance.
 --
--- You can use 'DescribeLoadBalancers' or 'DescribeLoadBalancerPolicies' to verify that the policy is associated with the EC2 instance.
---
--- For more information about enabling back-end instance authentication, see <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-create-https-ssl-load-balancer.html#configure_backendauth_clt Configure Back-end Instance Authentication> in the /Classic Load Balancers Guide/ . For more information about Proxy Protocol, see <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html Configure Proxy Protocol Support> in the /Classic Load Balancers Guide/ .
+-- For more information about enabling back-end instance authentication,
+-- see
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-create-https-ssl-load-balancer.html#configure_backendauth_clt Configure Back-end Instance Authentication>
+-- in the /Classic Load Balancers Guide/. For more information about Proxy
+-- Protocol, see
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html Configure Proxy Protocol Support>
+-- in the /Classic Load Balancers Guide/.
 module Network.AWS.ELB.SetLoadBalancerPoliciesForBackendServer
   ( -- * Creating a Request
-    setLoadBalancerPoliciesForBackendServer,
-    SetLoadBalancerPoliciesForBackendServer,
+    SetLoadBalancerPoliciesForBackendServer (..),
+    newSetLoadBalancerPoliciesForBackendServer,
 
     -- * Request Lenses
-    slbpfbsLoadBalancerName,
-    slbpfbsInstancePort,
-    slbpfbsPolicyNames,
+    setLoadBalancerPoliciesForBackendServer_loadBalancerName,
+    setLoadBalancerPoliciesForBackendServer_instancePort,
+    setLoadBalancerPoliciesForBackendServer_policyNames,
 
     -- * Destructuring the Response
-    setLoadBalancerPoliciesForBackendServerResponse,
-    SetLoadBalancerPoliciesForBackendServerResponse,
+    SetLoadBalancerPoliciesForBackendServerResponse (..),
+    newSetLoadBalancerPoliciesForBackendServerResponse,
 
     -- * Response Lenses
-    slbpfbsrrsResponseStatus,
+    setLoadBalancerPoliciesForBackendServerResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for SetLoadBalancerPoliciesForBackendServer.
 --
---
---
--- /See:/ 'setLoadBalancerPoliciesForBackendServer' smart constructor.
+-- /See:/ 'newSetLoadBalancerPoliciesForBackendServer' smart constructor.
 data SetLoadBalancerPoliciesForBackendServer = SetLoadBalancerPoliciesForBackendServer'
-  { _slbpfbsLoadBalancerName ::
-      !Text,
-    _slbpfbsInstancePort ::
-      !Int,
-    _slbpfbsPolicyNames ::
-      ![Text]
+  { -- | The name of the load balancer.
+    loadBalancerName :: Prelude.Text,
+    -- | The port number associated with the EC2 instance.
+    instancePort :: Prelude.Int,
+    -- | The names of the policies. If the list is empty, then all current
+    -- polices are removed from the EC2 instance.
+    policyNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetLoadBalancerPoliciesForBackendServer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetLoadBalancerPoliciesForBackendServer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slbpfbsLoadBalancerName' - The name of the load balancer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slbpfbsInstancePort' - The port number associated with the EC2 instance.
+-- 'loadBalancerName', 'setLoadBalancerPoliciesForBackendServer_loadBalancerName' - The name of the load balancer.
 --
--- * 'slbpfbsPolicyNames' - The names of the policies. If the list is empty, then all current polices are removed from the EC2 instance.
-setLoadBalancerPoliciesForBackendServer ::
-  -- | 'slbpfbsLoadBalancerName'
-  Text ->
-  -- | 'slbpfbsInstancePort'
-  Int ->
+-- 'instancePort', 'setLoadBalancerPoliciesForBackendServer_instancePort' - The port number associated with the EC2 instance.
+--
+-- 'policyNames', 'setLoadBalancerPoliciesForBackendServer_policyNames' - The names of the policies. If the list is empty, then all current
+-- polices are removed from the EC2 instance.
+newSetLoadBalancerPoliciesForBackendServer ::
+  -- | 'loadBalancerName'
+  Prelude.Text ->
+  -- | 'instancePort'
+  Prelude.Int ->
   SetLoadBalancerPoliciesForBackendServer
-setLoadBalancerPoliciesForBackendServer
+newSetLoadBalancerPoliciesForBackendServer
   pLoadBalancerName_
   pInstancePort_ =
     SetLoadBalancerPoliciesForBackendServer'
-      { _slbpfbsLoadBalancerName =
+      { loadBalancerName =
           pLoadBalancerName_,
-        _slbpfbsInstancePort =
-          pInstancePort_,
-        _slbpfbsPolicyNames = mempty
+        instancePort = pInstancePort_,
+        policyNames = Prelude.mempty
       }
 
 -- | The name of the load balancer.
-slbpfbsLoadBalancerName :: Lens' SetLoadBalancerPoliciesForBackendServer Text
-slbpfbsLoadBalancerName = lens _slbpfbsLoadBalancerName (\s a -> s {_slbpfbsLoadBalancerName = a})
+setLoadBalancerPoliciesForBackendServer_loadBalancerName :: Lens.Lens' SetLoadBalancerPoliciesForBackendServer Prelude.Text
+setLoadBalancerPoliciesForBackendServer_loadBalancerName = Lens.lens (\SetLoadBalancerPoliciesForBackendServer' {loadBalancerName} -> loadBalancerName) (\s@SetLoadBalancerPoliciesForBackendServer' {} a -> s {loadBalancerName = a} :: SetLoadBalancerPoliciesForBackendServer)
 
 -- | The port number associated with the EC2 instance.
-slbpfbsInstancePort :: Lens' SetLoadBalancerPoliciesForBackendServer Int
-slbpfbsInstancePort = lens _slbpfbsInstancePort (\s a -> s {_slbpfbsInstancePort = a})
+setLoadBalancerPoliciesForBackendServer_instancePort :: Lens.Lens' SetLoadBalancerPoliciesForBackendServer Prelude.Int
+setLoadBalancerPoliciesForBackendServer_instancePort = Lens.lens (\SetLoadBalancerPoliciesForBackendServer' {instancePort} -> instancePort) (\s@SetLoadBalancerPoliciesForBackendServer' {} a -> s {instancePort = a} :: SetLoadBalancerPoliciesForBackendServer)
 
--- | The names of the policies. If the list is empty, then all current polices are removed from the EC2 instance.
-slbpfbsPolicyNames :: Lens' SetLoadBalancerPoliciesForBackendServer [Text]
-slbpfbsPolicyNames = lens _slbpfbsPolicyNames (\s a -> s {_slbpfbsPolicyNames = a}) . _Coerce
+-- | The names of the policies. If the list is empty, then all current
+-- polices are removed from the EC2 instance.
+setLoadBalancerPoliciesForBackendServer_policyNames :: Lens.Lens' SetLoadBalancerPoliciesForBackendServer [Prelude.Text]
+setLoadBalancerPoliciesForBackendServer_policyNames = Lens.lens (\SetLoadBalancerPoliciesForBackendServer' {policyNames} -> policyNames) (\s@SetLoadBalancerPoliciesForBackendServer' {} a -> s {policyNames = a} :: SetLoadBalancerPoliciesForBackendServer) Prelude.. Prelude._Coerce
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     SetLoadBalancerPoliciesForBackendServer
   where
   type
     Rs SetLoadBalancerPoliciesForBackendServer =
       SetLoadBalancerPoliciesForBackendServerResponse
-  request = postQuery elb
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "SetLoadBalancerPoliciesForBackendServerResult"
       ( \s h x ->
           SetLoadBalancerPoliciesForBackendServerResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     SetLoadBalancerPoliciesForBackendServer
 
 instance
-  NFData
+  Prelude.NFData
     SetLoadBalancerPoliciesForBackendServer
 
 instance
-  ToHeaders
-    SetLoadBalancerPoliciesForBackendServer
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     SetLoadBalancerPoliciesForBackendServer
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    SetLoadBalancerPoliciesForBackendServer
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     SetLoadBalancerPoliciesForBackendServer
   where
   toQuery SetLoadBalancerPoliciesForBackendServer' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "SetLoadBalancerPoliciesForBackendServer" ::
-                 ByteString
-             ),
-        "Version" =: ("2012-06-01" :: ByteString),
-        "LoadBalancerName" =: _slbpfbsLoadBalancerName,
-        "InstancePort" =: _slbpfbsInstancePort,
+          Prelude.=: ( "SetLoadBalancerPoliciesForBackendServer" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Prelude.=: loadBalancerName,
+        "InstancePort" Prelude.=: instancePort,
         "PolicyNames"
-          =: toQueryList "member" _slbpfbsPolicyNames
+          Prelude.=: Prelude.toQueryList "member" policyNames
       ]
 
 -- | Contains the output of SetLoadBalancerPoliciesForBackendServer.
 --
---
---
--- /See:/ 'setLoadBalancerPoliciesForBackendServerResponse' smart constructor.
-newtype SetLoadBalancerPoliciesForBackendServerResponse = SetLoadBalancerPoliciesForBackendServerResponse'
-  { _slbpfbsrrsResponseStatus ::
-      Int
+-- /See:/ 'newSetLoadBalancerPoliciesForBackendServerResponse' smart constructor.
+data SetLoadBalancerPoliciesForBackendServerResponse = SetLoadBalancerPoliciesForBackendServerResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetLoadBalancerPoliciesForBackendServerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetLoadBalancerPoliciesForBackendServerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slbpfbsrrsResponseStatus' - -- | The response status code.
-setLoadBalancerPoliciesForBackendServerResponse ::
-  -- | 'slbpfbsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'setLoadBalancerPoliciesForBackendServerResponse_httpStatus' - The response's http status code.
+newSetLoadBalancerPoliciesForBackendServerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetLoadBalancerPoliciesForBackendServerResponse
-setLoadBalancerPoliciesForBackendServerResponse
-  pResponseStatus_ =
+newSetLoadBalancerPoliciesForBackendServerResponse
+  pHttpStatus_ =
     SetLoadBalancerPoliciesForBackendServerResponse'
-      { _slbpfbsrrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-slbpfbsrrsResponseStatus :: Lens' SetLoadBalancerPoliciesForBackendServerResponse Int
-slbpfbsrrsResponseStatus = lens _slbpfbsrrsResponseStatus (\s a -> s {_slbpfbsrrsResponseStatus = a})
+-- | The response's http status code.
+setLoadBalancerPoliciesForBackendServerResponse_httpStatus :: Lens.Lens' SetLoadBalancerPoliciesForBackendServerResponse Prelude.Int
+setLoadBalancerPoliciesForBackendServerResponse_httpStatus = Lens.lens (\SetLoadBalancerPoliciesForBackendServerResponse' {httpStatus} -> httpStatus) (\s@SetLoadBalancerPoliciesForBackendServerResponse' {} a -> s {httpStatus = a} :: SetLoadBalancerPoliciesForBackendServerResponse)
 
 instance
-  NFData
+  Prelude.NFData
     SetLoadBalancerPoliciesForBackendServerResponse

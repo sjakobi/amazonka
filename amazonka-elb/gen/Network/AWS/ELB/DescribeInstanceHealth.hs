@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,160 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the state of the specified instances with respect to the specified load balancer. If no instances are specified, the call describes the state of all instances that are currently registered with the load balancer. If instances are specified, their state is returned even if they are no longer registered with the load balancer. The state of terminated instances is not returned.
+-- Describes the state of the specified instances with respect to the
+-- specified load balancer. If no instances are specified, the call
+-- describes the state of all instances that are currently registered with
+-- the load balancer. If instances are specified, their state is returned
+-- even if they are no longer registered with the load balancer. The state
+-- of terminated instances is not returned.
 module Network.AWS.ELB.DescribeInstanceHealth
   ( -- * Creating a Request
-    describeInstanceHealth,
-    DescribeInstanceHealth,
+    DescribeInstanceHealth (..),
+    newDescribeInstanceHealth,
 
     -- * Request Lenses
-    dihInstances,
-    dihLoadBalancerName,
+    describeInstanceHealth_instances,
+    describeInstanceHealth_loadBalancerName,
 
     -- * Destructuring the Response
-    describeInstanceHealthResponse,
-    DescribeInstanceHealthResponse,
+    DescribeInstanceHealthResponse (..),
+    newDescribeInstanceHealthResponse,
 
     -- * Response Lenses
-    dihrrsInstanceStates,
-    dihrrsResponseStatus,
+    describeInstanceHealthResponse_instanceStates,
+    describeInstanceHealthResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ELB.Types.InstanceState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DescribeInstanceHealth.
 --
---
---
--- /See:/ 'describeInstanceHealth' smart constructor.
+-- /See:/ 'newDescribeInstanceHealth' smart constructor.
 data DescribeInstanceHealth = DescribeInstanceHealth'
-  { _dihInstances ::
-      !(Maybe [Instance]),
-    _dihLoadBalancerName ::
-      !Text
+  { -- | The IDs of the instances.
+    instances :: Prelude.Maybe [Instance],
+    -- | The name of the load balancer.
+    loadBalancerName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstanceHealth' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstanceHealth' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dihInstances' - The IDs of the instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dihLoadBalancerName' - The name of the load balancer.
-describeInstanceHealth ::
-  -- | 'dihLoadBalancerName'
-  Text ->
+-- 'instances', 'describeInstanceHealth_instances' - The IDs of the instances.
+--
+-- 'loadBalancerName', 'describeInstanceHealth_loadBalancerName' - The name of the load balancer.
+newDescribeInstanceHealth ::
+  -- | 'loadBalancerName'
+  Prelude.Text ->
   DescribeInstanceHealth
-describeInstanceHealth pLoadBalancerName_ =
+newDescribeInstanceHealth pLoadBalancerName_ =
   DescribeInstanceHealth'
-    { _dihInstances = Nothing,
-      _dihLoadBalancerName = pLoadBalancerName_
+    { instances =
+        Prelude.Nothing,
+      loadBalancerName = pLoadBalancerName_
     }
 
 -- | The IDs of the instances.
-dihInstances :: Lens' DescribeInstanceHealth [Instance]
-dihInstances = lens _dihInstances (\s a -> s {_dihInstances = a}) . _Default . _Coerce
+describeInstanceHealth_instances :: Lens.Lens' DescribeInstanceHealth (Prelude.Maybe [Instance])
+describeInstanceHealth_instances = Lens.lens (\DescribeInstanceHealth' {instances} -> instances) (\s@DescribeInstanceHealth' {} a -> s {instances = a} :: DescribeInstanceHealth) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the load balancer.
-dihLoadBalancerName :: Lens' DescribeInstanceHealth Text
-dihLoadBalancerName = lens _dihLoadBalancerName (\s a -> s {_dihLoadBalancerName = a})
+describeInstanceHealth_loadBalancerName :: Lens.Lens' DescribeInstanceHealth Prelude.Text
+describeInstanceHealth_loadBalancerName = Lens.lens (\DescribeInstanceHealth' {loadBalancerName} -> loadBalancerName) (\s@DescribeInstanceHealth' {} a -> s {loadBalancerName = a} :: DescribeInstanceHealth)
 
-instance AWSRequest DescribeInstanceHealth where
+instance Prelude.AWSRequest DescribeInstanceHealth where
   type
     Rs DescribeInstanceHealth =
       DescribeInstanceHealthResponse
-  request = postQuery elb
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeInstanceHealthResult"
       ( \s h x ->
           DescribeInstanceHealthResponse'
-            <$> ( x .@? "InstanceStates" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "InstanceStates"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeInstanceHealth
+instance Prelude.Hashable DescribeInstanceHealth
 
-instance NFData DescribeInstanceHealth
+instance Prelude.NFData DescribeInstanceHealth
 
-instance ToHeaders DescribeInstanceHealth where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeInstanceHealth where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeInstanceHealth where
-  toPath = const "/"
+instance Prelude.ToPath DescribeInstanceHealth where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeInstanceHealth where
+instance Prelude.ToQuery DescribeInstanceHealth where
   toQuery DescribeInstanceHealth' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeInstanceHealth" :: ByteString),
-        "Version" =: ("2012-06-01" :: ByteString),
+          Prelude.=: ("DescribeInstanceHealth" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-06-01" :: Prelude.ByteString),
         "Instances"
-          =: toQuery (toQueryList "member" <$> _dihInstances),
-        "LoadBalancerName" =: _dihLoadBalancerName
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> instances),
+        "LoadBalancerName" Prelude.=: loadBalancerName
       ]
 
 -- | Contains the output for DescribeInstanceHealth.
 --
---
---
--- /See:/ 'describeInstanceHealthResponse' smart constructor.
+-- /See:/ 'newDescribeInstanceHealthResponse' smart constructor.
 data DescribeInstanceHealthResponse = DescribeInstanceHealthResponse'
-  { _dihrrsInstanceStates ::
-      !( Maybe
-           [InstanceState]
-       ),
-    _dihrrsResponseStatus ::
-      !Int
+  { -- | Information about the health of the instances.
+    instanceStates :: Prelude.Maybe [InstanceState],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstanceHealthResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstanceHealthResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dihrrsInstanceStates' - Information about the health of the instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dihrrsResponseStatus' - -- | The response status code.
-describeInstanceHealthResponse ::
-  -- | 'dihrrsResponseStatus'
-  Int ->
+-- 'instanceStates', 'describeInstanceHealthResponse_instanceStates' - Information about the health of the instances.
+--
+-- 'httpStatus', 'describeInstanceHealthResponse_httpStatus' - The response's http status code.
+newDescribeInstanceHealthResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeInstanceHealthResponse
-describeInstanceHealthResponse pResponseStatus_ =
+newDescribeInstanceHealthResponse pHttpStatus_ =
   DescribeInstanceHealthResponse'
-    { _dihrrsInstanceStates =
-        Nothing,
-      _dihrrsResponseStatus = pResponseStatus_
+    { instanceStates =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the health of the instances.
-dihrrsInstanceStates :: Lens' DescribeInstanceHealthResponse [InstanceState]
-dihrrsInstanceStates = lens _dihrrsInstanceStates (\s a -> s {_dihrrsInstanceStates = a}) . _Default . _Coerce
+describeInstanceHealthResponse_instanceStates :: Lens.Lens' DescribeInstanceHealthResponse (Prelude.Maybe [InstanceState])
+describeInstanceHealthResponse_instanceStates = Lens.lens (\DescribeInstanceHealthResponse' {instanceStates} -> instanceStates) (\s@DescribeInstanceHealthResponse' {} a -> s {instanceStates = a} :: DescribeInstanceHealthResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dihrrsResponseStatus :: Lens' DescribeInstanceHealthResponse Int
-dihrrsResponseStatus = lens _dihrrsResponseStatus (\s a -> s {_dihrrsResponseStatus = a})
+-- | The response's http status code.
+describeInstanceHealthResponse_httpStatus :: Lens.Lens' DescribeInstanceHealthResponse Prelude.Int
+describeInstanceHealthResponse_httpStatus = Lens.lens (\DescribeInstanceHealthResponse' {httpStatus} -> httpStatus) (\s@DescribeInstanceHealthResponse' {} a -> s {httpStatus = a} :: DescribeInstanceHealthResponse)
 
-instance NFData DescribeInstanceHealthResponse
+instance
+  Prelude.NFData
+    DescribeInstanceHealthResponse

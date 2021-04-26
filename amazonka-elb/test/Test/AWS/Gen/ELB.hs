@@ -28,181 +28,181 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestRemoveTags $
---             removeTags
+--             newRemoveTags
 --
 --         , requestSetLoadBalancerListenerSSLCertificate $
---             setLoadBalancerListenerSSLCertificate
+--             newSetLoadBalancerListenerSSLCertificate
 --
 --         , requestSetLoadBalancerPoliciesForBackendServer $
---             setLoadBalancerPoliciesForBackendServer
+--             newSetLoadBalancerPoliciesForBackendServer
 --
 --         , requestDescribeTags $
---             describeTags
+--             newDescribeTags
 --
 --         , requestDescribeLoadBalancerPolicies $
---             describeLoadBalancerPolicies
+--             newDescribeLoadBalancerPolicies
 --
 --         , requestSetLoadBalancerPoliciesOfListener $
---             setLoadBalancerPoliciesOfListener
+--             newSetLoadBalancerPoliciesOfListener
 --
 --         , requestDeregisterInstancesFromLoadBalancer $
---             deregisterInstancesFromLoadBalancer
+--             newDeregisterInstancesFromLoadBalancer
 --
 --         , requestCreateLoadBalancer $
---             createLoadBalancer
+--             newCreateLoadBalancer
 --
 --         , requestDetachLoadBalancerFromSubnets $
---             detachLoadBalancerFromSubnets
+--             newDetachLoadBalancerFromSubnets
 --
 --         , requestRegisterInstancesWithLoadBalancer $
---             registerInstancesWithLoadBalancer
+--             newRegisterInstancesWithLoadBalancer
 --
 --         , requestCreateLoadBalancerListeners $
---             createLoadBalancerListeners
+--             newCreateLoadBalancerListeners
 --
 --         , requestDeleteLoadBalancer $
---             deleteLoadBalancer
+--             newDeleteLoadBalancer
 --
 --         , requestAddTags $
---             addTags
+--             newAddTags
 --
 --         , requestModifyLoadBalancerAttributes $
---             modifyLoadBalancerAttributes
+--             newModifyLoadBalancerAttributes
 --
 --         , requestAttachLoadBalancerToSubnets $
---             attachLoadBalancerToSubnets
+--             newAttachLoadBalancerToSubnets
 --
 --         , requestDescribeAccountLimits $
---             describeAccountLimits
+--             newDescribeAccountLimits
 --
 --         , requestCreateLBCookieStickinessPolicy $
---             createLBCookieStickinessPolicy
+--             newCreateLBCookieStickinessPolicy
 --
 --         , requestApplySecurityGroupsToLoadBalancer $
---             applySecurityGroupsToLoadBalancer
+--             newApplySecurityGroupsToLoadBalancer
 --
 --         , requestEnableAvailabilityZonesForLoadBalancer $
---             enableAvailabilityZonesForLoadBalancer
+--             newEnableAvailabilityZonesForLoadBalancer
 --
 --         , requestDescribeLoadBalancers $
---             describeLoadBalancers
+--             newDescribeLoadBalancers
 --
 --         , requestDescribeLoadBalancerPolicyTypes $
---             describeLoadBalancerPolicyTypes
+--             newDescribeLoadBalancerPolicyTypes
 --
 --         , requestDisableAvailabilityZonesForLoadBalancer $
---             disableAvailabilityZonesForLoadBalancer
+--             newDisableAvailabilityZonesForLoadBalancer
 --
 --         , requestCreateLoadBalancerPolicy $
---             createLoadBalancerPolicy
+--             newCreateLoadBalancerPolicy
 --
 --         , requestDeleteLoadBalancerListeners $
---             deleteLoadBalancerListeners
+--             newDeleteLoadBalancerListeners
 --
 --         , requestDeleteLoadBalancerPolicy $
---             deleteLoadBalancerPolicy
+--             newDeleteLoadBalancerPolicy
 --
 --         , requestDescribeInstanceHealth $
---             describeInstanceHealth
+--             newDescribeInstanceHealth
 --
 --         , requestDescribeLoadBalancerAttributes $
---             describeLoadBalancerAttributes
+--             newDescribeLoadBalancerAttributes
 --
 --         , requestCreateAppCookieStickinessPolicy $
---             createAppCookieStickinessPolicy
+--             newCreateAppCookieStickinessPolicy
 --
 --         , requestConfigureHealthCheck $
---             configureHealthCheck
+--             newConfigureHealthCheck
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseRemoveTags $
---             removeTagsResponse
+--             newRemoveTagsResponse
 --
 --         , responseSetLoadBalancerListenerSSLCertificate $
---             setLoadBalancerListenerSSLCertificateResponse
+--             newSetLoadBalancerListenerSSLCertificateResponse
 --
 --         , responseSetLoadBalancerPoliciesForBackendServer $
---             setLoadBalancerPoliciesForBackendServerResponse
+--             newSetLoadBalancerPoliciesForBackendServerResponse
 --
 --         , responseDescribeTags $
---             describeTagsResponse
+--             newDescribeTagsResponse
 --
 --         , responseDescribeLoadBalancerPolicies $
---             describeLoadBalancerPoliciesResponse
+--             newDescribeLoadBalancerPoliciesResponse
 --
 --         , responseSetLoadBalancerPoliciesOfListener $
---             setLoadBalancerPoliciesOfListenerResponse
+--             newSetLoadBalancerPoliciesOfListenerResponse
 --
 --         , responseDeregisterInstancesFromLoadBalancer $
---             deregisterInstancesFromLoadBalancerResponse
+--             newDeregisterInstancesFromLoadBalancerResponse
 --
 --         , responseCreateLoadBalancer $
---             createLoadBalancerResponse
+--             newCreateLoadBalancerResponse
 --
 --         , responseDetachLoadBalancerFromSubnets $
---             detachLoadBalancerFromSubnetsResponse
+--             newDetachLoadBalancerFromSubnetsResponse
 --
 --         , responseRegisterInstancesWithLoadBalancer $
---             registerInstancesWithLoadBalancerResponse
+--             newRegisterInstancesWithLoadBalancerResponse
 --
 --         , responseCreateLoadBalancerListeners $
---             createLoadBalancerListenersResponse
+--             newCreateLoadBalancerListenersResponse
 --
 --         , responseDeleteLoadBalancer $
---             deleteLoadBalancerResponse
+--             newDeleteLoadBalancerResponse
 --
 --         , responseAddTags $
---             addTagsResponse
+--             newAddTagsResponse
 --
 --         , responseModifyLoadBalancerAttributes $
---             modifyLoadBalancerAttributesResponse
+--             newModifyLoadBalancerAttributesResponse
 --
 --         , responseAttachLoadBalancerToSubnets $
---             attachLoadBalancerToSubnetsResponse
+--             newAttachLoadBalancerToSubnetsResponse
 --
 --         , responseDescribeAccountLimits $
---             describeAccountLimitsResponse
+--             newDescribeAccountLimitsResponse
 --
 --         , responseCreateLBCookieStickinessPolicy $
---             createLBCookieStickinessPolicyResponse
+--             newCreateLBCookieStickinessPolicyResponse
 --
 --         , responseApplySecurityGroupsToLoadBalancer $
---             applySecurityGroupsToLoadBalancerResponse
+--             newApplySecurityGroupsToLoadBalancerResponse
 --
 --         , responseEnableAvailabilityZonesForLoadBalancer $
---             enableAvailabilityZonesForLoadBalancerResponse
+--             newEnableAvailabilityZonesForLoadBalancerResponse
 --
 --         , responseDescribeLoadBalancers $
---             describeLoadBalancersResponse
+--             newDescribeLoadBalancersResponse
 --
 --         , responseDescribeLoadBalancerPolicyTypes $
---             describeLoadBalancerPolicyTypesResponse
+--             newDescribeLoadBalancerPolicyTypesResponse
 --
 --         , responseDisableAvailabilityZonesForLoadBalancer $
---             disableAvailabilityZonesForLoadBalancerResponse
+--             newDisableAvailabilityZonesForLoadBalancerResponse
 --
 --         , responseCreateLoadBalancerPolicy $
---             createLoadBalancerPolicyResponse
+--             newCreateLoadBalancerPolicyResponse
 --
 --         , responseDeleteLoadBalancerListeners $
---             deleteLoadBalancerListenersResponse
+--             newDeleteLoadBalancerListenersResponse
 --
 --         , responseDeleteLoadBalancerPolicy $
---             deleteLoadBalancerPolicyResponse
+--             newDeleteLoadBalancerPolicyResponse
 --
 --         , responseDescribeInstanceHealth $
---             describeInstanceHealthResponse
+--             newDescribeInstanceHealthResponse
 --
 --         , responseDescribeLoadBalancerAttributes $
---             describeLoadBalancerAttributesResponse
+--             newDescribeLoadBalancerAttributesResponse
 --
 --         , responseCreateAppCookieStickinessPolicy $
---             createAppCookieStickinessPolicyResponse
+--             newCreateAppCookieStickinessPolicyResponse
 --
 --         , responseConfigureHealthCheck $
---             configureHealthCheckResponse
+--             newConfigureHealthCheckResponse
 --
 --           ]
 --     ]
@@ -390,7 +390,7 @@ responseRemoveTags =
   res
     "RemoveTagsResponse"
     "fixture/RemoveTagsResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy RemoveTags)
 
 responseSetLoadBalancerListenerSSLCertificate :: SetLoadBalancerListenerSSLCertificateResponse -> TestTree
@@ -398,7 +398,7 @@ responseSetLoadBalancerListenerSSLCertificate =
   res
     "SetLoadBalancerListenerSSLCertificateResponse"
     "fixture/SetLoadBalancerListenerSSLCertificateResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy SetLoadBalancerListenerSSLCertificate)
 
 responseSetLoadBalancerPoliciesForBackendServer :: SetLoadBalancerPoliciesForBackendServerResponse -> TestTree
@@ -406,7 +406,7 @@ responseSetLoadBalancerPoliciesForBackendServer =
   res
     "SetLoadBalancerPoliciesForBackendServerResponse"
     "fixture/SetLoadBalancerPoliciesForBackendServerResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy SetLoadBalancerPoliciesForBackendServer)
 
 responseDescribeTags :: DescribeTagsResponse -> TestTree
@@ -414,7 +414,7 @@ responseDescribeTags =
   res
     "DescribeTagsResponse"
     "fixture/DescribeTagsResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DescribeTags)
 
 responseDescribeLoadBalancerPolicies :: DescribeLoadBalancerPoliciesResponse -> TestTree
@@ -422,7 +422,7 @@ responseDescribeLoadBalancerPolicies =
   res
     "DescribeLoadBalancerPoliciesResponse"
     "fixture/DescribeLoadBalancerPoliciesResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DescribeLoadBalancerPolicies)
 
 responseSetLoadBalancerPoliciesOfListener :: SetLoadBalancerPoliciesOfListenerResponse -> TestTree
@@ -430,7 +430,7 @@ responseSetLoadBalancerPoliciesOfListener =
   res
     "SetLoadBalancerPoliciesOfListenerResponse"
     "fixture/SetLoadBalancerPoliciesOfListenerResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy SetLoadBalancerPoliciesOfListener)
 
 responseDeregisterInstancesFromLoadBalancer :: DeregisterInstancesFromLoadBalancerResponse -> TestTree
@@ -438,7 +438,7 @@ responseDeregisterInstancesFromLoadBalancer =
   res
     "DeregisterInstancesFromLoadBalancerResponse"
     "fixture/DeregisterInstancesFromLoadBalancerResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DeregisterInstancesFromLoadBalancer)
 
 responseCreateLoadBalancer :: CreateLoadBalancerResponse -> TestTree
@@ -446,7 +446,7 @@ responseCreateLoadBalancer =
   res
     "CreateLoadBalancerResponse"
     "fixture/CreateLoadBalancerResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy CreateLoadBalancer)
 
 responseDetachLoadBalancerFromSubnets :: DetachLoadBalancerFromSubnetsResponse -> TestTree
@@ -454,7 +454,7 @@ responseDetachLoadBalancerFromSubnets =
   res
     "DetachLoadBalancerFromSubnetsResponse"
     "fixture/DetachLoadBalancerFromSubnetsResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DetachLoadBalancerFromSubnets)
 
 responseRegisterInstancesWithLoadBalancer :: RegisterInstancesWithLoadBalancerResponse -> TestTree
@@ -462,7 +462,7 @@ responseRegisterInstancesWithLoadBalancer =
   res
     "RegisterInstancesWithLoadBalancerResponse"
     "fixture/RegisterInstancesWithLoadBalancerResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy RegisterInstancesWithLoadBalancer)
 
 responseCreateLoadBalancerListeners :: CreateLoadBalancerListenersResponse -> TestTree
@@ -470,7 +470,7 @@ responseCreateLoadBalancerListeners =
   res
     "CreateLoadBalancerListenersResponse"
     "fixture/CreateLoadBalancerListenersResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy CreateLoadBalancerListeners)
 
 responseDeleteLoadBalancer :: DeleteLoadBalancerResponse -> TestTree
@@ -478,7 +478,7 @@ responseDeleteLoadBalancer =
   res
     "DeleteLoadBalancerResponse"
     "fixture/DeleteLoadBalancerResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DeleteLoadBalancer)
 
 responseAddTags :: AddTagsResponse -> TestTree
@@ -486,7 +486,7 @@ responseAddTags =
   res
     "AddTagsResponse"
     "fixture/AddTagsResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy AddTags)
 
 responseModifyLoadBalancerAttributes :: ModifyLoadBalancerAttributesResponse -> TestTree
@@ -494,7 +494,7 @@ responseModifyLoadBalancerAttributes =
   res
     "ModifyLoadBalancerAttributesResponse"
     "fixture/ModifyLoadBalancerAttributesResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy ModifyLoadBalancerAttributes)
 
 responseAttachLoadBalancerToSubnets :: AttachLoadBalancerToSubnetsResponse -> TestTree
@@ -502,7 +502,7 @@ responseAttachLoadBalancerToSubnets =
   res
     "AttachLoadBalancerToSubnetsResponse"
     "fixture/AttachLoadBalancerToSubnetsResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy AttachLoadBalancerToSubnets)
 
 responseDescribeAccountLimits :: DescribeAccountLimitsResponse -> TestTree
@@ -510,7 +510,7 @@ responseDescribeAccountLimits =
   res
     "DescribeAccountLimitsResponse"
     "fixture/DescribeAccountLimitsResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DescribeAccountLimits)
 
 responseCreateLBCookieStickinessPolicy :: CreateLBCookieStickinessPolicyResponse -> TestTree
@@ -518,7 +518,7 @@ responseCreateLBCookieStickinessPolicy =
   res
     "CreateLBCookieStickinessPolicyResponse"
     "fixture/CreateLBCookieStickinessPolicyResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy CreateLBCookieStickinessPolicy)
 
 responseApplySecurityGroupsToLoadBalancer :: ApplySecurityGroupsToLoadBalancerResponse -> TestTree
@@ -526,7 +526,7 @@ responseApplySecurityGroupsToLoadBalancer =
   res
     "ApplySecurityGroupsToLoadBalancerResponse"
     "fixture/ApplySecurityGroupsToLoadBalancerResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy ApplySecurityGroupsToLoadBalancer)
 
 responseEnableAvailabilityZonesForLoadBalancer :: EnableAvailabilityZonesForLoadBalancerResponse -> TestTree
@@ -534,7 +534,7 @@ responseEnableAvailabilityZonesForLoadBalancer =
   res
     "EnableAvailabilityZonesForLoadBalancerResponse"
     "fixture/EnableAvailabilityZonesForLoadBalancerResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy EnableAvailabilityZonesForLoadBalancer)
 
 responseDescribeLoadBalancers :: DescribeLoadBalancersResponse -> TestTree
@@ -542,7 +542,7 @@ responseDescribeLoadBalancers =
   res
     "DescribeLoadBalancersResponse"
     "fixture/DescribeLoadBalancersResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DescribeLoadBalancers)
 
 responseDescribeLoadBalancerPolicyTypes :: DescribeLoadBalancerPolicyTypesResponse -> TestTree
@@ -550,7 +550,7 @@ responseDescribeLoadBalancerPolicyTypes =
   res
     "DescribeLoadBalancerPolicyTypesResponse"
     "fixture/DescribeLoadBalancerPolicyTypesResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DescribeLoadBalancerPolicyTypes)
 
 responseDisableAvailabilityZonesForLoadBalancer :: DisableAvailabilityZonesForLoadBalancerResponse -> TestTree
@@ -558,7 +558,7 @@ responseDisableAvailabilityZonesForLoadBalancer =
   res
     "DisableAvailabilityZonesForLoadBalancerResponse"
     "fixture/DisableAvailabilityZonesForLoadBalancerResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DisableAvailabilityZonesForLoadBalancer)
 
 responseCreateLoadBalancerPolicy :: CreateLoadBalancerPolicyResponse -> TestTree
@@ -566,7 +566,7 @@ responseCreateLoadBalancerPolicy =
   res
     "CreateLoadBalancerPolicyResponse"
     "fixture/CreateLoadBalancerPolicyResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy CreateLoadBalancerPolicy)
 
 responseDeleteLoadBalancerListeners :: DeleteLoadBalancerListenersResponse -> TestTree
@@ -574,7 +574,7 @@ responseDeleteLoadBalancerListeners =
   res
     "DeleteLoadBalancerListenersResponse"
     "fixture/DeleteLoadBalancerListenersResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DeleteLoadBalancerListeners)
 
 responseDeleteLoadBalancerPolicy :: DeleteLoadBalancerPolicyResponse -> TestTree
@@ -582,7 +582,7 @@ responseDeleteLoadBalancerPolicy =
   res
     "DeleteLoadBalancerPolicyResponse"
     "fixture/DeleteLoadBalancerPolicyResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DeleteLoadBalancerPolicy)
 
 responseDescribeInstanceHealth :: DescribeInstanceHealthResponse -> TestTree
@@ -590,7 +590,7 @@ responseDescribeInstanceHealth =
   res
     "DescribeInstanceHealthResponse"
     "fixture/DescribeInstanceHealthResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DescribeInstanceHealth)
 
 responseDescribeLoadBalancerAttributes :: DescribeLoadBalancerAttributesResponse -> TestTree
@@ -598,7 +598,7 @@ responseDescribeLoadBalancerAttributes =
   res
     "DescribeLoadBalancerAttributesResponse"
     "fixture/DescribeLoadBalancerAttributesResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy DescribeLoadBalancerAttributes)
 
 responseCreateAppCookieStickinessPolicy :: CreateAppCookieStickinessPolicyResponse -> TestTree
@@ -606,7 +606,7 @@ responseCreateAppCookieStickinessPolicy =
   res
     "CreateAppCookieStickinessPolicyResponse"
     "fixture/CreateAppCookieStickinessPolicyResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy CreateAppCookieStickinessPolicy)
 
 responseConfigureHealthCheck :: ConfigureHealthCheckResponse -> TestTree
@@ -614,5 +614,5 @@ responseConfigureHealthCheck =
   res
     "ConfigureHealthCheckResponse"
     "fixture/ConfigureHealthCheckResponse.proto"
-    elb
+    defaultService
     (Proxy :: Proxy ConfigureHealthCheck)

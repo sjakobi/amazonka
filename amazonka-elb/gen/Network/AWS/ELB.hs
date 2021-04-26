@@ -11,20 +11,38 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Elastic Load Balancing__
+-- Elastic Load Balancing
 --
--- A load balancer can distribute incoming traffic across your EC2 instances. This enables you to increase the availability of your application. The load balancer also monitors the health of its registered instances and ensures that it routes traffic only to healthy instances. You configure your load balancer to accept incoming traffic by specifying one or more listeners, which are configured with a protocol and port number for connections from clients to the load balancer and a protocol and port number for connections from the load balancer to the instances.
+-- A load balancer can distribute incoming traffic across your EC2
+-- instances. This enables you to increase the availability of your
+-- application. The load balancer also monitors the health of its
+-- registered instances and ensures that it routes traffic only to healthy
+-- instances. You configure your load balancer to accept incoming traffic
+-- by specifying one or more listeners, which are configured with a
+-- protocol and port number for connections from clients to the load
+-- balancer and a protocol and port number for connections from the load
+-- balancer to the instances.
 --
--- Elastic Load Balancing supports three types of load balancers: Application Load Balancers, Network Load Balancers, and Classic Load Balancers. You can select a load balancer based on your application needs. For more information, see the <https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/ Elastic Load Balancing User Guide> .
+-- Elastic Load Balancing supports three types of load balancers:
+-- Application Load Balancers, Network Load Balancers, and Classic Load
+-- Balancers. You can select a load balancer based on your application
+-- needs. For more information, see the
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/ Elastic Load Balancing User Guide>.
 --
--- This reference covers the 2012-06-01 API, which supports Classic Load Balancers. The 2015-12-01 API supports Application Load Balancers and Network Load Balancers.
+-- This reference covers the 2012-06-01 API, which supports Classic Load
+-- Balancers. The 2015-12-01 API supports Application Load Balancers and
+-- Network Load Balancers.
 --
--- To get started, create a load balancer with one or more listeners using 'CreateLoadBalancer' . Register your instances with the load balancer using 'RegisterInstancesWithLoadBalancer' .
+-- To get started, create a load balancer with one or more listeners using
+-- CreateLoadBalancer. Register your instances with the load balancer using
+-- RegisterInstancesWithLoadBalancer.
 --
--- All Elastic Load Balancing operations are /idempotent/ , which means that they complete at most one time. If you repeat an operation, it succeeds with a 200 OK response code.
+-- All Elastic Load Balancing operations are /idempotent/, which means that
+-- they complete at most one time. If you repeat an operation, it succeeds
+-- with a 200 OK response code.
 module Network.AWS.ELB
   ( -- * Service Configuration
-    elb,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -99,103 +117,190 @@ module Network.AWS.ELB
     -- $waiters
 
     -- ** InstanceDeregistered
-    instanceDeregistered,
+    newInstanceDeregistered,
 
     -- ** InstanceInService
-    instanceInService,
+    newInstanceInService,
 
     -- ** AnyInstanceInService
-    anyInstanceInService,
+    newAnyInstanceInService,
 
     -- * Operations
     -- $operations
 
     -- ** RemoveTags
-    module Network.AWS.ELB.RemoveTags,
+    RemoveTags (RemoveTags'),
+    newRemoveTags,
+    RemoveTagsResponse (RemoveTagsResponse'),
+    newRemoveTagsResponse,
 
     -- ** SetLoadBalancerListenerSSLCertificate
-    module Network.AWS.ELB.SetLoadBalancerListenerSSLCertificate,
+    SetLoadBalancerListenerSSLCertificate (SetLoadBalancerListenerSSLCertificate'),
+    newSetLoadBalancerListenerSSLCertificate,
+    SetLoadBalancerListenerSSLCertificateResponse (SetLoadBalancerListenerSSLCertificateResponse'),
+    newSetLoadBalancerListenerSSLCertificateResponse,
 
     -- ** SetLoadBalancerPoliciesForBackendServer
-    module Network.AWS.ELB.SetLoadBalancerPoliciesForBackendServer,
+    SetLoadBalancerPoliciesForBackendServer (SetLoadBalancerPoliciesForBackendServer'),
+    newSetLoadBalancerPoliciesForBackendServer,
+    SetLoadBalancerPoliciesForBackendServerResponse (SetLoadBalancerPoliciesForBackendServerResponse'),
+    newSetLoadBalancerPoliciesForBackendServerResponse,
 
     -- ** DescribeTags
-    module Network.AWS.ELB.DescribeTags,
+    DescribeTags (DescribeTags'),
+    newDescribeTags,
+    DescribeTagsResponse (DescribeTagsResponse'),
+    newDescribeTagsResponse,
 
     -- ** DescribeLoadBalancerPolicies
-    module Network.AWS.ELB.DescribeLoadBalancerPolicies,
+    DescribeLoadBalancerPolicies (DescribeLoadBalancerPolicies'),
+    newDescribeLoadBalancerPolicies,
+    DescribeLoadBalancerPoliciesResponse (DescribeLoadBalancerPoliciesResponse'),
+    newDescribeLoadBalancerPoliciesResponse,
 
     -- ** SetLoadBalancerPoliciesOfListener
-    module Network.AWS.ELB.SetLoadBalancerPoliciesOfListener,
+    SetLoadBalancerPoliciesOfListener (SetLoadBalancerPoliciesOfListener'),
+    newSetLoadBalancerPoliciesOfListener,
+    SetLoadBalancerPoliciesOfListenerResponse (SetLoadBalancerPoliciesOfListenerResponse'),
+    newSetLoadBalancerPoliciesOfListenerResponse,
 
     -- ** DeregisterInstancesFromLoadBalancer
-    module Network.AWS.ELB.DeregisterInstancesFromLoadBalancer,
+    DeregisterInstancesFromLoadBalancer (DeregisterInstancesFromLoadBalancer'),
+    newDeregisterInstancesFromLoadBalancer,
+    DeregisterInstancesFromLoadBalancerResponse (DeregisterInstancesFromLoadBalancerResponse'),
+    newDeregisterInstancesFromLoadBalancerResponse,
 
     -- ** CreateLoadBalancer
-    module Network.AWS.ELB.CreateLoadBalancer,
+    CreateLoadBalancer (CreateLoadBalancer'),
+    newCreateLoadBalancer,
+    CreateLoadBalancerResponse (CreateLoadBalancerResponse'),
+    newCreateLoadBalancerResponse,
 
     -- ** DetachLoadBalancerFromSubnets
-    module Network.AWS.ELB.DetachLoadBalancerFromSubnets,
+    DetachLoadBalancerFromSubnets (DetachLoadBalancerFromSubnets'),
+    newDetachLoadBalancerFromSubnets,
+    DetachLoadBalancerFromSubnetsResponse (DetachLoadBalancerFromSubnetsResponse'),
+    newDetachLoadBalancerFromSubnetsResponse,
 
     -- ** RegisterInstancesWithLoadBalancer
-    module Network.AWS.ELB.RegisterInstancesWithLoadBalancer,
+    RegisterInstancesWithLoadBalancer (RegisterInstancesWithLoadBalancer'),
+    newRegisterInstancesWithLoadBalancer,
+    RegisterInstancesWithLoadBalancerResponse (RegisterInstancesWithLoadBalancerResponse'),
+    newRegisterInstancesWithLoadBalancerResponse,
 
     -- ** CreateLoadBalancerListeners
-    module Network.AWS.ELB.CreateLoadBalancerListeners,
+    CreateLoadBalancerListeners (CreateLoadBalancerListeners'),
+    newCreateLoadBalancerListeners,
+    CreateLoadBalancerListenersResponse (CreateLoadBalancerListenersResponse'),
+    newCreateLoadBalancerListenersResponse,
 
     -- ** DeleteLoadBalancer
-    module Network.AWS.ELB.DeleteLoadBalancer,
+    DeleteLoadBalancer (DeleteLoadBalancer'),
+    newDeleteLoadBalancer,
+    DeleteLoadBalancerResponse (DeleteLoadBalancerResponse'),
+    newDeleteLoadBalancerResponse,
 
     -- ** AddTags
-    module Network.AWS.ELB.AddTags,
+    AddTags (AddTags'),
+    newAddTags,
+    AddTagsResponse (AddTagsResponse'),
+    newAddTagsResponse,
 
     -- ** ModifyLoadBalancerAttributes
-    module Network.AWS.ELB.ModifyLoadBalancerAttributes,
+    ModifyLoadBalancerAttributes (ModifyLoadBalancerAttributes'),
+    newModifyLoadBalancerAttributes,
+    ModifyLoadBalancerAttributesResponse (ModifyLoadBalancerAttributesResponse'),
+    newModifyLoadBalancerAttributesResponse,
 
     -- ** AttachLoadBalancerToSubnets
-    module Network.AWS.ELB.AttachLoadBalancerToSubnets,
+    AttachLoadBalancerToSubnets (AttachLoadBalancerToSubnets'),
+    newAttachLoadBalancerToSubnets,
+    AttachLoadBalancerToSubnetsResponse (AttachLoadBalancerToSubnetsResponse'),
+    newAttachLoadBalancerToSubnetsResponse,
 
     -- ** DescribeAccountLimits (Paginated)
-    module Network.AWS.ELB.DescribeAccountLimits,
+    DescribeAccountLimits (DescribeAccountLimits'),
+    newDescribeAccountLimits,
+    DescribeAccountLimitsResponse (DescribeAccountLimitsResponse'),
+    newDescribeAccountLimitsResponse,
 
     -- ** CreateLBCookieStickinessPolicy
-    module Network.AWS.ELB.CreateLBCookieStickinessPolicy,
+    CreateLBCookieStickinessPolicy (CreateLBCookieStickinessPolicy'),
+    newCreateLBCookieStickinessPolicy,
+    CreateLBCookieStickinessPolicyResponse (CreateLBCookieStickinessPolicyResponse'),
+    newCreateLBCookieStickinessPolicyResponse,
 
     -- ** ApplySecurityGroupsToLoadBalancer
-    module Network.AWS.ELB.ApplySecurityGroupsToLoadBalancer,
+    ApplySecurityGroupsToLoadBalancer (ApplySecurityGroupsToLoadBalancer'),
+    newApplySecurityGroupsToLoadBalancer,
+    ApplySecurityGroupsToLoadBalancerResponse (ApplySecurityGroupsToLoadBalancerResponse'),
+    newApplySecurityGroupsToLoadBalancerResponse,
 
     -- ** EnableAvailabilityZonesForLoadBalancer
-    module Network.AWS.ELB.EnableAvailabilityZonesForLoadBalancer,
+    EnableAvailabilityZonesForLoadBalancer (EnableAvailabilityZonesForLoadBalancer'),
+    newEnableAvailabilityZonesForLoadBalancer,
+    EnableAvailabilityZonesForLoadBalancerResponse (EnableAvailabilityZonesForLoadBalancerResponse'),
+    newEnableAvailabilityZonesForLoadBalancerResponse,
 
     -- ** DescribeLoadBalancers (Paginated)
-    module Network.AWS.ELB.DescribeLoadBalancers,
+    DescribeLoadBalancers (DescribeLoadBalancers'),
+    newDescribeLoadBalancers,
+    DescribeLoadBalancersResponse (DescribeLoadBalancersResponse'),
+    newDescribeLoadBalancersResponse,
 
     -- ** DescribeLoadBalancerPolicyTypes
-    module Network.AWS.ELB.DescribeLoadBalancerPolicyTypes,
+    DescribeLoadBalancerPolicyTypes (DescribeLoadBalancerPolicyTypes'),
+    newDescribeLoadBalancerPolicyTypes,
+    DescribeLoadBalancerPolicyTypesResponse (DescribeLoadBalancerPolicyTypesResponse'),
+    newDescribeLoadBalancerPolicyTypesResponse,
 
     -- ** DisableAvailabilityZonesForLoadBalancer
-    module Network.AWS.ELB.DisableAvailabilityZonesForLoadBalancer,
+    DisableAvailabilityZonesForLoadBalancer (DisableAvailabilityZonesForLoadBalancer'),
+    newDisableAvailabilityZonesForLoadBalancer,
+    DisableAvailabilityZonesForLoadBalancerResponse (DisableAvailabilityZonesForLoadBalancerResponse'),
+    newDisableAvailabilityZonesForLoadBalancerResponse,
 
     -- ** CreateLoadBalancerPolicy
-    module Network.AWS.ELB.CreateLoadBalancerPolicy,
+    CreateLoadBalancerPolicy (CreateLoadBalancerPolicy'),
+    newCreateLoadBalancerPolicy,
+    CreateLoadBalancerPolicyResponse (CreateLoadBalancerPolicyResponse'),
+    newCreateLoadBalancerPolicyResponse,
 
     -- ** DeleteLoadBalancerListeners
-    module Network.AWS.ELB.DeleteLoadBalancerListeners,
+    DeleteLoadBalancerListeners (DeleteLoadBalancerListeners'),
+    newDeleteLoadBalancerListeners,
+    DeleteLoadBalancerListenersResponse (DeleteLoadBalancerListenersResponse'),
+    newDeleteLoadBalancerListenersResponse,
 
     -- ** DeleteLoadBalancerPolicy
-    module Network.AWS.ELB.DeleteLoadBalancerPolicy,
+    DeleteLoadBalancerPolicy (DeleteLoadBalancerPolicy'),
+    newDeleteLoadBalancerPolicy,
+    DeleteLoadBalancerPolicyResponse (DeleteLoadBalancerPolicyResponse'),
+    newDeleteLoadBalancerPolicyResponse,
 
     -- ** DescribeInstanceHealth
-    module Network.AWS.ELB.DescribeInstanceHealth,
+    DescribeInstanceHealth (DescribeInstanceHealth'),
+    newDescribeInstanceHealth,
+    DescribeInstanceHealthResponse (DescribeInstanceHealthResponse'),
+    newDescribeInstanceHealthResponse,
 
     -- ** DescribeLoadBalancerAttributes
-    module Network.AWS.ELB.DescribeLoadBalancerAttributes,
+    DescribeLoadBalancerAttributes (DescribeLoadBalancerAttributes'),
+    newDescribeLoadBalancerAttributes,
+    DescribeLoadBalancerAttributesResponse (DescribeLoadBalancerAttributesResponse'),
+    newDescribeLoadBalancerAttributesResponse,
 
     -- ** CreateAppCookieStickinessPolicy
-    module Network.AWS.ELB.CreateAppCookieStickinessPolicy,
+    CreateAppCookieStickinessPolicy (CreateAppCookieStickinessPolicy'),
+    newCreateAppCookieStickinessPolicy,
+    CreateAppCookieStickinessPolicyResponse (CreateAppCookieStickinessPolicyResponse'),
+    newCreateAppCookieStickinessPolicyResponse,
 
     -- ** ConfigureHealthCheck
-    module Network.AWS.ELB.ConfigureHealthCheck,
+    ConfigureHealthCheck (ConfigureHealthCheck'),
+    newConfigureHealthCheck,
+    ConfigureHealthCheckResponse (ConfigureHealthCheckResponse'),
+    newConfigureHealthCheckResponse,
 
     -- * Types
 
@@ -203,189 +308,108 @@ module Network.AWS.ELB
     module Network.AWS.ELB.Internal,
 
     -- ** AccessLog
-    AccessLog,
-    accessLog,
-    alS3BucketPrefix,
-    alEmitInterval,
-    alS3BucketName,
-    alEnabled,
+    AccessLog (AccessLog'),
+    newAccessLog,
 
     -- ** AdditionalAttribute
-    AdditionalAttribute,
-    additionalAttribute,
-    aaKey,
-    aaValue,
+    AdditionalAttribute (AdditionalAttribute'),
+    newAdditionalAttribute,
 
     -- ** AppCookieStickinessPolicy
-    AppCookieStickinessPolicy,
-    appCookieStickinessPolicy,
-    acspPolicyName,
-    acspCookieName,
+    AppCookieStickinessPolicy (AppCookieStickinessPolicy'),
+    newAppCookieStickinessPolicy,
 
     -- ** BackendServerDescription
-    BackendServerDescription,
-    backendServerDescription,
-    bsdInstancePort,
-    bsdPolicyNames,
+    BackendServerDescription (BackendServerDescription'),
+    newBackendServerDescription,
 
     -- ** ConnectionDraining
-    ConnectionDraining,
-    connectionDraining,
-    cdTimeout,
-    cdEnabled,
+    ConnectionDraining (ConnectionDraining'),
+    newConnectionDraining,
 
     -- ** ConnectionSettings
-    ConnectionSettings,
-    connectionSettings,
-    csIdleTimeout,
+    ConnectionSettings (ConnectionSettings'),
+    newConnectionSettings,
 
     -- ** CrossZoneLoadBalancing
-    CrossZoneLoadBalancing,
-    crossZoneLoadBalancing,
-    czlbEnabled,
+    CrossZoneLoadBalancing (CrossZoneLoadBalancing'),
+    newCrossZoneLoadBalancing,
 
     -- ** HealthCheck
-    HealthCheck,
-    healthCheck,
-    hcTarget,
-    hcInterval,
-    hcTimeout,
-    hcUnhealthyThreshold,
-    hcHealthyThreshold,
+    HealthCheck (HealthCheck'),
+    newHealthCheck,
 
     -- ** Instance
-    Instance,
-    instance',
-    iInstanceId,
+    Instance (Instance'),
+    newInstance,
 
     -- ** InstanceState
-    InstanceState,
-    instanceState,
-    isInstanceId,
-    isReasonCode,
-    isState,
-    isDescription,
+    InstanceState (InstanceState'),
+    newInstanceState,
 
     -- ** LBCookieStickinessPolicy
-    LBCookieStickinessPolicy,
-    lBCookieStickinessPolicy,
-    lbcspPolicyName,
-    lbcspCookieExpirationPeriod,
+    LBCookieStickinessPolicy (LBCookieStickinessPolicy'),
+    newLBCookieStickinessPolicy,
 
     -- ** Limit
-    Limit,
-    limit,
-    lName,
-    lMax,
+    Limit (Limit'),
+    newLimit,
 
     -- ** Listener
-    Listener,
-    listener,
-    lInstanceProtocol,
-    lSSLCertificateId,
-    lProtocol,
-    lLoadBalancerPort,
-    lInstancePort,
+    Listener (Listener'),
+    newListener,
 
     -- ** ListenerDescription
-    ListenerDescription,
-    listenerDescription,
-    ldListener,
-    ldPolicyNames,
+    ListenerDescription (ListenerDescription'),
+    newListenerDescription,
 
     -- ** LoadBalancerAttributes
-    LoadBalancerAttributes,
-    loadBalancerAttributes,
-    lbaConnectionDraining,
-    lbaAdditionalAttributes,
-    lbaConnectionSettings,
-    lbaAccessLog,
-    lbaCrossZoneLoadBalancing,
+    LoadBalancerAttributes (LoadBalancerAttributes'),
+    newLoadBalancerAttributes,
 
     -- ** LoadBalancerDescription
-    LoadBalancerDescription,
-    loadBalancerDescription,
-    lbdCanonicalHostedZoneNameId,
-    lbdBackendServerDescriptions,
-    lbdAvailabilityZones,
-    lbdPolicies,
-    lbdScheme,
-    lbdCreatedTime,
-    lbdInstances,
-    lbdSecurityGroups,
-    lbdSourceSecurityGroup,
-    lbdDNSName,
-    lbdListenerDescriptions,
-    lbdSubnets,
-    lbdVPCId,
-    lbdLoadBalancerName,
-    lbdHealthCheck,
-    lbdCanonicalHostedZoneName,
+    LoadBalancerDescription (LoadBalancerDescription'),
+    newLoadBalancerDescription,
 
     -- ** Policies
-    Policies,
-    policies,
-    pAppCookieStickinessPolicies,
-    pLBCookieStickinessPolicies,
-    pOtherPolicies,
+    Policies (Policies'),
+    newPolicies,
 
     -- ** PolicyAttribute
-    PolicyAttribute,
-    policyAttribute,
-    paAttributeValue,
-    paAttributeName,
+    PolicyAttribute (PolicyAttribute'),
+    newPolicyAttribute,
 
     -- ** PolicyAttributeDescription
-    PolicyAttributeDescription,
-    policyAttributeDescription,
-    padAttributeValue,
-    padAttributeName,
+    PolicyAttributeDescription (PolicyAttributeDescription'),
+    newPolicyAttributeDescription,
 
     -- ** PolicyAttributeTypeDescription
-    PolicyAttributeTypeDescription,
-    policyAttributeTypeDescription,
-    patdAttributeType,
-    patdAttributeName,
-    patdCardinality,
-    patdDescription,
-    patdDefaultValue,
+    PolicyAttributeTypeDescription (PolicyAttributeTypeDescription'),
+    newPolicyAttributeTypeDescription,
 
     -- ** PolicyDescription
-    PolicyDescription,
-    policyDescription,
-    pdPolicyName,
-    pdPolicyTypeName,
-    pdPolicyAttributeDescriptions,
+    PolicyDescription (PolicyDescription'),
+    newPolicyDescription,
 
     -- ** PolicyTypeDescription
-    PolicyTypeDescription,
-    policyTypeDescription,
-    ptdPolicyAttributeTypeDescriptions,
-    ptdPolicyTypeName,
-    ptdDescription,
+    PolicyTypeDescription (PolicyTypeDescription'),
+    newPolicyTypeDescription,
 
     -- ** SourceSecurityGroup
-    SourceSecurityGroup,
-    sourceSecurityGroup,
-    ssgOwnerAlias,
-    ssgGroupName,
+    SourceSecurityGroup (SourceSecurityGroup'),
+    newSourceSecurityGroup,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
 
     -- ** TagDescription
-    TagDescription,
-    tagDescription,
-    tdTags,
-    tdLoadBalancerName,
+    TagDescription (TagDescription'),
+    newTagDescription,
 
     -- ** TagKeyOnly
-    TagKeyOnly,
-    tagKeyOnly,
-    tkoKey,
+    TagKeyOnly (TagKeyOnly'),
+    newTagKeyOnly,
   )
 where
 
@@ -413,6 +437,7 @@ import Network.AWS.ELB.DetachLoadBalancerFromSubnets
 import Network.AWS.ELB.DisableAvailabilityZonesForLoadBalancer
 import Network.AWS.ELB.EnableAvailabilityZonesForLoadBalancer
 import Network.AWS.ELB.Internal
+import Network.AWS.ELB.Lens
 import Network.AWS.ELB.ModifyLoadBalancerAttributes
 import Network.AWS.ELB.RegisterInstancesWithLoadBalancer
 import Network.AWS.ELB.RemoveTags

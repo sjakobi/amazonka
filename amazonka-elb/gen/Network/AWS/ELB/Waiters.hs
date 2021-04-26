@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -14,66 +16,88 @@
 module Network.AWS.ELB.Waiters where
 
 import Network.AWS.ELB.DescribeInstanceHealth
+import Network.AWS.ELB.Lens
 import Network.AWS.ELB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Waiter
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.ELB.DescribeInstanceHealth' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-instanceDeregistered :: Wait DescribeInstanceHealth
-instanceDeregistered =
-  Wait
-    { _waitName = "InstanceDeregistered",
-      _waitAttempts = 40,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newInstanceDeregistered :: Waiter.Wait DescribeInstanceHealth
+newInstanceDeregistered =
+  Waiter.Wait
+    { Waiter._waitName =
+        "InstanceDeregistered",
+      Waiter._waitAttempts = 40,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "OutOfService"
-            AcceptSuccess
-            ( folding (concatOf dihrrsInstanceStates)
-                . isState
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstanceHealthResponse_instanceStates
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instanceState_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "InvalidInstance" AcceptSuccess
+          Waiter.matchError
+            "InvalidInstance"
+            Waiter.AcceptSuccess
         ]
     }
 
 -- | Polls 'Network.AWS.ELB.DescribeInstanceHealth' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-instanceInService :: Wait DescribeInstanceHealth
-instanceInService =
-  Wait
-    { _waitName = "InstanceInService",
-      _waitAttempts = 40,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newInstanceInService :: Waiter.Wait DescribeInstanceHealth
+newInstanceInService =
+  Waiter.Wait
+    { Waiter._waitName = "InstanceInService",
+      Waiter._waitAttempts = 40,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "InService"
-            AcceptSuccess
-            ( folding (concatOf dihrrsInstanceStates)
-                . isState
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstanceHealthResponse_instanceStates
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instanceState_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "InvalidInstance" AcceptRetry
+          Waiter.matchError
+            "InvalidInstance"
+            Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.ELB.DescribeInstanceHealth' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-anyInstanceInService :: Wait DescribeInstanceHealth
-anyInstanceInService =
-  Wait
-    { _waitName = "AnyInstanceInService",
-      _waitAttempts = 40,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAny
+newAnyInstanceInService :: Waiter.Wait DescribeInstanceHealth
+newAnyInstanceInService =
+  Waiter.Wait
+    { Waiter._waitName =
+        "AnyInstanceInService",
+      Waiter._waitAttempts = 40,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAny
             "InService"
-            AcceptSuccess
-            ( folding (concatOf dihrrsInstanceStates)
-                . isState
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstanceHealthResponse_instanceStates
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instanceState_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }

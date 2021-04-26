@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates one or more listeners for the specified load balancer. If a listener with the specified port does not already exist, it is created; otherwise, the properties of the new listener must match the properties of the existing listener.
+-- Creates one or more listeners for the specified load balancer. If a
+-- listener with the specified port does not already exist, it is created;
+-- otherwise, the properties of the new listener must match the properties
+-- of the existing listener.
 --
---
--- For more information, see <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html Listeners for Your Classic Load Balancer> in the /Classic Load Balancers Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html Listeners for Your Classic Load Balancer>
+-- in the /Classic Load Balancers Guide/.
 module Network.AWS.ELB.CreateLoadBalancerListeners
   ( -- * Creating a Request
-    createLoadBalancerListeners,
-    CreateLoadBalancerListeners,
+    CreateLoadBalancerListeners (..),
+    newCreateLoadBalancerListeners,
 
     -- * Request Lenses
-    clblLoadBalancerName,
-    clblListeners,
+    createLoadBalancerListeners_loadBalancerName,
+    createLoadBalancerListeners_listeners,
 
     -- * Destructuring the Response
-    createLoadBalancerListenersResponse,
-    CreateLoadBalancerListenersResponse,
+    CreateLoadBalancerListenersResponse (..),
+    newCreateLoadBalancerListenersResponse,
 
     -- * Response Lenses
-    clblrrsResponseStatus,
+    createLoadBalancerListenersResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELB.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for CreateLoadBalancerListeners.
 --
---
---
--- /See:/ 'createLoadBalancerListeners' smart constructor.
+-- /See:/ 'newCreateLoadBalancerListeners' smart constructor.
 data CreateLoadBalancerListeners = CreateLoadBalancerListeners'
-  { _clblLoadBalancerName ::
-      !Text,
-    _clblListeners ::
-      ![Listener]
+  { -- | The name of the load balancer.
+    loadBalancerName :: Prelude.Text,
+    -- | The listeners.
+    listeners :: [Listener]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLoadBalancerListeners' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLoadBalancerListeners' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clblLoadBalancerName' - The name of the load balancer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clblListeners' - The listeners.
-createLoadBalancerListeners ::
-  -- | 'clblLoadBalancerName'
-  Text ->
+-- 'loadBalancerName', 'createLoadBalancerListeners_loadBalancerName' - The name of the load balancer.
+--
+-- 'listeners', 'createLoadBalancerListeners_listeners' - The listeners.
+newCreateLoadBalancerListeners ::
+  -- | 'loadBalancerName'
+  Prelude.Text ->
   CreateLoadBalancerListeners
-createLoadBalancerListeners pLoadBalancerName_ =
+newCreateLoadBalancerListeners pLoadBalancerName_ =
   CreateLoadBalancerListeners'
-    { _clblLoadBalancerName =
+    { loadBalancerName =
         pLoadBalancerName_,
-      _clblListeners = mempty
+      listeners = Prelude.mempty
     }
 
 -- | The name of the load balancer.
-clblLoadBalancerName :: Lens' CreateLoadBalancerListeners Text
-clblLoadBalancerName = lens _clblLoadBalancerName (\s a -> s {_clblLoadBalancerName = a})
+createLoadBalancerListeners_loadBalancerName :: Lens.Lens' CreateLoadBalancerListeners Prelude.Text
+createLoadBalancerListeners_loadBalancerName = Lens.lens (\CreateLoadBalancerListeners' {loadBalancerName} -> loadBalancerName) (\s@CreateLoadBalancerListeners' {} a -> s {loadBalancerName = a} :: CreateLoadBalancerListeners)
 
 -- | The listeners.
-clblListeners :: Lens' CreateLoadBalancerListeners [Listener]
-clblListeners = lens _clblListeners (\s a -> s {_clblListeners = a}) . _Coerce
+createLoadBalancerListeners_listeners :: Lens.Lens' CreateLoadBalancerListeners [Listener]
+createLoadBalancerListeners_listeners = Lens.lens (\CreateLoadBalancerListeners' {listeners} -> listeners) (\s@CreateLoadBalancerListeners' {} a -> s {listeners = a} :: CreateLoadBalancerListeners) Prelude.. Prelude._Coerce
 
-instance AWSRequest CreateLoadBalancerListeners where
+instance
+  Prelude.AWSRequest
+    CreateLoadBalancerListeners
+  where
   type
     Rs CreateLoadBalancerListeners =
       CreateLoadBalancerListenersResponse
-  request = postQuery elb
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateLoadBalancerListenersResult"
       ( \s h x ->
           CreateLoadBalancerListenersResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateLoadBalancerListeners
+instance Prelude.Hashable CreateLoadBalancerListeners
 
-instance NFData CreateLoadBalancerListeners
+instance Prelude.NFData CreateLoadBalancerListeners
 
-instance ToHeaders CreateLoadBalancerListeners where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateLoadBalancerListeners
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateLoadBalancerListeners where
-  toPath = const "/"
+instance Prelude.ToPath CreateLoadBalancerListeners where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateLoadBalancerListeners where
+instance Prelude.ToQuery CreateLoadBalancerListeners where
   toQuery CreateLoadBalancerListeners' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateLoadBalancerListeners" :: ByteString),
-        "Version" =: ("2012-06-01" :: ByteString),
-        "LoadBalancerName" =: _clblLoadBalancerName,
-        "Listeners" =: toQueryList "member" _clblListeners
+          Prelude.=: ( "CreateLoadBalancerListeners" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Prelude.=: loadBalancerName,
+        "Listeners"
+          Prelude.=: Prelude.toQueryList "member" listeners
       ]
 
 -- | Contains the parameters for CreateLoadBalancerListener.
 --
---
---
--- /See:/ 'createLoadBalancerListenersResponse' smart constructor.
-newtype CreateLoadBalancerListenersResponse = CreateLoadBalancerListenersResponse'
-  { _clblrrsResponseStatus ::
-      Int
+-- /See:/ 'newCreateLoadBalancerListenersResponse' smart constructor.
+data CreateLoadBalancerListenersResponse = CreateLoadBalancerListenersResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLoadBalancerListenersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLoadBalancerListenersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clblrrsResponseStatus' - -- | The response status code.
-createLoadBalancerListenersResponse ::
-  -- | 'clblrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createLoadBalancerListenersResponse_httpStatus' - The response's http status code.
+newCreateLoadBalancerListenersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateLoadBalancerListenersResponse
-createLoadBalancerListenersResponse pResponseStatus_ =
+newCreateLoadBalancerListenersResponse pHttpStatus_ =
   CreateLoadBalancerListenersResponse'
-    { _clblrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-clblrrsResponseStatus :: Lens' CreateLoadBalancerListenersResponse Int
-clblrrsResponseStatus = lens _clblrrsResponseStatus (\s a -> s {_clblrrsResponseStatus = a})
+-- | The response's http status code.
+createLoadBalancerListenersResponse_httpStatus :: Lens.Lens' CreateLoadBalancerListenersResponse Prelude.Int
+createLoadBalancerListenersResponse_httpStatus = Lens.lens (\CreateLoadBalancerListenersResponse' {httpStatus} -> httpStatus) (\s@CreateLoadBalancerListenersResponse' {} a -> s {httpStatus = a} :: CreateLoadBalancerListenersResponse)
 
-instance NFData CreateLoadBalancerListenersResponse
+instance
+  Prelude.NFData
+    CreateLoadBalancerListenersResponse

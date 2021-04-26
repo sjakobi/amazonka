@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,190 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the current Elastic Load Balancing resource limits for your AWS account.
+-- Describes the current Elastic Load Balancing resource limits for your
+-- AWS account.
 --
---
--- For more information, see <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-limits.html Limits for Your Classic Load Balancer> in the /Classic Load Balancers Guide/ .
---
+-- For more information, see
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-limits.html Limits for Your Classic Load Balancer>
+-- in the /Classic Load Balancers Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.ELB.DescribeAccountLimits
   ( -- * Creating a Request
-    describeAccountLimits,
-    DescribeAccountLimits,
+    DescribeAccountLimits (..),
+    newDescribeAccountLimits,
 
     -- * Request Lenses
-    dalPageSize,
-    dalMarker,
+    describeAccountLimits_pageSize,
+    describeAccountLimits_marker,
 
     -- * Destructuring the Response
-    describeAccountLimitsResponse,
-    DescribeAccountLimitsResponse,
+    DescribeAccountLimitsResponse (..),
+    newDescribeAccountLimitsResponse,
 
     -- * Response Lenses
-    dalrrsNextMarker,
-    dalrrsLimits,
-    dalrrsResponseStatus,
+    describeAccountLimitsResponse_nextMarker,
+    describeAccountLimitsResponse_limits,
+    describeAccountLimitsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELB.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ELB.Types.Limit
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAccountLimits' smart constructor.
+-- | /See:/ 'newDescribeAccountLimits' smart constructor.
 data DescribeAccountLimits = DescribeAccountLimits'
-  { _dalPageSize ::
-      !(Maybe Nat),
-    _dalMarker :: !(Maybe Text)
+  { -- | The maximum number of results to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The marker for the next set of results. (You received this marker from a
+    -- previous call.)
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dalPageSize' - The maximum number of results to return with this call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dalMarker' - The marker for the next set of results. (You received this marker from a previous call.)
-describeAccountLimits ::
+-- 'pageSize', 'describeAccountLimits_pageSize' - The maximum number of results to return with this call.
+--
+-- 'marker', 'describeAccountLimits_marker' - The marker for the next set of results. (You received this marker from a
+-- previous call.)
+newDescribeAccountLimits ::
   DescribeAccountLimits
-describeAccountLimits =
+newDescribeAccountLimits =
   DescribeAccountLimits'
-    { _dalPageSize = Nothing,
-      _dalMarker = Nothing
+    { pageSize = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The maximum number of results to return with this call.
-dalPageSize :: Lens' DescribeAccountLimits (Maybe Natural)
-dalPageSize = lens _dalPageSize (\s a -> s {_dalPageSize = a}) . mapping _Nat
+describeAccountLimits_pageSize :: Lens.Lens' DescribeAccountLimits (Prelude.Maybe Prelude.Natural)
+describeAccountLimits_pageSize = Lens.lens (\DescribeAccountLimits' {pageSize} -> pageSize) (\s@DescribeAccountLimits' {} a -> s {pageSize = a} :: DescribeAccountLimits) Prelude.. Lens.mapping Prelude._Nat
 
--- | The marker for the next set of results. (You received this marker from a previous call.)
-dalMarker :: Lens' DescribeAccountLimits (Maybe Text)
-dalMarker = lens _dalMarker (\s a -> s {_dalMarker = a})
+-- | The marker for the next set of results. (You received this marker from a
+-- previous call.)
+describeAccountLimits_marker :: Lens.Lens' DescribeAccountLimits (Prelude.Maybe Prelude.Text)
+describeAccountLimits_marker = Lens.lens (\DescribeAccountLimits' {marker} -> marker) (\s@DescribeAccountLimits' {} a -> s {marker = a} :: DescribeAccountLimits)
 
-instance AWSPager DescribeAccountLimits where
+instance Pager.AWSPager DescribeAccountLimits where
   page rq rs
-    | stop (rs ^. dalrrsNextMarker) = Nothing
-    | stop (rs ^. dalrrsLimits) = Nothing
-    | otherwise =
-      Just $ rq & dalMarker .~ rs ^. dalrrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeAccountLimitsResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeAccountLimitsResponse_limits
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeAccountLimits_marker
+          Lens..~ rs
+          Lens.^? describeAccountLimitsResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeAccountLimits where
+instance Prelude.AWSRequest DescribeAccountLimits where
   type
     Rs DescribeAccountLimits =
       DescribeAccountLimitsResponse
-  request = postQuery elb
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeAccountLimitsResult"
       ( \s h x ->
           DescribeAccountLimitsResponse'
-            <$> (x .@? "NextMarker")
-            <*> ( x .@? "Limits" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextMarker")
+            Prelude.<*> ( x Prelude..@? "Limits" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAccountLimits
+instance Prelude.Hashable DescribeAccountLimits
 
-instance NFData DescribeAccountLimits
+instance Prelude.NFData DescribeAccountLimits
 
-instance ToHeaders DescribeAccountLimits where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAccountLimits where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAccountLimits where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAccountLimits where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAccountLimits where
+instance Prelude.ToQuery DescribeAccountLimits where
   toQuery DescribeAccountLimits' {..} =
-    mconcat
-      [ "Action" =: ("DescribeAccountLimits" :: ByteString),
-        "Version" =: ("2012-06-01" :: ByteString),
-        "PageSize" =: _dalPageSize,
-        "Marker" =: _dalMarker
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeAccountLimits" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-06-01" :: Prelude.ByteString),
+        "PageSize" Prelude.=: pageSize,
+        "Marker" Prelude.=: marker
       ]
 
--- | /See:/ 'describeAccountLimitsResponse' smart constructor.
+-- | /See:/ 'newDescribeAccountLimitsResponse' smart constructor.
 data DescribeAccountLimitsResponse = DescribeAccountLimitsResponse'
-  { _dalrrsNextMarker ::
-      !( Maybe
-           Text
-       ),
-    _dalrrsLimits ::
-      !( Maybe
-           [Limit]
-       ),
-    _dalrrsResponseStatus ::
-      !Int
+  { -- | The marker to use when requesting the next set of results. If there are
+    -- no additional results, the string is empty.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | Information about the limits.
+    limits :: Prelude.Maybe [Limit],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountLimitsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountLimitsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dalrrsNextMarker' - The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dalrrsLimits' - Information about the limits.
+-- 'nextMarker', 'describeAccountLimitsResponse_nextMarker' - The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
 --
--- * 'dalrrsResponseStatus' - -- | The response status code.
-describeAccountLimitsResponse ::
-  -- | 'dalrrsResponseStatus'
-  Int ->
+-- 'limits', 'describeAccountLimitsResponse_limits' - Information about the limits.
+--
+-- 'httpStatus', 'describeAccountLimitsResponse_httpStatus' - The response's http status code.
+newDescribeAccountLimitsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAccountLimitsResponse
-describeAccountLimitsResponse pResponseStatus_ =
+newDescribeAccountLimitsResponse pHttpStatus_ =
   DescribeAccountLimitsResponse'
-    { _dalrrsNextMarker =
-        Nothing,
-      _dalrrsLimits = Nothing,
-      _dalrrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      limits = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
-dalrrsNextMarker :: Lens' DescribeAccountLimitsResponse (Maybe Text)
-dalrrsNextMarker = lens _dalrrsNextMarker (\s a -> s {_dalrrsNextMarker = a})
+-- | The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+describeAccountLimitsResponse_nextMarker :: Lens.Lens' DescribeAccountLimitsResponse (Prelude.Maybe Prelude.Text)
+describeAccountLimitsResponse_nextMarker = Lens.lens (\DescribeAccountLimitsResponse' {nextMarker} -> nextMarker) (\s@DescribeAccountLimitsResponse' {} a -> s {nextMarker = a} :: DescribeAccountLimitsResponse)
 
 -- | Information about the limits.
-dalrrsLimits :: Lens' DescribeAccountLimitsResponse [Limit]
-dalrrsLimits = lens _dalrrsLimits (\s a -> s {_dalrrsLimits = a}) . _Default . _Coerce
+describeAccountLimitsResponse_limits :: Lens.Lens' DescribeAccountLimitsResponse (Prelude.Maybe [Limit])
+describeAccountLimitsResponse_limits = Lens.lens (\DescribeAccountLimitsResponse' {limits} -> limits) (\s@DescribeAccountLimitsResponse' {} a -> s {limits = a} :: DescribeAccountLimitsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dalrrsResponseStatus :: Lens' DescribeAccountLimitsResponse Int
-dalrrsResponseStatus = lens _dalrrsResponseStatus (\s a -> s {_dalrrsResponseStatus = a})
+-- | The response's http status code.
+describeAccountLimitsResponse_httpStatus :: Lens.Lens' DescribeAccountLimitsResponse Prelude.Int
+describeAccountLimitsResponse_httpStatus = Lens.lens (\DescribeAccountLimitsResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountLimitsResponse' {} a -> s {httpStatus = a} :: DescribeAccountLimitsResponse)
 
-instance NFData DescribeAccountLimitsResponse
+instance Prelude.NFData DescribeAccountLimitsResponse

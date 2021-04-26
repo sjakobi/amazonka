@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,51 +20,54 @@
 module Network.AWS.ELB.Types.PolicyAttribute where
 
 import Network.AWS.ELB.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a policy attribute.
 --
---
---
--- /See:/ 'policyAttribute' smart constructor.
+-- /See:/ 'newPolicyAttribute' smart constructor.
 data PolicyAttribute = PolicyAttribute'
-  { _paAttributeValue ::
-      !(Maybe Text),
-    _paAttributeName :: !(Maybe Text)
+  { -- | The value of the attribute.
+    attributeValue :: Prelude.Maybe Prelude.Text,
+    -- | The name of the attribute.
+    attributeName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'paAttributeValue' - The value of the attribute.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'paAttributeName' - The name of the attribute.
-policyAttribute ::
+-- 'attributeValue', 'policyAttribute_attributeValue' - The value of the attribute.
+--
+-- 'attributeName', 'policyAttribute_attributeName' - The name of the attribute.
+newPolicyAttribute ::
   PolicyAttribute
-policyAttribute =
+newPolicyAttribute =
   PolicyAttribute'
-    { _paAttributeValue = Nothing,
-      _paAttributeName = Nothing
+    { attributeValue = Prelude.Nothing,
+      attributeName = Prelude.Nothing
     }
 
 -- | The value of the attribute.
-paAttributeValue :: Lens' PolicyAttribute (Maybe Text)
-paAttributeValue = lens _paAttributeValue (\s a -> s {_paAttributeValue = a})
+policyAttribute_attributeValue :: Lens.Lens' PolicyAttribute (Prelude.Maybe Prelude.Text)
+policyAttribute_attributeValue = Lens.lens (\PolicyAttribute' {attributeValue} -> attributeValue) (\s@PolicyAttribute' {} a -> s {attributeValue = a} :: PolicyAttribute)
 
 -- | The name of the attribute.
-paAttributeName :: Lens' PolicyAttribute (Maybe Text)
-paAttributeName = lens _paAttributeName (\s a -> s {_paAttributeName = a})
+policyAttribute_attributeName :: Lens.Lens' PolicyAttribute (Prelude.Maybe Prelude.Text)
+policyAttribute_attributeName = Lens.lens (\PolicyAttribute' {attributeName} -> attributeName) (\s@PolicyAttribute' {} a -> s {attributeName = a} :: PolicyAttribute)
 
-instance Hashable PolicyAttribute
+instance Prelude.Hashable PolicyAttribute
 
-instance NFData PolicyAttribute
+instance Prelude.NFData PolicyAttribute
 
-instance ToQuery PolicyAttribute where
+instance Prelude.ToQuery PolicyAttribute where
   toQuery PolicyAttribute' {..} =
-    mconcat
-      [ "AttributeValue" =: _paAttributeValue,
-        "AttributeName" =: _paAttributeName
+    Prelude.mconcat
+      [ "AttributeValue" Prelude.=: attributeValue,
+        "AttributeName" Prelude.=: attributeName
       ]

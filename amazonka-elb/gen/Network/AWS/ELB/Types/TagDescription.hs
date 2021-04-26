@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +21,55 @@ module Network.AWS.ELB.Types.TagDescription where
 
 import Network.AWS.ELB.Internal
 import Network.AWS.ELB.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The tags associated with a load balancer.
 --
---
---
--- /See:/ 'tagDescription' smart constructor.
+-- /See:/ 'newTagDescription' smart constructor.
 data TagDescription = TagDescription'
-  { _tdTags ::
-      !(Maybe (List1 Tag)),
-    _tdLoadBalancerName :: !(Maybe Text)
+  { -- | The tags.
+    tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | The name of the load balancer.
+    loadBalancerName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdTags' - The tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdLoadBalancerName' - The name of the load balancer.
-tagDescription ::
+-- 'tags', 'tagDescription_tags' - The tags.
+--
+-- 'loadBalancerName', 'tagDescription_loadBalancerName' - The name of the load balancer.
+newTagDescription ::
   TagDescription
-tagDescription =
+newTagDescription =
   TagDescription'
-    { _tdTags = Nothing,
-      _tdLoadBalancerName = Nothing
+    { tags = Prelude.Nothing,
+      loadBalancerName = Prelude.Nothing
     }
 
 -- | The tags.
-tdTags :: Lens' TagDescription (Maybe (NonEmpty Tag))
-tdTags = lens _tdTags (\s a -> s {_tdTags = a}) . mapping _List1
+tagDescription_tags :: Lens.Lens' TagDescription (Prelude.Maybe (Prelude.NonEmpty Tag))
+tagDescription_tags = Lens.lens (\TagDescription' {tags} -> tags) (\s@TagDescription' {} a -> s {tags = a} :: TagDescription) Prelude.. Lens.mapping Prelude._List1
 
 -- | The name of the load balancer.
-tdLoadBalancerName :: Lens' TagDescription (Maybe Text)
-tdLoadBalancerName = lens _tdLoadBalancerName (\s a -> s {_tdLoadBalancerName = a})
+tagDescription_loadBalancerName :: Lens.Lens' TagDescription (Prelude.Maybe Prelude.Text)
+tagDescription_loadBalancerName = Lens.lens (\TagDescription' {loadBalancerName} -> loadBalancerName) (\s@TagDescription' {} a -> s {loadBalancerName = a} :: TagDescription)
 
-instance FromXML TagDescription where
+instance Prelude.FromXML TagDescription where
   parseXML x =
     TagDescription'
-      <$> ( x .@? "Tags" .!@ mempty
-              >>= may (parseXMLList1 "member")
-          )
-      <*> (x .@? "LoadBalancerName")
+      Prelude.<$> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList1 "member")
+                  )
+      Prelude.<*> (x Prelude..@? "LoadBalancerName")
 
-instance Hashable TagDescription
+instance Prelude.Hashable TagDescription
 
-instance NFData TagDescription
+instance Prelude.NFData TagDescription
