@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CloudWatchEvents.Types.ConnectionAuthorizationType
   ( ConnectionAuthorizationType
       ( ..,
-        APIKey,
-        Basic,
-        OauthClientCredentials
+        ConnectionAuthorizationTypeAPIKEY,
+        ConnectionAuthorizationTypeBASIC,
+        ConnectionAuthorizationTypeOAUTHCLIENTCREDENTIALS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionAuthorizationType
-  = ConnectionAuthorizationType'
-      ( CI
-          Text
-      )
+newtype ConnectionAuthorizationType = ConnectionAuthorizationType'
+  { fromConnectionAuthorizationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern APIKey :: ConnectionAuthorizationType
-pattern APIKey = ConnectionAuthorizationType' "API_KEY"
+pattern ConnectionAuthorizationTypeAPIKEY :: ConnectionAuthorizationType
+pattern ConnectionAuthorizationTypeAPIKEY = ConnectionAuthorizationType' "API_KEY"
 
-pattern Basic :: ConnectionAuthorizationType
-pattern Basic = ConnectionAuthorizationType' "BASIC"
+pattern ConnectionAuthorizationTypeBASIC :: ConnectionAuthorizationType
+pattern ConnectionAuthorizationTypeBASIC = ConnectionAuthorizationType' "BASIC"
 
-pattern OauthClientCredentials :: ConnectionAuthorizationType
-pattern OauthClientCredentials = ConnectionAuthorizationType' "OAUTH_CLIENT_CREDENTIALS"
+pattern ConnectionAuthorizationTypeOAUTHCLIENTCREDENTIALS :: ConnectionAuthorizationType
+pattern ConnectionAuthorizationTypeOAUTHCLIENTCREDENTIALS = ConnectionAuthorizationType' "OAUTH_CLIENT_CREDENTIALS"
 
 {-# COMPLETE
-  APIKey,
-  Basic,
-  OauthClientCredentials,
+  ConnectionAuthorizationTypeAPIKEY,
+  ConnectionAuthorizationTypeBASIC,
+  ConnectionAuthorizationTypeOAUTHCLIENTCREDENTIALS,
   ConnectionAuthorizationType'
   #-}
 
-instance FromText ConnectionAuthorizationType where
-  parser = (ConnectionAuthorizationType' . mk) <$> takeText
+instance Prelude.FromText ConnectionAuthorizationType where
+  parser = ConnectionAuthorizationType' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionAuthorizationType where
-  toText (ConnectionAuthorizationType' ci) = original ci
+instance Prelude.ToText ConnectionAuthorizationType where
+  toText (ConnectionAuthorizationType' x) = x
 
-instance Hashable ConnectionAuthorizationType
+instance Prelude.Hashable ConnectionAuthorizationType
 
-instance NFData ConnectionAuthorizationType
+instance Prelude.NFData ConnectionAuthorizationType
 
-instance ToByteString ConnectionAuthorizationType
+instance Prelude.ToByteString ConnectionAuthorizationType
 
-instance ToQuery ConnectionAuthorizationType
+instance Prelude.ToQuery ConnectionAuthorizationType
 
-instance ToHeader ConnectionAuthorizationType
+instance Prelude.ToHeader ConnectionAuthorizationType
 
-instance ToJSON ConnectionAuthorizationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConnectionAuthorizationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ConnectionAuthorizationType where
-  parseJSON = parseJSONText "ConnectionAuthorizationType"
+instance Prelude.FromJSON ConnectionAuthorizationType where
+  parseJSON = Prelude.parseJSONText "ConnectionAuthorizationType"

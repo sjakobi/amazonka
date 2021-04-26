@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.ReplayDestination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A @ReplayDestination@ object that contains details about a replay.
 --
---
---
--- /See:/ 'replayDestination' smart constructor.
+-- /See:/ 'newReplayDestination' smart constructor.
 data ReplayDestination = ReplayDestination'
-  { _rdFilterARNs ::
-      !(Maybe [Text]),
-    _rdARN :: !Text
+  { -- | A list of ARNs for rules to replay events to.
+    filterArns :: Prelude.Maybe [Prelude.Text],
+    -- | The ARN of the event bus to replay event to. You can replay events only
+    -- to the event bus specified to create the archive.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplayDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplayDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdFilterARNs' - A list of ARNs for rules to replay events to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdARN' - The ARN of the event bus to replay event to. You can replay events only to the event bus specified to create the archive.
-replayDestination ::
-  -- | 'rdARN'
-  Text ->
+-- 'filterArns', 'replayDestination_filterArns' - A list of ARNs for rules to replay events to.
+--
+-- 'arn', 'replayDestination_arn' - The ARN of the event bus to replay event to. You can replay events only
+-- to the event bus specified to create the archive.
+newReplayDestination ::
+  -- | 'arn'
+  Prelude.Text ->
   ReplayDestination
-replayDestination pARN_ =
+newReplayDestination pArn_ =
   ReplayDestination'
-    { _rdFilterARNs = Nothing,
-      _rdARN = pARN_
+    { filterArns = Prelude.Nothing,
+      arn = pArn_
     }
 
 -- | A list of ARNs for rules to replay events to.
-rdFilterARNs :: Lens' ReplayDestination [Text]
-rdFilterARNs = lens _rdFilterARNs (\s a -> s {_rdFilterARNs = a}) . _Default . _Coerce
+replayDestination_filterArns :: Lens.Lens' ReplayDestination (Prelude.Maybe [Prelude.Text])
+replayDestination_filterArns = Lens.lens (\ReplayDestination' {filterArns} -> filterArns) (\s@ReplayDestination' {} a -> s {filterArns = a} :: ReplayDestination) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The ARN of the event bus to replay event to. You can replay events only to the event bus specified to create the archive.
-rdARN :: Lens' ReplayDestination Text
-rdARN = lens _rdARN (\s a -> s {_rdARN = a})
+-- | The ARN of the event bus to replay event to. You can replay events only
+-- to the event bus specified to create the archive.
+replayDestination_arn :: Lens.Lens' ReplayDestination Prelude.Text
+replayDestination_arn = Lens.lens (\ReplayDestination' {arn} -> arn) (\s@ReplayDestination' {} a -> s {arn = a} :: ReplayDestination)
 
-instance FromJSON ReplayDestination where
+instance Prelude.FromJSON ReplayDestination where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReplayDestination"
       ( \x ->
           ReplayDestination'
-            <$> (x .:? "FilterArns" .!= mempty) <*> (x .: "Arn")
+            Prelude.<$> ( x Prelude..:? "FilterArns"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "Arn")
       )
 
-instance Hashable ReplayDestination
+instance Prelude.Hashable ReplayDestination
 
-instance NFData ReplayDestination
+instance Prelude.NFData ReplayDestination
 
-instance ToJSON ReplayDestination where
+instance Prelude.ToJSON ReplayDestination where
   toJSON ReplayDestination' {..} =
-    object
-      ( catMaybes
-          [ ("FilterArns" .=) <$> _rdFilterARNs,
-            Just ("Arn" .= _rdARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FilterArns" Prelude..=) Prelude.<$> filterArns,
+            Prelude.Just ("Arn" Prelude..= arn)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- An SaaS partner can use this operation to list details about a partner event source that they have created. AWS customers do not use this operation. Instead, AWS customers can use 'DescribeEventSource' to see details about a partner event source that is shared with them.
+-- An SaaS partner can use this operation to list details about a partner
+-- event source that they have created. AWS customers do not use this
+-- operation. Instead, AWS customers can use DescribeEventSource to see
+-- details about a partner event source that is shared with them.
 module Network.AWS.CloudWatchEvents.DescribePartnerEventSource
   ( -- * Creating a Request
-    describePartnerEventSource,
-    DescribePartnerEventSource,
+    DescribePartnerEventSource (..),
+    newDescribePartnerEventSource,
 
     -- * Request Lenses
-    dpespName,
+    describePartnerEventSource_name,
 
     -- * Destructuring the Response
-    describePartnerEventSourceResponse,
-    DescribePartnerEventSourceResponse,
+    DescribePartnerEventSourceResponse (..),
+    newDescribePartnerEventSourceResponse,
 
     -- * Response Lenses
-    dpesrrsARN,
-    dpesrrsName,
-    dpesrrsResponseStatus,
+    describePartnerEventSourceResponse_arn,
+    describePartnerEventSourceResponse_name,
+    describePartnerEventSourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describePartnerEventSource' smart constructor.
-newtype DescribePartnerEventSource = DescribePartnerEventSource'
-  { _dpespName ::
-      Text
+-- | /See:/ 'newDescribePartnerEventSource' smart constructor.
+data DescribePartnerEventSource = DescribePartnerEventSource'
+  { -- | The name of the event source to display.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePartnerEventSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePartnerEventSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpespName' - The name of the event source to display.
-describePartnerEventSource ::
-  -- | 'dpespName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'describePartnerEventSource_name' - The name of the event source to display.
+newDescribePartnerEventSource ::
+  -- | 'name'
+  Prelude.Text ->
   DescribePartnerEventSource
-describePartnerEventSource pName_ =
-  DescribePartnerEventSource' {_dpespName = pName_}
+newDescribePartnerEventSource pName_ =
+  DescribePartnerEventSource' {name = pName_}
 
 -- | The name of the event source to display.
-dpespName :: Lens' DescribePartnerEventSource Text
-dpespName = lens _dpespName (\s a -> s {_dpespName = a})
+describePartnerEventSource_name :: Lens.Lens' DescribePartnerEventSource Prelude.Text
+describePartnerEventSource_name = Lens.lens (\DescribePartnerEventSource' {name} -> name) (\s@DescribePartnerEventSource' {} a -> s {name = a} :: DescribePartnerEventSource)
 
-instance AWSRequest DescribePartnerEventSource where
+instance
+  Prelude.AWSRequest
+    DescribePartnerEventSource
+  where
   type
     Rs DescribePartnerEventSource =
       DescribePartnerEventSourceResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribePartnerEventSourceResponse'
-            <$> (x .?> "Arn")
-            <*> (x .?> "Name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribePartnerEventSource
+instance Prelude.Hashable DescribePartnerEventSource
 
-instance NFData DescribePartnerEventSource
+instance Prelude.NFData DescribePartnerEventSource
 
-instance ToHeaders DescribePartnerEventSource where
+instance Prelude.ToHeaders DescribePartnerEventSource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSEvents.DescribePartnerEventSource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSEvents.DescribePartnerEventSource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribePartnerEventSource where
+instance Prelude.ToJSON DescribePartnerEventSource where
   toJSON DescribePartnerEventSource' {..} =
-    object (catMaybes [Just ("Name" .= _dpespName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DescribePartnerEventSource where
-  toPath = const "/"
+instance Prelude.ToPath DescribePartnerEventSource where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribePartnerEventSource where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribePartnerEventSource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describePartnerEventSourceResponse' smart constructor.
+-- | /See:/ 'newDescribePartnerEventSourceResponse' smart constructor.
 data DescribePartnerEventSourceResponse = DescribePartnerEventSourceResponse'
-  { _dpesrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _dpesrrsName ::
-      !( Maybe
-           Text
-       ),
-    _dpesrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the event source.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the event source.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePartnerEventSourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePartnerEventSourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpesrrsARN' - The ARN of the event source.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpesrrsName' - The name of the event source.
+-- 'arn', 'describePartnerEventSourceResponse_arn' - The ARN of the event source.
 --
--- * 'dpesrrsResponseStatus' - -- | The response status code.
-describePartnerEventSourceResponse ::
-  -- | 'dpesrrsResponseStatus'
-  Int ->
+-- 'name', 'describePartnerEventSourceResponse_name' - The name of the event source.
+--
+-- 'httpStatus', 'describePartnerEventSourceResponse_httpStatus' - The response's http status code.
+newDescribePartnerEventSourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribePartnerEventSourceResponse
-describePartnerEventSourceResponse pResponseStatus_ =
+newDescribePartnerEventSourceResponse pHttpStatus_ =
   DescribePartnerEventSourceResponse'
-    { _dpesrrsARN =
-        Nothing,
-      _dpesrrsName = Nothing,
-      _dpesrrsResponseStatus =
-        pResponseStatus_
+    { arn =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the event source.
-dpesrrsARN :: Lens' DescribePartnerEventSourceResponse (Maybe Text)
-dpesrrsARN = lens _dpesrrsARN (\s a -> s {_dpesrrsARN = a})
+describePartnerEventSourceResponse_arn :: Lens.Lens' DescribePartnerEventSourceResponse (Prelude.Maybe Prelude.Text)
+describePartnerEventSourceResponse_arn = Lens.lens (\DescribePartnerEventSourceResponse' {arn} -> arn) (\s@DescribePartnerEventSourceResponse' {} a -> s {arn = a} :: DescribePartnerEventSourceResponse)
 
 -- | The name of the event source.
-dpesrrsName :: Lens' DescribePartnerEventSourceResponse (Maybe Text)
-dpesrrsName = lens _dpesrrsName (\s a -> s {_dpesrrsName = a})
+describePartnerEventSourceResponse_name :: Lens.Lens' DescribePartnerEventSourceResponse (Prelude.Maybe Prelude.Text)
+describePartnerEventSourceResponse_name = Lens.lens (\DescribePartnerEventSourceResponse' {name} -> name) (\s@DescribePartnerEventSourceResponse' {} a -> s {name = a} :: DescribePartnerEventSourceResponse)
 
--- | -- | The response status code.
-dpesrrsResponseStatus :: Lens' DescribePartnerEventSourceResponse Int
-dpesrrsResponseStatus = lens _dpesrrsResponseStatus (\s a -> s {_dpesrrsResponseStatus = a})
+-- | The response's http status code.
+describePartnerEventSourceResponse_httpStatus :: Lens.Lens' DescribePartnerEventSourceResponse Prelude.Int
+describePartnerEventSourceResponse_httpStatus = Lens.lens (\DescribePartnerEventSourceResponse' {httpStatus} -> httpStatus) (\s@DescribePartnerEventSourceResponse' {} a -> s {httpStatus = a} :: DescribePartnerEventSourceResponse)
 
-instance NFData DescribePartnerEventSourceResponse
+instance
+  Prelude.NFData
+    DescribePartnerEventSourceResponse

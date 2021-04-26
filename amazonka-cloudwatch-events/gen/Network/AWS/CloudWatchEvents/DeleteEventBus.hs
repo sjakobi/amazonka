@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,94 +21,104 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified custom event bus or partner event bus. All rules associated with this event bus need to be deleted. You can't delete your account's default event bus.
+-- Deletes the specified custom event bus or partner event bus. All rules
+-- associated with this event bus need to be deleted. You can\'t delete
+-- your account\'s default event bus.
 module Network.AWS.CloudWatchEvents.DeleteEventBus
   ( -- * Creating a Request
-    deleteEventBus,
-    DeleteEventBus,
+    DeleteEventBus (..),
+    newDeleteEventBus,
 
     -- * Request Lenses
-    debsName,
+    deleteEventBus_name,
 
     -- * Destructuring the Response
-    deleteEventBusResponse,
-    DeleteEventBusResponse,
+    DeleteEventBusResponse (..),
+    newDeleteEventBusResponse,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteEventBus' smart constructor.
-newtype DeleteEventBus = DeleteEventBus'
-  { _debsName ::
-      Text
+-- | /See:/ 'newDeleteEventBus' smart constructor.
+data DeleteEventBus = DeleteEventBus'
+  { -- | The name of the event bus to delete.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEventBus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEventBus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'debsName' - The name of the event bus to delete.
-deleteEventBus ::
-  -- | 'debsName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'deleteEventBus_name' - The name of the event bus to delete.
+newDeleteEventBus ::
+  -- | 'name'
+  Prelude.Text ->
   DeleteEventBus
-deleteEventBus pName_ =
-  DeleteEventBus' {_debsName = pName_}
+newDeleteEventBus pName_ =
+  DeleteEventBus' {name = pName_}
 
 -- | The name of the event bus to delete.
-debsName :: Lens' DeleteEventBus Text
-debsName = lens _debsName (\s a -> s {_debsName = a})
+deleteEventBus_name :: Lens.Lens' DeleteEventBus Prelude.Text
+deleteEventBus_name = Lens.lens (\DeleteEventBus' {name} -> name) (\s@DeleteEventBus' {} a -> s {name = a} :: DeleteEventBus)
 
-instance AWSRequest DeleteEventBus where
+instance Prelude.AWSRequest DeleteEventBus where
   type Rs DeleteEventBus = DeleteEventBusResponse
-  request = postJSON cloudWatchEvents
-  response = receiveNull DeleteEventBusResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteEventBusResponse'
 
-instance Hashable DeleteEventBus
+instance Prelude.Hashable DeleteEventBus
 
-instance NFData DeleteEventBus
+instance Prelude.NFData DeleteEventBus
 
-instance ToHeaders DeleteEventBus where
+instance Prelude.ToHeaders DeleteEventBus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.DeleteEventBus" :: ByteString),
+              Prelude.=# ("AWSEvents.DeleteEventBus" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteEventBus where
+instance Prelude.ToJSON DeleteEventBus where
   toJSON DeleteEventBus' {..} =
-    object (catMaybes [Just ("Name" .= _debsName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DeleteEventBus where
-  toPath = const "/"
+instance Prelude.ToPath DeleteEventBus where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteEventBus where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteEventBus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteEventBusResponse' smart constructor.
+-- | /See:/ 'newDeleteEventBusResponse' smart constructor.
 data DeleteEventBusResponse = DeleteEventBusResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEventBusResponse' with the minimum fields required to make a request.
-deleteEventBusResponse ::
+-- |
+-- Create a value of 'DeleteEventBusResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteEventBusResponse ::
   DeleteEventBusResponse
-deleteEventBusResponse = DeleteEventBusResponse'
+newDeleteEventBusResponse = DeleteEventBusResponse'
 
-instance NFData DeleteEventBusResponse
+instance Prelude.NFData DeleteEventBusResponse

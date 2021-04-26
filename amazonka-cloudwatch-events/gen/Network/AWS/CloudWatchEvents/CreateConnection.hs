@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,210 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a connection. A connection defines the authorization type and credentials to use for authorization with an API destination HTTP endpoint.
+-- Creates a connection. A connection defines the authorization type and
+-- credentials to use for authorization with an API destination HTTP
+-- endpoint.
 module Network.AWS.CloudWatchEvents.CreateConnection
   ( -- * Creating a Request
-    createConnection,
-    CreateConnection,
+    CreateConnection (..),
+    newCreateConnection,
 
     -- * Request Lenses
-    ccDescription,
-    ccName,
-    ccAuthorizationType,
-    ccAuthParameters,
+    createConnection_description,
+    createConnection_name,
+    createConnection_authorizationType,
+    createConnection_authParameters,
 
     -- * Destructuring the Response
-    createConnectionResponse,
-    CreateConnectionResponse,
+    CreateConnectionResponse (..),
+    newCreateConnectionResponse,
 
     -- * Response Lenses
-    ccrrsCreationTime,
-    ccrrsConnectionState,
-    ccrrsConnectionARN,
-    ccrrsLastModifiedTime,
-    ccrrsResponseStatus,
+    createConnectionResponse_creationTime,
+    createConnectionResponse_connectionState,
+    createConnectionResponse_connectionArn,
+    createConnectionResponse_lastModifiedTime,
+    createConnectionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.ConnectionState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createConnection' smart constructor.
+-- | /See:/ 'newCreateConnection' smart constructor.
 data CreateConnection = CreateConnection'
-  { _ccDescription ::
-      !(Maybe Text),
-    _ccName :: !Text,
-    _ccAuthorizationType ::
-      !ConnectionAuthorizationType,
-    _ccAuthParameters ::
-      !CreateConnectionAuthRequestParameters
+  { -- | A description for the connection to create.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name for the connection to create.
+    name :: Prelude.Text,
+    -- | The type of authorization to use for the connection.
+    authorizationType :: ConnectionAuthorizationType,
+    -- | A @CreateConnectionAuthRequestParameters@ object that contains the
+    -- authorization parameters to use to authorize with the endpoint.
+    authParameters :: CreateConnectionAuthRequestParameters
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConnection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConnection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccDescription' - A description for the connection to create.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccName' - The name for the connection to create.
+-- 'description', 'createConnection_description' - A description for the connection to create.
 --
--- * 'ccAuthorizationType' - The type of authorization to use for the connection.
+-- 'name', 'createConnection_name' - The name for the connection to create.
 --
--- * 'ccAuthParameters' - A @CreateConnectionAuthRequestParameters@ object that contains the authorization parameters to use to authorize with the endpoint.
-createConnection ::
-  -- | 'ccName'
-  Text ->
-  -- | 'ccAuthorizationType'
+-- 'authorizationType', 'createConnection_authorizationType' - The type of authorization to use for the connection.
+--
+-- 'authParameters', 'createConnection_authParameters' - A @CreateConnectionAuthRequestParameters@ object that contains the
+-- authorization parameters to use to authorize with the endpoint.
+newCreateConnection ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'authorizationType'
   ConnectionAuthorizationType ->
-  -- | 'ccAuthParameters'
+  -- | 'authParameters'
   CreateConnectionAuthRequestParameters ->
   CreateConnection
-createConnection
+newCreateConnection
   pName_
   pAuthorizationType_
   pAuthParameters_ =
     CreateConnection'
-      { _ccDescription = Nothing,
-        _ccName = pName_,
-        _ccAuthorizationType = pAuthorizationType_,
-        _ccAuthParameters = pAuthParameters_
+      { description = Prelude.Nothing,
+        name = pName_,
+        authorizationType = pAuthorizationType_,
+        authParameters = pAuthParameters_
       }
 
 -- | A description for the connection to create.
-ccDescription :: Lens' CreateConnection (Maybe Text)
-ccDescription = lens _ccDescription (\s a -> s {_ccDescription = a})
+createConnection_description :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Text)
+createConnection_description = Lens.lens (\CreateConnection' {description} -> description) (\s@CreateConnection' {} a -> s {description = a} :: CreateConnection)
 
 -- | The name for the connection to create.
-ccName :: Lens' CreateConnection Text
-ccName = lens _ccName (\s a -> s {_ccName = a})
+createConnection_name :: Lens.Lens' CreateConnection Prelude.Text
+createConnection_name = Lens.lens (\CreateConnection' {name} -> name) (\s@CreateConnection' {} a -> s {name = a} :: CreateConnection)
 
 -- | The type of authorization to use for the connection.
-ccAuthorizationType :: Lens' CreateConnection ConnectionAuthorizationType
-ccAuthorizationType = lens _ccAuthorizationType (\s a -> s {_ccAuthorizationType = a})
+createConnection_authorizationType :: Lens.Lens' CreateConnection ConnectionAuthorizationType
+createConnection_authorizationType = Lens.lens (\CreateConnection' {authorizationType} -> authorizationType) (\s@CreateConnection' {} a -> s {authorizationType = a} :: CreateConnection)
 
--- | A @CreateConnectionAuthRequestParameters@ object that contains the authorization parameters to use to authorize with the endpoint.
-ccAuthParameters :: Lens' CreateConnection CreateConnectionAuthRequestParameters
-ccAuthParameters = lens _ccAuthParameters (\s a -> s {_ccAuthParameters = a})
+-- | A @CreateConnectionAuthRequestParameters@ object that contains the
+-- authorization parameters to use to authorize with the endpoint.
+createConnection_authParameters :: Lens.Lens' CreateConnection CreateConnectionAuthRequestParameters
+createConnection_authParameters = Lens.lens (\CreateConnection' {authParameters} -> authParameters) (\s@CreateConnection' {} a -> s {authParameters = a} :: CreateConnection)
 
-instance AWSRequest CreateConnection where
+instance Prelude.AWSRequest CreateConnection where
   type Rs CreateConnection = CreateConnectionResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateConnectionResponse'
-            <$> (x .?> "CreationTime")
-            <*> (x .?> "ConnectionState")
-            <*> (x .?> "ConnectionArn")
-            <*> (x .?> "LastModifiedTime")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "ConnectionState")
+            Prelude.<*> (x Prelude..?> "ConnectionArn")
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateConnection
+instance Prelude.Hashable CreateConnection
 
-instance NFData CreateConnection
+instance Prelude.NFData CreateConnection
 
-instance ToHeaders CreateConnection where
+instance Prelude.ToHeaders CreateConnection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.CreateConnection" :: ByteString),
+              Prelude.=# ("AWSEvents.CreateConnection" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateConnection where
+instance Prelude.ToJSON CreateConnection where
   toJSON CreateConnection' {..} =
-    object
-      ( catMaybes
-          [ ("Description" .=) <$> _ccDescription,
-            Just ("Name" .= _ccName),
-            Just ("AuthorizationType" .= _ccAuthorizationType),
-            Just ("AuthParameters" .= _ccAuthParameters)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("AuthorizationType" Prelude..= authorizationType),
+            Prelude.Just
+              ("AuthParameters" Prelude..= authParameters)
           ]
       )
 
-instance ToPath CreateConnection where
-  toPath = const "/"
+instance Prelude.ToPath CreateConnection where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateConnection where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateConnection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createConnectionResponse' smart constructor.
+-- | /See:/ 'newCreateConnectionResponse' smart constructor.
 data CreateConnectionResponse = CreateConnectionResponse'
-  { _ccrrsCreationTime ::
-      !(Maybe POSIX),
-    _ccrrsConnectionState ::
-      !( Maybe
-           ConnectionState
-       ),
-    _ccrrsConnectionARN ::
-      !(Maybe Text),
-    _ccrrsLastModifiedTime ::
-      !(Maybe POSIX),
-    _ccrrsResponseStatus ::
-      !Int
+  { -- | A time stamp for the time that the connection was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The state of the connection that was created by the request.
+    connectionState :: Prelude.Maybe ConnectionState,
+    -- | The ARN of the connection that was created by the request.
+    connectionArn :: Prelude.Maybe Prelude.Text,
+    -- | A time stamp for the time that the connection was last updated.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConnectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConnectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrrsCreationTime' - A time stamp for the time that the connection was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrrsConnectionState' - The state of the connection that was created by the request.
+-- 'creationTime', 'createConnectionResponse_creationTime' - A time stamp for the time that the connection was created.
 --
--- * 'ccrrsConnectionARN' - The ARN of the connection that was created by the request.
+-- 'connectionState', 'createConnectionResponse_connectionState' - The state of the connection that was created by the request.
 --
--- * 'ccrrsLastModifiedTime' - A time stamp for the time that the connection was last updated.
+-- 'connectionArn', 'createConnectionResponse_connectionArn' - The ARN of the connection that was created by the request.
 --
--- * 'ccrrsResponseStatus' - -- | The response status code.
-createConnectionResponse ::
-  -- | 'ccrrsResponseStatus'
-  Int ->
+-- 'lastModifiedTime', 'createConnectionResponse_lastModifiedTime' - A time stamp for the time that the connection was last updated.
+--
+-- 'httpStatus', 'createConnectionResponse_httpStatus' - The response's http status code.
+newCreateConnectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateConnectionResponse
-createConnectionResponse pResponseStatus_ =
+newCreateConnectionResponse pHttpStatus_ =
   CreateConnectionResponse'
-    { _ccrrsCreationTime =
-        Nothing,
-      _ccrrsConnectionState = Nothing,
-      _ccrrsConnectionARN = Nothing,
-      _ccrrsLastModifiedTime = Nothing,
-      _ccrrsResponseStatus = pResponseStatus_
+    { creationTime =
+        Prelude.Nothing,
+      connectionState = Prelude.Nothing,
+      connectionArn = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A time stamp for the time that the connection was created.
-ccrrsCreationTime :: Lens' CreateConnectionResponse (Maybe UTCTime)
-ccrrsCreationTime = lens _ccrrsCreationTime (\s a -> s {_ccrrsCreationTime = a}) . mapping _Time
+createConnectionResponse_creationTime :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+createConnectionResponse_creationTime = Lens.lens (\CreateConnectionResponse' {creationTime} -> creationTime) (\s@CreateConnectionResponse' {} a -> s {creationTime = a} :: CreateConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The state of the connection that was created by the request.
-ccrrsConnectionState :: Lens' CreateConnectionResponse (Maybe ConnectionState)
-ccrrsConnectionState = lens _ccrrsConnectionState (\s a -> s {_ccrrsConnectionState = a})
+createConnectionResponse_connectionState :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe ConnectionState)
+createConnectionResponse_connectionState = Lens.lens (\CreateConnectionResponse' {connectionState} -> connectionState) (\s@CreateConnectionResponse' {} a -> s {connectionState = a} :: CreateConnectionResponse)
 
 -- | The ARN of the connection that was created by the request.
-ccrrsConnectionARN :: Lens' CreateConnectionResponse (Maybe Text)
-ccrrsConnectionARN = lens _ccrrsConnectionARN (\s a -> s {_ccrrsConnectionARN = a})
+createConnectionResponse_connectionArn :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe Prelude.Text)
+createConnectionResponse_connectionArn = Lens.lens (\CreateConnectionResponse' {connectionArn} -> connectionArn) (\s@CreateConnectionResponse' {} a -> s {connectionArn = a} :: CreateConnectionResponse)
 
 -- | A time stamp for the time that the connection was last updated.
-ccrrsLastModifiedTime :: Lens' CreateConnectionResponse (Maybe UTCTime)
-ccrrsLastModifiedTime = lens _ccrrsLastModifiedTime (\s a -> s {_ccrrsLastModifiedTime = a}) . mapping _Time
+createConnectionResponse_lastModifiedTime :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+createConnectionResponse_lastModifiedTime = Lens.lens (\CreateConnectionResponse' {lastModifiedTime} -> lastModifiedTime) (\s@CreateConnectionResponse' {} a -> s {lastModifiedTime = a} :: CreateConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-ccrrsResponseStatus :: Lens' CreateConnectionResponse Int
-ccrrsResponseStatus = lens _ccrrsResponseStatus (\s a -> s {_ccrrsResponseStatus = a})
+-- | The response's http status code.
+createConnectionResponse_httpStatus :: Lens.Lens' CreateConnectionResponse Prelude.Int
+createConnectionResponse_httpStatus = Lens.lens (\CreateConnectionResponse' {httpStatus} -> httpStatus) (\s@CreateConnectionResponse' {} a -> s {httpStatus = a} :: CreateConnectionResponse)
 
-instance NFData CreateConnectionResponse
+instance Prelude.NFData CreateConnectionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,116 +20,148 @@
 module Network.AWS.CloudWatchEvents.Types.Rule where
 
 import Network.AWS.CloudWatchEvents.Types.RuleState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a rule in Amazon EventBridge.
 --
---
---
--- /See:/ 'rule' smart constructor.
+-- /See:/ 'newRule' smart constructor.
 data Rule = Rule'
-  { _rulEventPattern :: !(Maybe Text),
-    _rulRoleARN :: !(Maybe Text),
-    _rulARN :: !(Maybe Text),
-    _rulEventBusName :: !(Maybe Text),
-    _rulState :: !(Maybe RuleState),
-    _rulScheduleExpression :: !(Maybe Text),
-    _rulName :: !(Maybe Text),
-    _rulManagedBy :: !(Maybe Text),
-    _rulDescription :: !(Maybe Text)
+  { -- | The event pattern of the rule. For more information, see
+    -- <https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html Events and Event Patterns>
+    -- in the /Amazon EventBridge User Guide/.
+    eventPattern :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the role that is used for target
+    -- invocation.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the rule.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name or ARN of the event bus associated with the rule. If you omit
+    -- this, the default event bus is used.
+    eventBusName :: Prelude.Maybe Prelude.Text,
+    -- | The state of the rule.
+    state :: Prelude.Maybe RuleState,
+    -- | The scheduling expression. For example, \"cron(0 20 * * ? *)\", \"rate(5
+    -- minutes)\".
+    scheduleExpression :: Prelude.Maybe Prelude.Text,
+    -- | The name of the rule.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If the rule was created on behalf of your account by an AWS service,
+    -- this field displays the principal name of the service that created the
+    -- rule.
+    managedBy :: Prelude.Maybe Prelude.Text,
+    -- | The description of the rule.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Rule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Rule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rulEventPattern' - The event pattern of the rule. For more information, see <https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html Events and Event Patterns> in the /Amazon EventBridge User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rulRoleARN' - The Amazon Resource Name (ARN) of the role that is used for target invocation.
+-- 'eventPattern', 'rule_eventPattern' - The event pattern of the rule. For more information, see
+-- <https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html Events and Event Patterns>
+-- in the /Amazon EventBridge User Guide/.
 --
--- * 'rulARN' - The Amazon Resource Name (ARN) of the rule.
+-- 'roleArn', 'rule_roleArn' - The Amazon Resource Name (ARN) of the role that is used for target
+-- invocation.
 --
--- * 'rulEventBusName' - The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
+-- 'arn', 'rule_arn' - The Amazon Resource Name (ARN) of the rule.
 --
--- * 'rulState' - The state of the rule.
+-- 'eventBusName', 'rule_eventBusName' - The name or ARN of the event bus associated with the rule. If you omit
+-- this, the default event bus is used.
 --
--- * 'rulScheduleExpression' - The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)".
+-- 'state', 'rule_state' - The state of the rule.
 --
--- * 'rulName' - The name of the rule.
+-- 'scheduleExpression', 'rule_scheduleExpression' - The scheduling expression. For example, \"cron(0 20 * * ? *)\", \"rate(5
+-- minutes)\".
 --
--- * 'rulManagedBy' - If the rule was created on behalf of your account by an AWS service, this field displays the principal name of the service that created the rule.
+-- 'name', 'rule_name' - The name of the rule.
 --
--- * 'rulDescription' - The description of the rule.
-rule ::
+-- 'managedBy', 'rule_managedBy' - If the rule was created on behalf of your account by an AWS service,
+-- this field displays the principal name of the service that created the
+-- rule.
+--
+-- 'description', 'rule_description' - The description of the rule.
+newRule ::
   Rule
-rule =
+newRule =
   Rule'
-    { _rulEventPattern = Nothing,
-      _rulRoleARN = Nothing,
-      _rulARN = Nothing,
-      _rulEventBusName = Nothing,
-      _rulState = Nothing,
-      _rulScheduleExpression = Nothing,
-      _rulName = Nothing,
-      _rulManagedBy = Nothing,
-      _rulDescription = Nothing
+    { eventPattern = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      eventBusName = Prelude.Nothing,
+      state = Prelude.Nothing,
+      scheduleExpression = Prelude.Nothing,
+      name = Prelude.Nothing,
+      managedBy = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
--- | The event pattern of the rule. For more information, see <https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html Events and Event Patterns> in the /Amazon EventBridge User Guide/ .
-rulEventPattern :: Lens' Rule (Maybe Text)
-rulEventPattern = lens _rulEventPattern (\s a -> s {_rulEventPattern = a})
+-- | The event pattern of the rule. For more information, see
+-- <https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html Events and Event Patterns>
+-- in the /Amazon EventBridge User Guide/.
+rule_eventPattern :: Lens.Lens' Rule (Prelude.Maybe Prelude.Text)
+rule_eventPattern = Lens.lens (\Rule' {eventPattern} -> eventPattern) (\s@Rule' {} a -> s {eventPattern = a} :: Rule)
 
--- | The Amazon Resource Name (ARN) of the role that is used for target invocation.
-rulRoleARN :: Lens' Rule (Maybe Text)
-rulRoleARN = lens _rulRoleARN (\s a -> s {_rulRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the role that is used for target
+-- invocation.
+rule_roleArn :: Lens.Lens' Rule (Prelude.Maybe Prelude.Text)
+rule_roleArn = Lens.lens (\Rule' {roleArn} -> roleArn) (\s@Rule' {} a -> s {roleArn = a} :: Rule)
 
 -- | The Amazon Resource Name (ARN) of the rule.
-rulARN :: Lens' Rule (Maybe Text)
-rulARN = lens _rulARN (\s a -> s {_rulARN = a})
+rule_arn :: Lens.Lens' Rule (Prelude.Maybe Prelude.Text)
+rule_arn = Lens.lens (\Rule' {arn} -> arn) (\s@Rule' {} a -> s {arn = a} :: Rule)
 
--- | The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
-rulEventBusName :: Lens' Rule (Maybe Text)
-rulEventBusName = lens _rulEventBusName (\s a -> s {_rulEventBusName = a})
+-- | The name or ARN of the event bus associated with the rule. If you omit
+-- this, the default event bus is used.
+rule_eventBusName :: Lens.Lens' Rule (Prelude.Maybe Prelude.Text)
+rule_eventBusName = Lens.lens (\Rule' {eventBusName} -> eventBusName) (\s@Rule' {} a -> s {eventBusName = a} :: Rule)
 
 -- | The state of the rule.
-rulState :: Lens' Rule (Maybe RuleState)
-rulState = lens _rulState (\s a -> s {_rulState = a})
+rule_state :: Lens.Lens' Rule (Prelude.Maybe RuleState)
+rule_state = Lens.lens (\Rule' {state} -> state) (\s@Rule' {} a -> s {state = a} :: Rule)
 
--- | The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)".
-rulScheduleExpression :: Lens' Rule (Maybe Text)
-rulScheduleExpression = lens _rulScheduleExpression (\s a -> s {_rulScheduleExpression = a})
+-- | The scheduling expression. For example, \"cron(0 20 * * ? *)\", \"rate(5
+-- minutes)\".
+rule_scheduleExpression :: Lens.Lens' Rule (Prelude.Maybe Prelude.Text)
+rule_scheduleExpression = Lens.lens (\Rule' {scheduleExpression} -> scheduleExpression) (\s@Rule' {} a -> s {scheduleExpression = a} :: Rule)
 
 -- | The name of the rule.
-rulName :: Lens' Rule (Maybe Text)
-rulName = lens _rulName (\s a -> s {_rulName = a})
+rule_name :: Lens.Lens' Rule (Prelude.Maybe Prelude.Text)
+rule_name = Lens.lens (\Rule' {name} -> name) (\s@Rule' {} a -> s {name = a} :: Rule)
 
--- | If the rule was created on behalf of your account by an AWS service, this field displays the principal name of the service that created the rule.
-rulManagedBy :: Lens' Rule (Maybe Text)
-rulManagedBy = lens _rulManagedBy (\s a -> s {_rulManagedBy = a})
+-- | If the rule was created on behalf of your account by an AWS service,
+-- this field displays the principal name of the service that created the
+-- rule.
+rule_managedBy :: Lens.Lens' Rule (Prelude.Maybe Prelude.Text)
+rule_managedBy = Lens.lens (\Rule' {managedBy} -> managedBy) (\s@Rule' {} a -> s {managedBy = a} :: Rule)
 
 -- | The description of the rule.
-rulDescription :: Lens' Rule (Maybe Text)
-rulDescription = lens _rulDescription (\s a -> s {_rulDescription = a})
+rule_description :: Lens.Lens' Rule (Prelude.Maybe Prelude.Text)
+rule_description = Lens.lens (\Rule' {description} -> description) (\s@Rule' {} a -> s {description = a} :: Rule)
 
-instance FromJSON Rule where
+instance Prelude.FromJSON Rule where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Rule"
       ( \x ->
           Rule'
-            <$> (x .:? "EventPattern")
-            <*> (x .:? "RoleArn")
-            <*> (x .:? "Arn")
-            <*> (x .:? "EventBusName")
-            <*> (x .:? "State")
-            <*> (x .:? "ScheduleExpression")
-            <*> (x .:? "Name")
-            <*> (x .:? "ManagedBy")
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "EventPattern")
+            Prelude.<*> (x Prelude..:? "RoleArn")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "EventBusName")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "ScheduleExpression")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "ManagedBy")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable Rule
+instance Prelude.Hashable Rule
 
-instance NFData Rule
+instance Prelude.NFData Rule

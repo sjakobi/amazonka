@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,106 +21,182 @@ module Network.AWS.CloudWatchEvents.Types.EcsParameters where
 
 import Network.AWS.CloudWatchEvents.Types.LaunchType
 import Network.AWS.CloudWatchEvents.Types.NetworkConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The custom parameters to be used when the target is an Amazon ECS task.
 --
---
---
--- /See:/ 'ecsParameters' smart constructor.
+-- /See:/ 'newEcsParameters' smart constructor.
 data EcsParameters = EcsParameters'
-  { _epNetworkConfiguration ::
-      !(Maybe NetworkConfiguration),
-    _epPlatformVersion :: !(Maybe Text),
-    _epLaunchType :: !(Maybe LaunchType),
-    _epGroup :: !(Maybe Text),
-    _epTaskCount :: !(Maybe Nat),
-    _epTaskDefinitionARN :: !Text
+  { -- | Use this structure if the ECS task uses the @awsvpc@ network mode. This
+    -- structure specifies the VPC subnets and security groups associated with
+    -- the task, and whether a public IP address is to be used. This structure
+    -- is required if @LaunchType@ is @FARGATE@ because the @awsvpc@ mode is
+    -- required for Fargate tasks.
+    --
+    -- If you specify @NetworkConfiguration@ when the target ECS task does not
+    -- use the @awsvpc@ network mode, the task fails.
+    networkConfiguration :: Prelude.Maybe NetworkConfiguration,
+    -- | Specifies the platform version for the task. Specify only the numeric
+    -- portion of the platform version, such as @1.1.0@.
+    --
+    -- This structure is used only if @LaunchType@ is @FARGATE@. For more
+    -- information about valid platform versions, see
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions>
+    -- in the /Amazon Elastic Container Service Developer Guide/.
+    platformVersion :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the launch type on which your task is running. The launch type
+    -- that you specify here must match one of the launch type
+    -- (compatibilities) of the target task. The @FARGATE@ value is supported
+    -- only in the Regions where AWS Fargate with Amazon ECS is supported. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS-Fargate.html AWS Fargate on Amazon ECS>
+    -- in the /Amazon Elastic Container Service Developer Guide/.
+    launchType :: Prelude.Maybe LaunchType,
+    -- | Specifies an ECS task group for the task. The maximum length is 255
+    -- characters.
+    group' :: Prelude.Maybe Prelude.Text,
+    -- | The number of tasks to create based on @TaskDefinition@. The default is
+    -- 1.
+    taskCount :: Prelude.Maybe Prelude.Nat,
+    -- | The ARN of the task definition to use if the event target is an Amazon
+    -- ECS task.
+    taskDefinitionArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EcsParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EcsParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'epNetworkConfiguration' - Use this structure if the ECS task uses the @awsvpc@ network mode. This structure specifies the VPC subnets and security groups associated with the task, and whether a public IP address is to be used. This structure is required if @LaunchType@ is @FARGATE@ because the @awsvpc@ mode is required for Fargate tasks. If you specify @NetworkConfiguration@ when the target ECS task does not use the @awsvpc@ network mode, the task fails.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'epPlatformVersion' - Specifies the platform version for the task. Specify only the numeric portion of the platform version, such as @1.1.0@ . This structure is used only if @LaunchType@ is @FARGATE@ . For more information about valid platform versions, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions> in the /Amazon Elastic Container Service Developer Guide/ .
+-- 'networkConfiguration', 'ecsParameters_networkConfiguration' - Use this structure if the ECS task uses the @awsvpc@ network mode. This
+-- structure specifies the VPC subnets and security groups associated with
+-- the task, and whether a public IP address is to be used. This structure
+-- is required if @LaunchType@ is @FARGATE@ because the @awsvpc@ mode is
+-- required for Fargate tasks.
 --
--- * 'epLaunchType' - Specifies the launch type on which your task is running. The launch type that you specify here must match one of the launch type (compatibilities) of the target task. The @FARGATE@ value is supported only in the Regions where AWS Fargate with Amazon ECS is supported. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS-Fargate.html AWS Fargate on Amazon ECS> in the /Amazon Elastic Container Service Developer Guide/ .
+-- If you specify @NetworkConfiguration@ when the target ECS task does not
+-- use the @awsvpc@ network mode, the task fails.
 --
--- * 'epGroup' - Specifies an ECS task group for the task. The maximum length is 255 characters.
+-- 'platformVersion', 'ecsParameters_platformVersion' - Specifies the platform version for the task. Specify only the numeric
+-- portion of the platform version, such as @1.1.0@.
 --
--- * 'epTaskCount' - The number of tasks to create based on @TaskDefinition@ . The default is 1.
+-- This structure is used only if @LaunchType@ is @FARGATE@. For more
+-- information about valid platform versions, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 --
--- * 'epTaskDefinitionARN' - The ARN of the task definition to use if the event target is an Amazon ECS task.
-ecsParameters ::
-  -- | 'epTaskDefinitionARN'
-  Text ->
+-- 'launchType', 'ecsParameters_launchType' - Specifies the launch type on which your task is running. The launch type
+-- that you specify here must match one of the launch type
+-- (compatibilities) of the target task. The @FARGATE@ value is supported
+-- only in the Regions where AWS Fargate with Amazon ECS is supported. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS-Fargate.html AWS Fargate on Amazon ECS>
+-- in the /Amazon Elastic Container Service Developer Guide/.
+--
+-- 'group'', 'ecsParameters_group' - Specifies an ECS task group for the task. The maximum length is 255
+-- characters.
+--
+-- 'taskCount', 'ecsParameters_taskCount' - The number of tasks to create based on @TaskDefinition@. The default is
+-- 1.
+--
+-- 'taskDefinitionArn', 'ecsParameters_taskDefinitionArn' - The ARN of the task definition to use if the event target is an Amazon
+-- ECS task.
+newEcsParameters ::
+  -- | 'taskDefinitionArn'
+  Prelude.Text ->
   EcsParameters
-ecsParameters pTaskDefinitionARN_ =
+newEcsParameters pTaskDefinitionArn_ =
   EcsParameters'
-    { _epNetworkConfiguration = Nothing,
-      _epPlatformVersion = Nothing,
-      _epLaunchType = Nothing,
-      _epGroup = Nothing,
-      _epTaskCount = Nothing,
-      _epTaskDefinitionARN = pTaskDefinitionARN_
+    { networkConfiguration =
+        Prelude.Nothing,
+      platformVersion = Prelude.Nothing,
+      launchType = Prelude.Nothing,
+      group' = Prelude.Nothing,
+      taskCount = Prelude.Nothing,
+      taskDefinitionArn = pTaskDefinitionArn_
     }
 
--- | Use this structure if the ECS task uses the @awsvpc@ network mode. This structure specifies the VPC subnets and security groups associated with the task, and whether a public IP address is to be used. This structure is required if @LaunchType@ is @FARGATE@ because the @awsvpc@ mode is required for Fargate tasks. If you specify @NetworkConfiguration@ when the target ECS task does not use the @awsvpc@ network mode, the task fails.
-epNetworkConfiguration :: Lens' EcsParameters (Maybe NetworkConfiguration)
-epNetworkConfiguration = lens _epNetworkConfiguration (\s a -> s {_epNetworkConfiguration = a})
+-- | Use this structure if the ECS task uses the @awsvpc@ network mode. This
+-- structure specifies the VPC subnets and security groups associated with
+-- the task, and whether a public IP address is to be used. This structure
+-- is required if @LaunchType@ is @FARGATE@ because the @awsvpc@ mode is
+-- required for Fargate tasks.
+--
+-- If you specify @NetworkConfiguration@ when the target ECS task does not
+-- use the @awsvpc@ network mode, the task fails.
+ecsParameters_networkConfiguration :: Lens.Lens' EcsParameters (Prelude.Maybe NetworkConfiguration)
+ecsParameters_networkConfiguration = Lens.lens (\EcsParameters' {networkConfiguration} -> networkConfiguration) (\s@EcsParameters' {} a -> s {networkConfiguration = a} :: EcsParameters)
 
--- | Specifies the platform version for the task. Specify only the numeric portion of the platform version, such as @1.1.0@ . This structure is used only if @LaunchType@ is @FARGATE@ . For more information about valid platform versions, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions> in the /Amazon Elastic Container Service Developer Guide/ .
-epPlatformVersion :: Lens' EcsParameters (Maybe Text)
-epPlatformVersion = lens _epPlatformVersion (\s a -> s {_epPlatformVersion = a})
+-- | Specifies the platform version for the task. Specify only the numeric
+-- portion of the platform version, such as @1.1.0@.
+--
+-- This structure is used only if @LaunchType@ is @FARGATE@. For more
+-- information about valid platform versions, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions>
+-- in the /Amazon Elastic Container Service Developer Guide/.
+ecsParameters_platformVersion :: Lens.Lens' EcsParameters (Prelude.Maybe Prelude.Text)
+ecsParameters_platformVersion = Lens.lens (\EcsParameters' {platformVersion} -> platformVersion) (\s@EcsParameters' {} a -> s {platformVersion = a} :: EcsParameters)
 
--- | Specifies the launch type on which your task is running. The launch type that you specify here must match one of the launch type (compatibilities) of the target task. The @FARGATE@ value is supported only in the Regions where AWS Fargate with Amazon ECS is supported. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS-Fargate.html AWS Fargate on Amazon ECS> in the /Amazon Elastic Container Service Developer Guide/ .
-epLaunchType :: Lens' EcsParameters (Maybe LaunchType)
-epLaunchType = lens _epLaunchType (\s a -> s {_epLaunchType = a})
+-- | Specifies the launch type on which your task is running. The launch type
+-- that you specify here must match one of the launch type
+-- (compatibilities) of the target task. The @FARGATE@ value is supported
+-- only in the Regions where AWS Fargate with Amazon ECS is supported. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS-Fargate.html AWS Fargate on Amazon ECS>
+-- in the /Amazon Elastic Container Service Developer Guide/.
+ecsParameters_launchType :: Lens.Lens' EcsParameters (Prelude.Maybe LaunchType)
+ecsParameters_launchType = Lens.lens (\EcsParameters' {launchType} -> launchType) (\s@EcsParameters' {} a -> s {launchType = a} :: EcsParameters)
 
--- | Specifies an ECS task group for the task. The maximum length is 255 characters.
-epGroup :: Lens' EcsParameters (Maybe Text)
-epGroup = lens _epGroup (\s a -> s {_epGroup = a})
+-- | Specifies an ECS task group for the task. The maximum length is 255
+-- characters.
+ecsParameters_group :: Lens.Lens' EcsParameters (Prelude.Maybe Prelude.Text)
+ecsParameters_group = Lens.lens (\EcsParameters' {group'} -> group') (\s@EcsParameters' {} a -> s {group' = a} :: EcsParameters)
 
--- | The number of tasks to create based on @TaskDefinition@ . The default is 1.
-epTaskCount :: Lens' EcsParameters (Maybe Natural)
-epTaskCount = lens _epTaskCount (\s a -> s {_epTaskCount = a}) . mapping _Nat
+-- | The number of tasks to create based on @TaskDefinition@. The default is
+-- 1.
+ecsParameters_taskCount :: Lens.Lens' EcsParameters (Prelude.Maybe Prelude.Natural)
+ecsParameters_taskCount = Lens.lens (\EcsParameters' {taskCount} -> taskCount) (\s@EcsParameters' {} a -> s {taskCount = a} :: EcsParameters) Prelude.. Lens.mapping Prelude._Nat
 
--- | The ARN of the task definition to use if the event target is an Amazon ECS task.
-epTaskDefinitionARN :: Lens' EcsParameters Text
-epTaskDefinitionARN = lens _epTaskDefinitionARN (\s a -> s {_epTaskDefinitionARN = a})
+-- | The ARN of the task definition to use if the event target is an Amazon
+-- ECS task.
+ecsParameters_taskDefinitionArn :: Lens.Lens' EcsParameters Prelude.Text
+ecsParameters_taskDefinitionArn = Lens.lens (\EcsParameters' {taskDefinitionArn} -> taskDefinitionArn) (\s@EcsParameters' {} a -> s {taskDefinitionArn = a} :: EcsParameters)
 
-instance FromJSON EcsParameters where
+instance Prelude.FromJSON EcsParameters where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EcsParameters"
       ( \x ->
           EcsParameters'
-            <$> (x .:? "NetworkConfiguration")
-            <*> (x .:? "PlatformVersion")
-            <*> (x .:? "LaunchType")
-            <*> (x .:? "Group")
-            <*> (x .:? "TaskCount")
-            <*> (x .: "TaskDefinitionArn")
+            Prelude.<$> (x Prelude..:? "NetworkConfiguration")
+            Prelude.<*> (x Prelude..:? "PlatformVersion")
+            Prelude.<*> (x Prelude..:? "LaunchType")
+            Prelude.<*> (x Prelude..:? "Group")
+            Prelude.<*> (x Prelude..:? "TaskCount")
+            Prelude.<*> (x Prelude..: "TaskDefinitionArn")
       )
 
-instance Hashable EcsParameters
+instance Prelude.Hashable EcsParameters
 
-instance NFData EcsParameters
+instance Prelude.NFData EcsParameters
 
-instance ToJSON EcsParameters where
+instance Prelude.ToJSON EcsParameters where
   toJSON EcsParameters' {..} =
-    object
-      ( catMaybes
-          [ ("NetworkConfiguration" .=)
-              <$> _epNetworkConfiguration,
-            ("PlatformVersion" .=) <$> _epPlatformVersion,
-            ("LaunchType" .=) <$> _epLaunchType,
-            ("Group" .=) <$> _epGroup,
-            ("TaskCount" .=) <$> _epTaskCount,
-            Just ("TaskDefinitionArn" .= _epTaskDefinitionARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NetworkConfiguration" Prelude..=)
+              Prelude.<$> networkConfiguration,
+            ("PlatformVersion" Prelude..=)
+              Prelude.<$> platformVersion,
+            ("LaunchType" Prelude..=) Prelude.<$> launchType,
+            ("Group" Prelude..=) Prelude.<$> group',
+            ("TaskCount" Prelude..=) Prelude.<$> taskCount,
+            Prelude.Just
+              ("TaskDefinitionArn" Prelude..= taskDefinitionArn)
           ]
       )

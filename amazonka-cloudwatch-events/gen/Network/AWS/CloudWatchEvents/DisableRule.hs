@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,106 +21,123 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables the specified rule. A disabled rule won't match any events, and won't self-trigger if it has a schedule expression.
+-- Disables the specified rule. A disabled rule won\'t match any events,
+-- and won\'t self-trigger if it has a schedule expression.
 --
---
--- When you disable a rule, incoming events might continue to match to the disabled rule. Allow a short period of time for changes to take effect.
+-- When you disable a rule, incoming events might continue to match to the
+-- disabled rule. Allow a short period of time for changes to take effect.
 module Network.AWS.CloudWatchEvents.DisableRule
   ( -- * Creating a Request
-    disableRule,
-    DisableRule,
+    DisableRule (..),
+    newDisableRule,
 
     -- * Request Lenses
-    disEventBusName,
-    disName,
+    disableRule_eventBusName,
+    disableRule_name,
 
     -- * Destructuring the Response
-    disableRuleResponse,
-    DisableRuleResponse,
+    DisableRuleResponse (..),
+    newDisableRuleResponse,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disableRule' smart constructor.
+-- | /See:/ 'newDisableRule' smart constructor.
 data DisableRule = DisableRule'
-  { _disEventBusName ::
-      !(Maybe Text),
-    _disName :: !Text
+  { -- | The name or ARN of the event bus associated with the rule. If you omit
+    -- this, the default event bus is used.
+    eventBusName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the rule.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disEventBusName' - The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'disName' - The name of the rule.
-disableRule ::
-  -- | 'disName'
-  Text ->
+-- 'eventBusName', 'disableRule_eventBusName' - The name or ARN of the event bus associated with the rule. If you omit
+-- this, the default event bus is used.
+--
+-- 'name', 'disableRule_name' - The name of the rule.
+newDisableRule ::
+  -- | 'name'
+  Prelude.Text ->
   DisableRule
-disableRule pName_ =
+newDisableRule pName_ =
   DisableRule'
-    { _disEventBusName = Nothing,
-      _disName = pName_
+    { eventBusName = Prelude.Nothing,
+      name = pName_
     }
 
--- | The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
-disEventBusName :: Lens' DisableRule (Maybe Text)
-disEventBusName = lens _disEventBusName (\s a -> s {_disEventBusName = a})
+-- | The name or ARN of the event bus associated with the rule. If you omit
+-- this, the default event bus is used.
+disableRule_eventBusName :: Lens.Lens' DisableRule (Prelude.Maybe Prelude.Text)
+disableRule_eventBusName = Lens.lens (\DisableRule' {eventBusName} -> eventBusName) (\s@DisableRule' {} a -> s {eventBusName = a} :: DisableRule)
 
 -- | The name of the rule.
-disName :: Lens' DisableRule Text
-disName = lens _disName (\s a -> s {_disName = a})
+disableRule_name :: Lens.Lens' DisableRule Prelude.Text
+disableRule_name = Lens.lens (\DisableRule' {name} -> name) (\s@DisableRule' {} a -> s {name = a} :: DisableRule)
 
-instance AWSRequest DisableRule where
+instance Prelude.AWSRequest DisableRule where
   type Rs DisableRule = DisableRuleResponse
-  request = postJSON cloudWatchEvents
-  response = receiveNull DisableRuleResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull DisableRuleResponse'
 
-instance Hashable DisableRule
+instance Prelude.Hashable DisableRule
 
-instance NFData DisableRule
+instance Prelude.NFData DisableRule
 
-instance ToHeaders DisableRule where
+instance Prelude.ToHeaders DisableRule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.DisableRule" :: ByteString),
+              Prelude.=# ("AWSEvents.DisableRule" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisableRule where
+instance Prelude.ToJSON DisableRule where
   toJSON DisableRule' {..} =
-    object
-      ( catMaybes
-          [ ("EventBusName" .=) <$> _disEventBusName,
-            Just ("Name" .= _disName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EventBusName" Prelude..=)
+              Prelude.<$> eventBusName,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath DisableRule where
-  toPath = const "/"
+instance Prelude.ToPath DisableRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableRule where
-  toQuery = const mempty
+instance Prelude.ToQuery DisableRule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disableRuleResponse' smart constructor.
+-- | /See:/ 'newDisableRuleResponse' smart constructor.
 data DisableRuleResponse = DisableRuleResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableRuleResponse' with the minimum fields required to make a request.
-disableRuleResponse ::
+-- |
+-- Create a value of 'DisableRuleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDisableRuleResponse ::
   DisableRuleResponse
-disableRuleResponse = DisableRuleResponse'
+newDisableRuleResponse = DisableRuleResponse'
 
-instance NFData DisableRuleResponse
+instance Prelude.NFData DisableRuleResponse

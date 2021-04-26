@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,252 +24,253 @@
 -- Retrieves details about a connection.
 module Network.AWS.CloudWatchEvents.DescribeConnection
   ( -- * Creating a Request
-    describeConnection,
-    DescribeConnection,
+    DescribeConnection (..),
+    newDescribeConnection,
 
     -- * Request Lenses
-    dccName,
+    describeConnection_name,
 
     -- * Destructuring the Response
-    describeConnectionResponse,
-    DescribeConnectionResponse,
+    DescribeConnectionResponse (..),
+    newDescribeConnectionResponse,
 
     -- * Response Lenses
-    drsCreationTime,
-    drsConnectionState,
-    drsSecretARN,
-    drsStateReason,
-    drsAuthorizationType,
-    drsConnectionARN,
-    drsName,
-    drsLastModifiedTime,
-    drsDescription,
-    drsLastAuthorizedTime,
-    drsAuthParameters,
-    drsResponseStatus,
+    describeConnectionResponse_creationTime,
+    describeConnectionResponse_connectionState,
+    describeConnectionResponse_secretArn,
+    describeConnectionResponse_stateReason,
+    describeConnectionResponse_authorizationType,
+    describeConnectionResponse_connectionArn,
+    describeConnectionResponse_name,
+    describeConnectionResponse_lastModifiedTime,
+    describeConnectionResponse_description,
+    describeConnectionResponse_lastAuthorizedTime,
+    describeConnectionResponse_authParameters,
+    describeConnectionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.ConnectionAuthResponseParameters
+import Network.AWS.CloudWatchEvents.Types.ConnectionAuthorizationType
+import Network.AWS.CloudWatchEvents.Types.ConnectionState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeConnection' smart constructor.
-newtype DescribeConnection = DescribeConnection'
-  { _dccName ::
-      Text
+-- | /See:/ 'newDescribeConnection' smart constructor.
+data DescribeConnection = DescribeConnection'
+  { -- | The name of the connection to retrieve.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConnection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConnection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dccName' - The name of the connection to retrieve.
-describeConnection ::
-  -- | 'dccName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'describeConnection_name' - The name of the connection to retrieve.
+newDescribeConnection ::
+  -- | 'name'
+  Prelude.Text ->
   DescribeConnection
-describeConnection pName_ =
-  DescribeConnection' {_dccName = pName_}
+newDescribeConnection pName_ =
+  DescribeConnection' {name = pName_}
 
 -- | The name of the connection to retrieve.
-dccName :: Lens' DescribeConnection Text
-dccName = lens _dccName (\s a -> s {_dccName = a})
+describeConnection_name :: Lens.Lens' DescribeConnection Prelude.Text
+describeConnection_name = Lens.lens (\DescribeConnection' {name} -> name) (\s@DescribeConnection' {} a -> s {name = a} :: DescribeConnection)
 
-instance AWSRequest DescribeConnection where
+instance Prelude.AWSRequest DescribeConnection where
   type
     Rs DescribeConnection =
       DescribeConnectionResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeConnectionResponse'
-            <$> (x .?> "CreationTime")
-            <*> (x .?> "ConnectionState")
-            <*> (x .?> "SecretArn")
-            <*> (x .?> "StateReason")
-            <*> (x .?> "AuthorizationType")
-            <*> (x .?> "ConnectionArn")
-            <*> (x .?> "Name")
-            <*> (x .?> "LastModifiedTime")
-            <*> (x .?> "Description")
-            <*> (x .?> "LastAuthorizedTime")
-            <*> (x .?> "AuthParameters")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "ConnectionState")
+            Prelude.<*> (x Prelude..?> "SecretArn")
+            Prelude.<*> (x Prelude..?> "StateReason")
+            Prelude.<*> (x Prelude..?> "AuthorizationType")
+            Prelude.<*> (x Prelude..?> "ConnectionArn")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "LastAuthorizedTime")
+            Prelude.<*> (x Prelude..?> "AuthParameters")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeConnection
+instance Prelude.Hashable DescribeConnection
 
-instance NFData DescribeConnection
+instance Prelude.NFData DescribeConnection
 
-instance ToHeaders DescribeConnection where
+instance Prelude.ToHeaders DescribeConnection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.DescribeConnection" :: ByteString),
+              Prelude.=# ( "AWSEvents.DescribeConnection" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeConnection where
+instance Prelude.ToJSON DescribeConnection where
   toJSON DescribeConnection' {..} =
-    object (catMaybes [Just ("Name" .= _dccName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DescribeConnection where
-  toPath = const "/"
+instance Prelude.ToPath DescribeConnection where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeConnection where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeConnection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeConnectionResponse' smart constructor.
+-- | /See:/ 'newDescribeConnectionResponse' smart constructor.
 data DescribeConnectionResponse = DescribeConnectionResponse'
-  { _drsCreationTime ::
-      !(Maybe POSIX),
-    _drsConnectionState ::
-      !( Maybe
-           ConnectionState
-       ),
-    _drsSecretARN ::
-      !(Maybe Text),
-    _drsStateReason ::
-      !(Maybe Text),
-    _drsAuthorizationType ::
-      !( Maybe
-           ConnectionAuthorizationType
-       ),
-    _drsConnectionARN ::
-      !(Maybe Text),
-    _drsName ::
-      !(Maybe Text),
-    _drsLastModifiedTime ::
-      !(Maybe POSIX),
-    _drsDescription ::
-      !(Maybe Text),
-    _drsLastAuthorizedTime ::
-      !(Maybe POSIX),
-    _drsAuthParameters ::
-      !( Maybe
-           ConnectionAuthResponseParameters
-       ),
-    _drsResponseStatus ::
-      !Int
+  { -- | A time stamp for the time that the connection was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The state of the connection retrieved.
+    connectionState :: Prelude.Maybe ConnectionState,
+    -- | The ARN of the secret created from the authorization parameters
+    -- specified for the connection.
+    secretArn :: Prelude.Maybe Prelude.Text,
+    -- | The reason that the connection is in the current connection state.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | The type of authorization specified for the connection.
+    authorizationType :: Prelude.Maybe ConnectionAuthorizationType,
+    -- | The ARN of the connection retrieved.
+    connectionArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the connection retrieved.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A time stamp for the time that the connection was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The description for the connection retrieved.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A time stamp for the time that the connection was last authorized.
+    lastAuthorizedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The parameters to use for authorization for the connection.
+    authParameters :: Prelude.Maybe ConnectionAuthResponseParameters,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConnectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConnectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsCreationTime' - A time stamp for the time that the connection was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsConnectionState' - The state of the connection retrieved.
+-- 'creationTime', 'describeConnectionResponse_creationTime' - A time stamp for the time that the connection was created.
 --
--- * 'drsSecretARN' - The ARN of the secret created from the authorization parameters specified for the connection.
+-- 'connectionState', 'describeConnectionResponse_connectionState' - The state of the connection retrieved.
 --
--- * 'drsStateReason' - The reason that the connection is in the current connection state.
+-- 'secretArn', 'describeConnectionResponse_secretArn' - The ARN of the secret created from the authorization parameters
+-- specified for the connection.
 --
--- * 'drsAuthorizationType' - The type of authorization specified for the connection.
+-- 'stateReason', 'describeConnectionResponse_stateReason' - The reason that the connection is in the current connection state.
 --
--- * 'drsConnectionARN' - The ARN of the connection retrieved.
+-- 'authorizationType', 'describeConnectionResponse_authorizationType' - The type of authorization specified for the connection.
 --
--- * 'drsName' - The name of the connection retrieved.
+-- 'connectionArn', 'describeConnectionResponse_connectionArn' - The ARN of the connection retrieved.
 --
--- * 'drsLastModifiedTime' - A time stamp for the time that the connection was last modified.
+-- 'name', 'describeConnectionResponse_name' - The name of the connection retrieved.
 --
--- * 'drsDescription' - The description for the connection retrieved.
+-- 'lastModifiedTime', 'describeConnectionResponse_lastModifiedTime' - A time stamp for the time that the connection was last modified.
 --
--- * 'drsLastAuthorizedTime' - A time stamp for the time that the connection was last authorized.
+-- 'description', 'describeConnectionResponse_description' - The description for the connection retrieved.
 --
--- * 'drsAuthParameters' - The parameters to use for authorization for the connection.
+-- 'lastAuthorizedTime', 'describeConnectionResponse_lastAuthorizedTime' - A time stamp for the time that the connection was last authorized.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeConnectionResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'authParameters', 'describeConnectionResponse_authParameters' - The parameters to use for authorization for the connection.
+--
+-- 'httpStatus', 'describeConnectionResponse_httpStatus' - The response's http status code.
+newDescribeConnectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeConnectionResponse
-describeConnectionResponse pResponseStatus_ =
+newDescribeConnectionResponse pHttpStatus_ =
   DescribeConnectionResponse'
-    { _drsCreationTime =
-        Nothing,
-      _drsConnectionState = Nothing,
-      _drsSecretARN = Nothing,
-      _drsStateReason = Nothing,
-      _drsAuthorizationType = Nothing,
-      _drsConnectionARN = Nothing,
-      _drsName = Nothing,
-      _drsLastModifiedTime = Nothing,
-      _drsDescription = Nothing,
-      _drsLastAuthorizedTime = Nothing,
-      _drsAuthParameters = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { creationTime =
+        Prelude.Nothing,
+      connectionState = Prelude.Nothing,
+      secretArn = Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      authorizationType = Prelude.Nothing,
+      connectionArn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      description = Prelude.Nothing,
+      lastAuthorizedTime = Prelude.Nothing,
+      authParameters = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A time stamp for the time that the connection was created.
-drsCreationTime :: Lens' DescribeConnectionResponse (Maybe UTCTime)
-drsCreationTime = lens _drsCreationTime (\s a -> s {_drsCreationTime = a}) . mapping _Time
+describeConnectionResponse_creationTime :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+describeConnectionResponse_creationTime = Lens.lens (\DescribeConnectionResponse' {creationTime} -> creationTime) (\s@DescribeConnectionResponse' {} a -> s {creationTime = a} :: DescribeConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The state of the connection retrieved.
-drsConnectionState :: Lens' DescribeConnectionResponse (Maybe ConnectionState)
-drsConnectionState = lens _drsConnectionState (\s a -> s {_drsConnectionState = a})
+describeConnectionResponse_connectionState :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe ConnectionState)
+describeConnectionResponse_connectionState = Lens.lens (\DescribeConnectionResponse' {connectionState} -> connectionState) (\s@DescribeConnectionResponse' {} a -> s {connectionState = a} :: DescribeConnectionResponse)
 
--- | The ARN of the secret created from the authorization parameters specified for the connection.
-drsSecretARN :: Lens' DescribeConnectionResponse (Maybe Text)
-drsSecretARN = lens _drsSecretARN (\s a -> s {_drsSecretARN = a})
+-- | The ARN of the secret created from the authorization parameters
+-- specified for the connection.
+describeConnectionResponse_secretArn :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe Prelude.Text)
+describeConnectionResponse_secretArn = Lens.lens (\DescribeConnectionResponse' {secretArn} -> secretArn) (\s@DescribeConnectionResponse' {} a -> s {secretArn = a} :: DescribeConnectionResponse)
 
 -- | The reason that the connection is in the current connection state.
-drsStateReason :: Lens' DescribeConnectionResponse (Maybe Text)
-drsStateReason = lens _drsStateReason (\s a -> s {_drsStateReason = a})
+describeConnectionResponse_stateReason :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe Prelude.Text)
+describeConnectionResponse_stateReason = Lens.lens (\DescribeConnectionResponse' {stateReason} -> stateReason) (\s@DescribeConnectionResponse' {} a -> s {stateReason = a} :: DescribeConnectionResponse)
 
 -- | The type of authorization specified for the connection.
-drsAuthorizationType :: Lens' DescribeConnectionResponse (Maybe ConnectionAuthorizationType)
-drsAuthorizationType = lens _drsAuthorizationType (\s a -> s {_drsAuthorizationType = a})
+describeConnectionResponse_authorizationType :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe ConnectionAuthorizationType)
+describeConnectionResponse_authorizationType = Lens.lens (\DescribeConnectionResponse' {authorizationType} -> authorizationType) (\s@DescribeConnectionResponse' {} a -> s {authorizationType = a} :: DescribeConnectionResponse)
 
 -- | The ARN of the connection retrieved.
-drsConnectionARN :: Lens' DescribeConnectionResponse (Maybe Text)
-drsConnectionARN = lens _drsConnectionARN (\s a -> s {_drsConnectionARN = a})
+describeConnectionResponse_connectionArn :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe Prelude.Text)
+describeConnectionResponse_connectionArn = Lens.lens (\DescribeConnectionResponse' {connectionArn} -> connectionArn) (\s@DescribeConnectionResponse' {} a -> s {connectionArn = a} :: DescribeConnectionResponse)
 
 -- | The name of the connection retrieved.
-drsName :: Lens' DescribeConnectionResponse (Maybe Text)
-drsName = lens _drsName (\s a -> s {_drsName = a})
+describeConnectionResponse_name :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe Prelude.Text)
+describeConnectionResponse_name = Lens.lens (\DescribeConnectionResponse' {name} -> name) (\s@DescribeConnectionResponse' {} a -> s {name = a} :: DescribeConnectionResponse)
 
 -- | A time stamp for the time that the connection was last modified.
-drsLastModifiedTime :: Lens' DescribeConnectionResponse (Maybe UTCTime)
-drsLastModifiedTime = lens _drsLastModifiedTime (\s a -> s {_drsLastModifiedTime = a}) . mapping _Time
+describeConnectionResponse_lastModifiedTime :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+describeConnectionResponse_lastModifiedTime = Lens.lens (\DescribeConnectionResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribeConnectionResponse' {} a -> s {lastModifiedTime = a} :: DescribeConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The description for the connection retrieved.
-drsDescription :: Lens' DescribeConnectionResponse (Maybe Text)
-drsDescription = lens _drsDescription (\s a -> s {_drsDescription = a})
+describeConnectionResponse_description :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe Prelude.Text)
+describeConnectionResponse_description = Lens.lens (\DescribeConnectionResponse' {description} -> description) (\s@DescribeConnectionResponse' {} a -> s {description = a} :: DescribeConnectionResponse)
 
 -- | A time stamp for the time that the connection was last authorized.
-drsLastAuthorizedTime :: Lens' DescribeConnectionResponse (Maybe UTCTime)
-drsLastAuthorizedTime = lens _drsLastAuthorizedTime (\s a -> s {_drsLastAuthorizedTime = a}) . mapping _Time
+describeConnectionResponse_lastAuthorizedTime :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+describeConnectionResponse_lastAuthorizedTime = Lens.lens (\DescribeConnectionResponse' {lastAuthorizedTime} -> lastAuthorizedTime) (\s@DescribeConnectionResponse' {} a -> s {lastAuthorizedTime = a} :: DescribeConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The parameters to use for authorization for the connection.
-drsAuthParameters :: Lens' DescribeConnectionResponse (Maybe ConnectionAuthResponseParameters)
-drsAuthParameters = lens _drsAuthParameters (\s a -> s {_drsAuthParameters = a})
+describeConnectionResponse_authParameters :: Lens.Lens' DescribeConnectionResponse (Prelude.Maybe ConnectionAuthResponseParameters)
+describeConnectionResponse_authParameters = Lens.lens (\DescribeConnectionResponse' {authParameters} -> authParameters) (\s@DescribeConnectionResponse' {} a -> s {authParameters = a} :: DescribeConnectionResponse)
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeConnectionResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeConnectionResponse_httpStatus :: Lens.Lens' DescribeConnectionResponse Prelude.Int
+describeConnectionResponse_httpStatus = Lens.lens (\DescribeConnectionResponse' {httpStatus} -> httpStatus) (\s@DescribeConnectionResponse' {} a -> s {httpStatus = a} :: DescribeConnectionResponse)
 
-instance NFData DescribeConnectionResponse
+instance Prelude.NFData DescribeConnectionResponse

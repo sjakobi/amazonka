@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,117 +19,133 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.RedshiftDataParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | These are custom parameters to be used when the target is a Redshift cluster to invoke the Redshift Data API ExecuteStatement based on EventBridge events.
+-- | These are custom parameters to be used when the target is a Redshift
+-- cluster to invoke the Redshift Data API ExecuteStatement based on
+-- EventBridge events.
 --
---
---
--- /See:/ 'redshiftDataParameters' smart constructor.
+-- /See:/ 'newRedshiftDataParameters' smart constructor.
 data RedshiftDataParameters = RedshiftDataParameters'
-  { _rdpDBUser ::
-      !(Maybe Text),
-    _rdpSecretManagerARN ::
-      !(Maybe Text),
-    _rdpStatementName ::
-      !(Maybe Text),
-    _rdpWithEvent ::
-      !(Maybe Bool),
-    _rdpDatabase :: !Text,
-    _rdpSql :: !Text
+  { -- | The database user name. Required when authenticating using temporary
+    -- credentials.
+    dbUser :: Prelude.Maybe Prelude.Text,
+    -- | The name or ARN of the secret that enables access to the database.
+    -- Required when authenticating using AWS Secrets Manager.
+    secretManagerArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the SQL statement. You can name the SQL statement when you
+    -- create it to identify the query.
+    statementName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether to send an event back to EventBridge after the SQL
+    -- statement runs.
+    withEvent :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the database. Required when authenticating using temporary
+    -- credentials.
+    database :: Prelude.Text,
+    -- | The SQL statement text to run.
+    sql :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RedshiftDataParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RedshiftDataParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdpDBUser' - The database user name. Required when authenticating using temporary credentials.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdpSecretManagerARN' - The name or ARN of the secret that enables access to the database. Required when authenticating using AWS Secrets Manager.
+-- 'dbUser', 'redshiftDataParameters_dbUser' - The database user name. Required when authenticating using temporary
+-- credentials.
 --
--- * 'rdpStatementName' - The name of the SQL statement. You can name the SQL statement when you create it to identify the query.
+-- 'secretManagerArn', 'redshiftDataParameters_secretManagerArn' - The name or ARN of the secret that enables access to the database.
+-- Required when authenticating using AWS Secrets Manager.
 --
--- * 'rdpWithEvent' - Indicates whether to send an event back to EventBridge after the SQL statement runs.
+-- 'statementName', 'redshiftDataParameters_statementName' - The name of the SQL statement. You can name the SQL statement when you
+-- create it to identify the query.
 --
--- * 'rdpDatabase' - The name of the database. Required when authenticating using temporary credentials.
+-- 'withEvent', 'redshiftDataParameters_withEvent' - Indicates whether to send an event back to EventBridge after the SQL
+-- statement runs.
 --
--- * 'rdpSql' - The SQL statement text to run.
-redshiftDataParameters ::
-  -- | 'rdpDatabase'
-  Text ->
-  -- | 'rdpSql'
-  Text ->
+-- 'database', 'redshiftDataParameters_database' - The name of the database. Required when authenticating using temporary
+-- credentials.
+--
+-- 'sql', 'redshiftDataParameters_sql' - The SQL statement text to run.
+newRedshiftDataParameters ::
+  -- | 'database'
+  Prelude.Text ->
+  -- | 'sql'
+  Prelude.Text ->
   RedshiftDataParameters
-redshiftDataParameters pDatabase_ pSql_ =
+newRedshiftDataParameters pDatabase_ pSql_ =
   RedshiftDataParameters'
-    { _rdpDBUser = Nothing,
-      _rdpSecretManagerARN = Nothing,
-      _rdpStatementName = Nothing,
-      _rdpWithEvent = Nothing,
-      _rdpDatabase = pDatabase_,
-      _rdpSql = pSql_
+    { dbUser = Prelude.Nothing,
+      secretManagerArn = Prelude.Nothing,
+      statementName = Prelude.Nothing,
+      withEvent = Prelude.Nothing,
+      database = pDatabase_,
+      sql = pSql_
     }
 
--- | The database user name. Required when authenticating using temporary credentials.
-rdpDBUser :: Lens' RedshiftDataParameters (Maybe Text)
-rdpDBUser = lens _rdpDBUser (\s a -> s {_rdpDBUser = a})
+-- | The database user name. Required when authenticating using temporary
+-- credentials.
+redshiftDataParameters_dbUser :: Lens.Lens' RedshiftDataParameters (Prelude.Maybe Prelude.Text)
+redshiftDataParameters_dbUser = Lens.lens (\RedshiftDataParameters' {dbUser} -> dbUser) (\s@RedshiftDataParameters' {} a -> s {dbUser = a} :: RedshiftDataParameters)
 
--- | The name or ARN of the secret that enables access to the database. Required when authenticating using AWS Secrets Manager.
-rdpSecretManagerARN :: Lens' RedshiftDataParameters (Maybe Text)
-rdpSecretManagerARN = lens _rdpSecretManagerARN (\s a -> s {_rdpSecretManagerARN = a})
+-- | The name or ARN of the secret that enables access to the database.
+-- Required when authenticating using AWS Secrets Manager.
+redshiftDataParameters_secretManagerArn :: Lens.Lens' RedshiftDataParameters (Prelude.Maybe Prelude.Text)
+redshiftDataParameters_secretManagerArn = Lens.lens (\RedshiftDataParameters' {secretManagerArn} -> secretManagerArn) (\s@RedshiftDataParameters' {} a -> s {secretManagerArn = a} :: RedshiftDataParameters)
 
--- | The name of the SQL statement. You can name the SQL statement when you create it to identify the query.
-rdpStatementName :: Lens' RedshiftDataParameters (Maybe Text)
-rdpStatementName = lens _rdpStatementName (\s a -> s {_rdpStatementName = a})
+-- | The name of the SQL statement. You can name the SQL statement when you
+-- create it to identify the query.
+redshiftDataParameters_statementName :: Lens.Lens' RedshiftDataParameters (Prelude.Maybe Prelude.Text)
+redshiftDataParameters_statementName = Lens.lens (\RedshiftDataParameters' {statementName} -> statementName) (\s@RedshiftDataParameters' {} a -> s {statementName = a} :: RedshiftDataParameters)
 
--- | Indicates whether to send an event back to EventBridge after the SQL statement runs.
-rdpWithEvent :: Lens' RedshiftDataParameters (Maybe Bool)
-rdpWithEvent = lens _rdpWithEvent (\s a -> s {_rdpWithEvent = a})
+-- | Indicates whether to send an event back to EventBridge after the SQL
+-- statement runs.
+redshiftDataParameters_withEvent :: Lens.Lens' RedshiftDataParameters (Prelude.Maybe Prelude.Bool)
+redshiftDataParameters_withEvent = Lens.lens (\RedshiftDataParameters' {withEvent} -> withEvent) (\s@RedshiftDataParameters' {} a -> s {withEvent = a} :: RedshiftDataParameters)
 
--- | The name of the database. Required when authenticating using temporary credentials.
-rdpDatabase :: Lens' RedshiftDataParameters Text
-rdpDatabase = lens _rdpDatabase (\s a -> s {_rdpDatabase = a})
+-- | The name of the database. Required when authenticating using temporary
+-- credentials.
+redshiftDataParameters_database :: Lens.Lens' RedshiftDataParameters Prelude.Text
+redshiftDataParameters_database = Lens.lens (\RedshiftDataParameters' {database} -> database) (\s@RedshiftDataParameters' {} a -> s {database = a} :: RedshiftDataParameters)
 
 -- | The SQL statement text to run.
-rdpSql :: Lens' RedshiftDataParameters Text
-rdpSql = lens _rdpSql (\s a -> s {_rdpSql = a})
+redshiftDataParameters_sql :: Lens.Lens' RedshiftDataParameters Prelude.Text
+redshiftDataParameters_sql = Lens.lens (\RedshiftDataParameters' {sql} -> sql) (\s@RedshiftDataParameters' {} a -> s {sql = a} :: RedshiftDataParameters)
 
-instance FromJSON RedshiftDataParameters where
+instance Prelude.FromJSON RedshiftDataParameters where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RedshiftDataParameters"
       ( \x ->
           RedshiftDataParameters'
-            <$> (x .:? "DbUser")
-            <*> (x .:? "SecretManagerArn")
-            <*> (x .:? "StatementName")
-            <*> (x .:? "WithEvent")
-            <*> (x .: "Database")
-            <*> (x .: "Sql")
+            Prelude.<$> (x Prelude..:? "DbUser")
+            Prelude.<*> (x Prelude..:? "SecretManagerArn")
+            Prelude.<*> (x Prelude..:? "StatementName")
+            Prelude.<*> (x Prelude..:? "WithEvent")
+            Prelude.<*> (x Prelude..: "Database")
+            Prelude.<*> (x Prelude..: "Sql")
       )
 
-instance Hashable RedshiftDataParameters
+instance Prelude.Hashable RedshiftDataParameters
 
-instance NFData RedshiftDataParameters
+instance Prelude.NFData RedshiftDataParameters
 
-instance ToJSON RedshiftDataParameters where
+instance Prelude.ToJSON RedshiftDataParameters where
   toJSON RedshiftDataParameters' {..} =
-    object
-      ( catMaybes
-          [ ("DbUser" .=) <$> _rdpDBUser,
-            ("SecretManagerArn" .=) <$> _rdpSecretManagerARN,
-            ("StatementName" .=) <$> _rdpStatementName,
-            ("WithEvent" .=) <$> _rdpWithEvent,
-            Just ("Database" .= _rdpDatabase),
-            Just ("Sql" .= _rdpSql)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DbUser" Prelude..=) Prelude.<$> dbUser,
+            ("SecretManagerArn" Prelude..=)
+              Prelude.<$> secretManagerArn,
+            ("StatementName" Prelude..=)
+              Prelude.<$> statementName,
+            ("WithEvent" Prelude..=) Prelude.<$> withEvent,
+            Prelude.Just ("Database" Prelude..= database),
+            Prelude.Just ("Sql" Prelude..= sql)
           ]
       )

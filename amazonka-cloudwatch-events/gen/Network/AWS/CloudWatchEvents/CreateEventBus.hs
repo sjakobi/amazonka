@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new event bus within your account. This can be a custom event bus which you can use to receive events from your custom applications and services, or it can be a partner event bus which can be matched to a partner event source.
+-- Creates a new event bus within your account. This can be a custom event
+-- bus which you can use to receive events from your custom applications
+-- and services, or it can be a partner event bus which can be matched to a
+-- partner event source.
 module Network.AWS.CloudWatchEvents.CreateEventBus
   ( -- * Creating a Request
-    createEventBus,
-    CreateEventBus,
+    CreateEventBus (..),
+    newCreateEventBus,
 
     -- * Request Lenses
-    cebTags,
-    cebEventSourceName,
-    cebName,
+    createEventBus_tags,
+    createEventBus_eventSourceName,
+    createEventBus_name,
 
     -- * Destructuring the Response
-    createEventBusResponse,
-    CreateEventBusResponse,
+    CreateEventBusResponse (..),
+    newCreateEventBusResponse,
 
     -- * Response Lenses
-    cebrrsEventBusARN,
-    cebrrsResponseStatus,
+    createEventBusResponse_eventBusArn,
+    createEventBusResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createEventBus' smart constructor.
+-- | /See:/ 'newCreateEventBus' smart constructor.
 data CreateEventBus = CreateEventBus'
-  { _cebTags ::
-      !(Maybe [Tag]),
-    _cebEventSourceName :: !(Maybe Text),
-    _cebName :: !Text
+  { -- | Tags to associate with the event bus.
+    tags :: Prelude.Maybe [Tag],
+    -- | If you are creating a partner event bus, this specifies the partner
+    -- event source that the new event bus will be matched with.
+    eventSourceName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the new event bus.
+    --
+    -- Event bus names cannot contain the \/ character. You can\'t use the name
+    -- @default@ for a custom event bus, as this name is already used for your
+    -- account\'s default event bus.
+    --
+    -- If this is a partner event bus, the name must exactly match the name of
+    -- the partner event source that this event bus is matched to.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateEventBus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateEventBus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cebTags' - Tags to associate with the event bus.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cebEventSourceName' - If you are creating a partner event bus, this specifies the partner event source that the new event bus will be matched with.
+-- 'tags', 'createEventBus_tags' - Tags to associate with the event bus.
 --
--- * 'cebName' - The name of the new event bus.  Event bus names cannot contain the / character. You can't use the name @default@ for a custom event bus, as this name is already used for your account's default event bus. If this is a partner event bus, the name must exactly match the name of the partner event source that this event bus is matched to.
-createEventBus ::
-  -- | 'cebName'
-  Text ->
+-- 'eventSourceName', 'createEventBus_eventSourceName' - If you are creating a partner event bus, this specifies the partner
+-- event source that the new event bus will be matched with.
+--
+-- 'name', 'createEventBus_name' - The name of the new event bus.
+--
+-- Event bus names cannot contain the \/ character. You can\'t use the name
+-- @default@ for a custom event bus, as this name is already used for your
+-- account\'s default event bus.
+--
+-- If this is a partner event bus, the name must exactly match the name of
+-- the partner event source that this event bus is matched to.
+newCreateEventBus ::
+  -- | 'name'
+  Prelude.Text ->
   CreateEventBus
-createEventBus pName_ =
+newCreateEventBus pName_ =
   CreateEventBus'
-    { _cebTags = Nothing,
-      _cebEventSourceName = Nothing,
-      _cebName = pName_
+    { tags = Prelude.Nothing,
+      eventSourceName = Prelude.Nothing,
+      name = pName_
     }
 
 -- | Tags to associate with the event bus.
-cebTags :: Lens' CreateEventBus [Tag]
-cebTags = lens _cebTags (\s a -> s {_cebTags = a}) . _Default . _Coerce
+createEventBus_tags :: Lens.Lens' CreateEventBus (Prelude.Maybe [Tag])
+createEventBus_tags = Lens.lens (\CreateEventBus' {tags} -> tags) (\s@CreateEventBus' {} a -> s {tags = a} :: CreateEventBus) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If you are creating a partner event bus, this specifies the partner event source that the new event bus will be matched with.
-cebEventSourceName :: Lens' CreateEventBus (Maybe Text)
-cebEventSourceName = lens _cebEventSourceName (\s a -> s {_cebEventSourceName = a})
+-- | If you are creating a partner event bus, this specifies the partner
+-- event source that the new event bus will be matched with.
+createEventBus_eventSourceName :: Lens.Lens' CreateEventBus (Prelude.Maybe Prelude.Text)
+createEventBus_eventSourceName = Lens.lens (\CreateEventBus' {eventSourceName} -> eventSourceName) (\s@CreateEventBus' {} a -> s {eventSourceName = a} :: CreateEventBus)
 
--- | The name of the new event bus.  Event bus names cannot contain the / character. You can't use the name @default@ for a custom event bus, as this name is already used for your account's default event bus. If this is a partner event bus, the name must exactly match the name of the partner event source that this event bus is matched to.
-cebName :: Lens' CreateEventBus Text
-cebName = lens _cebName (\s a -> s {_cebName = a})
+-- | The name of the new event bus.
+--
+-- Event bus names cannot contain the \/ character. You can\'t use the name
+-- @default@ for a custom event bus, as this name is already used for your
+-- account\'s default event bus.
+--
+-- If this is a partner event bus, the name must exactly match the name of
+-- the partner event source that this event bus is matched to.
+createEventBus_name :: Lens.Lens' CreateEventBus Prelude.Text
+createEventBus_name = Lens.lens (\CreateEventBus' {name} -> name) (\s@CreateEventBus' {} a -> s {name = a} :: CreateEventBus)
 
-instance AWSRequest CreateEventBus where
+instance Prelude.AWSRequest CreateEventBus where
   type Rs CreateEventBus = CreateEventBusResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateEventBusResponse'
-            <$> (x .?> "EventBusArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "EventBusArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateEventBus
+instance Prelude.Hashable CreateEventBus
 
-instance NFData CreateEventBus
+instance Prelude.NFData CreateEventBus
 
-instance ToHeaders CreateEventBus where
+instance Prelude.ToHeaders CreateEventBus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.CreateEventBus" :: ByteString),
+              Prelude.=# ("AWSEvents.CreateEventBus" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateEventBus where
+instance Prelude.ToJSON CreateEventBus where
   toJSON CreateEventBus' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _cebTags,
-            ("EventSourceName" .=) <$> _cebEventSourceName,
-            Just ("Name" .= _cebName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("EventSourceName" Prelude..=)
+              Prelude.<$> eventSourceName,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateEventBus where
-  toPath = const "/"
+instance Prelude.ToPath CreateEventBus where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateEventBus where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateEventBus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createEventBusResponse' smart constructor.
+-- | /See:/ 'newCreateEventBusResponse' smart constructor.
 data CreateEventBusResponse = CreateEventBusResponse'
-  { _cebrrsEventBusARN ::
-      !(Maybe Text),
-    _cebrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the new event bus.
+    eventBusArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateEventBusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateEventBusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cebrrsEventBusARN' - The ARN of the new event bus.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cebrrsResponseStatus' - -- | The response status code.
-createEventBusResponse ::
-  -- | 'cebrrsResponseStatus'
-  Int ->
+-- 'eventBusArn', 'createEventBusResponse_eventBusArn' - The ARN of the new event bus.
+--
+-- 'httpStatus', 'createEventBusResponse_httpStatus' - The response's http status code.
+newCreateEventBusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateEventBusResponse
-createEventBusResponse pResponseStatus_ =
+newCreateEventBusResponse pHttpStatus_ =
   CreateEventBusResponse'
-    { _cebrrsEventBusARN =
-        Nothing,
-      _cebrrsResponseStatus = pResponseStatus_
+    { eventBusArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the new event bus.
-cebrrsEventBusARN :: Lens' CreateEventBusResponse (Maybe Text)
-cebrrsEventBusARN = lens _cebrrsEventBusARN (\s a -> s {_cebrrsEventBusARN = a})
+createEventBusResponse_eventBusArn :: Lens.Lens' CreateEventBusResponse (Prelude.Maybe Prelude.Text)
+createEventBusResponse_eventBusArn = Lens.lens (\CreateEventBusResponse' {eventBusArn} -> eventBusArn) (\s@CreateEventBusResponse' {} a -> s {eventBusArn = a} :: CreateEventBusResponse)
 
--- | -- | The response status code.
-cebrrsResponseStatus :: Lens' CreateEventBusResponse Int
-cebrrsResponseStatus = lens _cebrrsResponseStatus (\s a -> s {_cebrrsResponseStatus = a})
+-- | The response's http status code.
+createEventBusResponse_httpStatus :: Lens.Lens' CreateEventBusResponse Prelude.Int
+createEventBusResponse_httpStatus = Lens.lens (\CreateEventBusResponse' {httpStatus} -> httpStatus) (\s@CreateEventBusResponse' {} a -> s {httpStatus = a} :: CreateEventBusResponse)
 
-instance NFData CreateEventBusResponse
+instance Prelude.NFData CreateEventBusResponse

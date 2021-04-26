@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,238 +24,246 @@
 -- Retrieves details about an archive.
 module Network.AWS.CloudWatchEvents.DescribeArchive
   ( -- * Creating a Request
-    describeArchive,
-    DescribeArchive,
+    DescribeArchive (..),
+    newDescribeArchive,
 
     -- * Request Lenses
-    daArchiveName,
+    describeArchive_archiveName,
 
     -- * Destructuring the Response
-    describeArchiveResponse,
-    DescribeArchiveResponse,
+    DescribeArchiveResponse (..),
+    newDescribeArchiveResponse,
 
     -- * Response Lenses
-    darrsEventCount,
-    darrsEventPattern,
-    darrsEventSourceARN,
-    darrsCreationTime,
-    darrsStateReason,
-    darrsArchiveName,
-    darrsArchiveARN,
-    darrsState,
-    darrsSizeBytes,
-    darrsDescription,
-    darrsRetentionDays,
-    darrsResponseStatus,
+    describeArchiveResponse_eventCount,
+    describeArchiveResponse_eventPattern,
+    describeArchiveResponse_eventSourceArn,
+    describeArchiveResponse_creationTime,
+    describeArchiveResponse_stateReason,
+    describeArchiveResponse_archiveName,
+    describeArchiveResponse_archiveArn,
+    describeArchiveResponse_state,
+    describeArchiveResponse_sizeBytes,
+    describeArchiveResponse_description,
+    describeArchiveResponse_retentionDays,
+    describeArchiveResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.ArchiveState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeArchive' smart constructor.
-newtype DescribeArchive = DescribeArchive'
-  { _daArchiveName ::
-      Text
+-- | /See:/ 'newDescribeArchive' smart constructor.
+data DescribeArchive = DescribeArchive'
+  { -- | The name of the archive to retrieve.
+    archiveName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeArchive' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeArchive' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daArchiveName' - The name of the archive to retrieve.
-describeArchive ::
-  -- | 'daArchiveName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'archiveName', 'describeArchive_archiveName' - The name of the archive to retrieve.
+newDescribeArchive ::
+  -- | 'archiveName'
+  Prelude.Text ->
   DescribeArchive
-describeArchive pArchiveName_ =
-  DescribeArchive' {_daArchiveName = pArchiveName_}
+newDescribeArchive pArchiveName_ =
+  DescribeArchive' {archiveName = pArchiveName_}
 
 -- | The name of the archive to retrieve.
-daArchiveName :: Lens' DescribeArchive Text
-daArchiveName = lens _daArchiveName (\s a -> s {_daArchiveName = a})
+describeArchive_archiveName :: Lens.Lens' DescribeArchive Prelude.Text
+describeArchive_archiveName = Lens.lens (\DescribeArchive' {archiveName} -> archiveName) (\s@DescribeArchive' {} a -> s {archiveName = a} :: DescribeArchive)
 
-instance AWSRequest DescribeArchive where
+instance Prelude.AWSRequest DescribeArchive where
   type Rs DescribeArchive = DescribeArchiveResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeArchiveResponse'
-            <$> (x .?> "EventCount")
-            <*> (x .?> "EventPattern")
-            <*> (x .?> "EventSourceArn")
-            <*> (x .?> "CreationTime")
-            <*> (x .?> "StateReason")
-            <*> (x .?> "ArchiveName")
-            <*> (x .?> "ArchiveArn")
-            <*> (x .?> "State")
-            <*> (x .?> "SizeBytes")
-            <*> (x .?> "Description")
-            <*> (x .?> "RetentionDays")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "EventCount")
+            Prelude.<*> (x Prelude..?> "EventPattern")
+            Prelude.<*> (x Prelude..?> "EventSourceArn")
+            Prelude.<*> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "StateReason")
+            Prelude.<*> (x Prelude..?> "ArchiveName")
+            Prelude.<*> (x Prelude..?> "ArchiveArn")
+            Prelude.<*> (x Prelude..?> "State")
+            Prelude.<*> (x Prelude..?> "SizeBytes")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "RetentionDays")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeArchive
+instance Prelude.Hashable DescribeArchive
 
-instance NFData DescribeArchive
+instance Prelude.NFData DescribeArchive
 
-instance ToHeaders DescribeArchive where
+instance Prelude.ToHeaders DescribeArchive where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.DescribeArchive" :: ByteString),
+              Prelude.=# ("AWSEvents.DescribeArchive" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeArchive where
+instance Prelude.ToJSON DescribeArchive where
   toJSON DescribeArchive' {..} =
-    object
-      (catMaybes [Just ("ArchiveName" .= _daArchiveName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ArchiveName" Prelude..= archiveName)
+          ]
+      )
 
-instance ToPath DescribeArchive where
-  toPath = const "/"
+instance Prelude.ToPath DescribeArchive where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeArchive where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeArchive where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeArchiveResponse' smart constructor.
+-- | /See:/ 'newDescribeArchiveResponse' smart constructor.
 data DescribeArchiveResponse = DescribeArchiveResponse'
-  { _darrsEventCount ::
-      !(Maybe Integer),
-    _darrsEventPattern ::
-      !(Maybe Text),
-    _darrsEventSourceARN ::
-      !(Maybe Text),
-    _darrsCreationTime ::
-      !(Maybe POSIX),
-    _darrsStateReason ::
-      !(Maybe Text),
-    _darrsArchiveName ::
-      !(Maybe Text),
-    _darrsArchiveARN ::
-      !(Maybe Text),
-    _darrsState ::
-      !(Maybe ArchiveState),
-    _darrsSizeBytes ::
-      !(Maybe Integer),
-    _darrsDescription ::
-      !(Maybe Text),
-    _darrsRetentionDays ::
-      !(Maybe Nat),
-    _darrsResponseStatus ::
-      !Int
+  { -- | The number of events in the archive.
+    eventCount :: Prelude.Maybe Prelude.Integer,
+    -- | The event pattern used to filter events sent to the archive.
+    eventPattern :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the event source associated with the archive.
+    eventSourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The time at which the archive was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The reason that the archive is in the state.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | The name of the archive.
+    archiveName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the archive.
+    archiveArn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the archive.
+    state :: Prelude.Maybe ArchiveState,
+    -- | The size of the archive in bytes.
+    sizeBytes :: Prelude.Maybe Prelude.Integer,
+    -- | The description of the archive.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The number of days to retain events for in the archive.
+    retentionDays :: Prelude.Maybe Prelude.Nat,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeArchiveResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeArchiveResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsEventCount' - The number of events in the archive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsEventPattern' - The event pattern used to filter events sent to the archive.
+-- 'eventCount', 'describeArchiveResponse_eventCount' - The number of events in the archive.
 --
--- * 'darrsEventSourceARN' - The ARN of the event source associated with the archive.
+-- 'eventPattern', 'describeArchiveResponse_eventPattern' - The event pattern used to filter events sent to the archive.
 --
--- * 'darrsCreationTime' - The time at which the archive was created.
+-- 'eventSourceArn', 'describeArchiveResponse_eventSourceArn' - The ARN of the event source associated with the archive.
 --
--- * 'darrsStateReason' - The reason that the archive is in the state.
+-- 'creationTime', 'describeArchiveResponse_creationTime' - The time at which the archive was created.
 --
--- * 'darrsArchiveName' - The name of the archive.
+-- 'stateReason', 'describeArchiveResponse_stateReason' - The reason that the archive is in the state.
 --
--- * 'darrsArchiveARN' - The ARN of the archive.
+-- 'archiveName', 'describeArchiveResponse_archiveName' - The name of the archive.
 --
--- * 'darrsState' - The state of the archive.
+-- 'archiveArn', 'describeArchiveResponse_archiveArn' - The ARN of the archive.
 --
--- * 'darrsSizeBytes' - The size of the archive in bytes.
+-- 'state', 'describeArchiveResponse_state' - The state of the archive.
 --
--- * 'darrsDescription' - The description of the archive.
+-- 'sizeBytes', 'describeArchiveResponse_sizeBytes' - The size of the archive in bytes.
 --
--- * 'darrsRetentionDays' - The number of days to retain events for in the archive.
+-- 'description', 'describeArchiveResponse_description' - The description of the archive.
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-describeArchiveResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'retentionDays', 'describeArchiveResponse_retentionDays' - The number of days to retain events for in the archive.
+--
+-- 'httpStatus', 'describeArchiveResponse_httpStatus' - The response's http status code.
+newDescribeArchiveResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeArchiveResponse
-describeArchiveResponse pResponseStatus_ =
+newDescribeArchiveResponse pHttpStatus_ =
   DescribeArchiveResponse'
-    { _darrsEventCount =
-        Nothing,
-      _darrsEventPattern = Nothing,
-      _darrsEventSourceARN = Nothing,
-      _darrsCreationTime = Nothing,
-      _darrsStateReason = Nothing,
-      _darrsArchiveName = Nothing,
-      _darrsArchiveARN = Nothing,
-      _darrsState = Nothing,
-      _darrsSizeBytes = Nothing,
-      _darrsDescription = Nothing,
-      _darrsRetentionDays = Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { eventCount =
+        Prelude.Nothing,
+      eventPattern = Prelude.Nothing,
+      eventSourceArn = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      archiveName = Prelude.Nothing,
+      archiveArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      sizeBytes = Prelude.Nothing,
+      description = Prelude.Nothing,
+      retentionDays = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The number of events in the archive.
-darrsEventCount :: Lens' DescribeArchiveResponse (Maybe Integer)
-darrsEventCount = lens _darrsEventCount (\s a -> s {_darrsEventCount = a})
+describeArchiveResponse_eventCount :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.Integer)
+describeArchiveResponse_eventCount = Lens.lens (\DescribeArchiveResponse' {eventCount} -> eventCount) (\s@DescribeArchiveResponse' {} a -> s {eventCount = a} :: DescribeArchiveResponse)
 
 -- | The event pattern used to filter events sent to the archive.
-darrsEventPattern :: Lens' DescribeArchiveResponse (Maybe Text)
-darrsEventPattern = lens _darrsEventPattern (\s a -> s {_darrsEventPattern = a})
+describeArchiveResponse_eventPattern :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.Text)
+describeArchiveResponse_eventPattern = Lens.lens (\DescribeArchiveResponse' {eventPattern} -> eventPattern) (\s@DescribeArchiveResponse' {} a -> s {eventPattern = a} :: DescribeArchiveResponse)
 
 -- | The ARN of the event source associated with the archive.
-darrsEventSourceARN :: Lens' DescribeArchiveResponse (Maybe Text)
-darrsEventSourceARN = lens _darrsEventSourceARN (\s a -> s {_darrsEventSourceARN = a})
+describeArchiveResponse_eventSourceArn :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.Text)
+describeArchiveResponse_eventSourceArn = Lens.lens (\DescribeArchiveResponse' {eventSourceArn} -> eventSourceArn) (\s@DescribeArchiveResponse' {} a -> s {eventSourceArn = a} :: DescribeArchiveResponse)
 
 -- | The time at which the archive was created.
-darrsCreationTime :: Lens' DescribeArchiveResponse (Maybe UTCTime)
-darrsCreationTime = lens _darrsCreationTime (\s a -> s {_darrsCreationTime = a}) . mapping _Time
+describeArchiveResponse_creationTime :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.UTCTime)
+describeArchiveResponse_creationTime = Lens.lens (\DescribeArchiveResponse' {creationTime} -> creationTime) (\s@DescribeArchiveResponse' {} a -> s {creationTime = a} :: DescribeArchiveResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The reason that the archive is in the state.
-darrsStateReason :: Lens' DescribeArchiveResponse (Maybe Text)
-darrsStateReason = lens _darrsStateReason (\s a -> s {_darrsStateReason = a})
+describeArchiveResponse_stateReason :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.Text)
+describeArchiveResponse_stateReason = Lens.lens (\DescribeArchiveResponse' {stateReason} -> stateReason) (\s@DescribeArchiveResponse' {} a -> s {stateReason = a} :: DescribeArchiveResponse)
 
 -- | The name of the archive.
-darrsArchiveName :: Lens' DescribeArchiveResponse (Maybe Text)
-darrsArchiveName = lens _darrsArchiveName (\s a -> s {_darrsArchiveName = a})
+describeArchiveResponse_archiveName :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.Text)
+describeArchiveResponse_archiveName = Lens.lens (\DescribeArchiveResponse' {archiveName} -> archiveName) (\s@DescribeArchiveResponse' {} a -> s {archiveName = a} :: DescribeArchiveResponse)
 
 -- | The ARN of the archive.
-darrsArchiveARN :: Lens' DescribeArchiveResponse (Maybe Text)
-darrsArchiveARN = lens _darrsArchiveARN (\s a -> s {_darrsArchiveARN = a})
+describeArchiveResponse_archiveArn :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.Text)
+describeArchiveResponse_archiveArn = Lens.lens (\DescribeArchiveResponse' {archiveArn} -> archiveArn) (\s@DescribeArchiveResponse' {} a -> s {archiveArn = a} :: DescribeArchiveResponse)
 
 -- | The state of the archive.
-darrsState :: Lens' DescribeArchiveResponse (Maybe ArchiveState)
-darrsState = lens _darrsState (\s a -> s {_darrsState = a})
+describeArchiveResponse_state :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe ArchiveState)
+describeArchiveResponse_state = Lens.lens (\DescribeArchiveResponse' {state} -> state) (\s@DescribeArchiveResponse' {} a -> s {state = a} :: DescribeArchiveResponse)
 
 -- | The size of the archive in bytes.
-darrsSizeBytes :: Lens' DescribeArchiveResponse (Maybe Integer)
-darrsSizeBytes = lens _darrsSizeBytes (\s a -> s {_darrsSizeBytes = a})
+describeArchiveResponse_sizeBytes :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.Integer)
+describeArchiveResponse_sizeBytes = Lens.lens (\DescribeArchiveResponse' {sizeBytes} -> sizeBytes) (\s@DescribeArchiveResponse' {} a -> s {sizeBytes = a} :: DescribeArchiveResponse)
 
 -- | The description of the archive.
-darrsDescription :: Lens' DescribeArchiveResponse (Maybe Text)
-darrsDescription = lens _darrsDescription (\s a -> s {_darrsDescription = a})
+describeArchiveResponse_description :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.Text)
+describeArchiveResponse_description = Lens.lens (\DescribeArchiveResponse' {description} -> description) (\s@DescribeArchiveResponse' {} a -> s {description = a} :: DescribeArchiveResponse)
 
 -- | The number of days to retain events for in the archive.
-darrsRetentionDays :: Lens' DescribeArchiveResponse (Maybe Natural)
-darrsRetentionDays = lens _darrsRetentionDays (\s a -> s {_darrsRetentionDays = a}) . mapping _Nat
+describeArchiveResponse_retentionDays :: Lens.Lens' DescribeArchiveResponse (Prelude.Maybe Prelude.Natural)
+describeArchiveResponse_retentionDays = Lens.lens (\DescribeArchiveResponse' {retentionDays} -> retentionDays) (\s@DescribeArchiveResponse' {} a -> s {retentionDays = a} :: DescribeArchiveResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DescribeArchiveResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+describeArchiveResponse_httpStatus :: Lens.Lens' DescribeArchiveResponse Prelude.Int
+describeArchiveResponse_httpStatus = Lens.lens (\DescribeArchiveResponse' {httpStatus} -> httpStatus) (\s@DescribeArchiveResponse' {} a -> s {httpStatus = a} :: DescribeArchiveResponse)
 
-instance NFData DescribeArchiveResponse
+instance Prelude.NFData DescribeArchiveResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,100 +19,115 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.CreateConnectionAuthRequestParameters where
 
-import Network.AWS.CloudWatchEvents.Types.ConnectionHTTPParameters
-import Network.AWS.CloudWatchEvents.Types.CreateConnectionAPIKeyAuthRequestParameters
+import Network.AWS.CloudWatchEvents.Types.ConnectionHttpParameters
+import Network.AWS.CloudWatchEvents.Types.CreateConnectionApiKeyAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.CreateConnectionBasicAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.CreateConnectionOAuthRequestParameters
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the authorization parameters for the connection.
 --
---
---
--- /See:/ 'createConnectionAuthRequestParameters' smart constructor.
+-- /See:/ 'newCreateConnectionAuthRequestParameters' smart constructor.
 data CreateConnectionAuthRequestParameters = CreateConnectionAuthRequestParameters'
-  { _ccarpBasicAuthParameters ::
-      !( Maybe
-           CreateConnectionBasicAuthRequestParameters
-       ),
-    _ccarpOAuthParameters ::
-      !( Maybe
-           CreateConnectionOAuthRequestParameters
-       ),
-    _ccarpAPIKeyAuthParameters ::
-      !( Maybe
-           CreateConnectionAPIKeyAuthRequestParameters
-       ),
-    _ccarpInvocationHTTPParameters ::
-      !( Maybe
-           ConnectionHTTPParameters
-       )
+  { -- | A @CreateConnectionBasicAuthRequestParameters@ object that contains the
+    -- Basic authorization parameters to use for the connection.
+    basicAuthParameters :: Prelude.Maybe CreateConnectionBasicAuthRequestParameters,
+    -- | A @CreateConnectionOAuthRequestParameters@ object that contains the
+    -- OAuth authorization parameters to use for the connection.
+    oAuthParameters :: Prelude.Maybe CreateConnectionOAuthRequestParameters,
+    -- | A @CreateConnectionApiKeyAuthRequestParameters@ object that contains the
+    -- API key authorization parameters to use for the connection.
+    apiKeyAuthParameters :: Prelude.Maybe CreateConnectionApiKeyAuthRequestParameters,
+    -- | A @ConnectionHttpParameters@ object that contains the API key
+    -- authorization parameters to use for the connection. Note that if you
+    -- include additional parameters for the target of a rule via
+    -- @HttpParameters@, including query strings, the parameters added for the
+    -- connection take precedence.
+    invocationHttpParameters :: Prelude.Maybe ConnectionHttpParameters
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConnectionAuthRequestParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConnectionAuthRequestParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccarpBasicAuthParameters' - A @CreateConnectionBasicAuthRequestParameters@ object that contains the Basic authorization parameters to use for the connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccarpOAuthParameters' - A @CreateConnectionOAuthRequestParameters@ object that contains the OAuth authorization parameters to use for the connection.
+-- 'basicAuthParameters', 'createConnectionAuthRequestParameters_basicAuthParameters' - A @CreateConnectionBasicAuthRequestParameters@ object that contains the
+-- Basic authorization parameters to use for the connection.
 --
--- * 'ccarpAPIKeyAuthParameters' - A @CreateConnectionApiKeyAuthRequestParameters@ object that contains the API key authorization parameters to use for the connection.
+-- 'oAuthParameters', 'createConnectionAuthRequestParameters_oAuthParameters' - A @CreateConnectionOAuthRequestParameters@ object that contains the
+-- OAuth authorization parameters to use for the connection.
 --
--- * 'ccarpInvocationHTTPParameters' - A @ConnectionHttpParameters@ object that contains the API key authorization parameters to use for the connection. Note that if you include additional parameters for the target of a rule via @HttpParameters@ , including query strings, the parameters added for the connection take precedence.
-createConnectionAuthRequestParameters ::
+-- 'apiKeyAuthParameters', 'createConnectionAuthRequestParameters_apiKeyAuthParameters' - A @CreateConnectionApiKeyAuthRequestParameters@ object that contains the
+-- API key authorization parameters to use for the connection.
+--
+-- 'invocationHttpParameters', 'createConnectionAuthRequestParameters_invocationHttpParameters' - A @ConnectionHttpParameters@ object that contains the API key
+-- authorization parameters to use for the connection. Note that if you
+-- include additional parameters for the target of a rule via
+-- @HttpParameters@, including query strings, the parameters added for the
+-- connection take precedence.
+newCreateConnectionAuthRequestParameters ::
   CreateConnectionAuthRequestParameters
-createConnectionAuthRequestParameters =
+newCreateConnectionAuthRequestParameters =
   CreateConnectionAuthRequestParameters'
-    { _ccarpBasicAuthParameters =
-        Nothing,
-      _ccarpOAuthParameters = Nothing,
-      _ccarpAPIKeyAuthParameters = Nothing,
-      _ccarpInvocationHTTPParameters =
-        Nothing
+    { basicAuthParameters =
+        Prelude.Nothing,
+      oAuthParameters = Prelude.Nothing,
+      apiKeyAuthParameters =
+        Prelude.Nothing,
+      invocationHttpParameters =
+        Prelude.Nothing
     }
 
--- | A @CreateConnectionBasicAuthRequestParameters@ object that contains the Basic authorization parameters to use for the connection.
-ccarpBasicAuthParameters :: Lens' CreateConnectionAuthRequestParameters (Maybe CreateConnectionBasicAuthRequestParameters)
-ccarpBasicAuthParameters = lens _ccarpBasicAuthParameters (\s a -> s {_ccarpBasicAuthParameters = a})
+-- | A @CreateConnectionBasicAuthRequestParameters@ object that contains the
+-- Basic authorization parameters to use for the connection.
+createConnectionAuthRequestParameters_basicAuthParameters :: Lens.Lens' CreateConnectionAuthRequestParameters (Prelude.Maybe CreateConnectionBasicAuthRequestParameters)
+createConnectionAuthRequestParameters_basicAuthParameters = Lens.lens (\CreateConnectionAuthRequestParameters' {basicAuthParameters} -> basicAuthParameters) (\s@CreateConnectionAuthRequestParameters' {} a -> s {basicAuthParameters = a} :: CreateConnectionAuthRequestParameters)
 
--- | A @CreateConnectionOAuthRequestParameters@ object that contains the OAuth authorization parameters to use for the connection.
-ccarpOAuthParameters :: Lens' CreateConnectionAuthRequestParameters (Maybe CreateConnectionOAuthRequestParameters)
-ccarpOAuthParameters = lens _ccarpOAuthParameters (\s a -> s {_ccarpOAuthParameters = a})
+-- | A @CreateConnectionOAuthRequestParameters@ object that contains the
+-- OAuth authorization parameters to use for the connection.
+createConnectionAuthRequestParameters_oAuthParameters :: Lens.Lens' CreateConnectionAuthRequestParameters (Prelude.Maybe CreateConnectionOAuthRequestParameters)
+createConnectionAuthRequestParameters_oAuthParameters = Lens.lens (\CreateConnectionAuthRequestParameters' {oAuthParameters} -> oAuthParameters) (\s@CreateConnectionAuthRequestParameters' {} a -> s {oAuthParameters = a} :: CreateConnectionAuthRequestParameters)
 
--- | A @CreateConnectionApiKeyAuthRequestParameters@ object that contains the API key authorization parameters to use for the connection.
-ccarpAPIKeyAuthParameters :: Lens' CreateConnectionAuthRequestParameters (Maybe CreateConnectionAPIKeyAuthRequestParameters)
-ccarpAPIKeyAuthParameters = lens _ccarpAPIKeyAuthParameters (\s a -> s {_ccarpAPIKeyAuthParameters = a})
+-- | A @CreateConnectionApiKeyAuthRequestParameters@ object that contains the
+-- API key authorization parameters to use for the connection.
+createConnectionAuthRequestParameters_apiKeyAuthParameters :: Lens.Lens' CreateConnectionAuthRequestParameters (Prelude.Maybe CreateConnectionApiKeyAuthRequestParameters)
+createConnectionAuthRequestParameters_apiKeyAuthParameters = Lens.lens (\CreateConnectionAuthRequestParameters' {apiKeyAuthParameters} -> apiKeyAuthParameters) (\s@CreateConnectionAuthRequestParameters' {} a -> s {apiKeyAuthParameters = a} :: CreateConnectionAuthRequestParameters)
 
--- | A @ConnectionHttpParameters@ object that contains the API key authorization parameters to use for the connection. Note that if you include additional parameters for the target of a rule via @HttpParameters@ , including query strings, the parameters added for the connection take precedence.
-ccarpInvocationHTTPParameters :: Lens' CreateConnectionAuthRequestParameters (Maybe ConnectionHTTPParameters)
-ccarpInvocationHTTPParameters = lens _ccarpInvocationHTTPParameters (\s a -> s {_ccarpInvocationHTTPParameters = a})
+-- | A @ConnectionHttpParameters@ object that contains the API key
+-- authorization parameters to use for the connection. Note that if you
+-- include additional parameters for the target of a rule via
+-- @HttpParameters@, including query strings, the parameters added for the
+-- connection take precedence.
+createConnectionAuthRequestParameters_invocationHttpParameters :: Lens.Lens' CreateConnectionAuthRequestParameters (Prelude.Maybe ConnectionHttpParameters)
+createConnectionAuthRequestParameters_invocationHttpParameters = Lens.lens (\CreateConnectionAuthRequestParameters' {invocationHttpParameters} -> invocationHttpParameters) (\s@CreateConnectionAuthRequestParameters' {} a -> s {invocationHttpParameters = a} :: CreateConnectionAuthRequestParameters)
 
 instance
-  Hashable
+  Prelude.Hashable
     CreateConnectionAuthRequestParameters
 
-instance NFData CreateConnectionAuthRequestParameters
+instance
+  Prelude.NFData
+    CreateConnectionAuthRequestParameters
 
-instance ToJSON CreateConnectionAuthRequestParameters where
+instance
+  Prelude.ToJSON
+    CreateConnectionAuthRequestParameters
+  where
   toJSON CreateConnectionAuthRequestParameters' {..} =
-    object
-      ( catMaybes
-          [ ("BasicAuthParameters" .=)
-              <$> _ccarpBasicAuthParameters,
-            ("OAuthParameters" .=) <$> _ccarpOAuthParameters,
-            ("ApiKeyAuthParameters" .=)
-              <$> _ccarpAPIKeyAuthParameters,
-            ("InvocationHttpParameters" .=)
-              <$> _ccarpInvocationHTTPParameters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("BasicAuthParameters" Prelude..=)
+              Prelude.<$> basicAuthParameters,
+            ("OAuthParameters" Prelude..=)
+              Prelude.<$> oAuthParameters,
+            ("ApiKeyAuthParameters" Prelude..=)
+              Prelude.<$> apiKeyAuthParameters,
+            ("InvocationHttpParameters" Prelude..=)
+              Prelude.<$> invocationHttpParameters
           ]
       )

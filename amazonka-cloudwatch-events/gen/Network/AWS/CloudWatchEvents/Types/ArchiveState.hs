@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.CloudWatchEvents.Types.ArchiveState
   ( ArchiveState
       ( ..,
-        ASCreateFailed,
-        ASCreating,
-        ASDisabled,
-        ASEnabled,
-        ASUpdateFailed,
-        ASUpdating
+        ArchiveStateCREATEFAILED,
+        ArchiveStateCREATING,
+        ArchiveStateDISABLED,
+        ArchiveStateENABLED,
+        ArchiveStateUPDATEFAILED,
+        ArchiveStateUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArchiveState = ArchiveState' (CI Text)
+newtype ArchiveState = ArchiveState'
+  { fromArchiveState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASCreateFailed :: ArchiveState
-pattern ASCreateFailed = ArchiveState' "CREATE_FAILED"
+pattern ArchiveStateCREATEFAILED :: ArchiveState
+pattern ArchiveStateCREATEFAILED = ArchiveState' "CREATE_FAILED"
 
-pattern ASCreating :: ArchiveState
-pattern ASCreating = ArchiveState' "CREATING"
+pattern ArchiveStateCREATING :: ArchiveState
+pattern ArchiveStateCREATING = ArchiveState' "CREATING"
 
-pattern ASDisabled :: ArchiveState
-pattern ASDisabled = ArchiveState' "DISABLED"
+pattern ArchiveStateDISABLED :: ArchiveState
+pattern ArchiveStateDISABLED = ArchiveState' "DISABLED"
 
-pattern ASEnabled :: ArchiveState
-pattern ASEnabled = ArchiveState' "ENABLED"
+pattern ArchiveStateENABLED :: ArchiveState
+pattern ArchiveStateENABLED = ArchiveState' "ENABLED"
 
-pattern ASUpdateFailed :: ArchiveState
-pattern ASUpdateFailed = ArchiveState' "UPDATE_FAILED"
+pattern ArchiveStateUPDATEFAILED :: ArchiveState
+pattern ArchiveStateUPDATEFAILED = ArchiveState' "UPDATE_FAILED"
 
-pattern ASUpdating :: ArchiveState
-pattern ASUpdating = ArchiveState' "UPDATING"
+pattern ArchiveStateUPDATING :: ArchiveState
+pattern ArchiveStateUPDATING = ArchiveState' "UPDATING"
 
 {-# COMPLETE
-  ASCreateFailed,
-  ASCreating,
-  ASDisabled,
-  ASEnabled,
-  ASUpdateFailed,
-  ASUpdating,
+  ArchiveStateCREATEFAILED,
+  ArchiveStateCREATING,
+  ArchiveStateDISABLED,
+  ArchiveStateENABLED,
+  ArchiveStateUPDATEFAILED,
+  ArchiveStateUPDATING,
   ArchiveState'
   #-}
 
-instance FromText ArchiveState where
-  parser = (ArchiveState' . mk) <$> takeText
+instance Prelude.FromText ArchiveState where
+  parser = ArchiveState' Prelude.<$> Prelude.takeText
 
-instance ToText ArchiveState where
-  toText (ArchiveState' ci) = original ci
+instance Prelude.ToText ArchiveState where
+  toText (ArchiveState' x) = x
 
-instance Hashable ArchiveState
+instance Prelude.Hashable ArchiveState
 
-instance NFData ArchiveState
+instance Prelude.NFData ArchiveState
 
-instance ToByteString ArchiveState
+instance Prelude.ToByteString ArchiveState
 
-instance ToQuery ArchiveState
+instance Prelude.ToQuery ArchiveState
 
-instance ToHeader ArchiveState
+instance Prelude.ToHeader ArchiveState
 
-instance ToJSON ArchiveState where
-  toJSON = toJSONText
+instance Prelude.ToJSON ArchiveState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ArchiveState where
-  parseJSON = parseJSONText "ArchiveState"
+instance Prelude.FromJSON ArchiveState where
+  parseJSON = Prelude.parseJSONText "ArchiveState"

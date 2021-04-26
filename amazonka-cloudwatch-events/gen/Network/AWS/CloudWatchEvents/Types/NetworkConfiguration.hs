@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.NetworkConfiguration where
 
-import Network.AWS.CloudWatchEvents.Types.AWSVPCConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.CloudWatchEvents.Types.AwsVpcConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | This structure specifies the network configuration for an ECS task.
 --
---
---
--- /See:/ 'networkConfiguration' smart constructor.
-newtype NetworkConfiguration = NetworkConfiguration'
-  { _ncAwsvpcConfiguration ::
-      Maybe AWSVPCConfiguration
+-- /See:/ 'newNetworkConfiguration' smart constructor.
+data NetworkConfiguration = NetworkConfiguration'
+  { -- | Use this structure to specify the VPC subnets and security groups for
+    -- the task, and whether a public IP address is to be used. This structure
+    -- is relevant only for ECS tasks that use the @awsvpc@ network mode.
+    awsvpcConfiguration :: Prelude.Maybe AwsVpcConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncAwsvpcConfiguration' - Use this structure to specify the VPC subnets and security groups for the task, and whether a public IP address is to be used. This structure is relevant only for ECS tasks that use the @awsvpc@ network mode.
-networkConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'awsvpcConfiguration', 'networkConfiguration_awsvpcConfiguration' - Use this structure to specify the VPC subnets and security groups for
+-- the task, and whether a public IP address is to be used. This structure
+-- is relevant only for ECS tasks that use the @awsvpc@ network mode.
+newNetworkConfiguration ::
   NetworkConfiguration
-networkConfiguration =
+newNetworkConfiguration =
   NetworkConfiguration'
-    { _ncAwsvpcConfiguration =
-        Nothing
+    { awsvpcConfiguration =
+        Prelude.Nothing
     }
 
--- | Use this structure to specify the VPC subnets and security groups for the task, and whether a public IP address is to be used. This structure is relevant only for ECS tasks that use the @awsvpc@ network mode.
-ncAwsvpcConfiguration :: Lens' NetworkConfiguration (Maybe AWSVPCConfiguration)
-ncAwsvpcConfiguration = lens _ncAwsvpcConfiguration (\s a -> s {_ncAwsvpcConfiguration = a})
+-- | Use this structure to specify the VPC subnets and security groups for
+-- the task, and whether a public IP address is to be used. This structure
+-- is relevant only for ECS tasks that use the @awsvpc@ network mode.
+networkConfiguration_awsvpcConfiguration :: Lens.Lens' NetworkConfiguration (Prelude.Maybe AwsVpcConfiguration)
+networkConfiguration_awsvpcConfiguration = Lens.lens (\NetworkConfiguration' {awsvpcConfiguration} -> awsvpcConfiguration) (\s@NetworkConfiguration' {} a -> s {awsvpcConfiguration = a} :: NetworkConfiguration)
 
-instance FromJSON NetworkConfiguration where
+instance Prelude.FromJSON NetworkConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NetworkConfiguration"
       ( \x ->
           NetworkConfiguration'
-            <$> (x .:? "awsvpcConfiguration")
+            Prelude.<$> (x Prelude..:? "awsvpcConfiguration")
       )
 
-instance Hashable NetworkConfiguration
+instance Prelude.Hashable NetworkConfiguration
 
-instance NFData NetworkConfiguration
+instance Prelude.NFData NetworkConfiguration
 
-instance ToJSON NetworkConfiguration where
+instance Prelude.ToJSON NetworkConfiguration where
   toJSON NetworkConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("awsvpcConfiguration" .=)
-              <$> _ncAwsvpcConfiguration
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("awsvpcConfiguration" Prelude..=)
+              Prelude.<$> awsvpcConfiguration
           ]
       )

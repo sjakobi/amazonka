@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.Condition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A JSON string which you can use to limit the event bus permissions you are granting to only accounts that fulfill the condition. Currently, the only supported condition is membership in a certain AWS organization. The string must contain @Type@ , @Key@ , and @Value@ fields. The @Value@ field specifies the ID of the AWS organization. Following is an example value for @Condition@ :
+-- | A JSON string which you can use to limit the event bus permissions you
+-- are granting to only accounts that fulfill the condition. Currently, the
+-- only supported condition is membership in a certain AWS organization.
+-- The string must contain @Type@, @Key@, and @Value@ fields. The @Value@
+-- field specifies the ID of the AWS organization. Following is an example
+-- value for @Condition@:
 --
+-- @\'{\"Type\" : \"StringEquals\", \"Key\": \"aws:PrincipalOrgID\", \"Value\": \"o-1234567890\"}\'@
 --
--- @'{"Type" : "StringEquals", "Key": "aws:PrincipalOrgID", "Value": "o-1234567890"}'@
---
---
--- /See:/ 'condition' smart constructor.
+-- /See:/ 'newCondition' smart constructor.
 data Condition = Condition'
-  { _cType :: !Text,
-    _cKey :: !Text,
-    _cValue :: !Text
+  { -- | Specifies the type of condition. Currently the only supported value is
+    -- @StringEquals@.
+    type' :: Prelude.Text,
+    -- | Specifies the key for the condition. Currently the only supported key is
+    -- @aws:PrincipalOrgID@.
+    key :: Prelude.Text,
+    -- | Specifies the value for the key. Currently, this must be the ID of the
+    -- organization.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Condition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Condition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cType' - Specifies the type of condition. Currently the only supported value is @StringEquals@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cKey' - Specifies the key for the condition. Currently the only supported key is @aws:PrincipalOrgID@ .
+-- 'type'', 'condition_type' - Specifies the type of condition. Currently the only supported value is
+-- @StringEquals@.
 --
--- * 'cValue' - Specifies the value for the key. Currently, this must be the ID of the organization.
-condition ::
-  -- | 'cType'
-  Text ->
-  -- | 'cKey'
-  Text ->
-  -- | 'cValue'
-  Text ->
+-- 'key', 'condition_key' - Specifies the key for the condition. Currently the only supported key is
+-- @aws:PrincipalOrgID@.
+--
+-- 'value', 'condition_value' - Specifies the value for the key. Currently, this must be the ID of the
+-- organization.
+newCondition ::
+  -- | 'type''
+  Prelude.Text ->
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   Condition
-condition pType_ pKey_ pValue_ =
+newCondition pType_ pKey_ pValue_ =
   Condition'
-    { _cType = pType_,
-      _cKey = pKey_,
-      _cValue = pValue_
+    { type' = pType_,
+      key = pKey_,
+      value = pValue_
     }
 
--- | Specifies the type of condition. Currently the only supported value is @StringEquals@ .
-cType :: Lens' Condition Text
-cType = lens _cType (\s a -> s {_cType = a})
+-- | Specifies the type of condition. Currently the only supported value is
+-- @StringEquals@.
+condition_type :: Lens.Lens' Condition Prelude.Text
+condition_type = Lens.lens (\Condition' {type'} -> type') (\s@Condition' {} a -> s {type' = a} :: Condition)
 
--- | Specifies the key for the condition. Currently the only supported key is @aws:PrincipalOrgID@ .
-cKey :: Lens' Condition Text
-cKey = lens _cKey (\s a -> s {_cKey = a})
+-- | Specifies the key for the condition. Currently the only supported key is
+-- @aws:PrincipalOrgID@.
+condition_key :: Lens.Lens' Condition Prelude.Text
+condition_key = Lens.lens (\Condition' {key} -> key) (\s@Condition' {} a -> s {key = a} :: Condition)
 
--- | Specifies the value for the key. Currently, this must be the ID of the organization.
-cValue :: Lens' Condition Text
-cValue = lens _cValue (\s a -> s {_cValue = a})
+-- | Specifies the value for the key. Currently, this must be the ID of the
+-- organization.
+condition_value :: Lens.Lens' Condition Prelude.Text
+condition_value = Lens.lens (\Condition' {value} -> value) (\s@Condition' {} a -> s {value = a} :: Condition)
 
-instance Hashable Condition
+instance Prelude.Hashable Condition
 
-instance NFData Condition
+instance Prelude.NFData Condition
 
-instance ToJSON Condition where
+instance Prelude.ToJSON Condition where
   toJSON Condition' {..} =
-    object
-      ( catMaybes
-          [ Just ("Type" .= _cType),
-            Just ("Key" .= _cKey),
-            Just ("Value" .= _cValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Type" Prelude..= type'),
+            Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

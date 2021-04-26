@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,100 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.UpdateConnectionAuthRequestParameters where
 
-import Network.AWS.CloudWatchEvents.Types.ConnectionHTTPParameters
-import Network.AWS.CloudWatchEvents.Types.UpdateConnectionAPIKeyAuthRequestParameters
+import Network.AWS.CloudWatchEvents.Types.ConnectionHttpParameters
+import Network.AWS.CloudWatchEvents.Types.UpdateConnectionApiKeyAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.UpdateConnectionBasicAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.UpdateConnectionOAuthRequestParameters
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the additional parameters to use for the connection.
 --
---
---
--- /See:/ 'updateConnectionAuthRequestParameters' smart constructor.
+-- /See:/ 'newUpdateConnectionAuthRequestParameters' smart constructor.
 data UpdateConnectionAuthRequestParameters = UpdateConnectionAuthRequestParameters'
-  { _ucarpBasicAuthParameters ::
-      !( Maybe
-           UpdateConnectionBasicAuthRequestParameters
-       ),
-    _ucarpOAuthParameters ::
-      !( Maybe
-           UpdateConnectionOAuthRequestParameters
-       ),
-    _ucarpAPIKeyAuthParameters ::
-      !( Maybe
-           UpdateConnectionAPIKeyAuthRequestParameters
-       ),
-    _ucarpInvocationHTTPParameters ::
-      !( Maybe
-           ConnectionHTTPParameters
-       )
+  { -- | A @UpdateConnectionBasicAuthRequestParameters@ object that contains the
+    -- authorization parameters for Basic authorization.
+    basicAuthParameters :: Prelude.Maybe UpdateConnectionBasicAuthRequestParameters,
+    -- | A @UpdateConnectionOAuthRequestParameters@ object that contains the
+    -- authorization parameters for OAuth authorization.
+    oAuthParameters :: Prelude.Maybe UpdateConnectionOAuthRequestParameters,
+    -- | A @UpdateConnectionApiKeyAuthRequestParameters@ object that contains the
+    -- authorization parameters for API key authorization.
+    apiKeyAuthParameters :: Prelude.Maybe UpdateConnectionApiKeyAuthRequestParameters,
+    -- | A @ConnectionHttpParameters@ object that contains the additional
+    -- parameters to use for the connection.
+    invocationHttpParameters :: Prelude.Maybe ConnectionHttpParameters
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConnectionAuthRequestParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConnectionAuthRequestParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucarpBasicAuthParameters' - A @UpdateConnectionBasicAuthRequestParameters@ object that contains the authorization parameters for Basic authorization.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucarpOAuthParameters' - A @UpdateConnectionOAuthRequestParameters@ object that contains the authorization parameters for OAuth authorization.
+-- 'basicAuthParameters', 'updateConnectionAuthRequestParameters_basicAuthParameters' - A @UpdateConnectionBasicAuthRequestParameters@ object that contains the
+-- authorization parameters for Basic authorization.
 --
--- * 'ucarpAPIKeyAuthParameters' - A @UpdateConnectionApiKeyAuthRequestParameters@ object that contains the authorization parameters for API key authorization.
+-- 'oAuthParameters', 'updateConnectionAuthRequestParameters_oAuthParameters' - A @UpdateConnectionOAuthRequestParameters@ object that contains the
+-- authorization parameters for OAuth authorization.
 --
--- * 'ucarpInvocationHTTPParameters' - A @ConnectionHttpParameters@ object that contains the additional parameters to use for the connection.
-updateConnectionAuthRequestParameters ::
+-- 'apiKeyAuthParameters', 'updateConnectionAuthRequestParameters_apiKeyAuthParameters' - A @UpdateConnectionApiKeyAuthRequestParameters@ object that contains the
+-- authorization parameters for API key authorization.
+--
+-- 'invocationHttpParameters', 'updateConnectionAuthRequestParameters_invocationHttpParameters' - A @ConnectionHttpParameters@ object that contains the additional
+-- parameters to use for the connection.
+newUpdateConnectionAuthRequestParameters ::
   UpdateConnectionAuthRequestParameters
-updateConnectionAuthRequestParameters =
+newUpdateConnectionAuthRequestParameters =
   UpdateConnectionAuthRequestParameters'
-    { _ucarpBasicAuthParameters =
-        Nothing,
-      _ucarpOAuthParameters = Nothing,
-      _ucarpAPIKeyAuthParameters = Nothing,
-      _ucarpInvocationHTTPParameters =
-        Nothing
+    { basicAuthParameters =
+        Prelude.Nothing,
+      oAuthParameters = Prelude.Nothing,
+      apiKeyAuthParameters =
+        Prelude.Nothing,
+      invocationHttpParameters =
+        Prelude.Nothing
     }
 
--- | A @UpdateConnectionBasicAuthRequestParameters@ object that contains the authorization parameters for Basic authorization.
-ucarpBasicAuthParameters :: Lens' UpdateConnectionAuthRequestParameters (Maybe UpdateConnectionBasicAuthRequestParameters)
-ucarpBasicAuthParameters = lens _ucarpBasicAuthParameters (\s a -> s {_ucarpBasicAuthParameters = a})
+-- | A @UpdateConnectionBasicAuthRequestParameters@ object that contains the
+-- authorization parameters for Basic authorization.
+updateConnectionAuthRequestParameters_basicAuthParameters :: Lens.Lens' UpdateConnectionAuthRequestParameters (Prelude.Maybe UpdateConnectionBasicAuthRequestParameters)
+updateConnectionAuthRequestParameters_basicAuthParameters = Lens.lens (\UpdateConnectionAuthRequestParameters' {basicAuthParameters} -> basicAuthParameters) (\s@UpdateConnectionAuthRequestParameters' {} a -> s {basicAuthParameters = a} :: UpdateConnectionAuthRequestParameters)
 
--- | A @UpdateConnectionOAuthRequestParameters@ object that contains the authorization parameters for OAuth authorization.
-ucarpOAuthParameters :: Lens' UpdateConnectionAuthRequestParameters (Maybe UpdateConnectionOAuthRequestParameters)
-ucarpOAuthParameters = lens _ucarpOAuthParameters (\s a -> s {_ucarpOAuthParameters = a})
+-- | A @UpdateConnectionOAuthRequestParameters@ object that contains the
+-- authorization parameters for OAuth authorization.
+updateConnectionAuthRequestParameters_oAuthParameters :: Lens.Lens' UpdateConnectionAuthRequestParameters (Prelude.Maybe UpdateConnectionOAuthRequestParameters)
+updateConnectionAuthRequestParameters_oAuthParameters = Lens.lens (\UpdateConnectionAuthRequestParameters' {oAuthParameters} -> oAuthParameters) (\s@UpdateConnectionAuthRequestParameters' {} a -> s {oAuthParameters = a} :: UpdateConnectionAuthRequestParameters)
 
--- | A @UpdateConnectionApiKeyAuthRequestParameters@ object that contains the authorization parameters for API key authorization.
-ucarpAPIKeyAuthParameters :: Lens' UpdateConnectionAuthRequestParameters (Maybe UpdateConnectionAPIKeyAuthRequestParameters)
-ucarpAPIKeyAuthParameters = lens _ucarpAPIKeyAuthParameters (\s a -> s {_ucarpAPIKeyAuthParameters = a})
+-- | A @UpdateConnectionApiKeyAuthRequestParameters@ object that contains the
+-- authorization parameters for API key authorization.
+updateConnectionAuthRequestParameters_apiKeyAuthParameters :: Lens.Lens' UpdateConnectionAuthRequestParameters (Prelude.Maybe UpdateConnectionApiKeyAuthRequestParameters)
+updateConnectionAuthRequestParameters_apiKeyAuthParameters = Lens.lens (\UpdateConnectionAuthRequestParameters' {apiKeyAuthParameters} -> apiKeyAuthParameters) (\s@UpdateConnectionAuthRequestParameters' {} a -> s {apiKeyAuthParameters = a} :: UpdateConnectionAuthRequestParameters)
 
--- | A @ConnectionHttpParameters@ object that contains the additional parameters to use for the connection.
-ucarpInvocationHTTPParameters :: Lens' UpdateConnectionAuthRequestParameters (Maybe ConnectionHTTPParameters)
-ucarpInvocationHTTPParameters = lens _ucarpInvocationHTTPParameters (\s a -> s {_ucarpInvocationHTTPParameters = a})
+-- | A @ConnectionHttpParameters@ object that contains the additional
+-- parameters to use for the connection.
+updateConnectionAuthRequestParameters_invocationHttpParameters :: Lens.Lens' UpdateConnectionAuthRequestParameters (Prelude.Maybe ConnectionHttpParameters)
+updateConnectionAuthRequestParameters_invocationHttpParameters = Lens.lens (\UpdateConnectionAuthRequestParameters' {invocationHttpParameters} -> invocationHttpParameters) (\s@UpdateConnectionAuthRequestParameters' {} a -> s {invocationHttpParameters = a} :: UpdateConnectionAuthRequestParameters)
 
 instance
-  Hashable
+  Prelude.Hashable
     UpdateConnectionAuthRequestParameters
 
-instance NFData UpdateConnectionAuthRequestParameters
+instance
+  Prelude.NFData
+    UpdateConnectionAuthRequestParameters
 
-instance ToJSON UpdateConnectionAuthRequestParameters where
+instance
+  Prelude.ToJSON
+    UpdateConnectionAuthRequestParameters
+  where
   toJSON UpdateConnectionAuthRequestParameters' {..} =
-    object
-      ( catMaybes
-          [ ("BasicAuthParameters" .=)
-              <$> _ucarpBasicAuthParameters,
-            ("OAuthParameters" .=) <$> _ucarpOAuthParameters,
-            ("ApiKeyAuthParameters" .=)
-              <$> _ucarpAPIKeyAuthParameters,
-            ("InvocationHttpParameters" .=)
-              <$> _ucarpInvocationHTTPParameters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("BasicAuthParameters" Prelude..=)
+              Prelude.<$> basicAuthParameters,
+            ("OAuthParameters" Prelude..=)
+              Prelude.<$> oAuthParameters,
+            ("ApiKeyAuthParameters" Prelude..=)
+              Prelude.<$> apiKeyAuthParameters,
+            ("InvocationHttpParameters" Prelude..=)
+              Prelude.<$> invocationHttpParameters
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists your archives. You can either list all the archives or you can provide a prefix to match to the archive names. Filter parameters are exclusive.
+-- Lists your archives. You can either list all the archives or you can
+-- provide a prefix to match to the archive names. Filter parameters are
+-- exclusive.
 module Network.AWS.CloudWatchEvents.ListArchives
   ( -- * Creating a Request
-    listArchives,
-    ListArchives,
+    ListArchives (..),
+    newListArchives,
 
     -- * Request Lenses
-    laNextToken,
-    laEventSourceARN,
-    laState,
-    laNamePrefix,
-    laLimit,
+    listArchives_nextToken,
+    listArchives_eventSourceArn,
+    listArchives_state,
+    listArchives_namePrefix,
+    listArchives_limit,
 
     -- * Destructuring the Response
-    listArchivesResponse,
-    ListArchivesResponse,
+    ListArchivesResponse (..),
+    newListArchivesResponse,
 
     -- * Response Lenses
-    larrsNextToken,
-    larrsArchives,
-    larrsResponseStatus,
+    listArchivesResponse_nextToken,
+    listArchivesResponse_archives,
+    listArchivesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.Archive
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listArchives' smart constructor.
+-- | /See:/ 'newListArchives' smart constructor.
 data ListArchives = ListArchives'
-  { _laNextToken ::
-      !(Maybe Text),
-    _laEventSourceARN :: !(Maybe Text),
-    _laState :: !(Maybe ArchiveState),
-    _laNamePrefix :: !(Maybe Text),
-    _laLimit :: !(Maybe Nat)
+  { -- | The token returned by a previous call to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the event source associated with the archive.
+    eventSourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the archive.
+    state :: Prelude.Maybe ArchiveState,
+    -- | A name prefix to filter the archives returned. Only archives with name
+    -- that match the prefix are returned.
+    namePrefix :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListArchives' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListArchives' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laNextToken' - The token returned by a previous call to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laEventSourceARN' - The ARN of the event source associated with the archive.
+-- 'nextToken', 'listArchives_nextToken' - The token returned by a previous call to retrieve the next set of
+-- results.
 --
--- * 'laState' - The state of the archive.
+-- 'eventSourceArn', 'listArchives_eventSourceArn' - The ARN of the event source associated with the archive.
 --
--- * 'laNamePrefix' - A name prefix to filter the archives returned. Only archives with name that match the prefix are returned.
+-- 'state', 'listArchives_state' - The state of the archive.
 --
--- * 'laLimit' - The maximum number of results to return.
-listArchives ::
+-- 'namePrefix', 'listArchives_namePrefix' - A name prefix to filter the archives returned. Only archives with name
+-- that match the prefix are returned.
+--
+-- 'limit', 'listArchives_limit' - The maximum number of results to return.
+newListArchives ::
   ListArchives
-listArchives =
+newListArchives =
   ListArchives'
-    { _laNextToken = Nothing,
-      _laEventSourceARN = Nothing,
-      _laState = Nothing,
-      _laNamePrefix = Nothing,
-      _laLimit = Nothing
+    { nextToken = Prelude.Nothing,
+      eventSourceArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      namePrefix = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | The token returned by a previous call to retrieve the next set of results.
-laNextToken :: Lens' ListArchives (Maybe Text)
-laNextToken = lens _laNextToken (\s a -> s {_laNextToken = a})
+-- | The token returned by a previous call to retrieve the next set of
+-- results.
+listArchives_nextToken :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Text)
+listArchives_nextToken = Lens.lens (\ListArchives' {nextToken} -> nextToken) (\s@ListArchives' {} a -> s {nextToken = a} :: ListArchives)
 
 -- | The ARN of the event source associated with the archive.
-laEventSourceARN :: Lens' ListArchives (Maybe Text)
-laEventSourceARN = lens _laEventSourceARN (\s a -> s {_laEventSourceARN = a})
+listArchives_eventSourceArn :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Text)
+listArchives_eventSourceArn = Lens.lens (\ListArchives' {eventSourceArn} -> eventSourceArn) (\s@ListArchives' {} a -> s {eventSourceArn = a} :: ListArchives)
 
 -- | The state of the archive.
-laState :: Lens' ListArchives (Maybe ArchiveState)
-laState = lens _laState (\s a -> s {_laState = a})
+listArchives_state :: Lens.Lens' ListArchives (Prelude.Maybe ArchiveState)
+listArchives_state = Lens.lens (\ListArchives' {state} -> state) (\s@ListArchives' {} a -> s {state = a} :: ListArchives)
 
--- | A name prefix to filter the archives returned. Only archives with name that match the prefix are returned.
-laNamePrefix :: Lens' ListArchives (Maybe Text)
-laNamePrefix = lens _laNamePrefix (\s a -> s {_laNamePrefix = a})
+-- | A name prefix to filter the archives returned. Only archives with name
+-- that match the prefix are returned.
+listArchives_namePrefix :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Text)
+listArchives_namePrefix = Lens.lens (\ListArchives' {namePrefix} -> namePrefix) (\s@ListArchives' {} a -> s {namePrefix = a} :: ListArchives)
 
 -- | The maximum number of results to return.
-laLimit :: Lens' ListArchives (Maybe Natural)
-laLimit = lens _laLimit (\s a -> s {_laLimit = a}) . mapping _Nat
+listArchives_limit :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Natural)
+listArchives_limit = Lens.lens (\ListArchives' {limit} -> limit) (\s@ListArchives' {} a -> s {limit = a} :: ListArchives) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListArchives where
+instance Prelude.AWSRequest ListArchives where
   type Rs ListArchives = ListArchivesResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListArchivesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Archives" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Archives" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListArchives
+instance Prelude.Hashable ListArchives
 
-instance NFData ListArchives
+instance Prelude.NFData ListArchives
 
-instance ToHeaders ListArchives where
+instance Prelude.ToHeaders ListArchives where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.ListArchives" :: ByteString),
+              Prelude.=# ("AWSEvents.ListArchives" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListArchives where
+instance Prelude.ToJSON ListArchives where
   toJSON ListArchives' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _laNextToken,
-            ("EventSourceArn" .=) <$> _laEventSourceARN,
-            ("State" .=) <$> _laState,
-            ("NamePrefix" .=) <$> _laNamePrefix,
-            ("Limit" .=) <$> _laLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("EventSourceArn" Prelude..=)
+              Prelude.<$> eventSourceArn,
+            ("State" Prelude..=) Prelude.<$> state,
+            ("NamePrefix" Prelude..=) Prelude.<$> namePrefix,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListArchives where
-  toPath = const "/"
+instance Prelude.ToPath ListArchives where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListArchives where
-  toQuery = const mempty
+instance Prelude.ToQuery ListArchives where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listArchivesResponse' smart constructor.
+-- | /See:/ 'newListArchivesResponse' smart constructor.
 data ListArchivesResponse = ListArchivesResponse'
-  { _larrsNextToken ::
-      !(Maybe Text),
-    _larrsArchives ::
-      !(Maybe [Archive]),
-    _larrsResponseStatus :: !Int
+  { -- | The token returned by a previous call to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @Archive@ objects that include details about an archive.
+    archives :: Prelude.Maybe [Archive],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListArchivesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListArchivesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'larrsNextToken' - The token returned by a previous call to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'larrsArchives' - An array of @Archive@ objects that include details about an archive.
+-- 'nextToken', 'listArchivesResponse_nextToken' - The token returned by a previous call to retrieve the next set of
+-- results.
 --
--- * 'larrsResponseStatus' - -- | The response status code.
-listArchivesResponse ::
-  -- | 'larrsResponseStatus'
-  Int ->
+-- 'archives', 'listArchivesResponse_archives' - An array of @Archive@ objects that include details about an archive.
+--
+-- 'httpStatus', 'listArchivesResponse_httpStatus' - The response's http status code.
+newListArchivesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListArchivesResponse
-listArchivesResponse pResponseStatus_ =
+newListArchivesResponse pHttpStatus_ =
   ListArchivesResponse'
-    { _larrsNextToken = Nothing,
-      _larrsArchives = Nothing,
-      _larrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      archives = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token returned by a previous call to retrieve the next set of results.
-larrsNextToken :: Lens' ListArchivesResponse (Maybe Text)
-larrsNextToken = lens _larrsNextToken (\s a -> s {_larrsNextToken = a})
+-- | The token returned by a previous call to retrieve the next set of
+-- results.
+listArchivesResponse_nextToken :: Lens.Lens' ListArchivesResponse (Prelude.Maybe Prelude.Text)
+listArchivesResponse_nextToken = Lens.lens (\ListArchivesResponse' {nextToken} -> nextToken) (\s@ListArchivesResponse' {} a -> s {nextToken = a} :: ListArchivesResponse)
 
 -- | An array of @Archive@ objects that include details about an archive.
-larrsArchives :: Lens' ListArchivesResponse [Archive]
-larrsArchives = lens _larrsArchives (\s a -> s {_larrsArchives = a}) . _Default . _Coerce
+listArchivesResponse_archives :: Lens.Lens' ListArchivesResponse (Prelude.Maybe [Archive])
+listArchivesResponse_archives = Lens.lens (\ListArchivesResponse' {archives} -> archives) (\s@ListArchivesResponse' {} a -> s {archives = a} :: ListArchivesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-larrsResponseStatus :: Lens' ListArchivesResponse Int
-larrsResponseStatus = lens _larrsResponseStatus (\s a -> s {_larrsResponseStatus = a})
+-- | The response's http status code.
+listArchivesResponse_httpStatus :: Lens.Lens' ListArchivesResponse Prelude.Int
+listArchivesResponse_httpStatus = Lens.lens (\ListArchivesResponse' {httpStatus} -> httpStatus) (\s@ListArchivesResponse' {} a -> s {httpStatus = a} :: ListArchivesResponse)
 
-instance NFData ListArchivesResponse
+instance Prelude.NFData ListArchivesResponse

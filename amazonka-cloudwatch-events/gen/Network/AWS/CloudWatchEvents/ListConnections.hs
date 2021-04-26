@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,172 +24,194 @@
 -- Retrieves a list of connections from the account.
 module Network.AWS.CloudWatchEvents.ListConnections
   ( -- * Creating a Request
-    listConnections,
-    ListConnections,
+    ListConnections (..),
+    newListConnections,
 
     -- * Request Lenses
-    lcNextToken,
-    lcConnectionState,
-    lcNamePrefix,
-    lcLimit,
+    listConnections_nextToken,
+    listConnections_connectionState,
+    listConnections_namePrefix,
+    listConnections_limit,
 
     -- * Destructuring the Response
-    listConnectionsResponse,
-    ListConnectionsResponse,
+    ListConnectionsResponse (..),
+    newListConnectionsResponse,
 
     -- * Response Lenses
-    lcrrsNextToken,
-    lcrrsConnections,
-    lcrrsResponseStatus,
+    listConnectionsResponse_nextToken,
+    listConnectionsResponse_connections,
+    listConnectionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.Connection
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listConnections' smart constructor.
+-- | /See:/ 'newListConnections' smart constructor.
 data ListConnections = ListConnections'
-  { _lcNextToken ::
-      !(Maybe Text),
-    _lcConnectionState ::
-      !(Maybe ConnectionState),
-    _lcNamePrefix :: !(Maybe Text),
-    _lcLimit :: !(Maybe Nat)
+  { -- | The token returned by a previous call to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The state of the connection.
+    connectionState :: Prelude.Maybe ConnectionState,
+    -- | A name prefix to filter results returned. Only connections with a name
+    -- that starts with the prefix are returned.
+    namePrefix :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of connections to return.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListConnections' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListConnections' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcNextToken' - The token returned by a previous call to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcConnectionState' - The state of the connection.
+-- 'nextToken', 'listConnections_nextToken' - The token returned by a previous call to retrieve the next set of
+-- results.
 --
--- * 'lcNamePrefix' - A name prefix to filter results returned. Only connections with a name that starts with the prefix are returned.
+-- 'connectionState', 'listConnections_connectionState' - The state of the connection.
 --
--- * 'lcLimit' - The maximum number of connections to return.
-listConnections ::
+-- 'namePrefix', 'listConnections_namePrefix' - A name prefix to filter results returned. Only connections with a name
+-- that starts with the prefix are returned.
+--
+-- 'limit', 'listConnections_limit' - The maximum number of connections to return.
+newListConnections ::
   ListConnections
-listConnections =
+newListConnections =
   ListConnections'
-    { _lcNextToken = Nothing,
-      _lcConnectionState = Nothing,
-      _lcNamePrefix = Nothing,
-      _lcLimit = Nothing
+    { nextToken = Prelude.Nothing,
+      connectionState = Prelude.Nothing,
+      namePrefix = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | The token returned by a previous call to retrieve the next set of results.
-lcNextToken :: Lens' ListConnections (Maybe Text)
-lcNextToken = lens _lcNextToken (\s a -> s {_lcNextToken = a})
+-- | The token returned by a previous call to retrieve the next set of
+-- results.
+listConnections_nextToken :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
+listConnections_nextToken = Lens.lens (\ListConnections' {nextToken} -> nextToken) (\s@ListConnections' {} a -> s {nextToken = a} :: ListConnections)
 
 -- | The state of the connection.
-lcConnectionState :: Lens' ListConnections (Maybe ConnectionState)
-lcConnectionState = lens _lcConnectionState (\s a -> s {_lcConnectionState = a})
+listConnections_connectionState :: Lens.Lens' ListConnections (Prelude.Maybe ConnectionState)
+listConnections_connectionState = Lens.lens (\ListConnections' {connectionState} -> connectionState) (\s@ListConnections' {} a -> s {connectionState = a} :: ListConnections)
 
--- | A name prefix to filter results returned. Only connections with a name that starts with the prefix are returned.
-lcNamePrefix :: Lens' ListConnections (Maybe Text)
-lcNamePrefix = lens _lcNamePrefix (\s a -> s {_lcNamePrefix = a})
+-- | A name prefix to filter results returned. Only connections with a name
+-- that starts with the prefix are returned.
+listConnections_namePrefix :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
+listConnections_namePrefix = Lens.lens (\ListConnections' {namePrefix} -> namePrefix) (\s@ListConnections' {} a -> s {namePrefix = a} :: ListConnections)
 
 -- | The maximum number of connections to return.
-lcLimit :: Lens' ListConnections (Maybe Natural)
-lcLimit = lens _lcLimit (\s a -> s {_lcLimit = a}) . mapping _Nat
+listConnections_limit :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Natural)
+listConnections_limit = Lens.lens (\ListConnections' {limit} -> limit) (\s@ListConnections' {} a -> s {limit = a} :: ListConnections) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListConnections where
+instance Prelude.AWSRequest ListConnections where
   type Rs ListConnections = ListConnectionsResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListConnectionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Connections" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Connections"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListConnections
+instance Prelude.Hashable ListConnections
 
-instance NFData ListConnections
+instance Prelude.NFData ListConnections
 
-instance ToHeaders ListConnections where
+instance Prelude.ToHeaders ListConnections where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.ListConnections" :: ByteString),
+              Prelude.=# ("AWSEvents.ListConnections" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListConnections where
+instance Prelude.ToJSON ListConnections where
   toJSON ListConnections' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lcNextToken,
-            ("ConnectionState" .=) <$> _lcConnectionState,
-            ("NamePrefix" .=) <$> _lcNamePrefix,
-            ("Limit" .=) <$> _lcLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("ConnectionState" Prelude..=)
+              Prelude.<$> connectionState,
+            ("NamePrefix" Prelude..=) Prelude.<$> namePrefix,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListConnections where
-  toPath = const "/"
+instance Prelude.ToPath ListConnections where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListConnections where
-  toQuery = const mempty
+instance Prelude.ToQuery ListConnections where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listConnectionsResponse' smart constructor.
+-- | /See:/ 'newListConnectionsResponse' smart constructor.
 data ListConnectionsResponse = ListConnectionsResponse'
-  { _lcrrsNextToken ::
-      !(Maybe Text),
-    _lcrrsConnections ::
-      !(Maybe [Connection]),
-    _lcrrsResponseStatus ::
-      !Int
+  { -- | A token you can use in a subsequent request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of connections objects that include details about the
+    -- connections.
+    connections :: Prelude.Maybe [Connection],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListConnectionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListConnectionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcrrsNextToken' - A token you can use in a subsequent request to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcrrsConnections' - An array of connections objects that include details about the connections.
+-- 'nextToken', 'listConnectionsResponse_nextToken' - A token you can use in a subsequent request to retrieve the next set of
+-- results.
 --
--- * 'lcrrsResponseStatus' - -- | The response status code.
-listConnectionsResponse ::
-  -- | 'lcrrsResponseStatus'
-  Int ->
+-- 'connections', 'listConnectionsResponse_connections' - An array of connections objects that include details about the
+-- connections.
+--
+-- 'httpStatus', 'listConnectionsResponse_httpStatus' - The response's http status code.
+newListConnectionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListConnectionsResponse
-listConnectionsResponse pResponseStatus_ =
+newListConnectionsResponse pHttpStatus_ =
   ListConnectionsResponse'
-    { _lcrrsNextToken = Nothing,
-      _lcrrsConnections = Nothing,
-      _lcrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      connections = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A token you can use in a subsequent request to retrieve the next set of results.
-lcrrsNextToken :: Lens' ListConnectionsResponse (Maybe Text)
-lcrrsNextToken = lens _lcrrsNextToken (\s a -> s {_lcrrsNextToken = a})
+-- | A token you can use in a subsequent request to retrieve the next set of
+-- results.
+listConnectionsResponse_nextToken :: Lens.Lens' ListConnectionsResponse (Prelude.Maybe Prelude.Text)
+listConnectionsResponse_nextToken = Lens.lens (\ListConnectionsResponse' {nextToken} -> nextToken) (\s@ListConnectionsResponse' {} a -> s {nextToken = a} :: ListConnectionsResponse)
 
--- | An array of connections objects that include details about the connections.
-lcrrsConnections :: Lens' ListConnectionsResponse [Connection]
-lcrrsConnections = lens _lcrrsConnections (\s a -> s {_lcrrsConnections = a}) . _Default . _Coerce
+-- | An array of connections objects that include details about the
+-- connections.
+listConnectionsResponse_connections :: Lens.Lens' ListConnectionsResponse (Prelude.Maybe [Connection])
+listConnectionsResponse_connections = Lens.lens (\ListConnectionsResponse' {connections} -> connections) (\s@ListConnectionsResponse' {} a -> s {connections = a} :: ListConnectionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lcrrsResponseStatus :: Lens' ListConnectionsResponse Int
-lcrrsResponseStatus = lens _lcrrsResponseStatus (\s a -> s {_lcrrsResponseStatus = a})
+-- | The response's http status code.
+listConnectionsResponse_httpStatus :: Lens.Lens' ListConnectionsResponse Prelude.Int
+listConnectionsResponse_httpStatus = Lens.lens (\ListConnectionsResponse' {httpStatus} -> httpStatus) (\s@ListConnectionsResponse' {} a -> s {httpStatus = a} :: ListConnectionsResponse)
 
-instance NFData ListConnectionsResponse
+instance Prelude.NFData ListConnectionsResponse

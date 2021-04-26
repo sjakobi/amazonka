@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,212 +24,217 @@
 -- Updates settings for a connection.
 module Network.AWS.CloudWatchEvents.UpdateConnection
   ( -- * Creating a Request
-    updateConnection,
-    UpdateConnection,
+    UpdateConnection (..),
+    newUpdateConnection,
 
     -- * Request Lenses
-    ucAuthorizationType,
-    ucDescription,
-    ucAuthParameters,
-    ucName,
+    updateConnection_authorizationType,
+    updateConnection_description,
+    updateConnection_authParameters,
+    updateConnection_name,
 
     -- * Destructuring the Response
-    updateConnectionResponse,
-    UpdateConnectionResponse,
+    UpdateConnectionResponse (..),
+    newUpdateConnectionResponse,
 
     -- * Response Lenses
-    ucrrsCreationTime,
-    ucrrsConnectionState,
-    ucrrsConnectionARN,
-    ucrrsLastModifiedTime,
-    ucrrsLastAuthorizedTime,
-    ucrrsResponseStatus,
+    updateConnectionResponse_creationTime,
+    updateConnectionResponse_connectionState,
+    updateConnectionResponse_connectionArn,
+    updateConnectionResponse_lastModifiedTime,
+    updateConnectionResponse_lastAuthorizedTime,
+    updateConnectionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.ConnectionState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateConnection' smart constructor.
+-- | /See:/ 'newUpdateConnection' smart constructor.
 data UpdateConnection = UpdateConnection'
-  { _ucAuthorizationType ::
-      !(Maybe ConnectionAuthorizationType),
-    _ucDescription :: !(Maybe Text),
-    _ucAuthParameters ::
-      !( Maybe
-           UpdateConnectionAuthRequestParameters
-       ),
-    _ucName :: !Text
+  { -- | The type of authorization to use for the connection.
+    authorizationType :: Prelude.Maybe ConnectionAuthorizationType,
+    -- | A description for the connection.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The authorization parameters to use for the connection.
+    authParameters :: Prelude.Maybe UpdateConnectionAuthRequestParameters,
+    -- | The name of the connection to update.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConnection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConnection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucAuthorizationType' - The type of authorization to use for the connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucDescription' - A description for the connection.
+-- 'authorizationType', 'updateConnection_authorizationType' - The type of authorization to use for the connection.
 --
--- * 'ucAuthParameters' - The authorization parameters to use for the connection.
+-- 'description', 'updateConnection_description' - A description for the connection.
 --
--- * 'ucName' - The name of the connection to update.
-updateConnection ::
-  -- | 'ucName'
-  Text ->
+-- 'authParameters', 'updateConnection_authParameters' - The authorization parameters to use for the connection.
+--
+-- 'name', 'updateConnection_name' - The name of the connection to update.
+newUpdateConnection ::
+  -- | 'name'
+  Prelude.Text ->
   UpdateConnection
-updateConnection pName_ =
+newUpdateConnection pName_ =
   UpdateConnection'
-    { _ucAuthorizationType = Nothing,
-      _ucDescription = Nothing,
-      _ucAuthParameters = Nothing,
-      _ucName = pName_
+    { authorizationType =
+        Prelude.Nothing,
+      description = Prelude.Nothing,
+      authParameters = Prelude.Nothing,
+      name = pName_
     }
 
 -- | The type of authorization to use for the connection.
-ucAuthorizationType :: Lens' UpdateConnection (Maybe ConnectionAuthorizationType)
-ucAuthorizationType = lens _ucAuthorizationType (\s a -> s {_ucAuthorizationType = a})
+updateConnection_authorizationType :: Lens.Lens' UpdateConnection (Prelude.Maybe ConnectionAuthorizationType)
+updateConnection_authorizationType = Lens.lens (\UpdateConnection' {authorizationType} -> authorizationType) (\s@UpdateConnection' {} a -> s {authorizationType = a} :: UpdateConnection)
 
 -- | A description for the connection.
-ucDescription :: Lens' UpdateConnection (Maybe Text)
-ucDescription = lens _ucDescription (\s a -> s {_ucDescription = a})
+updateConnection_description :: Lens.Lens' UpdateConnection (Prelude.Maybe Prelude.Text)
+updateConnection_description = Lens.lens (\UpdateConnection' {description} -> description) (\s@UpdateConnection' {} a -> s {description = a} :: UpdateConnection)
 
 -- | The authorization parameters to use for the connection.
-ucAuthParameters :: Lens' UpdateConnection (Maybe UpdateConnectionAuthRequestParameters)
-ucAuthParameters = lens _ucAuthParameters (\s a -> s {_ucAuthParameters = a})
+updateConnection_authParameters :: Lens.Lens' UpdateConnection (Prelude.Maybe UpdateConnectionAuthRequestParameters)
+updateConnection_authParameters = Lens.lens (\UpdateConnection' {authParameters} -> authParameters) (\s@UpdateConnection' {} a -> s {authParameters = a} :: UpdateConnection)
 
 -- | The name of the connection to update.
-ucName :: Lens' UpdateConnection Text
-ucName = lens _ucName (\s a -> s {_ucName = a})
+updateConnection_name :: Lens.Lens' UpdateConnection Prelude.Text
+updateConnection_name = Lens.lens (\UpdateConnection' {name} -> name) (\s@UpdateConnection' {} a -> s {name = a} :: UpdateConnection)
 
-instance AWSRequest UpdateConnection where
+instance Prelude.AWSRequest UpdateConnection where
   type Rs UpdateConnection = UpdateConnectionResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateConnectionResponse'
-            <$> (x .?> "CreationTime")
-            <*> (x .?> "ConnectionState")
-            <*> (x .?> "ConnectionArn")
-            <*> (x .?> "LastModifiedTime")
-            <*> (x .?> "LastAuthorizedTime")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "ConnectionState")
+            Prelude.<*> (x Prelude..?> "ConnectionArn")
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (x Prelude..?> "LastAuthorizedTime")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateConnection
+instance Prelude.Hashable UpdateConnection
 
-instance NFData UpdateConnection
+instance Prelude.NFData UpdateConnection
 
-instance ToHeaders UpdateConnection where
+instance Prelude.ToHeaders UpdateConnection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.UpdateConnection" :: ByteString),
+              Prelude.=# ("AWSEvents.UpdateConnection" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateConnection where
+instance Prelude.ToJSON UpdateConnection where
   toJSON UpdateConnection' {..} =
-    object
-      ( catMaybes
-          [ ("AuthorizationType" .=) <$> _ucAuthorizationType,
-            ("Description" .=) <$> _ucDescription,
-            ("AuthParameters" .=) <$> _ucAuthParameters,
-            Just ("Name" .= _ucName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AuthorizationType" Prelude..=)
+              Prelude.<$> authorizationType,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("AuthParameters" Prelude..=)
+              Prelude.<$> authParameters,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath UpdateConnection where
-  toPath = const "/"
+instance Prelude.ToPath UpdateConnection where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateConnection where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateConnection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateConnectionResponse' smart constructor.
+-- | /See:/ 'newUpdateConnectionResponse' smart constructor.
 data UpdateConnectionResponse = UpdateConnectionResponse'
-  { _ucrrsCreationTime ::
-      !(Maybe POSIX),
-    _ucrrsConnectionState ::
-      !( Maybe
-           ConnectionState
-       ),
-    _ucrrsConnectionARN ::
-      !(Maybe Text),
-    _ucrrsLastModifiedTime ::
-      !(Maybe POSIX),
-    _ucrrsLastAuthorizedTime ::
-      !(Maybe POSIX),
-    _ucrrsResponseStatus ::
-      !Int
+  { -- | A time stamp for the time that the connection was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The state of the connection that was updated.
+    connectionState :: Prelude.Maybe ConnectionState,
+    -- | The ARN of the connection that was updated.
+    connectionArn :: Prelude.Maybe Prelude.Text,
+    -- | A time stamp for the time that the connection was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A time stamp for the time that the connection was last authorized.
+    lastAuthorizedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConnectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConnectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucrrsCreationTime' - A time stamp for the time that the connection was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucrrsConnectionState' - The state of the connection that was updated.
+-- 'creationTime', 'updateConnectionResponse_creationTime' - A time stamp for the time that the connection was created.
 --
--- * 'ucrrsConnectionARN' - The ARN of the connection that was updated.
+-- 'connectionState', 'updateConnectionResponse_connectionState' - The state of the connection that was updated.
 --
--- * 'ucrrsLastModifiedTime' - A time stamp for the time that the connection was last modified.
+-- 'connectionArn', 'updateConnectionResponse_connectionArn' - The ARN of the connection that was updated.
 --
--- * 'ucrrsLastAuthorizedTime' - A time stamp for the time that the connection was last authorized.
+-- 'lastModifiedTime', 'updateConnectionResponse_lastModifiedTime' - A time stamp for the time that the connection was last modified.
 --
--- * 'ucrrsResponseStatus' - -- | The response status code.
-updateConnectionResponse ::
-  -- | 'ucrrsResponseStatus'
-  Int ->
+-- 'lastAuthorizedTime', 'updateConnectionResponse_lastAuthorizedTime' - A time stamp for the time that the connection was last authorized.
+--
+-- 'httpStatus', 'updateConnectionResponse_httpStatus' - The response's http status code.
+newUpdateConnectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateConnectionResponse
-updateConnectionResponse pResponseStatus_ =
+newUpdateConnectionResponse pHttpStatus_ =
   UpdateConnectionResponse'
-    { _ucrrsCreationTime =
-        Nothing,
-      _ucrrsConnectionState = Nothing,
-      _ucrrsConnectionARN = Nothing,
-      _ucrrsLastModifiedTime = Nothing,
-      _ucrrsLastAuthorizedTime = Nothing,
-      _ucrrsResponseStatus = pResponseStatus_
+    { creationTime =
+        Prelude.Nothing,
+      connectionState = Prelude.Nothing,
+      connectionArn = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      lastAuthorizedTime = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A time stamp for the time that the connection was created.
-ucrrsCreationTime :: Lens' UpdateConnectionResponse (Maybe UTCTime)
-ucrrsCreationTime = lens _ucrrsCreationTime (\s a -> s {_ucrrsCreationTime = a}) . mapping _Time
+updateConnectionResponse_creationTime :: Lens.Lens' UpdateConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+updateConnectionResponse_creationTime = Lens.lens (\UpdateConnectionResponse' {creationTime} -> creationTime) (\s@UpdateConnectionResponse' {} a -> s {creationTime = a} :: UpdateConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The state of the connection that was updated.
-ucrrsConnectionState :: Lens' UpdateConnectionResponse (Maybe ConnectionState)
-ucrrsConnectionState = lens _ucrrsConnectionState (\s a -> s {_ucrrsConnectionState = a})
+updateConnectionResponse_connectionState :: Lens.Lens' UpdateConnectionResponse (Prelude.Maybe ConnectionState)
+updateConnectionResponse_connectionState = Lens.lens (\UpdateConnectionResponse' {connectionState} -> connectionState) (\s@UpdateConnectionResponse' {} a -> s {connectionState = a} :: UpdateConnectionResponse)
 
 -- | The ARN of the connection that was updated.
-ucrrsConnectionARN :: Lens' UpdateConnectionResponse (Maybe Text)
-ucrrsConnectionARN = lens _ucrrsConnectionARN (\s a -> s {_ucrrsConnectionARN = a})
+updateConnectionResponse_connectionArn :: Lens.Lens' UpdateConnectionResponse (Prelude.Maybe Prelude.Text)
+updateConnectionResponse_connectionArn = Lens.lens (\UpdateConnectionResponse' {connectionArn} -> connectionArn) (\s@UpdateConnectionResponse' {} a -> s {connectionArn = a} :: UpdateConnectionResponse)
 
 -- | A time stamp for the time that the connection was last modified.
-ucrrsLastModifiedTime :: Lens' UpdateConnectionResponse (Maybe UTCTime)
-ucrrsLastModifiedTime = lens _ucrrsLastModifiedTime (\s a -> s {_ucrrsLastModifiedTime = a}) . mapping _Time
+updateConnectionResponse_lastModifiedTime :: Lens.Lens' UpdateConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+updateConnectionResponse_lastModifiedTime = Lens.lens (\UpdateConnectionResponse' {lastModifiedTime} -> lastModifiedTime) (\s@UpdateConnectionResponse' {} a -> s {lastModifiedTime = a} :: UpdateConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | A time stamp for the time that the connection was last authorized.
-ucrrsLastAuthorizedTime :: Lens' UpdateConnectionResponse (Maybe UTCTime)
-ucrrsLastAuthorizedTime = lens _ucrrsLastAuthorizedTime (\s a -> s {_ucrrsLastAuthorizedTime = a}) . mapping _Time
+updateConnectionResponse_lastAuthorizedTime :: Lens.Lens' UpdateConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+updateConnectionResponse_lastAuthorizedTime = Lens.lens (\UpdateConnectionResponse' {lastAuthorizedTime} -> lastAuthorizedTime) (\s@UpdateConnectionResponse' {} a -> s {lastAuthorizedTime = a} :: UpdateConnectionResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-ucrrsResponseStatus :: Lens' UpdateConnectionResponse Int
-ucrrsResponseStatus = lens _ucrrsResponseStatus (\s a -> s {_ucrrsResponseStatus = a})
+-- | The response's http status code.
+updateConnectionResponse_httpStatus :: Lens.Lens' UpdateConnectionResponse Prelude.Int
+updateConnectionResponse_httpStatus = Lens.lens (\UpdateConnectionResponse' {httpStatus} -> httpStatus) (\s@UpdateConnectionResponse' {} a -> s {httpStatus = a} :: UpdateConnectionResponse)
 
-instance NFData UpdateConnectionResponse
+instance Prelude.NFData UpdateConnectionResponse

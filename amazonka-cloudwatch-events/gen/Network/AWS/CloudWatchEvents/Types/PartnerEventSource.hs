@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.PartnerEventSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A partner event source is created by an SaaS partner. If a customer creates a partner event bus that matches this event source, that AWS account can receive events from the partner's applications or services.
+-- | A partner event source is created by an SaaS partner. If a customer
+-- creates a partner event bus that matches this event source, that AWS
+-- account can receive events from the partner\'s applications or services.
 --
---
---
--- /See:/ 'partnerEventSource' smart constructor.
+-- /See:/ 'newPartnerEventSource' smart constructor.
 data PartnerEventSource = PartnerEventSource'
-  { _pesARN ::
-      !(Maybe Text),
-    _pesName :: !(Maybe Text)
+  { -- | The ARN of the partner event source.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the partner event source.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PartnerEventSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PartnerEventSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pesARN' - The ARN of the partner event source.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pesName' - The name of the partner event source.
-partnerEventSource ::
+-- 'arn', 'partnerEventSource_arn' - The ARN of the partner event source.
+--
+-- 'name', 'partnerEventSource_name' - The name of the partner event source.
+newPartnerEventSource ::
   PartnerEventSource
-partnerEventSource =
+newPartnerEventSource =
   PartnerEventSource'
-    { _pesARN = Nothing,
-      _pesName = Nothing
+    { arn = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The ARN of the partner event source.
-pesARN :: Lens' PartnerEventSource (Maybe Text)
-pesARN = lens _pesARN (\s a -> s {_pesARN = a})
+partnerEventSource_arn :: Lens.Lens' PartnerEventSource (Prelude.Maybe Prelude.Text)
+partnerEventSource_arn = Lens.lens (\PartnerEventSource' {arn} -> arn) (\s@PartnerEventSource' {} a -> s {arn = a} :: PartnerEventSource)
 
 -- | The name of the partner event source.
-pesName :: Lens' PartnerEventSource (Maybe Text)
-pesName = lens _pesName (\s a -> s {_pesName = a})
+partnerEventSource_name :: Lens.Lens' PartnerEventSource (Prelude.Maybe Prelude.Text)
+partnerEventSource_name = Lens.lens (\PartnerEventSource' {name} -> name) (\s@PartnerEventSource' {} a -> s {name = a} :: PartnerEventSource)
 
-instance FromJSON PartnerEventSource where
+instance Prelude.FromJSON PartnerEventSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PartnerEventSource"
       ( \x ->
           PartnerEventSource'
-            <$> (x .:? "Arn") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable PartnerEventSource
+instance Prelude.Hashable PartnerEventSource
 
-instance NFData PartnerEventSource
+instance Prelude.NFData PartnerEventSource

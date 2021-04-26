@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists your replays. You can either list all the replays or you can provide a prefix to match to the replay names. Filter parameters are exclusive.
+-- Lists your replays. You can either list all the replays or you can
+-- provide a prefix to match to the replay names. Filter parameters are
+-- exclusive.
 module Network.AWS.CloudWatchEvents.ListReplays
   ( -- * Creating a Request
-    listReplays,
-    ListReplays,
+    ListReplays (..),
+    newListReplays,
 
     -- * Request Lenses
-    lNextToken,
-    lEventSourceARN,
-    lState,
-    lNamePrefix,
-    lLimit,
+    listReplays_nextToken,
+    listReplays_eventSourceArn,
+    listReplays_state,
+    listReplays_namePrefix,
+    listReplays_limit,
 
     -- * Destructuring the Response
-    listReplaysResponse,
-    ListReplaysResponse,
+    ListReplaysResponse (..),
+    newListReplaysResponse,
 
     -- * Response Lenses
-    lrsNextToken,
-    lrsReplays,
-    lrsResponseStatus,
+    listReplaysResponse_nextToken,
+    listReplaysResponse_replays,
+    listReplaysResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.Replay
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listReplays' smart constructor.
+-- | /See:/ 'newListReplays' smart constructor.
 data ListReplays = ListReplays'
-  { _lNextToken ::
-      !(Maybe Text),
-    _lEventSourceARN :: !(Maybe Text),
-    _lState :: !(Maybe ReplayState),
-    _lNamePrefix :: !(Maybe Text),
-    _lLimit :: !(Maybe Nat)
+  { -- | The token returned by a previous call to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the event source associated with the replay.
+    eventSourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the replay.
+    state :: Prelude.Maybe ReplayState,
+    -- | A name prefix to filter the replays returned. Only replays with name
+    -- that match the prefix are returned.
+    namePrefix :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of replays to retrieve.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListReplays' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListReplays' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lNextToken' - The token returned by a previous call to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lEventSourceARN' - The ARN of the event source associated with the replay.
+-- 'nextToken', 'listReplays_nextToken' - The token returned by a previous call to retrieve the next set of
+-- results.
 --
--- * 'lState' - The state of the replay.
+-- 'eventSourceArn', 'listReplays_eventSourceArn' - The ARN of the event source associated with the replay.
 --
--- * 'lNamePrefix' - A name prefix to filter the replays returned. Only replays with name that match the prefix are returned.
+-- 'state', 'listReplays_state' - The state of the replay.
 --
--- * 'lLimit' - The maximum number of replays to retrieve.
-listReplays ::
+-- 'namePrefix', 'listReplays_namePrefix' - A name prefix to filter the replays returned. Only replays with name
+-- that match the prefix are returned.
+--
+-- 'limit', 'listReplays_limit' - The maximum number of replays to retrieve.
+newListReplays ::
   ListReplays
-listReplays =
+newListReplays =
   ListReplays'
-    { _lNextToken = Nothing,
-      _lEventSourceARN = Nothing,
-      _lState = Nothing,
-      _lNamePrefix = Nothing,
-      _lLimit = Nothing
+    { nextToken = Prelude.Nothing,
+      eventSourceArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      namePrefix = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | The token returned by a previous call to retrieve the next set of results.
-lNextToken :: Lens' ListReplays (Maybe Text)
-lNextToken = lens _lNextToken (\s a -> s {_lNextToken = a})
+-- | The token returned by a previous call to retrieve the next set of
+-- results.
+listReplays_nextToken :: Lens.Lens' ListReplays (Prelude.Maybe Prelude.Text)
+listReplays_nextToken = Lens.lens (\ListReplays' {nextToken} -> nextToken) (\s@ListReplays' {} a -> s {nextToken = a} :: ListReplays)
 
 -- | The ARN of the event source associated with the replay.
-lEventSourceARN :: Lens' ListReplays (Maybe Text)
-lEventSourceARN = lens _lEventSourceARN (\s a -> s {_lEventSourceARN = a})
+listReplays_eventSourceArn :: Lens.Lens' ListReplays (Prelude.Maybe Prelude.Text)
+listReplays_eventSourceArn = Lens.lens (\ListReplays' {eventSourceArn} -> eventSourceArn) (\s@ListReplays' {} a -> s {eventSourceArn = a} :: ListReplays)
 
 -- | The state of the replay.
-lState :: Lens' ListReplays (Maybe ReplayState)
-lState = lens _lState (\s a -> s {_lState = a})
+listReplays_state :: Lens.Lens' ListReplays (Prelude.Maybe ReplayState)
+listReplays_state = Lens.lens (\ListReplays' {state} -> state) (\s@ListReplays' {} a -> s {state = a} :: ListReplays)
 
--- | A name prefix to filter the replays returned. Only replays with name that match the prefix are returned.
-lNamePrefix :: Lens' ListReplays (Maybe Text)
-lNamePrefix = lens _lNamePrefix (\s a -> s {_lNamePrefix = a})
+-- | A name prefix to filter the replays returned. Only replays with name
+-- that match the prefix are returned.
+listReplays_namePrefix :: Lens.Lens' ListReplays (Prelude.Maybe Prelude.Text)
+listReplays_namePrefix = Lens.lens (\ListReplays' {namePrefix} -> namePrefix) (\s@ListReplays' {} a -> s {namePrefix = a} :: ListReplays)
 
 -- | The maximum number of replays to retrieve.
-lLimit :: Lens' ListReplays (Maybe Natural)
-lLimit = lens _lLimit (\s a -> s {_lLimit = a}) . mapping _Nat
+listReplays_limit :: Lens.Lens' ListReplays (Prelude.Maybe Prelude.Natural)
+listReplays_limit = Lens.lens (\ListReplays' {limit} -> limit) (\s@ListReplays' {} a -> s {limit = a} :: ListReplays) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListReplays where
+instance Prelude.AWSRequest ListReplays where
   type Rs ListReplays = ListReplaysResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListReplaysResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Replays" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Replays" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListReplays
+instance Prelude.Hashable ListReplays
 
-instance NFData ListReplays
+instance Prelude.NFData ListReplays
 
-instance ToHeaders ListReplays where
+instance Prelude.ToHeaders ListReplays where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.ListReplays" :: ByteString),
+              Prelude.=# ("AWSEvents.ListReplays" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListReplays where
+instance Prelude.ToJSON ListReplays where
   toJSON ListReplays' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lNextToken,
-            ("EventSourceArn" .=) <$> _lEventSourceARN,
-            ("State" .=) <$> _lState,
-            ("NamePrefix" .=) <$> _lNamePrefix,
-            ("Limit" .=) <$> _lLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("EventSourceArn" Prelude..=)
+              Prelude.<$> eventSourceArn,
+            ("State" Prelude..=) Prelude.<$> state,
+            ("NamePrefix" Prelude..=) Prelude.<$> namePrefix,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListReplays where
-  toPath = const "/"
+instance Prelude.ToPath ListReplays where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListReplays where
-  toQuery = const mempty
+instance Prelude.ToQuery ListReplays where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listReplaysResponse' smart constructor.
+-- | /See:/ 'newListReplaysResponse' smart constructor.
 data ListReplaysResponse = ListReplaysResponse'
-  { _lrsNextToken ::
-      !(Maybe Text),
-    _lrsReplays ::
-      !(Maybe [Replay]),
-    _lrsResponseStatus :: !Int
+  { -- | The token returned by a previous call to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @Replay@ objects that contain information about the replay.
+    replays :: Prelude.Maybe [Replay],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListReplaysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListReplaysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrsNextToken' - The token returned by a previous call to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrsReplays' - An array of @Replay@ objects that contain information about the replay.
+-- 'nextToken', 'listReplaysResponse_nextToken' - The token returned by a previous call to retrieve the next set of
+-- results.
 --
--- * 'lrsResponseStatus' - -- | The response status code.
-listReplaysResponse ::
-  -- | 'lrsResponseStatus'
-  Int ->
+-- 'replays', 'listReplaysResponse_replays' - An array of @Replay@ objects that contain information about the replay.
+--
+-- 'httpStatus', 'listReplaysResponse_httpStatus' - The response's http status code.
+newListReplaysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListReplaysResponse
-listReplaysResponse pResponseStatus_ =
+newListReplaysResponse pHttpStatus_ =
   ListReplaysResponse'
-    { _lrsNextToken = Nothing,
-      _lrsReplays = Nothing,
-      _lrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      replays = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token returned by a previous call to retrieve the next set of results.
-lrsNextToken :: Lens' ListReplaysResponse (Maybe Text)
-lrsNextToken = lens _lrsNextToken (\s a -> s {_lrsNextToken = a})
+-- | The token returned by a previous call to retrieve the next set of
+-- results.
+listReplaysResponse_nextToken :: Lens.Lens' ListReplaysResponse (Prelude.Maybe Prelude.Text)
+listReplaysResponse_nextToken = Lens.lens (\ListReplaysResponse' {nextToken} -> nextToken) (\s@ListReplaysResponse' {} a -> s {nextToken = a} :: ListReplaysResponse)
 
 -- | An array of @Replay@ objects that contain information about the replay.
-lrsReplays :: Lens' ListReplaysResponse [Replay]
-lrsReplays = lens _lrsReplays (\s a -> s {_lrsReplays = a}) . _Default . _Coerce
+listReplaysResponse_replays :: Lens.Lens' ListReplaysResponse (Prelude.Maybe [Replay])
+listReplaysResponse_replays = Lens.lens (\ListReplaysResponse' {replays} -> replays) (\s@ListReplaysResponse' {} a -> s {replays = a} :: ListReplaysResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrsResponseStatus :: Lens' ListReplaysResponse Int
-lrsResponseStatus = lens _lrsResponseStatus (\s a -> s {_lrsResponseStatus = a})
+-- | The response's http status code.
+listReplaysResponse_httpStatus :: Lens.Lens' ListReplaysResponse Prelude.Int
+listReplaysResponse_httpStatus = Lens.lens (\ListReplaysResponse' {httpStatus} -> httpStatus) (\s@ListReplaysResponse' {} a -> s {httpStatus = a} :: ListReplaysResponse)
 
-instance NFData ListReplaysResponse
+instance Prelude.NFData ListReplaysResponse

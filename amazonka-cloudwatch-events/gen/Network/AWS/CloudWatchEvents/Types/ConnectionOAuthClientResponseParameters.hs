@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.ConnectionOAuthClientResponseParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the client response parameters for the connection when OAuth is specified as the authorization type.
+-- | Contains the client response parameters for the connection when OAuth is
+-- specified as the authorization type.
 --
---
---
--- /See:/ 'connectionOAuthClientResponseParameters' smart constructor.
-newtype ConnectionOAuthClientResponseParameters = ConnectionOAuthClientResponseParameters'
-  { _coacrpClientId ::
-      Maybe
-        Text
+-- /See:/ 'newConnectionOAuthClientResponseParameters' smart constructor.
+data ConnectionOAuthClientResponseParameters = ConnectionOAuthClientResponseParameters'
+  { -- | The client ID associated with the response to the connection request.
+    clientID :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConnectionOAuthClientResponseParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConnectionOAuthClientResponseParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'coacrpClientId' - The client ID associated with the response to the connection request.
-connectionOAuthClientResponseParameters ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'clientID', 'connectionOAuthClientResponseParameters_clientID' - The client ID associated with the response to the connection request.
+newConnectionOAuthClientResponseParameters ::
   ConnectionOAuthClientResponseParameters
-connectionOAuthClientResponseParameters =
+newConnectionOAuthClientResponseParameters =
   ConnectionOAuthClientResponseParameters'
-    { _coacrpClientId =
-        Nothing
+    { clientID =
+        Prelude.Nothing
     }
 
 -- | The client ID associated with the response to the connection request.
-coacrpClientId :: Lens' ConnectionOAuthClientResponseParameters (Maybe Text)
-coacrpClientId = lens _coacrpClientId (\s a -> s {_coacrpClientId = a})
+connectionOAuthClientResponseParameters_clientID :: Lens.Lens' ConnectionOAuthClientResponseParameters (Prelude.Maybe Prelude.Text)
+connectionOAuthClientResponseParameters_clientID = Lens.lens (\ConnectionOAuthClientResponseParameters' {clientID} -> clientID) (\s@ConnectionOAuthClientResponseParameters' {} a -> s {clientID = a} :: ConnectionOAuthClientResponseParameters)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ConnectionOAuthClientResponseParameters
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConnectionOAuthClientResponseParameters"
       ( \x ->
           ConnectionOAuthClientResponseParameters'
-            <$> (x .:? "ClientID")
+            Prelude.<$> (x Prelude..:? "ClientID")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ConnectionOAuthClientResponseParameters
 
 instance
-  NFData
+  Prelude.NFData
     ConnectionOAuthClientResponseParameters

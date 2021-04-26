@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Displays details about an event bus in your account. This can include the external AWS accounts that are permitted to write events to your default event bus, and the associated policy. For custom event buses and partner event buses, it displays the name, ARN, policy, state, and creation time.
+-- Displays details about an event bus in your account. This can include
+-- the external AWS accounts that are permitted to write events to your
+-- default event bus, and the associated policy. For custom event buses and
+-- partner event buses, it displays the name, ARN, policy, state, and
+-- creation time.
 --
+-- To enable your account to receive events from other accounts on its
+-- default event bus, use PutPermission.
 --
--- To enable your account to receive events from other accounts on its default event bus, use 'PutPermission' .
---
--- For more information about partner event buses, see 'CreateEventBus' .
+-- For more information about partner event buses, see CreateEventBus.
 module Network.AWS.CloudWatchEvents.DescribeEventBus
   ( -- * Creating a Request
-    describeEventBus,
-    DescribeEventBus,
+    DescribeEventBus (..),
+    newDescribeEventBus,
 
     -- * Request Lenses
-    debName,
+    describeEventBus_name,
 
     -- * Destructuring the Response
-    describeEventBusResponse,
-    DescribeEventBusResponse,
+    DescribeEventBusResponse (..),
+    newDescribeEventBusResponse,
 
     -- * Response Lenses
-    debrrsARN,
-    debrrsName,
-    debrrsPolicy,
-    debrrsResponseStatus,
+    describeEventBusResponse_arn,
+    describeEventBusResponse_name,
+    describeEventBusResponse_policy,
+    describeEventBusResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeEventBus' smart constructor.
-newtype DescribeEventBus = DescribeEventBus'
-  { _debName ::
-      Maybe Text
+-- | /See:/ 'newDescribeEventBus' smart constructor.
+data DescribeEventBus = DescribeEventBus'
+  { -- | The name or ARN of the event bus to show details for. If you omit this,
+    -- the default event bus is displayed.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEventBus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEventBus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'debName' - The name or ARN of the event bus to show details for. If you omit this, the default event bus is displayed.
-describeEventBus ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'describeEventBus_name' - The name or ARN of the event bus to show details for. If you omit this,
+-- the default event bus is displayed.
+newDescribeEventBus ::
   DescribeEventBus
-describeEventBus =
-  DescribeEventBus' {_debName = Nothing}
+newDescribeEventBus =
+  DescribeEventBus' {name = Prelude.Nothing}
 
--- | The name or ARN of the event bus to show details for. If you omit this, the default event bus is displayed.
-debName :: Lens' DescribeEventBus (Maybe Text)
-debName = lens _debName (\s a -> s {_debName = a})
+-- | The name or ARN of the event bus to show details for. If you omit this,
+-- the default event bus is displayed.
+describeEventBus_name :: Lens.Lens' DescribeEventBus (Prelude.Maybe Prelude.Text)
+describeEventBus_name = Lens.lens (\DescribeEventBus' {name} -> name) (\s@DescribeEventBus' {} a -> s {name = a} :: DescribeEventBus)
 
-instance AWSRequest DescribeEventBus where
+instance Prelude.AWSRequest DescribeEventBus where
   type Rs DescribeEventBus = DescribeEventBusResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEventBusResponse'
-            <$> (x .?> "Arn")
-            <*> (x .?> "Name")
-            <*> (x .?> "Policy")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "Policy")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEventBus
+instance Prelude.Hashable DescribeEventBus
 
-instance NFData DescribeEventBus
+instance Prelude.NFData DescribeEventBus
 
-instance ToHeaders DescribeEventBus where
+instance Prelude.ToHeaders DescribeEventBus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.DescribeEventBus" :: ByteString),
+              Prelude.=# ("AWSEvents.DescribeEventBus" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEventBus where
+instance Prelude.ToJSON DescribeEventBus where
   toJSON DescribeEventBus' {..} =
-    object (catMaybes [("Name" .=) <$> _debName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Name" Prelude..=) Prelude.<$> name]
+      )
 
-instance ToPath DescribeEventBus where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEventBus where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEventBus where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEventBus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEventBusResponse' smart constructor.
+-- | /See:/ 'newDescribeEventBusResponse' smart constructor.
 data DescribeEventBusResponse = DescribeEventBusResponse'
-  { _debrrsARN ::
-      !(Maybe Text),
-    _debrrsName ::
-      !(Maybe Text),
-    _debrrsPolicy ::
-      !(Maybe Text),
-    _debrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the account permitted to write events
+    -- to the current account.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the event bus. Currently, this is always @default@.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The policy that enables the external account to send events to your
+    -- account.
+    policy :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEventBusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEventBusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'debrrsARN' - The Amazon Resource Name (ARN) of the account permitted to write events to the current account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'debrrsName' - The name of the event bus. Currently, this is always @default@ .
+-- 'arn', 'describeEventBusResponse_arn' - The Amazon Resource Name (ARN) of the account permitted to write events
+-- to the current account.
 --
--- * 'debrrsPolicy' - The policy that enables the external account to send events to your account.
+-- 'name', 'describeEventBusResponse_name' - The name of the event bus. Currently, this is always @default@.
 --
--- * 'debrrsResponseStatus' - -- | The response status code.
-describeEventBusResponse ::
-  -- | 'debrrsResponseStatus'
-  Int ->
+-- 'policy', 'describeEventBusResponse_policy' - The policy that enables the external account to send events to your
+-- account.
+--
+-- 'httpStatus', 'describeEventBusResponse_httpStatus' - The response's http status code.
+newDescribeEventBusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEventBusResponse
-describeEventBusResponse pResponseStatus_ =
+newDescribeEventBusResponse pHttpStatus_ =
   DescribeEventBusResponse'
-    { _debrrsARN = Nothing,
-      _debrrsName = Nothing,
-      _debrrsPolicy = Nothing,
-      _debrrsResponseStatus = pResponseStatus_
+    { arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      policy = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) of the account permitted to write events to the current account.
-debrrsARN :: Lens' DescribeEventBusResponse (Maybe Text)
-debrrsARN = lens _debrrsARN (\s a -> s {_debrrsARN = a})
+-- | The Amazon Resource Name (ARN) of the account permitted to write events
+-- to the current account.
+describeEventBusResponse_arn :: Lens.Lens' DescribeEventBusResponse (Prelude.Maybe Prelude.Text)
+describeEventBusResponse_arn = Lens.lens (\DescribeEventBusResponse' {arn} -> arn) (\s@DescribeEventBusResponse' {} a -> s {arn = a} :: DescribeEventBusResponse)
 
--- | The name of the event bus. Currently, this is always @default@ .
-debrrsName :: Lens' DescribeEventBusResponse (Maybe Text)
-debrrsName = lens _debrrsName (\s a -> s {_debrrsName = a})
+-- | The name of the event bus. Currently, this is always @default@.
+describeEventBusResponse_name :: Lens.Lens' DescribeEventBusResponse (Prelude.Maybe Prelude.Text)
+describeEventBusResponse_name = Lens.lens (\DescribeEventBusResponse' {name} -> name) (\s@DescribeEventBusResponse' {} a -> s {name = a} :: DescribeEventBusResponse)
 
--- | The policy that enables the external account to send events to your account.
-debrrsPolicy :: Lens' DescribeEventBusResponse (Maybe Text)
-debrrsPolicy = lens _debrrsPolicy (\s a -> s {_debrrsPolicy = a})
+-- | The policy that enables the external account to send events to your
+-- account.
+describeEventBusResponse_policy :: Lens.Lens' DescribeEventBusResponse (Prelude.Maybe Prelude.Text)
+describeEventBusResponse_policy = Lens.lens (\DescribeEventBusResponse' {policy} -> policy) (\s@DescribeEventBusResponse' {} a -> s {policy = a} :: DescribeEventBusResponse)
 
--- | -- | The response status code.
-debrrsResponseStatus :: Lens' DescribeEventBusResponse Int
-debrrsResponseStatus = lens _debrrsResponseStatus (\s a -> s {_debrrsResponseStatus = a})
+-- | The response's http status code.
+describeEventBusResponse_httpStatus :: Lens.Lens' DescribeEventBusResponse Prelude.Int
+describeEventBusResponse_httpStatus = Lens.lens (\DescribeEventBusResponse' {httpStatus} -> httpStatus) (\s@DescribeEventBusResponse' {} a -> s {httpStatus = a} :: DescribeEventBusResponse)
 
-instance NFData DescribeEventBusResponse
+instance Prelude.NFData DescribeEventBusResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.UpdateConnectionOAuthClientRequestParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the OAuth authorization parameters to use for the connection.
 --
---
---
--- /See:/ 'updateConnectionOAuthClientRequestParameters' smart constructor.
+-- /See:/ 'newUpdateConnectionOAuthClientRequestParameters' smart constructor.
 data UpdateConnectionOAuthClientRequestParameters = UpdateConnectionOAuthClientRequestParameters'
-  { _ucoacrpClientSecret ::
-      !( Maybe
-           Text
-       ),
-    _ucoacrpClientId ::
-      !( Maybe
-           Text
-       )
+  { -- | The client secret assciated with the client ID to use for OAuth
+    -- authorization.
+    clientSecret :: Prelude.Maybe Prelude.Text,
+    -- | The client ID to use for OAuth authorization.
+    clientID :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConnectionOAuthClientRequestParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConnectionOAuthClientRequestParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucoacrpClientSecret' - The client secret assciated with the client ID to use for OAuth authorization.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucoacrpClientId' - The client ID to use for OAuth authorization.
-updateConnectionOAuthClientRequestParameters ::
+-- 'clientSecret', 'updateConnectionOAuthClientRequestParameters_clientSecret' - The client secret assciated with the client ID to use for OAuth
+-- authorization.
+--
+-- 'clientID', 'updateConnectionOAuthClientRequestParameters_clientID' - The client ID to use for OAuth authorization.
+newUpdateConnectionOAuthClientRequestParameters ::
   UpdateConnectionOAuthClientRequestParameters
-updateConnectionOAuthClientRequestParameters =
+newUpdateConnectionOAuthClientRequestParameters =
   UpdateConnectionOAuthClientRequestParameters'
-    { _ucoacrpClientSecret =
-        Nothing,
-      _ucoacrpClientId = Nothing
+    { clientSecret =
+        Prelude.Nothing,
+      clientID = Prelude.Nothing
     }
 
--- | The client secret assciated with the client ID to use for OAuth authorization.
-ucoacrpClientSecret :: Lens' UpdateConnectionOAuthClientRequestParameters (Maybe Text)
-ucoacrpClientSecret = lens _ucoacrpClientSecret (\s a -> s {_ucoacrpClientSecret = a})
+-- | The client secret assciated with the client ID to use for OAuth
+-- authorization.
+updateConnectionOAuthClientRequestParameters_clientSecret :: Lens.Lens' UpdateConnectionOAuthClientRequestParameters (Prelude.Maybe Prelude.Text)
+updateConnectionOAuthClientRequestParameters_clientSecret = Lens.lens (\UpdateConnectionOAuthClientRequestParameters' {clientSecret} -> clientSecret) (\s@UpdateConnectionOAuthClientRequestParameters' {} a -> s {clientSecret = a} :: UpdateConnectionOAuthClientRequestParameters)
 
 -- | The client ID to use for OAuth authorization.
-ucoacrpClientId :: Lens' UpdateConnectionOAuthClientRequestParameters (Maybe Text)
-ucoacrpClientId = lens _ucoacrpClientId (\s a -> s {_ucoacrpClientId = a})
+updateConnectionOAuthClientRequestParameters_clientID :: Lens.Lens' UpdateConnectionOAuthClientRequestParameters (Prelude.Maybe Prelude.Text)
+updateConnectionOAuthClientRequestParameters_clientID = Lens.lens (\UpdateConnectionOAuthClientRequestParameters' {clientID} -> clientID) (\s@UpdateConnectionOAuthClientRequestParameters' {} a -> s {clientID = a} :: UpdateConnectionOAuthClientRequestParameters)
 
 instance
-  Hashable
+  Prelude.Hashable
     UpdateConnectionOAuthClientRequestParameters
 
 instance
-  NFData
+  Prelude.NFData
     UpdateConnectionOAuthClientRequestParameters
 
 instance
-  ToJSON
+  Prelude.ToJSON
     UpdateConnectionOAuthClientRequestParameters
   where
   toJSON
     UpdateConnectionOAuthClientRequestParameters' {..} =
-      object
-        ( catMaybes
-            [ ("ClientSecret" .=) <$> _ucoacrpClientSecret,
-              ("ClientID" .=) <$> _ucoacrpClientId
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ("ClientSecret" Prelude..=)
+                Prelude.<$> clientSecret,
+              ("ClientID" Prelude..=) Prelude.<$> clientID
             ]
         )

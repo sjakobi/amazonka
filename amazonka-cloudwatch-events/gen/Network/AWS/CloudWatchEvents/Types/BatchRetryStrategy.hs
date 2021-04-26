@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.BatchRetryStrategy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The retry strategy to use for failed jobs, if the target is an AWS Batch job. If you specify a retry strategy here, it overrides the retry strategy defined in the job definition.
+-- | The retry strategy to use for failed jobs, if the target is an AWS Batch
+-- job. If you specify a retry strategy here, it overrides the retry
+-- strategy defined in the job definition.
 --
---
---
--- /See:/ 'batchRetryStrategy' smart constructor.
-newtype BatchRetryStrategy = BatchRetryStrategy'
-  { _brsAttempts ::
-      Maybe Int
+-- /See:/ 'newBatchRetryStrategy' smart constructor.
+data BatchRetryStrategy = BatchRetryStrategy'
+  { -- | The number of times to attempt to retry, if the job fails. Valid values
+    -- are 1–10.
+    attempts :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchRetryStrategy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchRetryStrategy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'brsAttempts' - The number of times to attempt to retry, if the job fails. Valid values are 1–10.
-batchRetryStrategy ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'attempts', 'batchRetryStrategy_attempts' - The number of times to attempt to retry, if the job fails. Valid values
+-- are 1–10.
+newBatchRetryStrategy ::
   BatchRetryStrategy
-batchRetryStrategy =
-  BatchRetryStrategy' {_brsAttempts = Nothing}
+newBatchRetryStrategy =
+  BatchRetryStrategy' {attempts = Prelude.Nothing}
 
--- | The number of times to attempt to retry, if the job fails. Valid values are 1–10.
-brsAttempts :: Lens' BatchRetryStrategy (Maybe Int)
-brsAttempts = lens _brsAttempts (\s a -> s {_brsAttempts = a})
+-- | The number of times to attempt to retry, if the job fails. Valid values
+-- are 1–10.
+batchRetryStrategy_attempts :: Lens.Lens' BatchRetryStrategy (Prelude.Maybe Prelude.Int)
+batchRetryStrategy_attempts = Lens.lens (\BatchRetryStrategy' {attempts} -> attempts) (\s@BatchRetryStrategy' {} a -> s {attempts = a} :: BatchRetryStrategy)
 
-instance FromJSON BatchRetryStrategy where
+instance Prelude.FromJSON BatchRetryStrategy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchRetryStrategy"
-      (\x -> BatchRetryStrategy' <$> (x .:? "Attempts"))
+      ( \x ->
+          BatchRetryStrategy'
+            Prelude.<$> (x Prelude..:? "Attempts")
+      )
 
-instance Hashable BatchRetryStrategy
+instance Prelude.Hashable BatchRetryStrategy
 
-instance NFData BatchRetryStrategy
+instance Prelude.NFData BatchRetryStrategy
 
-instance ToJSON BatchRetryStrategy where
+instance Prelude.ToJSON BatchRetryStrategy where
   toJSON BatchRetryStrategy' {..} =
-    object
-      (catMaybes [("Attempts" .=) <$> _brsAttempts])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Attempts" Prelude..=) Prelude.<$> attempts]
+      )

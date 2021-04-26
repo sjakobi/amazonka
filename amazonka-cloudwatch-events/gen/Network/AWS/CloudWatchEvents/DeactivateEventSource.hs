@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,109 +21,114 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- You can use this operation to temporarily stop receiving events from the specified partner event source. The matching event bus is not deleted.
+-- You can use this operation to temporarily stop receiving events from the
+-- specified partner event source. The matching event bus is not deleted.
 --
+-- When you deactivate a partner event source, the source goes into PENDING
+-- state. If it remains in PENDING state for more than two weeks, it is
+-- deleted.
 --
--- When you deactivate a partner event source, the source goes into PENDING state. If it remains in PENDING state for more than two weeks, it is deleted.
---
--- To activate a deactivated partner event source, use 'ActivateEventSource' .
+-- To activate a deactivated partner event source, use ActivateEventSource.
 module Network.AWS.CloudWatchEvents.DeactivateEventSource
   ( -- * Creating a Request
-    deactivateEventSource,
-    DeactivateEventSource,
+    DeactivateEventSource (..),
+    newDeactivateEventSource,
 
     -- * Request Lenses
-    dName,
+    deactivateEventSource_name,
 
     -- * Destructuring the Response
-    deactivateEventSourceResponse,
-    DeactivateEventSourceResponse,
+    DeactivateEventSourceResponse (..),
+    newDeactivateEventSourceResponse,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deactivateEventSource' smart constructor.
-newtype DeactivateEventSource = DeactivateEventSource'
-  { _dName ::
-      Text
+-- | /See:/ 'newDeactivateEventSource' smart constructor.
+data DeactivateEventSource = DeactivateEventSource'
+  { -- | The name of the partner event source to deactivate.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeactivateEventSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeactivateEventSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dName' - The name of the partner event source to deactivate.
-deactivateEventSource ::
-  -- | 'dName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'deactivateEventSource_name' - The name of the partner event source to deactivate.
+newDeactivateEventSource ::
+  -- | 'name'
+  Prelude.Text ->
   DeactivateEventSource
-deactivateEventSource pName_ =
-  DeactivateEventSource' {_dName = pName_}
+newDeactivateEventSource pName_ =
+  DeactivateEventSource' {name = pName_}
 
 -- | The name of the partner event source to deactivate.
-dName :: Lens' DeactivateEventSource Text
-dName = lens _dName (\s a -> s {_dName = a})
+deactivateEventSource_name :: Lens.Lens' DeactivateEventSource Prelude.Text
+deactivateEventSource_name = Lens.lens (\DeactivateEventSource' {name} -> name) (\s@DeactivateEventSource' {} a -> s {name = a} :: DeactivateEventSource)
 
-instance AWSRequest DeactivateEventSource where
+instance Prelude.AWSRequest DeactivateEventSource where
   type
     Rs DeactivateEventSource =
       DeactivateEventSourceResponse
-  request = postJSON cloudWatchEvents
-  response = receiveNull DeactivateEventSourceResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeactivateEventSourceResponse'
 
-instance Hashable DeactivateEventSource
+instance Prelude.Hashable DeactivateEventSource
 
-instance NFData DeactivateEventSource
+instance Prelude.NFData DeactivateEventSource
 
-instance ToHeaders DeactivateEventSource where
+instance Prelude.ToHeaders DeactivateEventSource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.DeactivateEventSource" :: ByteString),
+              Prelude.=# ( "AWSEvents.DeactivateEventSource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeactivateEventSource where
+instance Prelude.ToJSON DeactivateEventSource where
   toJSON DeactivateEventSource' {..} =
-    object (catMaybes [Just ("Name" .= _dName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DeactivateEventSource where
-  toPath = const "/"
+instance Prelude.ToPath DeactivateEventSource where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeactivateEventSource where
-  toQuery = const mempty
+instance Prelude.ToQuery DeactivateEventSource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deactivateEventSourceResponse' smart constructor.
+-- | /See:/ 'newDeactivateEventSourceResponse' smart constructor.
 data DeactivateEventSourceResponse = DeactivateEventSourceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeactivateEventSourceResponse' with the minimum fields required to make a request.
-deactivateEventSourceResponse ::
+-- |
+-- Create a value of 'DeactivateEventSourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeactivateEventSourceResponse ::
   DeactivateEventSourceResponse
-deactivateEventSourceResponse =
+newDeactivateEventSourceResponse =
   DeactivateEventSourceResponse'
 
-instance NFData DeactivateEventSourceResponse
+instance Prelude.NFData DeactivateEventSourceResponse

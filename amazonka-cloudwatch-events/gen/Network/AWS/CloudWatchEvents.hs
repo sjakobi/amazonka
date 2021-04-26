@@ -11,21 +11,29 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon EventBridge helps you to respond to state changes in your AWS resources. When your resources change state, they automatically send events into an event stream. You can create rules that match selected events in the stream and route them to targets to take action. You can also use rules to take action on a predetermined schedule. For example, you can configure rules to:
+-- Amazon EventBridge helps you to respond to state changes in your AWS
+-- resources. When your resources change state, they automatically send
+-- events into an event stream. You can create rules that match selected
+-- events in the stream and route them to targets to take action. You can
+-- also use rules to take action on a predetermined schedule. For example,
+-- you can configure rules to:
 --
+-- -   Automatically invoke an AWS Lambda function to update DNS entries
+--     when an event notifies you that Amazon EC2 instance enters the
+--     running state.
 --
---     * Automatically invoke an AWS Lambda function to update DNS entries when an event notifies you that Amazon EC2 instance enters the running state.
+-- -   Direct specific API records from AWS CloudTrail to an Amazon Kinesis
+--     data stream for detailed analysis of potential security or
+--     availability risks.
 --
---     * Direct specific API records from AWS CloudTrail to an Amazon Kinesis data stream for detailed analysis of potential security or availability risks.
+-- -   Periodically invoke a built-in target to create a snapshot of an
+--     Amazon EBS volume.
 --
---     * Periodically invoke a built-in target to create a snapshot of an Amazon EBS volume.
---
---
---
--- For more information about the features of Amazon EventBridge, see the <https://docs.aws.amazon.com/eventbridge/latest/userguide Amazon EventBridge User Guide> .
+-- For more information about the features of Amazon EventBridge, see the
+-- <https://docs.aws.amazon.com/eventbridge/latest/userguide Amazon EventBridge User Guide>.
 module Network.AWS.CloudWatchEvents
   ( -- * Service Configuration
-    cloudWatchEvents,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -70,177 +78,330 @@ module Network.AWS.CloudWatchEvents
     -- $operations
 
     -- ** ListPartnerEventSourceAccounts
-    module Network.AWS.CloudWatchEvents.ListPartnerEventSourceAccounts,
+    ListPartnerEventSourceAccounts (ListPartnerEventSourceAccounts'),
+    newListPartnerEventSourceAccounts,
+    ListPartnerEventSourceAccountsResponse (ListPartnerEventSourceAccountsResponse'),
+    newListPartnerEventSourceAccountsResponse,
 
     -- ** DeleteConnection
-    module Network.AWS.CloudWatchEvents.DeleteConnection,
+    DeleteConnection (DeleteConnection'),
+    newDeleteConnection,
+    DeleteConnectionResponse (DeleteConnectionResponse'),
+    newDeleteConnectionResponse,
 
     -- ** UpdateConnection
-    module Network.AWS.CloudWatchEvents.UpdateConnection,
+    UpdateConnection (UpdateConnection'),
+    newUpdateConnection,
+    UpdateConnectionResponse (UpdateConnectionResponse'),
+    newUpdateConnectionResponse,
 
     -- ** DeleteRule
-    module Network.AWS.CloudWatchEvents.DeleteRule,
+    DeleteRule (DeleteRule'),
+    newDeleteRule,
+    DeleteRuleResponse (DeleteRuleResponse'),
+    newDeleteRuleResponse,
 
     -- ** DescribeArchive
-    module Network.AWS.CloudWatchEvents.DescribeArchive,
+    DescribeArchive (DescribeArchive'),
+    newDescribeArchive,
+    DescribeArchiveResponse (DescribeArchiveResponse'),
+    newDescribeArchiveResponse,
 
     -- ** DescribeEventSource
-    module Network.AWS.CloudWatchEvents.DescribeEventSource,
+    DescribeEventSource (DescribeEventSource'),
+    newDescribeEventSource,
+    DescribeEventSourceResponse (DescribeEventSourceResponse'),
+    newDescribeEventSourceResponse,
 
-    -- ** DescribeAPIdestination
-    module Network.AWS.CloudWatchEvents.DescribeAPIdestination,
+    -- ** DescribeApiDestination
+    DescribeApiDestination (DescribeApiDestination'),
+    newDescribeApiDestination,
+    DescribeApiDestinationResponse (DescribeApiDestinationResponse'),
+    newDescribeApiDestinationResponse,
 
     -- ** DeactivateEventSource
-    module Network.AWS.CloudWatchEvents.DeactivateEventSource,
+    DeactivateEventSource (DeactivateEventSource'),
+    newDeactivateEventSource,
+    DeactivateEventSourceResponse (DeactivateEventSourceResponse'),
+    newDeactivateEventSourceResponse,
 
     -- ** UpdateArchive
-    module Network.AWS.CloudWatchEvents.UpdateArchive,
+    UpdateArchive (UpdateArchive'),
+    newUpdateArchive,
+    UpdateArchiveResponse (UpdateArchiveResponse'),
+    newUpdateArchiveResponse,
 
     -- ** DescribeConnection
-    module Network.AWS.CloudWatchEvents.DescribeConnection,
+    DescribeConnection (DescribeConnection'),
+    newDescribeConnection,
+    DescribeConnectionResponse (DescribeConnectionResponse'),
+    newDescribeConnectionResponse,
 
     -- ** DeleteArchive
-    module Network.AWS.CloudWatchEvents.DeleteArchive,
+    DeleteArchive (DeleteArchive'),
+    newDeleteArchive,
+    DeleteArchiveResponse (DeleteArchiveResponse'),
+    newDeleteArchiveResponse,
 
     -- ** UntagResource
-    module Network.AWS.CloudWatchEvents.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DescribeRule
-    module Network.AWS.CloudWatchEvents.DescribeRule,
+    DescribeRule (DescribeRule'),
+    newDescribeRule,
+    DescribeRuleResponse (DescribeRuleResponse'),
+    newDescribeRuleResponse,
 
     -- ** ListArchives
-    module Network.AWS.CloudWatchEvents.ListArchives,
+    ListArchives (ListArchives'),
+    newListArchives,
+    ListArchivesResponse (ListArchivesResponse'),
+    newListArchivesResponse,
 
     -- ** PutPartnerEvents
-    module Network.AWS.CloudWatchEvents.PutPartnerEvents,
+    PutPartnerEvents (PutPartnerEvents'),
+    newPutPartnerEvents,
+    PutPartnerEventsResponse (PutPartnerEventsResponse'),
+    newPutPartnerEventsResponse,
 
-    -- ** CreateAPIdestination
-    module Network.AWS.CloudWatchEvents.CreateAPIdestination,
+    -- ** CreateApiDestination
+    CreateApiDestination (CreateApiDestination'),
+    newCreateApiDestination,
+    CreateApiDestinationResponse (CreateApiDestinationResponse'),
+    newCreateApiDestinationResponse,
 
     -- ** TagResource
-    module Network.AWS.CloudWatchEvents.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
-    -- ** ListAPIdestinations
-    module Network.AWS.CloudWatchEvents.ListAPIdestinations,
+    -- ** ListApiDestinations
+    ListApiDestinations (ListApiDestinations'),
+    newListApiDestinations,
+    ListApiDestinationsResponse (ListApiDestinationsResponse'),
+    newListApiDestinationsResponse,
 
     -- ** DescribeEventBus
-    module Network.AWS.CloudWatchEvents.DescribeEventBus,
+    DescribeEventBus (DescribeEventBus'),
+    newDescribeEventBus,
+    DescribeEventBusResponse (DescribeEventBusResponse'),
+    newDescribeEventBusResponse,
 
     -- ** ListTargetsByRule (Paginated)
-    module Network.AWS.CloudWatchEvents.ListTargetsByRule,
+    ListTargetsByRule (ListTargetsByRule'),
+    newListTargetsByRule,
+    ListTargetsByRuleResponse (ListTargetsByRuleResponse'),
+    newListTargetsByRuleResponse,
 
     -- ** CreateConnection
-    module Network.AWS.CloudWatchEvents.CreateConnection,
+    CreateConnection (CreateConnection'),
+    newCreateConnection,
+    CreateConnectionResponse (CreateConnectionResponse'),
+    newCreateConnectionResponse,
 
     -- ** ListRuleNamesByTarget (Paginated)
-    module Network.AWS.CloudWatchEvents.ListRuleNamesByTarget,
+    ListRuleNamesByTarget (ListRuleNamesByTarget'),
+    newListRuleNamesByTarget,
+    ListRuleNamesByTargetResponse (ListRuleNamesByTargetResponse'),
+    newListRuleNamesByTargetResponse,
 
     -- ** ListRules (Paginated)
-    module Network.AWS.CloudWatchEvents.ListRules,
+    ListRules (ListRules'),
+    newListRules,
+    ListRulesResponse (ListRulesResponse'),
+    newListRulesResponse,
 
     -- ** PutRule
-    module Network.AWS.CloudWatchEvents.PutRule,
+    PutRule (PutRule'),
+    newPutRule,
+    PutRuleResponse (PutRuleResponse'),
+    newPutRuleResponse,
 
     -- ** EnableRule
-    module Network.AWS.CloudWatchEvents.EnableRule,
+    EnableRule (EnableRule'),
+    newEnableRule,
+    EnableRuleResponse (EnableRuleResponse'),
+    newEnableRuleResponse,
 
     -- ** ListConnections
-    module Network.AWS.CloudWatchEvents.ListConnections,
+    ListConnections (ListConnections'),
+    newListConnections,
+    ListConnectionsResponse (ListConnectionsResponse'),
+    newListConnectionsResponse,
 
     -- ** DeauthorizeConnection
-    module Network.AWS.CloudWatchEvents.DeauthorizeConnection,
+    DeauthorizeConnection (DeauthorizeConnection'),
+    newDeauthorizeConnection,
+    DeauthorizeConnectionResponse (DeauthorizeConnectionResponse'),
+    newDeauthorizeConnectionResponse,
 
     -- ** CreateEventBus
-    module Network.AWS.CloudWatchEvents.CreateEventBus,
+    CreateEventBus (CreateEventBus'),
+    newCreateEventBus,
+    CreateEventBusResponse (CreateEventBusResponse'),
+    newCreateEventBusResponse,
 
     -- ** RemoveTargets
-    module Network.AWS.CloudWatchEvents.RemoveTargets,
+    RemoveTargets (RemoveTargets'),
+    newRemoveTargets,
+    RemoveTargetsResponse (RemoveTargetsResponse'),
+    newRemoveTargetsResponse,
 
     -- ** ListEventBuses
-    module Network.AWS.CloudWatchEvents.ListEventBuses,
+    ListEventBuses (ListEventBuses'),
+    newListEventBuses,
+    ListEventBusesResponse (ListEventBusesResponse'),
+    newListEventBusesResponse,
 
     -- ** DeleteEventBus
-    module Network.AWS.CloudWatchEvents.DeleteEventBus,
+    DeleteEventBus (DeleteEventBus'),
+    newDeleteEventBus,
+    DeleteEventBusResponse (DeleteEventBusResponse'),
+    newDeleteEventBusResponse,
 
     -- ** PutEvents
-    module Network.AWS.CloudWatchEvents.PutEvents,
+    PutEvents (PutEvents'),
+    newPutEvents,
+    PutEventsResponse (PutEventsResponse'),
+    newPutEventsResponse,
 
     -- ** CreateArchive
-    module Network.AWS.CloudWatchEvents.CreateArchive,
+    CreateArchive (CreateArchive'),
+    newCreateArchive,
+    CreateArchiveResponse (CreateArchiveResponse'),
+    newCreateArchiveResponse,
 
     -- ** ListPartnerEventSources
-    module Network.AWS.CloudWatchEvents.ListPartnerEventSources,
+    ListPartnerEventSources (ListPartnerEventSources'),
+    newListPartnerEventSources,
+    ListPartnerEventSourcesResponse (ListPartnerEventSourcesResponse'),
+    newListPartnerEventSourcesResponse,
 
     -- ** DescribeReplay
-    module Network.AWS.CloudWatchEvents.DescribeReplay,
+    DescribeReplay (DescribeReplay'),
+    newDescribeReplay,
+    DescribeReplayResponse (DescribeReplayResponse'),
+    newDescribeReplayResponse,
 
     -- ** DeletePartnerEventSource
-    module Network.AWS.CloudWatchEvents.DeletePartnerEventSource,
+    DeletePartnerEventSource (DeletePartnerEventSource'),
+    newDeletePartnerEventSource,
+    DeletePartnerEventSourceResponse (DeletePartnerEventSourceResponse'),
+    newDeletePartnerEventSourceResponse,
 
     -- ** CreatePartnerEventSource
-    module Network.AWS.CloudWatchEvents.CreatePartnerEventSource,
+    CreatePartnerEventSource (CreatePartnerEventSource'),
+    newCreatePartnerEventSource,
+    CreatePartnerEventSourceResponse (CreatePartnerEventSourceResponse'),
+    newCreatePartnerEventSourceResponse,
 
     -- ** StartReplay
-    module Network.AWS.CloudWatchEvents.StartReplay,
+    StartReplay (StartReplay'),
+    newStartReplay,
+    StartReplayResponse (StartReplayResponse'),
+    newStartReplayResponse,
 
     -- ** PutTargets
-    module Network.AWS.CloudWatchEvents.PutTargets,
+    PutTargets (PutTargets'),
+    newPutTargets,
+    PutTargetsResponse (PutTargetsResponse'),
+    newPutTargetsResponse,
 
     -- ** ListEventSources
-    module Network.AWS.CloudWatchEvents.ListEventSources,
+    ListEventSources (ListEventSources'),
+    newListEventSources,
+    ListEventSourcesResponse (ListEventSourcesResponse'),
+    newListEventSourcesResponse,
 
     -- ** ActivateEventSource
-    module Network.AWS.CloudWatchEvents.ActivateEventSource,
+    ActivateEventSource (ActivateEventSource'),
+    newActivateEventSource,
+    ActivateEventSourceResponse (ActivateEventSourceResponse'),
+    newActivateEventSourceResponse,
 
-    -- ** DeleteAPIdestination
-    module Network.AWS.CloudWatchEvents.DeleteAPIdestination,
+    -- ** DeleteApiDestination
+    DeleteApiDestination (DeleteApiDestination'),
+    newDeleteApiDestination,
+    DeleteApiDestinationResponse (DeleteApiDestinationResponse'),
+    newDeleteApiDestinationResponse,
 
     -- ** CancelReplay
-    module Network.AWS.CloudWatchEvents.CancelReplay,
+    CancelReplay (CancelReplay'),
+    newCancelReplay,
+    CancelReplayResponse (CancelReplayResponse'),
+    newCancelReplayResponse,
 
-    -- ** UpdateAPIdestination
-    module Network.AWS.CloudWatchEvents.UpdateAPIdestination,
+    -- ** UpdateApiDestination
+    UpdateApiDestination (UpdateApiDestination'),
+    newUpdateApiDestination,
+    UpdateApiDestinationResponse (UpdateApiDestinationResponse'),
+    newUpdateApiDestinationResponse,
 
     -- ** RemovePermission
-    module Network.AWS.CloudWatchEvents.RemovePermission,
+    RemovePermission (RemovePermission'),
+    newRemovePermission,
+    RemovePermissionResponse (RemovePermissionResponse'),
+    newRemovePermissionResponse,
 
     -- ** TestEventPattern
-    module Network.AWS.CloudWatchEvents.TestEventPattern,
+    TestEventPattern (TestEventPattern'),
+    newTestEventPattern,
+    TestEventPatternResponse (TestEventPatternResponse'),
+    newTestEventPatternResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.CloudWatchEvents.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DisableRule
-    module Network.AWS.CloudWatchEvents.DisableRule,
+    DisableRule (DisableRule'),
+    newDisableRule,
+    DisableRuleResponse (DisableRuleResponse'),
+    newDisableRuleResponse,
 
     -- ** ListReplays
-    module Network.AWS.CloudWatchEvents.ListReplays,
+    ListReplays (ListReplays'),
+    newListReplays,
+    ListReplaysResponse (ListReplaysResponse'),
+    newListReplaysResponse,
 
     -- ** DescribePartnerEventSource
-    module Network.AWS.CloudWatchEvents.DescribePartnerEventSource,
+    DescribePartnerEventSource (DescribePartnerEventSource'),
+    newDescribePartnerEventSource,
+    DescribePartnerEventSourceResponse (DescribePartnerEventSourceResponse'),
+    newDescribePartnerEventSourceResponse,
 
     -- ** PutPermission
-    module Network.AWS.CloudWatchEvents.PutPermission,
+    PutPermission (PutPermission'),
+    newPutPermission,
+    PutPermissionResponse (PutPermissionResponse'),
+    newPutPermissionResponse,
 
     -- * Types
 
-    -- ** APIdestinationHTTPMethod
-    APIdestinationHTTPMethod (..),
+    -- ** ApiDestinationHttpMethod
+    ApiDestinationHttpMethod (..),
 
-    -- ** APIdestinationState
-    APIdestinationState (..),
+    -- ** ApiDestinationState
+    ApiDestinationState (..),
 
     -- ** ArchiveState
     ArchiveState (..),
 
-    -- ** AssignPublicIP
-    AssignPublicIP (..),
+    -- ** AssignPublicIp
+    AssignPublicIp (..),
 
     -- ** ConnectionAuthorizationType
     ConnectionAuthorizationType (..),
 
-    -- ** ConnectionOAuthHTTPMethod
-    ConnectionOAuthHTTPMethod (..),
+    -- ** ConnectionOAuthHttpMethod
+    ConnectionOAuthHttpMethod (..),
 
     -- ** ConnectionState
     ConnectionState (..),
@@ -257,426 +418,236 @@ module Network.AWS.CloudWatchEvents
     -- ** RuleState
     RuleState (..),
 
-    -- ** APIdestination
-    APIdestination,
-    apidestination,
-    apiHTTPMethod,
-    apiCreationTime,
-    apiAPIdestinationARN,
-    apiInvocationEndpoint,
-    apiAPIdestinationState,
-    apiConnectionARN,
-    apiName,
-    apiLastModifiedTime,
-    apiInvocationRateLimitPerSecond,
-
-    -- ** AWSVPCConfiguration
-    AWSVPCConfiguration,
-    awsVPCConfiguration,
-    avcAssignPublicIP,
-    avcSecurityGroups,
-    avcSubnets,
+    -- ** ApiDestination
+    ApiDestination (ApiDestination'),
+    newApiDestination,
 
     -- ** Archive
-    Archive,
-    archive,
-    aEventCount,
-    aEventSourceARN,
-    aCreationTime,
-    aStateReason,
-    aArchiveName,
-    aState,
-    aSizeBytes,
-    aRetentionDays,
+    Archive (Archive'),
+    newArchive,
+
+    -- ** AwsVpcConfiguration
+    AwsVpcConfiguration (AwsVpcConfiguration'),
+    newAwsVpcConfiguration,
 
     -- ** BatchArrayProperties
-    BatchArrayProperties,
-    batchArrayProperties,
-    bapSize,
+    BatchArrayProperties (BatchArrayProperties'),
+    newBatchArrayProperties,
 
     -- ** BatchParameters
-    BatchParameters,
-    batchParameters,
-    bpArrayProperties,
-    bpRetryStrategy,
-    bpJobDefinition,
-    bpJobName,
+    BatchParameters (BatchParameters'),
+    newBatchParameters,
 
     -- ** BatchRetryStrategy
-    BatchRetryStrategy,
-    batchRetryStrategy,
-    brsAttempts,
+    BatchRetryStrategy (BatchRetryStrategy'),
+    newBatchRetryStrategy,
 
     -- ** Condition
-    Condition,
-    condition,
-    cType,
-    cKey,
-    cValue,
+    Condition (Condition'),
+    newCondition,
 
     -- ** Connection
-    Connection,
-    connection,
-    cCreationTime,
-    cConnectionState,
-    cStateReason,
-    cAuthorizationType,
-    cConnectionARN,
-    cName,
-    cLastModifiedTime,
-    cLastAuthorizedTime,
+    Connection (Connection'),
+    newConnection,
 
-    -- ** ConnectionAPIKeyAuthResponseParameters
-    ConnectionAPIKeyAuthResponseParameters,
-    connectionAPIKeyAuthResponseParameters,
-    cakarpAPIKeyName,
+    -- ** ConnectionApiKeyAuthResponseParameters
+    ConnectionApiKeyAuthResponseParameters (ConnectionApiKeyAuthResponseParameters'),
+    newConnectionApiKeyAuthResponseParameters,
 
     -- ** ConnectionAuthResponseParameters
-    ConnectionAuthResponseParameters,
-    connectionAuthResponseParameters,
-    carpBasicAuthParameters,
-    carpOAuthParameters,
-    carpAPIKeyAuthParameters,
-    carpInvocationHTTPParameters,
+    ConnectionAuthResponseParameters (ConnectionAuthResponseParameters'),
+    newConnectionAuthResponseParameters,
 
     -- ** ConnectionBasicAuthResponseParameters
-    ConnectionBasicAuthResponseParameters,
-    connectionBasicAuthResponseParameters,
-    cbarpUsername,
+    ConnectionBasicAuthResponseParameters (ConnectionBasicAuthResponseParameters'),
+    newConnectionBasicAuthResponseParameters,
 
     -- ** ConnectionBodyParameter
-    ConnectionBodyParameter,
-    connectionBodyParameter,
-    cbpKey,
-    cbpIsValueSecret,
-    cbpValue,
-
-    -- ** ConnectionHTTPParameters
-    ConnectionHTTPParameters,
-    connectionHTTPParameters,
-    chttppQueryStringParameters,
-    chttppHeaderParameters,
-    chttppBodyParameters,
+    ConnectionBodyParameter (ConnectionBodyParameter'),
+    newConnectionBodyParameter,
 
     -- ** ConnectionHeaderParameter
-    ConnectionHeaderParameter,
-    connectionHeaderParameter,
-    chpKey,
-    chpIsValueSecret,
-    chpValue,
+    ConnectionHeaderParameter (ConnectionHeaderParameter'),
+    newConnectionHeaderParameter,
+
+    -- ** ConnectionHttpParameters
+    ConnectionHttpParameters (ConnectionHttpParameters'),
+    newConnectionHttpParameters,
 
     -- ** ConnectionOAuthClientResponseParameters
-    ConnectionOAuthClientResponseParameters,
-    connectionOAuthClientResponseParameters,
-    coacrpClientId,
+    ConnectionOAuthClientResponseParameters (ConnectionOAuthClientResponseParameters'),
+    newConnectionOAuthClientResponseParameters,
 
     -- ** ConnectionOAuthResponseParameters
-    ConnectionOAuthResponseParameters,
-    connectionOAuthResponseParameters,
-    coarpHTTPMethod,
-    coarpClientParameters,
-    coarpAuthorizationEndpoint,
-    coarpOAuthHTTPParameters,
+    ConnectionOAuthResponseParameters (ConnectionOAuthResponseParameters'),
+    newConnectionOAuthResponseParameters,
 
     -- ** ConnectionQueryStringParameter
-    ConnectionQueryStringParameter,
-    connectionQueryStringParameter,
-    cqspKey,
-    cqspIsValueSecret,
-    cqspValue,
+    ConnectionQueryStringParameter (ConnectionQueryStringParameter'),
+    newConnectionQueryStringParameter,
 
-    -- ** CreateConnectionAPIKeyAuthRequestParameters
-    CreateConnectionAPIKeyAuthRequestParameters,
-    createConnectionAPIKeyAuthRequestParameters,
-    ccakarpAPIKeyName,
-    ccakarpAPIKeyValue,
+    -- ** CreateConnectionApiKeyAuthRequestParameters
+    CreateConnectionApiKeyAuthRequestParameters (CreateConnectionApiKeyAuthRequestParameters'),
+    newCreateConnectionApiKeyAuthRequestParameters,
 
     -- ** CreateConnectionAuthRequestParameters
-    CreateConnectionAuthRequestParameters,
-    createConnectionAuthRequestParameters,
-    ccarpBasicAuthParameters,
-    ccarpOAuthParameters,
-    ccarpAPIKeyAuthParameters,
-    ccarpInvocationHTTPParameters,
+    CreateConnectionAuthRequestParameters (CreateConnectionAuthRequestParameters'),
+    newCreateConnectionAuthRequestParameters,
 
     -- ** CreateConnectionBasicAuthRequestParameters
-    CreateConnectionBasicAuthRequestParameters,
-    createConnectionBasicAuthRequestParameters,
-    ccbarpUsername,
-    ccbarpPassword,
+    CreateConnectionBasicAuthRequestParameters (CreateConnectionBasicAuthRequestParameters'),
+    newCreateConnectionBasicAuthRequestParameters,
 
     -- ** CreateConnectionOAuthClientRequestParameters
-    CreateConnectionOAuthClientRequestParameters,
-    createConnectionOAuthClientRequestParameters,
-    ccoacrpClientId,
-    ccoacrpClientSecret,
+    CreateConnectionOAuthClientRequestParameters (CreateConnectionOAuthClientRequestParameters'),
+    newCreateConnectionOAuthClientRequestParameters,
 
     -- ** CreateConnectionOAuthRequestParameters
-    CreateConnectionOAuthRequestParameters,
-    createConnectionOAuthRequestParameters,
-    ccoarpOAuthHTTPParameters,
-    ccoarpClientParameters,
-    ccoarpAuthorizationEndpoint,
-    ccoarpHTTPMethod,
+    CreateConnectionOAuthRequestParameters (CreateConnectionOAuthRequestParameters'),
+    newCreateConnectionOAuthRequestParameters,
 
     -- ** DeadLetterConfig
-    DeadLetterConfig,
-    deadLetterConfig,
-    dlcARN,
+    DeadLetterConfig (DeadLetterConfig'),
+    newDeadLetterConfig,
 
     -- ** EcsParameters
-    EcsParameters,
-    ecsParameters,
-    epNetworkConfiguration,
-    epPlatformVersion,
-    epLaunchType,
-    epGroup,
-    epTaskCount,
-    epTaskDefinitionARN,
+    EcsParameters (EcsParameters'),
+    newEcsParameters,
 
     -- ** EventBus
-    EventBus,
-    eventBus,
-    ebARN,
-    ebName,
-    ebPolicy,
+    EventBus (EventBus'),
+    newEventBus,
 
     -- ** EventSource
-    EventSource,
-    eventSource,
-    esCreationTime,
-    esExpirationTime,
-    esARN,
-    esState,
-    esName,
-    esCreatedBy,
+    EventSource (EventSource'),
+    newEventSource,
 
-    -- ** HTTPParameters
-    HTTPParameters,
-    hTTPParameters,
-    httppQueryStringParameters,
-    httppPathParameterValues,
-    httppHeaderParameters,
+    -- ** HttpParameters
+    HttpParameters (HttpParameters'),
+    newHttpParameters,
 
     -- ** InputTransformer
-    InputTransformer,
-    inputTransformer,
-    itInputPathsMap,
-    itInputTemplate,
+    InputTransformer (InputTransformer'),
+    newInputTransformer,
 
     -- ** KinesisParameters
-    KinesisParameters,
-    kinesisParameters,
-    kpPartitionKeyPath,
+    KinesisParameters (KinesisParameters'),
+    newKinesisParameters,
 
     -- ** NetworkConfiguration
-    NetworkConfiguration,
-    networkConfiguration,
-    ncAwsvpcConfiguration,
+    NetworkConfiguration (NetworkConfiguration'),
+    newNetworkConfiguration,
 
     -- ** PartnerEventSource
-    PartnerEventSource,
-    partnerEventSource,
-    pesARN,
-    pesName,
+    PartnerEventSource (PartnerEventSource'),
+    newPartnerEventSource,
 
     -- ** PartnerEventSourceAccount
-    PartnerEventSourceAccount,
-    partnerEventSourceAccount,
-    pesaCreationTime,
-    pesaExpirationTime,
-    pesaState,
-    pesaAccount,
+    PartnerEventSourceAccount (PartnerEventSourceAccount'),
+    newPartnerEventSourceAccount,
 
     -- ** PutEventsRequestEntry
-    PutEventsRequestEntry,
-    putEventsRequestEntry,
-    pereDetailType,
-    pereSource,
-    pereEventBusName,
-    pereDetail,
-    pereResources,
-    pereTraceHeader,
-    pereTime,
+    PutEventsRequestEntry (PutEventsRequestEntry'),
+    newPutEventsRequestEntry,
 
     -- ** PutEventsResultEntry
-    PutEventsResultEntry,
-    putEventsResultEntry,
-    pereEventId,
-    pereErrorMessage,
-    pereErrorCode,
+    PutEventsResultEntry (PutEventsResultEntry'),
+    newPutEventsResultEntry,
 
     -- ** PutPartnerEventsRequestEntry
-    PutPartnerEventsRequestEntry,
-    putPartnerEventsRequestEntry,
-    ppereDetailType,
-    ppereSource,
-    ppereDetail,
-    ppereResources,
-    ppereTime,
+    PutPartnerEventsRequestEntry (PutPartnerEventsRequestEntry'),
+    newPutPartnerEventsRequestEntry,
 
     -- ** PutPartnerEventsResultEntry
-    PutPartnerEventsResultEntry,
-    putPartnerEventsResultEntry,
-    ppereEventId,
-    ppereErrorMessage,
-    ppereErrorCode,
+    PutPartnerEventsResultEntry (PutPartnerEventsResultEntry'),
+    newPutPartnerEventsResultEntry,
 
     -- ** PutTargetsResultEntry
-    PutTargetsResultEntry,
-    putTargetsResultEntry,
-    ptreTargetId,
-    ptreErrorMessage,
-    ptreErrorCode,
+    PutTargetsResultEntry (PutTargetsResultEntry'),
+    newPutTargetsResultEntry,
 
     -- ** RedshiftDataParameters
-    RedshiftDataParameters,
-    redshiftDataParameters,
-    rdpDBUser,
-    rdpSecretManagerARN,
-    rdpStatementName,
-    rdpWithEvent,
-    rdpDatabase,
-    rdpSql,
+    RedshiftDataParameters (RedshiftDataParameters'),
+    newRedshiftDataParameters,
 
     -- ** RemoveTargetsResultEntry
-    RemoveTargetsResultEntry,
-    removeTargetsResultEntry,
-    rtreTargetId,
-    rtreErrorMessage,
-    rtreErrorCode,
+    RemoveTargetsResultEntry (RemoveTargetsResultEntry'),
+    newRemoveTargetsResultEntry,
 
     -- ** Replay
-    Replay,
-    replay,
-    rEventSourceARN,
-    rEventStartTime,
-    rReplayStartTime,
-    rStateReason,
-    rState,
-    rReplayName,
-    rEventLastReplayedTime,
-    rReplayEndTime,
-    rEventEndTime,
+    Replay (Replay'),
+    newReplay,
 
     -- ** ReplayDestination
-    ReplayDestination,
-    replayDestination,
-    rdFilterARNs,
-    rdARN,
+    ReplayDestination (ReplayDestination'),
+    newReplayDestination,
 
     -- ** RetryPolicy
-    RetryPolicy,
-    retryPolicy,
-    rpMaximumEventAgeInSeconds,
-    rpMaximumRetryAttempts,
+    RetryPolicy (RetryPolicy'),
+    newRetryPolicy,
 
     -- ** Rule
-    Rule,
-    rule,
-    rulEventPattern,
-    rulRoleARN,
-    rulARN,
-    rulEventBusName,
-    rulState,
-    rulScheduleExpression,
-    rulName,
-    rulManagedBy,
-    rulDescription,
+    Rule (Rule'),
+    newRule,
 
     -- ** RunCommandParameters
-    RunCommandParameters,
-    runCommandParameters,
-    rcpRunCommandTargets,
+    RunCommandParameters (RunCommandParameters'),
+    newRunCommandParameters,
 
     -- ** RunCommandTarget
-    RunCommandTarget,
-    runCommandTarget,
-    rctKey,
-    rctValues,
+    RunCommandTarget (RunCommandTarget'),
+    newRunCommandTarget,
 
     -- ** SqsParameters
-    SqsParameters,
-    sqsParameters,
-    spMessageGroupId,
+    SqsParameters (SqsParameters'),
+    newSqsParameters,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** Target
-    Target,
-    target,
-    tEcsParameters,
-    tRunCommandParameters,
-    tRoleARN,
-    tRedshiftDataParameters,
-    tBatchParameters,
-    tInput,
-    tInputPath,
-    tDeadLetterConfig,
-    tRetryPolicy,
-    tHTTPParameters,
-    tSqsParameters,
-    tInputTransformer,
-    tKinesisParameters,
-    tId,
-    tARN,
+    Target (Target'),
+    newTarget,
 
-    -- ** UpdateConnectionAPIKeyAuthRequestParameters
-    UpdateConnectionAPIKeyAuthRequestParameters,
-    updateConnectionAPIKeyAuthRequestParameters,
-    ucakarpAPIKeyValue,
-    ucakarpAPIKeyName,
+    -- ** UpdateConnectionApiKeyAuthRequestParameters
+    UpdateConnectionApiKeyAuthRequestParameters (UpdateConnectionApiKeyAuthRequestParameters'),
+    newUpdateConnectionApiKeyAuthRequestParameters,
 
     -- ** UpdateConnectionAuthRequestParameters
-    UpdateConnectionAuthRequestParameters,
-    updateConnectionAuthRequestParameters,
-    ucarpBasicAuthParameters,
-    ucarpOAuthParameters,
-    ucarpAPIKeyAuthParameters,
-    ucarpInvocationHTTPParameters,
+    UpdateConnectionAuthRequestParameters (UpdateConnectionAuthRequestParameters'),
+    newUpdateConnectionAuthRequestParameters,
 
     -- ** UpdateConnectionBasicAuthRequestParameters
-    UpdateConnectionBasicAuthRequestParameters,
-    updateConnectionBasicAuthRequestParameters,
-    ucbarpPassword,
-    ucbarpUsername,
+    UpdateConnectionBasicAuthRequestParameters (UpdateConnectionBasicAuthRequestParameters'),
+    newUpdateConnectionBasicAuthRequestParameters,
 
     -- ** UpdateConnectionOAuthClientRequestParameters
-    UpdateConnectionOAuthClientRequestParameters,
-    updateConnectionOAuthClientRequestParameters,
-    ucoacrpClientSecret,
-    ucoacrpClientId,
+    UpdateConnectionOAuthClientRequestParameters (UpdateConnectionOAuthClientRequestParameters'),
+    newUpdateConnectionOAuthClientRequestParameters,
 
     -- ** UpdateConnectionOAuthRequestParameters
-    UpdateConnectionOAuthRequestParameters,
-    updateConnectionOAuthRequestParameters,
-    ucoarpHTTPMethod,
-    ucoarpClientParameters,
-    ucoarpAuthorizationEndpoint,
-    ucoarpOAuthHTTPParameters,
+    UpdateConnectionOAuthRequestParameters (UpdateConnectionOAuthRequestParameters'),
+    newUpdateConnectionOAuthRequestParameters,
   )
 where
 
 import Network.AWS.CloudWatchEvents.ActivateEventSource
 import Network.AWS.CloudWatchEvents.CancelReplay
-import Network.AWS.CloudWatchEvents.CreateAPIdestination
+import Network.AWS.CloudWatchEvents.CreateApiDestination
 import Network.AWS.CloudWatchEvents.CreateArchive
 import Network.AWS.CloudWatchEvents.CreateConnection
 import Network.AWS.CloudWatchEvents.CreateEventBus
 import Network.AWS.CloudWatchEvents.CreatePartnerEventSource
 import Network.AWS.CloudWatchEvents.DeactivateEventSource
 import Network.AWS.CloudWatchEvents.DeauthorizeConnection
-import Network.AWS.CloudWatchEvents.DeleteAPIdestination
+import Network.AWS.CloudWatchEvents.DeleteApiDestination
 import Network.AWS.CloudWatchEvents.DeleteArchive
 import Network.AWS.CloudWatchEvents.DeleteConnection
 import Network.AWS.CloudWatchEvents.DeleteEventBus
 import Network.AWS.CloudWatchEvents.DeletePartnerEventSource
 import Network.AWS.CloudWatchEvents.DeleteRule
-import Network.AWS.CloudWatchEvents.DescribeAPIdestination
+import Network.AWS.CloudWatchEvents.DescribeApiDestination
 import Network.AWS.CloudWatchEvents.DescribeArchive
 import Network.AWS.CloudWatchEvents.DescribeConnection
 import Network.AWS.CloudWatchEvents.DescribeEventBus
@@ -686,7 +657,8 @@ import Network.AWS.CloudWatchEvents.DescribeReplay
 import Network.AWS.CloudWatchEvents.DescribeRule
 import Network.AWS.CloudWatchEvents.DisableRule
 import Network.AWS.CloudWatchEvents.EnableRule
-import Network.AWS.CloudWatchEvents.ListAPIdestinations
+import Network.AWS.CloudWatchEvents.Lens
+import Network.AWS.CloudWatchEvents.ListApiDestinations
 import Network.AWS.CloudWatchEvents.ListArchives
 import Network.AWS.CloudWatchEvents.ListConnections
 import Network.AWS.CloudWatchEvents.ListEventBuses
@@ -710,7 +682,7 @@ import Network.AWS.CloudWatchEvents.TagResource
 import Network.AWS.CloudWatchEvents.TestEventPattern
 import Network.AWS.CloudWatchEvents.Types
 import Network.AWS.CloudWatchEvents.UntagResource
-import Network.AWS.CloudWatchEvents.UpdateAPIdestination
+import Network.AWS.CloudWatchEvents.UpdateApiDestination
 import Network.AWS.CloudWatchEvents.UpdateArchive
 import Network.AWS.CloudWatchEvents.UpdateConnection
 import Network.AWS.CloudWatchEvents.Waiters

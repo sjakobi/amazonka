@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CloudWatchEvents.Types.RuleState
   ( RuleState
       ( ..,
-        RSDisabled,
-        RSEnabled
+        RuleStateDISABLED,
+        RuleStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RuleState = RuleState' (CI Text)
+newtype RuleState = RuleState'
+  { fromRuleState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSDisabled :: RuleState
-pattern RSDisabled = RuleState' "DISABLED"
+pattern RuleStateDISABLED :: RuleState
+pattern RuleStateDISABLED = RuleState' "DISABLED"
 
-pattern RSEnabled :: RuleState
-pattern RSEnabled = RuleState' "ENABLED"
+pattern RuleStateENABLED :: RuleState
+pattern RuleStateENABLED = RuleState' "ENABLED"
 
 {-# COMPLETE
-  RSDisabled,
-  RSEnabled,
+  RuleStateDISABLED,
+  RuleStateENABLED,
   RuleState'
   #-}
 
-instance FromText RuleState where
-  parser = (RuleState' . mk) <$> takeText
+instance Prelude.FromText RuleState where
+  parser = RuleState' Prelude.<$> Prelude.takeText
 
-instance ToText RuleState where
-  toText (RuleState' ci) = original ci
+instance Prelude.ToText RuleState where
+  toText (RuleState' x) = x
 
-instance Hashable RuleState
+instance Prelude.Hashable RuleState
 
-instance NFData RuleState
+instance Prelude.NFData RuleState
 
-instance ToByteString RuleState
+instance Prelude.ToByteString RuleState
 
-instance ToQuery RuleState
+instance Prelude.ToQuery RuleState
 
-instance ToHeader RuleState
+instance Prelude.ToHeader RuleState
 
-instance ToJSON RuleState where
-  toJSON = toJSONText
+instance Prelude.ToJSON RuleState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RuleState where
-  parseJSON = parseJSONText "RuleState"
+instance Prelude.FromJSON RuleState where
+  parseJSON = Prelude.parseJSONText "RuleState"

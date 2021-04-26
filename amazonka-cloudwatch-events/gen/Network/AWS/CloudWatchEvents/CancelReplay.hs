@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,141 +24,155 @@
 -- Cancels the specified replay.
 module Network.AWS.CloudWatchEvents.CancelReplay
   ( -- * Creating a Request
-    cancelReplay,
-    CancelReplay,
+    CancelReplay (..),
+    newCancelReplay,
 
     -- * Request Lenses
-    crReplayName,
+    cancelReplay_replayName,
 
     -- * Destructuring the Response
-    cancelReplayResponse,
-    CancelReplayResponse,
+    CancelReplayResponse (..),
+    newCancelReplayResponse,
 
     -- * Response Lenses
-    crrrsReplayARN,
-    crrrsStateReason,
-    crrrsState,
-    crrrsResponseStatus,
+    cancelReplayResponse_replayArn,
+    cancelReplayResponse_stateReason,
+    cancelReplayResponse_state,
+    cancelReplayResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.ReplayState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'cancelReplay' smart constructor.
-newtype CancelReplay = CancelReplay'
-  { _crReplayName ::
-      Text
+-- | /See:/ 'newCancelReplay' smart constructor.
+data CancelReplay = CancelReplay'
+  { -- | The name of the replay to cancel.
+    replayName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelReplay' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelReplay' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crReplayName' - The name of the replay to cancel.
-cancelReplay ::
-  -- | 'crReplayName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'replayName', 'cancelReplay_replayName' - The name of the replay to cancel.
+newCancelReplay ::
+  -- | 'replayName'
+  Prelude.Text ->
   CancelReplay
-cancelReplay pReplayName_ =
-  CancelReplay' {_crReplayName = pReplayName_}
+newCancelReplay pReplayName_ =
+  CancelReplay' {replayName = pReplayName_}
 
 -- | The name of the replay to cancel.
-crReplayName :: Lens' CancelReplay Text
-crReplayName = lens _crReplayName (\s a -> s {_crReplayName = a})
+cancelReplay_replayName :: Lens.Lens' CancelReplay Prelude.Text
+cancelReplay_replayName = Lens.lens (\CancelReplay' {replayName} -> replayName) (\s@CancelReplay' {} a -> s {replayName = a} :: CancelReplay)
 
-instance AWSRequest CancelReplay where
+instance Prelude.AWSRequest CancelReplay where
   type Rs CancelReplay = CancelReplayResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CancelReplayResponse'
-            <$> (x .?> "ReplayArn")
-            <*> (x .?> "StateReason")
-            <*> (x .?> "State")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ReplayArn")
+            Prelude.<*> (x Prelude..?> "StateReason")
+            Prelude.<*> (x Prelude..?> "State")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelReplay
+instance Prelude.Hashable CancelReplay
 
-instance NFData CancelReplay
+instance Prelude.NFData CancelReplay
 
-instance ToHeaders CancelReplay where
+instance Prelude.ToHeaders CancelReplay where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.CancelReplay" :: ByteString),
+              Prelude.=# ("AWSEvents.CancelReplay" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CancelReplay where
+instance Prelude.ToJSON CancelReplay where
   toJSON CancelReplay' {..} =
-    object
-      (catMaybes [Just ("ReplayName" .= _crReplayName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ReplayName" Prelude..= replayName)]
+      )
 
-instance ToPath CancelReplay where
-  toPath = const "/"
+instance Prelude.ToPath CancelReplay where
+  toPath = Prelude.const "/"
 
-instance ToQuery CancelReplay where
-  toQuery = const mempty
+instance Prelude.ToQuery CancelReplay where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'cancelReplayResponse' smart constructor.
+-- | /See:/ 'newCancelReplayResponse' smart constructor.
 data CancelReplayResponse = CancelReplayResponse'
-  { _crrrsReplayARN ::
-      !(Maybe Text),
-    _crrrsStateReason ::
-      !(Maybe Text),
-    _crrrsState ::
-      !(Maybe ReplayState),
-    _crrrsResponseStatus :: !Int
+  { -- | The ARN of the replay to cancel.
+    replayArn :: Prelude.Maybe Prelude.Text,
+    -- | The reason that the replay is in the current state.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the replay.
+    state :: Prelude.Maybe ReplayState,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelReplayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelReplayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crrrsReplayARN' - The ARN of the replay to cancel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crrrsStateReason' - The reason that the replay is in the current state.
+-- 'replayArn', 'cancelReplayResponse_replayArn' - The ARN of the replay to cancel.
 --
--- * 'crrrsState' - The current state of the replay.
+-- 'stateReason', 'cancelReplayResponse_stateReason' - The reason that the replay is in the current state.
 --
--- * 'crrrsResponseStatus' - -- | The response status code.
-cancelReplayResponse ::
-  -- | 'crrrsResponseStatus'
-  Int ->
+-- 'state', 'cancelReplayResponse_state' - The current state of the replay.
+--
+-- 'httpStatus', 'cancelReplayResponse_httpStatus' - The response's http status code.
+newCancelReplayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelReplayResponse
-cancelReplayResponse pResponseStatus_ =
+newCancelReplayResponse pHttpStatus_ =
   CancelReplayResponse'
-    { _crrrsReplayARN = Nothing,
-      _crrrsStateReason = Nothing,
-      _crrrsState = Nothing,
-      _crrrsResponseStatus = pResponseStatus_
+    { replayArn = Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      state = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the replay to cancel.
-crrrsReplayARN :: Lens' CancelReplayResponse (Maybe Text)
-crrrsReplayARN = lens _crrrsReplayARN (\s a -> s {_crrrsReplayARN = a})
+cancelReplayResponse_replayArn :: Lens.Lens' CancelReplayResponse (Prelude.Maybe Prelude.Text)
+cancelReplayResponse_replayArn = Lens.lens (\CancelReplayResponse' {replayArn} -> replayArn) (\s@CancelReplayResponse' {} a -> s {replayArn = a} :: CancelReplayResponse)
 
 -- | The reason that the replay is in the current state.
-crrrsStateReason :: Lens' CancelReplayResponse (Maybe Text)
-crrrsStateReason = lens _crrrsStateReason (\s a -> s {_crrrsStateReason = a})
+cancelReplayResponse_stateReason :: Lens.Lens' CancelReplayResponse (Prelude.Maybe Prelude.Text)
+cancelReplayResponse_stateReason = Lens.lens (\CancelReplayResponse' {stateReason} -> stateReason) (\s@CancelReplayResponse' {} a -> s {stateReason = a} :: CancelReplayResponse)
 
 -- | The current state of the replay.
-crrrsState :: Lens' CancelReplayResponse (Maybe ReplayState)
-crrrsState = lens _crrrsState (\s a -> s {_crrrsState = a})
+cancelReplayResponse_state :: Lens.Lens' CancelReplayResponse (Prelude.Maybe ReplayState)
+cancelReplayResponse_state = Lens.lens (\CancelReplayResponse' {state} -> state) (\s@CancelReplayResponse' {} a -> s {state = a} :: CancelReplayResponse)
 
--- | -- | The response status code.
-crrrsResponseStatus :: Lens' CancelReplayResponse Int
-crrrsResponseStatus = lens _crrrsResponseStatus (\s a -> s {_crrrsResponseStatus = a})
+-- | The response's http status code.
+cancelReplayResponse_httpStatus :: Lens.Lens' CancelReplayResponse Prelude.Int
+cancelReplayResponse_httpStatus = Lens.lens (\CancelReplayResponse' {httpStatus} -> httpStatus) (\s@CancelReplayResponse' {} a -> s {httpStatus = a} :: CancelReplayResponse)
 
-instance NFData CancelReplayResponse
+instance Prelude.NFData CancelReplayResponse

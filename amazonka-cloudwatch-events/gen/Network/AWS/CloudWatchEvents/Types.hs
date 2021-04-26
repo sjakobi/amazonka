@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types
   ( -- * Service Configuration
-    cloudWatchEvents,
+    defaultService,
 
     -- * Errors
     _ManagedRuleException,
@@ -26,23 +29,23 @@ module Network.AWS.CloudWatchEvents.Types
     _OperationDisabledException,
     _InvalidEventPatternException,
 
-    -- * APIdestinationHTTPMethod
-    APIdestinationHTTPMethod (..),
+    -- * ApiDestinationHttpMethod
+    ApiDestinationHttpMethod (..),
 
-    -- * APIdestinationState
-    APIdestinationState (..),
+    -- * ApiDestinationState
+    ApiDestinationState (..),
 
     -- * ArchiveState
     ArchiveState (..),
 
-    -- * AssignPublicIP
-    AssignPublicIP (..),
+    -- * AssignPublicIp
+    AssignPublicIp (..),
 
     -- * ConnectionAuthorizationType
     ConnectionAuthorizationType (..),
 
-    -- * ConnectionOAuthHTTPMethod
-    ConnectionOAuthHTTPMethod (..),
+    -- * ConnectionOAuthHttpMethod
+    ConnectionOAuthHttpMethod (..),
 
     -- * ConnectionState
     ConnectionState (..),
@@ -59,435 +62,245 @@ module Network.AWS.CloudWatchEvents.Types
     -- * RuleState
     RuleState (..),
 
-    -- * APIdestination
-    APIdestination (..),
-    apidestination,
-    apiHTTPMethod,
-    apiCreationTime,
-    apiAPIdestinationARN,
-    apiInvocationEndpoint,
-    apiAPIdestinationState,
-    apiConnectionARN,
-    apiName,
-    apiLastModifiedTime,
-    apiInvocationRateLimitPerSecond,
-
-    -- * AWSVPCConfiguration
-    AWSVPCConfiguration (..),
-    awsVPCConfiguration,
-    avcAssignPublicIP,
-    avcSecurityGroups,
-    avcSubnets,
+    -- * ApiDestination
+    ApiDestination (..),
+    newApiDestination,
 
     -- * Archive
     Archive (..),
-    archive,
-    aEventCount,
-    aEventSourceARN,
-    aCreationTime,
-    aStateReason,
-    aArchiveName,
-    aState,
-    aSizeBytes,
-    aRetentionDays,
+    newArchive,
+
+    -- * AwsVpcConfiguration
+    AwsVpcConfiguration (..),
+    newAwsVpcConfiguration,
 
     -- * BatchArrayProperties
     BatchArrayProperties (..),
-    batchArrayProperties,
-    bapSize,
+    newBatchArrayProperties,
 
     -- * BatchParameters
     BatchParameters (..),
-    batchParameters,
-    bpArrayProperties,
-    bpRetryStrategy,
-    bpJobDefinition,
-    bpJobName,
+    newBatchParameters,
 
     -- * BatchRetryStrategy
     BatchRetryStrategy (..),
-    batchRetryStrategy,
-    brsAttempts,
+    newBatchRetryStrategy,
 
     -- * Condition
     Condition (..),
-    condition,
-    cType,
-    cKey,
-    cValue,
+    newCondition,
 
     -- * Connection
     Connection (..),
-    connection,
-    cCreationTime,
-    cConnectionState,
-    cStateReason,
-    cAuthorizationType,
-    cConnectionARN,
-    cName,
-    cLastModifiedTime,
-    cLastAuthorizedTime,
+    newConnection,
 
-    -- * ConnectionAPIKeyAuthResponseParameters
-    ConnectionAPIKeyAuthResponseParameters (..),
-    connectionAPIKeyAuthResponseParameters,
-    cakarpAPIKeyName,
+    -- * ConnectionApiKeyAuthResponseParameters
+    ConnectionApiKeyAuthResponseParameters (..),
+    newConnectionApiKeyAuthResponseParameters,
 
     -- * ConnectionAuthResponseParameters
     ConnectionAuthResponseParameters (..),
-    connectionAuthResponseParameters,
-    carpBasicAuthParameters,
-    carpOAuthParameters,
-    carpAPIKeyAuthParameters,
-    carpInvocationHTTPParameters,
+    newConnectionAuthResponseParameters,
 
     -- * ConnectionBasicAuthResponseParameters
     ConnectionBasicAuthResponseParameters (..),
-    connectionBasicAuthResponseParameters,
-    cbarpUsername,
+    newConnectionBasicAuthResponseParameters,
 
     -- * ConnectionBodyParameter
     ConnectionBodyParameter (..),
-    connectionBodyParameter,
-    cbpKey,
-    cbpIsValueSecret,
-    cbpValue,
-
-    -- * ConnectionHTTPParameters
-    ConnectionHTTPParameters (..),
-    connectionHTTPParameters,
-    chttppQueryStringParameters,
-    chttppHeaderParameters,
-    chttppBodyParameters,
+    newConnectionBodyParameter,
 
     -- * ConnectionHeaderParameter
     ConnectionHeaderParameter (..),
-    connectionHeaderParameter,
-    chpKey,
-    chpIsValueSecret,
-    chpValue,
+    newConnectionHeaderParameter,
+
+    -- * ConnectionHttpParameters
+    ConnectionHttpParameters (..),
+    newConnectionHttpParameters,
 
     -- * ConnectionOAuthClientResponseParameters
     ConnectionOAuthClientResponseParameters (..),
-    connectionOAuthClientResponseParameters,
-    coacrpClientId,
+    newConnectionOAuthClientResponseParameters,
 
     -- * ConnectionOAuthResponseParameters
     ConnectionOAuthResponseParameters (..),
-    connectionOAuthResponseParameters,
-    coarpHTTPMethod,
-    coarpClientParameters,
-    coarpAuthorizationEndpoint,
-    coarpOAuthHTTPParameters,
+    newConnectionOAuthResponseParameters,
 
     -- * ConnectionQueryStringParameter
     ConnectionQueryStringParameter (..),
-    connectionQueryStringParameter,
-    cqspKey,
-    cqspIsValueSecret,
-    cqspValue,
+    newConnectionQueryStringParameter,
 
-    -- * CreateConnectionAPIKeyAuthRequestParameters
-    CreateConnectionAPIKeyAuthRequestParameters (..),
-    createConnectionAPIKeyAuthRequestParameters,
-    ccakarpAPIKeyName,
-    ccakarpAPIKeyValue,
+    -- * CreateConnectionApiKeyAuthRequestParameters
+    CreateConnectionApiKeyAuthRequestParameters (..),
+    newCreateConnectionApiKeyAuthRequestParameters,
 
     -- * CreateConnectionAuthRequestParameters
     CreateConnectionAuthRequestParameters (..),
-    createConnectionAuthRequestParameters,
-    ccarpBasicAuthParameters,
-    ccarpOAuthParameters,
-    ccarpAPIKeyAuthParameters,
-    ccarpInvocationHTTPParameters,
+    newCreateConnectionAuthRequestParameters,
 
     -- * CreateConnectionBasicAuthRequestParameters
     CreateConnectionBasicAuthRequestParameters (..),
-    createConnectionBasicAuthRequestParameters,
-    ccbarpUsername,
-    ccbarpPassword,
+    newCreateConnectionBasicAuthRequestParameters,
 
     -- * CreateConnectionOAuthClientRequestParameters
     CreateConnectionOAuthClientRequestParameters (..),
-    createConnectionOAuthClientRequestParameters,
-    ccoacrpClientId,
-    ccoacrpClientSecret,
+    newCreateConnectionOAuthClientRequestParameters,
 
     -- * CreateConnectionOAuthRequestParameters
     CreateConnectionOAuthRequestParameters (..),
-    createConnectionOAuthRequestParameters,
-    ccoarpOAuthHTTPParameters,
-    ccoarpClientParameters,
-    ccoarpAuthorizationEndpoint,
-    ccoarpHTTPMethod,
+    newCreateConnectionOAuthRequestParameters,
 
     -- * DeadLetterConfig
     DeadLetterConfig (..),
-    deadLetterConfig,
-    dlcARN,
+    newDeadLetterConfig,
 
     -- * EcsParameters
     EcsParameters (..),
-    ecsParameters,
-    epNetworkConfiguration,
-    epPlatformVersion,
-    epLaunchType,
-    epGroup,
-    epTaskCount,
-    epTaskDefinitionARN,
+    newEcsParameters,
 
     -- * EventBus
     EventBus (..),
-    eventBus,
-    ebARN,
-    ebName,
-    ebPolicy,
+    newEventBus,
 
     -- * EventSource
     EventSource (..),
-    eventSource,
-    esCreationTime,
-    esExpirationTime,
-    esARN,
-    esState,
-    esName,
-    esCreatedBy,
+    newEventSource,
 
-    -- * HTTPParameters
-    HTTPParameters (..),
-    hTTPParameters,
-    httppQueryStringParameters,
-    httppPathParameterValues,
-    httppHeaderParameters,
+    -- * HttpParameters
+    HttpParameters (..),
+    newHttpParameters,
 
     -- * InputTransformer
     InputTransformer (..),
-    inputTransformer,
-    itInputPathsMap,
-    itInputTemplate,
+    newInputTransformer,
 
     -- * KinesisParameters
     KinesisParameters (..),
-    kinesisParameters,
-    kpPartitionKeyPath,
+    newKinesisParameters,
 
     -- * NetworkConfiguration
     NetworkConfiguration (..),
-    networkConfiguration,
-    ncAwsvpcConfiguration,
+    newNetworkConfiguration,
 
     -- * PartnerEventSource
     PartnerEventSource (..),
-    partnerEventSource,
-    pesARN,
-    pesName,
+    newPartnerEventSource,
 
     -- * PartnerEventSourceAccount
     PartnerEventSourceAccount (..),
-    partnerEventSourceAccount,
-    pesaCreationTime,
-    pesaExpirationTime,
-    pesaState,
-    pesaAccount,
+    newPartnerEventSourceAccount,
 
     -- * PutEventsRequestEntry
     PutEventsRequestEntry (..),
-    putEventsRequestEntry,
-    pereDetailType,
-    pereSource,
-    pereEventBusName,
-    pereDetail,
-    pereResources,
-    pereTraceHeader,
-    pereTime,
+    newPutEventsRequestEntry,
 
     -- * PutEventsResultEntry
     PutEventsResultEntry (..),
-    putEventsResultEntry,
-    pereEventId,
-    pereErrorMessage,
-    pereErrorCode,
+    newPutEventsResultEntry,
 
     -- * PutPartnerEventsRequestEntry
     PutPartnerEventsRequestEntry (..),
-    putPartnerEventsRequestEntry,
-    ppereDetailType,
-    ppereSource,
-    ppereDetail,
-    ppereResources,
-    ppereTime,
+    newPutPartnerEventsRequestEntry,
 
     -- * PutPartnerEventsResultEntry
     PutPartnerEventsResultEntry (..),
-    putPartnerEventsResultEntry,
-    ppereEventId,
-    ppereErrorMessage,
-    ppereErrorCode,
+    newPutPartnerEventsResultEntry,
 
     -- * PutTargetsResultEntry
     PutTargetsResultEntry (..),
-    putTargetsResultEntry,
-    ptreTargetId,
-    ptreErrorMessage,
-    ptreErrorCode,
+    newPutTargetsResultEntry,
 
     -- * RedshiftDataParameters
     RedshiftDataParameters (..),
-    redshiftDataParameters,
-    rdpDBUser,
-    rdpSecretManagerARN,
-    rdpStatementName,
-    rdpWithEvent,
-    rdpDatabase,
-    rdpSql,
+    newRedshiftDataParameters,
 
     -- * RemoveTargetsResultEntry
     RemoveTargetsResultEntry (..),
-    removeTargetsResultEntry,
-    rtreTargetId,
-    rtreErrorMessage,
-    rtreErrorCode,
+    newRemoveTargetsResultEntry,
 
     -- * Replay
     Replay (..),
-    replay,
-    rEventSourceARN,
-    rEventStartTime,
-    rReplayStartTime,
-    rStateReason,
-    rState,
-    rReplayName,
-    rEventLastReplayedTime,
-    rReplayEndTime,
-    rEventEndTime,
+    newReplay,
 
     -- * ReplayDestination
     ReplayDestination (..),
-    replayDestination,
-    rdFilterARNs,
-    rdARN,
+    newReplayDestination,
 
     -- * RetryPolicy
     RetryPolicy (..),
-    retryPolicy,
-    rpMaximumEventAgeInSeconds,
-    rpMaximumRetryAttempts,
+    newRetryPolicy,
 
     -- * Rule
     Rule (..),
-    rule,
-    rulEventPattern,
-    rulRoleARN,
-    rulARN,
-    rulEventBusName,
-    rulState,
-    rulScheduleExpression,
-    rulName,
-    rulManagedBy,
-    rulDescription,
+    newRule,
 
     -- * RunCommandParameters
     RunCommandParameters (..),
-    runCommandParameters,
-    rcpRunCommandTargets,
+    newRunCommandParameters,
 
     -- * RunCommandTarget
     RunCommandTarget (..),
-    runCommandTarget,
-    rctKey,
-    rctValues,
+    newRunCommandTarget,
 
     -- * SqsParameters
     SqsParameters (..),
-    sqsParameters,
-    spMessageGroupId,
+    newSqsParameters,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * Target
     Target (..),
-    target,
-    tEcsParameters,
-    tRunCommandParameters,
-    tRoleARN,
-    tRedshiftDataParameters,
-    tBatchParameters,
-    tInput,
-    tInputPath,
-    tDeadLetterConfig,
-    tRetryPolicy,
-    tHTTPParameters,
-    tSqsParameters,
-    tInputTransformer,
-    tKinesisParameters,
-    tId,
-    tARN,
+    newTarget,
 
-    -- * UpdateConnectionAPIKeyAuthRequestParameters
-    UpdateConnectionAPIKeyAuthRequestParameters (..),
-    updateConnectionAPIKeyAuthRequestParameters,
-    ucakarpAPIKeyValue,
-    ucakarpAPIKeyName,
+    -- * UpdateConnectionApiKeyAuthRequestParameters
+    UpdateConnectionApiKeyAuthRequestParameters (..),
+    newUpdateConnectionApiKeyAuthRequestParameters,
 
     -- * UpdateConnectionAuthRequestParameters
     UpdateConnectionAuthRequestParameters (..),
-    updateConnectionAuthRequestParameters,
-    ucarpBasicAuthParameters,
-    ucarpOAuthParameters,
-    ucarpAPIKeyAuthParameters,
-    ucarpInvocationHTTPParameters,
+    newUpdateConnectionAuthRequestParameters,
 
     -- * UpdateConnectionBasicAuthRequestParameters
     UpdateConnectionBasicAuthRequestParameters (..),
-    updateConnectionBasicAuthRequestParameters,
-    ucbarpPassword,
-    ucbarpUsername,
+    newUpdateConnectionBasicAuthRequestParameters,
 
     -- * UpdateConnectionOAuthClientRequestParameters
     UpdateConnectionOAuthClientRequestParameters (..),
-    updateConnectionOAuthClientRequestParameters,
-    ucoacrpClientSecret,
-    ucoacrpClientId,
+    newUpdateConnectionOAuthClientRequestParameters,
 
     -- * UpdateConnectionOAuthRequestParameters
     UpdateConnectionOAuthRequestParameters (..),
-    updateConnectionOAuthRequestParameters,
-    ucoarpHTTPMethod,
-    ucoarpClientParameters,
-    ucoarpAuthorizationEndpoint,
-    ucoarpOAuthHTTPParameters,
+    newUpdateConnectionOAuthRequestParameters,
   )
 where
 
-import Network.AWS.CloudWatchEvents.Types.APIdestination
-import Network.AWS.CloudWatchEvents.Types.APIdestinationHTTPMethod
-import Network.AWS.CloudWatchEvents.Types.APIdestinationState
-import Network.AWS.CloudWatchEvents.Types.AWSVPCConfiguration
+import Network.AWS.CloudWatchEvents.Types.ApiDestination
+import Network.AWS.CloudWatchEvents.Types.ApiDestinationHttpMethod
+import Network.AWS.CloudWatchEvents.Types.ApiDestinationState
 import Network.AWS.CloudWatchEvents.Types.Archive
 import Network.AWS.CloudWatchEvents.Types.ArchiveState
-import Network.AWS.CloudWatchEvents.Types.AssignPublicIP
+import Network.AWS.CloudWatchEvents.Types.AssignPublicIp
+import Network.AWS.CloudWatchEvents.Types.AwsVpcConfiguration
 import Network.AWS.CloudWatchEvents.Types.BatchArrayProperties
 import Network.AWS.CloudWatchEvents.Types.BatchParameters
 import Network.AWS.CloudWatchEvents.Types.BatchRetryStrategy
 import Network.AWS.CloudWatchEvents.Types.Condition
 import Network.AWS.CloudWatchEvents.Types.Connection
-import Network.AWS.CloudWatchEvents.Types.ConnectionAPIKeyAuthResponseParameters
+import Network.AWS.CloudWatchEvents.Types.ConnectionApiKeyAuthResponseParameters
 import Network.AWS.CloudWatchEvents.Types.ConnectionAuthResponseParameters
 import Network.AWS.CloudWatchEvents.Types.ConnectionAuthorizationType
 import Network.AWS.CloudWatchEvents.Types.ConnectionBasicAuthResponseParameters
 import Network.AWS.CloudWatchEvents.Types.ConnectionBodyParameter
-import Network.AWS.CloudWatchEvents.Types.ConnectionHTTPParameters
 import Network.AWS.CloudWatchEvents.Types.ConnectionHeaderParameter
+import Network.AWS.CloudWatchEvents.Types.ConnectionHttpParameters
 import Network.AWS.CloudWatchEvents.Types.ConnectionOAuthClientResponseParameters
-import Network.AWS.CloudWatchEvents.Types.ConnectionOAuthHTTPMethod
+import Network.AWS.CloudWatchEvents.Types.ConnectionOAuthHttpMethod
 import Network.AWS.CloudWatchEvents.Types.ConnectionOAuthResponseParameters
 import Network.AWS.CloudWatchEvents.Types.ConnectionQueryStringParameter
 import Network.AWS.CloudWatchEvents.Types.ConnectionState
-import Network.AWS.CloudWatchEvents.Types.CreateConnectionAPIKeyAuthRequestParameters
+import Network.AWS.CloudWatchEvents.Types.CreateConnectionApiKeyAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.CreateConnectionAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.CreateConnectionBasicAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.CreateConnectionOAuthClientRequestParameters
@@ -497,7 +310,7 @@ import Network.AWS.CloudWatchEvents.Types.EcsParameters
 import Network.AWS.CloudWatchEvents.Types.EventBus
 import Network.AWS.CloudWatchEvents.Types.EventSource
 import Network.AWS.CloudWatchEvents.Types.EventSourceState
-import Network.AWS.CloudWatchEvents.Types.HTTPParameters
+import Network.AWS.CloudWatchEvents.Types.HttpParameters
 import Network.AWS.CloudWatchEvents.Types.InputTransformer
 import Network.AWS.CloudWatchEvents.Types.KinesisParameters
 import Network.AWS.CloudWatchEvents.Types.LaunchType
@@ -522,139 +335,166 @@ import Network.AWS.CloudWatchEvents.Types.RunCommandTarget
 import Network.AWS.CloudWatchEvents.Types.SqsParameters
 import Network.AWS.CloudWatchEvents.Types.Tag
 import Network.AWS.CloudWatchEvents.Types.Target
-import Network.AWS.CloudWatchEvents.Types.UpdateConnectionAPIKeyAuthRequestParameters
+import Network.AWS.CloudWatchEvents.Types.UpdateConnectionApiKeyAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.UpdateConnectionAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.UpdateConnectionBasicAuthRequestParameters
 import Network.AWS.CloudWatchEvents.Types.UpdateConnectionOAuthClientRequestParameters
 import Network.AWS.CloudWatchEvents.Types.UpdateConnectionOAuthRequestParameters
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2015-10-07@ of the Amazon EventBridge SDK configuration.
-cloudWatchEvents :: Service
-cloudWatchEvents =
-  Service
-    { _svcAbbrev = "CloudWatchEvents",
-      _svcSigner = v4,
-      _svcPrefix = "events",
-      _svcVersion = "2015-10-07",
-      _svcEndpoint = defaultEndpoint cloudWatchEvents,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "CloudWatchEvents",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "CloudWatchEvents",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "events",
+      Prelude._svcVersion = "2015-10-07",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "CloudWatchEvents",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | This rule was created by an AWS service on behalf of your account. It is managed by that service. If you see this error in response to @DeleteRule@ or @RemoveTargets@ , you can use the @Force@ parameter in those calls to delete the rule or remove targets from the rule. You cannot modify these managed rules by using @DisableRule@ , @EnableRule@ , @PutTargets@ , @PutRule@ , @TagResource@ , or @UntagResource@ .
-_ManagedRuleException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | This rule was created by an AWS service on behalf of your account. It is
+-- managed by that service. If you see this error in response to
+-- @DeleteRule@ or @RemoveTargets@, you can use the @Force@ parameter in
+-- those calls to delete the rule or remove targets from the rule. You
+-- cannot modify these managed rules by using @DisableRule@, @EnableRule@,
+-- @PutTargets@, @PutRule@, @TagResource@, or @UntagResource@.
+_ManagedRuleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ManagedRuleException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "ManagedRuleException"
 
 -- | The specified state is not a valid state for an event source.
-_InvalidStateException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidStateException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "InvalidStateException"
 
 -- | The resource you are trying to create already exists.
-_ResourceAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAlreadyExistsException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAlreadyExistsException"
 
 -- | This exception occurs due to unexpected causes.
-_InternalException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "InternalException"
 
 -- | There is concurrent modification on a rule, target, archive, or replay.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
 
--- | The request failed because it attempted to create resource beyond the allowed service quota.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request failed because it attempted to create resource beyond the
+-- allowed service quota.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
 -- | An entity that you specified does not exist.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
 -- | The event bus policy is too long. For more information, see the limits.
-_PolicyLengthExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_PolicyLengthExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PolicyLengthExceededException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "PolicyLengthExceededException"
 
--- | An error occurred because a replay can be canceled only when the state is Running or Starting.
-_IllegalStatusException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An error occurred because a replay can be canceled only when the state
+-- is Running or Starting.
+_IllegalStatusException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IllegalStatusException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "IllegalStatusException"
 
 -- | The operation you are attempting is not available in this region.
-_OperationDisabledException :: AsError a => Getting (First ServiceError) a ServiceError
+_OperationDisabledException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationDisabledException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "OperationDisabledException"
 
 -- | The event pattern is not valid.
-_InvalidEventPatternException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidEventPatternException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidEventPatternException =
-  _MatchServiceError
-    cloudWatchEvents
+  Prelude._MatchServiceError
+    defaultService
     "InvalidEventPatternException"

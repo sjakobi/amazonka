@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,63 @@
 module Network.AWS.CloudWatchEvents.Types.RunCommandParameters where
 
 import Network.AWS.CloudWatchEvents.Types.RunCommandTarget
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This parameter contains the criteria (either InstanceIds or a tag) used to specify which EC2 instances are to be sent the command.
+-- | This parameter contains the criteria (either InstanceIds or a tag) used
+-- to specify which EC2 instances are to be sent the command.
 --
---
---
--- /See:/ 'runCommandParameters' smart constructor.
-newtype RunCommandParameters = RunCommandParameters'
-  { _rcpRunCommandTargets ::
-      List1 RunCommandTarget
+-- /See:/ 'newRunCommandParameters' smart constructor.
+data RunCommandParameters = RunCommandParameters'
+  { -- | Currently, we support including only one RunCommandTarget block, which
+    -- specifies either an array of InstanceIds or a tag.
+    runCommandTargets :: Prelude.List1 RunCommandTarget
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RunCommandParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RunCommandParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcpRunCommandTargets' - Currently, we support including only one RunCommandTarget block, which specifies either an array of InstanceIds or a tag.
-runCommandParameters ::
-  -- | 'rcpRunCommandTargets'
-  NonEmpty RunCommandTarget ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'runCommandTargets', 'runCommandParameters_runCommandTargets' - Currently, we support including only one RunCommandTarget block, which
+-- specifies either an array of InstanceIds or a tag.
+newRunCommandParameters ::
+  -- | 'runCommandTargets'
+  Prelude.NonEmpty RunCommandTarget ->
   RunCommandParameters
-runCommandParameters pRunCommandTargets_ =
+newRunCommandParameters pRunCommandTargets_ =
   RunCommandParameters'
-    { _rcpRunCommandTargets =
-        _List1 # pRunCommandTargets_
+    { runCommandTargets =
+        Prelude._List1 Lens.# pRunCommandTargets_
     }
 
--- | Currently, we support including only one RunCommandTarget block, which specifies either an array of InstanceIds or a tag.
-rcpRunCommandTargets :: Lens' RunCommandParameters (NonEmpty RunCommandTarget)
-rcpRunCommandTargets = lens _rcpRunCommandTargets (\s a -> s {_rcpRunCommandTargets = a}) . _List1
+-- | Currently, we support including only one RunCommandTarget block, which
+-- specifies either an array of InstanceIds or a tag.
+runCommandParameters_runCommandTargets :: Lens.Lens' RunCommandParameters (Prelude.NonEmpty RunCommandTarget)
+runCommandParameters_runCommandTargets = Lens.lens (\RunCommandParameters' {runCommandTargets} -> runCommandTargets) (\s@RunCommandParameters' {} a -> s {runCommandTargets = a} :: RunCommandParameters) Prelude.. Prelude._List1
 
-instance FromJSON RunCommandParameters where
+instance Prelude.FromJSON RunCommandParameters where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RunCommandParameters"
       ( \x ->
-          RunCommandParameters' <$> (x .: "RunCommandTargets")
+          RunCommandParameters'
+            Prelude.<$> (x Prelude..: "RunCommandTargets")
       )
 
-instance Hashable RunCommandParameters
+instance Prelude.Hashable RunCommandParameters
 
-instance NFData RunCommandParameters
+instance Prelude.NFData RunCommandParameters
 
-instance ToJSON RunCommandParameters where
+instance Prelude.ToJSON RunCommandParameters where
   toJSON RunCommandParameters' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("RunCommandTargets" .= _rcpRunCommandTargets)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("RunCommandTargets" Prelude..= runCommandTargets)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.PutEventsResultEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents an event that failed to be submitted.
 --
---
---
--- /See:/ 'putEventsResultEntry' smart constructor.
+-- /See:/ 'newPutEventsResultEntry' smart constructor.
 data PutEventsResultEntry = PutEventsResultEntry'
-  { _pereEventId ::
-      !(Maybe Text),
-    _pereErrorMessage ::
-      !(Maybe Text),
-    _pereErrorCode ::
-      !(Maybe Text)
+  { -- | The ID of the event.
+    eventId :: Prelude.Maybe Prelude.Text,
+    -- | The error message that explains why the event submission failed.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The error code that indicates why the event submission failed.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutEventsResultEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutEventsResultEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pereEventId' - The ID of the event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pereErrorMessage' - The error message that explains why the event submission failed.
+-- 'eventId', 'putEventsResultEntry_eventId' - The ID of the event.
 --
--- * 'pereErrorCode' - The error code that indicates why the event submission failed.
-putEventsResultEntry ::
+-- 'errorMessage', 'putEventsResultEntry_errorMessage' - The error message that explains why the event submission failed.
+--
+-- 'errorCode', 'putEventsResultEntry_errorCode' - The error code that indicates why the event submission failed.
+newPutEventsResultEntry ::
   PutEventsResultEntry
-putEventsResultEntry =
+newPutEventsResultEntry =
   PutEventsResultEntry'
-    { _pereEventId = Nothing,
-      _pereErrorMessage = Nothing,
-      _pereErrorCode = Nothing
+    { eventId = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The ID of the event.
-pereEventId :: Lens' PutEventsResultEntry (Maybe Text)
-pereEventId = lens _pereEventId (\s a -> s {_pereEventId = a})
+putEventsResultEntry_eventId :: Lens.Lens' PutEventsResultEntry (Prelude.Maybe Prelude.Text)
+putEventsResultEntry_eventId = Lens.lens (\PutEventsResultEntry' {eventId} -> eventId) (\s@PutEventsResultEntry' {} a -> s {eventId = a} :: PutEventsResultEntry)
 
 -- | The error message that explains why the event submission failed.
-pereErrorMessage :: Lens' PutEventsResultEntry (Maybe Text)
-pereErrorMessage = lens _pereErrorMessage (\s a -> s {_pereErrorMessage = a})
+putEventsResultEntry_errorMessage :: Lens.Lens' PutEventsResultEntry (Prelude.Maybe Prelude.Text)
+putEventsResultEntry_errorMessage = Lens.lens (\PutEventsResultEntry' {errorMessage} -> errorMessage) (\s@PutEventsResultEntry' {} a -> s {errorMessage = a} :: PutEventsResultEntry)
 
 -- | The error code that indicates why the event submission failed.
-pereErrorCode :: Lens' PutEventsResultEntry (Maybe Text)
-pereErrorCode = lens _pereErrorCode (\s a -> s {_pereErrorCode = a})
+putEventsResultEntry_errorCode :: Lens.Lens' PutEventsResultEntry (Prelude.Maybe Prelude.Text)
+putEventsResultEntry_errorCode = Lens.lens (\PutEventsResultEntry' {errorCode} -> errorCode) (\s@PutEventsResultEntry' {} a -> s {errorCode = a} :: PutEventsResultEntry)
 
-instance FromJSON PutEventsResultEntry where
+instance Prelude.FromJSON PutEventsResultEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PutEventsResultEntry"
       ( \x ->
           PutEventsResultEntry'
-            <$> (x .:? "EventId")
-            <*> (x .:? "ErrorMessage")
-            <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "EventId")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable PutEventsResultEntry
+instance Prelude.Hashable PutEventsResultEntry
 
-instance NFData PutEventsResultEntry
+instance Prelude.NFData PutEventsResultEntry

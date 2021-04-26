@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.ConnectionBasicAuthResponseParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the authorization parameters for the connection if Basic is specified as the authorization type.
+-- | Contains the authorization parameters for the connection if Basic is
+-- specified as the authorization type.
 --
---
---
--- /See:/ 'connectionBasicAuthResponseParameters' smart constructor.
-newtype ConnectionBasicAuthResponseParameters = ConnectionBasicAuthResponseParameters'
-  { _cbarpUsername ::
-      Maybe
-        Text
+-- /See:/ 'newConnectionBasicAuthResponseParameters' smart constructor.
+data ConnectionBasicAuthResponseParameters = ConnectionBasicAuthResponseParameters'
+  { -- | The user name to use for Basic authorization.
+    username :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConnectionBasicAuthResponseParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConnectionBasicAuthResponseParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbarpUsername' - The user name to use for Basic authorization.
-connectionBasicAuthResponseParameters ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'username', 'connectionBasicAuthResponseParameters_username' - The user name to use for Basic authorization.
+newConnectionBasicAuthResponseParameters ::
   ConnectionBasicAuthResponseParameters
-connectionBasicAuthResponseParameters =
+newConnectionBasicAuthResponseParameters =
   ConnectionBasicAuthResponseParameters'
-    { _cbarpUsername =
-        Nothing
+    { username =
+        Prelude.Nothing
     }
 
 -- | The user name to use for Basic authorization.
-cbarpUsername :: Lens' ConnectionBasicAuthResponseParameters (Maybe Text)
-cbarpUsername = lens _cbarpUsername (\s a -> s {_cbarpUsername = a})
+connectionBasicAuthResponseParameters_username :: Lens.Lens' ConnectionBasicAuthResponseParameters (Prelude.Maybe Prelude.Text)
+connectionBasicAuthResponseParameters_username = Lens.lens (\ConnectionBasicAuthResponseParameters' {username} -> username) (\s@ConnectionBasicAuthResponseParameters' {} a -> s {username = a} :: ConnectionBasicAuthResponseParameters)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ConnectionBasicAuthResponseParameters
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConnectionBasicAuthResponseParameters"
       ( \x ->
           ConnectionBasicAuthResponseParameters'
-            <$> (x .:? "Username")
+            Prelude.<$> (x Prelude..:? "Username")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ConnectionBasicAuthResponseParameters
 
-instance NFData ConnectionBasicAuthResponseParameters
+instance
+  Prelude.NFData
+    ConnectionBasicAuthResponseParameters

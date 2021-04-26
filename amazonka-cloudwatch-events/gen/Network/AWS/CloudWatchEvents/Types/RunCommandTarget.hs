@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.RunCommandTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the EC2 instances that are to be sent the command, specified as key-value pairs. Each @RunCommandTarget@ block can include only one key, but this key may specify multiple values.
+-- | Information about the EC2 instances that are to be sent the command,
+-- specified as key-value pairs. Each @RunCommandTarget@ block can include
+-- only one key, but this key may specify multiple values.
 --
---
---
--- /See:/ 'runCommandTarget' smart constructor.
+-- /See:/ 'newRunCommandTarget' smart constructor.
 data RunCommandTarget = RunCommandTarget'
-  { _rctKey ::
-      !Text,
-    _rctValues :: !(List1 Text)
+  { -- | Can be either @tag:@ /tag-key/ or @InstanceIds@.
+    key :: Prelude.Text,
+    -- | If @Key@ is @tag:@ /tag-key/, @Values@ is a list of tag values. If @Key@
+    -- is @InstanceIds@, @Values@ is a list of Amazon EC2 instance IDs.
+    values :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RunCommandTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RunCommandTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rctKey' - Can be either @tag:@ /tag-key/ or @InstanceIds@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rctValues' - If @Key@ is @tag:@ /tag-key/ , @Values@ is a list of tag values. If @Key@ is @InstanceIds@ , @Values@ is a list of Amazon EC2 instance IDs.
-runCommandTarget ::
-  -- | 'rctKey'
-  Text ->
-  -- | 'rctValues'
-  NonEmpty Text ->
+-- 'key', 'runCommandTarget_key' - Can be either @tag:@ /tag-key/ or @InstanceIds@.
+--
+-- 'values', 'runCommandTarget_values' - If @Key@ is @tag:@ /tag-key/, @Values@ is a list of tag values. If @Key@
+-- is @InstanceIds@, @Values@ is a list of Amazon EC2 instance IDs.
+newRunCommandTarget ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
   RunCommandTarget
-runCommandTarget pKey_ pValues_ =
+newRunCommandTarget pKey_ pValues_ =
   RunCommandTarget'
-    { _rctKey = pKey_,
-      _rctValues = _List1 # pValues_
+    { key = pKey_,
+      values = Prelude._List1 Lens.# pValues_
     }
 
--- | Can be either @tag:@ /tag-key/ or @InstanceIds@ .
-rctKey :: Lens' RunCommandTarget Text
-rctKey = lens _rctKey (\s a -> s {_rctKey = a})
+-- | Can be either @tag:@ /tag-key/ or @InstanceIds@.
+runCommandTarget_key :: Lens.Lens' RunCommandTarget Prelude.Text
+runCommandTarget_key = Lens.lens (\RunCommandTarget' {key} -> key) (\s@RunCommandTarget' {} a -> s {key = a} :: RunCommandTarget)
 
--- | If @Key@ is @tag:@ /tag-key/ , @Values@ is a list of tag values. If @Key@ is @InstanceIds@ , @Values@ is a list of Amazon EC2 instance IDs.
-rctValues :: Lens' RunCommandTarget (NonEmpty Text)
-rctValues = lens _rctValues (\s a -> s {_rctValues = a}) . _List1
+-- | If @Key@ is @tag:@ /tag-key/, @Values@ is a list of tag values. If @Key@
+-- is @InstanceIds@, @Values@ is a list of Amazon EC2 instance IDs.
+runCommandTarget_values :: Lens.Lens' RunCommandTarget (Prelude.NonEmpty Prelude.Text)
+runCommandTarget_values = Lens.lens (\RunCommandTarget' {values} -> values) (\s@RunCommandTarget' {} a -> s {values = a} :: RunCommandTarget) Prelude.. Prelude._List1
 
-instance FromJSON RunCommandTarget where
+instance Prelude.FromJSON RunCommandTarget where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RunCommandTarget"
       ( \x ->
           RunCommandTarget'
-            <$> (x .: "Key") <*> (x .: "Values")
+            Prelude.<$> (x Prelude..: "Key")
+            Prelude.<*> (x Prelude..: "Values")
       )
 
-instance Hashable RunCommandTarget
+instance Prelude.Hashable RunCommandTarget
 
-instance NFData RunCommandTarget
+instance Prelude.NFData RunCommandTarget
 
-instance ToJSON RunCommandTarget where
+instance Prelude.ToJSON RunCommandTarget where
   toJSON RunCommandTarget' {..} =
-    object
-      ( catMaybes
-          [ Just ("Key" .= _rctKey),
-            Just ("Values" .= _rctValues)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Values" Prelude..= values)
           ]
       )

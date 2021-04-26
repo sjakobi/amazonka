@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,158 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This is used by SaaS partners to write events to a customer's partner event bus. AWS customers do not use this operation.
+-- This is used by SaaS partners to write events to a customer\'s partner
+-- event bus. AWS customers do not use this operation.
 module Network.AWS.CloudWatchEvents.PutPartnerEvents
   ( -- * Creating a Request
-    putPartnerEvents,
-    PutPartnerEvents,
+    PutPartnerEvents (..),
+    newPutPartnerEvents,
 
     -- * Request Lenses
-    ppeEntries,
+    putPartnerEvents_entries,
 
     -- * Destructuring the Response
-    putPartnerEventsResponse,
-    PutPartnerEventsResponse,
+    PutPartnerEventsResponse (..),
+    newPutPartnerEventsResponse,
 
     -- * Response Lenses
-    pperrsFailedEntryCount,
-    pperrsEntries,
-    pperrsResponseStatus,
+    putPartnerEventsResponse_failedEntryCount,
+    putPartnerEventsResponse_entries,
+    putPartnerEventsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.PutPartnerEventsResultEntry
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putPartnerEvents' smart constructor.
-newtype PutPartnerEvents = PutPartnerEvents'
-  { _ppeEntries ::
-      List1 PutPartnerEventsRequestEntry
+-- | /See:/ 'newPutPartnerEvents' smart constructor.
+data PutPartnerEvents = PutPartnerEvents'
+  { -- | The list of events to write to the event bus.
+    entries :: Prelude.List1 PutPartnerEventsRequestEntry
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutPartnerEvents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutPartnerEvents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppeEntries' - The list of events to write to the event bus.
-putPartnerEvents ::
-  -- | 'ppeEntries'
-  NonEmpty PutPartnerEventsRequestEntry ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'entries', 'putPartnerEvents_entries' - The list of events to write to the event bus.
+newPutPartnerEvents ::
+  -- | 'entries'
+  Prelude.NonEmpty PutPartnerEventsRequestEntry ->
   PutPartnerEvents
-putPartnerEvents pEntries_ =
-  PutPartnerEvents' {_ppeEntries = _List1 # pEntries_}
+newPutPartnerEvents pEntries_ =
+  PutPartnerEvents'
+    { entries =
+        Prelude._List1 Lens.# pEntries_
+    }
 
 -- | The list of events to write to the event bus.
-ppeEntries :: Lens' PutPartnerEvents (NonEmpty PutPartnerEventsRequestEntry)
-ppeEntries = lens _ppeEntries (\s a -> s {_ppeEntries = a}) . _List1
+putPartnerEvents_entries :: Lens.Lens' PutPartnerEvents (Prelude.NonEmpty PutPartnerEventsRequestEntry)
+putPartnerEvents_entries = Lens.lens (\PutPartnerEvents' {entries} -> entries) (\s@PutPartnerEvents' {} a -> s {entries = a} :: PutPartnerEvents) Prelude.. Prelude._List1
 
-instance AWSRequest PutPartnerEvents where
+instance Prelude.AWSRequest PutPartnerEvents where
   type Rs PutPartnerEvents = PutPartnerEventsResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutPartnerEventsResponse'
-            <$> (x .?> "FailedEntryCount")
-            <*> (x .?> "Entries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "FailedEntryCount")
+            Prelude.<*> (x Prelude..?> "Entries" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutPartnerEvents
+instance Prelude.Hashable PutPartnerEvents
 
-instance NFData PutPartnerEvents
+instance Prelude.NFData PutPartnerEvents
 
-instance ToHeaders PutPartnerEvents where
+instance Prelude.ToHeaders PutPartnerEvents where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.PutPartnerEvents" :: ByteString),
+              Prelude.=# ("AWSEvents.PutPartnerEvents" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutPartnerEvents where
+instance Prelude.ToJSON PutPartnerEvents where
   toJSON PutPartnerEvents' {..} =
-    object
-      (catMaybes [Just ("Entries" .= _ppeEntries)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Entries" Prelude..= entries)]
+      )
 
-instance ToPath PutPartnerEvents where
-  toPath = const "/"
+instance Prelude.ToPath PutPartnerEvents where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutPartnerEvents where
-  toQuery = const mempty
+instance Prelude.ToQuery PutPartnerEvents where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putPartnerEventsResponse' smart constructor.
+-- | /See:/ 'newPutPartnerEventsResponse' smart constructor.
 data PutPartnerEventsResponse = PutPartnerEventsResponse'
-  { _pperrsFailedEntryCount ::
-      !(Maybe Int),
-    _pperrsEntries ::
-      !( Maybe
-           [PutPartnerEventsResultEntry]
-       ),
-    _pperrsResponseStatus ::
-      !Int
+  { -- | The number of events from this operation that could not be written to
+    -- the partner event bus.
+    failedEntryCount :: Prelude.Maybe Prelude.Int,
+    -- | The list of events from this operation that were successfully written to
+    -- the partner event bus.
+    entries :: Prelude.Maybe [PutPartnerEventsResultEntry],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutPartnerEventsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutPartnerEventsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pperrsFailedEntryCount' - The number of events from this operation that could not be written to the partner event bus.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pperrsEntries' - The list of events from this operation that were successfully written to the partner event bus.
+-- 'failedEntryCount', 'putPartnerEventsResponse_failedEntryCount' - The number of events from this operation that could not be written to
+-- the partner event bus.
 --
--- * 'pperrsResponseStatus' - -- | The response status code.
-putPartnerEventsResponse ::
-  -- | 'pperrsResponseStatus'
-  Int ->
+-- 'entries', 'putPartnerEventsResponse_entries' - The list of events from this operation that were successfully written to
+-- the partner event bus.
+--
+-- 'httpStatus', 'putPartnerEventsResponse_httpStatus' - The response's http status code.
+newPutPartnerEventsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutPartnerEventsResponse
-putPartnerEventsResponse pResponseStatus_ =
+newPutPartnerEventsResponse pHttpStatus_ =
   PutPartnerEventsResponse'
-    { _pperrsFailedEntryCount =
-        Nothing,
-      _pperrsEntries = Nothing,
-      _pperrsResponseStatus = pResponseStatus_
+    { failedEntryCount =
+        Prelude.Nothing,
+      entries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The number of events from this operation that could not be written to the partner event bus.
-pperrsFailedEntryCount :: Lens' PutPartnerEventsResponse (Maybe Int)
-pperrsFailedEntryCount = lens _pperrsFailedEntryCount (\s a -> s {_pperrsFailedEntryCount = a})
+-- | The number of events from this operation that could not be written to
+-- the partner event bus.
+putPartnerEventsResponse_failedEntryCount :: Lens.Lens' PutPartnerEventsResponse (Prelude.Maybe Prelude.Int)
+putPartnerEventsResponse_failedEntryCount = Lens.lens (\PutPartnerEventsResponse' {failedEntryCount} -> failedEntryCount) (\s@PutPartnerEventsResponse' {} a -> s {failedEntryCount = a} :: PutPartnerEventsResponse)
 
--- | The list of events from this operation that were successfully written to the partner event bus.
-pperrsEntries :: Lens' PutPartnerEventsResponse [PutPartnerEventsResultEntry]
-pperrsEntries = lens _pperrsEntries (\s a -> s {_pperrsEntries = a}) . _Default . _Coerce
+-- | The list of events from this operation that were successfully written to
+-- the partner event bus.
+putPartnerEventsResponse_entries :: Lens.Lens' PutPartnerEventsResponse (Prelude.Maybe [PutPartnerEventsResultEntry])
+putPartnerEventsResponse_entries = Lens.lens (\PutPartnerEventsResponse' {entries} -> entries) (\s@PutPartnerEventsResponse' {} a -> s {entries = a} :: PutPartnerEventsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-pperrsResponseStatus :: Lens' PutPartnerEventsResponse Int
-pperrsResponseStatus = lens _pperrsResponseStatus (\s a -> s {_pperrsResponseStatus = a})
+-- | The response's http status code.
+putPartnerEventsResponse_httpStatus :: Lens.Lens' PutPartnerEventsResponse Prelude.Int
+putPartnerEventsResponse_httpStatus = Lens.lens (\PutPartnerEventsResponse' {httpStatus} -> httpStatus) (\s@PutPartnerEventsResponse' {} a -> s {httpStatus = a} :: PutPartnerEventsResponse)
 
-instance NFData PutPartnerEventsResponse
+instance Prelude.NFData PutPartnerEventsResponse

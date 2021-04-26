@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.CloudWatchEvents.Types.ReplayState
   ( ReplayState
       ( ..,
-        Cancelled,
-        Cancelling,
-        Completed,
-        Failed,
-        Running,
-        Starting
+        ReplayStateCANCELLED,
+        ReplayStateCANCELLING,
+        ReplayStateCOMPLETED,
+        ReplayStateFAILED,
+        ReplayStateRUNNING,
+        ReplayStateSTARTING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReplayState = ReplayState' (CI Text)
+newtype ReplayState = ReplayState'
+  { fromReplayState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cancelled :: ReplayState
-pattern Cancelled = ReplayState' "CANCELLED"
+pattern ReplayStateCANCELLED :: ReplayState
+pattern ReplayStateCANCELLED = ReplayState' "CANCELLED"
 
-pattern Cancelling :: ReplayState
-pattern Cancelling = ReplayState' "CANCELLING"
+pattern ReplayStateCANCELLING :: ReplayState
+pattern ReplayStateCANCELLING = ReplayState' "CANCELLING"
 
-pattern Completed :: ReplayState
-pattern Completed = ReplayState' "COMPLETED"
+pattern ReplayStateCOMPLETED :: ReplayState
+pattern ReplayStateCOMPLETED = ReplayState' "COMPLETED"
 
-pattern Failed :: ReplayState
-pattern Failed = ReplayState' "FAILED"
+pattern ReplayStateFAILED :: ReplayState
+pattern ReplayStateFAILED = ReplayState' "FAILED"
 
-pattern Running :: ReplayState
-pattern Running = ReplayState' "RUNNING"
+pattern ReplayStateRUNNING :: ReplayState
+pattern ReplayStateRUNNING = ReplayState' "RUNNING"
 
-pattern Starting :: ReplayState
-pattern Starting = ReplayState' "STARTING"
+pattern ReplayStateSTARTING :: ReplayState
+pattern ReplayStateSTARTING = ReplayState' "STARTING"
 
 {-# COMPLETE
-  Cancelled,
-  Cancelling,
-  Completed,
-  Failed,
-  Running,
-  Starting,
+  ReplayStateCANCELLED,
+  ReplayStateCANCELLING,
+  ReplayStateCOMPLETED,
+  ReplayStateFAILED,
+  ReplayStateRUNNING,
+  ReplayStateSTARTING,
   ReplayState'
   #-}
 
-instance FromText ReplayState where
-  parser = (ReplayState' . mk) <$> takeText
+instance Prelude.FromText ReplayState where
+  parser = ReplayState' Prelude.<$> Prelude.takeText
 
-instance ToText ReplayState where
-  toText (ReplayState' ci) = original ci
+instance Prelude.ToText ReplayState where
+  toText (ReplayState' x) = x
 
-instance Hashable ReplayState
+instance Prelude.Hashable ReplayState
 
-instance NFData ReplayState
+instance Prelude.NFData ReplayState
 
-instance ToByteString ReplayState
+instance Prelude.ToByteString ReplayState
 
-instance ToQuery ReplayState
+instance Prelude.ToQuery ReplayState
 
-instance ToHeader ReplayState
+instance Prelude.ToHeader ReplayState
 
-instance ToJSON ReplayState where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReplayState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ReplayState where
-  parseJSON = parseJSONText "ReplayState"
+instance Prelude.FromJSON ReplayState where
+  parseJSON = Prelude.parseJSONText "ReplayState"

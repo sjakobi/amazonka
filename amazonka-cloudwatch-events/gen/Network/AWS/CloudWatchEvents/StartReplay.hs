@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,224 +21,263 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts the specified replay. Events are not necessarily replayed in the exact same order that they were added to the archive. A replay processes events to replay based on the time in the event, and replays them using 1 minute intervals. If you specify an @EventStartTime@ and an @EventEndTime@ that covers a 20 minute time range, the events are replayed from the first minute of that 20 minute range first. Then the events from the second minute are replayed. You can use @DescribeReplay@ to determine the progress of a replay. The value returned for @EventLastReplayedTime@ indicates the time within the specified time range associated with the last event replayed.
+-- Starts the specified replay. Events are not necessarily replayed in the
+-- exact same order that they were added to the archive. A replay processes
+-- events to replay based on the time in the event, and replays them using
+-- 1 minute intervals. If you specify an @EventStartTime@ and an
+-- @EventEndTime@ that covers a 20 minute time range, the events are
+-- replayed from the first minute of that 20 minute range first. Then the
+-- events from the second minute are replayed. You can use @DescribeReplay@
+-- to determine the progress of a replay. The value returned for
+-- @EventLastReplayedTime@ indicates the time within the specified time
+-- range associated with the last event replayed.
 module Network.AWS.CloudWatchEvents.StartReplay
   ( -- * Creating a Request
-    startReplay,
-    StartReplay,
+    StartReplay (..),
+    newStartReplay,
 
     -- * Request Lenses
-    srDescription,
-    srReplayName,
-    srEventSourceARN,
-    srEventStartTime,
-    srEventEndTime,
-    srDestination,
+    startReplay_description,
+    startReplay_replayName,
+    startReplay_eventSourceArn,
+    startReplay_eventStartTime,
+    startReplay_eventEndTime,
+    startReplay_destination,
 
     -- * Destructuring the Response
-    startReplayResponse,
-    StartReplayResponse,
+    StartReplayResponse (..),
+    newStartReplayResponse,
 
     -- * Response Lenses
-    srrrsReplayStartTime,
-    srrrsReplayARN,
-    srrrsStateReason,
-    srrrsState,
-    srrrsResponseStatus,
+    startReplayResponse_replayStartTime,
+    startReplayResponse_replayArn,
+    startReplayResponse_stateReason,
+    startReplayResponse_state,
+    startReplayResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.ReplayState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startReplay' smart constructor.
+-- | /See:/ 'newStartReplay' smart constructor.
 data StartReplay = StartReplay'
-  { _srDescription ::
-      !(Maybe Text),
-    _srReplayName :: !Text,
-    _srEventSourceARN :: !Text,
-    _srEventStartTime :: !POSIX,
-    _srEventEndTime :: !POSIX,
-    _srDestination :: !ReplayDestination
+  { -- | A description for the replay to start.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the replay to start.
+    replayName :: Prelude.Text,
+    -- | The ARN of the archive to replay events from.
+    eventSourceArn :: Prelude.Text,
+    -- | A time stamp for the time to start replaying events. Only events that
+    -- occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
+    eventStartTime :: Prelude.POSIX,
+    -- | A time stamp for the time to stop replaying events. Only events that
+    -- occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
+    eventEndTime :: Prelude.POSIX,
+    -- | A @ReplayDestination@ object that includes details about the destination
+    -- for the replay.
+    destination :: ReplayDestination
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartReplay' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartReplay' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srDescription' - A description for the replay to start.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srReplayName' - The name of the replay to start.
+-- 'description', 'startReplay_description' - A description for the replay to start.
 --
--- * 'srEventSourceARN' - The ARN of the archive to replay events from.
+-- 'replayName', 'startReplay_replayName' - The name of the replay to start.
 --
--- * 'srEventStartTime' - A time stamp for the time to start replaying events. Only events that occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
+-- 'eventSourceArn', 'startReplay_eventSourceArn' - The ARN of the archive to replay events from.
 --
--- * 'srEventEndTime' - A time stamp for the time to stop replaying events. Only events that occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
+-- 'eventStartTime', 'startReplay_eventStartTime' - A time stamp for the time to start replaying events. Only events that
+-- occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
 --
--- * 'srDestination' - A @ReplayDestination@ object that includes details about the destination for the replay.
-startReplay ::
-  -- | 'srReplayName'
-  Text ->
-  -- | 'srEventSourceARN'
-  Text ->
-  -- | 'srEventStartTime'
-  UTCTime ->
-  -- | 'srEventEndTime'
-  UTCTime ->
-  -- | 'srDestination'
+-- 'eventEndTime', 'startReplay_eventEndTime' - A time stamp for the time to stop replaying events. Only events that
+-- occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
+--
+-- 'destination', 'startReplay_destination' - A @ReplayDestination@ object that includes details about the destination
+-- for the replay.
+newStartReplay ::
+  -- | 'replayName'
+  Prelude.Text ->
+  -- | 'eventSourceArn'
+  Prelude.Text ->
+  -- | 'eventStartTime'
+  Prelude.UTCTime ->
+  -- | 'eventEndTime'
+  Prelude.UTCTime ->
+  -- | 'destination'
   ReplayDestination ->
   StartReplay
-startReplay
+newStartReplay
   pReplayName_
-  pEventSourceARN_
+  pEventSourceArn_
   pEventStartTime_
   pEventEndTime_
   pDestination_ =
     StartReplay'
-      { _srDescription = Nothing,
-        _srReplayName = pReplayName_,
-        _srEventSourceARN = pEventSourceARN_,
-        _srEventStartTime = _Time # pEventStartTime_,
-        _srEventEndTime = _Time # pEventEndTime_,
-        _srDestination = pDestination_
+      { description = Prelude.Nothing,
+        replayName = pReplayName_,
+        eventSourceArn = pEventSourceArn_,
+        eventStartTime =
+          Prelude._Time Lens.# pEventStartTime_,
+        eventEndTime = Prelude._Time Lens.# pEventEndTime_,
+        destination = pDestination_
       }
 
 -- | A description for the replay to start.
-srDescription :: Lens' StartReplay (Maybe Text)
-srDescription = lens _srDescription (\s a -> s {_srDescription = a})
+startReplay_description :: Lens.Lens' StartReplay (Prelude.Maybe Prelude.Text)
+startReplay_description = Lens.lens (\StartReplay' {description} -> description) (\s@StartReplay' {} a -> s {description = a} :: StartReplay)
 
 -- | The name of the replay to start.
-srReplayName :: Lens' StartReplay Text
-srReplayName = lens _srReplayName (\s a -> s {_srReplayName = a})
+startReplay_replayName :: Lens.Lens' StartReplay Prelude.Text
+startReplay_replayName = Lens.lens (\StartReplay' {replayName} -> replayName) (\s@StartReplay' {} a -> s {replayName = a} :: StartReplay)
 
 -- | The ARN of the archive to replay events from.
-srEventSourceARN :: Lens' StartReplay Text
-srEventSourceARN = lens _srEventSourceARN (\s a -> s {_srEventSourceARN = a})
+startReplay_eventSourceArn :: Lens.Lens' StartReplay Prelude.Text
+startReplay_eventSourceArn = Lens.lens (\StartReplay' {eventSourceArn} -> eventSourceArn) (\s@StartReplay' {} a -> s {eventSourceArn = a} :: StartReplay)
 
--- | A time stamp for the time to start replaying events. Only events that occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
-srEventStartTime :: Lens' StartReplay UTCTime
-srEventStartTime = lens _srEventStartTime (\s a -> s {_srEventStartTime = a}) . _Time
+-- | A time stamp for the time to start replaying events. Only events that
+-- occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
+startReplay_eventStartTime :: Lens.Lens' StartReplay Prelude.UTCTime
+startReplay_eventStartTime = Lens.lens (\StartReplay' {eventStartTime} -> eventStartTime) (\s@StartReplay' {} a -> s {eventStartTime = a} :: StartReplay) Prelude.. Prelude._Time
 
--- | A time stamp for the time to stop replaying events. Only events that occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
-srEventEndTime :: Lens' StartReplay UTCTime
-srEventEndTime = lens _srEventEndTime (\s a -> s {_srEventEndTime = a}) . _Time
+-- | A time stamp for the time to stop replaying events. Only events that
+-- occurred between the @EventStartTime@ and @EventEndTime@ are replayed.
+startReplay_eventEndTime :: Lens.Lens' StartReplay Prelude.UTCTime
+startReplay_eventEndTime = Lens.lens (\StartReplay' {eventEndTime} -> eventEndTime) (\s@StartReplay' {} a -> s {eventEndTime = a} :: StartReplay) Prelude.. Prelude._Time
 
--- | A @ReplayDestination@ object that includes details about the destination for the replay.
-srDestination :: Lens' StartReplay ReplayDestination
-srDestination = lens _srDestination (\s a -> s {_srDestination = a})
+-- | A @ReplayDestination@ object that includes details about the destination
+-- for the replay.
+startReplay_destination :: Lens.Lens' StartReplay ReplayDestination
+startReplay_destination = Lens.lens (\StartReplay' {destination} -> destination) (\s@StartReplay' {} a -> s {destination = a} :: StartReplay)
 
-instance AWSRequest StartReplay where
+instance Prelude.AWSRequest StartReplay where
   type Rs StartReplay = StartReplayResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartReplayResponse'
-            <$> (x .?> "ReplayStartTime")
-            <*> (x .?> "ReplayArn")
-            <*> (x .?> "StateReason")
-            <*> (x .?> "State")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ReplayStartTime")
+            Prelude.<*> (x Prelude..?> "ReplayArn")
+            Prelude.<*> (x Prelude..?> "StateReason")
+            Prelude.<*> (x Prelude..?> "State")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartReplay
+instance Prelude.Hashable StartReplay
 
-instance NFData StartReplay
+instance Prelude.NFData StartReplay
 
-instance ToHeaders StartReplay where
+instance Prelude.ToHeaders StartReplay where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.StartReplay" :: ByteString),
+              Prelude.=# ("AWSEvents.StartReplay" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartReplay where
+instance Prelude.ToJSON StartReplay where
   toJSON StartReplay' {..} =
-    object
-      ( catMaybes
-          [ ("Description" .=) <$> _srDescription,
-            Just ("ReplayName" .= _srReplayName),
-            Just ("EventSourceArn" .= _srEventSourceARN),
-            Just ("EventStartTime" .= _srEventStartTime),
-            Just ("EventEndTime" .= _srEventEndTime),
-            Just ("Destination" .= _srDestination)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("ReplayName" Prelude..= replayName),
+            Prelude.Just
+              ("EventSourceArn" Prelude..= eventSourceArn),
+            Prelude.Just
+              ("EventStartTime" Prelude..= eventStartTime),
+            Prelude.Just
+              ("EventEndTime" Prelude..= eventEndTime),
+            Prelude.Just ("Destination" Prelude..= destination)
           ]
       )
 
-instance ToPath StartReplay where
-  toPath = const "/"
+instance Prelude.ToPath StartReplay where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartReplay where
-  toQuery = const mempty
+instance Prelude.ToQuery StartReplay where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startReplayResponse' smart constructor.
+-- | /See:/ 'newStartReplayResponse' smart constructor.
 data StartReplayResponse = StartReplayResponse'
-  { _srrrsReplayStartTime ::
-      !(Maybe POSIX),
-    _srrrsReplayARN ::
-      !(Maybe Text),
-    _srrrsStateReason ::
-      !(Maybe Text),
-    _srrrsState ::
-      !(Maybe ReplayState),
-    _srrrsResponseStatus :: !Int
+  { -- | The time at which the replay started.
+    replayStartTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ARN of the replay.
+    replayArn :: Prelude.Maybe Prelude.Text,
+    -- | The reason that the replay is in the state.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | The state of the replay.
+    state :: Prelude.Maybe ReplayState,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartReplayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartReplayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srrrsReplayStartTime' - The time at which the replay started.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srrrsReplayARN' - The ARN of the replay.
+-- 'replayStartTime', 'startReplayResponse_replayStartTime' - The time at which the replay started.
 --
--- * 'srrrsStateReason' - The reason that the replay is in the state.
+-- 'replayArn', 'startReplayResponse_replayArn' - The ARN of the replay.
 --
--- * 'srrrsState' - The state of the replay.
+-- 'stateReason', 'startReplayResponse_stateReason' - The reason that the replay is in the state.
 --
--- * 'srrrsResponseStatus' - -- | The response status code.
-startReplayResponse ::
-  -- | 'srrrsResponseStatus'
-  Int ->
+-- 'state', 'startReplayResponse_state' - The state of the replay.
+--
+-- 'httpStatus', 'startReplayResponse_httpStatus' - The response's http status code.
+newStartReplayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartReplayResponse
-startReplayResponse pResponseStatus_ =
+newStartReplayResponse pHttpStatus_ =
   StartReplayResponse'
-    { _srrrsReplayStartTime =
-        Nothing,
-      _srrrsReplayARN = Nothing,
-      _srrrsStateReason = Nothing,
-      _srrrsState = Nothing,
-      _srrrsResponseStatus = pResponseStatus_
+    { replayStartTime =
+        Prelude.Nothing,
+      replayArn = Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      state = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The time at which the replay started.
-srrrsReplayStartTime :: Lens' StartReplayResponse (Maybe UTCTime)
-srrrsReplayStartTime = lens _srrrsReplayStartTime (\s a -> s {_srrrsReplayStartTime = a}) . mapping _Time
+startReplayResponse_replayStartTime :: Lens.Lens' StartReplayResponse (Prelude.Maybe Prelude.UTCTime)
+startReplayResponse_replayStartTime = Lens.lens (\StartReplayResponse' {replayStartTime} -> replayStartTime) (\s@StartReplayResponse' {} a -> s {replayStartTime = a} :: StartReplayResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ARN of the replay.
-srrrsReplayARN :: Lens' StartReplayResponse (Maybe Text)
-srrrsReplayARN = lens _srrrsReplayARN (\s a -> s {_srrrsReplayARN = a})
+startReplayResponse_replayArn :: Lens.Lens' StartReplayResponse (Prelude.Maybe Prelude.Text)
+startReplayResponse_replayArn = Lens.lens (\StartReplayResponse' {replayArn} -> replayArn) (\s@StartReplayResponse' {} a -> s {replayArn = a} :: StartReplayResponse)
 
 -- | The reason that the replay is in the state.
-srrrsStateReason :: Lens' StartReplayResponse (Maybe Text)
-srrrsStateReason = lens _srrrsStateReason (\s a -> s {_srrrsStateReason = a})
+startReplayResponse_stateReason :: Lens.Lens' StartReplayResponse (Prelude.Maybe Prelude.Text)
+startReplayResponse_stateReason = Lens.lens (\StartReplayResponse' {stateReason} -> stateReason) (\s@StartReplayResponse' {} a -> s {stateReason = a} :: StartReplayResponse)
 
 -- | The state of the replay.
-srrrsState :: Lens' StartReplayResponse (Maybe ReplayState)
-srrrsState = lens _srrrsState (\s a -> s {_srrrsState = a})
+startReplayResponse_state :: Lens.Lens' StartReplayResponse (Prelude.Maybe ReplayState)
+startReplayResponse_state = Lens.lens (\StartReplayResponse' {state} -> state) (\s@StartReplayResponse' {} a -> s {state = a} :: StartReplayResponse)
 
--- | -- | The response status code.
-srrrsResponseStatus :: Lens' StartReplayResponse Int
-srrrsResponseStatus = lens _srrrsResponseStatus (\s a -> s {_srrrsResponseStatus = a})
+-- | The response's http status code.
+startReplayResponse_httpStatus :: Lens.Lens' StartReplayResponse Prelude.Int
+startReplayResponse_httpStatus = Lens.lens (\StartReplayResponse' {httpStatus} -> httpStatus) (\s@StartReplayResponse' {} a -> s {httpStatus = a} :: StartReplayResponse)
 
-instance NFData StartReplayResponse
+instance Prelude.NFData StartReplayResponse

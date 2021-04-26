@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,108 +20,123 @@
 module Network.AWS.CloudWatchEvents.Types.Archive where
 
 import Network.AWS.CloudWatchEvents.Types.ArchiveState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An @Archive@ object that contains details about an archive.
 --
---
---
--- /See:/ 'archive' smart constructor.
+-- /See:/ 'newArchive' smart constructor.
 data Archive = Archive'
-  { _aEventCount ::
-      !(Maybe Integer),
-    _aEventSourceARN :: !(Maybe Text),
-    _aCreationTime :: !(Maybe POSIX),
-    _aStateReason :: !(Maybe Text),
-    _aArchiveName :: !(Maybe Text),
-    _aState :: !(Maybe ArchiveState),
-    _aSizeBytes :: !(Maybe Integer),
-    _aRetentionDays :: !(Maybe Nat)
+  { -- | The number of events in the archive.
+    eventCount :: Prelude.Maybe Prelude.Integer,
+    -- | The ARN of the event bus associated with the archive. Only events from
+    -- this event bus are sent to the archive.
+    eventSourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The time stamp for the time that the archive was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A description for the reason that the archive is in the current state.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | The name of the archive.
+    archiveName :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the archive.
+    state :: Prelude.Maybe ArchiveState,
+    -- | The size of the archive, in bytes.
+    sizeBytes :: Prelude.Maybe Prelude.Integer,
+    -- | The number of days to retain events in the archive before they are
+    -- deleted.
+    retentionDays :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Archive' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Archive' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aEventCount' - The number of events in the archive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aEventSourceARN' - The ARN of the event bus associated with the archive. Only events from this event bus are sent to the archive.
+-- 'eventCount', 'archive_eventCount' - The number of events in the archive.
 --
--- * 'aCreationTime' - The time stamp for the time that the archive was created.
+-- 'eventSourceArn', 'archive_eventSourceArn' - The ARN of the event bus associated with the archive. Only events from
+-- this event bus are sent to the archive.
 --
--- * 'aStateReason' - A description for the reason that the archive is in the current state.
+-- 'creationTime', 'archive_creationTime' - The time stamp for the time that the archive was created.
 --
--- * 'aArchiveName' - The name of the archive.
+-- 'stateReason', 'archive_stateReason' - A description for the reason that the archive is in the current state.
 --
--- * 'aState' - The current state of the archive.
+-- 'archiveName', 'archive_archiveName' - The name of the archive.
 --
--- * 'aSizeBytes' - The size of the archive, in bytes.
+-- 'state', 'archive_state' - The current state of the archive.
 --
--- * 'aRetentionDays' - The number of days to retain events in the archive before they are deleted.
-archive ::
+-- 'sizeBytes', 'archive_sizeBytes' - The size of the archive, in bytes.
+--
+-- 'retentionDays', 'archive_retentionDays' - The number of days to retain events in the archive before they are
+-- deleted.
+newArchive ::
   Archive
-archive =
+newArchive =
   Archive'
-    { _aEventCount = Nothing,
-      _aEventSourceARN = Nothing,
-      _aCreationTime = Nothing,
-      _aStateReason = Nothing,
-      _aArchiveName = Nothing,
-      _aState = Nothing,
-      _aSizeBytes = Nothing,
-      _aRetentionDays = Nothing
+    { eventCount = Prelude.Nothing,
+      eventSourceArn = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      archiveName = Prelude.Nothing,
+      state = Prelude.Nothing,
+      sizeBytes = Prelude.Nothing,
+      retentionDays = Prelude.Nothing
     }
 
 -- | The number of events in the archive.
-aEventCount :: Lens' Archive (Maybe Integer)
-aEventCount = lens _aEventCount (\s a -> s {_aEventCount = a})
+archive_eventCount :: Lens.Lens' Archive (Prelude.Maybe Prelude.Integer)
+archive_eventCount = Lens.lens (\Archive' {eventCount} -> eventCount) (\s@Archive' {} a -> s {eventCount = a} :: Archive)
 
--- | The ARN of the event bus associated with the archive. Only events from this event bus are sent to the archive.
-aEventSourceARN :: Lens' Archive (Maybe Text)
-aEventSourceARN = lens _aEventSourceARN (\s a -> s {_aEventSourceARN = a})
+-- | The ARN of the event bus associated with the archive. Only events from
+-- this event bus are sent to the archive.
+archive_eventSourceArn :: Lens.Lens' Archive (Prelude.Maybe Prelude.Text)
+archive_eventSourceArn = Lens.lens (\Archive' {eventSourceArn} -> eventSourceArn) (\s@Archive' {} a -> s {eventSourceArn = a} :: Archive)
 
 -- | The time stamp for the time that the archive was created.
-aCreationTime :: Lens' Archive (Maybe UTCTime)
-aCreationTime = lens _aCreationTime (\s a -> s {_aCreationTime = a}) . mapping _Time
+archive_creationTime :: Lens.Lens' Archive (Prelude.Maybe Prelude.UTCTime)
+archive_creationTime = Lens.lens (\Archive' {creationTime} -> creationTime) (\s@Archive' {} a -> s {creationTime = a} :: Archive) Prelude.. Lens.mapping Prelude._Time
 
 -- | A description for the reason that the archive is in the current state.
-aStateReason :: Lens' Archive (Maybe Text)
-aStateReason = lens _aStateReason (\s a -> s {_aStateReason = a})
+archive_stateReason :: Lens.Lens' Archive (Prelude.Maybe Prelude.Text)
+archive_stateReason = Lens.lens (\Archive' {stateReason} -> stateReason) (\s@Archive' {} a -> s {stateReason = a} :: Archive)
 
 -- | The name of the archive.
-aArchiveName :: Lens' Archive (Maybe Text)
-aArchiveName = lens _aArchiveName (\s a -> s {_aArchiveName = a})
+archive_archiveName :: Lens.Lens' Archive (Prelude.Maybe Prelude.Text)
+archive_archiveName = Lens.lens (\Archive' {archiveName} -> archiveName) (\s@Archive' {} a -> s {archiveName = a} :: Archive)
 
 -- | The current state of the archive.
-aState :: Lens' Archive (Maybe ArchiveState)
-aState = lens _aState (\s a -> s {_aState = a})
+archive_state :: Lens.Lens' Archive (Prelude.Maybe ArchiveState)
+archive_state = Lens.lens (\Archive' {state} -> state) (\s@Archive' {} a -> s {state = a} :: Archive)
 
 -- | The size of the archive, in bytes.
-aSizeBytes :: Lens' Archive (Maybe Integer)
-aSizeBytes = lens _aSizeBytes (\s a -> s {_aSizeBytes = a})
+archive_sizeBytes :: Lens.Lens' Archive (Prelude.Maybe Prelude.Integer)
+archive_sizeBytes = Lens.lens (\Archive' {sizeBytes} -> sizeBytes) (\s@Archive' {} a -> s {sizeBytes = a} :: Archive)
 
--- | The number of days to retain events in the archive before they are deleted.
-aRetentionDays :: Lens' Archive (Maybe Natural)
-aRetentionDays = lens _aRetentionDays (\s a -> s {_aRetentionDays = a}) . mapping _Nat
+-- | The number of days to retain events in the archive before they are
+-- deleted.
+archive_retentionDays :: Lens.Lens' Archive (Prelude.Maybe Prelude.Natural)
+archive_retentionDays = Lens.lens (\Archive' {retentionDays} -> retentionDays) (\s@Archive' {} a -> s {retentionDays = a} :: Archive) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON Archive where
+instance Prelude.FromJSON Archive where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Archive"
       ( \x ->
           Archive'
-            <$> (x .:? "EventCount")
-            <*> (x .:? "EventSourceArn")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "StateReason")
-            <*> (x .:? "ArchiveName")
-            <*> (x .:? "State")
-            <*> (x .:? "SizeBytes")
-            <*> (x .:? "RetentionDays")
+            Prelude.<$> (x Prelude..:? "EventCount")
+            Prelude.<*> (x Prelude..:? "EventSourceArn")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "StateReason")
+            Prelude.<*> (x Prelude..:? "ArchiveName")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "SizeBytes")
+            Prelude.<*> (x Prelude..:? "RetentionDays")
       )
 
-instance Hashable Archive
+instance Prelude.Hashable Archive
 
-instance NFData Archive
+instance Prelude.NFData Archive

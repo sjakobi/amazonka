@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.UpdateConnectionOAuthRequestParameters where
 
-import Network.AWS.CloudWatchEvents.Types.ConnectionHTTPParameters
-import Network.AWS.CloudWatchEvents.Types.ConnectionOAuthHTTPMethod
+import Network.AWS.CloudWatchEvents.Types.ConnectionHttpParameters
+import Network.AWS.CloudWatchEvents.Types.ConnectionOAuthHttpMethod
 import Network.AWS.CloudWatchEvents.Types.UpdateConnectionOAuthClientRequestParameters
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the OAuth request parameters to use for the connection.
 --
---
---
--- /See:/ 'updateConnectionOAuthRequestParameters' smart constructor.
+-- /See:/ 'newUpdateConnectionOAuthRequestParameters' smart constructor.
 data UpdateConnectionOAuthRequestParameters = UpdateConnectionOAuthRequestParameters'
-  { _ucoarpHTTPMethod ::
-      !( Maybe
-           ConnectionOAuthHTTPMethod
-       ),
-    _ucoarpClientParameters ::
-      !( Maybe
-           UpdateConnectionOAuthClientRequestParameters
-       ),
-    _ucoarpAuthorizationEndpoint ::
-      !( Maybe
-           Text
-       ),
-    _ucoarpOAuthHTTPParameters ::
-      !( Maybe
-           ConnectionHTTPParameters
-       )
+  { -- | The method used to connect to the HTTP endpoint.
+    httpMethod :: Prelude.Maybe ConnectionOAuthHttpMethod,
+    -- | A @UpdateConnectionOAuthClientRequestParameters@ object that contains
+    -- the client parameters to use for the connection when OAuth is specified
+    -- as the authorization type.
+    clientParameters :: Prelude.Maybe UpdateConnectionOAuthClientRequestParameters,
+    -- | The URL to the authorization endpoint when OAuth is specified as the
+    -- authorization type.
+    authorizationEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The additional HTTP parameters used for the OAuth authorization request.
+    oAuthHttpParameters :: Prelude.Maybe ConnectionHttpParameters
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConnectionOAuthRequestParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConnectionOAuthRequestParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucoarpHTTPMethod' - The method used to connect to the HTTP endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucoarpClientParameters' - A @UpdateConnectionOAuthClientRequestParameters@ object that contains the client parameters to use for the connection when OAuth is specified as the authorization type.
+-- 'httpMethod', 'updateConnectionOAuthRequestParameters_httpMethod' - The method used to connect to the HTTP endpoint.
 --
--- * 'ucoarpAuthorizationEndpoint' - The URL to the authorization endpoint when OAuth is specified as the authorization type.
+-- 'clientParameters', 'updateConnectionOAuthRequestParameters_clientParameters' - A @UpdateConnectionOAuthClientRequestParameters@ object that contains
+-- the client parameters to use for the connection when OAuth is specified
+-- as the authorization type.
 --
--- * 'ucoarpOAuthHTTPParameters' - The additional HTTP parameters used for the OAuth authorization request.
-updateConnectionOAuthRequestParameters ::
+-- 'authorizationEndpoint', 'updateConnectionOAuthRequestParameters_authorizationEndpoint' - The URL to the authorization endpoint when OAuth is specified as the
+-- authorization type.
+--
+-- 'oAuthHttpParameters', 'updateConnectionOAuthRequestParameters_oAuthHttpParameters' - The additional HTTP parameters used for the OAuth authorization request.
+newUpdateConnectionOAuthRequestParameters ::
   UpdateConnectionOAuthRequestParameters
-updateConnectionOAuthRequestParameters =
+newUpdateConnectionOAuthRequestParameters =
   UpdateConnectionOAuthRequestParameters'
-    { _ucoarpHTTPMethod =
-        Nothing,
-      _ucoarpClientParameters = Nothing,
-      _ucoarpAuthorizationEndpoint =
-        Nothing,
-      _ucoarpOAuthHTTPParameters =
-        Nothing
+    { httpMethod =
+        Prelude.Nothing,
+      clientParameters = Prelude.Nothing,
+      authorizationEndpoint =
+        Prelude.Nothing,
+      oAuthHttpParameters =
+        Prelude.Nothing
     }
 
 -- | The method used to connect to the HTTP endpoint.
-ucoarpHTTPMethod :: Lens' UpdateConnectionOAuthRequestParameters (Maybe ConnectionOAuthHTTPMethod)
-ucoarpHTTPMethod = lens _ucoarpHTTPMethod (\s a -> s {_ucoarpHTTPMethod = a})
+updateConnectionOAuthRequestParameters_httpMethod :: Lens.Lens' UpdateConnectionOAuthRequestParameters (Prelude.Maybe ConnectionOAuthHttpMethod)
+updateConnectionOAuthRequestParameters_httpMethod = Lens.lens (\UpdateConnectionOAuthRequestParameters' {httpMethod} -> httpMethod) (\s@UpdateConnectionOAuthRequestParameters' {} a -> s {httpMethod = a} :: UpdateConnectionOAuthRequestParameters)
 
--- | A @UpdateConnectionOAuthClientRequestParameters@ object that contains the client parameters to use for the connection when OAuth is specified as the authorization type.
-ucoarpClientParameters :: Lens' UpdateConnectionOAuthRequestParameters (Maybe UpdateConnectionOAuthClientRequestParameters)
-ucoarpClientParameters = lens _ucoarpClientParameters (\s a -> s {_ucoarpClientParameters = a})
+-- | A @UpdateConnectionOAuthClientRequestParameters@ object that contains
+-- the client parameters to use for the connection when OAuth is specified
+-- as the authorization type.
+updateConnectionOAuthRequestParameters_clientParameters :: Lens.Lens' UpdateConnectionOAuthRequestParameters (Prelude.Maybe UpdateConnectionOAuthClientRequestParameters)
+updateConnectionOAuthRequestParameters_clientParameters = Lens.lens (\UpdateConnectionOAuthRequestParameters' {clientParameters} -> clientParameters) (\s@UpdateConnectionOAuthRequestParameters' {} a -> s {clientParameters = a} :: UpdateConnectionOAuthRequestParameters)
 
--- | The URL to the authorization endpoint when OAuth is specified as the authorization type.
-ucoarpAuthorizationEndpoint :: Lens' UpdateConnectionOAuthRequestParameters (Maybe Text)
-ucoarpAuthorizationEndpoint = lens _ucoarpAuthorizationEndpoint (\s a -> s {_ucoarpAuthorizationEndpoint = a})
+-- | The URL to the authorization endpoint when OAuth is specified as the
+-- authorization type.
+updateConnectionOAuthRequestParameters_authorizationEndpoint :: Lens.Lens' UpdateConnectionOAuthRequestParameters (Prelude.Maybe Prelude.Text)
+updateConnectionOAuthRequestParameters_authorizationEndpoint = Lens.lens (\UpdateConnectionOAuthRequestParameters' {authorizationEndpoint} -> authorizationEndpoint) (\s@UpdateConnectionOAuthRequestParameters' {} a -> s {authorizationEndpoint = a} :: UpdateConnectionOAuthRequestParameters)
 
 -- | The additional HTTP parameters used for the OAuth authorization request.
-ucoarpOAuthHTTPParameters :: Lens' UpdateConnectionOAuthRequestParameters (Maybe ConnectionHTTPParameters)
-ucoarpOAuthHTTPParameters = lens _ucoarpOAuthHTTPParameters (\s a -> s {_ucoarpOAuthHTTPParameters = a})
+updateConnectionOAuthRequestParameters_oAuthHttpParameters :: Lens.Lens' UpdateConnectionOAuthRequestParameters (Prelude.Maybe ConnectionHttpParameters)
+updateConnectionOAuthRequestParameters_oAuthHttpParameters = Lens.lens (\UpdateConnectionOAuthRequestParameters' {oAuthHttpParameters} -> oAuthHttpParameters) (\s@UpdateConnectionOAuthRequestParameters' {} a -> s {oAuthHttpParameters = a} :: UpdateConnectionOAuthRequestParameters)
 
 instance
-  Hashable
+  Prelude.Hashable
     UpdateConnectionOAuthRequestParameters
 
 instance
-  NFData
+  Prelude.NFData
     UpdateConnectionOAuthRequestParameters
 
 instance
-  ToJSON
+  Prelude.ToJSON
     UpdateConnectionOAuthRequestParameters
   where
   toJSON UpdateConnectionOAuthRequestParameters' {..} =
-    object
-      ( catMaybes
-          [ ("HttpMethod" .=) <$> _ucoarpHTTPMethod,
-            ("ClientParameters" .=) <$> _ucoarpClientParameters,
-            ("AuthorizationEndpoint" .=)
-              <$> _ucoarpAuthorizationEndpoint,
-            ("OAuthHttpParameters" .=)
-              <$> _ucoarpOAuthHTTPParameters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("HttpMethod" Prelude..=) Prelude.<$> httpMethod,
+            ("ClientParameters" Prelude..=)
+              Prelude.<$> clientParameters,
+            ("AuthorizationEndpoint" Prelude..=)
+              Prelude.<$> authorizationEndpoint,
+            ("OAuthHttpParameters" Prelude..=)
+              Prelude.<$> oAuthHttpParameters
           ]
       )

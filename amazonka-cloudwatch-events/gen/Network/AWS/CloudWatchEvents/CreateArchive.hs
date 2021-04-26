@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,209 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an archive of events with the specified settings. When you create an archive, incoming events might not immediately start being sent to the archive. Allow a short period of time for changes to take effect. If you do not specify a pattern to filter events sent to the archive, all events are sent to the archive except replayed events. Replayed events are not sent to an archive.
+-- Creates an archive of events with the specified settings. When you
+-- create an archive, incoming events might not immediately start being
+-- sent to the archive. Allow a short period of time for changes to take
+-- effect. If you do not specify a pattern to filter events sent to the
+-- archive, all events are sent to the archive except replayed events.
+-- Replayed events are not sent to an archive.
 module Network.AWS.CloudWatchEvents.CreateArchive
   ( -- * Creating a Request
-    createArchive,
-    CreateArchive,
+    CreateArchive (..),
+    newCreateArchive,
 
     -- * Request Lenses
-    cEventPattern,
-    cDescription,
-    cRetentionDays,
-    cArchiveName,
-    cEventSourceARN,
+    createArchive_eventPattern,
+    createArchive_description,
+    createArchive_retentionDays,
+    createArchive_archiveName,
+    createArchive_eventSourceArn,
 
     -- * Destructuring the Response
-    createArchiveResponse,
-    CreateArchiveResponse,
+    CreateArchiveResponse (..),
+    newCreateArchiveResponse,
 
     -- * Response Lenses
-    crsCreationTime,
-    crsStateReason,
-    crsArchiveARN,
-    crsState,
-    crsResponseStatus,
+    createArchiveResponse_creationTime,
+    createArchiveResponse_stateReason,
+    createArchiveResponse_archiveArn,
+    createArchiveResponse_state,
+    createArchiveResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.ArchiveState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createArchive' smart constructor.
+-- | /See:/ 'newCreateArchive' smart constructor.
 data CreateArchive = CreateArchive'
-  { _cEventPattern ::
-      !(Maybe Text),
-    _cDescription :: !(Maybe Text),
-    _cRetentionDays :: !(Maybe Nat),
-    _cArchiveName :: !Text,
-    _cEventSourceARN :: !Text
+  { -- | An event pattern to use to filter events sent to the archive.
+    eventPattern :: Prelude.Maybe Prelude.Text,
+    -- | A description for the archive.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The number of days to retain events for. Default value is 0. If set to
+    -- 0, events are retained indefinitely
+    retentionDays :: Prelude.Maybe Prelude.Nat,
+    -- | The name for the archive to create.
+    archiveName :: Prelude.Text,
+    -- | The ARN of the event source associated with the archive.
+    eventSourceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateArchive' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateArchive' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cEventPattern' - An event pattern to use to filter events sent to the archive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cDescription' - A description for the archive.
+-- 'eventPattern', 'createArchive_eventPattern' - An event pattern to use to filter events sent to the archive.
 --
--- * 'cRetentionDays' - The number of days to retain events for. Default value is 0. If set to 0, events are retained indefinitely
+-- 'description', 'createArchive_description' - A description for the archive.
 --
--- * 'cArchiveName' - The name for the archive to create.
+-- 'retentionDays', 'createArchive_retentionDays' - The number of days to retain events for. Default value is 0. If set to
+-- 0, events are retained indefinitely
 --
--- * 'cEventSourceARN' - The ARN of the event source associated with the archive.
-createArchive ::
-  -- | 'cArchiveName'
-  Text ->
-  -- | 'cEventSourceARN'
-  Text ->
+-- 'archiveName', 'createArchive_archiveName' - The name for the archive to create.
+--
+-- 'eventSourceArn', 'createArchive_eventSourceArn' - The ARN of the event source associated with the archive.
+newCreateArchive ::
+  -- | 'archiveName'
+  Prelude.Text ->
+  -- | 'eventSourceArn'
+  Prelude.Text ->
   CreateArchive
-createArchive pArchiveName_ pEventSourceARN_ =
+newCreateArchive pArchiveName_ pEventSourceArn_ =
   CreateArchive'
-    { _cEventPattern = Nothing,
-      _cDescription = Nothing,
-      _cRetentionDays = Nothing,
-      _cArchiveName = pArchiveName_,
-      _cEventSourceARN = pEventSourceARN_
+    { eventPattern = Prelude.Nothing,
+      description = Prelude.Nothing,
+      retentionDays = Prelude.Nothing,
+      archiveName = pArchiveName_,
+      eventSourceArn = pEventSourceArn_
     }
 
 -- | An event pattern to use to filter events sent to the archive.
-cEventPattern :: Lens' CreateArchive (Maybe Text)
-cEventPattern = lens _cEventPattern (\s a -> s {_cEventPattern = a})
+createArchive_eventPattern :: Lens.Lens' CreateArchive (Prelude.Maybe Prelude.Text)
+createArchive_eventPattern = Lens.lens (\CreateArchive' {eventPattern} -> eventPattern) (\s@CreateArchive' {} a -> s {eventPattern = a} :: CreateArchive)
 
 -- | A description for the archive.
-cDescription :: Lens' CreateArchive (Maybe Text)
-cDescription = lens _cDescription (\s a -> s {_cDescription = a})
+createArchive_description :: Lens.Lens' CreateArchive (Prelude.Maybe Prelude.Text)
+createArchive_description = Lens.lens (\CreateArchive' {description} -> description) (\s@CreateArchive' {} a -> s {description = a} :: CreateArchive)
 
--- | The number of days to retain events for. Default value is 0. If set to 0, events are retained indefinitely
-cRetentionDays :: Lens' CreateArchive (Maybe Natural)
-cRetentionDays = lens _cRetentionDays (\s a -> s {_cRetentionDays = a}) . mapping _Nat
+-- | The number of days to retain events for. Default value is 0. If set to
+-- 0, events are retained indefinitely
+createArchive_retentionDays :: Lens.Lens' CreateArchive (Prelude.Maybe Prelude.Natural)
+createArchive_retentionDays = Lens.lens (\CreateArchive' {retentionDays} -> retentionDays) (\s@CreateArchive' {} a -> s {retentionDays = a} :: CreateArchive) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name for the archive to create.
-cArchiveName :: Lens' CreateArchive Text
-cArchiveName = lens _cArchiveName (\s a -> s {_cArchiveName = a})
+createArchive_archiveName :: Lens.Lens' CreateArchive Prelude.Text
+createArchive_archiveName = Lens.lens (\CreateArchive' {archiveName} -> archiveName) (\s@CreateArchive' {} a -> s {archiveName = a} :: CreateArchive)
 
 -- | The ARN of the event source associated with the archive.
-cEventSourceARN :: Lens' CreateArchive Text
-cEventSourceARN = lens _cEventSourceARN (\s a -> s {_cEventSourceARN = a})
+createArchive_eventSourceArn :: Lens.Lens' CreateArchive Prelude.Text
+createArchive_eventSourceArn = Lens.lens (\CreateArchive' {eventSourceArn} -> eventSourceArn) (\s@CreateArchive' {} a -> s {eventSourceArn = a} :: CreateArchive)
 
-instance AWSRequest CreateArchive where
+instance Prelude.AWSRequest CreateArchive where
   type Rs CreateArchive = CreateArchiveResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateArchiveResponse'
-            <$> (x .?> "CreationTime")
-            <*> (x .?> "StateReason")
-            <*> (x .?> "ArchiveArn")
-            <*> (x .?> "State")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "StateReason")
+            Prelude.<*> (x Prelude..?> "ArchiveArn")
+            Prelude.<*> (x Prelude..?> "State")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateArchive
+instance Prelude.Hashable CreateArchive
 
-instance NFData CreateArchive
+instance Prelude.NFData CreateArchive
 
-instance ToHeaders CreateArchive where
+instance Prelude.ToHeaders CreateArchive where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.CreateArchive" :: ByteString),
+              Prelude.=# ("AWSEvents.CreateArchive" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateArchive where
+instance Prelude.ToJSON CreateArchive where
   toJSON CreateArchive' {..} =
-    object
-      ( catMaybes
-          [ ("EventPattern" .=) <$> _cEventPattern,
-            ("Description" .=) <$> _cDescription,
-            ("RetentionDays" .=) <$> _cRetentionDays,
-            Just ("ArchiveName" .= _cArchiveName),
-            Just ("EventSourceArn" .= _cEventSourceARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EventPattern" Prelude..=)
+              Prelude.<$> eventPattern,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("RetentionDays" Prelude..=)
+              Prelude.<$> retentionDays,
+            Prelude.Just ("ArchiveName" Prelude..= archiveName),
+            Prelude.Just
+              ("EventSourceArn" Prelude..= eventSourceArn)
           ]
       )
 
-instance ToPath CreateArchive where
-  toPath = const "/"
+instance Prelude.ToPath CreateArchive where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateArchive where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateArchive where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createArchiveResponse' smart constructor.
+-- | /See:/ 'newCreateArchiveResponse' smart constructor.
 data CreateArchiveResponse = CreateArchiveResponse'
-  { _crsCreationTime ::
-      !(Maybe POSIX),
-    _crsStateReason ::
-      !(Maybe Text),
-    _crsArchiveARN ::
-      !(Maybe Text),
-    _crsState ::
-      !(Maybe ArchiveState),
-    _crsResponseStatus :: !Int
+  { -- | The time at which the archive was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The reason that the archive is in the state.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the archive that was created.
+    archiveArn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the archive that was created.
+    state :: Prelude.Maybe ArchiveState,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateArchiveResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateArchiveResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crsCreationTime' - The time at which the archive was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crsStateReason' - The reason that the archive is in the state.
+-- 'creationTime', 'createArchiveResponse_creationTime' - The time at which the archive was created.
 --
--- * 'crsArchiveARN' - The ARN of the archive that was created.
+-- 'stateReason', 'createArchiveResponse_stateReason' - The reason that the archive is in the state.
 --
--- * 'crsState' - The state of the archive that was created.
+-- 'archiveArn', 'createArchiveResponse_archiveArn' - The ARN of the archive that was created.
 --
--- * 'crsResponseStatus' - -- | The response status code.
-createArchiveResponse ::
-  -- | 'crsResponseStatus'
-  Int ->
+-- 'state', 'createArchiveResponse_state' - The state of the archive that was created.
+--
+-- 'httpStatus', 'createArchiveResponse_httpStatus' - The response's http status code.
+newCreateArchiveResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateArchiveResponse
-createArchiveResponse pResponseStatus_ =
+newCreateArchiveResponse pHttpStatus_ =
   CreateArchiveResponse'
-    { _crsCreationTime = Nothing,
-      _crsStateReason = Nothing,
-      _crsArchiveARN = Nothing,
-      _crsState = Nothing,
-      _crsResponseStatus = pResponseStatus_
+    { creationTime =
+        Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      archiveArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The time at which the archive was created.
-crsCreationTime :: Lens' CreateArchiveResponse (Maybe UTCTime)
-crsCreationTime = lens _crsCreationTime (\s a -> s {_crsCreationTime = a}) . mapping _Time
+createArchiveResponse_creationTime :: Lens.Lens' CreateArchiveResponse (Prelude.Maybe Prelude.UTCTime)
+createArchiveResponse_creationTime = Lens.lens (\CreateArchiveResponse' {creationTime} -> creationTime) (\s@CreateArchiveResponse' {} a -> s {creationTime = a} :: CreateArchiveResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The reason that the archive is in the state.
-crsStateReason :: Lens' CreateArchiveResponse (Maybe Text)
-crsStateReason = lens _crsStateReason (\s a -> s {_crsStateReason = a})
+createArchiveResponse_stateReason :: Lens.Lens' CreateArchiveResponse (Prelude.Maybe Prelude.Text)
+createArchiveResponse_stateReason = Lens.lens (\CreateArchiveResponse' {stateReason} -> stateReason) (\s@CreateArchiveResponse' {} a -> s {stateReason = a} :: CreateArchiveResponse)
 
 -- | The ARN of the archive that was created.
-crsArchiveARN :: Lens' CreateArchiveResponse (Maybe Text)
-crsArchiveARN = lens _crsArchiveARN (\s a -> s {_crsArchiveARN = a})
+createArchiveResponse_archiveArn :: Lens.Lens' CreateArchiveResponse (Prelude.Maybe Prelude.Text)
+createArchiveResponse_archiveArn = Lens.lens (\CreateArchiveResponse' {archiveArn} -> archiveArn) (\s@CreateArchiveResponse' {} a -> s {archiveArn = a} :: CreateArchiveResponse)
 
 -- | The state of the archive that was created.
-crsState :: Lens' CreateArchiveResponse (Maybe ArchiveState)
-crsState = lens _crsState (\s a -> s {_crsState = a})
+createArchiveResponse_state :: Lens.Lens' CreateArchiveResponse (Prelude.Maybe ArchiveState)
+createArchiveResponse_state = Lens.lens (\CreateArchiveResponse' {state} -> state) (\s@CreateArchiveResponse' {} a -> s {state = a} :: CreateArchiveResponse)
 
--- | -- | The response status code.
-crsResponseStatus :: Lens' CreateArchiveResponse Int
-crsResponseStatus = lens _crsResponseStatus (\s a -> s {_crsResponseStatus = a})
+-- | The response's http status code.
+createArchiveResponse_httpStatus :: Lens.Lens' CreateArchiveResponse Prelude.Int
+createArchiveResponse_httpStatus = Lens.lens (\CreateArchiveResponse' {httpStatus} -> httpStatus) (\s@CreateArchiveResponse' {} a -> s {httpStatus = a} :: CreateArchiveResponse)
 
-instance NFData CreateArchiveResponse
+instance Prelude.NFData CreateArchiveResponse

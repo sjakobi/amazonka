@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchEvents.Types.RetryPolicy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A @RetryPolicy@ object that includes information about the retry policy settings.
+-- | A @RetryPolicy@ object that includes information about the retry policy
+-- settings.
 --
---
---
--- /See:/ 'retryPolicy' smart constructor.
+-- /See:/ 'newRetryPolicy' smart constructor.
 data RetryPolicy = RetryPolicy'
-  { _rpMaximumEventAgeInSeconds ::
-      !(Maybe Nat),
-    _rpMaximumRetryAttempts :: !(Maybe Nat)
+  { -- | The maximum amount of time, in seconds, to continue to make retry
+    -- attempts.
+    maximumEventAgeInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum number of retry attempts to make before the request fails.
+    -- Retry attempts continue until either the maximum number of attempts is
+    -- made or until the duration of the @MaximumEventAgeInSeconds@ is met.
+    maximumRetryAttempts :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RetryPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RetryPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpMaximumEventAgeInSeconds' - The maximum amount of time, in seconds, to continue to make retry attempts.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpMaximumRetryAttempts' - The maximum number of retry attempts to make before the request fails. Retry attempts continue until either the maximum number of attempts is made or until the duration of the @MaximumEventAgeInSeconds@ is met.
-retryPolicy ::
+-- 'maximumEventAgeInSeconds', 'retryPolicy_maximumEventAgeInSeconds' - The maximum amount of time, in seconds, to continue to make retry
+-- attempts.
+--
+-- 'maximumRetryAttempts', 'retryPolicy_maximumRetryAttempts' - The maximum number of retry attempts to make before the request fails.
+-- Retry attempts continue until either the maximum number of attempts is
+-- made or until the duration of the @MaximumEventAgeInSeconds@ is met.
+newRetryPolicy ::
   RetryPolicy
-retryPolicy =
+newRetryPolicy =
   RetryPolicy'
-    { _rpMaximumEventAgeInSeconds = Nothing,
-      _rpMaximumRetryAttempts = Nothing
+    { maximumEventAgeInSeconds =
+        Prelude.Nothing,
+      maximumRetryAttempts = Prelude.Nothing
     }
 
--- | The maximum amount of time, in seconds, to continue to make retry attempts.
-rpMaximumEventAgeInSeconds :: Lens' RetryPolicy (Maybe Natural)
-rpMaximumEventAgeInSeconds = lens _rpMaximumEventAgeInSeconds (\s a -> s {_rpMaximumEventAgeInSeconds = a}) . mapping _Nat
+-- | The maximum amount of time, in seconds, to continue to make retry
+-- attempts.
+retryPolicy_maximumEventAgeInSeconds :: Lens.Lens' RetryPolicy (Prelude.Maybe Prelude.Natural)
+retryPolicy_maximumEventAgeInSeconds = Lens.lens (\RetryPolicy' {maximumEventAgeInSeconds} -> maximumEventAgeInSeconds) (\s@RetryPolicy' {} a -> s {maximumEventAgeInSeconds = a} :: RetryPolicy) Prelude.. Lens.mapping Prelude._Nat
 
--- | The maximum number of retry attempts to make before the request fails. Retry attempts continue until either the maximum number of attempts is made or until the duration of the @MaximumEventAgeInSeconds@ is met.
-rpMaximumRetryAttempts :: Lens' RetryPolicy (Maybe Natural)
-rpMaximumRetryAttempts = lens _rpMaximumRetryAttempts (\s a -> s {_rpMaximumRetryAttempts = a}) . mapping _Nat
+-- | The maximum number of retry attempts to make before the request fails.
+-- Retry attempts continue until either the maximum number of attempts is
+-- made or until the duration of the @MaximumEventAgeInSeconds@ is met.
+retryPolicy_maximumRetryAttempts :: Lens.Lens' RetryPolicy (Prelude.Maybe Prelude.Natural)
+retryPolicy_maximumRetryAttempts = Lens.lens (\RetryPolicy' {maximumRetryAttempts} -> maximumRetryAttempts) (\s@RetryPolicy' {} a -> s {maximumRetryAttempts = a} :: RetryPolicy) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON RetryPolicy where
+instance Prelude.FromJSON RetryPolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RetryPolicy"
       ( \x ->
           RetryPolicy'
-            <$> (x .:? "MaximumEventAgeInSeconds")
-            <*> (x .:? "MaximumRetryAttempts")
+            Prelude.<$> (x Prelude..:? "MaximumEventAgeInSeconds")
+            Prelude.<*> (x Prelude..:? "MaximumRetryAttempts")
       )
 
-instance Hashable RetryPolicy
+instance Prelude.Hashable RetryPolicy
 
-instance NFData RetryPolicy
+instance Prelude.NFData RetryPolicy
 
-instance ToJSON RetryPolicy where
+instance Prelude.ToJSON RetryPolicy where
   toJSON RetryPolicy' {..} =
-    object
-      ( catMaybes
-          [ ("MaximumEventAgeInSeconds" .=)
-              <$> _rpMaximumEventAgeInSeconds,
-            ("MaximumRetryAttempts" .=)
-              <$> _rpMaximumRetryAttempts
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaximumEventAgeInSeconds" Prelude..=)
+              Prelude.<$> maximumEventAgeInSeconds,
+            ("MaximumRetryAttempts" Prelude..=)
+              Prelude.<$> maximumRetryAttempts
           ]
       )

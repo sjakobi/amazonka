@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.CloudWatchEvents.Types.ConnectionState
   ( ConnectionState
       ( ..,
-        Authorized,
-        Authorizing,
-        Creating,
-        Deauthorized,
-        Deauthorizing,
-        Deleting,
-        Updating
+        ConnectionStateAUTHORIZED,
+        ConnectionStateAUTHORIZING,
+        ConnectionStateCREATING,
+        ConnectionStateDEAUTHORIZED,
+        ConnectionStateDEAUTHORIZING,
+        ConnectionStateDELETING,
+        ConnectionStateUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionState = ConnectionState' (CI Text)
+newtype ConnectionState = ConnectionState'
+  { fromConnectionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Authorized :: ConnectionState
-pattern Authorized = ConnectionState' "AUTHORIZED"
+pattern ConnectionStateAUTHORIZED :: ConnectionState
+pattern ConnectionStateAUTHORIZED = ConnectionState' "AUTHORIZED"
 
-pattern Authorizing :: ConnectionState
-pattern Authorizing = ConnectionState' "AUTHORIZING"
+pattern ConnectionStateAUTHORIZING :: ConnectionState
+pattern ConnectionStateAUTHORIZING = ConnectionState' "AUTHORIZING"
 
-pattern Creating :: ConnectionState
-pattern Creating = ConnectionState' "CREATING"
+pattern ConnectionStateCREATING :: ConnectionState
+pattern ConnectionStateCREATING = ConnectionState' "CREATING"
 
-pattern Deauthorized :: ConnectionState
-pattern Deauthorized = ConnectionState' "DEAUTHORIZED"
+pattern ConnectionStateDEAUTHORIZED :: ConnectionState
+pattern ConnectionStateDEAUTHORIZED = ConnectionState' "DEAUTHORIZED"
 
-pattern Deauthorizing :: ConnectionState
-pattern Deauthorizing = ConnectionState' "DEAUTHORIZING"
+pattern ConnectionStateDEAUTHORIZING :: ConnectionState
+pattern ConnectionStateDEAUTHORIZING = ConnectionState' "DEAUTHORIZING"
 
-pattern Deleting :: ConnectionState
-pattern Deleting = ConnectionState' "DELETING"
+pattern ConnectionStateDELETING :: ConnectionState
+pattern ConnectionStateDELETING = ConnectionState' "DELETING"
 
-pattern Updating :: ConnectionState
-pattern Updating = ConnectionState' "UPDATING"
+pattern ConnectionStateUPDATING :: ConnectionState
+pattern ConnectionStateUPDATING = ConnectionState' "UPDATING"
 
 {-# COMPLETE
-  Authorized,
-  Authorizing,
-  Creating,
-  Deauthorized,
-  Deauthorizing,
-  Deleting,
-  Updating,
+  ConnectionStateAUTHORIZED,
+  ConnectionStateAUTHORIZING,
+  ConnectionStateCREATING,
+  ConnectionStateDEAUTHORIZED,
+  ConnectionStateDEAUTHORIZING,
+  ConnectionStateDELETING,
+  ConnectionStateUPDATING,
   ConnectionState'
   #-}
 
-instance FromText ConnectionState where
-  parser = (ConnectionState' . mk) <$> takeText
+instance Prelude.FromText ConnectionState where
+  parser = ConnectionState' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionState where
-  toText (ConnectionState' ci) = original ci
+instance Prelude.ToText ConnectionState where
+  toText (ConnectionState' x) = x
 
-instance Hashable ConnectionState
+instance Prelude.Hashable ConnectionState
 
-instance NFData ConnectionState
+instance Prelude.NFData ConnectionState
 
-instance ToByteString ConnectionState
+instance Prelude.ToByteString ConnectionState
 
-instance ToQuery ConnectionState
+instance Prelude.ToQuery ConnectionState
 
-instance ToHeader ConnectionState
+instance Prelude.ToHeader ConnectionState
 
-instance ToJSON ConnectionState where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConnectionState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ConnectionState where
-  parseJSON = parseJSONText "ConnectionState"
+instance Prelude.FromJSON ConnectionState where
+  parseJSON = Prelude.parseJSONText "ConnectionState"

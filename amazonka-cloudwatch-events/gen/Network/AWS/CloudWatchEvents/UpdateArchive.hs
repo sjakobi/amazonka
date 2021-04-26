@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,194 +24,205 @@
 -- Updates the specified archive.
 module Network.AWS.CloudWatchEvents.UpdateArchive
   ( -- * Creating a Request
-    updateArchive,
-    UpdateArchive,
+    UpdateArchive (..),
+    newUpdateArchive,
 
     -- * Request Lenses
-    uaEventPattern,
-    uaDescription,
-    uaRetentionDays,
-    uaArchiveName,
+    updateArchive_eventPattern,
+    updateArchive_description,
+    updateArchive_retentionDays,
+    updateArchive_archiveName,
 
     -- * Destructuring the Response
-    updateArchiveResponse,
-    UpdateArchiveResponse,
+    UpdateArchiveResponse (..),
+    newUpdateArchiveResponse,
 
     -- * Response Lenses
-    ursCreationTime,
-    ursStateReason,
-    ursArchiveARN,
-    ursState,
-    ursResponseStatus,
+    updateArchiveResponse_creationTime,
+    updateArchiveResponse_stateReason,
+    updateArchiveResponse_archiveArn,
+    updateArchiveResponse_state,
+    updateArchiveResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types.ArchiveState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateArchive' smart constructor.
+-- | /See:/ 'newUpdateArchive' smart constructor.
 data UpdateArchive = UpdateArchive'
-  { _uaEventPattern ::
-      !(Maybe Text),
-    _uaDescription :: !(Maybe Text),
-    _uaRetentionDays :: !(Maybe Nat),
-    _uaArchiveName :: !Text
+  { -- | The event pattern to use to filter events sent to the archive.
+    eventPattern :: Prelude.Maybe Prelude.Text,
+    -- | The description for the archive.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The number of days to retain events in the archive.
+    retentionDays :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the archive to update.
+    archiveName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateArchive' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateArchive' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaEventPattern' - The event pattern to use to filter events sent to the archive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaDescription' - The description for the archive.
+-- 'eventPattern', 'updateArchive_eventPattern' - The event pattern to use to filter events sent to the archive.
 --
--- * 'uaRetentionDays' - The number of days to retain events in the archive.
+-- 'description', 'updateArchive_description' - The description for the archive.
 --
--- * 'uaArchiveName' - The name of the archive to update.
-updateArchive ::
-  -- | 'uaArchiveName'
-  Text ->
+-- 'retentionDays', 'updateArchive_retentionDays' - The number of days to retain events in the archive.
+--
+-- 'archiveName', 'updateArchive_archiveName' - The name of the archive to update.
+newUpdateArchive ::
+  -- | 'archiveName'
+  Prelude.Text ->
   UpdateArchive
-updateArchive pArchiveName_ =
+newUpdateArchive pArchiveName_ =
   UpdateArchive'
-    { _uaEventPattern = Nothing,
-      _uaDescription = Nothing,
-      _uaRetentionDays = Nothing,
-      _uaArchiveName = pArchiveName_
+    { eventPattern = Prelude.Nothing,
+      description = Prelude.Nothing,
+      retentionDays = Prelude.Nothing,
+      archiveName = pArchiveName_
     }
 
 -- | The event pattern to use to filter events sent to the archive.
-uaEventPattern :: Lens' UpdateArchive (Maybe Text)
-uaEventPattern = lens _uaEventPattern (\s a -> s {_uaEventPattern = a})
+updateArchive_eventPattern :: Lens.Lens' UpdateArchive (Prelude.Maybe Prelude.Text)
+updateArchive_eventPattern = Lens.lens (\UpdateArchive' {eventPattern} -> eventPattern) (\s@UpdateArchive' {} a -> s {eventPattern = a} :: UpdateArchive)
 
 -- | The description for the archive.
-uaDescription :: Lens' UpdateArchive (Maybe Text)
-uaDescription = lens _uaDescription (\s a -> s {_uaDescription = a})
+updateArchive_description :: Lens.Lens' UpdateArchive (Prelude.Maybe Prelude.Text)
+updateArchive_description = Lens.lens (\UpdateArchive' {description} -> description) (\s@UpdateArchive' {} a -> s {description = a} :: UpdateArchive)
 
 -- | The number of days to retain events in the archive.
-uaRetentionDays :: Lens' UpdateArchive (Maybe Natural)
-uaRetentionDays = lens _uaRetentionDays (\s a -> s {_uaRetentionDays = a}) . mapping _Nat
+updateArchive_retentionDays :: Lens.Lens' UpdateArchive (Prelude.Maybe Prelude.Natural)
+updateArchive_retentionDays = Lens.lens (\UpdateArchive' {retentionDays} -> retentionDays) (\s@UpdateArchive' {} a -> s {retentionDays = a} :: UpdateArchive) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the archive to update.
-uaArchiveName :: Lens' UpdateArchive Text
-uaArchiveName = lens _uaArchiveName (\s a -> s {_uaArchiveName = a})
+updateArchive_archiveName :: Lens.Lens' UpdateArchive Prelude.Text
+updateArchive_archiveName = Lens.lens (\UpdateArchive' {archiveName} -> archiveName) (\s@UpdateArchive' {} a -> s {archiveName = a} :: UpdateArchive)
 
-instance AWSRequest UpdateArchive where
+instance Prelude.AWSRequest UpdateArchive where
   type Rs UpdateArchive = UpdateArchiveResponse
-  request = postJSON cloudWatchEvents
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateArchiveResponse'
-            <$> (x .?> "CreationTime")
-            <*> (x .?> "StateReason")
-            <*> (x .?> "ArchiveArn")
-            <*> (x .?> "State")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "StateReason")
+            Prelude.<*> (x Prelude..?> "ArchiveArn")
+            Prelude.<*> (x Prelude..?> "State")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateArchive
+instance Prelude.Hashable UpdateArchive
 
-instance NFData UpdateArchive
+instance Prelude.NFData UpdateArchive
 
-instance ToHeaders UpdateArchive where
+instance Prelude.ToHeaders UpdateArchive where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSEvents.UpdateArchive" :: ByteString),
+              Prelude.=# ("AWSEvents.UpdateArchive" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateArchive where
+instance Prelude.ToJSON UpdateArchive where
   toJSON UpdateArchive' {..} =
-    object
-      ( catMaybes
-          [ ("EventPattern" .=) <$> _uaEventPattern,
-            ("Description" .=) <$> _uaDescription,
-            ("RetentionDays" .=) <$> _uaRetentionDays,
-            Just ("ArchiveName" .= _uaArchiveName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EventPattern" Prelude..=)
+              Prelude.<$> eventPattern,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("RetentionDays" Prelude..=)
+              Prelude.<$> retentionDays,
+            Prelude.Just ("ArchiveName" Prelude..= archiveName)
           ]
       )
 
-instance ToPath UpdateArchive where
-  toPath = const "/"
+instance Prelude.ToPath UpdateArchive where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateArchive where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateArchive where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateArchiveResponse' smart constructor.
+-- | /See:/ 'newUpdateArchiveResponse' smart constructor.
 data UpdateArchiveResponse = UpdateArchiveResponse'
-  { _ursCreationTime ::
-      !(Maybe POSIX),
-    _ursStateReason ::
-      !(Maybe Text),
-    _ursArchiveARN ::
-      !(Maybe Text),
-    _ursState ::
-      !(Maybe ArchiveState),
-    _ursResponseStatus :: !Int
+  { -- | The time at which the archive was updated.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The reason that the archive is in the current state.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the archive.
+    archiveArn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the archive.
+    state :: Prelude.Maybe ArchiveState,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateArchiveResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateArchiveResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ursCreationTime' - The time at which the archive was updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ursStateReason' - The reason that the archive is in the current state.
+-- 'creationTime', 'updateArchiveResponse_creationTime' - The time at which the archive was updated.
 --
--- * 'ursArchiveARN' - The ARN of the archive.
+-- 'stateReason', 'updateArchiveResponse_stateReason' - The reason that the archive is in the current state.
 --
--- * 'ursState' - The state of the archive.
+-- 'archiveArn', 'updateArchiveResponse_archiveArn' - The ARN of the archive.
 --
--- * 'ursResponseStatus' - -- | The response status code.
-updateArchiveResponse ::
-  -- | 'ursResponseStatus'
-  Int ->
+-- 'state', 'updateArchiveResponse_state' - The state of the archive.
+--
+-- 'httpStatus', 'updateArchiveResponse_httpStatus' - The response's http status code.
+newUpdateArchiveResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateArchiveResponse
-updateArchiveResponse pResponseStatus_ =
+newUpdateArchiveResponse pHttpStatus_ =
   UpdateArchiveResponse'
-    { _ursCreationTime = Nothing,
-      _ursStateReason = Nothing,
-      _ursArchiveARN = Nothing,
-      _ursState = Nothing,
-      _ursResponseStatus = pResponseStatus_
+    { creationTime =
+        Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      archiveArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The time at which the archive was updated.
-ursCreationTime :: Lens' UpdateArchiveResponse (Maybe UTCTime)
-ursCreationTime = lens _ursCreationTime (\s a -> s {_ursCreationTime = a}) . mapping _Time
+updateArchiveResponse_creationTime :: Lens.Lens' UpdateArchiveResponse (Prelude.Maybe Prelude.UTCTime)
+updateArchiveResponse_creationTime = Lens.lens (\UpdateArchiveResponse' {creationTime} -> creationTime) (\s@UpdateArchiveResponse' {} a -> s {creationTime = a} :: UpdateArchiveResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The reason that the archive is in the current state.
-ursStateReason :: Lens' UpdateArchiveResponse (Maybe Text)
-ursStateReason = lens _ursStateReason (\s a -> s {_ursStateReason = a})
+updateArchiveResponse_stateReason :: Lens.Lens' UpdateArchiveResponse (Prelude.Maybe Prelude.Text)
+updateArchiveResponse_stateReason = Lens.lens (\UpdateArchiveResponse' {stateReason} -> stateReason) (\s@UpdateArchiveResponse' {} a -> s {stateReason = a} :: UpdateArchiveResponse)
 
 -- | The ARN of the archive.
-ursArchiveARN :: Lens' UpdateArchiveResponse (Maybe Text)
-ursArchiveARN = lens _ursArchiveARN (\s a -> s {_ursArchiveARN = a})
+updateArchiveResponse_archiveArn :: Lens.Lens' UpdateArchiveResponse (Prelude.Maybe Prelude.Text)
+updateArchiveResponse_archiveArn = Lens.lens (\UpdateArchiveResponse' {archiveArn} -> archiveArn) (\s@UpdateArchiveResponse' {} a -> s {archiveArn = a} :: UpdateArchiveResponse)
 
 -- | The state of the archive.
-ursState :: Lens' UpdateArchiveResponse (Maybe ArchiveState)
-ursState = lens _ursState (\s a -> s {_ursState = a})
+updateArchiveResponse_state :: Lens.Lens' UpdateArchiveResponse (Prelude.Maybe ArchiveState)
+updateArchiveResponse_state = Lens.lens (\UpdateArchiveResponse' {state} -> state) (\s@UpdateArchiveResponse' {} a -> s {state = a} :: UpdateArchiveResponse)
 
--- | -- | The response status code.
-ursResponseStatus :: Lens' UpdateArchiveResponse Int
-ursResponseStatus = lens _ursResponseStatus (\s a -> s {_ursResponseStatus = a})
+-- | The response's http status code.
+updateArchiveResponse_httpStatus :: Lens.Lens' UpdateArchiveResponse Prelude.Int
+updateArchiveResponse_httpStatus = Lens.lens (\UpdateArchiveResponse' {httpStatus} -> httpStatus) (\s@UpdateArchiveResponse' {} a -> s {httpStatus = a} :: UpdateArchiveResponse)
 
-instance NFData UpdateArchiveResponse
+instance Prelude.NFData UpdateArchiveResponse
