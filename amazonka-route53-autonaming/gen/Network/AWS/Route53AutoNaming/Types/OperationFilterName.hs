@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.Route53AutoNaming.Types.OperationFilterName
   ( OperationFilterName
       ( ..,
-        OFNNamespaceId,
-        OFNServiceId,
-        OFNStatus,
-        OFNType,
-        OFNUpdateDate
+        OperationFilterNameNAMESPACEID,
+        OperationFilterNameSERVICEID,
+        OperationFilterNameSTATUS,
+        OperationFilterNameTYPE,
+        OperationFilterNameUPDATEDATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationFilterName
-  = OperationFilterName'
-      ( CI
-          Text
-      )
+newtype OperationFilterName = OperationFilterName'
+  { fromOperationFilterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OFNNamespaceId :: OperationFilterName
-pattern OFNNamespaceId = OperationFilterName' "NAMESPACE_ID"
+pattern OperationFilterNameNAMESPACEID :: OperationFilterName
+pattern OperationFilterNameNAMESPACEID = OperationFilterName' "NAMESPACE_ID"
 
-pattern OFNServiceId :: OperationFilterName
-pattern OFNServiceId = OperationFilterName' "SERVICE_ID"
+pattern OperationFilterNameSERVICEID :: OperationFilterName
+pattern OperationFilterNameSERVICEID = OperationFilterName' "SERVICE_ID"
 
-pattern OFNStatus :: OperationFilterName
-pattern OFNStatus = OperationFilterName' "STATUS"
+pattern OperationFilterNameSTATUS :: OperationFilterName
+pattern OperationFilterNameSTATUS = OperationFilterName' "STATUS"
 
-pattern OFNType :: OperationFilterName
-pattern OFNType = OperationFilterName' "TYPE"
+pattern OperationFilterNameTYPE :: OperationFilterName
+pattern OperationFilterNameTYPE = OperationFilterName' "TYPE"
 
-pattern OFNUpdateDate :: OperationFilterName
-pattern OFNUpdateDate = OperationFilterName' "UPDATE_DATE"
+pattern OperationFilterNameUPDATEDATE :: OperationFilterName
+pattern OperationFilterNameUPDATEDATE = OperationFilterName' "UPDATE_DATE"
 
 {-# COMPLETE
-  OFNNamespaceId,
-  OFNServiceId,
-  OFNStatus,
-  OFNType,
-  OFNUpdateDate,
+  OperationFilterNameNAMESPACEID,
+  OperationFilterNameSERVICEID,
+  OperationFilterNameSTATUS,
+  OperationFilterNameTYPE,
+  OperationFilterNameUPDATEDATE,
   OperationFilterName'
   #-}
 
-instance FromText OperationFilterName where
-  parser = (OperationFilterName' . mk) <$> takeText
+instance Prelude.FromText OperationFilterName where
+  parser = OperationFilterName' Prelude.<$> Prelude.takeText
 
-instance ToText OperationFilterName where
-  toText (OperationFilterName' ci) = original ci
+instance Prelude.ToText OperationFilterName where
+  toText (OperationFilterName' x) = x
 
-instance Hashable OperationFilterName
+instance Prelude.Hashable OperationFilterName
 
-instance NFData OperationFilterName
+instance Prelude.NFData OperationFilterName
 
-instance ToByteString OperationFilterName
+instance Prelude.ToByteString OperationFilterName
 
-instance ToQuery OperationFilterName
+instance Prelude.ToQuery OperationFilterName
 
-instance ToHeader OperationFilterName
+instance Prelude.ToHeader OperationFilterName
 
-instance ToJSON OperationFilterName where
-  toJSON = toJSONText
+instance Prelude.ToJSON OperationFilterName where
+  toJSON = Prelude.toJSONText

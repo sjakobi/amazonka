@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,119 +19,177 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53AutoNaming.Types.Namespace where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53AutoNaming.Types.NamespaceProperties
 import Network.AWS.Route53AutoNaming.Types.NamespaceType
 
 -- | A complex type that contains information about a specified namespace.
 --
---
---
--- /See:/ 'namespace' smart constructor.
+-- /See:/ 'newNamespace' smart constructor.
 data Namespace = Namespace'
-  { _nCreateDate ::
-      !(Maybe POSIX),
-    _nCreatorRequestId :: !(Maybe Text),
-    _nARN :: !(Maybe Text),
-    _nId :: !(Maybe Text),
-    _nName :: !(Maybe Text),
-    _nProperties :: !(Maybe NamespaceProperties),
-    _nServiceCount :: !(Maybe Int),
-    _nDescription :: !(Maybe Text),
-    _nType :: !(Maybe NamespaceType)
+  { -- | The date that the namespace was created, in Unix date\/time format and
+    -- Coordinated Universal Time (UTC). The value of @CreateDate@ is accurate
+    -- to milliseconds. For example, the value @1516925490.087@ represents
+    -- Friday, January 26, 2018 12:11:30.087 AM.
+    createDate :: Prelude.Maybe Prelude.POSIX,
+    -- | A unique string that identifies the request and that allows failed
+    -- requests to be retried without the risk of executing an operation twice.
+    creatorRequestId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the
+    -- namespace when you create it.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a namespace.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the namespace, such as @example.com@.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A complex type that contains information that\'s specific to the type of
+    -- the namespace.
+    properties :: Prelude.Maybe NamespaceProperties,
+    -- | The number of services that are associated with the namespace.
+    serviceCount :: Prelude.Maybe Prelude.Int,
+    -- | The description that you specify for the namespace when you create it.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The type of the namespace. The methods for discovering instances depends
+    -- on the value that you specify:
+    --
+    -- -   @HTTP@: Instances can be discovered only programmatically, using the
+    --     AWS Cloud Map @DiscoverInstances@ API.
+    --
+    -- -   @DNS_PUBLIC@: Instances can be discovered using public DNS queries
+    --     and using the @DiscoverInstances@ API.
+    --
+    -- -   @DNS_PRIVATE@: Instances can be discovered using DNS queries in VPCs
+    --     and using the @DiscoverInstances@ API.
+    type' :: Prelude.Maybe NamespaceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Namespace' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Namespace' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nCreateDate' - The date that the namespace was created, in Unix date/time format and Coordinated Universal Time (UTC). The value of @CreateDate@ is accurate to milliseconds. For example, the value @1516925490.087@ represents Friday, January 26, 2018 12:11:30.087 AM.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nCreatorRequestId' - A unique string that identifies the request and that allows failed requests to be retried without the risk of executing an operation twice.
+-- 'createDate', 'namespace_createDate' - The date that the namespace was created, in Unix date\/time format and
+-- Coordinated Universal Time (UTC). The value of @CreateDate@ is accurate
+-- to milliseconds. For example, the value @1516925490.087@ represents
+-- Friday, January 26, 2018 12:11:30.087 AM.
 --
--- * 'nARN' - The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+-- 'creatorRequestId', 'namespace_creatorRequestId' - A unique string that identifies the request and that allows failed
+-- requests to be retried without the risk of executing an operation twice.
 --
--- * 'nId' - The ID of a namespace.
+-- 'arn', 'namespace_arn' - The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the
+-- namespace when you create it.
 --
--- * 'nName' - The name of the namespace, such as @example.com@ .
+-- 'id', 'namespace_id' - The ID of a namespace.
 --
--- * 'nProperties' - A complex type that contains information that's specific to the type of the namespace.
+-- 'name', 'namespace_name' - The name of the namespace, such as @example.com@.
 --
--- * 'nServiceCount' - The number of services that are associated with the namespace.
+-- 'properties', 'namespace_properties' - A complex type that contains information that\'s specific to the type of
+-- the namespace.
 --
--- * 'nDescription' - The description that you specify for the namespace when you create it.
+-- 'serviceCount', 'namespace_serviceCount' - The number of services that are associated with the namespace.
 --
--- * 'nType' - The type of the namespace. The methods for discovering instances depends on the value that you specify:     * @HTTP@ : Instances can be discovered only programmatically, using the AWS Cloud Map @DiscoverInstances@ API.     * @DNS_PUBLIC@ : Instances can be discovered using public DNS queries and using the @DiscoverInstances@ API.     * @DNS_PRIVATE@ : Instances can be discovered using DNS queries in VPCs and using the @DiscoverInstances@ API.
-namespace ::
+-- 'description', 'namespace_description' - The description that you specify for the namespace when you create it.
+--
+-- 'type'', 'namespace_type' - The type of the namespace. The methods for discovering instances depends
+-- on the value that you specify:
+--
+-- -   @HTTP@: Instances can be discovered only programmatically, using the
+--     AWS Cloud Map @DiscoverInstances@ API.
+--
+-- -   @DNS_PUBLIC@: Instances can be discovered using public DNS queries
+--     and using the @DiscoverInstances@ API.
+--
+-- -   @DNS_PRIVATE@: Instances can be discovered using DNS queries in VPCs
+--     and using the @DiscoverInstances@ API.
+newNamespace ::
   Namespace
-namespace =
+newNamespace =
   Namespace'
-    { _nCreateDate = Nothing,
-      _nCreatorRequestId = Nothing,
-      _nARN = Nothing,
-      _nId = Nothing,
-      _nName = Nothing,
-      _nProperties = Nothing,
-      _nServiceCount = Nothing,
-      _nDescription = Nothing,
-      _nType = Nothing
+    { createDate = Prelude.Nothing,
+      creatorRequestId = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      serviceCount = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The date that the namespace was created, in Unix date/time format and Coordinated Universal Time (UTC). The value of @CreateDate@ is accurate to milliseconds. For example, the value @1516925490.087@ represents Friday, January 26, 2018 12:11:30.087 AM.
-nCreateDate :: Lens' Namespace (Maybe UTCTime)
-nCreateDate = lens _nCreateDate (\s a -> s {_nCreateDate = a}) . mapping _Time
+-- | The date that the namespace was created, in Unix date\/time format and
+-- Coordinated Universal Time (UTC). The value of @CreateDate@ is accurate
+-- to milliseconds. For example, the value @1516925490.087@ represents
+-- Friday, January 26, 2018 12:11:30.087 AM.
+namespace_createDate :: Lens.Lens' Namespace (Prelude.Maybe Prelude.UTCTime)
+namespace_createDate = Lens.lens (\Namespace' {createDate} -> createDate) (\s@Namespace' {} a -> s {createDate = a} :: Namespace) Prelude.. Lens.mapping Prelude._Time
 
--- | A unique string that identifies the request and that allows failed requests to be retried without the risk of executing an operation twice.
-nCreatorRequestId :: Lens' Namespace (Maybe Text)
-nCreatorRequestId = lens _nCreatorRequestId (\s a -> s {_nCreatorRequestId = a})
+-- | A unique string that identifies the request and that allows failed
+-- requests to be retried without the risk of executing an operation twice.
+namespace_creatorRequestId :: Lens.Lens' Namespace (Prelude.Maybe Prelude.Text)
+namespace_creatorRequestId = Lens.lens (\Namespace' {creatorRequestId} -> creatorRequestId) (\s@Namespace' {} a -> s {creatorRequestId = a} :: Namespace)
 
--- | The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
-nARN :: Lens' Namespace (Maybe Text)
-nARN = lens _nARN (\s a -> s {_nARN = a})
+-- | The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the
+-- namespace when you create it.
+namespace_arn :: Lens.Lens' Namespace (Prelude.Maybe Prelude.Text)
+namespace_arn = Lens.lens (\Namespace' {arn} -> arn) (\s@Namespace' {} a -> s {arn = a} :: Namespace)
 
 -- | The ID of a namespace.
-nId :: Lens' Namespace (Maybe Text)
-nId = lens _nId (\s a -> s {_nId = a})
+namespace_id :: Lens.Lens' Namespace (Prelude.Maybe Prelude.Text)
+namespace_id = Lens.lens (\Namespace' {id} -> id) (\s@Namespace' {} a -> s {id = a} :: Namespace)
 
--- | The name of the namespace, such as @example.com@ .
-nName :: Lens' Namespace (Maybe Text)
-nName = lens _nName (\s a -> s {_nName = a})
+-- | The name of the namespace, such as @example.com@.
+namespace_name :: Lens.Lens' Namespace (Prelude.Maybe Prelude.Text)
+namespace_name = Lens.lens (\Namespace' {name} -> name) (\s@Namespace' {} a -> s {name = a} :: Namespace)
 
--- | A complex type that contains information that's specific to the type of the namespace.
-nProperties :: Lens' Namespace (Maybe NamespaceProperties)
-nProperties = lens _nProperties (\s a -> s {_nProperties = a})
+-- | A complex type that contains information that\'s specific to the type of
+-- the namespace.
+namespace_properties :: Lens.Lens' Namespace (Prelude.Maybe NamespaceProperties)
+namespace_properties = Lens.lens (\Namespace' {properties} -> properties) (\s@Namespace' {} a -> s {properties = a} :: Namespace)
 
 -- | The number of services that are associated with the namespace.
-nServiceCount :: Lens' Namespace (Maybe Int)
-nServiceCount = lens _nServiceCount (\s a -> s {_nServiceCount = a})
+namespace_serviceCount :: Lens.Lens' Namespace (Prelude.Maybe Prelude.Int)
+namespace_serviceCount = Lens.lens (\Namespace' {serviceCount} -> serviceCount) (\s@Namespace' {} a -> s {serviceCount = a} :: Namespace)
 
 -- | The description that you specify for the namespace when you create it.
-nDescription :: Lens' Namespace (Maybe Text)
-nDescription = lens _nDescription (\s a -> s {_nDescription = a})
+namespace_description :: Lens.Lens' Namespace (Prelude.Maybe Prelude.Text)
+namespace_description = Lens.lens (\Namespace' {description} -> description) (\s@Namespace' {} a -> s {description = a} :: Namespace)
 
--- | The type of the namespace. The methods for discovering instances depends on the value that you specify:     * @HTTP@ : Instances can be discovered only programmatically, using the AWS Cloud Map @DiscoverInstances@ API.     * @DNS_PUBLIC@ : Instances can be discovered using public DNS queries and using the @DiscoverInstances@ API.     * @DNS_PRIVATE@ : Instances can be discovered using DNS queries in VPCs and using the @DiscoverInstances@ API.
-nType :: Lens' Namespace (Maybe NamespaceType)
-nType = lens _nType (\s a -> s {_nType = a})
+-- | The type of the namespace. The methods for discovering instances depends
+-- on the value that you specify:
+--
+-- -   @HTTP@: Instances can be discovered only programmatically, using the
+--     AWS Cloud Map @DiscoverInstances@ API.
+--
+-- -   @DNS_PUBLIC@: Instances can be discovered using public DNS queries
+--     and using the @DiscoverInstances@ API.
+--
+-- -   @DNS_PRIVATE@: Instances can be discovered using DNS queries in VPCs
+--     and using the @DiscoverInstances@ API.
+namespace_type :: Lens.Lens' Namespace (Prelude.Maybe NamespaceType)
+namespace_type = Lens.lens (\Namespace' {type'} -> type') (\s@Namespace' {} a -> s {type' = a} :: Namespace)
 
-instance FromJSON Namespace where
+instance Prelude.FromJSON Namespace where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Namespace"
       ( \x ->
           Namespace'
-            <$> (x .:? "CreateDate")
-            <*> (x .:? "CreatorRequestId")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Name")
-            <*> (x .:? "Properties")
-            <*> (x .:? "ServiceCount")
-            <*> (x .:? "Description")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "CreateDate")
+            Prelude.<*> (x Prelude..:? "CreatorRequestId")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Properties")
+            Prelude.<*> (x Prelude..:? "ServiceCount")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable Namespace
+instance Prelude.Hashable Namespace
 
-instance NFData Namespace
+instance Prelude.NFData Namespace

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,111 +19,127 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53AutoNaming.Types.NamespaceSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53AutoNaming.Types.NamespaceProperties
 import Network.AWS.Route53AutoNaming.Types.NamespaceType
 
 -- | A complex type that contains information about a namespace.
 --
---
---
--- /See:/ 'namespaceSummary' smart constructor.
+-- /See:/ 'newNamespaceSummary' smart constructor.
 data NamespaceSummary = NamespaceSummary'
-  { _nsCreateDate ::
-      !(Maybe POSIX),
-    _nsARN :: !(Maybe Text),
-    _nsId :: !(Maybe Text),
-    _nsName :: !(Maybe Text),
-    _nsProperties ::
-      !(Maybe NamespaceProperties),
-    _nsServiceCount :: !(Maybe Int),
-    _nsDescription :: !(Maybe Text),
-    _nsType :: !(Maybe NamespaceType)
+  { -- | The date and time that the namespace was created.
+    createDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the
+    -- namespace when you create it.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the namespace.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the namespace. When you create a namespace, AWS Cloud Map
+    -- automatically creates a Route 53 hosted zone that has the same name as
+    -- the namespace.
+    name :: Prelude.Maybe Prelude.Text,
+    properties :: Prelude.Maybe NamespaceProperties,
+    -- | The number of services that were created using the namespace.
+    serviceCount :: Prelude.Maybe Prelude.Int,
+    -- | A description for the namespace.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The type of the namespace, either public or private.
+    type' :: Prelude.Maybe NamespaceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NamespaceSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NamespaceSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nsCreateDate' - The date and time that the namespace was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nsARN' - The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+-- 'createDate', 'namespaceSummary_createDate' - The date and time that the namespace was created.
 --
--- * 'nsId' - The ID of the namespace.
+-- 'arn', 'namespaceSummary_arn' - The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the
+-- namespace when you create it.
 --
--- * 'nsName' - The name of the namespace. When you create a namespace, AWS Cloud Map automatically creates a Route 53 hosted zone that has the same name as the namespace.
+-- 'id', 'namespaceSummary_id' - The ID of the namespace.
 --
--- * 'nsProperties' - Undocumented member.
+-- 'name', 'namespaceSummary_name' - The name of the namespace. When you create a namespace, AWS Cloud Map
+-- automatically creates a Route 53 hosted zone that has the same name as
+-- the namespace.
 --
--- * 'nsServiceCount' - The number of services that were created using the namespace.
+-- 'properties', 'namespaceSummary_properties' - Undocumented member.
 --
--- * 'nsDescription' - A description for the namespace.
+-- 'serviceCount', 'namespaceSummary_serviceCount' - The number of services that were created using the namespace.
 --
--- * 'nsType' - The type of the namespace, either public or private.
-namespaceSummary ::
+-- 'description', 'namespaceSummary_description' - A description for the namespace.
+--
+-- 'type'', 'namespaceSummary_type' - The type of the namespace, either public or private.
+newNamespaceSummary ::
   NamespaceSummary
-namespaceSummary =
+newNamespaceSummary =
   NamespaceSummary'
-    { _nsCreateDate = Nothing,
-      _nsARN = Nothing,
-      _nsId = Nothing,
-      _nsName = Nothing,
-      _nsProperties = Nothing,
-      _nsServiceCount = Nothing,
-      _nsDescription = Nothing,
-      _nsType = Nothing
+    { createDate = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      serviceCount = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The date and time that the namespace was created.
-nsCreateDate :: Lens' NamespaceSummary (Maybe UTCTime)
-nsCreateDate = lens _nsCreateDate (\s a -> s {_nsCreateDate = a}) . mapping _Time
+namespaceSummary_createDate :: Lens.Lens' NamespaceSummary (Prelude.Maybe Prelude.UTCTime)
+namespaceSummary_createDate = Lens.lens (\NamespaceSummary' {createDate} -> createDate) (\s@NamespaceSummary' {} a -> s {createDate = a} :: NamespaceSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
-nsARN :: Lens' NamespaceSummary (Maybe Text)
-nsARN = lens _nsARN (\s a -> s {_nsARN = a})
+-- | The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the
+-- namespace when you create it.
+namespaceSummary_arn :: Lens.Lens' NamespaceSummary (Prelude.Maybe Prelude.Text)
+namespaceSummary_arn = Lens.lens (\NamespaceSummary' {arn} -> arn) (\s@NamespaceSummary' {} a -> s {arn = a} :: NamespaceSummary)
 
 -- | The ID of the namespace.
-nsId :: Lens' NamespaceSummary (Maybe Text)
-nsId = lens _nsId (\s a -> s {_nsId = a})
+namespaceSummary_id :: Lens.Lens' NamespaceSummary (Prelude.Maybe Prelude.Text)
+namespaceSummary_id = Lens.lens (\NamespaceSummary' {id} -> id) (\s@NamespaceSummary' {} a -> s {id = a} :: NamespaceSummary)
 
--- | The name of the namespace. When you create a namespace, AWS Cloud Map automatically creates a Route 53 hosted zone that has the same name as the namespace.
-nsName :: Lens' NamespaceSummary (Maybe Text)
-nsName = lens _nsName (\s a -> s {_nsName = a})
+-- | The name of the namespace. When you create a namespace, AWS Cloud Map
+-- automatically creates a Route 53 hosted zone that has the same name as
+-- the namespace.
+namespaceSummary_name :: Lens.Lens' NamespaceSummary (Prelude.Maybe Prelude.Text)
+namespaceSummary_name = Lens.lens (\NamespaceSummary' {name} -> name) (\s@NamespaceSummary' {} a -> s {name = a} :: NamespaceSummary)
 
 -- | Undocumented member.
-nsProperties :: Lens' NamespaceSummary (Maybe NamespaceProperties)
-nsProperties = lens _nsProperties (\s a -> s {_nsProperties = a})
+namespaceSummary_properties :: Lens.Lens' NamespaceSummary (Prelude.Maybe NamespaceProperties)
+namespaceSummary_properties = Lens.lens (\NamespaceSummary' {properties} -> properties) (\s@NamespaceSummary' {} a -> s {properties = a} :: NamespaceSummary)
 
 -- | The number of services that were created using the namespace.
-nsServiceCount :: Lens' NamespaceSummary (Maybe Int)
-nsServiceCount = lens _nsServiceCount (\s a -> s {_nsServiceCount = a})
+namespaceSummary_serviceCount :: Lens.Lens' NamespaceSummary (Prelude.Maybe Prelude.Int)
+namespaceSummary_serviceCount = Lens.lens (\NamespaceSummary' {serviceCount} -> serviceCount) (\s@NamespaceSummary' {} a -> s {serviceCount = a} :: NamespaceSummary)
 
 -- | A description for the namespace.
-nsDescription :: Lens' NamespaceSummary (Maybe Text)
-nsDescription = lens _nsDescription (\s a -> s {_nsDescription = a})
+namespaceSummary_description :: Lens.Lens' NamespaceSummary (Prelude.Maybe Prelude.Text)
+namespaceSummary_description = Lens.lens (\NamespaceSummary' {description} -> description) (\s@NamespaceSummary' {} a -> s {description = a} :: NamespaceSummary)
 
 -- | The type of the namespace, either public or private.
-nsType :: Lens' NamespaceSummary (Maybe NamespaceType)
-nsType = lens _nsType (\s a -> s {_nsType = a})
+namespaceSummary_type :: Lens.Lens' NamespaceSummary (Prelude.Maybe NamespaceType)
+namespaceSummary_type = Lens.lens (\NamespaceSummary' {type'} -> type') (\s@NamespaceSummary' {} a -> s {type' = a} :: NamespaceSummary)
 
-instance FromJSON NamespaceSummary where
+instance Prelude.FromJSON NamespaceSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NamespaceSummary"
       ( \x ->
           NamespaceSummary'
-            <$> (x .:? "CreateDate")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Name")
-            <*> (x .:? "Properties")
-            <*> (x .:? "ServiceCount")
-            <*> (x .:? "Description")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "CreateDate")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Properties")
+            Prelude.<*> (x Prelude..:? "ServiceCount")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable NamespaceSummary
+instance Prelude.Hashable NamespaceSummary
 
-instance NFData NamespaceSummary
+instance Prelude.NFData NamespaceSummary

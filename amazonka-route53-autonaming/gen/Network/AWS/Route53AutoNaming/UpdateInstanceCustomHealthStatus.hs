@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Submits a request to change the health status of a custom health check to healthy or unhealthy.
+-- Submits a request to change the health status of a custom health check
+-- to healthy or unhealthy.
 --
+-- You can use @UpdateInstanceCustomHealthStatus@ to change the status only
+-- for custom health checks, which you define using
+-- @HealthCheckCustomConfig@ when you create a service. You can\'t use it
+-- to change the status for Route 53 health checks, which you define using
+-- @HealthCheckConfig@.
 --
--- You can use @UpdateInstanceCustomHealthStatus@ to change the status only for custom health checks, which you define using @HealthCheckCustomConfig@ when you create a service. You can't use it to change the status for Route 53 health checks, which you define using @HealthCheckConfig@ .
---
--- For more information, see <https://docs.aws.amazon.com/cloud-map/latest/api/API_HealthCheckCustomConfig.html HealthCheckCustomConfig> .
+-- For more information, see
+-- <https://docs.aws.amazon.com/cloud-map/latest/api/API_HealthCheckCustomConfig.html HealthCheckCustomConfig>.
 module Network.AWS.Route53AutoNaming.UpdateInstanceCustomHealthStatus
   ( -- * Creating a Request
-    updateInstanceCustomHealthStatus,
-    UpdateInstanceCustomHealthStatus,
+    UpdateInstanceCustomHealthStatus (..),
+    newUpdateInstanceCustomHealthStatus,
 
     -- * Request Lenses
-    uichsServiceId,
-    uichsInstanceId,
-    uichsStatus,
+    updateInstanceCustomHealthStatus_serviceId,
+    updateInstanceCustomHealthStatus_instanceId,
+    updateInstanceCustomHealthStatus_status,
 
     -- * Destructuring the Response
-    updateInstanceCustomHealthStatusResponse,
-    UpdateInstanceCustomHealthStatusResponse,
+    UpdateInstanceCustomHealthStatusResponse (..),
+    newUpdateInstanceCustomHealthStatusResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53AutoNaming.Types
 
--- | /See:/ 'updateInstanceCustomHealthStatus' smart constructor.
+-- | /See:/ 'newUpdateInstanceCustomHealthStatus' smart constructor.
 data UpdateInstanceCustomHealthStatus = UpdateInstanceCustomHealthStatus'
-  { _uichsServiceId ::
-      !Text,
-    _uichsInstanceId ::
-      !Text,
-    _uichsStatus ::
-      !CustomHealthStatus
+  { -- | The ID of the service that includes the configuration for the custom
+    -- health check that you want to change the status for.
+    serviceId :: Prelude.Text,
+    -- | The ID of the instance that you want to change the health status for.
+    instanceId :: Prelude.Text,
+    -- | The new status of the instance, @HEALTHY@ or @UNHEALTHY@.
+    status :: CustomHealthStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateInstanceCustomHealthStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateInstanceCustomHealthStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uichsServiceId' - The ID of the service that includes the configuration for the custom health check that you want to change the status for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uichsInstanceId' - The ID of the instance that you want to change the health status for.
+-- 'serviceId', 'updateInstanceCustomHealthStatus_serviceId' - The ID of the service that includes the configuration for the custom
+-- health check that you want to change the status for.
 --
--- * 'uichsStatus' - The new status of the instance, @HEALTHY@ or @UNHEALTHY@ .
-updateInstanceCustomHealthStatus ::
-  -- | 'uichsServiceId'
-  Text ->
-  -- | 'uichsInstanceId'
-  Text ->
-  -- | 'uichsStatus'
+-- 'instanceId', 'updateInstanceCustomHealthStatus_instanceId' - The ID of the instance that you want to change the health status for.
+--
+-- 'status', 'updateInstanceCustomHealthStatus_status' - The new status of the instance, @HEALTHY@ or @UNHEALTHY@.
+newUpdateInstanceCustomHealthStatus ::
+  -- | 'serviceId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'status'
   CustomHealthStatus ->
   UpdateInstanceCustomHealthStatus
-updateInstanceCustomHealthStatus
+newUpdateInstanceCustomHealthStatus
   pServiceId_
   pInstanceId_
   pStatus_ =
     UpdateInstanceCustomHealthStatus'
-      { _uichsServiceId =
+      { serviceId =
           pServiceId_,
-        _uichsInstanceId = pInstanceId_,
-        _uichsStatus = pStatus_
+        instanceId = pInstanceId_,
+        status = pStatus_
       }
 
--- | The ID of the service that includes the configuration for the custom health check that you want to change the status for.
-uichsServiceId :: Lens' UpdateInstanceCustomHealthStatus Text
-uichsServiceId = lens _uichsServiceId (\s a -> s {_uichsServiceId = a})
+-- | The ID of the service that includes the configuration for the custom
+-- health check that you want to change the status for.
+updateInstanceCustomHealthStatus_serviceId :: Lens.Lens' UpdateInstanceCustomHealthStatus Prelude.Text
+updateInstanceCustomHealthStatus_serviceId = Lens.lens (\UpdateInstanceCustomHealthStatus' {serviceId} -> serviceId) (\s@UpdateInstanceCustomHealthStatus' {} a -> s {serviceId = a} :: UpdateInstanceCustomHealthStatus)
 
 -- | The ID of the instance that you want to change the health status for.
-uichsInstanceId :: Lens' UpdateInstanceCustomHealthStatus Text
-uichsInstanceId = lens _uichsInstanceId (\s a -> s {_uichsInstanceId = a})
+updateInstanceCustomHealthStatus_instanceId :: Lens.Lens' UpdateInstanceCustomHealthStatus Prelude.Text
+updateInstanceCustomHealthStatus_instanceId = Lens.lens (\UpdateInstanceCustomHealthStatus' {instanceId} -> instanceId) (\s@UpdateInstanceCustomHealthStatus' {} a -> s {instanceId = a} :: UpdateInstanceCustomHealthStatus)
 
--- | The new status of the instance, @HEALTHY@ or @UNHEALTHY@ .
-uichsStatus :: Lens' UpdateInstanceCustomHealthStatus CustomHealthStatus
-uichsStatus = lens _uichsStatus (\s a -> s {_uichsStatus = a})
+-- | The new status of the instance, @HEALTHY@ or @UNHEALTHY@.
+updateInstanceCustomHealthStatus_status :: Lens.Lens' UpdateInstanceCustomHealthStatus CustomHealthStatus
+updateInstanceCustomHealthStatus_status = Lens.lens (\UpdateInstanceCustomHealthStatus' {status} -> status) (\s@UpdateInstanceCustomHealthStatus' {} a -> s {status = a} :: UpdateInstanceCustomHealthStatus)
 
-instance AWSRequest UpdateInstanceCustomHealthStatus where
+instance
+  Prelude.AWSRequest
+    UpdateInstanceCustomHealthStatus
+  where
   type
     Rs UpdateInstanceCustomHealthStatus =
       UpdateInstanceCustomHealthStatusResponse
-  request = postJSON route53AutoNaming
+  request = Request.postJSON defaultService
   response =
-    receiveNull
+    Response.receiveNull
       UpdateInstanceCustomHealthStatusResponse'
 
-instance Hashable UpdateInstanceCustomHealthStatus
+instance
+  Prelude.Hashable
+    UpdateInstanceCustomHealthStatus
 
-instance NFData UpdateInstanceCustomHealthStatus
+instance
+  Prelude.NFData
+    UpdateInstanceCustomHealthStatus
 
-instance ToHeaders UpdateInstanceCustomHealthStatus where
+instance
+  Prelude.ToHeaders
+    UpdateInstanceCustomHealthStatus
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53AutoNaming_v20170314.UpdateInstanceCustomHealthStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53AutoNaming_v20170314.UpdateInstanceCustomHealthStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateInstanceCustomHealthStatus where
+instance
+  Prelude.ToJSON
+    UpdateInstanceCustomHealthStatus
+  where
   toJSON UpdateInstanceCustomHealthStatus' {..} =
-    object
-      ( catMaybes
-          [ Just ("ServiceId" .= _uichsServiceId),
-            Just ("InstanceId" .= _uichsInstanceId),
-            Just ("Status" .= _uichsStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ServiceId" Prelude..= serviceId),
+            Prelude.Just ("InstanceId" Prelude..= instanceId),
+            Prelude.Just ("Status" Prelude..= status)
           ]
       )
 
-instance ToPath UpdateInstanceCustomHealthStatus where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    UpdateInstanceCustomHealthStatus
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateInstanceCustomHealthStatus where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdateInstanceCustomHealthStatus
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateInstanceCustomHealthStatusResponse' smart constructor.
+-- | /See:/ 'newUpdateInstanceCustomHealthStatusResponse' smart constructor.
 data UpdateInstanceCustomHealthStatusResponse = UpdateInstanceCustomHealthStatusResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateInstanceCustomHealthStatusResponse' with the minimum fields required to make a request.
-updateInstanceCustomHealthStatusResponse ::
+-- |
+-- Create a value of 'UpdateInstanceCustomHealthStatusResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateInstanceCustomHealthStatusResponse ::
   UpdateInstanceCustomHealthStatusResponse
-updateInstanceCustomHealthStatusResponse =
+newUpdateInstanceCustomHealthStatusResponse =
   UpdateInstanceCustomHealthStatusResponse'
 
 instance
-  NFData
+  Prelude.NFData
     UpdateInstanceCustomHealthStatusResponse

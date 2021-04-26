@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Route53AutoNaming.Types.CustomHealthStatus
   ( CustomHealthStatus
       ( ..,
-        CHSHealthy,
-        CHSUnhealthy
+        CustomHealthStatusHEALTHY,
+        CustomHealthStatusUNHEALTHY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CustomHealthStatus
-  = CustomHealthStatus'
-      ( CI
-          Text
-      )
+newtype CustomHealthStatus = CustomHealthStatus'
+  { fromCustomHealthStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CHSHealthy :: CustomHealthStatus
-pattern CHSHealthy = CustomHealthStatus' "HEALTHY"
+pattern CustomHealthStatusHEALTHY :: CustomHealthStatus
+pattern CustomHealthStatusHEALTHY = CustomHealthStatus' "HEALTHY"
 
-pattern CHSUnhealthy :: CustomHealthStatus
-pattern CHSUnhealthy = CustomHealthStatus' "UNHEALTHY"
+pattern CustomHealthStatusUNHEALTHY :: CustomHealthStatus
+pattern CustomHealthStatusUNHEALTHY = CustomHealthStatus' "UNHEALTHY"
 
 {-# COMPLETE
-  CHSHealthy,
-  CHSUnhealthy,
+  CustomHealthStatusHEALTHY,
+  CustomHealthStatusUNHEALTHY,
   CustomHealthStatus'
   #-}
 
-instance FromText CustomHealthStatus where
-  parser = (CustomHealthStatus' . mk) <$> takeText
+instance Prelude.FromText CustomHealthStatus where
+  parser = CustomHealthStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CustomHealthStatus where
-  toText (CustomHealthStatus' ci) = original ci
+instance Prelude.ToText CustomHealthStatus where
+  toText (CustomHealthStatus' x) = x
 
-instance Hashable CustomHealthStatus
+instance Prelude.Hashable CustomHealthStatus
 
-instance NFData CustomHealthStatus
+instance Prelude.NFData CustomHealthStatus
 
-instance ToByteString CustomHealthStatus
+instance Prelude.ToByteString CustomHealthStatus
 
-instance ToQuery CustomHealthStatus
+instance Prelude.ToQuery CustomHealthStatus
 
-instance ToHeader CustomHealthStatus
+instance Prelude.ToHeader CustomHealthStatus
 
-instance ToJSON CustomHealthStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON CustomHealthStatus where
+  toJSON = Prelude.toJSONText

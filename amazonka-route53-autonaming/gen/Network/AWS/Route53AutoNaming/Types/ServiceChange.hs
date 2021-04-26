@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53AutoNaming.Types.ServiceChange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Route53AutoNaming.Types.DNSConfigChange
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import Network.AWS.Route53AutoNaming.Types.DnsConfigChange
 import Network.AWS.Route53AutoNaming.Types.HealthCheckConfig
 
 -- | A complex type that contains changes to an existing service.
 --
---
---
--- /See:/ 'serviceChange' smart constructor.
+-- /See:/ 'newServiceChange' smart constructor.
 data ServiceChange = ServiceChange'
-  { _scDNSConfig ::
-      !(Maybe DNSConfigChange),
-    _scDescription :: !(Maybe Text),
-    _scHealthCheckConfig ::
-      !(Maybe HealthCheckConfig)
+  { -- | A complex type that contains information about the Route 53 DNS records
+    -- that you want AWS Cloud Map to create when you register an instance.
+    dnsConfig :: Prelude.Maybe DnsConfigChange,
+    -- | A description for the service.
+    description :: Prelude.Maybe Prelude.Text,
+    healthCheckConfig :: Prelude.Maybe HealthCheckConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceChange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceChange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scDNSConfig' - A complex type that contains information about the Route 53 DNS records that you want AWS Cloud Map to create when you register an instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scDescription' - A description for the service.
+-- 'dnsConfig', 'serviceChange_dnsConfig' - A complex type that contains information about the Route 53 DNS records
+-- that you want AWS Cloud Map to create when you register an instance.
 --
--- * 'scHealthCheckConfig' - Undocumented member.
-serviceChange ::
+-- 'description', 'serviceChange_description' - A description for the service.
+--
+-- 'healthCheckConfig', 'serviceChange_healthCheckConfig' - Undocumented member.
+newServiceChange ::
   ServiceChange
-serviceChange =
+newServiceChange =
   ServiceChange'
-    { _scDNSConfig = Nothing,
-      _scDescription = Nothing,
-      _scHealthCheckConfig = Nothing
+    { dnsConfig = Prelude.Nothing,
+      description = Prelude.Nothing,
+      healthCheckConfig = Prelude.Nothing
     }
 
--- | A complex type that contains information about the Route 53 DNS records that you want AWS Cloud Map to create when you register an instance.
-scDNSConfig :: Lens' ServiceChange (Maybe DNSConfigChange)
-scDNSConfig = lens _scDNSConfig (\s a -> s {_scDNSConfig = a})
+-- | A complex type that contains information about the Route 53 DNS records
+-- that you want AWS Cloud Map to create when you register an instance.
+serviceChange_dnsConfig :: Lens.Lens' ServiceChange (Prelude.Maybe DnsConfigChange)
+serviceChange_dnsConfig = Lens.lens (\ServiceChange' {dnsConfig} -> dnsConfig) (\s@ServiceChange' {} a -> s {dnsConfig = a} :: ServiceChange)
 
 -- | A description for the service.
-scDescription :: Lens' ServiceChange (Maybe Text)
-scDescription = lens _scDescription (\s a -> s {_scDescription = a})
+serviceChange_description :: Lens.Lens' ServiceChange (Prelude.Maybe Prelude.Text)
+serviceChange_description = Lens.lens (\ServiceChange' {description} -> description) (\s@ServiceChange' {} a -> s {description = a} :: ServiceChange)
 
 -- | Undocumented member.
-scHealthCheckConfig :: Lens' ServiceChange (Maybe HealthCheckConfig)
-scHealthCheckConfig = lens _scHealthCheckConfig (\s a -> s {_scHealthCheckConfig = a})
+serviceChange_healthCheckConfig :: Lens.Lens' ServiceChange (Prelude.Maybe HealthCheckConfig)
+serviceChange_healthCheckConfig = Lens.lens (\ServiceChange' {healthCheckConfig} -> healthCheckConfig) (\s@ServiceChange' {} a -> s {healthCheckConfig = a} :: ServiceChange)
 
-instance Hashable ServiceChange
+instance Prelude.Hashable ServiceChange
 
-instance NFData ServiceChange
+instance Prelude.NFData ServiceChange
 
-instance ToJSON ServiceChange where
+instance Prelude.ToJSON ServiceChange where
   toJSON ServiceChange' {..} =
-    object
-      ( catMaybes
-          [ ("DnsConfig" .=) <$> _scDNSConfig,
-            ("Description" .=) <$> _scDescription,
-            ("HealthCheckConfig" .=) <$> _scHealthCheckConfig
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DnsConfig" Prelude..=) Prelude.<$> dnsConfig,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("HealthCheckConfig" Prelude..=)
+              Prelude.<$> healthCheckConfig
           ]
       )

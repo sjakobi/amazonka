@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.Route53AutoNaming.Types.NamespaceFilterName
   ( NamespaceFilterName
       ( ..,
-        Type
+        NamespaceFilterNameTYPE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NamespaceFilterName
-  = NamespaceFilterName'
-      ( CI
-          Text
-      )
+newtype NamespaceFilterName = NamespaceFilterName'
+  { fromNamespaceFilterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Type :: NamespaceFilterName
-pattern Type = NamespaceFilterName' "TYPE"
+pattern NamespaceFilterNameTYPE :: NamespaceFilterName
+pattern NamespaceFilterNameTYPE = NamespaceFilterName' "TYPE"
 
 {-# COMPLETE
-  Type,
+  NamespaceFilterNameTYPE,
   NamespaceFilterName'
   #-}
 
-instance FromText NamespaceFilterName where
-  parser = (NamespaceFilterName' . mk) <$> takeText
+instance Prelude.FromText NamespaceFilterName where
+  parser = NamespaceFilterName' Prelude.<$> Prelude.takeText
 
-instance ToText NamespaceFilterName where
-  toText (NamespaceFilterName' ci) = original ci
+instance Prelude.ToText NamespaceFilterName where
+  toText (NamespaceFilterName' x) = x
 
-instance Hashable NamespaceFilterName
+instance Prelude.Hashable NamespaceFilterName
 
-instance NFData NamespaceFilterName
+instance Prelude.NFData NamespaceFilterName
 
-instance ToByteString NamespaceFilterName
+instance Prelude.ToByteString NamespaceFilterName
 
-instance ToQuery NamespaceFilterName
+instance Prelude.ToQuery NamespaceFilterName
 
-instance ToHeader NamespaceFilterName
+instance Prelude.ToHeader NamespaceFilterName
 
-instance ToJSON NamespaceFilterName where
-  toJSON = toJSONText
+instance Prelude.ToJSON NamespaceFilterName where
+  toJSON = Prelude.toJSONText

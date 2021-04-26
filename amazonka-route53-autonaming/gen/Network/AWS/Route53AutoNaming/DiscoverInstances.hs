@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,195 +21,240 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Discovers registered instances for a specified namespace and service. You can use @DiscoverInstances@ to discover instances for any type of namespace. For public and private DNS namespaces, you can also use DNS queries to discover instances.
+-- Discovers registered instances for a specified namespace and service.
+-- You can use @DiscoverInstances@ to discover instances for any type of
+-- namespace. For public and private DNS namespaces, you can also use DNS
+-- queries to discover instances.
 module Network.AWS.Route53AutoNaming.DiscoverInstances
   ( -- * Creating a Request
-    discoverInstances,
-    DiscoverInstances,
+    DiscoverInstances (..),
+    newDiscoverInstances,
 
     -- * Request Lenses
-    diMaxResults,
-    diOptionalParameters,
-    diHealthStatus,
-    diQueryParameters,
-    diNamespaceName,
-    diServiceName,
+    discoverInstances_maxResults,
+    discoverInstances_optionalParameters,
+    discoverInstances_healthStatus,
+    discoverInstances_queryParameters,
+    discoverInstances_namespaceName,
+    discoverInstances_serviceName,
 
     -- * Destructuring the Response
-    discoverInstancesResponse,
-    DiscoverInstancesResponse,
+    DiscoverInstancesResponse (..),
+    newDiscoverInstancesResponse,
 
     -- * Response Lenses
-    dirrsInstances,
-    dirrsResponseStatus,
+    discoverInstancesResponse_instances,
+    discoverInstancesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53AutoNaming.Types
+import Network.AWS.Route53AutoNaming.Types.HttpInstanceSummary
 
--- | /See:/ 'discoverInstances' smart constructor.
+-- | /See:/ 'newDiscoverInstances' smart constructor.
 data DiscoverInstances = DiscoverInstances'
-  { _diMaxResults ::
-      !(Maybe Nat),
-    _diOptionalParameters ::
-      !(Maybe (Map Text Text)),
-    _diHealthStatus ::
-      !(Maybe HealthStatusFilter),
-    _diQueryParameters ::
-      !(Maybe (Map Text Text)),
-    _diNamespaceName :: !Text,
-    _diServiceName :: !Text
+  { -- | The maximum number of instances that you want AWS Cloud Map to return in
+    -- the response to a @DiscoverInstances@ request. If you don\'t specify a
+    -- value for @MaxResults@, AWS Cloud Map returns up to 100 instances.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Opportunistic filters to scope the results based on custom attributes.
+    -- If there are instances that match both the filters specified in both the
+    -- @QueryParameters@ parameter and this parameter, they are returned.
+    -- Otherwise, these filters are ignored and only instances that match the
+    -- filters specified in the @QueryParameters@ parameter are returned.
+    optionalParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The health status of the instances that you want to discover.
+    healthStatus :: Prelude.Maybe HealthStatusFilter,
+    -- | Filters to scope the results based on custom attributes for the
+    -- instance. For example, @{version=v1, az=1a}@. Only instances that match
+    -- all the specified key-value pairs will be returned.
+    queryParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the namespace that you specified when you registered the
+    -- instance.
+    namespaceName :: Prelude.Text,
+    -- | The name of the service that you specified when you registered the
+    -- instance.
+    serviceName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiscoverInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiscoverInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diMaxResults' - The maximum number of instances that you want AWS Cloud Map to return in the response to a @DiscoverInstances@ request. If you don't specify a value for @MaxResults@ , AWS Cloud Map returns up to 100 instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diOptionalParameters' - Opportunistic filters to scope the results based on custom attributes. If there are instances that match both the filters specified in both the @QueryParameters@ parameter and this parameter, they are returned. Otherwise, these filters are ignored and only instances that match the filters specified in the @QueryParameters@ parameter are returned.
+-- 'maxResults', 'discoverInstances_maxResults' - The maximum number of instances that you want AWS Cloud Map to return in
+-- the response to a @DiscoverInstances@ request. If you don\'t specify a
+-- value for @MaxResults@, AWS Cloud Map returns up to 100 instances.
 --
--- * 'diHealthStatus' - The health status of the instances that you want to discover.
+-- 'optionalParameters', 'discoverInstances_optionalParameters' - Opportunistic filters to scope the results based on custom attributes.
+-- If there are instances that match both the filters specified in both the
+-- @QueryParameters@ parameter and this parameter, they are returned.
+-- Otherwise, these filters are ignored and only instances that match the
+-- filters specified in the @QueryParameters@ parameter are returned.
 --
--- * 'diQueryParameters' - Filters to scope the results based on custom attributes for the instance. For example, @{version=v1, az=1a}@ . Only instances that match all the specified key-value pairs will be returned.
+-- 'healthStatus', 'discoverInstances_healthStatus' - The health status of the instances that you want to discover.
 --
--- * 'diNamespaceName' - The name of the namespace that you specified when you registered the instance.
+-- 'queryParameters', 'discoverInstances_queryParameters' - Filters to scope the results based on custom attributes for the
+-- instance. For example, @{version=v1, az=1a}@. Only instances that match
+-- all the specified key-value pairs will be returned.
 --
--- * 'diServiceName' - The name of the service that you specified when you registered the instance.
-discoverInstances ::
-  -- | 'diNamespaceName'
-  Text ->
-  -- | 'diServiceName'
-  Text ->
+-- 'namespaceName', 'discoverInstances_namespaceName' - The name of the namespace that you specified when you registered the
+-- instance.
+--
+-- 'serviceName', 'discoverInstances_serviceName' - The name of the service that you specified when you registered the
+-- instance.
+newDiscoverInstances ::
+  -- | 'namespaceName'
+  Prelude.Text ->
+  -- | 'serviceName'
+  Prelude.Text ->
   DiscoverInstances
-discoverInstances pNamespaceName_ pServiceName_ =
+newDiscoverInstances pNamespaceName_ pServiceName_ =
   DiscoverInstances'
-    { _diMaxResults = Nothing,
-      _diOptionalParameters = Nothing,
-      _diHealthStatus = Nothing,
-      _diQueryParameters = Nothing,
-      _diNamespaceName = pNamespaceName_,
-      _diServiceName = pServiceName_
+    { maxResults = Prelude.Nothing,
+      optionalParameters = Prelude.Nothing,
+      healthStatus = Prelude.Nothing,
+      queryParameters = Prelude.Nothing,
+      namespaceName = pNamespaceName_,
+      serviceName = pServiceName_
     }
 
--- | The maximum number of instances that you want AWS Cloud Map to return in the response to a @DiscoverInstances@ request. If you don't specify a value for @MaxResults@ , AWS Cloud Map returns up to 100 instances.
-diMaxResults :: Lens' DiscoverInstances (Maybe Natural)
-diMaxResults = lens _diMaxResults (\s a -> s {_diMaxResults = a}) . mapping _Nat
+-- | The maximum number of instances that you want AWS Cloud Map to return in
+-- the response to a @DiscoverInstances@ request. If you don\'t specify a
+-- value for @MaxResults@, AWS Cloud Map returns up to 100 instances.
+discoverInstances_maxResults :: Lens.Lens' DiscoverInstances (Prelude.Maybe Prelude.Natural)
+discoverInstances_maxResults = Lens.lens (\DiscoverInstances' {maxResults} -> maxResults) (\s@DiscoverInstances' {} a -> s {maxResults = a} :: DiscoverInstances) Prelude.. Lens.mapping Prelude._Nat
 
--- | Opportunistic filters to scope the results based on custom attributes. If there are instances that match both the filters specified in both the @QueryParameters@ parameter and this parameter, they are returned. Otherwise, these filters are ignored and only instances that match the filters specified in the @QueryParameters@ parameter are returned.
-diOptionalParameters :: Lens' DiscoverInstances (HashMap Text Text)
-diOptionalParameters = lens _diOptionalParameters (\s a -> s {_diOptionalParameters = a}) . _Default . _Map
+-- | Opportunistic filters to scope the results based on custom attributes.
+-- If there are instances that match both the filters specified in both the
+-- @QueryParameters@ parameter and this parameter, they are returned.
+-- Otherwise, these filters are ignored and only instances that match the
+-- filters specified in the @QueryParameters@ parameter are returned.
+discoverInstances_optionalParameters :: Lens.Lens' DiscoverInstances (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+discoverInstances_optionalParameters = Lens.lens (\DiscoverInstances' {optionalParameters} -> optionalParameters) (\s@DiscoverInstances' {} a -> s {optionalParameters = a} :: DiscoverInstances) Prelude.. Lens.mapping Prelude._Map
 
 -- | The health status of the instances that you want to discover.
-diHealthStatus :: Lens' DiscoverInstances (Maybe HealthStatusFilter)
-diHealthStatus = lens _diHealthStatus (\s a -> s {_diHealthStatus = a})
+discoverInstances_healthStatus :: Lens.Lens' DiscoverInstances (Prelude.Maybe HealthStatusFilter)
+discoverInstances_healthStatus = Lens.lens (\DiscoverInstances' {healthStatus} -> healthStatus) (\s@DiscoverInstances' {} a -> s {healthStatus = a} :: DiscoverInstances)
 
--- | Filters to scope the results based on custom attributes for the instance. For example, @{version=v1, az=1a}@ . Only instances that match all the specified key-value pairs will be returned.
-diQueryParameters :: Lens' DiscoverInstances (HashMap Text Text)
-diQueryParameters = lens _diQueryParameters (\s a -> s {_diQueryParameters = a}) . _Default . _Map
+-- | Filters to scope the results based on custom attributes for the
+-- instance. For example, @{version=v1, az=1a}@. Only instances that match
+-- all the specified key-value pairs will be returned.
+discoverInstances_queryParameters :: Lens.Lens' DiscoverInstances (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+discoverInstances_queryParameters = Lens.lens (\DiscoverInstances' {queryParameters} -> queryParameters) (\s@DiscoverInstances' {} a -> s {queryParameters = a} :: DiscoverInstances) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the namespace that you specified when you registered the instance.
-diNamespaceName :: Lens' DiscoverInstances Text
-diNamespaceName = lens _diNamespaceName (\s a -> s {_diNamespaceName = a})
+-- | The name of the namespace that you specified when you registered the
+-- instance.
+discoverInstances_namespaceName :: Lens.Lens' DiscoverInstances Prelude.Text
+discoverInstances_namespaceName = Lens.lens (\DiscoverInstances' {namespaceName} -> namespaceName) (\s@DiscoverInstances' {} a -> s {namespaceName = a} :: DiscoverInstances)
 
--- | The name of the service that you specified when you registered the instance.
-diServiceName :: Lens' DiscoverInstances Text
-diServiceName = lens _diServiceName (\s a -> s {_diServiceName = a})
+-- | The name of the service that you specified when you registered the
+-- instance.
+discoverInstances_serviceName :: Lens.Lens' DiscoverInstances Prelude.Text
+discoverInstances_serviceName = Lens.lens (\DiscoverInstances' {serviceName} -> serviceName) (\s@DiscoverInstances' {} a -> s {serviceName = a} :: DiscoverInstances)
 
-instance AWSRequest DiscoverInstances where
+instance Prelude.AWSRequest DiscoverInstances where
   type Rs DiscoverInstances = DiscoverInstancesResponse
-  request = postJSON route53AutoNaming
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DiscoverInstancesResponse'
-            <$> (x .?> "Instances" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Instances"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DiscoverInstances
+instance Prelude.Hashable DiscoverInstances
 
-instance NFData DiscoverInstances
+instance Prelude.NFData DiscoverInstances
 
-instance ToHeaders DiscoverInstances where
+instance Prelude.ToHeaders DiscoverInstances where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53AutoNaming_v20170314.DiscoverInstances" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53AutoNaming_v20170314.DiscoverInstances" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DiscoverInstances where
+instance Prelude.ToJSON DiscoverInstances where
   toJSON DiscoverInstances' {..} =
-    object
-      ( catMaybes
-          [ ("MaxResults" .=) <$> _diMaxResults,
-            ("OptionalParameters" .=) <$> _diOptionalParameters,
-            ("HealthStatus" .=) <$> _diHealthStatus,
-            ("QueryParameters" .=) <$> _diQueryParameters,
-            Just ("NamespaceName" .= _diNamespaceName),
-            Just ("ServiceName" .= _diServiceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("OptionalParameters" Prelude..=)
+              Prelude.<$> optionalParameters,
+            ("HealthStatus" Prelude..=) Prelude.<$> healthStatus,
+            ("QueryParameters" Prelude..=)
+              Prelude.<$> queryParameters,
+            Prelude.Just
+              ("NamespaceName" Prelude..= namespaceName),
+            Prelude.Just ("ServiceName" Prelude..= serviceName)
           ]
       )
 
-instance ToPath DiscoverInstances where
-  toPath = const "/"
+instance Prelude.ToPath DiscoverInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery DiscoverInstances where
-  toQuery = const mempty
+instance Prelude.ToQuery DiscoverInstances where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'discoverInstancesResponse' smart constructor.
+-- | /See:/ 'newDiscoverInstancesResponse' smart constructor.
 data DiscoverInstancesResponse = DiscoverInstancesResponse'
-  { _dirrsInstances ::
-      !( Maybe
-           [HTTPInstanceSummary]
-       ),
-    _dirrsResponseStatus ::
-      !Int
+  { -- | A complex type that contains one @HttpInstanceSummary@ for each
+    -- registered instance.
+    instances :: Prelude.Maybe [HttpInstanceSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiscoverInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiscoverInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirrsInstances' - A complex type that contains one @HttpInstanceSummary@ for each registered instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dirrsResponseStatus' - -- | The response status code.
-discoverInstancesResponse ::
-  -- | 'dirrsResponseStatus'
-  Int ->
+-- 'instances', 'discoverInstancesResponse_instances' - A complex type that contains one @HttpInstanceSummary@ for each
+-- registered instance.
+--
+-- 'httpStatus', 'discoverInstancesResponse_httpStatus' - The response's http status code.
+newDiscoverInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DiscoverInstancesResponse
-discoverInstancesResponse pResponseStatus_ =
+newDiscoverInstancesResponse pHttpStatus_ =
   DiscoverInstancesResponse'
-    { _dirrsInstances =
-        Nothing,
-      _dirrsResponseStatus = pResponseStatus_
+    { instances =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A complex type that contains one @HttpInstanceSummary@ for each registered instance.
-dirrsInstances :: Lens' DiscoverInstancesResponse [HTTPInstanceSummary]
-dirrsInstances = lens _dirrsInstances (\s a -> s {_dirrsInstances = a}) . _Default . _Coerce
+-- | A complex type that contains one @HttpInstanceSummary@ for each
+-- registered instance.
+discoverInstancesResponse_instances :: Lens.Lens' DiscoverInstancesResponse (Prelude.Maybe [HttpInstanceSummary])
+discoverInstancesResponse_instances = Lens.lens (\DiscoverInstancesResponse' {instances} -> instances) (\s@DiscoverInstancesResponse' {} a -> s {instances = a} :: DiscoverInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dirrsResponseStatus :: Lens' DiscoverInstancesResponse Int
-dirrsResponseStatus = lens _dirrsResponseStatus (\s a -> s {_dirrsResponseStatus = a})
+-- | The response's http status code.
+discoverInstancesResponse_httpStatus :: Lens.Lens' DiscoverInstancesResponse Prelude.Int
+discoverInstancesResponse_httpStatus = Lens.lens (\DiscoverInstancesResponse' {httpStatus} -> httpStatus) (\s@DiscoverInstancesResponse' {} a -> s {httpStatus = a} :: DiscoverInstancesResponse)
 
-instance NFData DiscoverInstancesResponse
+instance Prelude.NFData DiscoverInstancesResponse

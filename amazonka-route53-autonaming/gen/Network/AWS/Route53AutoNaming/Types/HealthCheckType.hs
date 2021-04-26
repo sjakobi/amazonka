@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Route53AutoNaming.Types.HealthCheckType
   ( HealthCheckType
       ( ..,
-        HCTHTTP,
-        HCTHTTPS,
-        HCTTCP
+        HealthCheckTypeHTTP,
+        HealthCheckTypeHTTPS,
+        HealthCheckTypeTCP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HealthCheckType = HealthCheckType' (CI Text)
+newtype HealthCheckType = HealthCheckType'
+  { fromHealthCheckType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HCTHTTP :: HealthCheckType
-pattern HCTHTTP = HealthCheckType' "HTTP"
+pattern HealthCheckTypeHTTP :: HealthCheckType
+pattern HealthCheckTypeHTTP = HealthCheckType' "HTTP"
 
-pattern HCTHTTPS :: HealthCheckType
-pattern HCTHTTPS = HealthCheckType' "HTTPS"
+pattern HealthCheckTypeHTTPS :: HealthCheckType
+pattern HealthCheckTypeHTTPS = HealthCheckType' "HTTPS"
 
-pattern HCTTCP :: HealthCheckType
-pattern HCTTCP = HealthCheckType' "TCP"
+pattern HealthCheckTypeTCP :: HealthCheckType
+pattern HealthCheckTypeTCP = HealthCheckType' "TCP"
 
 {-# COMPLETE
-  HCTHTTP,
-  HCTHTTPS,
-  HCTTCP,
+  HealthCheckTypeHTTP,
+  HealthCheckTypeHTTPS,
+  HealthCheckTypeTCP,
   HealthCheckType'
   #-}
 
-instance FromText HealthCheckType where
-  parser = (HealthCheckType' . mk) <$> takeText
+instance Prelude.FromText HealthCheckType where
+  parser = HealthCheckType' Prelude.<$> Prelude.takeText
 
-instance ToText HealthCheckType where
-  toText (HealthCheckType' ci) = original ci
+instance Prelude.ToText HealthCheckType where
+  toText (HealthCheckType' x) = x
 
-instance Hashable HealthCheckType
+instance Prelude.Hashable HealthCheckType
 
-instance NFData HealthCheckType
+instance Prelude.NFData HealthCheckType
 
-instance ToByteString HealthCheckType
+instance Prelude.ToByteString HealthCheckType
 
-instance ToQuery HealthCheckType
+instance Prelude.ToQuery HealthCheckType
 
-instance ToHeader HealthCheckType
+instance Prelude.ToHeader HealthCheckType
 
-instance ToJSON HealthCheckType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HealthCheckType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HealthCheckType where
-  parseJSON = parseJSONText "HealthCheckType"
+instance Prelude.FromJSON HealthCheckType where
+  parseJSON = Prelude.parseJSONText "HealthCheckType"

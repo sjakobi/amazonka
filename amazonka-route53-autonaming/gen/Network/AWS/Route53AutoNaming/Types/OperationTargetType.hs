@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Route53AutoNaming.Types.OperationTargetType
   ( OperationTargetType
       ( ..,
-        OTTInstance,
-        OTTNamespace,
-        OTTService
+        OperationTargetTypeOTTINSTANCE,
+        OperationTargetTypeOTTNAMESPACE,
+        OperationTargetTypeOTTSERVICE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationTargetType
-  = OperationTargetType'
-      ( CI
-          Text
-      )
+newtype OperationTargetType = OperationTargetType'
+  { fromOperationTargetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OTTInstance :: OperationTargetType
-pattern OTTInstance = OperationTargetType' "INSTANCE"
+pattern OperationTargetTypeOTTINSTANCE :: OperationTargetType
+pattern OperationTargetTypeOTTINSTANCE = OperationTargetType' "INSTANCE"
 
-pattern OTTNamespace :: OperationTargetType
-pattern OTTNamespace = OperationTargetType' "NAMESPACE"
+pattern OperationTargetTypeOTTNAMESPACE :: OperationTargetType
+pattern OperationTargetTypeOTTNAMESPACE = OperationTargetType' "NAMESPACE"
 
-pattern OTTService :: OperationTargetType
-pattern OTTService = OperationTargetType' "SERVICE"
+pattern OperationTargetTypeOTTSERVICE :: OperationTargetType
+pattern OperationTargetTypeOTTSERVICE = OperationTargetType' "SERVICE"
 
 {-# COMPLETE
-  OTTInstance,
-  OTTNamespace,
-  OTTService,
+  OperationTargetTypeOTTINSTANCE,
+  OperationTargetTypeOTTNAMESPACE,
+  OperationTargetTypeOTTSERVICE,
   OperationTargetType'
   #-}
 
-instance FromText OperationTargetType where
-  parser = (OperationTargetType' . mk) <$> takeText
+instance Prelude.FromText OperationTargetType where
+  parser = OperationTargetType' Prelude.<$> Prelude.takeText
 
-instance ToText OperationTargetType where
-  toText (OperationTargetType' ci) = original ci
+instance Prelude.ToText OperationTargetType where
+  toText (OperationTargetType' x) = x
 
-instance Hashable OperationTargetType
+instance Prelude.Hashable OperationTargetType
 
-instance NFData OperationTargetType
+instance Prelude.NFData OperationTargetType
 
-instance ToByteString OperationTargetType
+instance Prelude.ToByteString OperationTargetType
 
-instance ToQuery OperationTargetType
+instance Prelude.ToQuery OperationTargetType
 
-instance ToHeader OperationTargetType
+instance Prelude.ToHeader OperationTargetType
 
-instance FromJSON OperationTargetType where
-  parseJSON = parseJSONText "OperationTargetType"
+instance Prelude.FromJSON OperationTargetType where
+  parseJSON = Prelude.parseJSONText "OperationTargetType"

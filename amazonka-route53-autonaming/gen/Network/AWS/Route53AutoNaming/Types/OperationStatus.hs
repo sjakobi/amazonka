@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.Route53AutoNaming.Types.OperationStatus
   ( OperationStatus
       ( ..,
-        Fail,
-        Pending,
-        Submitted,
-        Success
+        OperationStatusFAIL,
+        OperationStatusPENDING,
+        OperationStatusSUBMITTED,
+        OperationStatusSUCCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationStatus = OperationStatus' (CI Text)
+newtype OperationStatus = OperationStatus'
+  { fromOperationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Fail :: OperationStatus
-pattern Fail = OperationStatus' "FAIL"
+pattern OperationStatusFAIL :: OperationStatus
+pattern OperationStatusFAIL = OperationStatus' "FAIL"
 
-pattern Pending :: OperationStatus
-pattern Pending = OperationStatus' "PENDING"
+pattern OperationStatusPENDING :: OperationStatus
+pattern OperationStatusPENDING = OperationStatus' "PENDING"
 
-pattern Submitted :: OperationStatus
-pattern Submitted = OperationStatus' "SUBMITTED"
+pattern OperationStatusSUBMITTED :: OperationStatus
+pattern OperationStatusSUBMITTED = OperationStatus' "SUBMITTED"
 
-pattern Success :: OperationStatus
-pattern Success = OperationStatus' "SUCCESS"
+pattern OperationStatusSUCCESS :: OperationStatus
+pattern OperationStatusSUCCESS = OperationStatus' "SUCCESS"
 
 {-# COMPLETE
-  Fail,
-  Pending,
-  Submitted,
-  Success,
+  OperationStatusFAIL,
+  OperationStatusPENDING,
+  OperationStatusSUBMITTED,
+  OperationStatusSUCCESS,
   OperationStatus'
   #-}
 
-instance FromText OperationStatus where
-  parser = (OperationStatus' . mk) <$> takeText
+instance Prelude.FromText OperationStatus where
+  parser = OperationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText OperationStatus where
-  toText (OperationStatus' ci) = original ci
+instance Prelude.ToText OperationStatus where
+  toText (OperationStatus' x) = x
 
-instance Hashable OperationStatus
+instance Prelude.Hashable OperationStatus
 
-instance NFData OperationStatus
+instance Prelude.NFData OperationStatus
 
-instance ToByteString OperationStatus
+instance Prelude.ToByteString OperationStatus
 
-instance ToQuery OperationStatus
+instance Prelude.ToQuery OperationStatus
 
-instance ToHeader OperationStatus
+instance Prelude.ToHeader OperationStatus
 
-instance FromJSON OperationStatus where
-  parseJSON = parseJSONText "OperationStatus"
+instance Prelude.FromJSON OperationStatus where
+  parseJSON = Prelude.parseJSONText "OperationStatus"

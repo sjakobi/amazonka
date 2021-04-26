@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Route53AutoNaming.Types.HealthStatus
   ( HealthStatus
       ( ..,
-        Healthy,
-        Unhealthy,
-        Unknown
+        HealthStatusHEALTHY,
+        HealthStatusUNHEALTHY,
+        HealthStatusUNKNOWN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HealthStatus = HealthStatus' (CI Text)
+newtype HealthStatus = HealthStatus'
+  { fromHealthStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Healthy :: HealthStatus
-pattern Healthy = HealthStatus' "HEALTHY"
+pattern HealthStatusHEALTHY :: HealthStatus
+pattern HealthStatusHEALTHY = HealthStatus' "HEALTHY"
 
-pattern Unhealthy :: HealthStatus
-pattern Unhealthy = HealthStatus' "UNHEALTHY"
+pattern HealthStatusUNHEALTHY :: HealthStatus
+pattern HealthStatusUNHEALTHY = HealthStatus' "UNHEALTHY"
 
-pattern Unknown :: HealthStatus
-pattern Unknown = HealthStatus' "UNKNOWN"
+pattern HealthStatusUNKNOWN :: HealthStatus
+pattern HealthStatusUNKNOWN = HealthStatus' "UNKNOWN"
 
 {-# COMPLETE
-  Healthy,
-  Unhealthy,
-  Unknown,
+  HealthStatusHEALTHY,
+  HealthStatusUNHEALTHY,
+  HealthStatusUNKNOWN,
   HealthStatus'
   #-}
 
-instance FromText HealthStatus where
-  parser = (HealthStatus' . mk) <$> takeText
+instance Prelude.FromText HealthStatus where
+  parser = HealthStatus' Prelude.<$> Prelude.takeText
 
-instance ToText HealthStatus where
-  toText (HealthStatus' ci) = original ci
+instance Prelude.ToText HealthStatus where
+  toText (HealthStatus' x) = x
 
-instance Hashable HealthStatus
+instance Prelude.Hashable HealthStatus
 
-instance NFData HealthStatus
+instance Prelude.NFData HealthStatus
 
-instance ToByteString HealthStatus
+instance Prelude.ToByteString HealthStatus
 
-instance ToQuery HealthStatus
+instance Prelude.ToQuery HealthStatus
 
-instance ToHeader HealthStatus
+instance Prelude.ToHeader HealthStatus
 
-instance FromJSON HealthStatus where
-  parseJSON = parseJSONText "HealthStatus"
+instance Prelude.FromJSON HealthStatus where
+  parseJSON = Prelude.parseJSONText "HealthStatus"

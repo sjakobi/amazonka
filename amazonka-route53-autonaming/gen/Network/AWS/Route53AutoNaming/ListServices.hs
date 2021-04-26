@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,270 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists summary information for all the services that are associated with one or more specified namespaces.
---
---
+-- Lists summary information for all the services that are associated with
+-- one or more specified namespaces.
 --
 -- This operation returns paginated results.
 module Network.AWS.Route53AutoNaming.ListServices
   ( -- * Creating a Request
-    listServices,
-    ListServices,
+    ListServices (..),
+    newListServices,
 
     -- * Request Lenses
-    lsNextToken,
-    lsMaxResults,
-    lsFilters,
+    listServices_nextToken,
+    listServices_maxResults,
+    listServices_filters,
 
     -- * Destructuring the Response
-    listServicesResponse,
-    ListServicesResponse,
+    ListServicesResponse (..),
+    newListServicesResponse,
 
     -- * Response Lenses
-    lsrrsNextToken,
-    lsrrsServices,
-    lsrrsResponseStatus,
+    listServicesResponse_nextToken,
+    listServicesResponse_services,
+    listServicesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53AutoNaming.Types
+import Network.AWS.Route53AutoNaming.Types.ServiceSummary
 
--- | /See:/ 'listServices' smart constructor.
+-- | /See:/ 'newListServices' smart constructor.
 data ListServices = ListServices'
-  { _lsNextToken ::
-      !(Maybe Text),
-    _lsMaxResults :: !(Maybe Nat),
-    _lsFilters :: !(Maybe [ServiceFilter])
+  { -- | For the first @ListServices@ request, omit this value.
+    --
+    -- If the response contains @NextToken@, submit another @ListServices@
+    -- request to get the next group of results. Specify the value of
+    -- @NextToken@ from the previous response in the next request.
+    --
+    -- AWS Cloud Map gets @MaxResults@ services and then filters them based on
+    -- the specified criteria. It\'s possible that no services in the first
+    -- @MaxResults@ services matched the specified criteria but that subsequent
+    -- groups of @MaxResults@ services do contain services that match the
+    -- criteria.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of services that you want AWS Cloud Map to return in
+    -- the response to a @ListServices@ request. If you don\'t specify a value
+    -- for @MaxResults@, AWS Cloud Map returns up to 100 services.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A complex type that contains specifications for the namespaces that you
+    -- want to list services for.
+    --
+    -- If you specify more than one filter, an operation must match all filters
+    -- to be returned by @ListServices@.
+    filters :: Prelude.Maybe [ServiceFilter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsNextToken' - For the first @ListServices@ request, omit this value. If the response contains @NextToken@ , submit another @ListServices@ request to get the next group of results. Specify the value of @NextToken@ from the previous response in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsMaxResults' - The maximum number of services that you want AWS Cloud Map to return in the response to a @ListServices@ request. If you don't specify a value for @MaxResults@ , AWS Cloud Map returns up to 100 services.
+-- 'nextToken', 'listServices_nextToken' - For the first @ListServices@ request, omit this value.
 --
--- * 'lsFilters' - A complex type that contains specifications for the namespaces that you want to list services for.  If you specify more than one filter, an operation must match all filters to be returned by @ListServices@ .
-listServices ::
+-- If the response contains @NextToken@, submit another @ListServices@
+-- request to get the next group of results. Specify the value of
+-- @NextToken@ from the previous response in the next request.
+--
+-- AWS Cloud Map gets @MaxResults@ services and then filters them based on
+-- the specified criteria. It\'s possible that no services in the first
+-- @MaxResults@ services matched the specified criteria but that subsequent
+-- groups of @MaxResults@ services do contain services that match the
+-- criteria.
+--
+-- 'maxResults', 'listServices_maxResults' - The maximum number of services that you want AWS Cloud Map to return in
+-- the response to a @ListServices@ request. If you don\'t specify a value
+-- for @MaxResults@, AWS Cloud Map returns up to 100 services.
+--
+-- 'filters', 'listServices_filters' - A complex type that contains specifications for the namespaces that you
+-- want to list services for.
+--
+-- If you specify more than one filter, an operation must match all filters
+-- to be returned by @ListServices@.
+newListServices ::
   ListServices
-listServices =
+newListServices =
   ListServices'
-    { _lsNextToken = Nothing,
-      _lsMaxResults = Nothing,
-      _lsFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | For the first @ListServices@ request, omit this value. If the response contains @NextToken@ , submit another @ListServices@ request to get the next group of results. Specify the value of @NextToken@ from the previous response in the next request.
-lsNextToken :: Lens' ListServices (Maybe Text)
-lsNextToken = lens _lsNextToken (\s a -> s {_lsNextToken = a})
+-- | For the first @ListServices@ request, omit this value.
+--
+-- If the response contains @NextToken@, submit another @ListServices@
+-- request to get the next group of results. Specify the value of
+-- @NextToken@ from the previous response in the next request.
+--
+-- AWS Cloud Map gets @MaxResults@ services and then filters them based on
+-- the specified criteria. It\'s possible that no services in the first
+-- @MaxResults@ services matched the specified criteria but that subsequent
+-- groups of @MaxResults@ services do contain services that match the
+-- criteria.
+listServices_nextToken :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Text)
+listServices_nextToken = Lens.lens (\ListServices' {nextToken} -> nextToken) (\s@ListServices' {} a -> s {nextToken = a} :: ListServices)
 
--- | The maximum number of services that you want AWS Cloud Map to return in the response to a @ListServices@ request. If you don't specify a value for @MaxResults@ , AWS Cloud Map returns up to 100 services.
-lsMaxResults :: Lens' ListServices (Maybe Natural)
-lsMaxResults = lens _lsMaxResults (\s a -> s {_lsMaxResults = a}) . mapping _Nat
+-- | The maximum number of services that you want AWS Cloud Map to return in
+-- the response to a @ListServices@ request. If you don\'t specify a value
+-- for @MaxResults@, AWS Cloud Map returns up to 100 services.
+listServices_maxResults :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Natural)
+listServices_maxResults = Lens.lens (\ListServices' {maxResults} -> maxResults) (\s@ListServices' {} a -> s {maxResults = a} :: ListServices) Prelude.. Lens.mapping Prelude._Nat
 
--- | A complex type that contains specifications for the namespaces that you want to list services for.  If you specify more than one filter, an operation must match all filters to be returned by @ListServices@ .
-lsFilters :: Lens' ListServices [ServiceFilter]
-lsFilters = lens _lsFilters (\s a -> s {_lsFilters = a}) . _Default . _Coerce
+-- | A complex type that contains specifications for the namespaces that you
+-- want to list services for.
+--
+-- If you specify more than one filter, an operation must match all filters
+-- to be returned by @ListServices@.
+listServices_filters :: Lens.Lens' ListServices (Prelude.Maybe [ServiceFilter])
+listServices_filters = Lens.lens (\ListServices' {filters} -> filters) (\s@ListServices' {} a -> s {filters = a} :: ListServices) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager ListServices where
+instance Pager.AWSPager ListServices where
   page rq rs
-    | stop (rs ^. lsrrsNextToken) = Nothing
-    | stop (rs ^. lsrrsServices) = Nothing
-    | otherwise =
-      Just $ rq & lsNextToken .~ rs ^. lsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listServicesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listServicesResponse_services Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listServices_nextToken
+          Lens..~ rs
+          Lens.^? listServicesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListServices where
+instance Prelude.AWSRequest ListServices where
   type Rs ListServices = ListServicesResponse
-  request = postJSON route53AutoNaming
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListServicesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Services" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Services" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListServices
+instance Prelude.Hashable ListServices
 
-instance NFData ListServices
+instance Prelude.NFData ListServices
 
-instance ToHeaders ListServices where
+instance Prelude.ToHeaders ListServices where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53AutoNaming_v20170314.ListServices" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53AutoNaming_v20170314.ListServices" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListServices where
+instance Prelude.ToJSON ListServices where
   toJSON ListServices' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lsNextToken,
-            ("MaxResults" .=) <$> _lsMaxResults,
-            ("Filters" .=) <$> _lsFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath ListServices where
-  toPath = const "/"
+instance Prelude.ToPath ListServices where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListServices where
-  toQuery = const mempty
+instance Prelude.ToQuery ListServices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listServicesResponse' smart constructor.
+-- | /See:/ 'newListServicesResponse' smart constructor.
 data ListServicesResponse = ListServicesResponse'
-  { _lsrrsNextToken ::
-      !(Maybe Text),
-    _lsrrsServices ::
-      !(Maybe [ServiceSummary]),
-    _lsrrsResponseStatus :: !Int
+  { -- | If the response contains @NextToken@, submit another @ListServices@
+    -- request to get the next group of results. Specify the value of
+    -- @NextToken@ from the previous response in the next request.
+    --
+    -- AWS Cloud Map gets @MaxResults@ services and then filters them based on
+    -- the specified criteria. It\'s possible that no services in the first
+    -- @MaxResults@ services matched the specified criteria but that subsequent
+    -- groups of @MaxResults@ services do contain services that match the
+    -- criteria.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array that contains one @ServiceSummary@ object for each service that
+    -- matches the specified filter criteria.
+    services :: Prelude.Maybe [ServiceSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServicesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServicesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsrrsNextToken' - If the response contains @NextToken@ , submit another @ListServices@ request to get the next group of results. Specify the value of @NextToken@ from the previous response in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsrrsServices' - An array that contains one @ServiceSummary@ object for each service that matches the specified filter criteria.
+-- 'nextToken', 'listServicesResponse_nextToken' - If the response contains @NextToken@, submit another @ListServices@
+-- request to get the next group of results. Specify the value of
+-- @NextToken@ from the previous response in the next request.
 --
--- * 'lsrrsResponseStatus' - -- | The response status code.
-listServicesResponse ::
-  -- | 'lsrrsResponseStatus'
-  Int ->
+-- AWS Cloud Map gets @MaxResults@ services and then filters them based on
+-- the specified criteria. It\'s possible that no services in the first
+-- @MaxResults@ services matched the specified criteria but that subsequent
+-- groups of @MaxResults@ services do contain services that match the
+-- criteria.
+--
+-- 'services', 'listServicesResponse_services' - An array that contains one @ServiceSummary@ object for each service that
+-- matches the specified filter criteria.
+--
+-- 'httpStatus', 'listServicesResponse_httpStatus' - The response's http status code.
+newListServicesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListServicesResponse
-listServicesResponse pResponseStatus_ =
+newListServicesResponse pHttpStatus_ =
   ListServicesResponse'
-    { _lsrrsNextToken = Nothing,
-      _lsrrsServices = Nothing,
-      _lsrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      services = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the response contains @NextToken@ , submit another @ListServices@ request to get the next group of results. Specify the value of @NextToken@ from the previous response in the next request.
-lsrrsNextToken :: Lens' ListServicesResponse (Maybe Text)
-lsrrsNextToken = lens _lsrrsNextToken (\s a -> s {_lsrrsNextToken = a})
+-- | If the response contains @NextToken@, submit another @ListServices@
+-- request to get the next group of results. Specify the value of
+-- @NextToken@ from the previous response in the next request.
+--
+-- AWS Cloud Map gets @MaxResults@ services and then filters them based on
+-- the specified criteria. It\'s possible that no services in the first
+-- @MaxResults@ services matched the specified criteria but that subsequent
+-- groups of @MaxResults@ services do contain services that match the
+-- criteria.
+listServicesResponse_nextToken :: Lens.Lens' ListServicesResponse (Prelude.Maybe Prelude.Text)
+listServicesResponse_nextToken = Lens.lens (\ListServicesResponse' {nextToken} -> nextToken) (\s@ListServicesResponse' {} a -> s {nextToken = a} :: ListServicesResponse)
 
--- | An array that contains one @ServiceSummary@ object for each service that matches the specified filter criteria.
-lsrrsServices :: Lens' ListServicesResponse [ServiceSummary]
-lsrrsServices = lens _lsrrsServices (\s a -> s {_lsrrsServices = a}) . _Default . _Coerce
+-- | An array that contains one @ServiceSummary@ object for each service that
+-- matches the specified filter criteria.
+listServicesResponse_services :: Lens.Lens' ListServicesResponse (Prelude.Maybe [ServiceSummary])
+listServicesResponse_services = Lens.lens (\ListServicesResponse' {services} -> services) (\s@ListServicesResponse' {} a -> s {services = a} :: ListServicesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsrrsResponseStatus :: Lens' ListServicesResponse Int
-lsrrsResponseStatus = lens _lsrrsResponseStatus (\s a -> s {_lsrrsResponseStatus = a})
+-- | The response's http status code.
+listServicesResponse_httpStatus :: Lens.Lens' ListServicesResponse Prelude.Int
+listServicesResponse_httpStatus = Lens.lens (\ListServicesResponse' {httpStatus} -> httpStatus) (\s@ListServicesResponse' {} a -> s {httpStatus = a} :: ListServicesResponse)
 
-instance NFData ListServicesResponse
+instance Prelude.NFData ListServicesResponse

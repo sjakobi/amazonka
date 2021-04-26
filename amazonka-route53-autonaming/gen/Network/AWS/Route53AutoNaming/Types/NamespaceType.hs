@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Route53AutoNaming.Types.NamespaceType
   ( NamespaceType
       ( ..,
-        NTDNSPrivate,
-        NTDNSPublic,
-        NTHTTP
+        NamespaceTypeDNSPRIVATE,
+        NamespaceTypeDNSPUBLIC,
+        NamespaceTypeHTTP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NamespaceType = NamespaceType' (CI Text)
+newtype NamespaceType = NamespaceType'
+  { fromNamespaceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NTDNSPrivate :: NamespaceType
-pattern NTDNSPrivate = NamespaceType' "DNS_PRIVATE"
+pattern NamespaceTypeDNSPRIVATE :: NamespaceType
+pattern NamespaceTypeDNSPRIVATE = NamespaceType' "DNS_PRIVATE"
 
-pattern NTDNSPublic :: NamespaceType
-pattern NTDNSPublic = NamespaceType' "DNS_PUBLIC"
+pattern NamespaceTypeDNSPUBLIC :: NamespaceType
+pattern NamespaceTypeDNSPUBLIC = NamespaceType' "DNS_PUBLIC"
 
-pattern NTHTTP :: NamespaceType
-pattern NTHTTP = NamespaceType' "HTTP"
+pattern NamespaceTypeHTTP :: NamespaceType
+pattern NamespaceTypeHTTP = NamespaceType' "HTTP"
 
 {-# COMPLETE
-  NTDNSPrivate,
-  NTDNSPublic,
-  NTHTTP,
+  NamespaceTypeDNSPRIVATE,
+  NamespaceTypeDNSPUBLIC,
+  NamespaceTypeHTTP,
   NamespaceType'
   #-}
 
-instance FromText NamespaceType where
-  parser = (NamespaceType' . mk) <$> takeText
+instance Prelude.FromText NamespaceType where
+  parser = NamespaceType' Prelude.<$> Prelude.takeText
 
-instance ToText NamespaceType where
-  toText (NamespaceType' ci) = original ci
+instance Prelude.ToText NamespaceType where
+  toText (NamespaceType' x) = x
 
-instance Hashable NamespaceType
+instance Prelude.Hashable NamespaceType
 
-instance NFData NamespaceType
+instance Prelude.NFData NamespaceType
 
-instance ToByteString NamespaceType
+instance Prelude.ToByteString NamespaceType
 
-instance ToQuery NamespaceType
+instance Prelude.ToQuery NamespaceType
 
-instance ToHeader NamespaceType
+instance Prelude.ToHeader NamespaceType
 
-instance FromJSON NamespaceType where
-  parseJSON = parseJSONText "NamespaceType"
+instance Prelude.FromJSON NamespaceType where
+  parseJSON = Prelude.parseJSONText "NamespaceType"

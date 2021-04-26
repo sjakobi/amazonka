@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Route53AutoNaming.Types.RoutingPolicy
   ( RoutingPolicy
       ( ..,
-        Multivalue,
-        Weighted
+        RoutingPolicyMULTIVALUE,
+        RoutingPolicyWEIGHTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RoutingPolicy = RoutingPolicy' (CI Text)
+newtype RoutingPolicy = RoutingPolicy'
+  { fromRoutingPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Multivalue :: RoutingPolicy
-pattern Multivalue = RoutingPolicy' "MULTIVALUE"
+pattern RoutingPolicyMULTIVALUE :: RoutingPolicy
+pattern RoutingPolicyMULTIVALUE = RoutingPolicy' "MULTIVALUE"
 
-pattern Weighted :: RoutingPolicy
-pattern Weighted = RoutingPolicy' "WEIGHTED"
+pattern RoutingPolicyWEIGHTED :: RoutingPolicy
+pattern RoutingPolicyWEIGHTED = RoutingPolicy' "WEIGHTED"
 
 {-# COMPLETE
-  Multivalue,
-  Weighted,
+  RoutingPolicyMULTIVALUE,
+  RoutingPolicyWEIGHTED,
   RoutingPolicy'
   #-}
 
-instance FromText RoutingPolicy where
-  parser = (RoutingPolicy' . mk) <$> takeText
+instance Prelude.FromText RoutingPolicy where
+  parser = RoutingPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText RoutingPolicy where
-  toText (RoutingPolicy' ci) = original ci
+instance Prelude.ToText RoutingPolicy where
+  toText (RoutingPolicy' x) = x
 
-instance Hashable RoutingPolicy
+instance Prelude.Hashable RoutingPolicy
 
-instance NFData RoutingPolicy
+instance Prelude.NFData RoutingPolicy
 
-instance ToByteString RoutingPolicy
+instance Prelude.ToByteString RoutingPolicy
 
-instance ToQuery RoutingPolicy
+instance Prelude.ToQuery RoutingPolicy
 
-instance ToHeader RoutingPolicy
+instance Prelude.ToHeader RoutingPolicy
 
-instance ToJSON RoutingPolicy where
-  toJSON = toJSONText
+instance Prelude.ToJSON RoutingPolicy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RoutingPolicy where
-  parseJSON = parseJSONText "RoutingPolicy"
+instance Prelude.FromJSON RoutingPolicy where
+  parseJSON = Prelude.parseJSONText "RoutingPolicy"

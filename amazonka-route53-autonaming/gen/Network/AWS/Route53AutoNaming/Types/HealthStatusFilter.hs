@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Route53AutoNaming.Types.HealthStatusFilter
   ( HealthStatusFilter
       ( ..,
-        HSFAll,
-        HSFHealthy,
-        HSFUnhealthy
+        HealthStatusFilterALL,
+        HealthStatusFilterHEALTHY,
+        HealthStatusFilterUNHEALTHY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HealthStatusFilter
-  = HealthStatusFilter'
-      ( CI
-          Text
-      )
+newtype HealthStatusFilter = HealthStatusFilter'
+  { fromHealthStatusFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HSFAll :: HealthStatusFilter
-pattern HSFAll = HealthStatusFilter' "ALL"
+pattern HealthStatusFilterALL :: HealthStatusFilter
+pattern HealthStatusFilterALL = HealthStatusFilter' "ALL"
 
-pattern HSFHealthy :: HealthStatusFilter
-pattern HSFHealthy = HealthStatusFilter' "HEALTHY"
+pattern HealthStatusFilterHEALTHY :: HealthStatusFilter
+pattern HealthStatusFilterHEALTHY = HealthStatusFilter' "HEALTHY"
 
-pattern HSFUnhealthy :: HealthStatusFilter
-pattern HSFUnhealthy = HealthStatusFilter' "UNHEALTHY"
+pattern HealthStatusFilterUNHEALTHY :: HealthStatusFilter
+pattern HealthStatusFilterUNHEALTHY = HealthStatusFilter' "UNHEALTHY"
 
 {-# COMPLETE
-  HSFAll,
-  HSFHealthy,
-  HSFUnhealthy,
+  HealthStatusFilterALL,
+  HealthStatusFilterHEALTHY,
+  HealthStatusFilterUNHEALTHY,
   HealthStatusFilter'
   #-}
 
-instance FromText HealthStatusFilter where
-  parser = (HealthStatusFilter' . mk) <$> takeText
+instance Prelude.FromText HealthStatusFilter where
+  parser = HealthStatusFilter' Prelude.<$> Prelude.takeText
 
-instance ToText HealthStatusFilter where
-  toText (HealthStatusFilter' ci) = original ci
+instance Prelude.ToText HealthStatusFilter where
+  toText (HealthStatusFilter' x) = x
 
-instance Hashable HealthStatusFilter
+instance Prelude.Hashable HealthStatusFilter
 
-instance NFData HealthStatusFilter
+instance Prelude.NFData HealthStatusFilter
 
-instance ToByteString HealthStatusFilter
+instance Prelude.ToByteString HealthStatusFilter
 
-instance ToQuery HealthStatusFilter
+instance Prelude.ToQuery HealthStatusFilter
 
-instance ToHeader HealthStatusFilter
+instance Prelude.ToHeader HealthStatusFilter
 
-instance ToJSON HealthStatusFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON HealthStatusFilter where
+  toJSON = Prelude.toJSONText

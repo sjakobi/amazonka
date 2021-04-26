@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,137 +24,151 @@
 -- Gets information about a specified instance.
 module Network.AWS.Route53AutoNaming.GetInstance
   ( -- * Creating a Request
-    getInstance,
-    GetInstance,
+    GetInstance (..),
+    newGetInstance,
 
     -- * Request Lenses
-    giServiceId,
-    giInstanceId,
+    getInstance_serviceId,
+    getInstance_instanceId,
 
     -- * Destructuring the Response
-    getInstanceResponse,
-    GetInstanceResponse,
+    GetInstanceResponse (..),
+    newGetInstanceResponse,
 
     -- * Response Lenses
-    girrsInstance,
-    girrsResponseStatus,
+    getInstanceResponse_instance,
+    getInstanceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53AutoNaming.Types
+import Network.AWS.Route53AutoNaming.Types.Instance
 
--- | /See:/ 'getInstance' smart constructor.
+-- | /See:/ 'newGetInstance' smart constructor.
 data GetInstance = GetInstance'
-  { _giServiceId ::
-      !Text,
-    _giInstanceId :: !Text
+  { -- | The ID of the service that the instance is associated with.
+    serviceId :: Prelude.Text,
+    -- | The ID of the instance that you want to get information about.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giServiceId' - The ID of the service that the instance is associated with.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giInstanceId' - The ID of the instance that you want to get information about.
-getInstance ::
-  -- | 'giServiceId'
-  Text ->
-  -- | 'giInstanceId'
-  Text ->
+-- 'serviceId', 'getInstance_serviceId' - The ID of the service that the instance is associated with.
+--
+-- 'instanceId', 'getInstance_instanceId' - The ID of the instance that you want to get information about.
+newGetInstance ::
+  -- | 'serviceId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   GetInstance
-getInstance pServiceId_ pInstanceId_ =
+newGetInstance pServiceId_ pInstanceId_ =
   GetInstance'
-    { _giServiceId = pServiceId_,
-      _giInstanceId = pInstanceId_
+    { serviceId = pServiceId_,
+      instanceId = pInstanceId_
     }
 
 -- | The ID of the service that the instance is associated with.
-giServiceId :: Lens' GetInstance Text
-giServiceId = lens _giServiceId (\s a -> s {_giServiceId = a})
+getInstance_serviceId :: Lens.Lens' GetInstance Prelude.Text
+getInstance_serviceId = Lens.lens (\GetInstance' {serviceId} -> serviceId) (\s@GetInstance' {} a -> s {serviceId = a} :: GetInstance)
 
 -- | The ID of the instance that you want to get information about.
-giInstanceId :: Lens' GetInstance Text
-giInstanceId = lens _giInstanceId (\s a -> s {_giInstanceId = a})
+getInstance_instanceId :: Lens.Lens' GetInstance Prelude.Text
+getInstance_instanceId = Lens.lens (\GetInstance' {instanceId} -> instanceId) (\s@GetInstance' {} a -> s {instanceId = a} :: GetInstance)
 
-instance AWSRequest GetInstance where
+instance Prelude.AWSRequest GetInstance where
   type Rs GetInstance = GetInstanceResponse
-  request = postJSON route53AutoNaming
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInstanceResponse'
-            <$> (x .?> "Instance") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Instance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInstance
+instance Prelude.Hashable GetInstance
 
-instance NFData GetInstance
+instance Prelude.NFData GetInstance
 
-instance ToHeaders GetInstance where
+instance Prelude.ToHeaders GetInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53AutoNaming_v20170314.GetInstance" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53AutoNaming_v20170314.GetInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetInstance where
+instance Prelude.ToJSON GetInstance where
   toJSON GetInstance' {..} =
-    object
-      ( catMaybes
-          [ Just ("ServiceId" .= _giServiceId),
-            Just ("InstanceId" .= _giInstanceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ServiceId" Prelude..= serviceId),
+            Prelude.Just ("InstanceId" Prelude..= instanceId)
           ]
       )
 
-instance ToPath GetInstance where
-  toPath = const "/"
+instance Prelude.ToPath GetInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getInstanceResponse' smart constructor.
+-- | /See:/ 'newGetInstanceResponse' smart constructor.
 data GetInstanceResponse = GetInstanceResponse'
-  { _girrsInstance ::
-      !(Maybe Instance),
-    _girrsResponseStatus :: !Int
+  { -- | A complex type that contains information about a specified instance.
+    instance' :: Prelude.Maybe Instance,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'girrsInstance' - A complex type that contains information about a specified instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'girrsResponseStatus' - -- | The response status code.
-getInstanceResponse ::
-  -- | 'girrsResponseStatus'
-  Int ->
+-- 'instance'', 'getInstanceResponse_instance' - A complex type that contains information about a specified instance.
+--
+-- 'httpStatus', 'getInstanceResponse_httpStatus' - The response's http status code.
+newGetInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInstanceResponse
-getInstanceResponse pResponseStatus_ =
+newGetInstanceResponse pHttpStatus_ =
   GetInstanceResponse'
-    { _girrsInstance = Nothing,
-      _girrsResponseStatus = pResponseStatus_
+    { instance' = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A complex type that contains information about a specified instance.
-girrsInstance :: Lens' GetInstanceResponse (Maybe Instance)
-girrsInstance = lens _girrsInstance (\s a -> s {_girrsInstance = a})
+getInstanceResponse_instance :: Lens.Lens' GetInstanceResponse (Prelude.Maybe Instance)
+getInstanceResponse_instance = Lens.lens (\GetInstanceResponse' {instance'} -> instance') (\s@GetInstanceResponse' {} a -> s {instance' = a} :: GetInstanceResponse)
 
--- | -- | The response status code.
-girrsResponseStatus :: Lens' GetInstanceResponse Int
-girrsResponseStatus = lens _girrsResponseStatus (\s a -> s {_girrsResponseStatus = a})
+-- | The response's http status code.
+getInstanceResponse_httpStatus :: Lens.Lens' GetInstanceResponse Prelude.Int
+getInstanceResponse_httpStatus = Lens.lens (\GetInstanceResponse' {httpStatus} -> httpStatus) (\s@GetInstanceResponse' {} a -> s {httpStatus = a} :: GetInstanceResponse)
 
-instance NFData GetInstanceResponse
+instance Prelude.NFData GetInstanceResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,116 +21,124 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified service. If the service still contains one or more registered instances, the request fails.
+-- Deletes a specified service. If the service still contains one or more
+-- registered instances, the request fails.
 module Network.AWS.Route53AutoNaming.DeleteService
   ( -- * Creating a Request
-    deleteService,
-    DeleteService,
+    DeleteService (..),
+    newDeleteService,
 
     -- * Request Lenses
-    dsId,
+    deleteService_id,
 
     -- * Destructuring the Response
-    deleteServiceResponse,
-    DeleteServiceResponse,
+    DeleteServiceResponse (..),
+    newDeleteServiceResponse,
 
     -- * Response Lenses
-    dsrrsResponseStatus,
+    deleteServiceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53AutoNaming.Types
 
--- | /See:/ 'deleteService' smart constructor.
-newtype DeleteService = DeleteService' {_dsId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteService' smart constructor.
+data DeleteService = DeleteService'
+  { -- | The ID of the service that you want to delete.
+    id :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteService' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteService' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsId' - The ID of the service that you want to delete.
-deleteService ::
-  -- | 'dsId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'deleteService_id' - The ID of the service that you want to delete.
+newDeleteService ::
+  -- | 'id'
+  Prelude.Text ->
   DeleteService
-deleteService pId_ = DeleteService' {_dsId = pId_}
+newDeleteService pId_ = DeleteService' {id = pId_}
 
 -- | The ID of the service that you want to delete.
-dsId :: Lens' DeleteService Text
-dsId = lens _dsId (\s a -> s {_dsId = a})
+deleteService_id :: Lens.Lens' DeleteService Prelude.Text
+deleteService_id = Lens.lens (\DeleteService' {id} -> id) (\s@DeleteService' {} a -> s {id = a} :: DeleteService)
 
-instance AWSRequest DeleteService where
+instance Prelude.AWSRequest DeleteService where
   type Rs DeleteService = DeleteServiceResponse
-  request = postJSON route53AutoNaming
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteServiceResponse' <$> (pure (fromEnum s))
+          DeleteServiceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteService
+instance Prelude.Hashable DeleteService
 
-instance NFData DeleteService
+instance Prelude.NFData DeleteService
 
-instance ToHeaders DeleteService where
+instance Prelude.ToHeaders DeleteService where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53AutoNaming_v20170314.DeleteService" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53AutoNaming_v20170314.DeleteService" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteService where
+instance Prelude.ToJSON DeleteService where
   toJSON DeleteService' {..} =
-    object (catMaybes [Just ("Id" .= _dsId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Id" Prelude..= id)]
+      )
 
-instance ToPath DeleteService where
-  toPath = const "/"
+instance Prelude.ToPath DeleteService where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteService where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteService where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteServiceResponse' smart constructor.
-newtype DeleteServiceResponse = DeleteServiceResponse'
-  { _dsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteServiceResponse' smart constructor.
+data DeleteServiceResponse = DeleteServiceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteServiceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteServiceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-deleteServiceResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteServiceResponse_httpStatus' - The response's http status code.
+newDeleteServiceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteServiceResponse
-deleteServiceResponse pResponseStatus_ =
-  DeleteServiceResponse'
-    { _dsrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteServiceResponse pHttpStatus_ =
+  DeleteServiceResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DeleteServiceResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteServiceResponse_httpStatus :: Lens.Lens' DeleteServiceResponse Prelude.Int
+deleteServiceResponse_httpStatus = Lens.lens (\DeleteServiceResponse' {httpStatus} -> httpStatus) (\s@DeleteServiceResponse' {} a -> s {httpStatus = a} :: DeleteServiceResponse)
 
-instance NFData DeleteServiceResponse
+instance Prelude.NFData DeleteServiceResponse

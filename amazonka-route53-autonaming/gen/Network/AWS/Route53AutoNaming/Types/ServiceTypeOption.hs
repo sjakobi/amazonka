@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.Route53AutoNaming.Types.ServiceTypeOption
   ( ServiceTypeOption
       ( ..,
-        STOHTTP
+        ServiceTypeOptionHTTP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceTypeOption = ServiceTypeOption' (CI Text)
+newtype ServiceTypeOption = ServiceTypeOption'
+  { fromServiceTypeOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern STOHTTP :: ServiceTypeOption
-pattern STOHTTP = ServiceTypeOption' "HTTP"
+pattern ServiceTypeOptionHTTP :: ServiceTypeOption
+pattern ServiceTypeOptionHTTP = ServiceTypeOption' "HTTP"
 
 {-# COMPLETE
-  STOHTTP,
+  ServiceTypeOptionHTTP,
   ServiceTypeOption'
   #-}
 
-instance FromText ServiceTypeOption where
-  parser = (ServiceTypeOption' . mk) <$> takeText
+instance Prelude.FromText ServiceTypeOption where
+  parser = ServiceTypeOption' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceTypeOption where
-  toText (ServiceTypeOption' ci) = original ci
+instance Prelude.ToText ServiceTypeOption where
+  toText (ServiceTypeOption' x) = x
 
-instance Hashable ServiceTypeOption
+instance Prelude.Hashable ServiceTypeOption
 
-instance NFData ServiceTypeOption
+instance Prelude.NFData ServiceTypeOption
 
-instance ToByteString ServiceTypeOption
+instance Prelude.ToByteString ServiceTypeOption
 
-instance ToQuery ServiceTypeOption
+instance Prelude.ToQuery ServiceTypeOption
 
-instance ToHeader ServiceTypeOption
+instance Prelude.ToHeader ServiceTypeOption
 
-instance ToJSON ServiceTypeOption where
-  toJSON = toJSONText
+instance Prelude.ToJSON ServiceTypeOption where
+  toJSON = Prelude.toJSONText

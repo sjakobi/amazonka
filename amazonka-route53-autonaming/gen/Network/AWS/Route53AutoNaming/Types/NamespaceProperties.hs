@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53AutoNaming.Types.NamespaceProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Route53AutoNaming.Types.DNSProperties
-import Network.AWS.Route53AutoNaming.Types.HTTPProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import Network.AWS.Route53AutoNaming.Types.DnsProperties
+import Network.AWS.Route53AutoNaming.Types.HttpProperties
 
--- | A complex type that contains information that is specific to the namespace type.
+-- | A complex type that contains information that is specific to the
+-- namespace type.
 --
---
---
--- /See:/ 'namespaceProperties' smart constructor.
+-- /See:/ 'newNamespaceProperties' smart constructor.
 data NamespaceProperties = NamespaceProperties'
-  { _npHTTPProperties ::
-      !(Maybe HTTPProperties),
-    _npDNSProperties ::
-      !(Maybe DNSProperties)
+  { -- | A complex type that contains the name of an HTTP namespace.
+    httpProperties :: Prelude.Maybe HttpProperties,
+    -- | A complex type that contains the ID for the Route 53 hosted zone that
+    -- AWS Cloud Map creates when you create a namespace.
+    dnsProperties :: Prelude.Maybe DnsProperties
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NamespaceProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NamespaceProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'npHTTPProperties' - A complex type that contains the name of an HTTP namespace.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'npDNSProperties' - A complex type that contains the ID for the Route 53 hosted zone that AWS Cloud Map creates when you create a namespace.
-namespaceProperties ::
+-- 'httpProperties', 'namespaceProperties_httpProperties' - A complex type that contains the name of an HTTP namespace.
+--
+-- 'dnsProperties', 'namespaceProperties_dnsProperties' - A complex type that contains the ID for the Route 53 hosted zone that
+-- AWS Cloud Map creates when you create a namespace.
+newNamespaceProperties ::
   NamespaceProperties
-namespaceProperties =
+newNamespaceProperties =
   NamespaceProperties'
-    { _npHTTPProperties = Nothing,
-      _npDNSProperties = Nothing
+    { httpProperties =
+        Prelude.Nothing,
+      dnsProperties = Prelude.Nothing
     }
 
 -- | A complex type that contains the name of an HTTP namespace.
-npHTTPProperties :: Lens' NamespaceProperties (Maybe HTTPProperties)
-npHTTPProperties = lens _npHTTPProperties (\s a -> s {_npHTTPProperties = a})
+namespaceProperties_httpProperties :: Lens.Lens' NamespaceProperties (Prelude.Maybe HttpProperties)
+namespaceProperties_httpProperties = Lens.lens (\NamespaceProperties' {httpProperties} -> httpProperties) (\s@NamespaceProperties' {} a -> s {httpProperties = a} :: NamespaceProperties)
 
--- | A complex type that contains the ID for the Route 53 hosted zone that AWS Cloud Map creates when you create a namespace.
-npDNSProperties :: Lens' NamespaceProperties (Maybe DNSProperties)
-npDNSProperties = lens _npDNSProperties (\s a -> s {_npDNSProperties = a})
+-- | A complex type that contains the ID for the Route 53 hosted zone that
+-- AWS Cloud Map creates when you create a namespace.
+namespaceProperties_dnsProperties :: Lens.Lens' NamespaceProperties (Prelude.Maybe DnsProperties)
+namespaceProperties_dnsProperties = Lens.lens (\NamespaceProperties' {dnsProperties} -> dnsProperties) (\s@NamespaceProperties' {} a -> s {dnsProperties = a} :: NamespaceProperties)
 
-instance FromJSON NamespaceProperties where
+instance Prelude.FromJSON NamespaceProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NamespaceProperties"
       ( \x ->
           NamespaceProperties'
-            <$> (x .:? "HttpProperties") <*> (x .:? "DnsProperties")
+            Prelude.<$> (x Prelude..:? "HttpProperties")
+            Prelude.<*> (x Prelude..:? "DnsProperties")
       )
 
-instance Hashable NamespaceProperties
+instance Prelude.Hashable NamespaceProperties
 
-instance NFData NamespaceProperties
+instance Prelude.NFData NamespaceProperties

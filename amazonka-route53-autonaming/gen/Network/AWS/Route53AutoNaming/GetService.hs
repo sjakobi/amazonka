@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,115 +24,134 @@
 -- Gets the settings for a specified service.
 module Network.AWS.Route53AutoNaming.GetService
   ( -- * Creating a Request
-    getService,
-    GetService,
+    GetService (..),
+    newGetService,
 
     -- * Request Lenses
-    gsId,
+    getService_id,
 
     -- * Destructuring the Response
-    getServiceResponse,
-    GetServiceResponse,
+    GetServiceResponse (..),
+    newGetServiceResponse,
 
     -- * Response Lenses
-    gsrrsService,
-    gsrrsResponseStatus,
+    getServiceResponse_service,
+    getServiceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53AutoNaming.Types
+import Network.AWS.Route53AutoNaming.Types.ServiceInfo
 
--- | /See:/ 'getService' smart constructor.
-newtype GetService = GetService' {_gsId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetService' smart constructor.
+data GetService = GetService'
+  { -- | The ID of the service that you want to get settings for.
+    id :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetService' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetService' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsId' - The ID of the service that you want to get settings for.
-getService ::
-  -- | 'gsId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getService_id' - The ID of the service that you want to get settings for.
+newGetService ::
+  -- | 'id'
+  Prelude.Text ->
   GetService
-getService pId_ = GetService' {_gsId = pId_}
+newGetService pId_ = GetService' {id = pId_}
 
 -- | The ID of the service that you want to get settings for.
-gsId :: Lens' GetService Text
-gsId = lens _gsId (\s a -> s {_gsId = a})
+getService_id :: Lens.Lens' GetService Prelude.Text
+getService_id = Lens.lens (\GetService' {id} -> id) (\s@GetService' {} a -> s {id = a} :: GetService)
 
-instance AWSRequest GetService where
+instance Prelude.AWSRequest GetService where
   type Rs GetService = GetServiceResponse
-  request = postJSON route53AutoNaming
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetServiceResponse'
-            <$> (x .?> "Service") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Service")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetService
+instance Prelude.Hashable GetService
 
-instance NFData GetService
+instance Prelude.NFData GetService
 
-instance ToHeaders GetService where
+instance Prelude.ToHeaders GetService where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53AutoNaming_v20170314.GetService" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53AutoNaming_v20170314.GetService" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetService where
+instance Prelude.ToJSON GetService where
   toJSON GetService' {..} =
-    object (catMaybes [Just ("Id" .= _gsId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Id" Prelude..= id)]
+      )
 
-instance ToPath GetService where
-  toPath = const "/"
+instance Prelude.ToPath GetService where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetService where
-  toQuery = const mempty
+instance Prelude.ToQuery GetService where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getServiceResponse' smart constructor.
+-- | /See:/ 'newGetServiceResponse' smart constructor.
 data GetServiceResponse = GetServiceResponse'
-  { _gsrrsService ::
-      !(Maybe ServiceInfo),
-    _gsrrsResponseStatus :: !Int
+  { -- | A complex type that contains information about the service.
+    service :: Prelude.Maybe ServiceInfo,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetServiceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetServiceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsrrsService' - A complex type that contains information about the service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsrrsResponseStatus' - -- | The response status code.
-getServiceResponse ::
-  -- | 'gsrrsResponseStatus'
-  Int ->
+-- 'service', 'getServiceResponse_service' - A complex type that contains information about the service.
+--
+-- 'httpStatus', 'getServiceResponse_httpStatus' - The response's http status code.
+newGetServiceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetServiceResponse
-getServiceResponse pResponseStatus_ =
+newGetServiceResponse pHttpStatus_ =
   GetServiceResponse'
-    { _gsrrsService = Nothing,
-      _gsrrsResponseStatus = pResponseStatus_
+    { service = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A complex type that contains information about the service.
-gsrrsService :: Lens' GetServiceResponse (Maybe ServiceInfo)
-gsrrsService = lens _gsrrsService (\s a -> s {_gsrrsService = a})
+getServiceResponse_service :: Lens.Lens' GetServiceResponse (Prelude.Maybe ServiceInfo)
+getServiceResponse_service = Lens.lens (\GetServiceResponse' {service} -> service) (\s@GetServiceResponse' {} a -> s {service = a} :: GetServiceResponse)
 
--- | -- | The response status code.
-gsrrsResponseStatus :: Lens' GetServiceResponse Int
-gsrrsResponseStatus = lens _gsrrsResponseStatus (\s a -> s {_gsrrsResponseStatus = a})
+-- | The response's http status code.
+getServiceResponse_httpStatus :: Lens.Lens' GetServiceResponse Prelude.Int
+getServiceResponse_httpStatus = Lens.lens (\GetServiceResponse' {httpStatus} -> httpStatus) (\s@GetServiceResponse' {} a -> s {httpStatus = a} :: GetServiceResponse)
 
-instance NFData GetServiceResponse
+instance Prelude.NFData GetServiceResponse

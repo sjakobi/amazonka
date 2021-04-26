@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Route53AutoNaming.Types.FilterCondition
   ( FilterCondition
       ( ..,
-        Between,
-        EQ',
-        IN
+        FilterConditionBETWEEN,
+        FilterConditionEQ,
+        FilterConditionIN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FilterCondition = FilterCondition' (CI Text)
+newtype FilterCondition = FilterCondition'
+  { fromFilterCondition ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Between :: FilterCondition
-pattern Between = FilterCondition' "BETWEEN"
+pattern FilterConditionBETWEEN :: FilterCondition
+pattern FilterConditionBETWEEN = FilterCondition' "BETWEEN"
 
-pattern EQ' :: FilterCondition
-pattern EQ' = FilterCondition' "EQ"
+pattern FilterConditionEQ :: FilterCondition
+pattern FilterConditionEQ = FilterCondition' "EQ"
 
-pattern IN :: FilterCondition
-pattern IN = FilterCondition' "IN"
+pattern FilterConditionIN :: FilterCondition
+pattern FilterConditionIN = FilterCondition' "IN"
 
 {-# COMPLETE
-  Between,
-  EQ',
-  IN,
+  FilterConditionBETWEEN,
+  FilterConditionEQ,
+  FilterConditionIN,
   FilterCondition'
   #-}
 
-instance FromText FilterCondition where
-  parser = (FilterCondition' . mk) <$> takeText
+instance Prelude.FromText FilterCondition where
+  parser = FilterCondition' Prelude.<$> Prelude.takeText
 
-instance ToText FilterCondition where
-  toText (FilterCondition' ci) = original ci
+instance Prelude.ToText FilterCondition where
+  toText (FilterCondition' x) = x
 
-instance Hashable FilterCondition
+instance Prelude.Hashable FilterCondition
 
-instance NFData FilterCondition
+instance Prelude.NFData FilterCondition
 
-instance ToByteString FilterCondition
+instance Prelude.ToByteString FilterCondition
 
-instance ToQuery FilterCondition
+instance Prelude.ToQuery FilterCondition
 
-instance ToHeader FilterCondition
+instance Prelude.ToHeader FilterCondition
 
-instance ToJSON FilterCondition where
-  toJSON = toJSONText
+instance Prelude.ToJSON FilterCondition where
+  toJSON = Prelude.toJSONText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53AutoNaming.Types.OperationSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53AutoNaming.Types.OperationStatus
 
--- | A complex type that contains information about an operation that matches the criteria that you specified in a <https://docs.aws.amazon.com/cloud-map/latest/api/API_ListOperations.html ListOperations> request.
+-- | A complex type that contains information about an operation that matches
+-- the criteria that you specified in a
+-- <https://docs.aws.amazon.com/cloud-map/latest/api/API_ListOperations.html ListOperations>
+-- request.
 --
---
---
--- /See:/ 'operationSummary' smart constructor.
+-- /See:/ 'newOperationSummary' smart constructor.
 data OperationSummary = OperationSummary'
-  { _osStatus ::
-      !(Maybe OperationStatus),
-    _osId :: !(Maybe Text)
+  { -- | The status of the operation. Values include the following:
+    --
+    -- -   __SUBMITTED__: This is the initial state immediately after you
+    --     submit a request.
+    --
+    -- -   __PENDING__: AWS Cloud Map is performing the operation.
+    --
+    -- -   __SUCCESS__: The operation succeeded.
+    --
+    -- -   __FAIL__: The operation failed. For the failure reason, see
+    --     @ErrorMessage@.
+    status :: Prelude.Maybe OperationStatus,
+    -- | The ID for an operation.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OperationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OperationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osStatus' - The status of the operation. Values include the following:     * __SUBMITTED__ : This is the initial state immediately after you submit a request.     * __PENDING__ : AWS Cloud Map is performing the operation.     * __SUCCESS__ : The operation succeeded.     * __FAIL__ : The operation failed. For the failure reason, see @ErrorMessage@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'osId' - The ID for an operation.
-operationSummary ::
+-- 'status', 'operationSummary_status' - The status of the operation. Values include the following:
+--
+-- -   __SUBMITTED__: This is the initial state immediately after you
+--     submit a request.
+--
+-- -   __PENDING__: AWS Cloud Map is performing the operation.
+--
+-- -   __SUCCESS__: The operation succeeded.
+--
+-- -   __FAIL__: The operation failed. For the failure reason, see
+--     @ErrorMessage@.
+--
+-- 'id', 'operationSummary_id' - The ID for an operation.
+newOperationSummary ::
   OperationSummary
-operationSummary =
+newOperationSummary =
   OperationSummary'
-    { _osStatus = Nothing,
-      _osId = Nothing
+    { status = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
--- | The status of the operation. Values include the following:     * __SUBMITTED__ : This is the initial state immediately after you submit a request.     * __PENDING__ : AWS Cloud Map is performing the operation.     * __SUCCESS__ : The operation succeeded.     * __FAIL__ : The operation failed. For the failure reason, see @ErrorMessage@ .
-osStatus :: Lens' OperationSummary (Maybe OperationStatus)
-osStatus = lens _osStatus (\s a -> s {_osStatus = a})
+-- | The status of the operation. Values include the following:
+--
+-- -   __SUBMITTED__: This is the initial state immediately after you
+--     submit a request.
+--
+-- -   __PENDING__: AWS Cloud Map is performing the operation.
+--
+-- -   __SUCCESS__: The operation succeeded.
+--
+-- -   __FAIL__: The operation failed. For the failure reason, see
+--     @ErrorMessage@.
+operationSummary_status :: Lens.Lens' OperationSummary (Prelude.Maybe OperationStatus)
+operationSummary_status = Lens.lens (\OperationSummary' {status} -> status) (\s@OperationSummary' {} a -> s {status = a} :: OperationSummary)
 
 -- | The ID for an operation.
-osId :: Lens' OperationSummary (Maybe Text)
-osId = lens _osId (\s a -> s {_osId = a})
+operationSummary_id :: Lens.Lens' OperationSummary (Prelude.Maybe Prelude.Text)
+operationSummary_id = Lens.lens (\OperationSummary' {id} -> id) (\s@OperationSummary' {} a -> s {id = a} :: OperationSummary)
 
-instance FromJSON OperationSummary where
+instance Prelude.FromJSON OperationSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OperationSummary"
       ( \x ->
           OperationSummary'
-            <$> (x .:? "Status") <*> (x .:? "Id")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "Id")
       )
 
-instance Hashable OperationSummary
+instance Prelude.Hashable OperationSummary
 
-instance NFData OperationSummary
+instance Prelude.NFData OperationSummary

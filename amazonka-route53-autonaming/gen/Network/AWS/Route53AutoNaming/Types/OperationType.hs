@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.Route53AutoNaming.Types.OperationType
   ( OperationType
       ( ..,
-        CreateNamespace,
-        DeleteNamespace,
-        DeregisterInstance,
-        RegisterInstance,
-        UpdateService
+        OperationTypeCREATENAMESPACE,
+        OperationTypeDELETENAMESPACE,
+        OperationTypeDEREGISTERINSTANCE,
+        OperationTypeREGISTERINSTANCE,
+        OperationTypeUPDATESERVICE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationType = OperationType' (CI Text)
+newtype OperationType = OperationType'
+  { fromOperationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateNamespace :: OperationType
-pattern CreateNamespace = OperationType' "CREATE_NAMESPACE"
+pattern OperationTypeCREATENAMESPACE :: OperationType
+pattern OperationTypeCREATENAMESPACE = OperationType' "CREATE_NAMESPACE"
 
-pattern DeleteNamespace :: OperationType
-pattern DeleteNamespace = OperationType' "DELETE_NAMESPACE"
+pattern OperationTypeDELETENAMESPACE :: OperationType
+pattern OperationTypeDELETENAMESPACE = OperationType' "DELETE_NAMESPACE"
 
-pattern DeregisterInstance :: OperationType
-pattern DeregisterInstance = OperationType' "DEREGISTER_INSTANCE"
+pattern OperationTypeDEREGISTERINSTANCE :: OperationType
+pattern OperationTypeDEREGISTERINSTANCE = OperationType' "DEREGISTER_INSTANCE"
 
-pattern RegisterInstance :: OperationType
-pattern RegisterInstance = OperationType' "REGISTER_INSTANCE"
+pattern OperationTypeREGISTERINSTANCE :: OperationType
+pattern OperationTypeREGISTERINSTANCE = OperationType' "REGISTER_INSTANCE"
 
-pattern UpdateService :: OperationType
-pattern UpdateService = OperationType' "UPDATE_SERVICE"
+pattern OperationTypeUPDATESERVICE :: OperationType
+pattern OperationTypeUPDATESERVICE = OperationType' "UPDATE_SERVICE"
 
 {-# COMPLETE
-  CreateNamespace,
-  DeleteNamespace,
-  DeregisterInstance,
-  RegisterInstance,
-  UpdateService,
+  OperationTypeCREATENAMESPACE,
+  OperationTypeDELETENAMESPACE,
+  OperationTypeDEREGISTERINSTANCE,
+  OperationTypeREGISTERINSTANCE,
+  OperationTypeUPDATESERVICE,
   OperationType'
   #-}
 
-instance FromText OperationType where
-  parser = (OperationType' . mk) <$> takeText
+instance Prelude.FromText OperationType where
+  parser = OperationType' Prelude.<$> Prelude.takeText
 
-instance ToText OperationType where
-  toText (OperationType' ci) = original ci
+instance Prelude.ToText OperationType where
+  toText (OperationType' x) = x
 
-instance Hashable OperationType
+instance Prelude.Hashable OperationType
 
-instance NFData OperationType
+instance Prelude.NFData OperationType
 
-instance ToByteString OperationType
+instance Prelude.ToByteString OperationType
 
-instance ToQuery OperationType
+instance Prelude.ToQuery OperationType
 
-instance ToHeader OperationType
+instance Prelude.ToHeader OperationType
 
-instance FromJSON OperationType where
-  parseJSON = parseJSONText "OperationType"
+instance Prelude.FromJSON OperationType where
+  parseJSON = Prelude.parseJSONText "OperationType"
