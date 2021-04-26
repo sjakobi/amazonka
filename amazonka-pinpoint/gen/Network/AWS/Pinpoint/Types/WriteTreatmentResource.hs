@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,127 +19,128 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.WriteTreatmentResource where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.CustomDeliveryConfiguration
 import Network.AWS.Pinpoint.Types.MessageConfiguration
 import Network.AWS.Pinpoint.Types.Schedule
 import Network.AWS.Pinpoint.Types.TemplateConfiguration
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for a campaign treatment. A /treatment/ is a variation of a campaign that's used for A/B testing of a campaign.
+-- | Specifies the settings for a campaign treatment. A /treatment/ is a
+-- variation of a campaign that\'s used for A\/B testing of a campaign.
 --
---
---
--- /See:/ 'writeTreatmentResource' smart constructor.
+-- /See:/ 'newWriteTreatmentResource' smart constructor.
 data WriteTreatmentResource = WriteTreatmentResource'
-  { _wtrCustomDeliveryConfiguration ::
-      !( Maybe
-           CustomDeliveryConfiguration
-       ),
-    _wtrTreatmentName ::
-      !(Maybe Text),
-    _wtrMessageConfiguration ::
-      !( Maybe
-           MessageConfiguration
-       ),
-    _wtrTemplateConfiguration ::
-      !( Maybe
-           TemplateConfiguration
-       ),
-    _wtrSchedule ::
-      !(Maybe Schedule),
-    _wtrTreatmentDescription ::
-      !(Maybe Text),
-    _wtrSizePercent :: !Int
+  { -- | The delivery configuration settings for sending the treatment through a
+    -- custom channel. This object is required if the MessageConfiguration
+    -- object for the treatment specifies a CustomMessage object.
+    customDeliveryConfiguration :: Prelude.Maybe CustomDeliveryConfiguration,
+    -- | A custom name for the treatment.
+    treatmentName :: Prelude.Maybe Prelude.Text,
+    -- | The message configuration settings for the treatment.
+    messageConfiguration :: Prelude.Maybe MessageConfiguration,
+    -- | The message template to use for the treatment.
+    templateConfiguration :: Prelude.Maybe TemplateConfiguration,
+    -- | The schedule settings for the treatment.
+    schedule :: Prelude.Maybe Schedule,
+    -- | A custom description of the treatment.
+    treatmentDescription :: Prelude.Maybe Prelude.Text,
+    -- | The allocated percentage of users (segment members) to send the
+    -- treatment to.
+    sizePercent :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WriteTreatmentResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WriteTreatmentResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wtrCustomDeliveryConfiguration' - The delivery configuration settings for sending the treatment through a custom channel. This object is required if the MessageConfiguration object for the treatment specifies a CustomMessage object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wtrTreatmentName' - A custom name for the treatment.
+-- 'customDeliveryConfiguration', 'writeTreatmentResource_customDeliveryConfiguration' - The delivery configuration settings for sending the treatment through a
+-- custom channel. This object is required if the MessageConfiguration
+-- object for the treatment specifies a CustomMessage object.
 --
--- * 'wtrMessageConfiguration' - The message configuration settings for the treatment.
+-- 'treatmentName', 'writeTreatmentResource_treatmentName' - A custom name for the treatment.
 --
--- * 'wtrTemplateConfiguration' - The message template to use for the treatment.
+-- 'messageConfiguration', 'writeTreatmentResource_messageConfiguration' - The message configuration settings for the treatment.
 --
--- * 'wtrSchedule' - The schedule settings for the treatment.
+-- 'templateConfiguration', 'writeTreatmentResource_templateConfiguration' - The message template to use for the treatment.
 --
--- * 'wtrTreatmentDescription' - A custom description of the treatment.
+-- 'schedule', 'writeTreatmentResource_schedule' - The schedule settings for the treatment.
 --
--- * 'wtrSizePercent' - The allocated percentage of users (segment members) to send the treatment to.
-writeTreatmentResource ::
-  -- | 'wtrSizePercent'
-  Int ->
+-- 'treatmentDescription', 'writeTreatmentResource_treatmentDescription' - A custom description of the treatment.
+--
+-- 'sizePercent', 'writeTreatmentResource_sizePercent' - The allocated percentage of users (segment members) to send the
+-- treatment to.
+newWriteTreatmentResource ::
+  -- | 'sizePercent'
+  Prelude.Int ->
   WriteTreatmentResource
-writeTreatmentResource pSizePercent_ =
+newWriteTreatmentResource pSizePercent_ =
   WriteTreatmentResource'
-    { _wtrCustomDeliveryConfiguration =
-        Nothing,
-      _wtrTreatmentName = Nothing,
-      _wtrMessageConfiguration = Nothing,
-      _wtrTemplateConfiguration = Nothing,
-      _wtrSchedule = Nothing,
-      _wtrTreatmentDescription = Nothing,
-      _wtrSizePercent = pSizePercent_
+    { customDeliveryConfiguration =
+        Prelude.Nothing,
+      treatmentName = Prelude.Nothing,
+      messageConfiguration = Prelude.Nothing,
+      templateConfiguration = Prelude.Nothing,
+      schedule = Prelude.Nothing,
+      treatmentDescription = Prelude.Nothing,
+      sizePercent = pSizePercent_
     }
 
--- | The delivery configuration settings for sending the treatment through a custom channel. This object is required if the MessageConfiguration object for the treatment specifies a CustomMessage object.
-wtrCustomDeliveryConfiguration :: Lens' WriteTreatmentResource (Maybe CustomDeliveryConfiguration)
-wtrCustomDeliveryConfiguration = lens _wtrCustomDeliveryConfiguration (\s a -> s {_wtrCustomDeliveryConfiguration = a})
+-- | The delivery configuration settings for sending the treatment through a
+-- custom channel. This object is required if the MessageConfiguration
+-- object for the treatment specifies a CustomMessage object.
+writeTreatmentResource_customDeliveryConfiguration :: Lens.Lens' WriteTreatmentResource (Prelude.Maybe CustomDeliveryConfiguration)
+writeTreatmentResource_customDeliveryConfiguration = Lens.lens (\WriteTreatmentResource' {customDeliveryConfiguration} -> customDeliveryConfiguration) (\s@WriteTreatmentResource' {} a -> s {customDeliveryConfiguration = a} :: WriteTreatmentResource)
 
 -- | A custom name for the treatment.
-wtrTreatmentName :: Lens' WriteTreatmentResource (Maybe Text)
-wtrTreatmentName = lens _wtrTreatmentName (\s a -> s {_wtrTreatmentName = a})
+writeTreatmentResource_treatmentName :: Lens.Lens' WriteTreatmentResource (Prelude.Maybe Prelude.Text)
+writeTreatmentResource_treatmentName = Lens.lens (\WriteTreatmentResource' {treatmentName} -> treatmentName) (\s@WriteTreatmentResource' {} a -> s {treatmentName = a} :: WriteTreatmentResource)
 
 -- | The message configuration settings for the treatment.
-wtrMessageConfiguration :: Lens' WriteTreatmentResource (Maybe MessageConfiguration)
-wtrMessageConfiguration = lens _wtrMessageConfiguration (\s a -> s {_wtrMessageConfiguration = a})
+writeTreatmentResource_messageConfiguration :: Lens.Lens' WriteTreatmentResource (Prelude.Maybe MessageConfiguration)
+writeTreatmentResource_messageConfiguration = Lens.lens (\WriteTreatmentResource' {messageConfiguration} -> messageConfiguration) (\s@WriteTreatmentResource' {} a -> s {messageConfiguration = a} :: WriteTreatmentResource)
 
 -- | The message template to use for the treatment.
-wtrTemplateConfiguration :: Lens' WriteTreatmentResource (Maybe TemplateConfiguration)
-wtrTemplateConfiguration = lens _wtrTemplateConfiguration (\s a -> s {_wtrTemplateConfiguration = a})
+writeTreatmentResource_templateConfiguration :: Lens.Lens' WriteTreatmentResource (Prelude.Maybe TemplateConfiguration)
+writeTreatmentResource_templateConfiguration = Lens.lens (\WriteTreatmentResource' {templateConfiguration} -> templateConfiguration) (\s@WriteTreatmentResource' {} a -> s {templateConfiguration = a} :: WriteTreatmentResource)
 
 -- | The schedule settings for the treatment.
-wtrSchedule :: Lens' WriteTreatmentResource (Maybe Schedule)
-wtrSchedule = lens _wtrSchedule (\s a -> s {_wtrSchedule = a})
+writeTreatmentResource_schedule :: Lens.Lens' WriteTreatmentResource (Prelude.Maybe Schedule)
+writeTreatmentResource_schedule = Lens.lens (\WriteTreatmentResource' {schedule} -> schedule) (\s@WriteTreatmentResource' {} a -> s {schedule = a} :: WriteTreatmentResource)
 
 -- | A custom description of the treatment.
-wtrTreatmentDescription :: Lens' WriteTreatmentResource (Maybe Text)
-wtrTreatmentDescription = lens _wtrTreatmentDescription (\s a -> s {_wtrTreatmentDescription = a})
+writeTreatmentResource_treatmentDescription :: Lens.Lens' WriteTreatmentResource (Prelude.Maybe Prelude.Text)
+writeTreatmentResource_treatmentDescription = Lens.lens (\WriteTreatmentResource' {treatmentDescription} -> treatmentDescription) (\s@WriteTreatmentResource' {} a -> s {treatmentDescription = a} :: WriteTreatmentResource)
 
--- | The allocated percentage of users (segment members) to send the treatment to.
-wtrSizePercent :: Lens' WriteTreatmentResource Int
-wtrSizePercent = lens _wtrSizePercent (\s a -> s {_wtrSizePercent = a})
+-- | The allocated percentage of users (segment members) to send the
+-- treatment to.
+writeTreatmentResource_sizePercent :: Lens.Lens' WriteTreatmentResource Prelude.Int
+writeTreatmentResource_sizePercent = Lens.lens (\WriteTreatmentResource' {sizePercent} -> sizePercent) (\s@WriteTreatmentResource' {} a -> s {sizePercent = a} :: WriteTreatmentResource)
 
-instance Hashable WriteTreatmentResource
+instance Prelude.Hashable WriteTreatmentResource
 
-instance NFData WriteTreatmentResource
+instance Prelude.NFData WriteTreatmentResource
 
-instance ToJSON WriteTreatmentResource where
+instance Prelude.ToJSON WriteTreatmentResource where
   toJSON WriteTreatmentResource' {..} =
-    object
-      ( catMaybes
-          [ ("CustomDeliveryConfiguration" .=)
-              <$> _wtrCustomDeliveryConfiguration,
-            ("TreatmentName" .=) <$> _wtrTreatmentName,
-            ("MessageConfiguration" .=)
-              <$> _wtrMessageConfiguration,
-            ("TemplateConfiguration" .=)
-              <$> _wtrTemplateConfiguration,
-            ("Schedule" .=) <$> _wtrSchedule,
-            ("TreatmentDescription" .=)
-              <$> _wtrTreatmentDescription,
-            Just ("SizePercent" .= _wtrSizePercent)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CustomDeliveryConfiguration" Prelude..=)
+              Prelude.<$> customDeliveryConfiguration,
+            ("TreatmentName" Prelude..=)
+              Prelude.<$> treatmentName,
+            ("MessageConfiguration" Prelude..=)
+              Prelude.<$> messageConfiguration,
+            ("TemplateConfiguration" Prelude..=)
+              Prelude.<$> templateConfiguration,
+            ("Schedule" Prelude..=) Prelude.<$> schedule,
+            ("TreatmentDescription" Prelude..=)
+              Prelude.<$> treatmentDescription,
+            Prelude.Just ("SizePercent" Prelude..= sizePercent)
           ]
       )

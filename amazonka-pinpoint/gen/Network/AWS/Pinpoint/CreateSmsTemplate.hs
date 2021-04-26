@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a message template for messages that are sent through the SMS channel.
+-- Creates a message template for messages that are sent through the SMS
+-- channel.
 module Network.AWS.Pinpoint.CreateSmsTemplate
   ( -- * Creating a Request
-    createSmsTemplate,
-    CreateSmsTemplate,
+    CreateSmsTemplate (..),
+    newCreateSmsTemplate,
 
     -- * Request Lenses
-    cstTemplateName,
-    cstSMSTemplateRequest,
+    createSmsTemplate_templateName,
+    createSmsTemplate_sMSTemplateRequest,
 
     -- * Destructuring the Response
-    createSmsTemplateResponse,
-    CreateSmsTemplateResponse,
+    CreateSmsTemplateResponse (..),
+    newCreateSmsTemplateResponse,
 
     -- * Response Lenses
-    cstrrsResponseStatus,
-    cstrrsCreateTemplateMessageBody,
+    createSmsTemplateResponse_httpStatus,
+    createSmsTemplateResponse_createTemplateMessageBody,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.CreateTemplateMessageBody
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createSmsTemplate' smart constructor.
+-- | /See:/ 'newCreateSmsTemplate' smart constructor.
 data CreateSmsTemplate = CreateSmsTemplate'
-  { _cstTemplateName ::
-      !Text,
-    _cstSMSTemplateRequest ::
-      !SMSTemplateRequest
+  { -- | The name of the message template. A template name must start with an
+    -- alphanumeric character and can contain a maximum of 128 characters. The
+    -- characters can be alphanumeric characters, underscores (_), or hyphens
+    -- (-). Template names are case sensitive.
+    templateName :: Prelude.Text,
+    sMSTemplateRequest :: SMSTemplateRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSmsTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSmsTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cstTemplateName' - The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cstSMSTemplateRequest' - Undocumented member.
-createSmsTemplate ::
-  -- | 'cstTemplateName'
-  Text ->
-  -- | 'cstSMSTemplateRequest'
+-- 'templateName', 'createSmsTemplate_templateName' - The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+--
+-- 'sMSTemplateRequest', 'createSmsTemplate_sMSTemplateRequest' - Undocumented member.
+newCreateSmsTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'sMSTemplateRequest'
   SMSTemplateRequest ->
   CreateSmsTemplate
-createSmsTemplate pTemplateName_ pSMSTemplateRequest_ =
-  CreateSmsTemplate'
-    { _cstTemplateName =
-        pTemplateName_,
-      _cstSMSTemplateRequest = pSMSTemplateRequest_
-    }
+newCreateSmsTemplate
+  pTemplateName_
+  pSMSTemplateRequest_ =
+    CreateSmsTemplate'
+      { templateName = pTemplateName_,
+        sMSTemplateRequest = pSMSTemplateRequest_
+      }
 
--- | The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-cstTemplateName :: Lens' CreateSmsTemplate Text
-cstTemplateName = lens _cstTemplateName (\s a -> s {_cstTemplateName = a})
+-- | The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+createSmsTemplate_templateName :: Lens.Lens' CreateSmsTemplate Prelude.Text
+createSmsTemplate_templateName = Lens.lens (\CreateSmsTemplate' {templateName} -> templateName) (\s@CreateSmsTemplate' {} a -> s {templateName = a} :: CreateSmsTemplate)
 
 -- | Undocumented member.
-cstSMSTemplateRequest :: Lens' CreateSmsTemplate SMSTemplateRequest
-cstSMSTemplateRequest = lens _cstSMSTemplateRequest (\s a -> s {_cstSMSTemplateRequest = a})
+createSmsTemplate_sMSTemplateRequest :: Lens.Lens' CreateSmsTemplate SMSTemplateRequest
+createSmsTemplate_sMSTemplateRequest = Lens.lens (\CreateSmsTemplate' {sMSTemplateRequest} -> sMSTemplateRequest) (\s@CreateSmsTemplate' {} a -> s {sMSTemplateRequest = a} :: CreateSmsTemplate)
 
-instance AWSRequest CreateSmsTemplate where
+instance Prelude.AWSRequest CreateSmsTemplate where
   type Rs CreateSmsTemplate = CreateSmsTemplateResponse
-  request = postJSON pinpoint
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateSmsTemplateResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable CreateSmsTemplate
+instance Prelude.Hashable CreateSmsTemplate
 
-instance NFData CreateSmsTemplate
+instance Prelude.NFData CreateSmsTemplate
 
-instance ToHeaders CreateSmsTemplate where
+instance Prelude.ToHeaders CreateSmsTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateSmsTemplate where
+instance Prelude.ToJSON CreateSmsTemplate where
   toJSON CreateSmsTemplate' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("SMSTemplateRequest" .= _cstSMSTemplateRequest)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "SMSTemplateRequest"
+                  Prelude..= sMSTemplateRequest
+              )
           ]
       )
 
-instance ToPath CreateSmsTemplate where
+instance Prelude.ToPath CreateSmsTemplate where
   toPath CreateSmsTemplate' {..} =
-    mconcat
-      ["/v1/templates/", toBS _cstTemplateName, "/sms"]
+    Prelude.mconcat
+      ["/v1/templates/", Prelude.toBS templateName, "/sms"]
 
-instance ToQuery CreateSmsTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateSmsTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createSmsTemplateResponse' smart constructor.
+-- | /See:/ 'newCreateSmsTemplateResponse' smart constructor.
 data CreateSmsTemplateResponse = CreateSmsTemplateResponse'
-  { _cstrrsResponseStatus ::
-      !Int,
-    _cstrrsCreateTemplateMessageBody ::
-      !CreateTemplateMessageBody
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    createTemplateMessageBody :: CreateTemplateMessageBody
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSmsTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSmsTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cstrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cstrrsCreateTemplateMessageBody' - Undocumented member.
-createSmsTemplateResponse ::
-  -- | 'cstrrsResponseStatus'
-  Int ->
-  -- | 'cstrrsCreateTemplateMessageBody'
+-- 'httpStatus', 'createSmsTemplateResponse_httpStatus' - The response's http status code.
+--
+-- 'createTemplateMessageBody', 'createSmsTemplateResponse_createTemplateMessageBody' - Undocumented member.
+newCreateSmsTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'createTemplateMessageBody'
   CreateTemplateMessageBody ->
   CreateSmsTemplateResponse
-createSmsTemplateResponse
-  pResponseStatus_
+newCreateSmsTemplateResponse
+  pHttpStatus_
   pCreateTemplateMessageBody_ =
     CreateSmsTemplateResponse'
-      { _cstrrsResponseStatus =
-          pResponseStatus_,
-        _cstrrsCreateTemplateMessageBody =
+      { httpStatus =
+          pHttpStatus_,
+        createTemplateMessageBody =
           pCreateTemplateMessageBody_
       }
 
--- | -- | The response status code.
-cstrrsResponseStatus :: Lens' CreateSmsTemplateResponse Int
-cstrrsResponseStatus = lens _cstrrsResponseStatus (\s a -> s {_cstrrsResponseStatus = a})
+-- | The response's http status code.
+createSmsTemplateResponse_httpStatus :: Lens.Lens' CreateSmsTemplateResponse Prelude.Int
+createSmsTemplateResponse_httpStatus = Lens.lens (\CreateSmsTemplateResponse' {httpStatus} -> httpStatus) (\s@CreateSmsTemplateResponse' {} a -> s {httpStatus = a} :: CreateSmsTemplateResponse)
 
 -- | Undocumented member.
-cstrrsCreateTemplateMessageBody :: Lens' CreateSmsTemplateResponse CreateTemplateMessageBody
-cstrrsCreateTemplateMessageBody = lens _cstrrsCreateTemplateMessageBody (\s a -> s {_cstrrsCreateTemplateMessageBody = a})
+createSmsTemplateResponse_createTemplateMessageBody :: Lens.Lens' CreateSmsTemplateResponse CreateTemplateMessageBody
+createSmsTemplateResponse_createTemplateMessageBody = Lens.lens (\CreateSmsTemplateResponse' {createTemplateMessageBody} -> createTemplateMessageBody) (\s@CreateSmsTemplateResponse' {} a -> s {createTemplateMessageBody = a} :: CreateSmsTemplateResponse)
 
-instance NFData CreateSmsTemplateResponse
+instance Prelude.NFData CreateSmsTemplateResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,110 +19,108 @@
 module Network.AWS.Pinpoint.Types.EndpointTypesElement
   ( EndpointTypesElement
       ( ..,
-        ADM,
-        APNS,
-        APNSSandbox,
-        APNSVoip,
-        APNSVoipSandbox,
-        Baidu,
-        Custom,
-        Email,
-        GCM,
-        Push,
-        Sms,
-        Voice
+        EndpointTypesElementADM,
+        EndpointTypesElementAPNS,
+        EndpointTypesElementAPNSSANDBOX,
+        EndpointTypesElementAPNSVOIP,
+        EndpointTypesElementAPNSVOIPSANDBOX,
+        EndpointTypesElementBAIDU,
+        EndpointTypesElementCUSTOM,
+        EndpointTypesElementEMAIL,
+        EndpointTypesElementGCM,
+        EndpointTypesElementPUSH,
+        EndpointTypesElementSMS,
+        EndpointTypesElementVOICE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EndpointTypesElement
-  = EndpointTypesElement'
-      ( CI
-          Text
-      )
+newtype EndpointTypesElement = EndpointTypesElement'
+  { fromEndpointTypesElement ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ADM :: EndpointTypesElement
-pattern ADM = EndpointTypesElement' "ADM"
+pattern EndpointTypesElementADM :: EndpointTypesElement
+pattern EndpointTypesElementADM = EndpointTypesElement' "ADM"
 
-pattern APNS :: EndpointTypesElement
-pattern APNS = EndpointTypesElement' "APNS"
+pattern EndpointTypesElementAPNS :: EndpointTypesElement
+pattern EndpointTypesElementAPNS = EndpointTypesElement' "APNS"
 
-pattern APNSSandbox :: EndpointTypesElement
-pattern APNSSandbox = EndpointTypesElement' "APNS_SANDBOX"
+pattern EndpointTypesElementAPNSSANDBOX :: EndpointTypesElement
+pattern EndpointTypesElementAPNSSANDBOX = EndpointTypesElement' "APNS_SANDBOX"
 
-pattern APNSVoip :: EndpointTypesElement
-pattern APNSVoip = EndpointTypesElement' "APNS_VOIP"
+pattern EndpointTypesElementAPNSVOIP :: EndpointTypesElement
+pattern EndpointTypesElementAPNSVOIP = EndpointTypesElement' "APNS_VOIP"
 
-pattern APNSVoipSandbox :: EndpointTypesElement
-pattern APNSVoipSandbox = EndpointTypesElement' "APNS_VOIP_SANDBOX"
+pattern EndpointTypesElementAPNSVOIPSANDBOX :: EndpointTypesElement
+pattern EndpointTypesElementAPNSVOIPSANDBOX = EndpointTypesElement' "APNS_VOIP_SANDBOX"
 
-pattern Baidu :: EndpointTypesElement
-pattern Baidu = EndpointTypesElement' "BAIDU"
+pattern EndpointTypesElementBAIDU :: EndpointTypesElement
+pattern EndpointTypesElementBAIDU = EndpointTypesElement' "BAIDU"
 
-pattern Custom :: EndpointTypesElement
-pattern Custom = EndpointTypesElement' "CUSTOM"
+pattern EndpointTypesElementCUSTOM :: EndpointTypesElement
+pattern EndpointTypesElementCUSTOM = EndpointTypesElement' "CUSTOM"
 
-pattern Email :: EndpointTypesElement
-pattern Email = EndpointTypesElement' "EMAIL"
+pattern EndpointTypesElementEMAIL :: EndpointTypesElement
+pattern EndpointTypesElementEMAIL = EndpointTypesElement' "EMAIL"
 
-pattern GCM :: EndpointTypesElement
-pattern GCM = EndpointTypesElement' "GCM"
+pattern EndpointTypesElementGCM :: EndpointTypesElement
+pattern EndpointTypesElementGCM = EndpointTypesElement' "GCM"
 
-pattern Push :: EndpointTypesElement
-pattern Push = EndpointTypesElement' "PUSH"
+pattern EndpointTypesElementPUSH :: EndpointTypesElement
+pattern EndpointTypesElementPUSH = EndpointTypesElement' "PUSH"
 
-pattern Sms :: EndpointTypesElement
-pattern Sms = EndpointTypesElement' "SMS"
+pattern EndpointTypesElementSMS :: EndpointTypesElement
+pattern EndpointTypesElementSMS = EndpointTypesElement' "SMS"
 
-pattern Voice :: EndpointTypesElement
-pattern Voice = EndpointTypesElement' "VOICE"
+pattern EndpointTypesElementVOICE :: EndpointTypesElement
+pattern EndpointTypesElementVOICE = EndpointTypesElement' "VOICE"
 
 {-# COMPLETE
-  ADM,
-  APNS,
-  APNSSandbox,
-  APNSVoip,
-  APNSVoipSandbox,
-  Baidu,
-  Custom,
-  Email,
-  GCM,
-  Push,
-  Sms,
-  Voice,
+  EndpointTypesElementADM,
+  EndpointTypesElementAPNS,
+  EndpointTypesElementAPNSSANDBOX,
+  EndpointTypesElementAPNSVOIP,
+  EndpointTypesElementAPNSVOIPSANDBOX,
+  EndpointTypesElementBAIDU,
+  EndpointTypesElementCUSTOM,
+  EndpointTypesElementEMAIL,
+  EndpointTypesElementGCM,
+  EndpointTypesElementPUSH,
+  EndpointTypesElementSMS,
+  EndpointTypesElementVOICE,
   EndpointTypesElement'
   #-}
 
-instance FromText EndpointTypesElement where
-  parser = (EndpointTypesElement' . mk) <$> takeText
+instance Prelude.FromText EndpointTypesElement where
+  parser = EndpointTypesElement' Prelude.<$> Prelude.takeText
 
-instance ToText EndpointTypesElement where
-  toText (EndpointTypesElement' ci) = original ci
+instance Prelude.ToText EndpointTypesElement where
+  toText (EndpointTypesElement' x) = x
 
-instance Hashable EndpointTypesElement
+instance Prelude.Hashable EndpointTypesElement
 
-instance NFData EndpointTypesElement
+instance Prelude.NFData EndpointTypesElement
 
-instance ToByteString EndpointTypesElement
+instance Prelude.ToByteString EndpointTypesElement
 
-instance ToQuery EndpointTypesElement
+instance Prelude.ToQuery EndpointTypesElement
 
-instance ToHeader EndpointTypesElement
+instance Prelude.ToHeader EndpointTypesElement
 
-instance ToJSON EndpointTypesElement where
-  toJSON = toJSONText
+instance Prelude.ToJSON EndpointTypesElement where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EndpointTypesElement where
-  parseJSON = parseJSONText "EndpointTypesElement"
+instance Prelude.FromJSON EndpointTypesElement where
+  parseJSON = Prelude.parseJSONText "EndpointTypesElement"

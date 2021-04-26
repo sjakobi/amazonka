@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,148 +24,157 @@
 -- Creates an export job for an application.
 module Network.AWS.Pinpoint.CreateExportJob
   ( -- * Creating a Request
-    createExportJob,
-    CreateExportJob,
+    CreateExportJob (..),
+    newCreateExportJob,
 
     -- * Request Lenses
-    cejApplicationId,
-    cejExportJobRequest,
+    createExportJob_applicationId,
+    createExportJob_exportJobRequest,
 
     -- * Destructuring the Response
-    createExportJobResponse,
-    CreateExportJobResponse,
+    CreateExportJobResponse (..),
+    newCreateExportJobResponse,
 
     -- * Response Lenses
-    cejrrsResponseStatus,
-    cejrrsExportJobResponse,
+    createExportJobResponse_httpStatus,
+    createExportJobResponse_exportJobResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.ExportJobResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createExportJob' smart constructor.
+-- | /See:/ 'newCreateExportJob' smart constructor.
 data CreateExportJob = CreateExportJob'
-  { _cejApplicationId ::
-      !Text,
-    _cejExportJobRequest ::
-      !ExportJobRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    exportJobRequest :: ExportJobRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateExportJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateExportJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cejApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cejExportJobRequest' - Undocumented member.
-createExportJob ::
-  -- | 'cejApplicationId'
-  Text ->
-  -- | 'cejExportJobRequest'
+-- 'applicationId', 'createExportJob_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'exportJobRequest', 'createExportJob_exportJobRequest' - Undocumented member.
+newCreateExportJob ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'exportJobRequest'
   ExportJobRequest ->
   CreateExportJob
-createExportJob pApplicationId_ pExportJobRequest_ =
+newCreateExportJob pApplicationId_ pExportJobRequest_ =
   CreateExportJob'
-    { _cejApplicationId =
-        pApplicationId_,
-      _cejExportJobRequest = pExportJobRequest_
+    { applicationId = pApplicationId_,
+      exportJobRequest = pExportJobRequest_
     }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-cejApplicationId :: Lens' CreateExportJob Text
-cejApplicationId = lens _cejApplicationId (\s a -> s {_cejApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+createExportJob_applicationId :: Lens.Lens' CreateExportJob Prelude.Text
+createExportJob_applicationId = Lens.lens (\CreateExportJob' {applicationId} -> applicationId) (\s@CreateExportJob' {} a -> s {applicationId = a} :: CreateExportJob)
 
 -- | Undocumented member.
-cejExportJobRequest :: Lens' CreateExportJob ExportJobRequest
-cejExportJobRequest = lens _cejExportJobRequest (\s a -> s {_cejExportJobRequest = a})
+createExportJob_exportJobRequest :: Lens.Lens' CreateExportJob ExportJobRequest
+createExportJob_exportJobRequest = Lens.lens (\CreateExportJob' {exportJobRequest} -> exportJobRequest) (\s@CreateExportJob' {} a -> s {exportJobRequest = a} :: CreateExportJob)
 
-instance AWSRequest CreateExportJob where
+instance Prelude.AWSRequest CreateExportJob where
   type Rs CreateExportJob = CreateExportJobResponse
-  request = postJSON pinpoint
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateExportJobResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable CreateExportJob
+instance Prelude.Hashable CreateExportJob
 
-instance NFData CreateExportJob
+instance Prelude.NFData CreateExportJob
 
-instance ToHeaders CreateExportJob where
+instance Prelude.ToHeaders CreateExportJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateExportJob where
+instance Prelude.ToJSON CreateExportJob where
   toJSON CreateExportJob' {..} =
-    object
-      ( catMaybes
-          [Just ("ExportJobRequest" .= _cejExportJobRequest)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ExportJobRequest" Prelude..= exportJobRequest)
+          ]
       )
 
-instance ToPath CreateExportJob where
+instance Prelude.ToPath CreateExportJob where
   toPath CreateExportJob' {..} =
-    mconcat
-      ["/v1/apps/", toBS _cejApplicationId, "/jobs/export"]
+    Prelude.mconcat
+      [ "/v1/apps/",
+        Prelude.toBS applicationId,
+        "/jobs/export"
+      ]
 
-instance ToQuery CreateExportJob where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateExportJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createExportJobResponse' smart constructor.
+-- | /See:/ 'newCreateExportJobResponse' smart constructor.
 data CreateExportJobResponse = CreateExportJobResponse'
-  { _cejrrsResponseStatus ::
-      !Int,
-    _cejrrsExportJobResponse ::
-      !ExportJobResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    exportJobResponse :: ExportJobResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateExportJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateExportJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cejrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cejrrsExportJobResponse' - Undocumented member.
-createExportJobResponse ::
-  -- | 'cejrrsResponseStatus'
-  Int ->
-  -- | 'cejrrsExportJobResponse'
+-- 'httpStatus', 'createExportJobResponse_httpStatus' - The response's http status code.
+--
+-- 'exportJobResponse', 'createExportJobResponse_exportJobResponse' - Undocumented member.
+newCreateExportJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'exportJobResponse'
   ExportJobResponse ->
   CreateExportJobResponse
-createExportJobResponse
-  pResponseStatus_
+newCreateExportJobResponse
+  pHttpStatus_
   pExportJobResponse_ =
     CreateExportJobResponse'
-      { _cejrrsResponseStatus =
-          pResponseStatus_,
-        _cejrrsExportJobResponse = pExportJobResponse_
+      { httpStatus = pHttpStatus_,
+        exportJobResponse = pExportJobResponse_
       }
 
--- | -- | The response status code.
-cejrrsResponseStatus :: Lens' CreateExportJobResponse Int
-cejrrsResponseStatus = lens _cejrrsResponseStatus (\s a -> s {_cejrrsResponseStatus = a})
+-- | The response's http status code.
+createExportJobResponse_httpStatus :: Lens.Lens' CreateExportJobResponse Prelude.Int
+createExportJobResponse_httpStatus = Lens.lens (\CreateExportJobResponse' {httpStatus} -> httpStatus) (\s@CreateExportJobResponse' {} a -> s {httpStatus = a} :: CreateExportJobResponse)
 
 -- | Undocumented member.
-cejrrsExportJobResponse :: Lens' CreateExportJobResponse ExportJobResponse
-cejrrsExportJobResponse = lens _cejrrsExportJobResponse (\s a -> s {_cejrrsExportJobResponse = a})
+createExportJobResponse_exportJobResponse :: Lens.Lens' CreateExportJobResponse ExportJobResponse
+createExportJobResponse_exportJobResponse = Lens.lens (\CreateExportJobResponse' {exportJobResponse} -> exportJobResponse) (\s@CreateExportJobResponse' {} a -> s {exportJobResponse = a} :: CreateExportJobResponse)
 
-instance NFData CreateExportJobResponse
+instance Prelude.NFData CreateExportJobResponse

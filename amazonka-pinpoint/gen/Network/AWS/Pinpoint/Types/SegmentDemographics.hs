@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,109 +19,113 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.SegmentDemographics where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.SetDimension
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies demographic-based dimension settings for including or excluding endpoints from a segment. These settings derive from characteristics of endpoint devices, such as platform, make, and model.
+-- | Specifies demographic-based dimension settings for including or
+-- excluding endpoints from a segment. These settings derive from
+-- characteristics of endpoint devices, such as platform, make, and model.
 --
---
---
--- /See:/ 'segmentDemographics' smart constructor.
+-- /See:/ 'newSegmentDemographics' smart constructor.
 data SegmentDemographics = SegmentDemographics'
-  { _sdModel ::
-      !(Maybe SetDimension),
-    _sdPlatform ::
-      !(Maybe SetDimension),
-    _sdAppVersion ::
-      !(Maybe SetDimension),
-    _sdChannel ::
-      !(Maybe SetDimension),
-    _sdDeviceType ::
-      !(Maybe SetDimension),
-    _sdMake ::
-      !(Maybe SetDimension)
+  { -- | The device model criteria for the segment.
+    model :: Prelude.Maybe SetDimension,
+    -- | The device platform criteria for the segment.
+    platform :: Prelude.Maybe SetDimension,
+    -- | The app version criteria for the segment.
+    appVersion :: Prelude.Maybe SetDimension,
+    -- | The channel criteria for the segment.
+    channel :: Prelude.Maybe SetDimension,
+    -- | The device type criteria for the segment.
+    deviceType :: Prelude.Maybe SetDimension,
+    -- | The device make criteria for the segment.
+    make :: Prelude.Maybe SetDimension
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SegmentDemographics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SegmentDemographics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdModel' - The device model criteria for the segment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdPlatform' - The device platform criteria for the segment.
+-- 'model', 'segmentDemographics_model' - The device model criteria for the segment.
 --
--- * 'sdAppVersion' - The app version criteria for the segment.
+-- 'platform', 'segmentDemographics_platform' - The device platform criteria for the segment.
 --
--- * 'sdChannel' - The channel criteria for the segment.
+-- 'appVersion', 'segmentDemographics_appVersion' - The app version criteria for the segment.
 --
--- * 'sdDeviceType' - The device type criteria for the segment.
+-- 'channel', 'segmentDemographics_channel' - The channel criteria for the segment.
 --
--- * 'sdMake' - The device make criteria for the segment.
-segmentDemographics ::
+-- 'deviceType', 'segmentDemographics_deviceType' - The device type criteria for the segment.
+--
+-- 'make', 'segmentDemographics_make' - The device make criteria for the segment.
+newSegmentDemographics ::
   SegmentDemographics
-segmentDemographics =
+newSegmentDemographics =
   SegmentDemographics'
-    { _sdModel = Nothing,
-      _sdPlatform = Nothing,
-      _sdAppVersion = Nothing,
-      _sdChannel = Nothing,
-      _sdDeviceType = Nothing,
-      _sdMake = Nothing
+    { model = Prelude.Nothing,
+      platform = Prelude.Nothing,
+      appVersion = Prelude.Nothing,
+      channel = Prelude.Nothing,
+      deviceType = Prelude.Nothing,
+      make = Prelude.Nothing
     }
 
 -- | The device model criteria for the segment.
-sdModel :: Lens' SegmentDemographics (Maybe SetDimension)
-sdModel = lens _sdModel (\s a -> s {_sdModel = a})
+segmentDemographics_model :: Lens.Lens' SegmentDemographics (Prelude.Maybe SetDimension)
+segmentDemographics_model = Lens.lens (\SegmentDemographics' {model} -> model) (\s@SegmentDemographics' {} a -> s {model = a} :: SegmentDemographics)
 
 -- | The device platform criteria for the segment.
-sdPlatform :: Lens' SegmentDemographics (Maybe SetDimension)
-sdPlatform = lens _sdPlatform (\s a -> s {_sdPlatform = a})
+segmentDemographics_platform :: Lens.Lens' SegmentDemographics (Prelude.Maybe SetDimension)
+segmentDemographics_platform = Lens.lens (\SegmentDemographics' {platform} -> platform) (\s@SegmentDemographics' {} a -> s {platform = a} :: SegmentDemographics)
 
 -- | The app version criteria for the segment.
-sdAppVersion :: Lens' SegmentDemographics (Maybe SetDimension)
-sdAppVersion = lens _sdAppVersion (\s a -> s {_sdAppVersion = a})
+segmentDemographics_appVersion :: Lens.Lens' SegmentDemographics (Prelude.Maybe SetDimension)
+segmentDemographics_appVersion = Lens.lens (\SegmentDemographics' {appVersion} -> appVersion) (\s@SegmentDemographics' {} a -> s {appVersion = a} :: SegmentDemographics)
 
 -- | The channel criteria for the segment.
-sdChannel :: Lens' SegmentDemographics (Maybe SetDimension)
-sdChannel = lens _sdChannel (\s a -> s {_sdChannel = a})
+segmentDemographics_channel :: Lens.Lens' SegmentDemographics (Prelude.Maybe SetDimension)
+segmentDemographics_channel = Lens.lens (\SegmentDemographics' {channel} -> channel) (\s@SegmentDemographics' {} a -> s {channel = a} :: SegmentDemographics)
 
 -- | The device type criteria for the segment.
-sdDeviceType :: Lens' SegmentDemographics (Maybe SetDimension)
-sdDeviceType = lens _sdDeviceType (\s a -> s {_sdDeviceType = a})
+segmentDemographics_deviceType :: Lens.Lens' SegmentDemographics (Prelude.Maybe SetDimension)
+segmentDemographics_deviceType = Lens.lens (\SegmentDemographics' {deviceType} -> deviceType) (\s@SegmentDemographics' {} a -> s {deviceType = a} :: SegmentDemographics)
 
 -- | The device make criteria for the segment.
-sdMake :: Lens' SegmentDemographics (Maybe SetDimension)
-sdMake = lens _sdMake (\s a -> s {_sdMake = a})
+segmentDemographics_make :: Lens.Lens' SegmentDemographics (Prelude.Maybe SetDimension)
+segmentDemographics_make = Lens.lens (\SegmentDemographics' {make} -> make) (\s@SegmentDemographics' {} a -> s {make = a} :: SegmentDemographics)
 
-instance FromJSON SegmentDemographics where
+instance Prelude.FromJSON SegmentDemographics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SegmentDemographics"
       ( \x ->
           SegmentDemographics'
-            <$> (x .:? "Model")
-            <*> (x .:? "Platform")
-            <*> (x .:? "AppVersion")
-            <*> (x .:? "Channel")
-            <*> (x .:? "DeviceType")
-            <*> (x .:? "Make")
+            Prelude.<$> (x Prelude..:? "Model")
+            Prelude.<*> (x Prelude..:? "Platform")
+            Prelude.<*> (x Prelude..:? "AppVersion")
+            Prelude.<*> (x Prelude..:? "Channel")
+            Prelude.<*> (x Prelude..:? "DeviceType")
+            Prelude.<*> (x Prelude..:? "Make")
       )
 
-instance Hashable SegmentDemographics
+instance Prelude.Hashable SegmentDemographics
 
-instance NFData SegmentDemographics
+instance Prelude.NFData SegmentDemographics
 
-instance ToJSON SegmentDemographics where
+instance Prelude.ToJSON SegmentDemographics where
   toJSON SegmentDemographics' {..} =
-    object
-      ( catMaybes
-          [ ("Model" .=) <$> _sdModel,
-            ("Platform" .=) <$> _sdPlatform,
-            ("AppVersion" .=) <$> _sdAppVersion,
-            ("Channel" .=) <$> _sdChannel,
-            ("DeviceType" .=) <$> _sdDeviceType,
-            ("Make" .=) <$> _sdMake
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Model" Prelude..=) Prelude.<$> model,
+            ("Platform" Prelude..=) Prelude.<$> platform,
+            ("AppVersion" Prelude..=) Prelude.<$> appVersion,
+            ("Channel" Prelude..=) Prelude.<$> channel,
+            ("DeviceType" Prelude..=) Prelude.<$> deviceType,
+            ("Make" Prelude..=) Prelude.<$> make
           ]
       )

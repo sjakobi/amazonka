@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ExportJobRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for a job that exports endpoint definitions to an Amazon Simple Storage Service (Amazon S3) bucket.
+-- | Specifies the settings for a job that exports endpoint definitions to an
+-- Amazon Simple Storage Service (Amazon S3) bucket.
 --
---
---
--- /See:/ 'exportJobRequest' smart constructor.
+-- /See:/ 'newExportJobRequest' smart constructor.
 data ExportJobRequest = ExportJobRequest'
-  { _eSegmentVersion ::
-      !(Maybe Int),
-    _eSegmentId :: !(Maybe Text),
-    _eS3URLPrefix :: !Text,
-    _eRoleARN :: !Text
+  { -- | The version of the segment to export endpoint definitions from, if
+    -- specified.
+    segmentVersion :: Prelude.Maybe Prelude.Int,
+    -- | The identifier for the segment to export endpoint definitions from. If
+    -- you don\'t specify this value, Amazon Pinpoint exports definitions for
+    -- all the endpoints that are associated with the application.
+    segmentId :: Prelude.Maybe Prelude.Text,
+    -- | The URL of the location in an Amazon Simple Storage Service (Amazon S3)
+    -- bucket where you want to export endpoint definitions to. This location
+    -- is typically a folder that contains multiple files. The URL should be in
+    -- the following format: s3:\/\/bucket-name\/folder-name\/.
+    s3UrlPrefix :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+    -- (IAM) role that authorizes Amazon Pinpoint to access the Amazon S3
+    -- location where you want to export endpoint definitions to.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportJobRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportJobRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eSegmentVersion' - The version of the segment to export endpoint definitions from, if specified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eSegmentId' - The identifier for the segment to export endpoint definitions from. If you don't specify this value, Amazon Pinpoint exports definitions for all the endpoints that are associated with the application.
+-- 'segmentVersion', 'exportJobRequest_segmentVersion' - The version of the segment to export endpoint definitions from, if
+-- specified.
 --
--- * 'eS3URLPrefix' - The URL of the location in an Amazon Simple Storage Service (Amazon S3) bucket where you want to export endpoint definitions to. This location is typically a folder that contains multiple files. The URL should be in the following format: s3://<replaceable>bucket-name/<replaceable>folder-name/.
+-- 'segmentId', 'exportJobRequest_segmentId' - The identifier for the segment to export endpoint definitions from. If
+-- you don\'t specify this value, Amazon Pinpoint exports definitions for
+-- all the endpoints that are associated with the application.
 --
--- * 'eRoleARN' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that authorizes Amazon Pinpoint to access the Amazon S3 location where you want to export endpoint definitions to.
-exportJobRequest ::
-  -- | 'eS3URLPrefix'
-  Text ->
-  -- | 'eRoleARN'
-  Text ->
+-- 's3UrlPrefix', 'exportJobRequest_s3UrlPrefix' - The URL of the location in an Amazon Simple Storage Service (Amazon S3)
+-- bucket where you want to export endpoint definitions to. This location
+-- is typically a folder that contains multiple files. The URL should be in
+-- the following format: s3:\/\/bucket-name\/folder-name\/.
+--
+-- 'roleArn', 'exportJobRequest_roleArn' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that authorizes Amazon Pinpoint to access the Amazon S3
+-- location where you want to export endpoint definitions to.
+newExportJobRequest ::
+  -- | 's3UrlPrefix'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   ExportJobRequest
-exportJobRequest pS3URLPrefix_ pRoleARN_ =
+newExportJobRequest pS3UrlPrefix_ pRoleArn_ =
   ExportJobRequest'
-    { _eSegmentVersion = Nothing,
-      _eSegmentId = Nothing,
-      _eS3URLPrefix = pS3URLPrefix_,
-      _eRoleARN = pRoleARN_
+    { segmentVersion = Prelude.Nothing,
+      segmentId = Prelude.Nothing,
+      s3UrlPrefix = pS3UrlPrefix_,
+      roleArn = pRoleArn_
     }
 
--- | The version of the segment to export endpoint definitions from, if specified.
-eSegmentVersion :: Lens' ExportJobRequest (Maybe Int)
-eSegmentVersion = lens _eSegmentVersion (\s a -> s {_eSegmentVersion = a})
+-- | The version of the segment to export endpoint definitions from, if
+-- specified.
+exportJobRequest_segmentVersion :: Lens.Lens' ExportJobRequest (Prelude.Maybe Prelude.Int)
+exportJobRequest_segmentVersion = Lens.lens (\ExportJobRequest' {segmentVersion} -> segmentVersion) (\s@ExportJobRequest' {} a -> s {segmentVersion = a} :: ExportJobRequest)
 
--- | The identifier for the segment to export endpoint definitions from. If you don't specify this value, Amazon Pinpoint exports definitions for all the endpoints that are associated with the application.
-eSegmentId :: Lens' ExportJobRequest (Maybe Text)
-eSegmentId = lens _eSegmentId (\s a -> s {_eSegmentId = a})
+-- | The identifier for the segment to export endpoint definitions from. If
+-- you don\'t specify this value, Amazon Pinpoint exports definitions for
+-- all the endpoints that are associated with the application.
+exportJobRequest_segmentId :: Lens.Lens' ExportJobRequest (Prelude.Maybe Prelude.Text)
+exportJobRequest_segmentId = Lens.lens (\ExportJobRequest' {segmentId} -> segmentId) (\s@ExportJobRequest' {} a -> s {segmentId = a} :: ExportJobRequest)
 
--- | The URL of the location in an Amazon Simple Storage Service (Amazon S3) bucket where you want to export endpoint definitions to. This location is typically a folder that contains multiple files. The URL should be in the following format: s3://<replaceable>bucket-name/<replaceable>folder-name/.
-eS3URLPrefix :: Lens' ExportJobRequest Text
-eS3URLPrefix = lens _eS3URLPrefix (\s a -> s {_eS3URLPrefix = a})
+-- | The URL of the location in an Amazon Simple Storage Service (Amazon S3)
+-- bucket where you want to export endpoint definitions to. This location
+-- is typically a folder that contains multiple files. The URL should be in
+-- the following format: s3:\/\/bucket-name\/folder-name\/.
+exportJobRequest_s3UrlPrefix :: Lens.Lens' ExportJobRequest Prelude.Text
+exportJobRequest_s3UrlPrefix = Lens.lens (\ExportJobRequest' {s3UrlPrefix} -> s3UrlPrefix) (\s@ExportJobRequest' {} a -> s {s3UrlPrefix = a} :: ExportJobRequest)
 
--- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that authorizes Amazon Pinpoint to access the Amazon S3 location where you want to export endpoint definitions to.
-eRoleARN :: Lens' ExportJobRequest Text
-eRoleARN = lens _eRoleARN (\s a -> s {_eRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that authorizes Amazon Pinpoint to access the Amazon S3
+-- location where you want to export endpoint definitions to.
+exportJobRequest_roleArn :: Lens.Lens' ExportJobRequest Prelude.Text
+exportJobRequest_roleArn = Lens.lens (\ExportJobRequest' {roleArn} -> roleArn) (\s@ExportJobRequest' {} a -> s {roleArn = a} :: ExportJobRequest)
 
-instance Hashable ExportJobRequest
+instance Prelude.Hashable ExportJobRequest
 
-instance NFData ExportJobRequest
+instance Prelude.NFData ExportJobRequest
 
-instance ToJSON ExportJobRequest where
+instance Prelude.ToJSON ExportJobRequest where
   toJSON ExportJobRequest' {..} =
-    object
-      ( catMaybes
-          [ ("SegmentVersion" .=) <$> _eSegmentVersion,
-            ("SegmentId" .=) <$> _eSegmentId,
-            Just ("S3UrlPrefix" .= _eS3URLPrefix),
-            Just ("RoleArn" .= _eRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SegmentVersion" Prelude..=)
+              Prelude.<$> segmentVersion,
+            ("SegmentId" Prelude..=) Prelude.<$> segmentId,
+            Prelude.Just ("S3UrlPrefix" Prelude..= s3UrlPrefix),
+            Prelude.Just ("RoleArn" Prelude..= roleArn)
           ]
       )

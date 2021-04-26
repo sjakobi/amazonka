@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.MetricDimension where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies metric-based criteria for including or excluding endpoints from a segment. These criteria derive from custom metrics that you define for endpoints.
+-- | Specifies metric-based criteria for including or excluding endpoints
+-- from a segment. These criteria derive from custom metrics that you
+-- define for endpoints.
 --
---
---
--- /See:/ 'metricDimension' smart constructor.
+-- /See:/ 'newMetricDimension' smart constructor.
 data MetricDimension = MetricDimension'
-  { _mdComparisonOperator ::
-      !Text,
-    _mdValue :: !Double
+  { -- | The operator to use when comparing metric values. Valid values are:
+    -- GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+    -- EQUAL.
+    comparisonOperator :: Prelude.Text,
+    -- | The value to compare.
+    value :: Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricDimension' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricDimension' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdComparisonOperator' - The operator to use when comparing metric values. Valid values are: GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and EQUAL.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdValue' - The value to compare.
-metricDimension ::
-  -- | 'mdComparisonOperator'
-  Text ->
-  -- | 'mdValue'
-  Double ->
+-- 'comparisonOperator', 'metricDimension_comparisonOperator' - The operator to use when comparing metric values. Valid values are:
+-- GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+-- EQUAL.
+--
+-- 'value', 'metricDimension_value' - The value to compare.
+newMetricDimension ::
+  -- | 'comparisonOperator'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Double ->
   MetricDimension
-metricDimension pComparisonOperator_ pValue_ =
+newMetricDimension pComparisonOperator_ pValue_ =
   MetricDimension'
-    { _mdComparisonOperator =
+    { comparisonOperator =
         pComparisonOperator_,
-      _mdValue = pValue_
+      value = pValue_
     }
 
--- | The operator to use when comparing metric values. Valid values are: GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and EQUAL.
-mdComparisonOperator :: Lens' MetricDimension Text
-mdComparisonOperator = lens _mdComparisonOperator (\s a -> s {_mdComparisonOperator = a})
+-- | The operator to use when comparing metric values. Valid values are:
+-- GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+-- EQUAL.
+metricDimension_comparisonOperator :: Lens.Lens' MetricDimension Prelude.Text
+metricDimension_comparisonOperator = Lens.lens (\MetricDimension' {comparisonOperator} -> comparisonOperator) (\s@MetricDimension' {} a -> s {comparisonOperator = a} :: MetricDimension)
 
 -- | The value to compare.
-mdValue :: Lens' MetricDimension Double
-mdValue = lens _mdValue (\s a -> s {_mdValue = a})
+metricDimension_value :: Lens.Lens' MetricDimension Prelude.Double
+metricDimension_value = Lens.lens (\MetricDimension' {value} -> value) (\s@MetricDimension' {} a -> s {value = a} :: MetricDimension)
 
-instance FromJSON MetricDimension where
+instance Prelude.FromJSON MetricDimension where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MetricDimension"
       ( \x ->
           MetricDimension'
-            <$> (x .: "ComparisonOperator") <*> (x .: "Value")
+            Prelude.<$> (x Prelude..: "ComparisonOperator")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable MetricDimension
+instance Prelude.Hashable MetricDimension
 
-instance NFData MetricDimension
+instance Prelude.NFData MetricDimension
 
-instance ToJSON MetricDimension where
+instance Prelude.ToJSON MetricDimension where
   toJSON MetricDimension' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("ComparisonOperator" .= _mdComparisonOperator),
-            Just ("Value" .= _mdValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ComparisonOperator" Prelude..= comparisonOperator),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

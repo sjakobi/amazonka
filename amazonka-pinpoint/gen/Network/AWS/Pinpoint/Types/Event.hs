@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,130 +19,145 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.Event where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.Session
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies information about an event that reports data to Amazon Pinpoint.
+-- | Specifies information about an event that reports data to Amazon
+-- Pinpoint.
 --
---
---
--- /See:/ 'event' smart constructor.
+-- /See:/ 'newEvent' smart constructor.
 data Event = Event'
-  { _eClientSDKVersion ::
-      !(Maybe Text),
-    _eAppTitle :: !(Maybe Text),
-    _eSDKName :: !(Maybe Text),
-    _eAttributes :: !(Maybe (Map Text Text)),
-    _eMetrics :: !(Maybe (Map Text Double)),
-    _eAppPackageName :: !(Maybe Text),
-    _eAppVersionCode :: !(Maybe Text),
-    _eSession :: !(Maybe Session),
-    _eEventType :: !Text,
-    _eTimestamp :: !Text
+  { -- | The version of the SDK that\'s running on the client device.
+    clientSdkVersion :: Prelude.Maybe Prelude.Text,
+    -- | The title of the app that\'s recording the event.
+    appTitle :: Prelude.Maybe Prelude.Text,
+    -- | The name of the SDK that\'s being used to record the event.
+    sdkName :: Prelude.Maybe Prelude.Text,
+    -- | One or more custom attributes that are associated with the event.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | One or more custom metrics that are associated with the event.
+    metrics :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Double),
+    -- | The package name of the app that\'s recording the event.
+    appPackageName :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the app that\'s recording the event.
+    appVersionCode :: Prelude.Maybe Prelude.Text,
+    -- | Information about the session in which the event occurred.
+    session :: Prelude.Maybe Session,
+    -- | The name of the event.
+    eventType :: Prelude.Text,
+    -- | The date and time, in ISO 8601 format, when the event occurred.
+    timestamp :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Event' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Event' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eClientSDKVersion' - The version of the SDK that's running on the client device.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eAppTitle' - The title of the app that's recording the event.
+-- 'clientSdkVersion', 'event_clientSdkVersion' - The version of the SDK that\'s running on the client device.
 --
--- * 'eSDKName' - The name of the SDK that's being used to record the event.
+-- 'appTitle', 'event_appTitle' - The title of the app that\'s recording the event.
 --
--- * 'eAttributes' - One or more custom attributes that are associated with the event.
+-- 'sdkName', 'event_sdkName' - The name of the SDK that\'s being used to record the event.
 --
--- * 'eMetrics' - One or more custom metrics that are associated with the event.
+-- 'attributes', 'event_attributes' - One or more custom attributes that are associated with the event.
 --
--- * 'eAppPackageName' - The package name of the app that's recording the event.
+-- 'metrics', 'event_metrics' - One or more custom metrics that are associated with the event.
 --
--- * 'eAppVersionCode' - The version number of the app that's recording the event.
+-- 'appPackageName', 'event_appPackageName' - The package name of the app that\'s recording the event.
 --
--- * 'eSession' - Information about the session in which the event occurred.
+-- 'appVersionCode', 'event_appVersionCode' - The version number of the app that\'s recording the event.
 --
--- * 'eEventType' - The name of the event.
+-- 'session', 'event_session' - Information about the session in which the event occurred.
 --
--- * 'eTimestamp' - The date and time, in ISO 8601 format, when the event occurred.
-event ::
-  -- | 'eEventType'
-  Text ->
-  -- | 'eTimestamp'
-  Text ->
+-- 'eventType', 'event_eventType' - The name of the event.
+--
+-- 'timestamp', 'event_timestamp' - The date and time, in ISO 8601 format, when the event occurred.
+newEvent ::
+  -- | 'eventType'
+  Prelude.Text ->
+  -- | 'timestamp'
+  Prelude.Text ->
   Event
-event pEventType_ pTimestamp_ =
+newEvent pEventType_ pTimestamp_ =
   Event'
-    { _eClientSDKVersion = Nothing,
-      _eAppTitle = Nothing,
-      _eSDKName = Nothing,
-      _eAttributes = Nothing,
-      _eMetrics = Nothing,
-      _eAppPackageName = Nothing,
-      _eAppVersionCode = Nothing,
-      _eSession = Nothing,
-      _eEventType = pEventType_,
-      _eTimestamp = pTimestamp_
+    { clientSdkVersion = Prelude.Nothing,
+      appTitle = Prelude.Nothing,
+      sdkName = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      metrics = Prelude.Nothing,
+      appPackageName = Prelude.Nothing,
+      appVersionCode = Prelude.Nothing,
+      session = Prelude.Nothing,
+      eventType = pEventType_,
+      timestamp = pTimestamp_
     }
 
--- | The version of the SDK that's running on the client device.
-eClientSDKVersion :: Lens' Event (Maybe Text)
-eClientSDKVersion = lens _eClientSDKVersion (\s a -> s {_eClientSDKVersion = a})
+-- | The version of the SDK that\'s running on the client device.
+event_clientSdkVersion :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_clientSdkVersion = Lens.lens (\Event' {clientSdkVersion} -> clientSdkVersion) (\s@Event' {} a -> s {clientSdkVersion = a} :: Event)
 
--- | The title of the app that's recording the event.
-eAppTitle :: Lens' Event (Maybe Text)
-eAppTitle = lens _eAppTitle (\s a -> s {_eAppTitle = a})
+-- | The title of the app that\'s recording the event.
+event_appTitle :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_appTitle = Lens.lens (\Event' {appTitle} -> appTitle) (\s@Event' {} a -> s {appTitle = a} :: Event)
 
--- | The name of the SDK that's being used to record the event.
-eSDKName :: Lens' Event (Maybe Text)
-eSDKName = lens _eSDKName (\s a -> s {_eSDKName = a})
+-- | The name of the SDK that\'s being used to record the event.
+event_sdkName :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_sdkName = Lens.lens (\Event' {sdkName} -> sdkName) (\s@Event' {} a -> s {sdkName = a} :: Event)
 
 -- | One or more custom attributes that are associated with the event.
-eAttributes :: Lens' Event (HashMap Text Text)
-eAttributes = lens _eAttributes (\s a -> s {_eAttributes = a}) . _Default . _Map
+event_attributes :: Lens.Lens' Event (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+event_attributes = Lens.lens (\Event' {attributes} -> attributes) (\s@Event' {} a -> s {attributes = a} :: Event) Prelude.. Lens.mapping Prelude._Map
 
 -- | One or more custom metrics that are associated with the event.
-eMetrics :: Lens' Event (HashMap Text Double)
-eMetrics = lens _eMetrics (\s a -> s {_eMetrics = a}) . _Default . _Map
+event_metrics :: Lens.Lens' Event (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Double))
+event_metrics = Lens.lens (\Event' {metrics} -> metrics) (\s@Event' {} a -> s {metrics = a} :: Event) Prelude.. Lens.mapping Prelude._Map
 
--- | The package name of the app that's recording the event.
-eAppPackageName :: Lens' Event (Maybe Text)
-eAppPackageName = lens _eAppPackageName (\s a -> s {_eAppPackageName = a})
+-- | The package name of the app that\'s recording the event.
+event_appPackageName :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_appPackageName = Lens.lens (\Event' {appPackageName} -> appPackageName) (\s@Event' {} a -> s {appPackageName = a} :: Event)
 
--- | The version number of the app that's recording the event.
-eAppVersionCode :: Lens' Event (Maybe Text)
-eAppVersionCode = lens _eAppVersionCode (\s a -> s {_eAppVersionCode = a})
+-- | The version number of the app that\'s recording the event.
+event_appVersionCode :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_appVersionCode = Lens.lens (\Event' {appVersionCode} -> appVersionCode) (\s@Event' {} a -> s {appVersionCode = a} :: Event)
 
 -- | Information about the session in which the event occurred.
-eSession :: Lens' Event (Maybe Session)
-eSession = lens _eSession (\s a -> s {_eSession = a})
+event_session :: Lens.Lens' Event (Prelude.Maybe Session)
+event_session = Lens.lens (\Event' {session} -> session) (\s@Event' {} a -> s {session = a} :: Event)
 
 -- | The name of the event.
-eEventType :: Lens' Event Text
-eEventType = lens _eEventType (\s a -> s {_eEventType = a})
+event_eventType :: Lens.Lens' Event Prelude.Text
+event_eventType = Lens.lens (\Event' {eventType} -> eventType) (\s@Event' {} a -> s {eventType = a} :: Event)
 
 -- | The date and time, in ISO 8601 format, when the event occurred.
-eTimestamp :: Lens' Event Text
-eTimestamp = lens _eTimestamp (\s a -> s {_eTimestamp = a})
+event_timestamp :: Lens.Lens' Event Prelude.Text
+event_timestamp = Lens.lens (\Event' {timestamp} -> timestamp) (\s@Event' {} a -> s {timestamp = a} :: Event)
 
-instance Hashable Event
+instance Prelude.Hashable Event
 
-instance NFData Event
+instance Prelude.NFData Event
 
-instance ToJSON Event where
+instance Prelude.ToJSON Event where
   toJSON Event' {..} =
-    object
-      ( catMaybes
-          [ ("ClientSdkVersion" .=) <$> _eClientSDKVersion,
-            ("AppTitle" .=) <$> _eAppTitle,
-            ("SdkName" .=) <$> _eSDKName,
-            ("Attributes" .=) <$> _eAttributes,
-            ("Metrics" .=) <$> _eMetrics,
-            ("AppPackageName" .=) <$> _eAppPackageName,
-            ("AppVersionCode" .=) <$> _eAppVersionCode,
-            ("Session" .=) <$> _eSession,
-            Just ("EventType" .= _eEventType),
-            Just ("Timestamp" .= _eTimestamp)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClientSdkVersion" Prelude..=)
+              Prelude.<$> clientSdkVersion,
+            ("AppTitle" Prelude..=) Prelude.<$> appTitle,
+            ("SdkName" Prelude..=) Prelude.<$> sdkName,
+            ("Attributes" Prelude..=) Prelude.<$> attributes,
+            ("Metrics" Prelude..=) Prelude.<$> metrics,
+            ("AppPackageName" Prelude..=)
+              Prelude.<$> appPackageName,
+            ("AppVersionCode" Prelude..=)
+              Prelude.<$> appVersionCode,
+            ("Session" Prelude..=) Prelude.<$> session,
+            Prelude.Just ("EventType" Prelude..= eventType),
+            Prelude.Just ("Timestamp" Prelude..= timestamp)
           ]
       )

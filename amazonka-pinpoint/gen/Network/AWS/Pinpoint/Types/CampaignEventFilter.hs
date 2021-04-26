@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.CampaignEventFilter where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.EventDimensions
 import Network.AWS.Pinpoint.Types.FilterType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the settings for events that cause a campaign to be sent.
 --
---
---
--- /See:/ 'campaignEventFilter' smart constructor.
+-- /See:/ 'newCampaignEventFilter' smart constructor.
 data CampaignEventFilter = CampaignEventFilter'
-  { _cefFilterType ::
-      !FilterType,
-    _cefDimensions ::
-      !EventDimensions
+  { -- | The type of event that causes the campaign to be sent. Valid values are:
+    -- SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT,
+    -- sends the campaign when an endpoint event (Events resource) occurs.
+    filterType :: FilterType,
+    -- | The dimension settings of the event filter for the campaign.
+    dimensions :: EventDimensions
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CampaignEventFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CampaignEventFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cefFilterType' - The type of event that causes the campaign to be sent. Valid values are: SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT, sends the campaign when an endpoint event (<link>Events resource) occurs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cefDimensions' - The dimension settings of the event filter for the campaign.
-campaignEventFilter ::
-  -- | 'cefFilterType'
+-- 'filterType', 'campaignEventFilter_filterType' - The type of event that causes the campaign to be sent. Valid values are:
+-- SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT,
+-- sends the campaign when an endpoint event (Events resource) occurs.
+--
+-- 'dimensions', 'campaignEventFilter_dimensions' - The dimension settings of the event filter for the campaign.
+newCampaignEventFilter ::
+  -- | 'filterType'
   FilterType ->
-  -- | 'cefDimensions'
+  -- | 'dimensions'
   EventDimensions ->
   CampaignEventFilter
-campaignEventFilter pFilterType_ pDimensions_ =
+newCampaignEventFilter pFilterType_ pDimensions_ =
   CampaignEventFilter'
-    { _cefFilterType = pFilterType_,
-      _cefDimensions = pDimensions_
+    { filterType = pFilterType_,
+      dimensions = pDimensions_
     }
 
--- | The type of event that causes the campaign to be sent. Valid values are: SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT, sends the campaign when an endpoint event (<link>Events resource) occurs.
-cefFilterType :: Lens' CampaignEventFilter FilterType
-cefFilterType = lens _cefFilterType (\s a -> s {_cefFilterType = a})
+-- | The type of event that causes the campaign to be sent. Valid values are:
+-- SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT,
+-- sends the campaign when an endpoint event (Events resource) occurs.
+campaignEventFilter_filterType :: Lens.Lens' CampaignEventFilter FilterType
+campaignEventFilter_filterType = Lens.lens (\CampaignEventFilter' {filterType} -> filterType) (\s@CampaignEventFilter' {} a -> s {filterType = a} :: CampaignEventFilter)
 
 -- | The dimension settings of the event filter for the campaign.
-cefDimensions :: Lens' CampaignEventFilter EventDimensions
-cefDimensions = lens _cefDimensions (\s a -> s {_cefDimensions = a})
+campaignEventFilter_dimensions :: Lens.Lens' CampaignEventFilter EventDimensions
+campaignEventFilter_dimensions = Lens.lens (\CampaignEventFilter' {dimensions} -> dimensions) (\s@CampaignEventFilter' {} a -> s {dimensions = a} :: CampaignEventFilter)
 
-instance FromJSON CampaignEventFilter where
+instance Prelude.FromJSON CampaignEventFilter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CampaignEventFilter"
       ( \x ->
           CampaignEventFilter'
-            <$> (x .: "FilterType") <*> (x .: "Dimensions")
+            Prelude.<$> (x Prelude..: "FilterType")
+            Prelude.<*> (x Prelude..: "Dimensions")
       )
 
-instance Hashable CampaignEventFilter
+instance Prelude.Hashable CampaignEventFilter
 
-instance NFData CampaignEventFilter
+instance Prelude.NFData CampaignEventFilter
 
-instance ToJSON CampaignEventFilter where
+instance Prelude.ToJSON CampaignEventFilter where
   toJSON CampaignEventFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("FilterType" .= _cefFilterType),
-            Just ("Dimensions" .= _cefDimensions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("FilterType" Prelude..= filterType),
+            Prelude.Just ("Dimensions" Prelude..= dimensions)
           ]
       )

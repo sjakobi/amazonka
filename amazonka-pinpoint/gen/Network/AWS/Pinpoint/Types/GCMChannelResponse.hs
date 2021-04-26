@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,144 +19,167 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.GCMChannelResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the status and settings of the GCM channel for an application. The GCM channel enables Amazon Pinpoint to send push notifications through the Firebase Cloud Messaging (FCM), formerly Google Cloud Messaging (GCM), service.
+-- | Provides information about the status and settings of the GCM channel
+-- for an application. The GCM channel enables Amazon Pinpoint to send push
+-- notifications through the Firebase Cloud Messaging (FCM), formerly
+-- Google Cloud Messaging (GCM), service.
 --
---
---
--- /See:/ 'gcmChannelResponse' smart constructor.
+-- /See:/ 'newGCMChannelResponse' smart constructor.
 data GCMChannelResponse = GCMChannelResponse'
-  { _gcmcrLastModifiedDate ::
-      !(Maybe Text),
-    _gcmcrApplicationId ::
-      !(Maybe Text),
-    _gcmcrHasCredential ::
-      !(Maybe Bool),
-    _gcmcrId :: !(Maybe Text),
-    _gcmcrCreationDate ::
-      !(Maybe Text),
-    _gcmcrEnabled :: !(Maybe Bool),
-    _gcmcrVersion :: !(Maybe Int),
-    _gcmcrIsArchived :: !(Maybe Bool),
-    _gcmcrLastModifiedBy ::
-      !(Maybe Text),
-    _gcmcrCredential :: !Text,
-    _gcmcrPlatform :: !Text
+  { -- | The date and time when the GCM channel was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application that the GCM channel applies
+    -- to.
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | (Not used) This property is retained only for backward compatibility.
+    hasCredential :: Prelude.Maybe Prelude.Bool,
+    -- | (Deprecated) An identifier for the GCM channel. This property is
+    -- retained only for backward compatibility.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the GCM channel was enabled.
+    creationDate :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the GCM channel is enabled for the application.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The current version of the GCM channel.
+    version :: Prelude.Maybe Prelude.Int,
+    -- | Specifies whether the GCM channel is archived.
+    isArchived :: Prelude.Maybe Prelude.Bool,
+    -- | The user who last modified the GCM channel.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text,
+    -- | The Web API Key, also referred to as an /API_KEY/ or /server key/, that
+    -- you received from Google to communicate with Google services.
+    credential :: Prelude.Text,
+    -- | The type of messaging or notification platform for the channel. For the
+    -- GCM channel, this value is GCM.
+    platform :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GCMChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GCMChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcmcrLastModifiedDate' - The date and time when the GCM channel was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcmcrApplicationId' - The unique identifier for the application that the GCM channel applies to.
+-- 'lastModifiedDate', 'gCMChannelResponse_lastModifiedDate' - The date and time when the GCM channel was last modified.
 --
--- * 'gcmcrHasCredential' - (Not used) This property is retained only for backward compatibility.
+-- 'applicationId', 'gCMChannelResponse_applicationId' - The unique identifier for the application that the GCM channel applies
+-- to.
 --
--- * 'gcmcrId' - (Deprecated) An identifier for the GCM channel. This property is retained only for backward compatibility.
+-- 'hasCredential', 'gCMChannelResponse_hasCredential' - (Not used) This property is retained only for backward compatibility.
 --
--- * 'gcmcrCreationDate' - The date and time when the GCM channel was enabled.
+-- 'id', 'gCMChannelResponse_id' - (Deprecated) An identifier for the GCM channel. This property is
+-- retained only for backward compatibility.
 --
--- * 'gcmcrEnabled' - Specifies whether the GCM channel is enabled for the application.
+-- 'creationDate', 'gCMChannelResponse_creationDate' - The date and time when the GCM channel was enabled.
 --
--- * 'gcmcrVersion' - The current version of the GCM channel.
+-- 'enabled', 'gCMChannelResponse_enabled' - Specifies whether the GCM channel is enabled for the application.
 --
--- * 'gcmcrIsArchived' - Specifies whether the GCM channel is archived.
+-- 'version', 'gCMChannelResponse_version' - The current version of the GCM channel.
 --
--- * 'gcmcrLastModifiedBy' - The user who last modified the GCM channel.
+-- 'isArchived', 'gCMChannelResponse_isArchived' - Specifies whether the GCM channel is archived.
 --
--- * 'gcmcrCredential' - The Web API Key, also referred to as an /API_KEY/ or /server key/ , that you received from Google to communicate with Google services.
+-- 'lastModifiedBy', 'gCMChannelResponse_lastModifiedBy' - The user who last modified the GCM channel.
 --
--- * 'gcmcrPlatform' - The type of messaging or notification platform for the channel. For the GCM channel, this value is GCM.
-gcmChannelResponse ::
-  -- | 'gcmcrCredential'
-  Text ->
-  -- | 'gcmcrPlatform'
-  Text ->
+-- 'credential', 'gCMChannelResponse_credential' - The Web API Key, also referred to as an /API_KEY/ or /server key/, that
+-- you received from Google to communicate with Google services.
+--
+-- 'platform', 'gCMChannelResponse_platform' - The type of messaging or notification platform for the channel. For the
+-- GCM channel, this value is GCM.
+newGCMChannelResponse ::
+  -- | 'credential'
+  Prelude.Text ->
+  -- | 'platform'
+  Prelude.Text ->
   GCMChannelResponse
-gcmChannelResponse pCredential_ pPlatform_ =
+newGCMChannelResponse pCredential_ pPlatform_ =
   GCMChannelResponse'
-    { _gcmcrLastModifiedDate =
-        Nothing,
-      _gcmcrApplicationId = Nothing,
-      _gcmcrHasCredential = Nothing,
-      _gcmcrId = Nothing,
-      _gcmcrCreationDate = Nothing,
-      _gcmcrEnabled = Nothing,
-      _gcmcrVersion = Nothing,
-      _gcmcrIsArchived = Nothing,
-      _gcmcrLastModifiedBy = Nothing,
-      _gcmcrCredential = pCredential_,
-      _gcmcrPlatform = pPlatform_
+    { lastModifiedDate =
+        Prelude.Nothing,
+      applicationId = Prelude.Nothing,
+      hasCredential = Prelude.Nothing,
+      id = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      version = Prelude.Nothing,
+      isArchived = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      credential = pCredential_,
+      platform = pPlatform_
     }
 
 -- | The date and time when the GCM channel was last modified.
-gcmcrLastModifiedDate :: Lens' GCMChannelResponse (Maybe Text)
-gcmcrLastModifiedDate = lens _gcmcrLastModifiedDate (\s a -> s {_gcmcrLastModifiedDate = a})
+gCMChannelResponse_lastModifiedDate :: Lens.Lens' GCMChannelResponse (Prelude.Maybe Prelude.Text)
+gCMChannelResponse_lastModifiedDate = Lens.lens (\GCMChannelResponse' {lastModifiedDate} -> lastModifiedDate) (\s@GCMChannelResponse' {} a -> s {lastModifiedDate = a} :: GCMChannelResponse)
 
--- | The unique identifier for the application that the GCM channel applies to.
-gcmcrApplicationId :: Lens' GCMChannelResponse (Maybe Text)
-gcmcrApplicationId = lens _gcmcrApplicationId (\s a -> s {_gcmcrApplicationId = a})
+-- | The unique identifier for the application that the GCM channel applies
+-- to.
+gCMChannelResponse_applicationId :: Lens.Lens' GCMChannelResponse (Prelude.Maybe Prelude.Text)
+gCMChannelResponse_applicationId = Lens.lens (\GCMChannelResponse' {applicationId} -> applicationId) (\s@GCMChannelResponse' {} a -> s {applicationId = a} :: GCMChannelResponse)
 
 -- | (Not used) This property is retained only for backward compatibility.
-gcmcrHasCredential :: Lens' GCMChannelResponse (Maybe Bool)
-gcmcrHasCredential = lens _gcmcrHasCredential (\s a -> s {_gcmcrHasCredential = a})
+gCMChannelResponse_hasCredential :: Lens.Lens' GCMChannelResponse (Prelude.Maybe Prelude.Bool)
+gCMChannelResponse_hasCredential = Lens.lens (\GCMChannelResponse' {hasCredential} -> hasCredential) (\s@GCMChannelResponse' {} a -> s {hasCredential = a} :: GCMChannelResponse)
 
--- | (Deprecated) An identifier for the GCM channel. This property is retained only for backward compatibility.
-gcmcrId :: Lens' GCMChannelResponse (Maybe Text)
-gcmcrId = lens _gcmcrId (\s a -> s {_gcmcrId = a})
+-- | (Deprecated) An identifier for the GCM channel. This property is
+-- retained only for backward compatibility.
+gCMChannelResponse_id :: Lens.Lens' GCMChannelResponse (Prelude.Maybe Prelude.Text)
+gCMChannelResponse_id = Lens.lens (\GCMChannelResponse' {id} -> id) (\s@GCMChannelResponse' {} a -> s {id = a} :: GCMChannelResponse)
 
 -- | The date and time when the GCM channel was enabled.
-gcmcrCreationDate :: Lens' GCMChannelResponse (Maybe Text)
-gcmcrCreationDate = lens _gcmcrCreationDate (\s a -> s {_gcmcrCreationDate = a})
+gCMChannelResponse_creationDate :: Lens.Lens' GCMChannelResponse (Prelude.Maybe Prelude.Text)
+gCMChannelResponse_creationDate = Lens.lens (\GCMChannelResponse' {creationDate} -> creationDate) (\s@GCMChannelResponse' {} a -> s {creationDate = a} :: GCMChannelResponse)
 
 -- | Specifies whether the GCM channel is enabled for the application.
-gcmcrEnabled :: Lens' GCMChannelResponse (Maybe Bool)
-gcmcrEnabled = lens _gcmcrEnabled (\s a -> s {_gcmcrEnabled = a})
+gCMChannelResponse_enabled :: Lens.Lens' GCMChannelResponse (Prelude.Maybe Prelude.Bool)
+gCMChannelResponse_enabled = Lens.lens (\GCMChannelResponse' {enabled} -> enabled) (\s@GCMChannelResponse' {} a -> s {enabled = a} :: GCMChannelResponse)
 
 -- | The current version of the GCM channel.
-gcmcrVersion :: Lens' GCMChannelResponse (Maybe Int)
-gcmcrVersion = lens _gcmcrVersion (\s a -> s {_gcmcrVersion = a})
+gCMChannelResponse_version :: Lens.Lens' GCMChannelResponse (Prelude.Maybe Prelude.Int)
+gCMChannelResponse_version = Lens.lens (\GCMChannelResponse' {version} -> version) (\s@GCMChannelResponse' {} a -> s {version = a} :: GCMChannelResponse)
 
 -- | Specifies whether the GCM channel is archived.
-gcmcrIsArchived :: Lens' GCMChannelResponse (Maybe Bool)
-gcmcrIsArchived = lens _gcmcrIsArchived (\s a -> s {_gcmcrIsArchived = a})
+gCMChannelResponse_isArchived :: Lens.Lens' GCMChannelResponse (Prelude.Maybe Prelude.Bool)
+gCMChannelResponse_isArchived = Lens.lens (\GCMChannelResponse' {isArchived} -> isArchived) (\s@GCMChannelResponse' {} a -> s {isArchived = a} :: GCMChannelResponse)
 
 -- | The user who last modified the GCM channel.
-gcmcrLastModifiedBy :: Lens' GCMChannelResponse (Maybe Text)
-gcmcrLastModifiedBy = lens _gcmcrLastModifiedBy (\s a -> s {_gcmcrLastModifiedBy = a})
+gCMChannelResponse_lastModifiedBy :: Lens.Lens' GCMChannelResponse (Prelude.Maybe Prelude.Text)
+gCMChannelResponse_lastModifiedBy = Lens.lens (\GCMChannelResponse' {lastModifiedBy} -> lastModifiedBy) (\s@GCMChannelResponse' {} a -> s {lastModifiedBy = a} :: GCMChannelResponse)
 
--- | The Web API Key, also referred to as an /API_KEY/ or /server key/ , that you received from Google to communicate with Google services.
-gcmcrCredential :: Lens' GCMChannelResponse Text
-gcmcrCredential = lens _gcmcrCredential (\s a -> s {_gcmcrCredential = a})
+-- | The Web API Key, also referred to as an /API_KEY/ or /server key/, that
+-- you received from Google to communicate with Google services.
+gCMChannelResponse_credential :: Lens.Lens' GCMChannelResponse Prelude.Text
+gCMChannelResponse_credential = Lens.lens (\GCMChannelResponse' {credential} -> credential) (\s@GCMChannelResponse' {} a -> s {credential = a} :: GCMChannelResponse)
 
--- | The type of messaging or notification platform for the channel. For the GCM channel, this value is GCM.
-gcmcrPlatform :: Lens' GCMChannelResponse Text
-gcmcrPlatform = lens _gcmcrPlatform (\s a -> s {_gcmcrPlatform = a})
+-- | The type of messaging or notification platform for the channel. For the
+-- GCM channel, this value is GCM.
+gCMChannelResponse_platform :: Lens.Lens' GCMChannelResponse Prelude.Text
+gCMChannelResponse_platform = Lens.lens (\GCMChannelResponse' {platform} -> platform) (\s@GCMChannelResponse' {} a -> s {platform = a} :: GCMChannelResponse)
 
-instance FromJSON GCMChannelResponse where
+instance Prelude.FromJSON GCMChannelResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GCMChannelResponse"
       ( \x ->
           GCMChannelResponse'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "ApplicationId")
-            <*> (x .:? "HasCredential")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "Enabled")
-            <*> (x .:? "Version")
-            <*> (x .:? "IsArchived")
-            <*> (x .:? "LastModifiedBy")
-            <*> (x .: "Credential")
-            <*> (x .: "Platform")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "ApplicationId")
+            Prelude.<*> (x Prelude..:? "HasCredential")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "IsArchived")
+            Prelude.<*> (x Prelude..:? "LastModifiedBy")
+            Prelude.<*> (x Prelude..: "Credential")
+            Prelude.<*> (x Prelude..: "Platform")
       )
 
-instance Hashable GCMChannelResponse
+instance Prelude.Hashable GCMChannelResponse
 
-instance NFData GCMChannelResponse
+instance Prelude.NFData GCMChannelResponse

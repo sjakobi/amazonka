@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about all the applications that are associated with your Amazon Pinpoint account.
+-- Retrieves information about all the applications that are associated
+-- with your Amazon Pinpoint account.
 module Network.AWS.Pinpoint.GetApps
   ( -- * Creating a Request
-    getApps,
-    GetApps,
+    GetApps (..),
+    newGetApps,
 
     -- * Request Lenses
-    gaPageSize,
-    gaToken,
+    getApps_pageSize,
+    getApps_token,
 
     -- * Destructuring the Response
-    getAppsResponse,
-    GetAppsResponse,
+    GetAppsResponse (..),
+    newGetAppsResponse,
 
     -- * Response Lenses
-    garrsResponseStatus,
-    garrsApplicationsResponse,
+    getAppsResponse_httpStatus,
+    getAppsResponse_applicationsResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.ApplicationsResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getApps' smart constructor.
+-- | /See:/ 'newGetApps' smart constructor.
 data GetApps = GetApps'
-  { _gaPageSize :: !(Maybe Text),
-    _gaToken :: !(Maybe Text)
+  { -- | The maximum number of items to include in each page of a paginated
+    -- response. This parameter is not supported for application, campaign, and
+    -- journey metrics.
+    pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetApps' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetApps' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaPageSize' - The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaToken' - The NextToken string that specifies which page of results to return in a paginated response.
-getApps ::
+-- 'pageSize', 'getApps_pageSize' - The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+--
+-- 'token', 'getApps_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
+newGetApps ::
   GetApps
-getApps =
-  GetApps' {_gaPageSize = Nothing, _gaToken = Nothing}
+newGetApps =
+  GetApps'
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing
+    }
 
--- | The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
-gaPageSize :: Lens' GetApps (Maybe Text)
-gaPageSize = lens _gaPageSize (\s a -> s {_gaPageSize = a})
+-- | The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+getApps_pageSize :: Lens.Lens' GetApps (Prelude.Maybe Prelude.Text)
+getApps_pageSize = Lens.lens (\GetApps' {pageSize} -> pageSize) (\s@GetApps' {} a -> s {pageSize = a} :: GetApps)
 
--- | The NextToken string that specifies which page of results to return in a paginated response.
-gaToken :: Lens' GetApps (Maybe Text)
-gaToken = lens _gaToken (\s a -> s {_gaToken = a})
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+getApps_token :: Lens.Lens' GetApps (Prelude.Maybe Prelude.Text)
+getApps_token = Lens.lens (\GetApps' {token} -> token) (\s@GetApps' {} a -> s {token = a} :: GetApps)
 
-instance AWSRequest GetApps where
+instance Prelude.AWSRequest GetApps where
   type Rs GetApps = GetAppsResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAppsResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetApps
+instance Prelude.Hashable GetApps
 
-instance NFData GetApps
+instance Prelude.NFData GetApps
 
-instance ToHeaders GetApps where
+instance Prelude.ToHeaders GetApps where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetApps where
-  toPath = const "/v1/apps"
+instance Prelude.ToPath GetApps where
+  toPath = Prelude.const "/v1/apps"
 
-instance ToQuery GetApps where
+instance Prelude.ToQuery GetApps where
   toQuery GetApps' {..} =
-    mconcat
-      ["page-size" =: _gaPageSize, "token" =: _gaToken]
+    Prelude.mconcat
+      [ "page-size" Prelude.=: pageSize,
+        "token" Prelude.=: token
+      ]
 
--- | /See:/ 'getAppsResponse' smart constructor.
+-- | /See:/ 'newGetAppsResponse' smart constructor.
 data GetAppsResponse = GetAppsResponse'
-  { _garrsResponseStatus ::
-      !Int,
-    _garrsApplicationsResponse ::
-      !ApplicationsResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    applicationsResponse :: ApplicationsResponse
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'garrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'garrsApplicationsResponse' - Undocumented member.
-getAppsResponse ::
-  -- | 'garrsResponseStatus'
-  Int ->
-  -- | 'garrsApplicationsResponse'
+-- 'httpStatus', 'getAppsResponse_httpStatus' - The response's http status code.
+--
+-- 'applicationsResponse', 'getAppsResponse_applicationsResponse' - Undocumented member.
+newGetAppsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'applicationsResponse'
   ApplicationsResponse ->
   GetAppsResponse
-getAppsResponse
-  pResponseStatus_
+newGetAppsResponse
+  pHttpStatus_
   pApplicationsResponse_ =
     GetAppsResponse'
-      { _garrsResponseStatus =
-          pResponseStatus_,
-        _garrsApplicationsResponse = pApplicationsResponse_
+      { httpStatus = pHttpStatus_,
+        applicationsResponse = pApplicationsResponse_
       }
 
--- | -- | The response status code.
-garrsResponseStatus :: Lens' GetAppsResponse Int
-garrsResponseStatus = lens _garrsResponseStatus (\s a -> s {_garrsResponseStatus = a})
+-- | The response's http status code.
+getAppsResponse_httpStatus :: Lens.Lens' GetAppsResponse Prelude.Int
+getAppsResponse_httpStatus = Lens.lens (\GetAppsResponse' {httpStatus} -> httpStatus) (\s@GetAppsResponse' {} a -> s {httpStatus = a} :: GetAppsResponse)
 
 -- | Undocumented member.
-garrsApplicationsResponse :: Lens' GetAppsResponse ApplicationsResponse
-garrsApplicationsResponse = lens _garrsApplicationsResponse (\s a -> s {_garrsApplicationsResponse = a})
+getAppsResponse_applicationsResponse :: Lens.Lens' GetAppsResponse ApplicationsResponse
+getAppsResponse_applicationsResponse = Lens.lens (\GetAppsResponse' {applicationsResponse} -> applicationsResponse) (\s@GetAppsResponse' {} a -> s {applicationsResponse = a} :: GetAppsResponse)
 
-instance NFData GetAppsResponse
+instance Prelude.NFData GetAppsResponse

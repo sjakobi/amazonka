@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EventFilter where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.EventDimensions
 import Network.AWS.Pinpoint.Types.FilterType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for an event that causes a campaign to be sent or a journey activity to be performed.
+-- | Specifies the settings for an event that causes a campaign to be sent or
+-- a journey activity to be performed.
 --
---
---
--- /See:/ 'eventFilter' smart constructor.
+-- /See:/ 'newEventFilter' smart constructor.
 data EventFilter = EventFilter'
-  { _efFilterType ::
-      !FilterType,
-    _efDimensions :: !EventDimensions
+  { -- | The type of event that causes the campaign to be sent or the journey
+    -- activity to be performed. Valid values are: SYSTEM, sends the campaign
+    -- or performs the activity when a system event occurs; and, ENDPOINT,
+    -- sends the campaign or performs the activity when an endpoint event
+    -- (Events resource) occurs.
+    filterType :: FilterType,
+    -- | The dimensions for the event filter to use for the campaign or the
+    -- journey activity.
+    dimensions :: EventDimensions
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'efFilterType' - The type of event that causes the campaign to be sent or the journey activity to be performed. Valid values are: SYSTEM, sends the campaign or performs the activity when a system event occurs; and, ENDPOINT, sends the campaign or performs the activity when an endpoint event (<link>Events resource) occurs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'efDimensions' - The dimensions for the event filter to use for the campaign or the journey activity.
-eventFilter ::
-  -- | 'efFilterType'
+-- 'filterType', 'eventFilter_filterType' - The type of event that causes the campaign to be sent or the journey
+-- activity to be performed. Valid values are: SYSTEM, sends the campaign
+-- or performs the activity when a system event occurs; and, ENDPOINT,
+-- sends the campaign or performs the activity when an endpoint event
+-- (Events resource) occurs.
+--
+-- 'dimensions', 'eventFilter_dimensions' - The dimensions for the event filter to use for the campaign or the
+-- journey activity.
+newEventFilter ::
+  -- | 'filterType'
   FilterType ->
-  -- | 'efDimensions'
+  -- | 'dimensions'
   EventDimensions ->
   EventFilter
-eventFilter pFilterType_ pDimensions_ =
+newEventFilter pFilterType_ pDimensions_ =
   EventFilter'
-    { _efFilterType = pFilterType_,
-      _efDimensions = pDimensions_
+    { filterType = pFilterType_,
+      dimensions = pDimensions_
     }
 
--- | The type of event that causes the campaign to be sent or the journey activity to be performed. Valid values are: SYSTEM, sends the campaign or performs the activity when a system event occurs; and, ENDPOINT, sends the campaign or performs the activity when an endpoint event (<link>Events resource) occurs.
-efFilterType :: Lens' EventFilter FilterType
-efFilterType = lens _efFilterType (\s a -> s {_efFilterType = a})
+-- | The type of event that causes the campaign to be sent or the journey
+-- activity to be performed. Valid values are: SYSTEM, sends the campaign
+-- or performs the activity when a system event occurs; and, ENDPOINT,
+-- sends the campaign or performs the activity when an endpoint event
+-- (Events resource) occurs.
+eventFilter_filterType :: Lens.Lens' EventFilter FilterType
+eventFilter_filterType = Lens.lens (\EventFilter' {filterType} -> filterType) (\s@EventFilter' {} a -> s {filterType = a} :: EventFilter)
 
--- | The dimensions for the event filter to use for the campaign or the journey activity.
-efDimensions :: Lens' EventFilter EventDimensions
-efDimensions = lens _efDimensions (\s a -> s {_efDimensions = a})
+-- | The dimensions for the event filter to use for the campaign or the
+-- journey activity.
+eventFilter_dimensions :: Lens.Lens' EventFilter EventDimensions
+eventFilter_dimensions = Lens.lens (\EventFilter' {dimensions} -> dimensions) (\s@EventFilter' {} a -> s {dimensions = a} :: EventFilter)
 
-instance FromJSON EventFilter where
+instance Prelude.FromJSON EventFilter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventFilter"
       ( \x ->
           EventFilter'
-            <$> (x .: "FilterType") <*> (x .: "Dimensions")
+            Prelude.<$> (x Prelude..: "FilterType")
+            Prelude.<*> (x Prelude..: "Dimensions")
       )
 
-instance Hashable EventFilter
+instance Prelude.Hashable EventFilter
 
-instance NFData EventFilter
+instance Prelude.NFData EventFilter
 
-instance ToJSON EventFilter where
+instance Prelude.ToJSON EventFilter where
   toJSON EventFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("FilterType" .= _efFilterType),
-            Just ("Dimensions" .= _efDimensions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("FilterType" Prelude..= filterType),
+            Prelude.Just ("Dimensions" Prelude..= dimensions)
           ]
       )

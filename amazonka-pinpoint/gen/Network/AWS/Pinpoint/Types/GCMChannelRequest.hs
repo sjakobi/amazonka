@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.GCMChannelRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the status and settings of the GCM channel for an application. This channel enables Amazon Pinpoint to send push notifications through the Firebase Cloud Messaging (FCM), formerly Google Cloud Messaging (GCM), service.
+-- | Specifies the status and settings of the GCM channel for an application.
+-- This channel enables Amazon Pinpoint to send push notifications through
+-- the Firebase Cloud Messaging (FCM), formerly Google Cloud Messaging
+-- (GCM), service.
 --
---
---
--- /See:/ 'gcmChannelRequest' smart constructor.
+-- /See:/ 'newGCMChannelRequest' smart constructor.
 data GCMChannelRequest = GCMChannelRequest'
-  { _gcrEnabled ::
-      !(Maybe Bool),
-    _gcrAPIKey :: !Text
+  { -- | Specifies whether to enable the GCM channel for the application.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The Web API Key, also referred to as an /API_KEY/ or /server key/, that
+    -- you received from Google to communicate with Google services.
+    apiKey :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GCMChannelRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GCMChannelRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrEnabled' - Specifies whether to enable the GCM channel for the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrAPIKey' - The Web API Key, also referred to as an /API_KEY/ or /server key/ , that you received from Google to communicate with Google services.
-gcmChannelRequest ::
-  -- | 'gcrAPIKey'
-  Text ->
+-- 'enabled', 'gCMChannelRequest_enabled' - Specifies whether to enable the GCM channel for the application.
+--
+-- 'apiKey', 'gCMChannelRequest_apiKey' - The Web API Key, also referred to as an /API_KEY/ or /server key/, that
+-- you received from Google to communicate with Google services.
+newGCMChannelRequest ::
+  -- | 'apiKey'
+  Prelude.Text ->
   GCMChannelRequest
-gcmChannelRequest pAPIKey_ =
+newGCMChannelRequest pApiKey_ =
   GCMChannelRequest'
-    { _gcrEnabled = Nothing,
-      _gcrAPIKey = pAPIKey_
+    { enabled = Prelude.Nothing,
+      apiKey = pApiKey_
     }
 
 -- | Specifies whether to enable the GCM channel for the application.
-gcrEnabled :: Lens' GCMChannelRequest (Maybe Bool)
-gcrEnabled = lens _gcrEnabled (\s a -> s {_gcrEnabled = a})
+gCMChannelRequest_enabled :: Lens.Lens' GCMChannelRequest (Prelude.Maybe Prelude.Bool)
+gCMChannelRequest_enabled = Lens.lens (\GCMChannelRequest' {enabled} -> enabled) (\s@GCMChannelRequest' {} a -> s {enabled = a} :: GCMChannelRequest)
 
--- | The Web API Key, also referred to as an /API_KEY/ or /server key/ , that you received from Google to communicate with Google services.
-gcrAPIKey :: Lens' GCMChannelRequest Text
-gcrAPIKey = lens _gcrAPIKey (\s a -> s {_gcrAPIKey = a})
+-- | The Web API Key, also referred to as an /API_KEY/ or /server key/, that
+-- you received from Google to communicate with Google services.
+gCMChannelRequest_apiKey :: Lens.Lens' GCMChannelRequest Prelude.Text
+gCMChannelRequest_apiKey = Lens.lens (\GCMChannelRequest' {apiKey} -> apiKey) (\s@GCMChannelRequest' {} a -> s {apiKey = a} :: GCMChannelRequest)
 
-instance Hashable GCMChannelRequest
+instance Prelude.Hashable GCMChannelRequest
 
-instance NFData GCMChannelRequest
+instance Prelude.NFData GCMChannelRequest
 
-instance ToJSON GCMChannelRequest where
+instance Prelude.ToJSON GCMChannelRequest where
   toJSON GCMChannelRequest' {..} =
-    object
-      ( catMaybes
-          [ ("Enabled" .=) <$> _gcrEnabled,
-            Just ("ApiKey" .= _gcrAPIKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Enabled" Prelude..=) Prelude.<$> enabled,
+            Prelude.Just ("ApiKey" Prelude..= apiKey)
           ]
       )

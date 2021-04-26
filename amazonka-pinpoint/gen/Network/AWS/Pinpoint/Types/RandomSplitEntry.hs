@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.RandomSplitEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for a path in a random split activity in a journey.
+-- | Specifies the settings for a path in a random split activity in a
+-- journey.
 --
---
---
--- /See:/ 'randomSplitEntry' smart constructor.
+-- /See:/ 'newRandomSplitEntry' smart constructor.
 data RandomSplitEntry = RandomSplitEntry'
-  { _rsePercentage ::
-      !(Maybe Int),
-    _rseNextActivity :: !(Maybe Text)
+  { -- | The percentage of participants to send down the activity path.
+    --
+    -- To determine which participants are sent down each path, Amazon Pinpoint
+    -- applies a probability-based algorithm to the percentages that you
+    -- specify for the paths. Therefore, the actual percentage of participants
+    -- who are sent down a path may not be equal to the percentage that you
+    -- specify.
+    percentage :: Prelude.Maybe Prelude.Int,
+    -- | The unique identifier for the next activity to perform, after completing
+    -- the activity for the path.
+    nextActivity :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RandomSplitEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RandomSplitEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsePercentage' - The percentage of participants to send down the activity path. To determine which participants are sent down each path, Amazon Pinpoint applies a probability-based algorithm to the percentages that you specify for the paths. Therefore, the actual percentage of participants who are sent down a path may not be equal to the percentage that you specify.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rseNextActivity' - The unique identifier for the next activity to perform, after completing the activity for the path.
-randomSplitEntry ::
+-- 'percentage', 'randomSplitEntry_percentage' - The percentage of participants to send down the activity path.
+--
+-- To determine which participants are sent down each path, Amazon Pinpoint
+-- applies a probability-based algorithm to the percentages that you
+-- specify for the paths. Therefore, the actual percentage of participants
+-- who are sent down a path may not be equal to the percentage that you
+-- specify.
+--
+-- 'nextActivity', 'randomSplitEntry_nextActivity' - The unique identifier for the next activity to perform, after completing
+-- the activity for the path.
+newRandomSplitEntry ::
   RandomSplitEntry
-randomSplitEntry =
+newRandomSplitEntry =
   RandomSplitEntry'
-    { _rsePercentage = Nothing,
-      _rseNextActivity = Nothing
+    { percentage = Prelude.Nothing,
+      nextActivity = Prelude.Nothing
     }
 
--- | The percentage of participants to send down the activity path. To determine which participants are sent down each path, Amazon Pinpoint applies a probability-based algorithm to the percentages that you specify for the paths. Therefore, the actual percentage of participants who are sent down a path may not be equal to the percentage that you specify.
-rsePercentage :: Lens' RandomSplitEntry (Maybe Int)
-rsePercentage = lens _rsePercentage (\s a -> s {_rsePercentage = a})
+-- | The percentage of participants to send down the activity path.
+--
+-- To determine which participants are sent down each path, Amazon Pinpoint
+-- applies a probability-based algorithm to the percentages that you
+-- specify for the paths. Therefore, the actual percentage of participants
+-- who are sent down a path may not be equal to the percentage that you
+-- specify.
+randomSplitEntry_percentage :: Lens.Lens' RandomSplitEntry (Prelude.Maybe Prelude.Int)
+randomSplitEntry_percentage = Lens.lens (\RandomSplitEntry' {percentage} -> percentage) (\s@RandomSplitEntry' {} a -> s {percentage = a} :: RandomSplitEntry)
 
--- | The unique identifier for the next activity to perform, after completing the activity for the path.
-rseNextActivity :: Lens' RandomSplitEntry (Maybe Text)
-rseNextActivity = lens _rseNextActivity (\s a -> s {_rseNextActivity = a})
+-- | The unique identifier for the next activity to perform, after completing
+-- the activity for the path.
+randomSplitEntry_nextActivity :: Lens.Lens' RandomSplitEntry (Prelude.Maybe Prelude.Text)
+randomSplitEntry_nextActivity = Lens.lens (\RandomSplitEntry' {nextActivity} -> nextActivity) (\s@RandomSplitEntry' {} a -> s {nextActivity = a} :: RandomSplitEntry)
 
-instance FromJSON RandomSplitEntry where
+instance Prelude.FromJSON RandomSplitEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RandomSplitEntry"
       ( \x ->
           RandomSplitEntry'
-            <$> (x .:? "Percentage") <*> (x .:? "NextActivity")
+            Prelude.<$> (x Prelude..:? "Percentage")
+            Prelude.<*> (x Prelude..:? "NextActivity")
       )
 
-instance Hashable RandomSplitEntry
+instance Prelude.Hashable RandomSplitEntry
 
-instance NFData RandomSplitEntry
+instance Prelude.NFData RandomSplitEntry
 
-instance ToJSON RandomSplitEntry where
+instance Prelude.ToJSON RandomSplitEntry where
   toJSON RandomSplitEntry' {..} =
-    object
-      ( catMaybes
-          [ ("Percentage" .=) <$> _rsePercentage,
-            ("NextActivity" .=) <$> _rseNextActivity
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Percentage" Prelude..=) Prelude.<$> percentage,
+            ("NextActivity" Prelude..=)
+              Prelude.<$> nextActivity
           ]
       )

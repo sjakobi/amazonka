@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.TemplateActiveVersionRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies which version of a message template to use as the active version of the template.
+-- | Specifies which version of a message template to use as the active
+-- version of the template.
 --
---
---
--- /See:/ 'templateActiveVersionRequest' smart constructor.
-newtype TemplateActiveVersionRequest = TemplateActiveVersionRequest'
-  { _tavrVersion ::
-      Maybe Text
+-- /See:/ 'newTemplateActiveVersionRequest' smart constructor.
+data TemplateActiveVersionRequest = TemplateActiveVersionRequest'
+  { -- | The version of the message template to use as the active version of the
+    -- template. Valid values are: latest, for the most recent version of the
+    -- template; or, the unique identifier for any existing version of the
+    -- template. If you specify an identifier, the value must match the
+    -- identifier for an existing template version. To retrieve a list of
+    -- versions and version identifiers for a template, use the Template
+    -- Versions resource.
+    version :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TemplateActiveVersionRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TemplateActiveVersionRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tavrVersion' - The version of the message template to use as the active version of the template. Valid values are: latest, for the most recent version of the template; or, the unique identifier for any existing version of the template. If you specify an identifier, the value must match the identifier for an existing template version. To retrieve a list of versions and version identifiers for a template, use the <link>Template Versions resource.
-templateActiveVersionRequest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'version', 'templateActiveVersionRequest_version' - The version of the message template to use as the active version of the
+-- template. Valid values are: latest, for the most recent version of the
+-- template; or, the unique identifier for any existing version of the
+-- template. If you specify an identifier, the value must match the
+-- identifier for an existing template version. To retrieve a list of
+-- versions and version identifiers for a template, use the Template
+-- Versions resource.
+newTemplateActiveVersionRequest ::
   TemplateActiveVersionRequest
-templateActiveVersionRequest =
+newTemplateActiveVersionRequest =
   TemplateActiveVersionRequest'
-    { _tavrVersion =
-        Nothing
+    { version =
+        Prelude.Nothing
     }
 
--- | The version of the message template to use as the active version of the template. Valid values are: latest, for the most recent version of the template; or, the unique identifier for any existing version of the template. If you specify an identifier, the value must match the identifier for an existing template version. To retrieve a list of versions and version identifiers for a template, use the <link>Template Versions resource.
-tavrVersion :: Lens' TemplateActiveVersionRequest (Maybe Text)
-tavrVersion = lens _tavrVersion (\s a -> s {_tavrVersion = a})
+-- | The version of the message template to use as the active version of the
+-- template. Valid values are: latest, for the most recent version of the
+-- template; or, the unique identifier for any existing version of the
+-- template. If you specify an identifier, the value must match the
+-- identifier for an existing template version. To retrieve a list of
+-- versions and version identifiers for a template, use the Template
+-- Versions resource.
+templateActiveVersionRequest_version :: Lens.Lens' TemplateActiveVersionRequest (Prelude.Maybe Prelude.Text)
+templateActiveVersionRequest_version = Lens.lens (\TemplateActiveVersionRequest' {version} -> version) (\s@TemplateActiveVersionRequest' {} a -> s {version = a} :: TemplateActiveVersionRequest)
 
-instance Hashable TemplateActiveVersionRequest
+instance
+  Prelude.Hashable
+    TemplateActiveVersionRequest
 
-instance NFData TemplateActiveVersionRequest
+instance Prelude.NFData TemplateActiveVersionRequest
 
-instance ToJSON TemplateActiveVersionRequest where
+instance Prelude.ToJSON TemplateActiveVersionRequest where
   toJSON TemplateActiveVersionRequest' {..} =
-    object
-      (catMaybes [("Version" .=) <$> _tavrVersion])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Version" Prelude..=) Prelude.<$> version]
+      )

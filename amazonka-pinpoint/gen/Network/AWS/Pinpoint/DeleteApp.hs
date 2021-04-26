@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,132 @@
 -- Deletes an application.
 module Network.AWS.Pinpoint.DeleteApp
   ( -- * Creating a Request
-    deleteApp,
-    DeleteApp,
+    DeleteApp (..),
+    newDeleteApp,
 
     -- * Request Lenses
-    daApplicationId,
+    deleteApp_applicationId,
 
     -- * Destructuring the Response
-    deleteAppResponse,
-    DeleteAppResponse,
+    DeleteAppResponse (..),
+    newDeleteAppResponse,
 
     -- * Response Lenses
-    darrsResponseStatus,
-    darrsApplicationResponse,
+    deleteAppResponse_httpStatus,
+    deleteAppResponse_applicationResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.ApplicationResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteApp' smart constructor.
-newtype DeleteApp = DeleteApp'
-  { _daApplicationId ::
-      Text
+-- | /See:/ 'newDeleteApp' smart constructor.
+data DeleteApp = DeleteApp'
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-deleteApp ::
-  -- | 'daApplicationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationId', 'deleteApp_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newDeleteApp ::
+  -- | 'applicationId'
+  Prelude.Text ->
   DeleteApp
-deleteApp pApplicationId_ =
-  DeleteApp' {_daApplicationId = pApplicationId_}
+newDeleteApp pApplicationId_ =
+  DeleteApp' {applicationId = pApplicationId_}
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-daApplicationId :: Lens' DeleteApp Text
-daApplicationId = lens _daApplicationId (\s a -> s {_daApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+deleteApp_applicationId :: Lens.Lens' DeleteApp Prelude.Text
+deleteApp_applicationId = Lens.lens (\DeleteApp' {applicationId} -> applicationId) (\s@DeleteApp' {} a -> s {applicationId = a} :: DeleteApp)
 
-instance AWSRequest DeleteApp where
+instance Prelude.AWSRequest DeleteApp where
   type Rs DeleteApp = DeleteAppResponse
-  request = delete pinpoint
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteAppResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable DeleteApp
+instance Prelude.Hashable DeleteApp
 
-instance NFData DeleteApp
+instance Prelude.NFData DeleteApp
 
-instance ToHeaders DeleteApp where
+instance Prelude.ToHeaders DeleteApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteApp where
+instance Prelude.ToPath DeleteApp where
   toPath DeleteApp' {..} =
-    mconcat ["/v1/apps/", toBS _daApplicationId]
+    Prelude.mconcat
+      ["/v1/apps/", Prelude.toBS applicationId]
 
-instance ToQuery DeleteApp where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAppResponse' smart constructor.
+-- | /See:/ 'newDeleteAppResponse' smart constructor.
 data DeleteAppResponse = DeleteAppResponse'
-  { _darrsResponseStatus ::
-      !Int,
-    _darrsApplicationResponse ::
-      !ApplicationResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    applicationResponse :: ApplicationResponse
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAppResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAppResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsApplicationResponse' - Undocumented member.
-deleteAppResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
-  -- | 'darrsApplicationResponse'
+-- 'httpStatus', 'deleteAppResponse_httpStatus' - The response's http status code.
+--
+-- 'applicationResponse', 'deleteAppResponse_applicationResponse' - Undocumented member.
+newDeleteAppResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'applicationResponse'
   ApplicationResponse ->
   DeleteAppResponse
-deleteAppResponse
-  pResponseStatus_
+newDeleteAppResponse
+  pHttpStatus_
   pApplicationResponse_ =
     DeleteAppResponse'
-      { _darrsResponseStatus =
-          pResponseStatus_,
-        _darrsApplicationResponse = pApplicationResponse_
+      { httpStatus = pHttpStatus_,
+        applicationResponse = pApplicationResponse_
       }
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DeleteAppResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+deleteAppResponse_httpStatus :: Lens.Lens' DeleteAppResponse Prelude.Int
+deleteAppResponse_httpStatus = Lens.lens (\DeleteAppResponse' {httpStatus} -> httpStatus) (\s@DeleteAppResponse' {} a -> s {httpStatus = a} :: DeleteAppResponse)
 
 -- | Undocumented member.
-darrsApplicationResponse :: Lens' DeleteAppResponse ApplicationResponse
-darrsApplicationResponse = lens _darrsApplicationResponse (\s a -> s {_darrsApplicationResponse = a})
+deleteAppResponse_applicationResponse :: Lens.Lens' DeleteAppResponse ApplicationResponse
+deleteAppResponse_applicationResponse = Lens.lens (\DeleteAppResponse' {applicationResponse} -> applicationResponse) (\s@DeleteAppResponse' {} a -> s {applicationResponse = a} :: DeleteAppResponse)
 
-instance NFData DeleteAppResponse
+instance Prelude.NFData DeleteAppResponse

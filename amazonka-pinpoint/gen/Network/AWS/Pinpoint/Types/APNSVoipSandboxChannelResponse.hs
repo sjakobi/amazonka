@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,188 +19,193 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.APNSVoipSandboxChannelResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the status and settings of the APNs (Apple Push Notification service) VoIP sandbox channel for an application.
+-- | Provides information about the status and settings of the APNs (Apple
+-- Push Notification service) VoIP sandbox channel for an application.
 --
---
---
--- /See:/ 'apnsVoipSandboxChannelResponse' smart constructor.
+-- /See:/ 'newAPNSVoipSandboxChannelResponse' smart constructor.
 data APNSVoipSandboxChannelResponse = APNSVoipSandboxChannelResponse'
-  { _apnsvscrLastModifiedDate ::
-      !( Maybe
-           Text
-       ),
-    _apnsvscrApplicationId ::
-      !( Maybe
-           Text
-       ),
-    _apnsvscrDefaultAuthenticationMethod ::
-      !( Maybe
-           Text
-       ),
-    _apnsvscrHasCredential ::
-      !( Maybe
-           Bool
-       ),
-    _apnsvscrHasTokenKey ::
-      !( Maybe
-           Bool
-       ),
-    _apnsvscrId ::
-      !( Maybe
-           Text
-       ),
-    _apnsvscrCreationDate ::
-      !( Maybe
-           Text
-       ),
-    _apnsvscrEnabled ::
-      !( Maybe
-           Bool
-       ),
-    _apnsvscrVersion ::
-      !( Maybe
-           Int
-       ),
-    _apnsvscrIsArchived ::
-      !( Maybe
-           Bool
-       ),
-    _apnsvscrLastModifiedBy ::
-      !( Maybe
-           Text
-       ),
-    _apnsvscrPlatform ::
-      !Text
+  { -- | The date and time when the APNs VoIP sandbox channel was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application that the APNs VoIP sandbox
+    -- channel applies to.
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | The default authentication method that Amazon Pinpoint uses to
+    -- authenticate with the APNs sandbox environment for this channel, key or
+    -- certificate.
+    defaultAuthenticationMethod :: Prelude.Maybe Prelude.Text,
+    -- | (Not used) This property is retained only for backward compatibility.
+    hasCredential :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether the APNs VoIP sandbox channel is configured to
+    -- communicate with APNs by using APNs tokens. To provide an authentication
+    -- key for APNs tokens, set the TokenKey property of the channel.
+    hasTokenKey :: Prelude.Maybe Prelude.Bool,
+    -- | (Deprecated) An identifier for the APNs VoIP sandbox channel. This
+    -- property is retained only for backward compatibility.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the APNs VoIP sandbox channel was enabled.
+    creationDate :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the APNs VoIP sandbox channel is enabled for the
+    -- application.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The current version of the APNs VoIP sandbox channel.
+    version :: Prelude.Maybe Prelude.Int,
+    -- | Specifies whether the APNs VoIP sandbox channel is archived.
+    isArchived :: Prelude.Maybe Prelude.Bool,
+    -- | The user who last modified the APNs VoIP sandbox channel.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text,
+    -- | The type of messaging or notification platform for the channel. For the
+    -- APNs VoIP sandbox channel, this value is APNS_VOIP_SANDBOX.
+    platform :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'APNSVoipSandboxChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'APNSVoipSandboxChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apnsvscrLastModifiedDate' - The date and time when the APNs VoIP sandbox channel was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apnsvscrApplicationId' - The unique identifier for the application that the APNs VoIP sandbox channel applies to.
+-- 'lastModifiedDate', 'aPNSVoipSandboxChannelResponse_lastModifiedDate' - The date and time when the APNs VoIP sandbox channel was last modified.
 --
--- * 'apnsvscrDefaultAuthenticationMethod' - The default authentication method that Amazon Pinpoint uses to authenticate with the APNs sandbox environment for this channel, key or certificate.
+-- 'applicationId', 'aPNSVoipSandboxChannelResponse_applicationId' - The unique identifier for the application that the APNs VoIP sandbox
+-- channel applies to.
 --
--- * 'apnsvscrHasCredential' - (Not used) This property is retained only for backward compatibility.
+-- 'defaultAuthenticationMethod', 'aPNSVoipSandboxChannelResponse_defaultAuthenticationMethod' - The default authentication method that Amazon Pinpoint uses to
+-- authenticate with the APNs sandbox environment for this channel, key or
+-- certificate.
 --
--- * 'apnsvscrHasTokenKey' - Specifies whether the APNs VoIP sandbox channel is configured to communicate with APNs by using APNs tokens. To provide an authentication key for APNs tokens, set the TokenKey property of the channel.
+-- 'hasCredential', 'aPNSVoipSandboxChannelResponse_hasCredential' - (Not used) This property is retained only for backward compatibility.
 --
--- * 'apnsvscrId' - (Deprecated) An identifier for the APNs VoIP sandbox channel. This property is retained only for backward compatibility.
+-- 'hasTokenKey', 'aPNSVoipSandboxChannelResponse_hasTokenKey' - Specifies whether the APNs VoIP sandbox channel is configured to
+-- communicate with APNs by using APNs tokens. To provide an authentication
+-- key for APNs tokens, set the TokenKey property of the channel.
 --
--- * 'apnsvscrCreationDate' - The date and time when the APNs VoIP sandbox channel was enabled.
+-- 'id', 'aPNSVoipSandboxChannelResponse_id' - (Deprecated) An identifier for the APNs VoIP sandbox channel. This
+-- property is retained only for backward compatibility.
 --
--- * 'apnsvscrEnabled' - Specifies whether the APNs VoIP sandbox channel is enabled for the application.
+-- 'creationDate', 'aPNSVoipSandboxChannelResponse_creationDate' - The date and time when the APNs VoIP sandbox channel was enabled.
 --
--- * 'apnsvscrVersion' - The current version of the APNs VoIP sandbox channel.
+-- 'enabled', 'aPNSVoipSandboxChannelResponse_enabled' - Specifies whether the APNs VoIP sandbox channel is enabled for the
+-- application.
 --
--- * 'apnsvscrIsArchived' - Specifies whether the APNs VoIP sandbox channel is archived.
+-- 'version', 'aPNSVoipSandboxChannelResponse_version' - The current version of the APNs VoIP sandbox channel.
 --
--- * 'apnsvscrLastModifiedBy' - The user who last modified the APNs VoIP sandbox channel.
+-- 'isArchived', 'aPNSVoipSandboxChannelResponse_isArchived' - Specifies whether the APNs VoIP sandbox channel is archived.
 --
--- * 'apnsvscrPlatform' - The type of messaging or notification platform for the channel. For the APNs VoIP sandbox channel, this value is APNS_VOIP_SANDBOX.
-apnsVoipSandboxChannelResponse ::
-  -- | 'apnsvscrPlatform'
-  Text ->
+-- 'lastModifiedBy', 'aPNSVoipSandboxChannelResponse_lastModifiedBy' - The user who last modified the APNs VoIP sandbox channel.
+--
+-- 'platform', 'aPNSVoipSandboxChannelResponse_platform' - The type of messaging or notification platform for the channel. For the
+-- APNs VoIP sandbox channel, this value is APNS_VOIP_SANDBOX.
+newAPNSVoipSandboxChannelResponse ::
+  -- | 'platform'
+  Prelude.Text ->
   APNSVoipSandboxChannelResponse
-apnsVoipSandboxChannelResponse pPlatform_ =
+newAPNSVoipSandboxChannelResponse pPlatform_ =
   APNSVoipSandboxChannelResponse'
-    { _apnsvscrLastModifiedDate =
-        Nothing,
-      _apnsvscrApplicationId = Nothing,
-      _apnsvscrDefaultAuthenticationMethod =
-        Nothing,
-      _apnsvscrHasCredential = Nothing,
-      _apnsvscrHasTokenKey = Nothing,
-      _apnsvscrId = Nothing,
-      _apnsvscrCreationDate = Nothing,
-      _apnsvscrEnabled = Nothing,
-      _apnsvscrVersion = Nothing,
-      _apnsvscrIsArchived = Nothing,
-      _apnsvscrLastModifiedBy = Nothing,
-      _apnsvscrPlatform = pPlatform_
+    { lastModifiedDate =
+        Prelude.Nothing,
+      applicationId = Prelude.Nothing,
+      defaultAuthenticationMethod =
+        Prelude.Nothing,
+      hasCredential = Prelude.Nothing,
+      hasTokenKey = Prelude.Nothing,
+      id = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      version = Prelude.Nothing,
+      isArchived = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      platform = pPlatform_
     }
 
 -- | The date and time when the APNs VoIP sandbox channel was last modified.
-apnsvscrLastModifiedDate :: Lens' APNSVoipSandboxChannelResponse (Maybe Text)
-apnsvscrLastModifiedDate = lens _apnsvscrLastModifiedDate (\s a -> s {_apnsvscrLastModifiedDate = a})
+aPNSVoipSandboxChannelResponse_lastModifiedDate :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipSandboxChannelResponse_lastModifiedDate = Lens.lens (\APNSVoipSandboxChannelResponse' {lastModifiedDate} -> lastModifiedDate) (\s@APNSVoipSandboxChannelResponse' {} a -> s {lastModifiedDate = a} :: APNSVoipSandboxChannelResponse)
 
--- | The unique identifier for the application that the APNs VoIP sandbox channel applies to.
-apnsvscrApplicationId :: Lens' APNSVoipSandboxChannelResponse (Maybe Text)
-apnsvscrApplicationId = lens _apnsvscrApplicationId (\s a -> s {_apnsvscrApplicationId = a})
+-- | The unique identifier for the application that the APNs VoIP sandbox
+-- channel applies to.
+aPNSVoipSandboxChannelResponse_applicationId :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipSandboxChannelResponse_applicationId = Lens.lens (\APNSVoipSandboxChannelResponse' {applicationId} -> applicationId) (\s@APNSVoipSandboxChannelResponse' {} a -> s {applicationId = a} :: APNSVoipSandboxChannelResponse)
 
--- | The default authentication method that Amazon Pinpoint uses to authenticate with the APNs sandbox environment for this channel, key or certificate.
-apnsvscrDefaultAuthenticationMethod :: Lens' APNSVoipSandboxChannelResponse (Maybe Text)
-apnsvscrDefaultAuthenticationMethod = lens _apnsvscrDefaultAuthenticationMethod (\s a -> s {_apnsvscrDefaultAuthenticationMethod = a})
+-- | The default authentication method that Amazon Pinpoint uses to
+-- authenticate with the APNs sandbox environment for this channel, key or
+-- certificate.
+aPNSVoipSandboxChannelResponse_defaultAuthenticationMethod :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipSandboxChannelResponse_defaultAuthenticationMethod = Lens.lens (\APNSVoipSandboxChannelResponse' {defaultAuthenticationMethod} -> defaultAuthenticationMethod) (\s@APNSVoipSandboxChannelResponse' {} a -> s {defaultAuthenticationMethod = a} :: APNSVoipSandboxChannelResponse)
 
 -- | (Not used) This property is retained only for backward compatibility.
-apnsvscrHasCredential :: Lens' APNSVoipSandboxChannelResponse (Maybe Bool)
-apnsvscrHasCredential = lens _apnsvscrHasCredential (\s a -> s {_apnsvscrHasCredential = a})
+aPNSVoipSandboxChannelResponse_hasCredential :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSVoipSandboxChannelResponse_hasCredential = Lens.lens (\APNSVoipSandboxChannelResponse' {hasCredential} -> hasCredential) (\s@APNSVoipSandboxChannelResponse' {} a -> s {hasCredential = a} :: APNSVoipSandboxChannelResponse)
 
--- | Specifies whether the APNs VoIP sandbox channel is configured to communicate with APNs by using APNs tokens. To provide an authentication key for APNs tokens, set the TokenKey property of the channel.
-apnsvscrHasTokenKey :: Lens' APNSVoipSandboxChannelResponse (Maybe Bool)
-apnsvscrHasTokenKey = lens _apnsvscrHasTokenKey (\s a -> s {_apnsvscrHasTokenKey = a})
+-- | Specifies whether the APNs VoIP sandbox channel is configured to
+-- communicate with APNs by using APNs tokens. To provide an authentication
+-- key for APNs tokens, set the TokenKey property of the channel.
+aPNSVoipSandboxChannelResponse_hasTokenKey :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSVoipSandboxChannelResponse_hasTokenKey = Lens.lens (\APNSVoipSandboxChannelResponse' {hasTokenKey} -> hasTokenKey) (\s@APNSVoipSandboxChannelResponse' {} a -> s {hasTokenKey = a} :: APNSVoipSandboxChannelResponse)
 
--- | (Deprecated) An identifier for the APNs VoIP sandbox channel. This property is retained only for backward compatibility.
-apnsvscrId :: Lens' APNSVoipSandboxChannelResponse (Maybe Text)
-apnsvscrId = lens _apnsvscrId (\s a -> s {_apnsvscrId = a})
+-- | (Deprecated) An identifier for the APNs VoIP sandbox channel. This
+-- property is retained only for backward compatibility.
+aPNSVoipSandboxChannelResponse_id :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipSandboxChannelResponse_id = Lens.lens (\APNSVoipSandboxChannelResponse' {id} -> id) (\s@APNSVoipSandboxChannelResponse' {} a -> s {id = a} :: APNSVoipSandboxChannelResponse)
 
 -- | The date and time when the APNs VoIP sandbox channel was enabled.
-apnsvscrCreationDate :: Lens' APNSVoipSandboxChannelResponse (Maybe Text)
-apnsvscrCreationDate = lens _apnsvscrCreationDate (\s a -> s {_apnsvscrCreationDate = a})
+aPNSVoipSandboxChannelResponse_creationDate :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipSandboxChannelResponse_creationDate = Lens.lens (\APNSVoipSandboxChannelResponse' {creationDate} -> creationDate) (\s@APNSVoipSandboxChannelResponse' {} a -> s {creationDate = a} :: APNSVoipSandboxChannelResponse)
 
--- | Specifies whether the APNs VoIP sandbox channel is enabled for the application.
-apnsvscrEnabled :: Lens' APNSVoipSandboxChannelResponse (Maybe Bool)
-apnsvscrEnabled = lens _apnsvscrEnabled (\s a -> s {_apnsvscrEnabled = a})
+-- | Specifies whether the APNs VoIP sandbox channel is enabled for the
+-- application.
+aPNSVoipSandboxChannelResponse_enabled :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSVoipSandboxChannelResponse_enabled = Lens.lens (\APNSVoipSandboxChannelResponse' {enabled} -> enabled) (\s@APNSVoipSandboxChannelResponse' {} a -> s {enabled = a} :: APNSVoipSandboxChannelResponse)
 
 -- | The current version of the APNs VoIP sandbox channel.
-apnsvscrVersion :: Lens' APNSVoipSandboxChannelResponse (Maybe Int)
-apnsvscrVersion = lens _apnsvscrVersion (\s a -> s {_apnsvscrVersion = a})
+aPNSVoipSandboxChannelResponse_version :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Int)
+aPNSVoipSandboxChannelResponse_version = Lens.lens (\APNSVoipSandboxChannelResponse' {version} -> version) (\s@APNSVoipSandboxChannelResponse' {} a -> s {version = a} :: APNSVoipSandboxChannelResponse)
 
 -- | Specifies whether the APNs VoIP sandbox channel is archived.
-apnsvscrIsArchived :: Lens' APNSVoipSandboxChannelResponse (Maybe Bool)
-apnsvscrIsArchived = lens _apnsvscrIsArchived (\s a -> s {_apnsvscrIsArchived = a})
+aPNSVoipSandboxChannelResponse_isArchived :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSVoipSandboxChannelResponse_isArchived = Lens.lens (\APNSVoipSandboxChannelResponse' {isArchived} -> isArchived) (\s@APNSVoipSandboxChannelResponse' {} a -> s {isArchived = a} :: APNSVoipSandboxChannelResponse)
 
 -- | The user who last modified the APNs VoIP sandbox channel.
-apnsvscrLastModifiedBy :: Lens' APNSVoipSandboxChannelResponse (Maybe Text)
-apnsvscrLastModifiedBy = lens _apnsvscrLastModifiedBy (\s a -> s {_apnsvscrLastModifiedBy = a})
+aPNSVoipSandboxChannelResponse_lastModifiedBy :: Lens.Lens' APNSVoipSandboxChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipSandboxChannelResponse_lastModifiedBy = Lens.lens (\APNSVoipSandboxChannelResponse' {lastModifiedBy} -> lastModifiedBy) (\s@APNSVoipSandboxChannelResponse' {} a -> s {lastModifiedBy = a} :: APNSVoipSandboxChannelResponse)
 
--- | The type of messaging or notification platform for the channel. For the APNs VoIP sandbox channel, this value is APNS_VOIP_SANDBOX.
-apnsvscrPlatform :: Lens' APNSVoipSandboxChannelResponse Text
-apnsvscrPlatform = lens _apnsvscrPlatform (\s a -> s {_apnsvscrPlatform = a})
+-- | The type of messaging or notification platform for the channel. For the
+-- APNs VoIP sandbox channel, this value is APNS_VOIP_SANDBOX.
+aPNSVoipSandboxChannelResponse_platform :: Lens.Lens' APNSVoipSandboxChannelResponse Prelude.Text
+aPNSVoipSandboxChannelResponse_platform = Lens.lens (\APNSVoipSandboxChannelResponse' {platform} -> platform) (\s@APNSVoipSandboxChannelResponse' {} a -> s {platform = a} :: APNSVoipSandboxChannelResponse)
 
-instance FromJSON APNSVoipSandboxChannelResponse where
+instance
+  Prelude.FromJSON
+    APNSVoipSandboxChannelResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "APNSVoipSandboxChannelResponse"
       ( \x ->
           APNSVoipSandboxChannelResponse'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "ApplicationId")
-            <*> (x .:? "DefaultAuthenticationMethod")
-            <*> (x .:? "HasCredential")
-            <*> (x .:? "HasTokenKey")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "Enabled")
-            <*> (x .:? "Version")
-            <*> (x .:? "IsArchived")
-            <*> (x .:? "LastModifiedBy")
-            <*> (x .: "Platform")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "ApplicationId")
+            Prelude.<*> (x Prelude..:? "DefaultAuthenticationMethod")
+            Prelude.<*> (x Prelude..:? "HasCredential")
+            Prelude.<*> (x Prelude..:? "HasTokenKey")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "IsArchived")
+            Prelude.<*> (x Prelude..:? "LastModifiedBy")
+            Prelude.<*> (x Prelude..: "Platform")
       )
 
-instance Hashable APNSVoipSandboxChannelResponse
+instance
+  Prelude.Hashable
+    APNSVoipSandboxChannelResponse
 
-instance NFData APNSVoipSandboxChannelResponse
+instance
+  Prelude.NFData
+    APNSVoipSandboxChannelResponse

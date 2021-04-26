@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,161 +19,197 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ActivityResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about an activity that was performed by a campaign.
 --
---
---
--- /See:/ 'activityResponse' smart constructor.
+-- /See:/ 'newActivityResponse' smart constructor.
 data ActivityResponse = ActivityResponse'
-  { _aEnd ::
-      !(Maybe Text),
-    _aSuccessfulEndpointCount ::
-      !(Maybe Int),
-    _aResult :: !(Maybe Text),
-    _aTimezonesCompletedCount ::
-      !(Maybe Int),
-    _aState :: !(Maybe Text),
-    _aTimezonesTotalCount :: !(Maybe Int),
-    _aTreatmentId :: !(Maybe Text),
-    _aScheduledStart :: !(Maybe Text),
-    _aStart :: !(Maybe Text),
-    _aTotalEndpointCount :: !(Maybe Int),
-    _aCampaignId :: !Text,
-    _aId :: !Text,
-    _aApplicationId :: !Text
+  { -- | The actual time, in ISO 8601 format, when the activity was marked
+    -- CANCELLED or COMPLETED.
+    end :: Prelude.Maybe Prelude.Text,
+    -- | The total number of endpoints that the campaign successfully delivered
+    -- messages to.
+    successfulEndpointCount :: Prelude.Maybe Prelude.Int,
+    -- | Specifies whether the activity succeeded. Possible values are SUCCESS
+    -- and FAIL.
+    result :: Prelude.Maybe Prelude.Text,
+    -- | The total number of time zones that were completed.
+    timezonesCompletedCount :: Prelude.Maybe Prelude.Int,
+    -- | The current status of the activity. Possible values are: PENDING,
+    -- INITIALIZING, RUNNING, PAUSED, CANCELLED, and COMPLETED.
+    state :: Prelude.Maybe Prelude.Text,
+    -- | The total number of unique time zones that are in the segment for the
+    -- campaign.
+    timezonesTotalCount :: Prelude.Maybe Prelude.Int,
+    -- | The unique identifier for the campaign treatment that the activity
+    -- applies to. A treatment is a variation of a campaign that\'s used for
+    -- A\/B testing of a campaign.
+    treatmentId :: Prelude.Maybe Prelude.Text,
+    -- | The scheduled start time, in ISO 8601 format, for the activity.
+    scheduledStart :: Prelude.Maybe Prelude.Text,
+    -- | The actual start time, in ISO 8601 format, of the activity.
+    start :: Prelude.Maybe Prelude.Text,
+    -- | The total number of endpoints that the campaign attempted to deliver
+    -- messages to.
+    totalEndpointCount :: Prelude.Maybe Prelude.Int,
+    -- | The unique identifier for the campaign that the activity applies to.
+    campaignId :: Prelude.Text,
+    -- | The unique identifier for the activity.
+    id :: Prelude.Text,
+    -- | The unique identifier for the application that the campaign applies to.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aEnd' - The actual time, in ISO 8601 format, when the activity was marked CANCELLED or COMPLETED.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aSuccessfulEndpointCount' - The total number of endpoints that the campaign successfully delivered messages to.
+-- 'end', 'activityResponse_end' - The actual time, in ISO 8601 format, when the activity was marked
+-- CANCELLED or COMPLETED.
 --
--- * 'aResult' - Specifies whether the activity succeeded. Possible values are SUCCESS and FAIL.
+-- 'successfulEndpointCount', 'activityResponse_successfulEndpointCount' - The total number of endpoints that the campaign successfully delivered
+-- messages to.
 --
--- * 'aTimezonesCompletedCount' - The total number of time zones that were completed.
+-- 'result', 'activityResponse_result' - Specifies whether the activity succeeded. Possible values are SUCCESS
+-- and FAIL.
 --
--- * 'aState' - The current status of the activity. Possible values are: PENDING, INITIALIZING, RUNNING, PAUSED, CANCELLED, and COMPLETED.
+-- 'timezonesCompletedCount', 'activityResponse_timezonesCompletedCount' - The total number of time zones that were completed.
 --
--- * 'aTimezonesTotalCount' - The total number of unique time zones that are in the segment for the campaign.
+-- 'state', 'activityResponse_state' - The current status of the activity. Possible values are: PENDING,
+-- INITIALIZING, RUNNING, PAUSED, CANCELLED, and COMPLETED.
 --
--- * 'aTreatmentId' - The unique identifier for the campaign treatment that the activity applies to. A treatment is a variation of a campaign that's used for A/B testing of a campaign.
+-- 'timezonesTotalCount', 'activityResponse_timezonesTotalCount' - The total number of unique time zones that are in the segment for the
+-- campaign.
 --
--- * 'aScheduledStart' - The scheduled start time, in ISO 8601 format, for the activity.
+-- 'treatmentId', 'activityResponse_treatmentId' - The unique identifier for the campaign treatment that the activity
+-- applies to. A treatment is a variation of a campaign that\'s used for
+-- A\/B testing of a campaign.
 --
--- * 'aStart' - The actual start time, in ISO 8601 format, of the activity.
+-- 'scheduledStart', 'activityResponse_scheduledStart' - The scheduled start time, in ISO 8601 format, for the activity.
 --
--- * 'aTotalEndpointCount' - The total number of endpoints that the campaign attempted to deliver messages to.
+-- 'start', 'activityResponse_start' - The actual start time, in ISO 8601 format, of the activity.
 --
--- * 'aCampaignId' - The unique identifier for the campaign that the activity applies to.
+-- 'totalEndpointCount', 'activityResponse_totalEndpointCount' - The total number of endpoints that the campaign attempted to deliver
+-- messages to.
 --
--- * 'aId' - The unique identifier for the activity.
+-- 'campaignId', 'activityResponse_campaignId' - The unique identifier for the campaign that the activity applies to.
 --
--- * 'aApplicationId' - The unique identifier for the application that the campaign applies to.
-activityResponse ::
-  -- | 'aCampaignId'
-  Text ->
-  -- | 'aId'
-  Text ->
-  -- | 'aApplicationId'
-  Text ->
+-- 'id', 'activityResponse_id' - The unique identifier for the activity.
+--
+-- 'applicationId', 'activityResponse_applicationId' - The unique identifier for the application that the campaign applies to.
+newActivityResponse ::
+  -- | 'campaignId'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
   ActivityResponse
-activityResponse pCampaignId_ pId_ pApplicationId_ =
+newActivityResponse pCampaignId_ pId_ pApplicationId_ =
   ActivityResponse'
-    { _aEnd = Nothing,
-      _aSuccessfulEndpointCount = Nothing,
-      _aResult = Nothing,
-      _aTimezonesCompletedCount = Nothing,
-      _aState = Nothing,
-      _aTimezonesTotalCount = Nothing,
-      _aTreatmentId = Nothing,
-      _aScheduledStart = Nothing,
-      _aStart = Nothing,
-      _aTotalEndpointCount = Nothing,
-      _aCampaignId = pCampaignId_,
-      _aId = pId_,
-      _aApplicationId = pApplicationId_
+    { end = Prelude.Nothing,
+      successfulEndpointCount = Prelude.Nothing,
+      result = Prelude.Nothing,
+      timezonesCompletedCount = Prelude.Nothing,
+      state = Prelude.Nothing,
+      timezonesTotalCount = Prelude.Nothing,
+      treatmentId = Prelude.Nothing,
+      scheduledStart = Prelude.Nothing,
+      start = Prelude.Nothing,
+      totalEndpointCount = Prelude.Nothing,
+      campaignId = pCampaignId_,
+      id = pId_,
+      applicationId = pApplicationId_
     }
 
--- | The actual time, in ISO 8601 format, when the activity was marked CANCELLED or COMPLETED.
-aEnd :: Lens' ActivityResponse (Maybe Text)
-aEnd = lens _aEnd (\s a -> s {_aEnd = a})
+-- | The actual time, in ISO 8601 format, when the activity was marked
+-- CANCELLED or COMPLETED.
+activityResponse_end :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Text)
+activityResponse_end = Lens.lens (\ActivityResponse' {end} -> end) (\s@ActivityResponse' {} a -> s {end = a} :: ActivityResponse)
 
--- | The total number of endpoints that the campaign successfully delivered messages to.
-aSuccessfulEndpointCount :: Lens' ActivityResponse (Maybe Int)
-aSuccessfulEndpointCount = lens _aSuccessfulEndpointCount (\s a -> s {_aSuccessfulEndpointCount = a})
+-- | The total number of endpoints that the campaign successfully delivered
+-- messages to.
+activityResponse_successfulEndpointCount :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Int)
+activityResponse_successfulEndpointCount = Lens.lens (\ActivityResponse' {successfulEndpointCount} -> successfulEndpointCount) (\s@ActivityResponse' {} a -> s {successfulEndpointCount = a} :: ActivityResponse)
 
--- | Specifies whether the activity succeeded. Possible values are SUCCESS and FAIL.
-aResult :: Lens' ActivityResponse (Maybe Text)
-aResult = lens _aResult (\s a -> s {_aResult = a})
+-- | Specifies whether the activity succeeded. Possible values are SUCCESS
+-- and FAIL.
+activityResponse_result :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Text)
+activityResponse_result = Lens.lens (\ActivityResponse' {result} -> result) (\s@ActivityResponse' {} a -> s {result = a} :: ActivityResponse)
 
 -- | The total number of time zones that were completed.
-aTimezonesCompletedCount :: Lens' ActivityResponse (Maybe Int)
-aTimezonesCompletedCount = lens _aTimezonesCompletedCount (\s a -> s {_aTimezonesCompletedCount = a})
+activityResponse_timezonesCompletedCount :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Int)
+activityResponse_timezonesCompletedCount = Lens.lens (\ActivityResponse' {timezonesCompletedCount} -> timezonesCompletedCount) (\s@ActivityResponse' {} a -> s {timezonesCompletedCount = a} :: ActivityResponse)
 
--- | The current status of the activity. Possible values are: PENDING, INITIALIZING, RUNNING, PAUSED, CANCELLED, and COMPLETED.
-aState :: Lens' ActivityResponse (Maybe Text)
-aState = lens _aState (\s a -> s {_aState = a})
+-- | The current status of the activity. Possible values are: PENDING,
+-- INITIALIZING, RUNNING, PAUSED, CANCELLED, and COMPLETED.
+activityResponse_state :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Text)
+activityResponse_state = Lens.lens (\ActivityResponse' {state} -> state) (\s@ActivityResponse' {} a -> s {state = a} :: ActivityResponse)
 
--- | The total number of unique time zones that are in the segment for the campaign.
-aTimezonesTotalCount :: Lens' ActivityResponse (Maybe Int)
-aTimezonesTotalCount = lens _aTimezonesTotalCount (\s a -> s {_aTimezonesTotalCount = a})
+-- | The total number of unique time zones that are in the segment for the
+-- campaign.
+activityResponse_timezonesTotalCount :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Int)
+activityResponse_timezonesTotalCount = Lens.lens (\ActivityResponse' {timezonesTotalCount} -> timezonesTotalCount) (\s@ActivityResponse' {} a -> s {timezonesTotalCount = a} :: ActivityResponse)
 
--- | The unique identifier for the campaign treatment that the activity applies to. A treatment is a variation of a campaign that's used for A/B testing of a campaign.
-aTreatmentId :: Lens' ActivityResponse (Maybe Text)
-aTreatmentId = lens _aTreatmentId (\s a -> s {_aTreatmentId = a})
+-- | The unique identifier for the campaign treatment that the activity
+-- applies to. A treatment is a variation of a campaign that\'s used for
+-- A\/B testing of a campaign.
+activityResponse_treatmentId :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Text)
+activityResponse_treatmentId = Lens.lens (\ActivityResponse' {treatmentId} -> treatmentId) (\s@ActivityResponse' {} a -> s {treatmentId = a} :: ActivityResponse)
 
 -- | The scheduled start time, in ISO 8601 format, for the activity.
-aScheduledStart :: Lens' ActivityResponse (Maybe Text)
-aScheduledStart = lens _aScheduledStart (\s a -> s {_aScheduledStart = a})
+activityResponse_scheduledStart :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Text)
+activityResponse_scheduledStart = Lens.lens (\ActivityResponse' {scheduledStart} -> scheduledStart) (\s@ActivityResponse' {} a -> s {scheduledStart = a} :: ActivityResponse)
 
 -- | The actual start time, in ISO 8601 format, of the activity.
-aStart :: Lens' ActivityResponse (Maybe Text)
-aStart = lens _aStart (\s a -> s {_aStart = a})
+activityResponse_start :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Text)
+activityResponse_start = Lens.lens (\ActivityResponse' {start} -> start) (\s@ActivityResponse' {} a -> s {start = a} :: ActivityResponse)
 
--- | The total number of endpoints that the campaign attempted to deliver messages to.
-aTotalEndpointCount :: Lens' ActivityResponse (Maybe Int)
-aTotalEndpointCount = lens _aTotalEndpointCount (\s a -> s {_aTotalEndpointCount = a})
+-- | The total number of endpoints that the campaign attempted to deliver
+-- messages to.
+activityResponse_totalEndpointCount :: Lens.Lens' ActivityResponse (Prelude.Maybe Prelude.Int)
+activityResponse_totalEndpointCount = Lens.lens (\ActivityResponse' {totalEndpointCount} -> totalEndpointCount) (\s@ActivityResponse' {} a -> s {totalEndpointCount = a} :: ActivityResponse)
 
 -- | The unique identifier for the campaign that the activity applies to.
-aCampaignId :: Lens' ActivityResponse Text
-aCampaignId = lens _aCampaignId (\s a -> s {_aCampaignId = a})
+activityResponse_campaignId :: Lens.Lens' ActivityResponse Prelude.Text
+activityResponse_campaignId = Lens.lens (\ActivityResponse' {campaignId} -> campaignId) (\s@ActivityResponse' {} a -> s {campaignId = a} :: ActivityResponse)
 
 -- | The unique identifier for the activity.
-aId :: Lens' ActivityResponse Text
-aId = lens _aId (\s a -> s {_aId = a})
+activityResponse_id :: Lens.Lens' ActivityResponse Prelude.Text
+activityResponse_id = Lens.lens (\ActivityResponse' {id} -> id) (\s@ActivityResponse' {} a -> s {id = a} :: ActivityResponse)
 
 -- | The unique identifier for the application that the campaign applies to.
-aApplicationId :: Lens' ActivityResponse Text
-aApplicationId = lens _aApplicationId (\s a -> s {_aApplicationId = a})
+activityResponse_applicationId :: Lens.Lens' ActivityResponse Prelude.Text
+activityResponse_applicationId = Lens.lens (\ActivityResponse' {applicationId} -> applicationId) (\s@ActivityResponse' {} a -> s {applicationId = a} :: ActivityResponse)
 
-instance FromJSON ActivityResponse where
+instance Prelude.FromJSON ActivityResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivityResponse"
       ( \x ->
           ActivityResponse'
-            <$> (x .:? "End")
-            <*> (x .:? "SuccessfulEndpointCount")
-            <*> (x .:? "Result")
-            <*> (x .:? "TimezonesCompletedCount")
-            <*> (x .:? "State")
-            <*> (x .:? "TimezonesTotalCount")
-            <*> (x .:? "TreatmentId")
-            <*> (x .:? "ScheduledStart")
-            <*> (x .:? "Start")
-            <*> (x .:? "TotalEndpointCount")
-            <*> (x .: "CampaignId")
-            <*> (x .: "Id")
-            <*> (x .: "ApplicationId")
+            Prelude.<$> (x Prelude..:? "End")
+            Prelude.<*> (x Prelude..:? "SuccessfulEndpointCount")
+            Prelude.<*> (x Prelude..:? "Result")
+            Prelude.<*> (x Prelude..:? "TimezonesCompletedCount")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "TimezonesTotalCount")
+            Prelude.<*> (x Prelude..:? "TreatmentId")
+            Prelude.<*> (x Prelude..:? "ScheduledStart")
+            Prelude.<*> (x Prelude..:? "Start")
+            Prelude.<*> (x Prelude..:? "TotalEndpointCount")
+            Prelude.<*> (x Prelude..: "CampaignId")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "ApplicationId")
       )
 
-instance Hashable ActivityResponse
+instance Prelude.Hashable ActivityResponse
 
-instance NFData ActivityResponse
+instance Prelude.NFData ActivityResponse

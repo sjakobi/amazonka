@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,159 +24,163 @@
 -- Creates and sends a message to a list of users.
 module Network.AWS.Pinpoint.SendUsersMessages
   ( -- * Creating a Request
-    sendUsersMessages,
-    SendUsersMessages,
+    SendUsersMessages (..),
+    newSendUsersMessages,
 
     -- * Request Lenses
-    sumApplicationId,
-    sumSendUsersMessageRequest,
+    sendUsersMessages_applicationId,
+    sendUsersMessages_sendUsersMessageRequest,
 
     -- * Destructuring the Response
-    sendUsersMessagesResponse,
-    SendUsersMessagesResponse,
+    SendUsersMessagesResponse (..),
+    newSendUsersMessagesResponse,
 
     -- * Response Lenses
-    sumrrsResponseStatus,
-    sumrrsSendUsersMessageResponse,
+    sendUsersMessagesResponse_httpStatus,
+    sendUsersMessagesResponse_sendUsersMessageResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.SendUsersMessageResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'sendUsersMessages' smart constructor.
+-- | /See:/ 'newSendUsersMessages' smart constructor.
 data SendUsersMessages = SendUsersMessages'
-  { _sumApplicationId ::
-      !Text,
-    _sumSendUsersMessageRequest ::
-      !SendUsersMessageRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    sendUsersMessageRequest :: SendUsersMessageRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SendUsersMessages' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SendUsersMessages' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sumApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sumSendUsersMessageRequest' - Undocumented member.
-sendUsersMessages ::
-  -- | 'sumApplicationId'
-  Text ->
-  -- | 'sumSendUsersMessageRequest'
+-- 'applicationId', 'sendUsersMessages_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'sendUsersMessageRequest', 'sendUsersMessages_sendUsersMessageRequest' - Undocumented member.
+newSendUsersMessages ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'sendUsersMessageRequest'
   SendUsersMessageRequest ->
   SendUsersMessages
-sendUsersMessages
+newSendUsersMessages
   pApplicationId_
   pSendUsersMessageRequest_ =
     SendUsersMessages'
-      { _sumApplicationId =
-          pApplicationId_,
-        _sumSendUsersMessageRequest =
-          pSendUsersMessageRequest_
+      { applicationId = pApplicationId_,
+        sendUsersMessageRequest = pSendUsersMessageRequest_
       }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-sumApplicationId :: Lens' SendUsersMessages Text
-sumApplicationId = lens _sumApplicationId (\s a -> s {_sumApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+sendUsersMessages_applicationId :: Lens.Lens' SendUsersMessages Prelude.Text
+sendUsersMessages_applicationId = Lens.lens (\SendUsersMessages' {applicationId} -> applicationId) (\s@SendUsersMessages' {} a -> s {applicationId = a} :: SendUsersMessages)
 
 -- | Undocumented member.
-sumSendUsersMessageRequest :: Lens' SendUsersMessages SendUsersMessageRequest
-sumSendUsersMessageRequest = lens _sumSendUsersMessageRequest (\s a -> s {_sumSendUsersMessageRequest = a})
+sendUsersMessages_sendUsersMessageRequest :: Lens.Lens' SendUsersMessages SendUsersMessageRequest
+sendUsersMessages_sendUsersMessageRequest = Lens.lens (\SendUsersMessages' {sendUsersMessageRequest} -> sendUsersMessageRequest) (\s@SendUsersMessages' {} a -> s {sendUsersMessageRequest = a} :: SendUsersMessages)
 
-instance AWSRequest SendUsersMessages where
+instance Prelude.AWSRequest SendUsersMessages where
   type Rs SendUsersMessages = SendUsersMessagesResponse
-  request = postJSON pinpoint
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SendUsersMessagesResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable SendUsersMessages
+instance Prelude.Hashable SendUsersMessages
 
-instance NFData SendUsersMessages
+instance Prelude.NFData SendUsersMessages
 
-instance ToHeaders SendUsersMessages where
+instance Prelude.ToHeaders SendUsersMessages where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SendUsersMessages where
+instance Prelude.ToJSON SendUsersMessages where
   toJSON SendUsersMessages' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "SendUsersMessageRequest"
-                  .= _sumSendUsersMessageRequest
+                  Prelude..= sendUsersMessageRequest
               )
           ]
       )
 
-instance ToPath SendUsersMessages where
+instance Prelude.ToPath SendUsersMessages where
   toPath SendUsersMessages' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _sumApplicationId,
+        Prelude.toBS applicationId,
         "/users-messages"
       ]
 
-instance ToQuery SendUsersMessages where
-  toQuery = const mempty
+instance Prelude.ToQuery SendUsersMessages where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'sendUsersMessagesResponse' smart constructor.
+-- | /See:/ 'newSendUsersMessagesResponse' smart constructor.
 data SendUsersMessagesResponse = SendUsersMessagesResponse'
-  { _sumrrsResponseStatus ::
-      !Int,
-    _sumrrsSendUsersMessageResponse ::
-      !SendUsersMessageResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    sendUsersMessageResponse :: SendUsersMessageResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SendUsersMessagesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SendUsersMessagesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sumrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sumrrsSendUsersMessageResponse' - Undocumented member.
-sendUsersMessagesResponse ::
-  -- | 'sumrrsResponseStatus'
-  Int ->
-  -- | 'sumrrsSendUsersMessageResponse'
+-- 'httpStatus', 'sendUsersMessagesResponse_httpStatus' - The response's http status code.
+--
+-- 'sendUsersMessageResponse', 'sendUsersMessagesResponse_sendUsersMessageResponse' - Undocumented member.
+newSendUsersMessagesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'sendUsersMessageResponse'
   SendUsersMessageResponse ->
   SendUsersMessagesResponse
-sendUsersMessagesResponse
-  pResponseStatus_
+newSendUsersMessagesResponse
+  pHttpStatus_
   pSendUsersMessageResponse_ =
     SendUsersMessagesResponse'
-      { _sumrrsResponseStatus =
-          pResponseStatus_,
-        _sumrrsSendUsersMessageResponse =
+      { httpStatus =
+          pHttpStatus_,
+        sendUsersMessageResponse =
           pSendUsersMessageResponse_
       }
 
--- | -- | The response status code.
-sumrrsResponseStatus :: Lens' SendUsersMessagesResponse Int
-sumrrsResponseStatus = lens _sumrrsResponseStatus (\s a -> s {_sumrrsResponseStatus = a})
+-- | The response's http status code.
+sendUsersMessagesResponse_httpStatus :: Lens.Lens' SendUsersMessagesResponse Prelude.Int
+sendUsersMessagesResponse_httpStatus = Lens.lens (\SendUsersMessagesResponse' {httpStatus} -> httpStatus) (\s@SendUsersMessagesResponse' {} a -> s {httpStatus = a} :: SendUsersMessagesResponse)
 
 -- | Undocumented member.
-sumrrsSendUsersMessageResponse :: Lens' SendUsersMessagesResponse SendUsersMessageResponse
-sumrrsSendUsersMessageResponse = lens _sumrrsSendUsersMessageResponse (\s a -> s {_sumrrsSendUsersMessageResponse = a})
+sendUsersMessagesResponse_sendUsersMessageResponse :: Lens.Lens' SendUsersMessagesResponse SendUsersMessageResponse
+sendUsersMessagesResponse_sendUsersMessageResponse = Lens.lens (\SendUsersMessagesResponse' {sendUsersMessageResponse} -> sendUsersMessageResponse) (\s@SendUsersMessagesResponse' {} a -> s {sendUsersMessageResponse = a} :: SendUsersMessagesResponse)
 
-instance NFData SendUsersMessagesResponse
+instance Prelude.NFData SendUsersMessagesResponse

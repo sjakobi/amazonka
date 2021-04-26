@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,181 +19,217 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.NumberValidateResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about a phone number.
 --
---
---
--- /See:/ 'numberValidateResponse' smart constructor.
+-- /See:/ 'newNumberValidateResponse' smart constructor.
 data NumberValidateResponse = NumberValidateResponse'
-  { _nvrPhoneType ::
-      !(Maybe Text),
-    _nvrOriginalPhoneNumber ::
-      !(Maybe Text),
-    _nvrZipCode ::
-      !(Maybe Text),
-    _nvrOriginalCountryCodeIso2 ::
-      !(Maybe Text),
-    _nvrCountryCodeIso2 ::
-      !(Maybe Text),
-    _nvrCounty ::
-      !(Maybe Text),
-    _nvrCity :: !(Maybe Text),
-    _nvrCarrier ::
-      !(Maybe Text),
-    _nvrPhoneTypeCode ::
-      !(Maybe Int),
-    _nvrCleansedPhoneNumberNational ::
-      !(Maybe Text),
-    _nvrCleansedPhoneNumberE164 ::
-      !(Maybe Text),
-    _nvrCountryCodeNumeric ::
-      !(Maybe Text),
-    _nvrTimezone ::
-      !(Maybe Text),
-    _nvrCountry ::
-      !(Maybe Text)
+  { -- | The description of the phone type. Valid values are: MOBILE, LANDLINE,
+    -- VOIP, INVALID, PREPAID, and OTHER.
+    phoneType :: Prelude.Maybe Prelude.Text,
+    -- | The phone number that was sent in the request body.
+    originalPhoneNumber :: Prelude.Maybe Prelude.Text,
+    -- | The postal or ZIP code for the location where the phone number was
+    -- originally registered.
+    zipCode :: Prelude.Maybe Prelude.Text,
+    -- | The two-character code, in ISO 3166-1 alpha-2 format, that was sent in
+    -- the request body.
+    originalCountryCodeIso2 :: Prelude.Maybe Prelude.Text,
+    -- | The two-character code, in ISO 3166-1 alpha-2 format, for the country or
+    -- region where the phone number was originally registered.
+    countryCodeIso2 :: Prelude.Maybe Prelude.Text,
+    -- | The name of the county where the phone number was originally registered.
+    county :: Prelude.Maybe Prelude.Text,
+    -- | The name of the city where the phone number was originally registered.
+    city :: Prelude.Maybe Prelude.Text,
+    -- | The carrier or service provider that the phone number is currently
+    -- registered with. In some countries and regions, this value may be the
+    -- carrier or service provider that the phone number was originally
+    -- registered with.
+    carrier :: Prelude.Maybe Prelude.Text,
+    -- | The phone type, represented by an integer. Valid values are: 0 (mobile),
+    -- 1 (landline), 2 (VoIP), 3 (invalid), 4 (other), and 5 (prepaid).
+    phoneTypeCode :: Prelude.Maybe Prelude.Int,
+    -- | The cleansed phone number, in the format for the location where the
+    -- phone number was originally registered.
+    cleansedPhoneNumberNational :: Prelude.Maybe Prelude.Text,
+    -- | The cleansed phone number, in E.164 format, for the location where the
+    -- phone number was originally registered.
+    cleansedPhoneNumberE164 :: Prelude.Maybe Prelude.Text,
+    -- | The numeric code for the country or region where the phone number was
+    -- originally registered.
+    countryCodeNumeric :: Prelude.Maybe Prelude.Text,
+    -- | The time zone for the location where the phone number was originally
+    -- registered.
+    timezone :: Prelude.Maybe Prelude.Text,
+    -- | The name of the country or region where the phone number was originally
+    -- registered.
+    country :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NumberValidateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NumberValidateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nvrPhoneType' - The description of the phone type. Valid values are: MOBILE, LANDLINE, VOIP,                   INVALID, PREPAID, and OTHER.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nvrOriginalPhoneNumber' - The phone number that was sent in the request body.
+-- 'phoneType', 'numberValidateResponse_phoneType' - The description of the phone type. Valid values are: MOBILE, LANDLINE,
+-- VOIP, INVALID, PREPAID, and OTHER.
 --
--- * 'nvrZipCode' - The postal or ZIP code for the location where the phone number was originally registered.
+-- 'originalPhoneNumber', 'numberValidateResponse_originalPhoneNumber' - The phone number that was sent in the request body.
 --
--- * 'nvrOriginalCountryCodeIso2' - The two-character code, in ISO 3166-1 alpha-2 format, that was sent in the request body.
+-- 'zipCode', 'numberValidateResponse_zipCode' - The postal or ZIP code for the location where the phone number was
+-- originally registered.
 --
--- * 'nvrCountryCodeIso2' - The two-character code, in ISO 3166-1 alpha-2 format, for the country or region where the phone number was originally registered.
+-- 'originalCountryCodeIso2', 'numberValidateResponse_originalCountryCodeIso2' - The two-character code, in ISO 3166-1 alpha-2 format, that was sent in
+-- the request body.
 --
--- * 'nvrCounty' - The name of the county where the phone number was originally registered.
+-- 'countryCodeIso2', 'numberValidateResponse_countryCodeIso2' - The two-character code, in ISO 3166-1 alpha-2 format, for the country or
+-- region where the phone number was originally registered.
 --
--- * 'nvrCity' - The name of the city where the phone number was originally registered.
+-- 'county', 'numberValidateResponse_county' - The name of the county where the phone number was originally registered.
 --
--- * 'nvrCarrier' - The carrier or service provider that the phone number is currently registered with. In some countries and regions, this value may be the carrier or service provider that the phone number was originally registered with.
+-- 'city', 'numberValidateResponse_city' - The name of the city where the phone number was originally registered.
 --
--- * 'nvrPhoneTypeCode' - The phone type, represented by an integer. Valid values are: 0 (mobile), 1 (landline), 2 (VoIP), 3 (invalid), 4 (other), and 5 (prepaid).
+-- 'carrier', 'numberValidateResponse_carrier' - The carrier or service provider that the phone number is currently
+-- registered with. In some countries and regions, this value may be the
+-- carrier or service provider that the phone number was originally
+-- registered with.
 --
--- * 'nvrCleansedPhoneNumberNational' - The cleansed phone number, in the format for the location where the phone number was originally registered.
+-- 'phoneTypeCode', 'numberValidateResponse_phoneTypeCode' - The phone type, represented by an integer. Valid values are: 0 (mobile),
+-- 1 (landline), 2 (VoIP), 3 (invalid), 4 (other), and 5 (prepaid).
 --
--- * 'nvrCleansedPhoneNumberE164' - The cleansed phone number, in E.164 format, for the location where the phone number was originally registered.
+-- 'cleansedPhoneNumberNational', 'numberValidateResponse_cleansedPhoneNumberNational' - The cleansed phone number, in the format for the location where the
+-- phone number was originally registered.
 --
--- * 'nvrCountryCodeNumeric' - The numeric code for the country or region where the phone number was originally registered.
+-- 'cleansedPhoneNumberE164', 'numberValidateResponse_cleansedPhoneNumberE164' - The cleansed phone number, in E.164 format, for the location where the
+-- phone number was originally registered.
 --
--- * 'nvrTimezone' - The time zone for the location where the phone number was originally registered.
+-- 'countryCodeNumeric', 'numberValidateResponse_countryCodeNumeric' - The numeric code for the country or region where the phone number was
+-- originally registered.
 --
--- * 'nvrCountry' - The name of the country or region where the phone number was originally registered.
-numberValidateResponse ::
+-- 'timezone', 'numberValidateResponse_timezone' - The time zone for the location where the phone number was originally
+-- registered.
+--
+-- 'country', 'numberValidateResponse_country' - The name of the country or region where the phone number was originally
+-- registered.
+newNumberValidateResponse ::
   NumberValidateResponse
-numberValidateResponse =
+newNumberValidateResponse =
   NumberValidateResponse'
-    { _nvrPhoneType = Nothing,
-      _nvrOriginalPhoneNumber = Nothing,
-      _nvrZipCode = Nothing,
-      _nvrOriginalCountryCodeIso2 = Nothing,
-      _nvrCountryCodeIso2 = Nothing,
-      _nvrCounty = Nothing,
-      _nvrCity = Nothing,
-      _nvrCarrier = Nothing,
-      _nvrPhoneTypeCode = Nothing,
-      _nvrCleansedPhoneNumberNational = Nothing,
-      _nvrCleansedPhoneNumberE164 = Nothing,
-      _nvrCountryCodeNumeric = Nothing,
-      _nvrTimezone = Nothing,
-      _nvrCountry = Nothing
+    { phoneType =
+        Prelude.Nothing,
+      originalPhoneNumber = Prelude.Nothing,
+      zipCode = Prelude.Nothing,
+      originalCountryCodeIso2 = Prelude.Nothing,
+      countryCodeIso2 = Prelude.Nothing,
+      county = Prelude.Nothing,
+      city = Prelude.Nothing,
+      carrier = Prelude.Nothing,
+      phoneTypeCode = Prelude.Nothing,
+      cleansedPhoneNumberNational = Prelude.Nothing,
+      cleansedPhoneNumberE164 = Prelude.Nothing,
+      countryCodeNumeric = Prelude.Nothing,
+      timezone = Prelude.Nothing,
+      country = Prelude.Nothing
     }
 
--- | The description of the phone type. Valid values are: MOBILE, LANDLINE, VOIP,                   INVALID, PREPAID, and OTHER.
-nvrPhoneType :: Lens' NumberValidateResponse (Maybe Text)
-nvrPhoneType = lens _nvrPhoneType (\s a -> s {_nvrPhoneType = a})
+-- | The description of the phone type. Valid values are: MOBILE, LANDLINE,
+-- VOIP, INVALID, PREPAID, and OTHER.
+numberValidateResponse_phoneType :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_phoneType = Lens.lens (\NumberValidateResponse' {phoneType} -> phoneType) (\s@NumberValidateResponse' {} a -> s {phoneType = a} :: NumberValidateResponse)
 
 -- | The phone number that was sent in the request body.
-nvrOriginalPhoneNumber :: Lens' NumberValidateResponse (Maybe Text)
-nvrOriginalPhoneNumber = lens _nvrOriginalPhoneNumber (\s a -> s {_nvrOriginalPhoneNumber = a})
+numberValidateResponse_originalPhoneNumber :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_originalPhoneNumber = Lens.lens (\NumberValidateResponse' {originalPhoneNumber} -> originalPhoneNumber) (\s@NumberValidateResponse' {} a -> s {originalPhoneNumber = a} :: NumberValidateResponse)
 
--- | The postal or ZIP code for the location where the phone number was originally registered.
-nvrZipCode :: Lens' NumberValidateResponse (Maybe Text)
-nvrZipCode = lens _nvrZipCode (\s a -> s {_nvrZipCode = a})
+-- | The postal or ZIP code for the location where the phone number was
+-- originally registered.
+numberValidateResponse_zipCode :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_zipCode = Lens.lens (\NumberValidateResponse' {zipCode} -> zipCode) (\s@NumberValidateResponse' {} a -> s {zipCode = a} :: NumberValidateResponse)
 
--- | The two-character code, in ISO 3166-1 alpha-2 format, that was sent in the request body.
-nvrOriginalCountryCodeIso2 :: Lens' NumberValidateResponse (Maybe Text)
-nvrOriginalCountryCodeIso2 = lens _nvrOriginalCountryCodeIso2 (\s a -> s {_nvrOriginalCountryCodeIso2 = a})
+-- | The two-character code, in ISO 3166-1 alpha-2 format, that was sent in
+-- the request body.
+numberValidateResponse_originalCountryCodeIso2 :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_originalCountryCodeIso2 = Lens.lens (\NumberValidateResponse' {originalCountryCodeIso2} -> originalCountryCodeIso2) (\s@NumberValidateResponse' {} a -> s {originalCountryCodeIso2 = a} :: NumberValidateResponse)
 
--- | The two-character code, in ISO 3166-1 alpha-2 format, for the country or region where the phone number was originally registered.
-nvrCountryCodeIso2 :: Lens' NumberValidateResponse (Maybe Text)
-nvrCountryCodeIso2 = lens _nvrCountryCodeIso2 (\s a -> s {_nvrCountryCodeIso2 = a})
+-- | The two-character code, in ISO 3166-1 alpha-2 format, for the country or
+-- region where the phone number was originally registered.
+numberValidateResponse_countryCodeIso2 :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_countryCodeIso2 = Lens.lens (\NumberValidateResponse' {countryCodeIso2} -> countryCodeIso2) (\s@NumberValidateResponse' {} a -> s {countryCodeIso2 = a} :: NumberValidateResponse)
 
 -- | The name of the county where the phone number was originally registered.
-nvrCounty :: Lens' NumberValidateResponse (Maybe Text)
-nvrCounty = lens _nvrCounty (\s a -> s {_nvrCounty = a})
+numberValidateResponse_county :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_county = Lens.lens (\NumberValidateResponse' {county} -> county) (\s@NumberValidateResponse' {} a -> s {county = a} :: NumberValidateResponse)
 
 -- | The name of the city where the phone number was originally registered.
-nvrCity :: Lens' NumberValidateResponse (Maybe Text)
-nvrCity = lens _nvrCity (\s a -> s {_nvrCity = a})
+numberValidateResponse_city :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_city = Lens.lens (\NumberValidateResponse' {city} -> city) (\s@NumberValidateResponse' {} a -> s {city = a} :: NumberValidateResponse)
 
--- | The carrier or service provider that the phone number is currently registered with. In some countries and regions, this value may be the carrier or service provider that the phone number was originally registered with.
-nvrCarrier :: Lens' NumberValidateResponse (Maybe Text)
-nvrCarrier = lens _nvrCarrier (\s a -> s {_nvrCarrier = a})
+-- | The carrier or service provider that the phone number is currently
+-- registered with. In some countries and regions, this value may be the
+-- carrier or service provider that the phone number was originally
+-- registered with.
+numberValidateResponse_carrier :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_carrier = Lens.lens (\NumberValidateResponse' {carrier} -> carrier) (\s@NumberValidateResponse' {} a -> s {carrier = a} :: NumberValidateResponse)
 
--- | The phone type, represented by an integer. Valid values are: 0 (mobile), 1 (landline), 2 (VoIP), 3 (invalid), 4 (other), and 5 (prepaid).
-nvrPhoneTypeCode :: Lens' NumberValidateResponse (Maybe Int)
-nvrPhoneTypeCode = lens _nvrPhoneTypeCode (\s a -> s {_nvrPhoneTypeCode = a})
+-- | The phone type, represented by an integer. Valid values are: 0 (mobile),
+-- 1 (landline), 2 (VoIP), 3 (invalid), 4 (other), and 5 (prepaid).
+numberValidateResponse_phoneTypeCode :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Int)
+numberValidateResponse_phoneTypeCode = Lens.lens (\NumberValidateResponse' {phoneTypeCode} -> phoneTypeCode) (\s@NumberValidateResponse' {} a -> s {phoneTypeCode = a} :: NumberValidateResponse)
 
--- | The cleansed phone number, in the format for the location where the phone number was originally registered.
-nvrCleansedPhoneNumberNational :: Lens' NumberValidateResponse (Maybe Text)
-nvrCleansedPhoneNumberNational = lens _nvrCleansedPhoneNumberNational (\s a -> s {_nvrCleansedPhoneNumberNational = a})
+-- | The cleansed phone number, in the format for the location where the
+-- phone number was originally registered.
+numberValidateResponse_cleansedPhoneNumberNational :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_cleansedPhoneNumberNational = Lens.lens (\NumberValidateResponse' {cleansedPhoneNumberNational} -> cleansedPhoneNumberNational) (\s@NumberValidateResponse' {} a -> s {cleansedPhoneNumberNational = a} :: NumberValidateResponse)
 
--- | The cleansed phone number, in E.164 format, for the location where the phone number was originally registered.
-nvrCleansedPhoneNumberE164 :: Lens' NumberValidateResponse (Maybe Text)
-nvrCleansedPhoneNumberE164 = lens _nvrCleansedPhoneNumberE164 (\s a -> s {_nvrCleansedPhoneNumberE164 = a})
+-- | The cleansed phone number, in E.164 format, for the location where the
+-- phone number was originally registered.
+numberValidateResponse_cleansedPhoneNumberE164 :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_cleansedPhoneNumberE164 = Lens.lens (\NumberValidateResponse' {cleansedPhoneNumberE164} -> cleansedPhoneNumberE164) (\s@NumberValidateResponse' {} a -> s {cleansedPhoneNumberE164 = a} :: NumberValidateResponse)
 
--- | The numeric code for the country or region where the phone number was originally registered.
-nvrCountryCodeNumeric :: Lens' NumberValidateResponse (Maybe Text)
-nvrCountryCodeNumeric = lens _nvrCountryCodeNumeric (\s a -> s {_nvrCountryCodeNumeric = a})
+-- | The numeric code for the country or region where the phone number was
+-- originally registered.
+numberValidateResponse_countryCodeNumeric :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_countryCodeNumeric = Lens.lens (\NumberValidateResponse' {countryCodeNumeric} -> countryCodeNumeric) (\s@NumberValidateResponse' {} a -> s {countryCodeNumeric = a} :: NumberValidateResponse)
 
--- | The time zone for the location where the phone number was originally registered.
-nvrTimezone :: Lens' NumberValidateResponse (Maybe Text)
-nvrTimezone = lens _nvrTimezone (\s a -> s {_nvrTimezone = a})
+-- | The time zone for the location where the phone number was originally
+-- registered.
+numberValidateResponse_timezone :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_timezone = Lens.lens (\NumberValidateResponse' {timezone} -> timezone) (\s@NumberValidateResponse' {} a -> s {timezone = a} :: NumberValidateResponse)
 
--- | The name of the country or region where the phone number was originally registered.
-nvrCountry :: Lens' NumberValidateResponse (Maybe Text)
-nvrCountry = lens _nvrCountry (\s a -> s {_nvrCountry = a})
+-- | The name of the country or region where the phone number was originally
+-- registered.
+numberValidateResponse_country :: Lens.Lens' NumberValidateResponse (Prelude.Maybe Prelude.Text)
+numberValidateResponse_country = Lens.lens (\NumberValidateResponse' {country} -> country) (\s@NumberValidateResponse' {} a -> s {country = a} :: NumberValidateResponse)
 
-instance FromJSON NumberValidateResponse where
+instance Prelude.FromJSON NumberValidateResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NumberValidateResponse"
       ( \x ->
           NumberValidateResponse'
-            <$> (x .:? "PhoneType")
-            <*> (x .:? "OriginalPhoneNumber")
-            <*> (x .:? "ZipCode")
-            <*> (x .:? "OriginalCountryCodeIso2")
-            <*> (x .:? "CountryCodeIso2")
-            <*> (x .:? "County")
-            <*> (x .:? "City")
-            <*> (x .:? "Carrier")
-            <*> (x .:? "PhoneTypeCode")
-            <*> (x .:? "CleansedPhoneNumberNational")
-            <*> (x .:? "CleansedPhoneNumberE164")
-            <*> (x .:? "CountryCodeNumeric")
-            <*> (x .:? "Timezone")
-            <*> (x .:? "Country")
+            Prelude.<$> (x Prelude..:? "PhoneType")
+            Prelude.<*> (x Prelude..:? "OriginalPhoneNumber")
+            Prelude.<*> (x Prelude..:? "ZipCode")
+            Prelude.<*> (x Prelude..:? "OriginalCountryCodeIso2")
+            Prelude.<*> (x Prelude..:? "CountryCodeIso2")
+            Prelude.<*> (x Prelude..:? "County")
+            Prelude.<*> (x Prelude..:? "City")
+            Prelude.<*> (x Prelude..:? "Carrier")
+            Prelude.<*> (x Prelude..:? "PhoneTypeCode")
+            Prelude.<*> (x Prelude..:? "CleansedPhoneNumberNational")
+            Prelude.<*> (x Prelude..:? "CleansedPhoneNumberE164")
+            Prelude.<*> (x Prelude..:? "CountryCodeNumeric")
+            Prelude.<*> (x Prelude..:? "Timezone")
+            Prelude.<*> (x Prelude..:? "Country")
       )
 
-instance Hashable NumberValidateResponse
+instance Prelude.Hashable NumberValidateResponse
 
-instance NFData NumberValidateResponse
+instance Prelude.NFData NumberValidateResponse

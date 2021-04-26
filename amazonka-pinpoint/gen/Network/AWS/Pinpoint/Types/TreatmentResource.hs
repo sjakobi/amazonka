@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,132 +19,147 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.TreatmentResource where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.CampaignState
 import Network.AWS.Pinpoint.Types.CustomDeliveryConfiguration
 import Network.AWS.Pinpoint.Types.MessageConfiguration
 import Network.AWS.Pinpoint.Types.Schedule
 import Network.AWS.Pinpoint.Types.TemplateConfiguration
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for a campaign treatment. A /treatment/ is a variation of a campaign that's used for A/B testing of a campaign.
+-- | Specifies the settings for a campaign treatment. A /treatment/ is a
+-- variation of a campaign that\'s used for A\/B testing of a campaign.
 --
---
---
--- /See:/ 'treatmentResource' smart constructor.
+-- /See:/ 'newTreatmentResource' smart constructor.
 data TreatmentResource = TreatmentResource'
-  { _trCustomDeliveryConfiguration ::
-      !( Maybe
-           CustomDeliveryConfiguration
-       ),
-    _trState :: !(Maybe CampaignState),
-    _trTreatmentName :: !(Maybe Text),
-    _trMessageConfiguration ::
-      !(Maybe MessageConfiguration),
-    _trTemplateConfiguration ::
-      !(Maybe TemplateConfiguration),
-    _trSchedule :: !(Maybe Schedule),
-    _trTreatmentDescription ::
-      !(Maybe Text),
-    _trId :: !Text,
-    _trSizePercent :: !Int
+  { -- | The delivery configuration settings for sending the treatment through a
+    -- custom channel. This object is required if the MessageConfiguration
+    -- object for the treatment specifies a CustomMessage object.
+    customDeliveryConfiguration :: Prelude.Maybe CustomDeliveryConfiguration,
+    -- | The current status of the treatment.
+    state :: Prelude.Maybe CampaignState,
+    -- | The custom name of the treatment.
+    treatmentName :: Prelude.Maybe Prelude.Text,
+    -- | The message configuration settings for the treatment.
+    messageConfiguration :: Prelude.Maybe MessageConfiguration,
+    -- | The message template to use for the treatment.
+    templateConfiguration :: Prelude.Maybe TemplateConfiguration,
+    -- | The schedule settings for the treatment.
+    schedule :: Prelude.Maybe Schedule,
+    -- | The custom description of the treatment.
+    treatmentDescription :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the treatment.
+    id :: Prelude.Text,
+    -- | The allocated percentage of users (segment members) that the treatment
+    -- is sent to.
+    sizePercent :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TreatmentResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TreatmentResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trCustomDeliveryConfiguration' - The delivery configuration settings for sending the treatment through a custom channel. This object is required if the MessageConfiguration object for the treatment specifies a CustomMessage object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trState' - The current status of the treatment.
+-- 'customDeliveryConfiguration', 'treatmentResource_customDeliveryConfiguration' - The delivery configuration settings for sending the treatment through a
+-- custom channel. This object is required if the MessageConfiguration
+-- object for the treatment specifies a CustomMessage object.
 --
--- * 'trTreatmentName' - The custom name of the treatment.
+-- 'state', 'treatmentResource_state' - The current status of the treatment.
 --
--- * 'trMessageConfiguration' - The message configuration settings for the treatment.
+-- 'treatmentName', 'treatmentResource_treatmentName' - The custom name of the treatment.
 --
--- * 'trTemplateConfiguration' - The message template to use for the treatment.
+-- 'messageConfiguration', 'treatmentResource_messageConfiguration' - The message configuration settings for the treatment.
 --
--- * 'trSchedule' - The schedule settings for the treatment.
+-- 'templateConfiguration', 'treatmentResource_templateConfiguration' - The message template to use for the treatment.
 --
--- * 'trTreatmentDescription' - The custom description of the treatment.
+-- 'schedule', 'treatmentResource_schedule' - The schedule settings for the treatment.
 --
--- * 'trId' - The unique identifier for the treatment.
+-- 'treatmentDescription', 'treatmentResource_treatmentDescription' - The custom description of the treatment.
 --
--- * 'trSizePercent' - The allocated percentage of users (segment members) that the treatment is sent to.
-treatmentResource ::
-  -- | 'trId'
-  Text ->
-  -- | 'trSizePercent'
-  Int ->
+-- 'id', 'treatmentResource_id' - The unique identifier for the treatment.
+--
+-- 'sizePercent', 'treatmentResource_sizePercent' - The allocated percentage of users (segment members) that the treatment
+-- is sent to.
+newTreatmentResource ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'sizePercent'
+  Prelude.Int ->
   TreatmentResource
-treatmentResource pId_ pSizePercent_ =
+newTreatmentResource pId_ pSizePercent_ =
   TreatmentResource'
-    { _trCustomDeliveryConfiguration =
-        Nothing,
-      _trState = Nothing,
-      _trTreatmentName = Nothing,
-      _trMessageConfiguration = Nothing,
-      _trTemplateConfiguration = Nothing,
-      _trSchedule = Nothing,
-      _trTreatmentDescription = Nothing,
-      _trId = pId_,
-      _trSizePercent = pSizePercent_
+    { customDeliveryConfiguration =
+        Prelude.Nothing,
+      state = Prelude.Nothing,
+      treatmentName = Prelude.Nothing,
+      messageConfiguration = Prelude.Nothing,
+      templateConfiguration = Prelude.Nothing,
+      schedule = Prelude.Nothing,
+      treatmentDescription = Prelude.Nothing,
+      id = pId_,
+      sizePercent = pSizePercent_
     }
 
--- | The delivery configuration settings for sending the treatment through a custom channel. This object is required if the MessageConfiguration object for the treatment specifies a CustomMessage object.
-trCustomDeliveryConfiguration :: Lens' TreatmentResource (Maybe CustomDeliveryConfiguration)
-trCustomDeliveryConfiguration = lens _trCustomDeliveryConfiguration (\s a -> s {_trCustomDeliveryConfiguration = a})
+-- | The delivery configuration settings for sending the treatment through a
+-- custom channel. This object is required if the MessageConfiguration
+-- object for the treatment specifies a CustomMessage object.
+treatmentResource_customDeliveryConfiguration :: Lens.Lens' TreatmentResource (Prelude.Maybe CustomDeliveryConfiguration)
+treatmentResource_customDeliveryConfiguration = Lens.lens (\TreatmentResource' {customDeliveryConfiguration} -> customDeliveryConfiguration) (\s@TreatmentResource' {} a -> s {customDeliveryConfiguration = a} :: TreatmentResource)
 
 -- | The current status of the treatment.
-trState :: Lens' TreatmentResource (Maybe CampaignState)
-trState = lens _trState (\s a -> s {_trState = a})
+treatmentResource_state :: Lens.Lens' TreatmentResource (Prelude.Maybe CampaignState)
+treatmentResource_state = Lens.lens (\TreatmentResource' {state} -> state) (\s@TreatmentResource' {} a -> s {state = a} :: TreatmentResource)
 
 -- | The custom name of the treatment.
-trTreatmentName :: Lens' TreatmentResource (Maybe Text)
-trTreatmentName = lens _trTreatmentName (\s a -> s {_trTreatmentName = a})
+treatmentResource_treatmentName :: Lens.Lens' TreatmentResource (Prelude.Maybe Prelude.Text)
+treatmentResource_treatmentName = Lens.lens (\TreatmentResource' {treatmentName} -> treatmentName) (\s@TreatmentResource' {} a -> s {treatmentName = a} :: TreatmentResource)
 
 -- | The message configuration settings for the treatment.
-trMessageConfiguration :: Lens' TreatmentResource (Maybe MessageConfiguration)
-trMessageConfiguration = lens _trMessageConfiguration (\s a -> s {_trMessageConfiguration = a})
+treatmentResource_messageConfiguration :: Lens.Lens' TreatmentResource (Prelude.Maybe MessageConfiguration)
+treatmentResource_messageConfiguration = Lens.lens (\TreatmentResource' {messageConfiguration} -> messageConfiguration) (\s@TreatmentResource' {} a -> s {messageConfiguration = a} :: TreatmentResource)
 
 -- | The message template to use for the treatment.
-trTemplateConfiguration :: Lens' TreatmentResource (Maybe TemplateConfiguration)
-trTemplateConfiguration = lens _trTemplateConfiguration (\s a -> s {_trTemplateConfiguration = a})
+treatmentResource_templateConfiguration :: Lens.Lens' TreatmentResource (Prelude.Maybe TemplateConfiguration)
+treatmentResource_templateConfiguration = Lens.lens (\TreatmentResource' {templateConfiguration} -> templateConfiguration) (\s@TreatmentResource' {} a -> s {templateConfiguration = a} :: TreatmentResource)
 
 -- | The schedule settings for the treatment.
-trSchedule :: Lens' TreatmentResource (Maybe Schedule)
-trSchedule = lens _trSchedule (\s a -> s {_trSchedule = a})
+treatmentResource_schedule :: Lens.Lens' TreatmentResource (Prelude.Maybe Schedule)
+treatmentResource_schedule = Lens.lens (\TreatmentResource' {schedule} -> schedule) (\s@TreatmentResource' {} a -> s {schedule = a} :: TreatmentResource)
 
 -- | The custom description of the treatment.
-trTreatmentDescription :: Lens' TreatmentResource (Maybe Text)
-trTreatmentDescription = lens _trTreatmentDescription (\s a -> s {_trTreatmentDescription = a})
+treatmentResource_treatmentDescription :: Lens.Lens' TreatmentResource (Prelude.Maybe Prelude.Text)
+treatmentResource_treatmentDescription = Lens.lens (\TreatmentResource' {treatmentDescription} -> treatmentDescription) (\s@TreatmentResource' {} a -> s {treatmentDescription = a} :: TreatmentResource)
 
 -- | The unique identifier for the treatment.
-trId :: Lens' TreatmentResource Text
-trId = lens _trId (\s a -> s {_trId = a})
+treatmentResource_id :: Lens.Lens' TreatmentResource Prelude.Text
+treatmentResource_id = Lens.lens (\TreatmentResource' {id} -> id) (\s@TreatmentResource' {} a -> s {id = a} :: TreatmentResource)
 
--- | The allocated percentage of users (segment members) that the treatment is sent to.
-trSizePercent :: Lens' TreatmentResource Int
-trSizePercent = lens _trSizePercent (\s a -> s {_trSizePercent = a})
+-- | The allocated percentage of users (segment members) that the treatment
+-- is sent to.
+treatmentResource_sizePercent :: Lens.Lens' TreatmentResource Prelude.Int
+treatmentResource_sizePercent = Lens.lens (\TreatmentResource' {sizePercent} -> sizePercent) (\s@TreatmentResource' {} a -> s {sizePercent = a} :: TreatmentResource)
 
-instance FromJSON TreatmentResource where
+instance Prelude.FromJSON TreatmentResource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TreatmentResource"
       ( \x ->
           TreatmentResource'
-            <$> (x .:? "CustomDeliveryConfiguration")
-            <*> (x .:? "State")
-            <*> (x .:? "TreatmentName")
-            <*> (x .:? "MessageConfiguration")
-            <*> (x .:? "TemplateConfiguration")
-            <*> (x .:? "Schedule")
-            <*> (x .:? "TreatmentDescription")
-            <*> (x .: "Id")
-            <*> (x .: "SizePercent")
+            Prelude.<$> (x Prelude..:? "CustomDeliveryConfiguration")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "TreatmentName")
+            Prelude.<*> (x Prelude..:? "MessageConfiguration")
+            Prelude.<*> (x Prelude..:? "TemplateConfiguration")
+            Prelude.<*> (x Prelude..:? "Schedule")
+            Prelude.<*> (x Prelude..:? "TreatmentDescription")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "SizePercent")
       )
 
-instance Hashable TreatmentResource
+instance Prelude.Hashable TreatmentResource
 
-instance NFData TreatmentResource
+instance Prelude.NFData TreatmentResource

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about the status and settings of the voice channel for an application.
+-- Retrieves information about the status and settings of the voice channel
+-- for an application.
 module Network.AWS.Pinpoint.GetVoiceChannel
   ( -- * Creating a Request
-    getVoiceChannel,
-    GetVoiceChannel,
+    GetVoiceChannel (..),
+    newGetVoiceChannel,
 
     -- * Request Lenses
-    gvcApplicationId,
+    getVoiceChannel_applicationId,
 
     -- * Destructuring the Response
-    getVoiceChannelResponse,
-    GetVoiceChannelResponse,
+    GetVoiceChannelResponse (..),
+    newGetVoiceChannelResponse,
 
     -- * Response Lenses
-    gvcrrsResponseStatus,
-    gvcrrsVoiceChannelResponse,
+    getVoiceChannelResponse_httpStatus,
+    getVoiceChannelResponse_voiceChannelResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.VoiceChannelResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getVoiceChannel' smart constructor.
-newtype GetVoiceChannel = GetVoiceChannel'
-  { _gvcApplicationId ::
-      Text
+-- | /See:/ 'newGetVoiceChannel' smart constructor.
+data GetVoiceChannel = GetVoiceChannel'
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetVoiceChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetVoiceChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gvcApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-getVoiceChannel ::
-  -- | 'gvcApplicationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationId', 'getVoiceChannel_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newGetVoiceChannel ::
+  -- | 'applicationId'
+  Prelude.Text ->
   GetVoiceChannel
-getVoiceChannel pApplicationId_ =
-  GetVoiceChannel'
-    { _gvcApplicationId =
-        pApplicationId_
-    }
+newGetVoiceChannel pApplicationId_ =
+  GetVoiceChannel' {applicationId = pApplicationId_}
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-gvcApplicationId :: Lens' GetVoiceChannel Text
-gvcApplicationId = lens _gvcApplicationId (\s a -> s {_gvcApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+getVoiceChannel_applicationId :: Lens.Lens' GetVoiceChannel Prelude.Text
+getVoiceChannel_applicationId = Lens.lens (\GetVoiceChannel' {applicationId} -> applicationId) (\s@GetVoiceChannel' {} a -> s {applicationId = a} :: GetVoiceChannel)
 
-instance AWSRequest GetVoiceChannel where
+instance Prelude.AWSRequest GetVoiceChannel where
   type Rs GetVoiceChannel = GetVoiceChannelResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetVoiceChannelResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetVoiceChannel
+instance Prelude.Hashable GetVoiceChannel
 
-instance NFData GetVoiceChannel
+instance Prelude.NFData GetVoiceChannel
 
-instance ToHeaders GetVoiceChannel where
+instance Prelude.ToHeaders GetVoiceChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetVoiceChannel where
+instance Prelude.ToPath GetVoiceChannel where
   toPath GetVoiceChannel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _gvcApplicationId,
+        Prelude.toBS applicationId,
         "/channels/voice"
       ]
 
-instance ToQuery GetVoiceChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery GetVoiceChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getVoiceChannelResponse' smart constructor.
+-- | /See:/ 'newGetVoiceChannelResponse' smart constructor.
 data GetVoiceChannelResponse = GetVoiceChannelResponse'
-  { _gvcrrsResponseStatus ::
-      !Int,
-    _gvcrrsVoiceChannelResponse ::
-      !VoiceChannelResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    voiceChannelResponse :: VoiceChannelResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetVoiceChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetVoiceChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gvcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gvcrrsVoiceChannelResponse' - Undocumented member.
-getVoiceChannelResponse ::
-  -- | 'gvcrrsResponseStatus'
-  Int ->
-  -- | 'gvcrrsVoiceChannelResponse'
+-- 'httpStatus', 'getVoiceChannelResponse_httpStatus' - The response's http status code.
+--
+-- 'voiceChannelResponse', 'getVoiceChannelResponse_voiceChannelResponse' - Undocumented member.
+newGetVoiceChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'voiceChannelResponse'
   VoiceChannelResponse ->
   GetVoiceChannelResponse
-getVoiceChannelResponse
-  pResponseStatus_
+newGetVoiceChannelResponse
+  pHttpStatus_
   pVoiceChannelResponse_ =
     GetVoiceChannelResponse'
-      { _gvcrrsResponseStatus =
-          pResponseStatus_,
-        _gvcrrsVoiceChannelResponse =
-          pVoiceChannelResponse_
+      { httpStatus = pHttpStatus_,
+        voiceChannelResponse = pVoiceChannelResponse_
       }
 
--- | -- | The response status code.
-gvcrrsResponseStatus :: Lens' GetVoiceChannelResponse Int
-gvcrrsResponseStatus = lens _gvcrrsResponseStatus (\s a -> s {_gvcrrsResponseStatus = a})
+-- | The response's http status code.
+getVoiceChannelResponse_httpStatus :: Lens.Lens' GetVoiceChannelResponse Prelude.Int
+getVoiceChannelResponse_httpStatus = Lens.lens (\GetVoiceChannelResponse' {httpStatus} -> httpStatus) (\s@GetVoiceChannelResponse' {} a -> s {httpStatus = a} :: GetVoiceChannelResponse)
 
 -- | Undocumented member.
-gvcrrsVoiceChannelResponse :: Lens' GetVoiceChannelResponse VoiceChannelResponse
-gvcrrsVoiceChannelResponse = lens _gvcrrsVoiceChannelResponse (\s a -> s {_gvcrrsVoiceChannelResponse = a})
+getVoiceChannelResponse_voiceChannelResponse :: Lens.Lens' GetVoiceChannelResponse VoiceChannelResponse
+getVoiceChannelResponse_voiceChannelResponse = Lens.lens (\GetVoiceChannelResponse' {voiceChannelResponse} -> voiceChannelResponse) (\s@GetVoiceChannelResponse' {} a -> s {voiceChannelResponse = a} :: GetVoiceChannelResponse)
 
-instance NFData GetVoiceChannelResponse
+instance Prelude.NFData GetVoiceChannelResponse

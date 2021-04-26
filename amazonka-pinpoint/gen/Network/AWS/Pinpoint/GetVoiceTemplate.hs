@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,222 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the content and settings of a message template for messages that are sent through the voice channel.
+-- Retrieves the content and settings of a message template for messages
+-- that are sent through the voice channel.
 module Network.AWS.Pinpoint.GetVoiceTemplate
   ( -- * Creating a Request
-    getVoiceTemplate,
-    GetVoiceTemplate,
+    GetVoiceTemplate (..),
+    newGetVoiceTemplate,
 
     -- * Request Lenses
-    gvtVersion,
-    gvtTemplateName,
+    getVoiceTemplate_version,
+    getVoiceTemplate_templateName,
 
     -- * Destructuring the Response
-    getVoiceTemplateResponse,
-    GetVoiceTemplateResponse,
+    GetVoiceTemplateResponse (..),
+    newGetVoiceTemplateResponse,
 
     -- * Response Lenses
-    gvtrrsResponseStatus,
-    gvtrrsVoiceTemplateResponse,
+    getVoiceTemplateResponse_httpStatus,
+    getVoiceTemplateResponse_voiceTemplateResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.VoiceTemplateResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getVoiceTemplate' smart constructor.
+-- | /See:/ 'newGetVoiceTemplate' smart constructor.
 data GetVoiceTemplate = GetVoiceTemplate'
-  { _gvtVersion ::
-      !(Maybe Text),
-    _gvtTemplateName :: !Text
+  { -- | The unique identifier for the version of the message template to update,
+    -- retrieve information about, or delete. To retrieve identifiers and other
+    -- information for all the versions of a template, use the Template
+    -- Versions resource.
+    --
+    -- If specified, this value must match the identifier for an existing
+    -- template version. If specified for an update operation, this value must
+    -- match the identifier for the latest existing version of the template.
+    -- This restriction helps ensure that race conditions don\'t occur.
+    --
+    -- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+    -- the following:
+    --
+    -- -   For a get operation, retrieves information about the active version
+    --     of the template.
+    --
+    -- -   For an update operation, saves the updates to (overwrites) the
+    --     latest existing version of the template, if the create-new-version
+    --     parameter isn\'t used or is set to false.
+    --
+    -- -   For a delete operation, deletes the template, including all versions
+    --     of the template.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the message template. A template name must start with an
+    -- alphanumeric character and can contain a maximum of 128 characters. The
+    -- characters can be alphanumeric characters, underscores (_), or hyphens
+    -- (-). Template names are case sensitive.
+    templateName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetVoiceTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetVoiceTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gvtVersion' - The unique identifier for the version of the message template to update, retrieve information about, or delete. To retrieve identifiers and other information for all the versions of a template, use the <link>Template Versions resource. If specified, this value must match the identifier for an existing template version. If specified for an update operation, this value must match the identifier for the latest existing version of the template. This restriction helps ensure that race conditions don't occur. If you don't specify a value for this parameter, Amazon Pinpoint does the following:     * For a get operation, retrieves information about the active version of the template.     * For an update operation, saves the updates to (overwrites) the latest existing version of the template, if the create-new-version parameter isn't used or is set to false.     * For a delete operation, deletes the template, including all versions of the template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gvtTemplateName' - The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-getVoiceTemplate ::
-  -- | 'gvtTemplateName'
-  Text ->
+-- 'version', 'getVoiceTemplate_version' - The unique identifier for the version of the message template to update,
+-- retrieve information about, or delete. To retrieve identifiers and other
+-- information for all the versions of a template, use the Template
+-- Versions resource.
+--
+-- If specified, this value must match the identifier for an existing
+-- template version. If specified for an update operation, this value must
+-- match the identifier for the latest existing version of the template.
+-- This restriction helps ensure that race conditions don\'t occur.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+-- the following:
+--
+-- -   For a get operation, retrieves information about the active version
+--     of the template.
+--
+-- -   For an update operation, saves the updates to (overwrites) the
+--     latest existing version of the template, if the create-new-version
+--     parameter isn\'t used or is set to false.
+--
+-- -   For a delete operation, deletes the template, including all versions
+--     of the template.
+--
+-- 'templateName', 'getVoiceTemplate_templateName' - The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+newGetVoiceTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
   GetVoiceTemplate
-getVoiceTemplate pTemplateName_ =
+newGetVoiceTemplate pTemplateName_ =
   GetVoiceTemplate'
-    { _gvtVersion = Nothing,
-      _gvtTemplateName = pTemplateName_
+    { version = Prelude.Nothing,
+      templateName = pTemplateName_
     }
 
--- | The unique identifier for the version of the message template to update, retrieve information about, or delete. To retrieve identifiers and other information for all the versions of a template, use the <link>Template Versions resource. If specified, this value must match the identifier for an existing template version. If specified for an update operation, this value must match the identifier for the latest existing version of the template. This restriction helps ensure that race conditions don't occur. If you don't specify a value for this parameter, Amazon Pinpoint does the following:     * For a get operation, retrieves information about the active version of the template.     * For an update operation, saves the updates to (overwrites) the latest existing version of the template, if the create-new-version parameter isn't used or is set to false.     * For a delete operation, deletes the template, including all versions of the template.
-gvtVersion :: Lens' GetVoiceTemplate (Maybe Text)
-gvtVersion = lens _gvtVersion (\s a -> s {_gvtVersion = a})
+-- | The unique identifier for the version of the message template to update,
+-- retrieve information about, or delete. To retrieve identifiers and other
+-- information for all the versions of a template, use the Template
+-- Versions resource.
+--
+-- If specified, this value must match the identifier for an existing
+-- template version. If specified for an update operation, this value must
+-- match the identifier for the latest existing version of the template.
+-- This restriction helps ensure that race conditions don\'t occur.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+-- the following:
+--
+-- -   For a get operation, retrieves information about the active version
+--     of the template.
+--
+-- -   For an update operation, saves the updates to (overwrites) the
+--     latest existing version of the template, if the create-new-version
+--     parameter isn\'t used or is set to false.
+--
+-- -   For a delete operation, deletes the template, including all versions
+--     of the template.
+getVoiceTemplate_version :: Lens.Lens' GetVoiceTemplate (Prelude.Maybe Prelude.Text)
+getVoiceTemplate_version = Lens.lens (\GetVoiceTemplate' {version} -> version) (\s@GetVoiceTemplate' {} a -> s {version = a} :: GetVoiceTemplate)
 
--- | The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-gvtTemplateName :: Lens' GetVoiceTemplate Text
-gvtTemplateName = lens _gvtTemplateName (\s a -> s {_gvtTemplateName = a})
+-- | The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+getVoiceTemplate_templateName :: Lens.Lens' GetVoiceTemplate Prelude.Text
+getVoiceTemplate_templateName = Lens.lens (\GetVoiceTemplate' {templateName} -> templateName) (\s@GetVoiceTemplate' {} a -> s {templateName = a} :: GetVoiceTemplate)
 
-instance AWSRequest GetVoiceTemplate where
+instance Prelude.AWSRequest GetVoiceTemplate where
   type Rs GetVoiceTemplate = GetVoiceTemplateResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetVoiceTemplateResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetVoiceTemplate
+instance Prelude.Hashable GetVoiceTemplate
 
-instance NFData GetVoiceTemplate
+instance Prelude.NFData GetVoiceTemplate
 
-instance ToHeaders GetVoiceTemplate where
+instance Prelude.ToHeaders GetVoiceTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetVoiceTemplate where
+instance Prelude.ToPath GetVoiceTemplate where
   toPath GetVoiceTemplate' {..} =
-    mconcat
-      ["/v1/templates/", toBS _gvtTemplateName, "/voice"]
+    Prelude.mconcat
+      [ "/v1/templates/",
+        Prelude.toBS templateName,
+        "/voice"
+      ]
 
-instance ToQuery GetVoiceTemplate where
+instance Prelude.ToQuery GetVoiceTemplate where
   toQuery GetVoiceTemplate' {..} =
-    mconcat ["version" =: _gvtVersion]
+    Prelude.mconcat ["version" Prelude.=: version]
 
--- | /See:/ 'getVoiceTemplateResponse' smart constructor.
+-- | /See:/ 'newGetVoiceTemplateResponse' smart constructor.
 data GetVoiceTemplateResponse = GetVoiceTemplateResponse'
-  { _gvtrrsResponseStatus ::
-      !Int,
-    _gvtrrsVoiceTemplateResponse ::
-      !VoiceTemplateResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    voiceTemplateResponse :: VoiceTemplateResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetVoiceTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetVoiceTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gvtrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gvtrrsVoiceTemplateResponse' - Undocumented member.
-getVoiceTemplateResponse ::
-  -- | 'gvtrrsResponseStatus'
-  Int ->
-  -- | 'gvtrrsVoiceTemplateResponse'
+-- 'httpStatus', 'getVoiceTemplateResponse_httpStatus' - The response's http status code.
+--
+-- 'voiceTemplateResponse', 'getVoiceTemplateResponse_voiceTemplateResponse' - Undocumented member.
+newGetVoiceTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'voiceTemplateResponse'
   VoiceTemplateResponse ->
   GetVoiceTemplateResponse
-getVoiceTemplateResponse
-  pResponseStatus_
+newGetVoiceTemplateResponse
+  pHttpStatus_
   pVoiceTemplateResponse_ =
     GetVoiceTemplateResponse'
-      { _gvtrrsResponseStatus =
-          pResponseStatus_,
-        _gvtrrsVoiceTemplateResponse =
-          pVoiceTemplateResponse_
+      { httpStatus =
+          pHttpStatus_,
+        voiceTemplateResponse = pVoiceTemplateResponse_
       }
 
--- | -- | The response status code.
-gvtrrsResponseStatus :: Lens' GetVoiceTemplateResponse Int
-gvtrrsResponseStatus = lens _gvtrrsResponseStatus (\s a -> s {_gvtrrsResponseStatus = a})
+-- | The response's http status code.
+getVoiceTemplateResponse_httpStatus :: Lens.Lens' GetVoiceTemplateResponse Prelude.Int
+getVoiceTemplateResponse_httpStatus = Lens.lens (\GetVoiceTemplateResponse' {httpStatus} -> httpStatus) (\s@GetVoiceTemplateResponse' {} a -> s {httpStatus = a} :: GetVoiceTemplateResponse)
 
 -- | Undocumented member.
-gvtrrsVoiceTemplateResponse :: Lens' GetVoiceTemplateResponse VoiceTemplateResponse
-gvtrrsVoiceTemplateResponse = lens _gvtrrsVoiceTemplateResponse (\s a -> s {_gvtrrsVoiceTemplateResponse = a})
+getVoiceTemplateResponse_voiceTemplateResponse :: Lens.Lens' GetVoiceTemplateResponse VoiceTemplateResponse
+getVoiceTemplateResponse_voiceTemplateResponse = Lens.lens (\GetVoiceTemplateResponse' {voiceTemplateResponse} -> voiceTemplateResponse) (\s@GetVoiceTemplateResponse' {} a -> s {voiceTemplateResponse = a} :: GetVoiceTemplateResponse)
 
-instance NFData GetVoiceTemplateResponse
+instance Prelude.NFData GetVoiceTemplateResponse

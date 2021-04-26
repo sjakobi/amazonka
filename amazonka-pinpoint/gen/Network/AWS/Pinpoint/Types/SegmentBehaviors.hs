@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,45 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.SegmentBehaviors where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.RecencyDimension
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies dimension settings for including or excluding endpoints from a segment based on how recently an endpoint was active.
+-- | Specifies dimension settings for including or excluding endpoints from a
+-- segment based on how recently an endpoint was active.
 --
---
---
--- /See:/ 'segmentBehaviors' smart constructor.
-newtype SegmentBehaviors = SegmentBehaviors'
-  { _sbRecency ::
-      Maybe RecencyDimension
+-- /See:/ 'newSegmentBehaviors' smart constructor.
+data SegmentBehaviors = SegmentBehaviors'
+  { -- | The dimension settings that are based on how recently an endpoint was
+    -- active.
+    recency :: Prelude.Maybe RecencyDimension
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SegmentBehaviors' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SegmentBehaviors' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sbRecency' - The dimension settings that are based on how recently an endpoint was active.
-segmentBehaviors ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'recency', 'segmentBehaviors_recency' - The dimension settings that are based on how recently an endpoint was
+-- active.
+newSegmentBehaviors ::
   SegmentBehaviors
-segmentBehaviors =
-  SegmentBehaviors' {_sbRecency = Nothing}
+newSegmentBehaviors =
+  SegmentBehaviors' {recency = Prelude.Nothing}
 
--- | The dimension settings that are based on how recently an endpoint was active.
-sbRecency :: Lens' SegmentBehaviors (Maybe RecencyDimension)
-sbRecency = lens _sbRecency (\s a -> s {_sbRecency = a})
+-- | The dimension settings that are based on how recently an endpoint was
+-- active.
+segmentBehaviors_recency :: Lens.Lens' SegmentBehaviors (Prelude.Maybe RecencyDimension)
+segmentBehaviors_recency = Lens.lens (\SegmentBehaviors' {recency} -> recency) (\s@SegmentBehaviors' {} a -> s {recency = a} :: SegmentBehaviors)
 
-instance FromJSON SegmentBehaviors where
+instance Prelude.FromJSON SegmentBehaviors where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SegmentBehaviors"
-      (\x -> SegmentBehaviors' <$> (x .:? "Recency"))
+      ( \x ->
+          SegmentBehaviors'
+            Prelude.<$> (x Prelude..:? "Recency")
+      )
 
-instance Hashable SegmentBehaviors
+instance Prelude.Hashable SegmentBehaviors
 
-instance NFData SegmentBehaviors
+instance Prelude.NFData SegmentBehaviors
 
-instance ToJSON SegmentBehaviors where
+instance Prelude.ToJSON SegmentBehaviors where
   toJSON SegmentBehaviors' {..} =
-    object (catMaybes [("Recency" .=) <$> _sbRecency])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Recency" Prelude..=) Prelude.<$> recency]
+      )

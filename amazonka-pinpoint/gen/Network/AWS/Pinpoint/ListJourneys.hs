@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,174 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about the status, configuration, and other settings for all the journeys that are associated with an application.
+-- Retrieves information about the status, configuration, and other
+-- settings for all the journeys that are associated with an application.
 module Network.AWS.Pinpoint.ListJourneys
   ( -- * Creating a Request
-    listJourneys,
-    ListJourneys,
+    ListJourneys (..),
+    newListJourneys,
 
     -- * Request Lenses
-    ljPageSize,
-    ljToken,
-    ljApplicationId,
+    listJourneys_pageSize,
+    listJourneys_token,
+    listJourneys_applicationId,
 
     -- * Destructuring the Response
-    listJourneysResponse,
-    ListJourneysResponse,
+    ListJourneysResponse (..),
+    newListJourneysResponse,
 
     -- * Response Lenses
-    ljrrsResponseStatus,
-    ljrrsJourneysResponse,
+    listJourneysResponse_httpStatus,
+    listJourneysResponse_journeysResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.JourneysResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listJourneys' smart constructor.
+-- | /See:/ 'newListJourneys' smart constructor.
 data ListJourneys = ListJourneys'
-  { _ljPageSize ::
-      !(Maybe Text),
-    _ljToken :: !(Maybe Text),
-    _ljApplicationId :: !Text
+  { -- | The maximum number of items to include in each page of a paginated
+    -- response. This parameter is not supported for application, campaign, and
+    -- journey metrics.
+    pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJourneys' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJourneys' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljPageSize' - The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljToken' - The NextToken string that specifies which page of results to return in a paginated response.
+-- 'pageSize', 'listJourneys_pageSize' - The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
 --
--- * 'ljApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-listJourneys ::
-  -- | 'ljApplicationId'
-  Text ->
+-- 'token', 'listJourneys_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
+--
+-- 'applicationId', 'listJourneys_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newListJourneys ::
+  -- | 'applicationId'
+  Prelude.Text ->
   ListJourneys
-listJourneys pApplicationId_ =
+newListJourneys pApplicationId_ =
   ListJourneys'
-    { _ljPageSize = Nothing,
-      _ljToken = Nothing,
-      _ljApplicationId = pApplicationId_
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing,
+      applicationId = pApplicationId_
     }
 
--- | The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
-ljPageSize :: Lens' ListJourneys (Maybe Text)
-ljPageSize = lens _ljPageSize (\s a -> s {_ljPageSize = a})
+-- | The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+listJourneys_pageSize :: Lens.Lens' ListJourneys (Prelude.Maybe Prelude.Text)
+listJourneys_pageSize = Lens.lens (\ListJourneys' {pageSize} -> pageSize) (\s@ListJourneys' {} a -> s {pageSize = a} :: ListJourneys)
 
--- | The NextToken string that specifies which page of results to return in a paginated response.
-ljToken :: Lens' ListJourneys (Maybe Text)
-ljToken = lens _ljToken (\s a -> s {_ljToken = a})
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+listJourneys_token :: Lens.Lens' ListJourneys (Prelude.Maybe Prelude.Text)
+listJourneys_token = Lens.lens (\ListJourneys' {token} -> token) (\s@ListJourneys' {} a -> s {token = a} :: ListJourneys)
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-ljApplicationId :: Lens' ListJourneys Text
-ljApplicationId = lens _ljApplicationId (\s a -> s {_ljApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+listJourneys_applicationId :: Lens.Lens' ListJourneys Prelude.Text
+listJourneys_applicationId = Lens.lens (\ListJourneys' {applicationId} -> applicationId) (\s@ListJourneys' {} a -> s {applicationId = a} :: ListJourneys)
 
-instance AWSRequest ListJourneys where
+instance Prelude.AWSRequest ListJourneys where
   type Rs ListJourneys = ListJourneysResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListJourneysResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable ListJourneys
+instance Prelude.Hashable ListJourneys
 
-instance NFData ListJourneys
+instance Prelude.NFData ListJourneys
 
-instance ToHeaders ListJourneys where
+instance Prelude.ToHeaders ListJourneys where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListJourneys where
+instance Prelude.ToPath ListJourneys where
   toPath ListJourneys' {..} =
-    mconcat
-      ["/v1/apps/", toBS _ljApplicationId, "/journeys"]
+    Prelude.mconcat
+      [ "/v1/apps/",
+        Prelude.toBS applicationId,
+        "/journeys"
+      ]
 
-instance ToQuery ListJourneys where
+instance Prelude.ToQuery ListJourneys where
   toQuery ListJourneys' {..} =
-    mconcat
-      ["page-size" =: _ljPageSize, "token" =: _ljToken]
+    Prelude.mconcat
+      [ "page-size" Prelude.=: pageSize,
+        "token" Prelude.=: token
+      ]
 
--- | /See:/ 'listJourneysResponse' smart constructor.
+-- | /See:/ 'newListJourneysResponse' smart constructor.
 data ListJourneysResponse = ListJourneysResponse'
-  { _ljrrsResponseStatus ::
-      !Int,
-    _ljrrsJourneysResponse ::
-      !JourneysResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    journeysResponse :: JourneysResponse
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJourneysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJourneysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljrrsJourneysResponse' - Undocumented member.
-listJourneysResponse ::
-  -- | 'ljrrsResponseStatus'
-  Int ->
-  -- | 'ljrrsJourneysResponse'
+-- 'httpStatus', 'listJourneysResponse_httpStatus' - The response's http status code.
+--
+-- 'journeysResponse', 'listJourneysResponse_journeysResponse' - Undocumented member.
+newListJourneysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'journeysResponse'
   JourneysResponse ->
   ListJourneysResponse
-listJourneysResponse
-  pResponseStatus_
+newListJourneysResponse
+  pHttpStatus_
   pJourneysResponse_ =
     ListJourneysResponse'
-      { _ljrrsResponseStatus =
-          pResponseStatus_,
-        _ljrrsJourneysResponse = pJourneysResponse_
+      { httpStatus = pHttpStatus_,
+        journeysResponse = pJourneysResponse_
       }
 
--- | -- | The response status code.
-ljrrsResponseStatus :: Lens' ListJourneysResponse Int
-ljrrsResponseStatus = lens _ljrrsResponseStatus (\s a -> s {_ljrrsResponseStatus = a})
+-- | The response's http status code.
+listJourneysResponse_httpStatus :: Lens.Lens' ListJourneysResponse Prelude.Int
+listJourneysResponse_httpStatus = Lens.lens (\ListJourneysResponse' {httpStatus} -> httpStatus) (\s@ListJourneysResponse' {} a -> s {httpStatus = a} :: ListJourneysResponse)
 
 -- | Undocumented member.
-ljrrsJourneysResponse :: Lens' ListJourneysResponse JourneysResponse
-ljrrsJourneysResponse = lens _ljrrsJourneysResponse (\s a -> s {_ljrrsJourneysResponse = a})
+listJourneysResponse_journeysResponse :: Lens.Lens' ListJourneysResponse JourneysResponse
+listJourneysResponse_journeysResponse = Lens.lens (\ListJourneysResponse' {journeysResponse} -> journeysResponse) (\s@ListJourneysResponse' {} a -> s {journeysResponse = a} :: ListJourneysResponse)
 
-instance NFData ListJourneysResponse
+instance Prelude.NFData ListJourneysResponse

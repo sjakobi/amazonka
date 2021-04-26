@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.MessageResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.EndpointMessageResult
 import Network.AWS.Pinpoint.Types.MessageResult
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the results of a request to send a message to an endpoint address.
+-- | Provides information about the results of a request to send a message to
+-- an endpoint address.
 --
---
---
--- /See:/ 'messageResponse' smart constructor.
+-- /See:/ 'newMessageResponse' smart constructor.
 data MessageResponse = MessageResponse'
-  { _mrResult ::
-      !(Maybe (Map Text MessageResult)),
-    _mrRequestId :: !(Maybe Text),
-    _mrEndpointResult ::
-      !( Maybe
-           (Map Text EndpointMessageResult)
-       ),
-    _mrApplicationId :: !Text
+  { -- | A map that contains a multipart response for each address (email
+    -- address, phone number, or push notification token) that the message was
+    -- sent to. In the map, the address is the key and the result is the value.
+    result :: Prelude.Maybe (Prelude.Map Prelude.Text MessageResult),
+    -- | The identifier for the original request that the message was delivered
+    -- for.
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | A map that contains a multipart response for each address that the
+    -- message was sent to. In the map, the endpoint ID is the key and the
+    -- result is the value.
+    endpointResult :: Prelude.Maybe (Prelude.Map Prelude.Text EndpointMessageResult),
+    -- | The unique identifier for the application that was used to send the
+    -- message.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MessageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MessageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mrResult' - A map that contains a multipart response for each address (email address, phone number, or push notification token) that the message was sent to. In the map, the address is the key and the result is the value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mrRequestId' - The identifier for the original request that the message was delivered for.
+-- 'result', 'messageResponse_result' - A map that contains a multipart response for each address (email
+-- address, phone number, or push notification token) that the message was
+-- sent to. In the map, the address is the key and the result is the value.
 --
--- * 'mrEndpointResult' - A map that contains a multipart response for each address that the message was sent to. In the map, the endpoint ID is the key and the result is the value.
+-- 'requestId', 'messageResponse_requestId' - The identifier for the original request that the message was delivered
+-- for.
 --
--- * 'mrApplicationId' - The unique identifier for the application that was used to send the message.
-messageResponse ::
-  -- | 'mrApplicationId'
-  Text ->
+-- 'endpointResult', 'messageResponse_endpointResult' - A map that contains a multipart response for each address that the
+-- message was sent to. In the map, the endpoint ID is the key and the
+-- result is the value.
+--
+-- 'applicationId', 'messageResponse_applicationId' - The unique identifier for the application that was used to send the
+-- message.
+newMessageResponse ::
+  -- | 'applicationId'
+  Prelude.Text ->
   MessageResponse
-messageResponse pApplicationId_ =
+newMessageResponse pApplicationId_ =
   MessageResponse'
-    { _mrResult = Nothing,
-      _mrRequestId = Nothing,
-      _mrEndpointResult = Nothing,
-      _mrApplicationId = pApplicationId_
+    { result = Prelude.Nothing,
+      requestId = Prelude.Nothing,
+      endpointResult = Prelude.Nothing,
+      applicationId = pApplicationId_
     }
 
--- | A map that contains a multipart response for each address (email address, phone number, or push notification token) that the message was sent to. In the map, the address is the key and the result is the value.
-mrResult :: Lens' MessageResponse (HashMap Text MessageResult)
-mrResult = lens _mrResult (\s a -> s {_mrResult = a}) . _Default . _Map
+-- | A map that contains a multipart response for each address (email
+-- address, phone number, or push notification token) that the message was
+-- sent to. In the map, the address is the key and the result is the value.
+messageResponse_result :: Lens.Lens' MessageResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text MessageResult))
+messageResponse_result = Lens.lens (\MessageResponse' {result} -> result) (\s@MessageResponse' {} a -> s {result = a} :: MessageResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | The identifier for the original request that the message was delivered for.
-mrRequestId :: Lens' MessageResponse (Maybe Text)
-mrRequestId = lens _mrRequestId (\s a -> s {_mrRequestId = a})
+-- | The identifier for the original request that the message was delivered
+-- for.
+messageResponse_requestId :: Lens.Lens' MessageResponse (Prelude.Maybe Prelude.Text)
+messageResponse_requestId = Lens.lens (\MessageResponse' {requestId} -> requestId) (\s@MessageResponse' {} a -> s {requestId = a} :: MessageResponse)
 
--- | A map that contains a multipart response for each address that the message was sent to. In the map, the endpoint ID is the key and the result is the value.
-mrEndpointResult :: Lens' MessageResponse (HashMap Text EndpointMessageResult)
-mrEndpointResult = lens _mrEndpointResult (\s a -> s {_mrEndpointResult = a}) . _Default . _Map
+-- | A map that contains a multipart response for each address that the
+-- message was sent to. In the map, the endpoint ID is the key and the
+-- result is the value.
+messageResponse_endpointResult :: Lens.Lens' MessageResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text EndpointMessageResult))
+messageResponse_endpointResult = Lens.lens (\MessageResponse' {endpointResult} -> endpointResult) (\s@MessageResponse' {} a -> s {endpointResult = a} :: MessageResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | The unique identifier for the application that was used to send the message.
-mrApplicationId :: Lens' MessageResponse Text
-mrApplicationId = lens _mrApplicationId (\s a -> s {_mrApplicationId = a})
+-- | The unique identifier for the application that was used to send the
+-- message.
+messageResponse_applicationId :: Lens.Lens' MessageResponse Prelude.Text
+messageResponse_applicationId = Lens.lens (\MessageResponse' {applicationId} -> applicationId) (\s@MessageResponse' {} a -> s {applicationId = a} :: MessageResponse)
 
-instance FromJSON MessageResponse where
+instance Prelude.FromJSON MessageResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MessageResponse"
       ( \x ->
           MessageResponse'
-            <$> (x .:? "Result" .!= mempty)
-            <*> (x .:? "RequestId")
-            <*> (x .:? "EndpointResult" .!= mempty)
-            <*> (x .: "ApplicationId")
+            Prelude.<$> (x Prelude..:? "Result" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "RequestId")
+            Prelude.<*> ( x Prelude..:? "EndpointResult"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "ApplicationId")
       )
 
-instance Hashable MessageResponse
+instance Prelude.Hashable MessageResponse
 
-instance NFData MessageResponse
+instance Prelude.NFData MessageResponse

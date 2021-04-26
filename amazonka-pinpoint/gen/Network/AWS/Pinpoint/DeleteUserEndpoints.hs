@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,146 +24,154 @@
 -- Deletes all the endpoints that are associated with a specific user ID.
 module Network.AWS.Pinpoint.DeleteUserEndpoints
   ( -- * Creating a Request
-    deleteUserEndpoints,
-    DeleteUserEndpoints,
+    DeleteUserEndpoints (..),
+    newDeleteUserEndpoints,
 
     -- * Request Lenses
-    dueApplicationId,
-    dueUserId,
+    deleteUserEndpoints_applicationId,
+    deleteUserEndpoints_userId,
 
     -- * Destructuring the Response
-    deleteUserEndpointsResponse,
-    DeleteUserEndpointsResponse,
+    DeleteUserEndpointsResponse (..),
+    newDeleteUserEndpointsResponse,
 
     -- * Response Lenses
-    duerrsResponseStatus,
-    duerrsEndpointsResponse,
+    deleteUserEndpointsResponse_httpStatus,
+    deleteUserEndpointsResponse_endpointsResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.EndpointsResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUserEndpoints' smart constructor.
+-- | /See:/ 'newDeleteUserEndpoints' smart constructor.
 data DeleteUserEndpoints = DeleteUserEndpoints'
-  { _dueApplicationId ::
-      !Text,
-    _dueUserId :: !Text
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    -- | The unique identifier for the user.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserEndpoints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserEndpoints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dueApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dueUserId' - The unique identifier for the user.
-deleteUserEndpoints ::
-  -- | 'dueApplicationId'
-  Text ->
-  -- | 'dueUserId'
-  Text ->
+-- 'applicationId', 'deleteUserEndpoints_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'userId', 'deleteUserEndpoints_userId' - The unique identifier for the user.
+newDeleteUserEndpoints ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'userId'
+  Prelude.Text ->
   DeleteUserEndpoints
-deleteUserEndpoints pApplicationId_ pUserId_ =
+newDeleteUserEndpoints pApplicationId_ pUserId_ =
   DeleteUserEndpoints'
-    { _dueApplicationId =
+    { applicationId =
         pApplicationId_,
-      _dueUserId = pUserId_
+      userId = pUserId_
     }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-dueApplicationId :: Lens' DeleteUserEndpoints Text
-dueApplicationId = lens _dueApplicationId (\s a -> s {_dueApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+deleteUserEndpoints_applicationId :: Lens.Lens' DeleteUserEndpoints Prelude.Text
+deleteUserEndpoints_applicationId = Lens.lens (\DeleteUserEndpoints' {applicationId} -> applicationId) (\s@DeleteUserEndpoints' {} a -> s {applicationId = a} :: DeleteUserEndpoints)
 
 -- | The unique identifier for the user.
-dueUserId :: Lens' DeleteUserEndpoints Text
-dueUserId = lens _dueUserId (\s a -> s {_dueUserId = a})
+deleteUserEndpoints_userId :: Lens.Lens' DeleteUserEndpoints Prelude.Text
+deleteUserEndpoints_userId = Lens.lens (\DeleteUserEndpoints' {userId} -> userId) (\s@DeleteUserEndpoints' {} a -> s {userId = a} :: DeleteUserEndpoints)
 
-instance AWSRequest DeleteUserEndpoints where
+instance Prelude.AWSRequest DeleteUserEndpoints where
   type
     Rs DeleteUserEndpoints =
       DeleteUserEndpointsResponse
-  request = delete pinpoint
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteUserEndpointsResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable DeleteUserEndpoints
+instance Prelude.Hashable DeleteUserEndpoints
 
-instance NFData DeleteUserEndpoints
+instance Prelude.NFData DeleteUserEndpoints
 
-instance ToHeaders DeleteUserEndpoints where
+instance Prelude.ToHeaders DeleteUserEndpoints where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteUserEndpoints where
+instance Prelude.ToPath DeleteUserEndpoints where
   toPath DeleteUserEndpoints' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _dueApplicationId,
+        Prelude.toBS applicationId,
         "/users/",
-        toBS _dueUserId
+        Prelude.toBS userId
       ]
 
-instance ToQuery DeleteUserEndpoints where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUserEndpoints where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUserEndpointsResponse' smart constructor.
+-- | /See:/ 'newDeleteUserEndpointsResponse' smart constructor.
 data DeleteUserEndpointsResponse = DeleteUserEndpointsResponse'
-  { _duerrsResponseStatus ::
-      !Int,
-    _duerrsEndpointsResponse ::
-      !EndpointsResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    endpointsResponse :: EndpointsResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserEndpointsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserEndpointsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duerrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duerrsEndpointsResponse' - Undocumented member.
-deleteUserEndpointsResponse ::
-  -- | 'duerrsResponseStatus'
-  Int ->
-  -- | 'duerrsEndpointsResponse'
+-- 'httpStatus', 'deleteUserEndpointsResponse_httpStatus' - The response's http status code.
+--
+-- 'endpointsResponse', 'deleteUserEndpointsResponse_endpointsResponse' - Undocumented member.
+newDeleteUserEndpointsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'endpointsResponse'
   EndpointsResponse ->
   DeleteUserEndpointsResponse
-deleteUserEndpointsResponse
-  pResponseStatus_
+newDeleteUserEndpointsResponse
+  pHttpStatus_
   pEndpointsResponse_ =
     DeleteUserEndpointsResponse'
-      { _duerrsResponseStatus =
-          pResponseStatus_,
-        _duerrsEndpointsResponse = pEndpointsResponse_
+      { httpStatus =
+          pHttpStatus_,
+        endpointsResponse = pEndpointsResponse_
       }
 
--- | -- | The response status code.
-duerrsResponseStatus :: Lens' DeleteUserEndpointsResponse Int
-duerrsResponseStatus = lens _duerrsResponseStatus (\s a -> s {_duerrsResponseStatus = a})
+-- | The response's http status code.
+deleteUserEndpointsResponse_httpStatus :: Lens.Lens' DeleteUserEndpointsResponse Prelude.Int
+deleteUserEndpointsResponse_httpStatus = Lens.lens (\DeleteUserEndpointsResponse' {httpStatus} -> httpStatus) (\s@DeleteUserEndpointsResponse' {} a -> s {httpStatus = a} :: DeleteUserEndpointsResponse)
 
 -- | Undocumented member.
-duerrsEndpointsResponse :: Lens' DeleteUserEndpointsResponse EndpointsResponse
-duerrsEndpointsResponse = lens _duerrsEndpointsResponse (\s a -> s {_duerrsEndpointsResponse = a})
+deleteUserEndpointsResponse_endpointsResponse :: Lens.Lens' DeleteUserEndpointsResponse EndpointsResponse
+deleteUserEndpointsResponse_endpointsResponse = Lens.lens (\DeleteUserEndpointsResponse' {endpointsResponse} -> endpointsResponse) (\s@DeleteUserEndpointsResponse' {} a -> s {endpointsResponse = a} :: DeleteUserEndpointsResponse)
 
-instance NFData DeleteUserEndpointsResponse
+instance Prelude.NFData DeleteUserEndpointsResponse

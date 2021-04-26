@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.JourneyPushMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the message configuration for a push notification that's sent to participants in a journey.
+-- | Specifies the message configuration for a push notification that\'s sent
+-- to participants in a journey.
 --
---
---
--- /See:/ 'journeyPushMessage' smart constructor.
-newtype JourneyPushMessage = JourneyPushMessage'
-  { _jpmTimeToLive ::
-      Maybe Text
+-- /See:/ 'newJourneyPushMessage' smart constructor.
+data JourneyPushMessage = JourneyPushMessage'
+  { -- | The number of seconds that the push notification service should keep the
+    -- message, if the service is unable to deliver the notification the first
+    -- time. This value is converted to an expiration value when it\'s sent to
+    -- a push-notification service. If this value is 0, the service treats the
+    -- notification as if it expires immediately and the service doesn\'t store
+    -- or try to deliver the notification again.
+    --
+    -- This value doesn\'t apply to messages that are sent through the Amazon
+    -- Device Messaging (ADM) service.
+    timeToLive :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JourneyPushMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JourneyPushMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jpmTimeToLive' - The number of seconds that the push notification service should keep the message, if the service is unable to deliver the notification the first time. This value is converted to an expiration value when it's sent to a push-notification service. If this value is 0, the service treats the notification as if it expires immediately and the service doesn't store or try to deliver the notification again. This value doesn't apply to messages that are sent through the Amazon Device Messaging (ADM) service.
-journeyPushMessage ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'timeToLive', 'journeyPushMessage_timeToLive' - The number of seconds that the push notification service should keep the
+-- message, if the service is unable to deliver the notification the first
+-- time. This value is converted to an expiration value when it\'s sent to
+-- a push-notification service. If this value is 0, the service treats the
+-- notification as if it expires immediately and the service doesn\'t store
+-- or try to deliver the notification again.
+--
+-- This value doesn\'t apply to messages that are sent through the Amazon
+-- Device Messaging (ADM) service.
+newJourneyPushMessage ::
   JourneyPushMessage
-journeyPushMessage =
-  JourneyPushMessage' {_jpmTimeToLive = Nothing}
+newJourneyPushMessage =
+  JourneyPushMessage' {timeToLive = Prelude.Nothing}
 
--- | The number of seconds that the push notification service should keep the message, if the service is unable to deliver the notification the first time. This value is converted to an expiration value when it's sent to a push-notification service. If this value is 0, the service treats the notification as if it expires immediately and the service doesn't store or try to deliver the notification again. This value doesn't apply to messages that are sent through the Amazon Device Messaging (ADM) service.
-jpmTimeToLive :: Lens' JourneyPushMessage (Maybe Text)
-jpmTimeToLive = lens _jpmTimeToLive (\s a -> s {_jpmTimeToLive = a})
+-- | The number of seconds that the push notification service should keep the
+-- message, if the service is unable to deliver the notification the first
+-- time. This value is converted to an expiration value when it\'s sent to
+-- a push-notification service. If this value is 0, the service treats the
+-- notification as if it expires immediately and the service doesn\'t store
+-- or try to deliver the notification again.
+--
+-- This value doesn\'t apply to messages that are sent through the Amazon
+-- Device Messaging (ADM) service.
+journeyPushMessage_timeToLive :: Lens.Lens' JourneyPushMessage (Prelude.Maybe Prelude.Text)
+journeyPushMessage_timeToLive = Lens.lens (\JourneyPushMessage' {timeToLive} -> timeToLive) (\s@JourneyPushMessage' {} a -> s {timeToLive = a} :: JourneyPushMessage)
 
-instance FromJSON JourneyPushMessage where
+instance Prelude.FromJSON JourneyPushMessage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JourneyPushMessage"
-      (\x -> JourneyPushMessage' <$> (x .:? "TimeToLive"))
+      ( \x ->
+          JourneyPushMessage'
+            Prelude.<$> (x Prelude..:? "TimeToLive")
+      )
 
-instance Hashable JourneyPushMessage
+instance Prelude.Hashable JourneyPushMessage
 
-instance NFData JourneyPushMessage
+instance Prelude.NFData JourneyPushMessage
 
-instance ToJSON JourneyPushMessage where
+instance Prelude.ToJSON JourneyPushMessage where
   toJSON JourneyPushMessage' {..} =
-    object
-      (catMaybes [("TimeToLive" .=) <$> _jpmTimeToLive])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("TimeToLive" Prelude..=) Prelude.<$> timeToLive]
+      )

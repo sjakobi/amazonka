@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,117 +19,166 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.SMSMessage where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.MessageType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the default settings for a one-time SMS message that's sent directly to an endpoint.
+-- | Specifies the default settings for a one-time SMS message that\'s sent
+-- directly to an endpoint.
 --
---
---
--- /See:/ 'sMSMessage' smart constructor.
+-- /See:/ 'newSMSMessage' smart constructor.
 data SMSMessage = SMSMessage'
-  { _smsmKeyword ::
-      !(Maybe Text),
-    _smsmEntityId :: !(Maybe Text),
-    _smsmBody :: !(Maybe Text),
-    _smsmMediaURL :: !(Maybe Text),
-    _smsmSubstitutions :: !(Maybe (Map Text [Text])),
-    _smsmSenderId :: !(Maybe Text),
-    _smsmMessageType :: !(Maybe MessageType),
-    _smsmTemplateId :: !(Maybe Text),
-    _smsmOriginationNumber :: !(Maybe Text)
+  { -- | The SMS program name that you provided to AWS Support when you requested
+    -- your dedicated number.
+    keyword :: Prelude.Maybe Prelude.Text,
+    -- | The entity ID or Principal Entity (PE) id received from the regulatory
+    -- body for sending SMS in your country.
+    entityId :: Prelude.Maybe Prelude.Text,
+    -- | The body of the SMS message.
+    body :: Prelude.Maybe Prelude.Text,
+    -- | This field is reserved for future use.
+    mediaUrl :: Prelude.Maybe Prelude.Text,
+    -- | The message variables to use in the SMS message. You can override the
+    -- default variables with individual address variables.
+    substitutions :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The sender ID to display as the sender of the message on a recipient\'s
+    -- device. Support for sender IDs varies by country or region.
+    senderId :: Prelude.Maybe Prelude.Text,
+    -- | The SMS message type. Valid values are TRANSACTIONAL (for messages that
+    -- are critical or time-sensitive, such as a one-time passwords) and
+    -- PROMOTIONAL (for messsages that aren\'t critical or time-sensitive, such
+    -- as marketing messages).
+    messageType :: Prelude.Maybe MessageType,
+    -- | The template ID received from the regulatory body for sending SMS in
+    -- your country.
+    templateId :: Prelude.Maybe Prelude.Text,
+    -- | The number to send the SMS message from. This value should be one of the
+    -- dedicated long or short codes that\'s assigned to your AWS account. If
+    -- you don\'t specify a long or short code, Amazon Pinpoint assigns a
+    -- random long code to the SMS message and sends the message from that
+    -- code.
+    originationNumber :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SMSMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SMSMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smsmKeyword' - The SMS program name that you provided to AWS Support when you requested your dedicated number.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smsmEntityId' - The entity ID or Principal Entity (PE) id received from the regulatory body for sending SMS in your country.
+-- 'keyword', 'sMSMessage_keyword' - The SMS program name that you provided to AWS Support when you requested
+-- your dedicated number.
 --
--- * 'smsmBody' - The body of the SMS message.
+-- 'entityId', 'sMSMessage_entityId' - The entity ID or Principal Entity (PE) id received from the regulatory
+-- body for sending SMS in your country.
 --
--- * 'smsmMediaURL' - This field is reserved for future use.
+-- 'body', 'sMSMessage_body' - The body of the SMS message.
 --
--- * 'smsmSubstitutions' - The message variables to use in the SMS message. You can override the default variables with individual address variables.
+-- 'mediaUrl', 'sMSMessage_mediaUrl' - This field is reserved for future use.
 --
--- * 'smsmSenderId' - The sender ID to display as the sender of the message on a recipient's device. Support for sender IDs varies by country or region.
+-- 'substitutions', 'sMSMessage_substitutions' - The message variables to use in the SMS message. You can override the
+-- default variables with individual address variables.
 --
--- * 'smsmMessageType' - The SMS message type. Valid values are TRANSACTIONAL (for messages that are critical or time-sensitive, such as a one-time passwords) and PROMOTIONAL (for messsages that aren't critical or time-sensitive, such as marketing messages).
+-- 'senderId', 'sMSMessage_senderId' - The sender ID to display as the sender of the message on a recipient\'s
+-- device. Support for sender IDs varies by country or region.
 --
--- * 'smsmTemplateId' - The template ID received from the regulatory body for sending SMS in your country.
+-- 'messageType', 'sMSMessage_messageType' - The SMS message type. Valid values are TRANSACTIONAL (for messages that
+-- are critical or time-sensitive, such as a one-time passwords) and
+-- PROMOTIONAL (for messsages that aren\'t critical or time-sensitive, such
+-- as marketing messages).
 --
--- * 'smsmOriginationNumber' - The number to send the SMS message from. This value should be one of the dedicated long or short codes that's assigned to your AWS account. If you don't specify a long or short code, Amazon Pinpoint assigns a random long code to the SMS message and sends the message from that code.
-sMSMessage ::
+-- 'templateId', 'sMSMessage_templateId' - The template ID received from the regulatory body for sending SMS in
+-- your country.
+--
+-- 'originationNumber', 'sMSMessage_originationNumber' - The number to send the SMS message from. This value should be one of the
+-- dedicated long or short codes that\'s assigned to your AWS account. If
+-- you don\'t specify a long or short code, Amazon Pinpoint assigns a
+-- random long code to the SMS message and sends the message from that
+-- code.
+newSMSMessage ::
   SMSMessage
-sMSMessage =
+newSMSMessage =
   SMSMessage'
-    { _smsmKeyword = Nothing,
-      _smsmEntityId = Nothing,
-      _smsmBody = Nothing,
-      _smsmMediaURL = Nothing,
-      _smsmSubstitutions = Nothing,
-      _smsmSenderId = Nothing,
-      _smsmMessageType = Nothing,
-      _smsmTemplateId = Nothing,
-      _smsmOriginationNumber = Nothing
+    { keyword = Prelude.Nothing,
+      entityId = Prelude.Nothing,
+      body = Prelude.Nothing,
+      mediaUrl = Prelude.Nothing,
+      substitutions = Prelude.Nothing,
+      senderId = Prelude.Nothing,
+      messageType = Prelude.Nothing,
+      templateId = Prelude.Nothing,
+      originationNumber = Prelude.Nothing
     }
 
--- | The SMS program name that you provided to AWS Support when you requested your dedicated number.
-smsmKeyword :: Lens' SMSMessage (Maybe Text)
-smsmKeyword = lens _smsmKeyword (\s a -> s {_smsmKeyword = a})
+-- | The SMS program name that you provided to AWS Support when you requested
+-- your dedicated number.
+sMSMessage_keyword :: Lens.Lens' SMSMessage (Prelude.Maybe Prelude.Text)
+sMSMessage_keyword = Lens.lens (\SMSMessage' {keyword} -> keyword) (\s@SMSMessage' {} a -> s {keyword = a} :: SMSMessage)
 
--- | The entity ID or Principal Entity (PE) id received from the regulatory body for sending SMS in your country.
-smsmEntityId :: Lens' SMSMessage (Maybe Text)
-smsmEntityId = lens _smsmEntityId (\s a -> s {_smsmEntityId = a})
+-- | The entity ID or Principal Entity (PE) id received from the regulatory
+-- body for sending SMS in your country.
+sMSMessage_entityId :: Lens.Lens' SMSMessage (Prelude.Maybe Prelude.Text)
+sMSMessage_entityId = Lens.lens (\SMSMessage' {entityId} -> entityId) (\s@SMSMessage' {} a -> s {entityId = a} :: SMSMessage)
 
 -- | The body of the SMS message.
-smsmBody :: Lens' SMSMessage (Maybe Text)
-smsmBody = lens _smsmBody (\s a -> s {_smsmBody = a})
+sMSMessage_body :: Lens.Lens' SMSMessage (Prelude.Maybe Prelude.Text)
+sMSMessage_body = Lens.lens (\SMSMessage' {body} -> body) (\s@SMSMessage' {} a -> s {body = a} :: SMSMessage)
 
 -- | This field is reserved for future use.
-smsmMediaURL :: Lens' SMSMessage (Maybe Text)
-smsmMediaURL = lens _smsmMediaURL (\s a -> s {_smsmMediaURL = a})
+sMSMessage_mediaUrl :: Lens.Lens' SMSMessage (Prelude.Maybe Prelude.Text)
+sMSMessage_mediaUrl = Lens.lens (\SMSMessage' {mediaUrl} -> mediaUrl) (\s@SMSMessage' {} a -> s {mediaUrl = a} :: SMSMessage)
 
--- | The message variables to use in the SMS message. You can override the default variables with individual address variables.
-smsmSubstitutions :: Lens' SMSMessage (HashMap Text [Text])
-smsmSubstitutions = lens _smsmSubstitutions (\s a -> s {_smsmSubstitutions = a}) . _Default . _Map
+-- | The message variables to use in the SMS message. You can override the
+-- default variables with individual address variables.
+sMSMessage_substitutions :: Lens.Lens' SMSMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+sMSMessage_substitutions = Lens.lens (\SMSMessage' {substitutions} -> substitutions) (\s@SMSMessage' {} a -> s {substitutions = a} :: SMSMessage) Prelude.. Lens.mapping Prelude._Map
 
--- | The sender ID to display as the sender of the message on a recipient's device. Support for sender IDs varies by country or region.
-smsmSenderId :: Lens' SMSMessage (Maybe Text)
-smsmSenderId = lens _smsmSenderId (\s a -> s {_smsmSenderId = a})
+-- | The sender ID to display as the sender of the message on a recipient\'s
+-- device. Support for sender IDs varies by country or region.
+sMSMessage_senderId :: Lens.Lens' SMSMessage (Prelude.Maybe Prelude.Text)
+sMSMessage_senderId = Lens.lens (\SMSMessage' {senderId} -> senderId) (\s@SMSMessage' {} a -> s {senderId = a} :: SMSMessage)
 
--- | The SMS message type. Valid values are TRANSACTIONAL (for messages that are critical or time-sensitive, such as a one-time passwords) and PROMOTIONAL (for messsages that aren't critical or time-sensitive, such as marketing messages).
-smsmMessageType :: Lens' SMSMessage (Maybe MessageType)
-smsmMessageType = lens _smsmMessageType (\s a -> s {_smsmMessageType = a})
+-- | The SMS message type. Valid values are TRANSACTIONAL (for messages that
+-- are critical or time-sensitive, such as a one-time passwords) and
+-- PROMOTIONAL (for messsages that aren\'t critical or time-sensitive, such
+-- as marketing messages).
+sMSMessage_messageType :: Lens.Lens' SMSMessage (Prelude.Maybe MessageType)
+sMSMessage_messageType = Lens.lens (\SMSMessage' {messageType} -> messageType) (\s@SMSMessage' {} a -> s {messageType = a} :: SMSMessage)
 
--- | The template ID received from the regulatory body for sending SMS in your country.
-smsmTemplateId :: Lens' SMSMessage (Maybe Text)
-smsmTemplateId = lens _smsmTemplateId (\s a -> s {_smsmTemplateId = a})
+-- | The template ID received from the regulatory body for sending SMS in
+-- your country.
+sMSMessage_templateId :: Lens.Lens' SMSMessage (Prelude.Maybe Prelude.Text)
+sMSMessage_templateId = Lens.lens (\SMSMessage' {templateId} -> templateId) (\s@SMSMessage' {} a -> s {templateId = a} :: SMSMessage)
 
--- | The number to send the SMS message from. This value should be one of the dedicated long or short codes that's assigned to your AWS account. If you don't specify a long or short code, Amazon Pinpoint assigns a random long code to the SMS message and sends the message from that code.
-smsmOriginationNumber :: Lens' SMSMessage (Maybe Text)
-smsmOriginationNumber = lens _smsmOriginationNumber (\s a -> s {_smsmOriginationNumber = a})
+-- | The number to send the SMS message from. This value should be one of the
+-- dedicated long or short codes that\'s assigned to your AWS account. If
+-- you don\'t specify a long or short code, Amazon Pinpoint assigns a
+-- random long code to the SMS message and sends the message from that
+-- code.
+sMSMessage_originationNumber :: Lens.Lens' SMSMessage (Prelude.Maybe Prelude.Text)
+sMSMessage_originationNumber = Lens.lens (\SMSMessage' {originationNumber} -> originationNumber) (\s@SMSMessage' {} a -> s {originationNumber = a} :: SMSMessage)
 
-instance Hashable SMSMessage
+instance Prelude.Hashable SMSMessage
 
-instance NFData SMSMessage
+instance Prelude.NFData SMSMessage
 
-instance ToJSON SMSMessage where
+instance Prelude.ToJSON SMSMessage where
   toJSON SMSMessage' {..} =
-    object
-      ( catMaybes
-          [ ("Keyword" .=) <$> _smsmKeyword,
-            ("EntityId" .=) <$> _smsmEntityId,
-            ("Body" .=) <$> _smsmBody,
-            ("MediaUrl" .=) <$> _smsmMediaURL,
-            ("Substitutions" .=) <$> _smsmSubstitutions,
-            ("SenderId" .=) <$> _smsmSenderId,
-            ("MessageType" .=) <$> _smsmMessageType,
-            ("TemplateId" .=) <$> _smsmTemplateId,
-            ("OriginationNumber" .=) <$> _smsmOriginationNumber
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Keyword" Prelude..=) Prelude.<$> keyword,
+            ("EntityId" Prelude..=) Prelude.<$> entityId,
+            ("Body" Prelude..=) Prelude.<$> body,
+            ("MediaUrl" Prelude..=) Prelude.<$> mediaUrl,
+            ("Substitutions" Prelude..=)
+              Prelude.<$> substitutions,
+            ("SenderId" Prelude..=) Prelude.<$> senderId,
+            ("MessageType" Prelude..=) Prelude.<$> messageType,
+            ("TemplateId" Prelude..=) Prelude.<$> templateId,
+            ("OriginationNumber" Prelude..=)
+              Prelude.<$> originationNumber
           ]
       )

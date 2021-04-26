@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.HoldoutActivity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for a holdout activity in a journey. This type of activity stops a journey for a specified percentage of participants.
+-- | Specifies the settings for a holdout activity in a journey. This type of
+-- activity stops a journey for a specified percentage of participants.
 --
---
---
--- /See:/ 'holdoutActivity' smart constructor.
+-- /See:/ 'newHoldoutActivity' smart constructor.
 data HoldoutActivity = HoldoutActivity'
-  { _haNextActivity ::
-      !(Maybe Text),
-    _haPercentage :: !Int
+  { -- | The unique identifier for the next activity to perform, after performing
+    -- the holdout activity.
+    nextActivity :: Prelude.Maybe Prelude.Text,
+    -- | The percentage of participants who shouldn\'t continue the journey.
+    --
+    -- To determine which participants are held out, Amazon Pinpoint applies a
+    -- probability-based algorithm to the percentage that you specify.
+    -- Therefore, the actual percentage of participants who are held out may
+    -- not be equal to the percentage that you specify.
+    percentage :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HoldoutActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HoldoutActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'haNextActivity' - The unique identifier for the next activity to perform, after performing the holdout activity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'haPercentage' - The percentage of participants who shouldn't continue the journey. To determine which participants are held out, Amazon Pinpoint applies a probability-based algorithm to the percentage that you specify. Therefore, the actual percentage of participants who are held out may not be equal to the percentage that you specify.
-holdoutActivity ::
-  -- | 'haPercentage'
-  Int ->
+-- 'nextActivity', 'holdoutActivity_nextActivity' - The unique identifier for the next activity to perform, after performing
+-- the holdout activity.
+--
+-- 'percentage', 'holdoutActivity_percentage' - The percentage of participants who shouldn\'t continue the journey.
+--
+-- To determine which participants are held out, Amazon Pinpoint applies a
+-- probability-based algorithm to the percentage that you specify.
+-- Therefore, the actual percentage of participants who are held out may
+-- not be equal to the percentage that you specify.
+newHoldoutActivity ::
+  -- | 'percentage'
+  Prelude.Int ->
   HoldoutActivity
-holdoutActivity pPercentage_ =
+newHoldoutActivity pPercentage_ =
   HoldoutActivity'
-    { _haNextActivity = Nothing,
-      _haPercentage = pPercentage_
+    { nextActivity = Prelude.Nothing,
+      percentage = pPercentage_
     }
 
--- | The unique identifier for the next activity to perform, after performing the holdout activity.
-haNextActivity :: Lens' HoldoutActivity (Maybe Text)
-haNextActivity = lens _haNextActivity (\s a -> s {_haNextActivity = a})
+-- | The unique identifier for the next activity to perform, after performing
+-- the holdout activity.
+holdoutActivity_nextActivity :: Lens.Lens' HoldoutActivity (Prelude.Maybe Prelude.Text)
+holdoutActivity_nextActivity = Lens.lens (\HoldoutActivity' {nextActivity} -> nextActivity) (\s@HoldoutActivity' {} a -> s {nextActivity = a} :: HoldoutActivity)
 
--- | The percentage of participants who shouldn't continue the journey. To determine which participants are held out, Amazon Pinpoint applies a probability-based algorithm to the percentage that you specify. Therefore, the actual percentage of participants who are held out may not be equal to the percentage that you specify.
-haPercentage :: Lens' HoldoutActivity Int
-haPercentage = lens _haPercentage (\s a -> s {_haPercentage = a})
+-- | The percentage of participants who shouldn\'t continue the journey.
+--
+-- To determine which participants are held out, Amazon Pinpoint applies a
+-- probability-based algorithm to the percentage that you specify.
+-- Therefore, the actual percentage of participants who are held out may
+-- not be equal to the percentage that you specify.
+holdoutActivity_percentage :: Lens.Lens' HoldoutActivity Prelude.Int
+holdoutActivity_percentage = Lens.lens (\HoldoutActivity' {percentage} -> percentage) (\s@HoldoutActivity' {} a -> s {percentage = a} :: HoldoutActivity)
 
-instance FromJSON HoldoutActivity where
+instance Prelude.FromJSON HoldoutActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HoldoutActivity"
       ( \x ->
           HoldoutActivity'
-            <$> (x .:? "NextActivity") <*> (x .: "Percentage")
+            Prelude.<$> (x Prelude..:? "NextActivity")
+            Prelude.<*> (x Prelude..: "Percentage")
       )
 
-instance Hashable HoldoutActivity
+instance Prelude.Hashable HoldoutActivity
 
-instance NFData HoldoutActivity
+instance Prelude.NFData HoldoutActivity
 
-instance ToJSON HoldoutActivity where
+instance Prelude.ToJSON HoldoutActivity where
   toJSON HoldoutActivity' {..} =
-    object
-      ( catMaybes
-          [ ("NextActivity" .=) <$> _haNextActivity,
-            Just ("Percentage" .= _haPercentage)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextActivity" Prelude..=)
+              Prelude.<$> nextActivity,
+            Prelude.Just ("Percentage" Prelude..= percentage)
           ]
       )

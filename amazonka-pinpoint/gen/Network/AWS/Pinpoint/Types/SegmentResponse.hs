@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,166 +19,220 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.SegmentResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.SegmentDimensions
 import Network.AWS.Pinpoint.Types.SegmentGroupList
 import Network.AWS.Pinpoint.Types.SegmentImportResource
 import Network.AWS.Pinpoint.Types.SegmentType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the configuration, dimension, and other settings for a segment.
+-- | Provides information about the configuration, dimension, and other
+-- settings for a segment.
 --
---
---
--- /See:/ 'segmentResponse' smart constructor.
+-- /See:/ 'newSegmentResponse' smart constructor.
 data SegmentResponse = SegmentResponse'
-  { _sLastModifiedDate ::
-      !(Maybe Text),
-    _sSegmentGroups ::
-      !(Maybe SegmentGroupList),
-    _sVersion :: !(Maybe Int),
-    _sName :: !(Maybe Text),
-    _sTags :: !(Maybe (Map Text Text)),
-    _sDimensions ::
-      !(Maybe SegmentDimensions),
-    _sImportDefinition ::
-      !(Maybe SegmentImportResource),
-    _sSegmentType :: !SegmentType,
-    _sCreationDate :: !Text,
-    _sId :: !Text,
-    _sARN :: !Text,
-    _sApplicationId :: !Text
+  { -- | The date and time when the segment was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.Text,
+    -- | A list of one or more segment groups that apply to the segment. Each
+    -- segment group consists of zero or more base segments and the dimensions
+    -- that are applied to those base segments.
+    segmentGroups :: Prelude.Maybe SegmentGroupList,
+    -- | The version number of the segment.
+    version :: Prelude.Maybe Prelude.Int,
+    -- | The name of the segment.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A string-to-string map of key-value pairs that identifies the tags that
+    -- are associated with the segment. Each tag consists of a required tag key
+    -- and an associated tag value.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The dimension settings for the segment.
+    dimensions :: Prelude.Maybe SegmentDimensions,
+    -- | The settings for the import job that\'s associated with the segment.
+    importDefinition :: Prelude.Maybe SegmentImportResource,
+    -- | The segment type. Valid values are:
+    --
+    -- -   DIMENSIONAL - A dynamic segment, which is a segment that uses
+    --     selection criteria that you specify and is based on endpoint data
+    --     that\'s reported by your app. Dynamic segments can change over time.
+    --
+    -- -   IMPORT - A static segment, which is a segment that uses selection
+    --     criteria that you specify and is based on endpoint definitions that
+    --     you import from a file. Imported segments are static; they don\'t
+    --     change over time.
+    segmentType :: SegmentType,
+    -- | The date and time when the segment was created.
+    creationDate :: Prelude.Text,
+    -- | The unique identifier for the segment.
+    id :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the segment.
+    arn :: Prelude.Text,
+    -- | The unique identifier for the application that the segment is associated
+    -- with.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SegmentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SegmentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sLastModifiedDate' - The date and time when the segment was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sSegmentGroups' - A list of one or more segment groups that apply to the segment. Each segment group consists of zero or more base segments and the dimensions that are applied to those base segments.
+-- 'lastModifiedDate', 'segmentResponse_lastModifiedDate' - The date and time when the segment was last modified.
 --
--- * 'sVersion' - The version number of the segment.
+-- 'segmentGroups', 'segmentResponse_segmentGroups' - A list of one or more segment groups that apply to the segment. Each
+-- segment group consists of zero or more base segments and the dimensions
+-- that are applied to those base segments.
 --
--- * 'sName' - The name of the segment.
+-- 'version', 'segmentResponse_version' - The version number of the segment.
 --
--- * 'sTags' - A string-to-string map of key-value pairs that identifies the tags that are associated with the segment. Each tag consists of a required tag key and an associated tag value.
+-- 'name', 'segmentResponse_name' - The name of the segment.
 --
--- * 'sDimensions' - The dimension settings for the segment.
+-- 'tags', 'segmentResponse_tags' - A string-to-string map of key-value pairs that identifies the tags that
+-- are associated with the segment. Each tag consists of a required tag key
+-- and an associated tag value.
 --
--- * 'sImportDefinition' - The settings for the import job that's associated with the segment.
+-- 'dimensions', 'segmentResponse_dimensions' - The dimension settings for the segment.
 --
--- * 'sSegmentType' - The segment type. Valid values are:     * DIMENSIONAL - A dynamic segment, which is a segment that uses selection criteria that you specify and is based on endpoint data that's reported by your app. Dynamic segments can change over time.     * IMPORT - A static segment, which is a segment that uses selection criteria that you specify and is based on endpoint definitions that you import from a file. Imported segments are static; they don't change over time.
+-- 'importDefinition', 'segmentResponse_importDefinition' - The settings for the import job that\'s associated with the segment.
 --
--- * 'sCreationDate' - The date and time when the segment was created.
+-- 'segmentType', 'segmentResponse_segmentType' - The segment type. Valid values are:
 --
--- * 'sId' - The unique identifier for the segment.
+-- -   DIMENSIONAL - A dynamic segment, which is a segment that uses
+--     selection criteria that you specify and is based on endpoint data
+--     that\'s reported by your app. Dynamic segments can change over time.
 --
--- * 'sARN' - The Amazon Resource Name (ARN) of the segment.
+-- -   IMPORT - A static segment, which is a segment that uses selection
+--     criteria that you specify and is based on endpoint definitions that
+--     you import from a file. Imported segments are static; they don\'t
+--     change over time.
 --
--- * 'sApplicationId' - The unique identifier for the application that the segment is associated with.
-segmentResponse ::
-  -- | 'sSegmentType'
+-- 'creationDate', 'segmentResponse_creationDate' - The date and time when the segment was created.
+--
+-- 'id', 'segmentResponse_id' - The unique identifier for the segment.
+--
+-- 'arn', 'segmentResponse_arn' - The Amazon Resource Name (ARN) of the segment.
+--
+-- 'applicationId', 'segmentResponse_applicationId' - The unique identifier for the application that the segment is associated
+-- with.
+newSegmentResponse ::
+  -- | 'segmentType'
   SegmentType ->
-  -- | 'sCreationDate'
-  Text ->
-  -- | 'sId'
-  Text ->
-  -- | 'sARN'
-  Text ->
-  -- | 'sApplicationId'
-  Text ->
+  -- | 'creationDate'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
   SegmentResponse
-segmentResponse
+newSegmentResponse
   pSegmentType_
   pCreationDate_
   pId_
-  pARN_
+  pArn_
   pApplicationId_ =
     SegmentResponse'
-      { _sLastModifiedDate = Nothing,
-        _sSegmentGroups = Nothing,
-        _sVersion = Nothing,
-        _sName = Nothing,
-        _sTags = Nothing,
-        _sDimensions = Nothing,
-        _sImportDefinition = Nothing,
-        _sSegmentType = pSegmentType_,
-        _sCreationDate = pCreationDate_,
-        _sId = pId_,
-        _sARN = pARN_,
-        _sApplicationId = pApplicationId_
+      { lastModifiedDate =
+          Prelude.Nothing,
+        segmentGroups = Prelude.Nothing,
+        version = Prelude.Nothing,
+        name = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        dimensions = Prelude.Nothing,
+        importDefinition = Prelude.Nothing,
+        segmentType = pSegmentType_,
+        creationDate = pCreationDate_,
+        id = pId_,
+        arn = pArn_,
+        applicationId = pApplicationId_
       }
 
 -- | The date and time when the segment was last modified.
-sLastModifiedDate :: Lens' SegmentResponse (Maybe Text)
-sLastModifiedDate = lens _sLastModifiedDate (\s a -> s {_sLastModifiedDate = a})
+segmentResponse_lastModifiedDate :: Lens.Lens' SegmentResponse (Prelude.Maybe Prelude.Text)
+segmentResponse_lastModifiedDate = Lens.lens (\SegmentResponse' {lastModifiedDate} -> lastModifiedDate) (\s@SegmentResponse' {} a -> s {lastModifiedDate = a} :: SegmentResponse)
 
--- | A list of one or more segment groups that apply to the segment. Each segment group consists of zero or more base segments and the dimensions that are applied to those base segments.
-sSegmentGroups :: Lens' SegmentResponse (Maybe SegmentGroupList)
-sSegmentGroups = lens _sSegmentGroups (\s a -> s {_sSegmentGroups = a})
+-- | A list of one or more segment groups that apply to the segment. Each
+-- segment group consists of zero or more base segments and the dimensions
+-- that are applied to those base segments.
+segmentResponse_segmentGroups :: Lens.Lens' SegmentResponse (Prelude.Maybe SegmentGroupList)
+segmentResponse_segmentGroups = Lens.lens (\SegmentResponse' {segmentGroups} -> segmentGroups) (\s@SegmentResponse' {} a -> s {segmentGroups = a} :: SegmentResponse)
 
 -- | The version number of the segment.
-sVersion :: Lens' SegmentResponse (Maybe Int)
-sVersion = lens _sVersion (\s a -> s {_sVersion = a})
+segmentResponse_version :: Lens.Lens' SegmentResponse (Prelude.Maybe Prelude.Int)
+segmentResponse_version = Lens.lens (\SegmentResponse' {version} -> version) (\s@SegmentResponse' {} a -> s {version = a} :: SegmentResponse)
 
 -- | The name of the segment.
-sName :: Lens' SegmentResponse (Maybe Text)
-sName = lens _sName (\s a -> s {_sName = a})
+segmentResponse_name :: Lens.Lens' SegmentResponse (Prelude.Maybe Prelude.Text)
+segmentResponse_name = Lens.lens (\SegmentResponse' {name} -> name) (\s@SegmentResponse' {} a -> s {name = a} :: SegmentResponse)
 
--- | A string-to-string map of key-value pairs that identifies the tags that are associated with the segment. Each tag consists of a required tag key and an associated tag value.
-sTags :: Lens' SegmentResponse (HashMap Text Text)
-sTags = lens _sTags (\s a -> s {_sTags = a}) . _Default . _Map
+-- | A string-to-string map of key-value pairs that identifies the tags that
+-- are associated with the segment. Each tag consists of a required tag key
+-- and an associated tag value.
+segmentResponse_tags :: Lens.Lens' SegmentResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+segmentResponse_tags = Lens.lens (\SegmentResponse' {tags} -> tags) (\s@SegmentResponse' {} a -> s {tags = a} :: SegmentResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The dimension settings for the segment.
-sDimensions :: Lens' SegmentResponse (Maybe SegmentDimensions)
-sDimensions = lens _sDimensions (\s a -> s {_sDimensions = a})
+segmentResponse_dimensions :: Lens.Lens' SegmentResponse (Prelude.Maybe SegmentDimensions)
+segmentResponse_dimensions = Lens.lens (\SegmentResponse' {dimensions} -> dimensions) (\s@SegmentResponse' {} a -> s {dimensions = a} :: SegmentResponse)
 
--- | The settings for the import job that's associated with the segment.
-sImportDefinition :: Lens' SegmentResponse (Maybe SegmentImportResource)
-sImportDefinition = lens _sImportDefinition (\s a -> s {_sImportDefinition = a})
+-- | The settings for the import job that\'s associated with the segment.
+segmentResponse_importDefinition :: Lens.Lens' SegmentResponse (Prelude.Maybe SegmentImportResource)
+segmentResponse_importDefinition = Lens.lens (\SegmentResponse' {importDefinition} -> importDefinition) (\s@SegmentResponse' {} a -> s {importDefinition = a} :: SegmentResponse)
 
--- | The segment type. Valid values are:     * DIMENSIONAL - A dynamic segment, which is a segment that uses selection criteria that you specify and is based on endpoint data that's reported by your app. Dynamic segments can change over time.     * IMPORT - A static segment, which is a segment that uses selection criteria that you specify and is based on endpoint definitions that you import from a file. Imported segments are static; they don't change over time.
-sSegmentType :: Lens' SegmentResponse SegmentType
-sSegmentType = lens _sSegmentType (\s a -> s {_sSegmentType = a})
+-- | The segment type. Valid values are:
+--
+-- -   DIMENSIONAL - A dynamic segment, which is a segment that uses
+--     selection criteria that you specify and is based on endpoint data
+--     that\'s reported by your app. Dynamic segments can change over time.
+--
+-- -   IMPORT - A static segment, which is a segment that uses selection
+--     criteria that you specify and is based on endpoint definitions that
+--     you import from a file. Imported segments are static; they don\'t
+--     change over time.
+segmentResponse_segmentType :: Lens.Lens' SegmentResponse SegmentType
+segmentResponse_segmentType = Lens.lens (\SegmentResponse' {segmentType} -> segmentType) (\s@SegmentResponse' {} a -> s {segmentType = a} :: SegmentResponse)
 
 -- | The date and time when the segment was created.
-sCreationDate :: Lens' SegmentResponse Text
-sCreationDate = lens _sCreationDate (\s a -> s {_sCreationDate = a})
+segmentResponse_creationDate :: Lens.Lens' SegmentResponse Prelude.Text
+segmentResponse_creationDate = Lens.lens (\SegmentResponse' {creationDate} -> creationDate) (\s@SegmentResponse' {} a -> s {creationDate = a} :: SegmentResponse)
 
 -- | The unique identifier for the segment.
-sId :: Lens' SegmentResponse Text
-sId = lens _sId (\s a -> s {_sId = a})
+segmentResponse_id :: Lens.Lens' SegmentResponse Prelude.Text
+segmentResponse_id = Lens.lens (\SegmentResponse' {id} -> id) (\s@SegmentResponse' {} a -> s {id = a} :: SegmentResponse)
 
 -- | The Amazon Resource Name (ARN) of the segment.
-sARN :: Lens' SegmentResponse Text
-sARN = lens _sARN (\s a -> s {_sARN = a})
+segmentResponse_arn :: Lens.Lens' SegmentResponse Prelude.Text
+segmentResponse_arn = Lens.lens (\SegmentResponse' {arn} -> arn) (\s@SegmentResponse' {} a -> s {arn = a} :: SegmentResponse)
 
--- | The unique identifier for the application that the segment is associated with.
-sApplicationId :: Lens' SegmentResponse Text
-sApplicationId = lens _sApplicationId (\s a -> s {_sApplicationId = a})
+-- | The unique identifier for the application that the segment is associated
+-- with.
+segmentResponse_applicationId :: Lens.Lens' SegmentResponse Prelude.Text
+segmentResponse_applicationId = Lens.lens (\SegmentResponse' {applicationId} -> applicationId) (\s@SegmentResponse' {} a -> s {applicationId = a} :: SegmentResponse)
 
-instance FromJSON SegmentResponse where
+instance Prelude.FromJSON SegmentResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SegmentResponse"
       ( \x ->
           SegmentResponse'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "SegmentGroups")
-            <*> (x .:? "Version")
-            <*> (x .:? "Name")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "Dimensions")
-            <*> (x .:? "ImportDefinition")
-            <*> (x .: "SegmentType")
-            <*> (x .: "CreationDate")
-            <*> (x .: "Id")
-            <*> (x .: "Arn")
-            <*> (x .: "ApplicationId")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "SegmentGroups")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Dimensions")
+            Prelude.<*> (x Prelude..:? "ImportDefinition")
+            Prelude.<*> (x Prelude..: "SegmentType")
+            Prelude.<*> (x Prelude..: "CreationDate")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "Arn")
+            Prelude.<*> (x Prelude..: "ApplicationId")
       )
 
-instance Hashable SegmentResponse
+instance Prelude.Hashable SegmentResponse
 
-instance NFData SegmentResponse
+instance Prelude.NFData SegmentResponse

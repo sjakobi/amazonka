@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,122 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about the history and status of each channel for an application.
+-- Retrieves information about the history and status of each channel for
+-- an application.
 module Network.AWS.Pinpoint.GetChannels
   ( -- * Creating a Request
-    getChannels,
-    GetChannels,
+    GetChannels (..),
+    newGetChannels,
 
     -- * Request Lenses
-    gcApplicationId,
+    getChannels_applicationId,
 
     -- * Destructuring the Response
-    getChannelsResponse,
-    GetChannelsResponse,
+    GetChannelsResponse (..),
+    newGetChannelsResponse,
 
     -- * Response Lenses
-    ggrsResponseStatus,
-    ggrsChannelsResponse,
+    getChannelsResponse_httpStatus,
+    getChannelsResponse_channelsResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.ChannelsResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getChannels' smart constructor.
-newtype GetChannels = GetChannels'
-  { _gcApplicationId ::
-      Text
+-- | /See:/ 'newGetChannels' smart constructor.
+data GetChannels = GetChannels'
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetChannels' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetChannels' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-getChannels ::
-  -- | 'gcApplicationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationId', 'getChannels_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newGetChannels ::
+  -- | 'applicationId'
+  Prelude.Text ->
   GetChannels
-getChannels pApplicationId_ =
-  GetChannels' {_gcApplicationId = pApplicationId_}
+newGetChannels pApplicationId_ =
+  GetChannels' {applicationId = pApplicationId_}
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-gcApplicationId :: Lens' GetChannels Text
-gcApplicationId = lens _gcApplicationId (\s a -> s {_gcApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+getChannels_applicationId :: Lens.Lens' GetChannels Prelude.Text
+getChannels_applicationId = Lens.lens (\GetChannels' {applicationId} -> applicationId) (\s@GetChannels' {} a -> s {applicationId = a} :: GetChannels)
 
-instance AWSRequest GetChannels where
+instance Prelude.AWSRequest GetChannels where
   type Rs GetChannels = GetChannelsResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetChannelsResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetChannels
+instance Prelude.Hashable GetChannels
 
-instance NFData GetChannels
+instance Prelude.NFData GetChannels
 
-instance ToHeaders GetChannels where
+instance Prelude.ToHeaders GetChannels where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetChannels where
+instance Prelude.ToPath GetChannels where
   toPath GetChannels' {..} =
-    mconcat
-      ["/v1/apps/", toBS _gcApplicationId, "/channels"]
+    Prelude.mconcat
+      [ "/v1/apps/",
+        Prelude.toBS applicationId,
+        "/channels"
+      ]
 
-instance ToQuery GetChannels where
-  toQuery = const mempty
+instance Prelude.ToQuery GetChannels where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getChannelsResponse' smart constructor.
+-- | /See:/ 'newGetChannelsResponse' smart constructor.
 data GetChannelsResponse = GetChannelsResponse'
-  { _ggrsResponseStatus ::
-      !Int,
-    _ggrsChannelsResponse ::
-      !ChannelsResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    channelsResponse :: ChannelsResponse
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetChannelsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetChannelsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggrsChannelsResponse' - Undocumented member.
-getChannelsResponse ::
-  -- | 'ggrsResponseStatus'
-  Int ->
-  -- | 'ggrsChannelsResponse'
+-- 'httpStatus', 'getChannelsResponse_httpStatus' - The response's http status code.
+--
+-- 'channelsResponse', 'getChannelsResponse_channelsResponse' - Undocumented member.
+newGetChannelsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'channelsResponse'
   ChannelsResponse ->
   GetChannelsResponse
-getChannelsResponse
-  pResponseStatus_
+newGetChannelsResponse
+  pHttpStatus_
   pChannelsResponse_ =
     GetChannelsResponse'
-      { _ggrsResponseStatus =
-          pResponseStatus_,
-        _ggrsChannelsResponse = pChannelsResponse_
+      { httpStatus = pHttpStatus_,
+        channelsResponse = pChannelsResponse_
       }
 
--- | -- | The response status code.
-ggrsResponseStatus :: Lens' GetChannelsResponse Int
-ggrsResponseStatus = lens _ggrsResponseStatus (\s a -> s {_ggrsResponseStatus = a})
+-- | The response's http status code.
+getChannelsResponse_httpStatus :: Lens.Lens' GetChannelsResponse Prelude.Int
+getChannelsResponse_httpStatus = Lens.lens (\GetChannelsResponse' {httpStatus} -> httpStatus) (\s@GetChannelsResponse' {} a -> s {httpStatus = a} :: GetChannelsResponse)
 
 -- | Undocumented member.
-ggrsChannelsResponse :: Lens' GetChannelsResponse ChannelsResponse
-ggrsChannelsResponse = lens _ggrsChannelsResponse (\s a -> s {_ggrsChannelsResponse = a})
+getChannelsResponse_channelsResponse :: Lens.Lens' GetChannelsResponse ChannelsResponse
+getChannelsResponse_channelsResponse = Lens.lens (\GetChannelsResponse' {channelsResponse} -> channelsResponse) (\s@GetChannelsResponse' {} a -> s {channelsResponse = a} :: GetChannelsResponse)
 
-instance NFData GetChannelsResponse
+instance Prelude.NFData GetChannelsResponse

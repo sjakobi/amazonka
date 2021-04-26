@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,114 +19,151 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.SegmentImportResource where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.DefinitionFormat
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the import job that created a segment. An import job is a job that creates a user segment by importing endpoint definitions.
+-- | Provides information about the import job that created a segment. An
+-- import job is a job that creates a user segment by importing endpoint
+-- definitions.
 --
---
---
--- /See:/ 'segmentImportResource' smart constructor.
+-- /See:/ 'newSegmentImportResource' smart constructor.
 data SegmentImportResource = SegmentImportResource'
-  { _sirChannelCounts ::
-      !(Maybe (Map Text Int)),
-    _sirFormat ::
-      !DefinitionFormat,
-    _sirS3URL :: !Text,
-    _sirSize :: !Int,
-    _sirExternalId :: !Text,
-    _sirRoleARN :: !Text
+  { -- | The number of channel types in the endpoint definitions that were
+    -- imported to create the segment.
+    channelCounts :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Int),
+    -- | The format of the files that were imported to create the segment. Valid
+    -- values are: CSV, for comma-separated values format; and, JSON, for
+    -- newline-delimited JSON format.
+    format :: DefinitionFormat,
+    -- | The URL of the Amazon Simple Storage Service (Amazon S3) bucket that the
+    -- endpoint definitions were imported from to create the segment.
+    s3Url :: Prelude.Text,
+    -- | The number of endpoint definitions that were imported successfully to
+    -- create the segment.
+    size :: Prelude.Int,
+    -- | (Deprecated) Your AWS account ID, which you assigned to an external ID
+    -- key in an IAM trust policy. Amazon Pinpoint previously used this value
+    -- to assume an IAM role when importing endpoint definitions, but we
+    -- removed this requirement. We don\'t recommend use of external IDs for
+    -- IAM roles that are assumed by Amazon Pinpoint.
+    externalId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+    -- (IAM) role that authorized Amazon Pinpoint to access the Amazon S3
+    -- location to import endpoint definitions from.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SegmentImportResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SegmentImportResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sirChannelCounts' - The number of channel types in the endpoint definitions that were imported to create the segment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sirFormat' - The format of the files that were imported to create the segment. Valid values are: CSV, for comma-separated values format; and, JSON, for newline-delimited JSON format.
+-- 'channelCounts', 'segmentImportResource_channelCounts' - The number of channel types in the endpoint definitions that were
+-- imported to create the segment.
 --
--- * 'sirS3URL' - The URL of the Amazon Simple Storage Service (Amazon S3) bucket that the endpoint definitions were imported from to create the segment.
+-- 'format', 'segmentImportResource_format' - The format of the files that were imported to create the segment. Valid
+-- values are: CSV, for comma-separated values format; and, JSON, for
+-- newline-delimited JSON format.
 --
--- * 'sirSize' - The number of endpoint definitions that were imported successfully to create the segment.
+-- 's3Url', 'segmentImportResource_s3Url' - The URL of the Amazon Simple Storage Service (Amazon S3) bucket that the
+-- endpoint definitions were imported from to create the segment.
 --
--- * 'sirExternalId' - (Deprecated) Your AWS account ID, which you assigned to an external ID key in an IAM trust policy. Amazon Pinpoint previously used this value to assume an IAM role when importing endpoint definitions, but we removed this requirement. We don't recommend use of external IDs for IAM roles that are assumed by Amazon Pinpoint.
+-- 'size', 'segmentImportResource_size' - The number of endpoint definitions that were imported successfully to
+-- create the segment.
 --
--- * 'sirRoleARN' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that authorized Amazon Pinpoint to access the Amazon S3 location to import endpoint definitions from.
-segmentImportResource ::
-  -- | 'sirFormat'
+-- 'externalId', 'segmentImportResource_externalId' - (Deprecated) Your AWS account ID, which you assigned to an external ID
+-- key in an IAM trust policy. Amazon Pinpoint previously used this value
+-- to assume an IAM role when importing endpoint definitions, but we
+-- removed this requirement. We don\'t recommend use of external IDs for
+-- IAM roles that are assumed by Amazon Pinpoint.
+--
+-- 'roleArn', 'segmentImportResource_roleArn' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that authorized Amazon Pinpoint to access the Amazon S3
+-- location to import endpoint definitions from.
+newSegmentImportResource ::
+  -- | 'format'
   DefinitionFormat ->
-  -- | 'sirS3URL'
-  Text ->
-  -- | 'sirSize'
-  Int ->
-  -- | 'sirExternalId'
-  Text ->
-  -- | 'sirRoleARN'
-  Text ->
+  -- | 's3Url'
+  Prelude.Text ->
+  -- | 'size'
+  Prelude.Int ->
+  -- | 'externalId'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   SegmentImportResource
-segmentImportResource
+newSegmentImportResource
   pFormat_
-  pS3URL_
+  pS3Url_
   pSize_
   pExternalId_
-  pRoleARN_ =
+  pRoleArn_ =
     SegmentImportResource'
-      { _sirChannelCounts = Nothing,
-        _sirFormat = pFormat_,
-        _sirS3URL = pS3URL_,
-        _sirSize = pSize_,
-        _sirExternalId = pExternalId_,
-        _sirRoleARN = pRoleARN_
+      { channelCounts =
+          Prelude.Nothing,
+        format = pFormat_,
+        s3Url = pS3Url_,
+        size = pSize_,
+        externalId = pExternalId_,
+        roleArn = pRoleArn_
       }
 
--- | The number of channel types in the endpoint definitions that were imported to create the segment.
-sirChannelCounts :: Lens' SegmentImportResource (HashMap Text Int)
-sirChannelCounts = lens _sirChannelCounts (\s a -> s {_sirChannelCounts = a}) . _Default . _Map
+-- | The number of channel types in the endpoint definitions that were
+-- imported to create the segment.
+segmentImportResource_channelCounts :: Lens.Lens' SegmentImportResource (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Int))
+segmentImportResource_channelCounts = Lens.lens (\SegmentImportResource' {channelCounts} -> channelCounts) (\s@SegmentImportResource' {} a -> s {channelCounts = a} :: SegmentImportResource) Prelude.. Lens.mapping Prelude._Map
 
--- | The format of the files that were imported to create the segment. Valid values are: CSV, for comma-separated values format; and, JSON, for newline-delimited JSON format.
-sirFormat :: Lens' SegmentImportResource DefinitionFormat
-sirFormat = lens _sirFormat (\s a -> s {_sirFormat = a})
+-- | The format of the files that were imported to create the segment. Valid
+-- values are: CSV, for comma-separated values format; and, JSON, for
+-- newline-delimited JSON format.
+segmentImportResource_format :: Lens.Lens' SegmentImportResource DefinitionFormat
+segmentImportResource_format = Lens.lens (\SegmentImportResource' {format} -> format) (\s@SegmentImportResource' {} a -> s {format = a} :: SegmentImportResource)
 
--- | The URL of the Amazon Simple Storage Service (Amazon S3) bucket that the endpoint definitions were imported from to create the segment.
-sirS3URL :: Lens' SegmentImportResource Text
-sirS3URL = lens _sirS3URL (\s a -> s {_sirS3URL = a})
+-- | The URL of the Amazon Simple Storage Service (Amazon S3) bucket that the
+-- endpoint definitions were imported from to create the segment.
+segmentImportResource_s3Url :: Lens.Lens' SegmentImportResource Prelude.Text
+segmentImportResource_s3Url = Lens.lens (\SegmentImportResource' {s3Url} -> s3Url) (\s@SegmentImportResource' {} a -> s {s3Url = a} :: SegmentImportResource)
 
--- | The number of endpoint definitions that were imported successfully to create the segment.
-sirSize :: Lens' SegmentImportResource Int
-sirSize = lens _sirSize (\s a -> s {_sirSize = a})
+-- | The number of endpoint definitions that were imported successfully to
+-- create the segment.
+segmentImportResource_size :: Lens.Lens' SegmentImportResource Prelude.Int
+segmentImportResource_size = Lens.lens (\SegmentImportResource' {size} -> size) (\s@SegmentImportResource' {} a -> s {size = a} :: SegmentImportResource)
 
--- | (Deprecated) Your AWS account ID, which you assigned to an external ID key in an IAM trust policy. Amazon Pinpoint previously used this value to assume an IAM role when importing endpoint definitions, but we removed this requirement. We don't recommend use of external IDs for IAM roles that are assumed by Amazon Pinpoint.
-sirExternalId :: Lens' SegmentImportResource Text
-sirExternalId = lens _sirExternalId (\s a -> s {_sirExternalId = a})
+-- | (Deprecated) Your AWS account ID, which you assigned to an external ID
+-- key in an IAM trust policy. Amazon Pinpoint previously used this value
+-- to assume an IAM role when importing endpoint definitions, but we
+-- removed this requirement. We don\'t recommend use of external IDs for
+-- IAM roles that are assumed by Amazon Pinpoint.
+segmentImportResource_externalId :: Lens.Lens' SegmentImportResource Prelude.Text
+segmentImportResource_externalId = Lens.lens (\SegmentImportResource' {externalId} -> externalId) (\s@SegmentImportResource' {} a -> s {externalId = a} :: SegmentImportResource)
 
--- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that authorized Amazon Pinpoint to access the Amazon S3 location to import endpoint definitions from.
-sirRoleARN :: Lens' SegmentImportResource Text
-sirRoleARN = lens _sirRoleARN (\s a -> s {_sirRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that authorized Amazon Pinpoint to access the Amazon S3
+-- location to import endpoint definitions from.
+segmentImportResource_roleArn :: Lens.Lens' SegmentImportResource Prelude.Text
+segmentImportResource_roleArn = Lens.lens (\SegmentImportResource' {roleArn} -> roleArn) (\s@SegmentImportResource' {} a -> s {roleArn = a} :: SegmentImportResource)
 
-instance FromJSON SegmentImportResource where
+instance Prelude.FromJSON SegmentImportResource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SegmentImportResource"
       ( \x ->
           SegmentImportResource'
-            <$> (x .:? "ChannelCounts" .!= mempty)
-            <*> (x .: "Format")
-            <*> (x .: "S3Url")
-            <*> (x .: "Size")
-            <*> (x .: "ExternalId")
-            <*> (x .: "RoleArn")
+            Prelude.<$> ( x Prelude..:? "ChannelCounts"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "Format")
+            Prelude.<*> (x Prelude..: "S3Url")
+            Prelude.<*> (x Prelude..: "Size")
+            Prelude.<*> (x Prelude..: "ExternalId")
+            Prelude.<*> (x Prelude..: "RoleArn")
       )
 
-instance Hashable SegmentImportResource
+instance Prelude.Hashable SegmentImportResource
 
-instance NFData SegmentImportResource
+instance Prelude.NFData SegmentImportResource

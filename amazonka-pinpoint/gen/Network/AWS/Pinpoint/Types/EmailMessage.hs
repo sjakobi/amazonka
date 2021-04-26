@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,125 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EmailMessage where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.RawEmail
 import Network.AWS.Pinpoint.Types.SimpleEmail
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the default settings and content for a one-time email message that's sent directly to an endpoint.
+-- | Specifies the default settings and content for a one-time email message
+-- that\'s sent directly to an endpoint.
 --
---
---
--- /See:/ 'emailMessage' smart constructor.
+-- /See:/ 'newEmailMessage' smart constructor.
 data EmailMessage = EmailMessage'
-  { _emFeedbackForwardingAddress ::
-      !(Maybe Text),
-    _emRawEmail :: !(Maybe RawEmail),
-    _emBody :: !(Maybe Text),
-    _emSimpleEmail :: !(Maybe SimpleEmail),
-    _emSubstitutions ::
-      !(Maybe (Map Text [Text])),
-    _emReplyToAddresses :: !(Maybe [Text]),
-    _emFromAddress :: !(Maybe Text)
+  { -- | The email address to forward bounces and complaints to, if feedback
+    -- forwarding is enabled.
+    feedbackForwardingAddress :: Prelude.Maybe Prelude.Text,
+    -- | The email message, represented as a raw MIME message.
+    rawEmail :: Prelude.Maybe RawEmail,
+    -- | The body of the email message.
+    body :: Prelude.Maybe Prelude.Text,
+    -- | The email message, composed of a subject, a text part, and an HTML part.
+    simpleEmail :: Prelude.Maybe SimpleEmail,
+    -- | The default message variables to use in the email message. You can
+    -- override the default variables with individual address variables.
+    substitutions :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The reply-to email address(es) for the email message. If a recipient
+    -- replies to the email, each reply-to address receives the reply.
+    replyToAddresses :: Prelude.Maybe [Prelude.Text],
+    -- | The verified email address to send the email message from. The default
+    -- value is the FromAddress specified for the email channel.
+    fromAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EmailMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EmailMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'emFeedbackForwardingAddress' - The email address to forward bounces and complaints to, if feedback forwarding is enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'emRawEmail' - The email message, represented as a raw MIME message.
+-- 'feedbackForwardingAddress', 'emailMessage_feedbackForwardingAddress' - The email address to forward bounces and complaints to, if feedback
+-- forwarding is enabled.
 --
--- * 'emBody' - The body of the email message.
+-- 'rawEmail', 'emailMessage_rawEmail' - The email message, represented as a raw MIME message.
 --
--- * 'emSimpleEmail' - The email message, composed of a subject, a text part, and an HTML part.
+-- 'body', 'emailMessage_body' - The body of the email message.
 --
--- * 'emSubstitutions' - The default message variables to use in the email message. You can override the default variables with individual address variables.
+-- 'simpleEmail', 'emailMessage_simpleEmail' - The email message, composed of a subject, a text part, and an HTML part.
 --
--- * 'emReplyToAddresses' - The reply-to email address(es) for the email message. If a recipient replies to the email, each reply-to address receives the reply.
+-- 'substitutions', 'emailMessage_substitutions' - The default message variables to use in the email message. You can
+-- override the default variables with individual address variables.
 --
--- * 'emFromAddress' - The verified email address to send the email message from. The default value is the FromAddress specified for the email channel.
-emailMessage ::
+-- 'replyToAddresses', 'emailMessage_replyToAddresses' - The reply-to email address(es) for the email message. If a recipient
+-- replies to the email, each reply-to address receives the reply.
+--
+-- 'fromAddress', 'emailMessage_fromAddress' - The verified email address to send the email message from. The default
+-- value is the FromAddress specified for the email channel.
+newEmailMessage ::
   EmailMessage
-emailMessage =
+newEmailMessage =
   EmailMessage'
-    { _emFeedbackForwardingAddress =
-        Nothing,
-      _emRawEmail = Nothing,
-      _emBody = Nothing,
-      _emSimpleEmail = Nothing,
-      _emSubstitutions = Nothing,
-      _emReplyToAddresses = Nothing,
-      _emFromAddress = Nothing
+    { feedbackForwardingAddress =
+        Prelude.Nothing,
+      rawEmail = Prelude.Nothing,
+      body = Prelude.Nothing,
+      simpleEmail = Prelude.Nothing,
+      substitutions = Prelude.Nothing,
+      replyToAddresses = Prelude.Nothing,
+      fromAddress = Prelude.Nothing
     }
 
--- | The email address to forward bounces and complaints to, if feedback forwarding is enabled.
-emFeedbackForwardingAddress :: Lens' EmailMessage (Maybe Text)
-emFeedbackForwardingAddress = lens _emFeedbackForwardingAddress (\s a -> s {_emFeedbackForwardingAddress = a})
+-- | The email address to forward bounces and complaints to, if feedback
+-- forwarding is enabled.
+emailMessage_feedbackForwardingAddress :: Lens.Lens' EmailMessage (Prelude.Maybe Prelude.Text)
+emailMessage_feedbackForwardingAddress = Lens.lens (\EmailMessage' {feedbackForwardingAddress} -> feedbackForwardingAddress) (\s@EmailMessage' {} a -> s {feedbackForwardingAddress = a} :: EmailMessage)
 
 -- | The email message, represented as a raw MIME message.
-emRawEmail :: Lens' EmailMessage (Maybe RawEmail)
-emRawEmail = lens _emRawEmail (\s a -> s {_emRawEmail = a})
+emailMessage_rawEmail :: Lens.Lens' EmailMessage (Prelude.Maybe RawEmail)
+emailMessage_rawEmail = Lens.lens (\EmailMessage' {rawEmail} -> rawEmail) (\s@EmailMessage' {} a -> s {rawEmail = a} :: EmailMessage)
 
 -- | The body of the email message.
-emBody :: Lens' EmailMessage (Maybe Text)
-emBody = lens _emBody (\s a -> s {_emBody = a})
+emailMessage_body :: Lens.Lens' EmailMessage (Prelude.Maybe Prelude.Text)
+emailMessage_body = Lens.lens (\EmailMessage' {body} -> body) (\s@EmailMessage' {} a -> s {body = a} :: EmailMessage)
 
 -- | The email message, composed of a subject, a text part, and an HTML part.
-emSimpleEmail :: Lens' EmailMessage (Maybe SimpleEmail)
-emSimpleEmail = lens _emSimpleEmail (\s a -> s {_emSimpleEmail = a})
+emailMessage_simpleEmail :: Lens.Lens' EmailMessage (Prelude.Maybe SimpleEmail)
+emailMessage_simpleEmail = Lens.lens (\EmailMessage' {simpleEmail} -> simpleEmail) (\s@EmailMessage' {} a -> s {simpleEmail = a} :: EmailMessage)
 
--- | The default message variables to use in the email message. You can override the default variables with individual address variables.
-emSubstitutions :: Lens' EmailMessage (HashMap Text [Text])
-emSubstitutions = lens _emSubstitutions (\s a -> s {_emSubstitutions = a}) . _Default . _Map
+-- | The default message variables to use in the email message. You can
+-- override the default variables with individual address variables.
+emailMessage_substitutions :: Lens.Lens' EmailMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+emailMessage_substitutions = Lens.lens (\EmailMessage' {substitutions} -> substitutions) (\s@EmailMessage' {} a -> s {substitutions = a} :: EmailMessage) Prelude.. Lens.mapping Prelude._Map
 
--- | The reply-to email address(es) for the email message. If a recipient replies to the email, each reply-to address receives the reply.
-emReplyToAddresses :: Lens' EmailMessage [Text]
-emReplyToAddresses = lens _emReplyToAddresses (\s a -> s {_emReplyToAddresses = a}) . _Default . _Coerce
+-- | The reply-to email address(es) for the email message. If a recipient
+-- replies to the email, each reply-to address receives the reply.
+emailMessage_replyToAddresses :: Lens.Lens' EmailMessage (Prelude.Maybe [Prelude.Text])
+emailMessage_replyToAddresses = Lens.lens (\EmailMessage' {replyToAddresses} -> replyToAddresses) (\s@EmailMessage' {} a -> s {replyToAddresses = a} :: EmailMessage) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The verified email address to send the email message from. The default value is the FromAddress specified for the email channel.
-emFromAddress :: Lens' EmailMessage (Maybe Text)
-emFromAddress = lens _emFromAddress (\s a -> s {_emFromAddress = a})
+-- | The verified email address to send the email message from. The default
+-- value is the FromAddress specified for the email channel.
+emailMessage_fromAddress :: Lens.Lens' EmailMessage (Prelude.Maybe Prelude.Text)
+emailMessage_fromAddress = Lens.lens (\EmailMessage' {fromAddress} -> fromAddress) (\s@EmailMessage' {} a -> s {fromAddress = a} :: EmailMessage)
 
-instance Hashable EmailMessage
+instance Prelude.Hashable EmailMessage
 
-instance NFData EmailMessage
+instance Prelude.NFData EmailMessage
 
-instance ToJSON EmailMessage where
+instance Prelude.ToJSON EmailMessage where
   toJSON EmailMessage' {..} =
-    object
-      ( catMaybes
-          [ ("FeedbackForwardingAddress" .=)
-              <$> _emFeedbackForwardingAddress,
-            ("RawEmail" .=) <$> _emRawEmail,
-            ("Body" .=) <$> _emBody,
-            ("SimpleEmail" .=) <$> _emSimpleEmail,
-            ("Substitutions" .=) <$> _emSubstitutions,
-            ("ReplyToAddresses" .=) <$> _emReplyToAddresses,
-            ("FromAddress" .=) <$> _emFromAddress
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FeedbackForwardingAddress" Prelude..=)
+              Prelude.<$> feedbackForwardingAddress,
+            ("RawEmail" Prelude..=) Prelude.<$> rawEmail,
+            ("Body" Prelude..=) Prelude.<$> body,
+            ("SimpleEmail" Prelude..=) Prelude.<$> simpleEmail,
+            ("Substitutions" Prelude..=)
+              Prelude.<$> substitutions,
+            ("ReplyToAddresses" Prelude..=)
+              Prelude.<$> replyToAddresses,
+            ("FromAddress" Prelude..=) Prelude.<$> fromAddress
           ]
       )

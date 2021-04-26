@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables the voice channel for an application and deletes any existing settings for the channel.
+-- Disables the voice channel for an application and deletes any existing
+-- settings for the channel.
 module Network.AWS.Pinpoint.DeleteVoiceChannel
   ( -- * Creating a Request
-    deleteVoiceChannel,
-    DeleteVoiceChannel,
+    DeleteVoiceChannel (..),
+    newDeleteVoiceChannel,
 
     -- * Request Lenses
-    dvcApplicationId,
+    deleteVoiceChannel_applicationId,
 
     -- * Destructuring the Response
-    deleteVoiceChannelResponse,
-    DeleteVoiceChannelResponse,
+    DeleteVoiceChannelResponse (..),
+    newDeleteVoiceChannelResponse,
 
     -- * Response Lenses
-    dvcrrsResponseStatus,
-    dvcrrsVoiceChannelResponse,
+    deleteVoiceChannelResponse_httpStatus,
+    deleteVoiceChannelResponse_voiceChannelResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.VoiceChannelResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteVoiceChannel' smart constructor.
-newtype DeleteVoiceChannel = DeleteVoiceChannel'
-  { _dvcApplicationId ::
-      Text
+-- | /See:/ 'newDeleteVoiceChannel' smart constructor.
+data DeleteVoiceChannel = DeleteVoiceChannel'
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVoiceChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVoiceChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvcApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-deleteVoiceChannel ::
-  -- | 'dvcApplicationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationId', 'deleteVoiceChannel_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newDeleteVoiceChannel ::
+  -- | 'applicationId'
+  Prelude.Text ->
   DeleteVoiceChannel
-deleteVoiceChannel pApplicationId_ =
+newDeleteVoiceChannel pApplicationId_ =
   DeleteVoiceChannel'
-    { _dvcApplicationId =
+    { applicationId =
         pApplicationId_
     }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-dvcApplicationId :: Lens' DeleteVoiceChannel Text
-dvcApplicationId = lens _dvcApplicationId (\s a -> s {_dvcApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+deleteVoiceChannel_applicationId :: Lens.Lens' DeleteVoiceChannel Prelude.Text
+deleteVoiceChannel_applicationId = Lens.lens (\DeleteVoiceChannel' {applicationId} -> applicationId) (\s@DeleteVoiceChannel' {} a -> s {applicationId = a} :: DeleteVoiceChannel)
 
-instance AWSRequest DeleteVoiceChannel where
+instance Prelude.AWSRequest DeleteVoiceChannel where
   type
     Rs DeleteVoiceChannel =
       DeleteVoiceChannelResponse
-  request = delete pinpoint
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteVoiceChannelResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable DeleteVoiceChannel
+instance Prelude.Hashable DeleteVoiceChannel
 
-instance NFData DeleteVoiceChannel
+instance Prelude.NFData DeleteVoiceChannel
 
-instance ToHeaders DeleteVoiceChannel where
+instance Prelude.ToHeaders DeleteVoiceChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteVoiceChannel where
+instance Prelude.ToPath DeleteVoiceChannel where
   toPath DeleteVoiceChannel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _dvcApplicationId,
+        Prelude.toBS applicationId,
         "/channels/voice"
       ]
 
-instance ToQuery DeleteVoiceChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteVoiceChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteVoiceChannelResponse' smart constructor.
+-- | /See:/ 'newDeleteVoiceChannelResponse' smart constructor.
 data DeleteVoiceChannelResponse = DeleteVoiceChannelResponse'
-  { _dvcrrsResponseStatus ::
-      !Int,
-    _dvcrrsVoiceChannelResponse ::
-      !VoiceChannelResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    voiceChannelResponse :: VoiceChannelResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVoiceChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVoiceChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvcrrsVoiceChannelResponse' - Undocumented member.
-deleteVoiceChannelResponse ::
-  -- | 'dvcrrsResponseStatus'
-  Int ->
-  -- | 'dvcrrsVoiceChannelResponse'
+-- 'httpStatus', 'deleteVoiceChannelResponse_httpStatus' - The response's http status code.
+--
+-- 'voiceChannelResponse', 'deleteVoiceChannelResponse_voiceChannelResponse' - Undocumented member.
+newDeleteVoiceChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'voiceChannelResponse'
   VoiceChannelResponse ->
   DeleteVoiceChannelResponse
-deleteVoiceChannelResponse
-  pResponseStatus_
+newDeleteVoiceChannelResponse
+  pHttpStatus_
   pVoiceChannelResponse_ =
     DeleteVoiceChannelResponse'
-      { _dvcrrsResponseStatus =
-          pResponseStatus_,
-        _dvcrrsVoiceChannelResponse =
-          pVoiceChannelResponse_
+      { httpStatus =
+          pHttpStatus_,
+        voiceChannelResponse = pVoiceChannelResponse_
       }
 
--- | -- | The response status code.
-dvcrrsResponseStatus :: Lens' DeleteVoiceChannelResponse Int
-dvcrrsResponseStatus = lens _dvcrrsResponseStatus (\s a -> s {_dvcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteVoiceChannelResponse_httpStatus :: Lens.Lens' DeleteVoiceChannelResponse Prelude.Int
+deleteVoiceChannelResponse_httpStatus = Lens.lens (\DeleteVoiceChannelResponse' {httpStatus} -> httpStatus) (\s@DeleteVoiceChannelResponse' {} a -> s {httpStatus = a} :: DeleteVoiceChannelResponse)
 
 -- | Undocumented member.
-dvcrrsVoiceChannelResponse :: Lens' DeleteVoiceChannelResponse VoiceChannelResponse
-dvcrrsVoiceChannelResponse = lens _dvcrrsVoiceChannelResponse (\s a -> s {_dvcrrsVoiceChannelResponse = a})
+deleteVoiceChannelResponse_voiceChannelResponse :: Lens.Lens' DeleteVoiceChannelResponse VoiceChannelResponse
+deleteVoiceChannelResponse_voiceChannelResponse = Lens.lens (\DeleteVoiceChannelResponse' {voiceChannelResponse} -> voiceChannelResponse) (\s@DeleteVoiceChannelResponse' {} a -> s {voiceChannelResponse = a} :: DeleteVoiceChannelResponse)
 
-instance NFData DeleteVoiceChannelResponse
+instance Prelude.NFData DeleteVoiceChannelResponse

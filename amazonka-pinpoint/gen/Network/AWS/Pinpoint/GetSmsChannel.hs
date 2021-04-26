@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about the status and settings of the SMS channel for an application.
+-- Retrieves information about the status and settings of the SMS channel
+-- for an application.
 module Network.AWS.Pinpoint.GetSmsChannel
   ( -- * Creating a Request
-    getSmsChannel,
-    GetSmsChannel,
+    GetSmsChannel (..),
+    newGetSmsChannel,
 
     -- * Request Lenses
-    gscApplicationId,
+    getSmsChannel_applicationId,
 
     -- * Destructuring the Response
-    getSmsChannelResponse,
-    GetSmsChannelResponse,
+    GetSmsChannelResponse (..),
+    newGetSmsChannelResponse,
 
     -- * Response Lenses
-    gscrrsResponseStatus,
-    gscrrsSMSChannelResponse,
+    getSmsChannelResponse_httpStatus,
+    getSmsChannelResponse_sMSChannelResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.SMSChannelResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getSmsChannel' smart constructor.
-newtype GetSmsChannel = GetSmsChannel'
-  { _gscApplicationId ::
-      Text
+-- | /See:/ 'newGetSmsChannel' smart constructor.
+data GetSmsChannel = GetSmsChannel'
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSmsChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSmsChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gscApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-getSmsChannel ::
-  -- | 'gscApplicationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationId', 'getSmsChannel_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newGetSmsChannel ::
+  -- | 'applicationId'
+  Prelude.Text ->
   GetSmsChannel
-getSmsChannel pApplicationId_ =
-  GetSmsChannel' {_gscApplicationId = pApplicationId_}
+newGetSmsChannel pApplicationId_ =
+  GetSmsChannel' {applicationId = pApplicationId_}
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-gscApplicationId :: Lens' GetSmsChannel Text
-gscApplicationId = lens _gscApplicationId (\s a -> s {_gscApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+getSmsChannel_applicationId :: Lens.Lens' GetSmsChannel Prelude.Text
+getSmsChannel_applicationId = Lens.lens (\GetSmsChannel' {applicationId} -> applicationId) (\s@GetSmsChannel' {} a -> s {applicationId = a} :: GetSmsChannel)
 
-instance AWSRequest GetSmsChannel where
+instance Prelude.AWSRequest GetSmsChannel where
   type Rs GetSmsChannel = GetSmsChannelResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSmsChannelResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetSmsChannel
+instance Prelude.Hashable GetSmsChannel
 
-instance NFData GetSmsChannel
+instance Prelude.NFData GetSmsChannel
 
-instance ToHeaders GetSmsChannel where
+instance Prelude.ToHeaders GetSmsChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetSmsChannel where
+instance Prelude.ToPath GetSmsChannel where
   toPath GetSmsChannel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _gscApplicationId,
+        Prelude.toBS applicationId,
         "/channels/sms"
       ]
 
-instance ToQuery GetSmsChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSmsChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSmsChannelResponse' smart constructor.
+-- | /See:/ 'newGetSmsChannelResponse' smart constructor.
 data GetSmsChannelResponse = GetSmsChannelResponse'
-  { _gscrrsResponseStatus ::
-      !Int,
-    _gscrrsSMSChannelResponse ::
-      !SMSChannelResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    sMSChannelResponse :: SMSChannelResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSmsChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSmsChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gscrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gscrrsSMSChannelResponse' - Undocumented member.
-getSmsChannelResponse ::
-  -- | 'gscrrsResponseStatus'
-  Int ->
-  -- | 'gscrrsSMSChannelResponse'
+-- 'httpStatus', 'getSmsChannelResponse_httpStatus' - The response's http status code.
+--
+-- 'sMSChannelResponse', 'getSmsChannelResponse_sMSChannelResponse' - Undocumented member.
+newGetSmsChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'sMSChannelResponse'
   SMSChannelResponse ->
   GetSmsChannelResponse
-getSmsChannelResponse
-  pResponseStatus_
+newGetSmsChannelResponse
+  pHttpStatus_
   pSMSChannelResponse_ =
     GetSmsChannelResponse'
-      { _gscrrsResponseStatus =
-          pResponseStatus_,
-        _gscrrsSMSChannelResponse = pSMSChannelResponse_
+      { httpStatus = pHttpStatus_,
+        sMSChannelResponse = pSMSChannelResponse_
       }
 
--- | -- | The response status code.
-gscrrsResponseStatus :: Lens' GetSmsChannelResponse Int
-gscrrsResponseStatus = lens _gscrrsResponseStatus (\s a -> s {_gscrrsResponseStatus = a})
+-- | The response's http status code.
+getSmsChannelResponse_httpStatus :: Lens.Lens' GetSmsChannelResponse Prelude.Int
+getSmsChannelResponse_httpStatus = Lens.lens (\GetSmsChannelResponse' {httpStatus} -> httpStatus) (\s@GetSmsChannelResponse' {} a -> s {httpStatus = a} :: GetSmsChannelResponse)
 
 -- | Undocumented member.
-gscrrsSMSChannelResponse :: Lens' GetSmsChannelResponse SMSChannelResponse
-gscrrsSMSChannelResponse = lens _gscrrsSMSChannelResponse (\s a -> s {_gscrrsSMSChannelResponse = a})
+getSmsChannelResponse_sMSChannelResponse :: Lens.Lens' GetSmsChannelResponse SMSChannelResponse
+getSmsChannelResponse_sMSChannelResponse = Lens.lens (\GetSmsChannelResponse' {sMSChannelResponse} -> sMSChannelResponse) (\s@GetSmsChannelResponse' {} a -> s {sMSChannelResponse = a} :: GetSmsChannelResponse)
 
-instance NFData GetSmsChannelResponse
+instance Prelude.NFData GetSmsChannelResponse

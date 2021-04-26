@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ExportJobsResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.ExportJobResponse
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about all the export jobs that are associated with an application or segment. An export job is a job that exports endpoint definitions to a file.
+-- | Provides information about all the export jobs that are associated with
+-- an application or segment. An export job is a job that exports endpoint
+-- definitions to a file.
 --
---
---
--- /See:/ 'exportJobsResponse' smart constructor.
+-- /See:/ 'newExportJobsResponse' smart constructor.
 data ExportJobsResponse = ExportJobsResponse'
-  { _ejrNextToken ::
-      !(Maybe Text),
-    _ejrItem :: ![ExportJobResponse]
+  { -- | The string to use in a subsequent request to get the next page of
+    -- results in a paginated response. This value is null if there are no
+    -- additional pages.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of responses, one for each export job that\'s associated with
+    -- the application (Export Jobs resource) or segment (Segment Export Jobs
+    -- resource).
+    item :: [ExportJobResponse]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ejrNextToken' - The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ejrItem' - An array of responses, one for each export job that's associated with the application (Export Jobs resource) or segment (Segment Export Jobs resource).
-exportJobsResponse ::
+-- 'nextToken', 'exportJobsResponse_nextToken' - The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
+--
+-- 'item', 'exportJobsResponse_item' - An array of responses, one for each export job that\'s associated with
+-- the application (Export Jobs resource) or segment (Segment Export Jobs
+-- resource).
+newExportJobsResponse ::
   ExportJobsResponse
-exportJobsResponse =
+newExportJobsResponse =
   ExportJobsResponse'
-    { _ejrNextToken = Nothing,
-      _ejrItem = mempty
+    { nextToken = Prelude.Nothing,
+      item = Prelude.mempty
     }
 
--- | The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
-ejrNextToken :: Lens' ExportJobsResponse (Maybe Text)
-ejrNextToken = lens _ejrNextToken (\s a -> s {_ejrNextToken = a})
+-- | The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
+exportJobsResponse_nextToken :: Lens.Lens' ExportJobsResponse (Prelude.Maybe Prelude.Text)
+exportJobsResponse_nextToken = Lens.lens (\ExportJobsResponse' {nextToken} -> nextToken) (\s@ExportJobsResponse' {} a -> s {nextToken = a} :: ExportJobsResponse)
 
--- | An array of responses, one for each export job that's associated with the application (Export Jobs resource) or segment (Segment Export Jobs resource).
-ejrItem :: Lens' ExportJobsResponse [ExportJobResponse]
-ejrItem = lens _ejrItem (\s a -> s {_ejrItem = a}) . _Coerce
+-- | An array of responses, one for each export job that\'s associated with
+-- the application (Export Jobs resource) or segment (Segment Export Jobs
+-- resource).
+exportJobsResponse_item :: Lens.Lens' ExportJobsResponse [ExportJobResponse]
+exportJobsResponse_item = Lens.lens (\ExportJobsResponse' {item} -> item) (\s@ExportJobsResponse' {} a -> s {item = a} :: ExportJobsResponse) Prelude.. Prelude._Coerce
 
-instance FromJSON ExportJobsResponse where
+instance Prelude.FromJSON ExportJobsResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExportJobsResponse"
       ( \x ->
           ExportJobsResponse'
-            <$> (x .:? "NextToken") <*> (x .:? "Item" .!= mempty)
+            Prelude.<$> (x Prelude..:? "NextToken")
+            Prelude.<*> (x Prelude..:? "Item" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable ExportJobsResponse
+instance Prelude.Hashable ExportJobsResponse
 
-instance NFData ExportJobsResponse
+instance Prelude.NFData ExportJobsResponse

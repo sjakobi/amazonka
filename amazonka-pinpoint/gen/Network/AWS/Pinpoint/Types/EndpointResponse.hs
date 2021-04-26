@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,180 +19,302 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EndpointResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.ChannelType
 import Network.AWS.Pinpoint.Types.EndpointDemographic
 import Network.AWS.Pinpoint.Types.EndpointLocation
 import Network.AWS.Pinpoint.Types.EndpointUser
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the channel type and other settings for an endpoint.
+-- | Provides information about the channel type and other settings for an
+-- endpoint.
 --
---
---
--- /See:/ 'endpointResponse' smart constructor.
+-- /See:/ 'newEndpointResponse' smart constructor.
 data EndpointResponse = EndpointResponse'
-  { _erApplicationId ::
-      !(Maybe Text),
-    _erUser :: !(Maybe EndpointUser),
-    _erAddress :: !(Maybe Text),
-    _erChannelType ::
-      !(Maybe ChannelType),
-    _erCohortId :: !(Maybe Text),
-    _erId :: !(Maybe Text),
-    _erCreationDate :: !(Maybe Text),
-    _erOptOut :: !(Maybe Text),
-    _erDemographic ::
-      !(Maybe EndpointDemographic),
-    _erAttributes ::
-      !(Maybe (Map Text [Text])),
-    _erEndpointStatus :: !(Maybe Text),
-    _erMetrics ::
-      !(Maybe (Map Text Double)),
-    _erRequestId :: !(Maybe Text),
-    _erEffectiveDate :: !(Maybe Text),
-    _erLocation ::
-      !(Maybe EndpointLocation)
+  { -- | The unique identifier for the application that\'s associated with the
+    -- endpoint.
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | One or more custom user attributes that your app reports to Amazon
+    -- Pinpoint for the user who\'s associated with the endpoint.
+    user :: Prelude.Maybe EndpointUser,
+    -- | The destination address for messages or push notifications that you send
+    -- to the endpoint. The address varies by channel. For example, the address
+    -- for a push-notification channel is typically the token provided by a
+    -- push notification service, such as an Apple Push Notification service
+    -- (APNs) device token or a Firebase Cloud Messaging (FCM) registration
+    -- token. The address for the SMS channel is a phone number in E.164
+    -- format, such as +12065550100. The address for the email channel is an
+    -- email address.
+    address :: Prelude.Maybe Prelude.Text,
+    -- | The channel that\'s used when sending messages or push notifications to
+    -- the endpoint.
+    channelType :: Prelude.Maybe ChannelType,
+    -- | A number from 0-99 that represents the cohort that the endpoint is
+    -- assigned to. Endpoints are grouped into cohorts randomly, and each
+    -- cohort contains approximately 1 percent of the endpoints for an
+    -- application. Amazon Pinpoint assigns cohorts to the holdout or treatment
+    -- allocations for campaigns.
+    cohortId :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier that you assigned to the endpoint. The identifier
+    -- should be a globally unique identifier (GUID) to ensure that it doesn\'t
+    -- conflict with other endpoint identifiers that are associated with the
+    -- application.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in ISO 8601 format, when the endpoint was created.
+    creationDate :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the user who\'s associated with the endpoint has opted
+    -- out of receiving messages and push notifications from you. Possible
+    -- values are: ALL, the user has opted out and doesn\'t want to receive any
+    -- messages or push notifications; and, NONE, the user hasn\'t opted out
+    -- and wants to receive all messages and push notifications.
+    optOut :: Prelude.Maybe Prelude.Text,
+    -- | The demographic information for the endpoint, such as the time zone and
+    -- platform.
+    demographic :: Prelude.Maybe EndpointDemographic,
+    -- | One or more custom attributes that describe the endpoint by associating
+    -- a name with an array of values. For example, the value of a custom
+    -- attribute named Interests might be: [\"Science\", \"Music\",
+    -- \"Travel\"]. You can use these attributes as filter criteria when you
+    -- create segments.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | Specifies whether messages or push notifications are sent to the
+    -- endpoint. Possible values are: ACTIVE, messages are sent to the
+    -- endpoint; and, INACTIVE, messages aren’t sent to the endpoint.
+    --
+    -- Amazon Pinpoint automatically sets this value to ACTIVE when you create
+    -- an endpoint or update an existing endpoint. Amazon Pinpoint
+    -- automatically sets this value to INACTIVE if you update another endpoint
+    -- that has the same address specified by the Address property.
+    endpointStatus :: Prelude.Maybe Prelude.Text,
+    -- | One or more custom metrics that your app reports to Amazon Pinpoint for
+    -- the endpoint.
+    metrics :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Double),
+    -- | The unique identifier for the most recent request to update the
+    -- endpoint.
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in ISO 8601 format, when the endpoint was last
+    -- updated.
+    effectiveDate :: Prelude.Maybe Prelude.Text,
+    -- | The geographic information for the endpoint.
+    location :: Prelude.Maybe EndpointLocation
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erApplicationId' - The unique identifier for the application that's associated with the endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'erUser' - One or more custom user attributes that your app reports to Amazon Pinpoint for the user who's associated with the endpoint.
+-- 'applicationId', 'endpointResponse_applicationId' - The unique identifier for the application that\'s associated with the
+-- endpoint.
 --
--- * 'erAddress' - The destination address for messages or push notifications that you send to the endpoint. The address varies by channel. For example, the address for a push-notification channel is typically the token provided by a push notification service, such as an Apple Push Notification service (APNs) device token or a Firebase Cloud Messaging (FCM) registration token. The address for the SMS channel is a phone number in E.164 format, such as +12065550100. The address for the email channel is an email address.
+-- 'user', 'endpointResponse_user' - One or more custom user attributes that your app reports to Amazon
+-- Pinpoint for the user who\'s associated with the endpoint.
 --
--- * 'erChannelType' - The channel that's used when sending messages or push notifications to the endpoint.
+-- 'address', 'endpointResponse_address' - The destination address for messages or push notifications that you send
+-- to the endpoint. The address varies by channel. For example, the address
+-- for a push-notification channel is typically the token provided by a
+-- push notification service, such as an Apple Push Notification service
+-- (APNs) device token or a Firebase Cloud Messaging (FCM) registration
+-- token. The address for the SMS channel is a phone number in E.164
+-- format, such as +12065550100. The address for the email channel is an
+-- email address.
 --
--- * 'erCohortId' - A number from 0-99 that represents the cohort that the endpoint is assigned to. Endpoints are grouped into cohorts randomly, and each cohort contains approximately 1 percent of the endpoints for an application. Amazon Pinpoint assigns cohorts to the holdout or treatment allocations for campaigns.
+-- 'channelType', 'endpointResponse_channelType' - The channel that\'s used when sending messages or push notifications to
+-- the endpoint.
 --
--- * 'erId' - The unique identifier that you assigned to the endpoint. The identifier should be a globally unique identifier (GUID) to ensure that it doesn't conflict with other endpoint identifiers that are associated with the application.
+-- 'cohortId', 'endpointResponse_cohortId' - A number from 0-99 that represents the cohort that the endpoint is
+-- assigned to. Endpoints are grouped into cohorts randomly, and each
+-- cohort contains approximately 1 percent of the endpoints for an
+-- application. Amazon Pinpoint assigns cohorts to the holdout or treatment
+-- allocations for campaigns.
 --
--- * 'erCreationDate' - The date and time, in ISO 8601 format, when the endpoint was created.
+-- 'id', 'endpointResponse_id' - The unique identifier that you assigned to the endpoint. The identifier
+-- should be a globally unique identifier (GUID) to ensure that it doesn\'t
+-- conflict with other endpoint identifiers that are associated with the
+-- application.
 --
--- * 'erOptOut' - Specifies whether the user who's associated with the endpoint has opted out of receiving messages and push notifications from you. Possible values are: ALL, the user has opted out and doesn't want to receive any messages or push notifications; and, NONE, the user hasn't opted out and wants to receive all messages and push notifications.
+-- 'creationDate', 'endpointResponse_creationDate' - The date and time, in ISO 8601 format, when the endpoint was created.
 --
--- * 'erDemographic' - The demographic information for the endpoint, such as the time zone and platform.
+-- 'optOut', 'endpointResponse_optOut' - Specifies whether the user who\'s associated with the endpoint has opted
+-- out of receiving messages and push notifications from you. Possible
+-- values are: ALL, the user has opted out and doesn\'t want to receive any
+-- messages or push notifications; and, NONE, the user hasn\'t opted out
+-- and wants to receive all messages and push notifications.
 --
--- * 'erAttributes' - One or more custom attributes that describe the endpoint by associating a name with an array of values. For example, the value of a custom attribute named Interests might be: ["Science", "Music", "Travel"]. You can use these attributes as filter criteria when you create segments.
+-- 'demographic', 'endpointResponse_demographic' - The demographic information for the endpoint, such as the time zone and
+-- platform.
 --
--- * 'erEndpointStatus' - Specifies whether messages or push notifications are sent to the endpoint. Possible values are: ACTIVE, messages are sent to the endpoint; and, INACTIVE, messages aren’t sent to the endpoint. Amazon Pinpoint automatically sets this value to ACTIVE when you create an endpoint or update an existing endpoint. Amazon Pinpoint automatically sets this value to INACTIVE if you update another endpoint that has the same address specified by the Address property.
+-- 'attributes', 'endpointResponse_attributes' - One or more custom attributes that describe the endpoint by associating
+-- a name with an array of values. For example, the value of a custom
+-- attribute named Interests might be: [\"Science\", \"Music\",
+-- \"Travel\"]. You can use these attributes as filter criteria when you
+-- create segments.
 --
--- * 'erMetrics' - One or more custom metrics that your app reports to Amazon Pinpoint for the endpoint.
+-- 'endpointStatus', 'endpointResponse_endpointStatus' - Specifies whether messages or push notifications are sent to the
+-- endpoint. Possible values are: ACTIVE, messages are sent to the
+-- endpoint; and, INACTIVE, messages aren’t sent to the endpoint.
 --
--- * 'erRequestId' - The unique identifier for the most recent request to update the endpoint.
+-- Amazon Pinpoint automatically sets this value to ACTIVE when you create
+-- an endpoint or update an existing endpoint. Amazon Pinpoint
+-- automatically sets this value to INACTIVE if you update another endpoint
+-- that has the same address specified by the Address property.
 --
--- * 'erEffectiveDate' - The date and time, in ISO 8601 format, when the endpoint was last updated.
+-- 'metrics', 'endpointResponse_metrics' - One or more custom metrics that your app reports to Amazon Pinpoint for
+-- the endpoint.
 --
--- * 'erLocation' - The geographic information for the endpoint.
-endpointResponse ::
+-- 'requestId', 'endpointResponse_requestId' - The unique identifier for the most recent request to update the
+-- endpoint.
+--
+-- 'effectiveDate', 'endpointResponse_effectiveDate' - The date and time, in ISO 8601 format, when the endpoint was last
+-- updated.
+--
+-- 'location', 'endpointResponse_location' - The geographic information for the endpoint.
+newEndpointResponse ::
   EndpointResponse
-endpointResponse =
+newEndpointResponse =
   EndpointResponse'
-    { _erApplicationId = Nothing,
-      _erUser = Nothing,
-      _erAddress = Nothing,
-      _erChannelType = Nothing,
-      _erCohortId = Nothing,
-      _erId = Nothing,
-      _erCreationDate = Nothing,
-      _erOptOut = Nothing,
-      _erDemographic = Nothing,
-      _erAttributes = Nothing,
-      _erEndpointStatus = Nothing,
-      _erMetrics = Nothing,
-      _erRequestId = Nothing,
-      _erEffectiveDate = Nothing,
-      _erLocation = Nothing
+    { applicationId = Prelude.Nothing,
+      user = Prelude.Nothing,
+      address = Prelude.Nothing,
+      channelType = Prelude.Nothing,
+      cohortId = Prelude.Nothing,
+      id = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      optOut = Prelude.Nothing,
+      demographic = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      endpointStatus = Prelude.Nothing,
+      metrics = Prelude.Nothing,
+      requestId = Prelude.Nothing,
+      effectiveDate = Prelude.Nothing,
+      location = Prelude.Nothing
     }
 
--- | The unique identifier for the application that's associated with the endpoint.
-erApplicationId :: Lens' EndpointResponse (Maybe Text)
-erApplicationId = lens _erApplicationId (\s a -> s {_erApplicationId = a})
+-- | The unique identifier for the application that\'s associated with the
+-- endpoint.
+endpointResponse_applicationId :: Lens.Lens' EndpointResponse (Prelude.Maybe Prelude.Text)
+endpointResponse_applicationId = Lens.lens (\EndpointResponse' {applicationId} -> applicationId) (\s@EndpointResponse' {} a -> s {applicationId = a} :: EndpointResponse)
 
--- | One or more custom user attributes that your app reports to Amazon Pinpoint for the user who's associated with the endpoint.
-erUser :: Lens' EndpointResponse (Maybe EndpointUser)
-erUser = lens _erUser (\s a -> s {_erUser = a})
+-- | One or more custom user attributes that your app reports to Amazon
+-- Pinpoint for the user who\'s associated with the endpoint.
+endpointResponse_user :: Lens.Lens' EndpointResponse (Prelude.Maybe EndpointUser)
+endpointResponse_user = Lens.lens (\EndpointResponse' {user} -> user) (\s@EndpointResponse' {} a -> s {user = a} :: EndpointResponse)
 
--- | The destination address for messages or push notifications that you send to the endpoint. The address varies by channel. For example, the address for a push-notification channel is typically the token provided by a push notification service, such as an Apple Push Notification service (APNs) device token or a Firebase Cloud Messaging (FCM) registration token. The address for the SMS channel is a phone number in E.164 format, such as +12065550100. The address for the email channel is an email address.
-erAddress :: Lens' EndpointResponse (Maybe Text)
-erAddress = lens _erAddress (\s a -> s {_erAddress = a})
+-- | The destination address for messages or push notifications that you send
+-- to the endpoint. The address varies by channel. For example, the address
+-- for a push-notification channel is typically the token provided by a
+-- push notification service, such as an Apple Push Notification service
+-- (APNs) device token or a Firebase Cloud Messaging (FCM) registration
+-- token. The address for the SMS channel is a phone number in E.164
+-- format, such as +12065550100. The address for the email channel is an
+-- email address.
+endpointResponse_address :: Lens.Lens' EndpointResponse (Prelude.Maybe Prelude.Text)
+endpointResponse_address = Lens.lens (\EndpointResponse' {address} -> address) (\s@EndpointResponse' {} a -> s {address = a} :: EndpointResponse)
 
--- | The channel that's used when sending messages or push notifications to the endpoint.
-erChannelType :: Lens' EndpointResponse (Maybe ChannelType)
-erChannelType = lens _erChannelType (\s a -> s {_erChannelType = a})
+-- | The channel that\'s used when sending messages or push notifications to
+-- the endpoint.
+endpointResponse_channelType :: Lens.Lens' EndpointResponse (Prelude.Maybe ChannelType)
+endpointResponse_channelType = Lens.lens (\EndpointResponse' {channelType} -> channelType) (\s@EndpointResponse' {} a -> s {channelType = a} :: EndpointResponse)
 
--- | A number from 0-99 that represents the cohort that the endpoint is assigned to. Endpoints are grouped into cohorts randomly, and each cohort contains approximately 1 percent of the endpoints for an application. Amazon Pinpoint assigns cohorts to the holdout or treatment allocations for campaigns.
-erCohortId :: Lens' EndpointResponse (Maybe Text)
-erCohortId = lens _erCohortId (\s a -> s {_erCohortId = a})
+-- | A number from 0-99 that represents the cohort that the endpoint is
+-- assigned to. Endpoints are grouped into cohorts randomly, and each
+-- cohort contains approximately 1 percent of the endpoints for an
+-- application. Amazon Pinpoint assigns cohorts to the holdout or treatment
+-- allocations for campaigns.
+endpointResponse_cohortId :: Lens.Lens' EndpointResponse (Prelude.Maybe Prelude.Text)
+endpointResponse_cohortId = Lens.lens (\EndpointResponse' {cohortId} -> cohortId) (\s@EndpointResponse' {} a -> s {cohortId = a} :: EndpointResponse)
 
--- | The unique identifier that you assigned to the endpoint. The identifier should be a globally unique identifier (GUID) to ensure that it doesn't conflict with other endpoint identifiers that are associated with the application.
-erId :: Lens' EndpointResponse (Maybe Text)
-erId = lens _erId (\s a -> s {_erId = a})
+-- | The unique identifier that you assigned to the endpoint. The identifier
+-- should be a globally unique identifier (GUID) to ensure that it doesn\'t
+-- conflict with other endpoint identifiers that are associated with the
+-- application.
+endpointResponse_id :: Lens.Lens' EndpointResponse (Prelude.Maybe Prelude.Text)
+endpointResponse_id = Lens.lens (\EndpointResponse' {id} -> id) (\s@EndpointResponse' {} a -> s {id = a} :: EndpointResponse)
 
 -- | The date and time, in ISO 8601 format, when the endpoint was created.
-erCreationDate :: Lens' EndpointResponse (Maybe Text)
-erCreationDate = lens _erCreationDate (\s a -> s {_erCreationDate = a})
+endpointResponse_creationDate :: Lens.Lens' EndpointResponse (Prelude.Maybe Prelude.Text)
+endpointResponse_creationDate = Lens.lens (\EndpointResponse' {creationDate} -> creationDate) (\s@EndpointResponse' {} a -> s {creationDate = a} :: EndpointResponse)
 
--- | Specifies whether the user who's associated with the endpoint has opted out of receiving messages and push notifications from you. Possible values are: ALL, the user has opted out and doesn't want to receive any messages or push notifications; and, NONE, the user hasn't opted out and wants to receive all messages and push notifications.
-erOptOut :: Lens' EndpointResponse (Maybe Text)
-erOptOut = lens _erOptOut (\s a -> s {_erOptOut = a})
+-- | Specifies whether the user who\'s associated with the endpoint has opted
+-- out of receiving messages and push notifications from you. Possible
+-- values are: ALL, the user has opted out and doesn\'t want to receive any
+-- messages or push notifications; and, NONE, the user hasn\'t opted out
+-- and wants to receive all messages and push notifications.
+endpointResponse_optOut :: Lens.Lens' EndpointResponse (Prelude.Maybe Prelude.Text)
+endpointResponse_optOut = Lens.lens (\EndpointResponse' {optOut} -> optOut) (\s@EndpointResponse' {} a -> s {optOut = a} :: EndpointResponse)
 
--- | The demographic information for the endpoint, such as the time zone and platform.
-erDemographic :: Lens' EndpointResponse (Maybe EndpointDemographic)
-erDemographic = lens _erDemographic (\s a -> s {_erDemographic = a})
+-- | The demographic information for the endpoint, such as the time zone and
+-- platform.
+endpointResponse_demographic :: Lens.Lens' EndpointResponse (Prelude.Maybe EndpointDemographic)
+endpointResponse_demographic = Lens.lens (\EndpointResponse' {demographic} -> demographic) (\s@EndpointResponse' {} a -> s {demographic = a} :: EndpointResponse)
 
--- | One or more custom attributes that describe the endpoint by associating a name with an array of values. For example, the value of a custom attribute named Interests might be: ["Science", "Music", "Travel"]. You can use these attributes as filter criteria when you create segments.
-erAttributes :: Lens' EndpointResponse (HashMap Text [Text])
-erAttributes = lens _erAttributes (\s a -> s {_erAttributes = a}) . _Default . _Map
+-- | One or more custom attributes that describe the endpoint by associating
+-- a name with an array of values. For example, the value of a custom
+-- attribute named Interests might be: [\"Science\", \"Music\",
+-- \"Travel\"]. You can use these attributes as filter criteria when you
+-- create segments.
+endpointResponse_attributes :: Lens.Lens' EndpointResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+endpointResponse_attributes = Lens.lens (\EndpointResponse' {attributes} -> attributes) (\s@EndpointResponse' {} a -> s {attributes = a} :: EndpointResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | Specifies whether messages or push notifications are sent to the endpoint. Possible values are: ACTIVE, messages are sent to the endpoint; and, INACTIVE, messages aren’t sent to the endpoint. Amazon Pinpoint automatically sets this value to ACTIVE when you create an endpoint or update an existing endpoint. Amazon Pinpoint automatically sets this value to INACTIVE if you update another endpoint that has the same address specified by the Address property.
-erEndpointStatus :: Lens' EndpointResponse (Maybe Text)
-erEndpointStatus = lens _erEndpointStatus (\s a -> s {_erEndpointStatus = a})
+-- | Specifies whether messages or push notifications are sent to the
+-- endpoint. Possible values are: ACTIVE, messages are sent to the
+-- endpoint; and, INACTIVE, messages aren’t sent to the endpoint.
+--
+-- Amazon Pinpoint automatically sets this value to ACTIVE when you create
+-- an endpoint or update an existing endpoint. Amazon Pinpoint
+-- automatically sets this value to INACTIVE if you update another endpoint
+-- that has the same address specified by the Address property.
+endpointResponse_endpointStatus :: Lens.Lens' EndpointResponse (Prelude.Maybe Prelude.Text)
+endpointResponse_endpointStatus = Lens.lens (\EndpointResponse' {endpointStatus} -> endpointStatus) (\s@EndpointResponse' {} a -> s {endpointStatus = a} :: EndpointResponse)
 
--- | One or more custom metrics that your app reports to Amazon Pinpoint for the endpoint.
-erMetrics :: Lens' EndpointResponse (HashMap Text Double)
-erMetrics = lens _erMetrics (\s a -> s {_erMetrics = a}) . _Default . _Map
+-- | One or more custom metrics that your app reports to Amazon Pinpoint for
+-- the endpoint.
+endpointResponse_metrics :: Lens.Lens' EndpointResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Double))
+endpointResponse_metrics = Lens.lens (\EndpointResponse' {metrics} -> metrics) (\s@EndpointResponse' {} a -> s {metrics = a} :: EndpointResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | The unique identifier for the most recent request to update the endpoint.
-erRequestId :: Lens' EndpointResponse (Maybe Text)
-erRequestId = lens _erRequestId (\s a -> s {_erRequestId = a})
+-- | The unique identifier for the most recent request to update the
+-- endpoint.
+endpointResponse_requestId :: Lens.Lens' EndpointResponse (Prelude.Maybe Prelude.Text)
+endpointResponse_requestId = Lens.lens (\EndpointResponse' {requestId} -> requestId) (\s@EndpointResponse' {} a -> s {requestId = a} :: EndpointResponse)
 
--- | The date and time, in ISO 8601 format, when the endpoint was last updated.
-erEffectiveDate :: Lens' EndpointResponse (Maybe Text)
-erEffectiveDate = lens _erEffectiveDate (\s a -> s {_erEffectiveDate = a})
+-- | The date and time, in ISO 8601 format, when the endpoint was last
+-- updated.
+endpointResponse_effectiveDate :: Lens.Lens' EndpointResponse (Prelude.Maybe Prelude.Text)
+endpointResponse_effectiveDate = Lens.lens (\EndpointResponse' {effectiveDate} -> effectiveDate) (\s@EndpointResponse' {} a -> s {effectiveDate = a} :: EndpointResponse)
 
 -- | The geographic information for the endpoint.
-erLocation :: Lens' EndpointResponse (Maybe EndpointLocation)
-erLocation = lens _erLocation (\s a -> s {_erLocation = a})
+endpointResponse_location :: Lens.Lens' EndpointResponse (Prelude.Maybe EndpointLocation)
+endpointResponse_location = Lens.lens (\EndpointResponse' {location} -> location) (\s@EndpointResponse' {} a -> s {location = a} :: EndpointResponse)
 
-instance FromJSON EndpointResponse where
+instance Prelude.FromJSON EndpointResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EndpointResponse"
       ( \x ->
           EndpointResponse'
-            <$> (x .:? "ApplicationId")
-            <*> (x .:? "User")
-            <*> (x .:? "Address")
-            <*> (x .:? "ChannelType")
-            <*> (x .:? "CohortId")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "OptOut")
-            <*> (x .:? "Demographic")
-            <*> (x .:? "Attributes" .!= mempty)
-            <*> (x .:? "EndpointStatus")
-            <*> (x .:? "Metrics" .!= mempty)
-            <*> (x .:? "RequestId")
-            <*> (x .:? "EffectiveDate")
-            <*> (x .:? "Location")
+            Prelude.<$> (x Prelude..:? "ApplicationId")
+            Prelude.<*> (x Prelude..:? "User")
+            Prelude.<*> (x Prelude..:? "Address")
+            Prelude.<*> (x Prelude..:? "ChannelType")
+            Prelude.<*> (x Prelude..:? "CohortId")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "OptOut")
+            Prelude.<*> (x Prelude..:? "Demographic")
+            Prelude.<*> ( x Prelude..:? "Attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "EndpointStatus")
+            Prelude.<*> (x Prelude..:? "Metrics" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "RequestId")
+            Prelude.<*> (x Prelude..:? "EffectiveDate")
+            Prelude.<*> (x Prelude..:? "Location")
       )
 
-instance Hashable EndpointResponse
+instance Prelude.Hashable EndpointResponse
 
-instance NFData EndpointResponse
+instance Prelude.NFData EndpointResponse

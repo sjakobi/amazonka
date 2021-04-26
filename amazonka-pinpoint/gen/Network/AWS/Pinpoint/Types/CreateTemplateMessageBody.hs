@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.CreateTemplateMessageBody where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about a request to create a message template.
 --
---
---
--- /See:/ 'createTemplateMessageBody' smart constructor.
+-- /See:/ 'newCreateTemplateMessageBody' smart constructor.
 data CreateTemplateMessageBody = CreateTemplateMessageBody'
-  { _ctmbMessage ::
-      !(Maybe Text),
-    _ctmbARN ::
-      !(Maybe Text),
-    _ctmbRequestId ::
-      !(Maybe Text)
+  { -- | The message that\'s returned from the API for the request to create the
+    -- message template.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the message template that was created.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the request to create the message template.
+    requestID :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTemplateMessageBody' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTemplateMessageBody' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctmbMessage' - The message that's returned from the API for the request to create the message template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctmbARN' - The Amazon Resource Name (ARN) of the message template that was created.
+-- 'message', 'createTemplateMessageBody_message' - The message that\'s returned from the API for the request to create the
+-- message template.
 --
--- * 'ctmbRequestId' - The unique identifier for the request to create the message template.
-createTemplateMessageBody ::
+-- 'arn', 'createTemplateMessageBody_arn' - The Amazon Resource Name (ARN) of the message template that was created.
+--
+-- 'requestID', 'createTemplateMessageBody_requestID' - The unique identifier for the request to create the message template.
+newCreateTemplateMessageBody ::
   CreateTemplateMessageBody
-createTemplateMessageBody =
+newCreateTemplateMessageBody =
   CreateTemplateMessageBody'
-    { _ctmbMessage = Nothing,
-      _ctmbARN = Nothing,
-      _ctmbRequestId = Nothing
+    { message =
+        Prelude.Nothing,
+      arn = Prelude.Nothing,
+      requestID = Prelude.Nothing
     }
 
--- | The message that's returned from the API for the request to create the message template.
-ctmbMessage :: Lens' CreateTemplateMessageBody (Maybe Text)
-ctmbMessage = lens _ctmbMessage (\s a -> s {_ctmbMessage = a})
+-- | The message that\'s returned from the API for the request to create the
+-- message template.
+createTemplateMessageBody_message :: Lens.Lens' CreateTemplateMessageBody (Prelude.Maybe Prelude.Text)
+createTemplateMessageBody_message = Lens.lens (\CreateTemplateMessageBody' {message} -> message) (\s@CreateTemplateMessageBody' {} a -> s {message = a} :: CreateTemplateMessageBody)
 
 -- | The Amazon Resource Name (ARN) of the message template that was created.
-ctmbARN :: Lens' CreateTemplateMessageBody (Maybe Text)
-ctmbARN = lens _ctmbARN (\s a -> s {_ctmbARN = a})
+createTemplateMessageBody_arn :: Lens.Lens' CreateTemplateMessageBody (Prelude.Maybe Prelude.Text)
+createTemplateMessageBody_arn = Lens.lens (\CreateTemplateMessageBody' {arn} -> arn) (\s@CreateTemplateMessageBody' {} a -> s {arn = a} :: CreateTemplateMessageBody)
 
 -- | The unique identifier for the request to create the message template.
-ctmbRequestId :: Lens' CreateTemplateMessageBody (Maybe Text)
-ctmbRequestId = lens _ctmbRequestId (\s a -> s {_ctmbRequestId = a})
+createTemplateMessageBody_requestID :: Lens.Lens' CreateTemplateMessageBody (Prelude.Maybe Prelude.Text)
+createTemplateMessageBody_requestID = Lens.lens (\CreateTemplateMessageBody' {requestID} -> requestID) (\s@CreateTemplateMessageBody' {} a -> s {requestID = a} :: CreateTemplateMessageBody)
 
-instance FromJSON CreateTemplateMessageBody where
+instance Prelude.FromJSON CreateTemplateMessageBody where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CreateTemplateMessageBody"
       ( \x ->
           CreateTemplateMessageBody'
-            <$> (x .:? "Message")
-            <*> (x .:? "Arn")
-            <*> (x .:? "RequestID")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "RequestID")
       )
 
-instance Hashable CreateTemplateMessageBody
+instance Prelude.Hashable CreateTemplateMessageBody
 
-instance NFData CreateTemplateMessageBody
+instance Prelude.NFData CreateTemplateMessageBody

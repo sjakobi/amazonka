@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about all the recommender model configurations that are associated with your Amazon Pinpoint account.
+-- Retrieves information about all the recommender model configurations
+-- that are associated with your Amazon Pinpoint account.
 module Network.AWS.Pinpoint.GetRecommenderConfigurations
   ( -- * Creating a Request
-    getRecommenderConfigurations,
-    GetRecommenderConfigurations,
+    GetRecommenderConfigurations (..),
+    newGetRecommenderConfigurations,
 
     -- * Request Lenses
-    grcPageSize,
-    grcToken,
+    getRecommenderConfigurations_pageSize,
+    getRecommenderConfigurations_token,
 
     -- * Destructuring the Response
-    getRecommenderConfigurationsResponse,
-    GetRecommenderConfigurationsResponse,
+    GetRecommenderConfigurationsResponse (..),
+    newGetRecommenderConfigurationsResponse,
 
     -- * Response Lenses
-    grcrrrsResponseStatus,
-    grcrrrsListRecommenderConfigurationsResponse,
+    getRecommenderConfigurationsResponse_httpStatus,
+    getRecommenderConfigurationsResponse_listRecommenderConfigurationsResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.ListRecommenderConfigurationsResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRecommenderConfigurations' smart constructor.
+-- | /See:/ 'newGetRecommenderConfigurations' smart constructor.
 data GetRecommenderConfigurations = GetRecommenderConfigurations'
-  { _grcPageSize ::
-      !(Maybe Text),
-    _grcToken ::
-      !(Maybe Text)
+  { -- | The maximum number of items to include in each page of a paginated
+    -- response. This parameter is not supported for application, campaign, and
+    -- journey metrics.
+    pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRecommenderConfigurations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRecommenderConfigurations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grcPageSize' - The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grcToken' - The NextToken string that specifies which page of results to return in a paginated response.
-getRecommenderConfigurations ::
+-- 'pageSize', 'getRecommenderConfigurations_pageSize' - The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+--
+-- 'token', 'getRecommenderConfigurations_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
+newGetRecommenderConfigurations ::
   GetRecommenderConfigurations
-getRecommenderConfigurations =
+newGetRecommenderConfigurations =
   GetRecommenderConfigurations'
-    { _grcPageSize =
-        Nothing,
-      _grcToken = Nothing
+    { pageSize =
+        Prelude.Nothing,
+      token = Prelude.Nothing
     }
 
--- | The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
-grcPageSize :: Lens' GetRecommenderConfigurations (Maybe Text)
-grcPageSize = lens _grcPageSize (\s a -> s {_grcPageSize = a})
+-- | The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+getRecommenderConfigurations_pageSize :: Lens.Lens' GetRecommenderConfigurations (Prelude.Maybe Prelude.Text)
+getRecommenderConfigurations_pageSize = Lens.lens (\GetRecommenderConfigurations' {pageSize} -> pageSize) (\s@GetRecommenderConfigurations' {} a -> s {pageSize = a} :: GetRecommenderConfigurations)
 
--- | The NextToken string that specifies which page of results to return in a paginated response.
-grcToken :: Lens' GetRecommenderConfigurations (Maybe Text)
-grcToken = lens _grcToken (\s a -> s {_grcToken = a})
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+getRecommenderConfigurations_token :: Lens.Lens' GetRecommenderConfigurations (Prelude.Maybe Prelude.Text)
+getRecommenderConfigurations_token = Lens.lens (\GetRecommenderConfigurations' {token} -> token) (\s@GetRecommenderConfigurations' {} a -> s {token = a} :: GetRecommenderConfigurations)
 
-instance AWSRequest GetRecommenderConfigurations where
+instance
+  Prelude.AWSRequest
+    GetRecommenderConfigurations
+  where
   type
     Rs GetRecommenderConfigurations =
       GetRecommenderConfigurationsResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRecommenderConfigurationsResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetRecommenderConfigurations
+instance
+  Prelude.Hashable
+    GetRecommenderConfigurations
 
-instance NFData GetRecommenderConfigurations
+instance Prelude.NFData GetRecommenderConfigurations
 
-instance ToHeaders GetRecommenderConfigurations where
+instance
+  Prelude.ToHeaders
+    GetRecommenderConfigurations
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetRecommenderConfigurations where
-  toPath = const "/v1/recommenders"
+instance Prelude.ToPath GetRecommenderConfigurations where
+  toPath = Prelude.const "/v1/recommenders"
 
-instance ToQuery GetRecommenderConfigurations where
+instance Prelude.ToQuery GetRecommenderConfigurations where
   toQuery GetRecommenderConfigurations' {..} =
-    mconcat
-      ["page-size" =: _grcPageSize, "token" =: _grcToken]
+    Prelude.mconcat
+      [ "page-size" Prelude.=: pageSize,
+        "token" Prelude.=: token
+      ]
 
--- | /See:/ 'getRecommenderConfigurationsResponse' smart constructor.
+-- | /See:/ 'newGetRecommenderConfigurationsResponse' smart constructor.
 data GetRecommenderConfigurationsResponse = GetRecommenderConfigurationsResponse'
-  { _grcrrrsResponseStatus ::
-      !Int,
-    _grcrrrsListRecommenderConfigurationsResponse ::
-      !ListRecommenderConfigurationsResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    listRecommenderConfigurationsResponse :: ListRecommenderConfigurationsResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRecommenderConfigurationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRecommenderConfigurationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grcrrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grcrrrsListRecommenderConfigurationsResponse' - Undocumented member.
-getRecommenderConfigurationsResponse ::
-  -- | 'grcrrrsResponseStatus'
-  Int ->
-  -- | 'grcrrrsListRecommenderConfigurationsResponse'
+-- 'httpStatus', 'getRecommenderConfigurationsResponse_httpStatus' - The response's http status code.
+--
+-- 'listRecommenderConfigurationsResponse', 'getRecommenderConfigurationsResponse_listRecommenderConfigurationsResponse' - Undocumented member.
+newGetRecommenderConfigurationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'listRecommenderConfigurationsResponse'
   ListRecommenderConfigurationsResponse ->
   GetRecommenderConfigurationsResponse
-getRecommenderConfigurationsResponse
-  pResponseStatus_
+newGetRecommenderConfigurationsResponse
+  pHttpStatus_
   pListRecommenderConfigurationsResponse_ =
     GetRecommenderConfigurationsResponse'
-      { _grcrrrsResponseStatus =
-          pResponseStatus_,
-        _grcrrrsListRecommenderConfigurationsResponse =
+      { httpStatus =
+          pHttpStatus_,
+        listRecommenderConfigurationsResponse =
           pListRecommenderConfigurationsResponse_
       }
 
--- | -- | The response status code.
-grcrrrsResponseStatus :: Lens' GetRecommenderConfigurationsResponse Int
-grcrrrsResponseStatus = lens _grcrrrsResponseStatus (\s a -> s {_grcrrrsResponseStatus = a})
+-- | The response's http status code.
+getRecommenderConfigurationsResponse_httpStatus :: Lens.Lens' GetRecommenderConfigurationsResponse Prelude.Int
+getRecommenderConfigurationsResponse_httpStatus = Lens.lens (\GetRecommenderConfigurationsResponse' {httpStatus} -> httpStatus) (\s@GetRecommenderConfigurationsResponse' {} a -> s {httpStatus = a} :: GetRecommenderConfigurationsResponse)
 
 -- | Undocumented member.
-grcrrrsListRecommenderConfigurationsResponse :: Lens' GetRecommenderConfigurationsResponse ListRecommenderConfigurationsResponse
-grcrrrsListRecommenderConfigurationsResponse = lens _grcrrrsListRecommenderConfigurationsResponse (\s a -> s {_grcrrrsListRecommenderConfigurationsResponse = a})
+getRecommenderConfigurationsResponse_listRecommenderConfigurationsResponse :: Lens.Lens' GetRecommenderConfigurationsResponse ListRecommenderConfigurationsResponse
+getRecommenderConfigurationsResponse_listRecommenderConfigurationsResponse = Lens.lens (\GetRecommenderConfigurationsResponse' {listRecommenderConfigurationsResponse} -> listRecommenderConfigurationsResponse) (\s@GetRecommenderConfigurationsResponse' {} a -> s {listRecommenderConfigurationsResponse = a} :: GetRecommenderConfigurationsResponse)
 
-instance NFData GetRecommenderConfigurationsResponse
+instance
+  Prelude.NFData
+    GetRecommenderConfigurationsResponse

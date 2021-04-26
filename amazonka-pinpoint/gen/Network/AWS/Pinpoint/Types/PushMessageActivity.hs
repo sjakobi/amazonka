@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,136 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.PushMessageActivity where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.JourneyPushMessage
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for a push notification activity in a journey. This type of activity sends a push notification to participants.
+-- | Specifies the settings for a push notification activity in a journey.
+-- This type of activity sends a push notification to participants.
 --
---
---
--- /See:/ 'pushMessageActivity' smart constructor.
+-- /See:/ 'newPushMessageActivity' smart constructor.
 data PushMessageActivity = PushMessageActivity'
-  { _pmaTemplateName ::
-      !(Maybe Text),
-    _pmaMessageConfig ::
-      !(Maybe JourneyPushMessage),
-    _pmaNextActivity ::
-      !(Maybe Text),
-    _pmaTemplateVersion ::
-      !(Maybe Text)
+  { -- | The name of the push notification template to use for the message. If
+    -- specified, this value must match the name of an existing message
+    -- template.
+    templateName :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the time to live (TTL) value for push notifications that are
+    -- sent to participants in a journey.
+    messageConfig :: Prelude.Maybe JourneyPushMessage,
+    -- | The unique identifier for the next activity to perform, after the
+    -- message is sent.
+    nextActivity :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the version of the push notification template
+    -- to use for the message. If specified, this value must match the
+    -- identifier for an existing template version. To retrieve a list of
+    -- versions and version identifiers for a template, use the Template
+    -- Versions resource.
+    --
+    -- If you don\'t specify a value for this property, Amazon Pinpoint uses
+    -- the /active version/ of the template. The /active version/ is typically
+    -- the version of a template that\'s been most recently reviewed and
+    -- approved for use, depending on your workflow. It isn\'t necessarily the
+    -- latest version of a template.
+    templateVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PushMessageActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PushMessageActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pmaTemplateName' - The name of the push notification template to use for the message. If specified, this value must match the name of an existing message template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pmaMessageConfig' - Specifies the time to live (TTL) value for push notifications that are sent to participants in a journey.
+-- 'templateName', 'pushMessageActivity_templateName' - The name of the push notification template to use for the message. If
+-- specified, this value must match the name of an existing message
+-- template.
 --
--- * 'pmaNextActivity' - The unique identifier for the next activity to perform, after the message is sent.
+-- 'messageConfig', 'pushMessageActivity_messageConfig' - Specifies the time to live (TTL) value for push notifications that are
+-- sent to participants in a journey.
 --
--- * 'pmaTemplateVersion' - The unique identifier for the version of the push notification template to use for the message. If specified, this value must match the identifier for an existing template version. To retrieve a list of versions and version identifiers for a template, use the <link>Template Versions resource. If you don't specify a value for this property, Amazon Pinpoint uses the /active version/ of the template. The /active version/ is typically the version of a template that's been most recently reviewed and approved for use, depending on your workflow. It isn't necessarily the latest version of a template.
-pushMessageActivity ::
+-- 'nextActivity', 'pushMessageActivity_nextActivity' - The unique identifier for the next activity to perform, after the
+-- message is sent.
+--
+-- 'templateVersion', 'pushMessageActivity_templateVersion' - The unique identifier for the version of the push notification template
+-- to use for the message. If specified, this value must match the
+-- identifier for an existing template version. To retrieve a list of
+-- versions and version identifiers for a template, use the Template
+-- Versions resource.
+--
+-- If you don\'t specify a value for this property, Amazon Pinpoint uses
+-- the /active version/ of the template. The /active version/ is typically
+-- the version of a template that\'s been most recently reviewed and
+-- approved for use, depending on your workflow. It isn\'t necessarily the
+-- latest version of a template.
+newPushMessageActivity ::
   PushMessageActivity
-pushMessageActivity =
+newPushMessageActivity =
   PushMessageActivity'
-    { _pmaTemplateName = Nothing,
-      _pmaMessageConfig = Nothing,
-      _pmaNextActivity = Nothing,
-      _pmaTemplateVersion = Nothing
+    { templateName =
+        Prelude.Nothing,
+      messageConfig = Prelude.Nothing,
+      nextActivity = Prelude.Nothing,
+      templateVersion = Prelude.Nothing
     }
 
--- | The name of the push notification template to use for the message. If specified, this value must match the name of an existing message template.
-pmaTemplateName :: Lens' PushMessageActivity (Maybe Text)
-pmaTemplateName = lens _pmaTemplateName (\s a -> s {_pmaTemplateName = a})
+-- | The name of the push notification template to use for the message. If
+-- specified, this value must match the name of an existing message
+-- template.
+pushMessageActivity_templateName :: Lens.Lens' PushMessageActivity (Prelude.Maybe Prelude.Text)
+pushMessageActivity_templateName = Lens.lens (\PushMessageActivity' {templateName} -> templateName) (\s@PushMessageActivity' {} a -> s {templateName = a} :: PushMessageActivity)
 
--- | Specifies the time to live (TTL) value for push notifications that are sent to participants in a journey.
-pmaMessageConfig :: Lens' PushMessageActivity (Maybe JourneyPushMessage)
-pmaMessageConfig = lens _pmaMessageConfig (\s a -> s {_pmaMessageConfig = a})
+-- | Specifies the time to live (TTL) value for push notifications that are
+-- sent to participants in a journey.
+pushMessageActivity_messageConfig :: Lens.Lens' PushMessageActivity (Prelude.Maybe JourneyPushMessage)
+pushMessageActivity_messageConfig = Lens.lens (\PushMessageActivity' {messageConfig} -> messageConfig) (\s@PushMessageActivity' {} a -> s {messageConfig = a} :: PushMessageActivity)
 
--- | The unique identifier for the next activity to perform, after the message is sent.
-pmaNextActivity :: Lens' PushMessageActivity (Maybe Text)
-pmaNextActivity = lens _pmaNextActivity (\s a -> s {_pmaNextActivity = a})
+-- | The unique identifier for the next activity to perform, after the
+-- message is sent.
+pushMessageActivity_nextActivity :: Lens.Lens' PushMessageActivity (Prelude.Maybe Prelude.Text)
+pushMessageActivity_nextActivity = Lens.lens (\PushMessageActivity' {nextActivity} -> nextActivity) (\s@PushMessageActivity' {} a -> s {nextActivity = a} :: PushMessageActivity)
 
--- | The unique identifier for the version of the push notification template to use for the message. If specified, this value must match the identifier for an existing template version. To retrieve a list of versions and version identifiers for a template, use the <link>Template Versions resource. If you don't specify a value for this property, Amazon Pinpoint uses the /active version/ of the template. The /active version/ is typically the version of a template that's been most recently reviewed and approved for use, depending on your workflow. It isn't necessarily the latest version of a template.
-pmaTemplateVersion :: Lens' PushMessageActivity (Maybe Text)
-pmaTemplateVersion = lens _pmaTemplateVersion (\s a -> s {_pmaTemplateVersion = a})
+-- | The unique identifier for the version of the push notification template
+-- to use for the message. If specified, this value must match the
+-- identifier for an existing template version. To retrieve a list of
+-- versions and version identifiers for a template, use the Template
+-- Versions resource.
+--
+-- If you don\'t specify a value for this property, Amazon Pinpoint uses
+-- the /active version/ of the template. The /active version/ is typically
+-- the version of a template that\'s been most recently reviewed and
+-- approved for use, depending on your workflow. It isn\'t necessarily the
+-- latest version of a template.
+pushMessageActivity_templateVersion :: Lens.Lens' PushMessageActivity (Prelude.Maybe Prelude.Text)
+pushMessageActivity_templateVersion = Lens.lens (\PushMessageActivity' {templateVersion} -> templateVersion) (\s@PushMessageActivity' {} a -> s {templateVersion = a} :: PushMessageActivity)
 
-instance FromJSON PushMessageActivity where
+instance Prelude.FromJSON PushMessageActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PushMessageActivity"
       ( \x ->
           PushMessageActivity'
-            <$> (x .:? "TemplateName")
-            <*> (x .:? "MessageConfig")
-            <*> (x .:? "NextActivity")
-            <*> (x .:? "TemplateVersion")
+            Prelude.<$> (x Prelude..:? "TemplateName")
+            Prelude.<*> (x Prelude..:? "MessageConfig")
+            Prelude.<*> (x Prelude..:? "NextActivity")
+            Prelude.<*> (x Prelude..:? "TemplateVersion")
       )
 
-instance Hashable PushMessageActivity
+instance Prelude.Hashable PushMessageActivity
 
-instance NFData PushMessageActivity
+instance Prelude.NFData PushMessageActivity
 
-instance ToJSON PushMessageActivity where
+instance Prelude.ToJSON PushMessageActivity where
   toJSON PushMessageActivity' {..} =
-    object
-      ( catMaybes
-          [ ("TemplateName" .=) <$> _pmaTemplateName,
-            ("MessageConfig" .=) <$> _pmaMessageConfig,
-            ("NextActivity" .=) <$> _pmaNextActivity,
-            ("TemplateVersion" .=) <$> _pmaTemplateVersion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TemplateName" Prelude..=)
+              Prelude.<$> templateName,
+            ("MessageConfig" Prelude..=)
+              Prelude.<$> messageConfig,
+            ("NextActivity" Prelude..=) Prelude.<$> nextActivity,
+            ("TemplateVersion" Prelude..=)
+              Prelude.<$> templateVersion
           ]
       )

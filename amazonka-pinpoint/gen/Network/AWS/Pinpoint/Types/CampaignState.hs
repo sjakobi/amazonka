@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.CampaignState where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.CampaignStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about the status of a campaign.
 --
---
---
--- /See:/ 'campaignState' smart constructor.
-newtype CampaignState = CampaignState'
-  { _csCampaignStatus ::
-      Maybe CampaignStatus
+-- /See:/ 'newCampaignState' smart constructor.
+data CampaignState = CampaignState'
+  { -- | The current status of the campaign, or the current status of a treatment
+    -- that belongs to an A\/B test campaign.
+    --
+    -- If a campaign uses A\/B testing, the campaign has a status of COMPLETED
+    -- only if all campaign treatments have a status of COMPLETED. If you
+    -- delete the segment that\'s associated with a campaign, the campaign
+    -- fails and has a status of DELETED.
+    campaignStatus :: Prelude.Maybe CampaignStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CampaignState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CampaignState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csCampaignStatus' - The current status of the campaign, or the current status of a treatment that belongs to an A/B test campaign. If a campaign uses A/B testing, the campaign has a status of COMPLETED only if all campaign treatments have a status of COMPLETED. If you delete the segment that's associated with a campaign, the campaign fails and has a status of DELETED.
-campaignState ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'campaignStatus', 'campaignState_campaignStatus' - The current status of the campaign, or the current status of a treatment
+-- that belongs to an A\/B test campaign.
+--
+-- If a campaign uses A\/B testing, the campaign has a status of COMPLETED
+-- only if all campaign treatments have a status of COMPLETED. If you
+-- delete the segment that\'s associated with a campaign, the campaign
+-- fails and has a status of DELETED.
+newCampaignState ::
   CampaignState
-campaignState =
-  CampaignState' {_csCampaignStatus = Nothing}
+newCampaignState =
+  CampaignState' {campaignStatus = Prelude.Nothing}
 
--- | The current status of the campaign, or the current status of a treatment that belongs to an A/B test campaign. If a campaign uses A/B testing, the campaign has a status of COMPLETED only if all campaign treatments have a status of COMPLETED. If you delete the segment that's associated with a campaign, the campaign fails and has a status of DELETED.
-csCampaignStatus :: Lens' CampaignState (Maybe CampaignStatus)
-csCampaignStatus = lens _csCampaignStatus (\s a -> s {_csCampaignStatus = a})
+-- | The current status of the campaign, or the current status of a treatment
+-- that belongs to an A\/B test campaign.
+--
+-- If a campaign uses A\/B testing, the campaign has a status of COMPLETED
+-- only if all campaign treatments have a status of COMPLETED. If you
+-- delete the segment that\'s associated with a campaign, the campaign
+-- fails and has a status of DELETED.
+campaignState_campaignStatus :: Lens.Lens' CampaignState (Prelude.Maybe CampaignStatus)
+campaignState_campaignStatus = Lens.lens (\CampaignState' {campaignStatus} -> campaignStatus) (\s@CampaignState' {} a -> s {campaignStatus = a} :: CampaignState)
 
-instance FromJSON CampaignState where
+instance Prelude.FromJSON CampaignState where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CampaignState"
-      (\x -> CampaignState' <$> (x .:? "CampaignStatus"))
+      ( \x ->
+          CampaignState'
+            Prelude.<$> (x Prelude..:? "CampaignStatus")
+      )
 
-instance Hashable CampaignState
+instance Prelude.Hashable CampaignState
 
-instance NFData CampaignState
+instance Prelude.NFData CampaignState

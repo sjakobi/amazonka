@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,70 @@
 module Network.AWS.Pinpoint.Types.State
   ( State
       ( ..,
-        SActive,
-        SCancelled,
-        SClosed,
-        SCompleted,
-        SDraft
+        StateACTIVE,
+        StateCANCELLED,
+        StateCLOSED,
+        StateCOMPLETED,
+        StateDRAFT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data State = State' (CI Text)
+newtype State = State' {fromState :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SActive :: State
-pattern SActive = State' "ACTIVE"
+pattern StateACTIVE :: State
+pattern StateACTIVE = State' "ACTIVE"
 
-pattern SCancelled :: State
-pattern SCancelled = State' "CANCELLED"
+pattern StateCANCELLED :: State
+pattern StateCANCELLED = State' "CANCELLED"
 
-pattern SClosed :: State
-pattern SClosed = State' "CLOSED"
+pattern StateCLOSED :: State
+pattern StateCLOSED = State' "CLOSED"
 
-pattern SCompleted :: State
-pattern SCompleted = State' "COMPLETED"
+pattern StateCOMPLETED :: State
+pattern StateCOMPLETED = State' "COMPLETED"
 
-pattern SDraft :: State
-pattern SDraft = State' "DRAFT"
+pattern StateDRAFT :: State
+pattern StateDRAFT = State' "DRAFT"
 
 {-# COMPLETE
-  SActive,
-  SCancelled,
-  SClosed,
-  SCompleted,
-  SDraft,
+  StateACTIVE,
+  StateCANCELLED,
+  StateCLOSED,
+  StateCOMPLETED,
+  StateDRAFT,
   State'
   #-}
 
-instance FromText State where
-  parser = (State' . mk) <$> takeText
+instance Prelude.FromText State where
+  parser = State' Prelude.<$> Prelude.takeText
 
-instance ToText State where
-  toText (State' ci) = original ci
+instance Prelude.ToText State where
+  toText (State' x) = x
 
-instance Hashable State
+instance Prelude.Hashable State
 
-instance NFData State
+instance Prelude.NFData State
 
-instance ToByteString State
+instance Prelude.ToByteString State
 
-instance ToQuery State
+instance Prelude.ToQuery State
 
-instance ToHeader State
+instance Prelude.ToHeader State
 
-instance ToJSON State where
-  toJSON = toJSONText
+instance Prelude.ToJSON State where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON State where
-  parseJSON = parseJSONText "State"
+instance Prelude.FromJSON State where
+  parseJSON = Prelude.parseJSONText "State"

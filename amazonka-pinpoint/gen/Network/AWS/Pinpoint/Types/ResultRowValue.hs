@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ResultRowValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides a single value and metadata about that value as part of an array of query results for a standard metric that applies to an application, campaign, or journey.
+-- | Provides a single value and metadata about that value as part of an
+-- array of query results for a standard metric that applies to an
+-- application, campaign, or journey.
 --
---
---
--- /See:/ 'resultRowValue' smart constructor.
+-- /See:/ 'newResultRowValue' smart constructor.
 data ResultRowValue = ResultRowValue'
-  { _rrvType ::
-      !Text,
-    _rrvValue :: !Text,
-    _rrvKey :: !Text
+  { -- | The data type of the value specified by the Value property.
+    type' :: Prelude.Text,
+    -- | In a Values object, the value for the metric that the query retrieved
+    -- data for. In a GroupedBys object, the value for the field that was used
+    -- to group data in a result set that contains multiple results (Values
+    -- objects).
+    value :: Prelude.Text,
+    -- | The friendly name of the metric whose value is specified by the Value
+    -- property.
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResultRowValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResultRowValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrvType' - The data type of the value specified by the Value property.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrvValue' - In a Values object, the value for the metric that the query retrieved data for. In a GroupedBys object, the value for the field that was used to group data in a result set that contains multiple results (Values objects).
+-- 'type'', 'resultRowValue_type' - The data type of the value specified by the Value property.
 --
--- * 'rrvKey' - The friendly name of the metric whose value is specified by the Value property.
-resultRowValue ::
-  -- | 'rrvType'
-  Text ->
-  -- | 'rrvValue'
-  Text ->
-  -- | 'rrvKey'
-  Text ->
+-- 'value', 'resultRowValue_value' - In a Values object, the value for the metric that the query retrieved
+-- data for. In a GroupedBys object, the value for the field that was used
+-- to group data in a result set that contains multiple results (Values
+-- objects).
+--
+-- 'key', 'resultRowValue_key' - The friendly name of the metric whose value is specified by the Value
+-- property.
+newResultRowValue ::
+  -- | 'type''
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
+  -- | 'key'
+  Prelude.Text ->
   ResultRowValue
-resultRowValue pType_ pValue_ pKey_ =
+newResultRowValue pType_ pValue_ pKey_ =
   ResultRowValue'
-    { _rrvType = pType_,
-      _rrvValue = pValue_,
-      _rrvKey = pKey_
+    { type' = pType_,
+      value = pValue_,
+      key = pKey_
     }
 
 -- | The data type of the value specified by the Value property.
-rrvType :: Lens' ResultRowValue Text
-rrvType = lens _rrvType (\s a -> s {_rrvType = a})
+resultRowValue_type :: Lens.Lens' ResultRowValue Prelude.Text
+resultRowValue_type = Lens.lens (\ResultRowValue' {type'} -> type') (\s@ResultRowValue' {} a -> s {type' = a} :: ResultRowValue)
 
--- | In a Values object, the value for the metric that the query retrieved data for. In a GroupedBys object, the value for the field that was used to group data in a result set that contains multiple results (Values objects).
-rrvValue :: Lens' ResultRowValue Text
-rrvValue = lens _rrvValue (\s a -> s {_rrvValue = a})
+-- | In a Values object, the value for the metric that the query retrieved
+-- data for. In a GroupedBys object, the value for the field that was used
+-- to group data in a result set that contains multiple results (Values
+-- objects).
+resultRowValue_value :: Lens.Lens' ResultRowValue Prelude.Text
+resultRowValue_value = Lens.lens (\ResultRowValue' {value} -> value) (\s@ResultRowValue' {} a -> s {value = a} :: ResultRowValue)
 
--- | The friendly name of the metric whose value is specified by the Value property.
-rrvKey :: Lens' ResultRowValue Text
-rrvKey = lens _rrvKey (\s a -> s {_rrvKey = a})
+-- | The friendly name of the metric whose value is specified by the Value
+-- property.
+resultRowValue_key :: Lens.Lens' ResultRowValue Prelude.Text
+resultRowValue_key = Lens.lens (\ResultRowValue' {key} -> key) (\s@ResultRowValue' {} a -> s {key = a} :: ResultRowValue)
 
-instance FromJSON ResultRowValue where
+instance Prelude.FromJSON ResultRowValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResultRowValue"
       ( \x ->
           ResultRowValue'
-            <$> (x .: "Type") <*> (x .: "Value") <*> (x .: "Key")
+            Prelude.<$> (x Prelude..: "Type")
+            Prelude.<*> (x Prelude..: "Value")
+            Prelude.<*> (x Prelude..: "Key")
       )
 
-instance Hashable ResultRowValue
+instance Prelude.Hashable ResultRowValue
 
-instance NFData ResultRowValue
+instance Prelude.NFData ResultRowValue

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.CampaignDateRangeKpiResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.BaseKpiResult
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the results of a query that retrieved the data for a standard metric that applies to a campaign, and provides information about that query.
+-- | Provides the results of a query that retrieved the data for a standard
+-- metric that applies to a campaign, and provides information about that
+-- query.
 --
---
---
--- /See:/ 'campaignDateRangeKpiResponse' smart constructor.
+-- /See:/ 'newCampaignDateRangeKpiResponse' smart constructor.
 data CampaignDateRangeKpiResponse = CampaignDateRangeKpiResponse'
-  { _cdrkrNextToken ::
-      !(Maybe Text),
-    _cdrkrKpiResult ::
-      !BaseKpiResult,
-    _cdrkrKpiName ::
-      !Text,
-    _cdrkrEndTime ::
-      !POSIX,
-    _cdrkrCampaignId ::
-      !Text,
-    _cdrkrStartTime ::
-      !POSIX,
-    _cdrkrApplicationId ::
-      !Text
+  { -- | The string to use in a subsequent request to get the next page of
+    -- results in a paginated response. This value is null for the Campaign
+    -- Metrics resource because the resource returns all results in a single
+    -- page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of objects that contains the results of the query. Each object
+    -- contains the value for the metric and metadata about that value.
+    kpiResult :: BaseKpiResult,
+    -- | The name of the metric, also referred to as a /key performance indicator
+    -- (KPI)/, that the data was retrieved for. This value describes the
+    -- associated metric and consists of two or more terms, which are comprised
+    -- of lowercase alphanumeric characters, separated by a hyphen. For a list
+    -- of possible values, see the
+    -- <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide>.
+    kpiName :: Prelude.Text,
+    -- | The last date and time of the date range that was used to filter the
+    -- query results, in extended ISO 8601 format. The date range is inclusive.
+    endTime :: Prelude.POSIX,
+    -- | The unique identifier for the campaign that the metric applies to.
+    campaignId :: Prelude.Text,
+    -- | The first date and time of the date range that was used to filter the
+    -- query results, in extended ISO 8601 format. The date range is inclusive.
+    startTime :: Prelude.POSIX,
+    -- | The unique identifier for the application that the metric applies to.
+    applicationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CampaignDateRangeKpiResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CampaignDateRangeKpiResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdrkrNextToken' - The string to use in a subsequent request to get the next page of results in a paginated response. This value is null for the Campaign Metrics resource because the resource returns all results in a single page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdrkrKpiResult' - An array of objects that contains the results of the query. Each object contains the value for the metric and metadata about that value.
+-- 'nextToken', 'campaignDateRangeKpiResponse_nextToken' - The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null for the Campaign
+-- Metrics resource because the resource returns all results in a single
+-- page.
 --
--- * 'cdrkrKpiName' - The name of the metric, also referred to as a /key performance indicator (KPI)/ , that the data was retrieved for. This value describes the associated metric and consists of two or more terms, which are comprised of lowercase alphanumeric characters, separated by a hyphen. For a list of possible values, see the <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide> .
+-- 'kpiResult', 'campaignDateRangeKpiResponse_kpiResult' - An array of objects that contains the results of the query. Each object
+-- contains the value for the metric and metadata about that value.
 --
--- * 'cdrkrEndTime' - The last date and time of the date range that was used to filter the query results, in extended ISO 8601 format. The date range is inclusive.
+-- 'kpiName', 'campaignDateRangeKpiResponse_kpiName' - The name of the metric, also referred to as a /key performance indicator
+-- (KPI)/, that the data was retrieved for. This value describes the
+-- associated metric and consists of two or more terms, which are comprised
+-- of lowercase alphanumeric characters, separated by a hyphen. For a list
+-- of possible values, see the
+-- <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide>.
 --
--- * 'cdrkrCampaignId' - The unique identifier for the campaign that the metric applies to.
+-- 'endTime', 'campaignDateRangeKpiResponse_endTime' - The last date and time of the date range that was used to filter the
+-- query results, in extended ISO 8601 format. The date range is inclusive.
 --
--- * 'cdrkrStartTime' - The first date and time of the date range that was used to filter the query results, in extended ISO 8601 format. The date range is inclusive.
+-- 'campaignId', 'campaignDateRangeKpiResponse_campaignId' - The unique identifier for the campaign that the metric applies to.
 --
--- * 'cdrkrApplicationId' - The unique identifier for the application that the metric applies to.
-campaignDateRangeKpiResponse ::
-  -- | 'cdrkrKpiResult'
+-- 'startTime', 'campaignDateRangeKpiResponse_startTime' - The first date and time of the date range that was used to filter the
+-- query results, in extended ISO 8601 format. The date range is inclusive.
+--
+-- 'applicationId', 'campaignDateRangeKpiResponse_applicationId' - The unique identifier for the application that the metric applies to.
+newCampaignDateRangeKpiResponse ::
+  -- | 'kpiResult'
   BaseKpiResult ->
-  -- | 'cdrkrKpiName'
-  Text ->
-  -- | 'cdrkrEndTime'
-  UTCTime ->
-  -- | 'cdrkrCampaignId'
-  Text ->
-  -- | 'cdrkrStartTime'
-  UTCTime ->
-  -- | 'cdrkrApplicationId'
-  Text ->
+  -- | 'kpiName'
+  Prelude.Text ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
+  -- | 'campaignId'
+  Prelude.Text ->
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'applicationId'
+  Prelude.Text ->
   CampaignDateRangeKpiResponse
-campaignDateRangeKpiResponse
+newCampaignDateRangeKpiResponse
   pKpiResult_
   pKpiName_
   pEndTime_
@@ -88,59 +111,75 @@ campaignDateRangeKpiResponse
   pStartTime_
   pApplicationId_ =
     CampaignDateRangeKpiResponse'
-      { _cdrkrNextToken =
-          Nothing,
-        _cdrkrKpiResult = pKpiResult_,
-        _cdrkrKpiName = pKpiName_,
-        _cdrkrEndTime = _Time # pEndTime_,
-        _cdrkrCampaignId = pCampaignId_,
-        _cdrkrStartTime = _Time # pStartTime_,
-        _cdrkrApplicationId = pApplicationId_
+      { nextToken =
+          Prelude.Nothing,
+        kpiResult = pKpiResult_,
+        kpiName = pKpiName_,
+        endTime = Prelude._Time Lens.# pEndTime_,
+        campaignId = pCampaignId_,
+        startTime = Prelude._Time Lens.# pStartTime_,
+        applicationId = pApplicationId_
       }
 
--- | The string to use in a subsequent request to get the next page of results in a paginated response. This value is null for the Campaign Metrics resource because the resource returns all results in a single page.
-cdrkrNextToken :: Lens' CampaignDateRangeKpiResponse (Maybe Text)
-cdrkrNextToken = lens _cdrkrNextToken (\s a -> s {_cdrkrNextToken = a})
+-- | The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null for the Campaign
+-- Metrics resource because the resource returns all results in a single
+-- page.
+campaignDateRangeKpiResponse_nextToken :: Lens.Lens' CampaignDateRangeKpiResponse (Prelude.Maybe Prelude.Text)
+campaignDateRangeKpiResponse_nextToken = Lens.lens (\CampaignDateRangeKpiResponse' {nextToken} -> nextToken) (\s@CampaignDateRangeKpiResponse' {} a -> s {nextToken = a} :: CampaignDateRangeKpiResponse)
 
--- | An array of objects that contains the results of the query. Each object contains the value for the metric and metadata about that value.
-cdrkrKpiResult :: Lens' CampaignDateRangeKpiResponse BaseKpiResult
-cdrkrKpiResult = lens _cdrkrKpiResult (\s a -> s {_cdrkrKpiResult = a})
+-- | An array of objects that contains the results of the query. Each object
+-- contains the value for the metric and metadata about that value.
+campaignDateRangeKpiResponse_kpiResult :: Lens.Lens' CampaignDateRangeKpiResponse BaseKpiResult
+campaignDateRangeKpiResponse_kpiResult = Lens.lens (\CampaignDateRangeKpiResponse' {kpiResult} -> kpiResult) (\s@CampaignDateRangeKpiResponse' {} a -> s {kpiResult = a} :: CampaignDateRangeKpiResponse)
 
--- | The name of the metric, also referred to as a /key performance indicator (KPI)/ , that the data was retrieved for. This value describes the associated metric and consists of two or more terms, which are comprised of lowercase alphanumeric characters, separated by a hyphen. For a list of possible values, see the <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide> .
-cdrkrKpiName :: Lens' CampaignDateRangeKpiResponse Text
-cdrkrKpiName = lens _cdrkrKpiName (\s a -> s {_cdrkrKpiName = a})
+-- | The name of the metric, also referred to as a /key performance indicator
+-- (KPI)/, that the data was retrieved for. This value describes the
+-- associated metric and consists of two or more terms, which are comprised
+-- of lowercase alphanumeric characters, separated by a hyphen. For a list
+-- of possible values, see the
+-- <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide>.
+campaignDateRangeKpiResponse_kpiName :: Lens.Lens' CampaignDateRangeKpiResponse Prelude.Text
+campaignDateRangeKpiResponse_kpiName = Lens.lens (\CampaignDateRangeKpiResponse' {kpiName} -> kpiName) (\s@CampaignDateRangeKpiResponse' {} a -> s {kpiName = a} :: CampaignDateRangeKpiResponse)
 
--- | The last date and time of the date range that was used to filter the query results, in extended ISO 8601 format. The date range is inclusive.
-cdrkrEndTime :: Lens' CampaignDateRangeKpiResponse UTCTime
-cdrkrEndTime = lens _cdrkrEndTime (\s a -> s {_cdrkrEndTime = a}) . _Time
+-- | The last date and time of the date range that was used to filter the
+-- query results, in extended ISO 8601 format. The date range is inclusive.
+campaignDateRangeKpiResponse_endTime :: Lens.Lens' CampaignDateRangeKpiResponse Prelude.UTCTime
+campaignDateRangeKpiResponse_endTime = Lens.lens (\CampaignDateRangeKpiResponse' {endTime} -> endTime) (\s@CampaignDateRangeKpiResponse' {} a -> s {endTime = a} :: CampaignDateRangeKpiResponse) Prelude.. Prelude._Time
 
 -- | The unique identifier for the campaign that the metric applies to.
-cdrkrCampaignId :: Lens' CampaignDateRangeKpiResponse Text
-cdrkrCampaignId = lens _cdrkrCampaignId (\s a -> s {_cdrkrCampaignId = a})
+campaignDateRangeKpiResponse_campaignId :: Lens.Lens' CampaignDateRangeKpiResponse Prelude.Text
+campaignDateRangeKpiResponse_campaignId = Lens.lens (\CampaignDateRangeKpiResponse' {campaignId} -> campaignId) (\s@CampaignDateRangeKpiResponse' {} a -> s {campaignId = a} :: CampaignDateRangeKpiResponse)
 
--- | The first date and time of the date range that was used to filter the query results, in extended ISO 8601 format. The date range is inclusive.
-cdrkrStartTime :: Lens' CampaignDateRangeKpiResponse UTCTime
-cdrkrStartTime = lens _cdrkrStartTime (\s a -> s {_cdrkrStartTime = a}) . _Time
+-- | The first date and time of the date range that was used to filter the
+-- query results, in extended ISO 8601 format. The date range is inclusive.
+campaignDateRangeKpiResponse_startTime :: Lens.Lens' CampaignDateRangeKpiResponse Prelude.UTCTime
+campaignDateRangeKpiResponse_startTime = Lens.lens (\CampaignDateRangeKpiResponse' {startTime} -> startTime) (\s@CampaignDateRangeKpiResponse' {} a -> s {startTime = a} :: CampaignDateRangeKpiResponse) Prelude.. Prelude._Time
 
 -- | The unique identifier for the application that the metric applies to.
-cdrkrApplicationId :: Lens' CampaignDateRangeKpiResponse Text
-cdrkrApplicationId = lens _cdrkrApplicationId (\s a -> s {_cdrkrApplicationId = a})
+campaignDateRangeKpiResponse_applicationId :: Lens.Lens' CampaignDateRangeKpiResponse Prelude.Text
+campaignDateRangeKpiResponse_applicationId = Lens.lens (\CampaignDateRangeKpiResponse' {applicationId} -> applicationId) (\s@CampaignDateRangeKpiResponse' {} a -> s {applicationId = a} :: CampaignDateRangeKpiResponse)
 
-instance FromJSON CampaignDateRangeKpiResponse where
+instance
+  Prelude.FromJSON
+    CampaignDateRangeKpiResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CampaignDateRangeKpiResponse"
       ( \x ->
           CampaignDateRangeKpiResponse'
-            <$> (x .:? "NextToken")
-            <*> (x .: "KpiResult")
-            <*> (x .: "KpiName")
-            <*> (x .: "EndTime")
-            <*> (x .: "CampaignId")
-            <*> (x .: "StartTime")
-            <*> (x .: "ApplicationId")
+            Prelude.<$> (x Prelude..:? "NextToken")
+            Prelude.<*> (x Prelude..: "KpiResult")
+            Prelude.<*> (x Prelude..: "KpiName")
+            Prelude.<*> (x Prelude..: "EndTime")
+            Prelude.<*> (x Prelude..: "CampaignId")
+            Prelude.<*> (x Prelude..: "StartTime")
+            Prelude.<*> (x Prelude..: "ApplicationId")
       )
 
-instance Hashable CampaignDateRangeKpiResponse
+instance
+  Prelude.Hashable
+    CampaignDateRangeKpiResponse
 
-instance NFData CampaignDateRangeKpiResponse
+instance Prelude.NFData CampaignDateRangeKpiResponse

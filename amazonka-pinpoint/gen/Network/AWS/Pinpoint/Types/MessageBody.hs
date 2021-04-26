@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.MessageBody where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about an API request or response.
 --
---
---
--- /See:/ 'messageBody' smart constructor.
+-- /See:/ 'newMessageBody' smart constructor.
 data MessageBody = MessageBody'
-  { _mbMessage ::
-      !(Maybe Text),
-    _mbRequestId :: !(Maybe Text)
+  { -- | The message that\'s returned from the API.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the request or response.
+    requestID :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MessageBody' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MessageBody' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mbMessage' - The message that's returned from the API.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mbRequestId' - The unique identifier for the request or response.
-messageBody ::
+-- 'message', 'messageBody_message' - The message that\'s returned from the API.
+--
+-- 'requestID', 'messageBody_requestID' - The unique identifier for the request or response.
+newMessageBody ::
   MessageBody
-messageBody =
+newMessageBody =
   MessageBody'
-    { _mbMessage = Nothing,
-      _mbRequestId = Nothing
+    { message = Prelude.Nothing,
+      requestID = Prelude.Nothing
     }
 
--- | The message that's returned from the API.
-mbMessage :: Lens' MessageBody (Maybe Text)
-mbMessage = lens _mbMessage (\s a -> s {_mbMessage = a})
+-- | The message that\'s returned from the API.
+messageBody_message :: Lens.Lens' MessageBody (Prelude.Maybe Prelude.Text)
+messageBody_message = Lens.lens (\MessageBody' {message} -> message) (\s@MessageBody' {} a -> s {message = a} :: MessageBody)
 
 -- | The unique identifier for the request or response.
-mbRequestId :: Lens' MessageBody (Maybe Text)
-mbRequestId = lens _mbRequestId (\s a -> s {_mbRequestId = a})
+messageBody_requestID :: Lens.Lens' MessageBody (Prelude.Maybe Prelude.Text)
+messageBody_requestID = Lens.lens (\MessageBody' {requestID} -> requestID) (\s@MessageBody' {} a -> s {requestID = a} :: MessageBody)
 
-instance FromJSON MessageBody where
+instance Prelude.FromJSON MessageBody where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MessageBody"
       ( \x ->
           MessageBody'
-            <$> (x .:? "Message") <*> (x .:? "RequestID")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "RequestID")
       )
 
-instance Hashable MessageBody
+instance Prelude.Hashable MessageBody
 
-instance NFData MessageBody
+instance Prelude.NFData MessageBody

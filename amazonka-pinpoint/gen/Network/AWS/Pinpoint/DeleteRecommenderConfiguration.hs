@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,141 +24,160 @@
 -- Deletes an Amazon Pinpoint configuration for a recommender model.
 module Network.AWS.Pinpoint.DeleteRecommenderConfiguration
   ( -- * Creating a Request
-    deleteRecommenderConfiguration,
-    DeleteRecommenderConfiguration,
+    DeleteRecommenderConfiguration (..),
+    newDeleteRecommenderConfiguration,
 
     -- * Request Lenses
-    drcRecommenderId,
+    deleteRecommenderConfiguration_recommenderId,
 
     -- * Destructuring the Response
-    deleteRecommenderConfigurationResponse,
-    DeleteRecommenderConfigurationResponse,
+    DeleteRecommenderConfigurationResponse (..),
+    newDeleteRecommenderConfigurationResponse,
 
     -- * Response Lenses
-    drcrrsResponseStatus,
-    drcrrsRecommenderConfigurationResponse,
+    deleteRecommenderConfigurationResponse_httpStatus,
+    deleteRecommenderConfigurationResponse_recommenderConfigurationResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.RecommenderConfigurationResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteRecommenderConfiguration' smart constructor.
-newtype DeleteRecommenderConfiguration = DeleteRecommenderConfiguration'
-  { _drcRecommenderId ::
-      Text
+-- | /See:/ 'newDeleteRecommenderConfiguration' smart constructor.
+data DeleteRecommenderConfiguration = DeleteRecommenderConfiguration'
+  { -- | The unique identifier for the recommender model configuration. This
+    -- identifier is displayed as the __Recommender ID__ on the Amazon Pinpoint
+    -- console.
+    recommenderId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRecommenderConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRecommenderConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcRecommenderId' - The unique identifier for the recommender model configuration. This identifier is displayed as the __Recommender ID__ on the Amazon Pinpoint console.
-deleteRecommenderConfiguration ::
-  -- | 'drcRecommenderId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'recommenderId', 'deleteRecommenderConfiguration_recommenderId' - The unique identifier for the recommender model configuration. This
+-- identifier is displayed as the __Recommender ID__ on the Amazon Pinpoint
+-- console.
+newDeleteRecommenderConfiguration ::
+  -- | 'recommenderId'
+  Prelude.Text ->
   DeleteRecommenderConfiguration
-deleteRecommenderConfiguration pRecommenderId_ =
+newDeleteRecommenderConfiguration pRecommenderId_ =
   DeleteRecommenderConfiguration'
-    { _drcRecommenderId =
+    { recommenderId =
         pRecommenderId_
     }
 
--- | The unique identifier for the recommender model configuration. This identifier is displayed as the __Recommender ID__ on the Amazon Pinpoint console.
-drcRecommenderId :: Lens' DeleteRecommenderConfiguration Text
-drcRecommenderId = lens _drcRecommenderId (\s a -> s {_drcRecommenderId = a})
+-- | The unique identifier for the recommender model configuration. This
+-- identifier is displayed as the __Recommender ID__ on the Amazon Pinpoint
+-- console.
+deleteRecommenderConfiguration_recommenderId :: Lens.Lens' DeleteRecommenderConfiguration Prelude.Text
+deleteRecommenderConfiguration_recommenderId = Lens.lens (\DeleteRecommenderConfiguration' {recommenderId} -> recommenderId) (\s@DeleteRecommenderConfiguration' {} a -> s {recommenderId = a} :: DeleteRecommenderConfiguration)
 
-instance AWSRequest DeleteRecommenderConfiguration where
+instance
+  Prelude.AWSRequest
+    DeleteRecommenderConfiguration
+  where
   type
     Rs DeleteRecommenderConfiguration =
       DeleteRecommenderConfigurationResponse
-  request = delete pinpoint
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteRecommenderConfigurationResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable DeleteRecommenderConfiguration
+instance
+  Prelude.Hashable
+    DeleteRecommenderConfiguration
 
-instance NFData DeleteRecommenderConfiguration
+instance
+  Prelude.NFData
+    DeleteRecommenderConfiguration
 
-instance ToHeaders DeleteRecommenderConfiguration where
+instance
+  Prelude.ToHeaders
+    DeleteRecommenderConfiguration
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteRecommenderConfiguration where
+instance
+  Prelude.ToPath
+    DeleteRecommenderConfiguration
+  where
   toPath DeleteRecommenderConfiguration' {..} =
-    mconcat
-      ["/v1/recommenders/", toBS _drcRecommenderId]
+    Prelude.mconcat
+      ["/v1/recommenders/", Prelude.toBS recommenderId]
 
-instance ToQuery DeleteRecommenderConfiguration where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DeleteRecommenderConfiguration
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteRecommenderConfigurationResponse' smart constructor.
+-- | /See:/ 'newDeleteRecommenderConfigurationResponse' smart constructor.
 data DeleteRecommenderConfigurationResponse = DeleteRecommenderConfigurationResponse'
-  { _drcrrsResponseStatus ::
-      !Int,
-    _drcrrsRecommenderConfigurationResponse ::
-      !RecommenderConfigurationResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    recommenderConfigurationResponse :: RecommenderConfigurationResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRecommenderConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRecommenderConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drcrrsRecommenderConfigurationResponse' - Undocumented member.
-deleteRecommenderConfigurationResponse ::
-  -- | 'drcrrsResponseStatus'
-  Int ->
-  -- | 'drcrrsRecommenderConfigurationResponse'
+-- 'httpStatus', 'deleteRecommenderConfigurationResponse_httpStatus' - The response's http status code.
+--
+-- 'recommenderConfigurationResponse', 'deleteRecommenderConfigurationResponse_recommenderConfigurationResponse' - Undocumented member.
+newDeleteRecommenderConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'recommenderConfigurationResponse'
   RecommenderConfigurationResponse ->
   DeleteRecommenderConfigurationResponse
-deleteRecommenderConfigurationResponse
-  pResponseStatus_
+newDeleteRecommenderConfigurationResponse
+  pHttpStatus_
   pRecommenderConfigurationResponse_ =
     DeleteRecommenderConfigurationResponse'
-      { _drcrrsResponseStatus =
-          pResponseStatus_,
-        _drcrrsRecommenderConfigurationResponse =
+      { httpStatus =
+          pHttpStatus_,
+        recommenderConfigurationResponse =
           pRecommenderConfigurationResponse_
       }
 
--- | -- | The response status code.
-drcrrsResponseStatus :: Lens' DeleteRecommenderConfigurationResponse Int
-drcrrsResponseStatus = lens _drcrrsResponseStatus (\s a -> s {_drcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteRecommenderConfigurationResponse_httpStatus :: Lens.Lens' DeleteRecommenderConfigurationResponse Prelude.Int
+deleteRecommenderConfigurationResponse_httpStatus = Lens.lens (\DeleteRecommenderConfigurationResponse' {httpStatus} -> httpStatus) (\s@DeleteRecommenderConfigurationResponse' {} a -> s {httpStatus = a} :: DeleteRecommenderConfigurationResponse)
 
 -- | Undocumented member.
-drcrrsRecommenderConfigurationResponse :: Lens' DeleteRecommenderConfigurationResponse RecommenderConfigurationResponse
-drcrrsRecommenderConfigurationResponse = lens _drcrrsRecommenderConfigurationResponse (\s a -> s {_drcrrsRecommenderConfigurationResponse = a})
+deleteRecommenderConfigurationResponse_recommenderConfigurationResponse :: Lens.Lens' DeleteRecommenderConfigurationResponse RecommenderConfigurationResponse
+deleteRecommenderConfigurationResponse_recommenderConfigurationResponse = Lens.lens (\DeleteRecommenderConfigurationResponse' {recommenderConfigurationResponse} -> recommenderConfigurationResponse) (\s@DeleteRecommenderConfigurationResponse' {} a -> s {recommenderConfigurationResponse = a} :: DeleteRecommenderConfigurationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DeleteRecommenderConfigurationResponse

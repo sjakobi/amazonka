@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ListRecommenderConfigurationsResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.RecommenderConfigurationResponse
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about all the recommender model configurations that are associated with your Amazon Pinpoint account.
+-- | Provides information about all the recommender model configurations that
+-- are associated with your Amazon Pinpoint account.
 --
---
---
--- /See:/ 'listRecommenderConfigurationsResponse' smart constructor.
+-- /See:/ 'newListRecommenderConfigurationsResponse' smart constructor.
 data ListRecommenderConfigurationsResponse = ListRecommenderConfigurationsResponse'
-  { _lrcrNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lrcrItem ::
-      ![RecommenderConfigurationResponse]
+  { -- | The string to use in a subsequent request to get the next page of
+    -- results in a paginated response. This value is null if there are no
+    -- additional pages.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of responses, one for each recommender model configuration
+    -- that\'s associated with your Amazon Pinpoint account.
+    item :: [RecommenderConfigurationResponse]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRecommenderConfigurationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRecommenderConfigurationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrcrNextToken' - The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrcrItem' - An array of responses, one for each recommender model configuration that's associated with your Amazon Pinpoint account.
-listRecommenderConfigurationsResponse ::
+-- 'nextToken', 'listRecommenderConfigurationsResponse_nextToken' - The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
+--
+-- 'item', 'listRecommenderConfigurationsResponse_item' - An array of responses, one for each recommender model configuration
+-- that\'s associated with your Amazon Pinpoint account.
+newListRecommenderConfigurationsResponse ::
   ListRecommenderConfigurationsResponse
-listRecommenderConfigurationsResponse =
+newListRecommenderConfigurationsResponse =
   ListRecommenderConfigurationsResponse'
-    { _lrcrNextToken =
-        Nothing,
-      _lrcrItem = mempty
+    { nextToken =
+        Prelude.Nothing,
+      item = Prelude.mempty
     }
 
--- | The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
-lrcrNextToken :: Lens' ListRecommenderConfigurationsResponse (Maybe Text)
-lrcrNextToken = lens _lrcrNextToken (\s a -> s {_lrcrNextToken = a})
+-- | The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
+listRecommenderConfigurationsResponse_nextToken :: Lens.Lens' ListRecommenderConfigurationsResponse (Prelude.Maybe Prelude.Text)
+listRecommenderConfigurationsResponse_nextToken = Lens.lens (\ListRecommenderConfigurationsResponse' {nextToken} -> nextToken) (\s@ListRecommenderConfigurationsResponse' {} a -> s {nextToken = a} :: ListRecommenderConfigurationsResponse)
 
--- | An array of responses, one for each recommender model configuration that's associated with your Amazon Pinpoint account.
-lrcrItem :: Lens' ListRecommenderConfigurationsResponse [RecommenderConfigurationResponse]
-lrcrItem = lens _lrcrItem (\s a -> s {_lrcrItem = a}) . _Coerce
+-- | An array of responses, one for each recommender model configuration
+-- that\'s associated with your Amazon Pinpoint account.
+listRecommenderConfigurationsResponse_item :: Lens.Lens' ListRecommenderConfigurationsResponse [RecommenderConfigurationResponse]
+listRecommenderConfigurationsResponse_item = Lens.lens (\ListRecommenderConfigurationsResponse' {item} -> item) (\s@ListRecommenderConfigurationsResponse' {} a -> s {item = a} :: ListRecommenderConfigurationsResponse) Prelude.. Prelude._Coerce
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ListRecommenderConfigurationsResponse
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ListRecommenderConfigurationsResponse"
       ( \x ->
           ListRecommenderConfigurationsResponse'
-            <$> (x .:? "NextToken") <*> (x .:? "Item" .!= mempty)
+            Prelude.<$> (x Prelude..:? "NextToken")
+            Prelude.<*> (x Prelude..:? "Item" Prelude..!= Prelude.mempty)
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ListRecommenderConfigurationsResponse
 
-instance NFData ListRecommenderConfigurationsResponse
+instance
+  Prelude.NFData
+    ListRecommenderConfigurationsResponse

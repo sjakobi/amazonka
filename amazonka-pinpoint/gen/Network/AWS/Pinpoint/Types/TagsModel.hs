@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,43 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.TagsModel where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the tags (keys and values) for an application, campaign, message template, or segment.
+-- | Specifies the tags (keys and values) for an application, campaign,
+-- message template, or segment.
 --
---
---
--- /See:/ 'tagsModel' smart constructor.
-newtype TagsModel = TagsModel'
-  { _tmTags ::
-      Map Text Text
+-- /See:/ 'newTagsModel' smart constructor.
+data TagsModel = TagsModel'
+  { -- | A string-to-string map of key-value pairs that defines the tags for an
+    -- application, campaign, message template, or segment. Each of these
+    -- resources can have a maximum of 50 tags.
+    --
+    -- Each tag consists of a required tag key and an associated tag value. The
+    -- maximum length of a tag key is 128 characters. The maximum length of a
+    -- tag value is 256 characters.
+    tags :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagsModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagsModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tmTags' - A string-to-string map of key-value pairs that defines the tags for an application, campaign, message template, or segment. Each of these resources can have a maximum of 50 tags. Each tag consists of a required tag key and an associated tag value. The maximum length of a tag key is 128 characters. The maximum length of a tag value is 256 characters.
-tagsModel ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'tags', 'tagsModel_tags' - A string-to-string map of key-value pairs that defines the tags for an
+-- application, campaign, message template, or segment. Each of these
+-- resources can have a maximum of 50 tags.
+--
+-- Each tag consists of a required tag key and an associated tag value. The
+-- maximum length of a tag key is 128 characters. The maximum length of a
+-- tag value is 256 characters.
+newTagsModel ::
   TagsModel
-tagsModel = TagsModel' {_tmTags = mempty}
+newTagsModel = TagsModel' {tags = Prelude.mempty}
 
--- | A string-to-string map of key-value pairs that defines the tags for an application, campaign, message template, or segment. Each of these resources can have a maximum of 50 tags. Each tag consists of a required tag key and an associated tag value. The maximum length of a tag key is 128 characters. The maximum length of a tag value is 256 characters.
-tmTags :: Lens' TagsModel (HashMap Text Text)
-tmTags = lens _tmTags (\s a -> s {_tmTags = a}) . _Map
+-- | A string-to-string map of key-value pairs that defines the tags for an
+-- application, campaign, message template, or segment. Each of these
+-- resources can have a maximum of 50 tags.
+--
+-- Each tag consists of a required tag key and an associated tag value. The
+-- maximum length of a tag key is 128 characters. The maximum length of a
+-- tag value is 256 characters.
+tagsModel_tags :: Lens.Lens' TagsModel (Prelude.HashMap Prelude.Text Prelude.Text)
+tagsModel_tags = Lens.lens (\TagsModel' {tags} -> tags) (\s@TagsModel' {} a -> s {tags = a} :: TagsModel) Prelude.. Prelude._Map
 
-instance FromJSON TagsModel where
+instance Prelude.FromJSON TagsModel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TagsModel"
-      (\x -> TagsModel' <$> (x .:? "tags" .!= mempty))
+      ( \x ->
+          TagsModel'
+            Prelude.<$> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+      )
 
-instance Hashable TagsModel
+instance Prelude.Hashable TagsModel
 
-instance NFData TagsModel
+instance Prelude.NFData TagsModel
 
-instance ToJSON TagsModel where
+instance Prelude.ToJSON TagsModel where
   toJSON TagsModel' {..} =
-    object (catMaybes [Just ("tags" .= _tmTags)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("tags" Prelude..= tags)]
+      )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,165 +19,179 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.APNSVoipChannelResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the status and settings of the APNs (Apple Push Notification service) VoIP channel for an application.
+-- | Provides information about the status and settings of the APNs (Apple
+-- Push Notification service) VoIP channel for an application.
 --
---
---
--- /See:/ 'apnsVoipChannelResponse' smart constructor.
+-- /See:/ 'newAPNSVoipChannelResponse' smart constructor.
 data APNSVoipChannelResponse = APNSVoipChannelResponse'
-  { _apnsvcrLastModifiedDate ::
-      !(Maybe Text),
-    _apnsvcrApplicationId ::
-      !(Maybe Text),
-    _apnsvcrDefaultAuthenticationMethod ::
-      !(Maybe Text),
-    _apnsvcrHasCredential ::
-      !(Maybe Bool),
-    _apnsvcrHasTokenKey ::
-      !(Maybe Bool),
-    _apnsvcrId ::
-      !(Maybe Text),
-    _apnsvcrCreationDate ::
-      !(Maybe Text),
-    _apnsvcrEnabled ::
-      !(Maybe Bool),
-    _apnsvcrVersion ::
-      !(Maybe Int),
-    _apnsvcrIsArchived ::
-      !(Maybe Bool),
-    _apnsvcrLastModifiedBy ::
-      !(Maybe Text),
-    _apnsvcrPlatform ::
-      !Text
+  { -- | The date and time when the APNs VoIP channel was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application that the APNs VoIP channel
+    -- applies to.
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | The default authentication method that Amazon Pinpoint uses to
+    -- authenticate with APNs for this channel, key or certificate.
+    defaultAuthenticationMethod :: Prelude.Maybe Prelude.Text,
+    -- | (Not used) This property is retained only for backward compatibility.
+    hasCredential :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether the APNs VoIP channel is configured to communicate
+    -- with APNs by using APNs tokens. To provide an authentication key for
+    -- APNs tokens, set the TokenKey property of the channel.
+    hasTokenKey :: Prelude.Maybe Prelude.Bool,
+    -- | (Deprecated) An identifier for the APNs VoIP channel. This property is
+    -- retained only for backward compatibility.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the APNs VoIP channel was enabled.
+    creationDate :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the APNs VoIP channel is enabled for the application.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The current version of the APNs VoIP channel.
+    version :: Prelude.Maybe Prelude.Int,
+    -- | Specifies whether the APNs VoIP channel is archived.
+    isArchived :: Prelude.Maybe Prelude.Bool,
+    -- | The user who last modified the APNs VoIP channel.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text,
+    -- | The type of messaging or notification platform for the channel. For the
+    -- APNs VoIP channel, this value is APNS_VOIP.
+    platform :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'APNSVoipChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'APNSVoipChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apnsvcrLastModifiedDate' - The date and time when the APNs VoIP channel was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apnsvcrApplicationId' - The unique identifier for the application that the APNs VoIP channel applies to.
+-- 'lastModifiedDate', 'aPNSVoipChannelResponse_lastModifiedDate' - The date and time when the APNs VoIP channel was last modified.
 --
--- * 'apnsvcrDefaultAuthenticationMethod' - The default authentication method that Amazon Pinpoint uses to authenticate with APNs for this channel, key or certificate.
+-- 'applicationId', 'aPNSVoipChannelResponse_applicationId' - The unique identifier for the application that the APNs VoIP channel
+-- applies to.
 --
--- * 'apnsvcrHasCredential' - (Not used) This property is retained only for backward compatibility.
+-- 'defaultAuthenticationMethod', 'aPNSVoipChannelResponse_defaultAuthenticationMethod' - The default authentication method that Amazon Pinpoint uses to
+-- authenticate with APNs for this channel, key or certificate.
 --
--- * 'apnsvcrHasTokenKey' - Specifies whether the APNs VoIP channel is configured to communicate with APNs by using APNs tokens. To provide an authentication key for APNs tokens, set the TokenKey property of the channel.
+-- 'hasCredential', 'aPNSVoipChannelResponse_hasCredential' - (Not used) This property is retained only for backward compatibility.
 --
--- * 'apnsvcrId' - (Deprecated) An identifier for the APNs VoIP channel. This property is retained only for backward compatibility.
+-- 'hasTokenKey', 'aPNSVoipChannelResponse_hasTokenKey' - Specifies whether the APNs VoIP channel is configured to communicate
+-- with APNs by using APNs tokens. To provide an authentication key for
+-- APNs tokens, set the TokenKey property of the channel.
 --
--- * 'apnsvcrCreationDate' - The date and time when the APNs VoIP channel was enabled.
+-- 'id', 'aPNSVoipChannelResponse_id' - (Deprecated) An identifier for the APNs VoIP channel. This property is
+-- retained only for backward compatibility.
 --
--- * 'apnsvcrEnabled' - Specifies whether the APNs VoIP channel is enabled for the application.
+-- 'creationDate', 'aPNSVoipChannelResponse_creationDate' - The date and time when the APNs VoIP channel was enabled.
 --
--- * 'apnsvcrVersion' - The current version of the APNs VoIP channel.
+-- 'enabled', 'aPNSVoipChannelResponse_enabled' - Specifies whether the APNs VoIP channel is enabled for the application.
 --
--- * 'apnsvcrIsArchived' - Specifies whether the APNs VoIP channel is archived.
+-- 'version', 'aPNSVoipChannelResponse_version' - The current version of the APNs VoIP channel.
 --
--- * 'apnsvcrLastModifiedBy' - The user who last modified the APNs VoIP channel.
+-- 'isArchived', 'aPNSVoipChannelResponse_isArchived' - Specifies whether the APNs VoIP channel is archived.
 --
--- * 'apnsvcrPlatform' - The type of messaging or notification platform for the channel. For the APNs VoIP channel, this value is APNS_VOIP.
-apnsVoipChannelResponse ::
-  -- | 'apnsvcrPlatform'
-  Text ->
+-- 'lastModifiedBy', 'aPNSVoipChannelResponse_lastModifiedBy' - The user who last modified the APNs VoIP channel.
+--
+-- 'platform', 'aPNSVoipChannelResponse_platform' - The type of messaging or notification platform for the channel. For the
+-- APNs VoIP channel, this value is APNS_VOIP.
+newAPNSVoipChannelResponse ::
+  -- | 'platform'
+  Prelude.Text ->
   APNSVoipChannelResponse
-apnsVoipChannelResponse pPlatform_ =
+newAPNSVoipChannelResponse pPlatform_ =
   APNSVoipChannelResponse'
-    { _apnsvcrLastModifiedDate =
-        Nothing,
-      _apnsvcrApplicationId = Nothing,
-      _apnsvcrDefaultAuthenticationMethod = Nothing,
-      _apnsvcrHasCredential = Nothing,
-      _apnsvcrHasTokenKey = Nothing,
-      _apnsvcrId = Nothing,
-      _apnsvcrCreationDate = Nothing,
-      _apnsvcrEnabled = Nothing,
-      _apnsvcrVersion = Nothing,
-      _apnsvcrIsArchived = Nothing,
-      _apnsvcrLastModifiedBy = Nothing,
-      _apnsvcrPlatform = pPlatform_
+    { lastModifiedDate =
+        Prelude.Nothing,
+      applicationId = Prelude.Nothing,
+      defaultAuthenticationMethod = Prelude.Nothing,
+      hasCredential = Prelude.Nothing,
+      hasTokenKey = Prelude.Nothing,
+      id = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      version = Prelude.Nothing,
+      isArchived = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      platform = pPlatform_
     }
 
 -- | The date and time when the APNs VoIP channel was last modified.
-apnsvcrLastModifiedDate :: Lens' APNSVoipChannelResponse (Maybe Text)
-apnsvcrLastModifiedDate = lens _apnsvcrLastModifiedDate (\s a -> s {_apnsvcrLastModifiedDate = a})
+aPNSVoipChannelResponse_lastModifiedDate :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipChannelResponse_lastModifiedDate = Lens.lens (\APNSVoipChannelResponse' {lastModifiedDate} -> lastModifiedDate) (\s@APNSVoipChannelResponse' {} a -> s {lastModifiedDate = a} :: APNSVoipChannelResponse)
 
--- | The unique identifier for the application that the APNs VoIP channel applies to.
-apnsvcrApplicationId :: Lens' APNSVoipChannelResponse (Maybe Text)
-apnsvcrApplicationId = lens _apnsvcrApplicationId (\s a -> s {_apnsvcrApplicationId = a})
+-- | The unique identifier for the application that the APNs VoIP channel
+-- applies to.
+aPNSVoipChannelResponse_applicationId :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipChannelResponse_applicationId = Lens.lens (\APNSVoipChannelResponse' {applicationId} -> applicationId) (\s@APNSVoipChannelResponse' {} a -> s {applicationId = a} :: APNSVoipChannelResponse)
 
--- | The default authentication method that Amazon Pinpoint uses to authenticate with APNs for this channel, key or certificate.
-apnsvcrDefaultAuthenticationMethod :: Lens' APNSVoipChannelResponse (Maybe Text)
-apnsvcrDefaultAuthenticationMethod = lens _apnsvcrDefaultAuthenticationMethod (\s a -> s {_apnsvcrDefaultAuthenticationMethod = a})
+-- | The default authentication method that Amazon Pinpoint uses to
+-- authenticate with APNs for this channel, key or certificate.
+aPNSVoipChannelResponse_defaultAuthenticationMethod :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipChannelResponse_defaultAuthenticationMethod = Lens.lens (\APNSVoipChannelResponse' {defaultAuthenticationMethod} -> defaultAuthenticationMethod) (\s@APNSVoipChannelResponse' {} a -> s {defaultAuthenticationMethod = a} :: APNSVoipChannelResponse)
 
 -- | (Not used) This property is retained only for backward compatibility.
-apnsvcrHasCredential :: Lens' APNSVoipChannelResponse (Maybe Bool)
-apnsvcrHasCredential = lens _apnsvcrHasCredential (\s a -> s {_apnsvcrHasCredential = a})
+aPNSVoipChannelResponse_hasCredential :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSVoipChannelResponse_hasCredential = Lens.lens (\APNSVoipChannelResponse' {hasCredential} -> hasCredential) (\s@APNSVoipChannelResponse' {} a -> s {hasCredential = a} :: APNSVoipChannelResponse)
 
--- | Specifies whether the APNs VoIP channel is configured to communicate with APNs by using APNs tokens. To provide an authentication key for APNs tokens, set the TokenKey property of the channel.
-apnsvcrHasTokenKey :: Lens' APNSVoipChannelResponse (Maybe Bool)
-apnsvcrHasTokenKey = lens _apnsvcrHasTokenKey (\s a -> s {_apnsvcrHasTokenKey = a})
+-- | Specifies whether the APNs VoIP channel is configured to communicate
+-- with APNs by using APNs tokens. To provide an authentication key for
+-- APNs tokens, set the TokenKey property of the channel.
+aPNSVoipChannelResponse_hasTokenKey :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSVoipChannelResponse_hasTokenKey = Lens.lens (\APNSVoipChannelResponse' {hasTokenKey} -> hasTokenKey) (\s@APNSVoipChannelResponse' {} a -> s {hasTokenKey = a} :: APNSVoipChannelResponse)
 
--- | (Deprecated) An identifier for the APNs VoIP channel. This property is retained only for backward compatibility.
-apnsvcrId :: Lens' APNSVoipChannelResponse (Maybe Text)
-apnsvcrId = lens _apnsvcrId (\s a -> s {_apnsvcrId = a})
+-- | (Deprecated) An identifier for the APNs VoIP channel. This property is
+-- retained only for backward compatibility.
+aPNSVoipChannelResponse_id :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipChannelResponse_id = Lens.lens (\APNSVoipChannelResponse' {id} -> id) (\s@APNSVoipChannelResponse' {} a -> s {id = a} :: APNSVoipChannelResponse)
 
 -- | The date and time when the APNs VoIP channel was enabled.
-apnsvcrCreationDate :: Lens' APNSVoipChannelResponse (Maybe Text)
-apnsvcrCreationDate = lens _apnsvcrCreationDate (\s a -> s {_apnsvcrCreationDate = a})
+aPNSVoipChannelResponse_creationDate :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipChannelResponse_creationDate = Lens.lens (\APNSVoipChannelResponse' {creationDate} -> creationDate) (\s@APNSVoipChannelResponse' {} a -> s {creationDate = a} :: APNSVoipChannelResponse)
 
 -- | Specifies whether the APNs VoIP channel is enabled for the application.
-apnsvcrEnabled :: Lens' APNSVoipChannelResponse (Maybe Bool)
-apnsvcrEnabled = lens _apnsvcrEnabled (\s a -> s {_apnsvcrEnabled = a})
+aPNSVoipChannelResponse_enabled :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSVoipChannelResponse_enabled = Lens.lens (\APNSVoipChannelResponse' {enabled} -> enabled) (\s@APNSVoipChannelResponse' {} a -> s {enabled = a} :: APNSVoipChannelResponse)
 
 -- | The current version of the APNs VoIP channel.
-apnsvcrVersion :: Lens' APNSVoipChannelResponse (Maybe Int)
-apnsvcrVersion = lens _apnsvcrVersion (\s a -> s {_apnsvcrVersion = a})
+aPNSVoipChannelResponse_version :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Int)
+aPNSVoipChannelResponse_version = Lens.lens (\APNSVoipChannelResponse' {version} -> version) (\s@APNSVoipChannelResponse' {} a -> s {version = a} :: APNSVoipChannelResponse)
 
 -- | Specifies whether the APNs VoIP channel is archived.
-apnsvcrIsArchived :: Lens' APNSVoipChannelResponse (Maybe Bool)
-apnsvcrIsArchived = lens _apnsvcrIsArchived (\s a -> s {_apnsvcrIsArchived = a})
+aPNSVoipChannelResponse_isArchived :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSVoipChannelResponse_isArchived = Lens.lens (\APNSVoipChannelResponse' {isArchived} -> isArchived) (\s@APNSVoipChannelResponse' {} a -> s {isArchived = a} :: APNSVoipChannelResponse)
 
 -- | The user who last modified the APNs VoIP channel.
-apnsvcrLastModifiedBy :: Lens' APNSVoipChannelResponse (Maybe Text)
-apnsvcrLastModifiedBy = lens _apnsvcrLastModifiedBy (\s a -> s {_apnsvcrLastModifiedBy = a})
+aPNSVoipChannelResponse_lastModifiedBy :: Lens.Lens' APNSVoipChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSVoipChannelResponse_lastModifiedBy = Lens.lens (\APNSVoipChannelResponse' {lastModifiedBy} -> lastModifiedBy) (\s@APNSVoipChannelResponse' {} a -> s {lastModifiedBy = a} :: APNSVoipChannelResponse)
 
--- | The type of messaging or notification platform for the channel. For the APNs VoIP channel, this value is APNS_VOIP.
-apnsvcrPlatform :: Lens' APNSVoipChannelResponse Text
-apnsvcrPlatform = lens _apnsvcrPlatform (\s a -> s {_apnsvcrPlatform = a})
+-- | The type of messaging or notification platform for the channel. For the
+-- APNs VoIP channel, this value is APNS_VOIP.
+aPNSVoipChannelResponse_platform :: Lens.Lens' APNSVoipChannelResponse Prelude.Text
+aPNSVoipChannelResponse_platform = Lens.lens (\APNSVoipChannelResponse' {platform} -> platform) (\s@APNSVoipChannelResponse' {} a -> s {platform = a} :: APNSVoipChannelResponse)
 
-instance FromJSON APNSVoipChannelResponse where
+instance Prelude.FromJSON APNSVoipChannelResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "APNSVoipChannelResponse"
       ( \x ->
           APNSVoipChannelResponse'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "ApplicationId")
-            <*> (x .:? "DefaultAuthenticationMethod")
-            <*> (x .:? "HasCredential")
-            <*> (x .:? "HasTokenKey")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "Enabled")
-            <*> (x .:? "Version")
-            <*> (x .:? "IsArchived")
-            <*> (x .:? "LastModifiedBy")
-            <*> (x .: "Platform")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "ApplicationId")
+            Prelude.<*> (x Prelude..:? "DefaultAuthenticationMethod")
+            Prelude.<*> (x Prelude..:? "HasCredential")
+            Prelude.<*> (x Prelude..:? "HasTokenKey")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "IsArchived")
+            Prelude.<*> (x Prelude..:? "LastModifiedBy")
+            Prelude.<*> (x Prelude..: "Platform")
       )
 
-instance Hashable APNSVoipChannelResponse
+instance Prelude.Hashable APNSVoipChannelResponse
 
-instance NFData APNSVoipChannelResponse
+instance Prelude.NFData APNSVoipChannelResponse

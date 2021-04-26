@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,117 +19,135 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ChannelResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the general settings and status of a channel for an application.
+-- | Provides information about the general settings and status of a channel
+-- for an application.
 --
---
---
--- /See:/ 'channelResponse' smart constructor.
+-- /See:/ 'newChannelResponse' smart constructor.
 data ChannelResponse = ChannelResponse'
-  { _cLastModifiedDate ::
-      !(Maybe Text),
-    _cApplicationId :: !(Maybe Text),
-    _cHasCredential :: !(Maybe Bool),
-    _cId :: !(Maybe Text),
-    _cCreationDate :: !(Maybe Text),
-    _cEnabled :: !(Maybe Bool),
-    _cVersion :: !(Maybe Int),
-    _cIsArchived :: !(Maybe Bool),
-    _cLastModifiedBy :: !(Maybe Text)
+  { -- | The date and time, in ISO 8601 format, when the channel was last
+    -- modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application.
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | (Not used) This property is retained only for backward compatibility.
+    hasCredential :: Prelude.Maybe Prelude.Bool,
+    -- | (Deprecated) An identifier for the channel. This property is retained
+    -- only for backward compatibility.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in ISO 8601 format, when the channel was enabled.
+    creationDate :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the channel is enabled for the application.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The current version of the channel.
+    version :: Prelude.Maybe Prelude.Int,
+    -- | Specifies whether the channel is archived.
+    isArchived :: Prelude.Maybe Prelude.Bool,
+    -- | The user who last modified the channel.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cLastModifiedDate' - The date and time, in ISO 8601 format, when the channel was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cApplicationId' - The unique identifier for the application.
+-- 'lastModifiedDate', 'channelResponse_lastModifiedDate' - The date and time, in ISO 8601 format, when the channel was last
+-- modified.
 --
--- * 'cHasCredential' - (Not used) This property is retained only for backward compatibility.
+-- 'applicationId', 'channelResponse_applicationId' - The unique identifier for the application.
 --
--- * 'cId' - (Deprecated) An identifier for the channel. This property is retained only for backward compatibility.
+-- 'hasCredential', 'channelResponse_hasCredential' - (Not used) This property is retained only for backward compatibility.
 --
--- * 'cCreationDate' - The date and time, in ISO 8601 format, when the channel was enabled.
+-- 'id', 'channelResponse_id' - (Deprecated) An identifier for the channel. This property is retained
+-- only for backward compatibility.
 --
--- * 'cEnabled' - Specifies whether the channel is enabled for the application.
+-- 'creationDate', 'channelResponse_creationDate' - The date and time, in ISO 8601 format, when the channel was enabled.
 --
--- * 'cVersion' - The current version of the channel.
+-- 'enabled', 'channelResponse_enabled' - Specifies whether the channel is enabled for the application.
 --
--- * 'cIsArchived' - Specifies whether the channel is archived.
+-- 'version', 'channelResponse_version' - The current version of the channel.
 --
--- * 'cLastModifiedBy' - The user who last modified the channel.
-channelResponse ::
+-- 'isArchived', 'channelResponse_isArchived' - Specifies whether the channel is archived.
+--
+-- 'lastModifiedBy', 'channelResponse_lastModifiedBy' - The user who last modified the channel.
+newChannelResponse ::
   ChannelResponse
-channelResponse =
+newChannelResponse =
   ChannelResponse'
-    { _cLastModifiedDate = Nothing,
-      _cApplicationId = Nothing,
-      _cHasCredential = Nothing,
-      _cId = Nothing,
-      _cCreationDate = Nothing,
-      _cEnabled = Nothing,
-      _cVersion = Nothing,
-      _cIsArchived = Nothing,
-      _cLastModifiedBy = Nothing
+    { lastModifiedDate =
+        Prelude.Nothing,
+      applicationId = Prelude.Nothing,
+      hasCredential = Prelude.Nothing,
+      id = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      version = Prelude.Nothing,
+      isArchived = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing
     }
 
--- | The date and time, in ISO 8601 format, when the channel was last modified.
-cLastModifiedDate :: Lens' ChannelResponse (Maybe Text)
-cLastModifiedDate = lens _cLastModifiedDate (\s a -> s {_cLastModifiedDate = a})
+-- | The date and time, in ISO 8601 format, when the channel was last
+-- modified.
+channelResponse_lastModifiedDate :: Lens.Lens' ChannelResponse (Prelude.Maybe Prelude.Text)
+channelResponse_lastModifiedDate = Lens.lens (\ChannelResponse' {lastModifiedDate} -> lastModifiedDate) (\s@ChannelResponse' {} a -> s {lastModifiedDate = a} :: ChannelResponse)
 
 -- | The unique identifier for the application.
-cApplicationId :: Lens' ChannelResponse (Maybe Text)
-cApplicationId = lens _cApplicationId (\s a -> s {_cApplicationId = a})
+channelResponse_applicationId :: Lens.Lens' ChannelResponse (Prelude.Maybe Prelude.Text)
+channelResponse_applicationId = Lens.lens (\ChannelResponse' {applicationId} -> applicationId) (\s@ChannelResponse' {} a -> s {applicationId = a} :: ChannelResponse)
 
 -- | (Not used) This property is retained only for backward compatibility.
-cHasCredential :: Lens' ChannelResponse (Maybe Bool)
-cHasCredential = lens _cHasCredential (\s a -> s {_cHasCredential = a})
+channelResponse_hasCredential :: Lens.Lens' ChannelResponse (Prelude.Maybe Prelude.Bool)
+channelResponse_hasCredential = Lens.lens (\ChannelResponse' {hasCredential} -> hasCredential) (\s@ChannelResponse' {} a -> s {hasCredential = a} :: ChannelResponse)
 
--- | (Deprecated) An identifier for the channel. This property is retained only for backward compatibility.
-cId :: Lens' ChannelResponse (Maybe Text)
-cId = lens _cId (\s a -> s {_cId = a})
+-- | (Deprecated) An identifier for the channel. This property is retained
+-- only for backward compatibility.
+channelResponse_id :: Lens.Lens' ChannelResponse (Prelude.Maybe Prelude.Text)
+channelResponse_id = Lens.lens (\ChannelResponse' {id} -> id) (\s@ChannelResponse' {} a -> s {id = a} :: ChannelResponse)
 
 -- | The date and time, in ISO 8601 format, when the channel was enabled.
-cCreationDate :: Lens' ChannelResponse (Maybe Text)
-cCreationDate = lens _cCreationDate (\s a -> s {_cCreationDate = a})
+channelResponse_creationDate :: Lens.Lens' ChannelResponse (Prelude.Maybe Prelude.Text)
+channelResponse_creationDate = Lens.lens (\ChannelResponse' {creationDate} -> creationDate) (\s@ChannelResponse' {} a -> s {creationDate = a} :: ChannelResponse)
 
 -- | Specifies whether the channel is enabled for the application.
-cEnabled :: Lens' ChannelResponse (Maybe Bool)
-cEnabled = lens _cEnabled (\s a -> s {_cEnabled = a})
+channelResponse_enabled :: Lens.Lens' ChannelResponse (Prelude.Maybe Prelude.Bool)
+channelResponse_enabled = Lens.lens (\ChannelResponse' {enabled} -> enabled) (\s@ChannelResponse' {} a -> s {enabled = a} :: ChannelResponse)
 
 -- | The current version of the channel.
-cVersion :: Lens' ChannelResponse (Maybe Int)
-cVersion = lens _cVersion (\s a -> s {_cVersion = a})
+channelResponse_version :: Lens.Lens' ChannelResponse (Prelude.Maybe Prelude.Int)
+channelResponse_version = Lens.lens (\ChannelResponse' {version} -> version) (\s@ChannelResponse' {} a -> s {version = a} :: ChannelResponse)
 
 -- | Specifies whether the channel is archived.
-cIsArchived :: Lens' ChannelResponse (Maybe Bool)
-cIsArchived = lens _cIsArchived (\s a -> s {_cIsArchived = a})
+channelResponse_isArchived :: Lens.Lens' ChannelResponse (Prelude.Maybe Prelude.Bool)
+channelResponse_isArchived = Lens.lens (\ChannelResponse' {isArchived} -> isArchived) (\s@ChannelResponse' {} a -> s {isArchived = a} :: ChannelResponse)
 
 -- | The user who last modified the channel.
-cLastModifiedBy :: Lens' ChannelResponse (Maybe Text)
-cLastModifiedBy = lens _cLastModifiedBy (\s a -> s {_cLastModifiedBy = a})
+channelResponse_lastModifiedBy :: Lens.Lens' ChannelResponse (Prelude.Maybe Prelude.Text)
+channelResponse_lastModifiedBy = Lens.lens (\ChannelResponse' {lastModifiedBy} -> lastModifiedBy) (\s@ChannelResponse' {} a -> s {lastModifiedBy = a} :: ChannelResponse)
 
-instance FromJSON ChannelResponse where
+instance Prelude.FromJSON ChannelResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChannelResponse"
       ( \x ->
           ChannelResponse'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "ApplicationId")
-            <*> (x .:? "HasCredential")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "Enabled")
-            <*> (x .:? "Version")
-            <*> (x .:? "IsArchived")
-            <*> (x .:? "LastModifiedBy")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "ApplicationId")
+            Prelude.<*> (x Prelude..:? "HasCredential")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "IsArchived")
+            Prelude.<*> (x Prelude..:? "LastModifiedBy")
       )
 
-instance Hashable ChannelResponse
+instance Prelude.Hashable ChannelResponse
 
-instance NFData ChannelResponse
+instance Prelude.NFData ChannelResponse

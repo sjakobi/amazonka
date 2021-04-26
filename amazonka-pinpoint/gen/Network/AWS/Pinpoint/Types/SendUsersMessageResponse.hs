@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.SendUsersMessageResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.EndpointMessageResult
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about which users and endpoints a message was sent to.
+-- | Provides information about which users and endpoints a message was sent
+-- to.
 --
---
---
--- /See:/ 'sendUsersMessageResponse' smart constructor.
+-- /See:/ 'newSendUsersMessageResponse' smart constructor.
 data SendUsersMessageResponse = SendUsersMessageResponse'
-  { _sumrResult ::
-      !( Maybe
-           ( Map
-               Text
-               ( Map
-                   Text
-                   EndpointMessageResult
-               )
-           )
-       ),
-    _sumrRequestId ::
-      !(Maybe Text),
-    _sumrApplicationId ::
-      !Text
+  { -- | An object that indicates which endpoints the message was sent to, for
+    -- each user. The object lists user IDs and, for each user ID, provides the
+    -- endpoint IDs that the message was sent to. For each endpoint ID, it
+    -- provides an EndpointMessageResult object.
+    result :: Prelude.Maybe (Prelude.Map Prelude.Text (Prelude.Map Prelude.Text EndpointMessageResult)),
+    -- | The unique identifier that was assigned to the message request.
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application that was used to send the
+    -- message.
+    applicationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SendUsersMessageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SendUsersMessageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sumrResult' - An object that indicates which endpoints the message was sent to, for each user. The object lists user IDs and, for each user ID, provides the endpoint IDs that the message was sent to. For each endpoint ID, it provides an EndpointMessageResult object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sumrRequestId' - The unique identifier that was assigned to the message request.
+-- 'result', 'sendUsersMessageResponse_result' - An object that indicates which endpoints the message was sent to, for
+-- each user. The object lists user IDs and, for each user ID, provides the
+-- endpoint IDs that the message was sent to. For each endpoint ID, it
+-- provides an EndpointMessageResult object.
 --
--- * 'sumrApplicationId' - The unique identifier for the application that was used to send the message.
-sendUsersMessageResponse ::
-  -- | 'sumrApplicationId'
-  Text ->
+-- 'requestId', 'sendUsersMessageResponse_requestId' - The unique identifier that was assigned to the message request.
+--
+-- 'applicationId', 'sendUsersMessageResponse_applicationId' - The unique identifier for the application that was used to send the
+-- message.
+newSendUsersMessageResponse ::
+  -- | 'applicationId'
+  Prelude.Text ->
   SendUsersMessageResponse
-sendUsersMessageResponse pApplicationId_ =
+newSendUsersMessageResponse pApplicationId_ =
   SendUsersMessageResponse'
-    { _sumrResult = Nothing,
-      _sumrRequestId = Nothing,
-      _sumrApplicationId = pApplicationId_
+    { result = Prelude.Nothing,
+      requestId = Prelude.Nothing,
+      applicationId = pApplicationId_
     }
 
--- | An object that indicates which endpoints the message was sent to, for each user. The object lists user IDs and, for each user ID, provides the endpoint IDs that the message was sent to. For each endpoint ID, it provides an EndpointMessageResult object.
-sumrResult :: Lens' SendUsersMessageResponse (HashMap Text (HashMap Text EndpointMessageResult))
-sumrResult = lens _sumrResult (\s a -> s {_sumrResult = a}) . _Default . _Map
+-- | An object that indicates which endpoints the message was sent to, for
+-- each user. The object lists user IDs and, for each user ID, provides the
+-- endpoint IDs that the message was sent to. For each endpoint ID, it
+-- provides an EndpointMessageResult object.
+sendUsersMessageResponse_result :: Lens.Lens' SendUsersMessageResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text (Prelude.HashMap Prelude.Text EndpointMessageResult)))
+sendUsersMessageResponse_result = Lens.lens (\SendUsersMessageResponse' {result} -> result) (\s@SendUsersMessageResponse' {} a -> s {result = a} :: SendUsersMessageResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The unique identifier that was assigned to the message request.
-sumrRequestId :: Lens' SendUsersMessageResponse (Maybe Text)
-sumrRequestId = lens _sumrRequestId (\s a -> s {_sumrRequestId = a})
+sendUsersMessageResponse_requestId :: Lens.Lens' SendUsersMessageResponse (Prelude.Maybe Prelude.Text)
+sendUsersMessageResponse_requestId = Lens.lens (\SendUsersMessageResponse' {requestId} -> requestId) (\s@SendUsersMessageResponse' {} a -> s {requestId = a} :: SendUsersMessageResponse)
 
--- | The unique identifier for the application that was used to send the message.
-sumrApplicationId :: Lens' SendUsersMessageResponse Text
-sumrApplicationId = lens _sumrApplicationId (\s a -> s {_sumrApplicationId = a})
+-- | The unique identifier for the application that was used to send the
+-- message.
+sendUsersMessageResponse_applicationId :: Lens.Lens' SendUsersMessageResponse Prelude.Text
+sendUsersMessageResponse_applicationId = Lens.lens (\SendUsersMessageResponse' {applicationId} -> applicationId) (\s@SendUsersMessageResponse' {} a -> s {applicationId = a} :: SendUsersMessageResponse)
 
-instance FromJSON SendUsersMessageResponse where
+instance Prelude.FromJSON SendUsersMessageResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SendUsersMessageResponse"
       ( \x ->
           SendUsersMessageResponse'
-            <$> (x .:? "Result" .!= mempty)
-            <*> (x .:? "RequestId")
-            <*> (x .: "ApplicationId")
+            Prelude.<$> (x Prelude..:? "Result" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "RequestId")
+            Prelude.<*> (x Prelude..: "ApplicationId")
       )
 
-instance Hashable SendUsersMessageResponse
+instance Prelude.Hashable SendUsersMessageResponse
 
-instance NFData SendUsersMessageResponse
+instance Prelude.NFData SendUsersMessageResponse

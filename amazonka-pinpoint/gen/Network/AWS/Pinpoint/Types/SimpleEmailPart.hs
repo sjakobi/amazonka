@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.SimpleEmailPart where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the subject or body of an email message, represented as textual email data and the applicable character set.
+-- | Specifies the subject or body of an email message, represented as
+-- textual email data and the applicable character set.
 --
---
---
--- /See:/ 'simpleEmailPart' smart constructor.
+-- /See:/ 'newSimpleEmailPart' smart constructor.
 data SimpleEmailPart = SimpleEmailPart'
-  { _sepData ::
-      !(Maybe Text),
-    _sepCharset :: !(Maybe Text)
+  { -- | The textual data of the message content.
+    data' :: Prelude.Maybe Prelude.Text,
+    -- | The applicable character set for the message content.
+    charset :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SimpleEmailPart' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SimpleEmailPart' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sepData' - The textual data of the message content.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sepCharset' - The applicable character set for the message content.
-simpleEmailPart ::
+-- 'data'', 'simpleEmailPart_data' - The textual data of the message content.
+--
+-- 'charset', 'simpleEmailPart_charset' - The applicable character set for the message content.
+newSimpleEmailPart ::
   SimpleEmailPart
-simpleEmailPart =
+newSimpleEmailPart =
   SimpleEmailPart'
-    { _sepData = Nothing,
-      _sepCharset = Nothing
+    { data' = Prelude.Nothing,
+      charset = Prelude.Nothing
     }
 
 -- | The textual data of the message content.
-sepData :: Lens' SimpleEmailPart (Maybe Text)
-sepData = lens _sepData (\s a -> s {_sepData = a})
+simpleEmailPart_data :: Lens.Lens' SimpleEmailPart (Prelude.Maybe Prelude.Text)
+simpleEmailPart_data = Lens.lens (\SimpleEmailPart' {data'} -> data') (\s@SimpleEmailPart' {} a -> s {data' = a} :: SimpleEmailPart)
 
 -- | The applicable character set for the message content.
-sepCharset :: Lens' SimpleEmailPart (Maybe Text)
-sepCharset = lens _sepCharset (\s a -> s {_sepCharset = a})
+simpleEmailPart_charset :: Lens.Lens' SimpleEmailPart (Prelude.Maybe Prelude.Text)
+simpleEmailPart_charset = Lens.lens (\SimpleEmailPart' {charset} -> charset) (\s@SimpleEmailPart' {} a -> s {charset = a} :: SimpleEmailPart)
 
-instance Hashable SimpleEmailPart
+instance Prelude.Hashable SimpleEmailPart
 
-instance NFData SimpleEmailPart
+instance Prelude.NFData SimpleEmailPart
 
-instance ToJSON SimpleEmailPart where
+instance Prelude.ToJSON SimpleEmailPart where
   toJSON SimpleEmailPart' {..} =
-    object
-      ( catMaybes
-          [ ("Data" .=) <$> _sepData,
-            ("Charset" .=) <$> _sepCharset
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Data" Prelude..=) Prelude.<$> data',
+            ("Charset" Prelude..=) Prelude.<$> charset
           ]
       )

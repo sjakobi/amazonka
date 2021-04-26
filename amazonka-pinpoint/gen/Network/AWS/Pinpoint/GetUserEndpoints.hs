@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about all the endpoints that are associated with a specific user ID.
+-- Retrieves information about all the endpoints that are associated with a
+-- specific user ID.
 module Network.AWS.Pinpoint.GetUserEndpoints
   ( -- * Creating a Request
-    getUserEndpoints,
-    GetUserEndpoints,
+    GetUserEndpoints (..),
+    newGetUserEndpoints,
 
     -- * Request Lenses
-    gueApplicationId,
-    gueUserId,
+    getUserEndpoints_applicationId,
+    getUserEndpoints_userId,
 
     -- * Destructuring the Response
-    getUserEndpointsResponse,
-    GetUserEndpointsResponse,
+    GetUserEndpointsResponse (..),
+    newGetUserEndpointsResponse,
 
     -- * Response Lenses
-    guerrsResponseStatus,
-    guerrsEndpointsResponse,
+    getUserEndpointsResponse_httpStatus,
+    getUserEndpointsResponse_endpointsResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.EndpointsResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getUserEndpoints' smart constructor.
+-- | /See:/ 'newGetUserEndpoints' smart constructor.
 data GetUserEndpoints = GetUserEndpoints'
-  { _gueApplicationId ::
-      !Text,
-    _gueUserId :: !Text
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    -- | The unique identifier for the user.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserEndpoints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserEndpoints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gueApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gueUserId' - The unique identifier for the user.
-getUserEndpoints ::
-  -- | 'gueApplicationId'
-  Text ->
-  -- | 'gueUserId'
-  Text ->
+-- 'applicationId', 'getUserEndpoints_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'userId', 'getUserEndpoints_userId' - The unique identifier for the user.
+newGetUserEndpoints ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'userId'
+  Prelude.Text ->
   GetUserEndpoints
-getUserEndpoints pApplicationId_ pUserId_ =
+newGetUserEndpoints pApplicationId_ pUserId_ =
   GetUserEndpoints'
-    { _gueApplicationId =
-        pApplicationId_,
-      _gueUserId = pUserId_
+    { applicationId = pApplicationId_,
+      userId = pUserId_
     }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-gueApplicationId :: Lens' GetUserEndpoints Text
-gueApplicationId = lens _gueApplicationId (\s a -> s {_gueApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+getUserEndpoints_applicationId :: Lens.Lens' GetUserEndpoints Prelude.Text
+getUserEndpoints_applicationId = Lens.lens (\GetUserEndpoints' {applicationId} -> applicationId) (\s@GetUserEndpoints' {} a -> s {applicationId = a} :: GetUserEndpoints)
 
 -- | The unique identifier for the user.
-gueUserId :: Lens' GetUserEndpoints Text
-gueUserId = lens _gueUserId (\s a -> s {_gueUserId = a})
+getUserEndpoints_userId :: Lens.Lens' GetUserEndpoints Prelude.Text
+getUserEndpoints_userId = Lens.lens (\GetUserEndpoints' {userId} -> userId) (\s@GetUserEndpoints' {} a -> s {userId = a} :: GetUserEndpoints)
 
-instance AWSRequest GetUserEndpoints where
+instance Prelude.AWSRequest GetUserEndpoints where
   type Rs GetUserEndpoints = GetUserEndpointsResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetUserEndpointsResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetUserEndpoints
+instance Prelude.Hashable GetUserEndpoints
 
-instance NFData GetUserEndpoints
+instance Prelude.NFData GetUserEndpoints
 
-instance ToHeaders GetUserEndpoints where
+instance Prelude.ToHeaders GetUserEndpoints where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetUserEndpoints where
+instance Prelude.ToPath GetUserEndpoints where
   toPath GetUserEndpoints' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _gueApplicationId,
+        Prelude.toBS applicationId,
         "/users/",
-        toBS _gueUserId
+        Prelude.toBS userId
       ]
 
-instance ToQuery GetUserEndpoints where
-  toQuery = const mempty
+instance Prelude.ToQuery GetUserEndpoints where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getUserEndpointsResponse' smart constructor.
+-- | /See:/ 'newGetUserEndpointsResponse' smart constructor.
 data GetUserEndpointsResponse = GetUserEndpointsResponse'
-  { _guerrsResponseStatus ::
-      !Int,
-    _guerrsEndpointsResponse ::
-      !EndpointsResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    endpointsResponse :: EndpointsResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserEndpointsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserEndpointsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guerrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'guerrsEndpointsResponse' - Undocumented member.
-getUserEndpointsResponse ::
-  -- | 'guerrsResponseStatus'
-  Int ->
-  -- | 'guerrsEndpointsResponse'
+-- 'httpStatus', 'getUserEndpointsResponse_httpStatus' - The response's http status code.
+--
+-- 'endpointsResponse', 'getUserEndpointsResponse_endpointsResponse' - Undocumented member.
+newGetUserEndpointsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'endpointsResponse'
   EndpointsResponse ->
   GetUserEndpointsResponse
-getUserEndpointsResponse
-  pResponseStatus_
+newGetUserEndpointsResponse
+  pHttpStatus_
   pEndpointsResponse_ =
     GetUserEndpointsResponse'
-      { _guerrsResponseStatus =
-          pResponseStatus_,
-        _guerrsEndpointsResponse = pEndpointsResponse_
+      { httpStatus =
+          pHttpStatus_,
+        endpointsResponse = pEndpointsResponse_
       }
 
--- | -- | The response status code.
-guerrsResponseStatus :: Lens' GetUserEndpointsResponse Int
-guerrsResponseStatus = lens _guerrsResponseStatus (\s a -> s {_guerrsResponseStatus = a})
+-- | The response's http status code.
+getUserEndpointsResponse_httpStatus :: Lens.Lens' GetUserEndpointsResponse Prelude.Int
+getUserEndpointsResponse_httpStatus = Lens.lens (\GetUserEndpointsResponse' {httpStatus} -> httpStatus) (\s@GetUserEndpointsResponse' {} a -> s {httpStatus = a} :: GetUserEndpointsResponse)
 
 -- | Undocumented member.
-guerrsEndpointsResponse :: Lens' GetUserEndpointsResponse EndpointsResponse
-guerrsEndpointsResponse = lens _guerrsEndpointsResponse (\s a -> s {_guerrsEndpointsResponse = a})
+getUserEndpointsResponse_endpointsResponse :: Lens.Lens' GetUserEndpointsResponse EndpointsResponse
+getUserEndpointsResponse_endpointsResponse = Lens.lens (\GetUserEndpointsResponse' {endpointsResponse} -> endpointsResponse) (\s@GetUserEndpointsResponse' {} a -> s {endpointsResponse = a} :: GetUserEndpointsResponse)
 
-instance NFData GetUserEndpointsResponse
+instance Prelude.NFData GetUserEndpointsResponse

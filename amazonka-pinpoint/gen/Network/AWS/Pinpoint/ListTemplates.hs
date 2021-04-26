@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,191 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about all the message templates that are associated with your Amazon Pinpoint account.
+-- Retrieves information about all the message templates that are
+-- associated with your Amazon Pinpoint account.
 module Network.AWS.Pinpoint.ListTemplates
   ( -- * Creating a Request
-    listTemplates,
-    ListTemplates,
+    ListTemplates (..),
+    newListTemplates,
 
     -- * Request Lenses
-    ltNextToken,
-    ltPageSize,
-    ltTemplateType,
-    ltPrefix,
+    listTemplates_nextToken,
+    listTemplates_pageSize,
+    listTemplates_templateType,
+    listTemplates_prefix,
 
     -- * Destructuring the Response
-    listTemplatesResponse,
-    ListTemplatesResponse,
+    ListTemplatesResponse (..),
+    newListTemplatesResponse,
 
     -- * Response Lenses
-    ltrrsResponseStatus,
-    ltrrsTemplatesResponse,
+    listTemplatesResponse_httpStatus,
+    listTemplatesResponse_templatesResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.TemplatesResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTemplates' smart constructor.
+-- | /See:/ 'newListTemplates' smart constructor.
 data ListTemplates = ListTemplates'
-  { _ltNextToken ::
-      !(Maybe Text),
-    _ltPageSize :: !(Maybe Text),
-    _ltTemplateType :: !(Maybe Text),
-    _ltPrefix :: !(Maybe Text)
+  { -- | The string that specifies which page of results to return in a paginated
+    -- response. This parameter is not supported for application, campaign, and
+    -- journey metrics.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to include in each page of a paginated
+    -- response. This parameter is not supported for application, campaign, and
+    -- journey metrics.
+    pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The type of message template to include in the results. Valid values
+    -- are: EMAIL, PUSH, SMS, and VOICE. To include all types of templates in
+    -- the results, don\'t include this parameter in your request.
+    templateType :: Prelude.Maybe Prelude.Text,
+    -- | The substring to match in the names of the message templates to include
+    -- in the results. If you specify this value, Amazon Pinpoint returns only
+    -- those templates whose names begin with the value that you specify.
+    prefix :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTemplates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTemplates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltNextToken' - The  string that specifies which page of results to return in a paginated response. This parameter is not supported for application, campaign, and journey metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltPageSize' - The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
+-- 'nextToken', 'listTemplates_nextToken' - The string that specifies which page of results to return in a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
 --
--- * 'ltTemplateType' - The type of message template to include in the results. Valid values are: EMAIL, PUSH, SMS, and VOICE. To include all types of templates in the results, don't include this parameter in your request.
+-- 'pageSize', 'listTemplates_pageSize' - The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
 --
--- * 'ltPrefix' - The substring to match in the names of the message templates to include in the results. If you specify this value, Amazon Pinpoint returns only those templates whose names begin with the value that you specify.
-listTemplates ::
+-- 'templateType', 'listTemplates_templateType' - The type of message template to include in the results. Valid values
+-- are: EMAIL, PUSH, SMS, and VOICE. To include all types of templates in
+-- the results, don\'t include this parameter in your request.
+--
+-- 'prefix', 'listTemplates_prefix' - The substring to match in the names of the message templates to include
+-- in the results. If you specify this value, Amazon Pinpoint returns only
+-- those templates whose names begin with the value that you specify.
+newListTemplates ::
   ListTemplates
-listTemplates =
+newListTemplates =
   ListTemplates'
-    { _ltNextToken = Nothing,
-      _ltPageSize = Nothing,
-      _ltTemplateType = Nothing,
-      _ltPrefix = Nothing
+    { nextToken = Prelude.Nothing,
+      pageSize = Prelude.Nothing,
+      templateType = Prelude.Nothing,
+      prefix = Prelude.Nothing
     }
 
--- | The  string that specifies which page of results to return in a paginated response. This parameter is not supported for application, campaign, and journey metrics.
-ltNextToken :: Lens' ListTemplates (Maybe Text)
-ltNextToken = lens _ltNextToken (\s a -> s {_ltNextToken = a})
+-- | The string that specifies which page of results to return in a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+listTemplates_nextToken :: Lens.Lens' ListTemplates (Prelude.Maybe Prelude.Text)
+listTemplates_nextToken = Lens.lens (\ListTemplates' {nextToken} -> nextToken) (\s@ListTemplates' {} a -> s {nextToken = a} :: ListTemplates)
 
--- | The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
-ltPageSize :: Lens' ListTemplates (Maybe Text)
-ltPageSize = lens _ltPageSize (\s a -> s {_ltPageSize = a})
+-- | The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+listTemplates_pageSize :: Lens.Lens' ListTemplates (Prelude.Maybe Prelude.Text)
+listTemplates_pageSize = Lens.lens (\ListTemplates' {pageSize} -> pageSize) (\s@ListTemplates' {} a -> s {pageSize = a} :: ListTemplates)
 
--- | The type of message template to include in the results. Valid values are: EMAIL, PUSH, SMS, and VOICE. To include all types of templates in the results, don't include this parameter in your request.
-ltTemplateType :: Lens' ListTemplates (Maybe Text)
-ltTemplateType = lens _ltTemplateType (\s a -> s {_ltTemplateType = a})
+-- | The type of message template to include in the results. Valid values
+-- are: EMAIL, PUSH, SMS, and VOICE. To include all types of templates in
+-- the results, don\'t include this parameter in your request.
+listTemplates_templateType :: Lens.Lens' ListTemplates (Prelude.Maybe Prelude.Text)
+listTemplates_templateType = Lens.lens (\ListTemplates' {templateType} -> templateType) (\s@ListTemplates' {} a -> s {templateType = a} :: ListTemplates)
 
--- | The substring to match in the names of the message templates to include in the results. If you specify this value, Amazon Pinpoint returns only those templates whose names begin with the value that you specify.
-ltPrefix :: Lens' ListTemplates (Maybe Text)
-ltPrefix = lens _ltPrefix (\s a -> s {_ltPrefix = a})
+-- | The substring to match in the names of the message templates to include
+-- in the results. If you specify this value, Amazon Pinpoint returns only
+-- those templates whose names begin with the value that you specify.
+listTemplates_prefix :: Lens.Lens' ListTemplates (Prelude.Maybe Prelude.Text)
+listTemplates_prefix = Lens.lens (\ListTemplates' {prefix} -> prefix) (\s@ListTemplates' {} a -> s {prefix = a} :: ListTemplates)
 
-instance AWSRequest ListTemplates where
+instance Prelude.AWSRequest ListTemplates where
   type Rs ListTemplates = ListTemplatesResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTemplatesResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable ListTemplates
+instance Prelude.Hashable ListTemplates
 
-instance NFData ListTemplates
+instance Prelude.NFData ListTemplates
 
-instance ToHeaders ListTemplates where
+instance Prelude.ToHeaders ListTemplates where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListTemplates where
-  toPath = const "/v1/templates"
+instance Prelude.ToPath ListTemplates where
+  toPath = Prelude.const "/v1/templates"
 
-instance ToQuery ListTemplates where
+instance Prelude.ToQuery ListTemplates where
   toQuery ListTemplates' {..} =
-    mconcat
-      [ "next-token" =: _ltNextToken,
-        "page-size" =: _ltPageSize,
-        "template-type" =: _ltTemplateType,
-        "prefix" =: _ltPrefix
+    Prelude.mconcat
+      [ "next-token" Prelude.=: nextToken,
+        "page-size" Prelude.=: pageSize,
+        "template-type" Prelude.=: templateType,
+        "prefix" Prelude.=: prefix
       ]
 
--- | /See:/ 'listTemplatesResponse' smart constructor.
+-- | /See:/ 'newListTemplatesResponse' smart constructor.
 data ListTemplatesResponse = ListTemplatesResponse'
-  { _ltrrsResponseStatus ::
-      !Int,
-    _ltrrsTemplatesResponse ::
-      !TemplatesResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    templatesResponse :: TemplatesResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTemplatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTemplatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsTemplatesResponse' - Undocumented member.
-listTemplatesResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
-  -- | 'ltrrsTemplatesResponse'
+-- 'httpStatus', 'listTemplatesResponse_httpStatus' - The response's http status code.
+--
+-- 'templatesResponse', 'listTemplatesResponse_templatesResponse' - Undocumented member.
+newListTemplatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'templatesResponse'
   TemplatesResponse ->
   ListTemplatesResponse
-listTemplatesResponse
-  pResponseStatus_
+newListTemplatesResponse
+  pHttpStatus_
   pTemplatesResponse_ =
     ListTemplatesResponse'
-      { _ltrrsResponseStatus =
-          pResponseStatus_,
-        _ltrrsTemplatesResponse = pTemplatesResponse_
+      { httpStatus = pHttpStatus_,
+        templatesResponse = pTemplatesResponse_
       }
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListTemplatesResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listTemplatesResponse_httpStatus :: Lens.Lens' ListTemplatesResponse Prelude.Int
+listTemplatesResponse_httpStatus = Lens.lens (\ListTemplatesResponse' {httpStatus} -> httpStatus) (\s@ListTemplatesResponse' {} a -> s {httpStatus = a} :: ListTemplatesResponse)
 
 -- | Undocumented member.
-ltrrsTemplatesResponse :: Lens' ListTemplatesResponse TemplatesResponse
-ltrrsTemplatesResponse = lens _ltrrsTemplatesResponse (\s a -> s {_ltrrsTemplatesResponse = a})
+listTemplatesResponse_templatesResponse :: Lens.Lens' ListTemplatesResponse TemplatesResponse
+listTemplatesResponse_templatesResponse = Lens.lens (\ListTemplatesResponse' {templatesResponse} -> templatesResponse) (\s@ListTemplatesResponse' {} a -> s {templatesResponse = a} :: ListTemplatesResponse)
 
-instance NFData ListTemplatesResponse
+instance Prelude.NFData ListTemplatesResponse

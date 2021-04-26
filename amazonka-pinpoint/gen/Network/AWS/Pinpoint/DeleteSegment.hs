@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,143 +24,150 @@
 -- Deletes a segment from an application.
 module Network.AWS.Pinpoint.DeleteSegment
   ( -- * Creating a Request
-    deleteSegment,
-    DeleteSegment,
+    DeleteSegment (..),
+    newDeleteSegment,
 
     -- * Request Lenses
-    dsSegmentId,
-    dsApplicationId,
+    deleteSegment_segmentId,
+    deleteSegment_applicationId,
 
     -- * Destructuring the Response
-    deleteSegmentResponse,
-    DeleteSegmentResponse,
+    DeleteSegmentResponse (..),
+    newDeleteSegmentResponse,
 
     -- * Response Lenses
-    dsrrsResponseStatus,
-    dsrrsSegmentResponse,
+    deleteSegmentResponse_httpStatus,
+    deleteSegmentResponse_segmentResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.SegmentResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSegment' smart constructor.
+-- | /See:/ 'newDeleteSegment' smart constructor.
 data DeleteSegment = DeleteSegment'
-  { _dsSegmentId ::
-      !Text,
-    _dsApplicationId :: !Text
+  { -- | The unique identifier for the segment.
+    segmentId :: Prelude.Text,
+    -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSegment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSegment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsSegmentId' - The unique identifier for the segment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-deleteSegment ::
-  -- | 'dsSegmentId'
-  Text ->
-  -- | 'dsApplicationId'
-  Text ->
+-- 'segmentId', 'deleteSegment_segmentId' - The unique identifier for the segment.
+--
+-- 'applicationId', 'deleteSegment_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newDeleteSegment ::
+  -- | 'segmentId'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
   DeleteSegment
-deleteSegment pSegmentId_ pApplicationId_ =
+newDeleteSegment pSegmentId_ pApplicationId_ =
   DeleteSegment'
-    { _dsSegmentId = pSegmentId_,
-      _dsApplicationId = pApplicationId_
+    { segmentId = pSegmentId_,
+      applicationId = pApplicationId_
     }
 
 -- | The unique identifier for the segment.
-dsSegmentId :: Lens' DeleteSegment Text
-dsSegmentId = lens _dsSegmentId (\s a -> s {_dsSegmentId = a})
+deleteSegment_segmentId :: Lens.Lens' DeleteSegment Prelude.Text
+deleteSegment_segmentId = Lens.lens (\DeleteSegment' {segmentId} -> segmentId) (\s@DeleteSegment' {} a -> s {segmentId = a} :: DeleteSegment)
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-dsApplicationId :: Lens' DeleteSegment Text
-dsApplicationId = lens _dsApplicationId (\s a -> s {_dsApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+deleteSegment_applicationId :: Lens.Lens' DeleteSegment Prelude.Text
+deleteSegment_applicationId = Lens.lens (\DeleteSegment' {applicationId} -> applicationId) (\s@DeleteSegment' {} a -> s {applicationId = a} :: DeleteSegment)
 
-instance AWSRequest DeleteSegment where
+instance Prelude.AWSRequest DeleteSegment where
   type Rs DeleteSegment = DeleteSegmentResponse
-  request = delete pinpoint
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteSegmentResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable DeleteSegment
+instance Prelude.Hashable DeleteSegment
 
-instance NFData DeleteSegment
+instance Prelude.NFData DeleteSegment
 
-instance ToHeaders DeleteSegment where
+instance Prelude.ToHeaders DeleteSegment where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteSegment where
+instance Prelude.ToPath DeleteSegment where
   toPath DeleteSegment' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _dsApplicationId,
+        Prelude.toBS applicationId,
         "/segments/",
-        toBS _dsSegmentId
+        Prelude.toBS segmentId
       ]
 
-instance ToQuery DeleteSegment where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSegment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSegmentResponse' smart constructor.
+-- | /See:/ 'newDeleteSegmentResponse' smart constructor.
 data DeleteSegmentResponse = DeleteSegmentResponse'
-  { _dsrrsResponseStatus ::
-      !Int,
-    _dsrrsSegmentResponse ::
-      !SegmentResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    segmentResponse :: SegmentResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSegmentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSegmentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsSegmentResponse' - Undocumented member.
-deleteSegmentResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
-  -- | 'dsrrsSegmentResponse'
+-- 'httpStatus', 'deleteSegmentResponse_httpStatus' - The response's http status code.
+--
+-- 'segmentResponse', 'deleteSegmentResponse_segmentResponse' - Undocumented member.
+newDeleteSegmentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'segmentResponse'
   SegmentResponse ->
   DeleteSegmentResponse
-deleteSegmentResponse
-  pResponseStatus_
+newDeleteSegmentResponse
+  pHttpStatus_
   pSegmentResponse_ =
     DeleteSegmentResponse'
-      { _dsrrsResponseStatus =
-          pResponseStatus_,
-        _dsrrsSegmentResponse = pSegmentResponse_
+      { httpStatus = pHttpStatus_,
+        segmentResponse = pSegmentResponse_
       }
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DeleteSegmentResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSegmentResponse_httpStatus :: Lens.Lens' DeleteSegmentResponse Prelude.Int
+deleteSegmentResponse_httpStatus = Lens.lens (\DeleteSegmentResponse' {httpStatus} -> httpStatus) (\s@DeleteSegmentResponse' {} a -> s {httpStatus = a} :: DeleteSegmentResponse)
 
 -- | Undocumented member.
-dsrrsSegmentResponse :: Lens' DeleteSegmentResponse SegmentResponse
-dsrrsSegmentResponse = lens _dsrrsSegmentResponse (\s a -> s {_dsrrsSegmentResponse = a})
+deleteSegmentResponse_segmentResponse :: Lens.Lens' DeleteSegmentResponse SegmentResponse
+deleteSegmentResponse_segmentResponse = Lens.lens (\DeleteSegmentResponse' {segmentResponse} -> segmentResponse) (\s@DeleteSegmentResponse' {} a -> s {segmentResponse = a} :: DeleteSegmentResponse)
 
-instance NFData DeleteSegmentResponse
+instance Prelude.NFData DeleteSegmentResponse

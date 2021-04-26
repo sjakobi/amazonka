@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,47 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.SegmentCondition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies a segment to associate with an activity in a journey.
 --
---
---
--- /See:/ 'segmentCondition' smart constructor.
-newtype SegmentCondition = SegmentCondition'
-  { _scSegmentId ::
-      Text
+-- /See:/ 'newSegmentCondition' smart constructor.
+data SegmentCondition = SegmentCondition'
+  { -- | The unique identifier for the segment to associate with the activity.
+    segmentId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SegmentCondition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SegmentCondition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scSegmentId' - The unique identifier for the segment to associate with the activity.
-segmentCondition ::
-  -- | 'scSegmentId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'segmentId', 'segmentCondition_segmentId' - The unique identifier for the segment to associate with the activity.
+newSegmentCondition ::
+  -- | 'segmentId'
+  Prelude.Text ->
   SegmentCondition
-segmentCondition pSegmentId_ =
-  SegmentCondition' {_scSegmentId = pSegmentId_}
+newSegmentCondition pSegmentId_ =
+  SegmentCondition' {segmentId = pSegmentId_}
 
 -- | The unique identifier for the segment to associate with the activity.
-scSegmentId :: Lens' SegmentCondition Text
-scSegmentId = lens _scSegmentId (\s a -> s {_scSegmentId = a})
+segmentCondition_segmentId :: Lens.Lens' SegmentCondition Prelude.Text
+segmentCondition_segmentId = Lens.lens (\SegmentCondition' {segmentId} -> segmentId) (\s@SegmentCondition' {} a -> s {segmentId = a} :: SegmentCondition)
 
-instance FromJSON SegmentCondition where
+instance Prelude.FromJSON SegmentCondition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SegmentCondition"
-      (\x -> SegmentCondition' <$> (x .: "SegmentId"))
+      ( \x ->
+          SegmentCondition'
+            Prelude.<$> (x Prelude..: "SegmentId")
+      )
 
-instance Hashable SegmentCondition
+instance Prelude.Hashable SegmentCondition
 
-instance NFData SegmentCondition
+instance Prelude.NFData SegmentCondition
 
-instance ToJSON SegmentCondition where
+instance Prelude.ToJSON SegmentCondition where
   toJSON SegmentCondition' {..} =
-    object
-      (catMaybes [Just ("SegmentId" .= _scSegmentId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SegmentId" Prelude..= segmentId)]
+      )

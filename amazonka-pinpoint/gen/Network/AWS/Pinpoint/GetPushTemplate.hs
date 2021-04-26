@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,222 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the content and settings of a message template for messages that are sent through a push notification channel.
+-- Retrieves the content and settings of a message template for messages
+-- that are sent through a push notification channel.
 module Network.AWS.Pinpoint.GetPushTemplate
   ( -- * Creating a Request
-    getPushTemplate,
-    GetPushTemplate,
+    GetPushTemplate (..),
+    newGetPushTemplate,
 
     -- * Request Lenses
-    gptVersion,
-    gptTemplateName,
+    getPushTemplate_version,
+    getPushTemplate_templateName,
 
     -- * Destructuring the Response
-    getPushTemplateResponse,
-    GetPushTemplateResponse,
+    GetPushTemplateResponse (..),
+    newGetPushTemplateResponse,
 
     -- * Response Lenses
-    gptrrsResponseStatus,
-    gptrrsPushNotificationTemplateResponse,
+    getPushTemplateResponse_httpStatus,
+    getPushTemplateResponse_pushNotificationTemplateResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.PushNotificationTemplateResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getPushTemplate' smart constructor.
+-- | /See:/ 'newGetPushTemplate' smart constructor.
 data GetPushTemplate = GetPushTemplate'
-  { _gptVersion ::
-      !(Maybe Text),
-    _gptTemplateName :: !Text
+  { -- | The unique identifier for the version of the message template to update,
+    -- retrieve information about, or delete. To retrieve identifiers and other
+    -- information for all the versions of a template, use the Template
+    -- Versions resource.
+    --
+    -- If specified, this value must match the identifier for an existing
+    -- template version. If specified for an update operation, this value must
+    -- match the identifier for the latest existing version of the template.
+    -- This restriction helps ensure that race conditions don\'t occur.
+    --
+    -- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+    -- the following:
+    --
+    -- -   For a get operation, retrieves information about the active version
+    --     of the template.
+    --
+    -- -   For an update operation, saves the updates to (overwrites) the
+    --     latest existing version of the template, if the create-new-version
+    --     parameter isn\'t used or is set to false.
+    --
+    -- -   For a delete operation, deletes the template, including all versions
+    --     of the template.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the message template. A template name must start with an
+    -- alphanumeric character and can contain a maximum of 128 characters. The
+    -- characters can be alphanumeric characters, underscores (_), or hyphens
+    -- (-). Template names are case sensitive.
+    templateName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPushTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPushTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gptVersion' - The unique identifier for the version of the message template to update, retrieve information about, or delete. To retrieve identifiers and other information for all the versions of a template, use the <link>Template Versions resource. If specified, this value must match the identifier for an existing template version. If specified for an update operation, this value must match the identifier for the latest existing version of the template. This restriction helps ensure that race conditions don't occur. If you don't specify a value for this parameter, Amazon Pinpoint does the following:     * For a get operation, retrieves information about the active version of the template.     * For an update operation, saves the updates to (overwrites) the latest existing version of the template, if the create-new-version parameter isn't used or is set to false.     * For a delete operation, deletes the template, including all versions of the template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gptTemplateName' - The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-getPushTemplate ::
-  -- | 'gptTemplateName'
-  Text ->
+-- 'version', 'getPushTemplate_version' - The unique identifier for the version of the message template to update,
+-- retrieve information about, or delete. To retrieve identifiers and other
+-- information for all the versions of a template, use the Template
+-- Versions resource.
+--
+-- If specified, this value must match the identifier for an existing
+-- template version. If specified for an update operation, this value must
+-- match the identifier for the latest existing version of the template.
+-- This restriction helps ensure that race conditions don\'t occur.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+-- the following:
+--
+-- -   For a get operation, retrieves information about the active version
+--     of the template.
+--
+-- -   For an update operation, saves the updates to (overwrites) the
+--     latest existing version of the template, if the create-new-version
+--     parameter isn\'t used or is set to false.
+--
+-- -   For a delete operation, deletes the template, including all versions
+--     of the template.
+--
+-- 'templateName', 'getPushTemplate_templateName' - The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+newGetPushTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
   GetPushTemplate
-getPushTemplate pTemplateName_ =
+newGetPushTemplate pTemplateName_ =
   GetPushTemplate'
-    { _gptVersion = Nothing,
-      _gptTemplateName = pTemplateName_
+    { version = Prelude.Nothing,
+      templateName = pTemplateName_
     }
 
--- | The unique identifier for the version of the message template to update, retrieve information about, or delete. To retrieve identifiers and other information for all the versions of a template, use the <link>Template Versions resource. If specified, this value must match the identifier for an existing template version. If specified for an update operation, this value must match the identifier for the latest existing version of the template. This restriction helps ensure that race conditions don't occur. If you don't specify a value for this parameter, Amazon Pinpoint does the following:     * For a get operation, retrieves information about the active version of the template.     * For an update operation, saves the updates to (overwrites) the latest existing version of the template, if the create-new-version parameter isn't used or is set to false.     * For a delete operation, deletes the template, including all versions of the template.
-gptVersion :: Lens' GetPushTemplate (Maybe Text)
-gptVersion = lens _gptVersion (\s a -> s {_gptVersion = a})
+-- | The unique identifier for the version of the message template to update,
+-- retrieve information about, or delete. To retrieve identifiers and other
+-- information for all the versions of a template, use the Template
+-- Versions resource.
+--
+-- If specified, this value must match the identifier for an existing
+-- template version. If specified for an update operation, this value must
+-- match the identifier for the latest existing version of the template.
+-- This restriction helps ensure that race conditions don\'t occur.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+-- the following:
+--
+-- -   For a get operation, retrieves information about the active version
+--     of the template.
+--
+-- -   For an update operation, saves the updates to (overwrites) the
+--     latest existing version of the template, if the create-new-version
+--     parameter isn\'t used or is set to false.
+--
+-- -   For a delete operation, deletes the template, including all versions
+--     of the template.
+getPushTemplate_version :: Lens.Lens' GetPushTemplate (Prelude.Maybe Prelude.Text)
+getPushTemplate_version = Lens.lens (\GetPushTemplate' {version} -> version) (\s@GetPushTemplate' {} a -> s {version = a} :: GetPushTemplate)
 
--- | The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-gptTemplateName :: Lens' GetPushTemplate Text
-gptTemplateName = lens _gptTemplateName (\s a -> s {_gptTemplateName = a})
+-- | The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+getPushTemplate_templateName :: Lens.Lens' GetPushTemplate Prelude.Text
+getPushTemplate_templateName = Lens.lens (\GetPushTemplate' {templateName} -> templateName) (\s@GetPushTemplate' {} a -> s {templateName = a} :: GetPushTemplate)
 
-instance AWSRequest GetPushTemplate where
+instance Prelude.AWSRequest GetPushTemplate where
   type Rs GetPushTemplate = GetPushTemplateResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetPushTemplateResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetPushTemplate
+instance Prelude.Hashable GetPushTemplate
 
-instance NFData GetPushTemplate
+instance Prelude.NFData GetPushTemplate
 
-instance ToHeaders GetPushTemplate where
+instance Prelude.ToHeaders GetPushTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetPushTemplate where
+instance Prelude.ToPath GetPushTemplate where
   toPath GetPushTemplate' {..} =
-    mconcat
-      ["/v1/templates/", toBS _gptTemplateName, "/push"]
+    Prelude.mconcat
+      [ "/v1/templates/",
+        Prelude.toBS templateName,
+        "/push"
+      ]
 
-instance ToQuery GetPushTemplate where
+instance Prelude.ToQuery GetPushTemplate where
   toQuery GetPushTemplate' {..} =
-    mconcat ["version" =: _gptVersion]
+    Prelude.mconcat ["version" Prelude.=: version]
 
--- | /See:/ 'getPushTemplateResponse' smart constructor.
+-- | /See:/ 'newGetPushTemplateResponse' smart constructor.
 data GetPushTemplateResponse = GetPushTemplateResponse'
-  { _gptrrsResponseStatus ::
-      !Int,
-    _gptrrsPushNotificationTemplateResponse ::
-      !PushNotificationTemplateResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    pushNotificationTemplateResponse :: PushNotificationTemplateResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPushTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPushTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gptrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gptrrsPushNotificationTemplateResponse' - Undocumented member.
-getPushTemplateResponse ::
-  -- | 'gptrrsResponseStatus'
-  Int ->
-  -- | 'gptrrsPushNotificationTemplateResponse'
+-- 'httpStatus', 'getPushTemplateResponse_httpStatus' - The response's http status code.
+--
+-- 'pushNotificationTemplateResponse', 'getPushTemplateResponse_pushNotificationTemplateResponse' - Undocumented member.
+newGetPushTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'pushNotificationTemplateResponse'
   PushNotificationTemplateResponse ->
   GetPushTemplateResponse
-getPushTemplateResponse
-  pResponseStatus_
+newGetPushTemplateResponse
+  pHttpStatus_
   pPushNotificationTemplateResponse_ =
     GetPushTemplateResponse'
-      { _gptrrsResponseStatus =
-          pResponseStatus_,
-        _gptrrsPushNotificationTemplateResponse =
+      { httpStatus = pHttpStatus_,
+        pushNotificationTemplateResponse =
           pPushNotificationTemplateResponse_
       }
 
--- | -- | The response status code.
-gptrrsResponseStatus :: Lens' GetPushTemplateResponse Int
-gptrrsResponseStatus = lens _gptrrsResponseStatus (\s a -> s {_gptrrsResponseStatus = a})
+-- | The response's http status code.
+getPushTemplateResponse_httpStatus :: Lens.Lens' GetPushTemplateResponse Prelude.Int
+getPushTemplateResponse_httpStatus = Lens.lens (\GetPushTemplateResponse' {httpStatus} -> httpStatus) (\s@GetPushTemplateResponse' {} a -> s {httpStatus = a} :: GetPushTemplateResponse)
 
 -- | Undocumented member.
-gptrrsPushNotificationTemplateResponse :: Lens' GetPushTemplateResponse PushNotificationTemplateResponse
-gptrrsPushNotificationTemplateResponse = lens _gptrrsPushNotificationTemplateResponse (\s a -> s {_gptrrsPushNotificationTemplateResponse = a})
+getPushTemplateResponse_pushNotificationTemplateResponse :: Lens.Lens' GetPushTemplateResponse PushNotificationTemplateResponse
+getPushTemplateResponse_pushNotificationTemplateResponse = Lens.lens (\GetPushTemplateResponse' {pushNotificationTemplateResponse} -> pushNotificationTemplateResponse) (\s@GetPushTemplateResponse' {} a -> s {pushNotificationTemplateResponse = a} :: GetPushTemplateResponse)
 
-instance NFData GetPushTemplateResponse
+instance Prelude.NFData GetPushTemplateResponse

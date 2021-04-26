@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,178 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new endpoint for an application or updates the settings and attributes of an existing endpoint for an application. You can also use this operation to define custom attributes for an endpoint. If an update includes one or more values for a custom attribute, Amazon Pinpoint replaces (overwrites) any existing values with the new values.
+-- Creates a new endpoint for an application or updates the settings and
+-- attributes of an existing endpoint for an application. You can also use
+-- this operation to define custom attributes for an endpoint. If an update
+-- includes one or more values for a custom attribute, Amazon Pinpoint
+-- replaces (overwrites) any existing values with the new values.
 module Network.AWS.Pinpoint.UpdateEndpoint
   ( -- * Creating a Request
-    updateEndpoint,
-    UpdateEndpoint,
+    UpdateEndpoint (..),
+    newUpdateEndpoint,
 
     -- * Request Lenses
-    ueApplicationId,
-    ueEndpointId,
-    ueEndpointRequest,
+    updateEndpoint_applicationId,
+    updateEndpoint_endpointId,
+    updateEndpoint_endpointRequest,
 
     -- * Destructuring the Response
-    updateEndpointResponse,
-    UpdateEndpointResponse,
+    UpdateEndpointResponse (..),
+    newUpdateEndpointResponse,
 
     -- * Response Lenses
-    uerrsResponseStatus,
-    uerrsMessageBody,
+    updateEndpointResponse_httpStatus,
+    updateEndpointResponse_messageBody,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.MessageBody
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateEndpoint' smart constructor.
+-- | /See:/ 'newUpdateEndpoint' smart constructor.
 data UpdateEndpoint = UpdateEndpoint'
-  { _ueApplicationId ::
-      !Text,
-    _ueEndpointId :: !Text,
-    _ueEndpointRequest :: !EndpointRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    -- | The unique identifier for the endpoint.
+    endpointId :: Prelude.Text,
+    endpointRequest :: EndpointRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ueApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ueEndpointId' - The unique identifier for the endpoint.
+-- 'applicationId', 'updateEndpoint_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
 --
--- * 'ueEndpointRequest' - Undocumented member.
-updateEndpoint ::
-  -- | 'ueApplicationId'
-  Text ->
-  -- | 'ueEndpointId'
-  Text ->
-  -- | 'ueEndpointRequest'
+-- 'endpointId', 'updateEndpoint_endpointId' - The unique identifier for the endpoint.
+--
+-- 'endpointRequest', 'updateEndpoint_endpointRequest' - Undocumented member.
+newUpdateEndpoint ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'endpointId'
+  Prelude.Text ->
+  -- | 'endpointRequest'
   EndpointRequest ->
   UpdateEndpoint
-updateEndpoint
+newUpdateEndpoint
   pApplicationId_
   pEndpointId_
   pEndpointRequest_ =
     UpdateEndpoint'
-      { _ueApplicationId = pApplicationId_,
-        _ueEndpointId = pEndpointId_,
-        _ueEndpointRequest = pEndpointRequest_
+      { applicationId = pApplicationId_,
+        endpointId = pEndpointId_,
+        endpointRequest = pEndpointRequest_
       }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-ueApplicationId :: Lens' UpdateEndpoint Text
-ueApplicationId = lens _ueApplicationId (\s a -> s {_ueApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+updateEndpoint_applicationId :: Lens.Lens' UpdateEndpoint Prelude.Text
+updateEndpoint_applicationId = Lens.lens (\UpdateEndpoint' {applicationId} -> applicationId) (\s@UpdateEndpoint' {} a -> s {applicationId = a} :: UpdateEndpoint)
 
 -- | The unique identifier for the endpoint.
-ueEndpointId :: Lens' UpdateEndpoint Text
-ueEndpointId = lens _ueEndpointId (\s a -> s {_ueEndpointId = a})
+updateEndpoint_endpointId :: Lens.Lens' UpdateEndpoint Prelude.Text
+updateEndpoint_endpointId = Lens.lens (\UpdateEndpoint' {endpointId} -> endpointId) (\s@UpdateEndpoint' {} a -> s {endpointId = a} :: UpdateEndpoint)
 
 -- | Undocumented member.
-ueEndpointRequest :: Lens' UpdateEndpoint EndpointRequest
-ueEndpointRequest = lens _ueEndpointRequest (\s a -> s {_ueEndpointRequest = a})
+updateEndpoint_endpointRequest :: Lens.Lens' UpdateEndpoint EndpointRequest
+updateEndpoint_endpointRequest = Lens.lens (\UpdateEndpoint' {endpointRequest} -> endpointRequest) (\s@UpdateEndpoint' {} a -> s {endpointRequest = a} :: UpdateEndpoint)
 
-instance AWSRequest UpdateEndpoint where
+instance Prelude.AWSRequest UpdateEndpoint where
   type Rs UpdateEndpoint = UpdateEndpointResponse
-  request = putJSON pinpoint
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateEndpointResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable UpdateEndpoint
+instance Prelude.Hashable UpdateEndpoint
 
-instance NFData UpdateEndpoint
+instance Prelude.NFData UpdateEndpoint
 
-instance ToHeaders UpdateEndpoint where
+instance Prelude.ToHeaders UpdateEndpoint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateEndpoint where
+instance Prelude.ToJSON UpdateEndpoint where
   toJSON UpdateEndpoint' {..} =
-    object
-      ( catMaybes
-          [Just ("EndpointRequest" .= _ueEndpointRequest)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("EndpointRequest" Prelude..= endpointRequest)
+          ]
       )
 
-instance ToPath UpdateEndpoint where
+instance Prelude.ToPath UpdateEndpoint where
   toPath UpdateEndpoint' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _ueApplicationId,
+        Prelude.toBS applicationId,
         "/endpoints/",
-        toBS _ueEndpointId
+        Prelude.toBS endpointId
       ]
 
-instance ToQuery UpdateEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateEndpointResponse' smart constructor.
+-- | /See:/ 'newUpdateEndpointResponse' smart constructor.
 data UpdateEndpointResponse = UpdateEndpointResponse'
-  { _uerrsResponseStatus ::
-      !Int,
-    _uerrsMessageBody ::
-      !MessageBody
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    messageBody :: MessageBody
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uerrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uerrsMessageBody' - Undocumented member.
-updateEndpointResponse ::
-  -- | 'uerrsResponseStatus'
-  Int ->
-  -- | 'uerrsMessageBody'
+-- 'httpStatus', 'updateEndpointResponse_httpStatus' - The response's http status code.
+--
+-- 'messageBody', 'updateEndpointResponse_messageBody' - Undocumented member.
+newUpdateEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'messageBody'
   MessageBody ->
   UpdateEndpointResponse
-updateEndpointResponse pResponseStatus_ pMessageBody_ =
+newUpdateEndpointResponse pHttpStatus_ pMessageBody_ =
   UpdateEndpointResponse'
-    { _uerrsResponseStatus =
-        pResponseStatus_,
-      _uerrsMessageBody = pMessageBody_
+    { httpStatus = pHttpStatus_,
+      messageBody = pMessageBody_
     }
 
--- | -- | The response status code.
-uerrsResponseStatus :: Lens' UpdateEndpointResponse Int
-uerrsResponseStatus = lens _uerrsResponseStatus (\s a -> s {_uerrsResponseStatus = a})
+-- | The response's http status code.
+updateEndpointResponse_httpStatus :: Lens.Lens' UpdateEndpointResponse Prelude.Int
+updateEndpointResponse_httpStatus = Lens.lens (\UpdateEndpointResponse' {httpStatus} -> httpStatus) (\s@UpdateEndpointResponse' {} a -> s {httpStatus = a} :: UpdateEndpointResponse)
 
 -- | Undocumented member.
-uerrsMessageBody :: Lens' UpdateEndpointResponse MessageBody
-uerrsMessageBody = lens _uerrsMessageBody (\s a -> s {_uerrsMessageBody = a})
+updateEndpointResponse_messageBody :: Lens.Lens' UpdateEndpointResponse MessageBody
+updateEndpointResponse_messageBody = Lens.lens (\UpdateEndpointResponse' {messageBody} -> messageBody) (\s@UpdateEndpointResponse' {} a -> s {messageBody = a} :: UpdateEndpointResponse)
 
-instance NFData UpdateEndpointResponse
+instance Prelude.NFData UpdateEndpointResponse

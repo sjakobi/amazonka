@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,43 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EventsResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.ItemResponse
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about endpoints and the events that they're associated with.
+-- | Provides information about endpoints and the events that they\'re
+-- associated with.
 --
---
---
--- /See:/ 'eventsResponse' smart constructor.
-newtype EventsResponse = EventsResponse'
-  { _erResults ::
-      Maybe (Map Text ItemResponse)
+-- /See:/ 'newEventsResponse' smart constructor.
+data EventsResponse = EventsResponse'
+  { -- | A map that contains a multipart response for each endpoint. For each
+    -- item in this object, the endpoint ID is the key and the item response is
+    -- the value. If no item response exists, the value can also be one of the
+    -- following: 202, the request was processed successfully; or 400, the
+    -- payload wasn\'t valid or required fields were missing.
+    results :: Prelude.Maybe (Prelude.Map Prelude.Text ItemResponse)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erResults' - A map that contains a multipart response for each endpoint. For each item in this object, the endpoint ID is the key and the item response is the value. If no item response exists, the value can also be one of the following: 202, the request was processed successfully; or 400, the payload wasn't valid or required fields were missing.
-eventsResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'results', 'eventsResponse_results' - A map that contains a multipart response for each endpoint. For each
+-- item in this object, the endpoint ID is the key and the item response is
+-- the value. If no item response exists, the value can also be one of the
+-- following: 202, the request was processed successfully; or 400, the
+-- payload wasn\'t valid or required fields were missing.
+newEventsResponse ::
   EventsResponse
-eventsResponse =
-  EventsResponse' {_erResults = Nothing}
+newEventsResponse =
+  EventsResponse' {results = Prelude.Nothing}
 
--- | A map that contains a multipart response for each endpoint. For each item in this object, the endpoint ID is the key and the item response is the value. If no item response exists, the value can also be one of the following: 202, the request was processed successfully; or 400, the payload wasn't valid or required fields were missing.
-erResults :: Lens' EventsResponse (HashMap Text ItemResponse)
-erResults = lens _erResults (\s a -> s {_erResults = a}) . _Default . _Map
+-- | A map that contains a multipart response for each endpoint. For each
+-- item in this object, the endpoint ID is the key and the item response is
+-- the value. If no item response exists, the value can also be one of the
+-- following: 202, the request was processed successfully; or 400, the
+-- payload wasn\'t valid or required fields were missing.
+eventsResponse_results :: Lens.Lens' EventsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text ItemResponse))
+eventsResponse_results = Lens.lens (\EventsResponse' {results} -> results) (\s@EventsResponse' {} a -> s {results = a} :: EventsResponse) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON EventsResponse where
+instance Prelude.FromJSON EventsResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventsResponse"
       ( \x ->
-          EventsResponse' <$> (x .:? "Results" .!= mempty)
+          EventsResponse'
+            Prelude.<$> (x Prelude..:? "Results" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable EventsResponse
+instance Prelude.Hashable EventsResponse
 
-instance NFData EventsResponse
+instance Prelude.NFData EventsResponse

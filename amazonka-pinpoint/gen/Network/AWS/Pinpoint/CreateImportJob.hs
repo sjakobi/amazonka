@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,148 +24,157 @@
 -- Creates an import job for an application.
 module Network.AWS.Pinpoint.CreateImportJob
   ( -- * Creating a Request
-    createImportJob,
-    CreateImportJob,
+    CreateImportJob (..),
+    newCreateImportJob,
 
     -- * Request Lenses
-    cijApplicationId,
-    cijImportJobRequest,
+    createImportJob_applicationId,
+    createImportJob_importJobRequest,
 
     -- * Destructuring the Response
-    createImportJobResponse,
-    CreateImportJobResponse,
+    CreateImportJobResponse (..),
+    newCreateImportJobResponse,
 
     -- * Response Lenses
-    cijrrsResponseStatus,
-    cijrrsImportJobResponse,
+    createImportJobResponse_httpStatus,
+    createImportJobResponse_importJobResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.ImportJobResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createImportJob' smart constructor.
+-- | /See:/ 'newCreateImportJob' smart constructor.
 data CreateImportJob = CreateImportJob'
-  { _cijApplicationId ::
-      !Text,
-    _cijImportJobRequest ::
-      !ImportJobRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    importJobRequest :: ImportJobRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateImportJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateImportJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cijApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cijImportJobRequest' - Undocumented member.
-createImportJob ::
-  -- | 'cijApplicationId'
-  Text ->
-  -- | 'cijImportJobRequest'
+-- 'applicationId', 'createImportJob_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'importJobRequest', 'createImportJob_importJobRequest' - Undocumented member.
+newCreateImportJob ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'importJobRequest'
   ImportJobRequest ->
   CreateImportJob
-createImportJob pApplicationId_ pImportJobRequest_ =
+newCreateImportJob pApplicationId_ pImportJobRequest_ =
   CreateImportJob'
-    { _cijApplicationId =
-        pApplicationId_,
-      _cijImportJobRequest = pImportJobRequest_
+    { applicationId = pApplicationId_,
+      importJobRequest = pImportJobRequest_
     }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-cijApplicationId :: Lens' CreateImportJob Text
-cijApplicationId = lens _cijApplicationId (\s a -> s {_cijApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+createImportJob_applicationId :: Lens.Lens' CreateImportJob Prelude.Text
+createImportJob_applicationId = Lens.lens (\CreateImportJob' {applicationId} -> applicationId) (\s@CreateImportJob' {} a -> s {applicationId = a} :: CreateImportJob)
 
 -- | Undocumented member.
-cijImportJobRequest :: Lens' CreateImportJob ImportJobRequest
-cijImportJobRequest = lens _cijImportJobRequest (\s a -> s {_cijImportJobRequest = a})
+createImportJob_importJobRequest :: Lens.Lens' CreateImportJob ImportJobRequest
+createImportJob_importJobRequest = Lens.lens (\CreateImportJob' {importJobRequest} -> importJobRequest) (\s@CreateImportJob' {} a -> s {importJobRequest = a} :: CreateImportJob)
 
-instance AWSRequest CreateImportJob where
+instance Prelude.AWSRequest CreateImportJob where
   type Rs CreateImportJob = CreateImportJobResponse
-  request = postJSON pinpoint
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateImportJobResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable CreateImportJob
+instance Prelude.Hashable CreateImportJob
 
-instance NFData CreateImportJob
+instance Prelude.NFData CreateImportJob
 
-instance ToHeaders CreateImportJob where
+instance Prelude.ToHeaders CreateImportJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateImportJob where
+instance Prelude.ToJSON CreateImportJob where
   toJSON CreateImportJob' {..} =
-    object
-      ( catMaybes
-          [Just ("ImportJobRequest" .= _cijImportJobRequest)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ImportJobRequest" Prelude..= importJobRequest)
+          ]
       )
 
-instance ToPath CreateImportJob where
+instance Prelude.ToPath CreateImportJob where
   toPath CreateImportJob' {..} =
-    mconcat
-      ["/v1/apps/", toBS _cijApplicationId, "/jobs/import"]
+    Prelude.mconcat
+      [ "/v1/apps/",
+        Prelude.toBS applicationId,
+        "/jobs/import"
+      ]
 
-instance ToQuery CreateImportJob where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateImportJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createImportJobResponse' smart constructor.
+-- | /See:/ 'newCreateImportJobResponse' smart constructor.
 data CreateImportJobResponse = CreateImportJobResponse'
-  { _cijrrsResponseStatus ::
-      !Int,
-    _cijrrsImportJobResponse ::
-      !ImportJobResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    importJobResponse :: ImportJobResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateImportJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateImportJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cijrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cijrrsImportJobResponse' - Undocumented member.
-createImportJobResponse ::
-  -- | 'cijrrsResponseStatus'
-  Int ->
-  -- | 'cijrrsImportJobResponse'
+-- 'httpStatus', 'createImportJobResponse_httpStatus' - The response's http status code.
+--
+-- 'importJobResponse', 'createImportJobResponse_importJobResponse' - Undocumented member.
+newCreateImportJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'importJobResponse'
   ImportJobResponse ->
   CreateImportJobResponse
-createImportJobResponse
-  pResponseStatus_
+newCreateImportJobResponse
+  pHttpStatus_
   pImportJobResponse_ =
     CreateImportJobResponse'
-      { _cijrrsResponseStatus =
-          pResponseStatus_,
-        _cijrrsImportJobResponse = pImportJobResponse_
+      { httpStatus = pHttpStatus_,
+        importJobResponse = pImportJobResponse_
       }
 
--- | -- | The response status code.
-cijrrsResponseStatus :: Lens' CreateImportJobResponse Int
-cijrrsResponseStatus = lens _cijrrsResponseStatus (\s a -> s {_cijrrsResponseStatus = a})
+-- | The response's http status code.
+createImportJobResponse_httpStatus :: Lens.Lens' CreateImportJobResponse Prelude.Int
+createImportJobResponse_httpStatus = Lens.lens (\CreateImportJobResponse' {httpStatus} -> httpStatus) (\s@CreateImportJobResponse' {} a -> s {httpStatus = a} :: CreateImportJobResponse)
 
 -- | Undocumented member.
-cijrrsImportJobResponse :: Lens' CreateImportJobResponse ImportJobResponse
-cijrrsImportJobResponse = lens _cijrrsImportJobResponse (\s a -> s {_cijrrsImportJobResponse = a})
+createImportJobResponse_importJobResponse :: Lens.Lens' CreateImportJobResponse ImportJobResponse
+createImportJobResponse_importJobResponse = Lens.lens (\CreateImportJobResponse' {importJobResponse} -> importJobResponse) (\s@CreateImportJobResponse' {} a -> s {importJobResponse = a} :: CreateImportJobResponse)
 
-instance NFData CreateImportJobResponse
+instance Prelude.NFData CreateImportJobResponse

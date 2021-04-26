@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,183 +19,222 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EmailTemplateResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.TemplateType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the content and settings for a message template that can be used in messages that are sent through the email channel.
+-- | Provides information about the content and settings for a message
+-- template that can be used in messages that are sent through the email
+-- channel.
 --
---
---
--- /See:/ 'emailTemplateResponse' smart constructor.
+-- /See:/ 'newEmailTemplateResponse' smart constructor.
 data EmailTemplateResponse = EmailTemplateResponse'
-  { _etrTemplateDescription ::
-      !(Maybe Text),
-    _etrARN :: !(Maybe Text),
-    _etrVersion ::
-      !(Maybe Text),
-    _etrTextPart ::
-      !(Maybe Text),
-    _etrDefaultSubstitutions ::
-      !(Maybe Text),
-    _etrSubject ::
-      !(Maybe Text),
-    _etrTags ::
-      !(Maybe (Map Text Text)),
-    _etrRecommenderId ::
-      !(Maybe Text),
-    _etrHTMLPart ::
-      !(Maybe Text),
-    _etrLastModifiedDate ::
-      !Text,
-    _etrCreationDate :: !Text,
-    _etrTemplateName :: !Text,
-    _etrTemplateType ::
-      !TemplateType
+  { -- | The custom description of the message template.
+    templateDescription :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the message template.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier, as an integer, for the active version of the
+    -- message template, or the version of the template that you specified by
+    -- using the version parameter in your request.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The message body, in plain text format, that\'s used in email messages
+    -- that are based on the message template.
+    textPart :: Prelude.Maybe Prelude.Text,
+    -- | The JSON object that specifies the default values that are used for
+    -- message variables in the message template. This object is a set of
+    -- key-value pairs. Each key defines a message variable in the template.
+    -- The corresponding value defines the default value for that variable.
+    defaultSubstitutions :: Prelude.Maybe Prelude.Text,
+    -- | The subject line, or title, that\'s used in email messages that are
+    -- based on the message template.
+    subject :: Prelude.Maybe Prelude.Text,
+    -- | A string-to-string map of key-value pairs that identifies the tags that
+    -- are associated with the message template. Each tag consists of a
+    -- required tag key and an associated tag value.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The unique identifier for the recommender model that\'s used by the
+    -- message template.
+    recommenderId :: Prelude.Maybe Prelude.Text,
+    -- | The message body, in HTML format, that\'s used in email messages that
+    -- are based on the message template.
+    htmlPart :: Prelude.Maybe Prelude.Text,
+    -- | The date, in ISO 8601 format, when the message template was last
+    -- modified.
+    lastModifiedDate :: Prelude.Text,
+    -- | The date, in ISO 8601 format, when the message template was created.
+    creationDate :: Prelude.Text,
+    -- | The name of the message template.
+    templateName :: Prelude.Text,
+    -- | The type of channel that the message template is designed for. For an
+    -- email template, this value is EMAIL.
+    templateType :: TemplateType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EmailTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EmailTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etrTemplateDescription' - The custom description of the message template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etrARN' - The Amazon Resource Name (ARN) of the message template.
+-- 'templateDescription', 'emailTemplateResponse_templateDescription' - The custom description of the message template.
 --
--- * 'etrVersion' - The unique identifier, as an integer, for the active version of the message template, or the version of the template that you specified by using the version parameter in your request.
+-- 'arn', 'emailTemplateResponse_arn' - The Amazon Resource Name (ARN) of the message template.
 --
--- * 'etrTextPart' - The message body, in plain text format, that's used in email messages that are based on the message template.
+-- 'version', 'emailTemplateResponse_version' - The unique identifier, as an integer, for the active version of the
+-- message template, or the version of the template that you specified by
+-- using the version parameter in your request.
 --
--- * 'etrDefaultSubstitutions' - The JSON object that specifies the default values that are used for message variables in the message template. This object is a set of key-value pairs. Each key defines a message variable in the template. The corresponding value defines the default value for that variable.
+-- 'textPart', 'emailTemplateResponse_textPart' - The message body, in plain text format, that\'s used in email messages
+-- that are based on the message template.
 --
--- * 'etrSubject' - The subject line, or title, that's used in email messages that are based on the message template.
+-- 'defaultSubstitutions', 'emailTemplateResponse_defaultSubstitutions' - The JSON object that specifies the default values that are used for
+-- message variables in the message template. This object is a set of
+-- key-value pairs. Each key defines a message variable in the template.
+-- The corresponding value defines the default value for that variable.
 --
--- * 'etrTags' - A string-to-string map of key-value pairs that identifies the tags that are associated with the message template. Each tag consists of a required tag key and an associated tag value.
+-- 'subject', 'emailTemplateResponse_subject' - The subject line, or title, that\'s used in email messages that are
+-- based on the message template.
 --
--- * 'etrRecommenderId' - The unique identifier for the recommender model that's used by the message template.
+-- 'tags', 'emailTemplateResponse_tags' - A string-to-string map of key-value pairs that identifies the tags that
+-- are associated with the message template. Each tag consists of a
+-- required tag key and an associated tag value.
 --
--- * 'etrHTMLPart' - The message body, in HTML format, that's used in email messages that are based on the message template.
+-- 'recommenderId', 'emailTemplateResponse_recommenderId' - The unique identifier for the recommender model that\'s used by the
+-- message template.
 --
--- * 'etrLastModifiedDate' - The date, in ISO 8601 format, when the message template was last modified.
+-- 'htmlPart', 'emailTemplateResponse_htmlPart' - The message body, in HTML format, that\'s used in email messages that
+-- are based on the message template.
 --
--- * 'etrCreationDate' - The date, in ISO 8601 format, when the message template was created.
+-- 'lastModifiedDate', 'emailTemplateResponse_lastModifiedDate' - The date, in ISO 8601 format, when the message template was last
+-- modified.
 --
--- * 'etrTemplateName' - The name of the message template.
+-- 'creationDate', 'emailTemplateResponse_creationDate' - The date, in ISO 8601 format, when the message template was created.
 --
--- * 'etrTemplateType' - The type of channel that the message template is designed for. For an email template, this value is EMAIL.
-emailTemplateResponse ::
-  -- | 'etrLastModifiedDate'
-  Text ->
-  -- | 'etrCreationDate'
-  Text ->
-  -- | 'etrTemplateName'
-  Text ->
-  -- | 'etrTemplateType'
+-- 'templateName', 'emailTemplateResponse_templateName' - The name of the message template.
+--
+-- 'templateType', 'emailTemplateResponse_templateType' - The type of channel that the message template is designed for. For an
+-- email template, this value is EMAIL.
+newEmailTemplateResponse ::
+  -- | 'lastModifiedDate'
+  Prelude.Text ->
+  -- | 'creationDate'
+  Prelude.Text ->
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'templateType'
   TemplateType ->
   EmailTemplateResponse
-emailTemplateResponse
+newEmailTemplateResponse
   pLastModifiedDate_
   pCreationDate_
   pTemplateName_
   pTemplateType_ =
     EmailTemplateResponse'
-      { _etrTemplateDescription =
-          Nothing,
-        _etrARN = Nothing,
-        _etrVersion = Nothing,
-        _etrTextPart = Nothing,
-        _etrDefaultSubstitutions = Nothing,
-        _etrSubject = Nothing,
-        _etrTags = Nothing,
-        _etrRecommenderId = Nothing,
-        _etrHTMLPart = Nothing,
-        _etrLastModifiedDate = pLastModifiedDate_,
-        _etrCreationDate = pCreationDate_,
-        _etrTemplateName = pTemplateName_,
-        _etrTemplateType = pTemplateType_
+      { templateDescription =
+          Prelude.Nothing,
+        arn = Prelude.Nothing,
+        version = Prelude.Nothing,
+        textPart = Prelude.Nothing,
+        defaultSubstitutions = Prelude.Nothing,
+        subject = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        recommenderId = Prelude.Nothing,
+        htmlPart = Prelude.Nothing,
+        lastModifiedDate = pLastModifiedDate_,
+        creationDate = pCreationDate_,
+        templateName = pTemplateName_,
+        templateType = pTemplateType_
       }
 
 -- | The custom description of the message template.
-etrTemplateDescription :: Lens' EmailTemplateResponse (Maybe Text)
-etrTemplateDescription = lens _etrTemplateDescription (\s a -> s {_etrTemplateDescription = a})
+emailTemplateResponse_templateDescription :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_templateDescription = Lens.lens (\EmailTemplateResponse' {templateDescription} -> templateDescription) (\s@EmailTemplateResponse' {} a -> s {templateDescription = a} :: EmailTemplateResponse)
 
 -- | The Amazon Resource Name (ARN) of the message template.
-etrARN :: Lens' EmailTemplateResponse (Maybe Text)
-etrARN = lens _etrARN (\s a -> s {_etrARN = a})
+emailTemplateResponse_arn :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_arn = Lens.lens (\EmailTemplateResponse' {arn} -> arn) (\s@EmailTemplateResponse' {} a -> s {arn = a} :: EmailTemplateResponse)
 
--- | The unique identifier, as an integer, for the active version of the message template, or the version of the template that you specified by using the version parameter in your request.
-etrVersion :: Lens' EmailTemplateResponse (Maybe Text)
-etrVersion = lens _etrVersion (\s a -> s {_etrVersion = a})
+-- | The unique identifier, as an integer, for the active version of the
+-- message template, or the version of the template that you specified by
+-- using the version parameter in your request.
+emailTemplateResponse_version :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_version = Lens.lens (\EmailTemplateResponse' {version} -> version) (\s@EmailTemplateResponse' {} a -> s {version = a} :: EmailTemplateResponse)
 
--- | The message body, in plain text format, that's used in email messages that are based on the message template.
-etrTextPart :: Lens' EmailTemplateResponse (Maybe Text)
-etrTextPart = lens _etrTextPart (\s a -> s {_etrTextPart = a})
+-- | The message body, in plain text format, that\'s used in email messages
+-- that are based on the message template.
+emailTemplateResponse_textPart :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_textPart = Lens.lens (\EmailTemplateResponse' {textPart} -> textPart) (\s@EmailTemplateResponse' {} a -> s {textPart = a} :: EmailTemplateResponse)
 
--- | The JSON object that specifies the default values that are used for message variables in the message template. This object is a set of key-value pairs. Each key defines a message variable in the template. The corresponding value defines the default value for that variable.
-etrDefaultSubstitutions :: Lens' EmailTemplateResponse (Maybe Text)
-etrDefaultSubstitutions = lens _etrDefaultSubstitutions (\s a -> s {_etrDefaultSubstitutions = a})
+-- | The JSON object that specifies the default values that are used for
+-- message variables in the message template. This object is a set of
+-- key-value pairs. Each key defines a message variable in the template.
+-- The corresponding value defines the default value for that variable.
+emailTemplateResponse_defaultSubstitutions :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_defaultSubstitutions = Lens.lens (\EmailTemplateResponse' {defaultSubstitutions} -> defaultSubstitutions) (\s@EmailTemplateResponse' {} a -> s {defaultSubstitutions = a} :: EmailTemplateResponse)
 
--- | The subject line, or title, that's used in email messages that are based on the message template.
-etrSubject :: Lens' EmailTemplateResponse (Maybe Text)
-etrSubject = lens _etrSubject (\s a -> s {_etrSubject = a})
+-- | The subject line, or title, that\'s used in email messages that are
+-- based on the message template.
+emailTemplateResponse_subject :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_subject = Lens.lens (\EmailTemplateResponse' {subject} -> subject) (\s@EmailTemplateResponse' {} a -> s {subject = a} :: EmailTemplateResponse)
 
--- | A string-to-string map of key-value pairs that identifies the tags that are associated with the message template. Each tag consists of a required tag key and an associated tag value.
-etrTags :: Lens' EmailTemplateResponse (HashMap Text Text)
-etrTags = lens _etrTags (\s a -> s {_etrTags = a}) . _Default . _Map
+-- | A string-to-string map of key-value pairs that identifies the tags that
+-- are associated with the message template. Each tag consists of a
+-- required tag key and an associated tag value.
+emailTemplateResponse_tags :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+emailTemplateResponse_tags = Lens.lens (\EmailTemplateResponse' {tags} -> tags) (\s@EmailTemplateResponse' {} a -> s {tags = a} :: EmailTemplateResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | The unique identifier for the recommender model that's used by the message template.
-etrRecommenderId :: Lens' EmailTemplateResponse (Maybe Text)
-etrRecommenderId = lens _etrRecommenderId (\s a -> s {_etrRecommenderId = a})
+-- | The unique identifier for the recommender model that\'s used by the
+-- message template.
+emailTemplateResponse_recommenderId :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_recommenderId = Lens.lens (\EmailTemplateResponse' {recommenderId} -> recommenderId) (\s@EmailTemplateResponse' {} a -> s {recommenderId = a} :: EmailTemplateResponse)
 
--- | The message body, in HTML format, that's used in email messages that are based on the message template.
-etrHTMLPart :: Lens' EmailTemplateResponse (Maybe Text)
-etrHTMLPart = lens _etrHTMLPart (\s a -> s {_etrHTMLPart = a})
+-- | The message body, in HTML format, that\'s used in email messages that
+-- are based on the message template.
+emailTemplateResponse_htmlPart :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_htmlPart = Lens.lens (\EmailTemplateResponse' {htmlPart} -> htmlPart) (\s@EmailTemplateResponse' {} a -> s {htmlPart = a} :: EmailTemplateResponse)
 
--- | The date, in ISO 8601 format, when the message template was last modified.
-etrLastModifiedDate :: Lens' EmailTemplateResponse Text
-etrLastModifiedDate = lens _etrLastModifiedDate (\s a -> s {_etrLastModifiedDate = a})
+-- | The date, in ISO 8601 format, when the message template was last
+-- modified.
+emailTemplateResponse_lastModifiedDate :: Lens.Lens' EmailTemplateResponse Prelude.Text
+emailTemplateResponse_lastModifiedDate = Lens.lens (\EmailTemplateResponse' {lastModifiedDate} -> lastModifiedDate) (\s@EmailTemplateResponse' {} a -> s {lastModifiedDate = a} :: EmailTemplateResponse)
 
 -- | The date, in ISO 8601 format, when the message template was created.
-etrCreationDate :: Lens' EmailTemplateResponse Text
-etrCreationDate = lens _etrCreationDate (\s a -> s {_etrCreationDate = a})
+emailTemplateResponse_creationDate :: Lens.Lens' EmailTemplateResponse Prelude.Text
+emailTemplateResponse_creationDate = Lens.lens (\EmailTemplateResponse' {creationDate} -> creationDate) (\s@EmailTemplateResponse' {} a -> s {creationDate = a} :: EmailTemplateResponse)
 
 -- | The name of the message template.
-etrTemplateName :: Lens' EmailTemplateResponse Text
-etrTemplateName = lens _etrTemplateName (\s a -> s {_etrTemplateName = a})
+emailTemplateResponse_templateName :: Lens.Lens' EmailTemplateResponse Prelude.Text
+emailTemplateResponse_templateName = Lens.lens (\EmailTemplateResponse' {templateName} -> templateName) (\s@EmailTemplateResponse' {} a -> s {templateName = a} :: EmailTemplateResponse)
 
--- | The type of channel that the message template is designed for. For an email template, this value is EMAIL.
-etrTemplateType :: Lens' EmailTemplateResponse TemplateType
-etrTemplateType = lens _etrTemplateType (\s a -> s {_etrTemplateType = a})
+-- | The type of channel that the message template is designed for. For an
+-- email template, this value is EMAIL.
+emailTemplateResponse_templateType :: Lens.Lens' EmailTemplateResponse TemplateType
+emailTemplateResponse_templateType = Lens.lens (\EmailTemplateResponse' {templateType} -> templateType) (\s@EmailTemplateResponse' {} a -> s {templateType = a} :: EmailTemplateResponse)
 
-instance FromJSON EmailTemplateResponse where
+instance Prelude.FromJSON EmailTemplateResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EmailTemplateResponse"
       ( \x ->
           EmailTemplateResponse'
-            <$> (x .:? "TemplateDescription")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Version")
-            <*> (x .:? "TextPart")
-            <*> (x .:? "DefaultSubstitutions")
-            <*> (x .:? "Subject")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "RecommenderId")
-            <*> (x .:? "HtmlPart")
-            <*> (x .: "LastModifiedDate")
-            <*> (x .: "CreationDate")
-            <*> (x .: "TemplateName")
-            <*> (x .: "TemplateType")
+            Prelude.<$> (x Prelude..:? "TemplateDescription")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "TextPart")
+            Prelude.<*> (x Prelude..:? "DefaultSubstitutions")
+            Prelude.<*> (x Prelude..:? "Subject")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "RecommenderId")
+            Prelude.<*> (x Prelude..:? "HtmlPart")
+            Prelude.<*> (x Prelude..: "LastModifiedDate")
+            Prelude.<*> (x Prelude..: "CreationDate")
+            Prelude.<*> (x Prelude..: "TemplateName")
+            Prelude.<*> (x Prelude..: "TemplateType")
       )
 
-instance Hashable EmailTemplateResponse
+instance Prelude.Hashable EmailTemplateResponse
 
-instance NFData EmailTemplateResponse
+instance Prelude.NFData EmailTemplateResponse

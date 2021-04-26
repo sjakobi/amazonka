@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a message template for messages that are sent through the voice channel.
+-- Creates a message template for messages that are sent through the voice
+-- channel.
 module Network.AWS.Pinpoint.CreateVoiceTemplate
   ( -- * Creating a Request
-    createVoiceTemplate,
-    CreateVoiceTemplate,
+    CreateVoiceTemplate (..),
+    newCreateVoiceTemplate,
 
     -- * Request Lenses
-    cvtTemplateName,
-    cvtVoiceTemplateRequest,
+    createVoiceTemplate_templateName,
+    createVoiceTemplate_voiceTemplateRequest,
 
     -- * Destructuring the Response
-    createVoiceTemplateResponse,
-    CreateVoiceTemplateResponse,
+    CreateVoiceTemplateResponse (..),
+    newCreateVoiceTemplateResponse,
 
     -- * Response Lenses
-    cvtrrsResponseStatus,
-    cvtrrsCreateTemplateMessageBody,
+    createVoiceTemplateResponse_httpStatus,
+    createVoiceTemplateResponse_createTemplateMessageBody,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.CreateTemplateMessageBody
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createVoiceTemplate' smart constructor.
+-- | /See:/ 'newCreateVoiceTemplate' smart constructor.
 data CreateVoiceTemplate = CreateVoiceTemplate'
-  { _cvtTemplateName ::
-      !Text,
-    _cvtVoiceTemplateRequest ::
-      !VoiceTemplateRequest
+  { -- | The name of the message template. A template name must start with an
+    -- alphanumeric character and can contain a maximum of 128 characters. The
+    -- characters can be alphanumeric characters, underscores (_), or hyphens
+    -- (-). Template names are case sensitive.
+    templateName :: Prelude.Text,
+    voiceTemplateRequest :: VoiceTemplateRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateVoiceTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateVoiceTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cvtTemplateName' - The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cvtVoiceTemplateRequest' - Undocumented member.
-createVoiceTemplate ::
-  -- | 'cvtTemplateName'
-  Text ->
-  -- | 'cvtVoiceTemplateRequest'
+-- 'templateName', 'createVoiceTemplate_templateName' - The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+--
+-- 'voiceTemplateRequest', 'createVoiceTemplate_voiceTemplateRequest' - Undocumented member.
+newCreateVoiceTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'voiceTemplateRequest'
   VoiceTemplateRequest ->
   CreateVoiceTemplate
-createVoiceTemplate
+newCreateVoiceTemplate
   pTemplateName_
   pVoiceTemplateRequest_ =
     CreateVoiceTemplate'
-      { _cvtTemplateName =
-          pTemplateName_,
-        _cvtVoiceTemplateRequest = pVoiceTemplateRequest_
+      { templateName = pTemplateName_,
+        voiceTemplateRequest = pVoiceTemplateRequest_
       }
 
--- | The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-cvtTemplateName :: Lens' CreateVoiceTemplate Text
-cvtTemplateName = lens _cvtTemplateName (\s a -> s {_cvtTemplateName = a})
+-- | The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+createVoiceTemplate_templateName :: Lens.Lens' CreateVoiceTemplate Prelude.Text
+createVoiceTemplate_templateName = Lens.lens (\CreateVoiceTemplate' {templateName} -> templateName) (\s@CreateVoiceTemplate' {} a -> s {templateName = a} :: CreateVoiceTemplate)
 
 -- | Undocumented member.
-cvtVoiceTemplateRequest :: Lens' CreateVoiceTemplate VoiceTemplateRequest
-cvtVoiceTemplateRequest = lens _cvtVoiceTemplateRequest (\s a -> s {_cvtVoiceTemplateRequest = a})
+createVoiceTemplate_voiceTemplateRequest :: Lens.Lens' CreateVoiceTemplate VoiceTemplateRequest
+createVoiceTemplate_voiceTemplateRequest = Lens.lens (\CreateVoiceTemplate' {voiceTemplateRequest} -> voiceTemplateRequest) (\s@CreateVoiceTemplate' {} a -> s {voiceTemplateRequest = a} :: CreateVoiceTemplate)
 
-instance AWSRequest CreateVoiceTemplate where
+instance Prelude.AWSRequest CreateVoiceTemplate where
   type
     Rs CreateVoiceTemplate =
       CreateVoiceTemplateResponse
-  request = postJSON pinpoint
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateVoiceTemplateResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable CreateVoiceTemplate
+instance Prelude.Hashable CreateVoiceTemplate
 
-instance NFData CreateVoiceTemplate
+instance Prelude.NFData CreateVoiceTemplate
 
-instance ToHeaders CreateVoiceTemplate where
+instance Prelude.ToHeaders CreateVoiceTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateVoiceTemplate where
+instance Prelude.ToJSON CreateVoiceTemplate where
   toJSON CreateVoiceTemplate' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "VoiceTemplateRequest"
-                  .= _cvtVoiceTemplateRequest
+                  Prelude..= voiceTemplateRequest
               )
           ]
       )
 
-instance ToPath CreateVoiceTemplate where
+instance Prelude.ToPath CreateVoiceTemplate where
   toPath CreateVoiceTemplate' {..} =
-    mconcat
-      ["/v1/templates/", toBS _cvtTemplateName, "/voice"]
+    Prelude.mconcat
+      [ "/v1/templates/",
+        Prelude.toBS templateName,
+        "/voice"
+      ]
 
-instance ToQuery CreateVoiceTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateVoiceTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createVoiceTemplateResponse' smart constructor.
+-- | /See:/ 'newCreateVoiceTemplateResponse' smart constructor.
 data CreateVoiceTemplateResponse = CreateVoiceTemplateResponse'
-  { _cvtrrsResponseStatus ::
-      !Int,
-    _cvtrrsCreateTemplateMessageBody ::
-      !CreateTemplateMessageBody
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    createTemplateMessageBody :: CreateTemplateMessageBody
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateVoiceTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateVoiceTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cvtrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cvtrrsCreateTemplateMessageBody' - Undocumented member.
-createVoiceTemplateResponse ::
-  -- | 'cvtrrsResponseStatus'
-  Int ->
-  -- | 'cvtrrsCreateTemplateMessageBody'
+-- 'httpStatus', 'createVoiceTemplateResponse_httpStatus' - The response's http status code.
+--
+-- 'createTemplateMessageBody', 'createVoiceTemplateResponse_createTemplateMessageBody' - Undocumented member.
+newCreateVoiceTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'createTemplateMessageBody'
   CreateTemplateMessageBody ->
   CreateVoiceTemplateResponse
-createVoiceTemplateResponse
-  pResponseStatus_
+newCreateVoiceTemplateResponse
+  pHttpStatus_
   pCreateTemplateMessageBody_ =
     CreateVoiceTemplateResponse'
-      { _cvtrrsResponseStatus =
-          pResponseStatus_,
-        _cvtrrsCreateTemplateMessageBody =
+      { httpStatus =
+          pHttpStatus_,
+        createTemplateMessageBody =
           pCreateTemplateMessageBody_
       }
 
--- | -- | The response status code.
-cvtrrsResponseStatus :: Lens' CreateVoiceTemplateResponse Int
-cvtrrsResponseStatus = lens _cvtrrsResponseStatus (\s a -> s {_cvtrrsResponseStatus = a})
+-- | The response's http status code.
+createVoiceTemplateResponse_httpStatus :: Lens.Lens' CreateVoiceTemplateResponse Prelude.Int
+createVoiceTemplateResponse_httpStatus = Lens.lens (\CreateVoiceTemplateResponse' {httpStatus} -> httpStatus) (\s@CreateVoiceTemplateResponse' {} a -> s {httpStatus = a} :: CreateVoiceTemplateResponse)
 
 -- | Undocumented member.
-cvtrrsCreateTemplateMessageBody :: Lens' CreateVoiceTemplateResponse CreateTemplateMessageBody
-cvtrrsCreateTemplateMessageBody = lens _cvtrrsCreateTemplateMessageBody (\s a -> s {_cvtrrsCreateTemplateMessageBody = a})
+createVoiceTemplateResponse_createTemplateMessageBody :: Lens.Lens' CreateVoiceTemplateResponse CreateTemplateMessageBody
+createVoiceTemplateResponse_createTemplateMessageBody = Lens.lens (\CreateVoiceTemplateResponse' {createTemplateMessageBody} -> createTemplateMessageBody) (\s@CreateVoiceTemplateResponse' {} a -> s {createTemplateMessageBody = a} :: CreateVoiceTemplateResponse)
 
-instance NFData CreateVoiceTemplateResponse
+instance Prelude.NFData CreateVoiceTemplateResponse

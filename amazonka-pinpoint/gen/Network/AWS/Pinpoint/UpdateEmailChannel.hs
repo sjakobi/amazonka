@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables the email channel for an application or updates the status and settings of the email channel for an application.
+-- Enables the email channel for an application or updates the status and
+-- settings of the email channel for an application.
 module Network.AWS.Pinpoint.UpdateEmailChannel
   ( -- * Creating a Request
-    updateEmailChannel,
-    UpdateEmailChannel,
+    UpdateEmailChannel (..),
+    newUpdateEmailChannel,
 
     -- * Request Lenses
-    uecApplicationId,
-    uecEmailChannelRequest,
+    updateEmailChannel_applicationId,
+    updateEmailChannel_emailChannelRequest,
 
     -- * Destructuring the Response
-    updateEmailChannelResponse,
-    UpdateEmailChannelResponse,
+    UpdateEmailChannelResponse (..),
+    newUpdateEmailChannelResponse,
 
     -- * Response Lenses
-    uecrrsResponseStatus,
-    uecrrsEmailChannelResponse,
+    updateEmailChannelResponse_httpStatus,
+    updateEmailChannelResponse_emailChannelResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.EmailChannelResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateEmailChannel' smart constructor.
+-- | /See:/ 'newUpdateEmailChannel' smart constructor.
 data UpdateEmailChannel = UpdateEmailChannel'
-  { _uecApplicationId ::
-      !Text,
-    _uecEmailChannelRequest ::
-      !EmailChannelRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    emailChannelRequest :: EmailChannelRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateEmailChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateEmailChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uecApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uecEmailChannelRequest' - Undocumented member.
-updateEmailChannel ::
-  -- | 'uecApplicationId'
-  Text ->
-  -- | 'uecEmailChannelRequest'
+-- 'applicationId', 'updateEmailChannel_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'emailChannelRequest', 'updateEmailChannel_emailChannelRequest' - Undocumented member.
+newUpdateEmailChannel ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'emailChannelRequest'
   EmailChannelRequest ->
   UpdateEmailChannel
-updateEmailChannel
+newUpdateEmailChannel
   pApplicationId_
   pEmailChannelRequest_ =
     UpdateEmailChannel'
-      { _uecApplicationId =
+      { applicationId =
           pApplicationId_,
-        _uecEmailChannelRequest = pEmailChannelRequest_
+        emailChannelRequest = pEmailChannelRequest_
       }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-uecApplicationId :: Lens' UpdateEmailChannel Text
-uecApplicationId = lens _uecApplicationId (\s a -> s {_uecApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+updateEmailChannel_applicationId :: Lens.Lens' UpdateEmailChannel Prelude.Text
+updateEmailChannel_applicationId = Lens.lens (\UpdateEmailChannel' {applicationId} -> applicationId) (\s@UpdateEmailChannel' {} a -> s {applicationId = a} :: UpdateEmailChannel)
 
 -- | Undocumented member.
-uecEmailChannelRequest :: Lens' UpdateEmailChannel EmailChannelRequest
-uecEmailChannelRequest = lens _uecEmailChannelRequest (\s a -> s {_uecEmailChannelRequest = a})
+updateEmailChannel_emailChannelRequest :: Lens.Lens' UpdateEmailChannel EmailChannelRequest
+updateEmailChannel_emailChannelRequest = Lens.lens (\UpdateEmailChannel' {emailChannelRequest} -> emailChannelRequest) (\s@UpdateEmailChannel' {} a -> s {emailChannelRequest = a} :: UpdateEmailChannel)
 
-instance AWSRequest UpdateEmailChannel where
+instance Prelude.AWSRequest UpdateEmailChannel where
   type
     Rs UpdateEmailChannel =
       UpdateEmailChannelResponse
-  request = putJSON pinpoint
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateEmailChannelResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable UpdateEmailChannel
+instance Prelude.Hashable UpdateEmailChannel
 
-instance NFData UpdateEmailChannel
+instance Prelude.NFData UpdateEmailChannel
 
-instance ToHeaders UpdateEmailChannel where
+instance Prelude.ToHeaders UpdateEmailChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateEmailChannel where
+instance Prelude.ToJSON UpdateEmailChannel where
   toJSON UpdateEmailChannel' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("EmailChannelRequest" .= _uecEmailChannelRequest)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "EmailChannelRequest"
+                  Prelude..= emailChannelRequest
+              )
           ]
       )
 
-instance ToPath UpdateEmailChannel where
+instance Prelude.ToPath UpdateEmailChannel where
   toPath UpdateEmailChannel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _uecApplicationId,
+        Prelude.toBS applicationId,
         "/channels/email"
       ]
 
-instance ToQuery UpdateEmailChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateEmailChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateEmailChannelResponse' smart constructor.
+-- | /See:/ 'newUpdateEmailChannelResponse' smart constructor.
 data UpdateEmailChannelResponse = UpdateEmailChannelResponse'
-  { _uecrrsResponseStatus ::
-      !Int,
-    _uecrrsEmailChannelResponse ::
-      !EmailChannelResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    emailChannelResponse :: EmailChannelResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateEmailChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateEmailChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uecrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uecrrsEmailChannelResponse' - Undocumented member.
-updateEmailChannelResponse ::
-  -- | 'uecrrsResponseStatus'
-  Int ->
-  -- | 'uecrrsEmailChannelResponse'
+-- 'httpStatus', 'updateEmailChannelResponse_httpStatus' - The response's http status code.
+--
+-- 'emailChannelResponse', 'updateEmailChannelResponse_emailChannelResponse' - Undocumented member.
+newUpdateEmailChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'emailChannelResponse'
   EmailChannelResponse ->
   UpdateEmailChannelResponse
-updateEmailChannelResponse
-  pResponseStatus_
+newUpdateEmailChannelResponse
+  pHttpStatus_
   pEmailChannelResponse_ =
     UpdateEmailChannelResponse'
-      { _uecrrsResponseStatus =
-          pResponseStatus_,
-        _uecrrsEmailChannelResponse =
-          pEmailChannelResponse_
+      { httpStatus =
+          pHttpStatus_,
+        emailChannelResponse = pEmailChannelResponse_
       }
 
--- | -- | The response status code.
-uecrrsResponseStatus :: Lens' UpdateEmailChannelResponse Int
-uecrrsResponseStatus = lens _uecrrsResponseStatus (\s a -> s {_uecrrsResponseStatus = a})
+-- | The response's http status code.
+updateEmailChannelResponse_httpStatus :: Lens.Lens' UpdateEmailChannelResponse Prelude.Int
+updateEmailChannelResponse_httpStatus = Lens.lens (\UpdateEmailChannelResponse' {httpStatus} -> httpStatus) (\s@UpdateEmailChannelResponse' {} a -> s {httpStatus = a} :: UpdateEmailChannelResponse)
 
 -- | Undocumented member.
-uecrrsEmailChannelResponse :: Lens' UpdateEmailChannelResponse EmailChannelResponse
-uecrrsEmailChannelResponse = lens _uecrrsEmailChannelResponse (\s a -> s {_uecrrsEmailChannelResponse = a})
+updateEmailChannelResponse_emailChannelResponse :: Lens.Lens' UpdateEmailChannelResponse EmailChannelResponse
+updateEmailChannelResponse_emailChannelResponse = Lens.lens (\UpdateEmailChannelResponse' {emailChannelResponse} -> emailChannelResponse) (\s@UpdateEmailChannelResponse' {} a -> s {emailChannelResponse = a} :: UpdateEmailChannelResponse)
 
-instance NFData UpdateEmailChannelResponse
+instance Prelude.NFData UpdateEmailChannelResponse

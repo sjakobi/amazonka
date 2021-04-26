@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.WriteEventStream where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the Amazon Resource Name (ARN) of an event stream to publish events to and the AWS Identity and Access Management (IAM) role to use when publishing those events.
+-- | Specifies the Amazon Resource Name (ARN) of an event stream to publish
+-- events to and the AWS Identity and Access Management (IAM) role to use
+-- when publishing those events.
 --
---
---
--- /See:/ 'writeEventStream' smart constructor.
+-- /See:/ 'newWriteEventStream' smart constructor.
 data WriteEventStream = WriteEventStream'
-  { _wesRoleARN ::
-      !Text,
-    _wesDestinationStreamARN :: !Text
+  { -- | The AWS Identity and Access Management (IAM) role that authorizes Amazon
+    -- Pinpoint to publish event data to the stream in your AWS account.
+    roleArn :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or
+    -- Amazon Kinesis Data Firehose delivery stream that you want to publish
+    -- event data to.
+    --
+    -- For a Kinesis data stream, the ARN format is:
+    -- arn:aws:kinesis:region:account-id:stream\/stream_name
+    --
+    -- For a Kinesis Data Firehose delivery stream, the ARN format is:
+    -- arn:aws:firehose:region:account-id:deliverystream\/stream_name
+    destinationStreamArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WriteEventStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WriteEventStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wesRoleARN' - The AWS Identity and Access Management (IAM) role that authorizes Amazon Pinpoint to publish event data to the stream in your AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wesDestinationStreamARN' - The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or Amazon Kinesis Data Firehose delivery stream that you want to publish event data to. For a Kinesis data stream, the ARN format is: arn:aws:kinesis:<replaceable>region:<replaceable>account-id:stream/<replaceable>stream_name For a Kinesis Data Firehose delivery stream, the ARN format is: arn:aws:firehose:<replaceable>region:<replaceable>account-id:deliverystream/<replaceable>stream_name
-writeEventStream ::
-  -- | 'wesRoleARN'
-  Text ->
-  -- | 'wesDestinationStreamARN'
-  Text ->
+-- 'roleArn', 'writeEventStream_roleArn' - The AWS Identity and Access Management (IAM) role that authorizes Amazon
+-- Pinpoint to publish event data to the stream in your AWS account.
+--
+-- 'destinationStreamArn', 'writeEventStream_destinationStreamArn' - The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or
+-- Amazon Kinesis Data Firehose delivery stream that you want to publish
+-- event data to.
+--
+-- For a Kinesis data stream, the ARN format is:
+-- arn:aws:kinesis:region:account-id:stream\/stream_name
+--
+-- For a Kinesis Data Firehose delivery stream, the ARN format is:
+-- arn:aws:firehose:region:account-id:deliverystream\/stream_name
+newWriteEventStream ::
+  -- | 'roleArn'
+  Prelude.Text ->
+  -- | 'destinationStreamArn'
+  Prelude.Text ->
   WriteEventStream
-writeEventStream pRoleARN_ pDestinationStreamARN_ =
+newWriteEventStream pRoleArn_ pDestinationStreamArn_ =
   WriteEventStream'
-    { _wesRoleARN = pRoleARN_,
-      _wesDestinationStreamARN = pDestinationStreamARN_
+    { roleArn = pRoleArn_,
+      destinationStreamArn = pDestinationStreamArn_
     }
 
--- | The AWS Identity and Access Management (IAM) role that authorizes Amazon Pinpoint to publish event data to the stream in your AWS account.
-wesRoleARN :: Lens' WriteEventStream Text
-wesRoleARN = lens _wesRoleARN (\s a -> s {_wesRoleARN = a})
+-- | The AWS Identity and Access Management (IAM) role that authorizes Amazon
+-- Pinpoint to publish event data to the stream in your AWS account.
+writeEventStream_roleArn :: Lens.Lens' WriteEventStream Prelude.Text
+writeEventStream_roleArn = Lens.lens (\WriteEventStream' {roleArn} -> roleArn) (\s@WriteEventStream' {} a -> s {roleArn = a} :: WriteEventStream)
 
--- | The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or Amazon Kinesis Data Firehose delivery stream that you want to publish event data to. For a Kinesis data stream, the ARN format is: arn:aws:kinesis:<replaceable>region:<replaceable>account-id:stream/<replaceable>stream_name For a Kinesis Data Firehose delivery stream, the ARN format is: arn:aws:firehose:<replaceable>region:<replaceable>account-id:deliverystream/<replaceable>stream_name
-wesDestinationStreamARN :: Lens' WriteEventStream Text
-wesDestinationStreamARN = lens _wesDestinationStreamARN (\s a -> s {_wesDestinationStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or
+-- Amazon Kinesis Data Firehose delivery stream that you want to publish
+-- event data to.
+--
+-- For a Kinesis data stream, the ARN format is:
+-- arn:aws:kinesis:region:account-id:stream\/stream_name
+--
+-- For a Kinesis Data Firehose delivery stream, the ARN format is:
+-- arn:aws:firehose:region:account-id:deliverystream\/stream_name
+writeEventStream_destinationStreamArn :: Lens.Lens' WriteEventStream Prelude.Text
+writeEventStream_destinationStreamArn = Lens.lens (\WriteEventStream' {destinationStreamArn} -> destinationStreamArn) (\s@WriteEventStream' {} a -> s {destinationStreamArn = a} :: WriteEventStream)
 
-instance Hashable WriteEventStream
+instance Prelude.Hashable WriteEventStream
 
-instance NFData WriteEventStream
+instance Prelude.NFData WriteEventStream
 
-instance ToJSON WriteEventStream where
+instance Prelude.ToJSON WriteEventStream where
   toJSON WriteEventStream' {..} =
-    object
-      ( catMaybes
-          [ Just ("RoleArn" .= _wesRoleARN),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("RoleArn" Prelude..= roleArn),
+            Prelude.Just
               ( "DestinationStreamArn"
-                  .= _wesDestinationStreamARN
+                  Prelude..= destinationStreamArn
               )
           ]
       )

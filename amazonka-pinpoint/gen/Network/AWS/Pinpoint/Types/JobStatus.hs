@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,90 @@
 module Network.AWS.Pinpoint.Types.JobStatus
   ( JobStatus
       ( ..,
-        Completed,
-        Completing,
-        Created,
-        Failed,
-        Failing,
-        Initializing,
-        PendingJob,
-        PreparingForInitialization,
-        Processing
+        JobStatusCOMPLETED,
+        JobStatusCOMPLETING,
+        JobStatusCREATED,
+        JobStatusFAILED,
+        JobStatusFAILING,
+        JobStatusINITIALIZING,
+        JobStatusPENDINGJOB,
+        JobStatusPREPARINGFORINITIALIZATION,
+        JobStatusPROCESSING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobStatus = JobStatus' (CI Text)
+newtype JobStatus = JobStatus'
+  { fromJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: JobStatus
-pattern Completed = JobStatus' "COMPLETED"
+pattern JobStatusCOMPLETED :: JobStatus
+pattern JobStatusCOMPLETED = JobStatus' "COMPLETED"
 
-pattern Completing :: JobStatus
-pattern Completing = JobStatus' "COMPLETING"
+pattern JobStatusCOMPLETING :: JobStatus
+pattern JobStatusCOMPLETING = JobStatus' "COMPLETING"
 
-pattern Created :: JobStatus
-pattern Created = JobStatus' "CREATED"
+pattern JobStatusCREATED :: JobStatus
+pattern JobStatusCREATED = JobStatus' "CREATED"
 
-pattern Failed :: JobStatus
-pattern Failed = JobStatus' "FAILED"
+pattern JobStatusFAILED :: JobStatus
+pattern JobStatusFAILED = JobStatus' "FAILED"
 
-pattern Failing :: JobStatus
-pattern Failing = JobStatus' "FAILING"
+pattern JobStatusFAILING :: JobStatus
+pattern JobStatusFAILING = JobStatus' "FAILING"
 
-pattern Initializing :: JobStatus
-pattern Initializing = JobStatus' "INITIALIZING"
+pattern JobStatusINITIALIZING :: JobStatus
+pattern JobStatusINITIALIZING = JobStatus' "INITIALIZING"
 
-pattern PendingJob :: JobStatus
-pattern PendingJob = JobStatus' "PENDING_JOB"
+pattern JobStatusPENDINGJOB :: JobStatus
+pattern JobStatusPENDINGJOB = JobStatus' "PENDING_JOB"
 
-pattern PreparingForInitialization :: JobStatus
-pattern PreparingForInitialization = JobStatus' "PREPARING_FOR_INITIALIZATION"
+pattern JobStatusPREPARINGFORINITIALIZATION :: JobStatus
+pattern JobStatusPREPARINGFORINITIALIZATION = JobStatus' "PREPARING_FOR_INITIALIZATION"
 
-pattern Processing :: JobStatus
-pattern Processing = JobStatus' "PROCESSING"
+pattern JobStatusPROCESSING :: JobStatus
+pattern JobStatusPROCESSING = JobStatus' "PROCESSING"
 
 {-# COMPLETE
-  Completed,
-  Completing,
-  Created,
-  Failed,
-  Failing,
-  Initializing,
-  PendingJob,
-  PreparingForInitialization,
-  Processing,
+  JobStatusCOMPLETED,
+  JobStatusCOMPLETING,
+  JobStatusCREATED,
+  JobStatusFAILED,
+  JobStatusFAILING,
+  JobStatusINITIALIZING,
+  JobStatusPENDINGJOB,
+  JobStatusPREPARINGFORINITIALIZATION,
+  JobStatusPROCESSING,
   JobStatus'
   #-}
 
-instance FromText JobStatus where
-  parser = (JobStatus' . mk) <$> takeText
+instance Prelude.FromText JobStatus where
+  parser = JobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText JobStatus where
-  toText (JobStatus' ci) = original ci
+instance Prelude.ToText JobStatus where
+  toText (JobStatus' x) = x
 
-instance Hashable JobStatus
+instance Prelude.Hashable JobStatus
 
-instance NFData JobStatus
+instance Prelude.NFData JobStatus
 
-instance ToByteString JobStatus
+instance Prelude.ToByteString JobStatus
 
-instance ToQuery JobStatus
+instance Prelude.ToQuery JobStatus
 
-instance ToHeader JobStatus
+instance Prelude.ToHeader JobStatus
 
-instance FromJSON JobStatus where
-  parseJSON = parseJSONText "JobStatus"
+instance Prelude.FromJSON JobStatus where
+  parseJSON = Prelude.parseJSONText "JobStatus"

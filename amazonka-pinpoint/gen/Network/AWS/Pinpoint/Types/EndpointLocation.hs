@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,125 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EndpointLocation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies geographic information about an endpoint.
 --
---
---
--- /See:/ 'endpointLocation' smart constructor.
+-- /See:/ 'newEndpointLocation' smart constructor.
 data EndpointLocation = EndpointLocation'
-  { _elLongitude ::
-      !(Maybe Double),
-    _elLatitude :: !(Maybe Double),
-    _elPostalCode :: !(Maybe Text),
-    _elCity :: !(Maybe Text),
-    _elCountry :: !(Maybe Text),
-    _elRegion :: !(Maybe Text)
+  { -- | The longitude coordinate of the endpoint location, rounded to one
+    -- decimal place.
+    longitude :: Prelude.Maybe Prelude.Double,
+    -- | The latitude coordinate of the endpoint location, rounded to one decimal
+    -- place.
+    latitude :: Prelude.Maybe Prelude.Double,
+    -- | The postal or ZIP code for the area where the endpoint is located.
+    postalCode :: Prelude.Maybe Prelude.Text,
+    -- | The name of the city where the endpoint is located.
+    city :: Prelude.Maybe Prelude.Text,
+    -- | The two-character code, in ISO 3166-1 alpha-2 format, for the country or
+    -- region where the endpoint is located. For example, US for the United
+    -- States.
+    country :: Prelude.Maybe Prelude.Text,
+    -- | The name of the region where the endpoint is located. For locations in
+    -- the United States, this value is the name of a state.
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EndpointLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EndpointLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'elLongitude' - The longitude coordinate of the endpoint location, rounded to one decimal place.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'elLatitude' - The latitude coordinate of the endpoint location, rounded to one decimal place.
+-- 'longitude', 'endpointLocation_longitude' - The longitude coordinate of the endpoint location, rounded to one
+-- decimal place.
 --
--- * 'elPostalCode' - The postal or ZIP code for the area where the endpoint is located.
+-- 'latitude', 'endpointLocation_latitude' - The latitude coordinate of the endpoint location, rounded to one decimal
+-- place.
 --
--- * 'elCity' - The name of the city where the endpoint is located.
+-- 'postalCode', 'endpointLocation_postalCode' - The postal or ZIP code for the area where the endpoint is located.
 --
--- * 'elCountry' - The two-character code, in ISO 3166-1 alpha-2 format, for the country or region where the endpoint is located. For example, US for the United States.
+-- 'city', 'endpointLocation_city' - The name of the city where the endpoint is located.
 --
--- * 'elRegion' - The name of the region where the endpoint is located. For locations in the United States, this value is the name of a state.
-endpointLocation ::
+-- 'country', 'endpointLocation_country' - The two-character code, in ISO 3166-1 alpha-2 format, for the country or
+-- region where the endpoint is located. For example, US for the United
+-- States.
+--
+-- 'region', 'endpointLocation_region' - The name of the region where the endpoint is located. For locations in
+-- the United States, this value is the name of a state.
+newEndpointLocation ::
   EndpointLocation
-endpointLocation =
+newEndpointLocation =
   EndpointLocation'
-    { _elLongitude = Nothing,
-      _elLatitude = Nothing,
-      _elPostalCode = Nothing,
-      _elCity = Nothing,
-      _elCountry = Nothing,
-      _elRegion = Nothing
+    { longitude = Prelude.Nothing,
+      latitude = Prelude.Nothing,
+      postalCode = Prelude.Nothing,
+      city = Prelude.Nothing,
+      country = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
--- | The longitude coordinate of the endpoint location, rounded to one decimal place.
-elLongitude :: Lens' EndpointLocation (Maybe Double)
-elLongitude = lens _elLongitude (\s a -> s {_elLongitude = a})
+-- | The longitude coordinate of the endpoint location, rounded to one
+-- decimal place.
+endpointLocation_longitude :: Lens.Lens' EndpointLocation (Prelude.Maybe Prelude.Double)
+endpointLocation_longitude = Lens.lens (\EndpointLocation' {longitude} -> longitude) (\s@EndpointLocation' {} a -> s {longitude = a} :: EndpointLocation)
 
--- | The latitude coordinate of the endpoint location, rounded to one decimal place.
-elLatitude :: Lens' EndpointLocation (Maybe Double)
-elLatitude = lens _elLatitude (\s a -> s {_elLatitude = a})
+-- | The latitude coordinate of the endpoint location, rounded to one decimal
+-- place.
+endpointLocation_latitude :: Lens.Lens' EndpointLocation (Prelude.Maybe Prelude.Double)
+endpointLocation_latitude = Lens.lens (\EndpointLocation' {latitude} -> latitude) (\s@EndpointLocation' {} a -> s {latitude = a} :: EndpointLocation)
 
 -- | The postal or ZIP code for the area where the endpoint is located.
-elPostalCode :: Lens' EndpointLocation (Maybe Text)
-elPostalCode = lens _elPostalCode (\s a -> s {_elPostalCode = a})
+endpointLocation_postalCode :: Lens.Lens' EndpointLocation (Prelude.Maybe Prelude.Text)
+endpointLocation_postalCode = Lens.lens (\EndpointLocation' {postalCode} -> postalCode) (\s@EndpointLocation' {} a -> s {postalCode = a} :: EndpointLocation)
 
 -- | The name of the city where the endpoint is located.
-elCity :: Lens' EndpointLocation (Maybe Text)
-elCity = lens _elCity (\s a -> s {_elCity = a})
+endpointLocation_city :: Lens.Lens' EndpointLocation (Prelude.Maybe Prelude.Text)
+endpointLocation_city = Lens.lens (\EndpointLocation' {city} -> city) (\s@EndpointLocation' {} a -> s {city = a} :: EndpointLocation)
 
--- | The two-character code, in ISO 3166-1 alpha-2 format, for the country or region where the endpoint is located. For example, US for the United States.
-elCountry :: Lens' EndpointLocation (Maybe Text)
-elCountry = lens _elCountry (\s a -> s {_elCountry = a})
+-- | The two-character code, in ISO 3166-1 alpha-2 format, for the country or
+-- region where the endpoint is located. For example, US for the United
+-- States.
+endpointLocation_country :: Lens.Lens' EndpointLocation (Prelude.Maybe Prelude.Text)
+endpointLocation_country = Lens.lens (\EndpointLocation' {country} -> country) (\s@EndpointLocation' {} a -> s {country = a} :: EndpointLocation)
 
--- | The name of the region where the endpoint is located. For locations in the United States, this value is the name of a state.
-elRegion :: Lens' EndpointLocation (Maybe Text)
-elRegion = lens _elRegion (\s a -> s {_elRegion = a})
+-- | The name of the region where the endpoint is located. For locations in
+-- the United States, this value is the name of a state.
+endpointLocation_region :: Lens.Lens' EndpointLocation (Prelude.Maybe Prelude.Text)
+endpointLocation_region = Lens.lens (\EndpointLocation' {region} -> region) (\s@EndpointLocation' {} a -> s {region = a} :: EndpointLocation)
 
-instance FromJSON EndpointLocation where
+instance Prelude.FromJSON EndpointLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EndpointLocation"
       ( \x ->
           EndpointLocation'
-            <$> (x .:? "Longitude")
-            <*> (x .:? "Latitude")
-            <*> (x .:? "PostalCode")
-            <*> (x .:? "City")
-            <*> (x .:? "Country")
-            <*> (x .:? "Region")
+            Prelude.<$> (x Prelude..:? "Longitude")
+            Prelude.<*> (x Prelude..:? "Latitude")
+            Prelude.<*> (x Prelude..:? "PostalCode")
+            Prelude.<*> (x Prelude..:? "City")
+            Prelude.<*> (x Prelude..:? "Country")
+            Prelude.<*> (x Prelude..:? "Region")
       )
 
-instance Hashable EndpointLocation
+instance Prelude.Hashable EndpointLocation
 
-instance NFData EndpointLocation
+instance Prelude.NFData EndpointLocation
 
-instance ToJSON EndpointLocation where
+instance Prelude.ToJSON EndpointLocation where
   toJSON EndpointLocation' {..} =
-    object
-      ( catMaybes
-          [ ("Longitude" .=) <$> _elLongitude,
-            ("Latitude" .=) <$> _elLatitude,
-            ("PostalCode" .=) <$> _elPostalCode,
-            ("City" .=) <$> _elCity,
-            ("Country" .=) <$> _elCountry,
-            ("Region" .=) <$> _elRegion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Longitude" Prelude..=) Prelude.<$> longitude,
+            ("Latitude" Prelude..=) Prelude.<$> latitude,
+            ("PostalCode" Prelude..=) Prelude.<$> postalCode,
+            ("City" Prelude..=) Prelude.<$> city,
+            ("Country" Prelude..=) Prelude.<$> country,
+            ("Region" Prelude..=) Prelude.<$> region
           ]
       )

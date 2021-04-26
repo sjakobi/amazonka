@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.Pinpoint.Types.DeliveryStatus
   ( DeliveryStatus
       ( ..,
-        Duplicate,
-        OptOut,
-        PermanentFailure,
-        Successful,
-        TemporaryFailure,
-        Throttled,
-        UnknownFailure
+        DeliveryStatusDUPLICATE,
+        DeliveryStatusOPTOUT,
+        DeliveryStatusPERMANENTFAILURE,
+        DeliveryStatusSUCCESSFUL,
+        DeliveryStatusTEMPORARYFAILURE,
+        DeliveryStatusTHROTTLED,
+        DeliveryStatusUNKNOWNFAILURE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeliveryStatus = DeliveryStatus' (CI Text)
+newtype DeliveryStatus = DeliveryStatus'
+  { fromDeliveryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Duplicate :: DeliveryStatus
-pattern Duplicate = DeliveryStatus' "DUPLICATE"
+pattern DeliveryStatusDUPLICATE :: DeliveryStatus
+pattern DeliveryStatusDUPLICATE = DeliveryStatus' "DUPLICATE"
 
-pattern OptOut :: DeliveryStatus
-pattern OptOut = DeliveryStatus' "OPT_OUT"
+pattern DeliveryStatusOPTOUT :: DeliveryStatus
+pattern DeliveryStatusOPTOUT = DeliveryStatus' "OPT_OUT"
 
-pattern PermanentFailure :: DeliveryStatus
-pattern PermanentFailure = DeliveryStatus' "PERMANENT_FAILURE"
+pattern DeliveryStatusPERMANENTFAILURE :: DeliveryStatus
+pattern DeliveryStatusPERMANENTFAILURE = DeliveryStatus' "PERMANENT_FAILURE"
 
-pattern Successful :: DeliveryStatus
-pattern Successful = DeliveryStatus' "SUCCESSFUL"
+pattern DeliveryStatusSUCCESSFUL :: DeliveryStatus
+pattern DeliveryStatusSUCCESSFUL = DeliveryStatus' "SUCCESSFUL"
 
-pattern TemporaryFailure :: DeliveryStatus
-pattern TemporaryFailure = DeliveryStatus' "TEMPORARY_FAILURE"
+pattern DeliveryStatusTEMPORARYFAILURE :: DeliveryStatus
+pattern DeliveryStatusTEMPORARYFAILURE = DeliveryStatus' "TEMPORARY_FAILURE"
 
-pattern Throttled :: DeliveryStatus
-pattern Throttled = DeliveryStatus' "THROTTLED"
+pattern DeliveryStatusTHROTTLED :: DeliveryStatus
+pattern DeliveryStatusTHROTTLED = DeliveryStatus' "THROTTLED"
 
-pattern UnknownFailure :: DeliveryStatus
-pattern UnknownFailure = DeliveryStatus' "UNKNOWN_FAILURE"
+pattern DeliveryStatusUNKNOWNFAILURE :: DeliveryStatus
+pattern DeliveryStatusUNKNOWNFAILURE = DeliveryStatus' "UNKNOWN_FAILURE"
 
 {-# COMPLETE
-  Duplicate,
-  OptOut,
-  PermanentFailure,
-  Successful,
-  TemporaryFailure,
-  Throttled,
-  UnknownFailure,
+  DeliveryStatusDUPLICATE,
+  DeliveryStatusOPTOUT,
+  DeliveryStatusPERMANENTFAILURE,
+  DeliveryStatusSUCCESSFUL,
+  DeliveryStatusTEMPORARYFAILURE,
+  DeliveryStatusTHROTTLED,
+  DeliveryStatusUNKNOWNFAILURE,
   DeliveryStatus'
   #-}
 
-instance FromText DeliveryStatus where
-  parser = (DeliveryStatus' . mk) <$> takeText
+instance Prelude.FromText DeliveryStatus where
+  parser = DeliveryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DeliveryStatus where
-  toText (DeliveryStatus' ci) = original ci
+instance Prelude.ToText DeliveryStatus where
+  toText (DeliveryStatus' x) = x
 
-instance Hashable DeliveryStatus
+instance Prelude.Hashable DeliveryStatus
 
-instance NFData DeliveryStatus
+instance Prelude.NFData DeliveryStatus
 
-instance ToByteString DeliveryStatus
+instance Prelude.ToByteString DeliveryStatus
 
-instance ToQuery DeliveryStatus
+instance Prelude.ToQuery DeliveryStatus
 
-instance ToHeader DeliveryStatus
+instance Prelude.ToHeader DeliveryStatus
 
-instance FromJSON DeliveryStatus where
-  parseJSON = parseJSONText "DeliveryStatus"
+instance Prelude.FromJSON DeliveryStatus where
+  parseJSON = Prelude.parseJSONText "DeliveryStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new segment for an application or updates the configuration, dimension, and other settings for an existing segment that's associated with an application.
+-- Creates a new segment for an application or updates the configuration,
+-- dimension, and other settings for an existing segment that\'s associated
+-- with an application.
 module Network.AWS.Pinpoint.CreateSegment
   ( -- * Creating a Request
-    createSegment,
-    CreateSegment,
+    CreateSegment (..),
+    newCreateSegment,
 
     -- * Request Lenses
-    csApplicationId,
-    csWriteSegmentRequest,
+    createSegment_applicationId,
+    createSegment_writeSegmentRequest,
 
     -- * Destructuring the Response
-    createSegmentResponse,
-    CreateSegmentResponse,
+    CreateSegmentResponse (..),
+    newCreateSegmentResponse,
 
     -- * Response Lenses
-    csrrsResponseStatus,
-    csrrsSegmentResponse,
+    createSegmentResponse_httpStatus,
+    createSegmentResponse_segmentResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.SegmentResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createSegment' smart constructor.
+-- | /See:/ 'newCreateSegment' smart constructor.
 data CreateSegment = CreateSegment'
-  { _csApplicationId ::
-      !Text,
-    _csWriteSegmentRequest ::
-      !WriteSegmentRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    writeSegmentRequest :: WriteSegmentRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSegment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSegment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csWriteSegmentRequest' - Undocumented member.
-createSegment ::
-  -- | 'csApplicationId'
-  Text ->
-  -- | 'csWriteSegmentRequest'
+-- 'applicationId', 'createSegment_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'writeSegmentRequest', 'createSegment_writeSegmentRequest' - Undocumented member.
+newCreateSegment ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'writeSegmentRequest'
   WriteSegmentRequest ->
   CreateSegment
-createSegment pApplicationId_ pWriteSegmentRequest_ =
-  CreateSegment'
-    { _csApplicationId = pApplicationId_,
-      _csWriteSegmentRequest = pWriteSegmentRequest_
-    }
-
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-csApplicationId :: Lens' CreateSegment Text
-csApplicationId = lens _csApplicationId (\s a -> s {_csApplicationId = a})
-
--- | Undocumented member.
-csWriteSegmentRequest :: Lens' CreateSegment WriteSegmentRequest
-csWriteSegmentRequest = lens _csWriteSegmentRequest (\s a -> s {_csWriteSegmentRequest = a})
-
-instance AWSRequest CreateSegment where
-  type Rs CreateSegment = CreateSegmentResponse
-  request = postJSON pinpoint
-  response =
-    receiveJSON
-      ( \s h x ->
-          CreateSegmentResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
-      )
-
-instance Hashable CreateSegment
-
-instance NFData CreateSegment
-
-instance ToHeaders CreateSegment where
-  toHeaders =
-    const
-      ( mconcat
-          [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON CreateSegment where
-  toJSON CreateSegment' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("WriteSegmentRequest" .= _csWriteSegmentRequest)
-          ]
-      )
-
-instance ToPath CreateSegment where
-  toPath CreateSegment' {..} =
-    mconcat
-      ["/v1/apps/", toBS _csApplicationId, "/segments"]
-
-instance ToQuery CreateSegment where
-  toQuery = const mempty
-
--- | /See:/ 'createSegmentResponse' smart constructor.
-data CreateSegmentResponse = CreateSegmentResponse'
-  { _csrrsResponseStatus ::
-      !Int,
-    _csrrsSegmentResponse ::
-      !SegmentResponse
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'CreateSegmentResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'csrrsResponseStatus' - -- | The response status code.
---
--- * 'csrrsSegmentResponse' - Undocumented member.
-createSegmentResponse ::
-  -- | 'csrrsResponseStatus'
-  Int ->
-  -- | 'csrrsSegmentResponse'
-  SegmentResponse ->
-  CreateSegmentResponse
-createSegmentResponse
-  pResponseStatus_
-  pSegmentResponse_ =
-    CreateSegmentResponse'
-      { _csrrsResponseStatus =
-          pResponseStatus_,
-        _csrrsSegmentResponse = pSegmentResponse_
+newCreateSegment
+  pApplicationId_
+  pWriteSegmentRequest_ =
+    CreateSegment'
+      { applicationId = pApplicationId_,
+        writeSegmentRequest = pWriteSegmentRequest_
       }
 
--- | -- | The response status code.
-csrrsResponseStatus :: Lens' CreateSegmentResponse Int
-csrrsResponseStatus = lens _csrrsResponseStatus (\s a -> s {_csrrsResponseStatus = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+createSegment_applicationId :: Lens.Lens' CreateSegment Prelude.Text
+createSegment_applicationId = Lens.lens (\CreateSegment' {applicationId} -> applicationId) (\s@CreateSegment' {} a -> s {applicationId = a} :: CreateSegment)
 
 -- | Undocumented member.
-csrrsSegmentResponse :: Lens' CreateSegmentResponse SegmentResponse
-csrrsSegmentResponse = lens _csrrsSegmentResponse (\s a -> s {_csrrsSegmentResponse = a})
+createSegment_writeSegmentRequest :: Lens.Lens' CreateSegment WriteSegmentRequest
+createSegment_writeSegmentRequest = Lens.lens (\CreateSegment' {writeSegmentRequest} -> writeSegmentRequest) (\s@CreateSegment' {} a -> s {writeSegmentRequest = a} :: CreateSegment)
 
-instance NFData CreateSegmentResponse
+instance Prelude.AWSRequest CreateSegment where
+  type Rs CreateSegment = CreateSegmentResponse
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      ( \s h x ->
+          CreateSegmentResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
+      )
+
+instance Prelude.Hashable CreateSegment
+
+instance Prelude.NFData CreateSegment
+
+instance Prelude.ToHeaders CreateSegment where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance Prelude.ToJSON CreateSegment where
+  toJSON CreateSegment' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "WriteSegmentRequest"
+                  Prelude..= writeSegmentRequest
+              )
+          ]
+      )
+
+instance Prelude.ToPath CreateSegment where
+  toPath CreateSegment' {..} =
+    Prelude.mconcat
+      [ "/v1/apps/",
+        Prelude.toBS applicationId,
+        "/segments"
+      ]
+
+instance Prelude.ToQuery CreateSegment where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newCreateSegmentResponse' smart constructor.
+data CreateSegmentResponse = CreateSegmentResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    segmentResponse :: SegmentResponse
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'CreateSegmentResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createSegmentResponse_httpStatus' - The response's http status code.
+--
+-- 'segmentResponse', 'createSegmentResponse_segmentResponse' - Undocumented member.
+newCreateSegmentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'segmentResponse'
+  SegmentResponse ->
+  CreateSegmentResponse
+newCreateSegmentResponse
+  pHttpStatus_
+  pSegmentResponse_ =
+    CreateSegmentResponse'
+      { httpStatus = pHttpStatus_,
+        segmentResponse = pSegmentResponse_
+      }
+
+-- | The response's http status code.
+createSegmentResponse_httpStatus :: Lens.Lens' CreateSegmentResponse Prelude.Int
+createSegmentResponse_httpStatus = Lens.lens (\CreateSegmentResponse' {httpStatus} -> httpStatus) (\s@CreateSegmentResponse' {} a -> s {httpStatus = a} :: CreateSegmentResponse)
+
+-- | Undocumented member.
+createSegmentResponse_segmentResponse :: Lens.Lens' CreateSegmentResponse SegmentResponse
+createSegmentResponse_segmentResponse = Lens.lens (\CreateSegmentResponse' {segmentResponse} -> segmentResponse) (\s@CreateSegmentResponse' {} a -> s {segmentResponse = a} :: CreateSegmentResponse)
+
+instance Prelude.NFData CreateSegmentResponse

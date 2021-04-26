@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,112 +19,137 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.APNSChannelRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the status and settings of the APNs (Apple Push Notification service) channel for an application.
+-- | Specifies the status and settings of the APNs (Apple Push Notification
+-- service) channel for an application.
 --
---
---
--- /See:/ 'apnsChannelRequest' smart constructor.
+-- /See:/ 'newAPNSChannelRequest' smart constructor.
 data APNSChannelRequest = APNSChannelRequest'
-  { _apnscrDefaultAuthenticationMethod ::
-      !(Maybe Text),
-    _apnscrTokenKey :: !(Maybe Text),
-    _apnscrBundleId :: !(Maybe Text),
-    _apnscrTeamId :: !(Maybe Text),
-    _apnscrEnabled :: !(Maybe Bool),
-    _apnscrPrivateKey ::
-      !(Maybe Text),
-    _apnscrTokenKeyId ::
-      !(Maybe Text),
-    _apnscrCertificate ::
-      !(Maybe Text)
+  { -- | The default authentication method that you want Amazon Pinpoint to use
+    -- when authenticating with APNs, key or certificate.
+    defaultAuthenticationMethod :: Prelude.Maybe Prelude.Text,
+    -- | The authentication key to use for APNs tokens.
+    tokenKey :: Prelude.Maybe Prelude.Text,
+    -- | The bundle identifier that\'s assigned to your iOS app. This identifier
+    -- is used for APNs tokens.
+    bundleId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier that\'s assigned to your Apple developer account team.
+    -- This identifier is used for APNs tokens.
+    teamId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether to enable the APNs channel for the application.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The private key for the APNs client certificate that you want Amazon
+    -- Pinpoint to use to communicate with APNs.
+    privateKey :: Prelude.Maybe Prelude.Text,
+    -- | The key identifier that\'s assigned to your APNs signing key, if you
+    -- want Amazon Pinpoint to communicate with APNs by using APNs tokens.
+    tokenKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The APNs client certificate that you received from Apple, if you want
+    -- Amazon Pinpoint to communicate with APNs by using an APNs certificate.
+    certificate :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'APNSChannelRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'APNSChannelRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apnscrDefaultAuthenticationMethod' - The default authentication method that you want Amazon Pinpoint to use when authenticating with APNs, key or certificate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apnscrTokenKey' - The authentication key to use for APNs tokens.
+-- 'defaultAuthenticationMethod', 'aPNSChannelRequest_defaultAuthenticationMethod' - The default authentication method that you want Amazon Pinpoint to use
+-- when authenticating with APNs, key or certificate.
 --
--- * 'apnscrBundleId' - The bundle identifier that's assigned to your iOS app. This identifier is used for APNs tokens.
+-- 'tokenKey', 'aPNSChannelRequest_tokenKey' - The authentication key to use for APNs tokens.
 --
--- * 'apnscrTeamId' - The identifier that's assigned to your Apple developer account team. This identifier is used for APNs tokens.
+-- 'bundleId', 'aPNSChannelRequest_bundleId' - The bundle identifier that\'s assigned to your iOS app. This identifier
+-- is used for APNs tokens.
 --
--- * 'apnscrEnabled' - Specifies whether to enable the APNs channel for the application.
+-- 'teamId', 'aPNSChannelRequest_teamId' - The identifier that\'s assigned to your Apple developer account team.
+-- This identifier is used for APNs tokens.
 --
--- * 'apnscrPrivateKey' - The private key for the APNs client certificate that you want Amazon Pinpoint to use to communicate with APNs.
+-- 'enabled', 'aPNSChannelRequest_enabled' - Specifies whether to enable the APNs channel for the application.
 --
--- * 'apnscrTokenKeyId' - The key identifier that's assigned to your APNs signing key, if you want Amazon Pinpoint to communicate with APNs by using APNs tokens.
+-- 'privateKey', 'aPNSChannelRequest_privateKey' - The private key for the APNs client certificate that you want Amazon
+-- Pinpoint to use to communicate with APNs.
 --
--- * 'apnscrCertificate' - The APNs client certificate that you received from Apple, if you want Amazon Pinpoint to communicate with APNs by using an APNs certificate.
-apnsChannelRequest ::
+-- 'tokenKeyId', 'aPNSChannelRequest_tokenKeyId' - The key identifier that\'s assigned to your APNs signing key, if you
+-- want Amazon Pinpoint to communicate with APNs by using APNs tokens.
+--
+-- 'certificate', 'aPNSChannelRequest_certificate' - The APNs client certificate that you received from Apple, if you want
+-- Amazon Pinpoint to communicate with APNs by using an APNs certificate.
+newAPNSChannelRequest ::
   APNSChannelRequest
-apnsChannelRequest =
+newAPNSChannelRequest =
   APNSChannelRequest'
-    { _apnscrDefaultAuthenticationMethod =
-        Nothing,
-      _apnscrTokenKey = Nothing,
-      _apnscrBundleId = Nothing,
-      _apnscrTeamId = Nothing,
-      _apnscrEnabled = Nothing,
-      _apnscrPrivateKey = Nothing,
-      _apnscrTokenKeyId = Nothing,
-      _apnscrCertificate = Nothing
+    { defaultAuthenticationMethod =
+        Prelude.Nothing,
+      tokenKey = Prelude.Nothing,
+      bundleId = Prelude.Nothing,
+      teamId = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      privateKey = Prelude.Nothing,
+      tokenKeyId = Prelude.Nothing,
+      certificate = Prelude.Nothing
     }
 
--- | The default authentication method that you want Amazon Pinpoint to use when authenticating with APNs, key or certificate.
-apnscrDefaultAuthenticationMethod :: Lens' APNSChannelRequest (Maybe Text)
-apnscrDefaultAuthenticationMethod = lens _apnscrDefaultAuthenticationMethod (\s a -> s {_apnscrDefaultAuthenticationMethod = a})
+-- | The default authentication method that you want Amazon Pinpoint to use
+-- when authenticating with APNs, key or certificate.
+aPNSChannelRequest_defaultAuthenticationMethod :: Lens.Lens' APNSChannelRequest (Prelude.Maybe Prelude.Text)
+aPNSChannelRequest_defaultAuthenticationMethod = Lens.lens (\APNSChannelRequest' {defaultAuthenticationMethod} -> defaultAuthenticationMethod) (\s@APNSChannelRequest' {} a -> s {defaultAuthenticationMethod = a} :: APNSChannelRequest)
 
 -- | The authentication key to use for APNs tokens.
-apnscrTokenKey :: Lens' APNSChannelRequest (Maybe Text)
-apnscrTokenKey = lens _apnscrTokenKey (\s a -> s {_apnscrTokenKey = a})
+aPNSChannelRequest_tokenKey :: Lens.Lens' APNSChannelRequest (Prelude.Maybe Prelude.Text)
+aPNSChannelRequest_tokenKey = Lens.lens (\APNSChannelRequest' {tokenKey} -> tokenKey) (\s@APNSChannelRequest' {} a -> s {tokenKey = a} :: APNSChannelRequest)
 
--- | The bundle identifier that's assigned to your iOS app. This identifier is used for APNs tokens.
-apnscrBundleId :: Lens' APNSChannelRequest (Maybe Text)
-apnscrBundleId = lens _apnscrBundleId (\s a -> s {_apnscrBundleId = a})
+-- | The bundle identifier that\'s assigned to your iOS app. This identifier
+-- is used for APNs tokens.
+aPNSChannelRequest_bundleId :: Lens.Lens' APNSChannelRequest (Prelude.Maybe Prelude.Text)
+aPNSChannelRequest_bundleId = Lens.lens (\APNSChannelRequest' {bundleId} -> bundleId) (\s@APNSChannelRequest' {} a -> s {bundleId = a} :: APNSChannelRequest)
 
--- | The identifier that's assigned to your Apple developer account team. This identifier is used for APNs tokens.
-apnscrTeamId :: Lens' APNSChannelRequest (Maybe Text)
-apnscrTeamId = lens _apnscrTeamId (\s a -> s {_apnscrTeamId = a})
+-- | The identifier that\'s assigned to your Apple developer account team.
+-- This identifier is used for APNs tokens.
+aPNSChannelRequest_teamId :: Lens.Lens' APNSChannelRequest (Prelude.Maybe Prelude.Text)
+aPNSChannelRequest_teamId = Lens.lens (\APNSChannelRequest' {teamId} -> teamId) (\s@APNSChannelRequest' {} a -> s {teamId = a} :: APNSChannelRequest)
 
 -- | Specifies whether to enable the APNs channel for the application.
-apnscrEnabled :: Lens' APNSChannelRequest (Maybe Bool)
-apnscrEnabled = lens _apnscrEnabled (\s a -> s {_apnscrEnabled = a})
+aPNSChannelRequest_enabled :: Lens.Lens' APNSChannelRequest (Prelude.Maybe Prelude.Bool)
+aPNSChannelRequest_enabled = Lens.lens (\APNSChannelRequest' {enabled} -> enabled) (\s@APNSChannelRequest' {} a -> s {enabled = a} :: APNSChannelRequest)
 
--- | The private key for the APNs client certificate that you want Amazon Pinpoint to use to communicate with APNs.
-apnscrPrivateKey :: Lens' APNSChannelRequest (Maybe Text)
-apnscrPrivateKey = lens _apnscrPrivateKey (\s a -> s {_apnscrPrivateKey = a})
+-- | The private key for the APNs client certificate that you want Amazon
+-- Pinpoint to use to communicate with APNs.
+aPNSChannelRequest_privateKey :: Lens.Lens' APNSChannelRequest (Prelude.Maybe Prelude.Text)
+aPNSChannelRequest_privateKey = Lens.lens (\APNSChannelRequest' {privateKey} -> privateKey) (\s@APNSChannelRequest' {} a -> s {privateKey = a} :: APNSChannelRequest)
 
--- | The key identifier that's assigned to your APNs signing key, if you want Amazon Pinpoint to communicate with APNs by using APNs tokens.
-apnscrTokenKeyId :: Lens' APNSChannelRequest (Maybe Text)
-apnscrTokenKeyId = lens _apnscrTokenKeyId (\s a -> s {_apnscrTokenKeyId = a})
+-- | The key identifier that\'s assigned to your APNs signing key, if you
+-- want Amazon Pinpoint to communicate with APNs by using APNs tokens.
+aPNSChannelRequest_tokenKeyId :: Lens.Lens' APNSChannelRequest (Prelude.Maybe Prelude.Text)
+aPNSChannelRequest_tokenKeyId = Lens.lens (\APNSChannelRequest' {tokenKeyId} -> tokenKeyId) (\s@APNSChannelRequest' {} a -> s {tokenKeyId = a} :: APNSChannelRequest)
 
--- | The APNs client certificate that you received from Apple, if you want Amazon Pinpoint to communicate with APNs by using an APNs certificate.
-apnscrCertificate :: Lens' APNSChannelRequest (Maybe Text)
-apnscrCertificate = lens _apnscrCertificate (\s a -> s {_apnscrCertificate = a})
+-- | The APNs client certificate that you received from Apple, if you want
+-- Amazon Pinpoint to communicate with APNs by using an APNs certificate.
+aPNSChannelRequest_certificate :: Lens.Lens' APNSChannelRequest (Prelude.Maybe Prelude.Text)
+aPNSChannelRequest_certificate = Lens.lens (\APNSChannelRequest' {certificate} -> certificate) (\s@APNSChannelRequest' {} a -> s {certificate = a} :: APNSChannelRequest)
 
-instance Hashable APNSChannelRequest
+instance Prelude.Hashable APNSChannelRequest
 
-instance NFData APNSChannelRequest
+instance Prelude.NFData APNSChannelRequest
 
-instance ToJSON APNSChannelRequest where
+instance Prelude.ToJSON APNSChannelRequest where
   toJSON APNSChannelRequest' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultAuthenticationMethod" .=)
-              <$> _apnscrDefaultAuthenticationMethod,
-            ("TokenKey" .=) <$> _apnscrTokenKey,
-            ("BundleId" .=) <$> _apnscrBundleId,
-            ("TeamId" .=) <$> _apnscrTeamId,
-            ("Enabled" .=) <$> _apnscrEnabled,
-            ("PrivateKey" .=) <$> _apnscrPrivateKey,
-            ("TokenKeyId" .=) <$> _apnscrTokenKeyId,
-            ("Certificate" .=) <$> _apnscrCertificate
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultAuthenticationMethod" Prelude..=)
+              Prelude.<$> defaultAuthenticationMethod,
+            ("TokenKey" Prelude..=) Prelude.<$> tokenKey,
+            ("BundleId" Prelude..=) Prelude.<$> bundleId,
+            ("TeamId" Prelude..=) Prelude.<$> teamId,
+            ("Enabled" Prelude..=) Prelude.<$> enabled,
+            ("PrivateKey" Prelude..=) Prelude.<$> privateKey,
+            ("TokenKeyId" Prelude..=) Prelude.<$> tokenKeyId,
+            ("Certificate" Prelude..=) Prelude.<$> certificate
           ]
       )

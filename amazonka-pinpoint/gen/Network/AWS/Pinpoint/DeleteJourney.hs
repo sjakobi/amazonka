@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,143 +24,150 @@
 -- Deletes a journey from an application.
 module Network.AWS.Pinpoint.DeleteJourney
   ( -- * Creating a Request
-    deleteJourney,
-    DeleteJourney,
+    DeleteJourney (..),
+    newDeleteJourney,
 
     -- * Request Lenses
-    djJourneyId,
-    djApplicationId,
+    deleteJourney_journeyId,
+    deleteJourney_applicationId,
 
     -- * Destructuring the Response
-    deleteJourneyResponse,
-    DeleteJourneyResponse,
+    DeleteJourneyResponse (..),
+    newDeleteJourneyResponse,
 
     -- * Response Lenses
-    djrrsResponseStatus,
-    djrrsJourneyResponse,
+    deleteJourneyResponse_httpStatus,
+    deleteJourneyResponse_journeyResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.JourneyResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteJourney' smart constructor.
+-- | /See:/ 'newDeleteJourney' smart constructor.
 data DeleteJourney = DeleteJourney'
-  { _djJourneyId ::
-      !Text,
-    _djApplicationId :: !Text
+  { -- | The unique identifier for the journey.
+    journeyId :: Prelude.Text,
+    -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteJourney' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteJourney' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djJourneyId' - The unique identifier for the journey.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'djApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-deleteJourney ::
-  -- | 'djJourneyId'
-  Text ->
-  -- | 'djApplicationId'
-  Text ->
+-- 'journeyId', 'deleteJourney_journeyId' - The unique identifier for the journey.
+--
+-- 'applicationId', 'deleteJourney_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newDeleteJourney ::
+  -- | 'journeyId'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
   DeleteJourney
-deleteJourney pJourneyId_ pApplicationId_ =
+newDeleteJourney pJourneyId_ pApplicationId_ =
   DeleteJourney'
-    { _djJourneyId = pJourneyId_,
-      _djApplicationId = pApplicationId_
+    { journeyId = pJourneyId_,
+      applicationId = pApplicationId_
     }
 
 -- | The unique identifier for the journey.
-djJourneyId :: Lens' DeleteJourney Text
-djJourneyId = lens _djJourneyId (\s a -> s {_djJourneyId = a})
+deleteJourney_journeyId :: Lens.Lens' DeleteJourney Prelude.Text
+deleteJourney_journeyId = Lens.lens (\DeleteJourney' {journeyId} -> journeyId) (\s@DeleteJourney' {} a -> s {journeyId = a} :: DeleteJourney)
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-djApplicationId :: Lens' DeleteJourney Text
-djApplicationId = lens _djApplicationId (\s a -> s {_djApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+deleteJourney_applicationId :: Lens.Lens' DeleteJourney Prelude.Text
+deleteJourney_applicationId = Lens.lens (\DeleteJourney' {applicationId} -> applicationId) (\s@DeleteJourney' {} a -> s {applicationId = a} :: DeleteJourney)
 
-instance AWSRequest DeleteJourney where
+instance Prelude.AWSRequest DeleteJourney where
   type Rs DeleteJourney = DeleteJourneyResponse
-  request = delete pinpoint
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteJourneyResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable DeleteJourney
+instance Prelude.Hashable DeleteJourney
 
-instance NFData DeleteJourney
+instance Prelude.NFData DeleteJourney
 
-instance ToHeaders DeleteJourney where
+instance Prelude.ToHeaders DeleteJourney where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteJourney where
+instance Prelude.ToPath DeleteJourney where
   toPath DeleteJourney' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _djApplicationId,
+        Prelude.toBS applicationId,
         "/journeys/",
-        toBS _djJourneyId
+        Prelude.toBS journeyId
       ]
 
-instance ToQuery DeleteJourney where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteJourney where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteJourneyResponse' smart constructor.
+-- | /See:/ 'newDeleteJourneyResponse' smart constructor.
 data DeleteJourneyResponse = DeleteJourneyResponse'
-  { _djrrsResponseStatus ::
-      !Int,
-    _djrrsJourneyResponse ::
-      !JourneyResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    journeyResponse :: JourneyResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteJourneyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteJourneyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'djrrsJourneyResponse' - Undocumented member.
-deleteJourneyResponse ::
-  -- | 'djrrsResponseStatus'
-  Int ->
-  -- | 'djrrsJourneyResponse'
+-- 'httpStatus', 'deleteJourneyResponse_httpStatus' - The response's http status code.
+--
+-- 'journeyResponse', 'deleteJourneyResponse_journeyResponse' - Undocumented member.
+newDeleteJourneyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'journeyResponse'
   JourneyResponse ->
   DeleteJourneyResponse
-deleteJourneyResponse
-  pResponseStatus_
+newDeleteJourneyResponse
+  pHttpStatus_
   pJourneyResponse_ =
     DeleteJourneyResponse'
-      { _djrrsResponseStatus =
-          pResponseStatus_,
-        _djrrsJourneyResponse = pJourneyResponse_
+      { httpStatus = pHttpStatus_,
+        journeyResponse = pJourneyResponse_
       }
 
--- | -- | The response status code.
-djrrsResponseStatus :: Lens' DeleteJourneyResponse Int
-djrrsResponseStatus = lens _djrrsResponseStatus (\s a -> s {_djrrsResponseStatus = a})
+-- | The response's http status code.
+deleteJourneyResponse_httpStatus :: Lens.Lens' DeleteJourneyResponse Prelude.Int
+deleteJourneyResponse_httpStatus = Lens.lens (\DeleteJourneyResponse' {httpStatus} -> httpStatus) (\s@DeleteJourneyResponse' {} a -> s {httpStatus = a} :: DeleteJourneyResponse)
 
 -- | Undocumented member.
-djrrsJourneyResponse :: Lens' DeleteJourneyResponse JourneyResponse
-djrrsJourneyResponse = lens _djrrsJourneyResponse (\s a -> s {_djrrsJourneyResponse = a})
+deleteJourneyResponse_journeyResponse :: Lens.Lens' DeleteJourneyResponse JourneyResponse
+deleteJourneyResponse_journeyResponse = Lens.lens (\DeleteJourneyResponse' {journeyResponse} -> journeyResponse) (\s@DeleteJourneyResponse' {} a -> s {journeyResponse = a} :: DeleteJourneyResponse)
 
-instance NFData DeleteJourneyResponse
+instance Prelude.NFData DeleteJourneyResponse

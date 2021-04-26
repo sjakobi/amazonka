@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Pinpoint.Types.AttributeType
   ( AttributeType
       ( ..,
-        ATAfter,
-        ATBefore,
-        ATBetween,
-        ATContains,
-        ATExclusive,
-        ATInclusive,
-        ATON
+        AttributeTypeAFTER,
+        AttributeTypeBEFORE,
+        AttributeTypeBETWEEN,
+        AttributeTypeCONTAINS,
+        AttributeTypeEXCLUSIVE,
+        AttributeTypeINCLUSIVE,
+        AttributeTypeON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AttributeType = AttributeType' (CI Text)
+newtype AttributeType = AttributeType'
+  { fromAttributeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ATAfter :: AttributeType
-pattern ATAfter = AttributeType' "AFTER"
+pattern AttributeTypeAFTER :: AttributeType
+pattern AttributeTypeAFTER = AttributeType' "AFTER"
 
-pattern ATBefore :: AttributeType
-pattern ATBefore = AttributeType' "BEFORE"
+pattern AttributeTypeBEFORE :: AttributeType
+pattern AttributeTypeBEFORE = AttributeType' "BEFORE"
 
-pattern ATBetween :: AttributeType
-pattern ATBetween = AttributeType' "BETWEEN"
+pattern AttributeTypeBETWEEN :: AttributeType
+pattern AttributeTypeBETWEEN = AttributeType' "BETWEEN"
 
-pattern ATContains :: AttributeType
-pattern ATContains = AttributeType' "CONTAINS"
+pattern AttributeTypeCONTAINS :: AttributeType
+pattern AttributeTypeCONTAINS = AttributeType' "CONTAINS"
 
-pattern ATExclusive :: AttributeType
-pattern ATExclusive = AttributeType' "EXCLUSIVE"
+pattern AttributeTypeEXCLUSIVE :: AttributeType
+pattern AttributeTypeEXCLUSIVE = AttributeType' "EXCLUSIVE"
 
-pattern ATInclusive :: AttributeType
-pattern ATInclusive = AttributeType' "INCLUSIVE"
+pattern AttributeTypeINCLUSIVE :: AttributeType
+pattern AttributeTypeINCLUSIVE = AttributeType' "INCLUSIVE"
 
-pattern ATON :: AttributeType
-pattern ATON = AttributeType' "ON"
+pattern AttributeTypeON :: AttributeType
+pattern AttributeTypeON = AttributeType' "ON"
 
 {-# COMPLETE
-  ATAfter,
-  ATBefore,
-  ATBetween,
-  ATContains,
-  ATExclusive,
-  ATInclusive,
-  ATON,
+  AttributeTypeAFTER,
+  AttributeTypeBEFORE,
+  AttributeTypeBETWEEN,
+  AttributeTypeCONTAINS,
+  AttributeTypeEXCLUSIVE,
+  AttributeTypeINCLUSIVE,
+  AttributeTypeON,
   AttributeType'
   #-}
 
-instance FromText AttributeType where
-  parser = (AttributeType' . mk) <$> takeText
+instance Prelude.FromText AttributeType where
+  parser = AttributeType' Prelude.<$> Prelude.takeText
 
-instance ToText AttributeType where
-  toText (AttributeType' ci) = original ci
+instance Prelude.ToText AttributeType where
+  toText (AttributeType' x) = x
 
-instance Hashable AttributeType
+instance Prelude.Hashable AttributeType
 
-instance NFData AttributeType
+instance Prelude.NFData AttributeType
 
-instance ToByteString AttributeType
+instance Prelude.ToByteString AttributeType
 
-instance ToQuery AttributeType
+instance Prelude.ToQuery AttributeType
 
-instance ToHeader AttributeType
+instance Prelude.ToHeader AttributeType
 
-instance ToJSON AttributeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AttributeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AttributeType where
-  parseJSON = parseJSONText "AttributeType"
+instance Prelude.FromJSON AttributeType where
+  parseJSON = Prelude.parseJSONText "AttributeType"

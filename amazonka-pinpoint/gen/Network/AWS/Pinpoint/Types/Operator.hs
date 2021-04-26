@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Pinpoint.Types.Operator
   ( Operator
       ( ..,
-        OAll,
-        OAny
+        OperatorALL,
+        OperatorANY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Operator = Operator' (CI Text)
+newtype Operator = Operator'
+  { fromOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OAll :: Operator
-pattern OAll = Operator' "ALL"
+pattern OperatorALL :: Operator
+pattern OperatorALL = Operator' "ALL"
 
-pattern OAny :: Operator
-pattern OAny = Operator' "ANY"
+pattern OperatorANY :: Operator
+pattern OperatorANY = Operator' "ANY"
 
 {-# COMPLETE
-  OAll,
-  OAny,
+  OperatorALL,
+  OperatorANY,
   Operator'
   #-}
 
-instance FromText Operator where
-  parser = (Operator' . mk) <$> takeText
+instance Prelude.FromText Operator where
+  parser = Operator' Prelude.<$> Prelude.takeText
 
-instance ToText Operator where
-  toText (Operator' ci) = original ci
+instance Prelude.ToText Operator where
+  toText (Operator' x) = x
 
-instance Hashable Operator
+instance Prelude.Hashable Operator
 
-instance NFData Operator
+instance Prelude.NFData Operator
 
-instance ToByteString Operator
+instance Prelude.ToByteString Operator
 
-instance ToQuery Operator
+instance Prelude.ToQuery Operator
 
-instance ToHeader Operator
+instance Prelude.ToHeader Operator
 
-instance ToJSON Operator where
-  toJSON = toJSONText
+instance Prelude.ToJSON Operator where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Operator where
-  parseJSON = parseJSONText "Operator"
+instance Prelude.FromJSON Operator where
+  parseJSON = Prelude.parseJSONText "Operator"

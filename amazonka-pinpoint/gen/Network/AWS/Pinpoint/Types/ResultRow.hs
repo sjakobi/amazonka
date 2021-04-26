@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ResultRow where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.ResultRowValue
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the results of a query that retrieved the data for a standard metric that applies to an application, campaign, or journey.
+-- | Provides the results of a query that retrieved the data for a standard
+-- metric that applies to an application, campaign, or journey.
 --
---
---
--- /See:/ 'resultRow' smart constructor.
+-- /See:/ 'newResultRow' smart constructor.
 data ResultRow = ResultRow'
-  { _rrGroupedBys ::
-      ![ResultRowValue],
-    _rrValues :: ![ResultRowValue]
+  { -- | An array of objects that defines the field and field values that were
+    -- used to group data in a result set that contains multiple results. This
+    -- value is null if the data in a result set isn’t grouped.
+    groupedBys :: [ResultRowValue],
+    -- | An array of objects that provides pre-aggregated values for a standard
+    -- metric that applies to an application, campaign, or journey.
+    values :: [ResultRowValue]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResultRow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResultRow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrGroupedBys' - An array of objects that defines the field and field values that were used to group data in a result set that contains multiple results. This value is null if the data in a result set isn’t grouped.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrValues' - An array of objects that provides pre-aggregated values for a standard metric that applies to an application, campaign, or journey.
-resultRow ::
+-- 'groupedBys', 'resultRow_groupedBys' - An array of objects that defines the field and field values that were
+-- used to group data in a result set that contains multiple results. This
+-- value is null if the data in a result set isn’t grouped.
+--
+-- 'values', 'resultRow_values' - An array of objects that provides pre-aggregated values for a standard
+-- metric that applies to an application, campaign, or journey.
+newResultRow ::
   ResultRow
-resultRow =
+newResultRow =
   ResultRow'
-    { _rrGroupedBys = mempty,
-      _rrValues = mempty
+    { groupedBys = Prelude.mempty,
+      values = Prelude.mempty
     }
 
--- | An array of objects that defines the field and field values that were used to group data in a result set that contains multiple results. This value is null if the data in a result set isn’t grouped.
-rrGroupedBys :: Lens' ResultRow [ResultRowValue]
-rrGroupedBys = lens _rrGroupedBys (\s a -> s {_rrGroupedBys = a}) . _Coerce
+-- | An array of objects that defines the field and field values that were
+-- used to group data in a result set that contains multiple results. This
+-- value is null if the data in a result set isn’t grouped.
+resultRow_groupedBys :: Lens.Lens' ResultRow [ResultRowValue]
+resultRow_groupedBys = Lens.lens (\ResultRow' {groupedBys} -> groupedBys) (\s@ResultRow' {} a -> s {groupedBys = a} :: ResultRow) Prelude.. Prelude._Coerce
 
--- | An array of objects that provides pre-aggregated values for a standard metric that applies to an application, campaign, or journey.
-rrValues :: Lens' ResultRow [ResultRowValue]
-rrValues = lens _rrValues (\s a -> s {_rrValues = a}) . _Coerce
+-- | An array of objects that provides pre-aggregated values for a standard
+-- metric that applies to an application, campaign, or journey.
+resultRow_values :: Lens.Lens' ResultRow [ResultRowValue]
+resultRow_values = Lens.lens (\ResultRow' {values} -> values) (\s@ResultRow' {} a -> s {values = a} :: ResultRow) Prelude.. Prelude._Coerce
 
-instance FromJSON ResultRow where
+instance Prelude.FromJSON ResultRow where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResultRow"
       ( \x ->
           ResultRow'
-            <$> (x .:? "GroupedBys" .!= mempty)
-            <*> (x .:? "Values" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "GroupedBys"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Values" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable ResultRow
+instance Prelude.Hashable ResultRow
 
-instance NFData ResultRow
+instance Prelude.NFData ResultRow

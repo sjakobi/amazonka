@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.NumberValidateRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies a phone number to validate and retrieve information about.
 --
---
---
--- /See:/ 'numberValidateRequest' smart constructor.
+-- /See:/ 'newNumberValidateRequest' smart constructor.
 data NumberValidateRequest = NumberValidateRequest'
-  { _nvrPhoneNumber ::
-      !(Maybe Text),
-    _nvrIsoCountryCode ::
-      !(Maybe Text)
+  { -- | The phone number to retrieve information about. The phone number that
+    -- you provide should include a valid numeric country code. Otherwise, the
+    -- operation might result in an error.
+    phoneNumber :: Prelude.Maybe Prelude.Text,
+    -- | The two-character code, in ISO 3166-1 alpha-2 format, for the country or
+    -- region where the phone number was originally registered.
+    isoCountryCode :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NumberValidateRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NumberValidateRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nvrPhoneNumber' - The phone number to retrieve information about. The phone number that you provide should include a valid numeric country code. Otherwise, the operation might result in an error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nvrIsoCountryCode' - The two-character code, in ISO 3166-1 alpha-2 format, for the country or region where the phone number was originally registered.
-numberValidateRequest ::
+-- 'phoneNumber', 'numberValidateRequest_phoneNumber' - The phone number to retrieve information about. The phone number that
+-- you provide should include a valid numeric country code. Otherwise, the
+-- operation might result in an error.
+--
+-- 'isoCountryCode', 'numberValidateRequest_isoCountryCode' - The two-character code, in ISO 3166-1 alpha-2 format, for the country or
+-- region where the phone number was originally registered.
+newNumberValidateRequest ::
   NumberValidateRequest
-numberValidateRequest =
+newNumberValidateRequest =
   NumberValidateRequest'
-    { _nvrPhoneNumber = Nothing,
-      _nvrIsoCountryCode = Nothing
+    { phoneNumber =
+        Prelude.Nothing,
+      isoCountryCode = Prelude.Nothing
     }
 
--- | The phone number to retrieve information about. The phone number that you provide should include a valid numeric country code. Otherwise, the operation might result in an error.
-nvrPhoneNumber :: Lens' NumberValidateRequest (Maybe Text)
-nvrPhoneNumber = lens _nvrPhoneNumber (\s a -> s {_nvrPhoneNumber = a})
+-- | The phone number to retrieve information about. The phone number that
+-- you provide should include a valid numeric country code. Otherwise, the
+-- operation might result in an error.
+numberValidateRequest_phoneNumber :: Lens.Lens' NumberValidateRequest (Prelude.Maybe Prelude.Text)
+numberValidateRequest_phoneNumber = Lens.lens (\NumberValidateRequest' {phoneNumber} -> phoneNumber) (\s@NumberValidateRequest' {} a -> s {phoneNumber = a} :: NumberValidateRequest)
 
--- | The two-character code, in ISO 3166-1 alpha-2 format, for the country or region where the phone number was originally registered.
-nvrIsoCountryCode :: Lens' NumberValidateRequest (Maybe Text)
-nvrIsoCountryCode = lens _nvrIsoCountryCode (\s a -> s {_nvrIsoCountryCode = a})
+-- | The two-character code, in ISO 3166-1 alpha-2 format, for the country or
+-- region where the phone number was originally registered.
+numberValidateRequest_isoCountryCode :: Lens.Lens' NumberValidateRequest (Prelude.Maybe Prelude.Text)
+numberValidateRequest_isoCountryCode = Lens.lens (\NumberValidateRequest' {isoCountryCode} -> isoCountryCode) (\s@NumberValidateRequest' {} a -> s {isoCountryCode = a} :: NumberValidateRequest)
 
-instance Hashable NumberValidateRequest
+instance Prelude.Hashable NumberValidateRequest
 
-instance NFData NumberValidateRequest
+instance Prelude.NFData NumberValidateRequest
 
-instance ToJSON NumberValidateRequest where
+instance Prelude.ToJSON NumberValidateRequest where
   toJSON NumberValidateRequest' {..} =
-    object
-      ( catMaybes
-          [ ("PhoneNumber" .=) <$> _nvrPhoneNumber,
-            ("IsoCountryCode" .=) <$> _nvrIsoCountryCode
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PhoneNumber" Prelude..=) Prelude.<$> phoneNumber,
+            ("IsoCountryCode" Prelude..=)
+              Prelude.<$> isoCountryCode
           ]
       )

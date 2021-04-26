@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,139 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.AttributeDimension where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.AttributeType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies attribute-based criteria for including or excluding endpoints from a segment.
+-- | Specifies attribute-based criteria for including or excluding endpoints
+-- from a segment.
 --
---
---
--- /See:/ 'attributeDimension' smart constructor.
+-- /See:/ 'newAttributeDimension' smart constructor.
 data AttributeDimension = AttributeDimension'
-  { _adAttributeType ::
-      !(Maybe AttributeType),
-    _adValues :: ![Text]
+  { -- | The type of segment dimension to use. Valid values are:
+    --
+    -- INCLUSIVE - endpoints that have attributes matching the values are
+    -- included in the segment.
+    --
+    -- EXCLUSIVE - endpoints that have attributes matching the values are
+    -- excluded in the segment.
+    --
+    -- CONTAINS - endpoints that have attributes\' substrings match the values
+    -- are included in the segment.
+    --
+    -- BEFORE - endpoints with attributes read as ISO_INSTANT datetimes before
+    -- the value are included in the segment.
+    --
+    -- AFTER - endpoints with attributes read as ISO_INSTANT datetimes after
+    -- the value are included in the segment.
+    --
+    -- ON - endpoints with attributes read as ISO_INSTANT dates on the value
+    -- are included in the segment. Time is ignored in this comparison.
+    --
+    -- BETWEEN - endpoints with attributes read as ISO_INSTANT datetimes
+    -- between the values are included in the segment.
+    attributeType :: Prelude.Maybe AttributeType,
+    -- | The criteria values to use for the segment dimension. Depending on the
+    -- value of the AttributeType property, endpoints are included or excluded
+    -- from the segment if their attribute values match the criteria values.
+    values :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttributeDimension' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttributeDimension' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adAttributeType' - The type of segment dimension to use. Valid values are:     * INCLUSIVE - endpoints that have attributes matching the values are included in the segment.    * EXCLUSIVE - endpoints that have attributes matching the values are excluded in the segment.    * CONTAINS - endpoints that have attributes' substrings match the values are included in the segment.    * BEFORE - endpoints with attributes read as ISO_INSTANT datetimes before the value are included in the segment.    * AFTER - endpoints with attributes read as ISO_INSTANT datetimes after the value are included in the segment.    * ON - endpoints with attributes read as ISO_INSTANT dates on the value are included in the segment. Time is ignored in this comparison.    * BETWEEN - endpoints with attributes read as ISO_INSTANT datetimes between the values are included in the segment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adValues' - The criteria values to use for the segment dimension. Depending on the value of the AttributeType property, endpoints are included or excluded from the segment if their attribute values match the criteria values.
-attributeDimension ::
+-- 'attributeType', 'attributeDimension_attributeType' - The type of segment dimension to use. Valid values are:
+--
+-- INCLUSIVE - endpoints that have attributes matching the values are
+-- included in the segment.
+--
+-- EXCLUSIVE - endpoints that have attributes matching the values are
+-- excluded in the segment.
+--
+-- CONTAINS - endpoints that have attributes\' substrings match the values
+-- are included in the segment.
+--
+-- BEFORE - endpoints with attributes read as ISO_INSTANT datetimes before
+-- the value are included in the segment.
+--
+-- AFTER - endpoints with attributes read as ISO_INSTANT datetimes after
+-- the value are included in the segment.
+--
+-- ON - endpoints with attributes read as ISO_INSTANT dates on the value
+-- are included in the segment. Time is ignored in this comparison.
+--
+-- BETWEEN - endpoints with attributes read as ISO_INSTANT datetimes
+-- between the values are included in the segment.
+--
+-- 'values', 'attributeDimension_values' - The criteria values to use for the segment dimension. Depending on the
+-- value of the AttributeType property, endpoints are included or excluded
+-- from the segment if their attribute values match the criteria values.
+newAttributeDimension ::
   AttributeDimension
-attributeDimension =
+newAttributeDimension =
   AttributeDimension'
-    { _adAttributeType = Nothing,
-      _adValues = mempty
+    { attributeType =
+        Prelude.Nothing,
+      values = Prelude.mempty
     }
 
--- | The type of segment dimension to use. Valid values are:     * INCLUSIVE - endpoints that have attributes matching the values are included in the segment.    * EXCLUSIVE - endpoints that have attributes matching the values are excluded in the segment.    * CONTAINS - endpoints that have attributes' substrings match the values are included in the segment.    * BEFORE - endpoints with attributes read as ISO_INSTANT datetimes before the value are included in the segment.    * AFTER - endpoints with attributes read as ISO_INSTANT datetimes after the value are included in the segment.    * ON - endpoints with attributes read as ISO_INSTANT dates on the value are included in the segment. Time is ignored in this comparison.    * BETWEEN - endpoints with attributes read as ISO_INSTANT datetimes between the values are included in the segment.
-adAttributeType :: Lens' AttributeDimension (Maybe AttributeType)
-adAttributeType = lens _adAttributeType (\s a -> s {_adAttributeType = a})
+-- | The type of segment dimension to use. Valid values are:
+--
+-- INCLUSIVE - endpoints that have attributes matching the values are
+-- included in the segment.
+--
+-- EXCLUSIVE - endpoints that have attributes matching the values are
+-- excluded in the segment.
+--
+-- CONTAINS - endpoints that have attributes\' substrings match the values
+-- are included in the segment.
+--
+-- BEFORE - endpoints with attributes read as ISO_INSTANT datetimes before
+-- the value are included in the segment.
+--
+-- AFTER - endpoints with attributes read as ISO_INSTANT datetimes after
+-- the value are included in the segment.
+--
+-- ON - endpoints with attributes read as ISO_INSTANT dates on the value
+-- are included in the segment. Time is ignored in this comparison.
+--
+-- BETWEEN - endpoints with attributes read as ISO_INSTANT datetimes
+-- between the values are included in the segment.
+attributeDimension_attributeType :: Lens.Lens' AttributeDimension (Prelude.Maybe AttributeType)
+attributeDimension_attributeType = Lens.lens (\AttributeDimension' {attributeType} -> attributeType) (\s@AttributeDimension' {} a -> s {attributeType = a} :: AttributeDimension)
 
--- | The criteria values to use for the segment dimension. Depending on the value of the AttributeType property, endpoints are included or excluded from the segment if their attribute values match the criteria values.
-adValues :: Lens' AttributeDimension [Text]
-adValues = lens _adValues (\s a -> s {_adValues = a}) . _Coerce
+-- | The criteria values to use for the segment dimension. Depending on the
+-- value of the AttributeType property, endpoints are included or excluded
+-- from the segment if their attribute values match the criteria values.
+attributeDimension_values :: Lens.Lens' AttributeDimension [Prelude.Text]
+attributeDimension_values = Lens.lens (\AttributeDimension' {values} -> values) (\s@AttributeDimension' {} a -> s {values = a} :: AttributeDimension) Prelude.. Prelude._Coerce
 
-instance FromJSON AttributeDimension where
+instance Prelude.FromJSON AttributeDimension where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttributeDimension"
       ( \x ->
           AttributeDimension'
-            <$> (x .:? "AttributeType")
-            <*> (x .:? "Values" .!= mempty)
+            Prelude.<$> (x Prelude..:? "AttributeType")
+            Prelude.<*> (x Prelude..:? "Values" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable AttributeDimension
+instance Prelude.Hashable AttributeDimension
 
-instance NFData AttributeDimension
+instance Prelude.NFData AttributeDimension
 
-instance ToJSON AttributeDimension where
+instance Prelude.ToJSON AttributeDimension where
   toJSON AttributeDimension' {..} =
-    object
-      ( catMaybes
-          [ ("AttributeType" .=) <$> _adAttributeType,
-            Just ("Values" .= _adValues)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AttributeType" Prelude..=)
+              Prelude.<$> attributeType,
+            Prelude.Just ("Values" Prelude..= values)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ItemResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.EndpointItemResponse
 import Network.AWS.Pinpoint.Types.EventItemResponse
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the results of a request to create or update an endpoint that's associated with an event.
+-- | Provides information about the results of a request to create or update
+-- an endpoint that\'s associated with an event.
 --
---
---
--- /See:/ 'itemResponse' smart constructor.
+-- /See:/ 'newItemResponse' smart constructor.
 data ItemResponse = ItemResponse'
-  { _irEventsItemResponse ::
-      !(Maybe (Map Text EventItemResponse)),
-    _irEndpointItemResponse ::
-      !(Maybe EndpointItemResponse)
+  { -- | A multipart response object that contains a key and a value for each
+    -- event in the request. In each object, the event ID is the key and an
+    -- EventItemResponse object is the value.
+    eventsItemResponse :: Prelude.Maybe (Prelude.Map Prelude.Text EventItemResponse),
+    -- | The response that was received after the endpoint data was accepted.
+    endpointItemResponse :: Prelude.Maybe EndpointItemResponse
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ItemResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ItemResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'irEventsItemResponse' - A multipart response object that contains a key and a value for each event in the request. In each object, the event ID is the key and an EventItemResponse object is the value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'irEndpointItemResponse' - The response that was received after the endpoint data was accepted.
-itemResponse ::
+-- 'eventsItemResponse', 'itemResponse_eventsItemResponse' - A multipart response object that contains a key and a value for each
+-- event in the request. In each object, the event ID is the key and an
+-- EventItemResponse object is the value.
+--
+-- 'endpointItemResponse', 'itemResponse_endpointItemResponse' - The response that was received after the endpoint data was accepted.
+newItemResponse ::
   ItemResponse
-itemResponse =
+newItemResponse =
   ItemResponse'
-    { _irEventsItemResponse = Nothing,
-      _irEndpointItemResponse = Nothing
+    { eventsItemResponse = Prelude.Nothing,
+      endpointItemResponse = Prelude.Nothing
     }
 
--- | A multipart response object that contains a key and a value for each event in the request. In each object, the event ID is the key and an EventItemResponse object is the value.
-irEventsItemResponse :: Lens' ItemResponse (HashMap Text EventItemResponse)
-irEventsItemResponse = lens _irEventsItemResponse (\s a -> s {_irEventsItemResponse = a}) . _Default . _Map
+-- | A multipart response object that contains a key and a value for each
+-- event in the request. In each object, the event ID is the key and an
+-- EventItemResponse object is the value.
+itemResponse_eventsItemResponse :: Lens.Lens' ItemResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text EventItemResponse))
+itemResponse_eventsItemResponse = Lens.lens (\ItemResponse' {eventsItemResponse} -> eventsItemResponse) (\s@ItemResponse' {} a -> s {eventsItemResponse = a} :: ItemResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The response that was received after the endpoint data was accepted.
-irEndpointItemResponse :: Lens' ItemResponse (Maybe EndpointItemResponse)
-irEndpointItemResponse = lens _irEndpointItemResponse (\s a -> s {_irEndpointItemResponse = a})
+itemResponse_endpointItemResponse :: Lens.Lens' ItemResponse (Prelude.Maybe EndpointItemResponse)
+itemResponse_endpointItemResponse = Lens.lens (\ItemResponse' {endpointItemResponse} -> endpointItemResponse) (\s@ItemResponse' {} a -> s {endpointItemResponse = a} :: ItemResponse)
 
-instance FromJSON ItemResponse where
+instance Prelude.FromJSON ItemResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ItemResponse"
       ( \x ->
           ItemResponse'
-            <$> (x .:? "EventsItemResponse" .!= mempty)
-            <*> (x .:? "EndpointItemResponse")
+            Prelude.<$> ( x Prelude..:? "EventsItemResponse"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "EndpointItemResponse")
       )
 
-instance Hashable ItemResponse
+instance Prelude.Hashable ItemResponse
 
-instance NFData ItemResponse
+instance Prelude.NFData ItemResponse

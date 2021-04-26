@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,94 +19,143 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.VoiceTemplateRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the content and settings for a message template that can be used in messages that are sent through the voice channel.
+-- | Specifies the content and settings for a message template that can be
+-- used in messages that are sent through the voice channel.
 --
---
---
--- /See:/ 'voiceTemplateRequest' smart constructor.
+-- /See:/ 'newVoiceTemplateRequest' smart constructor.
 data VoiceTemplateRequest = VoiceTemplateRequest'
-  { _vtrLanguageCode ::
-      !(Maybe Text),
-    _vtrTemplateDescription ::
-      !(Maybe Text),
-    _vtrVoiceId :: !(Maybe Text),
-    _vtrBody :: !(Maybe Text),
-    _vtrDefaultSubstitutions ::
-      !(Maybe Text),
-    _vtrTags ::
-      !(Maybe (Map Text Text))
+  { -- | The code for the language to use when synthesizing the text of the
+    -- script in messages that are based on the message template. For a list of
+    -- supported languages and the code for each one, see the
+    -- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
+    languageCode :: Prelude.Maybe Prelude.Text,
+    -- | A custom description of the message template.
+    templateDescription :: Prelude.Maybe Prelude.Text,
+    -- | The name of the voice to use when delivering messages that are based on
+    -- the message template. For a list of supported voices, see the
+    -- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
+    voiceId :: Prelude.Maybe Prelude.Text,
+    -- | The text of the script to use in messages that are based on the message
+    -- template, in plain text format.
+    body :: Prelude.Maybe Prelude.Text,
+    -- | A JSON object that specifies the default values to use for message
+    -- variables in the message template. This object is a set of key-value
+    -- pairs. Each key defines a message variable in the template. The
+    -- corresponding value defines the default value for that variable. When
+    -- you create a message that\'s based on the template, you can override
+    -- these defaults with message-specific and address-specific variables and
+    -- values.
+    defaultSubstitutions :: Prelude.Maybe Prelude.Text,
+    -- | A string-to-string map of key-value pairs that defines the tags to
+    -- associate with the message template. Each tag consists of a required tag
+    -- key and an associated tag value.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VoiceTemplateRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VoiceTemplateRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vtrLanguageCode' - The code for the language to use when synthesizing the text of the script in messages that are based on the message template. For a list of supported languages and the code for each one, see the <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vtrTemplateDescription' - A custom description of the message template.
+-- 'languageCode', 'voiceTemplateRequest_languageCode' - The code for the language to use when synthesizing the text of the
+-- script in messages that are based on the message template. For a list of
+-- supported languages and the code for each one, see the
+-- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
 --
--- * 'vtrVoiceId' - The name of the voice to use when delivering messages that are based on the message template. For a list of supported voices, see the <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide> .
+-- 'templateDescription', 'voiceTemplateRequest_templateDescription' - A custom description of the message template.
 --
--- * 'vtrBody' - The text of the script to use in messages that are based on the message template, in plain text format.
+-- 'voiceId', 'voiceTemplateRequest_voiceId' - The name of the voice to use when delivering messages that are based on
+-- the message template. For a list of supported voices, see the
+-- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
 --
--- * 'vtrDefaultSubstitutions' - A JSON object that specifies the default values to use for message variables in the message template. This object is a set of key-value pairs. Each key defines a message variable in the template. The corresponding value defines the default value for that variable. When you create a message that's based on the template, you can override these defaults with message-specific and address-specific variables and values.
+-- 'body', 'voiceTemplateRequest_body' - The text of the script to use in messages that are based on the message
+-- template, in plain text format.
 --
--- * 'vtrTags' - A string-to-string map of key-value pairs that defines the tags to associate with the message template. Each tag consists of a required tag key and an associated tag value.
-voiceTemplateRequest ::
+-- 'defaultSubstitutions', 'voiceTemplateRequest_defaultSubstitutions' - A JSON object that specifies the default values to use for message
+-- variables in the message template. This object is a set of key-value
+-- pairs. Each key defines a message variable in the template. The
+-- corresponding value defines the default value for that variable. When
+-- you create a message that\'s based on the template, you can override
+-- these defaults with message-specific and address-specific variables and
+-- values.
+--
+-- 'tags', 'voiceTemplateRequest_tags' - A string-to-string map of key-value pairs that defines the tags to
+-- associate with the message template. Each tag consists of a required tag
+-- key and an associated tag value.
+newVoiceTemplateRequest ::
   VoiceTemplateRequest
-voiceTemplateRequest =
+newVoiceTemplateRequest =
   VoiceTemplateRequest'
-    { _vtrLanguageCode = Nothing,
-      _vtrTemplateDescription = Nothing,
-      _vtrVoiceId = Nothing,
-      _vtrBody = Nothing,
-      _vtrDefaultSubstitutions = Nothing,
-      _vtrTags = Nothing
+    { languageCode =
+        Prelude.Nothing,
+      templateDescription = Prelude.Nothing,
+      voiceId = Prelude.Nothing,
+      body = Prelude.Nothing,
+      defaultSubstitutions = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
--- | The code for the language to use when synthesizing the text of the script in messages that are based on the message template. For a list of supported languages and the code for each one, see the <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide> .
-vtrLanguageCode :: Lens' VoiceTemplateRequest (Maybe Text)
-vtrLanguageCode = lens _vtrLanguageCode (\s a -> s {_vtrLanguageCode = a})
+-- | The code for the language to use when synthesizing the text of the
+-- script in messages that are based on the message template. For a list of
+-- supported languages and the code for each one, see the
+-- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
+voiceTemplateRequest_languageCode :: Lens.Lens' VoiceTemplateRequest (Prelude.Maybe Prelude.Text)
+voiceTemplateRequest_languageCode = Lens.lens (\VoiceTemplateRequest' {languageCode} -> languageCode) (\s@VoiceTemplateRequest' {} a -> s {languageCode = a} :: VoiceTemplateRequest)
 
 -- | A custom description of the message template.
-vtrTemplateDescription :: Lens' VoiceTemplateRequest (Maybe Text)
-vtrTemplateDescription = lens _vtrTemplateDescription (\s a -> s {_vtrTemplateDescription = a})
+voiceTemplateRequest_templateDescription :: Lens.Lens' VoiceTemplateRequest (Prelude.Maybe Prelude.Text)
+voiceTemplateRequest_templateDescription = Lens.lens (\VoiceTemplateRequest' {templateDescription} -> templateDescription) (\s@VoiceTemplateRequest' {} a -> s {templateDescription = a} :: VoiceTemplateRequest)
 
--- | The name of the voice to use when delivering messages that are based on the message template. For a list of supported voices, see the <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide> .
-vtrVoiceId :: Lens' VoiceTemplateRequest (Maybe Text)
-vtrVoiceId = lens _vtrVoiceId (\s a -> s {_vtrVoiceId = a})
+-- | The name of the voice to use when delivering messages that are based on
+-- the message template. For a list of supported voices, see the
+-- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
+voiceTemplateRequest_voiceId :: Lens.Lens' VoiceTemplateRequest (Prelude.Maybe Prelude.Text)
+voiceTemplateRequest_voiceId = Lens.lens (\VoiceTemplateRequest' {voiceId} -> voiceId) (\s@VoiceTemplateRequest' {} a -> s {voiceId = a} :: VoiceTemplateRequest)
 
--- | The text of the script to use in messages that are based on the message template, in plain text format.
-vtrBody :: Lens' VoiceTemplateRequest (Maybe Text)
-vtrBody = lens _vtrBody (\s a -> s {_vtrBody = a})
+-- | The text of the script to use in messages that are based on the message
+-- template, in plain text format.
+voiceTemplateRequest_body :: Lens.Lens' VoiceTemplateRequest (Prelude.Maybe Prelude.Text)
+voiceTemplateRequest_body = Lens.lens (\VoiceTemplateRequest' {body} -> body) (\s@VoiceTemplateRequest' {} a -> s {body = a} :: VoiceTemplateRequest)
 
--- | A JSON object that specifies the default values to use for message variables in the message template. This object is a set of key-value pairs. Each key defines a message variable in the template. The corresponding value defines the default value for that variable. When you create a message that's based on the template, you can override these defaults with message-specific and address-specific variables and values.
-vtrDefaultSubstitutions :: Lens' VoiceTemplateRequest (Maybe Text)
-vtrDefaultSubstitutions = lens _vtrDefaultSubstitutions (\s a -> s {_vtrDefaultSubstitutions = a})
+-- | A JSON object that specifies the default values to use for message
+-- variables in the message template. This object is a set of key-value
+-- pairs. Each key defines a message variable in the template. The
+-- corresponding value defines the default value for that variable. When
+-- you create a message that\'s based on the template, you can override
+-- these defaults with message-specific and address-specific variables and
+-- values.
+voiceTemplateRequest_defaultSubstitutions :: Lens.Lens' VoiceTemplateRequest (Prelude.Maybe Prelude.Text)
+voiceTemplateRequest_defaultSubstitutions = Lens.lens (\VoiceTemplateRequest' {defaultSubstitutions} -> defaultSubstitutions) (\s@VoiceTemplateRequest' {} a -> s {defaultSubstitutions = a} :: VoiceTemplateRequest)
 
--- | A string-to-string map of key-value pairs that defines the tags to associate with the message template. Each tag consists of a required tag key and an associated tag value.
-vtrTags :: Lens' VoiceTemplateRequest (HashMap Text Text)
-vtrTags = lens _vtrTags (\s a -> s {_vtrTags = a}) . _Default . _Map
+-- | A string-to-string map of key-value pairs that defines the tags to
+-- associate with the message template. Each tag consists of a required tag
+-- key and an associated tag value.
+voiceTemplateRequest_tags :: Lens.Lens' VoiceTemplateRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+voiceTemplateRequest_tags = Lens.lens (\VoiceTemplateRequest' {tags} -> tags) (\s@VoiceTemplateRequest' {} a -> s {tags = a} :: VoiceTemplateRequest) Prelude.. Lens.mapping Prelude._Map
 
-instance Hashable VoiceTemplateRequest
+instance Prelude.Hashable VoiceTemplateRequest
 
-instance NFData VoiceTemplateRequest
+instance Prelude.NFData VoiceTemplateRequest
 
-instance ToJSON VoiceTemplateRequest where
+instance Prelude.ToJSON VoiceTemplateRequest where
   toJSON VoiceTemplateRequest' {..} =
-    object
-      ( catMaybes
-          [ ("LanguageCode" .=) <$> _vtrLanguageCode,
-            ("TemplateDescription" .=)
-              <$> _vtrTemplateDescription,
-            ("VoiceId" .=) <$> _vtrVoiceId,
-            ("Body" .=) <$> _vtrBody,
-            ("DefaultSubstitutions" .=)
-              <$> _vtrDefaultSubstitutions,
-            ("tags" .=) <$> _vtrTags
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LanguageCode" Prelude..=)
+              Prelude.<$> languageCode,
+            ("TemplateDescription" Prelude..=)
+              Prelude.<$> templateDescription,
+            ("VoiceId" Prelude..=) Prelude.<$> voiceId,
+            ("Body" Prelude..=) Prelude.<$> body,
+            ("DefaultSubstitutions" Prelude..=)
+              Prelude.<$> defaultSubstitutions,
+            ("tags" Prelude..=) Prelude.<$> tags
           ]
       )

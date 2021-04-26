@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.CampaignResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.CampaignHook
 import Network.AWS.Pinpoint.Types.CampaignLimits
 import Network.AWS.Pinpoint.Types.CampaignState
@@ -24,278 +28,337 @@ import Network.AWS.Pinpoint.Types.MessageConfiguration
 import Network.AWS.Pinpoint.Types.Schedule
 import Network.AWS.Pinpoint.Types.TemplateConfiguration
 import Network.AWS.Pinpoint.Types.TreatmentResource
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the status, configuration, and other settings for a campaign.
+-- | Provides information about the status, configuration, and other settings
+-- for a campaign.
 --
---
---
--- /See:/ 'campaignResponse' smart constructor.
+-- /See:/ 'newCampaignResponse' smart constructor.
 data CampaignResponse = CampaignResponse'
-  { _crAdditionalTreatments ::
-      !(Maybe [TreatmentResource]),
-    _crHook :: !(Maybe CampaignHook),
-    _crVersion :: !(Maybe Int),
-    _crCustomDeliveryConfiguration ::
-      !(Maybe CustomDeliveryConfiguration),
-    _crState :: !(Maybe CampaignState),
-    _crName :: !(Maybe Text),
-    _crDefaultState ::
-      !(Maybe CampaignState),
-    _crIsPaused :: !(Maybe Bool),
-    _crTags :: !(Maybe (Map Text Text)),
-    _crLimits :: !(Maybe CampaignLimits),
-    _crDescription :: !(Maybe Text),
-    _crTreatmentName :: !(Maybe Text),
-    _crMessageConfiguration ::
-      !(Maybe MessageConfiguration),
-    _crTemplateConfiguration ::
-      !(Maybe TemplateConfiguration),
-    _crSchedule :: !(Maybe Schedule),
-    _crHoldoutPercent :: !(Maybe Int),
-    _crTreatmentDescription ::
-      !(Maybe Text),
-    _crLastModifiedDate :: !Text,
-    _crCreationDate :: !Text,
-    _crSegmentId :: !Text,
-    _crSegmentVersion :: !Int,
-    _crId :: !Text,
-    _crARN :: !Text,
-    _crApplicationId :: !Text
+  { -- | An array of responses, one for each treatment that you defined for the
+    -- campaign, in addition to the default treatment.
+    additionalTreatments :: Prelude.Maybe [TreatmentResource],
+    -- | The settings for the AWS Lambda function to use as a code hook for the
+    -- campaign. You can use this hook to customize the segment that\'s used by
+    -- the campaign.
+    hook :: Prelude.Maybe CampaignHook,
+    -- | The version number of the campaign.
+    version :: Prelude.Maybe Prelude.Int,
+    -- | The delivery configuration settings for sending the campaign through a
+    -- custom channel.
+    customDeliveryConfiguration :: Prelude.Maybe CustomDeliveryConfiguration,
+    -- | The current status of the campaign.
+    state :: Prelude.Maybe CampaignState,
+    -- | The name of the campaign.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the campaign\'s default treatment. This value
+    -- exists only for campaigns that have more than one treatment.
+    defaultState :: Prelude.Maybe CampaignState,
+    -- | Specifies whether the campaign is paused. A paused campaign doesn\'t run
+    -- unless you resume it by changing this value to false.
+    isPaused :: Prelude.Maybe Prelude.Bool,
+    -- | A string-to-string map of key-value pairs that identifies the tags that
+    -- are associated with the campaign. Each tag consists of a required tag
+    -- key and an associated tag value.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The messaging limits for the campaign.
+    limits :: Prelude.Maybe CampaignLimits,
+    -- | The custom description of the campaign.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The custom name of the default treatment for the campaign, if the
+    -- campaign has multiple treatments. A /treatment/ is a variation of a
+    -- campaign that\'s used for A\/B testing.
+    treatmentName :: Prelude.Maybe Prelude.Text,
+    -- | The message configuration settings for the campaign.
+    messageConfiguration :: Prelude.Maybe MessageConfiguration,
+    -- | The message template that’s used for the campaign.
+    templateConfiguration :: Prelude.Maybe TemplateConfiguration,
+    -- | The schedule settings for the campaign.
+    schedule :: Prelude.Maybe Schedule,
+    -- | The allocated percentage of users (segment members) who shouldn\'t
+    -- receive messages from the campaign.
+    holdoutPercent :: Prelude.Maybe Prelude.Int,
+    -- | The custom description of the default treatment for the campaign.
+    treatmentDescription :: Prelude.Maybe Prelude.Text,
+    -- | The date, in ISO 8601 format, when the campaign was last modified.
+    lastModifiedDate :: Prelude.Text,
+    -- | The date, in ISO 8601 format, when the campaign was created.
+    creationDate :: Prelude.Text,
+    -- | The unique identifier for the segment that\'s associated with the
+    -- campaign.
+    segmentId :: Prelude.Text,
+    -- | The version number of the segment that\'s associated with the campaign.
+    segmentVersion :: Prelude.Int,
+    -- | The unique identifier for the campaign.
+    id :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the campaign.
+    arn :: Prelude.Text,
+    -- | The unique identifier for the application that the campaign applies to.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CampaignResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CampaignResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crAdditionalTreatments' - An array of responses, one for each treatment that you defined for the campaign, in addition to the default treatment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crHook' - The settings for the AWS Lambda function to use as a code hook for the campaign. You can use this hook to customize the segment that's used by the campaign.
+-- 'additionalTreatments', 'campaignResponse_additionalTreatments' - An array of responses, one for each treatment that you defined for the
+-- campaign, in addition to the default treatment.
 --
--- * 'crVersion' - The version number of the campaign.
+-- 'hook', 'campaignResponse_hook' - The settings for the AWS Lambda function to use as a code hook for the
+-- campaign. You can use this hook to customize the segment that\'s used by
+-- the campaign.
 --
--- * 'crCustomDeliveryConfiguration' - The delivery configuration settings for sending the campaign through a custom channel.
+-- 'version', 'campaignResponse_version' - The version number of the campaign.
 --
--- * 'crState' - The current status of the campaign.
+-- 'customDeliveryConfiguration', 'campaignResponse_customDeliveryConfiguration' - The delivery configuration settings for sending the campaign through a
+-- custom channel.
 --
--- * 'crName' - The name of the campaign.
+-- 'state', 'campaignResponse_state' - The current status of the campaign.
 --
--- * 'crDefaultState' - The current status of the campaign's default treatment. This value exists only for campaigns that have more than one treatment.
+-- 'name', 'campaignResponse_name' - The name of the campaign.
 --
--- * 'crIsPaused' - Specifies whether the campaign is paused. A paused campaign doesn't run unless you resume it by changing this value to false.
+-- 'defaultState', 'campaignResponse_defaultState' - The current status of the campaign\'s default treatment. This value
+-- exists only for campaigns that have more than one treatment.
 --
--- * 'crTags' - A string-to-string map of key-value pairs that identifies the tags that are associated with the campaign. Each tag consists of a required tag key and an associated tag value.
+-- 'isPaused', 'campaignResponse_isPaused' - Specifies whether the campaign is paused. A paused campaign doesn\'t run
+-- unless you resume it by changing this value to false.
 --
--- * 'crLimits' - The messaging limits for the campaign.
+-- 'tags', 'campaignResponse_tags' - A string-to-string map of key-value pairs that identifies the tags that
+-- are associated with the campaign. Each tag consists of a required tag
+-- key and an associated tag value.
 --
--- * 'crDescription' - The custom description of the campaign.
+-- 'limits', 'campaignResponse_limits' - The messaging limits for the campaign.
 --
--- * 'crTreatmentName' - The custom name of the default treatment for the campaign, if the campaign has multiple treatments. A /treatment/ is a variation of a campaign that's used for A/B testing.
+-- 'description', 'campaignResponse_description' - The custom description of the campaign.
 --
--- * 'crMessageConfiguration' - The message configuration settings for the campaign.
+-- 'treatmentName', 'campaignResponse_treatmentName' - The custom name of the default treatment for the campaign, if the
+-- campaign has multiple treatments. A /treatment/ is a variation of a
+-- campaign that\'s used for A\/B testing.
 --
--- * 'crTemplateConfiguration' - The message template that’s used for the campaign.
+-- 'messageConfiguration', 'campaignResponse_messageConfiguration' - The message configuration settings for the campaign.
 --
--- * 'crSchedule' - The schedule settings for the campaign.
+-- 'templateConfiguration', 'campaignResponse_templateConfiguration' - The message template that’s used for the campaign.
 --
--- * 'crHoldoutPercent' - The allocated percentage of users (segment members) who shouldn't receive messages from the campaign.
+-- 'schedule', 'campaignResponse_schedule' - The schedule settings for the campaign.
 --
--- * 'crTreatmentDescription' - The custom description of the default treatment for the campaign.
+-- 'holdoutPercent', 'campaignResponse_holdoutPercent' - The allocated percentage of users (segment members) who shouldn\'t
+-- receive messages from the campaign.
 --
--- * 'crLastModifiedDate' - The date, in ISO 8601 format, when the campaign was last modified.
+-- 'treatmentDescription', 'campaignResponse_treatmentDescription' - The custom description of the default treatment for the campaign.
 --
--- * 'crCreationDate' - The date, in ISO 8601 format, when the campaign was created.
+-- 'lastModifiedDate', 'campaignResponse_lastModifiedDate' - The date, in ISO 8601 format, when the campaign was last modified.
 --
--- * 'crSegmentId' - The unique identifier for the segment that's associated with the campaign.
+-- 'creationDate', 'campaignResponse_creationDate' - The date, in ISO 8601 format, when the campaign was created.
 --
--- * 'crSegmentVersion' - The version number of the segment that's associated with the campaign.
+-- 'segmentId', 'campaignResponse_segmentId' - The unique identifier for the segment that\'s associated with the
+-- campaign.
 --
--- * 'crId' - The unique identifier for the campaign.
+-- 'segmentVersion', 'campaignResponse_segmentVersion' - The version number of the segment that\'s associated with the campaign.
 --
--- * 'crARN' - The Amazon Resource Name (ARN) of the campaign.
+-- 'id', 'campaignResponse_id' - The unique identifier for the campaign.
 --
--- * 'crApplicationId' - The unique identifier for the application that the campaign applies to.
-campaignResponse ::
-  -- | 'crLastModifiedDate'
-  Text ->
-  -- | 'crCreationDate'
-  Text ->
-  -- | 'crSegmentId'
-  Text ->
-  -- | 'crSegmentVersion'
-  Int ->
-  -- | 'crId'
-  Text ->
-  -- | 'crARN'
-  Text ->
-  -- | 'crApplicationId'
-  Text ->
+-- 'arn', 'campaignResponse_arn' - The Amazon Resource Name (ARN) of the campaign.
+--
+-- 'applicationId', 'campaignResponse_applicationId' - The unique identifier for the application that the campaign applies to.
+newCampaignResponse ::
+  -- | 'lastModifiedDate'
+  Prelude.Text ->
+  -- | 'creationDate'
+  Prelude.Text ->
+  -- | 'segmentId'
+  Prelude.Text ->
+  -- | 'segmentVersion'
+  Prelude.Int ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
   CampaignResponse
-campaignResponse
+newCampaignResponse
   pLastModifiedDate_
   pCreationDate_
   pSegmentId_
   pSegmentVersion_
   pId_
-  pARN_
+  pArn_
   pApplicationId_ =
     CampaignResponse'
-      { _crAdditionalTreatments =
-          Nothing,
-        _crHook = Nothing,
-        _crVersion = Nothing,
-        _crCustomDeliveryConfiguration = Nothing,
-        _crState = Nothing,
-        _crName = Nothing,
-        _crDefaultState = Nothing,
-        _crIsPaused = Nothing,
-        _crTags = Nothing,
-        _crLimits = Nothing,
-        _crDescription = Nothing,
-        _crTreatmentName = Nothing,
-        _crMessageConfiguration = Nothing,
-        _crTemplateConfiguration = Nothing,
-        _crSchedule = Nothing,
-        _crHoldoutPercent = Nothing,
-        _crTreatmentDescription = Nothing,
-        _crLastModifiedDate = pLastModifiedDate_,
-        _crCreationDate = pCreationDate_,
-        _crSegmentId = pSegmentId_,
-        _crSegmentVersion = pSegmentVersion_,
-        _crId = pId_,
-        _crARN = pARN_,
-        _crApplicationId = pApplicationId_
+      { additionalTreatments =
+          Prelude.Nothing,
+        hook = Prelude.Nothing,
+        version = Prelude.Nothing,
+        customDeliveryConfiguration = Prelude.Nothing,
+        state = Prelude.Nothing,
+        name = Prelude.Nothing,
+        defaultState = Prelude.Nothing,
+        isPaused = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        limits = Prelude.Nothing,
+        description = Prelude.Nothing,
+        treatmentName = Prelude.Nothing,
+        messageConfiguration = Prelude.Nothing,
+        templateConfiguration = Prelude.Nothing,
+        schedule = Prelude.Nothing,
+        holdoutPercent = Prelude.Nothing,
+        treatmentDescription = Prelude.Nothing,
+        lastModifiedDate = pLastModifiedDate_,
+        creationDate = pCreationDate_,
+        segmentId = pSegmentId_,
+        segmentVersion = pSegmentVersion_,
+        id = pId_,
+        arn = pArn_,
+        applicationId = pApplicationId_
       }
 
--- | An array of responses, one for each treatment that you defined for the campaign, in addition to the default treatment.
-crAdditionalTreatments :: Lens' CampaignResponse [TreatmentResource]
-crAdditionalTreatments = lens _crAdditionalTreatments (\s a -> s {_crAdditionalTreatments = a}) . _Default . _Coerce
+-- | An array of responses, one for each treatment that you defined for the
+-- campaign, in addition to the default treatment.
+campaignResponse_additionalTreatments :: Lens.Lens' CampaignResponse (Prelude.Maybe [TreatmentResource])
+campaignResponse_additionalTreatments = Lens.lens (\CampaignResponse' {additionalTreatments} -> additionalTreatments) (\s@CampaignResponse' {} a -> s {additionalTreatments = a} :: CampaignResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The settings for the AWS Lambda function to use as a code hook for the campaign. You can use this hook to customize the segment that's used by the campaign.
-crHook :: Lens' CampaignResponse (Maybe CampaignHook)
-crHook = lens _crHook (\s a -> s {_crHook = a})
+-- | The settings for the AWS Lambda function to use as a code hook for the
+-- campaign. You can use this hook to customize the segment that\'s used by
+-- the campaign.
+campaignResponse_hook :: Lens.Lens' CampaignResponse (Prelude.Maybe CampaignHook)
+campaignResponse_hook = Lens.lens (\CampaignResponse' {hook} -> hook) (\s@CampaignResponse' {} a -> s {hook = a} :: CampaignResponse)
 
 -- | The version number of the campaign.
-crVersion :: Lens' CampaignResponse (Maybe Int)
-crVersion = lens _crVersion (\s a -> s {_crVersion = a})
+campaignResponse_version :: Lens.Lens' CampaignResponse (Prelude.Maybe Prelude.Int)
+campaignResponse_version = Lens.lens (\CampaignResponse' {version} -> version) (\s@CampaignResponse' {} a -> s {version = a} :: CampaignResponse)
 
--- | The delivery configuration settings for sending the campaign through a custom channel.
-crCustomDeliveryConfiguration :: Lens' CampaignResponse (Maybe CustomDeliveryConfiguration)
-crCustomDeliveryConfiguration = lens _crCustomDeliveryConfiguration (\s a -> s {_crCustomDeliveryConfiguration = a})
+-- | The delivery configuration settings for sending the campaign through a
+-- custom channel.
+campaignResponse_customDeliveryConfiguration :: Lens.Lens' CampaignResponse (Prelude.Maybe CustomDeliveryConfiguration)
+campaignResponse_customDeliveryConfiguration = Lens.lens (\CampaignResponse' {customDeliveryConfiguration} -> customDeliveryConfiguration) (\s@CampaignResponse' {} a -> s {customDeliveryConfiguration = a} :: CampaignResponse)
 
 -- | The current status of the campaign.
-crState :: Lens' CampaignResponse (Maybe CampaignState)
-crState = lens _crState (\s a -> s {_crState = a})
+campaignResponse_state :: Lens.Lens' CampaignResponse (Prelude.Maybe CampaignState)
+campaignResponse_state = Lens.lens (\CampaignResponse' {state} -> state) (\s@CampaignResponse' {} a -> s {state = a} :: CampaignResponse)
 
 -- | The name of the campaign.
-crName :: Lens' CampaignResponse (Maybe Text)
-crName = lens _crName (\s a -> s {_crName = a})
+campaignResponse_name :: Lens.Lens' CampaignResponse (Prelude.Maybe Prelude.Text)
+campaignResponse_name = Lens.lens (\CampaignResponse' {name} -> name) (\s@CampaignResponse' {} a -> s {name = a} :: CampaignResponse)
 
--- | The current status of the campaign's default treatment. This value exists only for campaigns that have more than one treatment.
-crDefaultState :: Lens' CampaignResponse (Maybe CampaignState)
-crDefaultState = lens _crDefaultState (\s a -> s {_crDefaultState = a})
+-- | The current status of the campaign\'s default treatment. This value
+-- exists only for campaigns that have more than one treatment.
+campaignResponse_defaultState :: Lens.Lens' CampaignResponse (Prelude.Maybe CampaignState)
+campaignResponse_defaultState = Lens.lens (\CampaignResponse' {defaultState} -> defaultState) (\s@CampaignResponse' {} a -> s {defaultState = a} :: CampaignResponse)
 
--- | Specifies whether the campaign is paused. A paused campaign doesn't run unless you resume it by changing this value to false.
-crIsPaused :: Lens' CampaignResponse (Maybe Bool)
-crIsPaused = lens _crIsPaused (\s a -> s {_crIsPaused = a})
+-- | Specifies whether the campaign is paused. A paused campaign doesn\'t run
+-- unless you resume it by changing this value to false.
+campaignResponse_isPaused :: Lens.Lens' CampaignResponse (Prelude.Maybe Prelude.Bool)
+campaignResponse_isPaused = Lens.lens (\CampaignResponse' {isPaused} -> isPaused) (\s@CampaignResponse' {} a -> s {isPaused = a} :: CampaignResponse)
 
--- | A string-to-string map of key-value pairs that identifies the tags that are associated with the campaign. Each tag consists of a required tag key and an associated tag value.
-crTags :: Lens' CampaignResponse (HashMap Text Text)
-crTags = lens _crTags (\s a -> s {_crTags = a}) . _Default . _Map
+-- | A string-to-string map of key-value pairs that identifies the tags that
+-- are associated with the campaign. Each tag consists of a required tag
+-- key and an associated tag value.
+campaignResponse_tags :: Lens.Lens' CampaignResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+campaignResponse_tags = Lens.lens (\CampaignResponse' {tags} -> tags) (\s@CampaignResponse' {} a -> s {tags = a} :: CampaignResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The messaging limits for the campaign.
-crLimits :: Lens' CampaignResponse (Maybe CampaignLimits)
-crLimits = lens _crLimits (\s a -> s {_crLimits = a})
+campaignResponse_limits :: Lens.Lens' CampaignResponse (Prelude.Maybe CampaignLimits)
+campaignResponse_limits = Lens.lens (\CampaignResponse' {limits} -> limits) (\s@CampaignResponse' {} a -> s {limits = a} :: CampaignResponse)
 
 -- | The custom description of the campaign.
-crDescription :: Lens' CampaignResponse (Maybe Text)
-crDescription = lens _crDescription (\s a -> s {_crDescription = a})
+campaignResponse_description :: Lens.Lens' CampaignResponse (Prelude.Maybe Prelude.Text)
+campaignResponse_description = Lens.lens (\CampaignResponse' {description} -> description) (\s@CampaignResponse' {} a -> s {description = a} :: CampaignResponse)
 
--- | The custom name of the default treatment for the campaign, if the campaign has multiple treatments. A /treatment/ is a variation of a campaign that's used for A/B testing.
-crTreatmentName :: Lens' CampaignResponse (Maybe Text)
-crTreatmentName = lens _crTreatmentName (\s a -> s {_crTreatmentName = a})
+-- | The custom name of the default treatment for the campaign, if the
+-- campaign has multiple treatments. A /treatment/ is a variation of a
+-- campaign that\'s used for A\/B testing.
+campaignResponse_treatmentName :: Lens.Lens' CampaignResponse (Prelude.Maybe Prelude.Text)
+campaignResponse_treatmentName = Lens.lens (\CampaignResponse' {treatmentName} -> treatmentName) (\s@CampaignResponse' {} a -> s {treatmentName = a} :: CampaignResponse)
 
 -- | The message configuration settings for the campaign.
-crMessageConfiguration :: Lens' CampaignResponse (Maybe MessageConfiguration)
-crMessageConfiguration = lens _crMessageConfiguration (\s a -> s {_crMessageConfiguration = a})
+campaignResponse_messageConfiguration :: Lens.Lens' CampaignResponse (Prelude.Maybe MessageConfiguration)
+campaignResponse_messageConfiguration = Lens.lens (\CampaignResponse' {messageConfiguration} -> messageConfiguration) (\s@CampaignResponse' {} a -> s {messageConfiguration = a} :: CampaignResponse)
 
 -- | The message template that’s used for the campaign.
-crTemplateConfiguration :: Lens' CampaignResponse (Maybe TemplateConfiguration)
-crTemplateConfiguration = lens _crTemplateConfiguration (\s a -> s {_crTemplateConfiguration = a})
+campaignResponse_templateConfiguration :: Lens.Lens' CampaignResponse (Prelude.Maybe TemplateConfiguration)
+campaignResponse_templateConfiguration = Lens.lens (\CampaignResponse' {templateConfiguration} -> templateConfiguration) (\s@CampaignResponse' {} a -> s {templateConfiguration = a} :: CampaignResponse)
 
 -- | The schedule settings for the campaign.
-crSchedule :: Lens' CampaignResponse (Maybe Schedule)
-crSchedule = lens _crSchedule (\s a -> s {_crSchedule = a})
+campaignResponse_schedule :: Lens.Lens' CampaignResponse (Prelude.Maybe Schedule)
+campaignResponse_schedule = Lens.lens (\CampaignResponse' {schedule} -> schedule) (\s@CampaignResponse' {} a -> s {schedule = a} :: CampaignResponse)
 
--- | The allocated percentage of users (segment members) who shouldn't receive messages from the campaign.
-crHoldoutPercent :: Lens' CampaignResponse (Maybe Int)
-crHoldoutPercent = lens _crHoldoutPercent (\s a -> s {_crHoldoutPercent = a})
+-- | The allocated percentage of users (segment members) who shouldn\'t
+-- receive messages from the campaign.
+campaignResponse_holdoutPercent :: Lens.Lens' CampaignResponse (Prelude.Maybe Prelude.Int)
+campaignResponse_holdoutPercent = Lens.lens (\CampaignResponse' {holdoutPercent} -> holdoutPercent) (\s@CampaignResponse' {} a -> s {holdoutPercent = a} :: CampaignResponse)
 
 -- | The custom description of the default treatment for the campaign.
-crTreatmentDescription :: Lens' CampaignResponse (Maybe Text)
-crTreatmentDescription = lens _crTreatmentDescription (\s a -> s {_crTreatmentDescription = a})
+campaignResponse_treatmentDescription :: Lens.Lens' CampaignResponse (Prelude.Maybe Prelude.Text)
+campaignResponse_treatmentDescription = Lens.lens (\CampaignResponse' {treatmentDescription} -> treatmentDescription) (\s@CampaignResponse' {} a -> s {treatmentDescription = a} :: CampaignResponse)
 
 -- | The date, in ISO 8601 format, when the campaign was last modified.
-crLastModifiedDate :: Lens' CampaignResponse Text
-crLastModifiedDate = lens _crLastModifiedDate (\s a -> s {_crLastModifiedDate = a})
+campaignResponse_lastModifiedDate :: Lens.Lens' CampaignResponse Prelude.Text
+campaignResponse_lastModifiedDate = Lens.lens (\CampaignResponse' {lastModifiedDate} -> lastModifiedDate) (\s@CampaignResponse' {} a -> s {lastModifiedDate = a} :: CampaignResponse)
 
 -- | The date, in ISO 8601 format, when the campaign was created.
-crCreationDate :: Lens' CampaignResponse Text
-crCreationDate = lens _crCreationDate (\s a -> s {_crCreationDate = a})
+campaignResponse_creationDate :: Lens.Lens' CampaignResponse Prelude.Text
+campaignResponse_creationDate = Lens.lens (\CampaignResponse' {creationDate} -> creationDate) (\s@CampaignResponse' {} a -> s {creationDate = a} :: CampaignResponse)
 
--- | The unique identifier for the segment that's associated with the campaign.
-crSegmentId :: Lens' CampaignResponse Text
-crSegmentId = lens _crSegmentId (\s a -> s {_crSegmentId = a})
+-- | The unique identifier for the segment that\'s associated with the
+-- campaign.
+campaignResponse_segmentId :: Lens.Lens' CampaignResponse Prelude.Text
+campaignResponse_segmentId = Lens.lens (\CampaignResponse' {segmentId} -> segmentId) (\s@CampaignResponse' {} a -> s {segmentId = a} :: CampaignResponse)
 
--- | The version number of the segment that's associated with the campaign.
-crSegmentVersion :: Lens' CampaignResponse Int
-crSegmentVersion = lens _crSegmentVersion (\s a -> s {_crSegmentVersion = a})
+-- | The version number of the segment that\'s associated with the campaign.
+campaignResponse_segmentVersion :: Lens.Lens' CampaignResponse Prelude.Int
+campaignResponse_segmentVersion = Lens.lens (\CampaignResponse' {segmentVersion} -> segmentVersion) (\s@CampaignResponse' {} a -> s {segmentVersion = a} :: CampaignResponse)
 
 -- | The unique identifier for the campaign.
-crId :: Lens' CampaignResponse Text
-crId = lens _crId (\s a -> s {_crId = a})
+campaignResponse_id :: Lens.Lens' CampaignResponse Prelude.Text
+campaignResponse_id = Lens.lens (\CampaignResponse' {id} -> id) (\s@CampaignResponse' {} a -> s {id = a} :: CampaignResponse)
 
 -- | The Amazon Resource Name (ARN) of the campaign.
-crARN :: Lens' CampaignResponse Text
-crARN = lens _crARN (\s a -> s {_crARN = a})
+campaignResponse_arn :: Lens.Lens' CampaignResponse Prelude.Text
+campaignResponse_arn = Lens.lens (\CampaignResponse' {arn} -> arn) (\s@CampaignResponse' {} a -> s {arn = a} :: CampaignResponse)
 
 -- | The unique identifier for the application that the campaign applies to.
-crApplicationId :: Lens' CampaignResponse Text
-crApplicationId = lens _crApplicationId (\s a -> s {_crApplicationId = a})
+campaignResponse_applicationId :: Lens.Lens' CampaignResponse Prelude.Text
+campaignResponse_applicationId = Lens.lens (\CampaignResponse' {applicationId} -> applicationId) (\s@CampaignResponse' {} a -> s {applicationId = a} :: CampaignResponse)
 
-instance FromJSON CampaignResponse where
+instance Prelude.FromJSON CampaignResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CampaignResponse"
       ( \x ->
           CampaignResponse'
-            <$> (x .:? "AdditionalTreatments" .!= mempty)
-            <*> (x .:? "Hook")
-            <*> (x .:? "Version")
-            <*> (x .:? "CustomDeliveryConfiguration")
-            <*> (x .:? "State")
-            <*> (x .:? "Name")
-            <*> (x .:? "DefaultState")
-            <*> (x .:? "IsPaused")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "Limits")
-            <*> (x .:? "Description")
-            <*> (x .:? "TreatmentName")
-            <*> (x .:? "MessageConfiguration")
-            <*> (x .:? "TemplateConfiguration")
-            <*> (x .:? "Schedule")
-            <*> (x .:? "HoldoutPercent")
-            <*> (x .:? "TreatmentDescription")
-            <*> (x .: "LastModifiedDate")
-            <*> (x .: "CreationDate")
-            <*> (x .: "SegmentId")
-            <*> (x .: "SegmentVersion")
-            <*> (x .: "Id")
-            <*> (x .: "Arn")
-            <*> (x .: "ApplicationId")
+            Prelude.<$> ( x Prelude..:? "AdditionalTreatments"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Hook")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "CustomDeliveryConfiguration")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "DefaultState")
+            Prelude.<*> (x Prelude..:? "IsPaused")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Limits")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "TreatmentName")
+            Prelude.<*> (x Prelude..:? "MessageConfiguration")
+            Prelude.<*> (x Prelude..:? "TemplateConfiguration")
+            Prelude.<*> (x Prelude..:? "Schedule")
+            Prelude.<*> (x Prelude..:? "HoldoutPercent")
+            Prelude.<*> (x Prelude..:? "TreatmentDescription")
+            Prelude.<*> (x Prelude..: "LastModifiedDate")
+            Prelude.<*> (x Prelude..: "CreationDate")
+            Prelude.<*> (x Prelude..: "SegmentId")
+            Prelude.<*> (x Prelude..: "SegmentVersion")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "Arn")
+            Prelude.<*> (x Prelude..: "ApplicationId")
       )
 
-instance Hashable CampaignResponse
+instance Prelude.Hashable CampaignResponse
 
-instance NFData CampaignResponse
+instance Prelude.NFData CampaignResponse

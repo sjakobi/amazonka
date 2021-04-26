@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,102 +19,160 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.MessageRequest where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.AddressConfiguration
 import Network.AWS.Pinpoint.Types.DirectMessageConfiguration
 import Network.AWS.Pinpoint.Types.EndpointSendConfiguration
 import Network.AWS.Pinpoint.Types.TemplateConfiguration
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the configuration and other settings for a message.
 --
---
---
--- /See:/ 'messageRequest' smart constructor.
+-- /See:/ 'newMessageRequest' smart constructor.
 data MessageRequest = MessageRequest'
-  { _mrEndpoints ::
-      !( Maybe
-           (Map Text EndpointSendConfiguration)
-       ),
-    _mrContext :: !(Maybe (Map Text Text)),
-    _mrTraceId :: !(Maybe Text),
-    _mrAddresses ::
-      !(Maybe (Map Text AddressConfiguration)),
-    _mrTemplateConfiguration ::
-      !(Maybe TemplateConfiguration),
-    _mrMessageConfiguration ::
-      !DirectMessageConfiguration
+  { -- | A map of key-value pairs, where each key is an endpoint ID and each
+    -- value is an
+    -- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration>
+    -- object. You can use an
+    -- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration>
+    -- object to tailor the message for an endpoint by specifying settings such
+    -- as content overrides and message variables.
+    endpoints :: Prelude.Maybe (Prelude.Map Prelude.Text EndpointSendConfiguration),
+    -- | A map of custom attributes to attach to the message. For a push
+    -- notification, this payload is added to the data.pinpoint object. For an
+    -- email or text message, this payload is added to email\/SMS delivery
+    -- receipt event attributes.
+    context :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The unique identifier for tracing the message. This identifier is
+    -- visible to message recipients.
+    traceId :: Prelude.Maybe Prelude.Text,
+    -- | A map of key-value pairs, where each key is an address and each value is
+    -- an
+    -- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration>
+    -- object. An address can be a push notification token, a phone number, or
+    -- an email address. You can use an
+    -- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration>
+    -- object to tailor the message for an address by specifying settings such
+    -- as content overrides and message variables.
+    addresses :: Prelude.Maybe (Prelude.Map Prelude.Text AddressConfiguration),
+    -- | The message template to use for the message.
+    templateConfiguration :: Prelude.Maybe TemplateConfiguration,
+    -- | The settings and content for the default message and any default
+    -- messages that you defined for specific channels.
+    messageConfiguration :: DirectMessageConfiguration
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MessageRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MessageRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mrEndpoints' - A map of key-value pairs, where each key is an endpoint ID and each value is an <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration> object. You can use an <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration> object to tailor the message for an endpoint by specifying settings such as content overrides and message variables.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mrContext' - A map of custom attributes to attach to the message. For a push notification, this payload is added to the data.pinpoint object. For an email or text message, this payload is added to email/SMS delivery receipt event attributes.
+-- 'endpoints', 'messageRequest_endpoints' - A map of key-value pairs, where each key is an endpoint ID and each
+-- value is an
+-- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration>
+-- object. You can use an
+-- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration>
+-- object to tailor the message for an endpoint by specifying settings such
+-- as content overrides and message variables.
 --
--- * 'mrTraceId' - The unique identifier for tracing the message. This identifier is visible to message recipients.
+-- 'context', 'messageRequest_context' - A map of custom attributes to attach to the message. For a push
+-- notification, this payload is added to the data.pinpoint object. For an
+-- email or text message, this payload is added to email\/SMS delivery
+-- receipt event attributes.
 --
--- * 'mrAddresses' - A map of key-value pairs, where each key is an address and each value is an <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration> object. An address can be a push notification token, a phone number, or an email address. You can use an <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration> object to tailor the message for an address by specifying settings such as content overrides and message variables.
+-- 'traceId', 'messageRequest_traceId' - The unique identifier for tracing the message. This identifier is
+-- visible to message recipients.
 --
--- * 'mrTemplateConfiguration' - The message template to use for the message.
+-- 'addresses', 'messageRequest_addresses' - A map of key-value pairs, where each key is an address and each value is
+-- an
+-- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration>
+-- object. An address can be a push notification token, a phone number, or
+-- an email address. You can use an
+-- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration>
+-- object to tailor the message for an address by specifying settings such
+-- as content overrides and message variables.
 --
--- * 'mrMessageConfiguration' - The settings and content for the default message and any default messages that you defined for specific channels.
-messageRequest ::
-  -- | 'mrMessageConfiguration'
+-- 'templateConfiguration', 'messageRequest_templateConfiguration' - The message template to use for the message.
+--
+-- 'messageConfiguration', 'messageRequest_messageConfiguration' - The settings and content for the default message and any default
+-- messages that you defined for specific channels.
+newMessageRequest ::
+  -- | 'messageConfiguration'
   DirectMessageConfiguration ->
   MessageRequest
-messageRequest pMessageConfiguration_ =
+newMessageRequest pMessageConfiguration_ =
   MessageRequest'
-    { _mrEndpoints = Nothing,
-      _mrContext = Nothing,
-      _mrTraceId = Nothing,
-      _mrAddresses = Nothing,
-      _mrTemplateConfiguration = Nothing,
-      _mrMessageConfiguration = pMessageConfiguration_
+    { endpoints = Prelude.Nothing,
+      context = Prelude.Nothing,
+      traceId = Prelude.Nothing,
+      addresses = Prelude.Nothing,
+      templateConfiguration = Prelude.Nothing,
+      messageConfiguration = pMessageConfiguration_
     }
 
--- | A map of key-value pairs, where each key is an endpoint ID and each value is an <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration> object. You can use an <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration> object to tailor the message for an endpoint by specifying settings such as content overrides and message variables.
-mrEndpoints :: Lens' MessageRequest (HashMap Text EndpointSendConfiguration)
-mrEndpoints = lens _mrEndpoints (\s a -> s {_mrEndpoints = a}) . _Default . _Map
+-- | A map of key-value pairs, where each key is an endpoint ID and each
+-- value is an
+-- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration>
+-- object. You can use an
+-- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration>
+-- object to tailor the message for an endpoint by specifying settings such
+-- as content overrides and message variables.
+messageRequest_endpoints :: Lens.Lens' MessageRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text EndpointSendConfiguration))
+messageRequest_endpoints = Lens.lens (\MessageRequest' {endpoints} -> endpoints) (\s@MessageRequest' {} a -> s {endpoints = a} :: MessageRequest) Prelude.. Lens.mapping Prelude._Map
 
--- | A map of custom attributes to attach to the message. For a push notification, this payload is added to the data.pinpoint object. For an email or text message, this payload is added to email/SMS delivery receipt event attributes.
-mrContext :: Lens' MessageRequest (HashMap Text Text)
-mrContext = lens _mrContext (\s a -> s {_mrContext = a}) . _Default . _Map
+-- | A map of custom attributes to attach to the message. For a push
+-- notification, this payload is added to the data.pinpoint object. For an
+-- email or text message, this payload is added to email\/SMS delivery
+-- receipt event attributes.
+messageRequest_context :: Lens.Lens' MessageRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+messageRequest_context = Lens.lens (\MessageRequest' {context} -> context) (\s@MessageRequest' {} a -> s {context = a} :: MessageRequest) Prelude.. Lens.mapping Prelude._Map
 
--- | The unique identifier for tracing the message. This identifier is visible to message recipients.
-mrTraceId :: Lens' MessageRequest (Maybe Text)
-mrTraceId = lens _mrTraceId (\s a -> s {_mrTraceId = a})
+-- | The unique identifier for tracing the message. This identifier is
+-- visible to message recipients.
+messageRequest_traceId :: Lens.Lens' MessageRequest (Prelude.Maybe Prelude.Text)
+messageRequest_traceId = Lens.lens (\MessageRequest' {traceId} -> traceId) (\s@MessageRequest' {} a -> s {traceId = a} :: MessageRequest)
 
--- | A map of key-value pairs, where each key is an address and each value is an <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration> object. An address can be a push notification token, a phone number, or an email address. You can use an <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration> object to tailor the message for an address by specifying settings such as content overrides and message variables.
-mrAddresses :: Lens' MessageRequest (HashMap Text AddressConfiguration)
-mrAddresses = lens _mrAddresses (\s a -> s {_mrAddresses = a}) . _Default . _Map
+-- | A map of key-value pairs, where each key is an address and each value is
+-- an
+-- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration>
+-- object. An address can be a push notification token, a phone number, or
+-- an email address. You can use an
+-- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration>
+-- object to tailor the message for an address by specifying settings such
+-- as content overrides and message variables.
+messageRequest_addresses :: Lens.Lens' MessageRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text AddressConfiguration))
+messageRequest_addresses = Lens.lens (\MessageRequest' {addresses} -> addresses) (\s@MessageRequest' {} a -> s {addresses = a} :: MessageRequest) Prelude.. Lens.mapping Prelude._Map
 
 -- | The message template to use for the message.
-mrTemplateConfiguration :: Lens' MessageRequest (Maybe TemplateConfiguration)
-mrTemplateConfiguration = lens _mrTemplateConfiguration (\s a -> s {_mrTemplateConfiguration = a})
+messageRequest_templateConfiguration :: Lens.Lens' MessageRequest (Prelude.Maybe TemplateConfiguration)
+messageRequest_templateConfiguration = Lens.lens (\MessageRequest' {templateConfiguration} -> templateConfiguration) (\s@MessageRequest' {} a -> s {templateConfiguration = a} :: MessageRequest)
 
--- | The settings and content for the default message and any default messages that you defined for specific channels.
-mrMessageConfiguration :: Lens' MessageRequest DirectMessageConfiguration
-mrMessageConfiguration = lens _mrMessageConfiguration (\s a -> s {_mrMessageConfiguration = a})
+-- | The settings and content for the default message and any default
+-- messages that you defined for specific channels.
+messageRequest_messageConfiguration :: Lens.Lens' MessageRequest DirectMessageConfiguration
+messageRequest_messageConfiguration = Lens.lens (\MessageRequest' {messageConfiguration} -> messageConfiguration) (\s@MessageRequest' {} a -> s {messageConfiguration = a} :: MessageRequest)
 
-instance Hashable MessageRequest
+instance Prelude.Hashable MessageRequest
 
-instance NFData MessageRequest
+instance Prelude.NFData MessageRequest
 
-instance ToJSON MessageRequest where
+instance Prelude.ToJSON MessageRequest where
   toJSON MessageRequest' {..} =
-    object
-      ( catMaybes
-          [ ("Endpoints" .=) <$> _mrEndpoints,
-            ("Context" .=) <$> _mrContext,
-            ("TraceId" .=) <$> _mrTraceId,
-            ("Addresses" .=) <$> _mrAddresses,
-            ("TemplateConfiguration" .=)
-              <$> _mrTemplateConfiguration,
-            Just
-              ("MessageConfiguration" .= _mrMessageConfiguration)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Endpoints" Prelude..=) Prelude.<$> endpoints,
+            ("Context" Prelude..=) Prelude.<$> context,
+            ("TraceId" Prelude..=) Prelude.<$> traceId,
+            ("Addresses" Prelude..=) Prelude.<$> addresses,
+            ("TemplateConfiguration" Prelude..=)
+              Prelude.<$> templateConfiguration,
+            Prelude.Just
+              ( "MessageConfiguration"
+                  Prelude..= messageConfiguration
+              )
           ]
       )

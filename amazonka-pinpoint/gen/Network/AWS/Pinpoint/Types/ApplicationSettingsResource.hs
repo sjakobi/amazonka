@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,160 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ApplicationSettingsResource where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.CampaignHook
 import Network.AWS.Pinpoint.Types.CampaignLimits
 import Network.AWS.Pinpoint.Types.QuietTime
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about an application, including the default settings for an application.
+-- | Provides information about an application, including the default
+-- settings for an application.
 --
---
---
--- /See:/ 'applicationSettingsResource' smart constructor.
+-- /See:/ 'newApplicationSettingsResource' smart constructor.
 data ApplicationSettingsResource = ApplicationSettingsResource'
-  { _asrLastModifiedDate ::
-      !(Maybe Text),
-    _asrCampaignHook ::
-      !( Maybe
-           CampaignHook
-       ),
-    _asrQuietTime ::
-      !( Maybe
-           QuietTime
-       ),
-    _asrLimits ::
-      !( Maybe
-           CampaignLimits
-       ),
-    _asrApplicationId ::
-      !Text
+  { -- | The date and time, in ISO 8601 format, when the application\'s settings
+    -- were last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.Text,
+    -- | The settings for the AWS Lambda function to invoke by default as a code
+    -- hook for campaigns in the application. You can use this hook to
+    -- customize segments that are used by campaigns in the application.
+    campaignHook :: Prelude.Maybe CampaignHook,
+    -- | The default quiet time for campaigns in the application. Quiet time is a
+    -- specific time range when messages aren\'t sent to endpoints, if all the
+    -- following conditions are met:
+    --
+    -- -   The EndpointDemographic.Timezone property of the endpoint is set to
+    --     a valid value.
+    --
+    -- -   The current time in the endpoint\'s time zone is later than or equal
+    --     to the time specified by the QuietTime.Start property for the
+    --     application (or a campaign or journey that has custom quiet time
+    --     settings).
+    --
+    -- -   The current time in the endpoint\'s time zone is earlier than or
+    --     equal to the time specified by the QuietTime.End property for the
+    --     application (or a campaign or journey that has custom quiet time
+    --     settings).
+    --
+    -- If any of the preceding conditions isn\'t met, the endpoint will receive
+    -- messages from a campaign or journey, even if quiet time is enabled.
+    quietTime :: Prelude.Maybe QuietTime,
+    -- | The default sending limits for campaigns in the application.
+    limits :: Prelude.Maybe CampaignLimits,
+    -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationSettingsResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationSettingsResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asrLastModifiedDate' - The date and time, in ISO 8601 format, when the application's settings were last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asrCampaignHook' - The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application. You can use this hook to customize segments that are used by campaigns in the application.
+-- 'lastModifiedDate', 'applicationSettingsResource_lastModifiedDate' - The date and time, in ISO 8601 format, when the application\'s settings
+-- were last modified.
 --
--- * 'asrQuietTime' - The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't sent to endpoints, if all the following conditions are met:     * The EndpointDemographic.Timezone property of the endpoint is set to a valid value.     * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start property for the application (or a campaign or journey that has custom quiet time settings).     * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End property for the application (or a campaign or journey that has custom quiet time settings). If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even if quiet time is enabled.
+-- 'campaignHook', 'applicationSettingsResource_campaignHook' - The settings for the AWS Lambda function to invoke by default as a code
+-- hook for campaigns in the application. You can use this hook to
+-- customize segments that are used by campaigns in the application.
 --
--- * 'asrLimits' - The default sending limits for campaigns in the application.
+-- 'quietTime', 'applicationSettingsResource_quietTime' - The default quiet time for campaigns in the application. Quiet time is a
+-- specific time range when messages aren\'t sent to endpoints, if all the
+-- following conditions are met:
 --
--- * 'asrApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-applicationSettingsResource ::
-  -- | 'asrApplicationId'
-  Text ->
+-- -   The EndpointDemographic.Timezone property of the endpoint is set to
+--     a valid value.
+--
+-- -   The current time in the endpoint\'s time zone is later than or equal
+--     to the time specified by the QuietTime.Start property for the
+--     application (or a campaign or journey that has custom quiet time
+--     settings).
+--
+-- -   The current time in the endpoint\'s time zone is earlier than or
+--     equal to the time specified by the QuietTime.End property for the
+--     application (or a campaign or journey that has custom quiet time
+--     settings).
+--
+-- If any of the preceding conditions isn\'t met, the endpoint will receive
+-- messages from a campaign or journey, even if quiet time is enabled.
+--
+-- 'limits', 'applicationSettingsResource_limits' - The default sending limits for campaigns in the application.
+--
+-- 'applicationId', 'applicationSettingsResource_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newApplicationSettingsResource ::
+  -- | 'applicationId'
+  Prelude.Text ->
   ApplicationSettingsResource
-applicationSettingsResource pApplicationId_ =
+newApplicationSettingsResource pApplicationId_ =
   ApplicationSettingsResource'
-    { _asrLastModifiedDate =
-        Nothing,
-      _asrCampaignHook = Nothing,
-      _asrQuietTime = Nothing,
-      _asrLimits = Nothing,
-      _asrApplicationId = pApplicationId_
+    { lastModifiedDate =
+        Prelude.Nothing,
+      campaignHook = Prelude.Nothing,
+      quietTime = Prelude.Nothing,
+      limits = Prelude.Nothing,
+      applicationId = pApplicationId_
     }
 
--- | The date and time, in ISO 8601 format, when the application's settings were last modified.
-asrLastModifiedDate :: Lens' ApplicationSettingsResource (Maybe Text)
-asrLastModifiedDate = lens _asrLastModifiedDate (\s a -> s {_asrLastModifiedDate = a})
+-- | The date and time, in ISO 8601 format, when the application\'s settings
+-- were last modified.
+applicationSettingsResource_lastModifiedDate :: Lens.Lens' ApplicationSettingsResource (Prelude.Maybe Prelude.Text)
+applicationSettingsResource_lastModifiedDate = Lens.lens (\ApplicationSettingsResource' {lastModifiedDate} -> lastModifiedDate) (\s@ApplicationSettingsResource' {} a -> s {lastModifiedDate = a} :: ApplicationSettingsResource)
 
--- | The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application. You can use this hook to customize segments that are used by campaigns in the application.
-asrCampaignHook :: Lens' ApplicationSettingsResource (Maybe CampaignHook)
-asrCampaignHook = lens _asrCampaignHook (\s a -> s {_asrCampaignHook = a})
+-- | The settings for the AWS Lambda function to invoke by default as a code
+-- hook for campaigns in the application. You can use this hook to
+-- customize segments that are used by campaigns in the application.
+applicationSettingsResource_campaignHook :: Lens.Lens' ApplicationSettingsResource (Prelude.Maybe CampaignHook)
+applicationSettingsResource_campaignHook = Lens.lens (\ApplicationSettingsResource' {campaignHook} -> campaignHook) (\s@ApplicationSettingsResource' {} a -> s {campaignHook = a} :: ApplicationSettingsResource)
 
--- | The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't sent to endpoints, if all the following conditions are met:     * The EndpointDemographic.Timezone property of the endpoint is set to a valid value.     * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start property for the application (or a campaign or journey that has custom quiet time settings).     * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End property for the application (or a campaign or journey that has custom quiet time settings). If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even if quiet time is enabled.
-asrQuietTime :: Lens' ApplicationSettingsResource (Maybe QuietTime)
-asrQuietTime = lens _asrQuietTime (\s a -> s {_asrQuietTime = a})
+-- | The default quiet time for campaigns in the application. Quiet time is a
+-- specific time range when messages aren\'t sent to endpoints, if all the
+-- following conditions are met:
+--
+-- -   The EndpointDemographic.Timezone property of the endpoint is set to
+--     a valid value.
+--
+-- -   The current time in the endpoint\'s time zone is later than or equal
+--     to the time specified by the QuietTime.Start property for the
+--     application (or a campaign or journey that has custom quiet time
+--     settings).
+--
+-- -   The current time in the endpoint\'s time zone is earlier than or
+--     equal to the time specified by the QuietTime.End property for the
+--     application (or a campaign or journey that has custom quiet time
+--     settings).
+--
+-- If any of the preceding conditions isn\'t met, the endpoint will receive
+-- messages from a campaign or journey, even if quiet time is enabled.
+applicationSettingsResource_quietTime :: Lens.Lens' ApplicationSettingsResource (Prelude.Maybe QuietTime)
+applicationSettingsResource_quietTime = Lens.lens (\ApplicationSettingsResource' {quietTime} -> quietTime) (\s@ApplicationSettingsResource' {} a -> s {quietTime = a} :: ApplicationSettingsResource)
 
 -- | The default sending limits for campaigns in the application.
-asrLimits :: Lens' ApplicationSettingsResource (Maybe CampaignLimits)
-asrLimits = lens _asrLimits (\s a -> s {_asrLimits = a})
+applicationSettingsResource_limits :: Lens.Lens' ApplicationSettingsResource (Prelude.Maybe CampaignLimits)
+applicationSettingsResource_limits = Lens.lens (\ApplicationSettingsResource' {limits} -> limits) (\s@ApplicationSettingsResource' {} a -> s {limits = a} :: ApplicationSettingsResource)
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-asrApplicationId :: Lens' ApplicationSettingsResource Text
-asrApplicationId = lens _asrApplicationId (\s a -> s {_asrApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+applicationSettingsResource_applicationId :: Lens.Lens' ApplicationSettingsResource Prelude.Text
+applicationSettingsResource_applicationId = Lens.lens (\ApplicationSettingsResource' {applicationId} -> applicationId) (\s@ApplicationSettingsResource' {} a -> s {applicationId = a} :: ApplicationSettingsResource)
 
-instance FromJSON ApplicationSettingsResource where
+instance Prelude.FromJSON ApplicationSettingsResource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ApplicationSettingsResource"
       ( \x ->
           ApplicationSettingsResource'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "CampaignHook")
-            <*> (x .:? "QuietTime")
-            <*> (x .:? "Limits")
-            <*> (x .: "ApplicationId")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "CampaignHook")
+            Prelude.<*> (x Prelude..:? "QuietTime")
+            Prelude.<*> (x Prelude..:? "Limits")
+            Prelude.<*> (x Prelude..: "ApplicationId")
       )
 
-instance Hashable ApplicationSettingsResource
+instance Prelude.Hashable ApplicationSettingsResource
 
-instance NFData ApplicationSettingsResource
+instance Prelude.NFData ApplicationSettingsResource

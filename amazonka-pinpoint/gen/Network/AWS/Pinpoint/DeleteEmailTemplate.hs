@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,224 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a message template for messages that were sent through the email channel.
+-- Deletes a message template for messages that were sent through the email
+-- channel.
 module Network.AWS.Pinpoint.DeleteEmailTemplate
   ( -- * Creating a Request
-    deleteEmailTemplate,
-    DeleteEmailTemplate,
+    DeleteEmailTemplate (..),
+    newDeleteEmailTemplate,
 
     -- * Request Lenses
-    detVersion,
-    detTemplateName,
+    deleteEmailTemplate_version,
+    deleteEmailTemplate_templateName,
 
     -- * Destructuring the Response
-    deleteEmailTemplateResponse,
-    DeleteEmailTemplateResponse,
+    DeleteEmailTemplateResponse (..),
+    newDeleteEmailTemplateResponse,
 
     -- * Response Lenses
-    detrrsResponseStatus,
-    detrrsMessageBody,
+    deleteEmailTemplateResponse_httpStatus,
+    deleteEmailTemplateResponse_messageBody,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.MessageBody
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteEmailTemplate' smart constructor.
+-- | /See:/ 'newDeleteEmailTemplate' smart constructor.
 data DeleteEmailTemplate = DeleteEmailTemplate'
-  { _detVersion ::
-      !(Maybe Text),
-    _detTemplateName :: !Text
+  { -- | The unique identifier for the version of the message template to update,
+    -- retrieve information about, or delete. To retrieve identifiers and other
+    -- information for all the versions of a template, use the Template
+    -- Versions resource.
+    --
+    -- If specified, this value must match the identifier for an existing
+    -- template version. If specified for an update operation, this value must
+    -- match the identifier for the latest existing version of the template.
+    -- This restriction helps ensure that race conditions don\'t occur.
+    --
+    -- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+    -- the following:
+    --
+    -- -   For a get operation, retrieves information about the active version
+    --     of the template.
+    --
+    -- -   For an update operation, saves the updates to (overwrites) the
+    --     latest existing version of the template, if the create-new-version
+    --     parameter isn\'t used or is set to false.
+    --
+    -- -   For a delete operation, deletes the template, including all versions
+    --     of the template.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the message template. A template name must start with an
+    -- alphanumeric character and can contain a maximum of 128 characters. The
+    -- characters can be alphanumeric characters, underscores (_), or hyphens
+    -- (-). Template names are case sensitive.
+    templateName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEmailTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEmailTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detVersion' - The unique identifier for the version of the message template to update, retrieve information about, or delete. To retrieve identifiers and other information for all the versions of a template, use the <link>Template Versions resource. If specified, this value must match the identifier for an existing template version. If specified for an update operation, this value must match the identifier for the latest existing version of the template. This restriction helps ensure that race conditions don't occur. If you don't specify a value for this parameter, Amazon Pinpoint does the following:     * For a get operation, retrieves information about the active version of the template.     * For an update operation, saves the updates to (overwrites) the latest existing version of the template, if the create-new-version parameter isn't used or is set to false.     * For a delete operation, deletes the template, including all versions of the template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'detTemplateName' - The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-deleteEmailTemplate ::
-  -- | 'detTemplateName'
-  Text ->
+-- 'version', 'deleteEmailTemplate_version' - The unique identifier for the version of the message template to update,
+-- retrieve information about, or delete. To retrieve identifiers and other
+-- information for all the versions of a template, use the Template
+-- Versions resource.
+--
+-- If specified, this value must match the identifier for an existing
+-- template version. If specified for an update operation, this value must
+-- match the identifier for the latest existing version of the template.
+-- This restriction helps ensure that race conditions don\'t occur.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+-- the following:
+--
+-- -   For a get operation, retrieves information about the active version
+--     of the template.
+--
+-- -   For an update operation, saves the updates to (overwrites) the
+--     latest existing version of the template, if the create-new-version
+--     parameter isn\'t used or is set to false.
+--
+-- -   For a delete operation, deletes the template, including all versions
+--     of the template.
+--
+-- 'templateName', 'deleteEmailTemplate_templateName' - The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+newDeleteEmailTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
   DeleteEmailTemplate
-deleteEmailTemplate pTemplateName_ =
+newDeleteEmailTemplate pTemplateName_ =
   DeleteEmailTemplate'
-    { _detVersion = Nothing,
-      _detTemplateName = pTemplateName_
+    { version = Prelude.Nothing,
+      templateName = pTemplateName_
     }
 
--- | The unique identifier for the version of the message template to update, retrieve information about, or delete. To retrieve identifiers and other information for all the versions of a template, use the <link>Template Versions resource. If specified, this value must match the identifier for an existing template version. If specified for an update operation, this value must match the identifier for the latest existing version of the template. This restriction helps ensure that race conditions don't occur. If you don't specify a value for this parameter, Amazon Pinpoint does the following:     * For a get operation, retrieves information about the active version of the template.     * For an update operation, saves the updates to (overwrites) the latest existing version of the template, if the create-new-version parameter isn't used or is set to false.     * For a delete operation, deletes the template, including all versions of the template.
-detVersion :: Lens' DeleteEmailTemplate (Maybe Text)
-detVersion = lens _detVersion (\s a -> s {_detVersion = a})
+-- | The unique identifier for the version of the message template to update,
+-- retrieve information about, or delete. To retrieve identifiers and other
+-- information for all the versions of a template, use the Template
+-- Versions resource.
+--
+-- If specified, this value must match the identifier for an existing
+-- template version. If specified for an update operation, this value must
+-- match the identifier for the latest existing version of the template.
+-- This restriction helps ensure that race conditions don\'t occur.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+-- the following:
+--
+-- -   For a get operation, retrieves information about the active version
+--     of the template.
+--
+-- -   For an update operation, saves the updates to (overwrites) the
+--     latest existing version of the template, if the create-new-version
+--     parameter isn\'t used or is set to false.
+--
+-- -   For a delete operation, deletes the template, including all versions
+--     of the template.
+deleteEmailTemplate_version :: Lens.Lens' DeleteEmailTemplate (Prelude.Maybe Prelude.Text)
+deleteEmailTemplate_version = Lens.lens (\DeleteEmailTemplate' {version} -> version) (\s@DeleteEmailTemplate' {} a -> s {version = a} :: DeleteEmailTemplate)
 
--- | The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-detTemplateName :: Lens' DeleteEmailTemplate Text
-detTemplateName = lens _detTemplateName (\s a -> s {_detTemplateName = a})
+-- | The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+deleteEmailTemplate_templateName :: Lens.Lens' DeleteEmailTemplate Prelude.Text
+deleteEmailTemplate_templateName = Lens.lens (\DeleteEmailTemplate' {templateName} -> templateName) (\s@DeleteEmailTemplate' {} a -> s {templateName = a} :: DeleteEmailTemplate)
 
-instance AWSRequest DeleteEmailTemplate where
+instance Prelude.AWSRequest DeleteEmailTemplate where
   type
     Rs DeleteEmailTemplate =
       DeleteEmailTemplateResponse
-  request = delete pinpoint
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteEmailTemplateResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable DeleteEmailTemplate
+instance Prelude.Hashable DeleteEmailTemplate
 
-instance NFData DeleteEmailTemplate
+instance Prelude.NFData DeleteEmailTemplate
 
-instance ToHeaders DeleteEmailTemplate where
+instance Prelude.ToHeaders DeleteEmailTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteEmailTemplate where
+instance Prelude.ToPath DeleteEmailTemplate where
   toPath DeleteEmailTemplate' {..} =
-    mconcat
-      ["/v1/templates/", toBS _detTemplateName, "/email"]
+    Prelude.mconcat
+      [ "/v1/templates/",
+        Prelude.toBS templateName,
+        "/email"
+      ]
 
-instance ToQuery DeleteEmailTemplate where
+instance Prelude.ToQuery DeleteEmailTemplate where
   toQuery DeleteEmailTemplate' {..} =
-    mconcat ["version" =: _detVersion]
+    Prelude.mconcat ["version" Prelude.=: version]
 
--- | /See:/ 'deleteEmailTemplateResponse' smart constructor.
+-- | /See:/ 'newDeleteEmailTemplateResponse' smart constructor.
 data DeleteEmailTemplateResponse = DeleteEmailTemplateResponse'
-  { _detrrsResponseStatus ::
-      !Int,
-    _detrrsMessageBody ::
-      !MessageBody
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    messageBody :: MessageBody
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEmailTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEmailTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'detrrsMessageBody' - Undocumented member.
-deleteEmailTemplateResponse ::
-  -- | 'detrrsResponseStatus'
-  Int ->
-  -- | 'detrrsMessageBody'
+-- 'httpStatus', 'deleteEmailTemplateResponse_httpStatus' - The response's http status code.
+--
+-- 'messageBody', 'deleteEmailTemplateResponse_messageBody' - Undocumented member.
+newDeleteEmailTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'messageBody'
   MessageBody ->
   DeleteEmailTemplateResponse
-deleteEmailTemplateResponse
-  pResponseStatus_
+newDeleteEmailTemplateResponse
+  pHttpStatus_
   pMessageBody_ =
     DeleteEmailTemplateResponse'
-      { _detrrsResponseStatus =
-          pResponseStatus_,
-        _detrrsMessageBody = pMessageBody_
+      { httpStatus =
+          pHttpStatus_,
+        messageBody = pMessageBody_
       }
 
--- | -- | The response status code.
-detrrsResponseStatus :: Lens' DeleteEmailTemplateResponse Int
-detrrsResponseStatus = lens _detrrsResponseStatus (\s a -> s {_detrrsResponseStatus = a})
+-- | The response's http status code.
+deleteEmailTemplateResponse_httpStatus :: Lens.Lens' DeleteEmailTemplateResponse Prelude.Int
+deleteEmailTemplateResponse_httpStatus = Lens.lens (\DeleteEmailTemplateResponse' {httpStatus} -> httpStatus) (\s@DeleteEmailTemplateResponse' {} a -> s {httpStatus = a} :: DeleteEmailTemplateResponse)
 
 -- | Undocumented member.
-detrrsMessageBody :: Lens' DeleteEmailTemplateResponse MessageBody
-detrrsMessageBody = lens _detrrsMessageBody (\s a -> s {_detrrsMessageBody = a})
+deleteEmailTemplateResponse_messageBody :: Lens.Lens' DeleteEmailTemplateResponse MessageBody
+deleteEmailTemplateResponse_messageBody = Lens.lens (\DeleteEmailTemplateResponse' {messageBody} -> messageBody) (\s@DeleteEmailTemplateResponse' {} a -> s {messageBody = a} :: DeleteEmailTemplateResponse)
 
-instance NFData DeleteEmailTemplateResponse
+instance Prelude.NFData DeleteEmailTemplateResponse

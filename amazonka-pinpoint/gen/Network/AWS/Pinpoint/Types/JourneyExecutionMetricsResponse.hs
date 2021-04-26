@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,96 +19,105 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.JourneyExecutionMetricsResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the results of a query that retrieved the data for a standard execution metric that applies to a journey, and provides information about that query.
+-- | Provides the results of a query that retrieved the data for a standard
+-- execution metric that applies to a journey, and provides information
+-- about that query.
 --
---
---
--- /See:/ 'journeyExecutionMetricsResponse' smart constructor.
+-- /See:/ 'newJourneyExecutionMetricsResponse' smart constructor.
 data JourneyExecutionMetricsResponse = JourneyExecutionMetricsResponse'
-  { _jemrMetrics ::
-      !( Map
-           Text
-           Text
-       ),
-    _jemrJourneyId ::
-      !Text,
-    _jemrLastEvaluatedTime ::
-      !Text,
-    _jemrApplicationId ::
-      !Text
+  { -- | A JSON object that contains the results of the query. For information
+    -- about the structure and contents of the results, see the
+    -- <https://docs.aws.amazon.com//pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide>.
+    metrics :: Prelude.Map Prelude.Text Prelude.Text,
+    -- | The unique identifier for the journey that the metric applies to.
+    journeyId :: Prelude.Text,
+    -- | The date and time, in ISO 8601 format, when Amazon Pinpoint last
+    -- evaluated the journey and updated the data for the metric.
+    lastEvaluatedTime :: Prelude.Text,
+    -- | The unique identifier for the application that the metric applies to.
+    applicationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JourneyExecutionMetricsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JourneyExecutionMetricsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jemrMetrics' - A JSON object that contains the results of the query. For information about the structure and contents of the results, see the <https://docs.aws.amazon.com//pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jemrJourneyId' - The unique identifier for the journey that the metric applies to.
+-- 'metrics', 'journeyExecutionMetricsResponse_metrics' - A JSON object that contains the results of the query. For information
+-- about the structure and contents of the results, see the
+-- <https://docs.aws.amazon.com//pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide>.
 --
--- * 'jemrLastEvaluatedTime' - The date and time, in ISO 8601 format, when Amazon Pinpoint last evaluated the journey and updated the data for the metric.
+-- 'journeyId', 'journeyExecutionMetricsResponse_journeyId' - The unique identifier for the journey that the metric applies to.
 --
--- * 'jemrApplicationId' - The unique identifier for the application that the metric applies to.
-journeyExecutionMetricsResponse ::
-  -- | 'jemrJourneyId'
-  Text ->
-  -- | 'jemrLastEvaluatedTime'
-  Text ->
-  -- | 'jemrApplicationId'
-  Text ->
+-- 'lastEvaluatedTime', 'journeyExecutionMetricsResponse_lastEvaluatedTime' - The date and time, in ISO 8601 format, when Amazon Pinpoint last
+-- evaluated the journey and updated the data for the metric.
+--
+-- 'applicationId', 'journeyExecutionMetricsResponse_applicationId' - The unique identifier for the application that the metric applies to.
+newJourneyExecutionMetricsResponse ::
+  -- | 'journeyId'
+  Prelude.Text ->
+  -- | 'lastEvaluatedTime'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
   JourneyExecutionMetricsResponse
-journeyExecutionMetricsResponse
+newJourneyExecutionMetricsResponse
   pJourneyId_
   pLastEvaluatedTime_
   pApplicationId_ =
     JourneyExecutionMetricsResponse'
-      { _jemrMetrics =
-          mempty,
-        _jemrJourneyId = pJourneyId_,
-        _jemrLastEvaluatedTime =
-          pLastEvaluatedTime_,
-        _jemrApplicationId = pApplicationId_
+      { metrics =
+          Prelude.mempty,
+        journeyId = pJourneyId_,
+        lastEvaluatedTime = pLastEvaluatedTime_,
+        applicationId = pApplicationId_
       }
 
--- | A JSON object that contains the results of the query. For information about the structure and contents of the results, see the <https://docs.aws.amazon.com//pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide> .
-jemrMetrics :: Lens' JourneyExecutionMetricsResponse (HashMap Text Text)
-jemrMetrics = lens _jemrMetrics (\s a -> s {_jemrMetrics = a}) . _Map
+-- | A JSON object that contains the results of the query. For information
+-- about the structure and contents of the results, see the
+-- <https://docs.aws.amazon.com//pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide>.
+journeyExecutionMetricsResponse_metrics :: Lens.Lens' JourneyExecutionMetricsResponse (Prelude.HashMap Prelude.Text Prelude.Text)
+journeyExecutionMetricsResponse_metrics = Lens.lens (\JourneyExecutionMetricsResponse' {metrics} -> metrics) (\s@JourneyExecutionMetricsResponse' {} a -> s {metrics = a} :: JourneyExecutionMetricsResponse) Prelude.. Prelude._Map
 
 -- | The unique identifier for the journey that the metric applies to.
-jemrJourneyId :: Lens' JourneyExecutionMetricsResponse Text
-jemrJourneyId = lens _jemrJourneyId (\s a -> s {_jemrJourneyId = a})
+journeyExecutionMetricsResponse_journeyId :: Lens.Lens' JourneyExecutionMetricsResponse Prelude.Text
+journeyExecutionMetricsResponse_journeyId = Lens.lens (\JourneyExecutionMetricsResponse' {journeyId} -> journeyId) (\s@JourneyExecutionMetricsResponse' {} a -> s {journeyId = a} :: JourneyExecutionMetricsResponse)
 
--- | The date and time, in ISO 8601 format, when Amazon Pinpoint last evaluated the journey and updated the data for the metric.
-jemrLastEvaluatedTime :: Lens' JourneyExecutionMetricsResponse Text
-jemrLastEvaluatedTime = lens _jemrLastEvaluatedTime (\s a -> s {_jemrLastEvaluatedTime = a})
+-- | The date and time, in ISO 8601 format, when Amazon Pinpoint last
+-- evaluated the journey and updated the data for the metric.
+journeyExecutionMetricsResponse_lastEvaluatedTime :: Lens.Lens' JourneyExecutionMetricsResponse Prelude.Text
+journeyExecutionMetricsResponse_lastEvaluatedTime = Lens.lens (\JourneyExecutionMetricsResponse' {lastEvaluatedTime} -> lastEvaluatedTime) (\s@JourneyExecutionMetricsResponse' {} a -> s {lastEvaluatedTime = a} :: JourneyExecutionMetricsResponse)
 
 -- | The unique identifier for the application that the metric applies to.
-jemrApplicationId :: Lens' JourneyExecutionMetricsResponse Text
-jemrApplicationId = lens _jemrApplicationId (\s a -> s {_jemrApplicationId = a})
+journeyExecutionMetricsResponse_applicationId :: Lens.Lens' JourneyExecutionMetricsResponse Prelude.Text
+journeyExecutionMetricsResponse_applicationId = Lens.lens (\JourneyExecutionMetricsResponse' {applicationId} -> applicationId) (\s@JourneyExecutionMetricsResponse' {} a -> s {applicationId = a} :: JourneyExecutionMetricsResponse)
 
-instance FromJSON JourneyExecutionMetricsResponse where
+instance
+  Prelude.FromJSON
+    JourneyExecutionMetricsResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JourneyExecutionMetricsResponse"
       ( \x ->
           JourneyExecutionMetricsResponse'
-            <$> (x .:? "Metrics" .!= mempty)
-            <*> (x .: "JourneyId")
-            <*> (x .: "LastEvaluatedTime")
-            <*> (x .: "ApplicationId")
+            Prelude.<$> (x Prelude..:? "Metrics" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..: "JourneyId")
+            Prelude.<*> (x Prelude..: "LastEvaluatedTime")
+            Prelude.<*> (x Prelude..: "ApplicationId")
       )
 
-instance Hashable JourneyExecutionMetricsResponse
+instance
+  Prelude.Hashable
+    JourneyExecutionMetricsResponse
 
-instance NFData JourneyExecutionMetricsResponse
+instance
+  Prelude.NFData
+    JourneyExecutionMetricsResponse

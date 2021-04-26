@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.RecencyDimension where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.Duration
 import Network.AWS.Pinpoint.Types.RecencyType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies criteria for including or excluding endpoints from a segment based on how recently an endpoint was active.
+-- | Specifies criteria for including or excluding endpoints from a segment
+-- based on how recently an endpoint was active.
 --
---
---
--- /See:/ 'recencyDimension' smart constructor.
+-- /See:/ 'newRecencyDimension' smart constructor.
 data RecencyDimension = RecencyDimension'
-  { _rdDuration ::
-      !Duration,
-    _rdRecencyType :: !RecencyType
+  { -- | The duration to use when determining whether an endpoint is active or
+    -- inactive.
+    duration :: Duration,
+    -- | The type of recency dimension to use for the segment. Valid values are:
+    -- ACTIVE, endpoints that were active within the specified duration are
+    -- included in the segment; and, INACTIVE, endpoints that weren\'t active
+    -- within the specified duration are included in the segment.
+    recencyType :: RecencyType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RecencyDimension' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RecencyDimension' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdDuration' - The duration to use when determining whether an endpoint is active or inactive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdRecencyType' - The type of recency dimension to use for the segment. Valid values are: ACTIVE, endpoints that were active within the specified duration are included in the segment; and, INACTIVE, endpoints that weren't active within the specified duration are included in the segment.
-recencyDimension ::
-  -- | 'rdDuration'
+-- 'duration', 'recencyDimension_duration' - The duration to use when determining whether an endpoint is active or
+-- inactive.
+--
+-- 'recencyType', 'recencyDimension_recencyType' - The type of recency dimension to use for the segment. Valid values are:
+-- ACTIVE, endpoints that were active within the specified duration are
+-- included in the segment; and, INACTIVE, endpoints that weren\'t active
+-- within the specified duration are included in the segment.
+newRecencyDimension ::
+  -- | 'duration'
   Duration ->
-  -- | 'rdRecencyType'
+  -- | 'recencyType'
   RecencyType ->
   RecencyDimension
-recencyDimension pDuration_ pRecencyType_ =
+newRecencyDimension pDuration_ pRecencyType_ =
   RecencyDimension'
-    { _rdDuration = pDuration_,
-      _rdRecencyType = pRecencyType_
+    { duration = pDuration_,
+      recencyType = pRecencyType_
     }
 
--- | The duration to use when determining whether an endpoint is active or inactive.
-rdDuration :: Lens' RecencyDimension Duration
-rdDuration = lens _rdDuration (\s a -> s {_rdDuration = a})
+-- | The duration to use when determining whether an endpoint is active or
+-- inactive.
+recencyDimension_duration :: Lens.Lens' RecencyDimension Duration
+recencyDimension_duration = Lens.lens (\RecencyDimension' {duration} -> duration) (\s@RecencyDimension' {} a -> s {duration = a} :: RecencyDimension)
 
--- | The type of recency dimension to use for the segment. Valid values are: ACTIVE, endpoints that were active within the specified duration are included in the segment; and, INACTIVE, endpoints that weren't active within the specified duration are included in the segment.
-rdRecencyType :: Lens' RecencyDimension RecencyType
-rdRecencyType = lens _rdRecencyType (\s a -> s {_rdRecencyType = a})
+-- | The type of recency dimension to use for the segment. Valid values are:
+-- ACTIVE, endpoints that were active within the specified duration are
+-- included in the segment; and, INACTIVE, endpoints that weren\'t active
+-- within the specified duration are included in the segment.
+recencyDimension_recencyType :: Lens.Lens' RecencyDimension RecencyType
+recencyDimension_recencyType = Lens.lens (\RecencyDimension' {recencyType} -> recencyType) (\s@RecencyDimension' {} a -> s {recencyType = a} :: RecencyDimension)
 
-instance FromJSON RecencyDimension where
+instance Prelude.FromJSON RecencyDimension where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RecencyDimension"
       ( \x ->
           RecencyDimension'
-            <$> (x .: "Duration") <*> (x .: "RecencyType")
+            Prelude.<$> (x Prelude..: "Duration")
+            Prelude.<*> (x Prelude..: "RecencyType")
       )
 
-instance Hashable RecencyDimension
+instance Prelude.Hashable RecencyDimension
 
-instance NFData RecencyDimension
+instance Prelude.NFData RecencyDimension
 
-instance ToJSON RecencyDimension where
+instance Prelude.ToJSON RecencyDimension where
   toJSON RecencyDimension' {..} =
-    object
-      ( catMaybes
-          [ Just ("Duration" .= _rdDuration),
-            Just ("RecencyType" .= _rdRecencyType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Duration" Prelude..= duration),
+            Prelude.Just ("RecencyType" Prelude..= recencyType)
           ]
       )

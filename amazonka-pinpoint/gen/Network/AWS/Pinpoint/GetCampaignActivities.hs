@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,174 +24,187 @@
 -- Retrieves information about all the activities for a campaign.
 module Network.AWS.Pinpoint.GetCampaignActivities
   ( -- * Creating a Request
-    getCampaignActivities,
-    GetCampaignActivities,
+    GetCampaignActivities (..),
+    newGetCampaignActivities,
 
     -- * Request Lenses
-    gcaPageSize,
-    gcaToken,
-    gcaApplicationId,
-    gcaCampaignId,
+    getCampaignActivities_pageSize,
+    getCampaignActivities_token,
+    getCampaignActivities_applicationId,
+    getCampaignActivities_campaignId,
 
     -- * Destructuring the Response
-    getCampaignActivitiesResponse,
-    GetCampaignActivitiesResponse,
+    GetCampaignActivitiesResponse (..),
+    newGetCampaignActivitiesResponse,
 
     -- * Response Lenses
-    gcarrsResponseStatus,
-    gcarrsActivitiesResponse,
+    getCampaignActivitiesResponse_httpStatus,
+    getCampaignActivitiesResponse_activitiesResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.ActivitiesResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCampaignActivities' smart constructor.
+-- | /See:/ 'newGetCampaignActivities' smart constructor.
 data GetCampaignActivities = GetCampaignActivities'
-  { _gcaPageSize ::
-      !(Maybe Text),
-    _gcaToken :: !(Maybe Text),
-    _gcaApplicationId :: !Text,
-    _gcaCampaignId :: !Text
+  { -- | The maximum number of items to include in each page of a paginated
+    -- response. This parameter is not supported for application, campaign, and
+    -- journey metrics.
+    pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    -- | The unique identifier for the campaign.
+    campaignId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCampaignActivities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCampaignActivities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcaPageSize' - The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcaToken' - The NextToken string that specifies which page of results to return in a paginated response.
+-- 'pageSize', 'getCampaignActivities_pageSize' - The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
 --
--- * 'gcaApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- 'token', 'getCampaignActivities_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
 --
--- * 'gcaCampaignId' - The unique identifier for the campaign.
-getCampaignActivities ::
-  -- | 'gcaApplicationId'
-  Text ->
-  -- | 'gcaCampaignId'
-  Text ->
+-- 'applicationId', 'getCampaignActivities_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'campaignId', 'getCampaignActivities_campaignId' - The unique identifier for the campaign.
+newGetCampaignActivities ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'campaignId'
+  Prelude.Text ->
   GetCampaignActivities
-getCampaignActivities pApplicationId_ pCampaignId_ =
+newGetCampaignActivities pApplicationId_ pCampaignId_ =
   GetCampaignActivities'
-    { _gcaPageSize = Nothing,
-      _gcaToken = Nothing,
-      _gcaApplicationId = pApplicationId_,
-      _gcaCampaignId = pCampaignId_
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing,
+      applicationId = pApplicationId_,
+      campaignId = pCampaignId_
     }
 
--- | The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
-gcaPageSize :: Lens' GetCampaignActivities (Maybe Text)
-gcaPageSize = lens _gcaPageSize (\s a -> s {_gcaPageSize = a})
+-- | The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+getCampaignActivities_pageSize :: Lens.Lens' GetCampaignActivities (Prelude.Maybe Prelude.Text)
+getCampaignActivities_pageSize = Lens.lens (\GetCampaignActivities' {pageSize} -> pageSize) (\s@GetCampaignActivities' {} a -> s {pageSize = a} :: GetCampaignActivities)
 
--- | The NextToken string that specifies which page of results to return in a paginated response.
-gcaToken :: Lens' GetCampaignActivities (Maybe Text)
-gcaToken = lens _gcaToken (\s a -> s {_gcaToken = a})
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+getCampaignActivities_token :: Lens.Lens' GetCampaignActivities (Prelude.Maybe Prelude.Text)
+getCampaignActivities_token = Lens.lens (\GetCampaignActivities' {token} -> token) (\s@GetCampaignActivities' {} a -> s {token = a} :: GetCampaignActivities)
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-gcaApplicationId :: Lens' GetCampaignActivities Text
-gcaApplicationId = lens _gcaApplicationId (\s a -> s {_gcaApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+getCampaignActivities_applicationId :: Lens.Lens' GetCampaignActivities Prelude.Text
+getCampaignActivities_applicationId = Lens.lens (\GetCampaignActivities' {applicationId} -> applicationId) (\s@GetCampaignActivities' {} a -> s {applicationId = a} :: GetCampaignActivities)
 
 -- | The unique identifier for the campaign.
-gcaCampaignId :: Lens' GetCampaignActivities Text
-gcaCampaignId = lens _gcaCampaignId (\s a -> s {_gcaCampaignId = a})
+getCampaignActivities_campaignId :: Lens.Lens' GetCampaignActivities Prelude.Text
+getCampaignActivities_campaignId = Lens.lens (\GetCampaignActivities' {campaignId} -> campaignId) (\s@GetCampaignActivities' {} a -> s {campaignId = a} :: GetCampaignActivities)
 
-instance AWSRequest GetCampaignActivities where
+instance Prelude.AWSRequest GetCampaignActivities where
   type
     Rs GetCampaignActivities =
       GetCampaignActivitiesResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCampaignActivitiesResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetCampaignActivities
+instance Prelude.Hashable GetCampaignActivities
 
-instance NFData GetCampaignActivities
+instance Prelude.NFData GetCampaignActivities
 
-instance ToHeaders GetCampaignActivities where
+instance Prelude.ToHeaders GetCampaignActivities where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetCampaignActivities where
+instance Prelude.ToPath GetCampaignActivities where
   toPath GetCampaignActivities' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _gcaApplicationId,
+        Prelude.toBS applicationId,
         "/campaigns/",
-        toBS _gcaCampaignId,
+        Prelude.toBS campaignId,
         "/activities"
       ]
 
-instance ToQuery GetCampaignActivities where
+instance Prelude.ToQuery GetCampaignActivities where
   toQuery GetCampaignActivities' {..} =
-    mconcat
-      ["page-size" =: _gcaPageSize, "token" =: _gcaToken]
+    Prelude.mconcat
+      [ "page-size" Prelude.=: pageSize,
+        "token" Prelude.=: token
+      ]
 
--- | /See:/ 'getCampaignActivitiesResponse' smart constructor.
+-- | /See:/ 'newGetCampaignActivitiesResponse' smart constructor.
 data GetCampaignActivitiesResponse = GetCampaignActivitiesResponse'
-  { _gcarrsResponseStatus ::
-      !Int,
-    _gcarrsActivitiesResponse ::
-      !ActivitiesResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    activitiesResponse :: ActivitiesResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCampaignActivitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCampaignActivitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcarrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcarrsActivitiesResponse' - Undocumented member.
-getCampaignActivitiesResponse ::
-  -- | 'gcarrsResponseStatus'
-  Int ->
-  -- | 'gcarrsActivitiesResponse'
+-- 'httpStatus', 'getCampaignActivitiesResponse_httpStatus' - The response's http status code.
+--
+-- 'activitiesResponse', 'getCampaignActivitiesResponse_activitiesResponse' - Undocumented member.
+newGetCampaignActivitiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'activitiesResponse'
   ActivitiesResponse ->
   GetCampaignActivitiesResponse
-getCampaignActivitiesResponse
-  pResponseStatus_
+newGetCampaignActivitiesResponse
+  pHttpStatus_
   pActivitiesResponse_ =
     GetCampaignActivitiesResponse'
-      { _gcarrsResponseStatus =
-          pResponseStatus_,
-        _gcarrsActivitiesResponse =
-          pActivitiesResponse_
+      { httpStatus =
+          pHttpStatus_,
+        activitiesResponse = pActivitiesResponse_
       }
 
--- | -- | The response status code.
-gcarrsResponseStatus :: Lens' GetCampaignActivitiesResponse Int
-gcarrsResponseStatus = lens _gcarrsResponseStatus (\s a -> s {_gcarrsResponseStatus = a})
+-- | The response's http status code.
+getCampaignActivitiesResponse_httpStatus :: Lens.Lens' GetCampaignActivitiesResponse Prelude.Int
+getCampaignActivitiesResponse_httpStatus = Lens.lens (\GetCampaignActivitiesResponse' {httpStatus} -> httpStatus) (\s@GetCampaignActivitiesResponse' {} a -> s {httpStatus = a} :: GetCampaignActivitiesResponse)
 
 -- | Undocumented member.
-gcarrsActivitiesResponse :: Lens' GetCampaignActivitiesResponse ActivitiesResponse
-gcarrsActivitiesResponse = lens _gcarrsActivitiesResponse (\s a -> s {_gcarrsActivitiesResponse = a})
+getCampaignActivitiesResponse_activitiesResponse :: Lens.Lens' GetCampaignActivitiesResponse ActivitiesResponse
+getCampaignActivitiesResponse_activitiesResponse = Lens.lens (\GetCampaignActivitiesResponse' {activitiesResponse} -> activitiesResponse) (\s@GetCampaignActivitiesResponse' {} a -> s {activitiesResponse = a} :: GetCampaignActivitiesResponse)
 
-instance NFData GetCampaignActivitiesResponse
+instance Prelude.NFData GetCampaignActivitiesResponse

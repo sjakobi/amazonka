@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,141 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.JourneySMSMessage where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.MessageType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the sender ID and message type for an SMS message that's sent to participants in a journey.
+-- | Specifies the sender ID and message type for an SMS message that\'s sent
+-- to participants in a journey.
 --
---
---
--- /See:/ 'journeySMSMessage' smart constructor.
+-- /See:/ 'newJourneySMSMessage' smart constructor.
 data JourneySMSMessage = JourneySMSMessage'
-  { _jsmsmEntityId ::
-      !(Maybe Text),
-    _jsmsmSenderId :: !(Maybe Text),
-    _jsmsmMessageType ::
-      !(Maybe MessageType),
-    _jsmsmTemplateId :: !(Maybe Text),
-    _jsmsmOriginationNumber ::
-      !(Maybe Text)
+  { -- | The entity ID or Principal Entity (PE) id received from the regulatory
+    -- body for sending SMS in your country.
+    entityId :: Prelude.Maybe Prelude.Text,
+    -- | The sender ID to display as the sender of the message on a recipient\'s
+    -- device. Support for sender IDs varies by country or region. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html Supported Countries and Regions>
+    -- in the Amazon Pinpoint User Guide.
+    senderId :: Prelude.Maybe Prelude.Text,
+    -- | The SMS message type. Valid values are TRANSACTIONAL (for messages that
+    -- are critical or time-sensitive, such as a one-time passwords) and
+    -- PROMOTIONAL (for messsages that aren\'t critical or time-sensitive, such
+    -- as marketing messages).
+    messageType :: Prelude.Maybe MessageType,
+    -- | The template ID received from the regulatory body for sending SMS in
+    -- your country.
+    templateId :: Prelude.Maybe Prelude.Text,
+    -- | The long code to send the SMS message from. This value should be one of
+    -- the dedicated long codes that\'s assigned to your AWS account. Although
+    -- it isn\'t required, we recommend that you specify the long code using an
+    -- E.164 format to ensure prompt and accurate delivery of the message. For
+    -- example, +12065550100.
+    originationNumber :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JourneySMSMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JourneySMSMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jsmsmEntityId' - The entity ID or Principal Entity (PE) id received from the regulatory body for sending SMS in your country.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jsmsmSenderId' - The sender ID to display as the sender of the message on a recipient's device. Support for sender IDs varies by country or region. For more information, see <https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html Supported Countries and Regions> in the Amazon Pinpoint User Guide.
+-- 'entityId', 'journeySMSMessage_entityId' - The entity ID or Principal Entity (PE) id received from the regulatory
+-- body for sending SMS in your country.
 --
--- * 'jsmsmMessageType' - The SMS message type. Valid values are TRANSACTIONAL (for messages that are critical or time-sensitive, such as a one-time passwords) and PROMOTIONAL (for messsages that aren't critical or time-sensitive, such as marketing messages).
+-- 'senderId', 'journeySMSMessage_senderId' - The sender ID to display as the sender of the message on a recipient\'s
+-- device. Support for sender IDs varies by country or region. For more
+-- information, see
+-- <https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html Supported Countries and Regions>
+-- in the Amazon Pinpoint User Guide.
 --
--- * 'jsmsmTemplateId' - The template ID received from the regulatory body for sending SMS in your country.
+-- 'messageType', 'journeySMSMessage_messageType' - The SMS message type. Valid values are TRANSACTIONAL (for messages that
+-- are critical or time-sensitive, such as a one-time passwords) and
+-- PROMOTIONAL (for messsages that aren\'t critical or time-sensitive, such
+-- as marketing messages).
 --
--- * 'jsmsmOriginationNumber' - The long code to send the SMS message from. This value should be one of the dedicated long codes that's assigned to your AWS account. Although it isn't required, we recommend that you specify the long code using an E.164 format to ensure prompt and accurate delivery of the message. For example, +12065550100.
-journeySMSMessage ::
+-- 'templateId', 'journeySMSMessage_templateId' - The template ID received from the regulatory body for sending SMS in
+-- your country.
+--
+-- 'originationNumber', 'journeySMSMessage_originationNumber' - The long code to send the SMS message from. This value should be one of
+-- the dedicated long codes that\'s assigned to your AWS account. Although
+-- it isn\'t required, we recommend that you specify the long code using an
+-- E.164 format to ensure prompt and accurate delivery of the message. For
+-- example, +12065550100.
+newJourneySMSMessage ::
   JourneySMSMessage
-journeySMSMessage =
+newJourneySMSMessage =
   JourneySMSMessage'
-    { _jsmsmEntityId = Nothing,
-      _jsmsmSenderId = Nothing,
-      _jsmsmMessageType = Nothing,
-      _jsmsmTemplateId = Nothing,
-      _jsmsmOriginationNumber = Nothing
+    { entityId = Prelude.Nothing,
+      senderId = Prelude.Nothing,
+      messageType = Prelude.Nothing,
+      templateId = Prelude.Nothing,
+      originationNumber = Prelude.Nothing
     }
 
--- | The entity ID or Principal Entity (PE) id received from the regulatory body for sending SMS in your country.
-jsmsmEntityId :: Lens' JourneySMSMessage (Maybe Text)
-jsmsmEntityId = lens _jsmsmEntityId (\s a -> s {_jsmsmEntityId = a})
+-- | The entity ID or Principal Entity (PE) id received from the regulatory
+-- body for sending SMS in your country.
+journeySMSMessage_entityId :: Lens.Lens' JourneySMSMessage (Prelude.Maybe Prelude.Text)
+journeySMSMessage_entityId = Lens.lens (\JourneySMSMessage' {entityId} -> entityId) (\s@JourneySMSMessage' {} a -> s {entityId = a} :: JourneySMSMessage)
 
--- | The sender ID to display as the sender of the message on a recipient's device. Support for sender IDs varies by country or region. For more information, see <https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html Supported Countries and Regions> in the Amazon Pinpoint User Guide.
-jsmsmSenderId :: Lens' JourneySMSMessage (Maybe Text)
-jsmsmSenderId = lens _jsmsmSenderId (\s a -> s {_jsmsmSenderId = a})
+-- | The sender ID to display as the sender of the message on a recipient\'s
+-- device. Support for sender IDs varies by country or region. For more
+-- information, see
+-- <https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html Supported Countries and Regions>
+-- in the Amazon Pinpoint User Guide.
+journeySMSMessage_senderId :: Lens.Lens' JourneySMSMessage (Prelude.Maybe Prelude.Text)
+journeySMSMessage_senderId = Lens.lens (\JourneySMSMessage' {senderId} -> senderId) (\s@JourneySMSMessage' {} a -> s {senderId = a} :: JourneySMSMessage)
 
--- | The SMS message type. Valid values are TRANSACTIONAL (for messages that are critical or time-sensitive, such as a one-time passwords) and PROMOTIONAL (for messsages that aren't critical or time-sensitive, such as marketing messages).
-jsmsmMessageType :: Lens' JourneySMSMessage (Maybe MessageType)
-jsmsmMessageType = lens _jsmsmMessageType (\s a -> s {_jsmsmMessageType = a})
+-- | The SMS message type. Valid values are TRANSACTIONAL (for messages that
+-- are critical or time-sensitive, such as a one-time passwords) and
+-- PROMOTIONAL (for messsages that aren\'t critical or time-sensitive, such
+-- as marketing messages).
+journeySMSMessage_messageType :: Lens.Lens' JourneySMSMessage (Prelude.Maybe MessageType)
+journeySMSMessage_messageType = Lens.lens (\JourneySMSMessage' {messageType} -> messageType) (\s@JourneySMSMessage' {} a -> s {messageType = a} :: JourneySMSMessage)
 
--- | The template ID received from the regulatory body for sending SMS in your country.
-jsmsmTemplateId :: Lens' JourneySMSMessage (Maybe Text)
-jsmsmTemplateId = lens _jsmsmTemplateId (\s a -> s {_jsmsmTemplateId = a})
+-- | The template ID received from the regulatory body for sending SMS in
+-- your country.
+journeySMSMessage_templateId :: Lens.Lens' JourneySMSMessage (Prelude.Maybe Prelude.Text)
+journeySMSMessage_templateId = Lens.lens (\JourneySMSMessage' {templateId} -> templateId) (\s@JourneySMSMessage' {} a -> s {templateId = a} :: JourneySMSMessage)
 
--- | The long code to send the SMS message from. This value should be one of the dedicated long codes that's assigned to your AWS account. Although it isn't required, we recommend that you specify the long code using an E.164 format to ensure prompt and accurate delivery of the message. For example, +12065550100.
-jsmsmOriginationNumber :: Lens' JourneySMSMessage (Maybe Text)
-jsmsmOriginationNumber = lens _jsmsmOriginationNumber (\s a -> s {_jsmsmOriginationNumber = a})
+-- | The long code to send the SMS message from. This value should be one of
+-- the dedicated long codes that\'s assigned to your AWS account. Although
+-- it isn\'t required, we recommend that you specify the long code using an
+-- E.164 format to ensure prompt and accurate delivery of the message. For
+-- example, +12065550100.
+journeySMSMessage_originationNumber :: Lens.Lens' JourneySMSMessage (Prelude.Maybe Prelude.Text)
+journeySMSMessage_originationNumber = Lens.lens (\JourneySMSMessage' {originationNumber} -> originationNumber) (\s@JourneySMSMessage' {} a -> s {originationNumber = a} :: JourneySMSMessage)
 
-instance FromJSON JourneySMSMessage where
+instance Prelude.FromJSON JourneySMSMessage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JourneySMSMessage"
       ( \x ->
           JourneySMSMessage'
-            <$> (x .:? "EntityId")
-            <*> (x .:? "SenderId")
-            <*> (x .:? "MessageType")
-            <*> (x .:? "TemplateId")
-            <*> (x .:? "OriginationNumber")
+            Prelude.<$> (x Prelude..:? "EntityId")
+            Prelude.<*> (x Prelude..:? "SenderId")
+            Prelude.<*> (x Prelude..:? "MessageType")
+            Prelude.<*> (x Prelude..:? "TemplateId")
+            Prelude.<*> (x Prelude..:? "OriginationNumber")
       )
 
-instance Hashable JourneySMSMessage
+instance Prelude.Hashable JourneySMSMessage
 
-instance NFData JourneySMSMessage
+instance Prelude.NFData JourneySMSMessage
 
-instance ToJSON JourneySMSMessage where
+instance Prelude.ToJSON JourneySMSMessage where
   toJSON JourneySMSMessage' {..} =
-    object
-      ( catMaybes
-          [ ("EntityId" .=) <$> _jsmsmEntityId,
-            ("SenderId" .=) <$> _jsmsmSenderId,
-            ("MessageType" .=) <$> _jsmsmMessageType,
-            ("TemplateId" .=) <$> _jsmsmTemplateId,
-            ("OriginationNumber" .=)
-              <$> _jsmsmOriginationNumber
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EntityId" Prelude..=) Prelude.<$> entityId,
+            ("SenderId" Prelude..=) Prelude.<$> senderId,
+            ("MessageType" Prelude..=) Prelude.<$> messageType,
+            ("TemplateId" Prelude..=) Prelude.<$> templateId,
+            ("OriginationNumber" Prelude..=)
+              Prelude.<$> originationNumber
           ]
       )

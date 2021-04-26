@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Pinpoint.Types.RecencyType
   ( RecencyType
       ( ..,
-        Active,
-        Inactive
+        RecencyTypeACTIVE,
+        RecencyTypeINACTIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecencyType = RecencyType' (CI Text)
+newtype RecencyType = RecencyType'
+  { fromRecencyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: RecencyType
-pattern Active = RecencyType' "ACTIVE"
+pattern RecencyTypeACTIVE :: RecencyType
+pattern RecencyTypeACTIVE = RecencyType' "ACTIVE"
 
-pattern Inactive :: RecencyType
-pattern Inactive = RecencyType' "INACTIVE"
+pattern RecencyTypeINACTIVE :: RecencyType
+pattern RecencyTypeINACTIVE = RecencyType' "INACTIVE"
 
 {-# COMPLETE
-  Active,
-  Inactive,
+  RecencyTypeACTIVE,
+  RecencyTypeINACTIVE,
   RecencyType'
   #-}
 
-instance FromText RecencyType where
-  parser = (RecencyType' . mk) <$> takeText
+instance Prelude.FromText RecencyType where
+  parser = RecencyType' Prelude.<$> Prelude.takeText
 
-instance ToText RecencyType where
-  toText (RecencyType' ci) = original ci
+instance Prelude.ToText RecencyType where
+  toText (RecencyType' x) = x
 
-instance Hashable RecencyType
+instance Prelude.Hashable RecencyType
 
-instance NFData RecencyType
+instance Prelude.NFData RecencyType
 
-instance ToByteString RecencyType
+instance Prelude.ToByteString RecencyType
 
-instance ToQuery RecencyType
+instance Prelude.ToQuery RecencyType
 
-instance ToHeader RecencyType
+instance Prelude.ToHeader RecencyType
 
-instance ToJSON RecencyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RecencyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RecencyType where
-  parseJSON = parseJSONText "RecencyType"
+instance Prelude.FromJSON RecencyType where
+  parseJSON = Prelude.parseJSONText "RecencyType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,113 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EmailChannelRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the status and settings of the email channel for an application.
+-- | Specifies the status and settings of the email channel for an
+-- application.
 --
---
---
--- /See:/ 'emailChannelRequest' smart constructor.
+-- /See:/ 'newEmailChannelRequest' smart constructor.
 data EmailChannelRequest = EmailChannelRequest'
-  { _emaRoleARN ::
-      !(Maybe Text),
-    _emaEnabled :: !(Maybe Bool),
-    _emaConfigurationSet ::
-      !(Maybe Text),
-    _emaFromAddress :: !Text,
-    _emaIdentity :: !Text
+  { -- | The ARN of the AWS Identity and Access Management (IAM) role that you
+    -- want Amazon Pinpoint to use when it submits email-related event data for
+    -- the channel.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether to enable the email channel for the application.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The
+    -- <https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html Amazon SES configuration set>
+    -- that you want to apply to messages that you send through the channel.
+    configurationSet :: Prelude.Maybe Prelude.Text,
+    -- | The verified email address that you want to send email from when you
+    -- send email through the channel.
+    fromAddress :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the identity, verified with Amazon
+    -- Simple Email Service (Amazon SES), that you want to use when you send
+    -- email through the channel.
+    identity :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EmailChannelRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EmailChannelRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'emaRoleARN' - The ARN of the AWS Identity and Access Management (IAM) role that you want Amazon Pinpoint to use when it submits email-related event data for the channel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'emaEnabled' - Specifies whether to enable the email channel for the application.
+-- 'roleArn', 'emailChannelRequest_roleArn' - The ARN of the AWS Identity and Access Management (IAM) role that you
+-- want Amazon Pinpoint to use when it submits email-related event data for
+-- the channel.
 --
--- * 'emaConfigurationSet' - The <https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html Amazon SES configuration set> that you want to apply to messages that you send through the channel.
+-- 'enabled', 'emailChannelRequest_enabled' - Specifies whether to enable the email channel for the application.
 --
--- * 'emaFromAddress' - The verified email address that you want to send email from when you send email through the channel.
+-- 'configurationSet', 'emailChannelRequest_configurationSet' - The
+-- <https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html Amazon SES configuration set>
+-- that you want to apply to messages that you send through the channel.
 --
--- * 'emaIdentity' - The Amazon Resource Name (ARN) of the identity, verified with Amazon Simple Email Service (Amazon SES), that you want to use when you send email through the channel.
-emailChannelRequest ::
-  -- | 'emaFromAddress'
-  Text ->
-  -- | 'emaIdentity'
-  Text ->
+-- 'fromAddress', 'emailChannelRequest_fromAddress' - The verified email address that you want to send email from when you
+-- send email through the channel.
+--
+-- 'identity', 'emailChannelRequest_identity' - The Amazon Resource Name (ARN) of the identity, verified with Amazon
+-- Simple Email Service (Amazon SES), that you want to use when you send
+-- email through the channel.
+newEmailChannelRequest ::
+  -- | 'fromAddress'
+  Prelude.Text ->
+  -- | 'identity'
+  Prelude.Text ->
   EmailChannelRequest
-emailChannelRequest pFromAddress_ pIdentity_ =
+newEmailChannelRequest pFromAddress_ pIdentity_ =
   EmailChannelRequest'
-    { _emaRoleARN = Nothing,
-      _emaEnabled = Nothing,
-      _emaConfigurationSet = Nothing,
-      _emaFromAddress = pFromAddress_,
-      _emaIdentity = pIdentity_
+    { roleArn = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      configurationSet = Prelude.Nothing,
+      fromAddress = pFromAddress_,
+      identity = pIdentity_
     }
 
--- | The ARN of the AWS Identity and Access Management (IAM) role that you want Amazon Pinpoint to use when it submits email-related event data for the channel.
-emaRoleARN :: Lens' EmailChannelRequest (Maybe Text)
-emaRoleARN = lens _emaRoleARN (\s a -> s {_emaRoleARN = a})
+-- | The ARN of the AWS Identity and Access Management (IAM) role that you
+-- want Amazon Pinpoint to use when it submits email-related event data for
+-- the channel.
+emailChannelRequest_roleArn :: Lens.Lens' EmailChannelRequest (Prelude.Maybe Prelude.Text)
+emailChannelRequest_roleArn = Lens.lens (\EmailChannelRequest' {roleArn} -> roleArn) (\s@EmailChannelRequest' {} a -> s {roleArn = a} :: EmailChannelRequest)
 
 -- | Specifies whether to enable the email channel for the application.
-emaEnabled :: Lens' EmailChannelRequest (Maybe Bool)
-emaEnabled = lens _emaEnabled (\s a -> s {_emaEnabled = a})
+emailChannelRequest_enabled :: Lens.Lens' EmailChannelRequest (Prelude.Maybe Prelude.Bool)
+emailChannelRequest_enabled = Lens.lens (\EmailChannelRequest' {enabled} -> enabled) (\s@EmailChannelRequest' {} a -> s {enabled = a} :: EmailChannelRequest)
 
--- | The <https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html Amazon SES configuration set> that you want to apply to messages that you send through the channel.
-emaConfigurationSet :: Lens' EmailChannelRequest (Maybe Text)
-emaConfigurationSet = lens _emaConfigurationSet (\s a -> s {_emaConfigurationSet = a})
+-- | The
+-- <https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html Amazon SES configuration set>
+-- that you want to apply to messages that you send through the channel.
+emailChannelRequest_configurationSet :: Lens.Lens' EmailChannelRequest (Prelude.Maybe Prelude.Text)
+emailChannelRequest_configurationSet = Lens.lens (\EmailChannelRequest' {configurationSet} -> configurationSet) (\s@EmailChannelRequest' {} a -> s {configurationSet = a} :: EmailChannelRequest)
 
--- | The verified email address that you want to send email from when you send email through the channel.
-emaFromAddress :: Lens' EmailChannelRequest Text
-emaFromAddress = lens _emaFromAddress (\s a -> s {_emaFromAddress = a})
+-- | The verified email address that you want to send email from when you
+-- send email through the channel.
+emailChannelRequest_fromAddress :: Lens.Lens' EmailChannelRequest Prelude.Text
+emailChannelRequest_fromAddress = Lens.lens (\EmailChannelRequest' {fromAddress} -> fromAddress) (\s@EmailChannelRequest' {} a -> s {fromAddress = a} :: EmailChannelRequest)
 
--- | The Amazon Resource Name (ARN) of the identity, verified with Amazon Simple Email Service (Amazon SES), that you want to use when you send email through the channel.
-emaIdentity :: Lens' EmailChannelRequest Text
-emaIdentity = lens _emaIdentity (\s a -> s {_emaIdentity = a})
+-- | The Amazon Resource Name (ARN) of the identity, verified with Amazon
+-- Simple Email Service (Amazon SES), that you want to use when you send
+-- email through the channel.
+emailChannelRequest_identity :: Lens.Lens' EmailChannelRequest Prelude.Text
+emailChannelRequest_identity = Lens.lens (\EmailChannelRequest' {identity} -> identity) (\s@EmailChannelRequest' {} a -> s {identity = a} :: EmailChannelRequest)
 
-instance Hashable EmailChannelRequest
+instance Prelude.Hashable EmailChannelRequest
 
-instance NFData EmailChannelRequest
+instance Prelude.NFData EmailChannelRequest
 
-instance ToJSON EmailChannelRequest where
+instance Prelude.ToJSON EmailChannelRequest where
   toJSON EmailChannelRequest' {..} =
-    object
-      ( catMaybes
-          [ ("RoleArn" .=) <$> _emaRoleARN,
-            ("Enabled" .=) <$> _emaEnabled,
-            ("ConfigurationSet" .=) <$> _emaConfigurationSet,
-            Just ("FromAddress" .= _emaFromAddress),
-            Just ("Identity" .= _emaIdentity)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoleArn" Prelude..=) Prelude.<$> roleArn,
+            ("Enabled" Prelude..=) Prelude.<$> enabled,
+            ("ConfigurationSet" Prelude..=)
+              Prelude.<$> configurationSet,
+            Prelude.Just ("FromAddress" Prelude..= fromAddress),
+            Prelude.Just ("Identity" Prelude..= identity)
           ]
       )

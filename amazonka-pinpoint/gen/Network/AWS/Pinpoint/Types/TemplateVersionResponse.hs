@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,125 +19,147 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.TemplateVersionResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about a specific version of a message template.
 --
---
---
--- /See:/ 'templateVersionResponse' smart constructor.
+-- /See:/ 'newTemplateVersionResponse' smart constructor.
 data TemplateVersionResponse = TemplateVersionResponse'
-  { _tvrTemplateDescription ::
-      !(Maybe Text),
-    _tvrVersion ::
-      !(Maybe Text),
-    _tvrDefaultSubstitutions ::
-      !(Maybe Text),
-    _tvrLastModifiedDate ::
-      !Text,
-    _tvrCreationDate ::
-      !Text,
-    _tvrTemplateName ::
-      !Text,
-    _tvrTemplateType ::
-      !Text
+  { -- | The custom description of the version of the message template.
+    templateDescription :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the version of the message template. This
+    -- value is an integer that Amazon Pinpoint automatically increments and
+    -- assigns to each new version of a template.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | A JSON object that specifies the default values that are used for
+    -- message variables in the version of the message template. This object is
+    -- a set of key-value pairs. Each key defines a message variable in the
+    -- template. The corresponding value defines the default value for that
+    -- variable.
+    defaultSubstitutions :: Prelude.Maybe Prelude.Text,
+    -- | The date, in ISO 8601 format, when the version of the message template
+    -- was last modified.
+    lastModifiedDate :: Prelude.Text,
+    -- | The date, in ISO 8601 format, when the version of the message template
+    -- was created.
+    creationDate :: Prelude.Text,
+    -- | The name of the message template.
+    templateName :: Prelude.Text,
+    -- | The type of channel that the message template is designed for. Possible
+    -- values are: EMAIL, PUSH, SMS, and VOICE.
+    templateType :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TemplateVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TemplateVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tvrTemplateDescription' - The custom description of the version of the message template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tvrVersion' - The unique identifier for the version of the message template. This value is an integer that Amazon Pinpoint automatically increments and assigns to each new version of a template.
+-- 'templateDescription', 'templateVersionResponse_templateDescription' - The custom description of the version of the message template.
 --
--- * 'tvrDefaultSubstitutions' - A JSON object that specifies the default values that are used for message variables in the version of the message template. This object is a set of key-value pairs. Each key defines a message variable in the template. The corresponding value defines the default value for that variable.
+-- 'version', 'templateVersionResponse_version' - The unique identifier for the version of the message template. This
+-- value is an integer that Amazon Pinpoint automatically increments and
+-- assigns to each new version of a template.
 --
--- * 'tvrLastModifiedDate' - The date, in ISO 8601 format, when the version of the message template was last modified.
+-- 'defaultSubstitutions', 'templateVersionResponse_defaultSubstitutions' - A JSON object that specifies the default values that are used for
+-- message variables in the version of the message template. This object is
+-- a set of key-value pairs. Each key defines a message variable in the
+-- template. The corresponding value defines the default value for that
+-- variable.
 --
--- * 'tvrCreationDate' - The date, in ISO 8601 format, when the version of the message template was created.
+-- 'lastModifiedDate', 'templateVersionResponse_lastModifiedDate' - The date, in ISO 8601 format, when the version of the message template
+-- was last modified.
 --
--- * 'tvrTemplateName' - The name of the message template.
+-- 'creationDate', 'templateVersionResponse_creationDate' - The date, in ISO 8601 format, when the version of the message template
+-- was created.
 --
--- * 'tvrTemplateType' - The type of channel that the message template is designed for. Possible values are: EMAIL, PUSH, SMS, and VOICE.
-templateVersionResponse ::
-  -- | 'tvrLastModifiedDate'
-  Text ->
-  -- | 'tvrCreationDate'
-  Text ->
-  -- | 'tvrTemplateName'
-  Text ->
-  -- | 'tvrTemplateType'
-  Text ->
+-- 'templateName', 'templateVersionResponse_templateName' - The name of the message template.
+--
+-- 'templateType', 'templateVersionResponse_templateType' - The type of channel that the message template is designed for. Possible
+-- values are: EMAIL, PUSH, SMS, and VOICE.
+newTemplateVersionResponse ::
+  -- | 'lastModifiedDate'
+  Prelude.Text ->
+  -- | 'creationDate'
+  Prelude.Text ->
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'templateType'
+  Prelude.Text ->
   TemplateVersionResponse
-templateVersionResponse
+newTemplateVersionResponse
   pLastModifiedDate_
   pCreationDate_
   pTemplateName_
   pTemplateType_ =
     TemplateVersionResponse'
-      { _tvrTemplateDescription =
-          Nothing,
-        _tvrVersion = Nothing,
-        _tvrDefaultSubstitutions = Nothing,
-        _tvrLastModifiedDate = pLastModifiedDate_,
-        _tvrCreationDate = pCreationDate_,
-        _tvrTemplateName = pTemplateName_,
-        _tvrTemplateType = pTemplateType_
+      { templateDescription =
+          Prelude.Nothing,
+        version = Prelude.Nothing,
+        defaultSubstitutions = Prelude.Nothing,
+        lastModifiedDate = pLastModifiedDate_,
+        creationDate = pCreationDate_,
+        templateName = pTemplateName_,
+        templateType = pTemplateType_
       }
 
 -- | The custom description of the version of the message template.
-tvrTemplateDescription :: Lens' TemplateVersionResponse (Maybe Text)
-tvrTemplateDescription = lens _tvrTemplateDescription (\s a -> s {_tvrTemplateDescription = a})
+templateVersionResponse_templateDescription :: Lens.Lens' TemplateVersionResponse (Prelude.Maybe Prelude.Text)
+templateVersionResponse_templateDescription = Lens.lens (\TemplateVersionResponse' {templateDescription} -> templateDescription) (\s@TemplateVersionResponse' {} a -> s {templateDescription = a} :: TemplateVersionResponse)
 
--- | The unique identifier for the version of the message template. This value is an integer that Amazon Pinpoint automatically increments and assigns to each new version of a template.
-tvrVersion :: Lens' TemplateVersionResponse (Maybe Text)
-tvrVersion = lens _tvrVersion (\s a -> s {_tvrVersion = a})
+-- | The unique identifier for the version of the message template. This
+-- value is an integer that Amazon Pinpoint automatically increments and
+-- assigns to each new version of a template.
+templateVersionResponse_version :: Lens.Lens' TemplateVersionResponse (Prelude.Maybe Prelude.Text)
+templateVersionResponse_version = Lens.lens (\TemplateVersionResponse' {version} -> version) (\s@TemplateVersionResponse' {} a -> s {version = a} :: TemplateVersionResponse)
 
--- | A JSON object that specifies the default values that are used for message variables in the version of the message template. This object is a set of key-value pairs. Each key defines a message variable in the template. The corresponding value defines the default value for that variable.
-tvrDefaultSubstitutions :: Lens' TemplateVersionResponse (Maybe Text)
-tvrDefaultSubstitutions = lens _tvrDefaultSubstitutions (\s a -> s {_tvrDefaultSubstitutions = a})
+-- | A JSON object that specifies the default values that are used for
+-- message variables in the version of the message template. This object is
+-- a set of key-value pairs. Each key defines a message variable in the
+-- template. The corresponding value defines the default value for that
+-- variable.
+templateVersionResponse_defaultSubstitutions :: Lens.Lens' TemplateVersionResponse (Prelude.Maybe Prelude.Text)
+templateVersionResponse_defaultSubstitutions = Lens.lens (\TemplateVersionResponse' {defaultSubstitutions} -> defaultSubstitutions) (\s@TemplateVersionResponse' {} a -> s {defaultSubstitutions = a} :: TemplateVersionResponse)
 
--- | The date, in ISO 8601 format, when the version of the message template was last modified.
-tvrLastModifiedDate :: Lens' TemplateVersionResponse Text
-tvrLastModifiedDate = lens _tvrLastModifiedDate (\s a -> s {_tvrLastModifiedDate = a})
+-- | The date, in ISO 8601 format, when the version of the message template
+-- was last modified.
+templateVersionResponse_lastModifiedDate :: Lens.Lens' TemplateVersionResponse Prelude.Text
+templateVersionResponse_lastModifiedDate = Lens.lens (\TemplateVersionResponse' {lastModifiedDate} -> lastModifiedDate) (\s@TemplateVersionResponse' {} a -> s {lastModifiedDate = a} :: TemplateVersionResponse)
 
--- | The date, in ISO 8601 format, when the version of the message template was created.
-tvrCreationDate :: Lens' TemplateVersionResponse Text
-tvrCreationDate = lens _tvrCreationDate (\s a -> s {_tvrCreationDate = a})
+-- | The date, in ISO 8601 format, when the version of the message template
+-- was created.
+templateVersionResponse_creationDate :: Lens.Lens' TemplateVersionResponse Prelude.Text
+templateVersionResponse_creationDate = Lens.lens (\TemplateVersionResponse' {creationDate} -> creationDate) (\s@TemplateVersionResponse' {} a -> s {creationDate = a} :: TemplateVersionResponse)
 
 -- | The name of the message template.
-tvrTemplateName :: Lens' TemplateVersionResponse Text
-tvrTemplateName = lens _tvrTemplateName (\s a -> s {_tvrTemplateName = a})
+templateVersionResponse_templateName :: Lens.Lens' TemplateVersionResponse Prelude.Text
+templateVersionResponse_templateName = Lens.lens (\TemplateVersionResponse' {templateName} -> templateName) (\s@TemplateVersionResponse' {} a -> s {templateName = a} :: TemplateVersionResponse)
 
--- | The type of channel that the message template is designed for. Possible values are: EMAIL, PUSH, SMS, and VOICE.
-tvrTemplateType :: Lens' TemplateVersionResponse Text
-tvrTemplateType = lens _tvrTemplateType (\s a -> s {_tvrTemplateType = a})
+-- | The type of channel that the message template is designed for. Possible
+-- values are: EMAIL, PUSH, SMS, and VOICE.
+templateVersionResponse_templateType :: Lens.Lens' TemplateVersionResponse Prelude.Text
+templateVersionResponse_templateType = Lens.lens (\TemplateVersionResponse' {templateType} -> templateType) (\s@TemplateVersionResponse' {} a -> s {templateType = a} :: TemplateVersionResponse)
 
-instance FromJSON TemplateVersionResponse where
+instance Prelude.FromJSON TemplateVersionResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TemplateVersionResponse"
       ( \x ->
           TemplateVersionResponse'
-            <$> (x .:? "TemplateDescription")
-            <*> (x .:? "Version")
-            <*> (x .:? "DefaultSubstitutions")
-            <*> (x .: "LastModifiedDate")
-            <*> (x .: "CreationDate")
-            <*> (x .: "TemplateName")
-            <*> (x .: "TemplateType")
+            Prelude.<$> (x Prelude..:? "TemplateDescription")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "DefaultSubstitutions")
+            Prelude.<*> (x Prelude..: "LastModifiedDate")
+            Prelude.<*> (x Prelude..: "CreationDate")
+            Prelude.<*> (x Prelude..: "TemplateName")
+            Prelude.<*> (x Prelude..: "TemplateType")
       )
 
-instance Hashable TemplateVersionResponse
+instance Prelude.Hashable TemplateVersionResponse
 
-instance NFData TemplateVersionResponse
+instance Prelude.NFData TemplateVersionResponse

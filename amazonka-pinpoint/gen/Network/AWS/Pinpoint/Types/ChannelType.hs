@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,106 +19,108 @@
 module Network.AWS.Pinpoint.Types.ChannelType
   ( ChannelType
       ( ..,
-        CTADM,
-        CTAPNS,
-        CTAPNSSandbox,
-        CTAPNSVoip,
-        CTAPNSVoipSandbox,
-        CTBaidu,
-        CTCustom,
-        CTEmail,
-        CTGCM,
-        CTPush,
-        CTSms,
-        CTVoice
+        ChannelTypeADM,
+        ChannelTypeAPNS,
+        ChannelTypeAPNSSANDBOX,
+        ChannelTypeAPNSVOIP,
+        ChannelTypeAPNSVOIPSANDBOX,
+        ChannelTypeBAIDU,
+        ChannelTypeCUSTOM,
+        ChannelTypeEMAIL,
+        ChannelTypeGCM,
+        ChannelTypePUSH,
+        ChannelTypeSMS,
+        ChannelTypeVOICE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChannelType = ChannelType' (CI Text)
+newtype ChannelType = ChannelType'
+  { fromChannelType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CTADM :: ChannelType
-pattern CTADM = ChannelType' "ADM"
+pattern ChannelTypeADM :: ChannelType
+pattern ChannelTypeADM = ChannelType' "ADM"
 
-pattern CTAPNS :: ChannelType
-pattern CTAPNS = ChannelType' "APNS"
+pattern ChannelTypeAPNS :: ChannelType
+pattern ChannelTypeAPNS = ChannelType' "APNS"
 
-pattern CTAPNSSandbox :: ChannelType
-pattern CTAPNSSandbox = ChannelType' "APNS_SANDBOX"
+pattern ChannelTypeAPNSSANDBOX :: ChannelType
+pattern ChannelTypeAPNSSANDBOX = ChannelType' "APNS_SANDBOX"
 
-pattern CTAPNSVoip :: ChannelType
-pattern CTAPNSVoip = ChannelType' "APNS_VOIP"
+pattern ChannelTypeAPNSVOIP :: ChannelType
+pattern ChannelTypeAPNSVOIP = ChannelType' "APNS_VOIP"
 
-pattern CTAPNSVoipSandbox :: ChannelType
-pattern CTAPNSVoipSandbox = ChannelType' "APNS_VOIP_SANDBOX"
+pattern ChannelTypeAPNSVOIPSANDBOX :: ChannelType
+pattern ChannelTypeAPNSVOIPSANDBOX = ChannelType' "APNS_VOIP_SANDBOX"
 
-pattern CTBaidu :: ChannelType
-pattern CTBaidu = ChannelType' "BAIDU"
+pattern ChannelTypeBAIDU :: ChannelType
+pattern ChannelTypeBAIDU = ChannelType' "BAIDU"
 
-pattern CTCustom :: ChannelType
-pattern CTCustom = ChannelType' "CUSTOM"
+pattern ChannelTypeCUSTOM :: ChannelType
+pattern ChannelTypeCUSTOM = ChannelType' "CUSTOM"
 
-pattern CTEmail :: ChannelType
-pattern CTEmail = ChannelType' "EMAIL"
+pattern ChannelTypeEMAIL :: ChannelType
+pattern ChannelTypeEMAIL = ChannelType' "EMAIL"
 
-pattern CTGCM :: ChannelType
-pattern CTGCM = ChannelType' "GCM"
+pattern ChannelTypeGCM :: ChannelType
+pattern ChannelTypeGCM = ChannelType' "GCM"
 
-pattern CTPush :: ChannelType
-pattern CTPush = ChannelType' "PUSH"
+pattern ChannelTypePUSH :: ChannelType
+pattern ChannelTypePUSH = ChannelType' "PUSH"
 
-pattern CTSms :: ChannelType
-pattern CTSms = ChannelType' "SMS"
+pattern ChannelTypeSMS :: ChannelType
+pattern ChannelTypeSMS = ChannelType' "SMS"
 
-pattern CTVoice :: ChannelType
-pattern CTVoice = ChannelType' "VOICE"
+pattern ChannelTypeVOICE :: ChannelType
+pattern ChannelTypeVOICE = ChannelType' "VOICE"
 
 {-# COMPLETE
-  CTADM,
-  CTAPNS,
-  CTAPNSSandbox,
-  CTAPNSVoip,
-  CTAPNSVoipSandbox,
-  CTBaidu,
-  CTCustom,
-  CTEmail,
-  CTGCM,
-  CTPush,
-  CTSms,
-  CTVoice,
+  ChannelTypeADM,
+  ChannelTypeAPNS,
+  ChannelTypeAPNSSANDBOX,
+  ChannelTypeAPNSVOIP,
+  ChannelTypeAPNSVOIPSANDBOX,
+  ChannelTypeBAIDU,
+  ChannelTypeCUSTOM,
+  ChannelTypeEMAIL,
+  ChannelTypeGCM,
+  ChannelTypePUSH,
+  ChannelTypeSMS,
+  ChannelTypeVOICE,
   ChannelType'
   #-}
 
-instance FromText ChannelType where
-  parser = (ChannelType' . mk) <$> takeText
+instance Prelude.FromText ChannelType where
+  parser = ChannelType' Prelude.<$> Prelude.takeText
 
-instance ToText ChannelType where
-  toText (ChannelType' ci) = original ci
+instance Prelude.ToText ChannelType where
+  toText (ChannelType' x) = x
 
-instance Hashable ChannelType
+instance Prelude.Hashable ChannelType
 
-instance NFData ChannelType
+instance Prelude.NFData ChannelType
 
-instance ToByteString ChannelType
+instance Prelude.ToByteString ChannelType
 
-instance ToQuery ChannelType
+instance Prelude.ToQuery ChannelType
 
-instance ToHeader ChannelType
+instance Prelude.ToHeader ChannelType
 
-instance ToJSON ChannelType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ChannelType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ChannelType where
-  parseJSON = parseJSONText "ChannelType"
+instance Prelude.FromJSON ChannelType where
+  parseJSON = Prelude.parseJSONText "ChannelType"

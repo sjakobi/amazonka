@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,153 +19,179 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.APNSChannelResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the status and settings of the APNs (Apple Push Notification service) channel for an application.
+-- | Provides information about the status and settings of the APNs (Apple
+-- Push Notification service) channel for an application.
 --
---
---
--- /See:/ 'apnsChannelResponse' smart constructor.
+-- /See:/ 'newAPNSChannelResponse' smart constructor.
 data APNSChannelResponse = APNSChannelResponse'
-  { _acrLastModifiedDate ::
-      !(Maybe Text),
-    _acrApplicationId ::
-      !(Maybe Text),
-    _acrDefaultAuthenticationMethod ::
-      !(Maybe Text),
-    _acrHasCredential ::
-      !(Maybe Bool),
-    _acrHasTokenKey ::
-      !(Maybe Bool),
-    _acrId :: !(Maybe Text),
-    _acrCreationDate ::
-      !(Maybe Text),
-    _acrEnabled :: !(Maybe Bool),
-    _acrVersion :: !(Maybe Int),
-    _acrIsArchived :: !(Maybe Bool),
-    _acrLastModifiedBy ::
-      !(Maybe Text),
-    _acrPlatform :: !Text
+  { -- | The date and time when the APNs channel was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application that the APNs channel applies
+    -- to.
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | The default authentication method that Amazon Pinpoint uses to
+    -- authenticate with APNs for this channel, key or certificate.
+    defaultAuthenticationMethod :: Prelude.Maybe Prelude.Text,
+    -- | (Not used) This property is retained only for backward compatibility.
+    hasCredential :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether the APNs channel is configured to communicate with
+    -- APNs by using APNs tokens. To provide an authentication key for APNs
+    -- tokens, set the TokenKey property of the channel.
+    hasTokenKey :: Prelude.Maybe Prelude.Bool,
+    -- | (Deprecated) An identifier for the APNs channel. This property is
+    -- retained only for backward compatibility.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the APNs channel was enabled.
+    creationDate :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the APNs channel is enabled for the application.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The current version of the APNs channel.
+    version :: Prelude.Maybe Prelude.Int,
+    -- | Specifies whether the APNs channel is archived.
+    isArchived :: Prelude.Maybe Prelude.Bool,
+    -- | The user who last modified the APNs channel.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text,
+    -- | The type of messaging or notification platform for the channel. For the
+    -- APNs channel, this value is APNS.
+    platform :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'APNSChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'APNSChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acrLastModifiedDate' - The date and time when the APNs channel was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acrApplicationId' - The unique identifier for the application that the APNs channel applies to.
+-- 'lastModifiedDate', 'aPNSChannelResponse_lastModifiedDate' - The date and time when the APNs channel was last modified.
 --
--- * 'acrDefaultAuthenticationMethod' - The default authentication method that Amazon Pinpoint uses to authenticate with APNs for this channel, key or certificate.
+-- 'applicationId', 'aPNSChannelResponse_applicationId' - The unique identifier for the application that the APNs channel applies
+-- to.
 --
--- * 'acrHasCredential' - (Not used) This property is retained only for backward compatibility.
+-- 'defaultAuthenticationMethod', 'aPNSChannelResponse_defaultAuthenticationMethod' - The default authentication method that Amazon Pinpoint uses to
+-- authenticate with APNs for this channel, key or certificate.
 --
--- * 'acrHasTokenKey' - Specifies whether the APNs channel is configured to communicate with APNs by using APNs tokens. To provide an authentication key for APNs tokens, set the TokenKey property of the channel.
+-- 'hasCredential', 'aPNSChannelResponse_hasCredential' - (Not used) This property is retained only for backward compatibility.
 --
--- * 'acrId' - (Deprecated) An identifier for the APNs channel. This property is retained only for backward compatibility.
+-- 'hasTokenKey', 'aPNSChannelResponse_hasTokenKey' - Specifies whether the APNs channel is configured to communicate with
+-- APNs by using APNs tokens. To provide an authentication key for APNs
+-- tokens, set the TokenKey property of the channel.
 --
--- * 'acrCreationDate' - The date and time when the APNs channel was enabled.
+-- 'id', 'aPNSChannelResponse_id' - (Deprecated) An identifier for the APNs channel. This property is
+-- retained only for backward compatibility.
 --
--- * 'acrEnabled' - Specifies whether the APNs channel is enabled for the application.
+-- 'creationDate', 'aPNSChannelResponse_creationDate' - The date and time when the APNs channel was enabled.
 --
--- * 'acrVersion' - The current version of the APNs channel.
+-- 'enabled', 'aPNSChannelResponse_enabled' - Specifies whether the APNs channel is enabled for the application.
 --
--- * 'acrIsArchived' - Specifies whether the APNs channel is archived.
+-- 'version', 'aPNSChannelResponse_version' - The current version of the APNs channel.
 --
--- * 'acrLastModifiedBy' - The user who last modified the APNs channel.
+-- 'isArchived', 'aPNSChannelResponse_isArchived' - Specifies whether the APNs channel is archived.
 --
--- * 'acrPlatform' - The type of messaging or notification platform for the channel. For the APNs channel, this value is APNS.
-apnsChannelResponse ::
-  -- | 'acrPlatform'
-  Text ->
+-- 'lastModifiedBy', 'aPNSChannelResponse_lastModifiedBy' - The user who last modified the APNs channel.
+--
+-- 'platform', 'aPNSChannelResponse_platform' - The type of messaging or notification platform for the channel. For the
+-- APNs channel, this value is APNS.
+newAPNSChannelResponse ::
+  -- | 'platform'
+  Prelude.Text ->
   APNSChannelResponse
-apnsChannelResponse pPlatform_ =
+newAPNSChannelResponse pPlatform_ =
   APNSChannelResponse'
-    { _acrLastModifiedDate =
-        Nothing,
-      _acrApplicationId = Nothing,
-      _acrDefaultAuthenticationMethod = Nothing,
-      _acrHasCredential = Nothing,
-      _acrHasTokenKey = Nothing,
-      _acrId = Nothing,
-      _acrCreationDate = Nothing,
-      _acrEnabled = Nothing,
-      _acrVersion = Nothing,
-      _acrIsArchived = Nothing,
-      _acrLastModifiedBy = Nothing,
-      _acrPlatform = pPlatform_
+    { lastModifiedDate =
+        Prelude.Nothing,
+      applicationId = Prelude.Nothing,
+      defaultAuthenticationMethod = Prelude.Nothing,
+      hasCredential = Prelude.Nothing,
+      hasTokenKey = Prelude.Nothing,
+      id = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      version = Prelude.Nothing,
+      isArchived = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      platform = pPlatform_
     }
 
 -- | The date and time when the APNs channel was last modified.
-acrLastModifiedDate :: Lens' APNSChannelResponse (Maybe Text)
-acrLastModifiedDate = lens _acrLastModifiedDate (\s a -> s {_acrLastModifiedDate = a})
+aPNSChannelResponse_lastModifiedDate :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSChannelResponse_lastModifiedDate = Lens.lens (\APNSChannelResponse' {lastModifiedDate} -> lastModifiedDate) (\s@APNSChannelResponse' {} a -> s {lastModifiedDate = a} :: APNSChannelResponse)
 
--- | The unique identifier for the application that the APNs channel applies to.
-acrApplicationId :: Lens' APNSChannelResponse (Maybe Text)
-acrApplicationId = lens _acrApplicationId (\s a -> s {_acrApplicationId = a})
+-- | The unique identifier for the application that the APNs channel applies
+-- to.
+aPNSChannelResponse_applicationId :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSChannelResponse_applicationId = Lens.lens (\APNSChannelResponse' {applicationId} -> applicationId) (\s@APNSChannelResponse' {} a -> s {applicationId = a} :: APNSChannelResponse)
 
--- | The default authentication method that Amazon Pinpoint uses to authenticate with APNs for this channel, key or certificate.
-acrDefaultAuthenticationMethod :: Lens' APNSChannelResponse (Maybe Text)
-acrDefaultAuthenticationMethod = lens _acrDefaultAuthenticationMethod (\s a -> s {_acrDefaultAuthenticationMethod = a})
+-- | The default authentication method that Amazon Pinpoint uses to
+-- authenticate with APNs for this channel, key or certificate.
+aPNSChannelResponse_defaultAuthenticationMethod :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSChannelResponse_defaultAuthenticationMethod = Lens.lens (\APNSChannelResponse' {defaultAuthenticationMethod} -> defaultAuthenticationMethod) (\s@APNSChannelResponse' {} a -> s {defaultAuthenticationMethod = a} :: APNSChannelResponse)
 
 -- | (Not used) This property is retained only for backward compatibility.
-acrHasCredential :: Lens' APNSChannelResponse (Maybe Bool)
-acrHasCredential = lens _acrHasCredential (\s a -> s {_acrHasCredential = a})
+aPNSChannelResponse_hasCredential :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSChannelResponse_hasCredential = Lens.lens (\APNSChannelResponse' {hasCredential} -> hasCredential) (\s@APNSChannelResponse' {} a -> s {hasCredential = a} :: APNSChannelResponse)
 
--- | Specifies whether the APNs channel is configured to communicate with APNs by using APNs tokens. To provide an authentication key for APNs tokens, set the TokenKey property of the channel.
-acrHasTokenKey :: Lens' APNSChannelResponse (Maybe Bool)
-acrHasTokenKey = lens _acrHasTokenKey (\s a -> s {_acrHasTokenKey = a})
+-- | Specifies whether the APNs channel is configured to communicate with
+-- APNs by using APNs tokens. To provide an authentication key for APNs
+-- tokens, set the TokenKey property of the channel.
+aPNSChannelResponse_hasTokenKey :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSChannelResponse_hasTokenKey = Lens.lens (\APNSChannelResponse' {hasTokenKey} -> hasTokenKey) (\s@APNSChannelResponse' {} a -> s {hasTokenKey = a} :: APNSChannelResponse)
 
--- | (Deprecated) An identifier for the APNs channel. This property is retained only for backward compatibility.
-acrId :: Lens' APNSChannelResponse (Maybe Text)
-acrId = lens _acrId (\s a -> s {_acrId = a})
+-- | (Deprecated) An identifier for the APNs channel. This property is
+-- retained only for backward compatibility.
+aPNSChannelResponse_id :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSChannelResponse_id = Lens.lens (\APNSChannelResponse' {id} -> id) (\s@APNSChannelResponse' {} a -> s {id = a} :: APNSChannelResponse)
 
 -- | The date and time when the APNs channel was enabled.
-acrCreationDate :: Lens' APNSChannelResponse (Maybe Text)
-acrCreationDate = lens _acrCreationDate (\s a -> s {_acrCreationDate = a})
+aPNSChannelResponse_creationDate :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSChannelResponse_creationDate = Lens.lens (\APNSChannelResponse' {creationDate} -> creationDate) (\s@APNSChannelResponse' {} a -> s {creationDate = a} :: APNSChannelResponse)
 
 -- | Specifies whether the APNs channel is enabled for the application.
-acrEnabled :: Lens' APNSChannelResponse (Maybe Bool)
-acrEnabled = lens _acrEnabled (\s a -> s {_acrEnabled = a})
+aPNSChannelResponse_enabled :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSChannelResponse_enabled = Lens.lens (\APNSChannelResponse' {enabled} -> enabled) (\s@APNSChannelResponse' {} a -> s {enabled = a} :: APNSChannelResponse)
 
 -- | The current version of the APNs channel.
-acrVersion :: Lens' APNSChannelResponse (Maybe Int)
-acrVersion = lens _acrVersion (\s a -> s {_acrVersion = a})
+aPNSChannelResponse_version :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Int)
+aPNSChannelResponse_version = Lens.lens (\APNSChannelResponse' {version} -> version) (\s@APNSChannelResponse' {} a -> s {version = a} :: APNSChannelResponse)
 
 -- | Specifies whether the APNs channel is archived.
-acrIsArchived :: Lens' APNSChannelResponse (Maybe Bool)
-acrIsArchived = lens _acrIsArchived (\s a -> s {_acrIsArchived = a})
+aPNSChannelResponse_isArchived :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Bool)
+aPNSChannelResponse_isArchived = Lens.lens (\APNSChannelResponse' {isArchived} -> isArchived) (\s@APNSChannelResponse' {} a -> s {isArchived = a} :: APNSChannelResponse)
 
 -- | The user who last modified the APNs channel.
-acrLastModifiedBy :: Lens' APNSChannelResponse (Maybe Text)
-acrLastModifiedBy = lens _acrLastModifiedBy (\s a -> s {_acrLastModifiedBy = a})
+aPNSChannelResponse_lastModifiedBy :: Lens.Lens' APNSChannelResponse (Prelude.Maybe Prelude.Text)
+aPNSChannelResponse_lastModifiedBy = Lens.lens (\APNSChannelResponse' {lastModifiedBy} -> lastModifiedBy) (\s@APNSChannelResponse' {} a -> s {lastModifiedBy = a} :: APNSChannelResponse)
 
--- | The type of messaging or notification platform for the channel. For the APNs channel, this value is APNS.
-acrPlatform :: Lens' APNSChannelResponse Text
-acrPlatform = lens _acrPlatform (\s a -> s {_acrPlatform = a})
+-- | The type of messaging or notification platform for the channel. For the
+-- APNs channel, this value is APNS.
+aPNSChannelResponse_platform :: Lens.Lens' APNSChannelResponse Prelude.Text
+aPNSChannelResponse_platform = Lens.lens (\APNSChannelResponse' {platform} -> platform) (\s@APNSChannelResponse' {} a -> s {platform = a} :: APNSChannelResponse)
 
-instance FromJSON APNSChannelResponse where
+instance Prelude.FromJSON APNSChannelResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "APNSChannelResponse"
       ( \x ->
           APNSChannelResponse'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "ApplicationId")
-            <*> (x .:? "DefaultAuthenticationMethod")
-            <*> (x .:? "HasCredential")
-            <*> (x .:? "HasTokenKey")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "Enabled")
-            <*> (x .:? "Version")
-            <*> (x .:? "IsArchived")
-            <*> (x .:? "LastModifiedBy")
-            <*> (x .: "Platform")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "ApplicationId")
+            Prelude.<*> (x Prelude..:? "DefaultAuthenticationMethod")
+            Prelude.<*> (x Prelude..:? "HasCredential")
+            Prelude.<*> (x Prelude..:? "HasTokenKey")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "IsArchived")
+            Prelude.<*> (x Prelude..:? "LastModifiedBy")
+            Prelude.<*> (x Prelude..: "Platform")
       )
 
-instance Hashable APNSChannelResponse
+instance Prelude.Hashable APNSChannelResponse
 
-instance NFData APNSChannelResponse
+instance Prelude.NFData APNSChannelResponse

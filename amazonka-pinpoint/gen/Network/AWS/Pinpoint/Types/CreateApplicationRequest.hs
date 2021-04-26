@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.CreateApplicationRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the display name of an application and the tags to associate with the application.
+-- | Specifies the display name of an application and the tags to associate
+-- with the application.
 --
---
---
--- /See:/ 'createApplicationRequest' smart constructor.
+-- /See:/ 'newCreateApplicationRequest' smart constructor.
 data CreateApplicationRequest = CreateApplicationRequest'
-  { _carTags ::
-      !( Maybe
-           (Map Text Text)
-       ),
-    _carName :: !Text
+  { -- | A string-to-string map of key-value pairs that defines the tags to
+    -- associate with the application. Each tag consists of a required tag key
+    -- and an associated tag value.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The display name of the application. This name is displayed as the
+    -- __Project name__ on the Amazon Pinpoint console.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateApplicationRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateApplicationRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'carTags' - A string-to-string map of key-value pairs that defines the tags to associate with the application. Each tag consists of a required tag key and an associated tag value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'carName' - The display name of the application. This name is displayed as the __Project name__ on the Amazon Pinpoint console.
-createApplicationRequest ::
-  -- | 'carName'
-  Text ->
+-- 'tags', 'createApplicationRequest_tags' - A string-to-string map of key-value pairs that defines the tags to
+-- associate with the application. Each tag consists of a required tag key
+-- and an associated tag value.
+--
+-- 'name', 'createApplicationRequest_name' - The display name of the application. This name is displayed as the
+-- __Project name__ on the Amazon Pinpoint console.
+newCreateApplicationRequest ::
+  -- | 'name'
+  Prelude.Text ->
   CreateApplicationRequest
-createApplicationRequest pName_ =
+newCreateApplicationRequest pName_ =
   CreateApplicationRequest'
-    { _carTags = Nothing,
-      _carName = pName_
+    { tags = Prelude.Nothing,
+      name = pName_
     }
 
--- | A string-to-string map of key-value pairs that defines the tags to associate with the application. Each tag consists of a required tag key and an associated tag value.
-carTags :: Lens' CreateApplicationRequest (HashMap Text Text)
-carTags = lens _carTags (\s a -> s {_carTags = a}) . _Default . _Map
+-- | A string-to-string map of key-value pairs that defines the tags to
+-- associate with the application. Each tag consists of a required tag key
+-- and an associated tag value.
+createApplicationRequest_tags :: Lens.Lens' CreateApplicationRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createApplicationRequest_tags = Lens.lens (\CreateApplicationRequest' {tags} -> tags) (\s@CreateApplicationRequest' {} a -> s {tags = a} :: CreateApplicationRequest) Prelude.. Lens.mapping Prelude._Map
 
--- | The display name of the application. This name is displayed as the __Project name__ on the Amazon Pinpoint console.
-carName :: Lens' CreateApplicationRequest Text
-carName = lens _carName (\s a -> s {_carName = a})
+-- | The display name of the application. This name is displayed as the
+-- __Project name__ on the Amazon Pinpoint console.
+createApplicationRequest_name :: Lens.Lens' CreateApplicationRequest Prelude.Text
+createApplicationRequest_name = Lens.lens (\CreateApplicationRequest' {name} -> name) (\s@CreateApplicationRequest' {} a -> s {name = a} :: CreateApplicationRequest)
 
-instance Hashable CreateApplicationRequest
+instance Prelude.Hashable CreateApplicationRequest
 
-instance NFData CreateApplicationRequest
+instance Prelude.NFData CreateApplicationRequest
 
-instance ToJSON CreateApplicationRequest where
+instance Prelude.ToJSON CreateApplicationRequest where
   toJSON CreateApplicationRequest' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _carTags,
-            Just ("Name" .= _carName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EventStartCondition where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.EventFilter
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for an event that causes a journey activity to start.
+-- | Specifies the settings for an event that causes a journey activity to
+-- start.
 --
---
---
--- /See:/ 'eventStartCondition' smart constructor.
+-- /See:/ 'newEventStartCondition' smart constructor.
 data EventStartCondition = EventStartCondition'
-  { _escEventFilter ::
-      !(Maybe EventFilter),
-    _escSegmentId :: !(Maybe Text)
+  { eventFilter :: Prelude.Maybe EventFilter,
+    segmentId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventStartCondition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventStartCondition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'escEventFilter' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'escSegmentId' - Undocumented member.
-eventStartCondition ::
+-- 'eventFilter', 'eventStartCondition_eventFilter' - Undocumented member.
+--
+-- 'segmentId', 'eventStartCondition_segmentId' - Undocumented member.
+newEventStartCondition ::
   EventStartCondition
-eventStartCondition =
+newEventStartCondition =
   EventStartCondition'
-    { _escEventFilter = Nothing,
-      _escSegmentId = Nothing
+    { eventFilter = Prelude.Nothing,
+      segmentId = Prelude.Nothing
     }
 
 -- | Undocumented member.
-escEventFilter :: Lens' EventStartCondition (Maybe EventFilter)
-escEventFilter = lens _escEventFilter (\s a -> s {_escEventFilter = a})
+eventStartCondition_eventFilter :: Lens.Lens' EventStartCondition (Prelude.Maybe EventFilter)
+eventStartCondition_eventFilter = Lens.lens (\EventStartCondition' {eventFilter} -> eventFilter) (\s@EventStartCondition' {} a -> s {eventFilter = a} :: EventStartCondition)
 
 -- | Undocumented member.
-escSegmentId :: Lens' EventStartCondition (Maybe Text)
-escSegmentId = lens _escSegmentId (\s a -> s {_escSegmentId = a})
+eventStartCondition_segmentId :: Lens.Lens' EventStartCondition (Prelude.Maybe Prelude.Text)
+eventStartCondition_segmentId = Lens.lens (\EventStartCondition' {segmentId} -> segmentId) (\s@EventStartCondition' {} a -> s {segmentId = a} :: EventStartCondition)
 
-instance FromJSON EventStartCondition where
+instance Prelude.FromJSON EventStartCondition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventStartCondition"
       ( \x ->
           EventStartCondition'
-            <$> (x .:? "EventFilter") <*> (x .:? "SegmentId")
+            Prelude.<$> (x Prelude..:? "EventFilter")
+            Prelude.<*> (x Prelude..:? "SegmentId")
       )
 
-instance Hashable EventStartCondition
+instance Prelude.Hashable EventStartCondition
 
-instance NFData EventStartCondition
+instance Prelude.NFData EventStartCondition
 
-instance ToJSON EventStartCondition where
+instance Prelude.ToJSON EventStartCondition where
   toJSON EventStartCondition' {..} =
-    object
-      ( catMaybes
-          [ ("EventFilter" .=) <$> _escEventFilter,
-            ("SegmentId" .=) <$> _escSegmentId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EventFilter" Prelude..=) Prelude.<$> eventFilter,
+            ("SegmentId" Prelude..=) Prelude.<$> segmentId
           ]
       )

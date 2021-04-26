@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new campaign for an application or updates the settings of an existing campaign for an application.
+-- Creates a new campaign for an application or updates the settings of an
+-- existing campaign for an application.
 module Network.AWS.Pinpoint.CreateCampaign
   ( -- * Creating a Request
-    createCampaign,
-    CreateCampaign,
+    CreateCampaign (..),
+    newCreateCampaign,
 
     -- * Request Lenses
-    ccApplicationId,
-    ccWriteCampaignRequest,
+    createCampaign_applicationId,
+    createCampaign_writeCampaignRequest,
 
     -- * Destructuring the Response
-    createCampaignResponse,
-    CreateCampaignResponse,
+    CreateCampaignResponse (..),
+    newCreateCampaignResponse,
 
     -- * Response Lenses
-    ccrrsResponseStatus,
-    ccrrsCampaignResponse,
+    createCampaignResponse_httpStatus,
+    createCampaignResponse_campaignResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.CampaignResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createCampaign' smart constructor.
+-- | /See:/ 'newCreateCampaign' smart constructor.
 data CreateCampaign = CreateCampaign'
-  { _ccApplicationId ::
-      !Text,
-    _ccWriteCampaignRequest ::
-      !WriteCampaignRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    writeCampaignRequest :: WriteCampaignRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCampaign' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCampaign' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccWriteCampaignRequest' - Undocumented member.
-createCampaign ::
-  -- | 'ccApplicationId'
-  Text ->
-  -- | 'ccWriteCampaignRequest'
+-- 'applicationId', 'createCampaign_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'writeCampaignRequest', 'createCampaign_writeCampaignRequest' - Undocumented member.
+newCreateCampaign ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'writeCampaignRequest'
   WriteCampaignRequest ->
   CreateCampaign
-createCampaign pApplicationId_ pWriteCampaignRequest_ =
-  CreateCampaign'
-    { _ccApplicationId = pApplicationId_,
-      _ccWriteCampaignRequest = pWriteCampaignRequest_
-    }
-
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-ccApplicationId :: Lens' CreateCampaign Text
-ccApplicationId = lens _ccApplicationId (\s a -> s {_ccApplicationId = a})
-
--- | Undocumented member.
-ccWriteCampaignRequest :: Lens' CreateCampaign WriteCampaignRequest
-ccWriteCampaignRequest = lens _ccWriteCampaignRequest (\s a -> s {_ccWriteCampaignRequest = a})
-
-instance AWSRequest CreateCampaign where
-  type Rs CreateCampaign = CreateCampaignResponse
-  request = postJSON pinpoint
-  response =
-    receiveJSON
-      ( \s h x ->
-          CreateCampaignResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
-      )
-
-instance Hashable CreateCampaign
-
-instance NFData CreateCampaign
-
-instance ToHeaders CreateCampaign where
-  toHeaders =
-    const
-      ( mconcat
-          [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON CreateCampaign where
-  toJSON CreateCampaign' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("WriteCampaignRequest" .= _ccWriteCampaignRequest)
-          ]
-      )
-
-instance ToPath CreateCampaign where
-  toPath CreateCampaign' {..} =
-    mconcat
-      ["/v1/apps/", toBS _ccApplicationId, "/campaigns"]
-
-instance ToQuery CreateCampaign where
-  toQuery = const mempty
-
--- | /See:/ 'createCampaignResponse' smart constructor.
-data CreateCampaignResponse = CreateCampaignResponse'
-  { _ccrrsResponseStatus ::
-      !Int,
-    _ccrrsCampaignResponse ::
-      !CampaignResponse
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'CreateCampaignResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'ccrrsResponseStatus' - -- | The response status code.
---
--- * 'ccrrsCampaignResponse' - Undocumented member.
-createCampaignResponse ::
-  -- | 'ccrrsResponseStatus'
-  Int ->
-  -- | 'ccrrsCampaignResponse'
-  CampaignResponse ->
-  CreateCampaignResponse
-createCampaignResponse
-  pResponseStatus_
-  pCampaignResponse_ =
-    CreateCampaignResponse'
-      { _ccrrsResponseStatus =
-          pResponseStatus_,
-        _ccrrsCampaignResponse = pCampaignResponse_
+newCreateCampaign
+  pApplicationId_
+  pWriteCampaignRequest_ =
+    CreateCampaign'
+      { applicationId = pApplicationId_,
+        writeCampaignRequest = pWriteCampaignRequest_
       }
 
--- | -- | The response status code.
-ccrrsResponseStatus :: Lens' CreateCampaignResponse Int
-ccrrsResponseStatus = lens _ccrrsResponseStatus (\s a -> s {_ccrrsResponseStatus = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+createCampaign_applicationId :: Lens.Lens' CreateCampaign Prelude.Text
+createCampaign_applicationId = Lens.lens (\CreateCampaign' {applicationId} -> applicationId) (\s@CreateCampaign' {} a -> s {applicationId = a} :: CreateCampaign)
 
 -- | Undocumented member.
-ccrrsCampaignResponse :: Lens' CreateCampaignResponse CampaignResponse
-ccrrsCampaignResponse = lens _ccrrsCampaignResponse (\s a -> s {_ccrrsCampaignResponse = a})
+createCampaign_writeCampaignRequest :: Lens.Lens' CreateCampaign WriteCampaignRequest
+createCampaign_writeCampaignRequest = Lens.lens (\CreateCampaign' {writeCampaignRequest} -> writeCampaignRequest) (\s@CreateCampaign' {} a -> s {writeCampaignRequest = a} :: CreateCampaign)
 
-instance NFData CreateCampaignResponse
+instance Prelude.AWSRequest CreateCampaign where
+  type Rs CreateCampaign = CreateCampaignResponse
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      ( \s h x ->
+          CreateCampaignResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
+      )
+
+instance Prelude.Hashable CreateCampaign
+
+instance Prelude.NFData CreateCampaign
+
+instance Prelude.ToHeaders CreateCampaign where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance Prelude.ToJSON CreateCampaign where
+  toJSON CreateCampaign' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "WriteCampaignRequest"
+                  Prelude..= writeCampaignRequest
+              )
+          ]
+      )
+
+instance Prelude.ToPath CreateCampaign where
+  toPath CreateCampaign' {..} =
+    Prelude.mconcat
+      [ "/v1/apps/",
+        Prelude.toBS applicationId,
+        "/campaigns"
+      ]
+
+instance Prelude.ToQuery CreateCampaign where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newCreateCampaignResponse' smart constructor.
+data CreateCampaignResponse = CreateCampaignResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    campaignResponse :: CampaignResponse
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'CreateCampaignResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createCampaignResponse_httpStatus' - The response's http status code.
+--
+-- 'campaignResponse', 'createCampaignResponse_campaignResponse' - Undocumented member.
+newCreateCampaignResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'campaignResponse'
+  CampaignResponse ->
+  CreateCampaignResponse
+newCreateCampaignResponse
+  pHttpStatus_
+  pCampaignResponse_ =
+    CreateCampaignResponse'
+      { httpStatus = pHttpStatus_,
+        campaignResponse = pCampaignResponse_
+      }
+
+-- | The response's http status code.
+createCampaignResponse_httpStatus :: Lens.Lens' CreateCampaignResponse Prelude.Int
+createCampaignResponse_httpStatus = Lens.lens (\CreateCampaignResponse' {httpStatus} -> httpStatus) (\s@CreateCampaignResponse' {} a -> s {httpStatus = a} :: CreateCampaignResponse)
+
+-- | Undocumented member.
+createCampaignResponse_campaignResponse :: Lens.Lens' CreateCampaignResponse CampaignResponse
+createCampaignResponse_campaignResponse = Lens.lens (\CreateCampaignResponse' {campaignResponse} -> campaignResponse) (\s@CreateCampaignResponse' {} a -> s {campaignResponse = a} :: CreateCampaignResponse)
+
+instance Prelude.NFData CreateCampaignResponse

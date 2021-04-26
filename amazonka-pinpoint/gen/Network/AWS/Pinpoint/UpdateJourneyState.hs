@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,170 +24,179 @@
 -- Cancels (stops) an active journey.
 module Network.AWS.Pinpoint.UpdateJourneyState
   ( -- * Creating a Request
-    updateJourneyState,
-    UpdateJourneyState,
+    UpdateJourneyState (..),
+    newUpdateJourneyState,
 
     -- * Request Lenses
-    ujsJourneyId,
-    ujsApplicationId,
-    ujsJourneyStateRequest,
+    updateJourneyState_journeyId,
+    updateJourneyState_applicationId,
+    updateJourneyState_journeyStateRequest,
 
     -- * Destructuring the Response
-    updateJourneyStateResponse,
-    UpdateJourneyStateResponse,
+    UpdateJourneyStateResponse (..),
+    newUpdateJourneyStateResponse,
 
     -- * Response Lenses
-    ujsrrsResponseStatus,
-    ujsrrsJourneyResponse,
+    updateJourneyStateResponse_httpStatus,
+    updateJourneyStateResponse_journeyResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.JourneyResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateJourneyState' smart constructor.
+-- | /See:/ 'newUpdateJourneyState' smart constructor.
 data UpdateJourneyState = UpdateJourneyState'
-  { _ujsJourneyId ::
-      !Text,
-    _ujsApplicationId :: !Text,
-    _ujsJourneyStateRequest ::
-      !JourneyStateRequest
+  { -- | The unique identifier for the journey.
+    journeyId :: Prelude.Text,
+    -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    journeyStateRequest :: JourneyStateRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateJourneyState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateJourneyState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ujsJourneyId' - The unique identifier for the journey.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ujsApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- 'journeyId', 'updateJourneyState_journeyId' - The unique identifier for the journey.
 --
--- * 'ujsJourneyStateRequest' - Undocumented member.
-updateJourneyState ::
-  -- | 'ujsJourneyId'
-  Text ->
-  -- | 'ujsApplicationId'
-  Text ->
-  -- | 'ujsJourneyStateRequest'
+-- 'applicationId', 'updateJourneyState_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'journeyStateRequest', 'updateJourneyState_journeyStateRequest' - Undocumented member.
+newUpdateJourneyState ::
+  -- | 'journeyId'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'journeyStateRequest'
   JourneyStateRequest ->
   UpdateJourneyState
-updateJourneyState
+newUpdateJourneyState
   pJourneyId_
   pApplicationId_
   pJourneyStateRequest_ =
     UpdateJourneyState'
-      { _ujsJourneyId = pJourneyId_,
-        _ujsApplicationId = pApplicationId_,
-        _ujsJourneyStateRequest = pJourneyStateRequest_
+      { journeyId = pJourneyId_,
+        applicationId = pApplicationId_,
+        journeyStateRequest = pJourneyStateRequest_
       }
 
 -- | The unique identifier for the journey.
-ujsJourneyId :: Lens' UpdateJourneyState Text
-ujsJourneyId = lens _ujsJourneyId (\s a -> s {_ujsJourneyId = a})
+updateJourneyState_journeyId :: Lens.Lens' UpdateJourneyState Prelude.Text
+updateJourneyState_journeyId = Lens.lens (\UpdateJourneyState' {journeyId} -> journeyId) (\s@UpdateJourneyState' {} a -> s {journeyId = a} :: UpdateJourneyState)
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-ujsApplicationId :: Lens' UpdateJourneyState Text
-ujsApplicationId = lens _ujsApplicationId (\s a -> s {_ujsApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+updateJourneyState_applicationId :: Lens.Lens' UpdateJourneyState Prelude.Text
+updateJourneyState_applicationId = Lens.lens (\UpdateJourneyState' {applicationId} -> applicationId) (\s@UpdateJourneyState' {} a -> s {applicationId = a} :: UpdateJourneyState)
 
 -- | Undocumented member.
-ujsJourneyStateRequest :: Lens' UpdateJourneyState JourneyStateRequest
-ujsJourneyStateRequest = lens _ujsJourneyStateRequest (\s a -> s {_ujsJourneyStateRequest = a})
+updateJourneyState_journeyStateRequest :: Lens.Lens' UpdateJourneyState JourneyStateRequest
+updateJourneyState_journeyStateRequest = Lens.lens (\UpdateJourneyState' {journeyStateRequest} -> journeyStateRequest) (\s@UpdateJourneyState' {} a -> s {journeyStateRequest = a} :: UpdateJourneyState)
 
-instance AWSRequest UpdateJourneyState where
+instance Prelude.AWSRequest UpdateJourneyState where
   type
     Rs UpdateJourneyState =
       UpdateJourneyStateResponse
-  request = putJSON pinpoint
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateJourneyStateResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable UpdateJourneyState
+instance Prelude.Hashable UpdateJourneyState
 
-instance NFData UpdateJourneyState
+instance Prelude.NFData UpdateJourneyState
 
-instance ToHeaders UpdateJourneyState where
+instance Prelude.ToHeaders UpdateJourneyState where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateJourneyState where
+instance Prelude.ToJSON UpdateJourneyState where
   toJSON UpdateJourneyState' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("JourneyStateRequest" .= _ujsJourneyStateRequest)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "JourneyStateRequest"
+                  Prelude..= journeyStateRequest
+              )
           ]
       )
 
-instance ToPath UpdateJourneyState where
+instance Prelude.ToPath UpdateJourneyState where
   toPath UpdateJourneyState' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _ujsApplicationId,
+        Prelude.toBS applicationId,
         "/journeys/",
-        toBS _ujsJourneyId,
+        Prelude.toBS journeyId,
         "/state"
       ]
 
-instance ToQuery UpdateJourneyState where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateJourneyState where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateJourneyStateResponse' smart constructor.
+-- | /See:/ 'newUpdateJourneyStateResponse' smart constructor.
 data UpdateJourneyStateResponse = UpdateJourneyStateResponse'
-  { _ujsrrsResponseStatus ::
-      !Int,
-    _ujsrrsJourneyResponse ::
-      !JourneyResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    journeyResponse :: JourneyResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateJourneyStateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateJourneyStateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ujsrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ujsrrsJourneyResponse' - Undocumented member.
-updateJourneyStateResponse ::
-  -- | 'ujsrrsResponseStatus'
-  Int ->
-  -- | 'ujsrrsJourneyResponse'
+-- 'httpStatus', 'updateJourneyStateResponse_httpStatus' - The response's http status code.
+--
+-- 'journeyResponse', 'updateJourneyStateResponse_journeyResponse' - Undocumented member.
+newUpdateJourneyStateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'journeyResponse'
   JourneyResponse ->
   UpdateJourneyStateResponse
-updateJourneyStateResponse
-  pResponseStatus_
+newUpdateJourneyStateResponse
+  pHttpStatus_
   pJourneyResponse_ =
     UpdateJourneyStateResponse'
-      { _ujsrrsResponseStatus =
-          pResponseStatus_,
-        _ujsrrsJourneyResponse = pJourneyResponse_
+      { httpStatus =
+          pHttpStatus_,
+        journeyResponse = pJourneyResponse_
       }
 
--- | -- | The response status code.
-ujsrrsResponseStatus :: Lens' UpdateJourneyStateResponse Int
-ujsrrsResponseStatus = lens _ujsrrsResponseStatus (\s a -> s {_ujsrrsResponseStatus = a})
+-- | The response's http status code.
+updateJourneyStateResponse_httpStatus :: Lens.Lens' UpdateJourneyStateResponse Prelude.Int
+updateJourneyStateResponse_httpStatus = Lens.lens (\UpdateJourneyStateResponse' {httpStatus} -> httpStatus) (\s@UpdateJourneyStateResponse' {} a -> s {httpStatus = a} :: UpdateJourneyStateResponse)
 
 -- | Undocumented member.
-ujsrrsJourneyResponse :: Lens' UpdateJourneyStateResponse JourneyResponse
-ujsrrsJourneyResponse = lens _ujsrrsJourneyResponse (\s a -> s {_ujsrrsJourneyResponse = a})
+updateJourneyStateResponse_journeyResponse :: Lens.Lens' UpdateJourneyStateResponse JourneyResponse
+updateJourneyStateResponse_journeyResponse = Lens.lens (\UpdateJourneyStateResponse' {journeyResponse} -> journeyResponse) (\s@UpdateJourneyStateResponse' {} a -> s {journeyResponse = a} :: UpdateJourneyStateResponse)
 
-instance NFData UpdateJourneyStateResponse
+instance Prelude.NFData UpdateJourneyStateResponse

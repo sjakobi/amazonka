@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.DefaultMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the default message for all channels.
 --
---
---
--- /See:/ 'defaultMessage' smart constructor.
+-- /See:/ 'newDefaultMessage' smart constructor.
 data DefaultMessage = DefaultMessage'
-  { _dmBody ::
-      !(Maybe Text),
-    _dmSubstitutions ::
-      !(Maybe (Map Text [Text]))
+  { -- | The default body of the message.
+    body :: Prelude.Maybe Prelude.Text,
+    -- | The default message variables to use in the message. You can override
+    -- these default variables with individual address variables.
+    substitutions :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text])
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefaultMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefaultMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmBody' - The default body of the message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmSubstitutions' - The default message variables to use in the message. You can override these default variables with individual address variables.
-defaultMessage ::
+-- 'body', 'defaultMessage_body' - The default body of the message.
+--
+-- 'substitutions', 'defaultMessage_substitutions' - The default message variables to use in the message. You can override
+-- these default variables with individual address variables.
+newDefaultMessage ::
   DefaultMessage
-defaultMessage =
+newDefaultMessage =
   DefaultMessage'
-    { _dmBody = Nothing,
-      _dmSubstitutions = Nothing
+    { body = Prelude.Nothing,
+      substitutions = Prelude.Nothing
     }
 
 -- | The default body of the message.
-dmBody :: Lens' DefaultMessage (Maybe Text)
-dmBody = lens _dmBody (\s a -> s {_dmBody = a})
+defaultMessage_body :: Lens.Lens' DefaultMessage (Prelude.Maybe Prelude.Text)
+defaultMessage_body = Lens.lens (\DefaultMessage' {body} -> body) (\s@DefaultMessage' {} a -> s {body = a} :: DefaultMessage)
 
--- | The default message variables to use in the message. You can override these default variables with individual address variables.
-dmSubstitutions :: Lens' DefaultMessage (HashMap Text [Text])
-dmSubstitutions = lens _dmSubstitutions (\s a -> s {_dmSubstitutions = a}) . _Default . _Map
+-- | The default message variables to use in the message. You can override
+-- these default variables with individual address variables.
+defaultMessage_substitutions :: Lens.Lens' DefaultMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+defaultMessage_substitutions = Lens.lens (\DefaultMessage' {substitutions} -> substitutions) (\s@DefaultMessage' {} a -> s {substitutions = a} :: DefaultMessage) Prelude.. Lens.mapping Prelude._Map
 
-instance Hashable DefaultMessage
+instance Prelude.Hashable DefaultMessage
 
-instance NFData DefaultMessage
+instance Prelude.NFData DefaultMessage
 
-instance ToJSON DefaultMessage where
+instance Prelude.ToJSON DefaultMessage where
   toJSON DefaultMessage' {..} =
-    object
-      ( catMaybes
-          [ ("Body" .=) <$> _dmBody,
-            ("Substitutions" .=) <$> _dmSubstitutions
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Body" Prelude..=) Prelude.<$> body,
+            ("Substitutions" Prelude..=)
+              Prelude.<$> substitutions
           ]
       )

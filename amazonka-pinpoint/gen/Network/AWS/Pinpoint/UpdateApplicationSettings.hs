@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,165 +24,169 @@
 -- Updates the settings for an application.
 module Network.AWS.Pinpoint.UpdateApplicationSettings
   ( -- * Creating a Request
-    updateApplicationSettings,
-    UpdateApplicationSettings,
+    UpdateApplicationSettings (..),
+    newUpdateApplicationSettings,
 
     -- * Request Lenses
-    uasApplicationId,
-    uasWriteApplicationSettingsRequest,
+    updateApplicationSettings_applicationId,
+    updateApplicationSettings_writeApplicationSettingsRequest,
 
     -- * Destructuring the Response
-    updateApplicationSettingsResponse,
-    UpdateApplicationSettingsResponse,
+    UpdateApplicationSettingsResponse (..),
+    newUpdateApplicationSettingsResponse,
 
     -- * Response Lenses
-    uasrrsResponseStatus,
-    uasrrsApplicationSettingsResource,
+    updateApplicationSettingsResponse_httpStatus,
+    updateApplicationSettingsResponse_applicationSettingsResource,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.ApplicationSettingsResource
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateApplicationSettings' smart constructor.
+-- | /See:/ 'newUpdateApplicationSettings' smart constructor.
 data UpdateApplicationSettings = UpdateApplicationSettings'
-  { _uasApplicationId ::
-      !Text,
-    _uasWriteApplicationSettingsRequest ::
-      !WriteApplicationSettingsRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    writeApplicationSettingsRequest :: WriteApplicationSettingsRequest
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApplicationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApplicationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uasApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uasWriteApplicationSettingsRequest' - Undocumented member.
-updateApplicationSettings ::
-  -- | 'uasApplicationId'
-  Text ->
-  -- | 'uasWriteApplicationSettingsRequest'
+-- 'applicationId', 'updateApplicationSettings_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'writeApplicationSettingsRequest', 'updateApplicationSettings_writeApplicationSettingsRequest' - Undocumented member.
+newUpdateApplicationSettings ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'writeApplicationSettingsRequest'
   WriteApplicationSettingsRequest ->
   UpdateApplicationSettings
-updateApplicationSettings
+newUpdateApplicationSettings
   pApplicationId_
   pWriteApplicationSettingsRequest_ =
     UpdateApplicationSettings'
-      { _uasApplicationId =
+      { applicationId =
           pApplicationId_,
-        _uasWriteApplicationSettingsRequest =
+        writeApplicationSettingsRequest =
           pWriteApplicationSettingsRequest_
       }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-uasApplicationId :: Lens' UpdateApplicationSettings Text
-uasApplicationId = lens _uasApplicationId (\s a -> s {_uasApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+updateApplicationSettings_applicationId :: Lens.Lens' UpdateApplicationSettings Prelude.Text
+updateApplicationSettings_applicationId = Lens.lens (\UpdateApplicationSettings' {applicationId} -> applicationId) (\s@UpdateApplicationSettings' {} a -> s {applicationId = a} :: UpdateApplicationSettings)
 
 -- | Undocumented member.
-uasWriteApplicationSettingsRequest :: Lens' UpdateApplicationSettings WriteApplicationSettingsRequest
-uasWriteApplicationSettingsRequest = lens _uasWriteApplicationSettingsRequest (\s a -> s {_uasWriteApplicationSettingsRequest = a})
+updateApplicationSettings_writeApplicationSettingsRequest :: Lens.Lens' UpdateApplicationSettings WriteApplicationSettingsRequest
+updateApplicationSettings_writeApplicationSettingsRequest = Lens.lens (\UpdateApplicationSettings' {writeApplicationSettingsRequest} -> writeApplicationSettingsRequest) (\s@UpdateApplicationSettings' {} a -> s {writeApplicationSettingsRequest = a} :: UpdateApplicationSettings)
 
-instance AWSRequest UpdateApplicationSettings where
+instance Prelude.AWSRequest UpdateApplicationSettings where
   type
     Rs UpdateApplicationSettings =
       UpdateApplicationSettingsResponse
-  request = putJSON pinpoint
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateApplicationSettingsResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable UpdateApplicationSettings
+instance Prelude.Hashable UpdateApplicationSettings
 
-instance NFData UpdateApplicationSettings
+instance Prelude.NFData UpdateApplicationSettings
 
-instance ToHeaders UpdateApplicationSettings where
+instance Prelude.ToHeaders UpdateApplicationSettings where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateApplicationSettings where
+instance Prelude.ToJSON UpdateApplicationSettings where
   toJSON UpdateApplicationSettings' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "WriteApplicationSettingsRequest"
-                  .= _uasWriteApplicationSettingsRequest
+                  Prelude..= writeApplicationSettingsRequest
               )
           ]
       )
 
-instance ToPath UpdateApplicationSettings where
+instance Prelude.ToPath UpdateApplicationSettings where
   toPath UpdateApplicationSettings' {..} =
-    mconcat
-      ["/v1/apps/", toBS _uasApplicationId, "/settings"]
+    Prelude.mconcat
+      [ "/v1/apps/",
+        Prelude.toBS applicationId,
+        "/settings"
+      ]
 
-instance ToQuery UpdateApplicationSettings where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateApplicationSettings where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateApplicationSettingsResponse' smart constructor.
+-- | /See:/ 'newUpdateApplicationSettingsResponse' smart constructor.
 data UpdateApplicationSettingsResponse = UpdateApplicationSettingsResponse'
-  { _uasrrsResponseStatus ::
-      !Int,
-    _uasrrsApplicationSettingsResource ::
-      !ApplicationSettingsResource
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    applicationSettingsResource :: ApplicationSettingsResource
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApplicationSettingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApplicationSettingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uasrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uasrrsApplicationSettingsResource' - Undocumented member.
-updateApplicationSettingsResponse ::
-  -- | 'uasrrsResponseStatus'
-  Int ->
-  -- | 'uasrrsApplicationSettingsResource'
+-- 'httpStatus', 'updateApplicationSettingsResponse_httpStatus' - The response's http status code.
+--
+-- 'applicationSettingsResource', 'updateApplicationSettingsResponse_applicationSettingsResource' - Undocumented member.
+newUpdateApplicationSettingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'applicationSettingsResource'
   ApplicationSettingsResource ->
   UpdateApplicationSettingsResponse
-updateApplicationSettingsResponse
-  pResponseStatus_
+newUpdateApplicationSettingsResponse
+  pHttpStatus_
   pApplicationSettingsResource_ =
     UpdateApplicationSettingsResponse'
-      { _uasrrsResponseStatus =
-          pResponseStatus_,
-        _uasrrsApplicationSettingsResource =
+      { httpStatus =
+          pHttpStatus_,
+        applicationSettingsResource =
           pApplicationSettingsResource_
       }
 
--- | -- | The response status code.
-uasrrsResponseStatus :: Lens' UpdateApplicationSettingsResponse Int
-uasrrsResponseStatus = lens _uasrrsResponseStatus (\s a -> s {_uasrrsResponseStatus = a})
+-- | The response's http status code.
+updateApplicationSettingsResponse_httpStatus :: Lens.Lens' UpdateApplicationSettingsResponse Prelude.Int
+updateApplicationSettingsResponse_httpStatus = Lens.lens (\UpdateApplicationSettingsResponse' {httpStatus} -> httpStatus) (\s@UpdateApplicationSettingsResponse' {} a -> s {httpStatus = a} :: UpdateApplicationSettingsResponse)
 
 -- | Undocumented member.
-uasrrsApplicationSettingsResource :: Lens' UpdateApplicationSettingsResponse ApplicationSettingsResource
-uasrrsApplicationSettingsResource = lens _uasrrsApplicationSettingsResource (\s a -> s {_uasrrsApplicationSettingsResource = a})
+updateApplicationSettingsResponse_applicationSettingsResource :: Lens.Lens' UpdateApplicationSettingsResponse ApplicationSettingsResource
+updateApplicationSettingsResponse_applicationSettingsResource = Lens.lens (\UpdateApplicationSettingsResponse' {applicationSettingsResource} -> applicationSettingsResource) (\s@UpdateApplicationSettingsResponse' {} a -> s {applicationSettingsResource = a} :: UpdateApplicationSettingsResponse)
 
-instance NFData UpdateApplicationSettingsResponse
+instance
+  Prelude.NFData
+    UpdateApplicationSettingsResponse

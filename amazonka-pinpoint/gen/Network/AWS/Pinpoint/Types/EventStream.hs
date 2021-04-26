@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,99 +19,143 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EventStream where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies settings for publishing event data to an Amazon Kinesis data stream or an Amazon Kinesis Data Firehose delivery stream.
+-- | Specifies settings for publishing event data to an Amazon Kinesis data
+-- stream or an Amazon Kinesis Data Firehose delivery stream.
 --
---
---
--- /See:/ 'eventStream' smart constructor.
+-- /See:/ 'newEventStream' smart constructor.
 data EventStream = EventStream'
-  { _esLastModifiedDate ::
-      !(Maybe Text),
-    _esLastUpdatedBy :: !(Maybe Text),
-    _esExternalId :: !(Maybe Text),
-    _esApplicationId :: !Text,
-    _esRoleARN :: !Text,
-    _esDestinationStreamARN :: !Text
+  { -- | The date, in ISO 8601 format, when the event stream was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.Text,
+    -- | The IAM user who last modified the event stream.
+    lastUpdatedBy :: Prelude.Maybe Prelude.Text,
+    -- | (Deprecated) Your AWS account ID, which you assigned to an external ID
+    -- key in an IAM trust policy. Amazon Pinpoint previously used this value
+    -- to assume an IAM role when publishing event data, but we removed this
+    -- requirement. We don\'t recommend use of external IDs for IAM roles that
+    -- are assumed by Amazon Pinpoint.
+    externalId :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application to publish event data for.
+    applicationId :: Prelude.Text,
+    -- | The AWS Identity and Access Management (IAM) role that authorizes Amazon
+    -- Pinpoint to publish event data to the stream in your AWS account.
+    roleArn :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or
+    -- Amazon Kinesis Data Firehose delivery stream to publish event data to.
+    --
+    -- For a Kinesis data stream, the ARN format is:
+    -- arn:aws:kinesis:region:account-id:stream\/stream_name
+    --
+    -- For a Kinesis Data Firehose delivery stream, the ARN format is:
+    -- arn:aws:firehose:region:account-id:deliverystream\/stream_name
+    destinationStreamArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esLastModifiedDate' - The date, in ISO 8601 format, when the event stream was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esLastUpdatedBy' - The IAM user who last modified the event stream.
+-- 'lastModifiedDate', 'eventStream_lastModifiedDate' - The date, in ISO 8601 format, when the event stream was last modified.
 --
--- * 'esExternalId' - (Deprecated) Your AWS account ID, which you assigned to an external ID key in an IAM trust policy. Amazon Pinpoint previously used this value to assume an IAM role when publishing event data, but we removed this requirement. We don't recommend use of external IDs for IAM roles that are assumed by Amazon Pinpoint.
+-- 'lastUpdatedBy', 'eventStream_lastUpdatedBy' - The IAM user who last modified the event stream.
 --
--- * 'esApplicationId' - The unique identifier for the application to publish event data for.
+-- 'externalId', 'eventStream_externalId' - (Deprecated) Your AWS account ID, which you assigned to an external ID
+-- key in an IAM trust policy. Amazon Pinpoint previously used this value
+-- to assume an IAM role when publishing event data, but we removed this
+-- requirement. We don\'t recommend use of external IDs for IAM roles that
+-- are assumed by Amazon Pinpoint.
 --
--- * 'esRoleARN' - The AWS Identity and Access Management (IAM) role that authorizes Amazon Pinpoint to publish event data to the stream in your AWS account.
+-- 'applicationId', 'eventStream_applicationId' - The unique identifier for the application to publish event data for.
 --
--- * 'esDestinationStreamARN' - The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or Amazon Kinesis Data Firehose delivery stream to publish event data to. For a Kinesis data stream, the ARN format is: arn:aws:kinesis:<replaceable>region:<replaceable>account-id:stream/<replaceable>stream_name For a Kinesis Data Firehose delivery stream, the ARN format is: arn:aws:firehose:<replaceable>region:<replaceable>account-id:deliverystream/<replaceable>stream_name
-eventStream ::
-  -- | 'esApplicationId'
-  Text ->
-  -- | 'esRoleARN'
-  Text ->
-  -- | 'esDestinationStreamARN'
-  Text ->
+-- 'roleArn', 'eventStream_roleArn' - The AWS Identity and Access Management (IAM) role that authorizes Amazon
+-- Pinpoint to publish event data to the stream in your AWS account.
+--
+-- 'destinationStreamArn', 'eventStream_destinationStreamArn' - The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or
+-- Amazon Kinesis Data Firehose delivery stream to publish event data to.
+--
+-- For a Kinesis data stream, the ARN format is:
+-- arn:aws:kinesis:region:account-id:stream\/stream_name
+--
+-- For a Kinesis Data Firehose delivery stream, the ARN format is:
+-- arn:aws:firehose:region:account-id:deliverystream\/stream_name
+newEventStream ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
+  -- | 'destinationStreamArn'
+  Prelude.Text ->
   EventStream
-eventStream
+newEventStream
   pApplicationId_
-  pRoleARN_
-  pDestinationStreamARN_ =
+  pRoleArn_
+  pDestinationStreamArn_ =
     EventStream'
-      { _esLastModifiedDate = Nothing,
-        _esLastUpdatedBy = Nothing,
-        _esExternalId = Nothing,
-        _esApplicationId = pApplicationId_,
-        _esRoleARN = pRoleARN_,
-        _esDestinationStreamARN = pDestinationStreamARN_
+      { lastModifiedDate = Prelude.Nothing,
+        lastUpdatedBy = Prelude.Nothing,
+        externalId = Prelude.Nothing,
+        applicationId = pApplicationId_,
+        roleArn = pRoleArn_,
+        destinationStreamArn = pDestinationStreamArn_
       }
 
 -- | The date, in ISO 8601 format, when the event stream was last modified.
-esLastModifiedDate :: Lens' EventStream (Maybe Text)
-esLastModifiedDate = lens _esLastModifiedDate (\s a -> s {_esLastModifiedDate = a})
+eventStream_lastModifiedDate :: Lens.Lens' EventStream (Prelude.Maybe Prelude.Text)
+eventStream_lastModifiedDate = Lens.lens (\EventStream' {lastModifiedDate} -> lastModifiedDate) (\s@EventStream' {} a -> s {lastModifiedDate = a} :: EventStream)
 
 -- | The IAM user who last modified the event stream.
-esLastUpdatedBy :: Lens' EventStream (Maybe Text)
-esLastUpdatedBy = lens _esLastUpdatedBy (\s a -> s {_esLastUpdatedBy = a})
+eventStream_lastUpdatedBy :: Lens.Lens' EventStream (Prelude.Maybe Prelude.Text)
+eventStream_lastUpdatedBy = Lens.lens (\EventStream' {lastUpdatedBy} -> lastUpdatedBy) (\s@EventStream' {} a -> s {lastUpdatedBy = a} :: EventStream)
 
--- | (Deprecated) Your AWS account ID, which you assigned to an external ID key in an IAM trust policy. Amazon Pinpoint previously used this value to assume an IAM role when publishing event data, but we removed this requirement. We don't recommend use of external IDs for IAM roles that are assumed by Amazon Pinpoint.
-esExternalId :: Lens' EventStream (Maybe Text)
-esExternalId = lens _esExternalId (\s a -> s {_esExternalId = a})
+-- | (Deprecated) Your AWS account ID, which you assigned to an external ID
+-- key in an IAM trust policy. Amazon Pinpoint previously used this value
+-- to assume an IAM role when publishing event data, but we removed this
+-- requirement. We don\'t recommend use of external IDs for IAM roles that
+-- are assumed by Amazon Pinpoint.
+eventStream_externalId :: Lens.Lens' EventStream (Prelude.Maybe Prelude.Text)
+eventStream_externalId = Lens.lens (\EventStream' {externalId} -> externalId) (\s@EventStream' {} a -> s {externalId = a} :: EventStream)
 
 -- | The unique identifier for the application to publish event data for.
-esApplicationId :: Lens' EventStream Text
-esApplicationId = lens _esApplicationId (\s a -> s {_esApplicationId = a})
+eventStream_applicationId :: Lens.Lens' EventStream Prelude.Text
+eventStream_applicationId = Lens.lens (\EventStream' {applicationId} -> applicationId) (\s@EventStream' {} a -> s {applicationId = a} :: EventStream)
 
--- | The AWS Identity and Access Management (IAM) role that authorizes Amazon Pinpoint to publish event data to the stream in your AWS account.
-esRoleARN :: Lens' EventStream Text
-esRoleARN = lens _esRoleARN (\s a -> s {_esRoleARN = a})
+-- | The AWS Identity and Access Management (IAM) role that authorizes Amazon
+-- Pinpoint to publish event data to the stream in your AWS account.
+eventStream_roleArn :: Lens.Lens' EventStream Prelude.Text
+eventStream_roleArn = Lens.lens (\EventStream' {roleArn} -> roleArn) (\s@EventStream' {} a -> s {roleArn = a} :: EventStream)
 
--- | The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or Amazon Kinesis Data Firehose delivery stream to publish event data to. For a Kinesis data stream, the ARN format is: arn:aws:kinesis:<replaceable>region:<replaceable>account-id:stream/<replaceable>stream_name For a Kinesis Data Firehose delivery stream, the ARN format is: arn:aws:firehose:<replaceable>region:<replaceable>account-id:deliverystream/<replaceable>stream_name
-esDestinationStreamARN :: Lens' EventStream Text
-esDestinationStreamARN = lens _esDestinationStreamARN (\s a -> s {_esDestinationStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or
+-- Amazon Kinesis Data Firehose delivery stream to publish event data to.
+--
+-- For a Kinesis data stream, the ARN format is:
+-- arn:aws:kinesis:region:account-id:stream\/stream_name
+--
+-- For a Kinesis Data Firehose delivery stream, the ARN format is:
+-- arn:aws:firehose:region:account-id:deliverystream\/stream_name
+eventStream_destinationStreamArn :: Lens.Lens' EventStream Prelude.Text
+eventStream_destinationStreamArn = Lens.lens (\EventStream' {destinationStreamArn} -> destinationStreamArn) (\s@EventStream' {} a -> s {destinationStreamArn = a} :: EventStream)
 
-instance FromJSON EventStream where
+instance Prelude.FromJSON EventStream where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventStream"
       ( \x ->
           EventStream'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "LastUpdatedBy")
-            <*> (x .:? "ExternalId")
-            <*> (x .: "ApplicationId")
-            <*> (x .: "RoleArn")
-            <*> (x .: "DestinationStreamArn")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "LastUpdatedBy")
+            Prelude.<*> (x Prelude..:? "ExternalId")
+            Prelude.<*> (x Prelude..: "ApplicationId")
+            Prelude.<*> (x Prelude..: "RoleArn")
+            Prelude.<*> (x Prelude..: "DestinationStreamArn")
       )
 
-instance Hashable EventStream
+instance Prelude.Hashable EventStream
 
-instance NFData EventStream
+instance Prelude.NFData EventStream

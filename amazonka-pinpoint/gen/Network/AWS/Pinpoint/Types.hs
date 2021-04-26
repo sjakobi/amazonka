@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types
   ( -- * Service Configuration
-    pinpoint,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -91,1736 +94,723 @@ module Network.AWS.Pinpoint.Types
 
     -- * ADMChannelRequest
     ADMChannelRequest (..),
-    aDMChannelRequest,
-    aEnabled,
-    aClientSecret,
-    aClientId,
+    newADMChannelRequest,
 
     -- * ADMChannelResponse
     ADMChannelResponse (..),
-    aDMChannelResponse,
-    admcrLastModifiedDate,
-    admcrApplicationId,
-    admcrHasCredential,
-    admcrId,
-    admcrCreationDate,
-    admcrEnabled,
-    admcrVersion,
-    admcrIsArchived,
-    admcrLastModifiedBy,
-    admcrPlatform,
+    newADMChannelResponse,
 
     -- * ADMMessage
     ADMMessage (..),
-    aDMMessage,
-    admmSilentPush,
-    admmImageIconURL,
-    admmExpiresAfter,
-    admmData,
-    admmTitle,
-    admmIconReference,
-    admmBody,
-    admmConsolidationKey,
-    admmSubstitutions,
-    admmImageURL,
-    admmMD5,
-    admmAction,
-    admmSound,
-    admmURL,
-    admmSmallImageIconURL,
-    admmRawContent,
+    newADMMessage,
 
     -- * APNSChannelRequest
     APNSChannelRequest (..),
-    apnsChannelRequest,
-    apnscrDefaultAuthenticationMethod,
-    apnscrTokenKey,
-    apnscrBundleId,
-    apnscrTeamId,
-    apnscrEnabled,
-    apnscrPrivateKey,
-    apnscrTokenKeyId,
-    apnscrCertificate,
+    newAPNSChannelRequest,
 
     -- * APNSChannelResponse
     APNSChannelResponse (..),
-    apnsChannelResponse,
-    acrLastModifiedDate,
-    acrApplicationId,
-    acrDefaultAuthenticationMethod,
-    acrHasCredential,
-    acrHasTokenKey,
-    acrId,
-    acrCreationDate,
-    acrEnabled,
-    acrVersion,
-    acrIsArchived,
-    acrLastModifiedBy,
-    acrPlatform,
+    newAPNSChannelResponse,
 
     -- * APNSMessage
     APNSMessage (..),
-    apnsMessage,
-    amSilentPush,
-    amCollapseId,
-    amData,
-    amCategory,
-    amTitle,
-    amBody,
-    amTimeToLive,
-    amAPNSPushType,
-    amPreferredAuthenticationMethod,
-    amPriority,
-    amMediaURL,
-    amSubstitutions,
-    amAction,
-    amSound,
-    amThreadId,
-    amURL,
-    amRawContent,
-    amBadge,
+    newAPNSMessage,
 
     -- * APNSPushNotificationTemplate
     APNSPushNotificationTemplate (..),
-    apnsPushNotificationTemplate,
-    apntTitle,
-    apntBody,
-    apntMediaURL,
-    apntAction,
-    apntSound,
-    apntURL,
-    apntRawContent,
+    newAPNSPushNotificationTemplate,
 
     -- * APNSSandboxChannelRequest
     APNSSandboxChannelRequest (..),
-    apnsSandboxChannelRequest,
-    apnsscrDefaultAuthenticationMethod,
-    apnsscrTokenKey,
-    apnsscrBundleId,
-    apnsscrTeamId,
-    apnsscrEnabled,
-    apnsscrPrivateKey,
-    apnsscrTokenKeyId,
-    apnsscrCertificate,
+    newAPNSSandboxChannelRequest,
 
     -- * APNSSandboxChannelResponse
     APNSSandboxChannelResponse (..),
-    apnsSandboxChannelResponse,
-    ascrLastModifiedDate,
-    ascrApplicationId,
-    ascrDefaultAuthenticationMethod,
-    ascrHasCredential,
-    ascrHasTokenKey,
-    ascrId,
-    ascrCreationDate,
-    ascrEnabled,
-    ascrVersion,
-    ascrIsArchived,
-    ascrLastModifiedBy,
-    ascrPlatform,
+    newAPNSSandboxChannelResponse,
 
     -- * APNSVoipChannelRequest
     APNSVoipChannelRequest (..),
-    apnsVoipChannelRequest,
-    avcrDefaultAuthenticationMethod,
-    avcrTokenKey,
-    avcrBundleId,
-    avcrTeamId,
-    avcrEnabled,
-    avcrPrivateKey,
-    avcrTokenKeyId,
-    avcrCertificate,
+    newAPNSVoipChannelRequest,
 
     -- * APNSVoipChannelResponse
     APNSVoipChannelResponse (..),
-    apnsVoipChannelResponse,
-    apnsvcrLastModifiedDate,
-    apnsvcrApplicationId,
-    apnsvcrDefaultAuthenticationMethod,
-    apnsvcrHasCredential,
-    apnsvcrHasTokenKey,
-    apnsvcrId,
-    apnsvcrCreationDate,
-    apnsvcrEnabled,
-    apnsvcrVersion,
-    apnsvcrIsArchived,
-    apnsvcrLastModifiedBy,
-    apnsvcrPlatform,
+    newAPNSVoipChannelResponse,
 
     -- * APNSVoipSandboxChannelRequest
     APNSVoipSandboxChannelRequest (..),
-    apnsVoipSandboxChannelRequest,
-    avscrDefaultAuthenticationMethod,
-    avscrTokenKey,
-    avscrBundleId,
-    avscrTeamId,
-    avscrEnabled,
-    avscrPrivateKey,
-    avscrTokenKeyId,
-    avscrCertificate,
+    newAPNSVoipSandboxChannelRequest,
 
     -- * APNSVoipSandboxChannelResponse
     APNSVoipSandboxChannelResponse (..),
-    apnsVoipSandboxChannelResponse,
-    apnsvscrLastModifiedDate,
-    apnsvscrApplicationId,
-    apnsvscrDefaultAuthenticationMethod,
-    apnsvscrHasCredential,
-    apnsvscrHasTokenKey,
-    apnsvscrId,
-    apnsvscrCreationDate,
-    apnsvscrEnabled,
-    apnsvscrVersion,
-    apnsvscrIsArchived,
-    apnsvscrLastModifiedBy,
-    apnsvscrPlatform,
+    newAPNSVoipSandboxChannelResponse,
 
     -- * ActivitiesResponse
     ActivitiesResponse (..),
-    activitiesResponse,
-    aNextToken,
-    aItem,
+    newActivitiesResponse,
 
     -- * Activity
     Activity (..),
-    activity,
-    aConditionalSplit,
-    aPUSH,
-    aCUSTOM,
-    aWait,
-    aMultiCondition,
-    aEMAIL,
-    aHoldout,
-    aRandomSplit,
-    aDescription,
-    aSMS,
+    newActivity,
 
     -- * ActivityResponse
     ActivityResponse (..),
-    activityResponse,
-    aEnd,
-    aSuccessfulEndpointCount,
-    aResult,
-    aTimezonesCompletedCount,
-    aState,
-    aTimezonesTotalCount,
-    aTreatmentId,
-    aScheduledStart,
-    aStart,
-    aTotalEndpointCount,
-    aCampaignId,
-    aId,
-    aApplicationId,
+    newActivityResponse,
 
     -- * AddressConfiguration
     AddressConfiguration (..),
-    addressConfiguration,
-    acChannelType,
-    acContext,
-    acSubstitutions,
-    acTitleOverride,
-    acBodyOverride,
-    acRawContent,
+    newAddressConfiguration,
 
     -- * AndroidPushNotificationTemplate
     AndroidPushNotificationTemplate (..),
-    androidPushNotificationTemplate,
-    aImageIconURL,
-    aTitle,
-    aBody,
-    aImageURL,
-    aAction,
-    aSound,
-    aURL,
-    aSmallImageIconURL,
-    aRawContent,
+    newAndroidPushNotificationTemplate,
 
     -- * ApplicationDateRangeKpiResponse
     ApplicationDateRangeKpiResponse (..),
-    applicationDateRangeKpiResponse,
-    adrkrNextToken,
-    adrkrKpiResult,
-    adrkrKpiName,
-    adrkrEndTime,
-    adrkrStartTime,
-    adrkrApplicationId,
+    newApplicationDateRangeKpiResponse,
 
     -- * ApplicationResponse
     ApplicationResponse (..),
-    applicationResponse,
-    arTags,
-    arId,
-    arARN,
-    arName,
+    newApplicationResponse,
 
     -- * ApplicationSettingsResource
     ApplicationSettingsResource (..),
-    applicationSettingsResource,
-    asrLastModifiedDate,
-    asrCampaignHook,
-    asrQuietTime,
-    asrLimits,
-    asrApplicationId,
+    newApplicationSettingsResource,
 
     -- * ApplicationsResponse
     ApplicationsResponse (..),
-    applicationsResponse,
-    arNextToken,
-    arItem,
+    newApplicationsResponse,
 
     -- * AttributeDimension
     AttributeDimension (..),
-    attributeDimension,
-    adAttributeType,
-    adValues,
+    newAttributeDimension,
 
     -- * AttributesResource
     AttributesResource (..),
-    attributesResource,
-    arAttributes,
-    arAttributeType,
-    arApplicationId,
+    newAttributesResource,
 
     -- * BaiduChannelRequest
     BaiduChannelRequest (..),
-    baiduChannelRequest,
-    bcrEnabled,
-    bcrSecretKey,
-    bcrAPIKey,
+    newBaiduChannelRequest,
 
     -- * BaiduChannelResponse
     BaiduChannelResponse (..),
-    baiduChannelResponse,
-    bLastModifiedDate,
-    bApplicationId,
-    bHasCredential,
-    bId,
-    bCreationDate,
-    bEnabled,
-    bVersion,
-    bIsArchived,
-    bLastModifiedBy,
-    bCredential,
-    bPlatform,
+    newBaiduChannelResponse,
 
     -- * BaiduMessage
     BaiduMessage (..),
-    baiduMessage,
-    bmSilentPush,
-    bmImageIconURL,
-    bmData,
-    bmTitle,
-    bmIconReference,
-    bmBody,
-    bmTimeToLive,
-    bmSubstitutions,
-    bmImageURL,
-    bmAction,
-    bmSound,
-    bmURL,
-    bmSmallImageIconURL,
-    bmRawContent,
+    newBaiduMessage,
 
     -- * BaseKpiResult
     BaseKpiResult (..),
-    baseKpiResult,
-    bkrRows,
+    newBaseKpiResult,
 
     -- * CampaignCustomMessage
     CampaignCustomMessage (..),
-    campaignCustomMessage,
-    ccmData,
+    newCampaignCustomMessage,
 
     -- * CampaignDateRangeKpiResponse
     CampaignDateRangeKpiResponse (..),
-    campaignDateRangeKpiResponse,
-    cdrkrNextToken,
-    cdrkrKpiResult,
-    cdrkrKpiName,
-    cdrkrEndTime,
-    cdrkrCampaignId,
-    cdrkrStartTime,
-    cdrkrApplicationId,
+    newCampaignDateRangeKpiResponse,
 
     -- * CampaignEmailMessage
     CampaignEmailMessage (..),
-    campaignEmailMessage,
-    cemTitle,
-    cemBody,
-    cemHTMLBody,
-    cemFromAddress,
+    newCampaignEmailMessage,
 
     -- * CampaignEventFilter
     CampaignEventFilter (..),
-    campaignEventFilter,
-    cefFilterType,
-    cefDimensions,
+    newCampaignEventFilter,
 
     -- * CampaignHook
     CampaignHook (..),
-    campaignHook,
-    chMode,
-    chLambdaFunctionName,
-    chWebURL,
+    newCampaignHook,
 
     -- * CampaignLimits
     CampaignLimits (..),
-    campaignLimits,
-    clTotal,
-    clMessagesPerSecond,
-    clDaily,
-    clMaximumDuration,
+    newCampaignLimits,
 
     -- * CampaignResponse
     CampaignResponse (..),
-    campaignResponse,
-    crAdditionalTreatments,
-    crHook,
-    crVersion,
-    crCustomDeliveryConfiguration,
-    crState,
-    crName,
-    crDefaultState,
-    crIsPaused,
-    crTags,
-    crLimits,
-    crDescription,
-    crTreatmentName,
-    crMessageConfiguration,
-    crTemplateConfiguration,
-    crSchedule,
-    crHoldoutPercent,
-    crTreatmentDescription,
-    crLastModifiedDate,
-    crCreationDate,
-    crSegmentId,
-    crSegmentVersion,
-    crId,
-    crARN,
-    crApplicationId,
+    newCampaignResponse,
 
     -- * CampaignSmsMessage
     CampaignSmsMessage (..),
-    campaignSmsMessage,
-    csmEntityId,
-    csmBody,
-    csmSenderId,
-    csmMessageType,
-    csmTemplateId,
-    csmOriginationNumber,
+    newCampaignSmsMessage,
 
     -- * CampaignState
     CampaignState (..),
-    campaignState,
-    csCampaignStatus,
+    newCampaignState,
 
     -- * CampaignsResponse
     CampaignsResponse (..),
-    campaignsResponse,
-    crNextToken,
-    crItem,
+    newCampaignsResponse,
 
     -- * ChannelResponse
     ChannelResponse (..),
-    channelResponse,
-    cLastModifiedDate,
-    cApplicationId,
-    cHasCredential,
-    cId,
-    cCreationDate,
-    cEnabled,
-    cVersion,
-    cIsArchived,
-    cLastModifiedBy,
+    newChannelResponse,
 
     -- * ChannelsResponse
     ChannelsResponse (..),
-    channelsResponse,
-    crChannels,
+    newChannelsResponse,
 
     -- * Condition
     Condition (..),
-    condition,
-    cOperator,
-    cConditions,
+    newCondition,
 
     -- * ConditionalSplitActivity
     ConditionalSplitActivity (..),
-    conditionalSplitActivity,
-    csaTrueActivity,
-    csaCondition,
-    csaEvaluationWaitTime,
-    csaFalseActivity,
+    newConditionalSplitActivity,
 
     -- * CreateApplicationRequest
     CreateApplicationRequest (..),
-    createApplicationRequest,
-    carTags,
-    carName,
+    newCreateApplicationRequest,
 
     -- * CreateRecommenderConfiguration
     CreateRecommenderConfiguration (..),
-    createRecommenderConfiguration,
-    crcRecommendationsDisplayName,
-    crcRecommendationTransformerURI,
-    crcAttributes,
-    crcName,
-    crcRecommendationsPerMessage,
-    crcDescription,
-    crcRecommendationProviderIdType,
-    crcRecommendationProviderURI,
-    crcRecommendationProviderRoleARN,
+    newCreateRecommenderConfiguration,
 
     -- * CreateTemplateMessageBody
     CreateTemplateMessageBody (..),
-    createTemplateMessageBody,
-    ctmbMessage,
-    ctmbARN,
-    ctmbRequestId,
+    newCreateTemplateMessageBody,
 
     -- * CustomDeliveryConfiguration
     CustomDeliveryConfiguration (..),
-    customDeliveryConfiguration,
-    cdcEndpointTypes,
-    cdcDeliveryURI,
+    newCustomDeliveryConfiguration,
 
     -- * CustomMessageActivity
     CustomMessageActivity (..),
-    customMessageActivity,
-    cmaTemplateName,
-    cmaMessageConfig,
-    cmaDeliveryURI,
-    cmaEndpointTypes,
-    cmaNextActivity,
-    cmaTemplateVersion,
+    newCustomMessageActivity,
 
     -- * DefaultMessage
     DefaultMessage (..),
-    defaultMessage,
-    dmBody,
-    dmSubstitutions,
+    newDefaultMessage,
 
     -- * DefaultPushNotificationMessage
     DefaultPushNotificationMessage (..),
-    defaultPushNotificationMessage,
-    dpnmSilentPush,
-    dpnmData,
-    dpnmTitle,
-    dpnmBody,
-    dpnmSubstitutions,
-    dpnmAction,
-    dpnmURL,
+    newDefaultPushNotificationMessage,
 
     -- * DefaultPushNotificationTemplate
     DefaultPushNotificationTemplate (..),
-    defaultPushNotificationTemplate,
-    dpntTitle,
-    dpntBody,
-    dpntAction,
-    dpntSound,
-    dpntURL,
+    newDefaultPushNotificationTemplate,
 
     -- * DirectMessageConfiguration
     DirectMessageConfiguration (..),
-    directMessageConfiguration,
-    dmcADMMessage,
-    dmcDefaultMessage,
-    dmcVoiceMessage,
-    dmcGCMMessage,
-    dmcAPNSMessage,
-    dmcEmailMessage,
-    dmcSMSMessage,
-    dmcDefaultPushNotificationMessage,
-    dmcBaiduMessage,
+    newDirectMessageConfiguration,
 
     -- * EmailChannelRequest
     EmailChannelRequest (..),
-    emailChannelRequest,
-    emaRoleARN,
-    emaEnabled,
-    emaConfigurationSet,
-    emaFromAddress,
-    emaIdentity,
+    newEmailChannelRequest,
 
     -- * EmailChannelResponse
     EmailChannelResponse (..),
-    emailChannelResponse,
-    ecrLastModifiedDate,
-    ecrApplicationId,
-    ecrRoleARN,
-    ecrHasCredential,
-    ecrIdentity,
-    ecrId,
-    ecrCreationDate,
-    ecrEnabled,
-    ecrVersion,
-    ecrMessagesPerSecond,
-    ecrIsArchived,
-    ecrFromAddress,
-    ecrLastModifiedBy,
-    ecrConfigurationSet,
-    ecrPlatform,
+    newEmailChannelResponse,
 
     -- * EmailMessage
     EmailMessage (..),
-    emailMessage,
-    emFeedbackForwardingAddress,
-    emRawEmail,
-    emBody,
-    emSimpleEmail,
-    emSubstitutions,
-    emReplyToAddresses,
-    emFromAddress,
+    newEmailMessage,
 
     -- * EmailMessageActivity
     EmailMessageActivity (..),
-    emailMessageActivity,
-    emaTemplateName,
-    emaMessageConfig,
-    emaNextActivity,
-    emaTemplateVersion,
+    newEmailMessageActivity,
 
     -- * EmailTemplateRequest
     EmailTemplateRequest (..),
-    emailTemplateRequest,
-    eTemplateDescription,
-    eTextPart,
-    eDefaultSubstitutions,
-    eSubject,
-    eTags,
-    eRecommenderId,
-    eHTMLPart,
+    newEmailTemplateRequest,
 
     -- * EmailTemplateResponse
     EmailTemplateResponse (..),
-    emailTemplateResponse,
-    etrTemplateDescription,
-    etrARN,
-    etrVersion,
-    etrTextPart,
-    etrDefaultSubstitutions,
-    etrSubject,
-    etrTags,
-    etrRecommenderId,
-    etrHTMLPart,
-    etrLastModifiedDate,
-    etrCreationDate,
-    etrTemplateName,
-    etrTemplateType,
+    newEmailTemplateResponse,
 
     -- * EndpointBatchItem
     EndpointBatchItem (..),
-    endpointBatchItem,
-    ebiUser,
-    ebiAddress,
-    ebiChannelType,
-    ebiId,
-    ebiOptOut,
-    ebiDemographic,
-    ebiAttributes,
-    ebiEndpointStatus,
-    ebiMetrics,
-    ebiRequestId,
-    ebiEffectiveDate,
-    ebiLocation,
+    newEndpointBatchItem,
 
     -- * EndpointBatchRequest
     EndpointBatchRequest (..),
-    endpointBatchRequest,
-    ebrItem,
+    newEndpointBatchRequest,
 
     -- * EndpointDemographic
     EndpointDemographic (..),
-    endpointDemographic,
-    edModel,
-    edPlatform,
-    edAppVersion,
-    edLocale,
-    edPlatformVersion,
-    edModelVersion,
-    edTimezone,
-    edMake,
+    newEndpointDemographic,
 
     -- * EndpointItemResponse
     EndpointItemResponse (..),
-    endpointItemResponse,
-    eMessage,
-    eStatusCode,
+    newEndpointItemResponse,
 
     -- * EndpointLocation
     EndpointLocation (..),
-    endpointLocation,
-    elLongitude,
-    elLatitude,
-    elPostalCode,
-    elCity,
-    elCountry,
-    elRegion,
+    newEndpointLocation,
 
     -- * EndpointMessageResult
     EndpointMessageResult (..),
-    endpointMessageResult,
-    emrStatusMessage,
-    emrUpdatedToken,
-    emrAddress,
-    emrMessageId,
-    emrDeliveryStatus,
-    emrStatusCode,
+    newEndpointMessageResult,
 
     -- * EndpointRequest
     EndpointRequest (..),
-    endpointRequest,
-    endUser,
-    endAddress,
-    endChannelType,
-    endOptOut,
-    endDemographic,
-    endAttributes,
-    endEndpointStatus,
-    endMetrics,
-    endRequestId,
-    endEffectiveDate,
-    endLocation,
+    newEndpointRequest,
 
     -- * EndpointResponse
     EndpointResponse (..),
-    endpointResponse,
-    erApplicationId,
-    erUser,
-    erAddress,
-    erChannelType,
-    erCohortId,
-    erId,
-    erCreationDate,
-    erOptOut,
-    erDemographic,
-    erAttributes,
-    erEndpointStatus,
-    erMetrics,
-    erRequestId,
-    erEffectiveDate,
-    erLocation,
+    newEndpointResponse,
 
     -- * EndpointSendConfiguration
     EndpointSendConfiguration (..),
-    endpointSendConfiguration,
-    escContext,
-    escSubstitutions,
-    escTitleOverride,
-    escBodyOverride,
-    escRawContent,
+    newEndpointSendConfiguration,
 
     -- * EndpointUser
     EndpointUser (..),
-    endpointUser,
-    euUserId,
-    euUserAttributes,
+    newEndpointUser,
 
     -- * EndpointsResponse
     EndpointsResponse (..),
-    endpointsResponse,
-    erItem,
+    newEndpointsResponse,
 
     -- * Event
     Event (..),
-    event,
-    eClientSDKVersion,
-    eAppTitle,
-    eSDKName,
-    eAttributes,
-    eMetrics,
-    eAppPackageName,
-    eAppVersionCode,
-    eSession,
-    eEventType,
-    eTimestamp,
+    newEvent,
 
     -- * EventCondition
     EventCondition (..),
-    eventCondition,
-    ecMessageActivity,
-    ecDimensions,
+    newEventCondition,
 
     -- * EventDimensions
     EventDimensions (..),
-    eventDimensions,
-    edEventType,
-    edAttributes,
-    edMetrics,
+    newEventDimensions,
 
     -- * EventFilter
     EventFilter (..),
-    eventFilter,
-    efFilterType,
-    efDimensions,
+    newEventFilter,
 
     -- * EventItemResponse
     EventItemResponse (..),
-    eventItemResponse,
-    eirMessage,
-    eirStatusCode,
+    newEventItemResponse,
 
     -- * EventStartCondition
     EventStartCondition (..),
-    eventStartCondition,
-    escEventFilter,
-    escSegmentId,
+    newEventStartCondition,
 
     -- * EventStream
     EventStream (..),
-    eventStream,
-    esLastModifiedDate,
-    esLastUpdatedBy,
-    esExternalId,
-    esApplicationId,
-    esRoleARN,
-    esDestinationStreamARN,
+    newEventStream,
 
     -- * EventsBatch
     EventsBatch (..),
-    eventsBatch,
-    ebEndpoint,
-    ebEvents,
+    newEventsBatch,
 
     -- * EventsRequest
     EventsRequest (..),
-    eventsRequest,
-    erBatchItem,
+    newEventsRequest,
 
     -- * EventsResponse
     EventsResponse (..),
-    eventsResponse,
-    erResults,
+    newEventsResponse,
 
     -- * ExportJobRequest
     ExportJobRequest (..),
-    exportJobRequest,
-    eSegmentVersion,
-    eSegmentId,
-    eS3URLPrefix,
-    eRoleARN,
+    newExportJobRequest,
 
     -- * ExportJobResource
     ExportJobResource (..),
-    exportJobResource,
-    ejrSegmentVersion,
-    ejrSegmentId,
-    ejrS3URLPrefix,
-    ejrRoleARN,
+    newExportJobResource,
 
     -- * ExportJobResponse
     ExportJobResponse (..),
-    exportJobResponse,
-    ejrTotalFailures,
-    ejrFailures,
-    ejrTotalProcessed,
-    ejrFailedPieces,
-    ejrCompletedPieces,
-    ejrTotalPieces,
-    ejrCompletionDate,
-    ejrJobStatus,
-    ejrCreationDate,
-    ejrType,
-    ejrDefinition,
-    ejrId,
-    ejrApplicationId,
+    newExportJobResponse,
 
     -- * ExportJobsResponse
     ExportJobsResponse (..),
-    exportJobsResponse,
-    ejrNextToken,
-    ejrItem,
+    newExportJobsResponse,
 
     -- * GCMChannelRequest
     GCMChannelRequest (..),
-    gcmChannelRequest,
-    gcrEnabled,
-    gcrAPIKey,
+    newGCMChannelRequest,
 
     -- * GCMChannelResponse
     GCMChannelResponse (..),
-    gcmChannelResponse,
-    gcmcrLastModifiedDate,
-    gcmcrApplicationId,
-    gcmcrHasCredential,
-    gcmcrId,
-    gcmcrCreationDate,
-    gcmcrEnabled,
-    gcmcrVersion,
-    gcmcrIsArchived,
-    gcmcrLastModifiedBy,
-    gcmcrCredential,
-    gcmcrPlatform,
+    newGCMChannelResponse,
 
     -- * GCMMessage
     GCMMessage (..),
-    gcmMessage,
-    gmSilentPush,
-    gmImageIconURL,
-    gmCollapseKey,
-    gmData,
-    gmTitle,
-    gmIconReference,
-    gmBody,
-    gmTimeToLive,
-    gmPriority,
-    gmSubstitutions,
-    gmImageURL,
-    gmAction,
-    gmSound,
-    gmURL,
-    gmSmallImageIconURL,
-    gmRestrictedPackageName,
-    gmRawContent,
+    newGCMMessage,
 
     -- * GPSCoordinates
     GPSCoordinates (..),
-    gPSCoordinates,
-    gpscLatitude,
-    gpscLongitude,
+    newGPSCoordinates,
 
     -- * GPSPointDimension
     GPSPointDimension (..),
-    gPSPointDimension,
-    gpspdRangeInKilometers,
-    gpspdCoordinates,
+    newGPSPointDimension,
 
     -- * HoldoutActivity
     HoldoutActivity (..),
-    holdoutActivity,
-    haNextActivity,
-    haPercentage,
+    newHoldoutActivity,
 
     -- * ImportJobRequest
     ImportJobRequest (..),
-    importJobRequest,
-    iDefineSegment,
-    iSegmentName,
-    iRegisterEndpoints,
-    iSegmentId,
-    iExternalId,
-    iFormat,
-    iS3URL,
-    iRoleARN,
+    newImportJobRequest,
 
     -- * ImportJobResource
     ImportJobResource (..),
-    importJobResource,
-    ijrDefineSegment,
-    ijrSegmentName,
-    ijrRegisterEndpoints,
-    ijrSegmentId,
-    ijrExternalId,
-    ijrFormat,
-    ijrS3URL,
-    ijrRoleARN,
+    newImportJobResource,
 
     -- * ImportJobResponse
     ImportJobResponse (..),
-    importJobResponse,
-    ijrTotalFailures,
-    ijrFailures,
-    ijrTotalProcessed,
-    ijrFailedPieces,
-    ijrCompletedPieces,
-    ijrTotalPieces,
-    ijrCompletionDate,
-    ijrJobStatus,
-    ijrCreationDate,
-    ijrType,
-    ijrDefinition,
-    ijrId,
-    ijrApplicationId,
+    newImportJobResponse,
 
     -- * ImportJobsResponse
     ImportJobsResponse (..),
-    importJobsResponse,
-    ijrNextToken,
-    ijrItem,
+    newImportJobsResponse,
 
     -- * ItemResponse
     ItemResponse (..),
-    itemResponse,
-    irEventsItemResponse,
-    irEndpointItemResponse,
+    newItemResponse,
 
     -- * JourneyCustomMessage
     JourneyCustomMessage (..),
-    journeyCustomMessage,
-    jcmData,
+    newJourneyCustomMessage,
 
     -- * JourneyDateRangeKpiResponse
     JourneyDateRangeKpiResponse (..),
-    journeyDateRangeKpiResponse,
-    jdrkrNextToken,
-    jdrkrKpiResult,
-    jdrkrKpiName,
-    jdrkrJourneyId,
-    jdrkrEndTime,
-    jdrkrStartTime,
-    jdrkrApplicationId,
+    newJourneyDateRangeKpiResponse,
 
     -- * JourneyEmailMessage
     JourneyEmailMessage (..),
-    journeyEmailMessage,
-    jemFromAddress,
+    newJourneyEmailMessage,
 
     -- * JourneyExecutionActivityMetricsResponse
     JourneyExecutionActivityMetricsResponse (..),
-    journeyExecutionActivityMetricsResponse,
-    jeamrMetrics,
-    jeamrJourneyId,
-    jeamrLastEvaluatedTime,
-    jeamrJourneyActivityId,
-    jeamrActivityType,
-    jeamrApplicationId,
+    newJourneyExecutionActivityMetricsResponse,
 
     -- * JourneyExecutionMetricsResponse
     JourneyExecutionMetricsResponse (..),
-    journeyExecutionMetricsResponse,
-    jemrMetrics,
-    jemrJourneyId,
-    jemrLastEvaluatedTime,
-    jemrApplicationId,
+    newJourneyExecutionMetricsResponse,
 
     -- * JourneyLimits
     JourneyLimits (..),
-    journeyLimits,
-    jlEndpointReentryCap,
-    jlMessagesPerSecond,
-    jlDailyCap,
+    newJourneyLimits,
 
     -- * JourneyPushMessage
     JourneyPushMessage (..),
-    journeyPushMessage,
-    jpmTimeToLive,
+    newJourneyPushMessage,
 
     -- * JourneyResponse
     JourneyResponse (..),
-    journeyResponse,
-    jrLastModifiedDate,
-    jrActivities,
-    jrCreationDate,
-    jrState,
-    jrTags,
-    jrQuietTime,
-    jrRefreshFrequency,
-    jrLimits,
-    jrStartCondition,
-    jrLocalTime,
-    jrStartActivity,
-    jrSchedule,
-    jrName,
-    jrId,
-    jrApplicationId,
+    newJourneyResponse,
 
     -- * JourneySMSMessage
     JourneySMSMessage (..),
-    journeySMSMessage,
-    jsmsmEntityId,
-    jsmsmSenderId,
-    jsmsmMessageType,
-    jsmsmTemplateId,
-    jsmsmOriginationNumber,
+    newJourneySMSMessage,
 
     -- * JourneySchedule
     JourneySchedule (..),
-    journeySchedule,
-    jsStartTime,
-    jsEndTime,
-    jsTimezone,
+    newJourneySchedule,
 
     -- * JourneyStateRequest
     JourneyStateRequest (..),
-    journeyStateRequest,
-    jsrState,
+    newJourneyStateRequest,
 
     -- * JourneysResponse
     JourneysResponse (..),
-    journeysResponse,
-    jrNextToken,
-    jrItem,
+    newJourneysResponse,
 
     -- * ListRecommenderConfigurationsResponse
     ListRecommenderConfigurationsResponse (..),
-    listRecommenderConfigurationsResponse,
-    lrcrNextToken,
-    lrcrItem,
+    newListRecommenderConfigurationsResponse,
 
     -- * Message
     Message (..),
-    message,
-    mSilentPush,
-    mImageIconURL,
-    mTitle,
-    mJSONBody,
-    mBody,
-    mTimeToLive,
-    mMediaURL,
-    mImageURL,
-    mAction,
-    mURL,
-    mImageSmallIconURL,
-    mRawContent,
+    newMessage,
 
     -- * MessageBody
     MessageBody (..),
-    messageBody,
-    mbMessage,
-    mbRequestId,
+    newMessageBody,
 
     -- * MessageConfiguration
     MessageConfiguration (..),
-    messageConfiguration,
-    mcADMMessage,
-    mcDefaultMessage,
-    mcGCMMessage,
-    mcAPNSMessage,
-    mcEmailMessage,
-    mcSMSMessage,
-    mcBaiduMessage,
-    mcCustomMessage,
+    newMessageConfiguration,
 
     -- * MessageRequest
     MessageRequest (..),
-    messageRequest,
-    mrEndpoints,
-    mrContext,
-    mrTraceId,
-    mrAddresses,
-    mrTemplateConfiguration,
-    mrMessageConfiguration,
+    newMessageRequest,
 
     -- * MessageResponse
     MessageResponse (..),
-    messageResponse,
-    mrResult,
-    mrRequestId,
-    mrEndpointResult,
-    mrApplicationId,
+    newMessageResponse,
 
     -- * MessageResult
     MessageResult (..),
-    messageResult,
-    mrStatusMessage,
-    mrUpdatedToken,
-    mrMessageId,
-    mrDeliveryStatus,
-    mrStatusCode,
+    newMessageResult,
 
     -- * MetricDimension
     MetricDimension (..),
-    metricDimension,
-    mdComparisonOperator,
-    mdValue,
+    newMetricDimension,
 
     -- * MultiConditionalBranch
     MultiConditionalBranch (..),
-    multiConditionalBranch,
-    mcbCondition,
-    mcbNextActivity,
+    newMultiConditionalBranch,
 
     -- * MultiConditionalSplitActivity
     MultiConditionalSplitActivity (..),
-    multiConditionalSplitActivity,
-    mcsaDefaultActivity,
-    mcsaEvaluationWaitTime,
-    mcsaBranches,
+    newMultiConditionalSplitActivity,
 
     -- * NumberValidateRequest
     NumberValidateRequest (..),
-    numberValidateRequest,
-    nvrPhoneNumber,
-    nvrIsoCountryCode,
+    newNumberValidateRequest,
 
     -- * NumberValidateResponse
     NumberValidateResponse (..),
-    numberValidateResponse,
-    nvrPhoneType,
-    nvrOriginalPhoneNumber,
-    nvrZipCode,
-    nvrOriginalCountryCodeIso2,
-    nvrCountryCodeIso2,
-    nvrCounty,
-    nvrCity,
-    nvrCarrier,
-    nvrPhoneTypeCode,
-    nvrCleansedPhoneNumberNational,
-    nvrCleansedPhoneNumberE164,
-    nvrCountryCodeNumeric,
-    nvrTimezone,
-    nvrCountry,
+    newNumberValidateResponse,
 
     -- * PublicEndpoint
     PublicEndpoint (..),
-    publicEndpoint,
-    peUser,
-    peAddress,
-    peChannelType,
-    peOptOut,
-    peDemographic,
-    peAttributes,
-    peEndpointStatus,
-    peMetrics,
-    peRequestId,
-    peEffectiveDate,
-    peLocation,
+    newPublicEndpoint,
 
     -- * PushMessageActivity
     PushMessageActivity (..),
-    pushMessageActivity,
-    pmaTemplateName,
-    pmaMessageConfig,
-    pmaNextActivity,
-    pmaTemplateVersion,
+    newPushMessageActivity,
 
     -- * PushNotificationTemplateRequest
     PushNotificationTemplateRequest (..),
-    pushNotificationTemplateRequest,
-    pntrTemplateDescription,
-    pntrBaidu,
-    pntrADM,
-    pntrDefaultSubstitutions,
-    pntrAPNS,
-    pntrGCM,
-    pntrTags,
-    pntrRecommenderId,
-    pntrDefault,
+    newPushNotificationTemplateRequest,
 
     -- * PushNotificationTemplateResponse
     PushNotificationTemplateResponse (..),
-    pushNotificationTemplateResponse,
-    pTemplateDescription,
-    pBaidu,
-    pADM,
-    pARN,
-    pVersion,
-    pDefaultSubstitutions,
-    pAPNS,
-    pGCM,
-    pTags,
-    pRecommenderId,
-    pDefault,
-    pLastModifiedDate,
-    pCreationDate,
-    pTemplateType,
-    pTemplateName,
+    newPushNotificationTemplateResponse,
 
     -- * QuietTime
     QuietTime (..),
-    quietTime,
-    qtEnd,
-    qtStart,
+    newQuietTime,
 
     -- * RandomSplitActivity
     RandomSplitActivity (..),
-    randomSplitActivity,
-    rsaBranches,
+    newRandomSplitActivity,
 
     -- * RandomSplitEntry
     RandomSplitEntry (..),
-    randomSplitEntry,
-    rsePercentage,
-    rseNextActivity,
+    newRandomSplitEntry,
 
     -- * RawEmail
     RawEmail (..),
-    rawEmail,
-    reData,
+    newRawEmail,
 
     -- * RecencyDimension
     RecencyDimension (..),
-    recencyDimension,
-    rdDuration,
-    rdRecencyType,
+    newRecencyDimension,
 
     -- * RecommenderConfigurationResponse
     RecommenderConfigurationResponse (..),
-    recommenderConfigurationResponse,
-    rcrRecommendationsDisplayName,
-    rcrRecommendationTransformerURI,
-    rcrAttributes,
-    rcrName,
-    rcrRecommendationsPerMessage,
-    rcrDescription,
-    rcrRecommendationProviderIdType,
-    rcrRecommendationProviderURI,
-    rcrLastModifiedDate,
-    rcrCreationDate,
-    rcrRecommendationProviderRoleARN,
-    rcrId,
+    newRecommenderConfigurationResponse,
 
     -- * ResultRow
     ResultRow (..),
-    resultRow,
-    rrGroupedBys,
-    rrValues,
+    newResultRow,
 
     -- * ResultRowValue
     ResultRowValue (..),
-    resultRowValue,
-    rrvType,
-    rrvValue,
-    rrvKey,
+    newResultRowValue,
 
     -- * SMSChannelRequest
     SMSChannelRequest (..),
-    sMSChannelRequest,
-    smscrEnabled,
-    smscrShortCode,
-    smscrSenderId,
+    newSMSChannelRequest,
 
     -- * SMSChannelResponse
     SMSChannelResponse (..),
-    sMSChannelResponse,
-    smsLastModifiedDate,
-    smsApplicationId,
-    smsPromotionalMessagesPerSecond,
-    smsHasCredential,
-    smsId,
-    smsCreationDate,
-    smsEnabled,
-    smsVersion,
-    smsShortCode,
-    smsIsArchived,
-    smsSenderId,
-    smsTransactionalMessagesPerSecond,
-    smsLastModifiedBy,
-    smsPlatform,
+    newSMSChannelResponse,
 
     -- * SMSMessage
     SMSMessage (..),
-    sMSMessage,
-    smsmKeyword,
-    smsmEntityId,
-    smsmBody,
-    smsmMediaURL,
-    smsmSubstitutions,
-    smsmSenderId,
-    smsmMessageType,
-    smsmTemplateId,
-    smsmOriginationNumber,
+    newSMSMessage,
 
     -- * SMSMessageActivity
     SMSMessageActivity (..),
-    sMSMessageActivity,
-    smsmaTemplateName,
-    smsmaMessageConfig,
-    smsmaNextActivity,
-    smsmaTemplateVersion,
+    newSMSMessageActivity,
 
     -- * SMSTemplateRequest
     SMSTemplateRequest (..),
-    sMSTemplateRequest,
-    smstrTemplateDescription,
-    smstrBody,
-    smstrDefaultSubstitutions,
-    smstrTags,
-    smstrRecommenderId,
+    newSMSTemplateRequest,
 
     -- * SMSTemplateResponse
     SMSTemplateResponse (..),
-    sMSTemplateResponse,
-    smstrmTemplateDescription,
-    smstrmBody,
-    smstrmARN,
-    smstrmVersion,
-    smstrmDefaultSubstitutions,
-    smstrmTags,
-    smstrmRecommenderId,
-    smstrmLastModifiedDate,
-    smstrmCreationDate,
-    smstrmTemplateName,
-    smstrmTemplateType,
+    newSMSTemplateResponse,
 
     -- * Schedule
     Schedule (..),
-    schedule,
-    sEventFilter,
-    sIsLocalTime,
-    sEndTime,
-    sFrequency,
-    sQuietTime,
-    sTimezone,
-    sStartTime,
+    newSchedule,
 
     -- * SegmentBehaviors
     SegmentBehaviors (..),
-    segmentBehaviors,
-    sbRecency,
+    newSegmentBehaviors,
 
     -- * SegmentCondition
     SegmentCondition (..),
-    segmentCondition,
-    scSegmentId,
+    newSegmentCondition,
 
     -- * SegmentDemographics
     SegmentDemographics (..),
-    segmentDemographics,
-    sdModel,
-    sdPlatform,
-    sdAppVersion,
-    sdChannel,
-    sdDeviceType,
-    sdMake,
+    newSegmentDemographics,
 
     -- * SegmentDimensions
     SegmentDimensions (..),
-    segmentDimensions,
-    sdDemographic,
-    sdAttributes,
-    sdMetrics,
-    sdBehavior,
-    sdUserAttributes,
-    sdLocation,
+    newSegmentDimensions,
 
     -- * SegmentGroup
     SegmentGroup (..),
-    segmentGroup,
-    sgDimensions,
-    sgType,
-    sgSourceSegments,
-    sgSourceType,
+    newSegmentGroup,
 
     -- * SegmentGroupList
     SegmentGroupList (..),
-    segmentGroupList,
-    sglGroups,
-    sglInclude,
+    newSegmentGroupList,
 
     -- * SegmentImportResource
     SegmentImportResource (..),
-    segmentImportResource,
-    sirChannelCounts,
-    sirFormat,
-    sirS3URL,
-    sirSize,
-    sirExternalId,
-    sirRoleARN,
+    newSegmentImportResource,
 
     -- * SegmentLocation
     SegmentLocation (..),
-    segmentLocation,
-    slGPSPoint,
-    slCountry,
+    newSegmentLocation,
 
     -- * SegmentReference
     SegmentReference (..),
-    segmentReference,
-    srVersion,
-    srId,
+    newSegmentReference,
 
     -- * SegmentResponse
     SegmentResponse (..),
-    segmentResponse,
-    sLastModifiedDate,
-    sSegmentGroups,
-    sVersion,
-    sName,
-    sTags,
-    sDimensions,
-    sImportDefinition,
-    sSegmentType,
-    sCreationDate,
-    sId,
-    sARN,
-    sApplicationId,
+    newSegmentResponse,
 
     -- * SegmentsResponse
     SegmentsResponse (..),
-    segmentsResponse,
-    srNextToken,
-    srItem,
+    newSegmentsResponse,
 
     -- * SendUsersMessageRequest
     SendUsersMessageRequest (..),
-    sendUsersMessageRequest,
-    sumrContext,
-    sumrTraceId,
-    sumrTemplateConfiguration,
-    sumrMessageConfiguration,
-    sumrUsers,
+    newSendUsersMessageRequest,
 
     -- * SendUsersMessageResponse
     SendUsersMessageResponse (..),
-    sendUsersMessageResponse,
-    sumrResult,
-    sumrRequestId,
-    sumrApplicationId,
+    newSendUsersMessageResponse,
 
     -- * Session
     Session (..),
-    session,
-    sesStopTimestamp,
-    sesDuration,
-    sesStartTimestamp,
-    sesId,
+    newSession,
 
     -- * SetDimension
     SetDimension (..),
-    setDimension,
-    sdDimensionType,
-    sdValues,
+    newSetDimension,
 
     -- * SimpleCondition
     SimpleCondition (..),
-    simpleCondition,
-    scEventCondition,
-    scSegmentDimensions,
-    scSegmentCondition,
+    newSimpleCondition,
 
     -- * SimpleEmail
     SimpleEmail (..),
-    simpleEmail,
-    seTextPart,
-    seSubject,
-    seHTMLPart,
+    newSimpleEmail,
 
     -- * SimpleEmailPart
     SimpleEmailPart (..),
-    simpleEmailPart,
-    sepData,
-    sepCharset,
+    newSimpleEmailPart,
 
     -- * StartCondition
     StartCondition (..),
-    startCondition,
-    scEventStartCondition,
-    scDescription,
-    scSegmentStartCondition,
+    newStartCondition,
 
     -- * TagsModel
     TagsModel (..),
-    tagsModel,
-    tmTags,
+    newTagsModel,
 
     -- * Template
     Template (..),
-    template,
-    tVersion,
-    tName,
+    newTemplate,
 
     -- * TemplateActiveVersionRequest
     TemplateActiveVersionRequest (..),
-    templateActiveVersionRequest,
-    tavrVersion,
+    newTemplateActiveVersionRequest,
 
     -- * TemplateConfiguration
     TemplateConfiguration (..),
-    templateConfiguration,
-    tcEmailTemplate,
-    tcVoiceTemplate,
-    tcSMSTemplate,
-    tcPushTemplate,
+    newTemplateConfiguration,
 
     -- * TemplateResponse
     TemplateResponse (..),
-    templateResponse,
-    trTemplateDescription,
-    trARN,
-    trVersion,
-    trDefaultSubstitutions,
-    trTags,
-    trLastModifiedDate,
-    trCreationDate,
-    trTemplateName,
-    trTemplateType,
+    newTemplateResponse,
 
     -- * TemplateVersionResponse
     TemplateVersionResponse (..),
-    templateVersionResponse,
-    tvrTemplateDescription,
-    tvrVersion,
-    tvrDefaultSubstitutions,
-    tvrLastModifiedDate,
-    tvrCreationDate,
-    tvrTemplateName,
-    tvrTemplateType,
+    newTemplateVersionResponse,
 
     -- * TemplateVersionsResponse
     TemplateVersionsResponse (..),
-    templateVersionsResponse,
-    tvrNextToken,
-    tvrMessage,
-    tvrRequestId,
-    tvrItem,
+    newTemplateVersionsResponse,
 
     -- * TemplatesResponse
     TemplatesResponse (..),
-    templatesResponse,
-    trNextToken,
-    trItem,
+    newTemplatesResponse,
 
     -- * TreatmentResource
     TreatmentResource (..),
-    treatmentResource,
-    trCustomDeliveryConfiguration,
-    trState,
-    trTreatmentName,
-    trMessageConfiguration,
-    trTemplateConfiguration,
-    trSchedule,
-    trTreatmentDescription,
-    trId,
-    trSizePercent,
+    newTreatmentResource,
 
     -- * UpdateAttributesRequest
     UpdateAttributesRequest (..),
-    updateAttributesRequest,
-    uarBlacklist,
+    newUpdateAttributesRequest,
 
     -- * UpdateRecommenderConfiguration
     UpdateRecommenderConfiguration (..),
-    updateRecommenderConfiguration,
-    urcRecommendationsDisplayName,
-    urcRecommendationTransformerURI,
-    urcAttributes,
-    urcName,
-    urcRecommendationsPerMessage,
-    urcDescription,
-    urcRecommendationProviderIdType,
-    urcRecommendationProviderURI,
-    urcRecommendationProviderRoleARN,
+    newUpdateRecommenderConfiguration,
 
     -- * VoiceChannelRequest
     VoiceChannelRequest (..),
-    voiceChannelRequest,
-    vEnabled,
+    newVoiceChannelRequest,
 
     -- * VoiceChannelResponse
     VoiceChannelResponse (..),
-    voiceChannelResponse,
-    vcrLastModifiedDate,
-    vcrApplicationId,
-    vcrHasCredential,
-    vcrId,
-    vcrCreationDate,
-    vcrEnabled,
-    vcrVersion,
-    vcrIsArchived,
-    vcrLastModifiedBy,
-    vcrPlatform,
+    newVoiceChannelResponse,
 
     -- * VoiceMessage
     VoiceMessage (..),
-    voiceMessage,
-    vmLanguageCode,
-    vmVoiceId,
-    vmBody,
-    vmSubstitutions,
-    vmOriginationNumber,
+    newVoiceMessage,
 
     -- * VoiceTemplateRequest
     VoiceTemplateRequest (..),
-    voiceTemplateRequest,
-    vtrLanguageCode,
-    vtrTemplateDescription,
-    vtrVoiceId,
-    vtrBody,
-    vtrDefaultSubstitutions,
-    vtrTags,
+    newVoiceTemplateRequest,
 
     -- * VoiceTemplateResponse
     VoiceTemplateResponse (..),
-    voiceTemplateResponse,
-    vLanguageCode,
-    vTemplateDescription,
-    vVoiceId,
-    vBody,
-    vARN,
-    vVersion,
-    vDefaultSubstitutions,
-    vTags,
-    vLastModifiedDate,
-    vCreationDate,
-    vTemplateName,
-    vTemplateType,
+    newVoiceTemplateResponse,
 
     -- * WaitActivity
     WaitActivity (..),
-    waitActivity,
-    waWaitTime,
-    waNextActivity,
+    newWaitActivity,
 
     -- * WaitTime
     WaitTime (..),
-    waitTime,
-    wtWaitUntil,
-    wtWaitFor,
+    newWaitTime,
 
     -- * WriteApplicationSettingsRequest
     WriteApplicationSettingsRequest (..),
-    writeApplicationSettingsRequest,
-    wasrCampaignHook,
-    wasrCloudWatchMetricsEnabled,
-    wasrEventTaggingEnabled,
-    wasrQuietTime,
-    wasrLimits,
+    newWriteApplicationSettingsRequest,
 
     -- * WriteCampaignRequest
     WriteCampaignRequest (..),
-    writeCampaignRequest,
-    wcrAdditionalTreatments,
-    wcrHook,
-    wcrCustomDeliveryConfiguration,
-    wcrName,
-    wcrIsPaused,
-    wcrTags,
-    wcrSegmentVersion,
-    wcrLimits,
-    wcrSegmentId,
-    wcrDescription,
-    wcrTreatmentName,
-    wcrMessageConfiguration,
-    wcrTemplateConfiguration,
-    wcrSchedule,
-    wcrHoldoutPercent,
-    wcrTreatmentDescription,
+    newWriteCampaignRequest,
 
     -- * WriteEventStream
     WriteEventStream (..),
-    writeEventStream,
-    wesRoleARN,
-    wesDestinationStreamARN,
+    newWriteEventStream,
 
     -- * WriteJourneyRequest
     WriteJourneyRequest (..),
-    writeJourneyRequest,
-    wjrLastModifiedDate,
-    wjrActivities,
-    wjrCreationDate,
-    wjrState,
-    wjrQuietTime,
-    wjrRefreshFrequency,
-    wjrLimits,
-    wjrStartCondition,
-    wjrLocalTime,
-    wjrStartActivity,
-    wjrSchedule,
-    wjrName,
+    newWriteJourneyRequest,
 
     -- * WriteSegmentRequest
     WriteSegmentRequest (..),
-    writeSegmentRequest,
-    wsrSegmentGroups,
-    wsrName,
-    wsrTags,
-    wsrDimensions,
+    newWriteSegmentRequest,
 
     -- * WriteTreatmentResource
     WriteTreatmentResource (..),
-    writeTreatmentResource,
-    wtrCustomDeliveryConfiguration,
-    wtrTreatmentName,
-    wtrMessageConfiguration,
-    wtrTemplateConfiguration,
-    wtrSchedule,
-    wtrTreatmentDescription,
-    wtrSizePercent,
+    newWriteTreatmentResource,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.ADMChannelRequest
 import Network.AWS.Pinpoint.Types.ADMChannelResponse
 import Network.AWS.Pinpoint.Types.ADMMessage
@@ -2022,112 +1012,139 @@ import Network.AWS.Pinpoint.Types.WriteEventStream
 import Network.AWS.Pinpoint.Types.WriteJourneyRequest
 import Network.AWS.Pinpoint.Types.WriteSegmentRequest
 import Network.AWS.Pinpoint.Types.WriteTreatmentResource
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-12-01@ of the Amazon Pinpoint SDK configuration.
-pinpoint :: Service
-pinpoint =
-  Service
-    { _svcAbbrev = "Pinpoint",
-      _svcSigner = v4,
-      _svcPrefix = "pinpoint",
-      _svcVersion = "2016-12-01",
-      _svcEndpoint = defaultEndpoint pinpoint,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Pinpoint",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Pinpoint",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "pinpoint",
+      Prelude._svcVersion = "2016-12-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "Pinpoint",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | Provides information about an API request or response.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError pinpoint "NotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
 -- | Provides information about an API request or response.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError pinpoint "BadRequestException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "BadRequestException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | Provides information about an API request or response.
-_PayloadTooLargeException :: AsError a => Getting (First ServiceError) a ServiceError
+_PayloadTooLargeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PayloadTooLargeException =
-  _MatchServiceError
-    pinpoint
+  Prelude._MatchServiceError
+    defaultService
     "PayloadTooLargeException"
-    . hasStatus 413
+    Prelude.. Prelude.hasStatus 413
 
 -- | Provides information about an API request or response.
-_InternalServerErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalServerErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerErrorException =
-  _MatchServiceError
-    pinpoint
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerErrorException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
 -- | Provides information about an API request or response.
-_ForbiddenException :: AsError a => Getting (First ServiceError) a ServiceError
+_ForbiddenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ForbiddenException =
-  _MatchServiceError pinpoint "ForbiddenException"
-    . hasStatus 403
+  Prelude._MatchServiceError
+    defaultService
+    "ForbiddenException"
+    Prelude.. Prelude.hasStatus 403
 
 -- | Provides information about an API request or response.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError pinpoint "ConflictException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "ConflictException"
+    Prelude.. Prelude.hasStatus 409
 
 -- | Provides information about an API request or response.
-_MethodNotAllowedException :: AsError a => Getting (First ServiceError) a ServiceError
+_MethodNotAllowedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MethodNotAllowedException =
-  _MatchServiceError
-    pinpoint
+  Prelude._MatchServiceError
+    defaultService
     "MethodNotAllowedException"
-    . hasStatus 405
+    Prelude.. Prelude.hasStatus 405
 
 -- | Provides information about an API request or response.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    pinpoint
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429

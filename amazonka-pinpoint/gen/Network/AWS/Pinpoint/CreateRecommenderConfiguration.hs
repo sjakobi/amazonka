@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,151 +24,166 @@
 -- Creates an Amazon Pinpoint configuration for a recommender model.
 module Network.AWS.Pinpoint.CreateRecommenderConfiguration
   ( -- * Creating a Request
-    createRecommenderConfiguration',
-    CreateRecommenderConfiguration',
+    CreateRecommenderConfiguration' (..),
+    newCreateRecommenderConfiguration',
 
     -- * Request Lenses
-    crcCreateRecommenderConfiguration,
+    createRecommenderConfiguration'_createRecommenderConfiguration,
 
     -- * Destructuring the Response
-    createRecommenderConfigurationResponse,
-    CreateRecommenderConfigurationResponse,
+    CreateRecommenderConfigurationResponse (..),
+    newCreateRecommenderConfigurationResponse,
 
     -- * Response Lenses
-    crcrrsResponseStatus,
-    crcrrsRecommenderConfigurationResponse,
+    createRecommenderConfigurationResponse_httpStatus,
+    createRecommenderConfigurationResponse_recommenderConfigurationResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.RecommenderConfigurationResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createRecommenderConfiguration'' smart constructor.
-newtype CreateRecommenderConfiguration' = CreateRecommenderConfiguration''
-  { _crcCreateRecommenderConfiguration ::
-      CreateRecommenderConfiguration
+-- | /See:/ 'newCreateRecommenderConfiguration'' smart constructor.
+data CreateRecommenderConfiguration' = CreateRecommenderConfiguration''
+  { createRecommenderConfiguration :: CreateRecommenderConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRecommenderConfiguration'' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRecommenderConfiguration'' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crcCreateRecommenderConfiguration' - Undocumented member.
-createRecommenderConfiguration' ::
-  -- | 'crcCreateRecommenderConfiguration'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'createRecommenderConfiguration', 'createRecommenderConfiguration'_createRecommenderConfiguration' - Undocumented member.
+newCreateRecommenderConfiguration' ::
+  -- | 'createRecommenderConfiguration'
   CreateRecommenderConfiguration ->
   CreateRecommenderConfiguration'
-createRecommenderConfiguration'
+newCreateRecommenderConfiguration'
   pCreateRecommenderConfiguration_ =
     CreateRecommenderConfiguration''
-      { _crcCreateRecommenderConfiguration =
+      { createRecommenderConfiguration =
           pCreateRecommenderConfiguration_
       }
 
 -- | Undocumented member.
-crcCreateRecommenderConfiguration :: Lens' CreateRecommenderConfiguration' CreateRecommenderConfiguration
-crcCreateRecommenderConfiguration = lens _crcCreateRecommenderConfiguration (\s a -> s {_crcCreateRecommenderConfiguration = a})
+createRecommenderConfiguration'_createRecommenderConfiguration :: Lens.Lens' CreateRecommenderConfiguration' CreateRecommenderConfiguration
+createRecommenderConfiguration'_createRecommenderConfiguration = Lens.lens (\CreateRecommenderConfiguration'' {createRecommenderConfiguration} -> createRecommenderConfiguration) (\s@CreateRecommenderConfiguration'' {} a -> s {createRecommenderConfiguration = a} :: CreateRecommenderConfiguration')
 
-instance AWSRequest CreateRecommenderConfiguration' where
+instance
+  Prelude.AWSRequest
+    CreateRecommenderConfiguration'
+  where
   type
     Rs CreateRecommenderConfiguration' =
       CreateRecommenderConfigurationResponse
-  request = postJSON pinpoint
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateRecommenderConfigurationResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable CreateRecommenderConfiguration'
+instance
+  Prelude.Hashable
+    CreateRecommenderConfiguration'
 
-instance NFData CreateRecommenderConfiguration'
+instance
+  Prelude.NFData
+    CreateRecommenderConfiguration'
 
-instance ToHeaders CreateRecommenderConfiguration' where
+instance
+  Prelude.ToHeaders
+    CreateRecommenderConfiguration'
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateRecommenderConfiguration' where
+instance
+  Prelude.ToJSON
+    CreateRecommenderConfiguration'
+  where
   toJSON CreateRecommenderConfiguration'' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "CreateRecommenderConfiguration"
-                  .= _crcCreateRecommenderConfiguration
+                  Prelude..= createRecommenderConfiguration
               )
           ]
       )
 
-instance ToPath CreateRecommenderConfiguration' where
-  toPath = const "/v1/recommenders"
+instance
+  Prelude.ToPath
+    CreateRecommenderConfiguration'
+  where
+  toPath = Prelude.const "/v1/recommenders"
 
-instance ToQuery CreateRecommenderConfiguration' where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CreateRecommenderConfiguration'
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createRecommenderConfigurationResponse' smart constructor.
+-- | /See:/ 'newCreateRecommenderConfigurationResponse' smart constructor.
 data CreateRecommenderConfigurationResponse = CreateRecommenderConfigurationResponse'
-  { _crcrrsResponseStatus ::
-      !Int,
-    _crcrrsRecommenderConfigurationResponse ::
-      !RecommenderConfigurationResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    recommenderConfigurationResponse :: RecommenderConfigurationResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRecommenderConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRecommenderConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crcrrsRecommenderConfigurationResponse' - Undocumented member.
-createRecommenderConfigurationResponse ::
-  -- | 'crcrrsResponseStatus'
-  Int ->
-  -- | 'crcrrsRecommenderConfigurationResponse'
+-- 'httpStatus', 'createRecommenderConfigurationResponse_httpStatus' - The response's http status code.
+--
+-- 'recommenderConfigurationResponse', 'createRecommenderConfigurationResponse_recommenderConfigurationResponse' - Undocumented member.
+newCreateRecommenderConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'recommenderConfigurationResponse'
   RecommenderConfigurationResponse ->
   CreateRecommenderConfigurationResponse
-createRecommenderConfigurationResponse
-  pResponseStatus_
+newCreateRecommenderConfigurationResponse
+  pHttpStatus_
   pRecommenderConfigurationResponse_ =
     CreateRecommenderConfigurationResponse'
-      { _crcrrsResponseStatus =
-          pResponseStatus_,
-        _crcrrsRecommenderConfigurationResponse =
+      { httpStatus =
+          pHttpStatus_,
+        recommenderConfigurationResponse =
           pRecommenderConfigurationResponse_
       }
 
--- | -- | The response status code.
-crcrrsResponseStatus :: Lens' CreateRecommenderConfigurationResponse Int
-crcrrsResponseStatus = lens _crcrrsResponseStatus (\s a -> s {_crcrrsResponseStatus = a})
+-- | The response's http status code.
+createRecommenderConfigurationResponse_httpStatus :: Lens.Lens' CreateRecommenderConfigurationResponse Prelude.Int
+createRecommenderConfigurationResponse_httpStatus = Lens.lens (\CreateRecommenderConfigurationResponse' {httpStatus} -> httpStatus) (\s@CreateRecommenderConfigurationResponse' {} a -> s {httpStatus = a} :: CreateRecommenderConfigurationResponse)
 
 -- | Undocumented member.
-crcrrsRecommenderConfigurationResponse :: Lens' CreateRecommenderConfigurationResponse RecommenderConfigurationResponse
-crcrrsRecommenderConfigurationResponse = lens _crcrrsRecommenderConfigurationResponse (\s a -> s {_crcrrsRecommenderConfigurationResponse = a})
+createRecommenderConfigurationResponse_recommenderConfigurationResponse :: Lens.Lens' CreateRecommenderConfigurationResponse RecommenderConfigurationResponse
+createRecommenderConfigurationResponse_recommenderConfigurationResponse = Lens.lens (\CreateRecommenderConfigurationResponse' {recommenderConfigurationResponse} -> recommenderConfigurationResponse) (\s@CreateRecommenderConfigurationResponse' {} a -> s {recommenderConfigurationResponse = a} :: CreateRecommenderConfigurationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateRecommenderConfigurationResponse

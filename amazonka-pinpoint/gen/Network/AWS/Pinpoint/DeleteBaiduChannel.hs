@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables the Baidu channel for an application and deletes any existing settings for the channel.
+-- Disables the Baidu channel for an application and deletes any existing
+-- settings for the channel.
 module Network.AWS.Pinpoint.DeleteBaiduChannel
   ( -- * Creating a Request
-    deleteBaiduChannel,
-    DeleteBaiduChannel,
+    DeleteBaiduChannel (..),
+    newDeleteBaiduChannel,
 
     -- * Request Lenses
-    dbcApplicationId,
+    deleteBaiduChannel_applicationId,
 
     -- * Destructuring the Response
-    deleteBaiduChannelResponse,
-    DeleteBaiduChannelResponse,
+    DeleteBaiduChannelResponse (..),
+    newDeleteBaiduChannelResponse,
 
     -- * Response Lenses
-    dbcrrsResponseStatus,
-    dbcrrsBaiduChannelResponse,
+    deleteBaiduChannelResponse_httpStatus,
+    deleteBaiduChannelResponse_baiduChannelResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.BaiduChannelResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteBaiduChannel' smart constructor.
-newtype DeleteBaiduChannel = DeleteBaiduChannel'
-  { _dbcApplicationId ::
-      Text
+-- | /See:/ 'newDeleteBaiduChannel' smart constructor.
+data DeleteBaiduChannel = DeleteBaiduChannel'
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBaiduChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBaiduChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbcApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-deleteBaiduChannel ::
-  -- | 'dbcApplicationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationId', 'deleteBaiduChannel_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newDeleteBaiduChannel ::
+  -- | 'applicationId'
+  Prelude.Text ->
   DeleteBaiduChannel
-deleteBaiduChannel pApplicationId_ =
+newDeleteBaiduChannel pApplicationId_ =
   DeleteBaiduChannel'
-    { _dbcApplicationId =
+    { applicationId =
         pApplicationId_
     }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-dbcApplicationId :: Lens' DeleteBaiduChannel Text
-dbcApplicationId = lens _dbcApplicationId (\s a -> s {_dbcApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+deleteBaiduChannel_applicationId :: Lens.Lens' DeleteBaiduChannel Prelude.Text
+deleteBaiduChannel_applicationId = Lens.lens (\DeleteBaiduChannel' {applicationId} -> applicationId) (\s@DeleteBaiduChannel' {} a -> s {applicationId = a} :: DeleteBaiduChannel)
 
-instance AWSRequest DeleteBaiduChannel where
+instance Prelude.AWSRequest DeleteBaiduChannel where
   type
     Rs DeleteBaiduChannel =
       DeleteBaiduChannelResponse
-  request = delete pinpoint
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteBaiduChannelResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable DeleteBaiduChannel
+instance Prelude.Hashable DeleteBaiduChannel
 
-instance NFData DeleteBaiduChannel
+instance Prelude.NFData DeleteBaiduChannel
 
-instance ToHeaders DeleteBaiduChannel where
+instance Prelude.ToHeaders DeleteBaiduChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteBaiduChannel where
+instance Prelude.ToPath DeleteBaiduChannel where
   toPath DeleteBaiduChannel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _dbcApplicationId,
+        Prelude.toBS applicationId,
         "/channels/baidu"
       ]
 
-instance ToQuery DeleteBaiduChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteBaiduChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteBaiduChannelResponse' smart constructor.
+-- | /See:/ 'newDeleteBaiduChannelResponse' smart constructor.
 data DeleteBaiduChannelResponse = DeleteBaiduChannelResponse'
-  { _dbcrrsResponseStatus ::
-      !Int,
-    _dbcrrsBaiduChannelResponse ::
-      !BaiduChannelResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    baiduChannelResponse :: BaiduChannelResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBaiduChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBaiduChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbcrrsBaiduChannelResponse' - Undocumented member.
-deleteBaiduChannelResponse ::
-  -- | 'dbcrrsResponseStatus'
-  Int ->
-  -- | 'dbcrrsBaiduChannelResponse'
+-- 'httpStatus', 'deleteBaiduChannelResponse_httpStatus' - The response's http status code.
+--
+-- 'baiduChannelResponse', 'deleteBaiduChannelResponse_baiduChannelResponse' - Undocumented member.
+newDeleteBaiduChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'baiduChannelResponse'
   BaiduChannelResponse ->
   DeleteBaiduChannelResponse
-deleteBaiduChannelResponse
-  pResponseStatus_
+newDeleteBaiduChannelResponse
+  pHttpStatus_
   pBaiduChannelResponse_ =
     DeleteBaiduChannelResponse'
-      { _dbcrrsResponseStatus =
-          pResponseStatus_,
-        _dbcrrsBaiduChannelResponse =
-          pBaiduChannelResponse_
+      { httpStatus =
+          pHttpStatus_,
+        baiduChannelResponse = pBaiduChannelResponse_
       }
 
--- | -- | The response status code.
-dbcrrsResponseStatus :: Lens' DeleteBaiduChannelResponse Int
-dbcrrsResponseStatus = lens _dbcrrsResponseStatus (\s a -> s {_dbcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteBaiduChannelResponse_httpStatus :: Lens.Lens' DeleteBaiduChannelResponse Prelude.Int
+deleteBaiduChannelResponse_httpStatus = Lens.lens (\DeleteBaiduChannelResponse' {httpStatus} -> httpStatus) (\s@DeleteBaiduChannelResponse' {} a -> s {httpStatus = a} :: DeleteBaiduChannelResponse)
 
 -- | Undocumented member.
-dbcrrsBaiduChannelResponse :: Lens' DeleteBaiduChannelResponse BaiduChannelResponse
-dbcrrsBaiduChannelResponse = lens _dbcrrsBaiduChannelResponse (\s a -> s {_dbcrrsBaiduChannelResponse = a})
+deleteBaiduChannelResponse_baiduChannelResponse :: Lens.Lens' DeleteBaiduChannelResponse BaiduChannelResponse
+deleteBaiduChannelResponse_baiduChannelResponse = Lens.lens (\DeleteBaiduChannelResponse' {baiduChannelResponse} -> baiduChannelResponse) (\s@DeleteBaiduChannelResponse' {} a -> s {baiduChannelResponse = a} :: DeleteBaiduChannelResponse)
 
-instance NFData DeleteBaiduChannelResponse
+instance Prelude.NFData DeleteBaiduChannelResponse

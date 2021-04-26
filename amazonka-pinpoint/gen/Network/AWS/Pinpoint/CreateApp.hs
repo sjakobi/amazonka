@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,131 +24,140 @@
 -- Creates an application.
 module Network.AWS.Pinpoint.CreateApp
   ( -- * Creating a Request
-    createApp,
-    CreateApp,
+    CreateApp (..),
+    newCreateApp,
 
     -- * Request Lenses
-    caCreateApplicationRequest,
+    createApp_createApplicationRequest,
 
     -- * Destructuring the Response
-    createAppResponse,
-    CreateAppResponse,
+    CreateAppResponse (..),
+    newCreateAppResponse,
 
     -- * Response Lenses
-    carrsResponseStatus,
-    carrsApplicationResponse,
+    createAppResponse_httpStatus,
+    createAppResponse_applicationResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.ApplicationResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createApp' smart constructor.
-newtype CreateApp = CreateApp'
-  { _caCreateApplicationRequest ::
-      CreateApplicationRequest
+-- | /See:/ 'newCreateApp' smart constructor.
+data CreateApp = CreateApp'
+  { createApplicationRequest :: CreateApplicationRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caCreateApplicationRequest' - Undocumented member.
-createApp ::
-  -- | 'caCreateApplicationRequest'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'createApplicationRequest', 'createApp_createApplicationRequest' - Undocumented member.
+newCreateApp ::
+  -- | 'createApplicationRequest'
   CreateApplicationRequest ->
   CreateApp
-createApp pCreateApplicationRequest_ =
+newCreateApp pCreateApplicationRequest_ =
   CreateApp'
-    { _caCreateApplicationRequest =
+    { createApplicationRequest =
         pCreateApplicationRequest_
     }
 
 -- | Undocumented member.
-caCreateApplicationRequest :: Lens' CreateApp CreateApplicationRequest
-caCreateApplicationRequest = lens _caCreateApplicationRequest (\s a -> s {_caCreateApplicationRequest = a})
+createApp_createApplicationRequest :: Lens.Lens' CreateApp CreateApplicationRequest
+createApp_createApplicationRequest = Lens.lens (\CreateApp' {createApplicationRequest} -> createApplicationRequest) (\s@CreateApp' {} a -> s {createApplicationRequest = a} :: CreateApp)
 
-instance AWSRequest CreateApp where
+instance Prelude.AWSRequest CreateApp where
   type Rs CreateApp = CreateAppResponse
-  request = postJSON pinpoint
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateAppResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable CreateApp
+instance Prelude.Hashable CreateApp
 
-instance NFData CreateApp
+instance Prelude.NFData CreateApp
 
-instance ToHeaders CreateApp where
+instance Prelude.ToHeaders CreateApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateApp where
+instance Prelude.ToJSON CreateApp where
   toJSON CreateApp' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "CreateApplicationRequest"
-                  .= _caCreateApplicationRequest
+                  Prelude..= createApplicationRequest
               )
           ]
       )
 
-instance ToPath CreateApp where
-  toPath = const "/v1/apps"
+instance Prelude.ToPath CreateApp where
+  toPath = Prelude.const "/v1/apps"
 
-instance ToQuery CreateApp where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAppResponse' smart constructor.
+-- | /See:/ 'newCreateAppResponse' smart constructor.
 data CreateAppResponse = CreateAppResponse'
-  { _carrsResponseStatus ::
-      !Int,
-    _carrsApplicationResponse ::
-      !ApplicationResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    applicationResponse :: ApplicationResponse
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAppResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAppResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'carrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'carrsApplicationResponse' - Undocumented member.
-createAppResponse ::
-  -- | 'carrsResponseStatus'
-  Int ->
-  -- | 'carrsApplicationResponse'
+-- 'httpStatus', 'createAppResponse_httpStatus' - The response's http status code.
+--
+-- 'applicationResponse', 'createAppResponse_applicationResponse' - Undocumented member.
+newCreateAppResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'applicationResponse'
   ApplicationResponse ->
   CreateAppResponse
-createAppResponse
-  pResponseStatus_
+newCreateAppResponse
+  pHttpStatus_
   pApplicationResponse_ =
     CreateAppResponse'
-      { _carrsResponseStatus =
-          pResponseStatus_,
-        _carrsApplicationResponse = pApplicationResponse_
+      { httpStatus = pHttpStatus_,
+        applicationResponse = pApplicationResponse_
       }
 
--- | -- | The response status code.
-carrsResponseStatus :: Lens' CreateAppResponse Int
-carrsResponseStatus = lens _carrsResponseStatus (\s a -> s {_carrsResponseStatus = a})
+-- | The response's http status code.
+createAppResponse_httpStatus :: Lens.Lens' CreateAppResponse Prelude.Int
+createAppResponse_httpStatus = Lens.lens (\CreateAppResponse' {httpStatus} -> httpStatus) (\s@CreateAppResponse' {} a -> s {httpStatus = a} :: CreateAppResponse)
 
 -- | Undocumented member.
-carrsApplicationResponse :: Lens' CreateAppResponse ApplicationResponse
-carrsApplicationResponse = lens _carrsApplicationResponse (\s a -> s {_carrsApplicationResponse = a})
+createAppResponse_applicationResponse :: Lens.Lens' CreateAppResponse ApplicationResponse
+createAppResponse_applicationResponse = Lens.lens (\CreateAppResponse' {applicationResponse} -> applicationResponse) (\s@CreateAppResponse' {} a -> s {applicationResponse = a} :: CreateAppResponse)
 
-instance NFData CreateAppResponse
+instance Prelude.NFData CreateAppResponse

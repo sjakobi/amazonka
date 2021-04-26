@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,84 +19,98 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.CampaignEmailMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the content and "From" address for an email message that's sent to recipients of a campaign.
+-- | Specifies the content and \"From\" address for an email message that\'s
+-- sent to recipients of a campaign.
 --
---
---
--- /See:/ 'campaignEmailMessage' smart constructor.
+-- /See:/ 'newCampaignEmailMessage' smart constructor.
 data CampaignEmailMessage = CampaignEmailMessage'
-  { _cemTitle ::
-      !(Maybe Text),
-    _cemBody :: !(Maybe Text),
-    _cemHTMLBody :: !(Maybe Text),
-    _cemFromAddress ::
-      !(Maybe Text)
+  { -- | The subject line, or title, of the email.
+    title :: Prelude.Maybe Prelude.Text,
+    -- | The body of the email for recipients whose email clients don\'t render
+    -- HTML content.
+    body :: Prelude.Maybe Prelude.Text,
+    -- | The body of the email, in HTML format, for recipients whose email
+    -- clients render HTML content.
+    htmlBody :: Prelude.Maybe Prelude.Text,
+    -- | The verified email address to send the email from. The default address
+    -- is the FromAddress specified for the email channel for the application.
+    fromAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CampaignEmailMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CampaignEmailMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cemTitle' - The subject line, or title, of the email.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cemBody' - The body of the email for recipients whose email clients don't render HTML content.
+-- 'title', 'campaignEmailMessage_title' - The subject line, or title, of the email.
 --
--- * 'cemHTMLBody' - The body of the email, in HTML format, for recipients whose email clients render HTML content.
+-- 'body', 'campaignEmailMessage_body' - The body of the email for recipients whose email clients don\'t render
+-- HTML content.
 --
--- * 'cemFromAddress' - The verified email address to send the email from. The default address is the FromAddress specified for the email channel for the application.
-campaignEmailMessage ::
+-- 'htmlBody', 'campaignEmailMessage_htmlBody' - The body of the email, in HTML format, for recipients whose email
+-- clients render HTML content.
+--
+-- 'fromAddress', 'campaignEmailMessage_fromAddress' - The verified email address to send the email from. The default address
+-- is the FromAddress specified for the email channel for the application.
+newCampaignEmailMessage ::
   CampaignEmailMessage
-campaignEmailMessage =
+newCampaignEmailMessage =
   CampaignEmailMessage'
-    { _cemTitle = Nothing,
-      _cemBody = Nothing,
-      _cemHTMLBody = Nothing,
-      _cemFromAddress = Nothing
+    { title = Prelude.Nothing,
+      body = Prelude.Nothing,
+      htmlBody = Prelude.Nothing,
+      fromAddress = Prelude.Nothing
     }
 
 -- | The subject line, or title, of the email.
-cemTitle :: Lens' CampaignEmailMessage (Maybe Text)
-cemTitle = lens _cemTitle (\s a -> s {_cemTitle = a})
+campaignEmailMessage_title :: Lens.Lens' CampaignEmailMessage (Prelude.Maybe Prelude.Text)
+campaignEmailMessage_title = Lens.lens (\CampaignEmailMessage' {title} -> title) (\s@CampaignEmailMessage' {} a -> s {title = a} :: CampaignEmailMessage)
 
--- | The body of the email for recipients whose email clients don't render HTML content.
-cemBody :: Lens' CampaignEmailMessage (Maybe Text)
-cemBody = lens _cemBody (\s a -> s {_cemBody = a})
+-- | The body of the email for recipients whose email clients don\'t render
+-- HTML content.
+campaignEmailMessage_body :: Lens.Lens' CampaignEmailMessage (Prelude.Maybe Prelude.Text)
+campaignEmailMessage_body = Lens.lens (\CampaignEmailMessage' {body} -> body) (\s@CampaignEmailMessage' {} a -> s {body = a} :: CampaignEmailMessage)
 
--- | The body of the email, in HTML format, for recipients whose email clients render HTML content.
-cemHTMLBody :: Lens' CampaignEmailMessage (Maybe Text)
-cemHTMLBody = lens _cemHTMLBody (\s a -> s {_cemHTMLBody = a})
+-- | The body of the email, in HTML format, for recipients whose email
+-- clients render HTML content.
+campaignEmailMessage_htmlBody :: Lens.Lens' CampaignEmailMessage (Prelude.Maybe Prelude.Text)
+campaignEmailMessage_htmlBody = Lens.lens (\CampaignEmailMessage' {htmlBody} -> htmlBody) (\s@CampaignEmailMessage' {} a -> s {htmlBody = a} :: CampaignEmailMessage)
 
--- | The verified email address to send the email from. The default address is the FromAddress specified for the email channel for the application.
-cemFromAddress :: Lens' CampaignEmailMessage (Maybe Text)
-cemFromAddress = lens _cemFromAddress (\s a -> s {_cemFromAddress = a})
+-- | The verified email address to send the email from. The default address
+-- is the FromAddress specified for the email channel for the application.
+campaignEmailMessage_fromAddress :: Lens.Lens' CampaignEmailMessage (Prelude.Maybe Prelude.Text)
+campaignEmailMessage_fromAddress = Lens.lens (\CampaignEmailMessage' {fromAddress} -> fromAddress) (\s@CampaignEmailMessage' {} a -> s {fromAddress = a} :: CampaignEmailMessage)
 
-instance FromJSON CampaignEmailMessage where
+instance Prelude.FromJSON CampaignEmailMessage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CampaignEmailMessage"
       ( \x ->
           CampaignEmailMessage'
-            <$> (x .:? "Title")
-            <*> (x .:? "Body")
-            <*> (x .:? "HtmlBody")
-            <*> (x .:? "FromAddress")
+            Prelude.<$> (x Prelude..:? "Title")
+            Prelude.<*> (x Prelude..:? "Body")
+            Prelude.<*> (x Prelude..:? "HtmlBody")
+            Prelude.<*> (x Prelude..:? "FromAddress")
       )
 
-instance Hashable CampaignEmailMessage
+instance Prelude.Hashable CampaignEmailMessage
 
-instance NFData CampaignEmailMessage
+instance Prelude.NFData CampaignEmailMessage
 
-instance ToJSON CampaignEmailMessage where
+instance Prelude.ToJSON CampaignEmailMessage where
   toJSON CampaignEmailMessage' {..} =
-    object
-      ( catMaybes
-          [ ("Title" .=) <$> _cemTitle,
-            ("Body" .=) <$> _cemBody,
-            ("HtmlBody" .=) <$> _cemHTMLBody,
-            ("FromAddress" .=) <$> _cemFromAddress
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Title" Prelude..=) Prelude.<$> title,
+            ("Body" Prelude..=) Prelude.<$> body,
+            ("HtmlBody" Prelude..=) Prelude.<$> htmlBody,
+            ("FromAddress" Prelude..=) Prelude.<$> fromAddress
           ]
       )

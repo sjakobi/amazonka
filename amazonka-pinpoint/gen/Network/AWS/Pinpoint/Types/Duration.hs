@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Pinpoint.Types.Duration
   ( Duration
       ( ..,
-        Day14,
-        Day30,
-        Day7,
-        Hr24
+        DurationDAY14,
+        DurationDAY30,
+        DurationDAY7,
+        DurationHR24
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Duration = Duration' (CI Text)
+newtype Duration = Duration'
+  { fromDuration ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Day14 :: Duration
-pattern Day14 = Duration' "DAY_14"
+pattern DurationDAY14 :: Duration
+pattern DurationDAY14 = Duration' "DAY_14"
 
-pattern Day30 :: Duration
-pattern Day30 = Duration' "DAY_30"
+pattern DurationDAY30 :: Duration
+pattern DurationDAY30 = Duration' "DAY_30"
 
-pattern Day7 :: Duration
-pattern Day7 = Duration' "DAY_7"
+pattern DurationDAY7 :: Duration
+pattern DurationDAY7 = Duration' "DAY_7"
 
-pattern Hr24 :: Duration
-pattern Hr24 = Duration' "HR_24"
+pattern DurationHR24 :: Duration
+pattern DurationHR24 = Duration' "HR_24"
 
 {-# COMPLETE
-  Day14,
-  Day30,
-  Day7,
-  Hr24,
+  DurationDAY14,
+  DurationDAY30,
+  DurationDAY7,
+  DurationHR24,
   Duration'
   #-}
 
-instance FromText Duration where
-  parser = (Duration' . mk) <$> takeText
+instance Prelude.FromText Duration where
+  parser = Duration' Prelude.<$> Prelude.takeText
 
-instance ToText Duration where
-  toText (Duration' ci) = original ci
+instance Prelude.ToText Duration where
+  toText (Duration' x) = x
 
-instance Hashable Duration
+instance Prelude.Hashable Duration
 
-instance NFData Duration
+instance Prelude.NFData Duration
 
-instance ToByteString Duration
+instance Prelude.ToByteString Duration
 
-instance ToQuery Duration
+instance Prelude.ToQuery Duration
 
-instance ToHeader Duration
+instance Prelude.ToHeader Duration
 
-instance ToJSON Duration where
-  toJSON = toJSONText
+instance Prelude.ToJSON Duration where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Duration where
-  parseJSON = parseJSONText "Duration"
+instance Prelude.FromJSON Duration where
+  parseJSON = Prelude.parseJSONText "Duration"

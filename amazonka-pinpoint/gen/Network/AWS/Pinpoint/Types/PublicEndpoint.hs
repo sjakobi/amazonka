@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,140 +19,210 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.PublicEndpoint where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.ChannelType
 import Network.AWS.Pinpoint.Types.EndpointDemographic
 import Network.AWS.Pinpoint.Types.EndpointLocation
 import Network.AWS.Pinpoint.Types.EndpointUser
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the properties and attributes of an endpoint that's associated with an event.
+-- | Specifies the properties and attributes of an endpoint that\'s
+-- associated with an event.
 --
---
---
--- /See:/ 'publicEndpoint' smart constructor.
+-- /See:/ 'newPublicEndpoint' smart constructor.
 data PublicEndpoint = PublicEndpoint'
-  { _peUser ::
-      !(Maybe EndpointUser),
-    _peAddress :: !(Maybe Text),
-    _peChannelType :: !(Maybe ChannelType),
-    _peOptOut :: !(Maybe Text),
-    _peDemographic ::
-      !(Maybe EndpointDemographic),
-    _peAttributes ::
-      !(Maybe (Map Text [Text])),
-    _peEndpointStatus :: !(Maybe Text),
-    _peMetrics :: !(Maybe (Map Text Double)),
-    _peRequestId :: !(Maybe Text),
-    _peEffectiveDate :: !(Maybe Text),
-    _peLocation :: !(Maybe EndpointLocation)
+  { -- | One or more custom user attributes that your app reports to Amazon
+    -- Pinpoint for the user who\'s associated with the endpoint.
+    user :: Prelude.Maybe EndpointUser,
+    -- | The unique identifier for the recipient, such as a device token, email
+    -- address, or mobile phone number.
+    address :: Prelude.Maybe Prelude.Text,
+    -- | The channel that\'s used when sending messages or push notifications to
+    -- the endpoint.
+    channelType :: Prelude.Maybe ChannelType,
+    -- | Specifies whether the user who\'s associated with the endpoint has opted
+    -- out of receiving messages and push notifications from you. Possible
+    -- values are: ALL, the user has opted out and doesn\'t want to receive any
+    -- messages or push notifications; and, NONE, the user hasn\'t opted out
+    -- and wants to receive all messages and push notifications.
+    optOut :: Prelude.Maybe Prelude.Text,
+    -- | The demographic information for the endpoint, such as the time zone and
+    -- platform.
+    demographic :: Prelude.Maybe EndpointDemographic,
+    -- | One or more custom attributes that describe the endpoint by associating
+    -- a name with an array of values. You can use these attributes as filter
+    -- criteria when you create segments.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | Specifies whether to send messages or push notifications to the
+    -- endpoint. Valid values are: ACTIVE, messages are sent to the endpoint;
+    -- and, INACTIVE, messages aren’t sent to the endpoint.
+    --
+    -- Amazon Pinpoint automatically sets this value to ACTIVE when you create
+    -- an endpoint or update an existing endpoint. Amazon Pinpoint
+    -- automatically sets this value to INACTIVE if you update another endpoint
+    -- that has the same address specified by the Address property.
+    endpointStatus :: Prelude.Maybe Prelude.Text,
+    -- | One or more custom metrics that your app reports to Amazon Pinpoint for
+    -- the endpoint.
+    metrics :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Double),
+    -- | A unique identifier that\'s generated each time the endpoint is updated.
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in ISO 8601 format, when the endpoint was last
+    -- updated.
+    effectiveDate :: Prelude.Maybe Prelude.Text,
+    -- | The geographic information for the endpoint.
+    location :: Prelude.Maybe EndpointLocation
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublicEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublicEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'peUser' - One or more custom user attributes that your app reports to Amazon Pinpoint for the user who's associated with the endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'peAddress' - The unique identifier for the recipient, such as a device token, email address, or mobile phone number.
+-- 'user', 'publicEndpoint_user' - One or more custom user attributes that your app reports to Amazon
+-- Pinpoint for the user who\'s associated with the endpoint.
 --
--- * 'peChannelType' - The channel that's used when sending messages or push notifications to the endpoint.
+-- 'address', 'publicEndpoint_address' - The unique identifier for the recipient, such as a device token, email
+-- address, or mobile phone number.
 --
--- * 'peOptOut' - Specifies whether the user who's associated with the endpoint has opted out of receiving messages and push notifications from you. Possible values are: ALL, the user has opted out and doesn't want to receive any messages or push notifications; and, NONE, the user hasn't opted out and wants to receive all messages and push notifications.
+-- 'channelType', 'publicEndpoint_channelType' - The channel that\'s used when sending messages or push notifications to
+-- the endpoint.
 --
--- * 'peDemographic' - The demographic information for the endpoint, such as the time zone and platform.
+-- 'optOut', 'publicEndpoint_optOut' - Specifies whether the user who\'s associated with the endpoint has opted
+-- out of receiving messages and push notifications from you. Possible
+-- values are: ALL, the user has opted out and doesn\'t want to receive any
+-- messages or push notifications; and, NONE, the user hasn\'t opted out
+-- and wants to receive all messages and push notifications.
 --
--- * 'peAttributes' - One or more custom attributes that describe the endpoint by associating a name with an array of values. You can use these attributes as filter criteria when you create segments.
+-- 'demographic', 'publicEndpoint_demographic' - The demographic information for the endpoint, such as the time zone and
+-- platform.
 --
--- * 'peEndpointStatus' - Specifies whether to send messages or push notifications to the endpoint. Valid values are: ACTIVE, messages are sent to the endpoint; and, INACTIVE, messages aren’t sent to the endpoint. Amazon Pinpoint automatically sets this value to ACTIVE when you create an endpoint or update an existing endpoint. Amazon Pinpoint automatically sets this value to INACTIVE if you update another endpoint that has the same address specified by the Address property.
+-- 'attributes', 'publicEndpoint_attributes' - One or more custom attributes that describe the endpoint by associating
+-- a name with an array of values. You can use these attributes as filter
+-- criteria when you create segments.
 --
--- * 'peMetrics' - One or more custom metrics that your app reports to Amazon Pinpoint for the endpoint.
+-- 'endpointStatus', 'publicEndpoint_endpointStatus' - Specifies whether to send messages or push notifications to the
+-- endpoint. Valid values are: ACTIVE, messages are sent to the endpoint;
+-- and, INACTIVE, messages aren’t sent to the endpoint.
 --
--- * 'peRequestId' - A unique identifier that's generated each time the endpoint is updated.
+-- Amazon Pinpoint automatically sets this value to ACTIVE when you create
+-- an endpoint or update an existing endpoint. Amazon Pinpoint
+-- automatically sets this value to INACTIVE if you update another endpoint
+-- that has the same address specified by the Address property.
 --
--- * 'peEffectiveDate' - The date and time, in ISO 8601 format, when the endpoint was last updated.
+-- 'metrics', 'publicEndpoint_metrics' - One or more custom metrics that your app reports to Amazon Pinpoint for
+-- the endpoint.
 --
--- * 'peLocation' - The geographic information for the endpoint.
-publicEndpoint ::
+-- 'requestId', 'publicEndpoint_requestId' - A unique identifier that\'s generated each time the endpoint is updated.
+--
+-- 'effectiveDate', 'publicEndpoint_effectiveDate' - The date and time, in ISO 8601 format, when the endpoint was last
+-- updated.
+--
+-- 'location', 'publicEndpoint_location' - The geographic information for the endpoint.
+newPublicEndpoint ::
   PublicEndpoint
-publicEndpoint =
+newPublicEndpoint =
   PublicEndpoint'
-    { _peUser = Nothing,
-      _peAddress = Nothing,
-      _peChannelType = Nothing,
-      _peOptOut = Nothing,
-      _peDemographic = Nothing,
-      _peAttributes = Nothing,
-      _peEndpointStatus = Nothing,
-      _peMetrics = Nothing,
-      _peRequestId = Nothing,
-      _peEffectiveDate = Nothing,
-      _peLocation = Nothing
+    { user = Prelude.Nothing,
+      address = Prelude.Nothing,
+      channelType = Prelude.Nothing,
+      optOut = Prelude.Nothing,
+      demographic = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      endpointStatus = Prelude.Nothing,
+      metrics = Prelude.Nothing,
+      requestId = Prelude.Nothing,
+      effectiveDate = Prelude.Nothing,
+      location = Prelude.Nothing
     }
 
--- | One or more custom user attributes that your app reports to Amazon Pinpoint for the user who's associated with the endpoint.
-peUser :: Lens' PublicEndpoint (Maybe EndpointUser)
-peUser = lens _peUser (\s a -> s {_peUser = a})
+-- | One or more custom user attributes that your app reports to Amazon
+-- Pinpoint for the user who\'s associated with the endpoint.
+publicEndpoint_user :: Lens.Lens' PublicEndpoint (Prelude.Maybe EndpointUser)
+publicEndpoint_user = Lens.lens (\PublicEndpoint' {user} -> user) (\s@PublicEndpoint' {} a -> s {user = a} :: PublicEndpoint)
 
--- | The unique identifier for the recipient, such as a device token, email address, or mobile phone number.
-peAddress :: Lens' PublicEndpoint (Maybe Text)
-peAddress = lens _peAddress (\s a -> s {_peAddress = a})
+-- | The unique identifier for the recipient, such as a device token, email
+-- address, or mobile phone number.
+publicEndpoint_address :: Lens.Lens' PublicEndpoint (Prelude.Maybe Prelude.Text)
+publicEndpoint_address = Lens.lens (\PublicEndpoint' {address} -> address) (\s@PublicEndpoint' {} a -> s {address = a} :: PublicEndpoint)
 
--- | The channel that's used when sending messages or push notifications to the endpoint.
-peChannelType :: Lens' PublicEndpoint (Maybe ChannelType)
-peChannelType = lens _peChannelType (\s a -> s {_peChannelType = a})
+-- | The channel that\'s used when sending messages or push notifications to
+-- the endpoint.
+publicEndpoint_channelType :: Lens.Lens' PublicEndpoint (Prelude.Maybe ChannelType)
+publicEndpoint_channelType = Lens.lens (\PublicEndpoint' {channelType} -> channelType) (\s@PublicEndpoint' {} a -> s {channelType = a} :: PublicEndpoint)
 
--- | Specifies whether the user who's associated with the endpoint has opted out of receiving messages and push notifications from you. Possible values are: ALL, the user has opted out and doesn't want to receive any messages or push notifications; and, NONE, the user hasn't opted out and wants to receive all messages and push notifications.
-peOptOut :: Lens' PublicEndpoint (Maybe Text)
-peOptOut = lens _peOptOut (\s a -> s {_peOptOut = a})
+-- | Specifies whether the user who\'s associated with the endpoint has opted
+-- out of receiving messages and push notifications from you. Possible
+-- values are: ALL, the user has opted out and doesn\'t want to receive any
+-- messages or push notifications; and, NONE, the user hasn\'t opted out
+-- and wants to receive all messages and push notifications.
+publicEndpoint_optOut :: Lens.Lens' PublicEndpoint (Prelude.Maybe Prelude.Text)
+publicEndpoint_optOut = Lens.lens (\PublicEndpoint' {optOut} -> optOut) (\s@PublicEndpoint' {} a -> s {optOut = a} :: PublicEndpoint)
 
--- | The demographic information for the endpoint, such as the time zone and platform.
-peDemographic :: Lens' PublicEndpoint (Maybe EndpointDemographic)
-peDemographic = lens _peDemographic (\s a -> s {_peDemographic = a})
+-- | The demographic information for the endpoint, such as the time zone and
+-- platform.
+publicEndpoint_demographic :: Lens.Lens' PublicEndpoint (Prelude.Maybe EndpointDemographic)
+publicEndpoint_demographic = Lens.lens (\PublicEndpoint' {demographic} -> demographic) (\s@PublicEndpoint' {} a -> s {demographic = a} :: PublicEndpoint)
 
--- | One or more custom attributes that describe the endpoint by associating a name with an array of values. You can use these attributes as filter criteria when you create segments.
-peAttributes :: Lens' PublicEndpoint (HashMap Text [Text])
-peAttributes = lens _peAttributes (\s a -> s {_peAttributes = a}) . _Default . _Map
+-- | One or more custom attributes that describe the endpoint by associating
+-- a name with an array of values. You can use these attributes as filter
+-- criteria when you create segments.
+publicEndpoint_attributes :: Lens.Lens' PublicEndpoint (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+publicEndpoint_attributes = Lens.lens (\PublicEndpoint' {attributes} -> attributes) (\s@PublicEndpoint' {} a -> s {attributes = a} :: PublicEndpoint) Prelude.. Lens.mapping Prelude._Map
 
--- | Specifies whether to send messages or push notifications to the endpoint. Valid values are: ACTIVE, messages are sent to the endpoint; and, INACTIVE, messages aren’t sent to the endpoint. Amazon Pinpoint automatically sets this value to ACTIVE when you create an endpoint or update an existing endpoint. Amazon Pinpoint automatically sets this value to INACTIVE if you update another endpoint that has the same address specified by the Address property.
-peEndpointStatus :: Lens' PublicEndpoint (Maybe Text)
-peEndpointStatus = lens _peEndpointStatus (\s a -> s {_peEndpointStatus = a})
+-- | Specifies whether to send messages or push notifications to the
+-- endpoint. Valid values are: ACTIVE, messages are sent to the endpoint;
+-- and, INACTIVE, messages aren’t sent to the endpoint.
+--
+-- Amazon Pinpoint automatically sets this value to ACTIVE when you create
+-- an endpoint or update an existing endpoint. Amazon Pinpoint
+-- automatically sets this value to INACTIVE if you update another endpoint
+-- that has the same address specified by the Address property.
+publicEndpoint_endpointStatus :: Lens.Lens' PublicEndpoint (Prelude.Maybe Prelude.Text)
+publicEndpoint_endpointStatus = Lens.lens (\PublicEndpoint' {endpointStatus} -> endpointStatus) (\s@PublicEndpoint' {} a -> s {endpointStatus = a} :: PublicEndpoint)
 
--- | One or more custom metrics that your app reports to Amazon Pinpoint for the endpoint.
-peMetrics :: Lens' PublicEndpoint (HashMap Text Double)
-peMetrics = lens _peMetrics (\s a -> s {_peMetrics = a}) . _Default . _Map
+-- | One or more custom metrics that your app reports to Amazon Pinpoint for
+-- the endpoint.
+publicEndpoint_metrics :: Lens.Lens' PublicEndpoint (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Double))
+publicEndpoint_metrics = Lens.lens (\PublicEndpoint' {metrics} -> metrics) (\s@PublicEndpoint' {} a -> s {metrics = a} :: PublicEndpoint) Prelude.. Lens.mapping Prelude._Map
 
--- | A unique identifier that's generated each time the endpoint is updated.
-peRequestId :: Lens' PublicEndpoint (Maybe Text)
-peRequestId = lens _peRequestId (\s a -> s {_peRequestId = a})
+-- | A unique identifier that\'s generated each time the endpoint is updated.
+publicEndpoint_requestId :: Lens.Lens' PublicEndpoint (Prelude.Maybe Prelude.Text)
+publicEndpoint_requestId = Lens.lens (\PublicEndpoint' {requestId} -> requestId) (\s@PublicEndpoint' {} a -> s {requestId = a} :: PublicEndpoint)
 
--- | The date and time, in ISO 8601 format, when the endpoint was last updated.
-peEffectiveDate :: Lens' PublicEndpoint (Maybe Text)
-peEffectiveDate = lens _peEffectiveDate (\s a -> s {_peEffectiveDate = a})
+-- | The date and time, in ISO 8601 format, when the endpoint was last
+-- updated.
+publicEndpoint_effectiveDate :: Lens.Lens' PublicEndpoint (Prelude.Maybe Prelude.Text)
+publicEndpoint_effectiveDate = Lens.lens (\PublicEndpoint' {effectiveDate} -> effectiveDate) (\s@PublicEndpoint' {} a -> s {effectiveDate = a} :: PublicEndpoint)
 
 -- | The geographic information for the endpoint.
-peLocation :: Lens' PublicEndpoint (Maybe EndpointLocation)
-peLocation = lens _peLocation (\s a -> s {_peLocation = a})
+publicEndpoint_location :: Lens.Lens' PublicEndpoint (Prelude.Maybe EndpointLocation)
+publicEndpoint_location = Lens.lens (\PublicEndpoint' {location} -> location) (\s@PublicEndpoint' {} a -> s {location = a} :: PublicEndpoint)
 
-instance Hashable PublicEndpoint
+instance Prelude.Hashable PublicEndpoint
 
-instance NFData PublicEndpoint
+instance Prelude.NFData PublicEndpoint
 
-instance ToJSON PublicEndpoint where
+instance Prelude.ToJSON PublicEndpoint where
   toJSON PublicEndpoint' {..} =
-    object
-      ( catMaybes
-          [ ("User" .=) <$> _peUser,
-            ("Address" .=) <$> _peAddress,
-            ("ChannelType" .=) <$> _peChannelType,
-            ("OptOut" .=) <$> _peOptOut,
-            ("Demographic" .=) <$> _peDemographic,
-            ("Attributes" .=) <$> _peAttributes,
-            ("EndpointStatus" .=) <$> _peEndpointStatus,
-            ("Metrics" .=) <$> _peMetrics,
-            ("RequestId" .=) <$> _peRequestId,
-            ("EffectiveDate" .=) <$> _peEffectiveDate,
-            ("Location" .=) <$> _peLocation
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("User" Prelude..=) Prelude.<$> user,
+            ("Address" Prelude..=) Prelude.<$> address,
+            ("ChannelType" Prelude..=) Prelude.<$> channelType,
+            ("OptOut" Prelude..=) Prelude.<$> optOut,
+            ("Demographic" Prelude..=) Prelude.<$> demographic,
+            ("Attributes" Prelude..=) Prelude.<$> attributes,
+            ("EndpointStatus" Prelude..=)
+              Prelude.<$> endpointStatus,
+            ("Metrics" Prelude..=) Prelude.<$> metrics,
+            ("RequestId" Prelude..=) Prelude.<$> requestId,
+            ("EffectiveDate" Prelude..=)
+              Prelude.<$> effectiveDate,
+            ("Location" Prelude..=) Prelude.<$> location
           ]
       )

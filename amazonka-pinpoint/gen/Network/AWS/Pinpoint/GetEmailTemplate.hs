@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,222 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the content and settings of a message template for messages that are sent through the email channel.
+-- Retrieves the content and settings of a message template for messages
+-- that are sent through the email channel.
 module Network.AWS.Pinpoint.GetEmailTemplate
   ( -- * Creating a Request
-    getEmailTemplate,
-    GetEmailTemplate,
+    GetEmailTemplate (..),
+    newGetEmailTemplate,
 
     -- * Request Lenses
-    getVersion,
-    getTemplateName,
+    getEmailTemplate_version,
+    getEmailTemplate_templateName,
 
     -- * Destructuring the Response
-    getEmailTemplateResponse,
-    GetEmailTemplateResponse,
+    GetEmailTemplateResponse (..),
+    newGetEmailTemplateResponse,
 
     -- * Response Lenses
-    getrrsResponseStatus,
-    getrrsEmailTemplateResponse,
+    getEmailTemplateResponse_httpStatus,
+    getEmailTemplateResponse_emailTemplateResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.EmailTemplateResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getEmailTemplate' smart constructor.
+-- | /See:/ 'newGetEmailTemplate' smart constructor.
 data GetEmailTemplate = GetEmailTemplate'
-  { _getVersion ::
-      !(Maybe Text),
-    _getTemplateName :: !Text
+  { -- | The unique identifier for the version of the message template to update,
+    -- retrieve information about, or delete. To retrieve identifiers and other
+    -- information for all the versions of a template, use the Template
+    -- Versions resource.
+    --
+    -- If specified, this value must match the identifier for an existing
+    -- template version. If specified for an update operation, this value must
+    -- match the identifier for the latest existing version of the template.
+    -- This restriction helps ensure that race conditions don\'t occur.
+    --
+    -- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+    -- the following:
+    --
+    -- -   For a get operation, retrieves information about the active version
+    --     of the template.
+    --
+    -- -   For an update operation, saves the updates to (overwrites) the
+    --     latest existing version of the template, if the create-new-version
+    --     parameter isn\'t used or is set to false.
+    --
+    -- -   For a delete operation, deletes the template, including all versions
+    --     of the template.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the message template. A template name must start with an
+    -- alphanumeric character and can contain a maximum of 128 characters. The
+    -- characters can be alphanumeric characters, underscores (_), or hyphens
+    -- (-). Template names are case sensitive.
+    templateName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetEmailTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetEmailTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'getVersion' - The unique identifier for the version of the message template to update, retrieve information about, or delete. To retrieve identifiers and other information for all the versions of a template, use the <link>Template Versions resource. If specified, this value must match the identifier for an existing template version. If specified for an update operation, this value must match the identifier for the latest existing version of the template. This restriction helps ensure that race conditions don't occur. If you don't specify a value for this parameter, Amazon Pinpoint does the following:     * For a get operation, retrieves information about the active version of the template.     * For an update operation, saves the updates to (overwrites) the latest existing version of the template, if the create-new-version parameter isn't used or is set to false.     * For a delete operation, deletes the template, including all versions of the template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'getTemplateName' - The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-getEmailTemplate ::
-  -- | 'getTemplateName'
-  Text ->
+-- 'version', 'getEmailTemplate_version' - The unique identifier for the version of the message template to update,
+-- retrieve information about, or delete. To retrieve identifiers and other
+-- information for all the versions of a template, use the Template
+-- Versions resource.
+--
+-- If specified, this value must match the identifier for an existing
+-- template version. If specified for an update operation, this value must
+-- match the identifier for the latest existing version of the template.
+-- This restriction helps ensure that race conditions don\'t occur.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+-- the following:
+--
+-- -   For a get operation, retrieves information about the active version
+--     of the template.
+--
+-- -   For an update operation, saves the updates to (overwrites) the
+--     latest existing version of the template, if the create-new-version
+--     parameter isn\'t used or is set to false.
+--
+-- -   For a delete operation, deletes the template, including all versions
+--     of the template.
+--
+-- 'templateName', 'getEmailTemplate_templateName' - The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+newGetEmailTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
   GetEmailTemplate
-getEmailTemplate pTemplateName_ =
+newGetEmailTemplate pTemplateName_ =
   GetEmailTemplate'
-    { _getVersion = Nothing,
-      _getTemplateName = pTemplateName_
+    { version = Prelude.Nothing,
+      templateName = pTemplateName_
     }
 
--- | The unique identifier for the version of the message template to update, retrieve information about, or delete. To retrieve identifiers and other information for all the versions of a template, use the <link>Template Versions resource. If specified, this value must match the identifier for an existing template version. If specified for an update operation, this value must match the identifier for the latest existing version of the template. This restriction helps ensure that race conditions don't occur. If you don't specify a value for this parameter, Amazon Pinpoint does the following:     * For a get operation, retrieves information about the active version of the template.     * For an update operation, saves the updates to (overwrites) the latest existing version of the template, if the create-new-version parameter isn't used or is set to false.     * For a delete operation, deletes the template, including all versions of the template.
-getVersion :: Lens' GetEmailTemplate (Maybe Text)
-getVersion = lens _getVersion (\s a -> s {_getVersion = a})
+-- | The unique identifier for the version of the message template to update,
+-- retrieve information about, or delete. To retrieve identifiers and other
+-- information for all the versions of a template, use the Template
+-- Versions resource.
+--
+-- If specified, this value must match the identifier for an existing
+-- template version. If specified for an update operation, this value must
+-- match the identifier for the latest existing version of the template.
+-- This restriction helps ensure that race conditions don\'t occur.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint does
+-- the following:
+--
+-- -   For a get operation, retrieves information about the active version
+--     of the template.
+--
+-- -   For an update operation, saves the updates to (overwrites) the
+--     latest existing version of the template, if the create-new-version
+--     parameter isn\'t used or is set to false.
+--
+-- -   For a delete operation, deletes the template, including all versions
+--     of the template.
+getEmailTemplate_version :: Lens.Lens' GetEmailTemplate (Prelude.Maybe Prelude.Text)
+getEmailTemplate_version = Lens.lens (\GetEmailTemplate' {version} -> version) (\s@GetEmailTemplate' {} a -> s {version = a} :: GetEmailTemplate)
 
--- | The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-getTemplateName :: Lens' GetEmailTemplate Text
-getTemplateName = lens _getTemplateName (\s a -> s {_getTemplateName = a})
+-- | The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+getEmailTemplate_templateName :: Lens.Lens' GetEmailTemplate Prelude.Text
+getEmailTemplate_templateName = Lens.lens (\GetEmailTemplate' {templateName} -> templateName) (\s@GetEmailTemplate' {} a -> s {templateName = a} :: GetEmailTemplate)
 
-instance AWSRequest GetEmailTemplate where
+instance Prelude.AWSRequest GetEmailTemplate where
   type Rs GetEmailTemplate = GetEmailTemplateResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetEmailTemplateResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetEmailTemplate
+instance Prelude.Hashable GetEmailTemplate
 
-instance NFData GetEmailTemplate
+instance Prelude.NFData GetEmailTemplate
 
-instance ToHeaders GetEmailTemplate where
+instance Prelude.ToHeaders GetEmailTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetEmailTemplate where
+instance Prelude.ToPath GetEmailTemplate where
   toPath GetEmailTemplate' {..} =
-    mconcat
-      ["/v1/templates/", toBS _getTemplateName, "/email"]
+    Prelude.mconcat
+      [ "/v1/templates/",
+        Prelude.toBS templateName,
+        "/email"
+      ]
 
-instance ToQuery GetEmailTemplate where
+instance Prelude.ToQuery GetEmailTemplate where
   toQuery GetEmailTemplate' {..} =
-    mconcat ["version" =: _getVersion]
+    Prelude.mconcat ["version" Prelude.=: version]
 
--- | /See:/ 'getEmailTemplateResponse' smart constructor.
+-- | /See:/ 'newGetEmailTemplateResponse' smart constructor.
 data GetEmailTemplateResponse = GetEmailTemplateResponse'
-  { _getrrsResponseStatus ::
-      !Int,
-    _getrrsEmailTemplateResponse ::
-      !EmailTemplateResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    emailTemplateResponse :: EmailTemplateResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetEmailTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetEmailTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'getrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'getrrsEmailTemplateResponse' - Undocumented member.
-getEmailTemplateResponse ::
-  -- | 'getrrsResponseStatus'
-  Int ->
-  -- | 'getrrsEmailTemplateResponse'
+-- 'httpStatus', 'getEmailTemplateResponse_httpStatus' - The response's http status code.
+--
+-- 'emailTemplateResponse', 'getEmailTemplateResponse_emailTemplateResponse' - Undocumented member.
+newGetEmailTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'emailTemplateResponse'
   EmailTemplateResponse ->
   GetEmailTemplateResponse
-getEmailTemplateResponse
-  pResponseStatus_
+newGetEmailTemplateResponse
+  pHttpStatus_
   pEmailTemplateResponse_ =
     GetEmailTemplateResponse'
-      { _getrrsResponseStatus =
-          pResponseStatus_,
-        _getrrsEmailTemplateResponse =
-          pEmailTemplateResponse_
+      { httpStatus =
+          pHttpStatus_,
+        emailTemplateResponse = pEmailTemplateResponse_
       }
 
--- | -- | The response status code.
-getrrsResponseStatus :: Lens' GetEmailTemplateResponse Int
-getrrsResponseStatus = lens _getrrsResponseStatus (\s a -> s {_getrrsResponseStatus = a})
+-- | The response's http status code.
+getEmailTemplateResponse_httpStatus :: Lens.Lens' GetEmailTemplateResponse Prelude.Int
+getEmailTemplateResponse_httpStatus = Lens.lens (\GetEmailTemplateResponse' {httpStatus} -> httpStatus) (\s@GetEmailTemplateResponse' {} a -> s {httpStatus = a} :: GetEmailTemplateResponse)
 
 -- | Undocumented member.
-getrrsEmailTemplateResponse :: Lens' GetEmailTemplateResponse EmailTemplateResponse
-getrrsEmailTemplateResponse = lens _getrrsEmailTemplateResponse (\s a -> s {_getrrsEmailTemplateResponse = a})
+getEmailTemplateResponse_emailTemplateResponse :: Lens.Lens' GetEmailTemplateResponse EmailTemplateResponse
+getEmailTemplateResponse_emailTemplateResponse = Lens.lens (\GetEmailTemplateResponse' {emailTemplateResponse} -> emailTemplateResponse) (\s@GetEmailTemplateResponse' {} a -> s {emailTemplateResponse = a} :: GetEmailTemplateResponse)
 
-instance NFData GetEmailTemplateResponse
+instance Prelude.NFData GetEmailTemplateResponse

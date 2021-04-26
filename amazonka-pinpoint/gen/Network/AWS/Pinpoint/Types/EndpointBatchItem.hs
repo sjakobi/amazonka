@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,152 +19,262 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EndpointBatchItem where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.ChannelType
 import Network.AWS.Pinpoint.Types.EndpointDemographic
 import Network.AWS.Pinpoint.Types.EndpointLocation
 import Network.AWS.Pinpoint.Types.EndpointUser
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies an endpoint to create or update and the settings and attributes to set or change for the endpoint.
+-- | Specifies an endpoint to create or update and the settings and
+-- attributes to set or change for the endpoint.
 --
---
---
--- /See:/ 'endpointBatchItem' smart constructor.
+-- /See:/ 'newEndpointBatchItem' smart constructor.
 data EndpointBatchItem = EndpointBatchItem'
-  { _ebiUser ::
-      !(Maybe EndpointUser),
-    _ebiAddress :: !(Maybe Text),
-    _ebiChannelType ::
-      !(Maybe ChannelType),
-    _ebiId :: !(Maybe Text),
-    _ebiOptOut :: !(Maybe Text),
-    _ebiDemographic ::
-      !(Maybe EndpointDemographic),
-    _ebiAttributes ::
-      !(Maybe (Map Text [Text])),
-    _ebiEndpointStatus :: !(Maybe Text),
-    _ebiMetrics ::
-      !(Maybe (Map Text Double)),
-    _ebiRequestId :: !(Maybe Text),
-    _ebiEffectiveDate :: !(Maybe Text),
-    _ebiLocation ::
-      !(Maybe EndpointLocation)
+  { -- | One or more custom attributes that describe the user who\'s associated
+    -- with the endpoint.
+    user :: Prelude.Maybe EndpointUser,
+    -- | The destination address for messages or push notifications that you send
+    -- to the endpoint. The address varies by channel. For a push-notification
+    -- channel, use the token provided by the push notification service, such
+    -- as an Apple Push Notification service (APNs) device token or a Firebase
+    -- Cloud Messaging (FCM) registration token. For the SMS channel, use a
+    -- phone number in E.164 format, such as +12065550100. For the email
+    -- channel, use an email address.
+    address :: Prelude.Maybe Prelude.Text,
+    -- | The channel to use when sending messages or push notifications to the
+    -- endpoint.
+    channelType :: Prelude.Maybe ChannelType,
+    -- | The unique identifier for the endpoint in the context of the batch.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the user who\'s associated with the endpoint has opted
+    -- out of receiving messages and push notifications from you. Possible
+    -- values are: ALL, the user has opted out and doesn\'t want to receive any
+    -- messages or push notifications; and, NONE, the user hasn\'t opted out
+    -- and wants to receive all messages and push notifications.
+    optOut :: Prelude.Maybe Prelude.Text,
+    -- | The demographic information for the endpoint, such as the time zone and
+    -- platform.
+    demographic :: Prelude.Maybe EndpointDemographic,
+    -- | One or more custom attributes that describe the endpoint by associating
+    -- a name with an array of values. For example, the value of a custom
+    -- attribute named Interests might be: [\"Science\", \"Music\",
+    -- \"Travel\"]. You can use these attributes as filter criteria when you
+    -- create segments. Attribute names are case sensitive.
+    --
+    -- An attribute name can contain up to 50 characters. An attribute value
+    -- can contain up to 100 characters. When you define the name of a custom
+    -- attribute, avoid using the following characters: number sign (#), colon
+    -- (:), question mark (?), backslash (\\), and slash (\/). The Amazon
+    -- Pinpoint console can\'t display attribute names that contain these
+    -- characters. This restriction doesn\'t apply to attribute values.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | Specifies whether to send messages or push notifications to the
+    -- endpoint. Valid values are: ACTIVE, messages are sent to the endpoint;
+    -- and, INACTIVE, messages aren’t sent to the endpoint.
+    --
+    -- Amazon Pinpoint automatically sets this value to ACTIVE when you create
+    -- an endpoint or update an existing endpoint. Amazon Pinpoint
+    -- automatically sets this value to INACTIVE if you update another endpoint
+    -- that has the same address specified by the Address property.
+    endpointStatus :: Prelude.Maybe Prelude.Text,
+    -- | One or more custom metrics that your app reports to Amazon Pinpoint for
+    -- the endpoint.
+    metrics :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Double),
+    -- | The unique identifier for the request to create or update the endpoint.
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in ISO 8601 format, when the endpoint was created or
+    -- updated.
+    effectiveDate :: Prelude.Maybe Prelude.Text,
+    -- | The geographic information for the endpoint.
+    location :: Prelude.Maybe EndpointLocation
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EndpointBatchItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EndpointBatchItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ebiUser' - One or more custom attributes that describe the user who's associated with the endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ebiAddress' - The destination address for messages or push notifications that you send to the endpoint. The address varies by channel. For a push-notification channel, use the token provided by the push notification service, such as an Apple Push Notification service (APNs) device token or a Firebase Cloud Messaging (FCM) registration token. For the SMS channel, use a phone number in E.164 format, such as +12065550100. For the email channel, use an email address.
+-- 'user', 'endpointBatchItem_user' - One or more custom attributes that describe the user who\'s associated
+-- with the endpoint.
 --
--- * 'ebiChannelType' - The channel to use when sending messages or push notifications to the endpoint.
+-- 'address', 'endpointBatchItem_address' - The destination address for messages or push notifications that you send
+-- to the endpoint. The address varies by channel. For a push-notification
+-- channel, use the token provided by the push notification service, such
+-- as an Apple Push Notification service (APNs) device token or a Firebase
+-- Cloud Messaging (FCM) registration token. For the SMS channel, use a
+-- phone number in E.164 format, such as +12065550100. For the email
+-- channel, use an email address.
 --
--- * 'ebiId' - The unique identifier for the endpoint in the context of the batch.
+-- 'channelType', 'endpointBatchItem_channelType' - The channel to use when sending messages or push notifications to the
+-- endpoint.
 --
--- * 'ebiOptOut' - Specifies whether the user who's associated with the endpoint has opted out of receiving messages and push notifications from you. Possible values are: ALL, the user has opted out and doesn't want to receive any messages or push notifications; and, NONE, the user hasn't opted out and wants to receive all messages and push notifications.
+-- 'id', 'endpointBatchItem_id' - The unique identifier for the endpoint in the context of the batch.
 --
--- * 'ebiDemographic' - The demographic information for the endpoint, such as the time zone and platform.
+-- 'optOut', 'endpointBatchItem_optOut' - Specifies whether the user who\'s associated with the endpoint has opted
+-- out of receiving messages and push notifications from you. Possible
+-- values are: ALL, the user has opted out and doesn\'t want to receive any
+-- messages or push notifications; and, NONE, the user hasn\'t opted out
+-- and wants to receive all messages and push notifications.
 --
--- * 'ebiAttributes' - One or more custom attributes that describe the endpoint by associating a name with an array of values. For example, the value of a custom attribute named Interests might be: ["Science", "Music", "Travel"]. You can use these attributes as filter criteria when you create segments. Attribute names are case sensitive. An attribute name can contain up to 50 characters. An attribute value can contain up to 100 characters. When you define the name of a custom attribute, avoid using the following characters: number sign (#), colon (:), question mark (?), backslash (\), and slash (/). The Amazon Pinpoint console can't display attribute names that contain these characters. This restriction doesn't apply to attribute values.
+-- 'demographic', 'endpointBatchItem_demographic' - The demographic information for the endpoint, such as the time zone and
+-- platform.
 --
--- * 'ebiEndpointStatus' - Specifies whether to send messages or push notifications to the endpoint. Valid values are: ACTIVE, messages are sent to the endpoint; and, INACTIVE, messages aren’t sent to the endpoint. Amazon Pinpoint automatically sets this value to ACTIVE when you create an endpoint or update an existing endpoint. Amazon Pinpoint automatically sets this value to INACTIVE if you update another endpoint that has the same address specified by the Address property.
+-- 'attributes', 'endpointBatchItem_attributes' - One or more custom attributes that describe the endpoint by associating
+-- a name with an array of values. For example, the value of a custom
+-- attribute named Interests might be: [\"Science\", \"Music\",
+-- \"Travel\"]. You can use these attributes as filter criteria when you
+-- create segments. Attribute names are case sensitive.
 --
--- * 'ebiMetrics' - One or more custom metrics that your app reports to Amazon Pinpoint for the endpoint.
+-- An attribute name can contain up to 50 characters. An attribute value
+-- can contain up to 100 characters. When you define the name of a custom
+-- attribute, avoid using the following characters: number sign (#), colon
+-- (:), question mark (?), backslash (\\), and slash (\/). The Amazon
+-- Pinpoint console can\'t display attribute names that contain these
+-- characters. This restriction doesn\'t apply to attribute values.
 --
--- * 'ebiRequestId' - The unique identifier for the request to create or update the endpoint.
+-- 'endpointStatus', 'endpointBatchItem_endpointStatus' - Specifies whether to send messages or push notifications to the
+-- endpoint. Valid values are: ACTIVE, messages are sent to the endpoint;
+-- and, INACTIVE, messages aren’t sent to the endpoint.
 --
--- * 'ebiEffectiveDate' - The date and time, in ISO 8601 format, when the endpoint was created or updated.
+-- Amazon Pinpoint automatically sets this value to ACTIVE when you create
+-- an endpoint or update an existing endpoint. Amazon Pinpoint
+-- automatically sets this value to INACTIVE if you update another endpoint
+-- that has the same address specified by the Address property.
 --
--- * 'ebiLocation' - The geographic information for the endpoint.
-endpointBatchItem ::
+-- 'metrics', 'endpointBatchItem_metrics' - One or more custom metrics that your app reports to Amazon Pinpoint for
+-- the endpoint.
+--
+-- 'requestId', 'endpointBatchItem_requestId' - The unique identifier for the request to create or update the endpoint.
+--
+-- 'effectiveDate', 'endpointBatchItem_effectiveDate' - The date and time, in ISO 8601 format, when the endpoint was created or
+-- updated.
+--
+-- 'location', 'endpointBatchItem_location' - The geographic information for the endpoint.
+newEndpointBatchItem ::
   EndpointBatchItem
-endpointBatchItem =
+newEndpointBatchItem =
   EndpointBatchItem'
-    { _ebiUser = Nothing,
-      _ebiAddress = Nothing,
-      _ebiChannelType = Nothing,
-      _ebiId = Nothing,
-      _ebiOptOut = Nothing,
-      _ebiDemographic = Nothing,
-      _ebiAttributes = Nothing,
-      _ebiEndpointStatus = Nothing,
-      _ebiMetrics = Nothing,
-      _ebiRequestId = Nothing,
-      _ebiEffectiveDate = Nothing,
-      _ebiLocation = Nothing
+    { user = Prelude.Nothing,
+      address = Prelude.Nothing,
+      channelType = Prelude.Nothing,
+      id = Prelude.Nothing,
+      optOut = Prelude.Nothing,
+      demographic = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      endpointStatus = Prelude.Nothing,
+      metrics = Prelude.Nothing,
+      requestId = Prelude.Nothing,
+      effectiveDate = Prelude.Nothing,
+      location = Prelude.Nothing
     }
 
--- | One or more custom attributes that describe the user who's associated with the endpoint.
-ebiUser :: Lens' EndpointBatchItem (Maybe EndpointUser)
-ebiUser = lens _ebiUser (\s a -> s {_ebiUser = a})
+-- | One or more custom attributes that describe the user who\'s associated
+-- with the endpoint.
+endpointBatchItem_user :: Lens.Lens' EndpointBatchItem (Prelude.Maybe EndpointUser)
+endpointBatchItem_user = Lens.lens (\EndpointBatchItem' {user} -> user) (\s@EndpointBatchItem' {} a -> s {user = a} :: EndpointBatchItem)
 
--- | The destination address for messages or push notifications that you send to the endpoint. The address varies by channel. For a push-notification channel, use the token provided by the push notification service, such as an Apple Push Notification service (APNs) device token or a Firebase Cloud Messaging (FCM) registration token. For the SMS channel, use a phone number in E.164 format, such as +12065550100. For the email channel, use an email address.
-ebiAddress :: Lens' EndpointBatchItem (Maybe Text)
-ebiAddress = lens _ebiAddress (\s a -> s {_ebiAddress = a})
+-- | The destination address for messages or push notifications that you send
+-- to the endpoint. The address varies by channel. For a push-notification
+-- channel, use the token provided by the push notification service, such
+-- as an Apple Push Notification service (APNs) device token or a Firebase
+-- Cloud Messaging (FCM) registration token. For the SMS channel, use a
+-- phone number in E.164 format, such as +12065550100. For the email
+-- channel, use an email address.
+endpointBatchItem_address :: Lens.Lens' EndpointBatchItem (Prelude.Maybe Prelude.Text)
+endpointBatchItem_address = Lens.lens (\EndpointBatchItem' {address} -> address) (\s@EndpointBatchItem' {} a -> s {address = a} :: EndpointBatchItem)
 
--- | The channel to use when sending messages or push notifications to the endpoint.
-ebiChannelType :: Lens' EndpointBatchItem (Maybe ChannelType)
-ebiChannelType = lens _ebiChannelType (\s a -> s {_ebiChannelType = a})
+-- | The channel to use when sending messages or push notifications to the
+-- endpoint.
+endpointBatchItem_channelType :: Lens.Lens' EndpointBatchItem (Prelude.Maybe ChannelType)
+endpointBatchItem_channelType = Lens.lens (\EndpointBatchItem' {channelType} -> channelType) (\s@EndpointBatchItem' {} a -> s {channelType = a} :: EndpointBatchItem)
 
 -- | The unique identifier for the endpoint in the context of the batch.
-ebiId :: Lens' EndpointBatchItem (Maybe Text)
-ebiId = lens _ebiId (\s a -> s {_ebiId = a})
+endpointBatchItem_id :: Lens.Lens' EndpointBatchItem (Prelude.Maybe Prelude.Text)
+endpointBatchItem_id = Lens.lens (\EndpointBatchItem' {id} -> id) (\s@EndpointBatchItem' {} a -> s {id = a} :: EndpointBatchItem)
 
--- | Specifies whether the user who's associated with the endpoint has opted out of receiving messages and push notifications from you. Possible values are: ALL, the user has opted out and doesn't want to receive any messages or push notifications; and, NONE, the user hasn't opted out and wants to receive all messages and push notifications.
-ebiOptOut :: Lens' EndpointBatchItem (Maybe Text)
-ebiOptOut = lens _ebiOptOut (\s a -> s {_ebiOptOut = a})
+-- | Specifies whether the user who\'s associated with the endpoint has opted
+-- out of receiving messages and push notifications from you. Possible
+-- values are: ALL, the user has opted out and doesn\'t want to receive any
+-- messages or push notifications; and, NONE, the user hasn\'t opted out
+-- and wants to receive all messages and push notifications.
+endpointBatchItem_optOut :: Lens.Lens' EndpointBatchItem (Prelude.Maybe Prelude.Text)
+endpointBatchItem_optOut = Lens.lens (\EndpointBatchItem' {optOut} -> optOut) (\s@EndpointBatchItem' {} a -> s {optOut = a} :: EndpointBatchItem)
 
--- | The demographic information for the endpoint, such as the time zone and platform.
-ebiDemographic :: Lens' EndpointBatchItem (Maybe EndpointDemographic)
-ebiDemographic = lens _ebiDemographic (\s a -> s {_ebiDemographic = a})
+-- | The demographic information for the endpoint, such as the time zone and
+-- platform.
+endpointBatchItem_demographic :: Lens.Lens' EndpointBatchItem (Prelude.Maybe EndpointDemographic)
+endpointBatchItem_demographic = Lens.lens (\EndpointBatchItem' {demographic} -> demographic) (\s@EndpointBatchItem' {} a -> s {demographic = a} :: EndpointBatchItem)
 
--- | One or more custom attributes that describe the endpoint by associating a name with an array of values. For example, the value of a custom attribute named Interests might be: ["Science", "Music", "Travel"]. You can use these attributes as filter criteria when you create segments. Attribute names are case sensitive. An attribute name can contain up to 50 characters. An attribute value can contain up to 100 characters. When you define the name of a custom attribute, avoid using the following characters: number sign (#), colon (:), question mark (?), backslash (\), and slash (/). The Amazon Pinpoint console can't display attribute names that contain these characters. This restriction doesn't apply to attribute values.
-ebiAttributes :: Lens' EndpointBatchItem (HashMap Text [Text])
-ebiAttributes = lens _ebiAttributes (\s a -> s {_ebiAttributes = a}) . _Default . _Map
+-- | One or more custom attributes that describe the endpoint by associating
+-- a name with an array of values. For example, the value of a custom
+-- attribute named Interests might be: [\"Science\", \"Music\",
+-- \"Travel\"]. You can use these attributes as filter criteria when you
+-- create segments. Attribute names are case sensitive.
+--
+-- An attribute name can contain up to 50 characters. An attribute value
+-- can contain up to 100 characters. When you define the name of a custom
+-- attribute, avoid using the following characters: number sign (#), colon
+-- (:), question mark (?), backslash (\\), and slash (\/). The Amazon
+-- Pinpoint console can\'t display attribute names that contain these
+-- characters. This restriction doesn\'t apply to attribute values.
+endpointBatchItem_attributes :: Lens.Lens' EndpointBatchItem (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+endpointBatchItem_attributes = Lens.lens (\EndpointBatchItem' {attributes} -> attributes) (\s@EndpointBatchItem' {} a -> s {attributes = a} :: EndpointBatchItem) Prelude.. Lens.mapping Prelude._Map
 
--- | Specifies whether to send messages or push notifications to the endpoint. Valid values are: ACTIVE, messages are sent to the endpoint; and, INACTIVE, messages aren’t sent to the endpoint. Amazon Pinpoint automatically sets this value to ACTIVE when you create an endpoint or update an existing endpoint. Amazon Pinpoint automatically sets this value to INACTIVE if you update another endpoint that has the same address specified by the Address property.
-ebiEndpointStatus :: Lens' EndpointBatchItem (Maybe Text)
-ebiEndpointStatus = lens _ebiEndpointStatus (\s a -> s {_ebiEndpointStatus = a})
+-- | Specifies whether to send messages or push notifications to the
+-- endpoint. Valid values are: ACTIVE, messages are sent to the endpoint;
+-- and, INACTIVE, messages aren’t sent to the endpoint.
+--
+-- Amazon Pinpoint automatically sets this value to ACTIVE when you create
+-- an endpoint or update an existing endpoint. Amazon Pinpoint
+-- automatically sets this value to INACTIVE if you update another endpoint
+-- that has the same address specified by the Address property.
+endpointBatchItem_endpointStatus :: Lens.Lens' EndpointBatchItem (Prelude.Maybe Prelude.Text)
+endpointBatchItem_endpointStatus = Lens.lens (\EndpointBatchItem' {endpointStatus} -> endpointStatus) (\s@EndpointBatchItem' {} a -> s {endpointStatus = a} :: EndpointBatchItem)
 
--- | One or more custom metrics that your app reports to Amazon Pinpoint for the endpoint.
-ebiMetrics :: Lens' EndpointBatchItem (HashMap Text Double)
-ebiMetrics = lens _ebiMetrics (\s a -> s {_ebiMetrics = a}) . _Default . _Map
+-- | One or more custom metrics that your app reports to Amazon Pinpoint for
+-- the endpoint.
+endpointBatchItem_metrics :: Lens.Lens' EndpointBatchItem (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Double))
+endpointBatchItem_metrics = Lens.lens (\EndpointBatchItem' {metrics} -> metrics) (\s@EndpointBatchItem' {} a -> s {metrics = a} :: EndpointBatchItem) Prelude.. Lens.mapping Prelude._Map
 
 -- | The unique identifier for the request to create or update the endpoint.
-ebiRequestId :: Lens' EndpointBatchItem (Maybe Text)
-ebiRequestId = lens _ebiRequestId (\s a -> s {_ebiRequestId = a})
+endpointBatchItem_requestId :: Lens.Lens' EndpointBatchItem (Prelude.Maybe Prelude.Text)
+endpointBatchItem_requestId = Lens.lens (\EndpointBatchItem' {requestId} -> requestId) (\s@EndpointBatchItem' {} a -> s {requestId = a} :: EndpointBatchItem)
 
--- | The date and time, in ISO 8601 format, when the endpoint was created or updated.
-ebiEffectiveDate :: Lens' EndpointBatchItem (Maybe Text)
-ebiEffectiveDate = lens _ebiEffectiveDate (\s a -> s {_ebiEffectiveDate = a})
+-- | The date and time, in ISO 8601 format, when the endpoint was created or
+-- updated.
+endpointBatchItem_effectiveDate :: Lens.Lens' EndpointBatchItem (Prelude.Maybe Prelude.Text)
+endpointBatchItem_effectiveDate = Lens.lens (\EndpointBatchItem' {effectiveDate} -> effectiveDate) (\s@EndpointBatchItem' {} a -> s {effectiveDate = a} :: EndpointBatchItem)
 
 -- | The geographic information for the endpoint.
-ebiLocation :: Lens' EndpointBatchItem (Maybe EndpointLocation)
-ebiLocation = lens _ebiLocation (\s a -> s {_ebiLocation = a})
+endpointBatchItem_location :: Lens.Lens' EndpointBatchItem (Prelude.Maybe EndpointLocation)
+endpointBatchItem_location = Lens.lens (\EndpointBatchItem' {location} -> location) (\s@EndpointBatchItem' {} a -> s {location = a} :: EndpointBatchItem)
 
-instance Hashable EndpointBatchItem
+instance Prelude.Hashable EndpointBatchItem
 
-instance NFData EndpointBatchItem
+instance Prelude.NFData EndpointBatchItem
 
-instance ToJSON EndpointBatchItem where
+instance Prelude.ToJSON EndpointBatchItem where
   toJSON EndpointBatchItem' {..} =
-    object
-      ( catMaybes
-          [ ("User" .=) <$> _ebiUser,
-            ("Address" .=) <$> _ebiAddress,
-            ("ChannelType" .=) <$> _ebiChannelType,
-            ("Id" .=) <$> _ebiId,
-            ("OptOut" .=) <$> _ebiOptOut,
-            ("Demographic" .=) <$> _ebiDemographic,
-            ("Attributes" .=) <$> _ebiAttributes,
-            ("EndpointStatus" .=) <$> _ebiEndpointStatus,
-            ("Metrics" .=) <$> _ebiMetrics,
-            ("RequestId" .=) <$> _ebiRequestId,
-            ("EffectiveDate" .=) <$> _ebiEffectiveDate,
-            ("Location" .=) <$> _ebiLocation
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("User" Prelude..=) Prelude.<$> user,
+            ("Address" Prelude..=) Prelude.<$> address,
+            ("ChannelType" Prelude..=) Prelude.<$> channelType,
+            ("Id" Prelude..=) Prelude.<$> id,
+            ("OptOut" Prelude..=) Prelude.<$> optOut,
+            ("Demographic" Prelude..=) Prelude.<$> demographic,
+            ("Attributes" Prelude..=) Prelude.<$> attributes,
+            ("EndpointStatus" Prelude..=)
+              Prelude.<$> endpointStatus,
+            ("Metrics" Prelude..=) Prelude.<$> metrics,
+            ("RequestId" Prelude..=) Prelude.<$> requestId,
+            ("EffectiveDate" Prelude..=)
+              Prelude.<$> effectiveDate,
+            ("Location" Prelude..=) Prelude.<$> location
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,121 +19,157 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ApplicationDateRangeKpiResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.BaseKpiResult
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the results of a query that retrieved the data for a standard metric that applies to an application, and provides information about that query.
+-- | Provides the results of a query that retrieved the data for a standard
+-- metric that applies to an application, and provides information about
+-- that query.
 --
---
---
--- /See:/ 'applicationDateRangeKpiResponse' smart constructor.
+-- /See:/ 'newApplicationDateRangeKpiResponse' smart constructor.
 data ApplicationDateRangeKpiResponse = ApplicationDateRangeKpiResponse'
-  { _adrkrNextToken ::
-      !( Maybe
-           Text
-       ),
-    _adrkrKpiResult ::
-      !BaseKpiResult,
-    _adrkrKpiName ::
-      !Text,
-    _adrkrEndTime ::
-      !POSIX,
-    _adrkrStartTime ::
-      !POSIX,
-    _adrkrApplicationId ::
-      !Text
+  { -- | The string to use in a subsequent request to get the next page of
+    -- results in a paginated response. This value is null for the Application
+    -- Metrics resource because the resource returns all results in a single
+    -- page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of objects that contains the results of the query. Each object
+    -- contains the value for the metric and metadata about that value.
+    kpiResult :: BaseKpiResult,
+    -- | The name of the metric, also referred to as a /key performance indicator
+    -- (KPI)/, that the data was retrieved for. This value describes the
+    -- associated metric and consists of two or more terms, which are comprised
+    -- of lowercase alphanumeric characters, separated by a hyphen. For a list
+    -- of possible values, see the
+    -- <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide>.
+    kpiName :: Prelude.Text,
+    -- | The last date and time of the date range that was used to filter the
+    -- query results, in extended ISO 8601 format. The date range is inclusive.
+    endTime :: Prelude.POSIX,
+    -- | The first date and time of the date range that was used to filter the
+    -- query results, in extended ISO 8601 format. The date range is inclusive.
+    startTime :: Prelude.POSIX,
+    -- | The unique identifier for the application that the metric applies to.
+    applicationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationDateRangeKpiResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationDateRangeKpiResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adrkrNextToken' - The string to use in a subsequent request to get the next page of results in a paginated response. This value is null for the Application Metrics resource because the resource returns all results in a single page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adrkrKpiResult' - An array of objects that contains the results of the query. Each object contains the value for the metric and metadata about that value.
+-- 'nextToken', 'applicationDateRangeKpiResponse_nextToken' - The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null for the Application
+-- Metrics resource because the resource returns all results in a single
+-- page.
 --
--- * 'adrkrKpiName' - The name of the metric, also referred to as a /key performance indicator (KPI)/ , that the data was retrieved for. This value describes the associated metric and consists of two or more terms, which are comprised of lowercase alphanumeric characters, separated by a hyphen. For a list of possible values, see the <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide> .
+-- 'kpiResult', 'applicationDateRangeKpiResponse_kpiResult' - An array of objects that contains the results of the query. Each object
+-- contains the value for the metric and metadata about that value.
 --
--- * 'adrkrEndTime' - The last date and time of the date range that was used to filter the query results, in extended ISO 8601 format. The date range is inclusive.
+-- 'kpiName', 'applicationDateRangeKpiResponse_kpiName' - The name of the metric, also referred to as a /key performance indicator
+-- (KPI)/, that the data was retrieved for. This value describes the
+-- associated metric and consists of two or more terms, which are comprised
+-- of lowercase alphanumeric characters, separated by a hyphen. For a list
+-- of possible values, see the
+-- <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide>.
 --
--- * 'adrkrStartTime' - The first date and time of the date range that was used to filter the query results, in extended ISO 8601 format. The date range is inclusive.
+-- 'endTime', 'applicationDateRangeKpiResponse_endTime' - The last date and time of the date range that was used to filter the
+-- query results, in extended ISO 8601 format. The date range is inclusive.
 --
--- * 'adrkrApplicationId' - The unique identifier for the application that the metric applies to.
-applicationDateRangeKpiResponse ::
-  -- | 'adrkrKpiResult'
+-- 'startTime', 'applicationDateRangeKpiResponse_startTime' - The first date and time of the date range that was used to filter the
+-- query results, in extended ISO 8601 format. The date range is inclusive.
+--
+-- 'applicationId', 'applicationDateRangeKpiResponse_applicationId' - The unique identifier for the application that the metric applies to.
+newApplicationDateRangeKpiResponse ::
+  -- | 'kpiResult'
   BaseKpiResult ->
-  -- | 'adrkrKpiName'
-  Text ->
-  -- | 'adrkrEndTime'
-  UTCTime ->
-  -- | 'adrkrStartTime'
-  UTCTime ->
-  -- | 'adrkrApplicationId'
-  Text ->
+  -- | 'kpiName'
+  Prelude.Text ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'applicationId'
+  Prelude.Text ->
   ApplicationDateRangeKpiResponse
-applicationDateRangeKpiResponse
+newApplicationDateRangeKpiResponse
   pKpiResult_
   pKpiName_
   pEndTime_
   pStartTime_
   pApplicationId_ =
     ApplicationDateRangeKpiResponse'
-      { _adrkrNextToken =
-          Nothing,
-        _adrkrKpiResult = pKpiResult_,
-        _adrkrKpiName = pKpiName_,
-        _adrkrEndTime = _Time # pEndTime_,
-        _adrkrStartTime = _Time # pStartTime_,
-        _adrkrApplicationId = pApplicationId_
+      { nextToken =
+          Prelude.Nothing,
+        kpiResult = pKpiResult_,
+        kpiName = pKpiName_,
+        endTime = Prelude._Time Lens.# pEndTime_,
+        startTime =
+          Prelude._Time Lens.# pStartTime_,
+        applicationId = pApplicationId_
       }
 
--- | The string to use in a subsequent request to get the next page of results in a paginated response. This value is null for the Application Metrics resource because the resource returns all results in a single page.
-adrkrNextToken :: Lens' ApplicationDateRangeKpiResponse (Maybe Text)
-adrkrNextToken = lens _adrkrNextToken (\s a -> s {_adrkrNextToken = a})
+-- | The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null for the Application
+-- Metrics resource because the resource returns all results in a single
+-- page.
+applicationDateRangeKpiResponse_nextToken :: Lens.Lens' ApplicationDateRangeKpiResponse (Prelude.Maybe Prelude.Text)
+applicationDateRangeKpiResponse_nextToken = Lens.lens (\ApplicationDateRangeKpiResponse' {nextToken} -> nextToken) (\s@ApplicationDateRangeKpiResponse' {} a -> s {nextToken = a} :: ApplicationDateRangeKpiResponse)
 
--- | An array of objects that contains the results of the query. Each object contains the value for the metric and metadata about that value.
-adrkrKpiResult :: Lens' ApplicationDateRangeKpiResponse BaseKpiResult
-adrkrKpiResult = lens _adrkrKpiResult (\s a -> s {_adrkrKpiResult = a})
+-- | An array of objects that contains the results of the query. Each object
+-- contains the value for the metric and metadata about that value.
+applicationDateRangeKpiResponse_kpiResult :: Lens.Lens' ApplicationDateRangeKpiResponse BaseKpiResult
+applicationDateRangeKpiResponse_kpiResult = Lens.lens (\ApplicationDateRangeKpiResponse' {kpiResult} -> kpiResult) (\s@ApplicationDateRangeKpiResponse' {} a -> s {kpiResult = a} :: ApplicationDateRangeKpiResponse)
 
--- | The name of the metric, also referred to as a /key performance indicator (KPI)/ , that the data was retrieved for. This value describes the associated metric and consists of two or more terms, which are comprised of lowercase alphanumeric characters, separated by a hyphen. For a list of possible values, see the <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide> .
-adrkrKpiName :: Lens' ApplicationDateRangeKpiResponse Text
-adrkrKpiName = lens _adrkrKpiName (\s a -> s {_adrkrKpiName = a})
+-- | The name of the metric, also referred to as a /key performance indicator
+-- (KPI)/, that the data was retrieved for. This value describes the
+-- associated metric and consists of two or more terms, which are comprised
+-- of lowercase alphanumeric characters, separated by a hyphen. For a list
+-- of possible values, see the
+-- <https://docs.aws.amazon.com/pinpoint/latest/developerguide/analytics-standard-metrics.html Amazon Pinpoint Developer Guide>.
+applicationDateRangeKpiResponse_kpiName :: Lens.Lens' ApplicationDateRangeKpiResponse Prelude.Text
+applicationDateRangeKpiResponse_kpiName = Lens.lens (\ApplicationDateRangeKpiResponse' {kpiName} -> kpiName) (\s@ApplicationDateRangeKpiResponse' {} a -> s {kpiName = a} :: ApplicationDateRangeKpiResponse)
 
--- | The last date and time of the date range that was used to filter the query results, in extended ISO 8601 format. The date range is inclusive.
-adrkrEndTime :: Lens' ApplicationDateRangeKpiResponse UTCTime
-adrkrEndTime = lens _adrkrEndTime (\s a -> s {_adrkrEndTime = a}) . _Time
+-- | The last date and time of the date range that was used to filter the
+-- query results, in extended ISO 8601 format. The date range is inclusive.
+applicationDateRangeKpiResponse_endTime :: Lens.Lens' ApplicationDateRangeKpiResponse Prelude.UTCTime
+applicationDateRangeKpiResponse_endTime = Lens.lens (\ApplicationDateRangeKpiResponse' {endTime} -> endTime) (\s@ApplicationDateRangeKpiResponse' {} a -> s {endTime = a} :: ApplicationDateRangeKpiResponse) Prelude.. Prelude._Time
 
--- | The first date and time of the date range that was used to filter the query results, in extended ISO 8601 format. The date range is inclusive.
-adrkrStartTime :: Lens' ApplicationDateRangeKpiResponse UTCTime
-adrkrStartTime = lens _adrkrStartTime (\s a -> s {_adrkrStartTime = a}) . _Time
+-- | The first date and time of the date range that was used to filter the
+-- query results, in extended ISO 8601 format. The date range is inclusive.
+applicationDateRangeKpiResponse_startTime :: Lens.Lens' ApplicationDateRangeKpiResponse Prelude.UTCTime
+applicationDateRangeKpiResponse_startTime = Lens.lens (\ApplicationDateRangeKpiResponse' {startTime} -> startTime) (\s@ApplicationDateRangeKpiResponse' {} a -> s {startTime = a} :: ApplicationDateRangeKpiResponse) Prelude.. Prelude._Time
 
 -- | The unique identifier for the application that the metric applies to.
-adrkrApplicationId :: Lens' ApplicationDateRangeKpiResponse Text
-adrkrApplicationId = lens _adrkrApplicationId (\s a -> s {_adrkrApplicationId = a})
+applicationDateRangeKpiResponse_applicationId :: Lens.Lens' ApplicationDateRangeKpiResponse Prelude.Text
+applicationDateRangeKpiResponse_applicationId = Lens.lens (\ApplicationDateRangeKpiResponse' {applicationId} -> applicationId) (\s@ApplicationDateRangeKpiResponse' {} a -> s {applicationId = a} :: ApplicationDateRangeKpiResponse)
 
-instance FromJSON ApplicationDateRangeKpiResponse where
+instance
+  Prelude.FromJSON
+    ApplicationDateRangeKpiResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ApplicationDateRangeKpiResponse"
       ( \x ->
           ApplicationDateRangeKpiResponse'
-            <$> (x .:? "NextToken")
-            <*> (x .: "KpiResult")
-            <*> (x .: "KpiName")
-            <*> (x .: "EndTime")
-            <*> (x .: "StartTime")
-            <*> (x .: "ApplicationId")
+            Prelude.<$> (x Prelude..:? "NextToken")
+            Prelude.<*> (x Prelude..: "KpiResult")
+            Prelude.<*> (x Prelude..: "KpiName")
+            Prelude.<*> (x Prelude..: "EndTime")
+            Prelude.<*> (x Prelude..: "StartTime")
+            Prelude.<*> (x Prelude..: "ApplicationId")
       )
 
-instance Hashable ApplicationDateRangeKpiResponse
+instance
+  Prelude.Hashable
+    ApplicationDateRangeKpiResponse
 
-instance NFData ApplicationDateRangeKpiResponse
+instance
+  Prelude.NFData
+    ApplicationDateRangeKpiResponse

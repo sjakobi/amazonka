@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,199 +19,317 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.RecommenderConfigurationResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about Amazon Pinpoint configuration settings for retrieving and processing data from a recommender model.
+-- | Provides information about Amazon Pinpoint configuration settings for
+-- retrieving and processing data from a recommender model.
 --
---
---
--- /See:/ 'recommenderConfigurationResponse' smart constructor.
+-- /See:/ 'newRecommenderConfigurationResponse' smart constructor.
 data RecommenderConfigurationResponse = RecommenderConfigurationResponse'
-  { _rcrRecommendationsDisplayName ::
-      !( Maybe
-           Text
-       ),
-    _rcrRecommendationTransformerURI ::
-      !( Maybe
-           Text
-       ),
-    _rcrAttributes ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _rcrName ::
-      !( Maybe
-           Text
-       ),
-    _rcrRecommendationsPerMessage ::
-      !( Maybe
-           Int
-       ),
-    _rcrDescription ::
-      !( Maybe
-           Text
-       ),
-    _rcrRecommendationProviderIdType ::
-      !( Maybe
-           Text
-       ),
-    _rcrRecommendationProviderURI ::
-      !Text,
-    _rcrLastModifiedDate ::
-      !Text,
-    _rcrCreationDate ::
-      !Text,
-    _rcrRecommendationProviderRoleARN ::
-      !Text,
-    _rcrId ::
-      !Text
+  { -- | The custom display name for the standard endpoint or user attribute
+    -- (RecommendationItems) that temporarily stores recommended items for each
+    -- endpoint or user, depending on the value for the
+    -- RecommendationProviderIdType property. This name appears in the
+    -- __Attribute finder__ of the template editor on the Amazon Pinpoint
+    -- console.
+    --
+    -- This value is null if the configuration doesn\'t invoke an AWS Lambda
+    -- function (RecommendationTransformerUri) to perform additional processing
+    -- of recommendation data.
+    recommendationsDisplayName :: Prelude.Maybe Prelude.Text,
+    -- | The name or Amazon Resource Name (ARN) of the AWS Lambda function that
+    -- Amazon Pinpoint invokes to perform additional processing of
+    -- recommendation data that it retrieves from the recommender model.
+    recommendationTransformerUri :: Prelude.Maybe Prelude.Text,
+    -- | A map that defines 1-10 custom endpoint or user attributes, depending on
+    -- the value for the RecommendationProviderIdType property. Each of these
+    -- attributes temporarily stores a recommended item that\'s retrieved from
+    -- the recommender model and sent to an AWS Lambda function for additional
+    -- processing. Each attribute can be used as a message variable in a
+    -- message template.
+    --
+    -- This value is null if the configuration doesn\'t invoke an AWS Lambda
+    -- function (RecommendationTransformerUri) to perform additional processing
+    -- of recommendation data.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The custom name of the configuration for the recommender model.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The number of recommended items that are retrieved from the model for
+    -- each endpoint or user, depending on the value for the
+    -- RecommendationProviderIdType property. This number determines how many
+    -- recommended items are available for use in message variables.
+    recommendationsPerMessage :: Prelude.Maybe Prelude.Int,
+    -- | The custom description of the configuration for the recommender model.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The type of Amazon Pinpoint ID that\'s associated with unique user IDs
+    -- in the recommender model. This value enables the model to use attribute
+    -- and event data that’s specific to a particular endpoint or user in an
+    -- Amazon Pinpoint application. Possible values are:
+    --
+    -- -   PINPOINT_ENDPOINT_ID - Each user in the model is associated with a
+    --     particular endpoint in Amazon Pinpoint. The data is correlated based
+    --     on endpoint IDs in Amazon Pinpoint. This is the default value.
+    --
+    -- -   PINPOINT_USER_ID - Each user in the model is associated with a
+    --     particular user and endpoint in Amazon Pinpoint. The data is
+    --     correlated based on user IDs in Amazon Pinpoint. If this value is
+    --     specified, an endpoint definition in Amazon Pinpoint has to specify
+    --     both a user ID (UserId) and an endpoint ID. Otherwise, messages
+    --     won’t be sent to the user\'s endpoint.
+    recommendationProviderIdType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the recommender model that Amazon
+    -- Pinpoint retrieves the recommendation data from. This value is the ARN
+    -- of an Amazon Personalize campaign.
+    recommendationProviderUri :: Prelude.Text,
+    -- | The date, in extended ISO 8601 format, when the configuration for the
+    -- recommender model was last modified.
+    lastModifiedDate :: Prelude.Text,
+    -- | The date, in extended ISO 8601 format, when the configuration was
+    -- created for the recommender model.
+    creationDate :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+    -- (IAM) role that authorizes Amazon Pinpoint to retrieve recommendation
+    -- data from the recommender model.
+    recommendationProviderRoleArn :: Prelude.Text,
+    -- | The unique identifier for the recommender model configuration.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RecommenderConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RecommenderConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcrRecommendationsDisplayName' - The custom display name for the standard endpoint or user attribute (RecommendationItems) that temporarily stores recommended items for each endpoint or user, depending on the value for the RecommendationProviderIdType property. This name appears in the __Attribute finder__ of the template editor on the Amazon Pinpoint console. This value is null if the configuration doesn't invoke an AWS Lambda function (RecommendationTransformerUri) to perform additional processing of recommendation data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcrRecommendationTransformerURI' - The name or Amazon Resource Name (ARN) of the AWS Lambda function that Amazon Pinpoint invokes to perform additional processing of recommendation data that it retrieves from the recommender model.
+-- 'recommendationsDisplayName', 'recommenderConfigurationResponse_recommendationsDisplayName' - The custom display name for the standard endpoint or user attribute
+-- (RecommendationItems) that temporarily stores recommended items for each
+-- endpoint or user, depending on the value for the
+-- RecommendationProviderIdType property. This name appears in the
+-- __Attribute finder__ of the template editor on the Amazon Pinpoint
+-- console.
 --
--- * 'rcrAttributes' - A map that defines 1-10 custom endpoint or user attributes, depending on the value for the RecommendationProviderIdType property. Each of these attributes temporarily stores a recommended item that's retrieved from the recommender model and sent to an AWS Lambda function for additional processing. Each attribute can be used as a message variable in a message template. This value is null if the configuration doesn't invoke an AWS Lambda function (RecommendationTransformerUri) to perform additional processing of recommendation data.
+-- This value is null if the configuration doesn\'t invoke an AWS Lambda
+-- function (RecommendationTransformerUri) to perform additional processing
+-- of recommendation data.
 --
--- * 'rcrName' - The custom name of the configuration for the recommender model.
+-- 'recommendationTransformerUri', 'recommenderConfigurationResponse_recommendationTransformerUri' - The name or Amazon Resource Name (ARN) of the AWS Lambda function that
+-- Amazon Pinpoint invokes to perform additional processing of
+-- recommendation data that it retrieves from the recommender model.
 --
--- * 'rcrRecommendationsPerMessage' - The number of recommended items that are retrieved from the model for each endpoint or user, depending on the value for the RecommendationProviderIdType property. This number determines how many recommended items are available for use in message variables.
+-- 'attributes', 'recommenderConfigurationResponse_attributes' - A map that defines 1-10 custom endpoint or user attributes, depending on
+-- the value for the RecommendationProviderIdType property. Each of these
+-- attributes temporarily stores a recommended item that\'s retrieved from
+-- the recommender model and sent to an AWS Lambda function for additional
+-- processing. Each attribute can be used as a message variable in a
+-- message template.
 --
--- * 'rcrDescription' - The custom description of the configuration for the recommender model.
+-- This value is null if the configuration doesn\'t invoke an AWS Lambda
+-- function (RecommendationTransformerUri) to perform additional processing
+-- of recommendation data.
 --
--- * 'rcrRecommendationProviderIdType' - The type of Amazon Pinpoint ID that's associated with unique user IDs in the recommender model. This value enables the model to use attribute and event data that’s specific to a particular endpoint or user in an Amazon Pinpoint application. Possible values are:     * PINPOINT_ENDPOINT_ID - Each user in the model is associated with a particular endpoint in Amazon Pinpoint. The data is correlated based on endpoint IDs in Amazon Pinpoint. This is the default value.     * PINPOINT_USER_ID - Each user in the model is associated with a particular user and endpoint in Amazon Pinpoint. The data is correlated based on user IDs in Amazon Pinpoint. If this value is specified, an endpoint definition in Amazon Pinpoint has to specify both a user ID (UserId) and an endpoint ID. Otherwise, messages won’t be sent to the user's endpoint.
+-- 'name', 'recommenderConfigurationResponse_name' - The custom name of the configuration for the recommender model.
 --
--- * 'rcrRecommendationProviderURI' - The Amazon Resource Name (ARN) of the recommender model that Amazon Pinpoint retrieves the recommendation data from. This value is the ARN of an Amazon Personalize campaign.
+-- 'recommendationsPerMessage', 'recommenderConfigurationResponse_recommendationsPerMessage' - The number of recommended items that are retrieved from the model for
+-- each endpoint or user, depending on the value for the
+-- RecommendationProviderIdType property. This number determines how many
+-- recommended items are available for use in message variables.
 --
--- * 'rcrLastModifiedDate' - The date, in extended ISO 8601 format, when the configuration for the recommender model was last modified.
+-- 'description', 'recommenderConfigurationResponse_description' - The custom description of the configuration for the recommender model.
 --
--- * 'rcrCreationDate' - The date, in extended ISO 8601 format, when the configuration was created for the recommender model.
+-- 'recommendationProviderIdType', 'recommenderConfigurationResponse_recommendationProviderIdType' - The type of Amazon Pinpoint ID that\'s associated with unique user IDs
+-- in the recommender model. This value enables the model to use attribute
+-- and event data that’s specific to a particular endpoint or user in an
+-- Amazon Pinpoint application. Possible values are:
 --
--- * 'rcrRecommendationProviderRoleARN' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that authorizes Amazon Pinpoint to retrieve recommendation data from the recommender model.
+-- -   PINPOINT_ENDPOINT_ID - Each user in the model is associated with a
+--     particular endpoint in Amazon Pinpoint. The data is correlated based
+--     on endpoint IDs in Amazon Pinpoint. This is the default value.
 --
--- * 'rcrId' - The unique identifier for the recommender model configuration.
-recommenderConfigurationResponse ::
-  -- | 'rcrRecommendationProviderURI'
-  Text ->
-  -- | 'rcrLastModifiedDate'
-  Text ->
-  -- | 'rcrCreationDate'
-  Text ->
-  -- | 'rcrRecommendationProviderRoleARN'
-  Text ->
-  -- | 'rcrId'
-  Text ->
+-- -   PINPOINT_USER_ID - Each user in the model is associated with a
+--     particular user and endpoint in Amazon Pinpoint. The data is
+--     correlated based on user IDs in Amazon Pinpoint. If this value is
+--     specified, an endpoint definition in Amazon Pinpoint has to specify
+--     both a user ID (UserId) and an endpoint ID. Otherwise, messages
+--     won’t be sent to the user\'s endpoint.
+--
+-- 'recommendationProviderUri', 'recommenderConfigurationResponse_recommendationProviderUri' - The Amazon Resource Name (ARN) of the recommender model that Amazon
+-- Pinpoint retrieves the recommendation data from. This value is the ARN
+-- of an Amazon Personalize campaign.
+--
+-- 'lastModifiedDate', 'recommenderConfigurationResponse_lastModifiedDate' - The date, in extended ISO 8601 format, when the configuration for the
+-- recommender model was last modified.
+--
+-- 'creationDate', 'recommenderConfigurationResponse_creationDate' - The date, in extended ISO 8601 format, when the configuration was
+-- created for the recommender model.
+--
+-- 'recommendationProviderRoleArn', 'recommenderConfigurationResponse_recommendationProviderRoleArn' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that authorizes Amazon Pinpoint to retrieve recommendation
+-- data from the recommender model.
+--
+-- 'id', 'recommenderConfigurationResponse_id' - The unique identifier for the recommender model configuration.
+newRecommenderConfigurationResponse ::
+  -- | 'recommendationProviderUri'
+  Prelude.Text ->
+  -- | 'lastModifiedDate'
+  Prelude.Text ->
+  -- | 'creationDate'
+  Prelude.Text ->
+  -- | 'recommendationProviderRoleArn'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
   RecommenderConfigurationResponse
-recommenderConfigurationResponse
-  pRecommendationProviderURI_
+newRecommenderConfigurationResponse
+  pRecommendationProviderUri_
   pLastModifiedDate_
   pCreationDate_
-  pRecommendationProviderRoleARN_
+  pRecommendationProviderRoleArn_
   pId_ =
     RecommenderConfigurationResponse'
-      { _rcrRecommendationsDisplayName =
-          Nothing,
-        _rcrRecommendationTransformerURI =
-          Nothing,
-        _rcrAttributes = Nothing,
-        _rcrName = Nothing,
-        _rcrRecommendationsPerMessage = Nothing,
-        _rcrDescription = Nothing,
-        _rcrRecommendationProviderIdType =
-          Nothing,
-        _rcrRecommendationProviderURI =
-          pRecommendationProviderURI_,
-        _rcrLastModifiedDate = pLastModifiedDate_,
-        _rcrCreationDate = pCreationDate_,
-        _rcrRecommendationProviderRoleARN =
-          pRecommendationProviderRoleARN_,
-        _rcrId = pId_
+      { recommendationsDisplayName =
+          Prelude.Nothing,
+        recommendationTransformerUri =
+          Prelude.Nothing,
+        attributes = Prelude.Nothing,
+        name = Prelude.Nothing,
+        recommendationsPerMessage =
+          Prelude.Nothing,
+        description = Prelude.Nothing,
+        recommendationProviderIdType =
+          Prelude.Nothing,
+        recommendationProviderUri =
+          pRecommendationProviderUri_,
+        lastModifiedDate = pLastModifiedDate_,
+        creationDate = pCreationDate_,
+        recommendationProviderRoleArn =
+          pRecommendationProviderRoleArn_,
+        id = pId_
       }
 
--- | The custom display name for the standard endpoint or user attribute (RecommendationItems) that temporarily stores recommended items for each endpoint or user, depending on the value for the RecommendationProviderIdType property. This name appears in the __Attribute finder__ of the template editor on the Amazon Pinpoint console. This value is null if the configuration doesn't invoke an AWS Lambda function (RecommendationTransformerUri) to perform additional processing of recommendation data.
-rcrRecommendationsDisplayName :: Lens' RecommenderConfigurationResponse (Maybe Text)
-rcrRecommendationsDisplayName = lens _rcrRecommendationsDisplayName (\s a -> s {_rcrRecommendationsDisplayName = a})
+-- | The custom display name for the standard endpoint or user attribute
+-- (RecommendationItems) that temporarily stores recommended items for each
+-- endpoint or user, depending on the value for the
+-- RecommendationProviderIdType property. This name appears in the
+-- __Attribute finder__ of the template editor on the Amazon Pinpoint
+-- console.
+--
+-- This value is null if the configuration doesn\'t invoke an AWS Lambda
+-- function (RecommendationTransformerUri) to perform additional processing
+-- of recommendation data.
+recommenderConfigurationResponse_recommendationsDisplayName :: Lens.Lens' RecommenderConfigurationResponse (Prelude.Maybe Prelude.Text)
+recommenderConfigurationResponse_recommendationsDisplayName = Lens.lens (\RecommenderConfigurationResponse' {recommendationsDisplayName} -> recommendationsDisplayName) (\s@RecommenderConfigurationResponse' {} a -> s {recommendationsDisplayName = a} :: RecommenderConfigurationResponse)
 
--- | The name or Amazon Resource Name (ARN) of the AWS Lambda function that Amazon Pinpoint invokes to perform additional processing of recommendation data that it retrieves from the recommender model.
-rcrRecommendationTransformerURI :: Lens' RecommenderConfigurationResponse (Maybe Text)
-rcrRecommendationTransformerURI = lens _rcrRecommendationTransformerURI (\s a -> s {_rcrRecommendationTransformerURI = a})
+-- | The name or Amazon Resource Name (ARN) of the AWS Lambda function that
+-- Amazon Pinpoint invokes to perform additional processing of
+-- recommendation data that it retrieves from the recommender model.
+recommenderConfigurationResponse_recommendationTransformerUri :: Lens.Lens' RecommenderConfigurationResponse (Prelude.Maybe Prelude.Text)
+recommenderConfigurationResponse_recommendationTransformerUri = Lens.lens (\RecommenderConfigurationResponse' {recommendationTransformerUri} -> recommendationTransformerUri) (\s@RecommenderConfigurationResponse' {} a -> s {recommendationTransformerUri = a} :: RecommenderConfigurationResponse)
 
--- | A map that defines 1-10 custom endpoint or user attributes, depending on the value for the RecommendationProviderIdType property. Each of these attributes temporarily stores a recommended item that's retrieved from the recommender model and sent to an AWS Lambda function for additional processing. Each attribute can be used as a message variable in a message template. This value is null if the configuration doesn't invoke an AWS Lambda function (RecommendationTransformerUri) to perform additional processing of recommendation data.
-rcrAttributes :: Lens' RecommenderConfigurationResponse (HashMap Text Text)
-rcrAttributes = lens _rcrAttributes (\s a -> s {_rcrAttributes = a}) . _Default . _Map
+-- | A map that defines 1-10 custom endpoint or user attributes, depending on
+-- the value for the RecommendationProviderIdType property. Each of these
+-- attributes temporarily stores a recommended item that\'s retrieved from
+-- the recommender model and sent to an AWS Lambda function for additional
+-- processing. Each attribute can be used as a message variable in a
+-- message template.
+--
+-- This value is null if the configuration doesn\'t invoke an AWS Lambda
+-- function (RecommendationTransformerUri) to perform additional processing
+-- of recommendation data.
+recommenderConfigurationResponse_attributes :: Lens.Lens' RecommenderConfigurationResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+recommenderConfigurationResponse_attributes = Lens.lens (\RecommenderConfigurationResponse' {attributes} -> attributes) (\s@RecommenderConfigurationResponse' {} a -> s {attributes = a} :: RecommenderConfigurationResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The custom name of the configuration for the recommender model.
-rcrName :: Lens' RecommenderConfigurationResponse (Maybe Text)
-rcrName = lens _rcrName (\s a -> s {_rcrName = a})
+recommenderConfigurationResponse_name :: Lens.Lens' RecommenderConfigurationResponse (Prelude.Maybe Prelude.Text)
+recommenderConfigurationResponse_name = Lens.lens (\RecommenderConfigurationResponse' {name} -> name) (\s@RecommenderConfigurationResponse' {} a -> s {name = a} :: RecommenderConfigurationResponse)
 
--- | The number of recommended items that are retrieved from the model for each endpoint or user, depending on the value for the RecommendationProviderIdType property. This number determines how many recommended items are available for use in message variables.
-rcrRecommendationsPerMessage :: Lens' RecommenderConfigurationResponse (Maybe Int)
-rcrRecommendationsPerMessage = lens _rcrRecommendationsPerMessage (\s a -> s {_rcrRecommendationsPerMessage = a})
+-- | The number of recommended items that are retrieved from the model for
+-- each endpoint or user, depending on the value for the
+-- RecommendationProviderIdType property. This number determines how many
+-- recommended items are available for use in message variables.
+recommenderConfigurationResponse_recommendationsPerMessage :: Lens.Lens' RecommenderConfigurationResponse (Prelude.Maybe Prelude.Int)
+recommenderConfigurationResponse_recommendationsPerMessage = Lens.lens (\RecommenderConfigurationResponse' {recommendationsPerMessage} -> recommendationsPerMessage) (\s@RecommenderConfigurationResponse' {} a -> s {recommendationsPerMessage = a} :: RecommenderConfigurationResponse)
 
 -- | The custom description of the configuration for the recommender model.
-rcrDescription :: Lens' RecommenderConfigurationResponse (Maybe Text)
-rcrDescription = lens _rcrDescription (\s a -> s {_rcrDescription = a})
+recommenderConfigurationResponse_description :: Lens.Lens' RecommenderConfigurationResponse (Prelude.Maybe Prelude.Text)
+recommenderConfigurationResponse_description = Lens.lens (\RecommenderConfigurationResponse' {description} -> description) (\s@RecommenderConfigurationResponse' {} a -> s {description = a} :: RecommenderConfigurationResponse)
 
--- | The type of Amazon Pinpoint ID that's associated with unique user IDs in the recommender model. This value enables the model to use attribute and event data that’s specific to a particular endpoint or user in an Amazon Pinpoint application. Possible values are:     * PINPOINT_ENDPOINT_ID - Each user in the model is associated with a particular endpoint in Amazon Pinpoint. The data is correlated based on endpoint IDs in Amazon Pinpoint. This is the default value.     * PINPOINT_USER_ID - Each user in the model is associated with a particular user and endpoint in Amazon Pinpoint. The data is correlated based on user IDs in Amazon Pinpoint. If this value is specified, an endpoint definition in Amazon Pinpoint has to specify both a user ID (UserId) and an endpoint ID. Otherwise, messages won’t be sent to the user's endpoint.
-rcrRecommendationProviderIdType :: Lens' RecommenderConfigurationResponse (Maybe Text)
-rcrRecommendationProviderIdType = lens _rcrRecommendationProviderIdType (\s a -> s {_rcrRecommendationProviderIdType = a})
+-- | The type of Amazon Pinpoint ID that\'s associated with unique user IDs
+-- in the recommender model. This value enables the model to use attribute
+-- and event data that’s specific to a particular endpoint or user in an
+-- Amazon Pinpoint application. Possible values are:
+--
+-- -   PINPOINT_ENDPOINT_ID - Each user in the model is associated with a
+--     particular endpoint in Amazon Pinpoint. The data is correlated based
+--     on endpoint IDs in Amazon Pinpoint. This is the default value.
+--
+-- -   PINPOINT_USER_ID - Each user in the model is associated with a
+--     particular user and endpoint in Amazon Pinpoint. The data is
+--     correlated based on user IDs in Amazon Pinpoint. If this value is
+--     specified, an endpoint definition in Amazon Pinpoint has to specify
+--     both a user ID (UserId) and an endpoint ID. Otherwise, messages
+--     won’t be sent to the user\'s endpoint.
+recommenderConfigurationResponse_recommendationProviderIdType :: Lens.Lens' RecommenderConfigurationResponse (Prelude.Maybe Prelude.Text)
+recommenderConfigurationResponse_recommendationProviderIdType = Lens.lens (\RecommenderConfigurationResponse' {recommendationProviderIdType} -> recommendationProviderIdType) (\s@RecommenderConfigurationResponse' {} a -> s {recommendationProviderIdType = a} :: RecommenderConfigurationResponse)
 
--- | The Amazon Resource Name (ARN) of the recommender model that Amazon Pinpoint retrieves the recommendation data from. This value is the ARN of an Amazon Personalize campaign.
-rcrRecommendationProviderURI :: Lens' RecommenderConfigurationResponse Text
-rcrRecommendationProviderURI = lens _rcrRecommendationProviderURI (\s a -> s {_rcrRecommendationProviderURI = a})
+-- | The Amazon Resource Name (ARN) of the recommender model that Amazon
+-- Pinpoint retrieves the recommendation data from. This value is the ARN
+-- of an Amazon Personalize campaign.
+recommenderConfigurationResponse_recommendationProviderUri :: Lens.Lens' RecommenderConfigurationResponse Prelude.Text
+recommenderConfigurationResponse_recommendationProviderUri = Lens.lens (\RecommenderConfigurationResponse' {recommendationProviderUri} -> recommendationProviderUri) (\s@RecommenderConfigurationResponse' {} a -> s {recommendationProviderUri = a} :: RecommenderConfigurationResponse)
 
--- | The date, in extended ISO 8601 format, when the configuration for the recommender model was last modified.
-rcrLastModifiedDate :: Lens' RecommenderConfigurationResponse Text
-rcrLastModifiedDate = lens _rcrLastModifiedDate (\s a -> s {_rcrLastModifiedDate = a})
+-- | The date, in extended ISO 8601 format, when the configuration for the
+-- recommender model was last modified.
+recommenderConfigurationResponse_lastModifiedDate :: Lens.Lens' RecommenderConfigurationResponse Prelude.Text
+recommenderConfigurationResponse_lastModifiedDate = Lens.lens (\RecommenderConfigurationResponse' {lastModifiedDate} -> lastModifiedDate) (\s@RecommenderConfigurationResponse' {} a -> s {lastModifiedDate = a} :: RecommenderConfigurationResponse)
 
--- | The date, in extended ISO 8601 format, when the configuration was created for the recommender model.
-rcrCreationDate :: Lens' RecommenderConfigurationResponse Text
-rcrCreationDate = lens _rcrCreationDate (\s a -> s {_rcrCreationDate = a})
+-- | The date, in extended ISO 8601 format, when the configuration was
+-- created for the recommender model.
+recommenderConfigurationResponse_creationDate :: Lens.Lens' RecommenderConfigurationResponse Prelude.Text
+recommenderConfigurationResponse_creationDate = Lens.lens (\RecommenderConfigurationResponse' {creationDate} -> creationDate) (\s@RecommenderConfigurationResponse' {} a -> s {creationDate = a} :: RecommenderConfigurationResponse)
 
--- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that authorizes Amazon Pinpoint to retrieve recommendation data from the recommender model.
-rcrRecommendationProviderRoleARN :: Lens' RecommenderConfigurationResponse Text
-rcrRecommendationProviderRoleARN = lens _rcrRecommendationProviderRoleARN (\s a -> s {_rcrRecommendationProviderRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that authorizes Amazon Pinpoint to retrieve recommendation
+-- data from the recommender model.
+recommenderConfigurationResponse_recommendationProviderRoleArn :: Lens.Lens' RecommenderConfigurationResponse Prelude.Text
+recommenderConfigurationResponse_recommendationProviderRoleArn = Lens.lens (\RecommenderConfigurationResponse' {recommendationProviderRoleArn} -> recommendationProviderRoleArn) (\s@RecommenderConfigurationResponse' {} a -> s {recommendationProviderRoleArn = a} :: RecommenderConfigurationResponse)
 
 -- | The unique identifier for the recommender model configuration.
-rcrId :: Lens' RecommenderConfigurationResponse Text
-rcrId = lens _rcrId (\s a -> s {_rcrId = a})
+recommenderConfigurationResponse_id :: Lens.Lens' RecommenderConfigurationResponse Prelude.Text
+recommenderConfigurationResponse_id = Lens.lens (\RecommenderConfigurationResponse' {id} -> id) (\s@RecommenderConfigurationResponse' {} a -> s {id = a} :: RecommenderConfigurationResponse)
 
-instance FromJSON RecommenderConfigurationResponse where
+instance
+  Prelude.FromJSON
+    RecommenderConfigurationResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RecommenderConfigurationResponse"
       ( \x ->
           RecommenderConfigurationResponse'
-            <$> (x .:? "RecommendationsDisplayName")
-            <*> (x .:? "RecommendationTransformerUri")
-            <*> (x .:? "Attributes" .!= mempty)
-            <*> (x .:? "Name")
-            <*> (x .:? "RecommendationsPerMessage")
-            <*> (x .:? "Description")
-            <*> (x .:? "RecommendationProviderIdType")
-            <*> (x .: "RecommendationProviderUri")
-            <*> (x .: "LastModifiedDate")
-            <*> (x .: "CreationDate")
-            <*> (x .: "RecommendationProviderRoleArn")
-            <*> (x .: "Id")
+            Prelude.<$> (x Prelude..:? "RecommendationsDisplayName")
+            Prelude.<*> (x Prelude..:? "RecommendationTransformerUri")
+            Prelude.<*> ( x Prelude..:? "Attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "RecommendationsPerMessage")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "RecommendationProviderIdType")
+            Prelude.<*> (x Prelude..: "RecommendationProviderUri")
+            Prelude.<*> (x Prelude..: "LastModifiedDate")
+            Prelude.<*> (x Prelude..: "CreationDate")
+            Prelude.<*> (x Prelude..: "RecommendationProviderRoleArn")
+            Prelude.<*> (x Prelude..: "Id")
       )
 
-instance Hashable RecommenderConfigurationResponse
+instance
+  Prelude.Hashable
+    RecommenderConfigurationResponse
 
-instance NFData RecommenderConfigurationResponse
+instance
+  Prelude.NFData
+    RecommenderConfigurationResponse

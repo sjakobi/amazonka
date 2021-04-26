@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Pinpoint.Types.Include
   ( Include
       ( ..,
-        IAll,
-        IAny,
-        INone
+        IncludeALL,
+        IncludeANY,
+        IncludeNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Include = Include' (CI Text)
+newtype Include = Include'
+  { fromInclude ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IAll :: Include
-pattern IAll = Include' "ALL"
+pattern IncludeALL :: Include
+pattern IncludeALL = Include' "ALL"
 
-pattern IAny :: Include
-pattern IAny = Include' "ANY"
+pattern IncludeANY :: Include
+pattern IncludeANY = Include' "ANY"
 
-pattern INone :: Include
-pattern INone = Include' "NONE"
+pattern IncludeNONE :: Include
+pattern IncludeNONE = Include' "NONE"
 
 {-# COMPLETE
-  IAll,
-  IAny,
-  INone,
+  IncludeALL,
+  IncludeANY,
+  IncludeNONE,
   Include'
   #-}
 
-instance FromText Include where
-  parser = (Include' . mk) <$> takeText
+instance Prelude.FromText Include where
+  parser = Include' Prelude.<$> Prelude.takeText
 
-instance ToText Include where
-  toText (Include' ci) = original ci
+instance Prelude.ToText Include where
+  toText (Include' x) = x
 
-instance Hashable Include
+instance Prelude.Hashable Include
 
-instance NFData Include
+instance Prelude.NFData Include
 
-instance ToByteString Include
+instance Prelude.ToByteString Include
 
-instance ToQuery Include
+instance Prelude.ToQuery Include
 
-instance ToHeader Include
+instance Prelude.ToHeader Include
 
-instance ToJSON Include where
-  toJSON = toJSONText
+instance Prelude.ToJSON Include where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Include where
-  parseJSON = parseJSONText "Include"
+instance Prelude.FromJSON Include where
+  parseJSON = Prelude.parseJSONText "Include"

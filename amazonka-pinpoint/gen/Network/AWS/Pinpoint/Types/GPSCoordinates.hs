@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.GPSCoordinates where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the GPS coordinates of a location.
 --
---
---
--- /See:/ 'gPSCoordinates' smart constructor.
+-- /See:/ 'newGPSCoordinates' smart constructor.
 data GPSCoordinates = GPSCoordinates'
-  { _gpscLatitude ::
-      !Double,
-    _gpscLongitude :: !Double
+  { -- | The latitude coordinate of the location.
+    latitude :: Prelude.Double,
+    -- | The longitude coordinate of the location.
+    longitude :: Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GPSCoordinates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GPSCoordinates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpscLatitude' - The latitude coordinate of the location.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpscLongitude' - The longitude coordinate of the location.
-gPSCoordinates ::
-  -- | 'gpscLatitude'
-  Double ->
-  -- | 'gpscLongitude'
-  Double ->
+-- 'latitude', 'gPSCoordinates_latitude' - The latitude coordinate of the location.
+--
+-- 'longitude', 'gPSCoordinates_longitude' - The longitude coordinate of the location.
+newGPSCoordinates ::
+  -- | 'latitude'
+  Prelude.Double ->
+  -- | 'longitude'
+  Prelude.Double ->
   GPSCoordinates
-gPSCoordinates pLatitude_ pLongitude_ =
+newGPSCoordinates pLatitude_ pLongitude_ =
   GPSCoordinates'
-    { _gpscLatitude = pLatitude_,
-      _gpscLongitude = pLongitude_
+    { latitude = pLatitude_,
+      longitude = pLongitude_
     }
 
 -- | The latitude coordinate of the location.
-gpscLatitude :: Lens' GPSCoordinates Double
-gpscLatitude = lens _gpscLatitude (\s a -> s {_gpscLatitude = a})
+gPSCoordinates_latitude :: Lens.Lens' GPSCoordinates Prelude.Double
+gPSCoordinates_latitude = Lens.lens (\GPSCoordinates' {latitude} -> latitude) (\s@GPSCoordinates' {} a -> s {latitude = a} :: GPSCoordinates)
 
 -- | The longitude coordinate of the location.
-gpscLongitude :: Lens' GPSCoordinates Double
-gpscLongitude = lens _gpscLongitude (\s a -> s {_gpscLongitude = a})
+gPSCoordinates_longitude :: Lens.Lens' GPSCoordinates Prelude.Double
+gPSCoordinates_longitude = Lens.lens (\GPSCoordinates' {longitude} -> longitude) (\s@GPSCoordinates' {} a -> s {longitude = a} :: GPSCoordinates)
 
-instance FromJSON GPSCoordinates where
+instance Prelude.FromJSON GPSCoordinates where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GPSCoordinates"
       ( \x ->
           GPSCoordinates'
-            <$> (x .: "Latitude") <*> (x .: "Longitude")
+            Prelude.<$> (x Prelude..: "Latitude")
+            Prelude.<*> (x Prelude..: "Longitude")
       )
 
-instance Hashable GPSCoordinates
+instance Prelude.Hashable GPSCoordinates
 
-instance NFData GPSCoordinates
+instance Prelude.NFData GPSCoordinates
 
-instance ToJSON GPSCoordinates where
+instance Prelude.ToJSON GPSCoordinates where
   toJSON GPSCoordinates' {..} =
-    object
-      ( catMaybes
-          [ Just ("Latitude" .= _gpscLatitude),
-            Just ("Longitude" .= _gpscLongitude)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Latitude" Prelude..= latitude),
+            Prelude.Just ("Longitude" Prelude..= longitude)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,113 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ExportJobResource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the resource settings for a job that exports endpoint definitions to a file. The file can be added directly to an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Pinpoint API or downloaded directly to a computer by using the Amazon Pinpoint console.
+-- | Provides information about the resource settings for a job that exports
+-- endpoint definitions to a file. The file can be added directly to an
+-- Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon
+-- Pinpoint API or downloaded directly to a computer by using the Amazon
+-- Pinpoint console.
 --
---
---
--- /See:/ 'exportJobResource' smart constructor.
+-- /See:/ 'newExportJobResource' smart constructor.
 data ExportJobResource = ExportJobResource'
-  { _ejrSegmentVersion ::
-      !(Maybe Int),
-    _ejrSegmentId :: !(Maybe Text),
-    _ejrS3URLPrefix :: !Text,
-    _ejrRoleARN :: !Text
+  { -- | The version of the segment that the endpoint definitions were exported
+    -- from.
+    segmentVersion :: Prelude.Maybe Prelude.Int,
+    -- | The identifier for the segment that the endpoint definitions were
+    -- exported from. If this value isn\'t present, Amazon Pinpoint exported
+    -- definitions for all the endpoints that are associated with the
+    -- application.
+    segmentId :: Prelude.Maybe Prelude.Text,
+    -- | The URL of the location in an Amazon Simple Storage Service (Amazon S3)
+    -- bucket where the endpoint definitions were exported to. This location is
+    -- typically a folder that contains multiple files. The URL should be in
+    -- the following format: s3:\/\/bucket-name\/folder-name\/.
+    s3UrlPrefix :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+    -- (IAM) role that authorized Amazon Pinpoint to access the Amazon S3
+    -- location where the endpoint definitions were exported to.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportJobResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportJobResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ejrSegmentVersion' - The version of the segment that the endpoint definitions were exported from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ejrSegmentId' - The identifier for the segment that the endpoint definitions were exported from. If this value isn't present, Amazon Pinpoint exported definitions for all the endpoints that are associated with the application.
+-- 'segmentVersion', 'exportJobResource_segmentVersion' - The version of the segment that the endpoint definitions were exported
+-- from.
 --
--- * 'ejrS3URLPrefix' - The URL of the location in an Amazon Simple Storage Service (Amazon S3) bucket where the endpoint definitions were exported to. This location is typically a folder that contains multiple files. The URL should be in the following format: s3://<replaceable>bucket-name/<replaceable>folder-name/.
+-- 'segmentId', 'exportJobResource_segmentId' - The identifier for the segment that the endpoint definitions were
+-- exported from. If this value isn\'t present, Amazon Pinpoint exported
+-- definitions for all the endpoints that are associated with the
+-- application.
 --
--- * 'ejrRoleARN' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that authorized Amazon Pinpoint to access the Amazon S3 location where the endpoint definitions were exported to.
-exportJobResource ::
-  -- | 'ejrS3URLPrefix'
-  Text ->
-  -- | 'ejrRoleARN'
-  Text ->
+-- 's3UrlPrefix', 'exportJobResource_s3UrlPrefix' - The URL of the location in an Amazon Simple Storage Service (Amazon S3)
+-- bucket where the endpoint definitions were exported to. This location is
+-- typically a folder that contains multiple files. The URL should be in
+-- the following format: s3:\/\/bucket-name\/folder-name\/.
+--
+-- 'roleArn', 'exportJobResource_roleArn' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that authorized Amazon Pinpoint to access the Amazon S3
+-- location where the endpoint definitions were exported to.
+newExportJobResource ::
+  -- | 's3UrlPrefix'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   ExportJobResource
-exportJobResource pS3URLPrefix_ pRoleARN_ =
+newExportJobResource pS3UrlPrefix_ pRoleArn_ =
   ExportJobResource'
-    { _ejrSegmentVersion = Nothing,
-      _ejrSegmentId = Nothing,
-      _ejrS3URLPrefix = pS3URLPrefix_,
-      _ejrRoleARN = pRoleARN_
+    { segmentVersion =
+        Prelude.Nothing,
+      segmentId = Prelude.Nothing,
+      s3UrlPrefix = pS3UrlPrefix_,
+      roleArn = pRoleArn_
     }
 
--- | The version of the segment that the endpoint definitions were exported from.
-ejrSegmentVersion :: Lens' ExportJobResource (Maybe Int)
-ejrSegmentVersion = lens _ejrSegmentVersion (\s a -> s {_ejrSegmentVersion = a})
+-- | The version of the segment that the endpoint definitions were exported
+-- from.
+exportJobResource_segmentVersion :: Lens.Lens' ExportJobResource (Prelude.Maybe Prelude.Int)
+exportJobResource_segmentVersion = Lens.lens (\ExportJobResource' {segmentVersion} -> segmentVersion) (\s@ExportJobResource' {} a -> s {segmentVersion = a} :: ExportJobResource)
 
--- | The identifier for the segment that the endpoint definitions were exported from. If this value isn't present, Amazon Pinpoint exported definitions for all the endpoints that are associated with the application.
-ejrSegmentId :: Lens' ExportJobResource (Maybe Text)
-ejrSegmentId = lens _ejrSegmentId (\s a -> s {_ejrSegmentId = a})
+-- | The identifier for the segment that the endpoint definitions were
+-- exported from. If this value isn\'t present, Amazon Pinpoint exported
+-- definitions for all the endpoints that are associated with the
+-- application.
+exportJobResource_segmentId :: Lens.Lens' ExportJobResource (Prelude.Maybe Prelude.Text)
+exportJobResource_segmentId = Lens.lens (\ExportJobResource' {segmentId} -> segmentId) (\s@ExportJobResource' {} a -> s {segmentId = a} :: ExportJobResource)
 
--- | The URL of the location in an Amazon Simple Storage Service (Amazon S3) bucket where the endpoint definitions were exported to. This location is typically a folder that contains multiple files. The URL should be in the following format: s3://<replaceable>bucket-name/<replaceable>folder-name/.
-ejrS3URLPrefix :: Lens' ExportJobResource Text
-ejrS3URLPrefix = lens _ejrS3URLPrefix (\s a -> s {_ejrS3URLPrefix = a})
+-- | The URL of the location in an Amazon Simple Storage Service (Amazon S3)
+-- bucket where the endpoint definitions were exported to. This location is
+-- typically a folder that contains multiple files. The URL should be in
+-- the following format: s3:\/\/bucket-name\/folder-name\/.
+exportJobResource_s3UrlPrefix :: Lens.Lens' ExportJobResource Prelude.Text
+exportJobResource_s3UrlPrefix = Lens.lens (\ExportJobResource' {s3UrlPrefix} -> s3UrlPrefix) (\s@ExportJobResource' {} a -> s {s3UrlPrefix = a} :: ExportJobResource)
 
--- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that authorized Amazon Pinpoint to access the Amazon S3 location where the endpoint definitions were exported to.
-ejrRoleARN :: Lens' ExportJobResource Text
-ejrRoleARN = lens _ejrRoleARN (\s a -> s {_ejrRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that authorized Amazon Pinpoint to access the Amazon S3
+-- location where the endpoint definitions were exported to.
+exportJobResource_roleArn :: Lens.Lens' ExportJobResource Prelude.Text
+exportJobResource_roleArn = Lens.lens (\ExportJobResource' {roleArn} -> roleArn) (\s@ExportJobResource' {} a -> s {roleArn = a} :: ExportJobResource)
 
-instance FromJSON ExportJobResource where
+instance Prelude.FromJSON ExportJobResource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExportJobResource"
       ( \x ->
           ExportJobResource'
-            <$> (x .:? "SegmentVersion")
-            <*> (x .:? "SegmentId")
-            <*> (x .: "S3UrlPrefix")
-            <*> (x .: "RoleArn")
+            Prelude.<$> (x Prelude..:? "SegmentVersion")
+            Prelude.<*> (x Prelude..:? "SegmentId")
+            Prelude.<*> (x Prelude..: "S3UrlPrefix")
+            Prelude.<*> (x Prelude..: "RoleArn")
       )
 
-instance Hashable ExportJobResource
+instance Prelude.Hashable ExportJobResource
 
-instance NFData ExportJobResource
+instance Prelude.NFData ExportJobResource

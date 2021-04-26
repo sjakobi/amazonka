@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Pinpoint.Types.DimensionType
   ( DimensionType
       ( ..,
-        Exclusive,
-        Inclusive
+        DimensionTypeEXCLUSIVE,
+        DimensionTypeINCLUSIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DimensionType = DimensionType' (CI Text)
+newtype DimensionType = DimensionType'
+  { fromDimensionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Exclusive :: DimensionType
-pattern Exclusive = DimensionType' "EXCLUSIVE"
+pattern DimensionTypeEXCLUSIVE :: DimensionType
+pattern DimensionTypeEXCLUSIVE = DimensionType' "EXCLUSIVE"
 
-pattern Inclusive :: DimensionType
-pattern Inclusive = DimensionType' "INCLUSIVE"
+pattern DimensionTypeINCLUSIVE :: DimensionType
+pattern DimensionTypeINCLUSIVE = DimensionType' "INCLUSIVE"
 
 {-# COMPLETE
-  Exclusive,
-  Inclusive,
+  DimensionTypeEXCLUSIVE,
+  DimensionTypeINCLUSIVE,
   DimensionType'
   #-}
 
-instance FromText DimensionType where
-  parser = (DimensionType' . mk) <$> takeText
+instance Prelude.FromText DimensionType where
+  parser = DimensionType' Prelude.<$> Prelude.takeText
 
-instance ToText DimensionType where
-  toText (DimensionType' ci) = original ci
+instance Prelude.ToText DimensionType where
+  toText (DimensionType' x) = x
 
-instance Hashable DimensionType
+instance Prelude.Hashable DimensionType
 
-instance NFData DimensionType
+instance Prelude.NFData DimensionType
 
-instance ToByteString DimensionType
+instance Prelude.ToByteString DimensionType
 
-instance ToQuery DimensionType
+instance Prelude.ToQuery DimensionType
 
-instance ToHeader DimensionType
+instance Prelude.ToHeader DimensionType
 
-instance ToJSON DimensionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DimensionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DimensionType where
-  parseJSON = parseJSONText "DimensionType"
+instance Prelude.FromJSON DimensionType where
+  parseJSON = Prelude.parseJSONText "DimensionType"

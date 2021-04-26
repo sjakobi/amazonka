@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.UpdateAttributesRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies one or more attributes to remove from all the endpoints that are associated with an application.
+-- | Specifies one or more attributes to remove from all the endpoints that
+-- are associated with an application.
 --
---
---
--- /See:/ 'updateAttributesRequest' smart constructor.
-newtype UpdateAttributesRequest = UpdateAttributesRequest'
-  { _uarBlacklist ::
-      Maybe [Text]
+-- /See:/ 'newUpdateAttributesRequest' smart constructor.
+data UpdateAttributesRequest = UpdateAttributesRequest'
+  { -- | An array of the attributes to remove from all the endpoints that are
+    -- associated with the application. The array can specify the complete,
+    -- exact name of each attribute to remove or it can specify a glob pattern
+    -- that an attribute name must match in order for the attribute to be
+    -- removed.
+    blacklist :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAttributesRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAttributesRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uarBlacklist' - An array of the attributes to remove from all the endpoints that are associated with the application. The array can specify the complete, exact name of each attribute to remove or it can specify a glob pattern that an attribute name must match in order for the attribute to be removed.
-updateAttributesRequest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'blacklist', 'updateAttributesRequest_blacklist' - An array of the attributes to remove from all the endpoints that are
+-- associated with the application. The array can specify the complete,
+-- exact name of each attribute to remove or it can specify a glob pattern
+-- that an attribute name must match in order for the attribute to be
+-- removed.
+newUpdateAttributesRequest ::
   UpdateAttributesRequest
-updateAttributesRequest =
-  UpdateAttributesRequest' {_uarBlacklist = Nothing}
+newUpdateAttributesRequest =
+  UpdateAttributesRequest'
+    { blacklist =
+        Prelude.Nothing
+    }
 
--- | An array of the attributes to remove from all the endpoints that are associated with the application. The array can specify the complete, exact name of each attribute to remove or it can specify a glob pattern that an attribute name must match in order for the attribute to be removed.
-uarBlacklist :: Lens' UpdateAttributesRequest [Text]
-uarBlacklist = lens _uarBlacklist (\s a -> s {_uarBlacklist = a}) . _Default . _Coerce
+-- | An array of the attributes to remove from all the endpoints that are
+-- associated with the application. The array can specify the complete,
+-- exact name of each attribute to remove or it can specify a glob pattern
+-- that an attribute name must match in order for the attribute to be
+-- removed.
+updateAttributesRequest_blacklist :: Lens.Lens' UpdateAttributesRequest (Prelude.Maybe [Prelude.Text])
+updateAttributesRequest_blacklist = Lens.lens (\UpdateAttributesRequest' {blacklist} -> blacklist) (\s@UpdateAttributesRequest' {} a -> s {blacklist = a} :: UpdateAttributesRequest) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable UpdateAttributesRequest
+instance Prelude.Hashable UpdateAttributesRequest
 
-instance NFData UpdateAttributesRequest
+instance Prelude.NFData UpdateAttributesRequest
 
-instance ToJSON UpdateAttributesRequest where
+instance Prelude.ToJSON UpdateAttributesRequest where
   toJSON UpdateAttributesRequest' {..} =
-    object
-      (catMaybes [("Blacklist" .=) <$> _uarBlacklist])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Blacklist" Prelude..=) Prelude.<$> blacklist]
+      )

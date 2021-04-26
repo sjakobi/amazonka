@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,210 +21,231 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves (queries) pre-aggregated data for a standard execution metric that applies to a journey activity.
+-- Retrieves (queries) pre-aggregated data for a standard execution metric
+-- that applies to a journey activity.
 module Network.AWS.Pinpoint.GetJourneyExecutionActivityMetrics
   ( -- * Creating a Request
-    getJourneyExecutionActivityMetrics,
-    GetJourneyExecutionActivityMetrics,
+    GetJourneyExecutionActivityMetrics (..),
+    newGetJourneyExecutionActivityMetrics,
 
     -- * Request Lenses
-    gjeamNextToken,
-    gjeamPageSize,
-    gjeamJourneyActivityId,
-    gjeamApplicationId,
-    gjeamJourneyId,
+    getJourneyExecutionActivityMetrics_nextToken,
+    getJourneyExecutionActivityMetrics_pageSize,
+    getJourneyExecutionActivityMetrics_journeyActivityId,
+    getJourneyExecutionActivityMetrics_applicationId,
+    getJourneyExecutionActivityMetrics_journeyId,
 
     -- * Destructuring the Response
-    getJourneyExecutionActivityMetricsResponse,
-    GetJourneyExecutionActivityMetricsResponse,
+    GetJourneyExecutionActivityMetricsResponse (..),
+    newGetJourneyExecutionActivityMetricsResponse,
 
     -- * Response Lenses
-    gjeamrrsResponseStatus,
-    gjeamrrsJourneyExecutionActivityMetricsResponse,
+    getJourneyExecutionActivityMetricsResponse_httpStatus,
+    getJourneyExecutionActivityMetricsResponse_journeyExecutionActivityMetricsResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.JourneyExecutionActivityMetricsResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getJourneyExecutionActivityMetrics' smart constructor.
+-- | /See:/ 'newGetJourneyExecutionActivityMetrics' smart constructor.
 data GetJourneyExecutionActivityMetrics = GetJourneyExecutionActivityMetrics'
-  { _gjeamNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gjeamPageSize ::
-      !( Maybe
-           Text
-       ),
-    _gjeamJourneyActivityId ::
-      !Text,
-    _gjeamApplicationId ::
-      !Text,
-    _gjeamJourneyId ::
-      !Text
+  { -- | The string that specifies which page of results to return in a paginated
+    -- response. This parameter is not supported for application, campaign, and
+    -- journey metrics.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to include in each page of a paginated
+    -- response. This parameter is not supported for application, campaign, and
+    -- journey metrics.
+    pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the journey activity.
+    journeyActivityId :: Prelude.Text,
+    -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    -- | The unique identifier for the journey.
+    journeyId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetJourneyExecutionActivityMetrics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetJourneyExecutionActivityMetrics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gjeamNextToken' - The  string that specifies which page of results to return in a paginated response. This parameter is not supported for application, campaign, and journey metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gjeamPageSize' - The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
+-- 'nextToken', 'getJourneyExecutionActivityMetrics_nextToken' - The string that specifies which page of results to return in a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
 --
--- * 'gjeamJourneyActivityId' - The unique identifier for the journey activity.
+-- 'pageSize', 'getJourneyExecutionActivityMetrics_pageSize' - The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
 --
--- * 'gjeamApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- 'journeyActivityId', 'getJourneyExecutionActivityMetrics_journeyActivityId' - The unique identifier for the journey activity.
 --
--- * 'gjeamJourneyId' - The unique identifier for the journey.
-getJourneyExecutionActivityMetrics ::
-  -- | 'gjeamJourneyActivityId'
-  Text ->
-  -- | 'gjeamApplicationId'
-  Text ->
-  -- | 'gjeamJourneyId'
-  Text ->
+-- 'applicationId', 'getJourneyExecutionActivityMetrics_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'journeyId', 'getJourneyExecutionActivityMetrics_journeyId' - The unique identifier for the journey.
+newGetJourneyExecutionActivityMetrics ::
+  -- | 'journeyActivityId'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'journeyId'
+  Prelude.Text ->
   GetJourneyExecutionActivityMetrics
-getJourneyExecutionActivityMetrics
+newGetJourneyExecutionActivityMetrics
   pJourneyActivityId_
   pApplicationId_
   pJourneyId_ =
     GetJourneyExecutionActivityMetrics'
-      { _gjeamNextToken =
-          Nothing,
-        _gjeamPageSize = Nothing,
-        _gjeamJourneyActivityId =
-          pJourneyActivityId_,
-        _gjeamApplicationId = pApplicationId_,
-        _gjeamJourneyId = pJourneyId_
+      { nextToken =
+          Prelude.Nothing,
+        pageSize = Prelude.Nothing,
+        journeyActivityId = pJourneyActivityId_,
+        applicationId = pApplicationId_,
+        journeyId = pJourneyId_
       }
 
--- | The  string that specifies which page of results to return in a paginated response. This parameter is not supported for application, campaign, and journey metrics.
-gjeamNextToken :: Lens' GetJourneyExecutionActivityMetrics (Maybe Text)
-gjeamNextToken = lens _gjeamNextToken (\s a -> s {_gjeamNextToken = a})
+-- | The string that specifies which page of results to return in a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+getJourneyExecutionActivityMetrics_nextToken :: Lens.Lens' GetJourneyExecutionActivityMetrics (Prelude.Maybe Prelude.Text)
+getJourneyExecutionActivityMetrics_nextToken = Lens.lens (\GetJourneyExecutionActivityMetrics' {nextToken} -> nextToken) (\s@GetJourneyExecutionActivityMetrics' {} a -> s {nextToken = a} :: GetJourneyExecutionActivityMetrics)
 
--- | The maximum number of items to include in each page of a paginated response. This parameter is not supported for application, campaign, and journey metrics.
-gjeamPageSize :: Lens' GetJourneyExecutionActivityMetrics (Maybe Text)
-gjeamPageSize = lens _gjeamPageSize (\s a -> s {_gjeamPageSize = a})
+-- | The maximum number of items to include in each page of a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+getJourneyExecutionActivityMetrics_pageSize :: Lens.Lens' GetJourneyExecutionActivityMetrics (Prelude.Maybe Prelude.Text)
+getJourneyExecutionActivityMetrics_pageSize = Lens.lens (\GetJourneyExecutionActivityMetrics' {pageSize} -> pageSize) (\s@GetJourneyExecutionActivityMetrics' {} a -> s {pageSize = a} :: GetJourneyExecutionActivityMetrics)
 
 -- | The unique identifier for the journey activity.
-gjeamJourneyActivityId :: Lens' GetJourneyExecutionActivityMetrics Text
-gjeamJourneyActivityId = lens _gjeamJourneyActivityId (\s a -> s {_gjeamJourneyActivityId = a})
+getJourneyExecutionActivityMetrics_journeyActivityId :: Lens.Lens' GetJourneyExecutionActivityMetrics Prelude.Text
+getJourneyExecutionActivityMetrics_journeyActivityId = Lens.lens (\GetJourneyExecutionActivityMetrics' {journeyActivityId} -> journeyActivityId) (\s@GetJourneyExecutionActivityMetrics' {} a -> s {journeyActivityId = a} :: GetJourneyExecutionActivityMetrics)
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-gjeamApplicationId :: Lens' GetJourneyExecutionActivityMetrics Text
-gjeamApplicationId = lens _gjeamApplicationId (\s a -> s {_gjeamApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+getJourneyExecutionActivityMetrics_applicationId :: Lens.Lens' GetJourneyExecutionActivityMetrics Prelude.Text
+getJourneyExecutionActivityMetrics_applicationId = Lens.lens (\GetJourneyExecutionActivityMetrics' {applicationId} -> applicationId) (\s@GetJourneyExecutionActivityMetrics' {} a -> s {applicationId = a} :: GetJourneyExecutionActivityMetrics)
 
 -- | The unique identifier for the journey.
-gjeamJourneyId :: Lens' GetJourneyExecutionActivityMetrics Text
-gjeamJourneyId = lens _gjeamJourneyId (\s a -> s {_gjeamJourneyId = a})
+getJourneyExecutionActivityMetrics_journeyId :: Lens.Lens' GetJourneyExecutionActivityMetrics Prelude.Text
+getJourneyExecutionActivityMetrics_journeyId = Lens.lens (\GetJourneyExecutionActivityMetrics' {journeyId} -> journeyId) (\s@GetJourneyExecutionActivityMetrics' {} a -> s {journeyId = a} :: GetJourneyExecutionActivityMetrics)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetJourneyExecutionActivityMetrics
   where
   type
     Rs GetJourneyExecutionActivityMetrics =
       GetJourneyExecutionActivityMetricsResponse
-  request = get pinpoint
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetJourneyExecutionActivityMetricsResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable GetJourneyExecutionActivityMetrics
+instance
+  Prelude.Hashable
+    GetJourneyExecutionActivityMetrics
 
-instance NFData GetJourneyExecutionActivityMetrics
+instance
+  Prelude.NFData
+    GetJourneyExecutionActivityMetrics
 
-instance ToHeaders GetJourneyExecutionActivityMetrics where
+instance
+  Prelude.ToHeaders
+    GetJourneyExecutionActivityMetrics
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetJourneyExecutionActivityMetrics where
+instance
+  Prelude.ToPath
+    GetJourneyExecutionActivityMetrics
+  where
   toPath GetJourneyExecutionActivityMetrics' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _gjeamApplicationId,
+        Prelude.toBS applicationId,
         "/journeys/",
-        toBS _gjeamJourneyId,
+        Prelude.toBS journeyId,
         "/activities/",
-        toBS _gjeamJourneyActivityId,
+        Prelude.toBS journeyActivityId,
         "/execution-metrics"
       ]
 
-instance ToQuery GetJourneyExecutionActivityMetrics where
+instance
+  Prelude.ToQuery
+    GetJourneyExecutionActivityMetrics
+  where
   toQuery GetJourneyExecutionActivityMetrics' {..} =
-    mconcat
-      [ "next-token" =: _gjeamNextToken,
-        "page-size" =: _gjeamPageSize
+    Prelude.mconcat
+      [ "next-token" Prelude.=: nextToken,
+        "page-size" Prelude.=: pageSize
       ]
 
--- | /See:/ 'getJourneyExecutionActivityMetricsResponse' smart constructor.
+-- | /See:/ 'newGetJourneyExecutionActivityMetricsResponse' smart constructor.
 data GetJourneyExecutionActivityMetricsResponse = GetJourneyExecutionActivityMetricsResponse'
-  { _gjeamrrsResponseStatus ::
-      !Int,
-    _gjeamrrsJourneyExecutionActivityMetricsResponse ::
-      !JourneyExecutionActivityMetricsResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    journeyExecutionActivityMetricsResponse :: JourneyExecutionActivityMetricsResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetJourneyExecutionActivityMetricsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetJourneyExecutionActivityMetricsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gjeamrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gjeamrrsJourneyExecutionActivityMetricsResponse' - Undocumented member.
-getJourneyExecutionActivityMetricsResponse ::
-  -- | 'gjeamrrsResponseStatus'
-  Int ->
-  -- | 'gjeamrrsJourneyExecutionActivityMetricsResponse'
+-- 'httpStatus', 'getJourneyExecutionActivityMetricsResponse_httpStatus' - The response's http status code.
+--
+-- 'journeyExecutionActivityMetricsResponse', 'getJourneyExecutionActivityMetricsResponse_journeyExecutionActivityMetricsResponse' - Undocumented member.
+newGetJourneyExecutionActivityMetricsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'journeyExecutionActivityMetricsResponse'
   JourneyExecutionActivityMetricsResponse ->
   GetJourneyExecutionActivityMetricsResponse
-getJourneyExecutionActivityMetricsResponse
-  pResponseStatus_
+newGetJourneyExecutionActivityMetricsResponse
+  pHttpStatus_
   pJourneyExecutionActivityMetricsResponse_ =
     GetJourneyExecutionActivityMetricsResponse'
-      { _gjeamrrsResponseStatus =
-          pResponseStatus_,
-        _gjeamrrsJourneyExecutionActivityMetricsResponse =
+      { httpStatus =
+          pHttpStatus_,
+        journeyExecutionActivityMetricsResponse =
           pJourneyExecutionActivityMetricsResponse_
       }
 
--- | -- | The response status code.
-gjeamrrsResponseStatus :: Lens' GetJourneyExecutionActivityMetricsResponse Int
-gjeamrrsResponseStatus = lens _gjeamrrsResponseStatus (\s a -> s {_gjeamrrsResponseStatus = a})
+-- | The response's http status code.
+getJourneyExecutionActivityMetricsResponse_httpStatus :: Lens.Lens' GetJourneyExecutionActivityMetricsResponse Prelude.Int
+getJourneyExecutionActivityMetricsResponse_httpStatus = Lens.lens (\GetJourneyExecutionActivityMetricsResponse' {httpStatus} -> httpStatus) (\s@GetJourneyExecutionActivityMetricsResponse' {} a -> s {httpStatus = a} :: GetJourneyExecutionActivityMetricsResponse)
 
 -- | Undocumented member.
-gjeamrrsJourneyExecutionActivityMetricsResponse :: Lens' GetJourneyExecutionActivityMetricsResponse JourneyExecutionActivityMetricsResponse
-gjeamrrsJourneyExecutionActivityMetricsResponse = lens _gjeamrrsJourneyExecutionActivityMetricsResponse (\s a -> s {_gjeamrrsJourneyExecutionActivityMetricsResponse = a})
+getJourneyExecutionActivityMetricsResponse_journeyExecutionActivityMetricsResponse :: Lens.Lens' GetJourneyExecutionActivityMetricsResponse JourneyExecutionActivityMetricsResponse
+getJourneyExecutionActivityMetricsResponse_journeyExecutionActivityMetricsResponse = Lens.lens (\GetJourneyExecutionActivityMetricsResponse' {journeyExecutionActivityMetricsResponse} -> journeyExecutionActivityMetricsResponse) (\s@GetJourneyExecutionActivityMetricsResponse' {} a -> s {journeyExecutionActivityMetricsResponse = a} :: GetJourneyExecutionActivityMetricsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetJourneyExecutionActivityMetricsResponse

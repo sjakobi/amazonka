@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.Pinpoint.Types.Frequency
   ( Frequency
       ( ..,
-        Daily,
-        Event,
-        Hourly,
-        Monthly,
-        Once,
-        Weekly
+        FrequencyDAILY,
+        FrequencyEVENT,
+        FrequencyHOURLY,
+        FrequencyMONTHLY,
+        FrequencyONCE,
+        FrequencyWEEKLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Frequency = Frequency' (CI Text)
+newtype Frequency = Frequency'
+  { fromFrequency ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Daily :: Frequency
-pattern Daily = Frequency' "DAILY"
+pattern FrequencyDAILY :: Frequency
+pattern FrequencyDAILY = Frequency' "DAILY"
 
-pattern Event :: Frequency
-pattern Event = Frequency' "EVENT"
+pattern FrequencyEVENT :: Frequency
+pattern FrequencyEVENT = Frequency' "EVENT"
 
-pattern Hourly :: Frequency
-pattern Hourly = Frequency' "HOURLY"
+pattern FrequencyHOURLY :: Frequency
+pattern FrequencyHOURLY = Frequency' "HOURLY"
 
-pattern Monthly :: Frequency
-pattern Monthly = Frequency' "MONTHLY"
+pattern FrequencyMONTHLY :: Frequency
+pattern FrequencyMONTHLY = Frequency' "MONTHLY"
 
-pattern Once :: Frequency
-pattern Once = Frequency' "ONCE"
+pattern FrequencyONCE :: Frequency
+pattern FrequencyONCE = Frequency' "ONCE"
 
-pattern Weekly :: Frequency
-pattern Weekly = Frequency' "WEEKLY"
+pattern FrequencyWEEKLY :: Frequency
+pattern FrequencyWEEKLY = Frequency' "WEEKLY"
 
 {-# COMPLETE
-  Daily,
-  Event,
-  Hourly,
-  Monthly,
-  Once,
-  Weekly,
+  FrequencyDAILY,
+  FrequencyEVENT,
+  FrequencyHOURLY,
+  FrequencyMONTHLY,
+  FrequencyONCE,
+  FrequencyWEEKLY,
   Frequency'
   #-}
 
-instance FromText Frequency where
-  parser = (Frequency' . mk) <$> takeText
+instance Prelude.FromText Frequency where
+  parser = Frequency' Prelude.<$> Prelude.takeText
 
-instance ToText Frequency where
-  toText (Frequency' ci) = original ci
+instance Prelude.ToText Frequency where
+  toText (Frequency' x) = x
 
-instance Hashable Frequency
+instance Prelude.Hashable Frequency
 
-instance NFData Frequency
+instance Prelude.NFData Frequency
 
-instance ToByteString Frequency
+instance Prelude.ToByteString Frequency
 
-instance ToQuery Frequency
+instance Prelude.ToQuery Frequency
 
-instance ToHeader Frequency
+instance Prelude.ToHeader Frequency
 
-instance ToJSON Frequency where
-  toJSON = toJSONText
+instance Prelude.ToJSON Frequency where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Frequency where
-  parseJSON = parseJSONText "Frequency"
+instance Prelude.FromJSON Frequency where
+  parseJSON = Prelude.parseJSONText "Frequency"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,133 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EmailMessageActivity where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.JourneyEmailMessage
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for an email activity in a journey. This type of activity sends an email message to participants.
+-- | Specifies the settings for an email activity in a journey. This type of
+-- activity sends an email message to participants.
 --
---
---
--- /See:/ 'emailMessageActivity' smart constructor.
+-- /See:/ 'newEmailMessageActivity' smart constructor.
 data EmailMessageActivity = EmailMessageActivity'
-  { _emaTemplateName ::
-      !(Maybe Text),
-    _emaMessageConfig ::
-      !(Maybe JourneyEmailMessage),
-    _emaNextActivity ::
-      !(Maybe Text),
-    _emaTemplateVersion ::
-      !(Maybe Text)
+  { -- | The name of the email message template to use for the message. If
+    -- specified, this value must match the name of an existing message
+    -- template.
+    templateName :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the sender address for an email message that\'s sent to
+    -- participants in the journey.
+    messageConfig :: Prelude.Maybe JourneyEmailMessage,
+    -- | The unique identifier for the next activity to perform, after the
+    -- message is sent.
+    nextActivity :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the version of the email template to use for
+    -- the message. If specified, this value must match the identifier for an
+    -- existing template version. To retrieve a list of versions and version
+    -- identifiers for a template, use the Template Versions resource.
+    --
+    -- If you don\'t specify a value for this property, Amazon Pinpoint uses
+    -- the /active version/ of the template. The /active version/ is typically
+    -- the version of a template that\'s been most recently reviewed and
+    -- approved for use, depending on your workflow. It isn\'t necessarily the
+    -- latest version of a template.
+    templateVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EmailMessageActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EmailMessageActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'emaTemplateName' - The name of the email message template to use for the message. If specified, this value must match the name of an existing message template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'emaMessageConfig' - Specifies the sender address for an email message that's sent to participants in the journey.
+-- 'templateName', 'emailMessageActivity_templateName' - The name of the email message template to use for the message. If
+-- specified, this value must match the name of an existing message
+-- template.
 --
--- * 'emaNextActivity' - The unique identifier for the next activity to perform, after the message is sent.
+-- 'messageConfig', 'emailMessageActivity_messageConfig' - Specifies the sender address for an email message that\'s sent to
+-- participants in the journey.
 --
--- * 'emaTemplateVersion' - The unique identifier for the version of the email template to use for the message. If specified, this value must match the identifier for an existing template version. To retrieve a list of versions and version identifiers for a template, use the <link>Template Versions resource. If you don't specify a value for this property, Amazon Pinpoint uses the /active version/ of the template. The /active version/ is typically the version of a template that's been most recently reviewed and approved for use, depending on your workflow. It isn't necessarily the latest version of a template.
-emailMessageActivity ::
+-- 'nextActivity', 'emailMessageActivity_nextActivity' - The unique identifier for the next activity to perform, after the
+-- message is sent.
+--
+-- 'templateVersion', 'emailMessageActivity_templateVersion' - The unique identifier for the version of the email template to use for
+-- the message. If specified, this value must match the identifier for an
+-- existing template version. To retrieve a list of versions and version
+-- identifiers for a template, use the Template Versions resource.
+--
+-- If you don\'t specify a value for this property, Amazon Pinpoint uses
+-- the /active version/ of the template. The /active version/ is typically
+-- the version of a template that\'s been most recently reviewed and
+-- approved for use, depending on your workflow. It isn\'t necessarily the
+-- latest version of a template.
+newEmailMessageActivity ::
   EmailMessageActivity
-emailMessageActivity =
+newEmailMessageActivity =
   EmailMessageActivity'
-    { _emaTemplateName = Nothing,
-      _emaMessageConfig = Nothing,
-      _emaNextActivity = Nothing,
-      _emaTemplateVersion = Nothing
+    { templateName =
+        Prelude.Nothing,
+      messageConfig = Prelude.Nothing,
+      nextActivity = Prelude.Nothing,
+      templateVersion = Prelude.Nothing
     }
 
--- | The name of the email message template to use for the message. If specified, this value must match the name of an existing message template.
-emaTemplateName :: Lens' EmailMessageActivity (Maybe Text)
-emaTemplateName = lens _emaTemplateName (\s a -> s {_emaTemplateName = a})
+-- | The name of the email message template to use for the message. If
+-- specified, this value must match the name of an existing message
+-- template.
+emailMessageActivity_templateName :: Lens.Lens' EmailMessageActivity (Prelude.Maybe Prelude.Text)
+emailMessageActivity_templateName = Lens.lens (\EmailMessageActivity' {templateName} -> templateName) (\s@EmailMessageActivity' {} a -> s {templateName = a} :: EmailMessageActivity)
 
--- | Specifies the sender address for an email message that's sent to participants in the journey.
-emaMessageConfig :: Lens' EmailMessageActivity (Maybe JourneyEmailMessage)
-emaMessageConfig = lens _emaMessageConfig (\s a -> s {_emaMessageConfig = a})
+-- | Specifies the sender address for an email message that\'s sent to
+-- participants in the journey.
+emailMessageActivity_messageConfig :: Lens.Lens' EmailMessageActivity (Prelude.Maybe JourneyEmailMessage)
+emailMessageActivity_messageConfig = Lens.lens (\EmailMessageActivity' {messageConfig} -> messageConfig) (\s@EmailMessageActivity' {} a -> s {messageConfig = a} :: EmailMessageActivity)
 
--- | The unique identifier for the next activity to perform, after the message is sent.
-emaNextActivity :: Lens' EmailMessageActivity (Maybe Text)
-emaNextActivity = lens _emaNextActivity (\s a -> s {_emaNextActivity = a})
+-- | The unique identifier for the next activity to perform, after the
+-- message is sent.
+emailMessageActivity_nextActivity :: Lens.Lens' EmailMessageActivity (Prelude.Maybe Prelude.Text)
+emailMessageActivity_nextActivity = Lens.lens (\EmailMessageActivity' {nextActivity} -> nextActivity) (\s@EmailMessageActivity' {} a -> s {nextActivity = a} :: EmailMessageActivity)
 
--- | The unique identifier for the version of the email template to use for the message. If specified, this value must match the identifier for an existing template version. To retrieve a list of versions and version identifiers for a template, use the <link>Template Versions resource. If you don't specify a value for this property, Amazon Pinpoint uses the /active version/ of the template. The /active version/ is typically the version of a template that's been most recently reviewed and approved for use, depending on your workflow. It isn't necessarily the latest version of a template.
-emaTemplateVersion :: Lens' EmailMessageActivity (Maybe Text)
-emaTemplateVersion = lens _emaTemplateVersion (\s a -> s {_emaTemplateVersion = a})
+-- | The unique identifier for the version of the email template to use for
+-- the message. If specified, this value must match the identifier for an
+-- existing template version. To retrieve a list of versions and version
+-- identifiers for a template, use the Template Versions resource.
+--
+-- If you don\'t specify a value for this property, Amazon Pinpoint uses
+-- the /active version/ of the template. The /active version/ is typically
+-- the version of a template that\'s been most recently reviewed and
+-- approved for use, depending on your workflow. It isn\'t necessarily the
+-- latest version of a template.
+emailMessageActivity_templateVersion :: Lens.Lens' EmailMessageActivity (Prelude.Maybe Prelude.Text)
+emailMessageActivity_templateVersion = Lens.lens (\EmailMessageActivity' {templateVersion} -> templateVersion) (\s@EmailMessageActivity' {} a -> s {templateVersion = a} :: EmailMessageActivity)
 
-instance FromJSON EmailMessageActivity where
+instance Prelude.FromJSON EmailMessageActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EmailMessageActivity"
       ( \x ->
           EmailMessageActivity'
-            <$> (x .:? "TemplateName")
-            <*> (x .:? "MessageConfig")
-            <*> (x .:? "NextActivity")
-            <*> (x .:? "TemplateVersion")
+            Prelude.<$> (x Prelude..:? "TemplateName")
+            Prelude.<*> (x Prelude..:? "MessageConfig")
+            Prelude.<*> (x Prelude..:? "NextActivity")
+            Prelude.<*> (x Prelude..:? "TemplateVersion")
       )
 
-instance Hashable EmailMessageActivity
+instance Prelude.Hashable EmailMessageActivity
 
-instance NFData EmailMessageActivity
+instance Prelude.NFData EmailMessageActivity
 
-instance ToJSON EmailMessageActivity where
+instance Prelude.ToJSON EmailMessageActivity where
   toJSON EmailMessageActivity' {..} =
-    object
-      ( catMaybes
-          [ ("TemplateName" .=) <$> _emaTemplateName,
-            ("MessageConfig" .=) <$> _emaMessageConfig,
-            ("NextActivity" .=) <$> _emaNextActivity,
-            ("TemplateVersion" .=) <$> _emaTemplateVersion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TemplateName" Prelude..=)
+              Prelude.<$> templateName,
+            ("MessageConfig" Prelude..=)
+              Prelude.<$> messageConfig,
+            ("NextActivity" Prelude..=) Prelude.<$> nextActivity,
+            ("TemplateVersion" Prelude..=)
+              Prelude.<$> templateVersion
           ]
       )

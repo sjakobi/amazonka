@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,185 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Changes the status of a specific version of a message template to /active/ .
+-- Changes the status of a specific version of a message template to
+-- /active/.
 module Network.AWS.Pinpoint.UpdateTemplateActiveVersion
   ( -- * Creating a Request
-    updateTemplateActiveVersion,
-    UpdateTemplateActiveVersion,
+    UpdateTemplateActiveVersion (..),
+    newUpdateTemplateActiveVersion,
 
     -- * Request Lenses
-    utavTemplateName,
-    utavTemplateType,
-    utavTemplateActiveVersionRequest,
+    updateTemplateActiveVersion_templateName,
+    updateTemplateActiveVersion_templateType,
+    updateTemplateActiveVersion_templateActiveVersionRequest,
 
     -- * Destructuring the Response
-    updateTemplateActiveVersionResponse,
-    UpdateTemplateActiveVersionResponse,
+    UpdateTemplateActiveVersionResponse (..),
+    newUpdateTemplateActiveVersionResponse,
 
     -- * Response Lenses
-    utavrrsResponseStatus,
-    utavrrsMessageBody,
+    updateTemplateActiveVersionResponse_httpStatus,
+    updateTemplateActiveVersionResponse_messageBody,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.MessageBody
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateTemplateActiveVersion' smart constructor.
+-- | /See:/ 'newUpdateTemplateActiveVersion' smart constructor.
 data UpdateTemplateActiveVersion = UpdateTemplateActiveVersion'
-  { _utavTemplateName ::
-      !Text,
-    _utavTemplateType ::
-      !Text,
-    _utavTemplateActiveVersionRequest ::
-      !TemplateActiveVersionRequest
+  { -- | The name of the message template. A template name must start with an
+    -- alphanumeric character and can contain a maximum of 128 characters. The
+    -- characters can be alphanumeric characters, underscores (_), or hyphens
+    -- (-). Template names are case sensitive.
+    templateName :: Prelude.Text,
+    -- | The type of channel that the message template is designed for. Valid
+    -- values are: EMAIL, PUSH, SMS, and VOICE.
+    templateType :: Prelude.Text,
+    templateActiveVersionRequest :: TemplateActiveVersionRequest
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTemplateActiveVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTemplateActiveVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utavTemplateName' - The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utavTemplateType' - The type of channel that the message template is designed for. Valid values are: EMAIL, PUSH, SMS, and VOICE.
+-- 'templateName', 'updateTemplateActiveVersion_templateName' - The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
 --
--- * 'utavTemplateActiveVersionRequest' - Undocumented member.
-updateTemplateActiveVersion ::
-  -- | 'utavTemplateName'
-  Text ->
-  -- | 'utavTemplateType'
-  Text ->
-  -- | 'utavTemplateActiveVersionRequest'
+-- 'templateType', 'updateTemplateActiveVersion_templateType' - The type of channel that the message template is designed for. Valid
+-- values are: EMAIL, PUSH, SMS, and VOICE.
+--
+-- 'templateActiveVersionRequest', 'updateTemplateActiveVersion_templateActiveVersionRequest' - Undocumented member.
+newUpdateTemplateActiveVersion ::
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'templateType'
+  Prelude.Text ->
+  -- | 'templateActiveVersionRequest'
   TemplateActiveVersionRequest ->
   UpdateTemplateActiveVersion
-updateTemplateActiveVersion
+newUpdateTemplateActiveVersion
   pTemplateName_
   pTemplateType_
   pTemplateActiveVersionRequest_ =
     UpdateTemplateActiveVersion'
-      { _utavTemplateName =
+      { templateName =
           pTemplateName_,
-        _utavTemplateType = pTemplateType_,
-        _utavTemplateActiveVersionRequest =
+        templateType = pTemplateType_,
+        templateActiveVersionRequest =
           pTemplateActiveVersionRequest_
       }
 
--- | The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-utavTemplateName :: Lens' UpdateTemplateActiveVersion Text
-utavTemplateName = lens _utavTemplateName (\s a -> s {_utavTemplateName = a})
+-- | The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+updateTemplateActiveVersion_templateName :: Lens.Lens' UpdateTemplateActiveVersion Prelude.Text
+updateTemplateActiveVersion_templateName = Lens.lens (\UpdateTemplateActiveVersion' {templateName} -> templateName) (\s@UpdateTemplateActiveVersion' {} a -> s {templateName = a} :: UpdateTemplateActiveVersion)
 
--- | The type of channel that the message template is designed for. Valid values are: EMAIL, PUSH, SMS, and VOICE.
-utavTemplateType :: Lens' UpdateTemplateActiveVersion Text
-utavTemplateType = lens _utavTemplateType (\s a -> s {_utavTemplateType = a})
+-- | The type of channel that the message template is designed for. Valid
+-- values are: EMAIL, PUSH, SMS, and VOICE.
+updateTemplateActiveVersion_templateType :: Lens.Lens' UpdateTemplateActiveVersion Prelude.Text
+updateTemplateActiveVersion_templateType = Lens.lens (\UpdateTemplateActiveVersion' {templateType} -> templateType) (\s@UpdateTemplateActiveVersion' {} a -> s {templateType = a} :: UpdateTemplateActiveVersion)
 
 -- | Undocumented member.
-utavTemplateActiveVersionRequest :: Lens' UpdateTemplateActiveVersion TemplateActiveVersionRequest
-utavTemplateActiveVersionRequest = lens _utavTemplateActiveVersionRequest (\s a -> s {_utavTemplateActiveVersionRequest = a})
+updateTemplateActiveVersion_templateActiveVersionRequest :: Lens.Lens' UpdateTemplateActiveVersion TemplateActiveVersionRequest
+updateTemplateActiveVersion_templateActiveVersionRequest = Lens.lens (\UpdateTemplateActiveVersion' {templateActiveVersionRequest} -> templateActiveVersionRequest) (\s@UpdateTemplateActiveVersion' {} a -> s {templateActiveVersionRequest = a} :: UpdateTemplateActiveVersion)
 
-instance AWSRequest UpdateTemplateActiveVersion where
+instance
+  Prelude.AWSRequest
+    UpdateTemplateActiveVersion
+  where
   type
     Rs UpdateTemplateActiveVersion =
       UpdateTemplateActiveVersionResponse
-  request = putJSON pinpoint
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateTemplateActiveVersionResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable UpdateTemplateActiveVersion
+instance Prelude.Hashable UpdateTemplateActiveVersion
 
-instance NFData UpdateTemplateActiveVersion
+instance Prelude.NFData UpdateTemplateActiveVersion
 
-instance ToHeaders UpdateTemplateActiveVersion where
+instance
+  Prelude.ToHeaders
+    UpdateTemplateActiveVersion
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateTemplateActiveVersion where
+instance Prelude.ToJSON UpdateTemplateActiveVersion where
   toJSON UpdateTemplateActiveVersion' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "TemplateActiveVersionRequest"
-                  .= _utavTemplateActiveVersionRequest
+                  Prelude..= templateActiveVersionRequest
               )
           ]
       )
 
-instance ToPath UpdateTemplateActiveVersion where
+instance Prelude.ToPath UpdateTemplateActiveVersion where
   toPath UpdateTemplateActiveVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/templates/",
-        toBS _utavTemplateName,
+        Prelude.toBS templateName,
         "/",
-        toBS _utavTemplateType,
+        Prelude.toBS templateType,
         "/active-version"
       ]
 
-instance ToQuery UpdateTemplateActiveVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateTemplateActiveVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateTemplateActiveVersionResponse' smart constructor.
+-- | /See:/ 'newUpdateTemplateActiveVersionResponse' smart constructor.
 data UpdateTemplateActiveVersionResponse = UpdateTemplateActiveVersionResponse'
-  { _utavrrsResponseStatus ::
-      !Int,
-    _utavrrsMessageBody ::
-      !MessageBody
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    messageBody :: MessageBody
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTemplateActiveVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTemplateActiveVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utavrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utavrrsMessageBody' - Undocumented member.
-updateTemplateActiveVersionResponse ::
-  -- | 'utavrrsResponseStatus'
-  Int ->
-  -- | 'utavrrsMessageBody'
+-- 'httpStatus', 'updateTemplateActiveVersionResponse_httpStatus' - The response's http status code.
+--
+-- 'messageBody', 'updateTemplateActiveVersionResponse_messageBody' - Undocumented member.
+newUpdateTemplateActiveVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'messageBody'
   MessageBody ->
   UpdateTemplateActiveVersionResponse
-updateTemplateActiveVersionResponse
-  pResponseStatus_
+newUpdateTemplateActiveVersionResponse
+  pHttpStatus_
   pMessageBody_ =
     UpdateTemplateActiveVersionResponse'
-      { _utavrrsResponseStatus =
-          pResponseStatus_,
-        _utavrrsMessageBody = pMessageBody_
+      { httpStatus =
+          pHttpStatus_,
+        messageBody = pMessageBody_
       }
 
--- | -- | The response status code.
-utavrrsResponseStatus :: Lens' UpdateTemplateActiveVersionResponse Int
-utavrrsResponseStatus = lens _utavrrsResponseStatus (\s a -> s {_utavrrsResponseStatus = a})
+-- | The response's http status code.
+updateTemplateActiveVersionResponse_httpStatus :: Lens.Lens' UpdateTemplateActiveVersionResponse Prelude.Int
+updateTemplateActiveVersionResponse_httpStatus = Lens.lens (\UpdateTemplateActiveVersionResponse' {httpStatus} -> httpStatus) (\s@UpdateTemplateActiveVersionResponse' {} a -> s {httpStatus = a} :: UpdateTemplateActiveVersionResponse)
 
 -- | Undocumented member.
-utavrrsMessageBody :: Lens' UpdateTemplateActiveVersionResponse MessageBody
-utavrrsMessageBody = lens _utavrrsMessageBody (\s a -> s {_utavrrsMessageBody = a})
+updateTemplateActiveVersionResponse_messageBody :: Lens.Lens' UpdateTemplateActiveVersionResponse MessageBody
+updateTemplateActiveVersionResponse_messageBody = Lens.lens (\UpdateTemplateActiveVersionResponse' {messageBody} -> messageBody) (\s@UpdateTemplateActiveVersionResponse' {} a -> s {messageBody = a} :: UpdateTemplateActiveVersionResponse)
 
-instance NFData UpdateTemplateActiveVersionResponse
+instance
+  Prelude.NFData
+    UpdateTemplateActiveVersionResponse

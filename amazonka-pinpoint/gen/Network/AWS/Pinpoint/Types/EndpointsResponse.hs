@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,43 +19,50 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.EndpointsResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.EndpointResponse
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about all the endpoints that are associated with a user ID.
+-- | Provides information about all the endpoints that are associated with a
+-- user ID.
 --
---
---
--- /See:/ 'endpointsResponse' smart constructor.
-newtype EndpointsResponse = EndpointsResponse'
-  { _erItem ::
-      [EndpointResponse]
+-- /See:/ 'newEndpointsResponse' smart constructor.
+data EndpointsResponse = EndpointsResponse'
+  { -- | An array of responses, one for each endpoint that\'s associated with the
+    -- user ID.
+    item :: [EndpointResponse]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EndpointsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EndpointsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erItem' - An array of responses, one for each endpoint that's associated with the user ID.
-endpointsResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'item', 'endpointsResponse_item' - An array of responses, one for each endpoint that\'s associated with the
+-- user ID.
+newEndpointsResponse ::
   EndpointsResponse
-endpointsResponse =
-  EndpointsResponse' {_erItem = mempty}
+newEndpointsResponse =
+  EndpointsResponse' {item = Prelude.mempty}
 
--- | An array of responses, one for each endpoint that's associated with the user ID.
-erItem :: Lens' EndpointsResponse [EndpointResponse]
-erItem = lens _erItem (\s a -> s {_erItem = a}) . _Coerce
+-- | An array of responses, one for each endpoint that\'s associated with the
+-- user ID.
+endpointsResponse_item :: Lens.Lens' EndpointsResponse [EndpointResponse]
+endpointsResponse_item = Lens.lens (\EndpointsResponse' {item} -> item) (\s@EndpointsResponse' {} a -> s {item = a} :: EndpointsResponse) Prelude.. Prelude._Coerce
 
-instance FromJSON EndpointsResponse where
+instance Prelude.FromJSON EndpointsResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EndpointsResponse"
       ( \x ->
-          EndpointsResponse' <$> (x .:? "Item" .!= mempty)
+          EndpointsResponse'
+            Prelude.<$> (x Prelude..:? "Item" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable EndpointsResponse
+instance Prelude.Hashable EndpointsResponse
 
-instance NFData EndpointsResponse
+instance Prelude.NFData EndpointsResponse

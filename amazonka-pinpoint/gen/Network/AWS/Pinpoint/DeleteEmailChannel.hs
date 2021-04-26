@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables the email channel for an application and deletes any existing settings for the channel.
+-- Disables the email channel for an application and deletes any existing
+-- settings for the channel.
 module Network.AWS.Pinpoint.DeleteEmailChannel
   ( -- * Creating a Request
-    deleteEmailChannel,
-    DeleteEmailChannel,
+    DeleteEmailChannel (..),
+    newDeleteEmailChannel,
 
     -- * Request Lenses
-    decApplicationId,
+    deleteEmailChannel_applicationId,
 
     -- * Destructuring the Response
-    deleteEmailChannelResponse,
-    DeleteEmailChannelResponse,
+    DeleteEmailChannelResponse (..),
+    newDeleteEmailChannelResponse,
 
     -- * Response Lenses
-    decrrsResponseStatus,
-    decrrsEmailChannelResponse,
+    deleteEmailChannelResponse_httpStatus,
+    deleteEmailChannelResponse_emailChannelResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.EmailChannelResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteEmailChannel' smart constructor.
-newtype DeleteEmailChannel = DeleteEmailChannel'
-  { _decApplicationId ::
-      Text
+-- | /See:/ 'newDeleteEmailChannel' smart constructor.
+data DeleteEmailChannel = DeleteEmailChannel'
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEmailChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEmailChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'decApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-deleteEmailChannel ::
-  -- | 'decApplicationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationId', 'deleteEmailChannel_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+newDeleteEmailChannel ::
+  -- | 'applicationId'
+  Prelude.Text ->
   DeleteEmailChannel
-deleteEmailChannel pApplicationId_ =
+newDeleteEmailChannel pApplicationId_ =
   DeleteEmailChannel'
-    { _decApplicationId =
+    { applicationId =
         pApplicationId_
     }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-decApplicationId :: Lens' DeleteEmailChannel Text
-decApplicationId = lens _decApplicationId (\s a -> s {_decApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+deleteEmailChannel_applicationId :: Lens.Lens' DeleteEmailChannel Prelude.Text
+deleteEmailChannel_applicationId = Lens.lens (\DeleteEmailChannel' {applicationId} -> applicationId) (\s@DeleteEmailChannel' {} a -> s {applicationId = a} :: DeleteEmailChannel)
 
-instance AWSRequest DeleteEmailChannel where
+instance Prelude.AWSRequest DeleteEmailChannel where
   type
     Rs DeleteEmailChannel =
       DeleteEmailChannelResponse
-  request = delete pinpoint
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteEmailChannelResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable DeleteEmailChannel
+instance Prelude.Hashable DeleteEmailChannel
 
-instance NFData DeleteEmailChannel
+instance Prelude.NFData DeleteEmailChannel
 
-instance ToHeaders DeleteEmailChannel where
+instance Prelude.ToHeaders DeleteEmailChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteEmailChannel where
+instance Prelude.ToPath DeleteEmailChannel where
   toPath DeleteEmailChannel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _decApplicationId,
+        Prelude.toBS applicationId,
         "/channels/email"
       ]
 
-instance ToQuery DeleteEmailChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteEmailChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteEmailChannelResponse' smart constructor.
+-- | /See:/ 'newDeleteEmailChannelResponse' smart constructor.
 data DeleteEmailChannelResponse = DeleteEmailChannelResponse'
-  { _decrrsResponseStatus ::
-      !Int,
-    _decrrsEmailChannelResponse ::
-      !EmailChannelResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    emailChannelResponse :: EmailChannelResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEmailChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEmailChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'decrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'decrrsEmailChannelResponse' - Undocumented member.
-deleteEmailChannelResponse ::
-  -- | 'decrrsResponseStatus'
-  Int ->
-  -- | 'decrrsEmailChannelResponse'
+-- 'httpStatus', 'deleteEmailChannelResponse_httpStatus' - The response's http status code.
+--
+-- 'emailChannelResponse', 'deleteEmailChannelResponse_emailChannelResponse' - Undocumented member.
+newDeleteEmailChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'emailChannelResponse'
   EmailChannelResponse ->
   DeleteEmailChannelResponse
-deleteEmailChannelResponse
-  pResponseStatus_
+newDeleteEmailChannelResponse
+  pHttpStatus_
   pEmailChannelResponse_ =
     DeleteEmailChannelResponse'
-      { _decrrsResponseStatus =
-          pResponseStatus_,
-        _decrrsEmailChannelResponse =
-          pEmailChannelResponse_
+      { httpStatus =
+          pHttpStatus_,
+        emailChannelResponse = pEmailChannelResponse_
       }
 
--- | -- | The response status code.
-decrrsResponseStatus :: Lens' DeleteEmailChannelResponse Int
-decrrsResponseStatus = lens _decrrsResponseStatus (\s a -> s {_decrrsResponseStatus = a})
+-- | The response's http status code.
+deleteEmailChannelResponse_httpStatus :: Lens.Lens' DeleteEmailChannelResponse Prelude.Int
+deleteEmailChannelResponse_httpStatus = Lens.lens (\DeleteEmailChannelResponse' {httpStatus} -> httpStatus) (\s@DeleteEmailChannelResponse' {} a -> s {httpStatus = a} :: DeleteEmailChannelResponse)
 
 -- | Undocumented member.
-decrrsEmailChannelResponse :: Lens' DeleteEmailChannelResponse EmailChannelResponse
-decrrsEmailChannelResponse = lens _decrrsEmailChannelResponse (\s a -> s {_decrrsEmailChannelResponse = a})
+deleteEmailChannelResponse_emailChannelResponse :: Lens.Lens' DeleteEmailChannelResponse EmailChannelResponse
+deleteEmailChannelResponse_emailChannelResponse = Lens.lens (\DeleteEmailChannelResponse' {emailChannelResponse} -> emailChannelResponse) (\s@DeleteEmailChannelResponse' {} a -> s {emailChannelResponse = a} :: DeleteEmailChannelResponse)
 
-instance NFData DeleteEmailChannelResponse
+instance Prelude.NFData DeleteEmailChannelResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables the Baidu channel for an application or updates the status and settings of the Baidu channel for an application.
+-- Enables the Baidu channel for an application or updates the status and
+-- settings of the Baidu channel for an application.
 module Network.AWS.Pinpoint.UpdateBaiduChannel
   ( -- * Creating a Request
-    updateBaiduChannel,
-    UpdateBaiduChannel,
+    UpdateBaiduChannel (..),
+    newUpdateBaiduChannel,
 
     -- * Request Lenses
-    ubcApplicationId,
-    ubcBaiduChannelRequest,
+    updateBaiduChannel_applicationId,
+    updateBaiduChannel_baiduChannelRequest,
 
     -- * Destructuring the Response
-    updateBaiduChannelResponse,
-    UpdateBaiduChannelResponse,
+    UpdateBaiduChannelResponse (..),
+    newUpdateBaiduChannelResponse,
 
     -- * Response Lenses
-    ubcrrsResponseStatus,
-    ubcrrsBaiduChannelResponse,
+    updateBaiduChannelResponse_httpStatus,
+    updateBaiduChannelResponse_baiduChannelResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.BaiduChannelResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateBaiduChannel' smart constructor.
+-- | /See:/ 'newUpdateBaiduChannel' smart constructor.
 data UpdateBaiduChannel = UpdateBaiduChannel'
-  { _ubcApplicationId ::
-      !Text,
-    _ubcBaiduChannelRequest ::
-      !BaiduChannelRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    baiduChannelRequest :: BaiduChannelRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBaiduChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBaiduChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubcApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubcBaiduChannelRequest' - Undocumented member.
-updateBaiduChannel ::
-  -- | 'ubcApplicationId'
-  Text ->
-  -- | 'ubcBaiduChannelRequest'
+-- 'applicationId', 'updateBaiduChannel_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'baiduChannelRequest', 'updateBaiduChannel_baiduChannelRequest' - Undocumented member.
+newUpdateBaiduChannel ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'baiduChannelRequest'
   BaiduChannelRequest ->
   UpdateBaiduChannel
-updateBaiduChannel
+newUpdateBaiduChannel
   pApplicationId_
   pBaiduChannelRequest_ =
     UpdateBaiduChannel'
-      { _ubcApplicationId =
+      { applicationId =
           pApplicationId_,
-        _ubcBaiduChannelRequest = pBaiduChannelRequest_
+        baiduChannelRequest = pBaiduChannelRequest_
       }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-ubcApplicationId :: Lens' UpdateBaiduChannel Text
-ubcApplicationId = lens _ubcApplicationId (\s a -> s {_ubcApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+updateBaiduChannel_applicationId :: Lens.Lens' UpdateBaiduChannel Prelude.Text
+updateBaiduChannel_applicationId = Lens.lens (\UpdateBaiduChannel' {applicationId} -> applicationId) (\s@UpdateBaiduChannel' {} a -> s {applicationId = a} :: UpdateBaiduChannel)
 
 -- | Undocumented member.
-ubcBaiduChannelRequest :: Lens' UpdateBaiduChannel BaiduChannelRequest
-ubcBaiduChannelRequest = lens _ubcBaiduChannelRequest (\s a -> s {_ubcBaiduChannelRequest = a})
+updateBaiduChannel_baiduChannelRequest :: Lens.Lens' UpdateBaiduChannel BaiduChannelRequest
+updateBaiduChannel_baiduChannelRequest = Lens.lens (\UpdateBaiduChannel' {baiduChannelRequest} -> baiduChannelRequest) (\s@UpdateBaiduChannel' {} a -> s {baiduChannelRequest = a} :: UpdateBaiduChannel)
 
-instance AWSRequest UpdateBaiduChannel where
+instance Prelude.AWSRequest UpdateBaiduChannel where
   type
     Rs UpdateBaiduChannel =
       UpdateBaiduChannelResponse
-  request = putJSON pinpoint
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateBaiduChannelResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable UpdateBaiduChannel
+instance Prelude.Hashable UpdateBaiduChannel
 
-instance NFData UpdateBaiduChannel
+instance Prelude.NFData UpdateBaiduChannel
 
-instance ToHeaders UpdateBaiduChannel where
+instance Prelude.ToHeaders UpdateBaiduChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateBaiduChannel where
+instance Prelude.ToJSON UpdateBaiduChannel where
   toJSON UpdateBaiduChannel' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("BaiduChannelRequest" .= _ubcBaiduChannelRequest)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "BaiduChannelRequest"
+                  Prelude..= baiduChannelRequest
+              )
           ]
       )
 
-instance ToPath UpdateBaiduChannel where
+instance Prelude.ToPath UpdateBaiduChannel where
   toPath UpdateBaiduChannel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _ubcApplicationId,
+        Prelude.toBS applicationId,
         "/channels/baidu"
       ]
 
-instance ToQuery UpdateBaiduChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateBaiduChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateBaiduChannelResponse' smart constructor.
+-- | /See:/ 'newUpdateBaiduChannelResponse' smart constructor.
 data UpdateBaiduChannelResponse = UpdateBaiduChannelResponse'
-  { _ubcrrsResponseStatus ::
-      !Int,
-    _ubcrrsBaiduChannelResponse ::
-      !BaiduChannelResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    baiduChannelResponse :: BaiduChannelResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBaiduChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBaiduChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubcrrsBaiduChannelResponse' - Undocumented member.
-updateBaiduChannelResponse ::
-  -- | 'ubcrrsResponseStatus'
-  Int ->
-  -- | 'ubcrrsBaiduChannelResponse'
+-- 'httpStatus', 'updateBaiduChannelResponse_httpStatus' - The response's http status code.
+--
+-- 'baiduChannelResponse', 'updateBaiduChannelResponse_baiduChannelResponse' - Undocumented member.
+newUpdateBaiduChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'baiduChannelResponse'
   BaiduChannelResponse ->
   UpdateBaiduChannelResponse
-updateBaiduChannelResponse
-  pResponseStatus_
+newUpdateBaiduChannelResponse
+  pHttpStatus_
   pBaiduChannelResponse_ =
     UpdateBaiduChannelResponse'
-      { _ubcrrsResponseStatus =
-          pResponseStatus_,
-        _ubcrrsBaiduChannelResponse =
-          pBaiduChannelResponse_
+      { httpStatus =
+          pHttpStatus_,
+        baiduChannelResponse = pBaiduChannelResponse_
       }
 
--- | -- | The response status code.
-ubcrrsResponseStatus :: Lens' UpdateBaiduChannelResponse Int
-ubcrrsResponseStatus = lens _ubcrrsResponseStatus (\s a -> s {_ubcrrsResponseStatus = a})
+-- | The response's http status code.
+updateBaiduChannelResponse_httpStatus :: Lens.Lens' UpdateBaiduChannelResponse Prelude.Int
+updateBaiduChannelResponse_httpStatus = Lens.lens (\UpdateBaiduChannelResponse' {httpStatus} -> httpStatus) (\s@UpdateBaiduChannelResponse' {} a -> s {httpStatus = a} :: UpdateBaiduChannelResponse)
 
 -- | Undocumented member.
-ubcrrsBaiduChannelResponse :: Lens' UpdateBaiduChannelResponse BaiduChannelResponse
-ubcrrsBaiduChannelResponse = lens _ubcrrsBaiduChannelResponse (\s a -> s {_ubcrrsBaiduChannelResponse = a})
+updateBaiduChannelResponse_baiduChannelResponse :: Lens.Lens' UpdateBaiduChannelResponse BaiduChannelResponse
+updateBaiduChannelResponse_baiduChannelResponse = Lens.lens (\UpdateBaiduChannelResponse' {baiduChannelResponse} -> baiduChannelResponse) (\s@UpdateBaiduChannelResponse' {} a -> s {baiduChannelResponse = a} :: UpdateBaiduChannelResponse)
 
-instance NFData UpdateBaiduChannelResponse
+instance Prelude.NFData UpdateBaiduChannelResponse

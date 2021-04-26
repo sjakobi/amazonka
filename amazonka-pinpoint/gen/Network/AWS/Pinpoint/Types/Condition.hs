@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.Condition where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.Operator
 import Network.AWS.Pinpoint.Types.SimpleCondition
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the conditions to evaluate for an activity in a journey, and how to evaluate those conditions.
+-- | Specifies the conditions to evaluate for an activity in a journey, and
+-- how to evaluate those conditions.
 --
---
---
--- /See:/ 'condition' smart constructor.
+-- /See:/ 'newCondition' smart constructor.
 data Condition = Condition'
-  { _cOperator ::
-      !(Maybe Operator),
-    _cConditions :: !(Maybe [SimpleCondition])
+  { -- | Specifies how to handle multiple conditions for the activity. For
+    -- example, if you specify two conditions for an activity, whether both or
+    -- only one of the conditions must be met for the activity to be performed.
+    operator :: Prelude.Maybe Operator,
+    -- | The conditions to evaluate for the activity.
+    conditions :: Prelude.Maybe [SimpleCondition]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Condition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Condition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cOperator' - Specifies how to handle multiple conditions for the activity. For example, if you specify two conditions for an activity, whether both or only one of the conditions must be met for the activity to be performed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cConditions' - The conditions to evaluate for the activity.
-condition ::
+-- 'operator', 'condition_operator' - Specifies how to handle multiple conditions for the activity. For
+-- example, if you specify two conditions for an activity, whether both or
+-- only one of the conditions must be met for the activity to be performed.
+--
+-- 'conditions', 'condition_conditions' - The conditions to evaluate for the activity.
+newCondition ::
   Condition
-condition =
+newCondition =
   Condition'
-    { _cOperator = Nothing,
-      _cConditions = Nothing
+    { operator = Prelude.Nothing,
+      conditions = Prelude.Nothing
     }
 
--- | Specifies how to handle multiple conditions for the activity. For example, if you specify two conditions for an activity, whether both or only one of the conditions must be met for the activity to be performed.
-cOperator :: Lens' Condition (Maybe Operator)
-cOperator = lens _cOperator (\s a -> s {_cOperator = a})
+-- | Specifies how to handle multiple conditions for the activity. For
+-- example, if you specify two conditions for an activity, whether both or
+-- only one of the conditions must be met for the activity to be performed.
+condition_operator :: Lens.Lens' Condition (Prelude.Maybe Operator)
+condition_operator = Lens.lens (\Condition' {operator} -> operator) (\s@Condition' {} a -> s {operator = a} :: Condition)
 
 -- | The conditions to evaluate for the activity.
-cConditions :: Lens' Condition [SimpleCondition]
-cConditions = lens _cConditions (\s a -> s {_cConditions = a}) . _Default . _Coerce
+condition_conditions :: Lens.Lens' Condition (Prelude.Maybe [SimpleCondition])
+condition_conditions = Lens.lens (\Condition' {conditions} -> conditions) (\s@Condition' {} a -> s {conditions = a} :: Condition) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Condition where
+instance Prelude.FromJSON Condition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Condition"
       ( \x ->
           Condition'
-            <$> (x .:? "Operator")
-            <*> (x .:? "Conditions" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Operator")
+            Prelude.<*> ( x Prelude..:? "Conditions"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Condition
+instance Prelude.Hashable Condition
 
-instance NFData Condition
+instance Prelude.NFData Condition
 
-instance ToJSON Condition where
+instance Prelude.ToJSON Condition where
   toJSON Condition' {..} =
-    object
-      ( catMaybes
-          [ ("Operator" .=) <$> _cOperator,
-            ("Conditions" .=) <$> _cConditions
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Operator" Prelude..=) Prelude.<$> operator,
+            ("Conditions" Prelude..=) Prelude.<$> conditions
           ]
       )

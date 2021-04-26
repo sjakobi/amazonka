@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.JourneyEmailMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the "From" address for an email message that's sent to participants in a journey.
+-- | Specifies the \"From\" address for an email message that\'s sent to
+-- participants in a journey.
 --
---
---
--- /See:/ 'journeyEmailMessage' smart constructor.
-newtype JourneyEmailMessage = JourneyEmailMessage'
-  { _jemFromAddress ::
-      Maybe Text
+-- /See:/ 'newJourneyEmailMessage' smart constructor.
+data JourneyEmailMessage = JourneyEmailMessage'
+  { -- | The verified email address to send the email message from. The default
+    -- address is the FromAddress specified for the email channel for the
+    -- application.
+    fromAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JourneyEmailMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JourneyEmailMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jemFromAddress' - The verified email address to send the email message from. The default address is the FromAddress specified for the email channel for the application.
-journeyEmailMessage ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fromAddress', 'journeyEmailMessage_fromAddress' - The verified email address to send the email message from. The default
+-- address is the FromAddress specified for the email channel for the
+-- application.
+newJourneyEmailMessage ::
   JourneyEmailMessage
-journeyEmailMessage =
-  JourneyEmailMessage' {_jemFromAddress = Nothing}
+newJourneyEmailMessage =
+  JourneyEmailMessage' {fromAddress = Prelude.Nothing}
 
--- | The verified email address to send the email message from. The default address is the FromAddress specified for the email channel for the application.
-jemFromAddress :: Lens' JourneyEmailMessage (Maybe Text)
-jemFromAddress = lens _jemFromAddress (\s a -> s {_jemFromAddress = a})
+-- | The verified email address to send the email message from. The default
+-- address is the FromAddress specified for the email channel for the
+-- application.
+journeyEmailMessage_fromAddress :: Lens.Lens' JourneyEmailMessage (Prelude.Maybe Prelude.Text)
+journeyEmailMessage_fromAddress = Lens.lens (\JourneyEmailMessage' {fromAddress} -> fromAddress) (\s@JourneyEmailMessage' {} a -> s {fromAddress = a} :: JourneyEmailMessage)
 
-instance FromJSON JourneyEmailMessage where
+instance Prelude.FromJSON JourneyEmailMessage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JourneyEmailMessage"
       ( \x ->
-          JourneyEmailMessage' <$> (x .:? "FromAddress")
+          JourneyEmailMessage'
+            Prelude.<$> (x Prelude..:? "FromAddress")
       )
 
-instance Hashable JourneyEmailMessage
+instance Prelude.Hashable JourneyEmailMessage
 
-instance NFData JourneyEmailMessage
+instance Prelude.NFData JourneyEmailMessage
 
-instance ToJSON JourneyEmailMessage where
+instance Prelude.ToJSON JourneyEmailMessage where
   toJSON JourneyEmailMessage' {..} =
-    object
-      (catMaybes [("FromAddress" .=) <$> _jemFromAddress])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("FromAddress" Prelude..=) Prelude.<$> fromAddress]
+      )

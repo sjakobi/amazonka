@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.ActivitiesResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.ActivityResponse
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the activities that were performed by a campaign.
+-- | Provides information about the activities that were performed by a
+-- campaign.
 --
---
---
--- /See:/ 'activitiesResponse' smart constructor.
+-- /See:/ 'newActivitiesResponse' smart constructor.
 data ActivitiesResponse = ActivitiesResponse'
-  { _aNextToken ::
-      !(Maybe Text),
-    _aItem :: ![ActivityResponse]
+  { -- | The string to use in a subsequent request to get the next page of
+    -- results in a paginated response. This value is null if there are no
+    -- additional pages.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of responses, one for each activity that was performed by the
+    -- campaign.
+    item :: [ActivityResponse]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aNextToken' - The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aItem' - An array of responses, one for each activity that was performed by the campaign.
-activitiesResponse ::
+-- 'nextToken', 'activitiesResponse_nextToken' - The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
+--
+-- 'item', 'activitiesResponse_item' - An array of responses, one for each activity that was performed by the
+-- campaign.
+newActivitiesResponse ::
   ActivitiesResponse
-activitiesResponse =
+newActivitiesResponse =
   ActivitiesResponse'
-    { _aNextToken = Nothing,
-      _aItem = mempty
+    { nextToken = Prelude.Nothing,
+      item = Prelude.mempty
     }
 
--- | The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
-aNextToken :: Lens' ActivitiesResponse (Maybe Text)
-aNextToken = lens _aNextToken (\s a -> s {_aNextToken = a})
+-- | The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
+activitiesResponse_nextToken :: Lens.Lens' ActivitiesResponse (Prelude.Maybe Prelude.Text)
+activitiesResponse_nextToken = Lens.lens (\ActivitiesResponse' {nextToken} -> nextToken) (\s@ActivitiesResponse' {} a -> s {nextToken = a} :: ActivitiesResponse)
 
--- | An array of responses, one for each activity that was performed by the campaign.
-aItem :: Lens' ActivitiesResponse [ActivityResponse]
-aItem = lens _aItem (\s a -> s {_aItem = a}) . _Coerce
+-- | An array of responses, one for each activity that was performed by the
+-- campaign.
+activitiesResponse_item :: Lens.Lens' ActivitiesResponse [ActivityResponse]
+activitiesResponse_item = Lens.lens (\ActivitiesResponse' {item} -> item) (\s@ActivitiesResponse' {} a -> s {item = a} :: ActivitiesResponse) Prelude.. Prelude._Coerce
 
-instance FromJSON ActivitiesResponse where
+instance Prelude.FromJSON ActivitiesResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivitiesResponse"
       ( \x ->
           ActivitiesResponse'
-            <$> (x .:? "NextToken") <*> (x .:? "Item" .!= mempty)
+            Prelude.<$> (x Prelude..:? "NextToken")
+            Prelude.<*> (x Prelude..:? "Item" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable ActivitiesResponse
+instance Prelude.Hashable ActivitiesResponse
 
-instance NFData ActivitiesResponse
+instance Prelude.NFData ActivitiesResponse

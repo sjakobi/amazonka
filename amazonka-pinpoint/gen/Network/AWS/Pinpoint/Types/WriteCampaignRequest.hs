@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.WriteCampaignRequest where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.CampaignHook
 import Network.AWS.Pinpoint.Types.CampaignLimits
 import Network.AWS.Pinpoint.Types.CustomDeliveryConfiguration
@@ -23,203 +27,237 @@ import Network.AWS.Pinpoint.Types.MessageConfiguration
 import Network.AWS.Pinpoint.Types.Schedule
 import Network.AWS.Pinpoint.Types.TemplateConfiguration
 import Network.AWS.Pinpoint.Types.WriteTreatmentResource
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the configuration and other settings for a campaign.
 --
---
---
--- /See:/ 'writeCampaignRequest' smart constructor.
+-- /See:/ 'newWriteCampaignRequest' smart constructor.
 data WriteCampaignRequest = WriteCampaignRequest'
-  { _wcrAdditionalTreatments ::
-      !( Maybe
-           [WriteTreatmentResource]
-       ),
-    _wcrHook ::
-      !(Maybe CampaignHook),
-    _wcrCustomDeliveryConfiguration ::
-      !( Maybe
-           CustomDeliveryConfiguration
-       ),
-    _wcrName :: !(Maybe Text),
-    _wcrIsPaused :: !(Maybe Bool),
-    _wcrTags ::
-      !(Maybe (Map Text Text)),
-    _wcrSegmentVersion ::
-      !(Maybe Int),
-    _wcrLimits ::
-      !(Maybe CampaignLimits),
-    _wcrSegmentId ::
-      !(Maybe Text),
-    _wcrDescription ::
-      !(Maybe Text),
-    _wcrTreatmentName ::
-      !(Maybe Text),
-    _wcrMessageConfiguration ::
-      !(Maybe MessageConfiguration),
-    _wcrTemplateConfiguration ::
-      !( Maybe
-           TemplateConfiguration
-       ),
-    _wcrSchedule ::
-      !(Maybe Schedule),
-    _wcrHoldoutPercent ::
-      !(Maybe Int),
-    _wcrTreatmentDescription ::
-      !(Maybe Text)
+  { -- | An array of requests that defines additional treatments for the
+    -- campaign, in addition to the default treatment for the campaign.
+    additionalTreatments :: Prelude.Maybe [WriteTreatmentResource],
+    -- | The settings for the AWS Lambda function to invoke as a code hook for
+    -- the campaign. You can use this hook to customize the segment that\'s
+    -- used by the campaign.
+    hook :: Prelude.Maybe CampaignHook,
+    -- | The delivery configuration settings for sending the campaign through a
+    -- custom channel. This object is required if the MessageConfiguration
+    -- object for the campaign specifies a CustomMessage object.
+    customDeliveryConfiguration :: Prelude.Maybe CustomDeliveryConfiguration,
+    -- | A custom name for the campaign.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether to pause the campaign. A paused campaign doesn\'t run
+    -- unless you resume it by changing this value to false.
+    isPaused :: Prelude.Maybe Prelude.Bool,
+    -- | A string-to-string map of key-value pairs that defines the tags to
+    -- associate with the campaign. Each tag consists of a required tag key and
+    -- an associated tag value.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The version of the segment to associate with the campaign.
+    segmentVersion :: Prelude.Maybe Prelude.Int,
+    -- | The messaging limits for the campaign.
+    limits :: Prelude.Maybe CampaignLimits,
+    -- | The unique identifier for the segment to associate with the campaign.
+    segmentId :: Prelude.Maybe Prelude.Text,
+    -- | A custom description of the campaign.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A custom name of the default treatment for the campaign, if the campaign
+    -- has multiple treatments. A /treatment/ is a variation of a campaign
+    -- that\'s used for A\/B testing.
+    treatmentName :: Prelude.Maybe Prelude.Text,
+    -- | The message configuration settings for the campaign.
+    messageConfiguration :: Prelude.Maybe MessageConfiguration,
+    -- | The message template to use for the campaign.
+    templateConfiguration :: Prelude.Maybe TemplateConfiguration,
+    -- | The schedule settings for the campaign.
+    schedule :: Prelude.Maybe Schedule,
+    -- | The allocated percentage of users (segment members) who shouldn\'t
+    -- receive messages from the campaign.
+    holdoutPercent :: Prelude.Maybe Prelude.Int,
+    -- | A custom description of the default treatment for the campaign.
+    treatmentDescription :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WriteCampaignRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WriteCampaignRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wcrAdditionalTreatments' - An array of requests that defines additional treatments for the campaign, in addition to the default treatment for the campaign.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wcrHook' - The settings for the AWS Lambda function to invoke as a code hook for the campaign. You can use this hook to customize the segment that's used by the campaign.
+-- 'additionalTreatments', 'writeCampaignRequest_additionalTreatments' - An array of requests that defines additional treatments for the
+-- campaign, in addition to the default treatment for the campaign.
 --
--- * 'wcrCustomDeliveryConfiguration' - The delivery configuration settings for sending the campaign through a custom channel. This object is required if the MessageConfiguration object for the campaign specifies a CustomMessage object.
+-- 'hook', 'writeCampaignRequest_hook' - The settings for the AWS Lambda function to invoke as a code hook for
+-- the campaign. You can use this hook to customize the segment that\'s
+-- used by the campaign.
 --
--- * 'wcrName' - A custom name for the campaign.
+-- 'customDeliveryConfiguration', 'writeCampaignRequest_customDeliveryConfiguration' - The delivery configuration settings for sending the campaign through a
+-- custom channel. This object is required if the MessageConfiguration
+-- object for the campaign specifies a CustomMessage object.
 --
--- * 'wcrIsPaused' - Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing this value to false.
+-- 'name', 'writeCampaignRequest_name' - A custom name for the campaign.
 --
--- * 'wcrTags' - A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each tag consists of a required tag key and an associated tag value.
+-- 'isPaused', 'writeCampaignRequest_isPaused' - Specifies whether to pause the campaign. A paused campaign doesn\'t run
+-- unless you resume it by changing this value to false.
 --
--- * 'wcrSegmentVersion' - The version of the segment to associate with the campaign.
+-- 'tags', 'writeCampaignRequest_tags' - A string-to-string map of key-value pairs that defines the tags to
+-- associate with the campaign. Each tag consists of a required tag key and
+-- an associated tag value.
 --
--- * 'wcrLimits' - The messaging limits for the campaign.
+-- 'segmentVersion', 'writeCampaignRequest_segmentVersion' - The version of the segment to associate with the campaign.
 --
--- * 'wcrSegmentId' - The unique identifier for the segment to associate with the campaign.
+-- 'limits', 'writeCampaignRequest_limits' - The messaging limits for the campaign.
 --
--- * 'wcrDescription' - A custom description of the campaign.
+-- 'segmentId', 'writeCampaignRequest_segmentId' - The unique identifier for the segment to associate with the campaign.
 --
--- * 'wcrTreatmentName' - A custom name of the default treatment for the campaign, if the campaign has multiple treatments. A /treatment/ is a variation of a campaign that's used for A/B testing.
+-- 'description', 'writeCampaignRequest_description' - A custom description of the campaign.
 --
--- * 'wcrMessageConfiguration' - The message configuration settings for the campaign.
+-- 'treatmentName', 'writeCampaignRequest_treatmentName' - A custom name of the default treatment for the campaign, if the campaign
+-- has multiple treatments. A /treatment/ is a variation of a campaign
+-- that\'s used for A\/B testing.
 --
--- * 'wcrTemplateConfiguration' - The message template to use for the campaign.
+-- 'messageConfiguration', 'writeCampaignRequest_messageConfiguration' - The message configuration settings for the campaign.
 --
--- * 'wcrSchedule' - The schedule settings for the campaign.
+-- 'templateConfiguration', 'writeCampaignRequest_templateConfiguration' - The message template to use for the campaign.
 --
--- * 'wcrHoldoutPercent' - The allocated percentage of users (segment members) who shouldn't receive messages from the campaign.
+-- 'schedule', 'writeCampaignRequest_schedule' - The schedule settings for the campaign.
 --
--- * 'wcrTreatmentDescription' - A custom description of the default treatment for the campaign.
-writeCampaignRequest ::
+-- 'holdoutPercent', 'writeCampaignRequest_holdoutPercent' - The allocated percentage of users (segment members) who shouldn\'t
+-- receive messages from the campaign.
+--
+-- 'treatmentDescription', 'writeCampaignRequest_treatmentDescription' - A custom description of the default treatment for the campaign.
+newWriteCampaignRequest ::
   WriteCampaignRequest
-writeCampaignRequest =
+newWriteCampaignRequest =
   WriteCampaignRequest'
-    { _wcrAdditionalTreatments =
-        Nothing,
-      _wcrHook = Nothing,
-      _wcrCustomDeliveryConfiguration = Nothing,
-      _wcrName = Nothing,
-      _wcrIsPaused = Nothing,
-      _wcrTags = Nothing,
-      _wcrSegmentVersion = Nothing,
-      _wcrLimits = Nothing,
-      _wcrSegmentId = Nothing,
-      _wcrDescription = Nothing,
-      _wcrTreatmentName = Nothing,
-      _wcrMessageConfiguration = Nothing,
-      _wcrTemplateConfiguration = Nothing,
-      _wcrSchedule = Nothing,
-      _wcrHoldoutPercent = Nothing,
-      _wcrTreatmentDescription = Nothing
+    { additionalTreatments =
+        Prelude.Nothing,
+      hook = Prelude.Nothing,
+      customDeliveryConfiguration = Prelude.Nothing,
+      name = Prelude.Nothing,
+      isPaused = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      segmentVersion = Prelude.Nothing,
+      limits = Prelude.Nothing,
+      segmentId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      treatmentName = Prelude.Nothing,
+      messageConfiguration = Prelude.Nothing,
+      templateConfiguration = Prelude.Nothing,
+      schedule = Prelude.Nothing,
+      holdoutPercent = Prelude.Nothing,
+      treatmentDescription = Prelude.Nothing
     }
 
--- | An array of requests that defines additional treatments for the campaign, in addition to the default treatment for the campaign.
-wcrAdditionalTreatments :: Lens' WriteCampaignRequest [WriteTreatmentResource]
-wcrAdditionalTreatments = lens _wcrAdditionalTreatments (\s a -> s {_wcrAdditionalTreatments = a}) . _Default . _Coerce
+-- | An array of requests that defines additional treatments for the
+-- campaign, in addition to the default treatment for the campaign.
+writeCampaignRequest_additionalTreatments :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe [WriteTreatmentResource])
+writeCampaignRequest_additionalTreatments = Lens.lens (\WriteCampaignRequest' {additionalTreatments} -> additionalTreatments) (\s@WriteCampaignRequest' {} a -> s {additionalTreatments = a} :: WriteCampaignRequest) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The settings for the AWS Lambda function to invoke as a code hook for the campaign. You can use this hook to customize the segment that's used by the campaign.
-wcrHook :: Lens' WriteCampaignRequest (Maybe CampaignHook)
-wcrHook = lens _wcrHook (\s a -> s {_wcrHook = a})
+-- | The settings for the AWS Lambda function to invoke as a code hook for
+-- the campaign. You can use this hook to customize the segment that\'s
+-- used by the campaign.
+writeCampaignRequest_hook :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe CampaignHook)
+writeCampaignRequest_hook = Lens.lens (\WriteCampaignRequest' {hook} -> hook) (\s@WriteCampaignRequest' {} a -> s {hook = a} :: WriteCampaignRequest)
 
--- | The delivery configuration settings for sending the campaign through a custom channel. This object is required if the MessageConfiguration object for the campaign specifies a CustomMessage object.
-wcrCustomDeliveryConfiguration :: Lens' WriteCampaignRequest (Maybe CustomDeliveryConfiguration)
-wcrCustomDeliveryConfiguration = lens _wcrCustomDeliveryConfiguration (\s a -> s {_wcrCustomDeliveryConfiguration = a})
+-- | The delivery configuration settings for sending the campaign through a
+-- custom channel. This object is required if the MessageConfiguration
+-- object for the campaign specifies a CustomMessage object.
+writeCampaignRequest_customDeliveryConfiguration :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe CustomDeliveryConfiguration)
+writeCampaignRequest_customDeliveryConfiguration = Lens.lens (\WriteCampaignRequest' {customDeliveryConfiguration} -> customDeliveryConfiguration) (\s@WriteCampaignRequest' {} a -> s {customDeliveryConfiguration = a} :: WriteCampaignRequest)
 
 -- | A custom name for the campaign.
-wcrName :: Lens' WriteCampaignRequest (Maybe Text)
-wcrName = lens _wcrName (\s a -> s {_wcrName = a})
+writeCampaignRequest_name :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe Prelude.Text)
+writeCampaignRequest_name = Lens.lens (\WriteCampaignRequest' {name} -> name) (\s@WriteCampaignRequest' {} a -> s {name = a} :: WriteCampaignRequest)
 
--- | Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing this value to false.
-wcrIsPaused :: Lens' WriteCampaignRequest (Maybe Bool)
-wcrIsPaused = lens _wcrIsPaused (\s a -> s {_wcrIsPaused = a})
+-- | Specifies whether to pause the campaign. A paused campaign doesn\'t run
+-- unless you resume it by changing this value to false.
+writeCampaignRequest_isPaused :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe Prelude.Bool)
+writeCampaignRequest_isPaused = Lens.lens (\WriteCampaignRequest' {isPaused} -> isPaused) (\s@WriteCampaignRequest' {} a -> s {isPaused = a} :: WriteCampaignRequest)
 
--- | A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each tag consists of a required tag key and an associated tag value.
-wcrTags :: Lens' WriteCampaignRequest (HashMap Text Text)
-wcrTags = lens _wcrTags (\s a -> s {_wcrTags = a}) . _Default . _Map
+-- | A string-to-string map of key-value pairs that defines the tags to
+-- associate with the campaign. Each tag consists of a required tag key and
+-- an associated tag value.
+writeCampaignRequest_tags :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+writeCampaignRequest_tags = Lens.lens (\WriteCampaignRequest' {tags} -> tags) (\s@WriteCampaignRequest' {} a -> s {tags = a} :: WriteCampaignRequest) Prelude.. Lens.mapping Prelude._Map
 
 -- | The version of the segment to associate with the campaign.
-wcrSegmentVersion :: Lens' WriteCampaignRequest (Maybe Int)
-wcrSegmentVersion = lens _wcrSegmentVersion (\s a -> s {_wcrSegmentVersion = a})
+writeCampaignRequest_segmentVersion :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe Prelude.Int)
+writeCampaignRequest_segmentVersion = Lens.lens (\WriteCampaignRequest' {segmentVersion} -> segmentVersion) (\s@WriteCampaignRequest' {} a -> s {segmentVersion = a} :: WriteCampaignRequest)
 
 -- | The messaging limits for the campaign.
-wcrLimits :: Lens' WriteCampaignRequest (Maybe CampaignLimits)
-wcrLimits = lens _wcrLimits (\s a -> s {_wcrLimits = a})
+writeCampaignRequest_limits :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe CampaignLimits)
+writeCampaignRequest_limits = Lens.lens (\WriteCampaignRequest' {limits} -> limits) (\s@WriteCampaignRequest' {} a -> s {limits = a} :: WriteCampaignRequest)
 
 -- | The unique identifier for the segment to associate with the campaign.
-wcrSegmentId :: Lens' WriteCampaignRequest (Maybe Text)
-wcrSegmentId = lens _wcrSegmentId (\s a -> s {_wcrSegmentId = a})
+writeCampaignRequest_segmentId :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe Prelude.Text)
+writeCampaignRequest_segmentId = Lens.lens (\WriteCampaignRequest' {segmentId} -> segmentId) (\s@WriteCampaignRequest' {} a -> s {segmentId = a} :: WriteCampaignRequest)
 
 -- | A custom description of the campaign.
-wcrDescription :: Lens' WriteCampaignRequest (Maybe Text)
-wcrDescription = lens _wcrDescription (\s a -> s {_wcrDescription = a})
+writeCampaignRequest_description :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe Prelude.Text)
+writeCampaignRequest_description = Lens.lens (\WriteCampaignRequest' {description} -> description) (\s@WriteCampaignRequest' {} a -> s {description = a} :: WriteCampaignRequest)
 
--- | A custom name of the default treatment for the campaign, if the campaign has multiple treatments. A /treatment/ is a variation of a campaign that's used for A/B testing.
-wcrTreatmentName :: Lens' WriteCampaignRequest (Maybe Text)
-wcrTreatmentName = lens _wcrTreatmentName (\s a -> s {_wcrTreatmentName = a})
+-- | A custom name of the default treatment for the campaign, if the campaign
+-- has multiple treatments. A /treatment/ is a variation of a campaign
+-- that\'s used for A\/B testing.
+writeCampaignRequest_treatmentName :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe Prelude.Text)
+writeCampaignRequest_treatmentName = Lens.lens (\WriteCampaignRequest' {treatmentName} -> treatmentName) (\s@WriteCampaignRequest' {} a -> s {treatmentName = a} :: WriteCampaignRequest)
 
 -- | The message configuration settings for the campaign.
-wcrMessageConfiguration :: Lens' WriteCampaignRequest (Maybe MessageConfiguration)
-wcrMessageConfiguration = lens _wcrMessageConfiguration (\s a -> s {_wcrMessageConfiguration = a})
+writeCampaignRequest_messageConfiguration :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe MessageConfiguration)
+writeCampaignRequest_messageConfiguration = Lens.lens (\WriteCampaignRequest' {messageConfiguration} -> messageConfiguration) (\s@WriteCampaignRequest' {} a -> s {messageConfiguration = a} :: WriteCampaignRequest)
 
 -- | The message template to use for the campaign.
-wcrTemplateConfiguration :: Lens' WriteCampaignRequest (Maybe TemplateConfiguration)
-wcrTemplateConfiguration = lens _wcrTemplateConfiguration (\s a -> s {_wcrTemplateConfiguration = a})
+writeCampaignRequest_templateConfiguration :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe TemplateConfiguration)
+writeCampaignRequest_templateConfiguration = Lens.lens (\WriteCampaignRequest' {templateConfiguration} -> templateConfiguration) (\s@WriteCampaignRequest' {} a -> s {templateConfiguration = a} :: WriteCampaignRequest)
 
 -- | The schedule settings for the campaign.
-wcrSchedule :: Lens' WriteCampaignRequest (Maybe Schedule)
-wcrSchedule = lens _wcrSchedule (\s a -> s {_wcrSchedule = a})
+writeCampaignRequest_schedule :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe Schedule)
+writeCampaignRequest_schedule = Lens.lens (\WriteCampaignRequest' {schedule} -> schedule) (\s@WriteCampaignRequest' {} a -> s {schedule = a} :: WriteCampaignRequest)
 
--- | The allocated percentage of users (segment members) who shouldn't receive messages from the campaign.
-wcrHoldoutPercent :: Lens' WriteCampaignRequest (Maybe Int)
-wcrHoldoutPercent = lens _wcrHoldoutPercent (\s a -> s {_wcrHoldoutPercent = a})
+-- | The allocated percentage of users (segment members) who shouldn\'t
+-- receive messages from the campaign.
+writeCampaignRequest_holdoutPercent :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe Prelude.Int)
+writeCampaignRequest_holdoutPercent = Lens.lens (\WriteCampaignRequest' {holdoutPercent} -> holdoutPercent) (\s@WriteCampaignRequest' {} a -> s {holdoutPercent = a} :: WriteCampaignRequest)
 
 -- | A custom description of the default treatment for the campaign.
-wcrTreatmentDescription :: Lens' WriteCampaignRequest (Maybe Text)
-wcrTreatmentDescription = lens _wcrTreatmentDescription (\s a -> s {_wcrTreatmentDescription = a})
+writeCampaignRequest_treatmentDescription :: Lens.Lens' WriteCampaignRequest (Prelude.Maybe Prelude.Text)
+writeCampaignRequest_treatmentDescription = Lens.lens (\WriteCampaignRequest' {treatmentDescription} -> treatmentDescription) (\s@WriteCampaignRequest' {} a -> s {treatmentDescription = a} :: WriteCampaignRequest)
 
-instance Hashable WriteCampaignRequest
+instance Prelude.Hashable WriteCampaignRequest
 
-instance NFData WriteCampaignRequest
+instance Prelude.NFData WriteCampaignRequest
 
-instance ToJSON WriteCampaignRequest where
+instance Prelude.ToJSON WriteCampaignRequest where
   toJSON WriteCampaignRequest' {..} =
-    object
-      ( catMaybes
-          [ ("AdditionalTreatments" .=)
-              <$> _wcrAdditionalTreatments,
-            ("Hook" .=) <$> _wcrHook,
-            ("CustomDeliveryConfiguration" .=)
-              <$> _wcrCustomDeliveryConfiguration,
-            ("Name" .=) <$> _wcrName,
-            ("IsPaused" .=) <$> _wcrIsPaused,
-            ("tags" .=) <$> _wcrTags,
-            ("SegmentVersion" .=) <$> _wcrSegmentVersion,
-            ("Limits" .=) <$> _wcrLimits,
-            ("SegmentId" .=) <$> _wcrSegmentId,
-            ("Description" .=) <$> _wcrDescription,
-            ("TreatmentName" .=) <$> _wcrTreatmentName,
-            ("MessageConfiguration" .=)
-              <$> _wcrMessageConfiguration,
-            ("TemplateConfiguration" .=)
-              <$> _wcrTemplateConfiguration,
-            ("Schedule" .=) <$> _wcrSchedule,
-            ("HoldoutPercent" .=) <$> _wcrHoldoutPercent,
-            ("TreatmentDescription" .=)
-              <$> _wcrTreatmentDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AdditionalTreatments" Prelude..=)
+              Prelude.<$> additionalTreatments,
+            ("Hook" Prelude..=) Prelude.<$> hook,
+            ("CustomDeliveryConfiguration" Prelude..=)
+              Prelude.<$> customDeliveryConfiguration,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("IsPaused" Prelude..=) Prelude.<$> isPaused,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("SegmentVersion" Prelude..=)
+              Prelude.<$> segmentVersion,
+            ("Limits" Prelude..=) Prelude.<$> limits,
+            ("SegmentId" Prelude..=) Prelude.<$> segmentId,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("TreatmentName" Prelude..=)
+              Prelude.<$> treatmentName,
+            ("MessageConfiguration" Prelude..=)
+              Prelude.<$> messageConfiguration,
+            ("TemplateConfiguration" Prelude..=)
+              Prelude.<$> templateConfiguration,
+            ("Schedule" Prelude..=) Prelude.<$> schedule,
+            ("HoldoutPercent" Prelude..=)
+              Prelude.<$> holdoutPercent,
+            ("TreatmentDescription" Prelude..=)
+              Prelude.<$> treatmentDescription
           ]
       )

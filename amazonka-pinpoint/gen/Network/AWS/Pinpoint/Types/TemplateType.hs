@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.Pinpoint.Types.TemplateType
   ( TemplateType
       ( ..,
-        TTEmail,
-        TTPush,
-        TTSms,
-        TTVoice
+        TemplateTypeEMAIL,
+        TemplateTypePUSH,
+        TemplateTypeSMS,
+        TemplateTypeVOICE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TemplateType = TemplateType' (CI Text)
+newtype TemplateType = TemplateType'
+  { fromTemplateType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TTEmail :: TemplateType
-pattern TTEmail = TemplateType' "EMAIL"
+pattern TemplateTypeEMAIL :: TemplateType
+pattern TemplateTypeEMAIL = TemplateType' "EMAIL"
 
-pattern TTPush :: TemplateType
-pattern TTPush = TemplateType' "PUSH"
+pattern TemplateTypePUSH :: TemplateType
+pattern TemplateTypePUSH = TemplateType' "PUSH"
 
-pattern TTSms :: TemplateType
-pattern TTSms = TemplateType' "SMS"
+pattern TemplateTypeSMS :: TemplateType
+pattern TemplateTypeSMS = TemplateType' "SMS"
 
-pattern TTVoice :: TemplateType
-pattern TTVoice = TemplateType' "VOICE"
+pattern TemplateTypeVOICE :: TemplateType
+pattern TemplateTypeVOICE = TemplateType' "VOICE"
 
 {-# COMPLETE
-  TTEmail,
-  TTPush,
-  TTSms,
-  TTVoice,
+  TemplateTypeEMAIL,
+  TemplateTypePUSH,
+  TemplateTypeSMS,
+  TemplateTypeVOICE,
   TemplateType'
   #-}
 
-instance FromText TemplateType where
-  parser = (TemplateType' . mk) <$> takeText
+instance Prelude.FromText TemplateType where
+  parser = TemplateType' Prelude.<$> Prelude.takeText
 
-instance ToText TemplateType where
-  toText (TemplateType' ci) = original ci
+instance Prelude.ToText TemplateType where
+  toText (TemplateType' x) = x
 
-instance Hashable TemplateType
+instance Prelude.Hashable TemplateType
 
-instance NFData TemplateType
+instance Prelude.NFData TemplateType
 
-instance ToByteString TemplateType
+instance Prelude.ToByteString TemplateType
 
-instance ToQuery TemplateType
+instance Prelude.ToQuery TemplateType
 
-instance ToHeader TemplateType
+instance Prelude.ToHeader TemplateType
 
-instance FromJSON TemplateType where
-  parseJSON = parseJSONText "TemplateType"
+instance Prelude.FromJSON TemplateType where
+  parseJSON = Prelude.parseJSONText "TemplateType"

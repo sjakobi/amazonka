@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables the voice channel for an application or updates the status and settings of the voice channel for an application.
+-- Enables the voice channel for an application or updates the status and
+-- settings of the voice channel for an application.
 module Network.AWS.Pinpoint.UpdateVoiceChannel
   ( -- * Creating a Request
-    updateVoiceChannel,
-    UpdateVoiceChannel,
+    UpdateVoiceChannel (..),
+    newUpdateVoiceChannel,
 
     -- * Request Lenses
-    uvcApplicationId,
-    uvcVoiceChannelRequest,
+    updateVoiceChannel_applicationId,
+    updateVoiceChannel_voiceChannelRequest,
 
     -- * Destructuring the Response
-    updateVoiceChannelResponse,
-    UpdateVoiceChannelResponse,
+    UpdateVoiceChannelResponse (..),
+    newUpdateVoiceChannelResponse,
 
     -- * Response Lenses
-    uvcrrsResponseStatus,
-    uvcrrsVoiceChannelResponse,
+    updateVoiceChannelResponse_httpStatus,
+    updateVoiceChannelResponse_voiceChannelResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.VoiceChannelResponse
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateVoiceChannel' smart constructor.
+-- | /See:/ 'newUpdateVoiceChannel' smart constructor.
 data UpdateVoiceChannel = UpdateVoiceChannel'
-  { _uvcApplicationId ::
-      !Text,
-    _uvcVoiceChannelRequest ::
-      !VoiceChannelRequest
+  { -- | The unique identifier for the application. This identifier is displayed
+    -- as the __Project ID__ on the Amazon Pinpoint console.
+    applicationId :: Prelude.Text,
+    voiceChannelRequest :: VoiceChannelRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateVoiceChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateVoiceChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uvcApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uvcVoiceChannelRequest' - Undocumented member.
-updateVoiceChannel ::
-  -- | 'uvcApplicationId'
-  Text ->
-  -- | 'uvcVoiceChannelRequest'
+-- 'applicationId', 'updateVoiceChannel_applicationId' - The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+--
+-- 'voiceChannelRequest', 'updateVoiceChannel_voiceChannelRequest' - Undocumented member.
+newUpdateVoiceChannel ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'voiceChannelRequest'
   VoiceChannelRequest ->
   UpdateVoiceChannel
-updateVoiceChannel
+newUpdateVoiceChannel
   pApplicationId_
   pVoiceChannelRequest_ =
     UpdateVoiceChannel'
-      { _uvcApplicationId =
+      { applicationId =
           pApplicationId_,
-        _uvcVoiceChannelRequest = pVoiceChannelRequest_
+        voiceChannelRequest = pVoiceChannelRequest_
       }
 
--- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
-uvcApplicationId :: Lens' UpdateVoiceChannel Text
-uvcApplicationId = lens _uvcApplicationId (\s a -> s {_uvcApplicationId = a})
+-- | The unique identifier for the application. This identifier is displayed
+-- as the __Project ID__ on the Amazon Pinpoint console.
+updateVoiceChannel_applicationId :: Lens.Lens' UpdateVoiceChannel Prelude.Text
+updateVoiceChannel_applicationId = Lens.lens (\UpdateVoiceChannel' {applicationId} -> applicationId) (\s@UpdateVoiceChannel' {} a -> s {applicationId = a} :: UpdateVoiceChannel)
 
 -- | Undocumented member.
-uvcVoiceChannelRequest :: Lens' UpdateVoiceChannel VoiceChannelRequest
-uvcVoiceChannelRequest = lens _uvcVoiceChannelRequest (\s a -> s {_uvcVoiceChannelRequest = a})
+updateVoiceChannel_voiceChannelRequest :: Lens.Lens' UpdateVoiceChannel VoiceChannelRequest
+updateVoiceChannel_voiceChannelRequest = Lens.lens (\UpdateVoiceChannel' {voiceChannelRequest} -> voiceChannelRequest) (\s@UpdateVoiceChannel' {} a -> s {voiceChannelRequest = a} :: UpdateVoiceChannel)
 
-instance AWSRequest UpdateVoiceChannel where
+instance Prelude.AWSRequest UpdateVoiceChannel where
   type
     Rs UpdateVoiceChannel =
       UpdateVoiceChannelResponse
-  request = putJSON pinpoint
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateVoiceChannelResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable UpdateVoiceChannel
+instance Prelude.Hashable UpdateVoiceChannel
 
-instance NFData UpdateVoiceChannel
+instance Prelude.NFData UpdateVoiceChannel
 
-instance ToHeaders UpdateVoiceChannel where
+instance Prelude.ToHeaders UpdateVoiceChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateVoiceChannel where
+instance Prelude.ToJSON UpdateVoiceChannel where
   toJSON UpdateVoiceChannel' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("VoiceChannelRequest" .= _uvcVoiceChannelRequest)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "VoiceChannelRequest"
+                  Prelude..= voiceChannelRequest
+              )
           ]
       )
 
-instance ToPath UpdateVoiceChannel where
+instance Prelude.ToPath UpdateVoiceChannel where
   toPath UpdateVoiceChannel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apps/",
-        toBS _uvcApplicationId,
+        Prelude.toBS applicationId,
         "/channels/voice"
       ]
 
-instance ToQuery UpdateVoiceChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateVoiceChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateVoiceChannelResponse' smart constructor.
+-- | /See:/ 'newUpdateVoiceChannelResponse' smart constructor.
 data UpdateVoiceChannelResponse = UpdateVoiceChannelResponse'
-  { _uvcrrsResponseStatus ::
-      !Int,
-    _uvcrrsVoiceChannelResponse ::
-      !VoiceChannelResponse
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    voiceChannelResponse :: VoiceChannelResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateVoiceChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateVoiceChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uvcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uvcrrsVoiceChannelResponse' - Undocumented member.
-updateVoiceChannelResponse ::
-  -- | 'uvcrrsResponseStatus'
-  Int ->
-  -- | 'uvcrrsVoiceChannelResponse'
+-- 'httpStatus', 'updateVoiceChannelResponse_httpStatus' - The response's http status code.
+--
+-- 'voiceChannelResponse', 'updateVoiceChannelResponse_voiceChannelResponse' - Undocumented member.
+newUpdateVoiceChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'voiceChannelResponse'
   VoiceChannelResponse ->
   UpdateVoiceChannelResponse
-updateVoiceChannelResponse
-  pResponseStatus_
+newUpdateVoiceChannelResponse
+  pHttpStatus_
   pVoiceChannelResponse_ =
     UpdateVoiceChannelResponse'
-      { _uvcrrsResponseStatus =
-          pResponseStatus_,
-        _uvcrrsVoiceChannelResponse =
-          pVoiceChannelResponse_
+      { httpStatus =
+          pHttpStatus_,
+        voiceChannelResponse = pVoiceChannelResponse_
       }
 
--- | -- | The response status code.
-uvcrrsResponseStatus :: Lens' UpdateVoiceChannelResponse Int
-uvcrrsResponseStatus = lens _uvcrrsResponseStatus (\s a -> s {_uvcrrsResponseStatus = a})
+-- | The response's http status code.
+updateVoiceChannelResponse_httpStatus :: Lens.Lens' UpdateVoiceChannelResponse Prelude.Int
+updateVoiceChannelResponse_httpStatus = Lens.lens (\UpdateVoiceChannelResponse' {httpStatus} -> httpStatus) (\s@UpdateVoiceChannelResponse' {} a -> s {httpStatus = a} :: UpdateVoiceChannelResponse)
 
 -- | Undocumented member.
-uvcrrsVoiceChannelResponse :: Lens' UpdateVoiceChannelResponse VoiceChannelResponse
-uvcrrsVoiceChannelResponse = lens _uvcrrsVoiceChannelResponse (\s a -> s {_uvcrrsVoiceChannelResponse = a})
+updateVoiceChannelResponse_voiceChannelResponse :: Lens.Lens' UpdateVoiceChannelResponse VoiceChannelResponse
+updateVoiceChannelResponse_voiceChannelResponse = Lens.lens (\UpdateVoiceChannelResponse' {voiceChannelResponse} -> voiceChannelResponse) (\s@UpdateVoiceChannelResponse' {} a -> s {voiceChannelResponse = a} :: UpdateVoiceChannelResponse)
 
-instance NFData UpdateVoiceChannelResponse
+instance Prelude.NFData UpdateVoiceChannelResponse

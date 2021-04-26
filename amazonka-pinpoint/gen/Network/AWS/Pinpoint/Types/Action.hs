@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.Pinpoint.Types.Action
   ( Action
       ( ..,
-        DeepLink,
-        OpenApp,
-        URL
+        ActionDEEPLINK,
+        ActionOPENAPP,
+        ActionURL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Action = Action' (CI Text)
+newtype Action = Action' {fromAction :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeepLink :: Action
-pattern DeepLink = Action' "DEEP_LINK"
+pattern ActionDEEPLINK :: Action
+pattern ActionDEEPLINK = Action' "DEEP_LINK"
 
-pattern OpenApp :: Action
-pattern OpenApp = Action' "OPEN_APP"
+pattern ActionOPENAPP :: Action
+pattern ActionOPENAPP = Action' "OPEN_APP"
 
-pattern URL :: Action
-pattern URL = Action' "URL"
+pattern ActionURL :: Action
+pattern ActionURL = Action' "URL"
 
 {-# COMPLETE
-  DeepLink,
-  OpenApp,
-  URL,
+  ActionDEEPLINK,
+  ActionOPENAPP,
+  ActionURL,
   Action'
   #-}
 
-instance FromText Action where
-  parser = (Action' . mk) <$> takeText
+instance Prelude.FromText Action where
+  parser = Action' Prelude.<$> Prelude.takeText
 
-instance ToText Action where
-  toText (Action' ci) = original ci
+instance Prelude.ToText Action where
+  toText (Action' x) = x
 
-instance Hashable Action
+instance Prelude.Hashable Action
 
-instance NFData Action
+instance Prelude.NFData Action
 
-instance ToByteString Action
+instance Prelude.ToByteString Action
 
-instance ToQuery Action
+instance Prelude.ToQuery Action
 
-instance ToHeader Action
+instance Prelude.ToHeader Action
 
-instance ToJSON Action where
-  toJSON = toJSONText
+instance Prelude.ToJSON Action where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Action where
-  parseJSON = parseJSONText "Action"
+instance Prelude.FromJSON Action where
+  parseJSON = Prelude.parseJSONText "Action"

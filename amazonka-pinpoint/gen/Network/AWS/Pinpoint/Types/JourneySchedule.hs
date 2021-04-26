@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.JourneySchedule where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the schedule settings for a journey.
 --
---
---
--- /See:/ 'journeySchedule' smart constructor.
+-- /See:/ 'newJourneySchedule' smart constructor.
 data JourneySchedule = JourneySchedule'
-  { _jsStartTime ::
-      !(Maybe POSIX),
-    _jsEndTime :: !(Maybe POSIX),
-    _jsTimezone :: !(Maybe Text)
+  { -- | The scheduled time, in ISO 8601 format, when the journey began or will
+    -- begin.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The scheduled time, in ISO 8601 format, when the journey ended or will
+    -- end.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The starting UTC offset for the journey schedule, if the value of the
+    -- journey\'s LocalTime property is true. Valid values are: UTC, UTC+01,
+    -- UTC+02, UTC+03, UTC+03:30, UTC+04, UTC+04:30, UTC+05, UTC+05:30,
+    -- UTC+05:45, UTC+06, UTC+06:30, UTC+07, UTC+08, UTC+08:45, UTC+09,
+    -- UTC+09:30, UTC+10, UTC+10:30, UTC+11, UTC+12, UTC+12:45, UTC+13,
+    -- UTC+13:45, UTC-02, UTC-02:30, UTC-03, UTC-03:30, UTC-04, UTC-05, UTC-06,
+    -- UTC-07, UTC-08, UTC-09, UTC-09:30, UTC-10, and UTC-11.
+    timezone :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JourneySchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JourneySchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jsStartTime' - The scheduled time, in ISO 8601 format, when the journey began or will begin.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jsEndTime' - The scheduled time, in ISO 8601 format, when the journey ended or will end.
+-- 'startTime', 'journeySchedule_startTime' - The scheduled time, in ISO 8601 format, when the journey began or will
+-- begin.
 --
--- * 'jsTimezone' - The starting UTC offset for the journey schedule, if the value of the journey's LocalTime property is true. Valid values are: UTC,                   UTC+01, UTC+02, UTC+03, UTC+03:30, UTC+04, UTC+04:30, UTC+05, UTC+05:30,                   UTC+05:45, UTC+06, UTC+06:30, UTC+07, UTC+08, UTC+08:45, UTC+09, UTC+09:30,                   UTC+10, UTC+10:30, UTC+11, UTC+12, UTC+12:45, UTC+13, UTC+13:45, UTC-02,                   UTC-02:30, UTC-03, UTC-03:30, UTC-04, UTC-05, UTC-06, UTC-07, UTC-08, UTC-09,                   UTC-09:30, UTC-10, and UTC-11.
-journeySchedule ::
+-- 'endTime', 'journeySchedule_endTime' - The scheduled time, in ISO 8601 format, when the journey ended or will
+-- end.
+--
+-- 'timezone', 'journeySchedule_timezone' - The starting UTC offset for the journey schedule, if the value of the
+-- journey\'s LocalTime property is true. Valid values are: UTC, UTC+01,
+-- UTC+02, UTC+03, UTC+03:30, UTC+04, UTC+04:30, UTC+05, UTC+05:30,
+-- UTC+05:45, UTC+06, UTC+06:30, UTC+07, UTC+08, UTC+08:45, UTC+09,
+-- UTC+09:30, UTC+10, UTC+10:30, UTC+11, UTC+12, UTC+12:45, UTC+13,
+-- UTC+13:45, UTC-02, UTC-02:30, UTC-03, UTC-03:30, UTC-04, UTC-05, UTC-06,
+-- UTC-07, UTC-08, UTC-09, UTC-09:30, UTC-10, and UTC-11.
+newJourneySchedule ::
   JourneySchedule
-journeySchedule =
+newJourneySchedule =
   JourneySchedule'
-    { _jsStartTime = Nothing,
-      _jsEndTime = Nothing,
-      _jsTimezone = Nothing
+    { startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      timezone = Prelude.Nothing
     }
 
--- | The scheduled time, in ISO 8601 format, when the journey began or will begin.
-jsStartTime :: Lens' JourneySchedule (Maybe UTCTime)
-jsStartTime = lens _jsStartTime (\s a -> s {_jsStartTime = a}) . mapping _Time
+-- | The scheduled time, in ISO 8601 format, when the journey began or will
+-- begin.
+journeySchedule_startTime :: Lens.Lens' JourneySchedule (Prelude.Maybe Prelude.UTCTime)
+journeySchedule_startTime = Lens.lens (\JourneySchedule' {startTime} -> startTime) (\s@JourneySchedule' {} a -> s {startTime = a} :: JourneySchedule) Prelude.. Lens.mapping Prelude._Time
 
--- | The scheduled time, in ISO 8601 format, when the journey ended or will end.
-jsEndTime :: Lens' JourneySchedule (Maybe UTCTime)
-jsEndTime = lens _jsEndTime (\s a -> s {_jsEndTime = a}) . mapping _Time
+-- | The scheduled time, in ISO 8601 format, when the journey ended or will
+-- end.
+journeySchedule_endTime :: Lens.Lens' JourneySchedule (Prelude.Maybe Prelude.UTCTime)
+journeySchedule_endTime = Lens.lens (\JourneySchedule' {endTime} -> endTime) (\s@JourneySchedule' {} a -> s {endTime = a} :: JourneySchedule) Prelude.. Lens.mapping Prelude._Time
 
--- | The starting UTC offset for the journey schedule, if the value of the journey's LocalTime property is true. Valid values are: UTC,                   UTC+01, UTC+02, UTC+03, UTC+03:30, UTC+04, UTC+04:30, UTC+05, UTC+05:30,                   UTC+05:45, UTC+06, UTC+06:30, UTC+07, UTC+08, UTC+08:45, UTC+09, UTC+09:30,                   UTC+10, UTC+10:30, UTC+11, UTC+12, UTC+12:45, UTC+13, UTC+13:45, UTC-02,                   UTC-02:30, UTC-03, UTC-03:30, UTC-04, UTC-05, UTC-06, UTC-07, UTC-08, UTC-09,                   UTC-09:30, UTC-10, and UTC-11.
-jsTimezone :: Lens' JourneySchedule (Maybe Text)
-jsTimezone = lens _jsTimezone (\s a -> s {_jsTimezone = a})
+-- | The starting UTC offset for the journey schedule, if the value of the
+-- journey\'s LocalTime property is true. Valid values are: UTC, UTC+01,
+-- UTC+02, UTC+03, UTC+03:30, UTC+04, UTC+04:30, UTC+05, UTC+05:30,
+-- UTC+05:45, UTC+06, UTC+06:30, UTC+07, UTC+08, UTC+08:45, UTC+09,
+-- UTC+09:30, UTC+10, UTC+10:30, UTC+11, UTC+12, UTC+12:45, UTC+13,
+-- UTC+13:45, UTC-02, UTC-02:30, UTC-03, UTC-03:30, UTC-04, UTC-05, UTC-06,
+-- UTC-07, UTC-08, UTC-09, UTC-09:30, UTC-10, and UTC-11.
+journeySchedule_timezone :: Lens.Lens' JourneySchedule (Prelude.Maybe Prelude.Text)
+journeySchedule_timezone = Lens.lens (\JourneySchedule' {timezone} -> timezone) (\s@JourneySchedule' {} a -> s {timezone = a} :: JourneySchedule)
 
-instance FromJSON JourneySchedule where
+instance Prelude.FromJSON JourneySchedule where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JourneySchedule"
       ( \x ->
           JourneySchedule'
-            <$> (x .:? "StartTime")
-            <*> (x .:? "EndTime")
-            <*> (x .:? "Timezone")
+            Prelude.<$> (x Prelude..:? "StartTime")
+            Prelude.<*> (x Prelude..:? "EndTime")
+            Prelude.<*> (x Prelude..:? "Timezone")
       )
 
-instance Hashable JourneySchedule
+instance Prelude.Hashable JourneySchedule
 
-instance NFData JourneySchedule
+instance Prelude.NFData JourneySchedule
 
-instance ToJSON JourneySchedule where
+instance Prelude.ToJSON JourneySchedule where
   toJSON JourneySchedule' {..} =
-    object
-      ( catMaybes
-          [ ("StartTime" .=) <$> _jsStartTime,
-            ("EndTime" .=) <$> _jsEndTime,
-            ("Timezone" .=) <$> _jsTimezone
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StartTime" Prelude..=) Prelude.<$> startTime,
+            ("EndTime" Prelude..=) Prelude.<$> endTime,
+            ("Timezone" Prelude..=) Prelude.<$> timezone
           ]
       )

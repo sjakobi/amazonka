@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.JourneysResponse where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.JourneyResponse
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the status, configuration, and other settings for all the journeys that are associated with an application.
+-- | Provides information about the status, configuration, and other settings
+-- for all the journeys that are associated with an application.
 --
---
---
--- /See:/ 'journeysResponse' smart constructor.
+-- /See:/ 'newJourneysResponse' smart constructor.
 data JourneysResponse = JourneysResponse'
-  { _jrNextToken ::
-      !(Maybe Text),
-    _jrItem :: ![JourneyResponse]
+  { -- | The string to use in a subsequent request to get the next page of
+    -- results in a paginated response. This value is null if there are no
+    -- additional pages.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of responses, one for each journey that\'s associated with the
+    -- application.
+    item :: [JourneyResponse]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JourneysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JourneysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jrNextToken' - The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jrItem' - An array of responses, one for each journey that's associated with the application.
-journeysResponse ::
+-- 'nextToken', 'journeysResponse_nextToken' - The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
+--
+-- 'item', 'journeysResponse_item' - An array of responses, one for each journey that\'s associated with the
+-- application.
+newJourneysResponse ::
   JourneysResponse
-journeysResponse =
+newJourneysResponse =
   JourneysResponse'
-    { _jrNextToken = Nothing,
-      _jrItem = mempty
+    { nextToken = Prelude.Nothing,
+      item = Prelude.mempty
     }
 
--- | The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
-jrNextToken :: Lens' JourneysResponse (Maybe Text)
-jrNextToken = lens _jrNextToken (\s a -> s {_jrNextToken = a})
+-- | The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
+journeysResponse_nextToken :: Lens.Lens' JourneysResponse (Prelude.Maybe Prelude.Text)
+journeysResponse_nextToken = Lens.lens (\JourneysResponse' {nextToken} -> nextToken) (\s@JourneysResponse' {} a -> s {nextToken = a} :: JourneysResponse)
 
--- | An array of responses, one for each journey that's associated with the application.
-jrItem :: Lens' JourneysResponse [JourneyResponse]
-jrItem = lens _jrItem (\s a -> s {_jrItem = a}) . _Coerce
+-- | An array of responses, one for each journey that\'s associated with the
+-- application.
+journeysResponse_item :: Lens.Lens' JourneysResponse [JourneyResponse]
+journeysResponse_item = Lens.lens (\JourneysResponse' {item} -> item) (\s@JourneysResponse' {} a -> s {item = a} :: JourneysResponse) Prelude.. Prelude._Coerce
 
-instance FromJSON JourneysResponse where
+instance Prelude.FromJSON JourneysResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JourneysResponse"
       ( \x ->
           JourneysResponse'
-            <$> (x .:? "NextToken") <*> (x .:? "Item" .!= mempty)
+            Prelude.<$> (x Prelude..:? "NextToken")
+            Prelude.<*> (x Prelude..:? "Item" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable JourneysResponse
+instance Prelude.Hashable JourneysResponse
 
-instance NFData JourneysResponse
+instance Prelude.NFData JourneysResponse

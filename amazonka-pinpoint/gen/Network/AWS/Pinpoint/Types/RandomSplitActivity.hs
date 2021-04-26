@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.RandomSplitActivity where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.RandomSplitEntry
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for a random split activity in a journey. This type of activity randomly sends specified percentages of participants down one of as many as five paths in a journey, based on conditions that you specify.
+-- | Specifies the settings for a random split activity in a journey. This
+-- type of activity randomly sends specified percentages of participants
+-- down one of as many as five paths in a journey, based on conditions that
+-- you specify.
 --
---
---
--- /See:/ 'randomSplitActivity' smart constructor.
-newtype RandomSplitActivity = RandomSplitActivity'
-  { _rsaBranches ::
-      Maybe [RandomSplitEntry]
+-- /See:/ 'newRandomSplitActivity' smart constructor.
+data RandomSplitActivity = RandomSplitActivity'
+  { -- | The paths for the activity, including the percentage of participants to
+    -- enter each path and the activity to perform for each path.
+    branches :: Prelude.Maybe [RandomSplitEntry]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RandomSplitActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RandomSplitActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsaBranches' - The paths for the activity, including the percentage of participants to enter each path and the activity to perform for each path.
-randomSplitActivity ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'branches', 'randomSplitActivity_branches' - The paths for the activity, including the percentage of participants to
+-- enter each path and the activity to perform for each path.
+newRandomSplitActivity ::
   RandomSplitActivity
-randomSplitActivity =
-  RandomSplitActivity' {_rsaBranches = Nothing}
+newRandomSplitActivity =
+  RandomSplitActivity' {branches = Prelude.Nothing}
 
--- | The paths for the activity, including the percentage of participants to enter each path and the activity to perform for each path.
-rsaBranches :: Lens' RandomSplitActivity [RandomSplitEntry]
-rsaBranches = lens _rsaBranches (\s a -> s {_rsaBranches = a}) . _Default . _Coerce
+-- | The paths for the activity, including the percentage of participants to
+-- enter each path and the activity to perform for each path.
+randomSplitActivity_branches :: Lens.Lens' RandomSplitActivity (Prelude.Maybe [RandomSplitEntry])
+randomSplitActivity_branches = Lens.lens (\RandomSplitActivity' {branches} -> branches) (\s@RandomSplitActivity' {} a -> s {branches = a} :: RandomSplitActivity) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON RandomSplitActivity where
+instance Prelude.FromJSON RandomSplitActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RandomSplitActivity"
       ( \x ->
           RandomSplitActivity'
-            <$> (x .:? "Branches" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "Branches"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable RandomSplitActivity
+instance Prelude.Hashable RandomSplitActivity
 
-instance NFData RandomSplitActivity
+instance Prelude.NFData RandomSplitActivity
 
-instance ToJSON RandomSplitActivity where
+instance Prelude.ToJSON RandomSplitActivity where
   toJSON RandomSplitActivity' {..} =
-    object
-      (catMaybes [("Branches" .=) <$> _rsaBranches])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Branches" Prelude..=) Prelude.<$> branches]
+      )

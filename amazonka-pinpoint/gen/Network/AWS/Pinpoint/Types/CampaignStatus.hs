@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.Pinpoint.Types.CampaignStatus
   ( CampaignStatus
       ( ..,
-        CSCompleted,
-        CSDeleted,
-        CSExecuting,
-        CSInvalid,
-        CSPaused,
-        CSPendingNextRun,
-        CSScheduled
+        CampaignStatusCOMPLETED,
+        CampaignStatusDELETED,
+        CampaignStatusEXECUTING,
+        CampaignStatusINVALID,
+        CampaignStatusPAUSED,
+        CampaignStatusPENDINGNEXTRUN,
+        CampaignStatusSCHEDULED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CampaignStatus = CampaignStatus' (CI Text)
+newtype CampaignStatus = CampaignStatus'
+  { fromCampaignStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCompleted :: CampaignStatus
-pattern CSCompleted = CampaignStatus' "COMPLETED"
+pattern CampaignStatusCOMPLETED :: CampaignStatus
+pattern CampaignStatusCOMPLETED = CampaignStatus' "COMPLETED"
 
-pattern CSDeleted :: CampaignStatus
-pattern CSDeleted = CampaignStatus' "DELETED"
+pattern CampaignStatusDELETED :: CampaignStatus
+pattern CampaignStatusDELETED = CampaignStatus' "DELETED"
 
-pattern CSExecuting :: CampaignStatus
-pattern CSExecuting = CampaignStatus' "EXECUTING"
+pattern CampaignStatusEXECUTING :: CampaignStatus
+pattern CampaignStatusEXECUTING = CampaignStatus' "EXECUTING"
 
-pattern CSInvalid :: CampaignStatus
-pattern CSInvalid = CampaignStatus' "INVALID"
+pattern CampaignStatusINVALID :: CampaignStatus
+pattern CampaignStatusINVALID = CampaignStatus' "INVALID"
 
-pattern CSPaused :: CampaignStatus
-pattern CSPaused = CampaignStatus' "PAUSED"
+pattern CampaignStatusPAUSED :: CampaignStatus
+pattern CampaignStatusPAUSED = CampaignStatus' "PAUSED"
 
-pattern CSPendingNextRun :: CampaignStatus
-pattern CSPendingNextRun = CampaignStatus' "PENDING_NEXT_RUN"
+pattern CampaignStatusPENDINGNEXTRUN :: CampaignStatus
+pattern CampaignStatusPENDINGNEXTRUN = CampaignStatus' "PENDING_NEXT_RUN"
 
-pattern CSScheduled :: CampaignStatus
-pattern CSScheduled = CampaignStatus' "SCHEDULED"
+pattern CampaignStatusSCHEDULED :: CampaignStatus
+pattern CampaignStatusSCHEDULED = CampaignStatus' "SCHEDULED"
 
 {-# COMPLETE
-  CSCompleted,
-  CSDeleted,
-  CSExecuting,
-  CSInvalid,
-  CSPaused,
-  CSPendingNextRun,
-  CSScheduled,
+  CampaignStatusCOMPLETED,
+  CampaignStatusDELETED,
+  CampaignStatusEXECUTING,
+  CampaignStatusINVALID,
+  CampaignStatusPAUSED,
+  CampaignStatusPENDINGNEXTRUN,
+  CampaignStatusSCHEDULED,
   CampaignStatus'
   #-}
 
-instance FromText CampaignStatus where
-  parser = (CampaignStatus' . mk) <$> takeText
+instance Prelude.FromText CampaignStatus where
+  parser = CampaignStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CampaignStatus where
-  toText (CampaignStatus' ci) = original ci
+instance Prelude.ToText CampaignStatus where
+  toText (CampaignStatus' x) = x
 
-instance Hashable CampaignStatus
+instance Prelude.Hashable CampaignStatus
 
-instance NFData CampaignStatus
+instance Prelude.NFData CampaignStatus
 
-instance ToByteString CampaignStatus
+instance Prelude.ToByteString CampaignStatus
 
-instance ToQuery CampaignStatus
+instance Prelude.ToQuery CampaignStatus
 
-instance ToHeader CampaignStatus
+instance Prelude.ToHeader CampaignStatus
 
-instance FromJSON CampaignStatus where
-  parseJSON = parseJSONText "CampaignStatus"
+instance Prelude.FromJSON CampaignStatus where
+  parseJSON = Prelude.parseJSONText "CampaignStatus"

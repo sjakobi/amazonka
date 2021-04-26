@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,143 +19,165 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.BaiduChannelResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the status and settings of the Baidu (Baidu Cloud Push) channel for an application.
+-- | Provides information about the status and settings of the Baidu (Baidu
+-- Cloud Push) channel for an application.
 --
---
---
--- /See:/ 'baiduChannelResponse' smart constructor.
+-- /See:/ 'newBaiduChannelResponse' smart constructor.
 data BaiduChannelResponse = BaiduChannelResponse'
-  { _bLastModifiedDate ::
-      !(Maybe Text),
-    _bApplicationId ::
-      !(Maybe Text),
-    _bHasCredential ::
-      !(Maybe Bool),
-    _bId :: !(Maybe Text),
-    _bCreationDate ::
-      !(Maybe Text),
-    _bEnabled :: !(Maybe Bool),
-    _bVersion :: !(Maybe Int),
-    _bIsArchived :: !(Maybe Bool),
-    _bLastModifiedBy ::
-      !(Maybe Text),
-    _bCredential :: !Text,
-    _bPlatform :: !Text
+  { -- | The date and time when the Baidu channel was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the application that the Baidu channel applies
+    -- to.
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | (Not used) This property is retained only for backward compatibility.
+    hasCredential :: Prelude.Maybe Prelude.Bool,
+    -- | (Deprecated) An identifier for the Baidu channel. This property is
+    -- retained only for backward compatibility.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the Baidu channel was enabled.
+    creationDate :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the Baidu channel is enabled for the application.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The current version of the Baidu channel.
+    version :: Prelude.Maybe Prelude.Int,
+    -- | Specifies whether the Baidu channel is archived.
+    isArchived :: Prelude.Maybe Prelude.Bool,
+    -- | The user who last modified the Baidu channel.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text,
+    -- | The API key that you received from the Baidu Cloud Push service to
+    -- communicate with the service.
+    credential :: Prelude.Text,
+    -- | The type of messaging or notification platform for the channel. For the
+    -- Baidu channel, this value is BAIDU.
+    platform :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BaiduChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BaiduChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bLastModifiedDate' - The date and time when the Baidu channel was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bApplicationId' - The unique identifier for the application that the Baidu channel applies to.
+-- 'lastModifiedDate', 'baiduChannelResponse_lastModifiedDate' - The date and time when the Baidu channel was last modified.
 --
--- * 'bHasCredential' - (Not used) This property is retained only for backward compatibility.
+-- 'applicationId', 'baiduChannelResponse_applicationId' - The unique identifier for the application that the Baidu channel applies
+-- to.
 --
--- * 'bId' - (Deprecated) An identifier for the Baidu channel. This property is retained only for backward compatibility.
+-- 'hasCredential', 'baiduChannelResponse_hasCredential' - (Not used) This property is retained only for backward compatibility.
 --
--- * 'bCreationDate' - The date and time when the Baidu channel was enabled.
+-- 'id', 'baiduChannelResponse_id' - (Deprecated) An identifier for the Baidu channel. This property is
+-- retained only for backward compatibility.
 --
--- * 'bEnabled' - Specifies whether the Baidu channel is enabled for the application.
+-- 'creationDate', 'baiduChannelResponse_creationDate' - The date and time when the Baidu channel was enabled.
 --
--- * 'bVersion' - The current version of the Baidu channel.
+-- 'enabled', 'baiduChannelResponse_enabled' - Specifies whether the Baidu channel is enabled for the application.
 --
--- * 'bIsArchived' - Specifies whether the Baidu channel is archived.
+-- 'version', 'baiduChannelResponse_version' - The current version of the Baidu channel.
 --
--- * 'bLastModifiedBy' - The user who last modified the Baidu channel.
+-- 'isArchived', 'baiduChannelResponse_isArchived' - Specifies whether the Baidu channel is archived.
 --
--- * 'bCredential' - The API key that you received from the Baidu Cloud Push service to communicate with the service.
+-- 'lastModifiedBy', 'baiduChannelResponse_lastModifiedBy' - The user who last modified the Baidu channel.
 --
--- * 'bPlatform' - The type of messaging or notification platform for the channel. For the Baidu channel, this value is BAIDU.
-baiduChannelResponse ::
-  -- | 'bCredential'
-  Text ->
-  -- | 'bPlatform'
-  Text ->
+-- 'credential', 'baiduChannelResponse_credential' - The API key that you received from the Baidu Cloud Push service to
+-- communicate with the service.
+--
+-- 'platform', 'baiduChannelResponse_platform' - The type of messaging or notification platform for the channel. For the
+-- Baidu channel, this value is BAIDU.
+newBaiduChannelResponse ::
+  -- | 'credential'
+  Prelude.Text ->
+  -- | 'platform'
+  Prelude.Text ->
   BaiduChannelResponse
-baiduChannelResponse pCredential_ pPlatform_ =
+newBaiduChannelResponse pCredential_ pPlatform_ =
   BaiduChannelResponse'
-    { _bLastModifiedDate = Nothing,
-      _bApplicationId = Nothing,
-      _bHasCredential = Nothing,
-      _bId = Nothing,
-      _bCreationDate = Nothing,
-      _bEnabled = Nothing,
-      _bVersion = Nothing,
-      _bIsArchived = Nothing,
-      _bLastModifiedBy = Nothing,
-      _bCredential = pCredential_,
-      _bPlatform = pPlatform_
+    { lastModifiedDate =
+        Prelude.Nothing,
+      applicationId = Prelude.Nothing,
+      hasCredential = Prelude.Nothing,
+      id = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      version = Prelude.Nothing,
+      isArchived = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      credential = pCredential_,
+      platform = pPlatform_
     }
 
 -- | The date and time when the Baidu channel was last modified.
-bLastModifiedDate :: Lens' BaiduChannelResponse (Maybe Text)
-bLastModifiedDate = lens _bLastModifiedDate (\s a -> s {_bLastModifiedDate = a})
+baiduChannelResponse_lastModifiedDate :: Lens.Lens' BaiduChannelResponse (Prelude.Maybe Prelude.Text)
+baiduChannelResponse_lastModifiedDate = Lens.lens (\BaiduChannelResponse' {lastModifiedDate} -> lastModifiedDate) (\s@BaiduChannelResponse' {} a -> s {lastModifiedDate = a} :: BaiduChannelResponse)
 
--- | The unique identifier for the application that the Baidu channel applies to.
-bApplicationId :: Lens' BaiduChannelResponse (Maybe Text)
-bApplicationId = lens _bApplicationId (\s a -> s {_bApplicationId = a})
+-- | The unique identifier for the application that the Baidu channel applies
+-- to.
+baiduChannelResponse_applicationId :: Lens.Lens' BaiduChannelResponse (Prelude.Maybe Prelude.Text)
+baiduChannelResponse_applicationId = Lens.lens (\BaiduChannelResponse' {applicationId} -> applicationId) (\s@BaiduChannelResponse' {} a -> s {applicationId = a} :: BaiduChannelResponse)
 
 -- | (Not used) This property is retained only for backward compatibility.
-bHasCredential :: Lens' BaiduChannelResponse (Maybe Bool)
-bHasCredential = lens _bHasCredential (\s a -> s {_bHasCredential = a})
+baiduChannelResponse_hasCredential :: Lens.Lens' BaiduChannelResponse (Prelude.Maybe Prelude.Bool)
+baiduChannelResponse_hasCredential = Lens.lens (\BaiduChannelResponse' {hasCredential} -> hasCredential) (\s@BaiduChannelResponse' {} a -> s {hasCredential = a} :: BaiduChannelResponse)
 
--- | (Deprecated) An identifier for the Baidu channel. This property is retained only for backward compatibility.
-bId :: Lens' BaiduChannelResponse (Maybe Text)
-bId = lens _bId (\s a -> s {_bId = a})
+-- | (Deprecated) An identifier for the Baidu channel. This property is
+-- retained only for backward compatibility.
+baiduChannelResponse_id :: Lens.Lens' BaiduChannelResponse (Prelude.Maybe Prelude.Text)
+baiduChannelResponse_id = Lens.lens (\BaiduChannelResponse' {id} -> id) (\s@BaiduChannelResponse' {} a -> s {id = a} :: BaiduChannelResponse)
 
 -- | The date and time when the Baidu channel was enabled.
-bCreationDate :: Lens' BaiduChannelResponse (Maybe Text)
-bCreationDate = lens _bCreationDate (\s a -> s {_bCreationDate = a})
+baiduChannelResponse_creationDate :: Lens.Lens' BaiduChannelResponse (Prelude.Maybe Prelude.Text)
+baiduChannelResponse_creationDate = Lens.lens (\BaiduChannelResponse' {creationDate} -> creationDate) (\s@BaiduChannelResponse' {} a -> s {creationDate = a} :: BaiduChannelResponse)
 
 -- | Specifies whether the Baidu channel is enabled for the application.
-bEnabled :: Lens' BaiduChannelResponse (Maybe Bool)
-bEnabled = lens _bEnabled (\s a -> s {_bEnabled = a})
+baiduChannelResponse_enabled :: Lens.Lens' BaiduChannelResponse (Prelude.Maybe Prelude.Bool)
+baiduChannelResponse_enabled = Lens.lens (\BaiduChannelResponse' {enabled} -> enabled) (\s@BaiduChannelResponse' {} a -> s {enabled = a} :: BaiduChannelResponse)
 
 -- | The current version of the Baidu channel.
-bVersion :: Lens' BaiduChannelResponse (Maybe Int)
-bVersion = lens _bVersion (\s a -> s {_bVersion = a})
+baiduChannelResponse_version :: Lens.Lens' BaiduChannelResponse (Prelude.Maybe Prelude.Int)
+baiduChannelResponse_version = Lens.lens (\BaiduChannelResponse' {version} -> version) (\s@BaiduChannelResponse' {} a -> s {version = a} :: BaiduChannelResponse)
 
 -- | Specifies whether the Baidu channel is archived.
-bIsArchived :: Lens' BaiduChannelResponse (Maybe Bool)
-bIsArchived = lens _bIsArchived (\s a -> s {_bIsArchived = a})
+baiduChannelResponse_isArchived :: Lens.Lens' BaiduChannelResponse (Prelude.Maybe Prelude.Bool)
+baiduChannelResponse_isArchived = Lens.lens (\BaiduChannelResponse' {isArchived} -> isArchived) (\s@BaiduChannelResponse' {} a -> s {isArchived = a} :: BaiduChannelResponse)
 
 -- | The user who last modified the Baidu channel.
-bLastModifiedBy :: Lens' BaiduChannelResponse (Maybe Text)
-bLastModifiedBy = lens _bLastModifiedBy (\s a -> s {_bLastModifiedBy = a})
+baiduChannelResponse_lastModifiedBy :: Lens.Lens' BaiduChannelResponse (Prelude.Maybe Prelude.Text)
+baiduChannelResponse_lastModifiedBy = Lens.lens (\BaiduChannelResponse' {lastModifiedBy} -> lastModifiedBy) (\s@BaiduChannelResponse' {} a -> s {lastModifiedBy = a} :: BaiduChannelResponse)
 
--- | The API key that you received from the Baidu Cloud Push service to communicate with the service.
-bCredential :: Lens' BaiduChannelResponse Text
-bCredential = lens _bCredential (\s a -> s {_bCredential = a})
+-- | The API key that you received from the Baidu Cloud Push service to
+-- communicate with the service.
+baiduChannelResponse_credential :: Lens.Lens' BaiduChannelResponse Prelude.Text
+baiduChannelResponse_credential = Lens.lens (\BaiduChannelResponse' {credential} -> credential) (\s@BaiduChannelResponse' {} a -> s {credential = a} :: BaiduChannelResponse)
 
--- | The type of messaging or notification platform for the channel. For the Baidu channel, this value is BAIDU.
-bPlatform :: Lens' BaiduChannelResponse Text
-bPlatform = lens _bPlatform (\s a -> s {_bPlatform = a})
+-- | The type of messaging or notification platform for the channel. For the
+-- Baidu channel, this value is BAIDU.
+baiduChannelResponse_platform :: Lens.Lens' BaiduChannelResponse Prelude.Text
+baiduChannelResponse_platform = Lens.lens (\BaiduChannelResponse' {platform} -> platform) (\s@BaiduChannelResponse' {} a -> s {platform = a} :: BaiduChannelResponse)
 
-instance FromJSON BaiduChannelResponse where
+instance Prelude.FromJSON BaiduChannelResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BaiduChannelResponse"
       ( \x ->
           BaiduChannelResponse'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "ApplicationId")
-            <*> (x .:? "HasCredential")
-            <*> (x .:? "Id")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "Enabled")
-            <*> (x .:? "Version")
-            <*> (x .:? "IsArchived")
-            <*> (x .:? "LastModifiedBy")
-            <*> (x .: "Credential")
-            <*> (x .: "Platform")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "ApplicationId")
+            Prelude.<*> (x Prelude..:? "HasCredential")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "IsArchived")
+            Prelude.<*> (x Prelude..:? "LastModifiedBy")
+            Prelude.<*> (x Prelude..: "Credential")
+            Prelude.<*> (x Prelude..: "Platform")
       )
 
-instance Hashable BaiduChannelResponse
+instance Prelude.Hashable BaiduChannelResponse
 
-instance NFData BaiduChannelResponse
+instance Prelude.NFData BaiduChannelResponse

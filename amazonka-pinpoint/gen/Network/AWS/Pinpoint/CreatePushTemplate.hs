@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a message template for messages that are sent through a push notification channel.
+-- Creates a message template for messages that are sent through a push
+-- notification channel.
 module Network.AWS.Pinpoint.CreatePushTemplate
   ( -- * Creating a Request
-    createPushTemplate,
-    CreatePushTemplate,
+    CreatePushTemplate (..),
+    newCreatePushTemplate,
 
     -- * Request Lenses
-    cptTemplateName,
-    cptPushNotificationTemplateRequest,
+    createPushTemplate_templateName,
+    createPushTemplate_pushNotificationTemplateRequest,
 
     -- * Destructuring the Response
-    createPushTemplateResponse,
-    CreatePushTemplateResponse,
+    CreatePushTemplateResponse (..),
+    newCreatePushTemplateResponse,
 
     -- * Response Lenses
-    cptrrsResponseStatus,
-    cptrrsCreateTemplateMessageBody,
+    createPushTemplateResponse_httpStatus,
+    createPushTemplateResponse_createTemplateMessageBody,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Pinpoint.Types.CreateTemplateMessageBody
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createPushTemplate' smart constructor.
+-- | /See:/ 'newCreatePushTemplate' smart constructor.
 data CreatePushTemplate = CreatePushTemplate'
-  { _cptTemplateName ::
-      !Text,
-    _cptPushNotificationTemplateRequest ::
-      !PushNotificationTemplateRequest
+  { -- | The name of the message template. A template name must start with an
+    -- alphanumeric character and can contain a maximum of 128 characters. The
+    -- characters can be alphanumeric characters, underscores (_), or hyphens
+    -- (-). Template names are case sensitive.
+    templateName :: Prelude.Text,
+    pushNotificationTemplateRequest :: PushNotificationTemplateRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePushTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePushTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cptTemplateName' - The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cptPushNotificationTemplateRequest' - Undocumented member.
-createPushTemplate ::
-  -- | 'cptTemplateName'
-  Text ->
-  -- | 'cptPushNotificationTemplateRequest'
+-- 'templateName', 'createPushTemplate_templateName' - The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+--
+-- 'pushNotificationTemplateRequest', 'createPushTemplate_pushNotificationTemplateRequest' - Undocumented member.
+newCreatePushTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'pushNotificationTemplateRequest'
   PushNotificationTemplateRequest ->
   CreatePushTemplate
-createPushTemplate
+newCreatePushTemplate
   pTemplateName_
   pPushNotificationTemplateRequest_ =
     CreatePushTemplate'
-      { _cptTemplateName =
-          pTemplateName_,
-        _cptPushNotificationTemplateRequest =
+      { templateName = pTemplateName_,
+        pushNotificationTemplateRequest =
           pPushNotificationTemplateRequest_
       }
 
--- | The name of the message template. A template name must start with an alphanumeric character and can contain a maximum of 128 characters. The characters can be alphanumeric characters, underscores (_), or hyphens (-). Template names are case sensitive.
-cptTemplateName :: Lens' CreatePushTemplate Text
-cptTemplateName = lens _cptTemplateName (\s a -> s {_cptTemplateName = a})
+-- | The name of the message template. A template name must start with an
+-- alphanumeric character and can contain a maximum of 128 characters. The
+-- characters can be alphanumeric characters, underscores (_), or hyphens
+-- (-). Template names are case sensitive.
+createPushTemplate_templateName :: Lens.Lens' CreatePushTemplate Prelude.Text
+createPushTemplate_templateName = Lens.lens (\CreatePushTemplate' {templateName} -> templateName) (\s@CreatePushTemplate' {} a -> s {templateName = a} :: CreatePushTemplate)
 
 -- | Undocumented member.
-cptPushNotificationTemplateRequest :: Lens' CreatePushTemplate PushNotificationTemplateRequest
-cptPushNotificationTemplateRequest = lens _cptPushNotificationTemplateRequest (\s a -> s {_cptPushNotificationTemplateRequest = a})
+createPushTemplate_pushNotificationTemplateRequest :: Lens.Lens' CreatePushTemplate PushNotificationTemplateRequest
+createPushTemplate_pushNotificationTemplateRequest = Lens.lens (\CreatePushTemplate' {pushNotificationTemplateRequest} -> pushNotificationTemplateRequest) (\s@CreatePushTemplate' {} a -> s {pushNotificationTemplateRequest = a} :: CreatePushTemplate)
 
-instance AWSRequest CreatePushTemplate where
+instance Prelude.AWSRequest CreatePushTemplate where
   type
     Rs CreatePushTemplate =
       CreatePushTemplateResponse
-  request = postJSON pinpoint
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreatePushTemplateResponse'
-            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.eitherParseJSON x)
       )
 
-instance Hashable CreatePushTemplate
+instance Prelude.Hashable CreatePushTemplate
 
-instance NFData CreatePushTemplate
+instance Prelude.NFData CreatePushTemplate
 
-instance ToHeaders CreatePushTemplate where
+instance Prelude.ToHeaders CreatePushTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePushTemplate where
+instance Prelude.ToJSON CreatePushTemplate where
   toJSON CreatePushTemplate' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "PushNotificationTemplateRequest"
-                  .= _cptPushNotificationTemplateRequest
+                  Prelude..= pushNotificationTemplateRequest
               )
           ]
       )
 
-instance ToPath CreatePushTemplate where
+instance Prelude.ToPath CreatePushTemplate where
   toPath CreatePushTemplate' {..} =
-    mconcat
-      ["/v1/templates/", toBS _cptTemplateName, "/push"]
+    Prelude.mconcat
+      [ "/v1/templates/",
+        Prelude.toBS templateName,
+        "/push"
+      ]
 
-instance ToQuery CreatePushTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery CreatePushTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createPushTemplateResponse' smart constructor.
+-- | /See:/ 'newCreatePushTemplateResponse' smart constructor.
 data CreatePushTemplateResponse = CreatePushTemplateResponse'
-  { _cptrrsResponseStatus ::
-      !Int,
-    _cptrrsCreateTemplateMessageBody ::
-      !CreateTemplateMessageBody
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    createTemplateMessageBody :: CreateTemplateMessageBody
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePushTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePushTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cptrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cptrrsCreateTemplateMessageBody' - Undocumented member.
-createPushTemplateResponse ::
-  -- | 'cptrrsResponseStatus'
-  Int ->
-  -- | 'cptrrsCreateTemplateMessageBody'
+-- 'httpStatus', 'createPushTemplateResponse_httpStatus' - The response's http status code.
+--
+-- 'createTemplateMessageBody', 'createPushTemplateResponse_createTemplateMessageBody' - Undocumented member.
+newCreatePushTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'createTemplateMessageBody'
   CreateTemplateMessageBody ->
   CreatePushTemplateResponse
-createPushTemplateResponse
-  pResponseStatus_
+newCreatePushTemplateResponse
+  pHttpStatus_
   pCreateTemplateMessageBody_ =
     CreatePushTemplateResponse'
-      { _cptrrsResponseStatus =
-          pResponseStatus_,
-        _cptrrsCreateTemplateMessageBody =
+      { httpStatus =
+          pHttpStatus_,
+        createTemplateMessageBody =
           pCreateTemplateMessageBody_
       }
 
--- | -- | The response status code.
-cptrrsResponseStatus :: Lens' CreatePushTemplateResponse Int
-cptrrsResponseStatus = lens _cptrrsResponseStatus (\s a -> s {_cptrrsResponseStatus = a})
+-- | The response's http status code.
+createPushTemplateResponse_httpStatus :: Lens.Lens' CreatePushTemplateResponse Prelude.Int
+createPushTemplateResponse_httpStatus = Lens.lens (\CreatePushTemplateResponse' {httpStatus} -> httpStatus) (\s@CreatePushTemplateResponse' {} a -> s {httpStatus = a} :: CreatePushTemplateResponse)
 
 -- | Undocumented member.
-cptrrsCreateTemplateMessageBody :: Lens' CreatePushTemplateResponse CreateTemplateMessageBody
-cptrrsCreateTemplateMessageBody = lens _cptrrsCreateTemplateMessageBody (\s a -> s {_cptrrsCreateTemplateMessageBody = a})
+createPushTemplateResponse_createTemplateMessageBody :: Lens.Lens' CreatePushTemplateResponse CreateTemplateMessageBody
+createPushTemplateResponse_createTemplateMessageBody = Lens.lens (\CreatePushTemplateResponse' {createTemplateMessageBody} -> createTemplateMessageBody) (\s@CreatePushTemplateResponse' {} a -> s {createTemplateMessageBody = a} :: CreatePushTemplateResponse)
 
-instance NFData CreatePushTemplateResponse
+instance Prelude.NFData CreatePushTemplateResponse

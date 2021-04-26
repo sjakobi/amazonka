@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,163 +19,268 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Pinpoint.Types.BaiduMessage where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Pinpoint.Types.Action
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the settings for a one-time message that's sent directly to an endpoint through the Baidu (Baidu Cloud Push) channel.
+-- | Specifies the settings for a one-time message that\'s sent directly to
+-- an endpoint through the Baidu (Baidu Cloud Push) channel.
 --
---
---
--- /See:/ 'baiduMessage' smart constructor.
+-- /See:/ 'newBaiduMessage' smart constructor.
 data BaiduMessage = BaiduMessage'
-  { _bmSilentPush ::
-      !(Maybe Bool),
-    _bmImageIconURL :: !(Maybe Text),
-    _bmData :: !(Maybe (Map Text Text)),
-    _bmTitle :: !(Maybe Text),
-    _bmIconReference :: !(Maybe Text),
-    _bmBody :: !(Maybe Text),
-    _bmTimeToLive :: !(Maybe Int),
-    _bmSubstitutions ::
-      !(Maybe (Map Text [Text])),
-    _bmImageURL :: !(Maybe Text),
-    _bmAction :: !(Maybe Action),
-    _bmSound :: !(Maybe Text),
-    _bmURL :: !(Maybe Text),
-    _bmSmallImageIconURL :: !(Maybe Text),
-    _bmRawContent :: !(Maybe Text)
+  { -- | Specifies whether the notification is a silent push notification, which
+    -- is a push notification that doesn\'t display on a recipient\'s device.
+    -- Silent push notifications can be used for cases such as updating an
+    -- app\'s configuration or supporting phone home functionality.
+    silentPush :: Prelude.Maybe Prelude.Bool,
+    -- | The URL of the large icon image to display in the content view of the
+    -- push notification.
+    imageIconUrl :: Prelude.Maybe Prelude.Text,
+    -- | The JSON data payload to use for the push notification, if the
+    -- notification is a silent push notification. This payload is added to the
+    -- data.pinpoint.jsonBody object of the notification.
+    data' :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The title to display above the notification message on the recipient\'s
+    -- device.
+    title :: Prelude.Maybe Prelude.Text,
+    -- | The icon image name of the asset saved in your app.
+    iconReference :: Prelude.Maybe Prelude.Text,
+    -- | The body of the notification message.
+    body :: Prelude.Maybe Prelude.Text,
+    -- | The amount of time, in seconds, that the Baidu Cloud Push service should
+    -- store the message if the recipient\'s device is offline. The default
+    -- value and maximum supported time is 604,800 seconds (7 days).
+    timeToLive :: Prelude.Maybe Prelude.Int,
+    -- | The default message variables to use in the notification message. You
+    -- can override the default variables with individual address variables.
+    substitutions :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The URL of an image to display in the push notification.
+    imageUrl :: Prelude.Maybe Prelude.Text,
+    -- | The action to occur if the recipient taps the push notification. Valid
+    -- values are:
+    --
+    -- -   OPEN_APP - Your app opens or it becomes the foreground app if it was
+    --     sent to the background. This is the default action.
+    --
+    -- -   DEEP_LINK - Your app opens and displays a designated user interface
+    --     in the app. This action uses the deep-linking features of the
+    --     Android platform.
+    --
+    -- -   URL - The default mobile browser on the recipient\'s device opens
+    --     and loads the web page at a URL that you specify.
+    action :: Prelude.Maybe Action,
+    -- | The sound to play when the recipient receives the push notification. You
+    -- can use the default stream or specify the file name of a sound resource
+    -- that\'s bundled in your app. On an Android platform, the sound file must
+    -- reside in \/res\/raw\/.
+    sound :: Prelude.Maybe Prelude.Text,
+    -- | The URL to open in the recipient\'s default mobile browser, if a
+    -- recipient taps the push notification and the value of the Action
+    -- property is URL.
+    url :: Prelude.Maybe Prelude.Text,
+    -- | The URL of the small icon image to display in the status bar and the
+    -- content view of the push notification.
+    smallImageIconUrl :: Prelude.Maybe Prelude.Text,
+    -- | The raw, JSON-formatted string to use as the payload for the
+    -- notification message. If specified, this value overrides all other
+    -- content for the message.
+    rawContent :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BaiduMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BaiduMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bmSilentPush' - Specifies whether the notification is a silent push notification, which is a push notification that doesn't display on a recipient's device. Silent push notifications can be used for cases such as updating an app's configuration or supporting phone home functionality.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bmImageIconURL' - The URL of the large icon image to display in the content view of the push notification.
+-- 'silentPush', 'baiduMessage_silentPush' - Specifies whether the notification is a silent push notification, which
+-- is a push notification that doesn\'t display on a recipient\'s device.
+-- Silent push notifications can be used for cases such as updating an
+-- app\'s configuration or supporting phone home functionality.
 --
--- * 'bmData' - The JSON data payload to use for the push notification, if the notification is a silent push notification. This payload is added to the data.pinpoint.jsonBody object of the notification.
+-- 'imageIconUrl', 'baiduMessage_imageIconUrl' - The URL of the large icon image to display in the content view of the
+-- push notification.
 --
--- * 'bmTitle' - The title to display above the notification message on the recipient's device.
+-- 'data'', 'baiduMessage_data' - The JSON data payload to use for the push notification, if the
+-- notification is a silent push notification. This payload is added to the
+-- data.pinpoint.jsonBody object of the notification.
 --
--- * 'bmIconReference' - The icon image name of the asset saved in your app.
+-- 'title', 'baiduMessage_title' - The title to display above the notification message on the recipient\'s
+-- device.
 --
--- * 'bmBody' - The body of the notification message.
+-- 'iconReference', 'baiduMessage_iconReference' - The icon image name of the asset saved in your app.
 --
--- * 'bmTimeToLive' - The amount of time, in seconds, that the Baidu Cloud Push service should store the message if the recipient's device is offline. The default value and maximum supported time is 604,800 seconds (7 days).
+-- 'body', 'baiduMessage_body' - The body of the notification message.
 --
--- * 'bmSubstitutions' - The default message variables to use in the notification message. You can override the default variables with individual address variables.
+-- 'timeToLive', 'baiduMessage_timeToLive' - The amount of time, in seconds, that the Baidu Cloud Push service should
+-- store the message if the recipient\'s device is offline. The default
+-- value and maximum supported time is 604,800 seconds (7 days).
 --
--- * 'bmImageURL' - The URL of an image to display in the push notification.
+-- 'substitutions', 'baiduMessage_substitutions' - The default message variables to use in the notification message. You
+-- can override the default variables with individual address variables.
 --
--- * 'bmAction' - The action to occur if the recipient taps the push notification. Valid values are:     * OPEN_APP - Your app opens or it becomes the foreground app if it was sent to the background. This is the default action.     * DEEP_LINK - Your app opens and displays a designated user interface in the app. This action uses the deep-linking features of the Android platform.     * URL - The default mobile browser on the recipient's device opens and loads the web page at a URL that you specify.
+-- 'imageUrl', 'baiduMessage_imageUrl' - The URL of an image to display in the push notification.
 --
--- * 'bmSound' - The sound to play when the recipient receives the push notification. You can use the default stream or specify the file name of a sound resource that's bundled in your app. On an Android platform, the sound file must reside in /res/raw/.
+-- 'action', 'baiduMessage_action' - The action to occur if the recipient taps the push notification. Valid
+-- values are:
 --
--- * 'bmURL' - The URL to open in the recipient's default mobile browser, if a recipient taps the push notification and the value of the Action property is URL.
+-- -   OPEN_APP - Your app opens or it becomes the foreground app if it was
+--     sent to the background. This is the default action.
 --
--- * 'bmSmallImageIconURL' - The URL of the small icon image to display in the status bar and the content view of the push notification.
+-- -   DEEP_LINK - Your app opens and displays a designated user interface
+--     in the app. This action uses the deep-linking features of the
+--     Android platform.
 --
--- * 'bmRawContent' - The raw, JSON-formatted string to use as the payload for the notification message. If specified, this value overrides all other content for the message.
-baiduMessage ::
+-- -   URL - The default mobile browser on the recipient\'s device opens
+--     and loads the web page at a URL that you specify.
+--
+-- 'sound', 'baiduMessage_sound' - The sound to play when the recipient receives the push notification. You
+-- can use the default stream or specify the file name of a sound resource
+-- that\'s bundled in your app. On an Android platform, the sound file must
+-- reside in \/res\/raw\/.
+--
+-- 'url', 'baiduMessage_url' - The URL to open in the recipient\'s default mobile browser, if a
+-- recipient taps the push notification and the value of the Action
+-- property is URL.
+--
+-- 'smallImageIconUrl', 'baiduMessage_smallImageIconUrl' - The URL of the small icon image to display in the status bar and the
+-- content view of the push notification.
+--
+-- 'rawContent', 'baiduMessage_rawContent' - The raw, JSON-formatted string to use as the payload for the
+-- notification message. If specified, this value overrides all other
+-- content for the message.
+newBaiduMessage ::
   BaiduMessage
-baiduMessage =
+newBaiduMessage =
   BaiduMessage'
-    { _bmSilentPush = Nothing,
-      _bmImageIconURL = Nothing,
-      _bmData = Nothing,
-      _bmTitle = Nothing,
-      _bmIconReference = Nothing,
-      _bmBody = Nothing,
-      _bmTimeToLive = Nothing,
-      _bmSubstitutions = Nothing,
-      _bmImageURL = Nothing,
-      _bmAction = Nothing,
-      _bmSound = Nothing,
-      _bmURL = Nothing,
-      _bmSmallImageIconURL = Nothing,
-      _bmRawContent = Nothing
+    { silentPush = Prelude.Nothing,
+      imageIconUrl = Prelude.Nothing,
+      data' = Prelude.Nothing,
+      title = Prelude.Nothing,
+      iconReference = Prelude.Nothing,
+      body = Prelude.Nothing,
+      timeToLive = Prelude.Nothing,
+      substitutions = Prelude.Nothing,
+      imageUrl = Prelude.Nothing,
+      action = Prelude.Nothing,
+      sound = Prelude.Nothing,
+      url = Prelude.Nothing,
+      smallImageIconUrl = Prelude.Nothing,
+      rawContent = Prelude.Nothing
     }
 
--- | Specifies whether the notification is a silent push notification, which is a push notification that doesn't display on a recipient's device. Silent push notifications can be used for cases such as updating an app's configuration or supporting phone home functionality.
-bmSilentPush :: Lens' BaiduMessage (Maybe Bool)
-bmSilentPush = lens _bmSilentPush (\s a -> s {_bmSilentPush = a})
+-- | Specifies whether the notification is a silent push notification, which
+-- is a push notification that doesn\'t display on a recipient\'s device.
+-- Silent push notifications can be used for cases such as updating an
+-- app\'s configuration or supporting phone home functionality.
+baiduMessage_silentPush :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Bool)
+baiduMessage_silentPush = Lens.lens (\BaiduMessage' {silentPush} -> silentPush) (\s@BaiduMessage' {} a -> s {silentPush = a} :: BaiduMessage)
 
--- | The URL of the large icon image to display in the content view of the push notification.
-bmImageIconURL :: Lens' BaiduMessage (Maybe Text)
-bmImageIconURL = lens _bmImageIconURL (\s a -> s {_bmImageIconURL = a})
+-- | The URL of the large icon image to display in the content view of the
+-- push notification.
+baiduMessage_imageIconUrl :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Text)
+baiduMessage_imageIconUrl = Lens.lens (\BaiduMessage' {imageIconUrl} -> imageIconUrl) (\s@BaiduMessage' {} a -> s {imageIconUrl = a} :: BaiduMessage)
 
--- | The JSON data payload to use for the push notification, if the notification is a silent push notification. This payload is added to the data.pinpoint.jsonBody object of the notification.
-bmData :: Lens' BaiduMessage (HashMap Text Text)
-bmData = lens _bmData (\s a -> s {_bmData = a}) . _Default . _Map
+-- | The JSON data payload to use for the push notification, if the
+-- notification is a silent push notification. This payload is added to the
+-- data.pinpoint.jsonBody object of the notification.
+baiduMessage_data :: Lens.Lens' BaiduMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+baiduMessage_data = Lens.lens (\BaiduMessage' {data'} -> data') (\s@BaiduMessage' {} a -> s {data' = a} :: BaiduMessage) Prelude.. Lens.mapping Prelude._Map
 
--- | The title to display above the notification message on the recipient's device.
-bmTitle :: Lens' BaiduMessage (Maybe Text)
-bmTitle = lens _bmTitle (\s a -> s {_bmTitle = a})
+-- | The title to display above the notification message on the recipient\'s
+-- device.
+baiduMessage_title :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Text)
+baiduMessage_title = Lens.lens (\BaiduMessage' {title} -> title) (\s@BaiduMessage' {} a -> s {title = a} :: BaiduMessage)
 
 -- | The icon image name of the asset saved in your app.
-bmIconReference :: Lens' BaiduMessage (Maybe Text)
-bmIconReference = lens _bmIconReference (\s a -> s {_bmIconReference = a})
+baiduMessage_iconReference :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Text)
+baiduMessage_iconReference = Lens.lens (\BaiduMessage' {iconReference} -> iconReference) (\s@BaiduMessage' {} a -> s {iconReference = a} :: BaiduMessage)
 
 -- | The body of the notification message.
-bmBody :: Lens' BaiduMessage (Maybe Text)
-bmBody = lens _bmBody (\s a -> s {_bmBody = a})
+baiduMessage_body :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Text)
+baiduMessage_body = Lens.lens (\BaiduMessage' {body} -> body) (\s@BaiduMessage' {} a -> s {body = a} :: BaiduMessage)
 
--- | The amount of time, in seconds, that the Baidu Cloud Push service should store the message if the recipient's device is offline. The default value and maximum supported time is 604,800 seconds (7 days).
-bmTimeToLive :: Lens' BaiduMessage (Maybe Int)
-bmTimeToLive = lens _bmTimeToLive (\s a -> s {_bmTimeToLive = a})
+-- | The amount of time, in seconds, that the Baidu Cloud Push service should
+-- store the message if the recipient\'s device is offline. The default
+-- value and maximum supported time is 604,800 seconds (7 days).
+baiduMessage_timeToLive :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Int)
+baiduMessage_timeToLive = Lens.lens (\BaiduMessage' {timeToLive} -> timeToLive) (\s@BaiduMessage' {} a -> s {timeToLive = a} :: BaiduMessage)
 
--- | The default message variables to use in the notification message. You can override the default variables with individual address variables.
-bmSubstitutions :: Lens' BaiduMessage (HashMap Text [Text])
-bmSubstitutions = lens _bmSubstitutions (\s a -> s {_bmSubstitutions = a}) . _Default . _Map
+-- | The default message variables to use in the notification message. You
+-- can override the default variables with individual address variables.
+baiduMessage_substitutions :: Lens.Lens' BaiduMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+baiduMessage_substitutions = Lens.lens (\BaiduMessage' {substitutions} -> substitutions) (\s@BaiduMessage' {} a -> s {substitutions = a} :: BaiduMessage) Prelude.. Lens.mapping Prelude._Map
 
 -- | The URL of an image to display in the push notification.
-bmImageURL :: Lens' BaiduMessage (Maybe Text)
-bmImageURL = lens _bmImageURL (\s a -> s {_bmImageURL = a})
+baiduMessage_imageUrl :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Text)
+baiduMessage_imageUrl = Lens.lens (\BaiduMessage' {imageUrl} -> imageUrl) (\s@BaiduMessage' {} a -> s {imageUrl = a} :: BaiduMessage)
 
--- | The action to occur if the recipient taps the push notification. Valid values are:     * OPEN_APP - Your app opens or it becomes the foreground app if it was sent to the background. This is the default action.     * DEEP_LINK - Your app opens and displays a designated user interface in the app. This action uses the deep-linking features of the Android platform.     * URL - The default mobile browser on the recipient's device opens and loads the web page at a URL that you specify.
-bmAction :: Lens' BaiduMessage (Maybe Action)
-bmAction = lens _bmAction (\s a -> s {_bmAction = a})
+-- | The action to occur if the recipient taps the push notification. Valid
+-- values are:
+--
+-- -   OPEN_APP - Your app opens or it becomes the foreground app if it was
+--     sent to the background. This is the default action.
+--
+-- -   DEEP_LINK - Your app opens and displays a designated user interface
+--     in the app. This action uses the deep-linking features of the
+--     Android platform.
+--
+-- -   URL - The default mobile browser on the recipient\'s device opens
+--     and loads the web page at a URL that you specify.
+baiduMessage_action :: Lens.Lens' BaiduMessage (Prelude.Maybe Action)
+baiduMessage_action = Lens.lens (\BaiduMessage' {action} -> action) (\s@BaiduMessage' {} a -> s {action = a} :: BaiduMessage)
 
--- | The sound to play when the recipient receives the push notification. You can use the default stream or specify the file name of a sound resource that's bundled in your app. On an Android platform, the sound file must reside in /res/raw/.
-bmSound :: Lens' BaiduMessage (Maybe Text)
-bmSound = lens _bmSound (\s a -> s {_bmSound = a})
+-- | The sound to play when the recipient receives the push notification. You
+-- can use the default stream or specify the file name of a sound resource
+-- that\'s bundled in your app. On an Android platform, the sound file must
+-- reside in \/res\/raw\/.
+baiduMessage_sound :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Text)
+baiduMessage_sound = Lens.lens (\BaiduMessage' {sound} -> sound) (\s@BaiduMessage' {} a -> s {sound = a} :: BaiduMessage)
 
--- | The URL to open in the recipient's default mobile browser, if a recipient taps the push notification and the value of the Action property is URL.
-bmURL :: Lens' BaiduMessage (Maybe Text)
-bmURL = lens _bmURL (\s a -> s {_bmURL = a})
+-- | The URL to open in the recipient\'s default mobile browser, if a
+-- recipient taps the push notification and the value of the Action
+-- property is URL.
+baiduMessage_url :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Text)
+baiduMessage_url = Lens.lens (\BaiduMessage' {url} -> url) (\s@BaiduMessage' {} a -> s {url = a} :: BaiduMessage)
 
--- | The URL of the small icon image to display in the status bar and the content view of the push notification.
-bmSmallImageIconURL :: Lens' BaiduMessage (Maybe Text)
-bmSmallImageIconURL = lens _bmSmallImageIconURL (\s a -> s {_bmSmallImageIconURL = a})
+-- | The URL of the small icon image to display in the status bar and the
+-- content view of the push notification.
+baiduMessage_smallImageIconUrl :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Text)
+baiduMessage_smallImageIconUrl = Lens.lens (\BaiduMessage' {smallImageIconUrl} -> smallImageIconUrl) (\s@BaiduMessage' {} a -> s {smallImageIconUrl = a} :: BaiduMessage)
 
--- | The raw, JSON-formatted string to use as the payload for the notification message. If specified, this value overrides all other content for the message.
-bmRawContent :: Lens' BaiduMessage (Maybe Text)
-bmRawContent = lens _bmRawContent (\s a -> s {_bmRawContent = a})
+-- | The raw, JSON-formatted string to use as the payload for the
+-- notification message. If specified, this value overrides all other
+-- content for the message.
+baiduMessage_rawContent :: Lens.Lens' BaiduMessage (Prelude.Maybe Prelude.Text)
+baiduMessage_rawContent = Lens.lens (\BaiduMessage' {rawContent} -> rawContent) (\s@BaiduMessage' {} a -> s {rawContent = a} :: BaiduMessage)
 
-instance Hashable BaiduMessage
+instance Prelude.Hashable BaiduMessage
 
-instance NFData BaiduMessage
+instance Prelude.NFData BaiduMessage
 
-instance ToJSON BaiduMessage where
+instance Prelude.ToJSON BaiduMessage where
   toJSON BaiduMessage' {..} =
-    object
-      ( catMaybes
-          [ ("SilentPush" .=) <$> _bmSilentPush,
-            ("ImageIconUrl" .=) <$> _bmImageIconURL,
-            ("Data" .=) <$> _bmData,
-            ("Title" .=) <$> _bmTitle,
-            ("IconReference" .=) <$> _bmIconReference,
-            ("Body" .=) <$> _bmBody,
-            ("TimeToLive" .=) <$> _bmTimeToLive,
-            ("Substitutions" .=) <$> _bmSubstitutions,
-            ("ImageUrl" .=) <$> _bmImageURL,
-            ("Action" .=) <$> _bmAction,
-            ("Sound" .=) <$> _bmSound,
-            ("Url" .=) <$> _bmURL,
-            ("SmallImageIconUrl" .=) <$> _bmSmallImageIconURL,
-            ("RawContent" .=) <$> _bmRawContent
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SilentPush" Prelude..=) Prelude.<$> silentPush,
+            ("ImageIconUrl" Prelude..=) Prelude.<$> imageIconUrl,
+            ("Data" Prelude..=) Prelude.<$> data',
+            ("Title" Prelude..=) Prelude.<$> title,
+            ("IconReference" Prelude..=)
+              Prelude.<$> iconReference,
+            ("Body" Prelude..=) Prelude.<$> body,
+            ("TimeToLive" Prelude..=) Prelude.<$> timeToLive,
+            ("Substitutions" Prelude..=)
+              Prelude.<$> substitutions,
+            ("ImageUrl" Prelude..=) Prelude.<$> imageUrl,
+            ("Action" Prelude..=) Prelude.<$> action,
+            ("Sound" Prelude..=) Prelude.<$> sound,
+            ("Url" Prelude..=) Prelude.<$> url,
+            ("SmallImageIconUrl" Prelude..=)
+              Prelude.<$> smallImageIconUrl,
+            ("RawContent" Prelude..=) Prelude.<$> rawContent
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Pinpoint.Types.DefinitionFormat
   ( DefinitionFormat
       ( ..,
-        CSV,
-        JSON
+        DefinitionFormatCSV,
+        DefinitionFormatJSON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DefinitionFormat = DefinitionFormat' (CI Text)
+newtype DefinitionFormat = DefinitionFormat'
+  { fromDefinitionFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSV :: DefinitionFormat
-pattern CSV = DefinitionFormat' "CSV"
+pattern DefinitionFormatCSV :: DefinitionFormat
+pattern DefinitionFormatCSV = DefinitionFormat' "CSV"
 
-pattern JSON :: DefinitionFormat
-pattern JSON = DefinitionFormat' "JSON"
+pattern DefinitionFormatJSON :: DefinitionFormat
+pattern DefinitionFormatJSON = DefinitionFormat' "JSON"
 
 {-# COMPLETE
-  CSV,
-  JSON,
+  DefinitionFormatCSV,
+  DefinitionFormatJSON,
   DefinitionFormat'
   #-}
 
-instance FromText DefinitionFormat where
-  parser = (DefinitionFormat' . mk) <$> takeText
+instance Prelude.FromText DefinitionFormat where
+  parser = DefinitionFormat' Prelude.<$> Prelude.takeText
 
-instance ToText DefinitionFormat where
-  toText (DefinitionFormat' ci) = original ci
+instance Prelude.ToText DefinitionFormat where
+  toText (DefinitionFormat' x) = x
 
-instance Hashable DefinitionFormat
+instance Prelude.Hashable DefinitionFormat
 
-instance NFData DefinitionFormat
+instance Prelude.NFData DefinitionFormat
 
-instance ToByteString DefinitionFormat
+instance Prelude.ToByteString DefinitionFormat
 
-instance ToQuery DefinitionFormat
+instance Prelude.ToQuery DefinitionFormat
 
-instance ToHeader DefinitionFormat
+instance Prelude.ToHeader DefinitionFormat
 
-instance ToJSON DefinitionFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON DefinitionFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DefinitionFormat where
-  parseJSON = parseJSONText "DefinitionFormat"
+instance Prelude.FromJSON DefinitionFormat where
+  parseJSON = Prelude.parseJSONText "DefinitionFormat"
