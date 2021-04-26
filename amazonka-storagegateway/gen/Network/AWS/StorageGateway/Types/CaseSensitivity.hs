@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.StorageGateway.Types.CaseSensitivity
   ( CaseSensitivity
       ( ..,
-        CSCaseSensitive,
-        CSClientSpecified
+        CaseSensitivityCaseSensitive,
+        CaseSensitivityClientSpecified
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CaseSensitivity = CaseSensitivity' (CI Text)
+newtype CaseSensitivity = CaseSensitivity'
+  { fromCaseSensitivity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCaseSensitive :: CaseSensitivity
-pattern CSCaseSensitive = CaseSensitivity' "CaseSensitive"
+pattern CaseSensitivityCaseSensitive :: CaseSensitivity
+pattern CaseSensitivityCaseSensitive = CaseSensitivity' "CaseSensitive"
 
-pattern CSClientSpecified :: CaseSensitivity
-pattern CSClientSpecified = CaseSensitivity' "ClientSpecified"
+pattern CaseSensitivityClientSpecified :: CaseSensitivity
+pattern CaseSensitivityClientSpecified = CaseSensitivity' "ClientSpecified"
 
 {-# COMPLETE
-  CSCaseSensitive,
-  CSClientSpecified,
+  CaseSensitivityCaseSensitive,
+  CaseSensitivityClientSpecified,
   CaseSensitivity'
   #-}
 
-instance FromText CaseSensitivity where
-  parser = (CaseSensitivity' . mk) <$> takeText
+instance Prelude.FromText CaseSensitivity where
+  parser = CaseSensitivity' Prelude.<$> Prelude.takeText
 
-instance ToText CaseSensitivity where
-  toText (CaseSensitivity' ci) = original ci
+instance Prelude.ToText CaseSensitivity where
+  toText (CaseSensitivity' x) = x
 
-instance Hashable CaseSensitivity
+instance Prelude.Hashable CaseSensitivity
 
-instance NFData CaseSensitivity
+instance Prelude.NFData CaseSensitivity
 
-instance ToByteString CaseSensitivity
+instance Prelude.ToByteString CaseSensitivity
 
-instance ToQuery CaseSensitivity
+instance Prelude.ToQuery CaseSensitivity
 
-instance ToHeader CaseSensitivity
+instance Prelude.ToHeader CaseSensitivity
 
-instance ToJSON CaseSensitivity where
-  toJSON = toJSONText
+instance Prelude.ToJSON CaseSensitivity where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CaseSensitivity where
-  parseJSON = parseJSONText "CaseSensitivity"
+instance Prelude.FromJSON CaseSensitivity where
+  parseJSON = Prelude.parseJSONText "CaseSensitivity"

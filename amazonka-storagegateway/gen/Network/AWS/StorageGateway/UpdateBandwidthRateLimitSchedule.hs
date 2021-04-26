@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the bandwidth rate limit schedule for a specified gateway. By default, gateways do not have bandwidth rate limit schedules, which means no bandwidth rate limiting is in effect. Use this to initiate or update a gateway's bandwidth rate limit schedule. This operation is supported in the volume and tape gateway types.
+-- Updates the bandwidth rate limit schedule for a specified gateway. By
+-- default, gateways do not have bandwidth rate limit schedules, which
+-- means no bandwidth rate limiting is in effect. Use this to initiate or
+-- update a gateway\'s bandwidth rate limit schedule. This operation is
+-- supported in the volume and tape gateway types.
 module Network.AWS.StorageGateway.UpdateBandwidthRateLimitSchedule
   ( -- * Creating a Request
-    updateBandwidthRateLimitSchedule,
-    UpdateBandwidthRateLimitSchedule,
+    UpdateBandwidthRateLimitSchedule (..),
+    newUpdateBandwidthRateLimitSchedule,
 
     -- * Request Lenses
-    ubrlsGatewayARN,
-    ubrlsBandwidthRateLimitIntervals,
+    updateBandwidthRateLimitSchedule_gatewayARN,
+    updateBandwidthRateLimitSchedule_bandwidthRateLimitIntervals,
 
     -- * Destructuring the Response
-    updateBandwidthRateLimitScheduleResponse,
-    UpdateBandwidthRateLimitScheduleResponse,
+    UpdateBandwidthRateLimitScheduleResponse (..),
+    newUpdateBandwidthRateLimitScheduleResponse,
 
     -- * Response Lenses
-    ubrlsrrsGatewayARN,
-    ubrlsrrsResponseStatus,
+    updateBandwidthRateLimitScheduleResponse_gatewayARN,
+    updateBandwidthRateLimitScheduleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
--- | /See:/ 'updateBandwidthRateLimitSchedule' smart constructor.
+-- | /See:/ 'newUpdateBandwidthRateLimitSchedule' smart constructor.
 data UpdateBandwidthRateLimitSchedule = UpdateBandwidthRateLimitSchedule'
-  { _ubrlsGatewayARN ::
-      !Text,
-    _ubrlsBandwidthRateLimitIntervals ::
-      ![BandwidthRateLimitInterval]
+  { gatewayARN :: Prelude.Text,
+    -- | An array containing bandwidth rate limit schedule intervals for a
+    -- gateway. When no bandwidth rate limit intervals have been scheduled, the
+    -- array is empty.
+    bandwidthRateLimitIntervals :: [BandwidthRateLimitInterval]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBandwidthRateLimitSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBandwidthRateLimitSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubrlsGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubrlsBandwidthRateLimitIntervals' - An array containing bandwidth rate limit schedule intervals for a gateway. When no bandwidth rate limit intervals have been scheduled, the array is empty.
-updateBandwidthRateLimitSchedule ::
-  -- | 'ubrlsGatewayARN'
-  Text ->
+-- 'gatewayARN', 'updateBandwidthRateLimitSchedule_gatewayARN' - Undocumented member.
+--
+-- 'bandwidthRateLimitIntervals', 'updateBandwidthRateLimitSchedule_bandwidthRateLimitIntervals' - An array containing bandwidth rate limit schedule intervals for a
+-- gateway. When no bandwidth rate limit intervals have been scheduled, the
+-- array is empty.
+newUpdateBandwidthRateLimitSchedule ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
   UpdateBandwidthRateLimitSchedule
-updateBandwidthRateLimitSchedule pGatewayARN_ =
+newUpdateBandwidthRateLimitSchedule pGatewayARN_ =
   UpdateBandwidthRateLimitSchedule'
-    { _ubrlsGatewayARN =
+    { gatewayARN =
         pGatewayARN_,
-      _ubrlsBandwidthRateLimitIntervals =
-        mempty
+      bandwidthRateLimitIntervals =
+        Prelude.mempty
     }
 
 -- | Undocumented member.
-ubrlsGatewayARN :: Lens' UpdateBandwidthRateLimitSchedule Text
-ubrlsGatewayARN = lens _ubrlsGatewayARN (\s a -> s {_ubrlsGatewayARN = a})
+updateBandwidthRateLimitSchedule_gatewayARN :: Lens.Lens' UpdateBandwidthRateLimitSchedule Prelude.Text
+updateBandwidthRateLimitSchedule_gatewayARN = Lens.lens (\UpdateBandwidthRateLimitSchedule' {gatewayARN} -> gatewayARN) (\s@UpdateBandwidthRateLimitSchedule' {} a -> s {gatewayARN = a} :: UpdateBandwidthRateLimitSchedule)
 
--- | An array containing bandwidth rate limit schedule intervals for a gateway. When no bandwidth rate limit intervals have been scheduled, the array is empty.
-ubrlsBandwidthRateLimitIntervals :: Lens' UpdateBandwidthRateLimitSchedule [BandwidthRateLimitInterval]
-ubrlsBandwidthRateLimitIntervals = lens _ubrlsBandwidthRateLimitIntervals (\s a -> s {_ubrlsBandwidthRateLimitIntervals = a}) . _Coerce
+-- | An array containing bandwidth rate limit schedule intervals for a
+-- gateway. When no bandwidth rate limit intervals have been scheduled, the
+-- array is empty.
+updateBandwidthRateLimitSchedule_bandwidthRateLimitIntervals :: Lens.Lens' UpdateBandwidthRateLimitSchedule [BandwidthRateLimitInterval]
+updateBandwidthRateLimitSchedule_bandwidthRateLimitIntervals = Lens.lens (\UpdateBandwidthRateLimitSchedule' {bandwidthRateLimitIntervals} -> bandwidthRateLimitIntervals) (\s@UpdateBandwidthRateLimitSchedule' {} a -> s {bandwidthRateLimitIntervals = a} :: UpdateBandwidthRateLimitSchedule) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateBandwidthRateLimitSchedule where
+instance
+  Prelude.AWSRequest
+    UpdateBandwidthRateLimitSchedule
+  where
   type
     Rs UpdateBandwidthRateLimitSchedule =
       UpdateBandwidthRateLimitScheduleResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateBandwidthRateLimitScheduleResponse'
-            <$> (x .?> "GatewayARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateBandwidthRateLimitSchedule
+instance
+  Prelude.Hashable
+    UpdateBandwidthRateLimitSchedule
 
-instance NFData UpdateBandwidthRateLimitSchedule
+instance
+  Prelude.NFData
+    UpdateBandwidthRateLimitSchedule
 
-instance ToHeaders UpdateBandwidthRateLimitSchedule where
+instance
+  Prelude.ToHeaders
+    UpdateBandwidthRateLimitSchedule
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.UpdateBandwidthRateLimitSchedule" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.UpdateBandwidthRateLimitSchedule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateBandwidthRateLimitSchedule where
+instance
+  Prelude.ToJSON
+    UpdateBandwidthRateLimitSchedule
+  where
   toJSON UpdateBandwidthRateLimitSchedule' {..} =
-    object
-      ( catMaybes
-          [ Just ("GatewayARN" .= _ubrlsGatewayARN),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("GatewayARN" Prelude..= gatewayARN),
+            Prelude.Just
               ( "BandwidthRateLimitIntervals"
-                  .= _ubrlsBandwidthRateLimitIntervals
+                  Prelude..= bandwidthRateLimitIntervals
               )
           ]
       )
 
-instance ToPath UpdateBandwidthRateLimitSchedule where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    UpdateBandwidthRateLimitSchedule
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateBandwidthRateLimitSchedule where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdateBandwidthRateLimitSchedule
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateBandwidthRateLimitScheduleResponse' smart constructor.
+-- | /See:/ 'newUpdateBandwidthRateLimitScheduleResponse' smart constructor.
 data UpdateBandwidthRateLimitScheduleResponse = UpdateBandwidthRateLimitScheduleResponse'
-  { _ubrlsrrsGatewayARN ::
-      !( Maybe
-           Text
-       ),
-    _ubrlsrrsResponseStatus ::
-      !Int
+  { gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBandwidthRateLimitScheduleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBandwidthRateLimitScheduleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubrlsrrsGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubrlsrrsResponseStatus' - -- | The response status code.
-updateBandwidthRateLimitScheduleResponse ::
-  -- | 'ubrlsrrsResponseStatus'
-  Int ->
+-- 'gatewayARN', 'updateBandwidthRateLimitScheduleResponse_gatewayARN' - Undocumented member.
+--
+-- 'httpStatus', 'updateBandwidthRateLimitScheduleResponse_httpStatus' - The response's http status code.
+newUpdateBandwidthRateLimitScheduleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateBandwidthRateLimitScheduleResponse
-updateBandwidthRateLimitScheduleResponse
-  pResponseStatus_ =
+newUpdateBandwidthRateLimitScheduleResponse
+  pHttpStatus_ =
     UpdateBandwidthRateLimitScheduleResponse'
-      { _ubrlsrrsGatewayARN =
-          Nothing,
-        _ubrlsrrsResponseStatus =
-          pResponseStatus_
+      { gatewayARN =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-ubrlsrrsGatewayARN :: Lens' UpdateBandwidthRateLimitScheduleResponse (Maybe Text)
-ubrlsrrsGatewayARN = lens _ubrlsrrsGatewayARN (\s a -> s {_ubrlsrrsGatewayARN = a})
+updateBandwidthRateLimitScheduleResponse_gatewayARN :: Lens.Lens' UpdateBandwidthRateLimitScheduleResponse (Prelude.Maybe Prelude.Text)
+updateBandwidthRateLimitScheduleResponse_gatewayARN = Lens.lens (\UpdateBandwidthRateLimitScheduleResponse' {gatewayARN} -> gatewayARN) (\s@UpdateBandwidthRateLimitScheduleResponse' {} a -> s {gatewayARN = a} :: UpdateBandwidthRateLimitScheduleResponse)
 
--- | -- | The response status code.
-ubrlsrrsResponseStatus :: Lens' UpdateBandwidthRateLimitScheduleResponse Int
-ubrlsrrsResponseStatus = lens _ubrlsrrsResponseStatus (\s a -> s {_ubrlsrrsResponseStatus = a})
+-- | The response's http status code.
+updateBandwidthRateLimitScheduleResponse_httpStatus :: Lens.Lens' UpdateBandwidthRateLimitScheduleResponse Prelude.Int
+updateBandwidthRateLimitScheduleResponse_httpStatus = Lens.lens (\UpdateBandwidthRateLimitScheduleResponse' {httpStatus} -> httpStatus) (\s@UpdateBandwidthRateLimitScheduleResponse' {} a -> s {httpStatus = a} :: UpdateBandwidthRateLimitScheduleResponse)
 
 instance
-  NFData
+  Prelude.NFData
     UpdateBandwidthRateLimitScheduleResponse

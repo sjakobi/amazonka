@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,162 +19,246 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.CachediSCSIVolume where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StorageGateway.Types.VolumeiSCSIAttributes
 
 -- | Describes an iSCSI cached volume.
 --
---
---
--- /See:/ 'cachediSCSIVolume' smart constructor.
+-- /See:/ 'newCachediSCSIVolume' smart constructor.
 data CachediSCSIVolume = CachediSCSIVolume'
-  { _cscsivSourceSnapshotId ::
-      !(Maybe Text),
-    _cscsivVolumeStatus ::
-      !(Maybe Text),
-    _cscsivCreatedDate ::
-      !(Maybe POSIX),
-    _cscsivTargetName :: !(Maybe Text),
-    _cscsivVolumeARN :: !(Maybe Text),
-    _cscsivVolumeId :: !(Maybe Text),
-    _cscsivKMSKey :: !(Maybe Text),
-    _cscsivVolumeiSCSIAttributes ::
-      !(Maybe VolumeiSCSIAttributes),
-    _cscsivVolumeUsedInBytes ::
-      !(Maybe Integer),
-    _cscsivVolumeSizeInBytes ::
-      !(Maybe Integer),
-    _cscsivVolumeType :: !(Maybe Text),
-    _cscsivVolumeAttachmentStatus ::
-      !(Maybe Text),
-    _cscsivVolumeProgress ::
-      !(Maybe Double)
+  { -- | If the cached volume was created from a snapshot, this field contains
+    -- the snapshot ID used, e.g., snap-78e22663. Otherwise, this field is not
+    -- included.
+    sourceSnapshotId :: Prelude.Maybe Prelude.Text,
+    -- | One of the VolumeStatus values that indicates the state of the storage
+    -- volume.
+    volumeStatus :: Prelude.Maybe Prelude.Text,
+    -- | The date the volume was created. Volumes created prior to March 28, 2017
+    -- don’t have this timestamp.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the iSCSI target used by an initiator to connect to a volume
+    -- and used as a suffix for the target ARN. For example, specifying
+    -- @TargetName@ as /myvolume/ results in the target ARN of
+    -- @arn:aws:storagegateway:us-east-2:111122223333:gateway\/sgw-12A3456B\/target\/iqn.1997-05.com.amazon:myvolume@.
+    -- The target name must be unique across all volumes on a gateway.
+    --
+    -- If you don\'t specify a value, Storage Gateway uses the value that was
+    -- previously used for this volume as the new target name.
+    targetName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the storage volume.
+    volumeARN :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the volume, e.g., vol-AE4B946D.
+    volumeId :: Prelude.Maybe Prelude.Text,
+    kMSKey :: Prelude.Maybe Prelude.Text,
+    -- | An VolumeiSCSIAttributes object that represents a collection of iSCSI
+    -- attributes for one stored volume.
+    volumeiSCSIAttributes :: Prelude.Maybe VolumeiSCSIAttributes,
+    -- | The size of the data stored on the volume in bytes. This value is
+    -- calculated based on the number of blocks that are touched, instead of
+    -- the actual amount of data written. This value can be useful for
+    -- sequential write patterns but less accurate for random write patterns.
+    -- @VolumeUsedInBytes@ is different from the compressed size of the volume,
+    -- which is the value that is used to calculate your bill.
+    --
+    -- This value is not available for volumes created prior to May 13, 2015,
+    -- until you store data on the volume.
+    volumeUsedInBytes :: Prelude.Maybe Prelude.Integer,
+    -- | The size, in bytes, of the volume capacity.
+    volumeSizeInBytes :: Prelude.Maybe Prelude.Integer,
+    -- | One of the VolumeType enumeration values that describes the type of the
+    -- volume.
+    volumeType :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether a storage volume is attached to or
+    -- detached from a gateway. For more information, see
+    -- <https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume Moving your volumes to a different gateway>.
+    volumeAttachmentStatus :: Prelude.Maybe Prelude.Text,
+    -- | Represents the percentage complete if the volume is restoring or
+    -- bootstrapping that represents the percent of data transferred. This
+    -- field does not appear in the response if the cached volume is not
+    -- restoring or bootstrapping.
+    volumeProgress :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CachediSCSIVolume' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CachediSCSIVolume' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cscsivSourceSnapshotId' - If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g., snap-78e22663. Otherwise, this field is not included.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cscsivVolumeStatus' - One of the VolumeStatus values that indicates the state of the storage volume.
+-- 'sourceSnapshotId', 'cachediSCSIVolume_sourceSnapshotId' - If the cached volume was created from a snapshot, this field contains
+-- the snapshot ID used, e.g., snap-78e22663. Otherwise, this field is not
+-- included.
 --
--- * 'cscsivCreatedDate' - The date the volume was created. Volumes created prior to March 28, 2017 don’t have this timestamp.
+-- 'volumeStatus', 'cachediSCSIVolume_volumeStatus' - One of the VolumeStatus values that indicates the state of the storage
+-- volume.
 --
--- * 'cscsivTargetName' - The name of the iSCSI target used by an initiator to connect to a volume and used as a suffix for the target ARN. For example, specifying @TargetName@ as /myvolume/ results in the target ARN of @arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume@ . The target name must be unique across all volumes on a gateway. If you don't specify a value, Storage Gateway uses the value that was previously used for this volume as the new target name.
+-- 'createdDate', 'cachediSCSIVolume_createdDate' - The date the volume was created. Volumes created prior to March 28, 2017
+-- don’t have this timestamp.
 --
--- * 'cscsivVolumeARN' - The Amazon Resource Name (ARN) of the storage volume.
+-- 'targetName', 'cachediSCSIVolume_targetName' - The name of the iSCSI target used by an initiator to connect to a volume
+-- and used as a suffix for the target ARN. For example, specifying
+-- @TargetName@ as /myvolume/ results in the target ARN of
+-- @arn:aws:storagegateway:us-east-2:111122223333:gateway\/sgw-12A3456B\/target\/iqn.1997-05.com.amazon:myvolume@.
+-- The target name must be unique across all volumes on a gateway.
 --
--- * 'cscsivVolumeId' - The unique identifier of the volume, e.g., vol-AE4B946D.
+-- If you don\'t specify a value, Storage Gateway uses the value that was
+-- previously used for this volume as the new target name.
 --
--- * 'cscsivKMSKey' - Undocumented member.
+-- 'volumeARN', 'cachediSCSIVolume_volumeARN' - The Amazon Resource Name (ARN) of the storage volume.
 --
--- * 'cscsivVolumeiSCSIAttributes' - An 'VolumeiSCSIAttributes' object that represents a collection of iSCSI attributes for one stored volume.
+-- 'volumeId', 'cachediSCSIVolume_volumeId' - The unique identifier of the volume, e.g., vol-AE4B946D.
 --
--- * 'cscsivVolumeUsedInBytes' - The size of the data stored on the volume in bytes. This value is calculated based on the number of blocks that are touched, instead of the actual amount of data written. This value can be useful for sequential write patterns but less accurate for random write patterns. @VolumeUsedInBytes@ is different from the compressed size of the volume, which is the value that is used to calculate your bill.
+-- 'kMSKey', 'cachediSCSIVolume_kMSKey' - Undocumented member.
 --
--- * 'cscsivVolumeSizeInBytes' - The size, in bytes, of the volume capacity.
+-- 'volumeiSCSIAttributes', 'cachediSCSIVolume_volumeiSCSIAttributes' - An VolumeiSCSIAttributes object that represents a collection of iSCSI
+-- attributes for one stored volume.
 --
--- * 'cscsivVolumeType' - One of the VolumeType enumeration values that describes the type of the volume.
+-- 'volumeUsedInBytes', 'cachediSCSIVolume_volumeUsedInBytes' - The size of the data stored on the volume in bytes. This value is
+-- calculated based on the number of blocks that are touched, instead of
+-- the actual amount of data written. This value can be useful for
+-- sequential write patterns but less accurate for random write patterns.
+-- @VolumeUsedInBytes@ is different from the compressed size of the volume,
+-- which is the value that is used to calculate your bill.
 --
--- * 'cscsivVolumeAttachmentStatus' - A value that indicates whether a storage volume is attached to or detached from a gateway. For more information, see <https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume Moving your volumes to a different gateway> .
+-- This value is not available for volumes created prior to May 13, 2015,
+-- until you store data on the volume.
 --
--- * 'cscsivVolumeProgress' - Represents the percentage complete if the volume is restoring or bootstrapping that represents the percent of data transferred. This field does not appear in the response if the cached volume is not restoring or bootstrapping.
-cachediSCSIVolume ::
+-- 'volumeSizeInBytes', 'cachediSCSIVolume_volumeSizeInBytes' - The size, in bytes, of the volume capacity.
+--
+-- 'volumeType', 'cachediSCSIVolume_volumeType' - One of the VolumeType enumeration values that describes the type of the
+-- volume.
+--
+-- 'volumeAttachmentStatus', 'cachediSCSIVolume_volumeAttachmentStatus' - A value that indicates whether a storage volume is attached to or
+-- detached from a gateway. For more information, see
+-- <https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume Moving your volumes to a different gateway>.
+--
+-- 'volumeProgress', 'cachediSCSIVolume_volumeProgress' - Represents the percentage complete if the volume is restoring or
+-- bootstrapping that represents the percent of data transferred. This
+-- field does not appear in the response if the cached volume is not
+-- restoring or bootstrapping.
+newCachediSCSIVolume ::
   CachediSCSIVolume
-cachediSCSIVolume =
+newCachediSCSIVolume =
   CachediSCSIVolume'
-    { _cscsivSourceSnapshotId =
-        Nothing,
-      _cscsivVolumeStatus = Nothing,
-      _cscsivCreatedDate = Nothing,
-      _cscsivTargetName = Nothing,
-      _cscsivVolumeARN = Nothing,
-      _cscsivVolumeId = Nothing,
-      _cscsivKMSKey = Nothing,
-      _cscsivVolumeiSCSIAttributes = Nothing,
-      _cscsivVolumeUsedInBytes = Nothing,
-      _cscsivVolumeSizeInBytes = Nothing,
-      _cscsivVolumeType = Nothing,
-      _cscsivVolumeAttachmentStatus = Nothing,
-      _cscsivVolumeProgress = Nothing
+    { sourceSnapshotId =
+        Prelude.Nothing,
+      volumeStatus = Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      targetName = Prelude.Nothing,
+      volumeARN = Prelude.Nothing,
+      volumeId = Prelude.Nothing,
+      kMSKey = Prelude.Nothing,
+      volumeiSCSIAttributes = Prelude.Nothing,
+      volumeUsedInBytes = Prelude.Nothing,
+      volumeSizeInBytes = Prelude.Nothing,
+      volumeType = Prelude.Nothing,
+      volumeAttachmentStatus = Prelude.Nothing,
+      volumeProgress = Prelude.Nothing
     }
 
--- | If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g., snap-78e22663. Otherwise, this field is not included.
-cscsivSourceSnapshotId :: Lens' CachediSCSIVolume (Maybe Text)
-cscsivSourceSnapshotId = lens _cscsivSourceSnapshotId (\s a -> s {_cscsivSourceSnapshotId = a})
+-- | If the cached volume was created from a snapshot, this field contains
+-- the snapshot ID used, e.g., snap-78e22663. Otherwise, this field is not
+-- included.
+cachediSCSIVolume_sourceSnapshotId :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Text)
+cachediSCSIVolume_sourceSnapshotId = Lens.lens (\CachediSCSIVolume' {sourceSnapshotId} -> sourceSnapshotId) (\s@CachediSCSIVolume' {} a -> s {sourceSnapshotId = a} :: CachediSCSIVolume)
 
--- | One of the VolumeStatus values that indicates the state of the storage volume.
-cscsivVolumeStatus :: Lens' CachediSCSIVolume (Maybe Text)
-cscsivVolumeStatus = lens _cscsivVolumeStatus (\s a -> s {_cscsivVolumeStatus = a})
+-- | One of the VolumeStatus values that indicates the state of the storage
+-- volume.
+cachediSCSIVolume_volumeStatus :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Text)
+cachediSCSIVolume_volumeStatus = Lens.lens (\CachediSCSIVolume' {volumeStatus} -> volumeStatus) (\s@CachediSCSIVolume' {} a -> s {volumeStatus = a} :: CachediSCSIVolume)
 
--- | The date the volume was created. Volumes created prior to March 28, 2017 don’t have this timestamp.
-cscsivCreatedDate :: Lens' CachediSCSIVolume (Maybe UTCTime)
-cscsivCreatedDate = lens _cscsivCreatedDate (\s a -> s {_cscsivCreatedDate = a}) . mapping _Time
+-- | The date the volume was created. Volumes created prior to March 28, 2017
+-- don’t have this timestamp.
+cachediSCSIVolume_createdDate :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.UTCTime)
+cachediSCSIVolume_createdDate = Lens.lens (\CachediSCSIVolume' {createdDate} -> createdDate) (\s@CachediSCSIVolume' {} a -> s {createdDate = a} :: CachediSCSIVolume) Prelude.. Lens.mapping Prelude._Time
 
--- | The name of the iSCSI target used by an initiator to connect to a volume and used as a suffix for the target ARN. For example, specifying @TargetName@ as /myvolume/ results in the target ARN of @arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume@ . The target name must be unique across all volumes on a gateway. If you don't specify a value, Storage Gateway uses the value that was previously used for this volume as the new target name.
-cscsivTargetName :: Lens' CachediSCSIVolume (Maybe Text)
-cscsivTargetName = lens _cscsivTargetName (\s a -> s {_cscsivTargetName = a})
+-- | The name of the iSCSI target used by an initiator to connect to a volume
+-- and used as a suffix for the target ARN. For example, specifying
+-- @TargetName@ as /myvolume/ results in the target ARN of
+-- @arn:aws:storagegateway:us-east-2:111122223333:gateway\/sgw-12A3456B\/target\/iqn.1997-05.com.amazon:myvolume@.
+-- The target name must be unique across all volumes on a gateway.
+--
+-- If you don\'t specify a value, Storage Gateway uses the value that was
+-- previously used for this volume as the new target name.
+cachediSCSIVolume_targetName :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Text)
+cachediSCSIVolume_targetName = Lens.lens (\CachediSCSIVolume' {targetName} -> targetName) (\s@CachediSCSIVolume' {} a -> s {targetName = a} :: CachediSCSIVolume)
 
 -- | The Amazon Resource Name (ARN) of the storage volume.
-cscsivVolumeARN :: Lens' CachediSCSIVolume (Maybe Text)
-cscsivVolumeARN = lens _cscsivVolumeARN (\s a -> s {_cscsivVolumeARN = a})
+cachediSCSIVolume_volumeARN :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Text)
+cachediSCSIVolume_volumeARN = Lens.lens (\CachediSCSIVolume' {volumeARN} -> volumeARN) (\s@CachediSCSIVolume' {} a -> s {volumeARN = a} :: CachediSCSIVolume)
 
 -- | The unique identifier of the volume, e.g., vol-AE4B946D.
-cscsivVolumeId :: Lens' CachediSCSIVolume (Maybe Text)
-cscsivVolumeId = lens _cscsivVolumeId (\s a -> s {_cscsivVolumeId = a})
+cachediSCSIVolume_volumeId :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Text)
+cachediSCSIVolume_volumeId = Lens.lens (\CachediSCSIVolume' {volumeId} -> volumeId) (\s@CachediSCSIVolume' {} a -> s {volumeId = a} :: CachediSCSIVolume)
 
 -- | Undocumented member.
-cscsivKMSKey :: Lens' CachediSCSIVolume (Maybe Text)
-cscsivKMSKey = lens _cscsivKMSKey (\s a -> s {_cscsivKMSKey = a})
+cachediSCSIVolume_kMSKey :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Text)
+cachediSCSIVolume_kMSKey = Lens.lens (\CachediSCSIVolume' {kMSKey} -> kMSKey) (\s@CachediSCSIVolume' {} a -> s {kMSKey = a} :: CachediSCSIVolume)
 
--- | An 'VolumeiSCSIAttributes' object that represents a collection of iSCSI attributes for one stored volume.
-cscsivVolumeiSCSIAttributes :: Lens' CachediSCSIVolume (Maybe VolumeiSCSIAttributes)
-cscsivVolumeiSCSIAttributes = lens _cscsivVolumeiSCSIAttributes (\s a -> s {_cscsivVolumeiSCSIAttributes = a})
+-- | An VolumeiSCSIAttributes object that represents a collection of iSCSI
+-- attributes for one stored volume.
+cachediSCSIVolume_volumeiSCSIAttributes :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe VolumeiSCSIAttributes)
+cachediSCSIVolume_volumeiSCSIAttributes = Lens.lens (\CachediSCSIVolume' {volumeiSCSIAttributes} -> volumeiSCSIAttributes) (\s@CachediSCSIVolume' {} a -> s {volumeiSCSIAttributes = a} :: CachediSCSIVolume)
 
--- | The size of the data stored on the volume in bytes. This value is calculated based on the number of blocks that are touched, instead of the actual amount of data written. This value can be useful for sequential write patterns but less accurate for random write patterns. @VolumeUsedInBytes@ is different from the compressed size of the volume, which is the value that is used to calculate your bill.
-cscsivVolumeUsedInBytes :: Lens' CachediSCSIVolume (Maybe Integer)
-cscsivVolumeUsedInBytes = lens _cscsivVolumeUsedInBytes (\s a -> s {_cscsivVolumeUsedInBytes = a})
+-- | The size of the data stored on the volume in bytes. This value is
+-- calculated based on the number of blocks that are touched, instead of
+-- the actual amount of data written. This value can be useful for
+-- sequential write patterns but less accurate for random write patterns.
+-- @VolumeUsedInBytes@ is different from the compressed size of the volume,
+-- which is the value that is used to calculate your bill.
+--
+-- This value is not available for volumes created prior to May 13, 2015,
+-- until you store data on the volume.
+cachediSCSIVolume_volumeUsedInBytes :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Integer)
+cachediSCSIVolume_volumeUsedInBytes = Lens.lens (\CachediSCSIVolume' {volumeUsedInBytes} -> volumeUsedInBytes) (\s@CachediSCSIVolume' {} a -> s {volumeUsedInBytes = a} :: CachediSCSIVolume)
 
 -- | The size, in bytes, of the volume capacity.
-cscsivVolumeSizeInBytes :: Lens' CachediSCSIVolume (Maybe Integer)
-cscsivVolumeSizeInBytes = lens _cscsivVolumeSizeInBytes (\s a -> s {_cscsivVolumeSizeInBytes = a})
+cachediSCSIVolume_volumeSizeInBytes :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Integer)
+cachediSCSIVolume_volumeSizeInBytes = Lens.lens (\CachediSCSIVolume' {volumeSizeInBytes} -> volumeSizeInBytes) (\s@CachediSCSIVolume' {} a -> s {volumeSizeInBytes = a} :: CachediSCSIVolume)
 
--- | One of the VolumeType enumeration values that describes the type of the volume.
-cscsivVolumeType :: Lens' CachediSCSIVolume (Maybe Text)
-cscsivVolumeType = lens _cscsivVolumeType (\s a -> s {_cscsivVolumeType = a})
+-- | One of the VolumeType enumeration values that describes the type of the
+-- volume.
+cachediSCSIVolume_volumeType :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Text)
+cachediSCSIVolume_volumeType = Lens.lens (\CachediSCSIVolume' {volumeType} -> volumeType) (\s@CachediSCSIVolume' {} a -> s {volumeType = a} :: CachediSCSIVolume)
 
--- | A value that indicates whether a storage volume is attached to or detached from a gateway. For more information, see <https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume Moving your volumes to a different gateway> .
-cscsivVolumeAttachmentStatus :: Lens' CachediSCSIVolume (Maybe Text)
-cscsivVolumeAttachmentStatus = lens _cscsivVolumeAttachmentStatus (\s a -> s {_cscsivVolumeAttachmentStatus = a})
+-- | A value that indicates whether a storage volume is attached to or
+-- detached from a gateway. For more information, see
+-- <https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume Moving your volumes to a different gateway>.
+cachediSCSIVolume_volumeAttachmentStatus :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Text)
+cachediSCSIVolume_volumeAttachmentStatus = Lens.lens (\CachediSCSIVolume' {volumeAttachmentStatus} -> volumeAttachmentStatus) (\s@CachediSCSIVolume' {} a -> s {volumeAttachmentStatus = a} :: CachediSCSIVolume)
 
--- | Represents the percentage complete if the volume is restoring or bootstrapping that represents the percent of data transferred. This field does not appear in the response if the cached volume is not restoring or bootstrapping.
-cscsivVolumeProgress :: Lens' CachediSCSIVolume (Maybe Double)
-cscsivVolumeProgress = lens _cscsivVolumeProgress (\s a -> s {_cscsivVolumeProgress = a})
+-- | Represents the percentage complete if the volume is restoring or
+-- bootstrapping that represents the percent of data transferred. This
+-- field does not appear in the response if the cached volume is not
+-- restoring or bootstrapping.
+cachediSCSIVolume_volumeProgress :: Lens.Lens' CachediSCSIVolume (Prelude.Maybe Prelude.Double)
+cachediSCSIVolume_volumeProgress = Lens.lens (\CachediSCSIVolume' {volumeProgress} -> volumeProgress) (\s@CachediSCSIVolume' {} a -> s {volumeProgress = a} :: CachediSCSIVolume)
 
-instance FromJSON CachediSCSIVolume where
+instance Prelude.FromJSON CachediSCSIVolume where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CachediSCSIVolume"
       ( \x ->
           CachediSCSIVolume'
-            <$> (x .:? "SourceSnapshotId")
-            <*> (x .:? "VolumeStatus")
-            <*> (x .:? "CreatedDate")
-            <*> (x .:? "TargetName")
-            <*> (x .:? "VolumeARN")
-            <*> (x .:? "VolumeId")
-            <*> (x .:? "KMSKey")
-            <*> (x .:? "VolumeiSCSIAttributes")
-            <*> (x .:? "VolumeUsedInBytes")
-            <*> (x .:? "VolumeSizeInBytes")
-            <*> (x .:? "VolumeType")
-            <*> (x .:? "VolumeAttachmentStatus")
-            <*> (x .:? "VolumeProgress")
+            Prelude.<$> (x Prelude..:? "SourceSnapshotId")
+            Prelude.<*> (x Prelude..:? "VolumeStatus")
+            Prelude.<*> (x Prelude..:? "CreatedDate")
+            Prelude.<*> (x Prelude..:? "TargetName")
+            Prelude.<*> (x Prelude..:? "VolumeARN")
+            Prelude.<*> (x Prelude..:? "VolumeId")
+            Prelude.<*> (x Prelude..:? "KMSKey")
+            Prelude.<*> (x Prelude..:? "VolumeiSCSIAttributes")
+            Prelude.<*> (x Prelude..:? "VolumeUsedInBytes")
+            Prelude.<*> (x Prelude..:? "VolumeSizeInBytes")
+            Prelude.<*> (x Prelude..:? "VolumeType")
+            Prelude.<*> (x Prelude..:? "VolumeAttachmentStatus")
+            Prelude.<*> (x Prelude..:? "VolumeProgress")
       )
 
-instance Hashable CachediSCSIVolume
+instance Prelude.Hashable CachediSCSIVolume
 
-instance NFData CachediSCSIVolume
+instance Prelude.NFData CachediSCSIVolume

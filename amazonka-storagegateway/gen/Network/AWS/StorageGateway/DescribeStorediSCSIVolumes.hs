@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,309 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the description of the gateway volumes specified in the request. The list of gateway volumes in the request must be from one gateway. In the response, AWS Storage Gateway returns volume information sorted by volume ARNs. This operation is only supported in stored volume gateway type.
+-- Returns the description of the gateway volumes specified in the request.
+-- The list of gateway volumes in the request must be from one gateway. In
+-- the response, AWS Storage Gateway returns volume information sorted by
+-- volume ARNs. This operation is only supported in stored volume gateway
+-- type.
 module Network.AWS.StorageGateway.DescribeStorediSCSIVolumes
   ( -- * Creating a Request
-    describeStorediSCSIVolumes,
-    DescribeStorediSCSIVolumes,
+    DescribeStorediSCSIVolumes (..),
+    newDescribeStorediSCSIVolumes,
 
     -- * Request Lenses
-    dsscsivVolumeARNs,
+    describeStorediSCSIVolumes_volumeARNs,
 
     -- * Destructuring the Response
-    describeStorediSCSIVolumesResponse,
-    DescribeStorediSCSIVolumesResponse,
+    DescribeStorediSCSIVolumesResponse (..),
+    newDescribeStorediSCSIVolumesResponse,
 
     -- * Response Lenses
-    dsscsivrrsStorediSCSIVolumes,
-    dsscsivrrsResponseStatus,
+    describeStorediSCSIVolumesResponse_storediSCSIVolumes,
+    describeStorediSCSIVolumesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
+import Network.AWS.StorageGateway.Types.StorediSCSIVolume
 
--- | A JSON object containing a list of 'DescribeStorediSCSIVolumesInput$VolumeARNs' .
+-- | A JSON object containing a list of
+-- DescribeStorediSCSIVolumesInput$VolumeARNs.
 --
---
---
--- /See:/ 'describeStorediSCSIVolumes' smart constructor.
-newtype DescribeStorediSCSIVolumes = DescribeStorediSCSIVolumes'
-  { _dsscsivVolumeARNs ::
-      [Text]
+-- /See:/ 'newDescribeStorediSCSIVolumes' smart constructor.
+data DescribeStorediSCSIVolumes = DescribeStorediSCSIVolumes'
+  { -- | An array of strings where each string represents the Amazon Resource
+    -- Name (ARN) of a stored volume. All of the specified stored volumes must
+    -- be from the same gateway. Use ListVolumes to get volume ARNs for a
+    -- gateway.
+    volumeARNs :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStorediSCSIVolumes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStorediSCSIVolumes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsscsivVolumeARNs' - An array of strings where each string represents the Amazon Resource Name (ARN) of a stored volume. All of the specified stored volumes must be from the same gateway. Use 'ListVolumes' to get volume ARNs for a gateway.
-describeStorediSCSIVolumes ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'volumeARNs', 'describeStorediSCSIVolumes_volumeARNs' - An array of strings where each string represents the Amazon Resource
+-- Name (ARN) of a stored volume. All of the specified stored volumes must
+-- be from the same gateway. Use ListVolumes to get volume ARNs for a
+-- gateway.
+newDescribeStorediSCSIVolumes ::
   DescribeStorediSCSIVolumes
-describeStorediSCSIVolumes =
+newDescribeStorediSCSIVolumes =
   DescribeStorediSCSIVolumes'
-    { _dsscsivVolumeARNs =
-        mempty
+    { volumeARNs =
+        Prelude.mempty
     }
 
--- | An array of strings where each string represents the Amazon Resource Name (ARN) of a stored volume. All of the specified stored volumes must be from the same gateway. Use 'ListVolumes' to get volume ARNs for a gateway.
-dsscsivVolumeARNs :: Lens' DescribeStorediSCSIVolumes [Text]
-dsscsivVolumeARNs = lens _dsscsivVolumeARNs (\s a -> s {_dsscsivVolumeARNs = a}) . _Coerce
+-- | An array of strings where each string represents the Amazon Resource
+-- Name (ARN) of a stored volume. All of the specified stored volumes must
+-- be from the same gateway. Use ListVolumes to get volume ARNs for a
+-- gateway.
+describeStorediSCSIVolumes_volumeARNs :: Lens.Lens' DescribeStorediSCSIVolumes [Prelude.Text]
+describeStorediSCSIVolumes_volumeARNs = Lens.lens (\DescribeStorediSCSIVolumes' {volumeARNs} -> volumeARNs) (\s@DescribeStorediSCSIVolumes' {} a -> s {volumeARNs = a} :: DescribeStorediSCSIVolumes) Prelude.. Prelude._Coerce
 
-instance AWSRequest DescribeStorediSCSIVolumes where
+instance
+  Prelude.AWSRequest
+    DescribeStorediSCSIVolumes
+  where
   type
     Rs DescribeStorediSCSIVolumes =
       DescribeStorediSCSIVolumesResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeStorediSCSIVolumesResponse'
-            <$> (x .?> "StorediSCSIVolumes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "StorediSCSIVolumes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeStorediSCSIVolumes
+instance Prelude.Hashable DescribeStorediSCSIVolumes
 
-instance NFData DescribeStorediSCSIVolumes
+instance Prelude.NFData DescribeStorediSCSIVolumes
 
-instance ToHeaders DescribeStorediSCSIVolumes where
+instance Prelude.ToHeaders DescribeStorediSCSIVolumes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DescribeStorediSCSIVolumes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DescribeStorediSCSIVolumes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeStorediSCSIVolumes where
+instance Prelude.ToJSON DescribeStorediSCSIVolumes where
   toJSON DescribeStorediSCSIVolumes' {..} =
-    object
-      ( catMaybes
-          [Just ("VolumeARNs" .= _dsscsivVolumeARNs)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("VolumeARNs" Prelude..= volumeARNs)]
       )
 
-instance ToPath DescribeStorediSCSIVolumes where
-  toPath = const "/"
+instance Prelude.ToPath DescribeStorediSCSIVolumes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeStorediSCSIVolumes where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeStorediSCSIVolumes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeStorediSCSIVolumesResponse' smart constructor.
+-- | /See:/ 'newDescribeStorediSCSIVolumesResponse' smart constructor.
 data DescribeStorediSCSIVolumesResponse = DescribeStorediSCSIVolumesResponse'
-  { _dsscsivrrsStorediSCSIVolumes ::
-      !( Maybe
-           [StorediSCSIVolume]
-       ),
-    _dsscsivrrsResponseStatus ::
-      !Int
+  { -- | Describes a single unit of output from DescribeStorediSCSIVolumes. The
+    -- following fields are returned:
+    --
+    -- -   @ChapEnabled@: Indicates whether mutual CHAP is enabled for the
+    --     iSCSI target.
+    --
+    -- -   @LunNumber@: The logical disk number.
+    --
+    -- -   @NetworkInterfaceId@: The network interface ID of the stored volume
+    --     that initiator use to map the stored volume as an iSCSI target.
+    --
+    -- -   @NetworkInterfacePort@: The port used to communicate with iSCSI
+    --     targets.
+    --
+    -- -   @PreservedExistingData@: Indicates when the stored volume was
+    --     created, existing data on the underlying local disk was preserved.
+    --
+    -- -   @SourceSnapshotId@: If the stored volume was created from a
+    --     snapshot, this field contains the snapshot ID used, e.g.
+    --     @snap-1122aabb@. Otherwise, this field is not included.
+    --
+    -- -   @StorediSCSIVolumes@: An array of StorediSCSIVolume objects where
+    --     each object contains metadata about one stored volume.
+    --
+    -- -   @TargetARN@: The Amazon Resource Name (ARN) of the volume target.
+    --
+    -- -   @VolumeARN@: The Amazon Resource Name (ARN) of the stored volume.
+    --
+    -- -   @VolumeDiskId@: The disk ID of the local disk that was specified in
+    --     the CreateStorediSCSIVolume operation.
+    --
+    -- -   @VolumeId@: The unique identifier of the storage volume, e.g.
+    --     @vol-1122AABB@.
+    --
+    -- -   @VolumeiSCSIAttributes@: An VolumeiSCSIAttributes object that
+    --     represents a collection of iSCSI attributes for one stored volume.
+    --
+    -- -   @VolumeProgress@: Represents the percentage complete if the volume
+    --     is restoring or bootstrapping that represents the percent of data
+    --     transferred. This field does not appear in the response if the
+    --     stored volume is not restoring or bootstrapping.
+    --
+    -- -   @VolumeSizeInBytes@: The size of the volume in bytes.
+    --
+    -- -   @VolumeStatus@: One of the @VolumeStatus@ values that indicates the
+    --     state of the volume.
+    --
+    -- -   @VolumeType@: One of the enumeration values describing the type of
+    --     the volume. Currently, only @STORED@ volumes are supported.
+    storediSCSIVolumes :: Prelude.Maybe [StorediSCSIVolume],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStorediSCSIVolumesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStorediSCSIVolumesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsscsivrrsStorediSCSIVolumes' - Describes a single unit of output from 'DescribeStorediSCSIVolumes' . The following fields are returned:     * @ChapEnabled@ : Indicates whether mutual CHAP is enabled for the iSCSI target.     * @LunNumber@ : The logical disk number.     * @NetworkInterfaceId@ : The network interface ID of the stored volume that initiator use to map the stored volume as an iSCSI target.     * @NetworkInterfacePort@ : The port used to communicate with iSCSI targets.     * @PreservedExistingData@ : Indicates when the stored volume was created, existing data on the underlying local disk was preserved.     * @SourceSnapshotId@ : If the stored volume was created from a snapshot, this field contains the snapshot ID used, e.g. @snap-1122aabb@ . Otherwise, this field is not included.     * @StorediSCSIVolumes@ : An array of StorediSCSIVolume objects where each object contains metadata about one stored volume.     * @TargetARN@ : The Amazon Resource Name (ARN) of the volume target.     * @VolumeARN@ : The Amazon Resource Name (ARN) of the stored volume.     * @VolumeDiskId@ : The disk ID of the local disk that was specified in the 'CreateStorediSCSIVolume' operation.     * @VolumeId@ : The unique identifier of the storage volume, e.g. @vol-1122AABB@ .     * @VolumeiSCSIAttributes@ : An 'VolumeiSCSIAttributes' object that represents a collection of iSCSI attributes for one stored volume.     * @VolumeProgress@ : Represents the percentage complete if the volume is restoring or bootstrapping that represents the percent of data transferred. This field does not appear in the response if the stored volume is not restoring or bootstrapping.     * @VolumeSizeInBytes@ : The size of the volume in bytes.     * @VolumeStatus@ : One of the @VolumeStatus@ values that indicates the state of the volume.     * @VolumeType@ : One of the enumeration values describing the type of the volume. Currently, only @STORED@ volumes are supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsscsivrrsResponseStatus' - -- | The response status code.
-describeStorediSCSIVolumesResponse ::
-  -- | 'dsscsivrrsResponseStatus'
-  Int ->
+-- 'storediSCSIVolumes', 'describeStorediSCSIVolumesResponse_storediSCSIVolumes' - Describes a single unit of output from DescribeStorediSCSIVolumes. The
+-- following fields are returned:
+--
+-- -   @ChapEnabled@: Indicates whether mutual CHAP is enabled for the
+--     iSCSI target.
+--
+-- -   @LunNumber@: The logical disk number.
+--
+-- -   @NetworkInterfaceId@: The network interface ID of the stored volume
+--     that initiator use to map the stored volume as an iSCSI target.
+--
+-- -   @NetworkInterfacePort@: The port used to communicate with iSCSI
+--     targets.
+--
+-- -   @PreservedExistingData@: Indicates when the stored volume was
+--     created, existing data on the underlying local disk was preserved.
+--
+-- -   @SourceSnapshotId@: If the stored volume was created from a
+--     snapshot, this field contains the snapshot ID used, e.g.
+--     @snap-1122aabb@. Otherwise, this field is not included.
+--
+-- -   @StorediSCSIVolumes@: An array of StorediSCSIVolume objects where
+--     each object contains metadata about one stored volume.
+--
+-- -   @TargetARN@: The Amazon Resource Name (ARN) of the volume target.
+--
+-- -   @VolumeARN@: The Amazon Resource Name (ARN) of the stored volume.
+--
+-- -   @VolumeDiskId@: The disk ID of the local disk that was specified in
+--     the CreateStorediSCSIVolume operation.
+--
+-- -   @VolumeId@: The unique identifier of the storage volume, e.g.
+--     @vol-1122AABB@.
+--
+-- -   @VolumeiSCSIAttributes@: An VolumeiSCSIAttributes object that
+--     represents a collection of iSCSI attributes for one stored volume.
+--
+-- -   @VolumeProgress@: Represents the percentage complete if the volume
+--     is restoring or bootstrapping that represents the percent of data
+--     transferred. This field does not appear in the response if the
+--     stored volume is not restoring or bootstrapping.
+--
+-- -   @VolumeSizeInBytes@: The size of the volume in bytes.
+--
+-- -   @VolumeStatus@: One of the @VolumeStatus@ values that indicates the
+--     state of the volume.
+--
+-- -   @VolumeType@: One of the enumeration values describing the type of
+--     the volume. Currently, only @STORED@ volumes are supported.
+--
+-- 'httpStatus', 'describeStorediSCSIVolumesResponse_httpStatus' - The response's http status code.
+newDescribeStorediSCSIVolumesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeStorediSCSIVolumesResponse
-describeStorediSCSIVolumesResponse pResponseStatus_ =
+newDescribeStorediSCSIVolumesResponse pHttpStatus_ =
   DescribeStorediSCSIVolumesResponse'
-    { _dsscsivrrsStorediSCSIVolumes =
-        Nothing,
-      _dsscsivrrsResponseStatus =
-        pResponseStatus_
+    { storediSCSIVolumes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Describes a single unit of output from 'DescribeStorediSCSIVolumes' . The following fields are returned:     * @ChapEnabled@ : Indicates whether mutual CHAP is enabled for the iSCSI target.     * @LunNumber@ : The logical disk number.     * @NetworkInterfaceId@ : The network interface ID of the stored volume that initiator use to map the stored volume as an iSCSI target.     * @NetworkInterfacePort@ : The port used to communicate with iSCSI targets.     * @PreservedExistingData@ : Indicates when the stored volume was created, existing data on the underlying local disk was preserved.     * @SourceSnapshotId@ : If the stored volume was created from a snapshot, this field contains the snapshot ID used, e.g. @snap-1122aabb@ . Otherwise, this field is not included.     * @StorediSCSIVolumes@ : An array of StorediSCSIVolume objects where each object contains metadata about one stored volume.     * @TargetARN@ : The Amazon Resource Name (ARN) of the volume target.     * @VolumeARN@ : The Amazon Resource Name (ARN) of the stored volume.     * @VolumeDiskId@ : The disk ID of the local disk that was specified in the 'CreateStorediSCSIVolume' operation.     * @VolumeId@ : The unique identifier of the storage volume, e.g. @vol-1122AABB@ .     * @VolumeiSCSIAttributes@ : An 'VolumeiSCSIAttributes' object that represents a collection of iSCSI attributes for one stored volume.     * @VolumeProgress@ : Represents the percentage complete if the volume is restoring or bootstrapping that represents the percent of data transferred. This field does not appear in the response if the stored volume is not restoring or bootstrapping.     * @VolumeSizeInBytes@ : The size of the volume in bytes.     * @VolumeStatus@ : One of the @VolumeStatus@ values that indicates the state of the volume.     * @VolumeType@ : One of the enumeration values describing the type of the volume. Currently, only @STORED@ volumes are supported.
-dsscsivrrsStorediSCSIVolumes :: Lens' DescribeStorediSCSIVolumesResponse [StorediSCSIVolume]
-dsscsivrrsStorediSCSIVolumes = lens _dsscsivrrsStorediSCSIVolumes (\s a -> s {_dsscsivrrsStorediSCSIVolumes = a}) . _Default . _Coerce
+-- | Describes a single unit of output from DescribeStorediSCSIVolumes. The
+-- following fields are returned:
+--
+-- -   @ChapEnabled@: Indicates whether mutual CHAP is enabled for the
+--     iSCSI target.
+--
+-- -   @LunNumber@: The logical disk number.
+--
+-- -   @NetworkInterfaceId@: The network interface ID of the stored volume
+--     that initiator use to map the stored volume as an iSCSI target.
+--
+-- -   @NetworkInterfacePort@: The port used to communicate with iSCSI
+--     targets.
+--
+-- -   @PreservedExistingData@: Indicates when the stored volume was
+--     created, existing data on the underlying local disk was preserved.
+--
+-- -   @SourceSnapshotId@: If the stored volume was created from a
+--     snapshot, this field contains the snapshot ID used, e.g.
+--     @snap-1122aabb@. Otherwise, this field is not included.
+--
+-- -   @StorediSCSIVolumes@: An array of StorediSCSIVolume objects where
+--     each object contains metadata about one stored volume.
+--
+-- -   @TargetARN@: The Amazon Resource Name (ARN) of the volume target.
+--
+-- -   @VolumeARN@: The Amazon Resource Name (ARN) of the stored volume.
+--
+-- -   @VolumeDiskId@: The disk ID of the local disk that was specified in
+--     the CreateStorediSCSIVolume operation.
+--
+-- -   @VolumeId@: The unique identifier of the storage volume, e.g.
+--     @vol-1122AABB@.
+--
+-- -   @VolumeiSCSIAttributes@: An VolumeiSCSIAttributes object that
+--     represents a collection of iSCSI attributes for one stored volume.
+--
+-- -   @VolumeProgress@: Represents the percentage complete if the volume
+--     is restoring or bootstrapping that represents the percent of data
+--     transferred. This field does not appear in the response if the
+--     stored volume is not restoring or bootstrapping.
+--
+-- -   @VolumeSizeInBytes@: The size of the volume in bytes.
+--
+-- -   @VolumeStatus@: One of the @VolumeStatus@ values that indicates the
+--     state of the volume.
+--
+-- -   @VolumeType@: One of the enumeration values describing the type of
+--     the volume. Currently, only @STORED@ volumes are supported.
+describeStorediSCSIVolumesResponse_storediSCSIVolumes :: Lens.Lens' DescribeStorediSCSIVolumesResponse (Prelude.Maybe [StorediSCSIVolume])
+describeStorediSCSIVolumesResponse_storediSCSIVolumes = Lens.lens (\DescribeStorediSCSIVolumesResponse' {storediSCSIVolumes} -> storediSCSIVolumes) (\s@DescribeStorediSCSIVolumesResponse' {} a -> s {storediSCSIVolumes = a} :: DescribeStorediSCSIVolumesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsscsivrrsResponseStatus :: Lens' DescribeStorediSCSIVolumesResponse Int
-dsscsivrrsResponseStatus = lens _dsscsivrrsResponseStatus (\s a -> s {_dsscsivrrsResponseStatus = a})
+-- | The response's http status code.
+describeStorediSCSIVolumesResponse_httpStatus :: Lens.Lens' DescribeStorediSCSIVolumesResponse Prelude.Int
+describeStorediSCSIVolumesResponse_httpStatus = Lens.lens (\DescribeStorediSCSIVolumesResponse' {httpStatus} -> httpStatus) (\s@DescribeStorediSCSIVolumesResponse' {} a -> s {httpStatus = a} :: DescribeStorediSCSIVolumesResponse)
 
-instance NFData DescribeStorediSCSIVolumesResponse
+instance
+  Prelude.NFData
+    DescribeStorediSCSIVolumesResponse

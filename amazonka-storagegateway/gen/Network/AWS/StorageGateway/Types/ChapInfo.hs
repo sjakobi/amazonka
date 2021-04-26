@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.ChapInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes Challenge-Handshake Authentication Protocol (CHAP) information that supports authentication between your gateway and iSCSI initiators.
+-- | Describes Challenge-Handshake Authentication Protocol (CHAP) information
+-- that supports authentication between your gateway and iSCSI initiators.
 --
---
---
--- /See:/ 'chapInfo' smart constructor.
+-- /See:/ 'newChapInfo' smart constructor.
 data ChapInfo = ChapInfo'
-  { _ciInitiatorName ::
-      !(Maybe Text),
-    _ciTargetARN :: !(Maybe Text),
-    _ciSecretToAuthenticateTarget ::
-      !(Maybe (Sensitive Text)),
-    _ciSecretToAuthenticateInitiator ::
-      !(Maybe (Sensitive Text))
+  { -- | The iSCSI initiator that connects to the target.
+    initiatorName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the volume.
+    --
+    -- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+    -- hyphens (-).
+    targetARN :: Prelude.Maybe Prelude.Text,
+    -- | The secret key that the target must provide to participate in mutual
+    -- CHAP with the initiator (e.g., Windows client).
+    secretToAuthenticateTarget :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The secret key that the initiator (for example, the Windows client) must
+    -- provide to participate in mutual CHAP with the target.
+    secretToAuthenticateInitiator :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChapInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChapInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciInitiatorName' - The iSCSI initiator that connects to the target.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciTargetARN' - The Amazon Resource Name (ARN) of the volume. Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
+-- 'initiatorName', 'chapInfo_initiatorName' - The iSCSI initiator that connects to the target.
 --
--- * 'ciSecretToAuthenticateTarget' - The secret key that the target must provide to participate in mutual CHAP with the initiator (e.g., Windows client).
+-- 'targetARN', 'chapInfo_targetARN' - The Amazon Resource Name (ARN) of the volume.
 --
--- * 'ciSecretToAuthenticateInitiator' - The secret key that the initiator (for example, the Windows client) must provide to participate in mutual CHAP with the target.
-chapInfo ::
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
+--
+-- 'secretToAuthenticateTarget', 'chapInfo_secretToAuthenticateTarget' - The secret key that the target must provide to participate in mutual
+-- CHAP with the initiator (e.g., Windows client).
+--
+-- 'secretToAuthenticateInitiator', 'chapInfo_secretToAuthenticateInitiator' - The secret key that the initiator (for example, the Windows client) must
+-- provide to participate in mutual CHAP with the target.
+newChapInfo ::
   ChapInfo
-chapInfo =
+newChapInfo =
   ChapInfo'
-    { _ciInitiatorName = Nothing,
-      _ciTargetARN = Nothing,
-      _ciSecretToAuthenticateTarget = Nothing,
-      _ciSecretToAuthenticateInitiator = Nothing
+    { initiatorName = Prelude.Nothing,
+      targetARN = Prelude.Nothing,
+      secretToAuthenticateTarget = Prelude.Nothing,
+      secretToAuthenticateInitiator = Prelude.Nothing
     }
 
 -- | The iSCSI initiator that connects to the target.
-ciInitiatorName :: Lens' ChapInfo (Maybe Text)
-ciInitiatorName = lens _ciInitiatorName (\s a -> s {_ciInitiatorName = a})
+chapInfo_initiatorName :: Lens.Lens' ChapInfo (Prelude.Maybe Prelude.Text)
+chapInfo_initiatorName = Lens.lens (\ChapInfo' {initiatorName} -> initiatorName) (\s@ChapInfo' {} a -> s {initiatorName = a} :: ChapInfo)
 
--- | The Amazon Resource Name (ARN) of the volume. Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
-ciTargetARN :: Lens' ChapInfo (Maybe Text)
-ciTargetARN = lens _ciTargetARN (\s a -> s {_ciTargetARN = a})
+-- | The Amazon Resource Name (ARN) of the volume.
+--
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
+chapInfo_targetARN :: Lens.Lens' ChapInfo (Prelude.Maybe Prelude.Text)
+chapInfo_targetARN = Lens.lens (\ChapInfo' {targetARN} -> targetARN) (\s@ChapInfo' {} a -> s {targetARN = a} :: ChapInfo)
 
--- | The secret key that the target must provide to participate in mutual CHAP with the initiator (e.g., Windows client).
-ciSecretToAuthenticateTarget :: Lens' ChapInfo (Maybe Text)
-ciSecretToAuthenticateTarget = lens _ciSecretToAuthenticateTarget (\s a -> s {_ciSecretToAuthenticateTarget = a}) . mapping _Sensitive
+-- | The secret key that the target must provide to participate in mutual
+-- CHAP with the initiator (e.g., Windows client).
+chapInfo_secretToAuthenticateTarget :: Lens.Lens' ChapInfo (Prelude.Maybe Prelude.Text)
+chapInfo_secretToAuthenticateTarget = Lens.lens (\ChapInfo' {secretToAuthenticateTarget} -> secretToAuthenticateTarget) (\s@ChapInfo' {} a -> s {secretToAuthenticateTarget = a} :: ChapInfo) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The secret key that the initiator (for example, the Windows client) must provide to participate in mutual CHAP with the target.
-ciSecretToAuthenticateInitiator :: Lens' ChapInfo (Maybe Text)
-ciSecretToAuthenticateInitiator = lens _ciSecretToAuthenticateInitiator (\s a -> s {_ciSecretToAuthenticateInitiator = a}) . mapping _Sensitive
+-- | The secret key that the initiator (for example, the Windows client) must
+-- provide to participate in mutual CHAP with the target.
+chapInfo_secretToAuthenticateInitiator :: Lens.Lens' ChapInfo (Prelude.Maybe Prelude.Text)
+chapInfo_secretToAuthenticateInitiator = Lens.lens (\ChapInfo' {secretToAuthenticateInitiator} -> secretToAuthenticateInitiator) (\s@ChapInfo' {} a -> s {secretToAuthenticateInitiator = a} :: ChapInfo) Prelude.. Lens.mapping Prelude._Sensitive
 
-instance FromJSON ChapInfo where
+instance Prelude.FromJSON ChapInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChapInfo"
       ( \x ->
           ChapInfo'
-            <$> (x .:? "InitiatorName")
-            <*> (x .:? "TargetARN")
-            <*> (x .:? "SecretToAuthenticateTarget")
-            <*> (x .:? "SecretToAuthenticateInitiator")
+            Prelude.<$> (x Prelude..:? "InitiatorName")
+            Prelude.<*> (x Prelude..:? "TargetARN")
+            Prelude.<*> (x Prelude..:? "SecretToAuthenticateTarget")
+            Prelude.<*> (x Prelude..:? "SecretToAuthenticateInitiator")
       )
 
-instance Hashable ChapInfo
+instance Prelude.Hashable ChapInfo
 
-instance NFData ChapInfo
+instance Prelude.NFData ChapInfo

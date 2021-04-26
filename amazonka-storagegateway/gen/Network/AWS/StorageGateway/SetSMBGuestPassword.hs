@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,162 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the password for the guest user @smbguest@ . The @smbguest@ user is the user when the authentication method for the file share is set to @GuestAccess@ .
+-- Sets the password for the guest user @smbguest@. The @smbguest@ user is
+-- the user when the authentication method for the file share is set to
+-- @GuestAccess@.
 module Network.AWS.StorageGateway.SetSMBGuestPassword
   ( -- * Creating a Request
-    setSMBGuestPassword,
-    SetSMBGuestPassword,
+    SetSMBGuestPassword (..),
+    newSetSMBGuestPassword,
 
     -- * Request Lenses
-    ssmbgpGatewayARN,
-    ssmbgpPassword,
+    setSMBGuestPassword_gatewayARN,
+    setSMBGuestPassword_password,
 
     -- * Destructuring the Response
-    setSMBGuestPasswordResponse,
-    SetSMBGuestPasswordResponse,
+    SetSMBGuestPasswordResponse (..),
+    newSetSMBGuestPasswordResponse,
 
     -- * Response Lenses
-    ssmbgprrsGatewayARN,
-    ssmbgprrsResponseStatus,
+    setSMBGuestPasswordResponse_gatewayARN,
+    setSMBGuestPasswordResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
 -- | SetSMBGuestPasswordInput
 --
---
---
--- /See:/ 'setSMBGuestPassword' smart constructor.
+-- /See:/ 'newSetSMBGuestPassword' smart constructor.
 data SetSMBGuestPassword = SetSMBGuestPassword'
-  { _ssmbgpGatewayARN ::
-      !Text,
-    _ssmbgpPassword ::
-      !(Sensitive Text)
+  { -- | The Amazon Resource Name (ARN) of the file gateway the SMB file share is
+    -- associated with.
+    gatewayARN :: Prelude.Text,
+    -- | The password that you want to set for your SMB server.
+    password :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetSMBGuestPassword' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetSMBGuestPassword' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssmbgpGatewayARN' - The Amazon Resource Name (ARN) of the file gateway the SMB file share is associated with.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssmbgpPassword' - The password that you want to set for your SMB server.
-setSMBGuestPassword ::
-  -- | 'ssmbgpGatewayARN'
-  Text ->
-  -- | 'ssmbgpPassword'
-  Text ->
+-- 'gatewayARN', 'setSMBGuestPassword_gatewayARN' - The Amazon Resource Name (ARN) of the file gateway the SMB file share is
+-- associated with.
+--
+-- 'password', 'setSMBGuestPassword_password' - The password that you want to set for your SMB server.
+newSetSMBGuestPassword ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
+  -- | 'password'
+  Prelude.Text ->
   SetSMBGuestPassword
-setSMBGuestPassword pGatewayARN_ pPassword_ =
+newSetSMBGuestPassword pGatewayARN_ pPassword_ =
   SetSMBGuestPassword'
-    { _ssmbgpGatewayARN =
-        pGatewayARN_,
-      _ssmbgpPassword = _Sensitive # pPassword_
+    { gatewayARN = pGatewayARN_,
+      password = Prelude._Sensitive Lens.# pPassword_
     }
 
--- | The Amazon Resource Name (ARN) of the file gateway the SMB file share is associated with.
-ssmbgpGatewayARN :: Lens' SetSMBGuestPassword Text
-ssmbgpGatewayARN = lens _ssmbgpGatewayARN (\s a -> s {_ssmbgpGatewayARN = a})
+-- | The Amazon Resource Name (ARN) of the file gateway the SMB file share is
+-- associated with.
+setSMBGuestPassword_gatewayARN :: Lens.Lens' SetSMBGuestPassword Prelude.Text
+setSMBGuestPassword_gatewayARN = Lens.lens (\SetSMBGuestPassword' {gatewayARN} -> gatewayARN) (\s@SetSMBGuestPassword' {} a -> s {gatewayARN = a} :: SetSMBGuestPassword)
 
 -- | The password that you want to set for your SMB server.
-ssmbgpPassword :: Lens' SetSMBGuestPassword Text
-ssmbgpPassword = lens _ssmbgpPassword (\s a -> s {_ssmbgpPassword = a}) . _Sensitive
+setSMBGuestPassword_password :: Lens.Lens' SetSMBGuestPassword Prelude.Text
+setSMBGuestPassword_password = Lens.lens (\SetSMBGuestPassword' {password} -> password) (\s@SetSMBGuestPassword' {} a -> s {password = a} :: SetSMBGuestPassword) Prelude.. Prelude._Sensitive
 
-instance AWSRequest SetSMBGuestPassword where
+instance Prelude.AWSRequest SetSMBGuestPassword where
   type
     Rs SetSMBGuestPassword =
       SetSMBGuestPasswordResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SetSMBGuestPasswordResponse'
-            <$> (x .?> "GatewayARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SetSMBGuestPassword
+instance Prelude.Hashable SetSMBGuestPassword
 
-instance NFData SetSMBGuestPassword
+instance Prelude.NFData SetSMBGuestPassword
 
-instance ToHeaders SetSMBGuestPassword where
+instance Prelude.ToHeaders SetSMBGuestPassword where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.SetSMBGuestPassword" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.SetSMBGuestPassword" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SetSMBGuestPassword where
+instance Prelude.ToJSON SetSMBGuestPassword where
   toJSON SetSMBGuestPassword' {..} =
-    object
-      ( catMaybes
-          [ Just ("GatewayARN" .= _ssmbgpGatewayARN),
-            Just ("Password" .= _ssmbgpPassword)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("GatewayARN" Prelude..= gatewayARN),
+            Prelude.Just ("Password" Prelude..= password)
           ]
       )
 
-instance ToPath SetSMBGuestPassword where
-  toPath = const "/"
+instance Prelude.ToPath SetSMBGuestPassword where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetSMBGuestPassword where
-  toQuery = const mempty
+instance Prelude.ToQuery SetSMBGuestPassword where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'setSMBGuestPasswordResponse' smart constructor.
+-- | /See:/ 'newSetSMBGuestPasswordResponse' smart constructor.
 data SetSMBGuestPasswordResponse = SetSMBGuestPasswordResponse'
-  { _ssmbgprrsGatewayARN ::
-      !(Maybe Text),
-    _ssmbgprrsResponseStatus ::
-      !Int
+  { gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetSMBGuestPasswordResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetSMBGuestPasswordResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssmbgprrsGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssmbgprrsResponseStatus' - -- | The response status code.
-setSMBGuestPasswordResponse ::
-  -- | 'ssmbgprrsResponseStatus'
-  Int ->
+-- 'gatewayARN', 'setSMBGuestPasswordResponse_gatewayARN' - Undocumented member.
+--
+-- 'httpStatus', 'setSMBGuestPasswordResponse_httpStatus' - The response's http status code.
+newSetSMBGuestPasswordResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetSMBGuestPasswordResponse
-setSMBGuestPasswordResponse pResponseStatus_ =
+newSetSMBGuestPasswordResponse pHttpStatus_ =
   SetSMBGuestPasswordResponse'
-    { _ssmbgprrsGatewayARN =
-        Nothing,
-      _ssmbgprrsResponseStatus = pResponseStatus_
+    { gatewayARN =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-ssmbgprrsGatewayARN :: Lens' SetSMBGuestPasswordResponse (Maybe Text)
-ssmbgprrsGatewayARN = lens _ssmbgprrsGatewayARN (\s a -> s {_ssmbgprrsGatewayARN = a})
+setSMBGuestPasswordResponse_gatewayARN :: Lens.Lens' SetSMBGuestPasswordResponse (Prelude.Maybe Prelude.Text)
+setSMBGuestPasswordResponse_gatewayARN = Lens.lens (\SetSMBGuestPasswordResponse' {gatewayARN} -> gatewayARN) (\s@SetSMBGuestPasswordResponse' {} a -> s {gatewayARN = a} :: SetSMBGuestPasswordResponse)
 
--- | -- | The response status code.
-ssmbgprrsResponseStatus :: Lens' SetSMBGuestPasswordResponse Int
-ssmbgprrsResponseStatus = lens _ssmbgprrsResponseStatus (\s a -> s {_ssmbgprrsResponseStatus = a})
+-- | The response's http status code.
+setSMBGuestPasswordResponse_httpStatus :: Lens.Lens' SetSMBGuestPasswordResponse Prelude.Int
+setSMBGuestPasswordResponse_httpStatus = Lens.lens (\SetSMBGuestPasswordResponse' {httpStatus} -> httpStatus) (\s@SetSMBGuestPasswordResponse' {} a -> s {httpStatus = a} :: SetSMBGuestPasswordResponse)
 
-instance NFData SetSMBGuestPasswordResponse
+instance Prelude.NFData SetSMBGuestPasswordResponse

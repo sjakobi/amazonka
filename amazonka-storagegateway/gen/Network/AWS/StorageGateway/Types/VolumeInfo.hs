@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,99 +19,169 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.VolumeInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a storage volume object.
 --
---
---
--- /See:/ 'volumeInfo' smart constructor.
+-- /See:/ 'newVolumeInfo' smart constructor.
 data VolumeInfo = VolumeInfo'
-  { _viVolumeARN ::
-      !(Maybe Text),
-    _viVolumeId :: !(Maybe Text),
-    _viVolumeSizeInBytes :: !(Maybe Integer),
-    _viVolumeType :: !(Maybe Text),
-    _viGatewayARN :: !(Maybe Text),
-    _viVolumeAttachmentStatus :: !(Maybe Text),
-    _viGatewayId :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) for the storage volume. For example, the
+    -- following is a valid ARN:
+    --
+    -- @arn:aws:storagegateway:us-east-2:111122223333:gateway\/sgw-12A3456B\/volume\/vol-1122AABB@
+    --
+    -- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+    -- hyphens (-).
+    volumeARN :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier assigned to the volume. This ID becomes part of
+    -- the volume Amazon Resource Name (ARN), which you use as input for other
+    -- operations.
+    --
+    -- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+    -- hyphens (-).
+    volumeId :: Prelude.Maybe Prelude.Text,
+    -- | The size of the volume in bytes.
+    --
+    -- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+    -- hyphens (-).
+    volumeSizeInBytes :: Prelude.Maybe Prelude.Integer,
+    -- | One of the VolumeType enumeration values describing the type of the
+    -- volume.
+    volumeType :: Prelude.Maybe Prelude.Text,
+    gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | One of the VolumeStatus values that indicates the state of the storage
+    -- volume.
+    volumeAttachmentStatus :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier assigned to your gateway during activation. This
+    -- ID becomes part of the gateway Amazon Resource Name (ARN), which you use
+    -- as input for other operations.
+    --
+    -- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+    -- hyphens (-).
+    gatewayId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VolumeInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VolumeInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'viVolumeARN' - The Amazon Resource Name (ARN) for the storage volume. For example, the following is a valid ARN: @arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB@  Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'viVolumeId' - The unique identifier assigned to the volume. This ID becomes part of the volume Amazon Resource Name (ARN), which you use as input for other operations. Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
+-- 'volumeARN', 'volumeInfo_volumeARN' - The Amazon Resource Name (ARN) for the storage volume. For example, the
+-- following is a valid ARN:
 --
--- * 'viVolumeSizeInBytes' - The size of the volume in bytes. Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
+-- @arn:aws:storagegateway:us-east-2:111122223333:gateway\/sgw-12A3456B\/volume\/vol-1122AABB@
 --
--- * 'viVolumeType' - One of the VolumeType enumeration values describing the type of the volume.
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
 --
--- * 'viGatewayARN' - Undocumented member.
+-- 'volumeId', 'volumeInfo_volumeId' - The unique identifier assigned to the volume. This ID becomes part of
+-- the volume Amazon Resource Name (ARN), which you use as input for other
+-- operations.
 --
--- * 'viVolumeAttachmentStatus' - One of the VolumeStatus values that indicates the state of the storage volume.
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
 --
--- * 'viGatewayId' - The unique identifier assigned to your gateway during activation. This ID becomes part of the gateway Amazon Resource Name (ARN), which you use as input for other operations. Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
-volumeInfo ::
+-- 'volumeSizeInBytes', 'volumeInfo_volumeSizeInBytes' - The size of the volume in bytes.
+--
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
+--
+-- 'volumeType', 'volumeInfo_volumeType' - One of the VolumeType enumeration values describing the type of the
+-- volume.
+--
+-- 'gatewayARN', 'volumeInfo_gatewayARN' - Undocumented member.
+--
+-- 'volumeAttachmentStatus', 'volumeInfo_volumeAttachmentStatus' - One of the VolumeStatus values that indicates the state of the storage
+-- volume.
+--
+-- 'gatewayId', 'volumeInfo_gatewayId' - The unique identifier assigned to your gateway during activation. This
+-- ID becomes part of the gateway Amazon Resource Name (ARN), which you use
+-- as input for other operations.
+--
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
+newVolumeInfo ::
   VolumeInfo
-volumeInfo =
+newVolumeInfo =
   VolumeInfo'
-    { _viVolumeARN = Nothing,
-      _viVolumeId = Nothing,
-      _viVolumeSizeInBytes = Nothing,
-      _viVolumeType = Nothing,
-      _viGatewayARN = Nothing,
-      _viVolumeAttachmentStatus = Nothing,
-      _viGatewayId = Nothing
+    { volumeARN = Prelude.Nothing,
+      volumeId = Prelude.Nothing,
+      volumeSizeInBytes = Prelude.Nothing,
+      volumeType = Prelude.Nothing,
+      gatewayARN = Prelude.Nothing,
+      volumeAttachmentStatus = Prelude.Nothing,
+      gatewayId = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) for the storage volume. For example, the following is a valid ARN: @arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB@  Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
-viVolumeARN :: Lens' VolumeInfo (Maybe Text)
-viVolumeARN = lens _viVolumeARN (\s a -> s {_viVolumeARN = a})
+-- | The Amazon Resource Name (ARN) for the storage volume. For example, the
+-- following is a valid ARN:
+--
+-- @arn:aws:storagegateway:us-east-2:111122223333:gateway\/sgw-12A3456B\/volume\/vol-1122AABB@
+--
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
+volumeInfo_volumeARN :: Lens.Lens' VolumeInfo (Prelude.Maybe Prelude.Text)
+volumeInfo_volumeARN = Lens.lens (\VolumeInfo' {volumeARN} -> volumeARN) (\s@VolumeInfo' {} a -> s {volumeARN = a} :: VolumeInfo)
 
--- | The unique identifier assigned to the volume. This ID becomes part of the volume Amazon Resource Name (ARN), which you use as input for other operations. Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
-viVolumeId :: Lens' VolumeInfo (Maybe Text)
-viVolumeId = lens _viVolumeId (\s a -> s {_viVolumeId = a})
+-- | The unique identifier assigned to the volume. This ID becomes part of
+-- the volume Amazon Resource Name (ARN), which you use as input for other
+-- operations.
+--
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
+volumeInfo_volumeId :: Lens.Lens' VolumeInfo (Prelude.Maybe Prelude.Text)
+volumeInfo_volumeId = Lens.lens (\VolumeInfo' {volumeId} -> volumeId) (\s@VolumeInfo' {} a -> s {volumeId = a} :: VolumeInfo)
 
--- | The size of the volume in bytes. Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
-viVolumeSizeInBytes :: Lens' VolumeInfo (Maybe Integer)
-viVolumeSizeInBytes = lens _viVolumeSizeInBytes (\s a -> s {_viVolumeSizeInBytes = a})
+-- | The size of the volume in bytes.
+--
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
+volumeInfo_volumeSizeInBytes :: Lens.Lens' VolumeInfo (Prelude.Maybe Prelude.Integer)
+volumeInfo_volumeSizeInBytes = Lens.lens (\VolumeInfo' {volumeSizeInBytes} -> volumeSizeInBytes) (\s@VolumeInfo' {} a -> s {volumeSizeInBytes = a} :: VolumeInfo)
 
--- | One of the VolumeType enumeration values describing the type of the volume.
-viVolumeType :: Lens' VolumeInfo (Maybe Text)
-viVolumeType = lens _viVolumeType (\s a -> s {_viVolumeType = a})
+-- | One of the VolumeType enumeration values describing the type of the
+-- volume.
+volumeInfo_volumeType :: Lens.Lens' VolumeInfo (Prelude.Maybe Prelude.Text)
+volumeInfo_volumeType = Lens.lens (\VolumeInfo' {volumeType} -> volumeType) (\s@VolumeInfo' {} a -> s {volumeType = a} :: VolumeInfo)
 
 -- | Undocumented member.
-viGatewayARN :: Lens' VolumeInfo (Maybe Text)
-viGatewayARN = lens _viGatewayARN (\s a -> s {_viGatewayARN = a})
+volumeInfo_gatewayARN :: Lens.Lens' VolumeInfo (Prelude.Maybe Prelude.Text)
+volumeInfo_gatewayARN = Lens.lens (\VolumeInfo' {gatewayARN} -> gatewayARN) (\s@VolumeInfo' {} a -> s {gatewayARN = a} :: VolumeInfo)
 
--- | One of the VolumeStatus values that indicates the state of the storage volume.
-viVolumeAttachmentStatus :: Lens' VolumeInfo (Maybe Text)
-viVolumeAttachmentStatus = lens _viVolumeAttachmentStatus (\s a -> s {_viVolumeAttachmentStatus = a})
+-- | One of the VolumeStatus values that indicates the state of the storage
+-- volume.
+volumeInfo_volumeAttachmentStatus :: Lens.Lens' VolumeInfo (Prelude.Maybe Prelude.Text)
+volumeInfo_volumeAttachmentStatus = Lens.lens (\VolumeInfo' {volumeAttachmentStatus} -> volumeAttachmentStatus) (\s@VolumeInfo' {} a -> s {volumeAttachmentStatus = a} :: VolumeInfo)
 
--- | The unique identifier assigned to your gateway during activation. This ID becomes part of the gateway Amazon Resource Name (ARN), which you use as input for other operations. Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
-viGatewayId :: Lens' VolumeInfo (Maybe Text)
-viGatewayId = lens _viGatewayId (\s a -> s {_viGatewayId = a})
+-- | The unique identifier assigned to your gateway during activation. This
+-- ID becomes part of the gateway Amazon Resource Name (ARN), which you use
+-- as input for other operations.
+--
+-- Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+-- hyphens (-).
+volumeInfo_gatewayId :: Lens.Lens' VolumeInfo (Prelude.Maybe Prelude.Text)
+volumeInfo_gatewayId = Lens.lens (\VolumeInfo' {gatewayId} -> gatewayId) (\s@VolumeInfo' {} a -> s {gatewayId = a} :: VolumeInfo)
 
-instance FromJSON VolumeInfo where
+instance Prelude.FromJSON VolumeInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VolumeInfo"
       ( \x ->
           VolumeInfo'
-            <$> (x .:? "VolumeARN")
-            <*> (x .:? "VolumeId")
-            <*> (x .:? "VolumeSizeInBytes")
-            <*> (x .:? "VolumeType")
-            <*> (x .:? "GatewayARN")
-            <*> (x .:? "VolumeAttachmentStatus")
-            <*> (x .:? "GatewayId")
+            Prelude.<$> (x Prelude..:? "VolumeARN")
+            Prelude.<*> (x Prelude..:? "VolumeId")
+            Prelude.<*> (x Prelude..:? "VolumeSizeInBytes")
+            Prelude.<*> (x Prelude..:? "VolumeType")
+            Prelude.<*> (x Prelude..:? "GatewayARN")
+            Prelude.<*> (x Prelude..:? "VolumeAttachmentStatus")
+            Prelude.<*> (x Prelude..:? "GatewayId")
       )
 
-instance Hashable VolumeInfo
+instance Prelude.Hashable VolumeInfo
 
-instance NFData VolumeInfo
+instance Prelude.NFData VolumeInfo

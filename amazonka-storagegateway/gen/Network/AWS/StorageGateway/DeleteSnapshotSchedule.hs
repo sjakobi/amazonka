@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,147 +23,153 @@
 --
 -- Deletes a snapshot of a volume.
 --
+-- You can take snapshots of your gateway volumes on a scheduled or ad hoc
+-- basis. This API action enables you to delete a snapshot schedule for a
+-- volume. For more information, see
+-- <https://docs.aws.amazon.com/storagegateway/latest/userguide/backing-up-volumes.html Backing up your volumes>.
+-- In the @DeleteSnapshotSchedule@ request, you identify the volume by
+-- providing its Amazon Resource Name (ARN). This operation is only
+-- supported in stored and cached volume gateway types.
 --
--- You can take snapshots of your gateway volumes on a scheduled or ad hoc basis. This API action enables you to delete a snapshot schedule for a volume. For more information, see <https://docs.aws.amazon.com/storagegateway/latest/userguide/backing-up-volumes.html Backing up your volumes> . In the @DeleteSnapshotSchedule@ request, you identify the volume by providing its Amazon Resource Name (ARN). This operation is only supported in stored and cached volume gateway types.
+-- To list or delete a snapshot, you must use the Amazon EC2 API. For more
+-- information, go to
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeSnapshots.html DescribeSnapshots>
+-- in the /Amazon Elastic Compute Cloud API Reference/.
 module Network.AWS.StorageGateway.DeleteSnapshotSchedule
   ( -- * Creating a Request
-    deleteSnapshotSchedule,
-    DeleteSnapshotSchedule,
+    DeleteSnapshotSchedule (..),
+    newDeleteSnapshotSchedule,
 
     -- * Request Lenses
-    delVolumeARN,
+    deleteSnapshotSchedule_volumeARN,
 
     -- * Destructuring the Response
-    deleteSnapshotScheduleResponse,
-    DeleteSnapshotScheduleResponse,
+    DeleteSnapshotScheduleResponse (..),
+    newDeleteSnapshotScheduleResponse,
 
     -- * Response Lenses
-    delrsVolumeARN,
-    delrsResponseStatus,
+    deleteSnapshotScheduleResponse_volumeARN,
+    deleteSnapshotScheduleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
--- | /See:/ 'deleteSnapshotSchedule' smart constructor.
-newtype DeleteSnapshotSchedule = DeleteSnapshotSchedule'
-  { _delVolumeARN ::
-      Text
+-- | /See:/ 'newDeleteSnapshotSchedule' smart constructor.
+data DeleteSnapshotSchedule = DeleteSnapshotSchedule'
+  { -- | The volume which snapshot schedule to delete.
+    volumeARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSnapshotSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSnapshotSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delVolumeARN' - The volume which snapshot schedule to delete.
-deleteSnapshotSchedule ::
-  -- | 'delVolumeARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'volumeARN', 'deleteSnapshotSchedule_volumeARN' - The volume which snapshot schedule to delete.
+newDeleteSnapshotSchedule ::
+  -- | 'volumeARN'
+  Prelude.Text ->
   DeleteSnapshotSchedule
-deleteSnapshotSchedule pVolumeARN_ =
-  DeleteSnapshotSchedule'
-    { _delVolumeARN =
-        pVolumeARN_
-    }
+newDeleteSnapshotSchedule pVolumeARN_ =
+  DeleteSnapshotSchedule' {volumeARN = pVolumeARN_}
 
 -- | The volume which snapshot schedule to delete.
-delVolumeARN :: Lens' DeleteSnapshotSchedule Text
-delVolumeARN = lens _delVolumeARN (\s a -> s {_delVolumeARN = a})
+deleteSnapshotSchedule_volumeARN :: Lens.Lens' DeleteSnapshotSchedule Prelude.Text
+deleteSnapshotSchedule_volumeARN = Lens.lens (\DeleteSnapshotSchedule' {volumeARN} -> volumeARN) (\s@DeleteSnapshotSchedule' {} a -> s {volumeARN = a} :: DeleteSnapshotSchedule)
 
-instance AWSRequest DeleteSnapshotSchedule where
+instance Prelude.AWSRequest DeleteSnapshotSchedule where
   type
     Rs DeleteSnapshotSchedule =
       DeleteSnapshotScheduleResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteSnapshotScheduleResponse'
-            <$> (x .?> "VolumeARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "VolumeARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSnapshotSchedule
+instance Prelude.Hashable DeleteSnapshotSchedule
 
-instance NFData DeleteSnapshotSchedule
+instance Prelude.NFData DeleteSnapshotSchedule
 
-instance ToHeaders DeleteSnapshotSchedule where
+instance Prelude.ToHeaders DeleteSnapshotSchedule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DeleteSnapshotSchedule" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DeleteSnapshotSchedule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteSnapshotSchedule where
+instance Prelude.ToJSON DeleteSnapshotSchedule where
   toJSON DeleteSnapshotSchedule' {..} =
-    object
-      (catMaybes [Just ("VolumeARN" .= _delVolumeARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("VolumeARN" Prelude..= volumeARN)]
+      )
 
-instance ToPath DeleteSnapshotSchedule where
-  toPath = const "/"
+instance Prelude.ToPath DeleteSnapshotSchedule where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSnapshotSchedule where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSnapshotSchedule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSnapshotScheduleResponse' smart constructor.
+-- | /See:/ 'newDeleteSnapshotScheduleResponse' smart constructor.
 data DeleteSnapshotScheduleResponse = DeleteSnapshotScheduleResponse'
-  { _delrsVolumeARN ::
-      !( Maybe
-           Text
-       ),
-    _delrsResponseStatus ::
-      !Int
+  { -- | The volume which snapshot schedule was deleted.
+    volumeARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSnapshotScheduleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSnapshotScheduleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsVolumeARN' - The volume which snapshot schedule was deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteSnapshotScheduleResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- 'volumeARN', 'deleteSnapshotScheduleResponse_volumeARN' - The volume which snapshot schedule was deleted.
+--
+-- 'httpStatus', 'deleteSnapshotScheduleResponse_httpStatus' - The response's http status code.
+newDeleteSnapshotScheduleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSnapshotScheduleResponse
-deleteSnapshotScheduleResponse pResponseStatus_ =
+newDeleteSnapshotScheduleResponse pHttpStatus_ =
   DeleteSnapshotScheduleResponse'
-    { _delrsVolumeARN =
-        Nothing,
-      _delrsResponseStatus = pResponseStatus_
+    { volumeARN =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The volume which snapshot schedule was deleted.
-delrsVolumeARN :: Lens' DeleteSnapshotScheduleResponse (Maybe Text)
-delrsVolumeARN = lens _delrsVolumeARN (\s a -> s {_delrsVolumeARN = a})
+deleteSnapshotScheduleResponse_volumeARN :: Lens.Lens' DeleteSnapshotScheduleResponse (Prelude.Maybe Prelude.Text)
+deleteSnapshotScheduleResponse_volumeARN = Lens.lens (\DeleteSnapshotScheduleResponse' {volumeARN} -> volumeARN) (\s@DeleteSnapshotScheduleResponse' {} a -> s {volumeARN = a} :: DeleteSnapshotScheduleResponse)
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteSnapshotScheduleResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteSnapshotScheduleResponse_httpStatus :: Lens.Lens' DeleteSnapshotScheduleResponse Prelude.Int
+deleteSnapshotScheduleResponse_httpStatus = Lens.lens (\DeleteSnapshotScheduleResponse' {httpStatus} -> httpStatus) (\s@DeleteSnapshotScheduleResponse' {} a -> s {httpStatus = a} :: DeleteSnapshotScheduleResponse)
 
-instance NFData DeleteSnapshotScheduleResponse
+instance
+  Prelude.NFData
+    DeleteSnapshotScheduleResponse

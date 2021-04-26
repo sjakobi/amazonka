@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,158 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Start a test that verifies that the specified gateway is configured for High Availability monitoring in your host environment. This request only initiates the test and that a successful response only indicates that the test was started. It doesn't indicate that the test passed. For the status of the test, invoke the @DescribeAvailabilityMonitorTest@ API.
+-- Start a test that verifies that the specified gateway is configured for
+-- High Availability monitoring in your host environment. This request only
+-- initiates the test and that a successful response only indicates that
+-- the test was started. It doesn\'t indicate that the test passed. For the
+-- status of the test, invoke the @DescribeAvailabilityMonitorTest@ API.
+--
+-- Starting this test will cause your gateway to go offline for a brief
+-- period.
 module Network.AWS.StorageGateway.StartAvailabilityMonitorTest
   ( -- * Creating a Request
-    startAvailabilityMonitorTest,
-    StartAvailabilityMonitorTest,
+    StartAvailabilityMonitorTest (..),
+    newStartAvailabilityMonitorTest,
 
     -- * Request Lenses
-    samtGatewayARN,
+    startAvailabilityMonitorTest_gatewayARN,
 
     -- * Destructuring the Response
-    startAvailabilityMonitorTestResponse,
-    StartAvailabilityMonitorTestResponse,
+    StartAvailabilityMonitorTestResponse (..),
+    newStartAvailabilityMonitorTestResponse,
 
     -- * Response Lenses
-    samtrrsGatewayARN,
-    samtrrsResponseStatus,
+    startAvailabilityMonitorTestResponse_gatewayARN,
+    startAvailabilityMonitorTestResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
--- | /See:/ 'startAvailabilityMonitorTest' smart constructor.
-newtype StartAvailabilityMonitorTest = StartAvailabilityMonitorTest'
-  { _samtGatewayARN ::
-      Text
+-- | /See:/ 'newStartAvailabilityMonitorTest' smart constructor.
+data StartAvailabilityMonitorTest = StartAvailabilityMonitorTest'
+  { gatewayARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartAvailabilityMonitorTest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartAvailabilityMonitorTest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'samtGatewayARN' - Undocumented member.
-startAvailabilityMonitorTest ::
-  -- | 'samtGatewayARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'gatewayARN', 'startAvailabilityMonitorTest_gatewayARN' - Undocumented member.
+newStartAvailabilityMonitorTest ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
   StartAvailabilityMonitorTest
-startAvailabilityMonitorTest pGatewayARN_ =
+newStartAvailabilityMonitorTest pGatewayARN_ =
   StartAvailabilityMonitorTest'
-    { _samtGatewayARN =
+    { gatewayARN =
         pGatewayARN_
     }
 
 -- | Undocumented member.
-samtGatewayARN :: Lens' StartAvailabilityMonitorTest Text
-samtGatewayARN = lens _samtGatewayARN (\s a -> s {_samtGatewayARN = a})
+startAvailabilityMonitorTest_gatewayARN :: Lens.Lens' StartAvailabilityMonitorTest Prelude.Text
+startAvailabilityMonitorTest_gatewayARN = Lens.lens (\StartAvailabilityMonitorTest' {gatewayARN} -> gatewayARN) (\s@StartAvailabilityMonitorTest' {} a -> s {gatewayARN = a} :: StartAvailabilityMonitorTest)
 
-instance AWSRequest StartAvailabilityMonitorTest where
+instance
+  Prelude.AWSRequest
+    StartAvailabilityMonitorTest
+  where
   type
     Rs StartAvailabilityMonitorTest =
       StartAvailabilityMonitorTestResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartAvailabilityMonitorTestResponse'
-            <$> (x .?> "GatewayARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartAvailabilityMonitorTest
+instance
+  Prelude.Hashable
+    StartAvailabilityMonitorTest
 
-instance NFData StartAvailabilityMonitorTest
+instance Prelude.NFData StartAvailabilityMonitorTest
 
-instance ToHeaders StartAvailabilityMonitorTest where
+instance
+  Prelude.ToHeaders
+    StartAvailabilityMonitorTest
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.StartAvailabilityMonitorTest" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.StartAvailabilityMonitorTest" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartAvailabilityMonitorTest where
+instance Prelude.ToJSON StartAvailabilityMonitorTest where
   toJSON StartAvailabilityMonitorTest' {..} =
-    object
-      (catMaybes [Just ("GatewayARN" .= _samtGatewayARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("GatewayARN" Prelude..= gatewayARN)]
+      )
 
-instance ToPath StartAvailabilityMonitorTest where
-  toPath = const "/"
+instance Prelude.ToPath StartAvailabilityMonitorTest where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartAvailabilityMonitorTest where
-  toQuery = const mempty
+instance Prelude.ToQuery StartAvailabilityMonitorTest where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startAvailabilityMonitorTestResponse' smart constructor.
+-- | /See:/ 'newStartAvailabilityMonitorTestResponse' smart constructor.
 data StartAvailabilityMonitorTestResponse = StartAvailabilityMonitorTestResponse'
-  { _samtrrsGatewayARN ::
-      !( Maybe
-           Text
-       ),
-    _samtrrsResponseStatus ::
-      !Int
+  { gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartAvailabilityMonitorTestResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartAvailabilityMonitorTestResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'samtrrsGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'samtrrsResponseStatus' - -- | The response status code.
-startAvailabilityMonitorTestResponse ::
-  -- | 'samtrrsResponseStatus'
-  Int ->
+-- 'gatewayARN', 'startAvailabilityMonitorTestResponse_gatewayARN' - Undocumented member.
+--
+-- 'httpStatus', 'startAvailabilityMonitorTestResponse_httpStatus' - The response's http status code.
+newStartAvailabilityMonitorTestResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartAvailabilityMonitorTestResponse
-startAvailabilityMonitorTestResponse pResponseStatus_ =
+newStartAvailabilityMonitorTestResponse pHttpStatus_ =
   StartAvailabilityMonitorTestResponse'
-    { _samtrrsGatewayARN =
-        Nothing,
-      _samtrrsResponseStatus =
-        pResponseStatus_
+    { gatewayARN =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-samtrrsGatewayARN :: Lens' StartAvailabilityMonitorTestResponse (Maybe Text)
-samtrrsGatewayARN = lens _samtrrsGatewayARN (\s a -> s {_samtrrsGatewayARN = a})
+startAvailabilityMonitorTestResponse_gatewayARN :: Lens.Lens' StartAvailabilityMonitorTestResponse (Prelude.Maybe Prelude.Text)
+startAvailabilityMonitorTestResponse_gatewayARN = Lens.lens (\StartAvailabilityMonitorTestResponse' {gatewayARN} -> gatewayARN) (\s@StartAvailabilityMonitorTestResponse' {} a -> s {gatewayARN = a} :: StartAvailabilityMonitorTestResponse)
 
--- | -- | The response status code.
-samtrrsResponseStatus :: Lens' StartAvailabilityMonitorTestResponse Int
-samtrrsResponseStatus = lens _samtrrsResponseStatus (\s a -> s {_samtrrsResponseStatus = a})
+-- | The response's http status code.
+startAvailabilityMonitorTestResponse_httpStatus :: Lens.Lens' StartAvailabilityMonitorTestResponse Prelude.Int
+startAvailabilityMonitorTestResponse_httpStatus = Lens.lens (\StartAvailabilityMonitorTestResponse' {httpStatus} -> httpStatus) (\s@StartAvailabilityMonitorTestResponse' {} a -> s {httpStatus = a} :: StartAvailabilityMonitorTestResponse)
 
-instance NFData StartAvailabilityMonitorTestResponse
+instance
+  Prelude.NFData
+    StartAvailabilityMonitorTestResponse

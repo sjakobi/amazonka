@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,167 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Controls whether the shares on a gateway are visible in a net view or browse list.
+-- Controls whether the shares on a gateway are visible in a net view or
+-- browse list.
 module Network.AWS.StorageGateway.UpdateSMBFileShareVisibility
   ( -- * Creating a Request
-    updateSMBFileShareVisibility,
-    UpdateSMBFileShareVisibility,
+    UpdateSMBFileShareVisibility (..),
+    newUpdateSMBFileShareVisibility,
 
     -- * Request Lenses
-    usmbfsvGatewayARN,
-    usmbfsvFileSharesVisible,
+    updateSMBFileShareVisibility_gatewayARN,
+    updateSMBFileShareVisibility_fileSharesVisible,
 
     -- * Destructuring the Response
-    updateSMBFileShareVisibilityResponse,
-    UpdateSMBFileShareVisibilityResponse,
+    UpdateSMBFileShareVisibilityResponse (..),
+    newUpdateSMBFileShareVisibilityResponse,
 
     -- * Response Lenses
-    usmbfsvrrsGatewayARN,
-    usmbfsvrrsResponseStatus,
+    updateSMBFileShareVisibilityResponse_gatewayARN,
+    updateSMBFileShareVisibilityResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
--- | /See:/ 'updateSMBFileShareVisibility' smart constructor.
+-- | /See:/ 'newUpdateSMBFileShareVisibility' smart constructor.
 data UpdateSMBFileShareVisibility = UpdateSMBFileShareVisibility'
-  { _usmbfsvGatewayARN ::
-      !Text,
-    _usmbfsvFileSharesVisible ::
-      !Bool
+  { gatewayARN :: Prelude.Text,
+    -- | The shares on this gateway appear when listing shares.
+    fileSharesVisible :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSMBFileShareVisibility' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSMBFileShareVisibility' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usmbfsvGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usmbfsvFileSharesVisible' - The shares on this gateway appear when listing shares.
-updateSMBFileShareVisibility ::
-  -- | 'usmbfsvGatewayARN'
-  Text ->
-  -- | 'usmbfsvFileSharesVisible'
-  Bool ->
+-- 'gatewayARN', 'updateSMBFileShareVisibility_gatewayARN' - Undocumented member.
+--
+-- 'fileSharesVisible', 'updateSMBFileShareVisibility_fileSharesVisible' - The shares on this gateway appear when listing shares.
+newUpdateSMBFileShareVisibility ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
+  -- | 'fileSharesVisible'
+  Prelude.Bool ->
   UpdateSMBFileShareVisibility
-updateSMBFileShareVisibility
+newUpdateSMBFileShareVisibility
   pGatewayARN_
   pFileSharesVisible_ =
     UpdateSMBFileShareVisibility'
-      { _usmbfsvGatewayARN =
+      { gatewayARN =
           pGatewayARN_,
-        _usmbfsvFileSharesVisible =
-          pFileSharesVisible_
+        fileSharesVisible = pFileSharesVisible_
       }
 
 -- | Undocumented member.
-usmbfsvGatewayARN :: Lens' UpdateSMBFileShareVisibility Text
-usmbfsvGatewayARN = lens _usmbfsvGatewayARN (\s a -> s {_usmbfsvGatewayARN = a})
+updateSMBFileShareVisibility_gatewayARN :: Lens.Lens' UpdateSMBFileShareVisibility Prelude.Text
+updateSMBFileShareVisibility_gatewayARN = Lens.lens (\UpdateSMBFileShareVisibility' {gatewayARN} -> gatewayARN) (\s@UpdateSMBFileShareVisibility' {} a -> s {gatewayARN = a} :: UpdateSMBFileShareVisibility)
 
 -- | The shares on this gateway appear when listing shares.
-usmbfsvFileSharesVisible :: Lens' UpdateSMBFileShareVisibility Bool
-usmbfsvFileSharesVisible = lens _usmbfsvFileSharesVisible (\s a -> s {_usmbfsvFileSharesVisible = a})
+updateSMBFileShareVisibility_fileSharesVisible :: Lens.Lens' UpdateSMBFileShareVisibility Prelude.Bool
+updateSMBFileShareVisibility_fileSharesVisible = Lens.lens (\UpdateSMBFileShareVisibility' {fileSharesVisible} -> fileSharesVisible) (\s@UpdateSMBFileShareVisibility' {} a -> s {fileSharesVisible = a} :: UpdateSMBFileShareVisibility)
 
-instance AWSRequest UpdateSMBFileShareVisibility where
+instance
+  Prelude.AWSRequest
+    UpdateSMBFileShareVisibility
+  where
   type
     Rs UpdateSMBFileShareVisibility =
       UpdateSMBFileShareVisibilityResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateSMBFileShareVisibilityResponse'
-            <$> (x .?> "GatewayARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateSMBFileShareVisibility
+instance
+  Prelude.Hashable
+    UpdateSMBFileShareVisibility
 
-instance NFData UpdateSMBFileShareVisibility
+instance Prelude.NFData UpdateSMBFileShareVisibility
 
-instance ToHeaders UpdateSMBFileShareVisibility where
+instance
+  Prelude.ToHeaders
+    UpdateSMBFileShareVisibility
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.UpdateSMBFileShareVisibility" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.UpdateSMBFileShareVisibility" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateSMBFileShareVisibility where
+instance Prelude.ToJSON UpdateSMBFileShareVisibility where
   toJSON UpdateSMBFileShareVisibility' {..} =
-    object
-      ( catMaybes
-          [ Just ("GatewayARN" .= _usmbfsvGatewayARN),
-            Just
-              ("FileSharesVisible" .= _usmbfsvFileSharesVisible)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("GatewayARN" Prelude..= gatewayARN),
+            Prelude.Just
+              ("FileSharesVisible" Prelude..= fileSharesVisible)
           ]
       )
 
-instance ToPath UpdateSMBFileShareVisibility where
-  toPath = const "/"
+instance Prelude.ToPath UpdateSMBFileShareVisibility where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateSMBFileShareVisibility where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateSMBFileShareVisibility where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateSMBFileShareVisibilityResponse' smart constructor.
+-- | /See:/ 'newUpdateSMBFileShareVisibilityResponse' smart constructor.
 data UpdateSMBFileShareVisibilityResponse = UpdateSMBFileShareVisibilityResponse'
-  { _usmbfsvrrsGatewayARN ::
-      !( Maybe
-           Text
-       ),
-    _usmbfsvrrsResponseStatus ::
-      !Int
+  { gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSMBFileShareVisibilityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSMBFileShareVisibilityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usmbfsvrrsGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usmbfsvrrsResponseStatus' - -- | The response status code.
-updateSMBFileShareVisibilityResponse ::
-  -- | 'usmbfsvrrsResponseStatus'
-  Int ->
+-- 'gatewayARN', 'updateSMBFileShareVisibilityResponse_gatewayARN' - Undocumented member.
+--
+-- 'httpStatus', 'updateSMBFileShareVisibilityResponse_httpStatus' - The response's http status code.
+newUpdateSMBFileShareVisibilityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateSMBFileShareVisibilityResponse
-updateSMBFileShareVisibilityResponse pResponseStatus_ =
+newUpdateSMBFileShareVisibilityResponse pHttpStatus_ =
   UpdateSMBFileShareVisibilityResponse'
-    { _usmbfsvrrsGatewayARN =
-        Nothing,
-      _usmbfsvrrsResponseStatus =
-        pResponseStatus_
+    { gatewayARN =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-usmbfsvrrsGatewayARN :: Lens' UpdateSMBFileShareVisibilityResponse (Maybe Text)
-usmbfsvrrsGatewayARN = lens _usmbfsvrrsGatewayARN (\s a -> s {_usmbfsvrrsGatewayARN = a})
+updateSMBFileShareVisibilityResponse_gatewayARN :: Lens.Lens' UpdateSMBFileShareVisibilityResponse (Prelude.Maybe Prelude.Text)
+updateSMBFileShareVisibilityResponse_gatewayARN = Lens.lens (\UpdateSMBFileShareVisibilityResponse' {gatewayARN} -> gatewayARN) (\s@UpdateSMBFileShareVisibilityResponse' {} a -> s {gatewayARN = a} :: UpdateSMBFileShareVisibilityResponse)
 
--- | -- | The response status code.
-usmbfsvrrsResponseStatus :: Lens' UpdateSMBFileShareVisibilityResponse Int
-usmbfsvrrsResponseStatus = lens _usmbfsvrrsResponseStatus (\s a -> s {_usmbfsvrrsResponseStatus = a})
+-- | The response's http status code.
+updateSMBFileShareVisibilityResponse_httpStatus :: Lens.Lens' UpdateSMBFileShareVisibilityResponse Prelude.Int
+updateSMBFileShareVisibilityResponse_httpStatus = Lens.lens (\UpdateSMBFileShareVisibilityResponse' {httpStatus} -> httpStatus) (\s@UpdateSMBFileShareVisibilityResponse' {} a -> s {httpStatus = a} :: UpdateSMBFileShareVisibilityResponse)
 
-instance NFData UpdateSMBFileShareVisibilityResponse
+instance
+  Prelude.NFData
+    UpdateSMBFileShareVisibilityResponse

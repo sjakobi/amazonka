@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disconnects a volume from an iSCSI connection and then detaches the volume from the specified gateway. Detaching and attaching a volume enables you to recover your data from one gateway to a different gateway without creating a snapshot. It also makes it easier to move your volumes from an on-premises gateway to a gateway hosted on an Amazon EC2 instance. This operation is only supported in the volume gateway type.
+-- Disconnects a volume from an iSCSI connection and then detaches the
+-- volume from the specified gateway. Detaching and attaching a volume
+-- enables you to recover your data from one gateway to a different gateway
+-- without creating a snapshot. It also makes it easier to move your
+-- volumes from an on-premises gateway to a gateway hosted on an Amazon EC2
+-- instance. This operation is only supported in the volume gateway type.
 module Network.AWS.StorageGateway.DetachVolume
   ( -- * Creating a Request
-    detachVolume,
-    DetachVolume,
+    DetachVolume (..),
+    newDetachVolume,
 
     -- * Request Lenses
-    dvForceDetach,
-    dvVolumeARN,
+    detachVolume_forceDetach,
+    detachVolume_volumeARN,
 
     -- * Destructuring the Response
-    detachVolumeResponse,
-    DetachVolumeResponse,
+    DetachVolumeResponse (..),
+    newDetachVolumeResponse,
 
     -- * Response Lenses
-    dvrrsVolumeARN,
-    dvrrsResponseStatus,
+    detachVolumeResponse_volumeARN,
+    detachVolumeResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
 -- | AttachVolumeInput
 --
---
---
--- /See:/ 'detachVolume' smart constructor.
+-- /See:/ 'newDetachVolume' smart constructor.
 data DetachVolume = DetachVolume'
-  { _dvForceDetach ::
-      !(Maybe Bool),
-    _dvVolumeARN :: !Text
+  { -- | Set to @true@ to forcibly remove the iSCSI connection of the target
+    -- volume and detach the volume. The default is @false@. If this value is
+    -- set to @false@, you must manually disconnect the iSCSI connection from
+    -- the target volume.
+    --
+    -- Valid Values: @true@ | @false@
+    forceDetach :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the volume to detach from the gateway.
+    volumeARN :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetachVolume' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetachVolume' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvForceDetach' - Set to @true@ to forcibly remove the iSCSI connection of the target volume and detach the volume. The default is @false@ . If this value is set to @false@ , you must manually disconnect the iSCSI connection from the target volume. Valid Values: @true@ | @false@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvVolumeARN' - The Amazon Resource Name (ARN) of the volume to detach from the gateway.
-detachVolume ::
-  -- | 'dvVolumeARN'
-  Text ->
+-- 'forceDetach', 'detachVolume_forceDetach' - Set to @true@ to forcibly remove the iSCSI connection of the target
+-- volume and detach the volume. The default is @false@. If this value is
+-- set to @false@, you must manually disconnect the iSCSI connection from
+-- the target volume.
+--
+-- Valid Values: @true@ | @false@
+--
+-- 'volumeARN', 'detachVolume_volumeARN' - The Amazon Resource Name (ARN) of the volume to detach from the gateway.
+newDetachVolume ::
+  -- | 'volumeARN'
+  Prelude.Text ->
   DetachVolume
-detachVolume pVolumeARN_ =
+newDetachVolume pVolumeARN_ =
   DetachVolume'
-    { _dvForceDetach = Nothing,
-      _dvVolumeARN = pVolumeARN_
+    { forceDetach = Prelude.Nothing,
+      volumeARN = pVolumeARN_
     }
 
--- | Set to @true@ to forcibly remove the iSCSI connection of the target volume and detach the volume. The default is @false@ . If this value is set to @false@ , you must manually disconnect the iSCSI connection from the target volume. Valid Values: @true@ | @false@
-dvForceDetach :: Lens' DetachVolume (Maybe Bool)
-dvForceDetach = lens _dvForceDetach (\s a -> s {_dvForceDetach = a})
+-- | Set to @true@ to forcibly remove the iSCSI connection of the target
+-- volume and detach the volume. The default is @false@. If this value is
+-- set to @false@, you must manually disconnect the iSCSI connection from
+-- the target volume.
+--
+-- Valid Values: @true@ | @false@
+detachVolume_forceDetach :: Lens.Lens' DetachVolume (Prelude.Maybe Prelude.Bool)
+detachVolume_forceDetach = Lens.lens (\DetachVolume' {forceDetach} -> forceDetach) (\s@DetachVolume' {} a -> s {forceDetach = a} :: DetachVolume)
 
 -- | The Amazon Resource Name (ARN) of the volume to detach from the gateway.
-dvVolumeARN :: Lens' DetachVolume Text
-dvVolumeARN = lens _dvVolumeARN (\s a -> s {_dvVolumeARN = a})
+detachVolume_volumeARN :: Lens.Lens' DetachVolume Prelude.Text
+detachVolume_volumeARN = Lens.lens (\DetachVolume' {volumeARN} -> volumeARN) (\s@DetachVolume' {} a -> s {volumeARN = a} :: DetachVolume)
 
-instance AWSRequest DetachVolume where
+instance Prelude.AWSRequest DetachVolume where
   type Rs DetachVolume = DetachVolumeResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DetachVolumeResponse'
-            <$> (x .?> "VolumeARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "VolumeARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DetachVolume
+instance Prelude.Hashable DetachVolume
 
-instance NFData DetachVolume
+instance Prelude.NFData DetachVolume
 
-instance ToHeaders DetachVolume where
+instance Prelude.ToHeaders DetachVolume where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DetachVolume" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DetachVolume" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DetachVolume where
+instance Prelude.ToJSON DetachVolume where
   toJSON DetachVolume' {..} =
-    object
-      ( catMaybes
-          [ ("ForceDetach" .=) <$> _dvForceDetach,
-            Just ("VolumeARN" .= _dvVolumeARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ForceDetach" Prelude..=) Prelude.<$> forceDetach,
+            Prelude.Just ("VolumeARN" Prelude..= volumeARN)
           ]
       )
 
-instance ToPath DetachVolume where
-  toPath = const "/"
+instance Prelude.ToPath DetachVolume where
+  toPath = Prelude.const "/"
 
-instance ToQuery DetachVolume where
-  toQuery = const mempty
+instance Prelude.ToQuery DetachVolume where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | AttachVolumeOutput
 --
---
---
--- /See:/ 'detachVolumeResponse' smart constructor.
+-- /See:/ 'newDetachVolumeResponse' smart constructor.
 data DetachVolumeResponse = DetachVolumeResponse'
-  { _dvrrsVolumeARN ::
-      !(Maybe Text),
-    _dvrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the volume that was detached.
+    volumeARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetachVolumeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetachVolumeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvrrsVolumeARN' - The Amazon Resource Name (ARN) of the volume that was detached.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvrrsResponseStatus' - -- | The response status code.
-detachVolumeResponse ::
-  -- | 'dvrrsResponseStatus'
-  Int ->
+-- 'volumeARN', 'detachVolumeResponse_volumeARN' - The Amazon Resource Name (ARN) of the volume that was detached.
+--
+-- 'httpStatus', 'detachVolumeResponse_httpStatus' - The response's http status code.
+newDetachVolumeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DetachVolumeResponse
-detachVolumeResponse pResponseStatus_ =
+newDetachVolumeResponse pHttpStatus_ =
   DetachVolumeResponse'
-    { _dvrrsVolumeARN = Nothing,
-      _dvrrsResponseStatus = pResponseStatus_
+    { volumeARN = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the volume that was detached.
-dvrrsVolumeARN :: Lens' DetachVolumeResponse (Maybe Text)
-dvrrsVolumeARN = lens _dvrrsVolumeARN (\s a -> s {_dvrrsVolumeARN = a})
+detachVolumeResponse_volumeARN :: Lens.Lens' DetachVolumeResponse (Prelude.Maybe Prelude.Text)
+detachVolumeResponse_volumeARN = Lens.lens (\DetachVolumeResponse' {volumeARN} -> volumeARN) (\s@DetachVolumeResponse' {} a -> s {volumeARN = a} :: DetachVolumeResponse)
 
--- | -- | The response status code.
-dvrrsResponseStatus :: Lens' DetachVolumeResponse Int
-dvrrsResponseStatus = lens _dvrrsResponseStatus (\s a -> s {_dvrrsResponseStatus = a})
+-- | The response's http status code.
+detachVolumeResponse_httpStatus :: Lens.Lens' DetachVolumeResponse Prelude.Int
+detachVolumeResponse_httpStatus = Lens.lens (\DetachVolumeResponse' {httpStatus} -> httpStatus) (\s@DetachVolumeResponse' {} a -> s {httpStatus = a} :: DetachVolumeResponse)
 
-instance NFData DetachVolumeResponse
+instance Prelude.NFData DetachVolumeResponse

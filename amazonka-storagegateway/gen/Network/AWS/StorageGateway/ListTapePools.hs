@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,232 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists custom tape pools. You specify custom tape pools to list by specifying one or more custom tape pool Amazon Resource Names (ARNs). If you don't specify a custom tape pool ARN, the operation lists all custom tape pools.
+-- Lists custom tape pools. You specify custom tape pools to list by
+-- specifying one or more custom tape pool Amazon Resource Names (ARNs). If
+-- you don\'t specify a custom tape pool ARN, the operation lists all
+-- custom tape pools.
 --
---
--- This operation supports pagination. You can optionally specify the @Limit@ parameter in the body to limit the number of tape pools in the response. If the number of tape pools returned in the response is truncated, the response includes a @Marker@ element that you can use in your subsequent request to retrieve the next set of tape pools.
---
+-- This operation supports pagination. You can optionally specify the
+-- @Limit@ parameter in the body to limit the number of tape pools in the
+-- response. If the number of tape pools returned in the response is
+-- truncated, the response includes a @Marker@ element that you can use in
+-- your subsequent request to retrieve the next set of tape pools.
 --
 -- This operation returns paginated results.
 module Network.AWS.StorageGateway.ListTapePools
   ( -- * Creating a Request
-    listTapePools,
-    ListTapePools,
+    ListTapePools (..),
+    newListTapePools,
 
     -- * Request Lenses
-    ltpLimit,
-    ltpPoolARNs,
-    ltpMarker,
+    listTapePools_limit,
+    listTapePools_poolARNs,
+    listTapePools_marker,
 
     -- * Destructuring the Response
-    listTapePoolsResponse,
-    ListTapePoolsResponse,
+    ListTapePoolsResponse (..),
+    newListTapePoolsResponse,
 
     -- * Response Lenses
-    ltprrsPoolInfos,
-    ltprrsMarker,
-    ltprrsResponseStatus,
+    listTapePoolsResponse_poolInfos,
+    listTapePoolsResponse_marker,
+    listTapePoolsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
+import Network.AWS.StorageGateway.Types.PoolInfo
 
--- | /See:/ 'listTapePools' smart constructor.
+-- | /See:/ 'newListTapePools' smart constructor.
 data ListTapePools = ListTapePools'
-  { _ltpLimit ::
-      !(Maybe Nat),
-    _ltpPoolARNs :: !(Maybe [Text]),
-    _ltpMarker :: !(Maybe Text)
+  { -- | An optional number limit for the tape pools in the list returned by this
+    -- call.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Name (ARN) of each of the custom tape pools you want
+    -- to list. If you don\'t specify a custom tape pool ARN, the response
+    -- lists all custom tape pools.
+    poolARNs :: Prelude.Maybe [Prelude.Text],
+    -- | A string that indicates the position at which to begin the returned list
+    -- of tape pools.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTapePools' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTapePools' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltpLimit' - An optional number limit for the tape pools in the list returned by this call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltpPoolARNs' - The Amazon Resource Name (ARN) of each of the custom tape pools you want to list. If you don't specify a custom tape pool ARN, the response lists all custom tape pools.
+-- 'limit', 'listTapePools_limit' - An optional number limit for the tape pools in the list returned by this
+-- call.
 --
--- * 'ltpMarker' - A string that indicates the position at which to begin the returned list of tape pools.
-listTapePools ::
+-- 'poolARNs', 'listTapePools_poolARNs' - The Amazon Resource Name (ARN) of each of the custom tape pools you want
+-- to list. If you don\'t specify a custom tape pool ARN, the response
+-- lists all custom tape pools.
+--
+-- 'marker', 'listTapePools_marker' - A string that indicates the position at which to begin the returned list
+-- of tape pools.
+newListTapePools ::
   ListTapePools
-listTapePools =
+newListTapePools =
   ListTapePools'
-    { _ltpLimit = Nothing,
-      _ltpPoolARNs = Nothing,
-      _ltpMarker = Nothing
+    { limit = Prelude.Nothing,
+      poolARNs = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | An optional number limit for the tape pools in the list returned by this call.
-ltpLimit :: Lens' ListTapePools (Maybe Natural)
-ltpLimit = lens _ltpLimit (\s a -> s {_ltpLimit = a}) . mapping _Nat
+-- | An optional number limit for the tape pools in the list returned by this
+-- call.
+listTapePools_limit :: Lens.Lens' ListTapePools (Prelude.Maybe Prelude.Natural)
+listTapePools_limit = Lens.lens (\ListTapePools' {limit} -> limit) (\s@ListTapePools' {} a -> s {limit = a} :: ListTapePools) Prelude.. Lens.mapping Prelude._Nat
 
--- | The Amazon Resource Name (ARN) of each of the custom tape pools you want to list. If you don't specify a custom tape pool ARN, the response lists all custom tape pools.
-ltpPoolARNs :: Lens' ListTapePools [Text]
-ltpPoolARNs = lens _ltpPoolARNs (\s a -> s {_ltpPoolARNs = a}) . _Default . _Coerce
+-- | The Amazon Resource Name (ARN) of each of the custom tape pools you want
+-- to list. If you don\'t specify a custom tape pool ARN, the response
+-- lists all custom tape pools.
+listTapePools_poolARNs :: Lens.Lens' ListTapePools (Prelude.Maybe [Prelude.Text])
+listTapePools_poolARNs = Lens.lens (\ListTapePools' {poolARNs} -> poolARNs) (\s@ListTapePools' {} a -> s {poolARNs = a} :: ListTapePools) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A string that indicates the position at which to begin the returned list of tape pools.
-ltpMarker :: Lens' ListTapePools (Maybe Text)
-ltpMarker = lens _ltpMarker (\s a -> s {_ltpMarker = a})
+-- | A string that indicates the position at which to begin the returned list
+-- of tape pools.
+listTapePools_marker :: Lens.Lens' ListTapePools (Prelude.Maybe Prelude.Text)
+listTapePools_marker = Lens.lens (\ListTapePools' {marker} -> marker) (\s@ListTapePools' {} a -> s {marker = a} :: ListTapePools)
 
-instance AWSPager ListTapePools where
+instance Pager.AWSPager ListTapePools where
   page rq rs
-    | stop (rs ^. ltprrsMarker) = Nothing
-    | stop (rs ^. ltprrsPoolInfos) = Nothing
-    | otherwise =
-      Just $ rq & ltpMarker .~ rs ^. ltprrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listTapePoolsResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTapePoolsResponse_poolInfos Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTapePools_marker
+          Lens..~ rs
+          Lens.^? listTapePoolsResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest ListTapePools where
+instance Prelude.AWSRequest ListTapePools where
   type Rs ListTapePools = ListTapePoolsResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTapePoolsResponse'
-            <$> (x .?> "PoolInfos" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "PoolInfos"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTapePools
+instance Prelude.Hashable ListTapePools
 
-instance NFData ListTapePools
+instance Prelude.NFData ListTapePools
 
-instance ToHeaders ListTapePools where
+instance Prelude.ToHeaders ListTapePools where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.ListTapePools" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.ListTapePools" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTapePools where
+instance Prelude.ToJSON ListTapePools where
   toJSON ListTapePools' {..} =
-    object
-      ( catMaybes
-          [ ("Limit" .=) <$> _ltpLimit,
-            ("PoolARNs" .=) <$> _ltpPoolARNs,
-            ("Marker" .=) <$> _ltpMarker
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Limit" Prelude..=) Prelude.<$> limit,
+            ("PoolARNs" Prelude..=) Prelude.<$> poolARNs,
+            ("Marker" Prelude..=) Prelude.<$> marker
           ]
       )
 
-instance ToPath ListTapePools where
-  toPath = const "/"
+instance Prelude.ToPath ListTapePools where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTapePools where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTapePools where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTapePoolsResponse' smart constructor.
+-- | /See:/ 'newListTapePoolsResponse' smart constructor.
 data ListTapePoolsResponse = ListTapePoolsResponse'
-  { _ltprrsPoolInfos ::
-      !(Maybe [PoolInfo]),
-    _ltprrsMarker ::
-      !(Maybe Text),
-    _ltprrsResponseStatus ::
-      !Int
+  { -- | An array of @PoolInfo@ objects, where each object describes a single
+    -- custom tape pool. If there are no custom tape pools, the @PoolInfos@ is
+    -- an empty array.
+    poolInfos :: Prelude.Maybe [PoolInfo],
+    -- | A string that indicates the position at which to begin the returned list
+    -- of tape pools. Use the marker in your next request to continue
+    -- pagination of tape pools. If there are no more tape pools to list, this
+    -- element does not appear in the response body.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTapePoolsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTapePoolsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltprrsPoolInfos' - An array of @PoolInfo@ objects, where each object describes a single custom tape pool. If there are no custom tape pools, the @PoolInfos@ is an empty array.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltprrsMarker' - A string that indicates the position at which to begin the returned list of tape pools. Use the marker in your next request to continue pagination of tape pools. If there are no more tape pools to list, this element does not appear in the response body.
+-- 'poolInfos', 'listTapePoolsResponse_poolInfos' - An array of @PoolInfo@ objects, where each object describes a single
+-- custom tape pool. If there are no custom tape pools, the @PoolInfos@ is
+-- an empty array.
 --
--- * 'ltprrsResponseStatus' - -- | The response status code.
-listTapePoolsResponse ::
-  -- | 'ltprrsResponseStatus'
-  Int ->
+-- 'marker', 'listTapePoolsResponse_marker' - A string that indicates the position at which to begin the returned list
+-- of tape pools. Use the marker in your next request to continue
+-- pagination of tape pools. If there are no more tape pools to list, this
+-- element does not appear in the response body.
+--
+-- 'httpStatus', 'listTapePoolsResponse_httpStatus' - The response's http status code.
+newListTapePoolsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTapePoolsResponse
-listTapePoolsResponse pResponseStatus_ =
+newListTapePoolsResponse pHttpStatus_ =
   ListTapePoolsResponse'
-    { _ltprrsPoolInfos = Nothing,
-      _ltprrsMarker = Nothing,
-      _ltprrsResponseStatus = pResponseStatus_
+    { poolInfos = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of @PoolInfo@ objects, where each object describes a single custom tape pool. If there are no custom tape pools, the @PoolInfos@ is an empty array.
-ltprrsPoolInfos :: Lens' ListTapePoolsResponse [PoolInfo]
-ltprrsPoolInfos = lens _ltprrsPoolInfos (\s a -> s {_ltprrsPoolInfos = a}) . _Default . _Coerce
+-- | An array of @PoolInfo@ objects, where each object describes a single
+-- custom tape pool. If there are no custom tape pools, the @PoolInfos@ is
+-- an empty array.
+listTapePoolsResponse_poolInfos :: Lens.Lens' ListTapePoolsResponse (Prelude.Maybe [PoolInfo])
+listTapePoolsResponse_poolInfos = Lens.lens (\ListTapePoolsResponse' {poolInfos} -> poolInfos) (\s@ListTapePoolsResponse' {} a -> s {poolInfos = a} :: ListTapePoolsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A string that indicates the position at which to begin the returned list of tape pools. Use the marker in your next request to continue pagination of tape pools. If there are no more tape pools to list, this element does not appear in the response body.
-ltprrsMarker :: Lens' ListTapePoolsResponse (Maybe Text)
-ltprrsMarker = lens _ltprrsMarker (\s a -> s {_ltprrsMarker = a})
+-- | A string that indicates the position at which to begin the returned list
+-- of tape pools. Use the marker in your next request to continue
+-- pagination of tape pools. If there are no more tape pools to list, this
+-- element does not appear in the response body.
+listTapePoolsResponse_marker :: Lens.Lens' ListTapePoolsResponse (Prelude.Maybe Prelude.Text)
+listTapePoolsResponse_marker = Lens.lens (\ListTapePoolsResponse' {marker} -> marker) (\s@ListTapePoolsResponse' {} a -> s {marker = a} :: ListTapePoolsResponse)
 
--- | -- | The response status code.
-ltprrsResponseStatus :: Lens' ListTapePoolsResponse Int
-ltprrsResponseStatus = lens _ltprrsResponseStatus (\s a -> s {_ltprrsResponseStatus = a})
+-- | The response's http status code.
+listTapePoolsResponse_httpStatus :: Lens.Lens' ListTapePoolsResponse Prelude.Int
+listTapePoolsResponse_httpStatus = Lens.lens (\ListTapePoolsResponse' {httpStatus} -> httpStatus) (\s@ListTapePoolsResponse' {} a -> s {httpStatus = a} :: ListTapePoolsResponse)
 
-instance NFData ListTapePoolsResponse
+instance Prelude.NFData ListTapePoolsResponse

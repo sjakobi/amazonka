@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,108 +19,141 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.TapeInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a virtual tape.
 --
---
---
--- /See:/ 'tapeInfo' smart constructor.
+-- /See:/ 'newTapeInfo' smart constructor.
 data TapeInfo = TapeInfo'
-  { _tiPoolEntryDate ::
-      !(Maybe POSIX),
-    _tiTapeStatus :: !(Maybe Text),
-    _tiPoolId :: !(Maybe Text),
-    _tiTapeARN :: !(Maybe Text),
-    _tiTapeBarcode :: !(Maybe Text),
-    _tiTapeSizeInBytes :: !(Maybe Integer),
-    _tiRetentionStartDate :: !(Maybe POSIX),
-    _tiGatewayARN :: !(Maybe Text)
+  { -- | The date that the tape entered the custom tape pool with tape retention
+    -- lock enabled.
+    poolEntryDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the tape.
+    tapeStatus :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the pool that you want to add your tape to for archiving. The
+    -- tape in this pool is archived in the S3 storage class that is associated
+    -- with the pool. When you use your backup application to eject the tape,
+    -- the tape is archived directly into the storage class (S3 Glacier or S3
+    -- Glacier Deep Archive) that corresponds to the pool.
+    --
+    -- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
+    poolId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of a virtual tape.
+    tapeARN :: Prelude.Maybe Prelude.Text,
+    -- | The barcode that identifies a specific virtual tape.
+    tapeBarcode :: Prelude.Maybe Prelude.Text,
+    -- | The size, in bytes, of a virtual tape.
+    tapeSizeInBytes :: Prelude.Maybe Prelude.Integer,
+    -- | The date that the tape became subject to tape retention lock.
+    retentionStartDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the gateway. Use the ListGateways
+    -- operation to return a list of gateways for your account and AWS Region.
+    gatewayARN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TapeInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TapeInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tiPoolEntryDate' - The date that the tape entered the custom tape pool with tape retention lock enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tiTapeStatus' - The status of the tape.
+-- 'poolEntryDate', 'tapeInfo_poolEntryDate' - The date that the tape entered the custom tape pool with tape retention
+-- lock enabled.
 --
--- * 'tiPoolId' - The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in the S3 storage class that is associated with the pool. When you use your backup application to eject the tape, the tape is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that corresponds to the pool. Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
+-- 'tapeStatus', 'tapeInfo_tapeStatus' - The status of the tape.
 --
--- * 'tiTapeARN' - The Amazon Resource Name (ARN) of a virtual tape.
+-- 'poolId', 'tapeInfo_poolId' - The ID of the pool that you want to add your tape to for archiving. The
+-- tape in this pool is archived in the S3 storage class that is associated
+-- with the pool. When you use your backup application to eject the tape,
+-- the tape is archived directly into the storage class (S3 Glacier or S3
+-- Glacier Deep Archive) that corresponds to the pool.
 --
--- * 'tiTapeBarcode' - The barcode that identifies a specific virtual tape.
+-- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
 --
--- * 'tiTapeSizeInBytes' - The size, in bytes, of a virtual tape.
+-- 'tapeARN', 'tapeInfo_tapeARN' - The Amazon Resource Name (ARN) of a virtual tape.
 --
--- * 'tiRetentionStartDate' - The date that the tape became subject to tape retention lock.
+-- 'tapeBarcode', 'tapeInfo_tapeBarcode' - The barcode that identifies a specific virtual tape.
 --
--- * 'tiGatewayARN' - The Amazon Resource Name (ARN) of the gateway. Use the 'ListGateways' operation to return a list of gateways for your account and AWS Region.
-tapeInfo ::
+-- 'tapeSizeInBytes', 'tapeInfo_tapeSizeInBytes' - The size, in bytes, of a virtual tape.
+--
+-- 'retentionStartDate', 'tapeInfo_retentionStartDate' - The date that the tape became subject to tape retention lock.
+--
+-- 'gatewayARN', 'tapeInfo_gatewayARN' - The Amazon Resource Name (ARN) of the gateway. Use the ListGateways
+-- operation to return a list of gateways for your account and AWS Region.
+newTapeInfo ::
   TapeInfo
-tapeInfo =
+newTapeInfo =
   TapeInfo'
-    { _tiPoolEntryDate = Nothing,
-      _tiTapeStatus = Nothing,
-      _tiPoolId = Nothing,
-      _tiTapeARN = Nothing,
-      _tiTapeBarcode = Nothing,
-      _tiTapeSizeInBytes = Nothing,
-      _tiRetentionStartDate = Nothing,
-      _tiGatewayARN = Nothing
+    { poolEntryDate = Prelude.Nothing,
+      tapeStatus = Prelude.Nothing,
+      poolId = Prelude.Nothing,
+      tapeARN = Prelude.Nothing,
+      tapeBarcode = Prelude.Nothing,
+      tapeSizeInBytes = Prelude.Nothing,
+      retentionStartDate = Prelude.Nothing,
+      gatewayARN = Prelude.Nothing
     }
 
--- | The date that the tape entered the custom tape pool with tape retention lock enabled.
-tiPoolEntryDate :: Lens' TapeInfo (Maybe UTCTime)
-tiPoolEntryDate = lens _tiPoolEntryDate (\s a -> s {_tiPoolEntryDate = a}) . mapping _Time
+-- | The date that the tape entered the custom tape pool with tape retention
+-- lock enabled.
+tapeInfo_poolEntryDate :: Lens.Lens' TapeInfo (Prelude.Maybe Prelude.UTCTime)
+tapeInfo_poolEntryDate = Lens.lens (\TapeInfo' {poolEntryDate} -> poolEntryDate) (\s@TapeInfo' {} a -> s {poolEntryDate = a} :: TapeInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the tape.
-tiTapeStatus :: Lens' TapeInfo (Maybe Text)
-tiTapeStatus = lens _tiTapeStatus (\s a -> s {_tiTapeStatus = a})
+tapeInfo_tapeStatus :: Lens.Lens' TapeInfo (Prelude.Maybe Prelude.Text)
+tapeInfo_tapeStatus = Lens.lens (\TapeInfo' {tapeStatus} -> tapeStatus) (\s@TapeInfo' {} a -> s {tapeStatus = a} :: TapeInfo)
 
--- | The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in the S3 storage class that is associated with the pool. When you use your backup application to eject the tape, the tape is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that corresponds to the pool. Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
-tiPoolId :: Lens' TapeInfo (Maybe Text)
-tiPoolId = lens _tiPoolId (\s a -> s {_tiPoolId = a})
+-- | The ID of the pool that you want to add your tape to for archiving. The
+-- tape in this pool is archived in the S3 storage class that is associated
+-- with the pool. When you use your backup application to eject the tape,
+-- the tape is archived directly into the storage class (S3 Glacier or S3
+-- Glacier Deep Archive) that corresponds to the pool.
+--
+-- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
+tapeInfo_poolId :: Lens.Lens' TapeInfo (Prelude.Maybe Prelude.Text)
+tapeInfo_poolId = Lens.lens (\TapeInfo' {poolId} -> poolId) (\s@TapeInfo' {} a -> s {poolId = a} :: TapeInfo)
 
 -- | The Amazon Resource Name (ARN) of a virtual tape.
-tiTapeARN :: Lens' TapeInfo (Maybe Text)
-tiTapeARN = lens _tiTapeARN (\s a -> s {_tiTapeARN = a})
+tapeInfo_tapeARN :: Lens.Lens' TapeInfo (Prelude.Maybe Prelude.Text)
+tapeInfo_tapeARN = Lens.lens (\TapeInfo' {tapeARN} -> tapeARN) (\s@TapeInfo' {} a -> s {tapeARN = a} :: TapeInfo)
 
 -- | The barcode that identifies a specific virtual tape.
-tiTapeBarcode :: Lens' TapeInfo (Maybe Text)
-tiTapeBarcode = lens _tiTapeBarcode (\s a -> s {_tiTapeBarcode = a})
+tapeInfo_tapeBarcode :: Lens.Lens' TapeInfo (Prelude.Maybe Prelude.Text)
+tapeInfo_tapeBarcode = Lens.lens (\TapeInfo' {tapeBarcode} -> tapeBarcode) (\s@TapeInfo' {} a -> s {tapeBarcode = a} :: TapeInfo)
 
 -- | The size, in bytes, of a virtual tape.
-tiTapeSizeInBytes :: Lens' TapeInfo (Maybe Integer)
-tiTapeSizeInBytes = lens _tiTapeSizeInBytes (\s a -> s {_tiTapeSizeInBytes = a})
+tapeInfo_tapeSizeInBytes :: Lens.Lens' TapeInfo (Prelude.Maybe Prelude.Integer)
+tapeInfo_tapeSizeInBytes = Lens.lens (\TapeInfo' {tapeSizeInBytes} -> tapeSizeInBytes) (\s@TapeInfo' {} a -> s {tapeSizeInBytes = a} :: TapeInfo)
 
 -- | The date that the tape became subject to tape retention lock.
-tiRetentionStartDate :: Lens' TapeInfo (Maybe UTCTime)
-tiRetentionStartDate = lens _tiRetentionStartDate (\s a -> s {_tiRetentionStartDate = a}) . mapping _Time
+tapeInfo_retentionStartDate :: Lens.Lens' TapeInfo (Prelude.Maybe Prelude.UTCTime)
+tapeInfo_retentionStartDate = Lens.lens (\TapeInfo' {retentionStartDate} -> retentionStartDate) (\s@TapeInfo' {} a -> s {retentionStartDate = a} :: TapeInfo) Prelude.. Lens.mapping Prelude._Time
 
--- | The Amazon Resource Name (ARN) of the gateway. Use the 'ListGateways' operation to return a list of gateways for your account and AWS Region.
-tiGatewayARN :: Lens' TapeInfo (Maybe Text)
-tiGatewayARN = lens _tiGatewayARN (\s a -> s {_tiGatewayARN = a})
+-- | The Amazon Resource Name (ARN) of the gateway. Use the ListGateways
+-- operation to return a list of gateways for your account and AWS Region.
+tapeInfo_gatewayARN :: Lens.Lens' TapeInfo (Prelude.Maybe Prelude.Text)
+tapeInfo_gatewayARN = Lens.lens (\TapeInfo' {gatewayARN} -> gatewayARN) (\s@TapeInfo' {} a -> s {gatewayARN = a} :: TapeInfo)
 
-instance FromJSON TapeInfo where
+instance Prelude.FromJSON TapeInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TapeInfo"
       ( \x ->
           TapeInfo'
-            <$> (x .:? "PoolEntryDate")
-            <*> (x .:? "TapeStatus")
-            <*> (x .:? "PoolId")
-            <*> (x .:? "TapeARN")
-            <*> (x .:? "TapeBarcode")
-            <*> (x .:? "TapeSizeInBytes")
-            <*> (x .:? "RetentionStartDate")
-            <*> (x .:? "GatewayARN")
+            Prelude.<$> (x Prelude..:? "PoolEntryDate")
+            Prelude.<*> (x Prelude..:? "TapeStatus")
+            Prelude.<*> (x Prelude..:? "PoolId")
+            Prelude.<*> (x Prelude..:? "TapeARN")
+            Prelude.<*> (x Prelude..:? "TapeBarcode")
+            Prelude.<*> (x Prelude..:? "TapeSizeInBytes")
+            Prelude.<*> (x Prelude..:? "RetentionStartDate")
+            Prelude.<*> (x Prelude..:? "GatewayARN")
       )
 
-instance Hashable TapeInfo
+instance Prelude.Hashable TapeInfo
 
-instance NFData TapeInfo
+instance Prelude.NFData TapeInfo

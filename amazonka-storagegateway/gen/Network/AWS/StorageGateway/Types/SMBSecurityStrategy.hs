@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.StorageGateway.Types.SMBSecurityStrategy
   ( SMBSecurityStrategy
       ( ..,
-        ClientSpecified,
-        MandatoryEncryption,
-        MandatorySigning
+        SMBSecurityStrategyClientSpecified,
+        SMBSecurityStrategyMandatoryEncryption,
+        SMBSecurityStrategyMandatorySigning
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SMBSecurityStrategy
-  = SMBSecurityStrategy'
-      ( CI
-          Text
-      )
+newtype SMBSecurityStrategy = SMBSecurityStrategy'
+  { fromSMBSecurityStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ClientSpecified :: SMBSecurityStrategy
-pattern ClientSpecified = SMBSecurityStrategy' "ClientSpecified"
+pattern SMBSecurityStrategyClientSpecified :: SMBSecurityStrategy
+pattern SMBSecurityStrategyClientSpecified = SMBSecurityStrategy' "ClientSpecified"
 
-pattern MandatoryEncryption :: SMBSecurityStrategy
-pattern MandatoryEncryption = SMBSecurityStrategy' "MandatoryEncryption"
+pattern SMBSecurityStrategyMandatoryEncryption :: SMBSecurityStrategy
+pattern SMBSecurityStrategyMandatoryEncryption = SMBSecurityStrategy' "MandatoryEncryption"
 
-pattern MandatorySigning :: SMBSecurityStrategy
-pattern MandatorySigning = SMBSecurityStrategy' "MandatorySigning"
+pattern SMBSecurityStrategyMandatorySigning :: SMBSecurityStrategy
+pattern SMBSecurityStrategyMandatorySigning = SMBSecurityStrategy' "MandatorySigning"
 
 {-# COMPLETE
-  ClientSpecified,
-  MandatoryEncryption,
-  MandatorySigning,
+  SMBSecurityStrategyClientSpecified,
+  SMBSecurityStrategyMandatoryEncryption,
+  SMBSecurityStrategyMandatorySigning,
   SMBSecurityStrategy'
   #-}
 
-instance FromText SMBSecurityStrategy where
-  parser = (SMBSecurityStrategy' . mk) <$> takeText
+instance Prelude.FromText SMBSecurityStrategy where
+  parser = SMBSecurityStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText SMBSecurityStrategy where
-  toText (SMBSecurityStrategy' ci) = original ci
+instance Prelude.ToText SMBSecurityStrategy where
+  toText (SMBSecurityStrategy' x) = x
 
-instance Hashable SMBSecurityStrategy
+instance Prelude.Hashable SMBSecurityStrategy
 
-instance NFData SMBSecurityStrategy
+instance Prelude.NFData SMBSecurityStrategy
 
-instance ToByteString SMBSecurityStrategy
+instance Prelude.ToByteString SMBSecurityStrategy
 
-instance ToQuery SMBSecurityStrategy
+instance Prelude.ToQuery SMBSecurityStrategy
 
-instance ToHeader SMBSecurityStrategy
+instance Prelude.ToHeader SMBSecurityStrategy
 
-instance ToJSON SMBSecurityStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SMBSecurityStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SMBSecurityStrategy where
-  parseJSON = parseJSONText "SMBSecurityStrategy"
+instance Prelude.FromJSON SMBSecurityStrategy where
+  parseJSON = Prelude.parseJSONText "SMBSecurityStrategy"

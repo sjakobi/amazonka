@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.StorageGateway.Types.TapeStorageClass
   ( TapeStorageClass
       ( ..,
-        DeepArchive,
-        Glacier
+        TapeStorageClassDEEPARCHIVE,
+        TapeStorageClassGLACIER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TapeStorageClass = TapeStorageClass' (CI Text)
+newtype TapeStorageClass = TapeStorageClass'
+  { fromTapeStorageClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeepArchive :: TapeStorageClass
-pattern DeepArchive = TapeStorageClass' "DEEP_ARCHIVE"
+pattern TapeStorageClassDEEPARCHIVE :: TapeStorageClass
+pattern TapeStorageClassDEEPARCHIVE = TapeStorageClass' "DEEP_ARCHIVE"
 
-pattern Glacier :: TapeStorageClass
-pattern Glacier = TapeStorageClass' "GLACIER"
+pattern TapeStorageClassGLACIER :: TapeStorageClass
+pattern TapeStorageClassGLACIER = TapeStorageClass' "GLACIER"
 
 {-# COMPLETE
-  DeepArchive,
-  Glacier,
+  TapeStorageClassDEEPARCHIVE,
+  TapeStorageClassGLACIER,
   TapeStorageClass'
   #-}
 
-instance FromText TapeStorageClass where
-  parser = (TapeStorageClass' . mk) <$> takeText
+instance Prelude.FromText TapeStorageClass where
+  parser = TapeStorageClass' Prelude.<$> Prelude.takeText
 
-instance ToText TapeStorageClass where
-  toText (TapeStorageClass' ci) = original ci
+instance Prelude.ToText TapeStorageClass where
+  toText (TapeStorageClass' x) = x
 
-instance Hashable TapeStorageClass
+instance Prelude.Hashable TapeStorageClass
 
-instance NFData TapeStorageClass
+instance Prelude.NFData TapeStorageClass
 
-instance ToByteString TapeStorageClass
+instance Prelude.ToByteString TapeStorageClass
 
-instance ToQuery TapeStorageClass
+instance Prelude.ToQuery TapeStorageClass
 
-instance ToHeader TapeStorageClass
+instance Prelude.ToHeader TapeStorageClass
 
-instance ToJSON TapeStorageClass where
-  toJSON = toJSONText
+instance Prelude.ToJSON TapeStorageClass where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TapeStorageClass where
-  parseJSON = parseJSONText "TapeStorageClass"
+instance Prelude.FromJSON TapeStorageClass where
+  parseJSON = Prelude.parseJSONText "TapeStorageClass"

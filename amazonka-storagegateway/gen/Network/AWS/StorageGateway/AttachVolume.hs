@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,196 +21,264 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Connects a volume to an iSCSI connection and then attaches the volume to the specified gateway. Detaching and attaching a volume enables you to recover your data from one gateway to a different gateway without creating a snapshot. It also makes it easier to move your volumes from an on-premises gateway to a gateway hosted on an Amazon EC2 instance.
+-- Connects a volume to an iSCSI connection and then attaches the volume to
+-- the specified gateway. Detaching and attaching a volume enables you to
+-- recover your data from one gateway to a different gateway without
+-- creating a snapshot. It also makes it easier to move your volumes from
+-- an on-premises gateway to a gateway hosted on an Amazon EC2 instance.
 module Network.AWS.StorageGateway.AttachVolume
   ( -- * Creating a Request
-    attachVolume,
-    AttachVolume,
+    AttachVolume (..),
+    newAttachVolume,
 
     -- * Request Lenses
-    avTargetName,
-    avDiskId,
-    avGatewayARN,
-    avVolumeARN,
-    avNetworkInterfaceId,
+    attachVolume_targetName,
+    attachVolume_diskId,
+    attachVolume_gatewayARN,
+    attachVolume_volumeARN,
+    attachVolume_networkInterfaceId,
 
     -- * Destructuring the Response
-    attachVolumeResponse,
-    AttachVolumeResponse,
+    AttachVolumeResponse (..),
+    newAttachVolumeResponse,
 
     -- * Response Lenses
-    avrrsVolumeARN,
-    avrrsTargetARN,
-    avrrsResponseStatus,
+    attachVolumeResponse_volumeARN,
+    attachVolumeResponse_targetARN,
+    attachVolumeResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
 -- | AttachVolumeInput
 --
---
---
--- /See:/ 'attachVolume' smart constructor.
+-- /See:/ 'newAttachVolume' smart constructor.
 data AttachVolume = AttachVolume'
-  { _avTargetName ::
-      !(Maybe Text),
-    _avDiskId :: !(Maybe Text),
-    _avGatewayARN :: !Text,
-    _avVolumeARN :: !Text,
-    _avNetworkInterfaceId :: !Text
+  { -- | The name of the iSCSI target used by an initiator to connect to a volume
+    -- and used as a suffix for the target ARN. For example, specifying
+    -- @TargetName@ as /myvolume/ results in the target ARN of
+    -- @arn:aws:storagegateway:us-east-2:111122223333:gateway\/sgw-12A3456B\/target\/iqn.1997-05.com.amazon:myvolume@.
+    -- The target name must be unique across all volumes on a gateway.
+    --
+    -- If you don\'t specify a value, Storage Gateway uses the value that was
+    -- previously used for this volume as the new target name.
+    targetName :: Prelude.Maybe Prelude.Text,
+    -- | The unique device ID or other distinguishing data that identifies the
+    -- local disk used to create the volume. This value is only required when
+    -- you are attaching a stored volume.
+    diskId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the gateway that you want to attach
+    -- the volume to.
+    gatewayARN :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the volume to attach to the specified
+    -- gateway.
+    volumeARN :: Prelude.Text,
+    -- | The network interface of the gateway on which to expose the iSCSI
+    -- target. Only IPv4 addresses are accepted. Use DescribeGatewayInformation
+    -- to get a list of the network interfaces available on a gateway.
+    --
+    -- Valid Values: A valid IP address.
+    networkInterfaceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachVolume' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachVolume' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avTargetName' - The name of the iSCSI target used by an initiator to connect to a volume and used as a suffix for the target ARN. For example, specifying @TargetName@ as /myvolume/ results in the target ARN of @arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume@ . The target name must be unique across all volumes on a gateway. If you don't specify a value, Storage Gateway uses the value that was previously used for this volume as the new target name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avDiskId' - The unique device ID or other distinguishing data that identifies the local disk used to create the volume. This value is only required when you are attaching a stored volume.
+-- 'targetName', 'attachVolume_targetName' - The name of the iSCSI target used by an initiator to connect to a volume
+-- and used as a suffix for the target ARN. For example, specifying
+-- @TargetName@ as /myvolume/ results in the target ARN of
+-- @arn:aws:storagegateway:us-east-2:111122223333:gateway\/sgw-12A3456B\/target\/iqn.1997-05.com.amazon:myvolume@.
+-- The target name must be unique across all volumes on a gateway.
 --
--- * 'avGatewayARN' - The Amazon Resource Name (ARN) of the gateway that you want to attach the volume to.
+-- If you don\'t specify a value, Storage Gateway uses the value that was
+-- previously used for this volume as the new target name.
 --
--- * 'avVolumeARN' - The Amazon Resource Name (ARN) of the volume to attach to the specified gateway.
+-- 'diskId', 'attachVolume_diskId' - The unique device ID or other distinguishing data that identifies the
+-- local disk used to create the volume. This value is only required when
+-- you are attaching a stored volume.
 --
--- * 'avNetworkInterfaceId' - The network interface of the gateway on which to expose the iSCSI target. Only IPv4 addresses are accepted. Use 'DescribeGatewayInformation' to get a list of the network interfaces available on a gateway. Valid Values: A valid IP address.
-attachVolume ::
-  -- | 'avGatewayARN'
-  Text ->
-  -- | 'avVolumeARN'
-  Text ->
-  -- | 'avNetworkInterfaceId'
-  Text ->
+-- 'gatewayARN', 'attachVolume_gatewayARN' - The Amazon Resource Name (ARN) of the gateway that you want to attach
+-- the volume to.
+--
+-- 'volumeARN', 'attachVolume_volumeARN' - The Amazon Resource Name (ARN) of the volume to attach to the specified
+-- gateway.
+--
+-- 'networkInterfaceId', 'attachVolume_networkInterfaceId' - The network interface of the gateway on which to expose the iSCSI
+-- target. Only IPv4 addresses are accepted. Use DescribeGatewayInformation
+-- to get a list of the network interfaces available on a gateway.
+--
+-- Valid Values: A valid IP address.
+newAttachVolume ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
+  -- | 'volumeARN'
+  Prelude.Text ->
+  -- | 'networkInterfaceId'
+  Prelude.Text ->
   AttachVolume
-attachVolume
+newAttachVolume
   pGatewayARN_
   pVolumeARN_
   pNetworkInterfaceId_ =
     AttachVolume'
-      { _avTargetName = Nothing,
-        _avDiskId = Nothing,
-        _avGatewayARN = pGatewayARN_,
-        _avVolumeARN = pVolumeARN_,
-        _avNetworkInterfaceId = pNetworkInterfaceId_
+      { targetName = Prelude.Nothing,
+        diskId = Prelude.Nothing,
+        gatewayARN = pGatewayARN_,
+        volumeARN = pVolumeARN_,
+        networkInterfaceId = pNetworkInterfaceId_
       }
 
--- | The name of the iSCSI target used by an initiator to connect to a volume and used as a suffix for the target ARN. For example, specifying @TargetName@ as /myvolume/ results in the target ARN of @arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume@ . The target name must be unique across all volumes on a gateway. If you don't specify a value, Storage Gateway uses the value that was previously used for this volume as the new target name.
-avTargetName :: Lens' AttachVolume (Maybe Text)
-avTargetName = lens _avTargetName (\s a -> s {_avTargetName = a})
+-- | The name of the iSCSI target used by an initiator to connect to a volume
+-- and used as a suffix for the target ARN. For example, specifying
+-- @TargetName@ as /myvolume/ results in the target ARN of
+-- @arn:aws:storagegateway:us-east-2:111122223333:gateway\/sgw-12A3456B\/target\/iqn.1997-05.com.amazon:myvolume@.
+-- The target name must be unique across all volumes on a gateway.
+--
+-- If you don\'t specify a value, Storage Gateway uses the value that was
+-- previously used for this volume as the new target name.
+attachVolume_targetName :: Lens.Lens' AttachVolume (Prelude.Maybe Prelude.Text)
+attachVolume_targetName = Lens.lens (\AttachVolume' {targetName} -> targetName) (\s@AttachVolume' {} a -> s {targetName = a} :: AttachVolume)
 
--- | The unique device ID or other distinguishing data that identifies the local disk used to create the volume. This value is only required when you are attaching a stored volume.
-avDiskId :: Lens' AttachVolume (Maybe Text)
-avDiskId = lens _avDiskId (\s a -> s {_avDiskId = a})
+-- | The unique device ID or other distinguishing data that identifies the
+-- local disk used to create the volume. This value is only required when
+-- you are attaching a stored volume.
+attachVolume_diskId :: Lens.Lens' AttachVolume (Prelude.Maybe Prelude.Text)
+attachVolume_diskId = Lens.lens (\AttachVolume' {diskId} -> diskId) (\s@AttachVolume' {} a -> s {diskId = a} :: AttachVolume)
 
--- | The Amazon Resource Name (ARN) of the gateway that you want to attach the volume to.
-avGatewayARN :: Lens' AttachVolume Text
-avGatewayARN = lens _avGatewayARN (\s a -> s {_avGatewayARN = a})
+-- | The Amazon Resource Name (ARN) of the gateway that you want to attach
+-- the volume to.
+attachVolume_gatewayARN :: Lens.Lens' AttachVolume Prelude.Text
+attachVolume_gatewayARN = Lens.lens (\AttachVolume' {gatewayARN} -> gatewayARN) (\s@AttachVolume' {} a -> s {gatewayARN = a} :: AttachVolume)
 
--- | The Amazon Resource Name (ARN) of the volume to attach to the specified gateway.
-avVolumeARN :: Lens' AttachVolume Text
-avVolumeARN = lens _avVolumeARN (\s a -> s {_avVolumeARN = a})
+-- | The Amazon Resource Name (ARN) of the volume to attach to the specified
+-- gateway.
+attachVolume_volumeARN :: Lens.Lens' AttachVolume Prelude.Text
+attachVolume_volumeARN = Lens.lens (\AttachVolume' {volumeARN} -> volumeARN) (\s@AttachVolume' {} a -> s {volumeARN = a} :: AttachVolume)
 
--- | The network interface of the gateway on which to expose the iSCSI target. Only IPv4 addresses are accepted. Use 'DescribeGatewayInformation' to get a list of the network interfaces available on a gateway. Valid Values: A valid IP address.
-avNetworkInterfaceId :: Lens' AttachVolume Text
-avNetworkInterfaceId = lens _avNetworkInterfaceId (\s a -> s {_avNetworkInterfaceId = a})
+-- | The network interface of the gateway on which to expose the iSCSI
+-- target. Only IPv4 addresses are accepted. Use DescribeGatewayInformation
+-- to get a list of the network interfaces available on a gateway.
+--
+-- Valid Values: A valid IP address.
+attachVolume_networkInterfaceId :: Lens.Lens' AttachVolume Prelude.Text
+attachVolume_networkInterfaceId = Lens.lens (\AttachVolume' {networkInterfaceId} -> networkInterfaceId) (\s@AttachVolume' {} a -> s {networkInterfaceId = a} :: AttachVolume)
 
-instance AWSRequest AttachVolume where
+instance Prelude.AWSRequest AttachVolume where
   type Rs AttachVolume = AttachVolumeResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AttachVolumeResponse'
-            <$> (x .?> "VolumeARN")
-            <*> (x .?> "TargetARN")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "VolumeARN")
+            Prelude.<*> (x Prelude..?> "TargetARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AttachVolume
+instance Prelude.Hashable AttachVolume
 
-instance NFData AttachVolume
+instance Prelude.NFData AttachVolume
 
-instance ToHeaders AttachVolume where
+instance Prelude.ToHeaders AttachVolume where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.AttachVolume" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.AttachVolume" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AttachVolume where
+instance Prelude.ToJSON AttachVolume where
   toJSON AttachVolume' {..} =
-    object
-      ( catMaybes
-          [ ("TargetName" .=) <$> _avTargetName,
-            ("DiskId" .=) <$> _avDiskId,
-            Just ("GatewayARN" .= _avGatewayARN),
-            Just ("VolumeARN" .= _avVolumeARN),
-            Just
-              ("NetworkInterfaceId" .= _avNetworkInterfaceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TargetName" Prelude..=) Prelude.<$> targetName,
+            ("DiskId" Prelude..=) Prelude.<$> diskId,
+            Prelude.Just ("GatewayARN" Prelude..= gatewayARN),
+            Prelude.Just ("VolumeARN" Prelude..= volumeARN),
+            Prelude.Just
+              ( "NetworkInterfaceId"
+                  Prelude..= networkInterfaceId
+              )
           ]
       )
 
-instance ToPath AttachVolume where
-  toPath = const "/"
+instance Prelude.ToPath AttachVolume where
+  toPath = Prelude.const "/"
 
-instance ToQuery AttachVolume where
-  toQuery = const mempty
+instance Prelude.ToQuery AttachVolume where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | AttachVolumeOutput
 --
---
---
--- /See:/ 'attachVolumeResponse' smart constructor.
+-- /See:/ 'newAttachVolumeResponse' smart constructor.
 data AttachVolumeResponse = AttachVolumeResponse'
-  { _avrrsVolumeARN ::
-      !(Maybe Text),
-    _avrrsTargetARN ::
-      !(Maybe Text),
-    _avrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the volume that was attached to the
+    -- gateway.
+    volumeARN :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the volume target, which includes the
+    -- iSCSI name for the initiator that was used to connect to the target.
+    targetARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachVolumeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachVolumeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avrrsVolumeARN' - The Amazon Resource Name (ARN) of the volume that was attached to the gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avrrsTargetARN' - The Amazon Resource Name (ARN) of the volume target, which includes the iSCSI name for the initiator that was used to connect to the target.
+-- 'volumeARN', 'attachVolumeResponse_volumeARN' - The Amazon Resource Name (ARN) of the volume that was attached to the
+-- gateway.
 --
--- * 'avrrsResponseStatus' - -- | The response status code.
-attachVolumeResponse ::
-  -- | 'avrrsResponseStatus'
-  Int ->
+-- 'targetARN', 'attachVolumeResponse_targetARN' - The Amazon Resource Name (ARN) of the volume target, which includes the
+-- iSCSI name for the initiator that was used to connect to the target.
+--
+-- 'httpStatus', 'attachVolumeResponse_httpStatus' - The response's http status code.
+newAttachVolumeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AttachVolumeResponse
-attachVolumeResponse pResponseStatus_ =
+newAttachVolumeResponse pHttpStatus_ =
   AttachVolumeResponse'
-    { _avrrsVolumeARN = Nothing,
-      _avrrsTargetARN = Nothing,
-      _avrrsResponseStatus = pResponseStatus_
+    { volumeARN = Prelude.Nothing,
+      targetARN = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) of the volume that was attached to the gateway.
-avrrsVolumeARN :: Lens' AttachVolumeResponse (Maybe Text)
-avrrsVolumeARN = lens _avrrsVolumeARN (\s a -> s {_avrrsVolumeARN = a})
+-- | The Amazon Resource Name (ARN) of the volume that was attached to the
+-- gateway.
+attachVolumeResponse_volumeARN :: Lens.Lens' AttachVolumeResponse (Prelude.Maybe Prelude.Text)
+attachVolumeResponse_volumeARN = Lens.lens (\AttachVolumeResponse' {volumeARN} -> volumeARN) (\s@AttachVolumeResponse' {} a -> s {volumeARN = a} :: AttachVolumeResponse)
 
--- | The Amazon Resource Name (ARN) of the volume target, which includes the iSCSI name for the initiator that was used to connect to the target.
-avrrsTargetARN :: Lens' AttachVolumeResponse (Maybe Text)
-avrrsTargetARN = lens _avrrsTargetARN (\s a -> s {_avrrsTargetARN = a})
+-- | The Amazon Resource Name (ARN) of the volume target, which includes the
+-- iSCSI name for the initiator that was used to connect to the target.
+attachVolumeResponse_targetARN :: Lens.Lens' AttachVolumeResponse (Prelude.Maybe Prelude.Text)
+attachVolumeResponse_targetARN = Lens.lens (\AttachVolumeResponse' {targetARN} -> targetARN) (\s@AttachVolumeResponse' {} a -> s {targetARN = a} :: AttachVolumeResponse)
 
--- | -- | The response status code.
-avrrsResponseStatus :: Lens' AttachVolumeResponse Int
-avrrsResponseStatus = lens _avrrsResponseStatus (\s a -> s {_avrrsResponseStatus = a})
+-- | The response's http status code.
+attachVolumeResponse_httpStatus :: Lens.Lens' AttachVolumeResponse Prelude.Int
+attachVolumeResponse_httpStatus = Lens.lens (\AttachVolumeResponse' {httpStatus} -> httpStatus) (\s@AttachVolumeResponse' {} a -> s {httpStatus = a} :: AttachVolumeResponse)
 
-instance NFData AttachVolumeResponse
+instance Prelude.NFData AttachVolumeResponse

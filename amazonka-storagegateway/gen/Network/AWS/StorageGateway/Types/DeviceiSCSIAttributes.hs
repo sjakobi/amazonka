@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.DeviceiSCSIAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Lists iSCSI information about a VTL device.
 --
---
---
--- /See:/ 'deviceiSCSIAttributes' smart constructor.
+-- /See:/ 'newDeviceiSCSIAttributes' smart constructor.
 data DeviceiSCSIAttributes = DeviceiSCSIAttributes'
-  { _dscsiaChapEnabled ::
-      !(Maybe Bool),
-    _dscsiaTargetARN ::
-      !(Maybe Text),
-    _dscsiaNetworkInterfaceId ::
-      !(Maybe Text),
-    _dscsiaNetworkInterfacePort ::
-      !(Maybe Int)
+  { -- | Indicates whether mutual CHAP is enabled for the iSCSI target.
+    chapEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
+    -- qualified name(iqn) of a tape drive or media changer target.
+    targetARN :: Prelude.Maybe Prelude.Text,
+    -- | The network interface identifier of the VTL device.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The port used to communicate with iSCSI VTL device targets.
+    networkInterfacePort :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceiSCSIAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceiSCSIAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscsiaChapEnabled' - Indicates whether mutual CHAP is enabled for the iSCSI target.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dscsiaTargetARN' - Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI qualified name(iqn) of a tape drive or media changer target.
+-- 'chapEnabled', 'deviceiSCSIAttributes_chapEnabled' - Indicates whether mutual CHAP is enabled for the iSCSI target.
 --
--- * 'dscsiaNetworkInterfaceId' - The network interface identifier of the VTL device.
+-- 'targetARN', 'deviceiSCSIAttributes_targetARN' - Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
+-- qualified name(iqn) of a tape drive or media changer target.
 --
--- * 'dscsiaNetworkInterfacePort' - The port used to communicate with iSCSI VTL device targets.
-deviceiSCSIAttributes ::
+-- 'networkInterfaceId', 'deviceiSCSIAttributes_networkInterfaceId' - The network interface identifier of the VTL device.
+--
+-- 'networkInterfacePort', 'deviceiSCSIAttributes_networkInterfacePort' - The port used to communicate with iSCSI VTL device targets.
+newDeviceiSCSIAttributes ::
   DeviceiSCSIAttributes
-deviceiSCSIAttributes =
+newDeviceiSCSIAttributes =
   DeviceiSCSIAttributes'
-    { _dscsiaChapEnabled =
-        Nothing,
-      _dscsiaTargetARN = Nothing,
-      _dscsiaNetworkInterfaceId = Nothing,
-      _dscsiaNetworkInterfacePort = Nothing
+    { chapEnabled =
+        Prelude.Nothing,
+      targetARN = Prelude.Nothing,
+      networkInterfaceId = Prelude.Nothing,
+      networkInterfacePort = Prelude.Nothing
     }
 
 -- | Indicates whether mutual CHAP is enabled for the iSCSI target.
-dscsiaChapEnabled :: Lens' DeviceiSCSIAttributes (Maybe Bool)
-dscsiaChapEnabled = lens _dscsiaChapEnabled (\s a -> s {_dscsiaChapEnabled = a})
+deviceiSCSIAttributes_chapEnabled :: Lens.Lens' DeviceiSCSIAttributes (Prelude.Maybe Prelude.Bool)
+deviceiSCSIAttributes_chapEnabled = Lens.lens (\DeviceiSCSIAttributes' {chapEnabled} -> chapEnabled) (\s@DeviceiSCSIAttributes' {} a -> s {chapEnabled = a} :: DeviceiSCSIAttributes)
 
--- | Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI qualified name(iqn) of a tape drive or media changer target.
-dscsiaTargetARN :: Lens' DeviceiSCSIAttributes (Maybe Text)
-dscsiaTargetARN = lens _dscsiaTargetARN (\s a -> s {_dscsiaTargetARN = a})
+-- | Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
+-- qualified name(iqn) of a tape drive or media changer target.
+deviceiSCSIAttributes_targetARN :: Lens.Lens' DeviceiSCSIAttributes (Prelude.Maybe Prelude.Text)
+deviceiSCSIAttributes_targetARN = Lens.lens (\DeviceiSCSIAttributes' {targetARN} -> targetARN) (\s@DeviceiSCSIAttributes' {} a -> s {targetARN = a} :: DeviceiSCSIAttributes)
 
 -- | The network interface identifier of the VTL device.
-dscsiaNetworkInterfaceId :: Lens' DeviceiSCSIAttributes (Maybe Text)
-dscsiaNetworkInterfaceId = lens _dscsiaNetworkInterfaceId (\s a -> s {_dscsiaNetworkInterfaceId = a})
+deviceiSCSIAttributes_networkInterfaceId :: Lens.Lens' DeviceiSCSIAttributes (Prelude.Maybe Prelude.Text)
+deviceiSCSIAttributes_networkInterfaceId = Lens.lens (\DeviceiSCSIAttributes' {networkInterfaceId} -> networkInterfaceId) (\s@DeviceiSCSIAttributes' {} a -> s {networkInterfaceId = a} :: DeviceiSCSIAttributes)
 
 -- | The port used to communicate with iSCSI VTL device targets.
-dscsiaNetworkInterfacePort :: Lens' DeviceiSCSIAttributes (Maybe Int)
-dscsiaNetworkInterfacePort = lens _dscsiaNetworkInterfacePort (\s a -> s {_dscsiaNetworkInterfacePort = a})
+deviceiSCSIAttributes_networkInterfacePort :: Lens.Lens' DeviceiSCSIAttributes (Prelude.Maybe Prelude.Int)
+deviceiSCSIAttributes_networkInterfacePort = Lens.lens (\DeviceiSCSIAttributes' {networkInterfacePort} -> networkInterfacePort) (\s@DeviceiSCSIAttributes' {} a -> s {networkInterfacePort = a} :: DeviceiSCSIAttributes)
 
-instance FromJSON DeviceiSCSIAttributes where
+instance Prelude.FromJSON DeviceiSCSIAttributes where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceiSCSIAttributes"
       ( \x ->
           DeviceiSCSIAttributes'
-            <$> (x .:? "ChapEnabled")
-            <*> (x .:? "TargetARN")
-            <*> (x .:? "NetworkInterfaceId")
-            <*> (x .:? "NetworkInterfacePort")
+            Prelude.<$> (x Prelude..:? "ChapEnabled")
+            Prelude.<*> (x Prelude..:? "TargetARN")
+            Prelude.<*> (x Prelude..:? "NetworkInterfaceId")
+            Prelude.<*> (x Prelude..:? "NetworkInterfacePort")
       )
 
-instance Hashable DeviceiSCSIAttributes
+instance Prelude.Hashable DeviceiSCSIAttributes
 
-instance NFData DeviceiSCSIAttributes
+instance Prelude.NFData DeviceiSCSIAttributes

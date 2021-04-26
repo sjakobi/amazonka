@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.StorageGateway.Types.RetentionLockType
   ( RetentionLockType
       ( ..,
-        Compliance,
-        Governance,
-        None
+        RetentionLockTypeCOMPLIANCE,
+        RetentionLockTypeGOVERNANCE,
+        RetentionLockTypeNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RetentionLockType = RetentionLockType' (CI Text)
+newtype RetentionLockType = RetentionLockType'
+  { fromRetentionLockType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Compliance :: RetentionLockType
-pattern Compliance = RetentionLockType' "COMPLIANCE"
+pattern RetentionLockTypeCOMPLIANCE :: RetentionLockType
+pattern RetentionLockTypeCOMPLIANCE = RetentionLockType' "COMPLIANCE"
 
-pattern Governance :: RetentionLockType
-pattern Governance = RetentionLockType' "GOVERNANCE"
+pattern RetentionLockTypeGOVERNANCE :: RetentionLockType
+pattern RetentionLockTypeGOVERNANCE = RetentionLockType' "GOVERNANCE"
 
-pattern None :: RetentionLockType
-pattern None = RetentionLockType' "NONE"
+pattern RetentionLockTypeNONE :: RetentionLockType
+pattern RetentionLockTypeNONE = RetentionLockType' "NONE"
 
 {-# COMPLETE
-  Compliance,
-  Governance,
-  None,
+  RetentionLockTypeCOMPLIANCE,
+  RetentionLockTypeGOVERNANCE,
+  RetentionLockTypeNONE,
   RetentionLockType'
   #-}
 
-instance FromText RetentionLockType where
-  parser = (RetentionLockType' . mk) <$> takeText
+instance Prelude.FromText RetentionLockType where
+  parser = RetentionLockType' Prelude.<$> Prelude.takeText
 
-instance ToText RetentionLockType where
-  toText (RetentionLockType' ci) = original ci
+instance Prelude.ToText RetentionLockType where
+  toText (RetentionLockType' x) = x
 
-instance Hashable RetentionLockType
+instance Prelude.Hashable RetentionLockType
 
-instance NFData RetentionLockType
+instance Prelude.NFData RetentionLockType
 
-instance ToByteString RetentionLockType
+instance Prelude.ToByteString RetentionLockType
 
-instance ToQuery RetentionLockType
+instance Prelude.ToQuery RetentionLockType
 
-instance ToHeader RetentionLockType
+instance Prelude.ToHeader RetentionLockType
 
-instance ToJSON RetentionLockType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RetentionLockType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RetentionLockType where
-  parseJSON = parseJSONText "RetentionLockType"
+instance Prelude.FromJSON RetentionLockType where
+  parseJSON = Prelude.parseJSONText "RetentionLockType"

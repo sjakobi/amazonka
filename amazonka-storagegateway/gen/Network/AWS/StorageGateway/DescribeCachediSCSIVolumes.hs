@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,168 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a description of the gateway volumes specified in the request. This operation is only supported in the cached volume gateway types.
+-- Returns a description of the gateway volumes specified in the request.
+-- This operation is only supported in the cached volume gateway types.
 --
---
--- The list of gateway volumes in the request must be from one gateway. In the response, AWS Storage Gateway returns volume information sorted by volume Amazon Resource Name (ARN).
+-- The list of gateway volumes in the request must be from one gateway. In
+-- the response, AWS Storage Gateway returns volume information sorted by
+-- volume Amazon Resource Name (ARN).
 module Network.AWS.StorageGateway.DescribeCachediSCSIVolumes
   ( -- * Creating a Request
-    describeCachediSCSIVolumes,
-    DescribeCachediSCSIVolumes,
+    DescribeCachediSCSIVolumes (..),
+    newDescribeCachediSCSIVolumes,
 
     -- * Request Lenses
-    dcscsivVolumeARNs,
+    describeCachediSCSIVolumes_volumeARNs,
 
     -- * Destructuring the Response
-    describeCachediSCSIVolumesResponse,
-    DescribeCachediSCSIVolumesResponse,
+    DescribeCachediSCSIVolumesResponse (..),
+    newDescribeCachediSCSIVolumesResponse,
 
     -- * Response Lenses
-    dcscsivrrsCachediSCSIVolumes,
-    dcscsivrrsResponseStatus,
+    describeCachediSCSIVolumesResponse_cachediSCSIVolumes,
+    describeCachediSCSIVolumesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
+import Network.AWS.StorageGateway.Types.CachediSCSIVolume
 
--- | /See:/ 'describeCachediSCSIVolumes' smart constructor.
-newtype DescribeCachediSCSIVolumes = DescribeCachediSCSIVolumes'
-  { _dcscsivVolumeARNs ::
-      [Text]
+-- | /See:/ 'newDescribeCachediSCSIVolumes' smart constructor.
+data DescribeCachediSCSIVolumes = DescribeCachediSCSIVolumes'
+  { -- | An array of strings where each string represents the Amazon Resource
+    -- Name (ARN) of a cached volume. All of the specified cached volumes must
+    -- be from the same gateway. Use ListVolumes to get volume ARNs for a
+    -- gateway.
+    volumeARNs :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCachediSCSIVolumes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCachediSCSIVolumes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcscsivVolumeARNs' - An array of strings where each string represents the Amazon Resource Name (ARN) of a cached volume. All of the specified cached volumes must be from the same gateway. Use 'ListVolumes' to get volume ARNs for a gateway.
-describeCachediSCSIVolumes ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'volumeARNs', 'describeCachediSCSIVolumes_volumeARNs' - An array of strings where each string represents the Amazon Resource
+-- Name (ARN) of a cached volume. All of the specified cached volumes must
+-- be from the same gateway. Use ListVolumes to get volume ARNs for a
+-- gateway.
+newDescribeCachediSCSIVolumes ::
   DescribeCachediSCSIVolumes
-describeCachediSCSIVolumes =
+newDescribeCachediSCSIVolumes =
   DescribeCachediSCSIVolumes'
-    { _dcscsivVolumeARNs =
-        mempty
+    { volumeARNs =
+        Prelude.mempty
     }
 
--- | An array of strings where each string represents the Amazon Resource Name (ARN) of a cached volume. All of the specified cached volumes must be from the same gateway. Use 'ListVolumes' to get volume ARNs for a gateway.
-dcscsivVolumeARNs :: Lens' DescribeCachediSCSIVolumes [Text]
-dcscsivVolumeARNs = lens _dcscsivVolumeARNs (\s a -> s {_dcscsivVolumeARNs = a}) . _Coerce
+-- | An array of strings where each string represents the Amazon Resource
+-- Name (ARN) of a cached volume. All of the specified cached volumes must
+-- be from the same gateway. Use ListVolumes to get volume ARNs for a
+-- gateway.
+describeCachediSCSIVolumes_volumeARNs :: Lens.Lens' DescribeCachediSCSIVolumes [Prelude.Text]
+describeCachediSCSIVolumes_volumeARNs = Lens.lens (\DescribeCachediSCSIVolumes' {volumeARNs} -> volumeARNs) (\s@DescribeCachediSCSIVolumes' {} a -> s {volumeARNs = a} :: DescribeCachediSCSIVolumes) Prelude.. Prelude._Coerce
 
-instance AWSRequest DescribeCachediSCSIVolumes where
+instance
+  Prelude.AWSRequest
+    DescribeCachediSCSIVolumes
+  where
   type
     Rs DescribeCachediSCSIVolumes =
       DescribeCachediSCSIVolumesResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCachediSCSIVolumesResponse'
-            <$> (x .?> "CachediSCSIVolumes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "CachediSCSIVolumes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCachediSCSIVolumes
+instance Prelude.Hashable DescribeCachediSCSIVolumes
 
-instance NFData DescribeCachediSCSIVolumes
+instance Prelude.NFData DescribeCachediSCSIVolumes
 
-instance ToHeaders DescribeCachediSCSIVolumes where
+instance Prelude.ToHeaders DescribeCachediSCSIVolumes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DescribeCachediSCSIVolumes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DescribeCachediSCSIVolumes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCachediSCSIVolumes where
+instance Prelude.ToJSON DescribeCachediSCSIVolumes where
   toJSON DescribeCachediSCSIVolumes' {..} =
-    object
-      ( catMaybes
-          [Just ("VolumeARNs" .= _dcscsivVolumeARNs)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("VolumeARNs" Prelude..= volumeARNs)]
       )
 
-instance ToPath DescribeCachediSCSIVolumes where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCachediSCSIVolumes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCachediSCSIVolumes where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeCachediSCSIVolumes where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the following fields:
 --
---
---
--- /See:/ 'describeCachediSCSIVolumesResponse' smart constructor.
+-- /See:/ 'newDescribeCachediSCSIVolumesResponse' smart constructor.
 data DescribeCachediSCSIVolumesResponse = DescribeCachediSCSIVolumesResponse'
-  { _dcscsivrrsCachediSCSIVolumes ::
-      !( Maybe
-           [CachediSCSIVolume]
-       ),
-    _dcscsivrrsResponseStatus ::
-      !Int
+  { -- | An array of objects where each object contains metadata about one cached
+    -- volume.
+    cachediSCSIVolumes :: Prelude.Maybe [CachediSCSIVolume],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCachediSCSIVolumesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCachediSCSIVolumesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcscsivrrsCachediSCSIVolumes' - An array of objects where each object contains metadata about one cached volume.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcscsivrrsResponseStatus' - -- | The response status code.
-describeCachediSCSIVolumesResponse ::
-  -- | 'dcscsivrrsResponseStatus'
-  Int ->
+-- 'cachediSCSIVolumes', 'describeCachediSCSIVolumesResponse_cachediSCSIVolumes' - An array of objects where each object contains metadata about one cached
+-- volume.
+--
+-- 'httpStatus', 'describeCachediSCSIVolumesResponse_httpStatus' - The response's http status code.
+newDescribeCachediSCSIVolumesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCachediSCSIVolumesResponse
-describeCachediSCSIVolumesResponse pResponseStatus_ =
+newDescribeCachediSCSIVolumesResponse pHttpStatus_ =
   DescribeCachediSCSIVolumesResponse'
-    { _dcscsivrrsCachediSCSIVolumes =
-        Nothing,
-      _dcscsivrrsResponseStatus =
-        pResponseStatus_
+    { cachediSCSIVolumes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects where each object contains metadata about one cached volume.
-dcscsivrrsCachediSCSIVolumes :: Lens' DescribeCachediSCSIVolumesResponse [CachediSCSIVolume]
-dcscsivrrsCachediSCSIVolumes = lens _dcscsivrrsCachediSCSIVolumes (\s a -> s {_dcscsivrrsCachediSCSIVolumes = a}) . _Default . _Coerce
+-- | An array of objects where each object contains metadata about one cached
+-- volume.
+describeCachediSCSIVolumesResponse_cachediSCSIVolumes :: Lens.Lens' DescribeCachediSCSIVolumesResponse (Prelude.Maybe [CachediSCSIVolume])
+describeCachediSCSIVolumesResponse_cachediSCSIVolumes = Lens.lens (\DescribeCachediSCSIVolumesResponse' {cachediSCSIVolumes} -> cachediSCSIVolumes) (\s@DescribeCachediSCSIVolumesResponse' {} a -> s {cachediSCSIVolumes = a} :: DescribeCachediSCSIVolumesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcscsivrrsResponseStatus :: Lens' DescribeCachediSCSIVolumesResponse Int
-dcscsivrrsResponseStatus = lens _dcscsivrrsResponseStatus (\s a -> s {_dcscsivrrsResponseStatus = a})
+-- | The response's http status code.
+describeCachediSCSIVolumesResponse_httpStatus :: Lens.Lens' DescribeCachediSCSIVolumesResponse Prelude.Int
+describeCachediSCSIVolumesResponse_httpStatus = Lens.lens (\DescribeCachediSCSIVolumesResponse' {httpStatus} -> httpStatus) (\s@DescribeCachediSCSIVolumesResponse' {} a -> s {httpStatus = a} :: DescribeCachediSCSIVolumesResponse)
 
-instance NFData DescribeCachediSCSIVolumesResponse
+instance
+  Prelude.NFData
+    DescribeCachediSCSIVolumesResponse

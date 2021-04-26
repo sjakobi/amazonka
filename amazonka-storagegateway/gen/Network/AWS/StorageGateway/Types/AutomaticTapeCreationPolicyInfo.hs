@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.AutomaticTapeCreationPolicyInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StorageGateway.Types.AutomaticTapeCreationRule
 
--- | Information about the gateway's automatic tape creation policies, including the automatic tape creation rules and the gateway that is using the policies.
+-- | Information about the gateway\'s automatic tape creation policies,
+-- including the automatic tape creation rules and the gateway that is
+-- using the policies.
 --
---
---
--- /See:/ 'automaticTapeCreationPolicyInfo' smart constructor.
+-- /See:/ 'newAutomaticTapeCreationPolicyInfo' smart constructor.
 data AutomaticTapeCreationPolicyInfo = AutomaticTapeCreationPolicyInfo'
-  { _atcpiAutomaticTapeCreationRules ::
-      !( Maybe
-           ( List1
-               AutomaticTapeCreationRule
-           )
-       ),
-    _atcpiGatewayARN ::
-      !( Maybe
-           Text
-       )
+  { -- | An automatic tape creation policy consists of a list of automatic tape
+    -- creation rules. This returns the rules that determine when and how to
+    -- automatically create new tapes.
+    automaticTapeCreationRules :: Prelude.Maybe (Prelude.List1 AutomaticTapeCreationRule),
+    gatewayARN :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutomaticTapeCreationPolicyInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutomaticTapeCreationPolicyInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atcpiAutomaticTapeCreationRules' - An automatic tape creation policy consists of a list of automatic tape creation rules. This returns the rules that determine when and how to automatically create new tapes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atcpiGatewayARN' - Undocumented member.
-automaticTapeCreationPolicyInfo ::
+-- 'automaticTapeCreationRules', 'automaticTapeCreationPolicyInfo_automaticTapeCreationRules' - An automatic tape creation policy consists of a list of automatic tape
+-- creation rules. This returns the rules that determine when and how to
+-- automatically create new tapes.
+--
+-- 'gatewayARN', 'automaticTapeCreationPolicyInfo_gatewayARN' - Undocumented member.
+newAutomaticTapeCreationPolicyInfo ::
   AutomaticTapeCreationPolicyInfo
-automaticTapeCreationPolicyInfo =
+newAutomaticTapeCreationPolicyInfo =
   AutomaticTapeCreationPolicyInfo'
-    { _atcpiAutomaticTapeCreationRules =
-        Nothing,
-      _atcpiGatewayARN = Nothing
+    { automaticTapeCreationRules =
+        Prelude.Nothing,
+      gatewayARN = Prelude.Nothing
     }
 
--- | An automatic tape creation policy consists of a list of automatic tape creation rules. This returns the rules that determine when and how to automatically create new tapes.
-atcpiAutomaticTapeCreationRules :: Lens' AutomaticTapeCreationPolicyInfo (Maybe (NonEmpty AutomaticTapeCreationRule))
-atcpiAutomaticTapeCreationRules = lens _atcpiAutomaticTapeCreationRules (\s a -> s {_atcpiAutomaticTapeCreationRules = a}) . mapping _List1
+-- | An automatic tape creation policy consists of a list of automatic tape
+-- creation rules. This returns the rules that determine when and how to
+-- automatically create new tapes.
+automaticTapeCreationPolicyInfo_automaticTapeCreationRules :: Lens.Lens' AutomaticTapeCreationPolicyInfo (Prelude.Maybe (Prelude.NonEmpty AutomaticTapeCreationRule))
+automaticTapeCreationPolicyInfo_automaticTapeCreationRules = Lens.lens (\AutomaticTapeCreationPolicyInfo' {automaticTapeCreationRules} -> automaticTapeCreationRules) (\s@AutomaticTapeCreationPolicyInfo' {} a -> s {automaticTapeCreationRules = a} :: AutomaticTapeCreationPolicyInfo) Prelude.. Lens.mapping Prelude._List1
 
 -- | Undocumented member.
-atcpiGatewayARN :: Lens' AutomaticTapeCreationPolicyInfo (Maybe Text)
-atcpiGatewayARN = lens _atcpiGatewayARN (\s a -> s {_atcpiGatewayARN = a})
+automaticTapeCreationPolicyInfo_gatewayARN :: Lens.Lens' AutomaticTapeCreationPolicyInfo (Prelude.Maybe Prelude.Text)
+automaticTapeCreationPolicyInfo_gatewayARN = Lens.lens (\AutomaticTapeCreationPolicyInfo' {gatewayARN} -> gatewayARN) (\s@AutomaticTapeCreationPolicyInfo' {} a -> s {gatewayARN = a} :: AutomaticTapeCreationPolicyInfo)
 
-instance FromJSON AutomaticTapeCreationPolicyInfo where
+instance
+  Prelude.FromJSON
+    AutomaticTapeCreationPolicyInfo
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutomaticTapeCreationPolicyInfo"
       ( \x ->
           AutomaticTapeCreationPolicyInfo'
-            <$> (x .:? "AutomaticTapeCreationRules")
-            <*> (x .:? "GatewayARN")
+            Prelude.<$> (x Prelude..:? "AutomaticTapeCreationRules")
+            Prelude.<*> (x Prelude..:? "GatewayARN")
       )
 
-instance Hashable AutomaticTapeCreationPolicyInfo
+instance
+  Prelude.Hashable
+    AutomaticTapeCreationPolicyInfo
 
-instance NFData AutomaticTapeCreationPolicyInfo
+instance
+  Prelude.NFData
+    AutomaticTapeCreationPolicyInfo

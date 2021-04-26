@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.TapeRecoveryPointInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a recovery point.
 --
---
---
--- /See:/ 'tapeRecoveryPointInfo' smart constructor.
+-- /See:/ 'newTapeRecoveryPointInfo' smart constructor.
 data TapeRecoveryPointInfo = TapeRecoveryPointInfo'
-  { _trpiTapeStatus ::
-      !(Maybe Text),
-    _trpiTapeARN ::
-      !(Maybe Text),
-    _trpiTapeSizeInBytes ::
-      !(Maybe Integer),
-    _trpiTapeRecoveryPointTime ::
-      !(Maybe POSIX)
+  { -- | The status of the virtual tapes.
+    tapeStatus :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the virtual tape.
+    tapeARN :: Prelude.Maybe Prelude.Text,
+    -- | The size, in bytes, of the virtual tapes to recover.
+    tapeSizeInBytes :: Prelude.Maybe Prelude.Integer,
+    -- | The time when the point-in-time view of the virtual tape was replicated
+    -- for later recovery.
+    --
+    -- The default timestamp format of the tape recovery point time is in the
+    -- ISO8601 extended YYYY-MM-DD\'T\'HH:MM:SS\'Z\' format.
+    tapeRecoveryPointTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TapeRecoveryPointInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TapeRecoveryPointInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trpiTapeStatus' - The status of the virtual tapes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trpiTapeARN' - The Amazon Resource Name (ARN) of the virtual tape.
+-- 'tapeStatus', 'tapeRecoveryPointInfo_tapeStatus' - The status of the virtual tapes.
 --
--- * 'trpiTapeSizeInBytes' - The size, in bytes, of the virtual tapes to recover.
+-- 'tapeARN', 'tapeRecoveryPointInfo_tapeARN' - The Amazon Resource Name (ARN) of the virtual tape.
 --
--- * 'trpiTapeRecoveryPointTime' - The time when the point-in-time view of the virtual tape was replicated for later recovery. The default timestamp format of the tape recovery point time is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
-tapeRecoveryPointInfo ::
+-- 'tapeSizeInBytes', 'tapeRecoveryPointInfo_tapeSizeInBytes' - The size, in bytes, of the virtual tapes to recover.
+--
+-- 'tapeRecoveryPointTime', 'tapeRecoveryPointInfo_tapeRecoveryPointTime' - The time when the point-in-time view of the virtual tape was replicated
+-- for later recovery.
+--
+-- The default timestamp format of the tape recovery point time is in the
+-- ISO8601 extended YYYY-MM-DD\'T\'HH:MM:SS\'Z\' format.
+newTapeRecoveryPointInfo ::
   TapeRecoveryPointInfo
-tapeRecoveryPointInfo =
+newTapeRecoveryPointInfo =
   TapeRecoveryPointInfo'
-    { _trpiTapeStatus = Nothing,
-      _trpiTapeARN = Nothing,
-      _trpiTapeSizeInBytes = Nothing,
-      _trpiTapeRecoveryPointTime = Nothing
+    { tapeStatus =
+        Prelude.Nothing,
+      tapeARN = Prelude.Nothing,
+      tapeSizeInBytes = Prelude.Nothing,
+      tapeRecoveryPointTime = Prelude.Nothing
     }
 
 -- | The status of the virtual tapes.
-trpiTapeStatus :: Lens' TapeRecoveryPointInfo (Maybe Text)
-trpiTapeStatus = lens _trpiTapeStatus (\s a -> s {_trpiTapeStatus = a})
+tapeRecoveryPointInfo_tapeStatus :: Lens.Lens' TapeRecoveryPointInfo (Prelude.Maybe Prelude.Text)
+tapeRecoveryPointInfo_tapeStatus = Lens.lens (\TapeRecoveryPointInfo' {tapeStatus} -> tapeStatus) (\s@TapeRecoveryPointInfo' {} a -> s {tapeStatus = a} :: TapeRecoveryPointInfo)
 
 -- | The Amazon Resource Name (ARN) of the virtual tape.
-trpiTapeARN :: Lens' TapeRecoveryPointInfo (Maybe Text)
-trpiTapeARN = lens _trpiTapeARN (\s a -> s {_trpiTapeARN = a})
+tapeRecoveryPointInfo_tapeARN :: Lens.Lens' TapeRecoveryPointInfo (Prelude.Maybe Prelude.Text)
+tapeRecoveryPointInfo_tapeARN = Lens.lens (\TapeRecoveryPointInfo' {tapeARN} -> tapeARN) (\s@TapeRecoveryPointInfo' {} a -> s {tapeARN = a} :: TapeRecoveryPointInfo)
 
 -- | The size, in bytes, of the virtual tapes to recover.
-trpiTapeSizeInBytes :: Lens' TapeRecoveryPointInfo (Maybe Integer)
-trpiTapeSizeInBytes = lens _trpiTapeSizeInBytes (\s a -> s {_trpiTapeSizeInBytes = a})
+tapeRecoveryPointInfo_tapeSizeInBytes :: Lens.Lens' TapeRecoveryPointInfo (Prelude.Maybe Prelude.Integer)
+tapeRecoveryPointInfo_tapeSizeInBytes = Lens.lens (\TapeRecoveryPointInfo' {tapeSizeInBytes} -> tapeSizeInBytes) (\s@TapeRecoveryPointInfo' {} a -> s {tapeSizeInBytes = a} :: TapeRecoveryPointInfo)
 
--- | The time when the point-in-time view of the virtual tape was replicated for later recovery. The default timestamp format of the tape recovery point time is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
-trpiTapeRecoveryPointTime :: Lens' TapeRecoveryPointInfo (Maybe UTCTime)
-trpiTapeRecoveryPointTime = lens _trpiTapeRecoveryPointTime (\s a -> s {_trpiTapeRecoveryPointTime = a}) . mapping _Time
+-- | The time when the point-in-time view of the virtual tape was replicated
+-- for later recovery.
+--
+-- The default timestamp format of the tape recovery point time is in the
+-- ISO8601 extended YYYY-MM-DD\'T\'HH:MM:SS\'Z\' format.
+tapeRecoveryPointInfo_tapeRecoveryPointTime :: Lens.Lens' TapeRecoveryPointInfo (Prelude.Maybe Prelude.UTCTime)
+tapeRecoveryPointInfo_tapeRecoveryPointTime = Lens.lens (\TapeRecoveryPointInfo' {tapeRecoveryPointTime} -> tapeRecoveryPointTime) (\s@TapeRecoveryPointInfo' {} a -> s {tapeRecoveryPointTime = a} :: TapeRecoveryPointInfo) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON TapeRecoveryPointInfo where
+instance Prelude.FromJSON TapeRecoveryPointInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TapeRecoveryPointInfo"
       ( \x ->
           TapeRecoveryPointInfo'
-            <$> (x .:? "TapeStatus")
-            <*> (x .:? "TapeARN")
-            <*> (x .:? "TapeSizeInBytes")
-            <*> (x .:? "TapeRecoveryPointTime")
+            Prelude.<$> (x Prelude..:? "TapeStatus")
+            Prelude.<*> (x Prelude..:? "TapeARN")
+            Prelude.<*> (x Prelude..:? "TapeSizeInBytes")
+            Prelude.<*> (x Prelude..:? "TapeRecoveryPointTime")
       )
 
-instance Hashable TapeRecoveryPointInfo
+instance Prelude.Hashable TapeRecoveryPointInfo
 
-instance NFData TapeRecoveryPointInfo
+instance Prelude.NFData TapeRecoveryPointInfo

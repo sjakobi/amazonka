@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.StorageGateway.Types.AvailabilityMonitorTestStatus
   ( AvailabilityMonitorTestStatus
       ( ..,
-        Complete,
-        Failed,
-        Pending
+        AvailabilityMonitorTestStatusCOMPLETE,
+        AvailabilityMonitorTestStatusFAILED,
+        AvailabilityMonitorTestStatusPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AvailabilityMonitorTestStatus
-  = AvailabilityMonitorTestStatus'
-      ( CI
-          Text
-      )
+newtype AvailabilityMonitorTestStatus = AvailabilityMonitorTestStatus'
+  { fromAvailabilityMonitorTestStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Complete :: AvailabilityMonitorTestStatus
-pattern Complete = AvailabilityMonitorTestStatus' "COMPLETE"
+pattern AvailabilityMonitorTestStatusCOMPLETE :: AvailabilityMonitorTestStatus
+pattern AvailabilityMonitorTestStatusCOMPLETE = AvailabilityMonitorTestStatus' "COMPLETE"
 
-pattern Failed :: AvailabilityMonitorTestStatus
-pattern Failed = AvailabilityMonitorTestStatus' "FAILED"
+pattern AvailabilityMonitorTestStatusFAILED :: AvailabilityMonitorTestStatus
+pattern AvailabilityMonitorTestStatusFAILED = AvailabilityMonitorTestStatus' "FAILED"
 
-pattern Pending :: AvailabilityMonitorTestStatus
-pattern Pending = AvailabilityMonitorTestStatus' "PENDING"
+pattern AvailabilityMonitorTestStatusPENDING :: AvailabilityMonitorTestStatus
+pattern AvailabilityMonitorTestStatusPENDING = AvailabilityMonitorTestStatus' "PENDING"
 
 {-# COMPLETE
-  Complete,
-  Failed,
-  Pending,
+  AvailabilityMonitorTestStatusCOMPLETE,
+  AvailabilityMonitorTestStatusFAILED,
+  AvailabilityMonitorTestStatusPENDING,
   AvailabilityMonitorTestStatus'
   #-}
 
-instance FromText AvailabilityMonitorTestStatus where
-  parser = (AvailabilityMonitorTestStatus' . mk) <$> takeText
+instance Prelude.FromText AvailabilityMonitorTestStatus where
+  parser = AvailabilityMonitorTestStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AvailabilityMonitorTestStatus where
-  toText (AvailabilityMonitorTestStatus' ci) = original ci
+instance Prelude.ToText AvailabilityMonitorTestStatus where
+  toText (AvailabilityMonitorTestStatus' x) = x
 
-instance Hashable AvailabilityMonitorTestStatus
+instance Prelude.Hashable AvailabilityMonitorTestStatus
 
-instance NFData AvailabilityMonitorTestStatus
+instance Prelude.NFData AvailabilityMonitorTestStatus
 
-instance ToByteString AvailabilityMonitorTestStatus
+instance Prelude.ToByteString AvailabilityMonitorTestStatus
 
-instance ToQuery AvailabilityMonitorTestStatus
+instance Prelude.ToQuery AvailabilityMonitorTestStatus
 
-instance ToHeader AvailabilityMonitorTestStatus
+instance Prelude.ToHeader AvailabilityMonitorTestStatus
 
-instance FromJSON AvailabilityMonitorTestStatus where
-  parseJSON = parseJSONText "AvailabilityMonitorTestStatus"
+instance Prelude.FromJSON AvailabilityMonitorTestStatus where
+  parseJSON = Prelude.parseJSONText "AvailabilityMonitorTestStatus"

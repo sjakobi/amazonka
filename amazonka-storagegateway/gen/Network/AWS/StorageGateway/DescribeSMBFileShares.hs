@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a description for one or more Server Message Block (SMB) file shares from a file gateway. This operation is only supported for file gateways.
+-- Gets a description for one or more Server Message Block (SMB) file
+-- shares from a file gateway. This operation is only supported for file
+-- gateways.
 module Network.AWS.StorageGateway.DescribeSMBFileShares
   ( -- * Creating a Request
-    describeSMBFileShares,
-    DescribeSMBFileShares,
+    DescribeSMBFileShares (..),
+    newDescribeSMBFileShares,
 
     -- * Request Lenses
-    dsmbfsFileShareARNList,
+    describeSMBFileShares_fileShareARNList,
 
     -- * Destructuring the Response
-    describeSMBFileSharesResponse,
-    DescribeSMBFileSharesResponse,
+    DescribeSMBFileSharesResponse (..),
+    newDescribeSMBFileSharesResponse,
 
     -- * Response Lenses
-    dsmbfsrrsSMBFileShareInfoList,
-    dsmbfsrrsResponseStatus,
+    describeSMBFileSharesResponse_sMBFileShareInfoList,
+    describeSMBFileSharesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
+import Network.AWS.StorageGateway.Types.SMBFileShareInfo
 
 -- | DescribeSMBFileSharesInput
 --
---
---
--- /See:/ 'describeSMBFileShares' smart constructor.
-newtype DescribeSMBFileShares = DescribeSMBFileShares'
-  { _dsmbfsFileShareARNList ::
-      List1 Text
+-- /See:/ 'newDescribeSMBFileShares' smart constructor.
+data DescribeSMBFileShares = DescribeSMBFileShares'
+  { -- | An array containing the Amazon Resource Name (ARN) of each file share to
+    -- be described.
+    fileShareARNList :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSMBFileShares' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSMBFileShares' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsmbfsFileShareARNList' - An array containing the Amazon Resource Name (ARN) of each file share to be described.
-describeSMBFileShares ::
-  -- | 'dsmbfsFileShareARNList'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fileShareARNList', 'describeSMBFileShares_fileShareARNList' - An array containing the Amazon Resource Name (ARN) of each file share to
+-- be described.
+newDescribeSMBFileShares ::
+  -- | 'fileShareARNList'
+  Prelude.NonEmpty Prelude.Text ->
   DescribeSMBFileShares
-describeSMBFileShares pFileShareARNList_ =
+newDescribeSMBFileShares pFileShareARNList_ =
   DescribeSMBFileShares'
-    { _dsmbfsFileShareARNList =
-        _List1 # pFileShareARNList_
+    { fileShareARNList =
+        Prelude._List1 Lens.# pFileShareARNList_
     }
 
--- | An array containing the Amazon Resource Name (ARN) of each file share to be described.
-dsmbfsFileShareARNList :: Lens' DescribeSMBFileShares (NonEmpty Text)
-dsmbfsFileShareARNList = lens _dsmbfsFileShareARNList (\s a -> s {_dsmbfsFileShareARNList = a}) . _List1
+-- | An array containing the Amazon Resource Name (ARN) of each file share to
+-- be described.
+describeSMBFileShares_fileShareARNList :: Lens.Lens' DescribeSMBFileShares (Prelude.NonEmpty Prelude.Text)
+describeSMBFileShares_fileShareARNList = Lens.lens (\DescribeSMBFileShares' {fileShareARNList} -> fileShareARNList) (\s@DescribeSMBFileShares' {} a -> s {fileShareARNList = a} :: DescribeSMBFileShares) Prelude.. Prelude._List1
 
-instance AWSRequest DescribeSMBFileShares where
+instance Prelude.AWSRequest DescribeSMBFileShares where
   type
     Rs DescribeSMBFileShares =
       DescribeSMBFileSharesResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeSMBFileSharesResponse'
-            <$> (x .?> "SMBFileShareInfoList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SMBFileShareInfoList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSMBFileShares
+instance Prelude.Hashable DescribeSMBFileShares
 
-instance NFData DescribeSMBFileShares
+instance Prelude.NFData DescribeSMBFileShares
 
-instance ToHeaders DescribeSMBFileShares where
+instance Prelude.ToHeaders DescribeSMBFileShares where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DescribeSMBFileShares" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DescribeSMBFileShares" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeSMBFileShares where
+instance Prelude.ToJSON DescribeSMBFileShares where
   toJSON DescribeSMBFileShares' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("FileShareARNList" .= _dsmbfsFileShareARNList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("FileShareARNList" Prelude..= fileShareARNList)
           ]
       )
 
-instance ToPath DescribeSMBFileShares where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSMBFileShares where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSMBFileShares where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeSMBFileShares where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | DescribeSMBFileSharesOutput
 --
---
---
--- /See:/ 'describeSMBFileSharesResponse' smart constructor.
+-- /See:/ 'newDescribeSMBFileSharesResponse' smart constructor.
 data DescribeSMBFileSharesResponse = DescribeSMBFileSharesResponse'
-  { _dsmbfsrrsSMBFileShareInfoList ::
-      !( Maybe
-           [SMBFileShareInfo]
-       ),
-    _dsmbfsrrsResponseStatus ::
-      !Int
+  { -- | An array containing a description for each requested file share.
+    sMBFileShareInfoList :: Prelude.Maybe [SMBFileShareInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSMBFileSharesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSMBFileSharesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsmbfsrrsSMBFileShareInfoList' - An array containing a description for each requested file share.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsmbfsrrsResponseStatus' - -- | The response status code.
-describeSMBFileSharesResponse ::
-  -- | 'dsmbfsrrsResponseStatus'
-  Int ->
+-- 'sMBFileShareInfoList', 'describeSMBFileSharesResponse_sMBFileShareInfoList' - An array containing a description for each requested file share.
+--
+-- 'httpStatus', 'describeSMBFileSharesResponse_httpStatus' - The response's http status code.
+newDescribeSMBFileSharesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSMBFileSharesResponse
-describeSMBFileSharesResponse pResponseStatus_ =
+newDescribeSMBFileSharesResponse pHttpStatus_ =
   DescribeSMBFileSharesResponse'
-    { _dsmbfsrrsSMBFileShareInfoList =
-        Nothing,
-      _dsmbfsrrsResponseStatus = pResponseStatus_
+    { sMBFileShareInfoList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An array containing a description for each requested file share.
-dsmbfsrrsSMBFileShareInfoList :: Lens' DescribeSMBFileSharesResponse [SMBFileShareInfo]
-dsmbfsrrsSMBFileShareInfoList = lens _dsmbfsrrsSMBFileShareInfoList (\s a -> s {_dsmbfsrrsSMBFileShareInfoList = a}) . _Default . _Coerce
+describeSMBFileSharesResponse_sMBFileShareInfoList :: Lens.Lens' DescribeSMBFileSharesResponse (Prelude.Maybe [SMBFileShareInfo])
+describeSMBFileSharesResponse_sMBFileShareInfoList = Lens.lens (\DescribeSMBFileSharesResponse' {sMBFileShareInfoList} -> sMBFileShareInfoList) (\s@DescribeSMBFileSharesResponse' {} a -> s {sMBFileShareInfoList = a} :: DescribeSMBFileSharesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsmbfsrrsResponseStatus :: Lens' DescribeSMBFileSharesResponse Int
-dsmbfsrrsResponseStatus = lens _dsmbfsrrsResponseStatus (\s a -> s {_dsmbfsrrsResponseStatus = a})
+-- | The response's http status code.
+describeSMBFileSharesResponse_httpStatus :: Lens.Lens' DescribeSMBFileSharesResponse Prelude.Int
+describeSMBFileSharesResponse_httpStatus = Lens.lens (\DescribeSMBFileSharesResponse' {httpStatus} -> httpStatus) (\s@DescribeSMBFileSharesResponse' {} a -> s {httpStatus = a} :: DescribeSMBFileSharesResponse)
 
-instance NFData DescribeSMBFileSharesResponse
+instance Prelude.NFData DescribeSMBFileSharesResponse

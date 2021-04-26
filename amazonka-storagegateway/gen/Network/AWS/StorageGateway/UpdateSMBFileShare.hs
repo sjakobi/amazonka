@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,341 +21,535 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a Server Message Block (SMB) file share. This operation is only supported for file gateways.
+-- Updates a Server Message Block (SMB) file share. This operation is only
+-- supported for file gateways.
 --
+-- To leave a file share field unchanged, set the corresponding input field
+-- to null.
 --
--- /Important:/ File gateways require AWS Security Token Service (AWS STS) to be activated to enable you to create a file share. Make sure that AWS STS is activated in the AWS Region you are creating your file gateway in. If AWS STS is not activated in this AWS Region, activate it. For information about how to activate AWS STS, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html Activating and deactivating AWS STS in an AWS Region> in the /AWS Identity and Access Management User Guide/ .
+-- File gateways require AWS Security Token Service (AWS STS) to be
+-- activated to enable you to create a file share. Make sure that AWS STS
+-- is activated in the AWS Region you are creating your file gateway in. If
+-- AWS STS is not activated in this AWS Region, activate it. For
+-- information about how to activate AWS STS, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html Activating and deactivating AWS STS in an AWS Region>
+-- in the /AWS Identity and Access Management User Guide/.
 --
--- File gateways don't support creating hard or symbolic links on a file share.
+-- File gateways don\'t support creating hard or symbolic links on a file
+-- share.
 module Network.AWS.StorageGateway.UpdateSMBFileShare
   ( -- * Creating a Request
-    updateSMBFileShare,
-    UpdateSMBFileShare,
+    UpdateSMBFileShare (..),
+    newUpdateSMBFileShare,
 
     -- * Request Lenses
-    usmbfsSMBACLEnabled,
-    usmbfsAccessBasedEnumeration,
-    usmbfsDefaultStorageClass,
-    usmbfsFileShareName,
-    usmbfsCaseSensitivity,
-    usmbfsGuessMIMETypeEnabled,
-    usmbfsReadOnly,
-    usmbfsKMSEncrypted,
-    usmbfsNotificationPolicy,
-    usmbfsValidUserList,
-    usmbfsKMSKey,
-    usmbfsAdminUserList,
-    usmbfsAuditDestinationARN,
-    usmbfsCacheAttributes,
-    usmbfsObjectACL,
-    usmbfsRequesterPays,
-    usmbfsInvalidUserList,
-    usmbfsFileShareARN,
+    updateSMBFileShare_sMBACLEnabled,
+    updateSMBFileShare_accessBasedEnumeration,
+    updateSMBFileShare_defaultStorageClass,
+    updateSMBFileShare_fileShareName,
+    updateSMBFileShare_caseSensitivity,
+    updateSMBFileShare_guessMIMETypeEnabled,
+    updateSMBFileShare_readOnly,
+    updateSMBFileShare_kMSEncrypted,
+    updateSMBFileShare_notificationPolicy,
+    updateSMBFileShare_validUserList,
+    updateSMBFileShare_kMSKey,
+    updateSMBFileShare_adminUserList,
+    updateSMBFileShare_auditDestinationARN,
+    updateSMBFileShare_cacheAttributes,
+    updateSMBFileShare_objectACL,
+    updateSMBFileShare_requesterPays,
+    updateSMBFileShare_invalidUserList,
+    updateSMBFileShare_fileShareARN,
 
     -- * Destructuring the Response
-    updateSMBFileShareResponse,
-    UpdateSMBFileShareResponse,
+    UpdateSMBFileShareResponse (..),
+    newUpdateSMBFileShareResponse,
 
     -- * Response Lenses
-    usmbfsrrsFileShareARN,
-    usmbfsrrsResponseStatus,
+    updateSMBFileShareResponse_fileShareARN,
+    updateSMBFileShareResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
 -- | UpdateSMBFileShareInput
 --
---
---
--- /See:/ 'updateSMBFileShare' smart constructor.
+-- /See:/ 'newUpdateSMBFileShare' smart constructor.
 data UpdateSMBFileShare = UpdateSMBFileShare'
-  { _usmbfsSMBACLEnabled ::
-      !(Maybe Bool),
-    _usmbfsAccessBasedEnumeration ::
-      !(Maybe Bool),
-    _usmbfsDefaultStorageClass ::
-      !(Maybe Text),
-    _usmbfsFileShareName ::
-      !(Maybe Text),
-    _usmbfsCaseSensitivity ::
-      !(Maybe CaseSensitivity),
-    _usmbfsGuessMIMETypeEnabled ::
-      !(Maybe Bool),
-    _usmbfsReadOnly :: !(Maybe Bool),
-    _usmbfsKMSEncrypted ::
-      !(Maybe Bool),
-    _usmbfsNotificationPolicy ::
-      !(Maybe Text),
-    _usmbfsValidUserList ::
-      !(Maybe [Text]),
-    _usmbfsKMSKey :: !(Maybe Text),
-    _usmbfsAdminUserList ::
-      !(Maybe [Text]),
-    _usmbfsAuditDestinationARN ::
-      !(Maybe Text),
-    _usmbfsCacheAttributes ::
-      !(Maybe CacheAttributes),
-    _usmbfsObjectACL ::
-      !(Maybe ObjectACL),
-    _usmbfsRequesterPays ::
-      !(Maybe Bool),
-    _usmbfsInvalidUserList ::
-      !(Maybe [Text]),
-    _usmbfsFileShareARN :: !Text
+  { -- | Set this value to @true@ to enable access control list (ACL) on the SMB
+    -- file share. Set it to @false@ to map file and directory permissions to
+    -- the POSIX permissions.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share>
+    -- in the /AWS Storage Gateway User Guide/.
+    --
+    -- Valid Values: @true@ | @false@
+    sMBACLEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The files and folders on this share will only be visible to users with
+    -- read access.
+    accessBasedEnumeration :: Prelude.Maybe Prelude.Bool,
+    -- | The default storage class for objects put into an Amazon S3 bucket by
+    -- the file gateway. The default value is @S3_INTELLIGENT_TIERING@.
+    -- Optional.
+    --
+    -- Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ |
+    -- @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
+    defaultStorageClass :: Prelude.Maybe Prelude.Text,
+    -- | The name of the file share. Optional.
+    --
+    -- @FileShareName@ must be set if an S3 prefix name is set in
+    -- @LocationARN@.
+    fileShareName :: Prelude.Maybe Prelude.Text,
+    -- | The case of an object name in an Amazon S3 bucket. For
+    -- @ClientSpecified@, the client determines the case sensitivity. For
+    -- @CaseSensitive@, the gateway determines the case sensitivity. The
+    -- default value is @ClientSpecified@.
+    caseSensitivity :: Prelude.Maybe CaseSensitivity,
+    -- | A value that enables guessing of the MIME type for uploaded objects
+    -- based on file extensions. Set this value to @true@ to enable MIME type
+    -- guessing, otherwise set to @false@. The default value is @true@.
+    --
+    -- Valid Values: @true@ | @false@
+    guessMIMETypeEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A value that sets the write status of a file share. Set this value to
+    -- @true@ to set write status to read-only, otherwise set to @false@.
+    --
+    -- Valid Values: @true@ | @false@
+    readOnly :: Prelude.Maybe Prelude.Bool,
+    -- | Set to @true@ to use Amazon S3 server-side encryption with your own AWS
+    -- KMS key, or @false@ to use a key managed by Amazon S3. Optional.
+    --
+    -- Valid Values: @true@ | @false@
+    kMSEncrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The notification policy of the file share.
+    notificationPolicy :: Prelude.Maybe Prelude.Text,
+    -- | A list of users or groups in the Active Directory that are allowed to
+    -- access the file share. A group must be prefixed with the \@ character.
+    -- Acceptable formats include: @DOMAIN\\User1@, @user1@, @\@group1@, and
+    -- @\@DOMAIN\\group1@. Can only be set if Authentication is set to
+    -- @ActiveDirectory@.
+    validUserList :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
+    -- used for Amazon S3 server-side encryption. Storage Gateway does not
+    -- support asymmetric CMKs. This value can only be set when @KMSEncrypted@
+    -- is @true@. Optional.
+    kMSKey :: Prelude.Maybe Prelude.Text,
+    -- | A list of users or groups in the Active Directory that have
+    -- administrator rights to the file share. A group must be prefixed with
+    -- the \@ character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+    -- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+    -- set to @ActiveDirectory@.
+    adminUserList :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon Resource Name (ARN) of the storage used for the audit logs.
+    auditDestinationARN :: Prelude.Maybe Prelude.Text,
+    -- | Refresh cache information.
+    cacheAttributes :: Prelude.Maybe CacheAttributes,
+    -- | A value that sets the access control list (ACL) permission for objects
+    -- in the S3 bucket that a file gateway puts objects into. The default
+    -- value is @private@.
+    objectACL :: Prelude.Maybe ObjectACL,
+    -- | A value that sets who pays the cost of the request and the cost
+    -- associated with data download from the S3 bucket. If this value is set
+    -- to @true@, the requester pays the costs; otherwise, the S3 bucket owner
+    -- pays. However, the S3 bucket owner always pays the cost of storing data.
+    --
+    -- @RequesterPays@ is a configuration for the S3 bucket that backs the file
+    -- share, so make sure that the configuration on the file share is the same
+    -- as the S3 bucket configuration.
+    --
+    -- Valid Values: @true@ | @false@
+    requesterPays :: Prelude.Maybe Prelude.Bool,
+    -- | A list of users or groups in the Active Directory that are not allowed
+    -- to access the file share. A group must be prefixed with the \@
+    -- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+    -- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+    -- set to @ActiveDirectory@.
+    invalidUserList :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon Resource Name (ARN) of the SMB file share that you want to
+    -- update.
+    fileShareARN :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSMBFileShare' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSMBFileShare' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usmbfsSMBACLEnabled' - Set this value to @true@ to enable access control list (ACL) on the SMB file share. Set it to @false@ to map file and directory permissions to the POSIX permissions. For more information, see <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share> in the /AWS Storage Gateway User Guide/ . Valid Values: @true@ | @false@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usmbfsAccessBasedEnumeration' - The files and folders on this share will only be visible to users with read access.
+-- 'sMBACLEnabled', 'updateSMBFileShare_sMBACLEnabled' - Set this value to @true@ to enable access control list (ACL) on the SMB
+-- file share. Set it to @false@ to map file and directory permissions to
+-- the POSIX permissions.
 --
--- * 'usmbfsDefaultStorageClass' - The default storage class for objects put into an Amazon S3 bucket by the file gateway. The default value is @S3_INTELLIGENT_TIERING@ . Optional. Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ | @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
+-- For more information, see
+-- <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share>
+-- in the /AWS Storage Gateway User Guide/.
 --
--- * 'usmbfsFileShareName' - The name of the file share. Optional.
+-- Valid Values: @true@ | @false@
 --
--- * 'usmbfsCaseSensitivity' - The case of an object name in an Amazon S3 bucket. For @ClientSpecified@ , the client determines the case sensitivity. For @CaseSensitive@ , the gateway determines the case sensitivity. The default value is @ClientSpecified@ .
+-- 'accessBasedEnumeration', 'updateSMBFileShare_accessBasedEnumeration' - The files and folders on this share will only be visible to users with
+-- read access.
 --
--- * 'usmbfsGuessMIMETypeEnabled' - A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to @true@ to enable MIME type guessing, otherwise set to @false@ . The default value is @true@ . Valid Values: @true@ | @false@
+-- 'defaultStorageClass', 'updateSMBFileShare_defaultStorageClass' - The default storage class for objects put into an Amazon S3 bucket by
+-- the file gateway. The default value is @S3_INTELLIGENT_TIERING@.
+-- Optional.
 --
--- * 'usmbfsReadOnly' - A value that sets the write status of a file share. Set this value to @true@ to set write status to read-only, otherwise set to @false@ . Valid Values: @true@ | @false@
+-- Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ |
+-- @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
 --
--- * 'usmbfsKMSEncrypted' - Set to @true@ to use Amazon S3 server-side encryption with your own AWS KMS key, or @false@ to use a key managed by Amazon S3. Optional. Valid Values: @true@ | @false@
+-- 'fileShareName', 'updateSMBFileShare_fileShareName' - The name of the file share. Optional.
 --
--- * 'usmbfsNotificationPolicy' - The notification policy of the file share.
+-- @FileShareName@ must be set if an S3 prefix name is set in
+-- @LocationARN@.
 --
--- * 'usmbfsValidUserList' - A list of users or groups in the Active Directory that are allowed to access the file share. A group must be prefixed with the @ character. Acceptable formats include: @DOMAIN\User1@ , @user1@ , @@group1@ , and @@DOMAIN\group1@ . Can only be set if Authentication is set to @ActiveDirectory@ .
+-- 'caseSensitivity', 'updateSMBFileShare_caseSensitivity' - The case of an object name in an Amazon S3 bucket. For
+-- @ClientSpecified@, the client determines the case sensitivity. For
+-- @CaseSensitive@, the gateway determines the case sensitivity. The
+-- default value is @ClientSpecified@.
 --
--- * 'usmbfsKMSKey' - The Amazon Resource Name (ARN) of a symmetric customer master key (CMK) used for Amazon S3 server-side encryption. Storage Gateway does not support asymmetric CMKs. This value can only be set when @KMSEncrypted@ is @true@ . Optional.
+-- 'guessMIMETypeEnabled', 'updateSMBFileShare_guessMIMETypeEnabled' - A value that enables guessing of the MIME type for uploaded objects
+-- based on file extensions. Set this value to @true@ to enable MIME type
+-- guessing, otherwise set to @false@. The default value is @true@.
 --
--- * 'usmbfsAdminUserList' - A list of users or groups in the Active Directory that have administrator rights to the file share. A group must be prefixed with the @ character. Acceptable formats include: @DOMAIN\User1@ , @user1@ , @@group1@ , and @@DOMAIN\group1@ . Can only be set if Authentication is set to @ActiveDirectory@ .
+-- Valid Values: @true@ | @false@
 --
--- * 'usmbfsAuditDestinationARN' - The Amazon Resource Name (ARN) of the storage used for the audit logs.
+-- 'readOnly', 'updateSMBFileShare_readOnly' - A value that sets the write status of a file share. Set this value to
+-- @true@ to set write status to read-only, otherwise set to @false@.
 --
--- * 'usmbfsCacheAttributes' - Refresh cache information.
+-- Valid Values: @true@ | @false@
 --
--- * 'usmbfsObjectACL' - A value that sets the access control list (ACL) permission for objects in the S3 bucket that a file gateway puts objects into. The default value is @private@ .
+-- 'kMSEncrypted', 'updateSMBFileShare_kMSEncrypted' - Set to @true@ to use Amazon S3 server-side encryption with your own AWS
+-- KMS key, or @false@ to use a key managed by Amazon S3. Optional.
 --
--- * 'usmbfsRequesterPays' - A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket. If this value is set to @true@ , the requester pays the costs; otherwise, the S3 bucket owner pays. However, the S3 bucket owner always pays the cost of storing data. Valid Values: @true@ | @false@
+-- Valid Values: @true@ | @false@
 --
--- * 'usmbfsInvalidUserList' - A list of users or groups in the Active Directory that are not allowed to access the file share. A group must be prefixed with the @ character. Acceptable formats include: @DOMAIN\User1@ , @user1@ , @@group1@ , and @@DOMAIN\group1@ . Can only be set if Authentication is set to @ActiveDirectory@ .
+-- 'notificationPolicy', 'updateSMBFileShare_notificationPolicy' - The notification policy of the file share.
 --
--- * 'usmbfsFileShareARN' - The Amazon Resource Name (ARN) of the SMB file share that you want to update.
-updateSMBFileShare ::
-  -- | 'usmbfsFileShareARN'
-  Text ->
+-- 'validUserList', 'updateSMBFileShare_validUserList' - A list of users or groups in the Active Directory that are allowed to
+-- access the file share. A group must be prefixed with the \@ character.
+-- Acceptable formats include: @DOMAIN\\User1@, @user1@, @\@group1@, and
+-- @\@DOMAIN\\group1@. Can only be set if Authentication is set to
+-- @ActiveDirectory@.
+--
+-- 'kMSKey', 'updateSMBFileShare_kMSKey' - The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
+-- used for Amazon S3 server-side encryption. Storage Gateway does not
+-- support asymmetric CMKs. This value can only be set when @KMSEncrypted@
+-- is @true@. Optional.
+--
+-- 'adminUserList', 'updateSMBFileShare_adminUserList' - A list of users or groups in the Active Directory that have
+-- administrator rights to the file share. A group must be prefixed with
+-- the \@ character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+-- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+-- set to @ActiveDirectory@.
+--
+-- 'auditDestinationARN', 'updateSMBFileShare_auditDestinationARN' - The Amazon Resource Name (ARN) of the storage used for the audit logs.
+--
+-- 'cacheAttributes', 'updateSMBFileShare_cacheAttributes' - Refresh cache information.
+--
+-- 'objectACL', 'updateSMBFileShare_objectACL' - A value that sets the access control list (ACL) permission for objects
+-- in the S3 bucket that a file gateway puts objects into. The default
+-- value is @private@.
+--
+-- 'requesterPays', 'updateSMBFileShare_requesterPays' - A value that sets who pays the cost of the request and the cost
+-- associated with data download from the S3 bucket. If this value is set
+-- to @true@, the requester pays the costs; otherwise, the S3 bucket owner
+-- pays. However, the S3 bucket owner always pays the cost of storing data.
+--
+-- @RequesterPays@ is a configuration for the S3 bucket that backs the file
+-- share, so make sure that the configuration on the file share is the same
+-- as the S3 bucket configuration.
+--
+-- Valid Values: @true@ | @false@
+--
+-- 'invalidUserList', 'updateSMBFileShare_invalidUserList' - A list of users or groups in the Active Directory that are not allowed
+-- to access the file share. A group must be prefixed with the \@
+-- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+-- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+-- set to @ActiveDirectory@.
+--
+-- 'fileShareARN', 'updateSMBFileShare_fileShareARN' - The Amazon Resource Name (ARN) of the SMB file share that you want to
+-- update.
+newUpdateSMBFileShare ::
+  -- | 'fileShareARN'
+  Prelude.Text ->
   UpdateSMBFileShare
-updateSMBFileShare pFileShareARN_ =
+newUpdateSMBFileShare pFileShareARN_ =
   UpdateSMBFileShare'
-    { _usmbfsSMBACLEnabled = Nothing,
-      _usmbfsAccessBasedEnumeration = Nothing,
-      _usmbfsDefaultStorageClass = Nothing,
-      _usmbfsFileShareName = Nothing,
-      _usmbfsCaseSensitivity = Nothing,
-      _usmbfsGuessMIMETypeEnabled = Nothing,
-      _usmbfsReadOnly = Nothing,
-      _usmbfsKMSEncrypted = Nothing,
-      _usmbfsNotificationPolicy = Nothing,
-      _usmbfsValidUserList = Nothing,
-      _usmbfsKMSKey = Nothing,
-      _usmbfsAdminUserList = Nothing,
-      _usmbfsAuditDestinationARN = Nothing,
-      _usmbfsCacheAttributes = Nothing,
-      _usmbfsObjectACL = Nothing,
-      _usmbfsRequesterPays = Nothing,
-      _usmbfsInvalidUserList = Nothing,
-      _usmbfsFileShareARN = pFileShareARN_
+    { sMBACLEnabled =
+        Prelude.Nothing,
+      accessBasedEnumeration = Prelude.Nothing,
+      defaultStorageClass = Prelude.Nothing,
+      fileShareName = Prelude.Nothing,
+      caseSensitivity = Prelude.Nothing,
+      guessMIMETypeEnabled = Prelude.Nothing,
+      readOnly = Prelude.Nothing,
+      kMSEncrypted = Prelude.Nothing,
+      notificationPolicy = Prelude.Nothing,
+      validUserList = Prelude.Nothing,
+      kMSKey = Prelude.Nothing,
+      adminUserList = Prelude.Nothing,
+      auditDestinationARN = Prelude.Nothing,
+      cacheAttributes = Prelude.Nothing,
+      objectACL = Prelude.Nothing,
+      requesterPays = Prelude.Nothing,
+      invalidUserList = Prelude.Nothing,
+      fileShareARN = pFileShareARN_
     }
 
--- | Set this value to @true@ to enable access control list (ACL) on the SMB file share. Set it to @false@ to map file and directory permissions to the POSIX permissions. For more information, see <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share> in the /AWS Storage Gateway User Guide/ . Valid Values: @true@ | @false@
-usmbfsSMBACLEnabled :: Lens' UpdateSMBFileShare (Maybe Bool)
-usmbfsSMBACLEnabled = lens _usmbfsSMBACLEnabled (\s a -> s {_usmbfsSMBACLEnabled = a})
+-- | Set this value to @true@ to enable access control list (ACL) on the SMB
+-- file share. Set it to @false@ to map file and directory permissions to
+-- the POSIX permissions.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share>
+-- in the /AWS Storage Gateway User Guide/.
+--
+-- Valid Values: @true@ | @false@
+updateSMBFileShare_sMBACLEnabled :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Bool)
+updateSMBFileShare_sMBACLEnabled = Lens.lens (\UpdateSMBFileShare' {sMBACLEnabled} -> sMBACLEnabled) (\s@UpdateSMBFileShare' {} a -> s {sMBACLEnabled = a} :: UpdateSMBFileShare)
 
--- | The files and folders on this share will only be visible to users with read access.
-usmbfsAccessBasedEnumeration :: Lens' UpdateSMBFileShare (Maybe Bool)
-usmbfsAccessBasedEnumeration = lens _usmbfsAccessBasedEnumeration (\s a -> s {_usmbfsAccessBasedEnumeration = a})
+-- | The files and folders on this share will only be visible to users with
+-- read access.
+updateSMBFileShare_accessBasedEnumeration :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Bool)
+updateSMBFileShare_accessBasedEnumeration = Lens.lens (\UpdateSMBFileShare' {accessBasedEnumeration} -> accessBasedEnumeration) (\s@UpdateSMBFileShare' {} a -> s {accessBasedEnumeration = a} :: UpdateSMBFileShare)
 
--- | The default storage class for objects put into an Amazon S3 bucket by the file gateway. The default value is @S3_INTELLIGENT_TIERING@ . Optional. Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ | @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
-usmbfsDefaultStorageClass :: Lens' UpdateSMBFileShare (Maybe Text)
-usmbfsDefaultStorageClass = lens _usmbfsDefaultStorageClass (\s a -> s {_usmbfsDefaultStorageClass = a})
+-- | The default storage class for objects put into an Amazon S3 bucket by
+-- the file gateway. The default value is @S3_INTELLIGENT_TIERING@.
+-- Optional.
+--
+-- Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ |
+-- @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
+updateSMBFileShare_defaultStorageClass :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Text)
+updateSMBFileShare_defaultStorageClass = Lens.lens (\UpdateSMBFileShare' {defaultStorageClass} -> defaultStorageClass) (\s@UpdateSMBFileShare' {} a -> s {defaultStorageClass = a} :: UpdateSMBFileShare)
 
 -- | The name of the file share. Optional.
-usmbfsFileShareName :: Lens' UpdateSMBFileShare (Maybe Text)
-usmbfsFileShareName = lens _usmbfsFileShareName (\s a -> s {_usmbfsFileShareName = a})
+--
+-- @FileShareName@ must be set if an S3 prefix name is set in
+-- @LocationARN@.
+updateSMBFileShare_fileShareName :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Text)
+updateSMBFileShare_fileShareName = Lens.lens (\UpdateSMBFileShare' {fileShareName} -> fileShareName) (\s@UpdateSMBFileShare' {} a -> s {fileShareName = a} :: UpdateSMBFileShare)
 
--- | The case of an object name in an Amazon S3 bucket. For @ClientSpecified@ , the client determines the case sensitivity. For @CaseSensitive@ , the gateway determines the case sensitivity. The default value is @ClientSpecified@ .
-usmbfsCaseSensitivity :: Lens' UpdateSMBFileShare (Maybe CaseSensitivity)
-usmbfsCaseSensitivity = lens _usmbfsCaseSensitivity (\s a -> s {_usmbfsCaseSensitivity = a})
+-- | The case of an object name in an Amazon S3 bucket. For
+-- @ClientSpecified@, the client determines the case sensitivity. For
+-- @CaseSensitive@, the gateway determines the case sensitivity. The
+-- default value is @ClientSpecified@.
+updateSMBFileShare_caseSensitivity :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe CaseSensitivity)
+updateSMBFileShare_caseSensitivity = Lens.lens (\UpdateSMBFileShare' {caseSensitivity} -> caseSensitivity) (\s@UpdateSMBFileShare' {} a -> s {caseSensitivity = a} :: UpdateSMBFileShare)
 
--- | A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to @true@ to enable MIME type guessing, otherwise set to @false@ . The default value is @true@ . Valid Values: @true@ | @false@
-usmbfsGuessMIMETypeEnabled :: Lens' UpdateSMBFileShare (Maybe Bool)
-usmbfsGuessMIMETypeEnabled = lens _usmbfsGuessMIMETypeEnabled (\s a -> s {_usmbfsGuessMIMETypeEnabled = a})
+-- | A value that enables guessing of the MIME type for uploaded objects
+-- based on file extensions. Set this value to @true@ to enable MIME type
+-- guessing, otherwise set to @false@. The default value is @true@.
+--
+-- Valid Values: @true@ | @false@
+updateSMBFileShare_guessMIMETypeEnabled :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Bool)
+updateSMBFileShare_guessMIMETypeEnabled = Lens.lens (\UpdateSMBFileShare' {guessMIMETypeEnabled} -> guessMIMETypeEnabled) (\s@UpdateSMBFileShare' {} a -> s {guessMIMETypeEnabled = a} :: UpdateSMBFileShare)
 
--- | A value that sets the write status of a file share. Set this value to @true@ to set write status to read-only, otherwise set to @false@ . Valid Values: @true@ | @false@
-usmbfsReadOnly :: Lens' UpdateSMBFileShare (Maybe Bool)
-usmbfsReadOnly = lens _usmbfsReadOnly (\s a -> s {_usmbfsReadOnly = a})
+-- | A value that sets the write status of a file share. Set this value to
+-- @true@ to set write status to read-only, otherwise set to @false@.
+--
+-- Valid Values: @true@ | @false@
+updateSMBFileShare_readOnly :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Bool)
+updateSMBFileShare_readOnly = Lens.lens (\UpdateSMBFileShare' {readOnly} -> readOnly) (\s@UpdateSMBFileShare' {} a -> s {readOnly = a} :: UpdateSMBFileShare)
 
--- | Set to @true@ to use Amazon S3 server-side encryption with your own AWS KMS key, or @false@ to use a key managed by Amazon S3. Optional. Valid Values: @true@ | @false@
-usmbfsKMSEncrypted :: Lens' UpdateSMBFileShare (Maybe Bool)
-usmbfsKMSEncrypted = lens _usmbfsKMSEncrypted (\s a -> s {_usmbfsKMSEncrypted = a})
+-- | Set to @true@ to use Amazon S3 server-side encryption with your own AWS
+-- KMS key, or @false@ to use a key managed by Amazon S3. Optional.
+--
+-- Valid Values: @true@ | @false@
+updateSMBFileShare_kMSEncrypted :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Bool)
+updateSMBFileShare_kMSEncrypted = Lens.lens (\UpdateSMBFileShare' {kMSEncrypted} -> kMSEncrypted) (\s@UpdateSMBFileShare' {} a -> s {kMSEncrypted = a} :: UpdateSMBFileShare)
 
 -- | The notification policy of the file share.
-usmbfsNotificationPolicy :: Lens' UpdateSMBFileShare (Maybe Text)
-usmbfsNotificationPolicy = lens _usmbfsNotificationPolicy (\s a -> s {_usmbfsNotificationPolicy = a})
+updateSMBFileShare_notificationPolicy :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Text)
+updateSMBFileShare_notificationPolicy = Lens.lens (\UpdateSMBFileShare' {notificationPolicy} -> notificationPolicy) (\s@UpdateSMBFileShare' {} a -> s {notificationPolicy = a} :: UpdateSMBFileShare)
 
--- | A list of users or groups in the Active Directory that are allowed to access the file share. A group must be prefixed with the @ character. Acceptable formats include: @DOMAIN\User1@ , @user1@ , @@group1@ , and @@DOMAIN\group1@ . Can only be set if Authentication is set to @ActiveDirectory@ .
-usmbfsValidUserList :: Lens' UpdateSMBFileShare [Text]
-usmbfsValidUserList = lens _usmbfsValidUserList (\s a -> s {_usmbfsValidUserList = a}) . _Default . _Coerce
+-- | A list of users or groups in the Active Directory that are allowed to
+-- access the file share. A group must be prefixed with the \@ character.
+-- Acceptable formats include: @DOMAIN\\User1@, @user1@, @\@group1@, and
+-- @\@DOMAIN\\group1@. Can only be set if Authentication is set to
+-- @ActiveDirectory@.
+updateSMBFileShare_validUserList :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe [Prelude.Text])
+updateSMBFileShare_validUserList = Lens.lens (\UpdateSMBFileShare' {validUserList} -> validUserList) (\s@UpdateSMBFileShare' {} a -> s {validUserList = a} :: UpdateSMBFileShare) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon Resource Name (ARN) of a symmetric customer master key (CMK) used for Amazon S3 server-side encryption. Storage Gateway does not support asymmetric CMKs. This value can only be set when @KMSEncrypted@ is @true@ . Optional.
-usmbfsKMSKey :: Lens' UpdateSMBFileShare (Maybe Text)
-usmbfsKMSKey = lens _usmbfsKMSKey (\s a -> s {_usmbfsKMSKey = a})
+-- | The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
+-- used for Amazon S3 server-side encryption. Storage Gateway does not
+-- support asymmetric CMKs. This value can only be set when @KMSEncrypted@
+-- is @true@. Optional.
+updateSMBFileShare_kMSKey :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Text)
+updateSMBFileShare_kMSKey = Lens.lens (\UpdateSMBFileShare' {kMSKey} -> kMSKey) (\s@UpdateSMBFileShare' {} a -> s {kMSKey = a} :: UpdateSMBFileShare)
 
--- | A list of users or groups in the Active Directory that have administrator rights to the file share. A group must be prefixed with the @ character. Acceptable formats include: @DOMAIN\User1@ , @user1@ , @@group1@ , and @@DOMAIN\group1@ . Can only be set if Authentication is set to @ActiveDirectory@ .
-usmbfsAdminUserList :: Lens' UpdateSMBFileShare [Text]
-usmbfsAdminUserList = lens _usmbfsAdminUserList (\s a -> s {_usmbfsAdminUserList = a}) . _Default . _Coerce
+-- | A list of users or groups in the Active Directory that have
+-- administrator rights to the file share. A group must be prefixed with
+-- the \@ character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+-- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+-- set to @ActiveDirectory@.
+updateSMBFileShare_adminUserList :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe [Prelude.Text])
+updateSMBFileShare_adminUserList = Lens.lens (\UpdateSMBFileShare' {adminUserList} -> adminUserList) (\s@UpdateSMBFileShare' {} a -> s {adminUserList = a} :: UpdateSMBFileShare) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon Resource Name (ARN) of the storage used for the audit logs.
-usmbfsAuditDestinationARN :: Lens' UpdateSMBFileShare (Maybe Text)
-usmbfsAuditDestinationARN = lens _usmbfsAuditDestinationARN (\s a -> s {_usmbfsAuditDestinationARN = a})
+updateSMBFileShare_auditDestinationARN :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Text)
+updateSMBFileShare_auditDestinationARN = Lens.lens (\UpdateSMBFileShare' {auditDestinationARN} -> auditDestinationARN) (\s@UpdateSMBFileShare' {} a -> s {auditDestinationARN = a} :: UpdateSMBFileShare)
 
 -- | Refresh cache information.
-usmbfsCacheAttributes :: Lens' UpdateSMBFileShare (Maybe CacheAttributes)
-usmbfsCacheAttributes = lens _usmbfsCacheAttributes (\s a -> s {_usmbfsCacheAttributes = a})
+updateSMBFileShare_cacheAttributes :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe CacheAttributes)
+updateSMBFileShare_cacheAttributes = Lens.lens (\UpdateSMBFileShare' {cacheAttributes} -> cacheAttributes) (\s@UpdateSMBFileShare' {} a -> s {cacheAttributes = a} :: UpdateSMBFileShare)
 
--- | A value that sets the access control list (ACL) permission for objects in the S3 bucket that a file gateway puts objects into. The default value is @private@ .
-usmbfsObjectACL :: Lens' UpdateSMBFileShare (Maybe ObjectACL)
-usmbfsObjectACL = lens _usmbfsObjectACL (\s a -> s {_usmbfsObjectACL = a})
+-- | A value that sets the access control list (ACL) permission for objects
+-- in the S3 bucket that a file gateway puts objects into. The default
+-- value is @private@.
+updateSMBFileShare_objectACL :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe ObjectACL)
+updateSMBFileShare_objectACL = Lens.lens (\UpdateSMBFileShare' {objectACL} -> objectACL) (\s@UpdateSMBFileShare' {} a -> s {objectACL = a} :: UpdateSMBFileShare)
 
--- | A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket. If this value is set to @true@ , the requester pays the costs; otherwise, the S3 bucket owner pays. However, the S3 bucket owner always pays the cost of storing data. Valid Values: @true@ | @false@
-usmbfsRequesterPays :: Lens' UpdateSMBFileShare (Maybe Bool)
-usmbfsRequesterPays = lens _usmbfsRequesterPays (\s a -> s {_usmbfsRequesterPays = a})
+-- | A value that sets who pays the cost of the request and the cost
+-- associated with data download from the S3 bucket. If this value is set
+-- to @true@, the requester pays the costs; otherwise, the S3 bucket owner
+-- pays. However, the S3 bucket owner always pays the cost of storing data.
+--
+-- @RequesterPays@ is a configuration for the S3 bucket that backs the file
+-- share, so make sure that the configuration on the file share is the same
+-- as the S3 bucket configuration.
+--
+-- Valid Values: @true@ | @false@
+updateSMBFileShare_requesterPays :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe Prelude.Bool)
+updateSMBFileShare_requesterPays = Lens.lens (\UpdateSMBFileShare' {requesterPays} -> requesterPays) (\s@UpdateSMBFileShare' {} a -> s {requesterPays = a} :: UpdateSMBFileShare)
 
--- | A list of users or groups in the Active Directory that are not allowed to access the file share. A group must be prefixed with the @ character. Acceptable formats include: @DOMAIN\User1@ , @user1@ , @@group1@ , and @@DOMAIN\group1@ . Can only be set if Authentication is set to @ActiveDirectory@ .
-usmbfsInvalidUserList :: Lens' UpdateSMBFileShare [Text]
-usmbfsInvalidUserList = lens _usmbfsInvalidUserList (\s a -> s {_usmbfsInvalidUserList = a}) . _Default . _Coerce
+-- | A list of users or groups in the Active Directory that are not allowed
+-- to access the file share. A group must be prefixed with the \@
+-- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+-- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+-- set to @ActiveDirectory@.
+updateSMBFileShare_invalidUserList :: Lens.Lens' UpdateSMBFileShare (Prelude.Maybe [Prelude.Text])
+updateSMBFileShare_invalidUserList = Lens.lens (\UpdateSMBFileShare' {invalidUserList} -> invalidUserList) (\s@UpdateSMBFileShare' {} a -> s {invalidUserList = a} :: UpdateSMBFileShare) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon Resource Name (ARN) of the SMB file share that you want to update.
-usmbfsFileShareARN :: Lens' UpdateSMBFileShare Text
-usmbfsFileShareARN = lens _usmbfsFileShareARN (\s a -> s {_usmbfsFileShareARN = a})
+-- | The Amazon Resource Name (ARN) of the SMB file share that you want to
+-- update.
+updateSMBFileShare_fileShareARN :: Lens.Lens' UpdateSMBFileShare Prelude.Text
+updateSMBFileShare_fileShareARN = Lens.lens (\UpdateSMBFileShare' {fileShareARN} -> fileShareARN) (\s@UpdateSMBFileShare' {} a -> s {fileShareARN = a} :: UpdateSMBFileShare)
 
-instance AWSRequest UpdateSMBFileShare where
+instance Prelude.AWSRequest UpdateSMBFileShare where
   type
     Rs UpdateSMBFileShare =
       UpdateSMBFileShareResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateSMBFileShareResponse'
-            <$> (x .?> "FileShareARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "FileShareARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateSMBFileShare
+instance Prelude.Hashable UpdateSMBFileShare
 
-instance NFData UpdateSMBFileShare
+instance Prelude.NFData UpdateSMBFileShare
 
-instance ToHeaders UpdateSMBFileShare where
+instance Prelude.ToHeaders UpdateSMBFileShare where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.UpdateSMBFileShare" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.UpdateSMBFileShare" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateSMBFileShare where
+instance Prelude.ToJSON UpdateSMBFileShare where
   toJSON UpdateSMBFileShare' {..} =
-    object
-      ( catMaybes
-          [ ("SMBACLEnabled" .=) <$> _usmbfsSMBACLEnabled,
-            ("AccessBasedEnumeration" .=)
-              <$> _usmbfsAccessBasedEnumeration,
-            ("DefaultStorageClass" .=)
-              <$> _usmbfsDefaultStorageClass,
-            ("FileShareName" .=) <$> _usmbfsFileShareName,
-            ("CaseSensitivity" .=) <$> _usmbfsCaseSensitivity,
-            ("GuessMIMETypeEnabled" .=)
-              <$> _usmbfsGuessMIMETypeEnabled,
-            ("ReadOnly" .=) <$> _usmbfsReadOnly,
-            ("KMSEncrypted" .=) <$> _usmbfsKMSEncrypted,
-            ("NotificationPolicy" .=)
-              <$> _usmbfsNotificationPolicy,
-            ("ValidUserList" .=) <$> _usmbfsValidUserList,
-            ("KMSKey" .=) <$> _usmbfsKMSKey,
-            ("AdminUserList" .=) <$> _usmbfsAdminUserList,
-            ("AuditDestinationARN" .=)
-              <$> _usmbfsAuditDestinationARN,
-            ("CacheAttributes" .=) <$> _usmbfsCacheAttributes,
-            ("ObjectACL" .=) <$> _usmbfsObjectACL,
-            ("RequesterPays" .=) <$> _usmbfsRequesterPays,
-            ("InvalidUserList" .=) <$> _usmbfsInvalidUserList,
-            Just ("FileShareARN" .= _usmbfsFileShareARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SMBACLEnabled" Prelude..=)
+              Prelude.<$> sMBACLEnabled,
+            ("AccessBasedEnumeration" Prelude..=)
+              Prelude.<$> accessBasedEnumeration,
+            ("DefaultStorageClass" Prelude..=)
+              Prelude.<$> defaultStorageClass,
+            ("FileShareName" Prelude..=)
+              Prelude.<$> fileShareName,
+            ("CaseSensitivity" Prelude..=)
+              Prelude.<$> caseSensitivity,
+            ("GuessMIMETypeEnabled" Prelude..=)
+              Prelude.<$> guessMIMETypeEnabled,
+            ("ReadOnly" Prelude..=) Prelude.<$> readOnly,
+            ("KMSEncrypted" Prelude..=) Prelude.<$> kMSEncrypted,
+            ("NotificationPolicy" Prelude..=)
+              Prelude.<$> notificationPolicy,
+            ("ValidUserList" Prelude..=)
+              Prelude.<$> validUserList,
+            ("KMSKey" Prelude..=) Prelude.<$> kMSKey,
+            ("AdminUserList" Prelude..=)
+              Prelude.<$> adminUserList,
+            ("AuditDestinationARN" Prelude..=)
+              Prelude.<$> auditDestinationARN,
+            ("CacheAttributes" Prelude..=)
+              Prelude.<$> cacheAttributes,
+            ("ObjectACL" Prelude..=) Prelude.<$> objectACL,
+            ("RequesterPays" Prelude..=)
+              Prelude.<$> requesterPays,
+            ("InvalidUserList" Prelude..=)
+              Prelude.<$> invalidUserList,
+            Prelude.Just
+              ("FileShareARN" Prelude..= fileShareARN)
           ]
       )
 
-instance ToPath UpdateSMBFileShare where
-  toPath = const "/"
+instance Prelude.ToPath UpdateSMBFileShare where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateSMBFileShare where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateSMBFileShare where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | UpdateSMBFileShareOutput
 --
---
---
--- /See:/ 'updateSMBFileShareResponse' smart constructor.
+-- /See:/ 'newUpdateSMBFileShareResponse' smart constructor.
 data UpdateSMBFileShareResponse = UpdateSMBFileShareResponse'
-  { _usmbfsrrsFileShareARN ::
-      !(Maybe Text),
-    _usmbfsrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the updated SMB file share.
+    fileShareARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSMBFileShareResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSMBFileShareResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usmbfsrrsFileShareARN' - The Amazon Resource Name (ARN) of the updated SMB file share.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usmbfsrrsResponseStatus' - -- | The response status code.
-updateSMBFileShareResponse ::
-  -- | 'usmbfsrrsResponseStatus'
-  Int ->
+-- 'fileShareARN', 'updateSMBFileShareResponse_fileShareARN' - The Amazon Resource Name (ARN) of the updated SMB file share.
+--
+-- 'httpStatus', 'updateSMBFileShareResponse_httpStatus' - The response's http status code.
+newUpdateSMBFileShareResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateSMBFileShareResponse
-updateSMBFileShareResponse pResponseStatus_ =
+newUpdateSMBFileShareResponse pHttpStatus_ =
   UpdateSMBFileShareResponse'
-    { _usmbfsrrsFileShareARN =
-        Nothing,
-      _usmbfsrrsResponseStatus = pResponseStatus_
+    { fileShareARN =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the updated SMB file share.
-usmbfsrrsFileShareARN :: Lens' UpdateSMBFileShareResponse (Maybe Text)
-usmbfsrrsFileShareARN = lens _usmbfsrrsFileShareARN (\s a -> s {_usmbfsrrsFileShareARN = a})
+updateSMBFileShareResponse_fileShareARN :: Lens.Lens' UpdateSMBFileShareResponse (Prelude.Maybe Prelude.Text)
+updateSMBFileShareResponse_fileShareARN = Lens.lens (\UpdateSMBFileShareResponse' {fileShareARN} -> fileShareARN) (\s@UpdateSMBFileShareResponse' {} a -> s {fileShareARN = a} :: UpdateSMBFileShareResponse)
 
--- | -- | The response status code.
-usmbfsrrsResponseStatus :: Lens' UpdateSMBFileShareResponse Int
-usmbfsrrsResponseStatus = lens _usmbfsrrsResponseStatus (\s a -> s {_usmbfsrrsResponseStatus = a})
+-- | The response's http status code.
+updateSMBFileShareResponse_httpStatus :: Lens.Lens' UpdateSMBFileShareResponse Prelude.Int
+updateSMBFileShareResponse_httpStatus = Lens.lens (\UpdateSMBFileShareResponse' {httpStatus} -> httpStatus) (\s@UpdateSMBFileShareResponse' {} a -> s {httpStatus = a} :: UpdateSMBFileShareResponse)
 
-instance NFData UpdateSMBFileShareResponse
+instance Prelude.NFData UpdateSMBFileShareResponse

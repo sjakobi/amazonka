@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,108 +19,132 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.Disk where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a gateway's local disk.
+-- | Represents a gateway\'s local disk.
 --
---
---
--- /See:/ 'disk' smart constructor.
+-- /See:/ 'newDisk' smart constructor.
 data Disk = Disk'
-  { _dDiskAllocationResource ::
-      !(Maybe Text),
-    _dDiskStatus :: !(Maybe Text),
-    _dDiskSizeInBytes :: !(Maybe Integer),
-    _dDiskAttributeList :: !(Maybe [Text]),
-    _dDiskPath :: !(Maybe Text),
-    _dDiskId :: !(Maybe Text),
-    _dDiskAllocationType :: !(Maybe Text),
-    _dDiskNode :: !(Maybe Text)
+  { -- | The iSCSI qualified name (IQN) that is defined for a disk. This field is
+    -- not included in the response if the local disk is not defined as an
+    -- iSCSI target. The format of this field is
+    -- /targetIqn::LUNNumber::region-volumeId/.
+    diskAllocationResource :: Prelude.Maybe Prelude.Text,
+    -- | A value that represents the status of a local disk.
+    diskStatus :: Prelude.Maybe Prelude.Text,
+    -- | The local disk size in bytes.
+    diskSizeInBytes :: Prelude.Maybe Prelude.Integer,
+    diskAttributeList :: Prelude.Maybe [Prelude.Text],
+    -- | The path of a local disk in the gateway virtual machine (VM).
+    diskPath :: Prelude.Maybe Prelude.Text,
+    -- | The unique device ID or other distinguishing data that identifies a
+    -- local disk.
+    diskId :: Prelude.Maybe Prelude.Text,
+    diskAllocationType :: Prelude.Maybe Prelude.Text,
+    -- | The device node of a local disk as assigned by the virtualization
+    -- environment.
+    diskNode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Disk' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Disk' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dDiskAllocationResource' - The iSCSI qualified name (IQN) that is defined for a disk. This field is not included in the response if the local disk is not defined as an iSCSI target. The format of this field is /targetIqn::LUNNumber::region-volumeId/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dDiskStatus' - A value that represents the status of a local disk.
+-- 'diskAllocationResource', 'disk_diskAllocationResource' - The iSCSI qualified name (IQN) that is defined for a disk. This field is
+-- not included in the response if the local disk is not defined as an
+-- iSCSI target. The format of this field is
+-- /targetIqn::LUNNumber::region-volumeId/.
 --
--- * 'dDiskSizeInBytes' - The local disk size in bytes.
+-- 'diskStatus', 'disk_diskStatus' - A value that represents the status of a local disk.
 --
--- * 'dDiskAttributeList' - Undocumented member.
+-- 'diskSizeInBytes', 'disk_diskSizeInBytes' - The local disk size in bytes.
 --
--- * 'dDiskPath' - The path of a local disk in the gateway virtual machine (VM).
+-- 'diskAttributeList', 'disk_diskAttributeList' - Undocumented member.
 --
--- * 'dDiskId' - The unique device ID or other distinguishing data that identifies a local disk.
+-- 'diskPath', 'disk_diskPath' - The path of a local disk in the gateway virtual machine (VM).
 --
--- * 'dDiskAllocationType' - Undocumented member.
+-- 'diskId', 'disk_diskId' - The unique device ID or other distinguishing data that identifies a
+-- local disk.
 --
--- * 'dDiskNode' - The device node of a local disk as assigned by the virtualization environment.
-disk ::
+-- 'diskAllocationType', 'disk_diskAllocationType' - Undocumented member.
+--
+-- 'diskNode', 'disk_diskNode' - The device node of a local disk as assigned by the virtualization
+-- environment.
+newDisk ::
   Disk
-disk =
+newDisk =
   Disk'
-    { _dDiskAllocationResource = Nothing,
-      _dDiskStatus = Nothing,
-      _dDiskSizeInBytes = Nothing,
-      _dDiskAttributeList = Nothing,
-      _dDiskPath = Nothing,
-      _dDiskId = Nothing,
-      _dDiskAllocationType = Nothing,
-      _dDiskNode = Nothing
+    { diskAllocationResource = Prelude.Nothing,
+      diskStatus = Prelude.Nothing,
+      diskSizeInBytes = Prelude.Nothing,
+      diskAttributeList = Prelude.Nothing,
+      diskPath = Prelude.Nothing,
+      diskId = Prelude.Nothing,
+      diskAllocationType = Prelude.Nothing,
+      diskNode = Prelude.Nothing
     }
 
--- | The iSCSI qualified name (IQN) that is defined for a disk. This field is not included in the response if the local disk is not defined as an iSCSI target. The format of this field is /targetIqn::LUNNumber::region-volumeId/ .
-dDiskAllocationResource :: Lens' Disk (Maybe Text)
-dDiskAllocationResource = lens _dDiskAllocationResource (\s a -> s {_dDiskAllocationResource = a})
+-- | The iSCSI qualified name (IQN) that is defined for a disk. This field is
+-- not included in the response if the local disk is not defined as an
+-- iSCSI target. The format of this field is
+-- /targetIqn::LUNNumber::region-volumeId/.
+disk_diskAllocationResource :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
+disk_diskAllocationResource = Lens.lens (\Disk' {diskAllocationResource} -> diskAllocationResource) (\s@Disk' {} a -> s {diskAllocationResource = a} :: Disk)
 
 -- | A value that represents the status of a local disk.
-dDiskStatus :: Lens' Disk (Maybe Text)
-dDiskStatus = lens _dDiskStatus (\s a -> s {_dDiskStatus = a})
+disk_diskStatus :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
+disk_diskStatus = Lens.lens (\Disk' {diskStatus} -> diskStatus) (\s@Disk' {} a -> s {diskStatus = a} :: Disk)
 
 -- | The local disk size in bytes.
-dDiskSizeInBytes :: Lens' Disk (Maybe Integer)
-dDiskSizeInBytes = lens _dDiskSizeInBytes (\s a -> s {_dDiskSizeInBytes = a})
+disk_diskSizeInBytes :: Lens.Lens' Disk (Prelude.Maybe Prelude.Integer)
+disk_diskSizeInBytes = Lens.lens (\Disk' {diskSizeInBytes} -> diskSizeInBytes) (\s@Disk' {} a -> s {diskSizeInBytes = a} :: Disk)
 
 -- | Undocumented member.
-dDiskAttributeList :: Lens' Disk [Text]
-dDiskAttributeList = lens _dDiskAttributeList (\s a -> s {_dDiskAttributeList = a}) . _Default . _Coerce
+disk_diskAttributeList :: Lens.Lens' Disk (Prelude.Maybe [Prelude.Text])
+disk_diskAttributeList = Lens.lens (\Disk' {diskAttributeList} -> diskAttributeList) (\s@Disk' {} a -> s {diskAttributeList = a} :: Disk) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The path of a local disk in the gateway virtual machine (VM).
-dDiskPath :: Lens' Disk (Maybe Text)
-dDiskPath = lens _dDiskPath (\s a -> s {_dDiskPath = a})
+disk_diskPath :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
+disk_diskPath = Lens.lens (\Disk' {diskPath} -> diskPath) (\s@Disk' {} a -> s {diskPath = a} :: Disk)
 
--- | The unique device ID or other distinguishing data that identifies a local disk.
-dDiskId :: Lens' Disk (Maybe Text)
-dDiskId = lens _dDiskId (\s a -> s {_dDiskId = a})
+-- | The unique device ID or other distinguishing data that identifies a
+-- local disk.
+disk_diskId :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
+disk_diskId = Lens.lens (\Disk' {diskId} -> diskId) (\s@Disk' {} a -> s {diskId = a} :: Disk)
 
 -- | Undocumented member.
-dDiskAllocationType :: Lens' Disk (Maybe Text)
-dDiskAllocationType = lens _dDiskAllocationType (\s a -> s {_dDiskAllocationType = a})
+disk_diskAllocationType :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
+disk_diskAllocationType = Lens.lens (\Disk' {diskAllocationType} -> diskAllocationType) (\s@Disk' {} a -> s {diskAllocationType = a} :: Disk)
 
--- | The device node of a local disk as assigned by the virtualization environment.
-dDiskNode :: Lens' Disk (Maybe Text)
-dDiskNode = lens _dDiskNode (\s a -> s {_dDiskNode = a})
+-- | The device node of a local disk as assigned by the virtualization
+-- environment.
+disk_diskNode :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
+disk_diskNode = Lens.lens (\Disk' {diskNode} -> diskNode) (\s@Disk' {} a -> s {diskNode = a} :: Disk)
 
-instance FromJSON Disk where
+instance Prelude.FromJSON Disk where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Disk"
       ( \x ->
           Disk'
-            <$> (x .:? "DiskAllocationResource")
-            <*> (x .:? "DiskStatus")
-            <*> (x .:? "DiskSizeInBytes")
-            <*> (x .:? "DiskAttributeList" .!= mempty)
-            <*> (x .:? "DiskPath")
-            <*> (x .:? "DiskId")
-            <*> (x .:? "DiskAllocationType")
-            <*> (x .:? "DiskNode")
+            Prelude.<$> (x Prelude..:? "DiskAllocationResource")
+            Prelude.<*> (x Prelude..:? "DiskStatus")
+            Prelude.<*> (x Prelude..:? "DiskSizeInBytes")
+            Prelude.<*> ( x Prelude..:? "DiskAttributeList"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DiskPath")
+            Prelude.<*> (x Prelude..:? "DiskId")
+            Prelude.<*> (x Prelude..:? "DiskAllocationType")
+            Prelude.<*> (x Prelude..:? "DiskNode")
       )
 
-instance Hashable Disk
+instance Prelude.Hashable Disk
 
-instance NFData Disk
+instance Prelude.NFData Disk

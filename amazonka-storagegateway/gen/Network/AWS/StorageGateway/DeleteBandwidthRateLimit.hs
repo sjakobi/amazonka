@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,181 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the bandwidth rate limits of a gateway. You can delete either the upload and download bandwidth rate limit, or you can delete both. If you delete only one of the limits, the other limit remains unchanged. To specify which gateway to work with, use the Amazon Resource Name (ARN) of the gateway in your request. This operation is supported for the stored volume, cached volume and tape gateway types.
+-- Deletes the bandwidth rate limits of a gateway. You can delete either
+-- the upload and download bandwidth rate limit, or you can delete both. If
+-- you delete only one of the limits, the other limit remains unchanged. To
+-- specify which gateway to work with, use the Amazon Resource Name (ARN)
+-- of the gateway in your request. This operation is supported for the
+-- stored volume, cached volume and tape gateway types.
 module Network.AWS.StorageGateway.DeleteBandwidthRateLimit
   ( -- * Creating a Request
-    deleteBandwidthRateLimit,
-    DeleteBandwidthRateLimit,
+    DeleteBandwidthRateLimit (..),
+    newDeleteBandwidthRateLimit,
 
     -- * Request Lenses
-    dbrlbGatewayARN,
-    dbrlbBandwidthType,
+    deleteBandwidthRateLimit_gatewayARN,
+    deleteBandwidthRateLimit_bandwidthType,
 
     -- * Destructuring the Response
-    deleteBandwidthRateLimitResponse,
-    DeleteBandwidthRateLimitResponse,
+    DeleteBandwidthRateLimitResponse (..),
+    newDeleteBandwidthRateLimitResponse,
 
     -- * Response Lenses
-    dbrlrbrsGatewayARN,
-    dbrlrbrsResponseStatus,
+    deleteBandwidthRateLimitResponse_gatewayARN,
+    deleteBandwidthRateLimitResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
 -- | A JSON object containing the following fields:
 --
+-- -   DeleteBandwidthRateLimitInput$BandwidthType
 --
---     * 'DeleteBandwidthRateLimitInput$BandwidthType'
---
---
---
---
--- /See:/ 'deleteBandwidthRateLimit' smart constructor.
+-- /See:/ 'newDeleteBandwidthRateLimit' smart constructor.
 data DeleteBandwidthRateLimit = DeleteBandwidthRateLimit'
-  { _dbrlbGatewayARN ::
-      !Text,
-    _dbrlbBandwidthType ::
-      !Text
+  { gatewayARN :: Prelude.Text,
+    -- | One of the BandwidthType values that indicates the gateway bandwidth
+    -- rate limit to delete.
+    --
+    -- Valid Values: @UPLOAD@ | @DOWNLOAD@ | @ALL@
+    bandwidthType :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBandwidthRateLimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBandwidthRateLimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbrlbGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbrlbBandwidthType' - One of the BandwidthType values that indicates the gateway bandwidth rate limit to delete. Valid Values: @UPLOAD@ | @DOWNLOAD@ | @ALL@
-deleteBandwidthRateLimit ::
-  -- | 'dbrlbGatewayARN'
-  Text ->
-  -- | 'dbrlbBandwidthType'
-  Text ->
+-- 'gatewayARN', 'deleteBandwidthRateLimit_gatewayARN' - Undocumented member.
+--
+-- 'bandwidthType', 'deleteBandwidthRateLimit_bandwidthType' - One of the BandwidthType values that indicates the gateway bandwidth
+-- rate limit to delete.
+--
+-- Valid Values: @UPLOAD@ | @DOWNLOAD@ | @ALL@
+newDeleteBandwidthRateLimit ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
+  -- | 'bandwidthType'
+  Prelude.Text ->
   DeleteBandwidthRateLimit
-deleteBandwidthRateLimit pGatewayARN_ pBandwidthType_ =
-  DeleteBandwidthRateLimit'
-    { _dbrlbGatewayARN =
-        pGatewayARN_,
-      _dbrlbBandwidthType = pBandwidthType_
-    }
+newDeleteBandwidthRateLimit
+  pGatewayARN_
+  pBandwidthType_ =
+    DeleteBandwidthRateLimit'
+      { gatewayARN =
+          pGatewayARN_,
+        bandwidthType = pBandwidthType_
+      }
 
 -- | Undocumented member.
-dbrlbGatewayARN :: Lens' DeleteBandwidthRateLimit Text
-dbrlbGatewayARN = lens _dbrlbGatewayARN (\s a -> s {_dbrlbGatewayARN = a})
+deleteBandwidthRateLimit_gatewayARN :: Lens.Lens' DeleteBandwidthRateLimit Prelude.Text
+deleteBandwidthRateLimit_gatewayARN = Lens.lens (\DeleteBandwidthRateLimit' {gatewayARN} -> gatewayARN) (\s@DeleteBandwidthRateLimit' {} a -> s {gatewayARN = a} :: DeleteBandwidthRateLimit)
 
--- | One of the BandwidthType values that indicates the gateway bandwidth rate limit to delete. Valid Values: @UPLOAD@ | @DOWNLOAD@ | @ALL@
-dbrlbBandwidthType :: Lens' DeleteBandwidthRateLimit Text
-dbrlbBandwidthType = lens _dbrlbBandwidthType (\s a -> s {_dbrlbBandwidthType = a})
+-- | One of the BandwidthType values that indicates the gateway bandwidth
+-- rate limit to delete.
+--
+-- Valid Values: @UPLOAD@ | @DOWNLOAD@ | @ALL@
+deleteBandwidthRateLimit_bandwidthType :: Lens.Lens' DeleteBandwidthRateLimit Prelude.Text
+deleteBandwidthRateLimit_bandwidthType = Lens.lens (\DeleteBandwidthRateLimit' {bandwidthType} -> bandwidthType) (\s@DeleteBandwidthRateLimit' {} a -> s {bandwidthType = a} :: DeleteBandwidthRateLimit)
 
-instance AWSRequest DeleteBandwidthRateLimit where
+instance Prelude.AWSRequest DeleteBandwidthRateLimit where
   type
     Rs DeleteBandwidthRateLimit =
       DeleteBandwidthRateLimitResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteBandwidthRateLimitResponse'
-            <$> (x .?> "GatewayARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteBandwidthRateLimit
+instance Prelude.Hashable DeleteBandwidthRateLimit
 
-instance NFData DeleteBandwidthRateLimit
+instance Prelude.NFData DeleteBandwidthRateLimit
 
-instance ToHeaders DeleteBandwidthRateLimit where
+instance Prelude.ToHeaders DeleteBandwidthRateLimit where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DeleteBandwidthRateLimit" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DeleteBandwidthRateLimit" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteBandwidthRateLimit where
+instance Prelude.ToJSON DeleteBandwidthRateLimit where
   toJSON DeleteBandwidthRateLimit' {..} =
-    object
-      ( catMaybes
-          [ Just ("GatewayARN" .= _dbrlbGatewayARN),
-            Just ("BandwidthType" .= _dbrlbBandwidthType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("GatewayARN" Prelude..= gatewayARN),
+            Prelude.Just
+              ("BandwidthType" Prelude..= bandwidthType)
           ]
       )
 
-instance ToPath DeleteBandwidthRateLimit where
-  toPath = const "/"
+instance Prelude.ToPath DeleteBandwidthRateLimit where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteBandwidthRateLimit where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteBandwidthRateLimit where
+  toQuery = Prelude.const Prelude.mempty
 
--- | A JSON object containing the Amazon Resource Name (ARN) of the gateway whose bandwidth rate information was deleted.
+-- | A JSON object containing the Amazon Resource Name (ARN) of the gateway
+-- whose bandwidth rate information was deleted.
 --
---
---
--- /See:/ 'deleteBandwidthRateLimitResponse' smart constructor.
+-- /See:/ 'newDeleteBandwidthRateLimitResponse' smart constructor.
 data DeleteBandwidthRateLimitResponse = DeleteBandwidthRateLimitResponse'
-  { _dbrlrbrsGatewayARN ::
-      !( Maybe
-           Text
-       ),
-    _dbrlrbrsResponseStatus ::
-      !Int
+  { gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBandwidthRateLimitResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBandwidthRateLimitResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbrlrbrsGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbrlrbrsResponseStatus' - -- | The response status code.
-deleteBandwidthRateLimitResponse ::
-  -- | 'dbrlrbrsResponseStatus'
-  Int ->
+-- 'gatewayARN', 'deleteBandwidthRateLimitResponse_gatewayARN' - Undocumented member.
+--
+-- 'httpStatus', 'deleteBandwidthRateLimitResponse_httpStatus' - The response's http status code.
+newDeleteBandwidthRateLimitResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteBandwidthRateLimitResponse
-deleteBandwidthRateLimitResponse pResponseStatus_ =
+newDeleteBandwidthRateLimitResponse pHttpStatus_ =
   DeleteBandwidthRateLimitResponse'
-    { _dbrlrbrsGatewayARN =
-        Nothing,
-      _dbrlrbrsResponseStatus =
-        pResponseStatus_
+    { gatewayARN =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-dbrlrbrsGatewayARN :: Lens' DeleteBandwidthRateLimitResponse (Maybe Text)
-dbrlrbrsGatewayARN = lens _dbrlrbrsGatewayARN (\s a -> s {_dbrlrbrsGatewayARN = a})
+deleteBandwidthRateLimitResponse_gatewayARN :: Lens.Lens' DeleteBandwidthRateLimitResponse (Prelude.Maybe Prelude.Text)
+deleteBandwidthRateLimitResponse_gatewayARN = Lens.lens (\DeleteBandwidthRateLimitResponse' {gatewayARN} -> gatewayARN) (\s@DeleteBandwidthRateLimitResponse' {} a -> s {gatewayARN = a} :: DeleteBandwidthRateLimitResponse)
 
--- | -- | The response status code.
-dbrlrbrsResponseStatus :: Lens' DeleteBandwidthRateLimitResponse Int
-dbrlrbrsResponseStatus = lens _dbrlrbrsResponseStatus (\s a -> s {_dbrlrbrsResponseStatus = a})
+-- | The response's http status code.
+deleteBandwidthRateLimitResponse_httpStatus :: Lens.Lens' DeleteBandwidthRateLimitResponse Prelude.Int
+deleteBandwidthRateLimitResponse_httpStatus = Lens.lens (\DeleteBandwidthRateLimitResponse' {httpStatus} -> httpStatus) (\s@DeleteBandwidthRateLimitResponse' {} a -> s {httpStatus = a} :: DeleteBandwidthRateLimitResponse)
 
-instance NFData DeleteBandwidthRateLimitResponse
+instance
+  Prelude.NFData
+    DeleteBandwidthRateLimitResponse

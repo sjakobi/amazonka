@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types
   ( -- * Service Configuration
-    storageGateway,
+    defaultService,
 
     -- * Errors
     _ServiceUnavailableError,
@@ -50,301 +53,109 @@ module Network.AWS.StorageGateway.Types
 
     -- * AutomaticTapeCreationPolicyInfo
     AutomaticTapeCreationPolicyInfo (..),
-    automaticTapeCreationPolicyInfo,
-    atcpiAutomaticTapeCreationRules,
-    atcpiGatewayARN,
+    newAutomaticTapeCreationPolicyInfo,
 
     -- * AutomaticTapeCreationRule
     AutomaticTapeCreationRule (..),
-    automaticTapeCreationRule,
-    atcrWorm,
-    atcrTapeBarcodePrefix,
-    atcrPoolId,
-    atcrTapeSizeInBytes,
-    atcrMinimumNumTapes,
+    newAutomaticTapeCreationRule,
 
     -- * BandwidthRateLimitInterval
     BandwidthRateLimitInterval (..),
-    bandwidthRateLimitInterval,
-    brliAverageUploadRateLimitInBitsPerSec,
-    brliAverageDownloadRateLimitInBitsPerSec,
-    brliStartHourOfDay,
-    brliStartMinuteOfHour,
-    brliEndHourOfDay,
-    brliEndMinuteOfHour,
-    brliDaysOfWeek,
+    newBandwidthRateLimitInterval,
 
     -- * CacheAttributes
     CacheAttributes (..),
-    cacheAttributes,
-    caCacheStaleTimeoutInSeconds,
+    newCacheAttributes,
 
     -- * CachediSCSIVolume
     CachediSCSIVolume (..),
-    cachediSCSIVolume,
-    cscsivSourceSnapshotId,
-    cscsivVolumeStatus,
-    cscsivCreatedDate,
-    cscsivTargetName,
-    cscsivVolumeARN,
-    cscsivVolumeId,
-    cscsivKMSKey,
-    cscsivVolumeiSCSIAttributes,
-    cscsivVolumeUsedInBytes,
-    cscsivVolumeSizeInBytes,
-    cscsivVolumeType,
-    cscsivVolumeAttachmentStatus,
-    cscsivVolumeProgress,
+    newCachediSCSIVolume,
 
     -- * ChapInfo
     ChapInfo (..),
-    chapInfo,
-    ciInitiatorName,
-    ciTargetARN,
-    ciSecretToAuthenticateTarget,
-    ciSecretToAuthenticateInitiator,
+    newChapInfo,
 
     -- * DeviceiSCSIAttributes
     DeviceiSCSIAttributes (..),
-    deviceiSCSIAttributes,
-    dscsiaChapEnabled,
-    dscsiaTargetARN,
-    dscsiaNetworkInterfaceId,
-    dscsiaNetworkInterfacePort,
+    newDeviceiSCSIAttributes,
 
     -- * Disk
     Disk (..),
-    disk,
-    dDiskAllocationResource,
-    dDiskStatus,
-    dDiskSizeInBytes,
-    dDiskAttributeList,
-    dDiskPath,
-    dDiskId,
-    dDiskAllocationType,
-    dDiskNode,
+    newDisk,
 
     -- * FileShareInfo
     FileShareInfo (..),
-    fileShareInfo,
-    fsiFileShareId,
-    fsiFileShareType,
-    fsiFileShareStatus,
-    fsiFileShareARN,
-    fsiGatewayARN,
+    newFileShareInfo,
 
     -- * GatewayInfo
     GatewayInfo (..),
-    gatewayInfo,
-    giGatewayOperationalState,
-    giGatewayName,
-    giGatewayType,
-    giEC2InstanceRegion,
-    giEC2InstanceId,
-    giGatewayARN,
-    giGatewayId,
+    newGatewayInfo,
 
     -- * NFSFileShareDefaults
     NFSFileShareDefaults (..),
-    nFSFileShareDefaults,
-    nfsfsdOwnerId,
-    nfsfsdGroupId,
-    nfsfsdDirectoryMode,
-    nfsfsdFileMode,
+    newNFSFileShareDefaults,
 
     -- * NFSFileShareInfo
     NFSFileShareInfo (..),
-    nFSFileShareInfo,
-    nfsfsiDefaultStorageClass,
-    nfsfsiFileShareName,
-    nfsfsiGuessMIMETypeEnabled,
-    nfsfsiReadOnly,
-    nfsfsiFileShareId,
-    nfsfsiKMSEncrypted,
-    nfsfsiLocationARN,
-    nfsfsiSquash,
-    nfsfsiNotificationPolicy,
-    nfsfsiKMSKey,
-    nfsfsiFileShareStatus,
-    nfsfsiRole,
-    nfsfsiTags,
-    nfsfsiFileShareARN,
-    nfsfsiCacheAttributes,
-    nfsfsiClientList,
-    nfsfsiObjectACL,
-    nfsfsiNFSFileShareDefaults,
-    nfsfsiPath,
-    nfsfsiGatewayARN,
-    nfsfsiRequesterPays,
+    newNFSFileShareInfo,
 
     -- * NetworkInterface
     NetworkInterface (..),
-    networkInterface,
-    niMACAddress,
-    niIPv6Address,
-    niIPv4Address,
+    newNetworkInterface,
 
     -- * PoolInfo
     PoolInfo (..),
-    poolInfo,
-    piPoolARN,
-    piPoolName,
-    piStorageClass,
-    piRetentionLockType,
-    piPoolStatus,
-    piRetentionLockTimeInDays,
+    newPoolInfo,
 
     -- * SMBFileShareInfo
     SMBFileShareInfo (..),
-    sMBFileShareInfo,
-    smbfsiSMBACLEnabled,
-    smbfsiAccessBasedEnumeration,
-    smbfsiDefaultStorageClass,
-    smbfsiFileShareName,
-    smbfsiCaseSensitivity,
-    smbfsiGuessMIMETypeEnabled,
-    smbfsiReadOnly,
-    smbfsiFileShareId,
-    smbfsiKMSEncrypted,
-    smbfsiAuthentication,
-    smbfsiLocationARN,
-    smbfsiNotificationPolicy,
-    smbfsiValidUserList,
-    smbfsiKMSKey,
-    smbfsiFileShareStatus,
-    smbfsiAdminUserList,
-    smbfsiAuditDestinationARN,
-    smbfsiRole,
-    smbfsiTags,
-    smbfsiFileShareARN,
-    smbfsiCacheAttributes,
-    smbfsiObjectACL,
-    smbfsiPath,
-    smbfsiGatewayARN,
-    smbfsiRequesterPays,
-    smbfsiInvalidUserList,
+    newSMBFileShareInfo,
 
     -- * StorediSCSIVolume
     StorediSCSIVolume (..),
-    storediSCSIVolume,
-    sscsivSourceSnapshotId,
-    sscsivVolumeStatus,
-    sscsivCreatedDate,
-    sscsivTargetName,
-    sscsivVolumeARN,
-    sscsivVolumeId,
-    sscsivKMSKey,
-    sscsivPreservedExistingData,
-    sscsivVolumeiSCSIAttributes,
-    sscsivVolumeUsedInBytes,
-    sscsivVolumeSizeInBytes,
-    sscsivVolumeDiskId,
-    sscsivVolumeType,
-    sscsivVolumeAttachmentStatus,
-    sscsivVolumeProgress,
+    newStorediSCSIVolume,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * Tape
     Tape (..),
-    tape,
-    tPoolEntryDate,
-    tTapeStatus,
-    tTapeCreatedDate,
-    tPoolId,
-    tVTLDevice,
-    tTapeARN,
-    tKMSKey,
-    tWorm,
-    tTapeBarcode,
-    tTapeUsedInBytes,
-    tTapeSizeInBytes,
-    tRetentionStartDate,
-    tProgress,
+    newTape,
 
     -- * TapeArchive
     TapeArchive (..),
-    tapeArchive,
-    taPoolEntryDate,
-    taTapeStatus,
-    taTapeCreatedDate,
-    taPoolId,
-    taCompletionTime,
-    taRetrievedTo,
-    taTapeARN,
-    taKMSKey,
-    taWorm,
-    taTapeBarcode,
-    taTapeUsedInBytes,
-    taTapeSizeInBytes,
-    taRetentionStartDate,
+    newTapeArchive,
 
     -- * TapeInfo
     TapeInfo (..),
-    tapeInfo,
-    tiPoolEntryDate,
-    tiTapeStatus,
-    tiPoolId,
-    tiTapeARN,
-    tiTapeBarcode,
-    tiTapeSizeInBytes,
-    tiRetentionStartDate,
-    tiGatewayARN,
+    newTapeInfo,
 
     -- * TapeRecoveryPointInfo
     TapeRecoveryPointInfo (..),
-    tapeRecoveryPointInfo,
-    trpiTapeStatus,
-    trpiTapeARN,
-    trpiTapeSizeInBytes,
-    trpiTapeRecoveryPointTime,
+    newTapeRecoveryPointInfo,
 
     -- * VTLDevice
     VTLDevice (..),
-    vTLDevice,
-    vtldVTLDeviceProductIdentifier,
-    vtldVTLDeviceVendor,
-    vtldDeviceiSCSIAttributes,
-    vtldVTLDeviceType,
-    vtldVTLDeviceARN,
+    newVTLDevice,
 
     -- * VolumeInfo
     VolumeInfo (..),
-    volumeInfo,
-    viVolumeARN,
-    viVolumeId,
-    viVolumeSizeInBytes,
-    viVolumeType,
-    viGatewayARN,
-    viVolumeAttachmentStatus,
-    viGatewayId,
+    newVolumeInfo,
 
     -- * VolumeRecoveryPointInfo
     VolumeRecoveryPointInfo (..),
-    volumeRecoveryPointInfo,
-    vrpiVolumeARN,
-    vrpiVolumeSizeInBytes,
-    vrpiVolumeUsageInBytes,
-    vrpiVolumeRecoveryPointTime,
+    newVolumeRecoveryPointInfo,
 
     -- * VolumeiSCSIAttributes
     VolumeiSCSIAttributes (..),
-    volumeiSCSIAttributes,
-    vscsiaChapEnabled,
-    vscsiaLunNumber,
-    vscsiaTargetARN,
-    vscsiaNetworkInterfaceId,
-    vscsiaNetworkInterfacePort,
+    newVolumeiSCSIAttributes,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 import Network.AWS.StorageGateway.Types.ActiveDirectoryStatus
 import Network.AWS.StorageGateway.Types.AutomaticTapeCreationPolicyInfo
 import Network.AWS.StorageGateway.Types.AutomaticTapeCreationRule
@@ -382,73 +193,96 @@ import Network.AWS.StorageGateway.Types.VolumeRecoveryPointInfo
 import Network.AWS.StorageGateway.Types.VolumeiSCSIAttributes
 
 -- | API version @2013-06-30@ of the Amazon Storage Gateway SDK configuration.
-storageGateway :: Service
-storageGateway =
-  Service
-    { _svcAbbrev = "StorageGateway",
-      _svcSigner = v4,
-      _svcPrefix = "storagegateway",
-      _svcVersion = "2013-06-30",
-      _svcEndpoint = defaultEndpoint storageGateway,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "StorageGateway",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "StorageGateway",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "storagegateway",
+      Prelude._svcVersion = "2013-06-30",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "StorageGateway",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | An internal server error has occurred because the service is unavailable. For more information, see the error and message fields.
-_ServiceUnavailableError :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An internal server error has occurred because the service is
+-- unavailable. For more information, see the error and message fields.
+_ServiceUnavailableError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableError =
-  _MatchServiceError
-    storageGateway
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableError"
 
--- | An internal server error has occurred during the request. For more information, see the error and message fields.
-_InternalServerError :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An internal server error has occurred during the request. For more
+-- information, see the error and message fields.
+_InternalServerError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerError =
-  _MatchServiceError
-    storageGateway
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerError"
 
--- | An exception occurred because an invalid gateway request was issued to the service. For more information, see the error and message fields.
-_InvalidGatewayRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An exception occurred because an invalid gateway request was issued to
+-- the service. For more information, see the error and message fields.
+_InvalidGatewayRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidGatewayRequestException =
-  _MatchServiceError
-    storageGateway
+  Prelude._MatchServiceError
+    defaultService
     "InvalidGatewayRequestException"

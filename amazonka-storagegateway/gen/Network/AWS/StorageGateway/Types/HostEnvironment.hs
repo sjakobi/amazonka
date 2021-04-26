@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.StorageGateway.Types.HostEnvironment
   ( HostEnvironment
       ( ..,
-        EC2,
-        HyperV,
-        Kvm,
-        Other,
-        VMware
+        HostEnvironmentEC2,
+        HostEnvironmentHYPERV,
+        HostEnvironmentKVM,
+        HostEnvironmentOTHER,
+        HostEnvironmentVMWARE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HostEnvironment = HostEnvironment' (CI Text)
+newtype HostEnvironment = HostEnvironment'
+  { fromHostEnvironment ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EC2 :: HostEnvironment
-pattern EC2 = HostEnvironment' "EC2"
+pattern HostEnvironmentEC2 :: HostEnvironment
+pattern HostEnvironmentEC2 = HostEnvironment' "EC2"
 
-pattern HyperV :: HostEnvironment
-pattern HyperV = HostEnvironment' "HYPER-V"
+pattern HostEnvironmentHYPERV :: HostEnvironment
+pattern HostEnvironmentHYPERV = HostEnvironment' "HYPER-V"
 
-pattern Kvm :: HostEnvironment
-pattern Kvm = HostEnvironment' "KVM"
+pattern HostEnvironmentKVM :: HostEnvironment
+pattern HostEnvironmentKVM = HostEnvironment' "KVM"
 
-pattern Other :: HostEnvironment
-pattern Other = HostEnvironment' "OTHER"
+pattern HostEnvironmentOTHER :: HostEnvironment
+pattern HostEnvironmentOTHER = HostEnvironment' "OTHER"
 
-pattern VMware :: HostEnvironment
-pattern VMware = HostEnvironment' "VMWARE"
+pattern HostEnvironmentVMWARE :: HostEnvironment
+pattern HostEnvironmentVMWARE = HostEnvironment' "VMWARE"
 
 {-# COMPLETE
-  EC2,
-  HyperV,
-  Kvm,
-  Other,
-  VMware,
+  HostEnvironmentEC2,
+  HostEnvironmentHYPERV,
+  HostEnvironmentKVM,
+  HostEnvironmentOTHER,
+  HostEnvironmentVMWARE,
   HostEnvironment'
   #-}
 
-instance FromText HostEnvironment where
-  parser = (HostEnvironment' . mk) <$> takeText
+instance Prelude.FromText HostEnvironment where
+  parser = HostEnvironment' Prelude.<$> Prelude.takeText
 
-instance ToText HostEnvironment where
-  toText (HostEnvironment' ci) = original ci
+instance Prelude.ToText HostEnvironment where
+  toText (HostEnvironment' x) = x
 
-instance Hashable HostEnvironment
+instance Prelude.Hashable HostEnvironment
 
-instance NFData HostEnvironment
+instance Prelude.NFData HostEnvironment
 
-instance ToByteString HostEnvironment
+instance Prelude.ToByteString HostEnvironment
 
-instance ToQuery HostEnvironment
+instance Prelude.ToQuery HostEnvironment
 
-instance ToHeader HostEnvironment
+instance Prelude.ToHeader HostEnvironment
 
-instance FromJSON HostEnvironment where
-  parseJSON = parseJSONText "HostEnvironment"
+instance Prelude.FromJSON HostEnvironment where
+  parseJSON = Prelude.parseJSONText "HostEnvironment"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,99 +19,123 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.GatewayInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a gateway object.
 --
---
---
--- /See:/ 'gatewayInfo' smart constructor.
+-- /See:/ 'newGatewayInfo' smart constructor.
 data GatewayInfo = GatewayInfo'
-  { _giGatewayOperationalState ::
-      !(Maybe Text),
-    _giGatewayName :: !(Maybe Text),
-    _giGatewayType :: !(Maybe Text),
-    _giEC2InstanceRegion :: !(Maybe Text),
-    _giEC2InstanceId :: !(Maybe Text),
-    _giGatewayARN :: !(Maybe Text),
-    _giGatewayId :: !(Maybe Text)
+  { -- | The state of the gateway.
+    --
+    -- Valid Values: @DISABLED@ | @ACTIVE@
+    gatewayOperationalState :: Prelude.Maybe Prelude.Text,
+    -- | The name of the gateway.
+    gatewayName :: Prelude.Maybe Prelude.Text,
+    -- | The type of the gateway.
+    gatewayType :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Region where the Amazon EC2 instance is located.
+    ec2InstanceRegion :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon EC2 instance that was used to launch the gateway.
+    ec2InstanceId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the gateway. Use the ListGateways
+    -- operation to return a list of gateways for your account and AWS Region.
+    gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier assigned to your gateway during activation. This
+    -- ID becomes part of the gateway Amazon Resource Name (ARN), which you use
+    -- as input for other operations.
+    gatewayId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GatewayInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GatewayInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giGatewayOperationalState' - The state of the gateway. Valid Values: @DISABLED@ | @ACTIVE@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giGatewayName' - The name of the gateway.
+-- 'gatewayOperationalState', 'gatewayInfo_gatewayOperationalState' - The state of the gateway.
 --
--- * 'giGatewayType' - The type of the gateway.
+-- Valid Values: @DISABLED@ | @ACTIVE@
 --
--- * 'giEC2InstanceRegion' - The AWS Region where the Amazon EC2 instance is located.
+-- 'gatewayName', 'gatewayInfo_gatewayName' - The name of the gateway.
 --
--- * 'giEC2InstanceId' - The ID of the Amazon EC2 instance that was used to launch the gateway.
+-- 'gatewayType', 'gatewayInfo_gatewayType' - The type of the gateway.
 --
--- * 'giGatewayARN' - The Amazon Resource Name (ARN) of the gateway. Use the 'ListGateways' operation to return a list of gateways for your account and AWS Region.
+-- 'ec2InstanceRegion', 'gatewayInfo_ec2InstanceRegion' - The AWS Region where the Amazon EC2 instance is located.
 --
--- * 'giGatewayId' - The unique identifier assigned to your gateway during activation. This ID becomes part of the gateway Amazon Resource Name (ARN), which you use as input for other operations.
-gatewayInfo ::
+-- 'ec2InstanceId', 'gatewayInfo_ec2InstanceId' - The ID of the Amazon EC2 instance that was used to launch the gateway.
+--
+-- 'gatewayARN', 'gatewayInfo_gatewayARN' - The Amazon Resource Name (ARN) of the gateway. Use the ListGateways
+-- operation to return a list of gateways for your account and AWS Region.
+--
+-- 'gatewayId', 'gatewayInfo_gatewayId' - The unique identifier assigned to your gateway during activation. This
+-- ID becomes part of the gateway Amazon Resource Name (ARN), which you use
+-- as input for other operations.
+newGatewayInfo ::
   GatewayInfo
-gatewayInfo =
+newGatewayInfo =
   GatewayInfo'
-    { _giGatewayOperationalState = Nothing,
-      _giGatewayName = Nothing,
-      _giGatewayType = Nothing,
-      _giEC2InstanceRegion = Nothing,
-      _giEC2InstanceId = Nothing,
-      _giGatewayARN = Nothing,
-      _giGatewayId = Nothing
+    { gatewayOperationalState =
+        Prelude.Nothing,
+      gatewayName = Prelude.Nothing,
+      gatewayType = Prelude.Nothing,
+      ec2InstanceRegion = Prelude.Nothing,
+      ec2InstanceId = Prelude.Nothing,
+      gatewayARN = Prelude.Nothing,
+      gatewayId = Prelude.Nothing
     }
 
--- | The state of the gateway. Valid Values: @DISABLED@ | @ACTIVE@
-giGatewayOperationalState :: Lens' GatewayInfo (Maybe Text)
-giGatewayOperationalState = lens _giGatewayOperationalState (\s a -> s {_giGatewayOperationalState = a})
+-- | The state of the gateway.
+--
+-- Valid Values: @DISABLED@ | @ACTIVE@
+gatewayInfo_gatewayOperationalState :: Lens.Lens' GatewayInfo (Prelude.Maybe Prelude.Text)
+gatewayInfo_gatewayOperationalState = Lens.lens (\GatewayInfo' {gatewayOperationalState} -> gatewayOperationalState) (\s@GatewayInfo' {} a -> s {gatewayOperationalState = a} :: GatewayInfo)
 
 -- | The name of the gateway.
-giGatewayName :: Lens' GatewayInfo (Maybe Text)
-giGatewayName = lens _giGatewayName (\s a -> s {_giGatewayName = a})
+gatewayInfo_gatewayName :: Lens.Lens' GatewayInfo (Prelude.Maybe Prelude.Text)
+gatewayInfo_gatewayName = Lens.lens (\GatewayInfo' {gatewayName} -> gatewayName) (\s@GatewayInfo' {} a -> s {gatewayName = a} :: GatewayInfo)
 
 -- | The type of the gateway.
-giGatewayType :: Lens' GatewayInfo (Maybe Text)
-giGatewayType = lens _giGatewayType (\s a -> s {_giGatewayType = a})
+gatewayInfo_gatewayType :: Lens.Lens' GatewayInfo (Prelude.Maybe Prelude.Text)
+gatewayInfo_gatewayType = Lens.lens (\GatewayInfo' {gatewayType} -> gatewayType) (\s@GatewayInfo' {} a -> s {gatewayType = a} :: GatewayInfo)
 
 -- | The AWS Region where the Amazon EC2 instance is located.
-giEC2InstanceRegion :: Lens' GatewayInfo (Maybe Text)
-giEC2InstanceRegion = lens _giEC2InstanceRegion (\s a -> s {_giEC2InstanceRegion = a})
+gatewayInfo_ec2InstanceRegion :: Lens.Lens' GatewayInfo (Prelude.Maybe Prelude.Text)
+gatewayInfo_ec2InstanceRegion = Lens.lens (\GatewayInfo' {ec2InstanceRegion} -> ec2InstanceRegion) (\s@GatewayInfo' {} a -> s {ec2InstanceRegion = a} :: GatewayInfo)
 
 -- | The ID of the Amazon EC2 instance that was used to launch the gateway.
-giEC2InstanceId :: Lens' GatewayInfo (Maybe Text)
-giEC2InstanceId = lens _giEC2InstanceId (\s a -> s {_giEC2InstanceId = a})
+gatewayInfo_ec2InstanceId :: Lens.Lens' GatewayInfo (Prelude.Maybe Prelude.Text)
+gatewayInfo_ec2InstanceId = Lens.lens (\GatewayInfo' {ec2InstanceId} -> ec2InstanceId) (\s@GatewayInfo' {} a -> s {ec2InstanceId = a} :: GatewayInfo)
 
--- | The Amazon Resource Name (ARN) of the gateway. Use the 'ListGateways' operation to return a list of gateways for your account and AWS Region.
-giGatewayARN :: Lens' GatewayInfo (Maybe Text)
-giGatewayARN = lens _giGatewayARN (\s a -> s {_giGatewayARN = a})
+-- | The Amazon Resource Name (ARN) of the gateway. Use the ListGateways
+-- operation to return a list of gateways for your account and AWS Region.
+gatewayInfo_gatewayARN :: Lens.Lens' GatewayInfo (Prelude.Maybe Prelude.Text)
+gatewayInfo_gatewayARN = Lens.lens (\GatewayInfo' {gatewayARN} -> gatewayARN) (\s@GatewayInfo' {} a -> s {gatewayARN = a} :: GatewayInfo)
 
--- | The unique identifier assigned to your gateway during activation. This ID becomes part of the gateway Amazon Resource Name (ARN), which you use as input for other operations.
-giGatewayId :: Lens' GatewayInfo (Maybe Text)
-giGatewayId = lens _giGatewayId (\s a -> s {_giGatewayId = a})
+-- | The unique identifier assigned to your gateway during activation. This
+-- ID becomes part of the gateway Amazon Resource Name (ARN), which you use
+-- as input for other operations.
+gatewayInfo_gatewayId :: Lens.Lens' GatewayInfo (Prelude.Maybe Prelude.Text)
+gatewayInfo_gatewayId = Lens.lens (\GatewayInfo' {gatewayId} -> gatewayId) (\s@GatewayInfo' {} a -> s {gatewayId = a} :: GatewayInfo)
 
-instance FromJSON GatewayInfo where
+instance Prelude.FromJSON GatewayInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GatewayInfo"
       ( \x ->
           GatewayInfo'
-            <$> (x .:? "GatewayOperationalState")
-            <*> (x .:? "GatewayName")
-            <*> (x .:? "GatewayType")
-            <*> (x .:? "Ec2InstanceRegion")
-            <*> (x .:? "Ec2InstanceId")
-            <*> (x .:? "GatewayARN")
-            <*> (x .:? "GatewayId")
+            Prelude.<$> (x Prelude..:? "GatewayOperationalState")
+            Prelude.<*> (x Prelude..:? "GatewayName")
+            Prelude.<*> (x Prelude..:? "GatewayType")
+            Prelude.<*> (x Prelude..:? "Ec2InstanceRegion")
+            Prelude.<*> (x Prelude..:? "Ec2InstanceId")
+            Prelude.<*> (x Prelude..:? "GatewayARN")
+            Prelude.<*> (x Prelude..:? "GatewayId")
       )
 
-instance Hashable GatewayInfo
+instance Prelude.Hashable GatewayInfo
 
-instance NFData GatewayInfo
+instance Prelude.NFData GatewayInfo

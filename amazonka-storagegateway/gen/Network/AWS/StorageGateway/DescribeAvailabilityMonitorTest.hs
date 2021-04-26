@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,194 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the most recent High Availability monitoring test that was performed on the host in a cluster. If a test isn't performed, the status and start time in the response would be null.
+-- Returns information about the most recent High Availability monitoring
+-- test that was performed on the host in a cluster. If a test isn\'t
+-- performed, the status and start time in the response would be null.
 module Network.AWS.StorageGateway.DescribeAvailabilityMonitorTest
   ( -- * Creating a Request
-    describeAvailabilityMonitorTest,
-    DescribeAvailabilityMonitorTest,
+    DescribeAvailabilityMonitorTest (..),
+    newDescribeAvailabilityMonitorTest,
 
     -- * Request Lenses
-    damtGatewayARN,
+    describeAvailabilityMonitorTest_gatewayARN,
 
     -- * Destructuring the Response
-    describeAvailabilityMonitorTestResponse,
-    DescribeAvailabilityMonitorTestResponse,
+    DescribeAvailabilityMonitorTestResponse (..),
+    newDescribeAvailabilityMonitorTestResponse,
 
     -- * Response Lenses
-    damtrrsStatus,
-    damtrrsStartTime,
-    damtrrsGatewayARN,
-    damtrrsResponseStatus,
+    describeAvailabilityMonitorTestResponse_status,
+    describeAvailabilityMonitorTestResponse_startTime,
+    describeAvailabilityMonitorTestResponse_gatewayARN,
+    describeAvailabilityMonitorTestResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
+import Network.AWS.StorageGateway.Types.AvailabilityMonitorTestStatus
 
--- | /See:/ 'describeAvailabilityMonitorTest' smart constructor.
-newtype DescribeAvailabilityMonitorTest = DescribeAvailabilityMonitorTest'
-  { _damtGatewayARN ::
-      Text
+-- | /See:/ 'newDescribeAvailabilityMonitorTest' smart constructor.
+data DescribeAvailabilityMonitorTest = DescribeAvailabilityMonitorTest'
+  { gatewayARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAvailabilityMonitorTest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAvailabilityMonitorTest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'damtGatewayARN' - Undocumented member.
-describeAvailabilityMonitorTest ::
-  -- | 'damtGatewayARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'gatewayARN', 'describeAvailabilityMonitorTest_gatewayARN' - Undocumented member.
+newDescribeAvailabilityMonitorTest ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
   DescribeAvailabilityMonitorTest
-describeAvailabilityMonitorTest pGatewayARN_ =
+newDescribeAvailabilityMonitorTest pGatewayARN_ =
   DescribeAvailabilityMonitorTest'
-    { _damtGatewayARN =
+    { gatewayARN =
         pGatewayARN_
     }
 
 -- | Undocumented member.
-damtGatewayARN :: Lens' DescribeAvailabilityMonitorTest Text
-damtGatewayARN = lens _damtGatewayARN (\s a -> s {_damtGatewayARN = a})
+describeAvailabilityMonitorTest_gatewayARN :: Lens.Lens' DescribeAvailabilityMonitorTest Prelude.Text
+describeAvailabilityMonitorTest_gatewayARN = Lens.lens (\DescribeAvailabilityMonitorTest' {gatewayARN} -> gatewayARN) (\s@DescribeAvailabilityMonitorTest' {} a -> s {gatewayARN = a} :: DescribeAvailabilityMonitorTest)
 
-instance AWSRequest DescribeAvailabilityMonitorTest where
+instance
+  Prelude.AWSRequest
+    DescribeAvailabilityMonitorTest
+  where
   type
     Rs DescribeAvailabilityMonitorTest =
       DescribeAvailabilityMonitorTestResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAvailabilityMonitorTestResponse'
-            <$> (x .?> "Status")
-            <*> (x .?> "StartTime")
-            <*> (x .?> "GatewayARN")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "StartTime")
+            Prelude.<*> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAvailabilityMonitorTest
+instance
+  Prelude.Hashable
+    DescribeAvailabilityMonitorTest
 
-instance NFData DescribeAvailabilityMonitorTest
+instance
+  Prelude.NFData
+    DescribeAvailabilityMonitorTest
 
-instance ToHeaders DescribeAvailabilityMonitorTest where
+instance
+  Prelude.ToHeaders
+    DescribeAvailabilityMonitorTest
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DescribeAvailabilityMonitorTest" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DescribeAvailabilityMonitorTest" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAvailabilityMonitorTest where
+instance
+  Prelude.ToJSON
+    DescribeAvailabilityMonitorTest
+  where
   toJSON DescribeAvailabilityMonitorTest' {..} =
-    object
-      (catMaybes [Just ("GatewayARN" .= _damtGatewayARN)])
-
-instance ToPath DescribeAvailabilityMonitorTest where
-  toPath = const "/"
-
-instance ToQuery DescribeAvailabilityMonitorTest where
-  toQuery = const mempty
-
--- | /See:/ 'describeAvailabilityMonitorTestResponse' smart constructor.
-data DescribeAvailabilityMonitorTestResponse = DescribeAvailabilityMonitorTestResponse'
-  { _damtrrsStatus ::
-      !( Maybe
-           AvailabilityMonitorTestStatus
-       ),
-    _damtrrsStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _damtrrsGatewayARN ::
-      !( Maybe
-           Text
-       ),
-    _damtrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeAvailabilityMonitorTestResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'damtrrsStatus' - The status of the High Availability monitoring test. If a test hasn't been performed, the value of this field is null.
---
--- * 'damtrrsStartTime' - The time the High Availability monitoring test was started. If a test hasn't been performed, the value of this field is null.
---
--- * 'damtrrsGatewayARN' - Undocumented member.
---
--- * 'damtrrsResponseStatus' - -- | The response status code.
-describeAvailabilityMonitorTestResponse ::
-  -- | 'damtrrsResponseStatus'
-  Int ->
-  DescribeAvailabilityMonitorTestResponse
-describeAvailabilityMonitorTestResponse
-  pResponseStatus_ =
-    DescribeAvailabilityMonitorTestResponse'
-      { _damtrrsStatus =
-          Nothing,
-        _damtrrsStartTime = Nothing,
-        _damtrrsGatewayARN = Nothing,
-        _damtrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The status of the High Availability monitoring test. If a test hasn't been performed, the value of this field is null.
-damtrrsStatus :: Lens' DescribeAvailabilityMonitorTestResponse (Maybe AvailabilityMonitorTestStatus)
-damtrrsStatus = lens _damtrrsStatus (\s a -> s {_damtrrsStatus = a})
-
--- | The time the High Availability monitoring test was started. If a test hasn't been performed, the value of this field is null.
-damtrrsStartTime :: Lens' DescribeAvailabilityMonitorTestResponse (Maybe UTCTime)
-damtrrsStartTime = lens _damtrrsStartTime (\s a -> s {_damtrrsStartTime = a}) . mapping _Time
-
--- | Undocumented member.
-damtrrsGatewayARN :: Lens' DescribeAvailabilityMonitorTestResponse (Maybe Text)
-damtrrsGatewayARN = lens _damtrrsGatewayARN (\s a -> s {_damtrrsGatewayARN = a})
-
--- | -- | The response status code.
-damtrrsResponseStatus :: Lens' DescribeAvailabilityMonitorTestResponse Int
-damtrrsResponseStatus = lens _damtrrsResponseStatus (\s a -> s {_damtrrsResponseStatus = a})
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("GatewayARN" Prelude..= gatewayARN)]
+      )
 
 instance
-  NFData
+  Prelude.ToPath
+    DescribeAvailabilityMonitorTest
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeAvailabilityMonitorTest
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDescribeAvailabilityMonitorTestResponse' smart constructor.
+data DescribeAvailabilityMonitorTestResponse = DescribeAvailabilityMonitorTestResponse'
+  { -- | The status of the High Availability monitoring test. If a test hasn\'t
+    -- been performed, the value of this field is null.
+    status :: Prelude.Maybe AvailabilityMonitorTestStatus,
+    -- | The time the High Availability monitoring test was started. If a test
+    -- hasn\'t been performed, the value of this field is null.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeAvailabilityMonitorTestResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'status', 'describeAvailabilityMonitorTestResponse_status' - The status of the High Availability monitoring test. If a test hasn\'t
+-- been performed, the value of this field is null.
+--
+-- 'startTime', 'describeAvailabilityMonitorTestResponse_startTime' - The time the High Availability monitoring test was started. If a test
+-- hasn\'t been performed, the value of this field is null.
+--
+-- 'gatewayARN', 'describeAvailabilityMonitorTestResponse_gatewayARN' - Undocumented member.
+--
+-- 'httpStatus', 'describeAvailabilityMonitorTestResponse_httpStatus' - The response's http status code.
+newDescribeAvailabilityMonitorTestResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeAvailabilityMonitorTestResponse
+newDescribeAvailabilityMonitorTestResponse
+  pHttpStatus_ =
+    DescribeAvailabilityMonitorTestResponse'
+      { status =
+          Prelude.Nothing,
+        startTime = Prelude.Nothing,
+        gatewayARN = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The status of the High Availability monitoring test. If a test hasn\'t
+-- been performed, the value of this field is null.
+describeAvailabilityMonitorTestResponse_status :: Lens.Lens' DescribeAvailabilityMonitorTestResponse (Prelude.Maybe AvailabilityMonitorTestStatus)
+describeAvailabilityMonitorTestResponse_status = Lens.lens (\DescribeAvailabilityMonitorTestResponse' {status} -> status) (\s@DescribeAvailabilityMonitorTestResponse' {} a -> s {status = a} :: DescribeAvailabilityMonitorTestResponse)
+
+-- | The time the High Availability monitoring test was started. If a test
+-- hasn\'t been performed, the value of this field is null.
+describeAvailabilityMonitorTestResponse_startTime :: Lens.Lens' DescribeAvailabilityMonitorTestResponse (Prelude.Maybe Prelude.UTCTime)
+describeAvailabilityMonitorTestResponse_startTime = Lens.lens (\DescribeAvailabilityMonitorTestResponse' {startTime} -> startTime) (\s@DescribeAvailabilityMonitorTestResponse' {} a -> s {startTime = a} :: DescribeAvailabilityMonitorTestResponse) Prelude.. Lens.mapping Prelude._Time
+
+-- | Undocumented member.
+describeAvailabilityMonitorTestResponse_gatewayARN :: Lens.Lens' DescribeAvailabilityMonitorTestResponse (Prelude.Maybe Prelude.Text)
+describeAvailabilityMonitorTestResponse_gatewayARN = Lens.lens (\DescribeAvailabilityMonitorTestResponse' {gatewayARN} -> gatewayARN) (\s@DescribeAvailabilityMonitorTestResponse' {} a -> s {gatewayARN = a} :: DescribeAvailabilityMonitorTestResponse)
+
+-- | The response's http status code.
+describeAvailabilityMonitorTestResponse_httpStatus :: Lens.Lens' DescribeAvailabilityMonitorTestResponse Prelude.Int
+describeAvailabilityMonitorTestResponse_httpStatus = Lens.lens (\DescribeAvailabilityMonitorTestResponse' {httpStatus} -> httpStatus) (\s@DescribeAvailabilityMonitorTestResponse' {} a -> s {httpStatus = a} :: DescribeAvailabilityMonitorTestResponse)
+
+instance
+  Prelude.NFData
     DescribeAvailabilityMonitorTestResponse

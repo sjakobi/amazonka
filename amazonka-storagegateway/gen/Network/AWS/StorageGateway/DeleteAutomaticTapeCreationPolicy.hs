@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the automatic tape creation policy of a gateway. If you delete this policy, new virtual tapes must be created manually. Use the Amazon Resource Name (ARN) of the gateway in your request to remove the policy.
+-- Deletes the automatic tape creation policy of a gateway. If you delete
+-- this policy, new virtual tapes must be created manually. Use the Amazon
+-- Resource Name (ARN) of the gateway in your request to remove the policy.
 module Network.AWS.StorageGateway.DeleteAutomaticTapeCreationPolicy
   ( -- * Creating a Request
-    deleteAutomaticTapeCreationPolicy,
-    DeleteAutomaticTapeCreationPolicy,
+    DeleteAutomaticTapeCreationPolicy (..),
+    newDeleteAutomaticTapeCreationPolicy,
 
     -- * Request Lenses
-    datcpGatewayARN,
+    deleteAutomaticTapeCreationPolicy_gatewayARN,
 
     -- * Destructuring the Response
-    deleteAutomaticTapeCreationPolicyResponse,
-    DeleteAutomaticTapeCreationPolicyResponse,
+    DeleteAutomaticTapeCreationPolicyResponse (..),
+    newDeleteAutomaticTapeCreationPolicyResponse,
 
     -- * Response Lenses
-    datcprrsGatewayARN,
-    datcprrsResponseStatus,
+    deleteAutomaticTapeCreationPolicyResponse_gatewayARN,
+    deleteAutomaticTapeCreationPolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
--- | /See:/ 'deleteAutomaticTapeCreationPolicy' smart constructor.
-newtype DeleteAutomaticTapeCreationPolicy = DeleteAutomaticTapeCreationPolicy'
-  { _datcpGatewayARN ::
-      Text
+-- | /See:/ 'newDeleteAutomaticTapeCreationPolicy' smart constructor.
+data DeleteAutomaticTapeCreationPolicy = DeleteAutomaticTapeCreationPolicy'
+  { gatewayARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAutomaticTapeCreationPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAutomaticTapeCreationPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datcpGatewayARN' - Undocumented member.
-deleteAutomaticTapeCreationPolicy ::
-  -- | 'datcpGatewayARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'gatewayARN', 'deleteAutomaticTapeCreationPolicy_gatewayARN' - Undocumented member.
+newDeleteAutomaticTapeCreationPolicy ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
   DeleteAutomaticTapeCreationPolicy
-deleteAutomaticTapeCreationPolicy pGatewayARN_ =
+newDeleteAutomaticTapeCreationPolicy pGatewayARN_ =
   DeleteAutomaticTapeCreationPolicy'
-    { _datcpGatewayARN =
+    { gatewayARN =
         pGatewayARN_
     }
 
 -- | Undocumented member.
-datcpGatewayARN :: Lens' DeleteAutomaticTapeCreationPolicy Text
-datcpGatewayARN = lens _datcpGatewayARN (\s a -> s {_datcpGatewayARN = a})
+deleteAutomaticTapeCreationPolicy_gatewayARN :: Lens.Lens' DeleteAutomaticTapeCreationPolicy Prelude.Text
+deleteAutomaticTapeCreationPolicy_gatewayARN = Lens.lens (\DeleteAutomaticTapeCreationPolicy' {gatewayARN} -> gatewayARN) (\s@DeleteAutomaticTapeCreationPolicy' {} a -> s {gatewayARN = a} :: DeleteAutomaticTapeCreationPolicy)
 
-instance AWSRequest DeleteAutomaticTapeCreationPolicy where
+instance
+  Prelude.AWSRequest
+    DeleteAutomaticTapeCreationPolicy
+  where
   type
     Rs DeleteAutomaticTapeCreationPolicy =
       DeleteAutomaticTapeCreationPolicyResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteAutomaticTapeCreationPolicyResponse'
-            <$> (x .?> "GatewayARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayARN")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAutomaticTapeCreationPolicy
+instance
+  Prelude.Hashable
+    DeleteAutomaticTapeCreationPolicy
 
-instance NFData DeleteAutomaticTapeCreationPolicy
+instance
+  Prelude.NFData
+    DeleteAutomaticTapeCreationPolicy
 
-instance ToHeaders DeleteAutomaticTapeCreationPolicy where
+instance
+  Prelude.ToHeaders
+    DeleteAutomaticTapeCreationPolicy
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DeleteAutomaticTapeCreationPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DeleteAutomaticTapeCreationPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAutomaticTapeCreationPolicy where
+instance
+  Prelude.ToJSON
+    DeleteAutomaticTapeCreationPolicy
+  where
   toJSON DeleteAutomaticTapeCreationPolicy' {..} =
-    object
-      (catMaybes [Just ("GatewayARN" .= _datcpGatewayARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("GatewayARN" Prelude..= gatewayARN)]
+      )
 
-instance ToPath DeleteAutomaticTapeCreationPolicy where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DeleteAutomaticTapeCreationPolicy
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAutomaticTapeCreationPolicy where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DeleteAutomaticTapeCreationPolicy
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAutomaticTapeCreationPolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteAutomaticTapeCreationPolicyResponse' smart constructor.
 data DeleteAutomaticTapeCreationPolicyResponse = DeleteAutomaticTapeCreationPolicyResponse'
-  { _datcprrsGatewayARN ::
-      !( Maybe
-           Text
-       ),
-    _datcprrsResponseStatus ::
-      !Int
+  { gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAutomaticTapeCreationPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAutomaticTapeCreationPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datcprrsGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'datcprrsResponseStatus' - -- | The response status code.
-deleteAutomaticTapeCreationPolicyResponse ::
-  -- | 'datcprrsResponseStatus'
-  Int ->
+-- 'gatewayARN', 'deleteAutomaticTapeCreationPolicyResponse_gatewayARN' - Undocumented member.
+--
+-- 'httpStatus', 'deleteAutomaticTapeCreationPolicyResponse_httpStatus' - The response's http status code.
+newDeleteAutomaticTapeCreationPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteAutomaticTapeCreationPolicyResponse
-deleteAutomaticTapeCreationPolicyResponse
-  pResponseStatus_ =
+newDeleteAutomaticTapeCreationPolicyResponse
+  pHttpStatus_ =
     DeleteAutomaticTapeCreationPolicyResponse'
-      { _datcprrsGatewayARN =
-          Nothing,
-        _datcprrsResponseStatus =
-          pResponseStatus_
+      { gatewayARN =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-datcprrsGatewayARN :: Lens' DeleteAutomaticTapeCreationPolicyResponse (Maybe Text)
-datcprrsGatewayARN = lens _datcprrsGatewayARN (\s a -> s {_datcprrsGatewayARN = a})
+deleteAutomaticTapeCreationPolicyResponse_gatewayARN :: Lens.Lens' DeleteAutomaticTapeCreationPolicyResponse (Prelude.Maybe Prelude.Text)
+deleteAutomaticTapeCreationPolicyResponse_gatewayARN = Lens.lens (\DeleteAutomaticTapeCreationPolicyResponse' {gatewayARN} -> gatewayARN) (\s@DeleteAutomaticTapeCreationPolicyResponse' {} a -> s {gatewayARN = a} :: DeleteAutomaticTapeCreationPolicyResponse)
 
--- | -- | The response status code.
-datcprrsResponseStatus :: Lens' DeleteAutomaticTapeCreationPolicyResponse Int
-datcprrsResponseStatus = lens _datcprrsResponseStatus (\s a -> s {_datcprrsResponseStatus = a})
+-- | The response's http status code.
+deleteAutomaticTapeCreationPolicyResponse_httpStatus :: Lens.Lens' DeleteAutomaticTapeCreationPolicyResponse Prelude.Int
+deleteAutomaticTapeCreationPolicyResponse_httpStatus = Lens.lens (\DeleteAutomaticTapeCreationPolicyResponse' {httpStatus} -> httpStatus) (\s@DeleteAutomaticTapeCreationPolicyResponse' {} a -> s {httpStatus = a} :: DeleteAutomaticTapeCreationPolicyResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DeleteAutomaticTapeCreationPolicyResponse

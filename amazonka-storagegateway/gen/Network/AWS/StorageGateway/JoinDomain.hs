@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,216 +21,333 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds a file gateway to an Active Directory domain. This operation is only supported for file gateways that support the SMB file protocol.
+-- Adds a file gateway to an Active Directory domain. This operation is
+-- only supported for file gateways that support the SMB file protocol.
 module Network.AWS.StorageGateway.JoinDomain
   ( -- * Creating a Request
-    joinDomain,
-    JoinDomain,
+    JoinDomain (..),
+    newJoinDomain,
 
     -- * Request Lenses
-    jdDomainControllers,
-    jdOrganizationalUnit,
-    jdTimeoutInSeconds,
-    jdGatewayARN,
-    jdDomainName,
-    jdUserName,
-    jdPassword,
+    joinDomain_domainControllers,
+    joinDomain_organizationalUnit,
+    joinDomain_timeoutInSeconds,
+    joinDomain_gatewayARN,
+    joinDomain_domainName,
+    joinDomain_userName,
+    joinDomain_password,
 
     -- * Destructuring the Response
-    joinDomainResponse,
-    JoinDomainResponse,
+    JoinDomainResponse (..),
+    newJoinDomainResponse,
 
     -- * Response Lenses
-    jdrrsActiveDirectoryStatus,
-    jdrrsGatewayARN,
-    jdrrsResponseStatus,
+    joinDomainResponse_activeDirectoryStatus,
+    joinDomainResponse_gatewayARN,
+    joinDomainResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
+import Network.AWS.StorageGateway.Types.ActiveDirectoryStatus
 
 -- | JoinDomainInput
 --
---
---
--- /See:/ 'joinDomain' smart constructor.
+-- /See:/ 'newJoinDomain' smart constructor.
 data JoinDomain = JoinDomain'
-  { _jdDomainControllers ::
-      !(Maybe [Text]),
-    _jdOrganizationalUnit :: !(Maybe Text),
-    _jdTimeoutInSeconds :: !(Maybe Nat),
-    _jdGatewayARN :: !Text,
-    _jdDomainName :: !Text,
-    _jdUserName :: !Text,
-    _jdPassword :: !(Sensitive Text)
+  { -- | List of IPv4 addresses, NetBIOS names, or host names of your domain
+    -- server. If you need to specify the port number include it after the
+    -- colon (“:”). For example, @mydc.mydomain.com:389@.
+    domainControllers :: Prelude.Maybe [Prelude.Text],
+    -- | The organizational unit (OU) is a container in an Active Directory that
+    -- can hold users, groups, computers, and other OUs and this parameter
+    -- specifies the OU that the gateway will join within the AD domain.
+    organizationalUnit :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the time in seconds, in which the @JoinDomain@ operation must
+    -- complete. The default is 20 seconds.
+    timeoutInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Name (ARN) of the gateway. Use the @ListGateways@
+    -- operation to return a list of gateways for your account and AWS Region.
+    gatewayARN :: Prelude.Text,
+    -- | The name of the domain that you want the gateway to join.
+    domainName :: Prelude.Text,
+    -- | Sets the user name of user who has permission to add the gateway to the
+    -- Active Directory domain. The domain user account should be enabled to
+    -- join computers to the domain. For example, you can use the domain
+    -- administrator account or an account with delegated permissions to join
+    -- computers to the domain.
+    userName :: Prelude.Text,
+    -- | Sets the password of the user who has permission to add the gateway to
+    -- the Active Directory domain.
+    password :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JoinDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JoinDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jdDomainControllers' - List of IPv4 addresses, NetBIOS names, or host names of your domain server. If you need to specify the port number include it after the colon (“:”). For example, @mydc.mydomain.com:389@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jdOrganizationalUnit' - The organizational unit (OU) is a container in an Active Directory that can hold users, groups, computers, and other OUs and this parameter specifies the OU that the gateway will join within the AD domain.
+-- 'domainControllers', 'joinDomain_domainControllers' - List of IPv4 addresses, NetBIOS names, or host names of your domain
+-- server. If you need to specify the port number include it after the
+-- colon (“:”). For example, @mydc.mydomain.com:389@.
 --
--- * 'jdTimeoutInSeconds' - Specifies the time in seconds, in which the @JoinDomain@ operation must complete. The default is 20 seconds.
+-- 'organizationalUnit', 'joinDomain_organizationalUnit' - The organizational unit (OU) is a container in an Active Directory that
+-- can hold users, groups, computers, and other OUs and this parameter
+-- specifies the OU that the gateway will join within the AD domain.
 --
--- * 'jdGatewayARN' - The Amazon Resource Name (ARN) of the gateway. Use the @ListGateways@ operation to return a list of gateways for your account and AWS Region.
+-- 'timeoutInSeconds', 'joinDomain_timeoutInSeconds' - Specifies the time in seconds, in which the @JoinDomain@ operation must
+-- complete. The default is 20 seconds.
 --
--- * 'jdDomainName' - The name of the domain that you want the gateway to join.
+-- 'gatewayARN', 'joinDomain_gatewayARN' - The Amazon Resource Name (ARN) of the gateway. Use the @ListGateways@
+-- operation to return a list of gateways for your account and AWS Region.
 --
--- * 'jdUserName' - Sets the user name of user who has permission to add the gateway to the Active Directory domain. The domain user account should be enabled to join computers to the domain. For example, you can use the domain administrator account or an account with delegated permissions to join computers to the domain.
+-- 'domainName', 'joinDomain_domainName' - The name of the domain that you want the gateway to join.
 --
--- * 'jdPassword' - Sets the password of the user who has permission to add the gateway to the Active Directory domain.
-joinDomain ::
-  -- | 'jdGatewayARN'
-  Text ->
-  -- | 'jdDomainName'
-  Text ->
-  -- | 'jdUserName'
-  Text ->
-  -- | 'jdPassword'
-  Text ->
+-- 'userName', 'joinDomain_userName' - Sets the user name of user who has permission to add the gateway to the
+-- Active Directory domain. The domain user account should be enabled to
+-- join computers to the domain. For example, you can use the domain
+-- administrator account or an account with delegated permissions to join
+-- computers to the domain.
+--
+-- 'password', 'joinDomain_password' - Sets the password of the user who has permission to add the gateway to
+-- the Active Directory domain.
+newJoinDomain ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'password'
+  Prelude.Text ->
   JoinDomain
-joinDomain
+newJoinDomain
   pGatewayARN_
   pDomainName_
   pUserName_
   pPassword_ =
     JoinDomain'
-      { _jdDomainControllers = Nothing,
-        _jdOrganizationalUnit = Nothing,
-        _jdTimeoutInSeconds = Nothing,
-        _jdGatewayARN = pGatewayARN_,
-        _jdDomainName = pDomainName_,
-        _jdUserName = pUserName_,
-        _jdPassword = _Sensitive # pPassword_
+      { domainControllers = Prelude.Nothing,
+        organizationalUnit = Prelude.Nothing,
+        timeoutInSeconds = Prelude.Nothing,
+        gatewayARN = pGatewayARN_,
+        domainName = pDomainName_,
+        userName = pUserName_,
+        password = Prelude._Sensitive Lens.# pPassword_
       }
 
--- | List of IPv4 addresses, NetBIOS names, or host names of your domain server. If you need to specify the port number include it after the colon (“:”). For example, @mydc.mydomain.com:389@ .
-jdDomainControllers :: Lens' JoinDomain [Text]
-jdDomainControllers = lens _jdDomainControllers (\s a -> s {_jdDomainControllers = a}) . _Default . _Coerce
+-- | List of IPv4 addresses, NetBIOS names, or host names of your domain
+-- server. If you need to specify the port number include it after the
+-- colon (“:”). For example, @mydc.mydomain.com:389@.
+joinDomain_domainControllers :: Lens.Lens' JoinDomain (Prelude.Maybe [Prelude.Text])
+joinDomain_domainControllers = Lens.lens (\JoinDomain' {domainControllers} -> domainControllers) (\s@JoinDomain' {} a -> s {domainControllers = a} :: JoinDomain) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The organizational unit (OU) is a container in an Active Directory that can hold users, groups, computers, and other OUs and this parameter specifies the OU that the gateway will join within the AD domain.
-jdOrganizationalUnit :: Lens' JoinDomain (Maybe Text)
-jdOrganizationalUnit = lens _jdOrganizationalUnit (\s a -> s {_jdOrganizationalUnit = a})
+-- | The organizational unit (OU) is a container in an Active Directory that
+-- can hold users, groups, computers, and other OUs and this parameter
+-- specifies the OU that the gateway will join within the AD domain.
+joinDomain_organizationalUnit :: Lens.Lens' JoinDomain (Prelude.Maybe Prelude.Text)
+joinDomain_organizationalUnit = Lens.lens (\JoinDomain' {organizationalUnit} -> organizationalUnit) (\s@JoinDomain' {} a -> s {organizationalUnit = a} :: JoinDomain)
 
--- | Specifies the time in seconds, in which the @JoinDomain@ operation must complete. The default is 20 seconds.
-jdTimeoutInSeconds :: Lens' JoinDomain (Maybe Natural)
-jdTimeoutInSeconds = lens _jdTimeoutInSeconds (\s a -> s {_jdTimeoutInSeconds = a}) . mapping _Nat
+-- | Specifies the time in seconds, in which the @JoinDomain@ operation must
+-- complete. The default is 20 seconds.
+joinDomain_timeoutInSeconds :: Lens.Lens' JoinDomain (Prelude.Maybe Prelude.Natural)
+joinDomain_timeoutInSeconds = Lens.lens (\JoinDomain' {timeoutInSeconds} -> timeoutInSeconds) (\s@JoinDomain' {} a -> s {timeoutInSeconds = a} :: JoinDomain) Prelude.. Lens.mapping Prelude._Nat
 
--- | The Amazon Resource Name (ARN) of the gateway. Use the @ListGateways@ operation to return a list of gateways for your account and AWS Region.
-jdGatewayARN :: Lens' JoinDomain Text
-jdGatewayARN = lens _jdGatewayARN (\s a -> s {_jdGatewayARN = a})
+-- | The Amazon Resource Name (ARN) of the gateway. Use the @ListGateways@
+-- operation to return a list of gateways for your account and AWS Region.
+joinDomain_gatewayARN :: Lens.Lens' JoinDomain Prelude.Text
+joinDomain_gatewayARN = Lens.lens (\JoinDomain' {gatewayARN} -> gatewayARN) (\s@JoinDomain' {} a -> s {gatewayARN = a} :: JoinDomain)
 
 -- | The name of the domain that you want the gateway to join.
-jdDomainName :: Lens' JoinDomain Text
-jdDomainName = lens _jdDomainName (\s a -> s {_jdDomainName = a})
+joinDomain_domainName :: Lens.Lens' JoinDomain Prelude.Text
+joinDomain_domainName = Lens.lens (\JoinDomain' {domainName} -> domainName) (\s@JoinDomain' {} a -> s {domainName = a} :: JoinDomain)
 
--- | Sets the user name of user who has permission to add the gateway to the Active Directory domain. The domain user account should be enabled to join computers to the domain. For example, you can use the domain administrator account or an account with delegated permissions to join computers to the domain.
-jdUserName :: Lens' JoinDomain Text
-jdUserName = lens _jdUserName (\s a -> s {_jdUserName = a})
+-- | Sets the user name of user who has permission to add the gateway to the
+-- Active Directory domain. The domain user account should be enabled to
+-- join computers to the domain. For example, you can use the domain
+-- administrator account or an account with delegated permissions to join
+-- computers to the domain.
+joinDomain_userName :: Lens.Lens' JoinDomain Prelude.Text
+joinDomain_userName = Lens.lens (\JoinDomain' {userName} -> userName) (\s@JoinDomain' {} a -> s {userName = a} :: JoinDomain)
 
--- | Sets the password of the user who has permission to add the gateway to the Active Directory domain.
-jdPassword :: Lens' JoinDomain Text
-jdPassword = lens _jdPassword (\s a -> s {_jdPassword = a}) . _Sensitive
+-- | Sets the password of the user who has permission to add the gateway to
+-- the Active Directory domain.
+joinDomain_password :: Lens.Lens' JoinDomain Prelude.Text
+joinDomain_password = Lens.lens (\JoinDomain' {password} -> password) (\s@JoinDomain' {} a -> s {password = a} :: JoinDomain) Prelude.. Prelude._Sensitive
 
-instance AWSRequest JoinDomain where
+instance Prelude.AWSRequest JoinDomain where
   type Rs JoinDomain = JoinDomainResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           JoinDomainResponse'
-            <$> (x .?> "ActiveDirectoryStatus")
-            <*> (x .?> "GatewayARN")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ActiveDirectoryStatus")
+            Prelude.<*> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable JoinDomain
+instance Prelude.Hashable JoinDomain
 
-instance NFData JoinDomain
+instance Prelude.NFData JoinDomain
 
-instance ToHeaders JoinDomain where
+instance Prelude.ToHeaders JoinDomain where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("StorageGateway_20130630.JoinDomain" :: ByteString),
+              Prelude.=# ( "StorageGateway_20130630.JoinDomain" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON JoinDomain where
+instance Prelude.ToJSON JoinDomain where
   toJSON JoinDomain' {..} =
-    object
-      ( catMaybes
-          [ ("DomainControllers" .=) <$> _jdDomainControllers,
-            ("OrganizationalUnit" .=) <$> _jdOrganizationalUnit,
-            ("TimeoutInSeconds" .=) <$> _jdTimeoutInSeconds,
-            Just ("GatewayARN" .= _jdGatewayARN),
-            Just ("DomainName" .= _jdDomainName),
-            Just ("UserName" .= _jdUserName),
-            Just ("Password" .= _jdPassword)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DomainControllers" Prelude..=)
+              Prelude.<$> domainControllers,
+            ("OrganizationalUnit" Prelude..=)
+              Prelude.<$> organizationalUnit,
+            ("TimeoutInSeconds" Prelude..=)
+              Prelude.<$> timeoutInSeconds,
+            Prelude.Just ("GatewayARN" Prelude..= gatewayARN),
+            Prelude.Just ("DomainName" Prelude..= domainName),
+            Prelude.Just ("UserName" Prelude..= userName),
+            Prelude.Just ("Password" Prelude..= password)
           ]
       )
 
-instance ToPath JoinDomain where
-  toPath = const "/"
+instance Prelude.ToPath JoinDomain where
+  toPath = Prelude.const "/"
 
-instance ToQuery JoinDomain where
-  toQuery = const mempty
+instance Prelude.ToQuery JoinDomain where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | JoinDomainOutput
 --
---
---
--- /See:/ 'joinDomainResponse' smart constructor.
+-- /See:/ 'newJoinDomainResponse' smart constructor.
 data JoinDomainResponse = JoinDomainResponse'
-  { _jdrrsActiveDirectoryStatus ::
-      !(Maybe ActiveDirectoryStatus),
-    _jdrrsGatewayARN :: !(Maybe Text),
-    _jdrrsResponseStatus :: !Int
+  { -- | Indicates the status of the gateway as a member of the Active Directory
+    -- domain.
+    --
+    -- -   @ACCESS_DENIED@: Indicates that the @JoinDomain@ operation failed
+    --     due to an authentication error.
+    --
+    -- -   @DETACHED@: Indicates that gateway is not joined to a domain.
+    --
+    -- -   @JOINED@: Indicates that the gateway has successfully joined a
+    --     domain.
+    --
+    -- -   @JOINING@: Indicates that a @JoinDomain@ operation is in progress.
+    --
+    -- -   @NETWORK_ERROR@: Indicates that @JoinDomain@ operation failed due to
+    --     a network or connectivity error.
+    --
+    -- -   @TIMEOUT@: Indicates that the @JoinDomain@ operation failed because
+    --     the operation didn\'t complete within the allotted time.
+    --
+    -- -   @UNKNOWN_ERROR@: Indicates that the @JoinDomain@ operation failed
+    --     due to another type of error.
+    activeDirectoryStatus :: Prelude.Maybe ActiveDirectoryStatus,
+    -- | The unique Amazon Resource Name (ARN) of the gateway that joined the
+    -- domain.
+    gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JoinDomainResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JoinDomainResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jdrrsActiveDirectoryStatus' - Indicates the status of the gateway as a member of the Active Directory domain.     * @ACCESS_DENIED@ : Indicates that the @JoinDomain@ operation failed due to an authentication error.     * @DETACHED@ : Indicates that gateway is not joined to a domain.     * @JOINED@ : Indicates that the gateway has successfully joined a domain.     * @JOINING@ : Indicates that a @JoinDomain@ operation is in progress.     * @NETWORK_ERROR@ : Indicates that @JoinDomain@ operation failed due to a network or connectivity error.     * @TIMEOUT@ : Indicates that the @JoinDomain@ operation failed because the operation didn't complete within the allotted time.     * @UNKNOWN_ERROR@ : Indicates that the @JoinDomain@ operation failed due to another type of error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jdrrsGatewayARN' - The unique Amazon Resource Name (ARN) of the gateway that joined the domain.
+-- 'activeDirectoryStatus', 'joinDomainResponse_activeDirectoryStatus' - Indicates the status of the gateway as a member of the Active Directory
+-- domain.
 --
--- * 'jdrrsResponseStatus' - -- | The response status code.
-joinDomainResponse ::
-  -- | 'jdrrsResponseStatus'
-  Int ->
+-- -   @ACCESS_DENIED@: Indicates that the @JoinDomain@ operation failed
+--     due to an authentication error.
+--
+-- -   @DETACHED@: Indicates that gateway is not joined to a domain.
+--
+-- -   @JOINED@: Indicates that the gateway has successfully joined a
+--     domain.
+--
+-- -   @JOINING@: Indicates that a @JoinDomain@ operation is in progress.
+--
+-- -   @NETWORK_ERROR@: Indicates that @JoinDomain@ operation failed due to
+--     a network or connectivity error.
+--
+-- -   @TIMEOUT@: Indicates that the @JoinDomain@ operation failed because
+--     the operation didn\'t complete within the allotted time.
+--
+-- -   @UNKNOWN_ERROR@: Indicates that the @JoinDomain@ operation failed
+--     due to another type of error.
+--
+-- 'gatewayARN', 'joinDomainResponse_gatewayARN' - The unique Amazon Resource Name (ARN) of the gateway that joined the
+-- domain.
+--
+-- 'httpStatus', 'joinDomainResponse_httpStatus' - The response's http status code.
+newJoinDomainResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   JoinDomainResponse
-joinDomainResponse pResponseStatus_ =
+newJoinDomainResponse pHttpStatus_ =
   JoinDomainResponse'
-    { _jdrrsActiveDirectoryStatus =
-        Nothing,
-      _jdrrsGatewayARN = Nothing,
-      _jdrrsResponseStatus = pResponseStatus_
+    { activeDirectoryStatus =
+        Prelude.Nothing,
+      gatewayARN = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Indicates the status of the gateway as a member of the Active Directory domain.     * @ACCESS_DENIED@ : Indicates that the @JoinDomain@ operation failed due to an authentication error.     * @DETACHED@ : Indicates that gateway is not joined to a domain.     * @JOINED@ : Indicates that the gateway has successfully joined a domain.     * @JOINING@ : Indicates that a @JoinDomain@ operation is in progress.     * @NETWORK_ERROR@ : Indicates that @JoinDomain@ operation failed due to a network or connectivity error.     * @TIMEOUT@ : Indicates that the @JoinDomain@ operation failed because the operation didn't complete within the allotted time.     * @UNKNOWN_ERROR@ : Indicates that the @JoinDomain@ operation failed due to another type of error.
-jdrrsActiveDirectoryStatus :: Lens' JoinDomainResponse (Maybe ActiveDirectoryStatus)
-jdrrsActiveDirectoryStatus = lens _jdrrsActiveDirectoryStatus (\s a -> s {_jdrrsActiveDirectoryStatus = a})
+-- | Indicates the status of the gateway as a member of the Active Directory
+-- domain.
+--
+-- -   @ACCESS_DENIED@: Indicates that the @JoinDomain@ operation failed
+--     due to an authentication error.
+--
+-- -   @DETACHED@: Indicates that gateway is not joined to a domain.
+--
+-- -   @JOINED@: Indicates that the gateway has successfully joined a
+--     domain.
+--
+-- -   @JOINING@: Indicates that a @JoinDomain@ operation is in progress.
+--
+-- -   @NETWORK_ERROR@: Indicates that @JoinDomain@ operation failed due to
+--     a network or connectivity error.
+--
+-- -   @TIMEOUT@: Indicates that the @JoinDomain@ operation failed because
+--     the operation didn\'t complete within the allotted time.
+--
+-- -   @UNKNOWN_ERROR@: Indicates that the @JoinDomain@ operation failed
+--     due to another type of error.
+joinDomainResponse_activeDirectoryStatus :: Lens.Lens' JoinDomainResponse (Prelude.Maybe ActiveDirectoryStatus)
+joinDomainResponse_activeDirectoryStatus = Lens.lens (\JoinDomainResponse' {activeDirectoryStatus} -> activeDirectoryStatus) (\s@JoinDomainResponse' {} a -> s {activeDirectoryStatus = a} :: JoinDomainResponse)
 
--- | The unique Amazon Resource Name (ARN) of the gateway that joined the domain.
-jdrrsGatewayARN :: Lens' JoinDomainResponse (Maybe Text)
-jdrrsGatewayARN = lens _jdrrsGatewayARN (\s a -> s {_jdrrsGatewayARN = a})
+-- | The unique Amazon Resource Name (ARN) of the gateway that joined the
+-- domain.
+joinDomainResponse_gatewayARN :: Lens.Lens' JoinDomainResponse (Prelude.Maybe Prelude.Text)
+joinDomainResponse_gatewayARN = Lens.lens (\JoinDomainResponse' {gatewayARN} -> gatewayARN) (\s@JoinDomainResponse' {} a -> s {gatewayARN = a} :: JoinDomainResponse)
 
--- | -- | The response status code.
-jdrrsResponseStatus :: Lens' JoinDomainResponse Int
-jdrrsResponseStatus = lens _jdrrsResponseStatus (\s a -> s {_jdrrsResponseStatus = a})
+-- | The response's http status code.
+joinDomainResponse_httpStatus :: Lens.Lens' JoinDomainResponse Prelude.Int
+joinDomainResponse_httpStatus = Lens.lens (\JoinDomainResponse' {httpStatus} -> httpStatus) (\s@JoinDomainResponse' {} a -> s {httpStatus = a} :: JoinDomainResponse)
 
-instance NFData JoinDomainResponse
+instance Prelude.NFData JoinDomainResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the password for your VM local console. When you log in to the local console for the first time, you log in to the VM with the default credentials. We recommend that you set a new password. You don't need to know the default password to set a new password.
+-- Sets the password for your VM local console. When you log in to the
+-- local console for the first time, you log in to the VM with the default
+-- credentials. We recommend that you set a new password. You don\'t need
+-- to know the default password to set a new password.
 module Network.AWS.StorageGateway.SetLocalConsolePassword
   ( -- * Creating a Request
-    setLocalConsolePassword,
-    SetLocalConsolePassword,
+    SetLocalConsolePassword (..),
+    newSetLocalConsolePassword,
 
     -- * Request Lenses
-    slcpGatewayARN,
-    slcpLocalConsolePassword,
+    setLocalConsolePassword_gatewayARN,
+    setLocalConsolePassword_localConsolePassword,
 
     -- * Destructuring the Response
-    setLocalConsolePasswordResponse,
-    SetLocalConsolePasswordResponse,
+    SetLocalConsolePasswordResponse (..),
+    newSetLocalConsolePasswordResponse,
 
     -- * Response Lenses
-    slcprrsGatewayARN,
-    slcprrsResponseStatus,
+    setLocalConsolePasswordResponse_gatewayARN,
+    setLocalConsolePasswordResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
 -- | SetLocalConsolePasswordInput
 --
---
---
--- /See:/ 'setLocalConsolePassword' smart constructor.
+-- /See:/ 'newSetLocalConsolePassword' smart constructor.
 data SetLocalConsolePassword = SetLocalConsolePassword'
-  { _slcpGatewayARN ::
-      !Text,
-    _slcpLocalConsolePassword ::
-      !(Sensitive Text)
+  { gatewayARN :: Prelude.Text,
+    -- | The password you want to set for your VM local console.
+    localConsolePassword :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetLocalConsolePassword' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetLocalConsolePassword' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slcpGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slcpLocalConsolePassword' - The password you want to set for your VM local console.
-setLocalConsolePassword ::
-  -- | 'slcpGatewayARN'
-  Text ->
-  -- | 'slcpLocalConsolePassword'
-  Text ->
+-- 'gatewayARN', 'setLocalConsolePassword_gatewayARN' - Undocumented member.
+--
+-- 'localConsolePassword', 'setLocalConsolePassword_localConsolePassword' - The password you want to set for your VM local console.
+newSetLocalConsolePassword ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
+  -- | 'localConsolePassword'
+  Prelude.Text ->
   SetLocalConsolePassword
-setLocalConsolePassword
+newSetLocalConsolePassword
   pGatewayARN_
   pLocalConsolePassword_ =
     SetLocalConsolePassword'
-      { _slcpGatewayARN =
-          pGatewayARN_,
-        _slcpLocalConsolePassword =
-          _Sensitive # pLocalConsolePassword_
+      { gatewayARN = pGatewayARN_,
+        localConsolePassword =
+          Prelude._Sensitive Lens.# pLocalConsolePassword_
       }
 
 -- | Undocumented member.
-slcpGatewayARN :: Lens' SetLocalConsolePassword Text
-slcpGatewayARN = lens _slcpGatewayARN (\s a -> s {_slcpGatewayARN = a})
+setLocalConsolePassword_gatewayARN :: Lens.Lens' SetLocalConsolePassword Prelude.Text
+setLocalConsolePassword_gatewayARN = Lens.lens (\SetLocalConsolePassword' {gatewayARN} -> gatewayARN) (\s@SetLocalConsolePassword' {} a -> s {gatewayARN = a} :: SetLocalConsolePassword)
 
 -- | The password you want to set for your VM local console.
-slcpLocalConsolePassword :: Lens' SetLocalConsolePassword Text
-slcpLocalConsolePassword = lens _slcpLocalConsolePassword (\s a -> s {_slcpLocalConsolePassword = a}) . _Sensitive
+setLocalConsolePassword_localConsolePassword :: Lens.Lens' SetLocalConsolePassword Prelude.Text
+setLocalConsolePassword_localConsolePassword = Lens.lens (\SetLocalConsolePassword' {localConsolePassword} -> localConsolePassword) (\s@SetLocalConsolePassword' {} a -> s {localConsolePassword = a} :: SetLocalConsolePassword) Prelude.. Prelude._Sensitive
 
-instance AWSRequest SetLocalConsolePassword where
+instance Prelude.AWSRequest SetLocalConsolePassword where
   type
     Rs SetLocalConsolePassword =
       SetLocalConsolePasswordResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SetLocalConsolePasswordResponse'
-            <$> (x .?> "GatewayARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SetLocalConsolePassword
+instance Prelude.Hashable SetLocalConsolePassword
 
-instance NFData SetLocalConsolePassword
+instance Prelude.NFData SetLocalConsolePassword
 
-instance ToHeaders SetLocalConsolePassword where
+instance Prelude.ToHeaders SetLocalConsolePassword where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.SetLocalConsolePassword" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.SetLocalConsolePassword" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SetLocalConsolePassword where
+instance Prelude.ToJSON SetLocalConsolePassword where
   toJSON SetLocalConsolePassword' {..} =
-    object
-      ( catMaybes
-          [ Just ("GatewayARN" .= _slcpGatewayARN),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("GatewayARN" Prelude..= gatewayARN),
+            Prelude.Just
               ( "LocalConsolePassword"
-                  .= _slcpLocalConsolePassword
+                  Prelude..= localConsolePassword
               )
           ]
       )
 
-instance ToPath SetLocalConsolePassword where
-  toPath = const "/"
+instance Prelude.ToPath SetLocalConsolePassword where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetLocalConsolePassword where
-  toQuery = const mempty
+instance Prelude.ToQuery SetLocalConsolePassword where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'setLocalConsolePasswordResponse' smart constructor.
+-- | /See:/ 'newSetLocalConsolePasswordResponse' smart constructor.
 data SetLocalConsolePasswordResponse = SetLocalConsolePasswordResponse'
-  { _slcprrsGatewayARN ::
-      !( Maybe
-           Text
-       ),
-    _slcprrsResponseStatus ::
-      !Int
+  { gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetLocalConsolePasswordResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetLocalConsolePasswordResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slcprrsGatewayARN' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slcprrsResponseStatus' - -- | The response status code.
-setLocalConsolePasswordResponse ::
-  -- | 'slcprrsResponseStatus'
-  Int ->
+-- 'gatewayARN', 'setLocalConsolePasswordResponse_gatewayARN' - Undocumented member.
+--
+-- 'httpStatus', 'setLocalConsolePasswordResponse_httpStatus' - The response's http status code.
+newSetLocalConsolePasswordResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetLocalConsolePasswordResponse
-setLocalConsolePasswordResponse pResponseStatus_ =
+newSetLocalConsolePasswordResponse pHttpStatus_ =
   SetLocalConsolePasswordResponse'
-    { _slcprrsGatewayARN =
-        Nothing,
-      _slcprrsResponseStatus = pResponseStatus_
+    { gatewayARN =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-slcprrsGatewayARN :: Lens' SetLocalConsolePasswordResponse (Maybe Text)
-slcprrsGatewayARN = lens _slcprrsGatewayARN (\s a -> s {_slcprrsGatewayARN = a})
+setLocalConsolePasswordResponse_gatewayARN :: Lens.Lens' SetLocalConsolePasswordResponse (Prelude.Maybe Prelude.Text)
+setLocalConsolePasswordResponse_gatewayARN = Lens.lens (\SetLocalConsolePasswordResponse' {gatewayARN} -> gatewayARN) (\s@SetLocalConsolePasswordResponse' {} a -> s {gatewayARN = a} :: SetLocalConsolePasswordResponse)
 
--- | -- | The response status code.
-slcprrsResponseStatus :: Lens' SetLocalConsolePasswordResponse Int
-slcprrsResponseStatus = lens _slcprrsResponseStatus (\s a -> s {_slcprrsResponseStatus = a})
+-- | The response's http status code.
+setLocalConsolePasswordResponse_httpStatus :: Lens.Lens' SetLocalConsolePasswordResponse Prelude.Int
+setLocalConsolePasswordResponse_httpStatus = Lens.lens (\SetLocalConsolePasswordResponse' {httpStatus} -> httpStatus) (\s@SetLocalConsolePasswordResponse' {} a -> s {httpStatus = a} :: SetLocalConsolePasswordResponse)
 
-instance NFData SetLocalConsolePasswordResponse
+instance
+  Prelude.NFData
+    SetLocalConsolePasswordResponse

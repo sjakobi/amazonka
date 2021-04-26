@@ -28,511 +28,511 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDetachVolume $
---             detachVolume
+--             newDetachVolume
 --
 --         , requestCreateNFSFileShare $
---             createNFSFileShare
+--             newCreateNFSFileShare
 --
 --         , requestRetrieveTapeArchive $
---             retrieveTapeArchive
+--             newRetrieveTapeArchive
 --
 --         , requestCancelArchival $
---             cancelArchival
+--             newCancelArchival
 --
 --         , requestDescribeSMBSettings $
---             describeSMBSettings
+--             newDescribeSMBSettings
 --
 --         , requestAddWorkingStorage $
---             addWorkingStorage
+--             newAddWorkingStorage
 --
 --         , requestListTapes $
---             listTapes
+--             newListTapes
 --
 --         , requestListVolumes $
---             listVolumes
+--             newListVolumes
 --
 --         , requestDescribeSMBFileShares $
---             describeSMBFileShares
+--             newDescribeSMBFileShares
 --
 --         , requestDescribeCache $
---             describeCache
+--             newDescribeCache
 --
 --         , requestUpdateMaintenanceStartTime $
---             updateMaintenanceStartTime
+--             newUpdateMaintenanceStartTime
 --
 --         , requestDescribeGatewayInformation $
---             describeGatewayInformation
+--             newDescribeGatewayInformation
 --
 --         , requestActivateGateway $
---             activateGateway
+--             newActivateGateway
 --
 --         , requestRefreshCache $
---             refreshCache
+--             newRefreshCache
 --
 --         , requestUpdateNFSFileShare $
---             updateNFSFileShare
+--             newUpdateNFSFileShare
 --
 --         , requestDescribeTapes $
---             describeTapes
+--             newDescribeTapes
 --
 --         , requestListVolumeRecoveryPoints $
---             listVolumeRecoveryPoints
+--             newListVolumeRecoveryPoints
 --
 --         , requestUpdateSMBFileShare $
---             updateSMBFileShare
+--             newUpdateSMBFileShare
 --
 --         , requestDescribeAvailabilityMonitorTest $
---             describeAvailabilityMonitorTest
+--             newDescribeAvailabilityMonitorTest
 --
 --         , requestRemoveTagsFromResource $
---             removeTagsFromResource
+--             newRemoveTagsFromResource
 --
 --         , requestDeleteTapeArchive $
---             deleteTapeArchive
+--             newDeleteTapeArchive
 --
 --         , requestAttachVolume $
---             attachVolume
+--             newAttachVolume
 --
 --         , requestCreateSMBFileShare $
---             createSMBFileShare
+--             newCreateSMBFileShare
 --
 --         , requestUpdateGatewaySoftwareNow $
---             updateGatewaySoftwareNow
+--             newUpdateGatewaySoftwareNow
 --
 --         , requestStartGateway $
---             startGateway
+--             newStartGateway
 --
 --         , requestUpdateSMBSecurityStrategy $
---             updateSMBSecurityStrategy
+--             newUpdateSMBSecurityStrategy
 --
 --         , requestCreateTapePool $
---             createTapePool
+--             newCreateTapePool
 --
 --         , requestCancelRetrieval $
---             cancelRetrieval
+--             newCancelRetrieval
 --
 --         , requestDescribeBandwidthRateLimit $
---             describeBandwidthRateLimit
+--             newDescribeBandwidthRateLimit
 --
 --         , requestListTapePools $
---             listTapePools
+--             newListTapePools
 --
 --         , requestJoinDomain $
---             joinDomain
+--             newJoinDomain
 --
 --         , requestListFileShares $
---             listFileShares
+--             newListFileShares
 --
 --         , requestListVolumeInitiators $
---             listVolumeInitiators
+--             newListVolumeInitiators
 --
 --         , requestCreateTapeWithBarcode $
---             createTapeWithBarcode
+--             newCreateTapeWithBarcode
 --
 --         , requestSetLocalConsolePassword $
---             setLocalConsolePassword
+--             newSetLocalConsolePassword
 --
 --         , requestDescribeChapCredentials $
---             describeChapCredentials
+--             newDescribeChapCredentials
 --
 --         , requestCreateTapes $
---             createTapes
+--             newCreateTapes
 --
 --         , requestUpdateVTLDeviceType $
---             updateVTLDeviceType
+--             newUpdateVTLDeviceType
 --
 --         , requestCreateCachediSCSIVolume $
---             createCachediSCSIVolume
+--             newCreateCachediSCSIVolume
 --
 --         , requestDescribeSnapshotSchedule $
---             describeSnapshotSchedule
+--             newDescribeSnapshotSchedule
 --
 --         , requestUpdateBandwidthRateLimitSchedule $
---             updateBandwidthRateLimitSchedule
+--             newUpdateBandwidthRateLimitSchedule
 --
 --         , requestDisableGateway $
---             disableGateway
+--             newDisableGateway
 --
 --         , requestCreateStorediSCSIVolume $
---             createStorediSCSIVolume
+--             newCreateStorediSCSIVolume
 --
 --         , requestDescribeTapeArchives $
---             describeTapeArchives
+--             newDescribeTapeArchives
 --
 --         , requestDeleteTape $
---             deleteTape
+--             newDeleteTape
 --
 --         , requestResetCache $
---             resetCache
+--             newResetCache
 --
 --         , requestAddTagsToResource $
---             addTagsToResource
+--             newAddTagsToResource
 --
 --         , requestSetSMBGuestPassword $
---             setSMBGuestPassword
+--             newSetSMBGuestPassword
 --
 --         , requestDeleteGateway $
---             deleteGateway
+--             newDeleteGateway
 --
 --         , requestCreateSnapshotFromVolumeRecoveryPoint $
---             createSnapshotFromVolumeRecoveryPoint
+--             newCreateSnapshotFromVolumeRecoveryPoint
 --
 --         , requestUpdateBandwidthRateLimit $
---             updateBandwidthRateLimit
+--             newUpdateBandwidthRateLimit
 --
 --         , requestDescribeTapeRecoveryPoints $
---             describeTapeRecoveryPoints
+--             newDescribeTapeRecoveryPoints
 --
 --         , requestDeleteVolume $
---             deleteVolume
+--             newDeleteVolume
 --
 --         , requestListLocalDisks $
---             listLocalDisks
+--             newListLocalDisks
 --
 --         , requestDeleteBandwidthRateLimit $
---             deleteBandwidthRateLimit
+--             newDeleteBandwidthRateLimit
 --
 --         , requestRetrieveTapeRecoveryPoint $
---             retrieveTapeRecoveryPoint
+--             newRetrieveTapeRecoveryPoint
 --
 --         , requestListGateways $
---             listGateways
+--             newListGateways
 --
 --         , requestDescribeNFSFileShares $
---             describeNFSFileShares
+--             newDescribeNFSFileShares
 --
 --         , requestDescribeStorediSCSIVolumes $
---             describeStorediSCSIVolumes
+--             newDescribeStorediSCSIVolumes
 --
 --         , requestDescribeUploadBuffer $
---             describeUploadBuffer
+--             newDescribeUploadBuffer
 --
 --         , requestStartAvailabilityMonitorTest $
---             startAvailabilityMonitorTest
+--             newStartAvailabilityMonitorTest
 --
 --         , requestDeleteChapCredentials $
---             deleteChapCredentials
+--             newDeleteChapCredentials
 --
 --         , requestUpdateChapCredentials $
---             updateChapCredentials
+--             newUpdateChapCredentials
 --
 --         , requestDeleteSnapshotSchedule $
---             deleteSnapshotSchedule
+--             newDeleteSnapshotSchedule
 --
 --         , requestShutdownGateway $
---             shutdownGateway
+--             newShutdownGateway
 --
 --         , requestDescribeBandwidthRateLimitSchedule $
---             describeBandwidthRateLimitSchedule
+--             newDescribeBandwidthRateLimitSchedule
 --
 --         , requestDescribeVTLDevices $
---             describeVTLDevices
+--             newDescribeVTLDevices
 --
 --         , requestCreateSnapshot $
---             createSnapshot
+--             newCreateSnapshot
 --
 --         , requestUpdateSnapshotSchedule $
---             updateSnapshotSchedule
+--             newUpdateSnapshotSchedule
 --
 --         , requestUpdateSMBFileShareVisibility $
---             updateSMBFileShareVisibility
+--             newUpdateSMBFileShareVisibility
 --
 --         , requestListAutomaticTapeCreationPolicies $
---             listAutomaticTapeCreationPolicies
+--             newListAutomaticTapeCreationPolicies
 --
 --         , requestAddCache $
---             addCache
+--             newAddCache
 --
 --         , requestNotifyWhenUploaded $
---             notifyWhenUploaded
+--             newNotifyWhenUploaded
 --
 --         , requestDescribeCachediSCSIVolumes $
---             describeCachediSCSIVolumes
+--             newDescribeCachediSCSIVolumes
 --
 --         , requestDeleteAutomaticTapeCreationPolicy $
---             deleteAutomaticTapeCreationPolicy
+--             newDeleteAutomaticTapeCreationPolicy
 --
 --         , requestUpdateAutomaticTapeCreationPolicy $
---             updateAutomaticTapeCreationPolicy
+--             newUpdateAutomaticTapeCreationPolicy
 --
 --         , requestDescribeWorkingStorage $
---             describeWorkingStorage
+--             newDescribeWorkingStorage
 --
 --         , requestUpdateGatewayInformation $
---             updateGatewayInformation
+--             newUpdateGatewayInformation
 --
 --         , requestDescribeMaintenanceStartTime $
---             describeMaintenanceStartTime
+--             newDescribeMaintenanceStartTime
 --
 --         , requestAssignTapePool $
---             assignTapePool
+--             newAssignTapePool
 --
 --         , requestDeleteTapePool $
---             deleteTapePool
+--             newDeleteTapePool
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestDeleteFileShare $
---             deleteFileShare
+--             newDeleteFileShare
 --
 --         , requestAddUploadBuffer $
---             addUploadBuffer
+--             newAddUploadBuffer
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDetachVolume $
---             detachVolumeResponse
+--             newDetachVolumeResponse
 --
 --         , responseCreateNFSFileShare $
---             createNFSFileShareResponse
+--             newCreateNFSFileShareResponse
 --
 --         , responseRetrieveTapeArchive $
---             retrieveTapeArchiveResponse
+--             newRetrieveTapeArchiveResponse
 --
 --         , responseCancelArchival $
---             cancelArchivalResponse
+--             newCancelArchivalResponse
 --
 --         , responseDescribeSMBSettings $
---             describeSMBSettingsResponse
+--             newDescribeSMBSettingsResponse
 --
 --         , responseAddWorkingStorage $
---             addWorkingStorageResponse
+--             newAddWorkingStorageResponse
 --
 --         , responseListTapes $
---             listTapesResponse
+--             newListTapesResponse
 --
 --         , responseListVolumes $
---             listVolumesResponse
+--             newListVolumesResponse
 --
 --         , responseDescribeSMBFileShares $
---             describeSMBFileSharesResponse
+--             newDescribeSMBFileSharesResponse
 --
 --         , responseDescribeCache $
---             describeCacheResponse
+--             newDescribeCacheResponse
 --
 --         , responseUpdateMaintenanceStartTime $
---             updateMaintenanceStartTimeResponse
+--             newUpdateMaintenanceStartTimeResponse
 --
 --         , responseDescribeGatewayInformation $
---             describeGatewayInformationResponse
+--             newDescribeGatewayInformationResponse
 --
 --         , responseActivateGateway $
---             activateGatewayResponse
+--             newActivateGatewayResponse
 --
 --         , responseRefreshCache $
---             refreshCacheResponse
+--             newRefreshCacheResponse
 --
 --         , responseUpdateNFSFileShare $
---             updateNFSFileShareResponse
+--             newUpdateNFSFileShareResponse
 --
 --         , responseDescribeTapes $
---             describeTapesResponse
+--             newDescribeTapesResponse
 --
 --         , responseListVolumeRecoveryPoints $
---             listVolumeRecoveryPointsResponse
+--             newListVolumeRecoveryPointsResponse
 --
 --         , responseUpdateSMBFileShare $
---             updateSMBFileShareResponse
+--             newUpdateSMBFileShareResponse
 --
 --         , responseDescribeAvailabilityMonitorTest $
---             describeAvailabilityMonitorTestResponse
+--             newDescribeAvailabilityMonitorTestResponse
 --
 --         , responseRemoveTagsFromResource $
---             removeTagsFromResourceResponse
+--             newRemoveTagsFromResourceResponse
 --
 --         , responseDeleteTapeArchive $
---             deleteTapeArchiveResponse
+--             newDeleteTapeArchiveResponse
 --
 --         , responseAttachVolume $
---             attachVolumeResponse
+--             newAttachVolumeResponse
 --
 --         , responseCreateSMBFileShare $
---             createSMBFileShareResponse
+--             newCreateSMBFileShareResponse
 --
 --         , responseUpdateGatewaySoftwareNow $
---             updateGatewaySoftwareNowResponse
+--             newUpdateGatewaySoftwareNowResponse
 --
 --         , responseStartGateway $
---             startGatewayResponse
+--             newStartGatewayResponse
 --
 --         , responseUpdateSMBSecurityStrategy $
---             updateSMBSecurityStrategyResponse
+--             newUpdateSMBSecurityStrategyResponse
 --
 --         , responseCreateTapePool $
---             createTapePoolResponse
+--             newCreateTapePoolResponse
 --
 --         , responseCancelRetrieval $
---             cancelRetrievalResponse
+--             newCancelRetrievalResponse
 --
 --         , responseDescribeBandwidthRateLimit $
---             describeBandwidthRateLimitResponse
+--             newDescribeBandwidthRateLimitResponse
 --
 --         , responseListTapePools $
---             listTapePoolsResponse
+--             newListTapePoolsResponse
 --
 --         , responseJoinDomain $
---             joinDomainResponse
+--             newJoinDomainResponse
 --
 --         , responseListFileShares $
---             listFileSharesResponse
+--             newListFileSharesResponse
 --
 --         , responseListVolumeInitiators $
---             listVolumeInitiatorsResponse
+--             newListVolumeInitiatorsResponse
 --
 --         , responseCreateTapeWithBarcode $
---             createTapeWithBarcodeResponse
+--             newCreateTapeWithBarcodeResponse
 --
 --         , responseSetLocalConsolePassword $
---             setLocalConsolePasswordResponse
+--             newSetLocalConsolePasswordResponse
 --
 --         , responseDescribeChapCredentials $
---             describeChapCredentialsResponse
+--             newDescribeChapCredentialsResponse
 --
 --         , responseCreateTapes $
---             createTapesResponse
+--             newCreateTapesResponse
 --
 --         , responseUpdateVTLDeviceType $
---             updateVTLDeviceTypeResponse
+--             newUpdateVTLDeviceTypeResponse
 --
 --         , responseCreateCachediSCSIVolume $
---             createCachediSCSIVolumeResponse
+--             newCreateCachediSCSIVolumeResponse
 --
 --         , responseDescribeSnapshotSchedule $
---             describeSnapshotScheduleResponse
+--             newDescribeSnapshotScheduleResponse
 --
 --         , responseUpdateBandwidthRateLimitSchedule $
---             updateBandwidthRateLimitScheduleResponse
+--             newUpdateBandwidthRateLimitScheduleResponse
 --
 --         , responseDisableGateway $
---             disableGatewayResponse
+--             newDisableGatewayResponse
 --
 --         , responseCreateStorediSCSIVolume $
---             createStorediSCSIVolumeResponse
+--             newCreateStorediSCSIVolumeResponse
 --
 --         , responseDescribeTapeArchives $
---             describeTapeArchivesResponse
+--             newDescribeTapeArchivesResponse
 --
 --         , responseDeleteTape $
---             deleteTapeResponse
+--             newDeleteTapeResponse
 --
 --         , responseResetCache $
---             resetCacheResponse
+--             newResetCacheResponse
 --
 --         , responseAddTagsToResource $
---             addTagsToResourceResponse
+--             newAddTagsToResourceResponse
 --
 --         , responseSetSMBGuestPassword $
---             setSMBGuestPasswordResponse
+--             newSetSMBGuestPasswordResponse
 --
 --         , responseDeleteGateway $
---             deleteGatewayResponse
+--             newDeleteGatewayResponse
 --
 --         , responseCreateSnapshotFromVolumeRecoveryPoint $
---             createSnapshotFromVolumeRecoveryPointResponse
+--             newCreateSnapshotFromVolumeRecoveryPointResponse
 --
 --         , responseUpdateBandwidthRateLimit $
---             updateBandwidthRateLimitResponse
+--             newUpdateBandwidthRateLimitResponse
 --
 --         , responseDescribeTapeRecoveryPoints $
---             describeTapeRecoveryPointsResponse
+--             newDescribeTapeRecoveryPointsResponse
 --
 --         , responseDeleteVolume $
---             deleteVolumeResponse
+--             newDeleteVolumeResponse
 --
 --         , responseListLocalDisks $
---             listLocalDisksResponse
+--             newListLocalDisksResponse
 --
 --         , responseDeleteBandwidthRateLimit $
---             deleteBandwidthRateLimitResponse
+--             newDeleteBandwidthRateLimitResponse
 --
 --         , responseRetrieveTapeRecoveryPoint $
---             retrieveTapeRecoveryPointResponse
+--             newRetrieveTapeRecoveryPointResponse
 --
 --         , responseListGateways $
---             listGatewaysResponse
+--             newListGatewaysResponse
 --
 --         , responseDescribeNFSFileShares $
---             describeNFSFileSharesResponse
+--             newDescribeNFSFileSharesResponse
 --
 --         , responseDescribeStorediSCSIVolumes $
---             describeStorediSCSIVolumesResponse
+--             newDescribeStorediSCSIVolumesResponse
 --
 --         , responseDescribeUploadBuffer $
---             describeUploadBufferResponse
+--             newDescribeUploadBufferResponse
 --
 --         , responseStartAvailabilityMonitorTest $
---             startAvailabilityMonitorTestResponse
+--             newStartAvailabilityMonitorTestResponse
 --
 --         , responseDeleteChapCredentials $
---             deleteChapCredentialsResponse
+--             newDeleteChapCredentialsResponse
 --
 --         , responseUpdateChapCredentials $
---             updateChapCredentialsResponse
+--             newUpdateChapCredentialsResponse
 --
 --         , responseDeleteSnapshotSchedule $
---             deleteSnapshotScheduleResponse
+--             newDeleteSnapshotScheduleResponse
 --
 --         , responseShutdownGateway $
---             shutdownGatewayResponse
+--             newShutdownGatewayResponse
 --
 --         , responseDescribeBandwidthRateLimitSchedule $
---             describeBandwidthRateLimitScheduleResponse
+--             newDescribeBandwidthRateLimitScheduleResponse
 --
 --         , responseDescribeVTLDevices $
---             describeVTLDevicesResponse
+--             newDescribeVTLDevicesResponse
 --
 --         , responseCreateSnapshot $
---             createSnapshotResponse
+--             newCreateSnapshotResponse
 --
 --         , responseUpdateSnapshotSchedule $
---             updateSnapshotScheduleResponse
+--             newUpdateSnapshotScheduleResponse
 --
 --         , responseUpdateSMBFileShareVisibility $
---             updateSMBFileShareVisibilityResponse
+--             newUpdateSMBFileShareVisibilityResponse
 --
 --         , responseListAutomaticTapeCreationPolicies $
---             listAutomaticTapeCreationPoliciesResponse
+--             newListAutomaticTapeCreationPoliciesResponse
 --
 --         , responseAddCache $
---             addCacheResponse
+--             newAddCacheResponse
 --
 --         , responseNotifyWhenUploaded $
---             notifyWhenUploadedResponse
+--             newNotifyWhenUploadedResponse
 --
 --         , responseDescribeCachediSCSIVolumes $
---             describeCachediSCSIVolumesResponse
+--             newDescribeCachediSCSIVolumesResponse
 --
 --         , responseDeleteAutomaticTapeCreationPolicy $
---             deleteAutomaticTapeCreationPolicyResponse
+--             newDeleteAutomaticTapeCreationPolicyResponse
 --
 --         , responseUpdateAutomaticTapeCreationPolicy $
---             updateAutomaticTapeCreationPolicyResponse
+--             newUpdateAutomaticTapeCreationPolicyResponse
 --
 --         , responseDescribeWorkingStorage $
---             describeWorkingStorageResponse
+--             newDescribeWorkingStorageResponse
 --
 --         , responseUpdateGatewayInformation $
---             updateGatewayInformationResponse
+--             newUpdateGatewayInformationResponse
 --
 --         , responseDescribeMaintenanceStartTime $
---             describeMaintenanceStartTimeResponse
+--             newDescribeMaintenanceStartTimeResponse
 --
 --         , responseAssignTapePool $
---             assignTapePoolResponse
+--             newAssignTapePoolResponse
 --
 --         , responseDeleteTapePool $
---             deleteTapePoolResponse
+--             newDeleteTapePoolResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseDeleteFileShare $
---             deleteFileShareResponse
+--             newDeleteFileShareResponse
 --
 --         , responseAddUploadBuffer $
---             addUploadBufferResponse
+--             newAddUploadBufferResponse
 --
 --           ]
 --     ]
@@ -1050,7 +1050,7 @@ responseDetachVolume =
   res
     "DetachVolumeResponse"
     "fixture/DetachVolumeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DetachVolume)
 
 responseCreateNFSFileShare :: CreateNFSFileShareResponse -> TestTree
@@ -1058,7 +1058,7 @@ responseCreateNFSFileShare =
   res
     "CreateNFSFileShareResponse"
     "fixture/CreateNFSFileShareResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CreateNFSFileShare)
 
 responseRetrieveTapeArchive :: RetrieveTapeArchiveResponse -> TestTree
@@ -1066,7 +1066,7 @@ responseRetrieveTapeArchive =
   res
     "RetrieveTapeArchiveResponse"
     "fixture/RetrieveTapeArchiveResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy RetrieveTapeArchive)
 
 responseCancelArchival :: CancelArchivalResponse -> TestTree
@@ -1074,7 +1074,7 @@ responseCancelArchival =
   res
     "CancelArchivalResponse"
     "fixture/CancelArchivalResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CancelArchival)
 
 responseDescribeSMBSettings :: DescribeSMBSettingsResponse -> TestTree
@@ -1082,7 +1082,7 @@ responseDescribeSMBSettings =
   res
     "DescribeSMBSettingsResponse"
     "fixture/DescribeSMBSettingsResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeSMBSettings)
 
 responseAddWorkingStorage :: AddWorkingStorageResponse -> TestTree
@@ -1090,7 +1090,7 @@ responseAddWorkingStorage =
   res
     "AddWorkingStorageResponse"
     "fixture/AddWorkingStorageResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy AddWorkingStorage)
 
 responseListTapes :: ListTapesResponse -> TestTree
@@ -1098,7 +1098,7 @@ responseListTapes =
   res
     "ListTapesResponse"
     "fixture/ListTapesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListTapes)
 
 responseListVolumes :: ListVolumesResponse -> TestTree
@@ -1106,7 +1106,7 @@ responseListVolumes =
   res
     "ListVolumesResponse"
     "fixture/ListVolumesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListVolumes)
 
 responseDescribeSMBFileShares :: DescribeSMBFileSharesResponse -> TestTree
@@ -1114,7 +1114,7 @@ responseDescribeSMBFileShares =
   res
     "DescribeSMBFileSharesResponse"
     "fixture/DescribeSMBFileSharesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeSMBFileShares)
 
 responseDescribeCache :: DescribeCacheResponse -> TestTree
@@ -1122,7 +1122,7 @@ responseDescribeCache =
   res
     "DescribeCacheResponse"
     "fixture/DescribeCacheResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeCache)
 
 responseUpdateMaintenanceStartTime :: UpdateMaintenanceStartTimeResponse -> TestTree
@@ -1130,7 +1130,7 @@ responseUpdateMaintenanceStartTime =
   res
     "UpdateMaintenanceStartTimeResponse"
     "fixture/UpdateMaintenanceStartTimeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateMaintenanceStartTime)
 
 responseDescribeGatewayInformation :: DescribeGatewayInformationResponse -> TestTree
@@ -1138,7 +1138,7 @@ responseDescribeGatewayInformation =
   res
     "DescribeGatewayInformationResponse"
     "fixture/DescribeGatewayInformationResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeGatewayInformation)
 
 responseActivateGateway :: ActivateGatewayResponse -> TestTree
@@ -1146,7 +1146,7 @@ responseActivateGateway =
   res
     "ActivateGatewayResponse"
     "fixture/ActivateGatewayResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ActivateGateway)
 
 responseRefreshCache :: RefreshCacheResponse -> TestTree
@@ -1154,7 +1154,7 @@ responseRefreshCache =
   res
     "RefreshCacheResponse"
     "fixture/RefreshCacheResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy RefreshCache)
 
 responseUpdateNFSFileShare :: UpdateNFSFileShareResponse -> TestTree
@@ -1162,7 +1162,7 @@ responseUpdateNFSFileShare =
   res
     "UpdateNFSFileShareResponse"
     "fixture/UpdateNFSFileShareResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateNFSFileShare)
 
 responseDescribeTapes :: DescribeTapesResponse -> TestTree
@@ -1170,7 +1170,7 @@ responseDescribeTapes =
   res
     "DescribeTapesResponse"
     "fixture/DescribeTapesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeTapes)
 
 responseListVolumeRecoveryPoints :: ListVolumeRecoveryPointsResponse -> TestTree
@@ -1178,7 +1178,7 @@ responseListVolumeRecoveryPoints =
   res
     "ListVolumeRecoveryPointsResponse"
     "fixture/ListVolumeRecoveryPointsResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListVolumeRecoveryPoints)
 
 responseUpdateSMBFileShare :: UpdateSMBFileShareResponse -> TestTree
@@ -1186,7 +1186,7 @@ responseUpdateSMBFileShare =
   res
     "UpdateSMBFileShareResponse"
     "fixture/UpdateSMBFileShareResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateSMBFileShare)
 
 responseDescribeAvailabilityMonitorTest :: DescribeAvailabilityMonitorTestResponse -> TestTree
@@ -1194,7 +1194,7 @@ responseDescribeAvailabilityMonitorTest =
   res
     "DescribeAvailabilityMonitorTestResponse"
     "fixture/DescribeAvailabilityMonitorTestResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeAvailabilityMonitorTest)
 
 responseRemoveTagsFromResource :: RemoveTagsFromResourceResponse -> TestTree
@@ -1202,7 +1202,7 @@ responseRemoveTagsFromResource =
   res
     "RemoveTagsFromResourceResponse"
     "fixture/RemoveTagsFromResourceResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy RemoveTagsFromResource)
 
 responseDeleteTapeArchive :: DeleteTapeArchiveResponse -> TestTree
@@ -1210,7 +1210,7 @@ responseDeleteTapeArchive =
   res
     "DeleteTapeArchiveResponse"
     "fixture/DeleteTapeArchiveResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteTapeArchive)
 
 responseAttachVolume :: AttachVolumeResponse -> TestTree
@@ -1218,7 +1218,7 @@ responseAttachVolume =
   res
     "AttachVolumeResponse"
     "fixture/AttachVolumeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy AttachVolume)
 
 responseCreateSMBFileShare :: CreateSMBFileShareResponse -> TestTree
@@ -1226,7 +1226,7 @@ responseCreateSMBFileShare =
   res
     "CreateSMBFileShareResponse"
     "fixture/CreateSMBFileShareResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CreateSMBFileShare)
 
 responseUpdateGatewaySoftwareNow :: UpdateGatewaySoftwareNowResponse -> TestTree
@@ -1234,7 +1234,7 @@ responseUpdateGatewaySoftwareNow =
   res
     "UpdateGatewaySoftwareNowResponse"
     "fixture/UpdateGatewaySoftwareNowResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateGatewaySoftwareNow)
 
 responseStartGateway :: StartGatewayResponse -> TestTree
@@ -1242,7 +1242,7 @@ responseStartGateway =
   res
     "StartGatewayResponse"
     "fixture/StartGatewayResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy StartGateway)
 
 responseUpdateSMBSecurityStrategy :: UpdateSMBSecurityStrategyResponse -> TestTree
@@ -1250,7 +1250,7 @@ responseUpdateSMBSecurityStrategy =
   res
     "UpdateSMBSecurityStrategyResponse"
     "fixture/UpdateSMBSecurityStrategyResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateSMBSecurityStrategy)
 
 responseCreateTapePool :: CreateTapePoolResponse -> TestTree
@@ -1258,7 +1258,7 @@ responseCreateTapePool =
   res
     "CreateTapePoolResponse"
     "fixture/CreateTapePoolResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CreateTapePool)
 
 responseCancelRetrieval :: CancelRetrievalResponse -> TestTree
@@ -1266,7 +1266,7 @@ responseCancelRetrieval =
   res
     "CancelRetrievalResponse"
     "fixture/CancelRetrievalResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CancelRetrieval)
 
 responseDescribeBandwidthRateLimit :: DescribeBandwidthRateLimitResponse -> TestTree
@@ -1274,7 +1274,7 @@ responseDescribeBandwidthRateLimit =
   res
     "DescribeBandwidthRateLimitResponse"
     "fixture/DescribeBandwidthRateLimitResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeBandwidthRateLimit)
 
 responseListTapePools :: ListTapePoolsResponse -> TestTree
@@ -1282,7 +1282,7 @@ responseListTapePools =
   res
     "ListTapePoolsResponse"
     "fixture/ListTapePoolsResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListTapePools)
 
 responseJoinDomain :: JoinDomainResponse -> TestTree
@@ -1290,7 +1290,7 @@ responseJoinDomain =
   res
     "JoinDomainResponse"
     "fixture/JoinDomainResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy JoinDomain)
 
 responseListFileShares :: ListFileSharesResponse -> TestTree
@@ -1298,7 +1298,7 @@ responseListFileShares =
   res
     "ListFileSharesResponse"
     "fixture/ListFileSharesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListFileShares)
 
 responseListVolumeInitiators :: ListVolumeInitiatorsResponse -> TestTree
@@ -1306,7 +1306,7 @@ responseListVolumeInitiators =
   res
     "ListVolumeInitiatorsResponse"
     "fixture/ListVolumeInitiatorsResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListVolumeInitiators)
 
 responseCreateTapeWithBarcode :: CreateTapeWithBarcodeResponse -> TestTree
@@ -1314,7 +1314,7 @@ responseCreateTapeWithBarcode =
   res
     "CreateTapeWithBarcodeResponse"
     "fixture/CreateTapeWithBarcodeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CreateTapeWithBarcode)
 
 responseSetLocalConsolePassword :: SetLocalConsolePasswordResponse -> TestTree
@@ -1322,7 +1322,7 @@ responseSetLocalConsolePassword =
   res
     "SetLocalConsolePasswordResponse"
     "fixture/SetLocalConsolePasswordResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy SetLocalConsolePassword)
 
 responseDescribeChapCredentials :: DescribeChapCredentialsResponse -> TestTree
@@ -1330,7 +1330,7 @@ responseDescribeChapCredentials =
   res
     "DescribeChapCredentialsResponse"
     "fixture/DescribeChapCredentialsResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeChapCredentials)
 
 responseCreateTapes :: CreateTapesResponse -> TestTree
@@ -1338,7 +1338,7 @@ responseCreateTapes =
   res
     "CreateTapesResponse"
     "fixture/CreateTapesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CreateTapes)
 
 responseUpdateVTLDeviceType :: UpdateVTLDeviceTypeResponse -> TestTree
@@ -1346,7 +1346,7 @@ responseUpdateVTLDeviceType =
   res
     "UpdateVTLDeviceTypeResponse"
     "fixture/UpdateVTLDeviceTypeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateVTLDeviceType)
 
 responseCreateCachediSCSIVolume :: CreateCachediSCSIVolumeResponse -> TestTree
@@ -1354,7 +1354,7 @@ responseCreateCachediSCSIVolume =
   res
     "CreateCachediSCSIVolumeResponse"
     "fixture/CreateCachediSCSIVolumeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CreateCachediSCSIVolume)
 
 responseDescribeSnapshotSchedule :: DescribeSnapshotScheduleResponse -> TestTree
@@ -1362,7 +1362,7 @@ responseDescribeSnapshotSchedule =
   res
     "DescribeSnapshotScheduleResponse"
     "fixture/DescribeSnapshotScheduleResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeSnapshotSchedule)
 
 responseUpdateBandwidthRateLimitSchedule :: UpdateBandwidthRateLimitScheduleResponse -> TestTree
@@ -1370,7 +1370,7 @@ responseUpdateBandwidthRateLimitSchedule =
   res
     "UpdateBandwidthRateLimitScheduleResponse"
     "fixture/UpdateBandwidthRateLimitScheduleResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateBandwidthRateLimitSchedule)
 
 responseDisableGateway :: DisableGatewayResponse -> TestTree
@@ -1378,7 +1378,7 @@ responseDisableGateway =
   res
     "DisableGatewayResponse"
     "fixture/DisableGatewayResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DisableGateway)
 
 responseCreateStorediSCSIVolume :: CreateStorediSCSIVolumeResponse -> TestTree
@@ -1386,7 +1386,7 @@ responseCreateStorediSCSIVolume =
   res
     "CreateStorediSCSIVolumeResponse"
     "fixture/CreateStorediSCSIVolumeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CreateStorediSCSIVolume)
 
 responseDescribeTapeArchives :: DescribeTapeArchivesResponse -> TestTree
@@ -1394,7 +1394,7 @@ responseDescribeTapeArchives =
   res
     "DescribeTapeArchivesResponse"
     "fixture/DescribeTapeArchivesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeTapeArchives)
 
 responseDeleteTape :: DeleteTapeResponse -> TestTree
@@ -1402,7 +1402,7 @@ responseDeleteTape =
   res
     "DeleteTapeResponse"
     "fixture/DeleteTapeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteTape)
 
 responseResetCache :: ResetCacheResponse -> TestTree
@@ -1410,7 +1410,7 @@ responseResetCache =
   res
     "ResetCacheResponse"
     "fixture/ResetCacheResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ResetCache)
 
 responseAddTagsToResource :: AddTagsToResourceResponse -> TestTree
@@ -1418,7 +1418,7 @@ responseAddTagsToResource =
   res
     "AddTagsToResourceResponse"
     "fixture/AddTagsToResourceResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy AddTagsToResource)
 
 responseSetSMBGuestPassword :: SetSMBGuestPasswordResponse -> TestTree
@@ -1426,7 +1426,7 @@ responseSetSMBGuestPassword =
   res
     "SetSMBGuestPasswordResponse"
     "fixture/SetSMBGuestPasswordResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy SetSMBGuestPassword)
 
 responseDeleteGateway :: DeleteGatewayResponse -> TestTree
@@ -1434,7 +1434,7 @@ responseDeleteGateway =
   res
     "DeleteGatewayResponse"
     "fixture/DeleteGatewayResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteGateway)
 
 responseCreateSnapshotFromVolumeRecoveryPoint :: CreateSnapshotFromVolumeRecoveryPointResponse -> TestTree
@@ -1442,7 +1442,7 @@ responseCreateSnapshotFromVolumeRecoveryPoint =
   res
     "CreateSnapshotFromVolumeRecoveryPointResponse"
     "fixture/CreateSnapshotFromVolumeRecoveryPointResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CreateSnapshotFromVolumeRecoveryPoint)
 
 responseUpdateBandwidthRateLimit :: UpdateBandwidthRateLimitResponse -> TestTree
@@ -1450,7 +1450,7 @@ responseUpdateBandwidthRateLimit =
   res
     "UpdateBandwidthRateLimitResponse"
     "fixture/UpdateBandwidthRateLimitResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateBandwidthRateLimit)
 
 responseDescribeTapeRecoveryPoints :: DescribeTapeRecoveryPointsResponse -> TestTree
@@ -1458,7 +1458,7 @@ responseDescribeTapeRecoveryPoints =
   res
     "DescribeTapeRecoveryPointsResponse"
     "fixture/DescribeTapeRecoveryPointsResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeTapeRecoveryPoints)
 
 responseDeleteVolume :: DeleteVolumeResponse -> TestTree
@@ -1466,7 +1466,7 @@ responseDeleteVolume =
   res
     "DeleteVolumeResponse"
     "fixture/DeleteVolumeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteVolume)
 
 responseListLocalDisks :: ListLocalDisksResponse -> TestTree
@@ -1474,7 +1474,7 @@ responseListLocalDisks =
   res
     "ListLocalDisksResponse"
     "fixture/ListLocalDisksResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListLocalDisks)
 
 responseDeleteBandwidthRateLimit :: DeleteBandwidthRateLimitResponse -> TestTree
@@ -1482,7 +1482,7 @@ responseDeleteBandwidthRateLimit =
   res
     "DeleteBandwidthRateLimitResponse"
     "fixture/DeleteBandwidthRateLimitResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteBandwidthRateLimit)
 
 responseRetrieveTapeRecoveryPoint :: RetrieveTapeRecoveryPointResponse -> TestTree
@@ -1490,7 +1490,7 @@ responseRetrieveTapeRecoveryPoint =
   res
     "RetrieveTapeRecoveryPointResponse"
     "fixture/RetrieveTapeRecoveryPointResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy RetrieveTapeRecoveryPoint)
 
 responseListGateways :: ListGatewaysResponse -> TestTree
@@ -1498,7 +1498,7 @@ responseListGateways =
   res
     "ListGatewaysResponse"
     "fixture/ListGatewaysResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListGateways)
 
 responseDescribeNFSFileShares :: DescribeNFSFileSharesResponse -> TestTree
@@ -1506,7 +1506,7 @@ responseDescribeNFSFileShares =
   res
     "DescribeNFSFileSharesResponse"
     "fixture/DescribeNFSFileSharesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeNFSFileShares)
 
 responseDescribeStorediSCSIVolumes :: DescribeStorediSCSIVolumesResponse -> TestTree
@@ -1514,7 +1514,7 @@ responseDescribeStorediSCSIVolumes =
   res
     "DescribeStorediSCSIVolumesResponse"
     "fixture/DescribeStorediSCSIVolumesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeStorediSCSIVolumes)
 
 responseDescribeUploadBuffer :: DescribeUploadBufferResponse -> TestTree
@@ -1522,7 +1522,7 @@ responseDescribeUploadBuffer =
   res
     "DescribeUploadBufferResponse"
     "fixture/DescribeUploadBufferResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeUploadBuffer)
 
 responseStartAvailabilityMonitorTest :: StartAvailabilityMonitorTestResponse -> TestTree
@@ -1530,7 +1530,7 @@ responseStartAvailabilityMonitorTest =
   res
     "StartAvailabilityMonitorTestResponse"
     "fixture/StartAvailabilityMonitorTestResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy StartAvailabilityMonitorTest)
 
 responseDeleteChapCredentials :: DeleteChapCredentialsResponse -> TestTree
@@ -1538,7 +1538,7 @@ responseDeleteChapCredentials =
   res
     "DeleteChapCredentialsResponse"
     "fixture/DeleteChapCredentialsResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteChapCredentials)
 
 responseUpdateChapCredentials :: UpdateChapCredentialsResponse -> TestTree
@@ -1546,7 +1546,7 @@ responseUpdateChapCredentials =
   res
     "UpdateChapCredentialsResponse"
     "fixture/UpdateChapCredentialsResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateChapCredentials)
 
 responseDeleteSnapshotSchedule :: DeleteSnapshotScheduleResponse -> TestTree
@@ -1554,7 +1554,7 @@ responseDeleteSnapshotSchedule =
   res
     "DeleteSnapshotScheduleResponse"
     "fixture/DeleteSnapshotScheduleResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteSnapshotSchedule)
 
 responseShutdownGateway :: ShutdownGatewayResponse -> TestTree
@@ -1562,7 +1562,7 @@ responseShutdownGateway =
   res
     "ShutdownGatewayResponse"
     "fixture/ShutdownGatewayResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ShutdownGateway)
 
 responseDescribeBandwidthRateLimitSchedule :: DescribeBandwidthRateLimitScheduleResponse -> TestTree
@@ -1570,7 +1570,7 @@ responseDescribeBandwidthRateLimitSchedule =
   res
     "DescribeBandwidthRateLimitScheduleResponse"
     "fixture/DescribeBandwidthRateLimitScheduleResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeBandwidthRateLimitSchedule)
 
 responseDescribeVTLDevices :: DescribeVTLDevicesResponse -> TestTree
@@ -1578,7 +1578,7 @@ responseDescribeVTLDevices =
   res
     "DescribeVTLDevicesResponse"
     "fixture/DescribeVTLDevicesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeVTLDevices)
 
 responseCreateSnapshot :: CreateSnapshotResponse -> TestTree
@@ -1586,7 +1586,7 @@ responseCreateSnapshot =
   res
     "CreateSnapshotResponse"
     "fixture/CreateSnapshotResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy CreateSnapshot)
 
 responseUpdateSnapshotSchedule :: UpdateSnapshotScheduleResponse -> TestTree
@@ -1594,7 +1594,7 @@ responseUpdateSnapshotSchedule =
   res
     "UpdateSnapshotScheduleResponse"
     "fixture/UpdateSnapshotScheduleResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateSnapshotSchedule)
 
 responseUpdateSMBFileShareVisibility :: UpdateSMBFileShareVisibilityResponse -> TestTree
@@ -1602,7 +1602,7 @@ responseUpdateSMBFileShareVisibility =
   res
     "UpdateSMBFileShareVisibilityResponse"
     "fixture/UpdateSMBFileShareVisibilityResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateSMBFileShareVisibility)
 
 responseListAutomaticTapeCreationPolicies :: ListAutomaticTapeCreationPoliciesResponse -> TestTree
@@ -1610,7 +1610,7 @@ responseListAutomaticTapeCreationPolicies =
   res
     "ListAutomaticTapeCreationPoliciesResponse"
     "fixture/ListAutomaticTapeCreationPoliciesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListAutomaticTapeCreationPolicies)
 
 responseAddCache :: AddCacheResponse -> TestTree
@@ -1618,7 +1618,7 @@ responseAddCache =
   res
     "AddCacheResponse"
     "fixture/AddCacheResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy AddCache)
 
 responseNotifyWhenUploaded :: NotifyWhenUploadedResponse -> TestTree
@@ -1626,7 +1626,7 @@ responseNotifyWhenUploaded =
   res
     "NotifyWhenUploadedResponse"
     "fixture/NotifyWhenUploadedResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy NotifyWhenUploaded)
 
 responseDescribeCachediSCSIVolumes :: DescribeCachediSCSIVolumesResponse -> TestTree
@@ -1634,7 +1634,7 @@ responseDescribeCachediSCSIVolumes =
   res
     "DescribeCachediSCSIVolumesResponse"
     "fixture/DescribeCachediSCSIVolumesResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeCachediSCSIVolumes)
 
 responseDeleteAutomaticTapeCreationPolicy :: DeleteAutomaticTapeCreationPolicyResponse -> TestTree
@@ -1642,7 +1642,7 @@ responseDeleteAutomaticTapeCreationPolicy =
   res
     "DeleteAutomaticTapeCreationPolicyResponse"
     "fixture/DeleteAutomaticTapeCreationPolicyResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteAutomaticTapeCreationPolicy)
 
 responseUpdateAutomaticTapeCreationPolicy :: UpdateAutomaticTapeCreationPolicyResponse -> TestTree
@@ -1650,7 +1650,7 @@ responseUpdateAutomaticTapeCreationPolicy =
   res
     "UpdateAutomaticTapeCreationPolicyResponse"
     "fixture/UpdateAutomaticTapeCreationPolicyResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateAutomaticTapeCreationPolicy)
 
 responseDescribeWorkingStorage :: DescribeWorkingStorageResponse -> TestTree
@@ -1658,7 +1658,7 @@ responseDescribeWorkingStorage =
   res
     "DescribeWorkingStorageResponse"
     "fixture/DescribeWorkingStorageResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeWorkingStorage)
 
 responseUpdateGatewayInformation :: UpdateGatewayInformationResponse -> TestTree
@@ -1666,7 +1666,7 @@ responseUpdateGatewayInformation =
   res
     "UpdateGatewayInformationResponse"
     "fixture/UpdateGatewayInformationResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy UpdateGatewayInformation)
 
 responseDescribeMaintenanceStartTime :: DescribeMaintenanceStartTimeResponse -> TestTree
@@ -1674,7 +1674,7 @@ responseDescribeMaintenanceStartTime =
   res
     "DescribeMaintenanceStartTimeResponse"
     "fixture/DescribeMaintenanceStartTimeResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DescribeMaintenanceStartTime)
 
 responseAssignTapePool :: AssignTapePoolResponse -> TestTree
@@ -1682,7 +1682,7 @@ responseAssignTapePool =
   res
     "AssignTapePoolResponse"
     "fixture/AssignTapePoolResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy AssignTapePool)
 
 responseDeleteTapePool :: DeleteTapePoolResponse -> TestTree
@@ -1690,7 +1690,7 @@ responseDeleteTapePool =
   res
     "DeleteTapePoolResponse"
     "fixture/DeleteTapePoolResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteTapePool)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -1698,7 +1698,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseDeleteFileShare :: DeleteFileShareResponse -> TestTree
@@ -1706,7 +1706,7 @@ responseDeleteFileShare =
   res
     "DeleteFileShareResponse"
     "fixture/DeleteFileShareResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy DeleteFileShare)
 
 responseAddUploadBuffer :: AddUploadBufferResponse -> TestTree
@@ -1714,5 +1714,5 @@ responseAddUploadBuffer =
   res
     "AddUploadBufferResponse"
     "fixture/AddUploadBufferResponse.proto"
-    storageGateway
+    defaultService
     (Proxy :: Proxy AddUploadBuffer)

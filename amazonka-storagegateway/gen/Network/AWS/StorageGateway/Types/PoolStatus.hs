@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.StorageGateway.Types.PoolStatus
   ( PoolStatus
       ( ..,
-        Active,
-        Deleted
+        PoolStatusACTIVE,
+        PoolStatusDELETED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PoolStatus = PoolStatus' (CI Text)
+newtype PoolStatus = PoolStatus'
+  { fromPoolStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: PoolStatus
-pattern Active = PoolStatus' "ACTIVE"
+pattern PoolStatusACTIVE :: PoolStatus
+pattern PoolStatusACTIVE = PoolStatus' "ACTIVE"
 
-pattern Deleted :: PoolStatus
-pattern Deleted = PoolStatus' "DELETED"
+pattern PoolStatusDELETED :: PoolStatus
+pattern PoolStatusDELETED = PoolStatus' "DELETED"
 
 {-# COMPLETE
-  Active,
-  Deleted,
+  PoolStatusACTIVE,
+  PoolStatusDELETED,
   PoolStatus'
   #-}
 
-instance FromText PoolStatus where
-  parser = (PoolStatus' . mk) <$> takeText
+instance Prelude.FromText PoolStatus where
+  parser = PoolStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PoolStatus where
-  toText (PoolStatus' ci) = original ci
+instance Prelude.ToText PoolStatus where
+  toText (PoolStatus' x) = x
 
-instance Hashable PoolStatus
+instance Prelude.Hashable PoolStatus
 
-instance NFData PoolStatus
+instance Prelude.NFData PoolStatus
 
-instance ToByteString PoolStatus
+instance Prelude.ToByteString PoolStatus
 
-instance ToQuery PoolStatus
+instance Prelude.ToQuery PoolStatus
 
-instance ToHeader PoolStatus
+instance Prelude.ToHeader PoolStatus
 
-instance FromJSON PoolStatus where
-  parseJSON = parseJSONText "PoolStatus"
+instance Prelude.FromJSON PoolStatus where
+  parseJSON = Prelude.parseJSONText "PoolStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the automatic tape creation policies for a gateway. If there are no automatic tape creation policies for the gateway, it returns an empty list.
---
+-- Lists the automatic tape creation policies for a gateway. If there are
+-- no automatic tape creation policies for the gateway, it returns an empty
+-- list.
 --
 -- This operation is only supported for tape gateways.
 module Network.AWS.StorageGateway.ListAutomaticTapeCreationPolicies
   ( -- * Creating a Request
-    listAutomaticTapeCreationPolicies,
-    ListAutomaticTapeCreationPolicies,
+    ListAutomaticTapeCreationPolicies (..),
+    newListAutomaticTapeCreationPolicies,
 
     -- * Request Lenses
-    latcpGatewayARN,
+    listAutomaticTapeCreationPolicies_gatewayARN,
 
     -- * Destructuring the Response
-    listAutomaticTapeCreationPoliciesResponse,
-    ListAutomaticTapeCreationPoliciesResponse,
+    ListAutomaticTapeCreationPoliciesResponse (..),
+    newListAutomaticTapeCreationPoliciesResponse,
 
     -- * Response Lenses
-    latcprrsAutomaticTapeCreationPolicyInfos,
-    latcprrsResponseStatus,
+    listAutomaticTapeCreationPoliciesResponse_automaticTapeCreationPolicyInfos,
+    listAutomaticTapeCreationPoliciesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
+import Network.AWS.StorageGateway.Types.AutomaticTapeCreationPolicyInfo
 
--- | /See:/ 'listAutomaticTapeCreationPolicies' smart constructor.
-newtype ListAutomaticTapeCreationPolicies = ListAutomaticTapeCreationPolicies'
-  { _latcpGatewayARN ::
-      Maybe
-        Text
+-- | /See:/ 'newListAutomaticTapeCreationPolicies' smart constructor.
+data ListAutomaticTapeCreationPolicies = ListAutomaticTapeCreationPolicies'
+  { gatewayARN :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAutomaticTapeCreationPolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAutomaticTapeCreationPolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'latcpGatewayARN' - Undocumented member.
-listAutomaticTapeCreationPolicies ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'gatewayARN', 'listAutomaticTapeCreationPolicies_gatewayARN' - Undocumented member.
+newListAutomaticTapeCreationPolicies ::
   ListAutomaticTapeCreationPolicies
-listAutomaticTapeCreationPolicies =
+newListAutomaticTapeCreationPolicies =
   ListAutomaticTapeCreationPolicies'
-    { _latcpGatewayARN =
-        Nothing
+    { gatewayARN =
+        Prelude.Nothing
     }
 
 -- | Undocumented member.
-latcpGatewayARN :: Lens' ListAutomaticTapeCreationPolicies (Maybe Text)
-latcpGatewayARN = lens _latcpGatewayARN (\s a -> s {_latcpGatewayARN = a})
+listAutomaticTapeCreationPolicies_gatewayARN :: Lens.Lens' ListAutomaticTapeCreationPolicies (Prelude.Maybe Prelude.Text)
+listAutomaticTapeCreationPolicies_gatewayARN = Lens.lens (\ListAutomaticTapeCreationPolicies' {gatewayARN} -> gatewayARN) (\s@ListAutomaticTapeCreationPolicies' {} a -> s {gatewayARN = a} :: ListAutomaticTapeCreationPolicies)
 
-instance AWSRequest ListAutomaticTapeCreationPolicies where
+instance
+  Prelude.AWSRequest
+    ListAutomaticTapeCreationPolicies
+  where
   type
     Rs ListAutomaticTapeCreationPolicies =
       ListAutomaticTapeCreationPoliciesResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAutomaticTapeCreationPoliciesResponse'
-            <$> (x .?> "AutomaticTapeCreationPolicyInfos" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "AutomaticTapeCreationPolicyInfos"
+                            Prelude..!@ Prelude.mempty
+                        )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAutomaticTapeCreationPolicies
+instance
+  Prelude.Hashable
+    ListAutomaticTapeCreationPolicies
 
-instance NFData ListAutomaticTapeCreationPolicies
+instance
+  Prelude.NFData
+    ListAutomaticTapeCreationPolicies
 
-instance ToHeaders ListAutomaticTapeCreationPolicies where
+instance
+  Prelude.ToHeaders
+    ListAutomaticTapeCreationPolicies
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.ListAutomaticTapeCreationPolicies" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.ListAutomaticTapeCreationPolicies" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListAutomaticTapeCreationPolicies where
+instance
+  Prelude.ToJSON
+    ListAutomaticTapeCreationPolicies
+  where
   toJSON ListAutomaticTapeCreationPolicies' {..} =
-    object
-      (catMaybes [("GatewayARN" .=) <$> _latcpGatewayARN])
-
-instance ToPath ListAutomaticTapeCreationPolicies where
-  toPath = const "/"
-
-instance ToQuery ListAutomaticTapeCreationPolicies where
-  toQuery = const mempty
-
--- | /See:/ 'listAutomaticTapeCreationPoliciesResponse' smart constructor.
-data ListAutomaticTapeCreationPoliciesResponse = ListAutomaticTapeCreationPoliciesResponse'
-  { _latcprrsAutomaticTapeCreationPolicyInfos ::
-      !( Maybe
-           [AutomaticTapeCreationPolicyInfo]
-       ),
-    _latcprrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ListAutomaticTapeCreationPoliciesResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'latcprrsAutomaticTapeCreationPolicyInfos' - Gets a listing of information about the gateway's automatic tape creation policies, including the automatic tape creation rules and the gateway that is using the policies.
---
--- * 'latcprrsResponseStatus' - -- | The response status code.
-listAutomaticTapeCreationPoliciesResponse ::
-  -- | 'latcprrsResponseStatus'
-  Int ->
-  ListAutomaticTapeCreationPoliciesResponse
-listAutomaticTapeCreationPoliciesResponse
-  pResponseStatus_ =
-    ListAutomaticTapeCreationPoliciesResponse'
-      { _latcprrsAutomaticTapeCreationPolicyInfos =
-          Nothing,
-        _latcprrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | Gets a listing of information about the gateway's automatic tape creation policies, including the automatic tape creation rules and the gateway that is using the policies.
-latcprrsAutomaticTapeCreationPolicyInfos :: Lens' ListAutomaticTapeCreationPoliciesResponse [AutomaticTapeCreationPolicyInfo]
-latcprrsAutomaticTapeCreationPolicyInfos = lens _latcprrsAutomaticTapeCreationPolicyInfos (\s a -> s {_latcprrsAutomaticTapeCreationPolicyInfos = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-latcprrsResponseStatus :: Lens' ListAutomaticTapeCreationPoliciesResponse Int
-latcprrsResponseStatus = lens _latcprrsResponseStatus (\s a -> s {_latcprrsResponseStatus = a})
+    Prelude.object
+      ( Prelude.catMaybes
+          [("GatewayARN" Prelude..=) Prelude.<$> gatewayARN]
+      )
 
 instance
-  NFData
+  Prelude.ToPath
+    ListAutomaticTapeCreationPolicies
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    ListAutomaticTapeCreationPolicies
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newListAutomaticTapeCreationPoliciesResponse' smart constructor.
+data ListAutomaticTapeCreationPoliciesResponse = ListAutomaticTapeCreationPoliciesResponse'
+  { -- | Gets a listing of information about the gateway\'s automatic tape
+    -- creation policies, including the automatic tape creation rules and the
+    -- gateway that is using the policies.
+    automaticTapeCreationPolicyInfos :: Prelude.Maybe [AutomaticTapeCreationPolicyInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ListAutomaticTapeCreationPoliciesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'automaticTapeCreationPolicyInfos', 'listAutomaticTapeCreationPoliciesResponse_automaticTapeCreationPolicyInfos' - Gets a listing of information about the gateway\'s automatic tape
+-- creation policies, including the automatic tape creation rules and the
+-- gateway that is using the policies.
+--
+-- 'httpStatus', 'listAutomaticTapeCreationPoliciesResponse_httpStatus' - The response's http status code.
+newListAutomaticTapeCreationPoliciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ListAutomaticTapeCreationPoliciesResponse
+newListAutomaticTapeCreationPoliciesResponse
+  pHttpStatus_ =
+    ListAutomaticTapeCreationPoliciesResponse'
+      { automaticTapeCreationPolicyInfos =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | Gets a listing of information about the gateway\'s automatic tape
+-- creation policies, including the automatic tape creation rules and the
+-- gateway that is using the policies.
+listAutomaticTapeCreationPoliciesResponse_automaticTapeCreationPolicyInfos :: Lens.Lens' ListAutomaticTapeCreationPoliciesResponse (Prelude.Maybe [AutomaticTapeCreationPolicyInfo])
+listAutomaticTapeCreationPoliciesResponse_automaticTapeCreationPolicyInfos = Lens.lens (\ListAutomaticTapeCreationPoliciesResponse' {automaticTapeCreationPolicyInfos} -> automaticTapeCreationPolicyInfos) (\s@ListAutomaticTapeCreationPoliciesResponse' {} a -> s {automaticTapeCreationPolicyInfos = a} :: ListAutomaticTapeCreationPoliciesResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+listAutomaticTapeCreationPoliciesResponse_httpStatus :: Lens.Lens' ListAutomaticTapeCreationPoliciesResponse Prelude.Int
+listAutomaticTapeCreationPoliciesResponse_httpStatus = Lens.lens (\ListAutomaticTapeCreationPoliciesResponse' {httpStatus} -> httpStatus) (\s@ListAutomaticTapeCreationPoliciesResponse' {} a -> s {httpStatus = a} :: ListAutomaticTapeCreationPoliciesResponse)
+
+instance
+  Prelude.NFData
     ListAutomaticTapeCreationPoliciesResponse

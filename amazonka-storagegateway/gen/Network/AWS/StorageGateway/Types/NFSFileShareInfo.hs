@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,237 +19,332 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.NFSFileShareInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StorageGateway.Types.CacheAttributes
 import Network.AWS.StorageGateway.Types.NFSFileShareDefaults
 import Network.AWS.StorageGateway.Types.ObjectACL
 import Network.AWS.StorageGateway.Types.Tag
 
--- | The Unix file permissions and ownership information assigned, by default, to native S3 objects when file gateway discovers them in S3 buckets. This operation is only supported in file gateways.
+-- | The Unix file permissions and ownership information assigned, by
+-- default, to native S3 objects when file gateway discovers them in S3
+-- buckets. This operation is only supported in file gateways.
 --
---
---
--- /See:/ 'nFSFileShareInfo' smart constructor.
+-- /See:/ 'newNFSFileShareInfo' smart constructor.
 data NFSFileShareInfo = NFSFileShareInfo'
-  { _nfsfsiDefaultStorageClass ::
-      !(Maybe Text),
-    _nfsfsiFileShareName :: !(Maybe Text),
-    _nfsfsiGuessMIMETypeEnabled ::
-      !(Maybe Bool),
-    _nfsfsiReadOnly :: !(Maybe Bool),
-    _nfsfsiFileShareId :: !(Maybe Text),
-    _nfsfsiKMSEncrypted :: !(Maybe Bool),
-    _nfsfsiLocationARN :: !(Maybe Text),
-    _nfsfsiSquash :: !(Maybe Text),
-    _nfsfsiNotificationPolicy ::
-      !(Maybe Text),
-    _nfsfsiKMSKey :: !(Maybe Text),
-    _nfsfsiFileShareStatus ::
-      !(Maybe Text),
-    _nfsfsiRole :: !(Maybe Text),
-    _nfsfsiTags :: !(Maybe [Tag]),
-    _nfsfsiFileShareARN :: !(Maybe Text),
-    _nfsfsiCacheAttributes ::
-      !(Maybe CacheAttributes),
-    _nfsfsiClientList ::
-      !(Maybe (List1 Text)),
-    _nfsfsiObjectACL ::
-      !(Maybe ObjectACL),
-    _nfsfsiNFSFileShareDefaults ::
-      !(Maybe NFSFileShareDefaults),
-    _nfsfsiPath :: !(Maybe Text),
-    _nfsfsiGatewayARN :: !(Maybe Text),
-    _nfsfsiRequesterPays :: !(Maybe Bool)
+  { -- | The default storage class for objects put into an Amazon S3 bucket by
+    -- the file gateway. The default value is @S3_INTELLIGENT_TIERING@.
+    -- Optional.
+    --
+    -- Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ |
+    -- @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
+    defaultStorageClass :: Prelude.Maybe Prelude.Text,
+    -- | The name of the file share. Optional.
+    --
+    -- @FileShareName@ must be set if an S3 prefix name is set in
+    -- @LocationARN@.
+    fileShareName :: Prelude.Maybe Prelude.Text,
+    -- | A value that enables guessing of the MIME type for uploaded objects
+    -- based on file extensions. Set this value to @true@ to enable MIME type
+    -- guessing, otherwise set to @false@. The default value is @true@.
+    --
+    -- Valid Values: @true@ | @false@
+    guessMIMETypeEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A value that sets the write status of a file share. Set this value to
+    -- @true@ to set the write status to read-only, otherwise set to @false@.
+    --
+    -- Valid Values: @true@ | @false@
+    readOnly :: Prelude.Maybe Prelude.Bool,
+    fileShareId :: Prelude.Maybe Prelude.Text,
+    -- | Set to @true@ to use Amazon S3 server-side encryption with your own AWS
+    -- KMS key, or @false@ to use a key managed by Amazon S3. Optional.
+    --
+    -- Valid Values: @true@ | @false@
+    kMSEncrypted :: Prelude.Maybe Prelude.Bool,
+    locationARN :: Prelude.Maybe Prelude.Text,
+    squash :: Prelude.Maybe Prelude.Text,
+    -- | The notification policy of the file share.
+    notificationPolicy :: Prelude.Maybe Prelude.Text,
+    kMSKey :: Prelude.Maybe Prelude.Text,
+    fileShareStatus :: Prelude.Maybe Prelude.Text,
+    role' :: Prelude.Maybe Prelude.Text,
+    -- | A list of up to 50 tags assigned to the NFS file share, sorted
+    -- alphabetically by key name. Each tag is a key-value pair. For a gateway
+    -- with more than 10 tags assigned, you can view all tags using the
+    -- @ListTagsForResource@ API operation.
+    tags :: Prelude.Maybe [Tag],
+    fileShareARN :: Prelude.Maybe Prelude.Text,
+    -- | Refresh cache information.
+    cacheAttributes :: Prelude.Maybe CacheAttributes,
+    clientList :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    objectACL :: Prelude.Maybe ObjectACL,
+    nFSFileShareDefaults :: Prelude.Maybe NFSFileShareDefaults,
+    path :: Prelude.Maybe Prelude.Text,
+    gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | A value that sets who pays the cost of the request and the cost
+    -- associated with data download from the S3 bucket. If this value is set
+    -- to @true@, the requester pays the costs; otherwise, the S3 bucket owner
+    -- pays. However, the S3 bucket owner always pays the cost of storing data.
+    --
+    -- @RequesterPays@ is a configuration for the S3 bucket that backs the file
+    -- share, so make sure that the configuration on the file share is the same
+    -- as the S3 bucket configuration.
+    --
+    -- Valid Values: @true@ | @false@
+    requesterPays :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NFSFileShareInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NFSFileShareInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nfsfsiDefaultStorageClass' - The default storage class for objects put into an Amazon S3 bucket by the file gateway. The default value is @S3_INTELLIGENT_TIERING@ . Optional. Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ | @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nfsfsiFileShareName' - The name of the file share. Optional.
+-- 'defaultStorageClass', 'nFSFileShareInfo_defaultStorageClass' - The default storage class for objects put into an Amazon S3 bucket by
+-- the file gateway. The default value is @S3_INTELLIGENT_TIERING@.
+-- Optional.
 --
--- * 'nfsfsiGuessMIMETypeEnabled' - A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to @true@ to enable MIME type guessing, otherwise set to @false@ . The default value is @true@ . Valid Values: @true@ | @false@
+-- Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ |
+-- @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
 --
--- * 'nfsfsiReadOnly' - A value that sets the write status of a file share. Set this value to @true@ to set the write status to read-only, otherwise set to @false@ . Valid Values: @true@ | @false@
+-- 'fileShareName', 'nFSFileShareInfo_fileShareName' - The name of the file share. Optional.
 --
--- * 'nfsfsiFileShareId' - Undocumented member.
+-- @FileShareName@ must be set if an S3 prefix name is set in
+-- @LocationARN@.
 --
--- * 'nfsfsiKMSEncrypted' - Set to @true@ to use Amazon S3 server-side encryption with your own AWS KMS key, or @false@ to use a key managed by Amazon S3. Optional. Valid Values: @true@ | @false@
+-- 'guessMIMETypeEnabled', 'nFSFileShareInfo_guessMIMETypeEnabled' - A value that enables guessing of the MIME type for uploaded objects
+-- based on file extensions. Set this value to @true@ to enable MIME type
+-- guessing, otherwise set to @false@. The default value is @true@.
 --
--- * 'nfsfsiLocationARN' - Undocumented member.
+-- Valid Values: @true@ | @false@
 --
--- * 'nfsfsiSquash' - Undocumented member.
+-- 'readOnly', 'nFSFileShareInfo_readOnly' - A value that sets the write status of a file share. Set this value to
+-- @true@ to set the write status to read-only, otherwise set to @false@.
 --
--- * 'nfsfsiNotificationPolicy' - The notification policy of the file share.
+-- Valid Values: @true@ | @false@
 --
--- * 'nfsfsiKMSKey' - Undocumented member.
+-- 'fileShareId', 'nFSFileShareInfo_fileShareId' - Undocumented member.
 --
--- * 'nfsfsiFileShareStatus' - Undocumented member.
+-- 'kMSEncrypted', 'nFSFileShareInfo_kMSEncrypted' - Set to @true@ to use Amazon S3 server-side encryption with your own AWS
+-- KMS key, or @false@ to use a key managed by Amazon S3. Optional.
 --
--- * 'nfsfsiRole' - Undocumented member.
+-- Valid Values: @true@ | @false@
 --
--- * 'nfsfsiTags' - A list of up to 50 tags assigned to the NFS file share, sorted alphabetically by key name. Each tag is a key-value pair. For a gateway with more than 10 tags assigned, you can view all tags using the @ListTagsForResource@ API operation.
+-- 'locationARN', 'nFSFileShareInfo_locationARN' - Undocumented member.
 --
--- * 'nfsfsiFileShareARN' - Undocumented member.
+-- 'squash', 'nFSFileShareInfo_squash' - Undocumented member.
 --
--- * 'nfsfsiCacheAttributes' - Refresh cache information.
+-- 'notificationPolicy', 'nFSFileShareInfo_notificationPolicy' - The notification policy of the file share.
 --
--- * 'nfsfsiClientList' - Undocumented member.
+-- 'kMSKey', 'nFSFileShareInfo_kMSKey' - Undocumented member.
 --
--- * 'nfsfsiObjectACL' - Undocumented member.
+-- 'fileShareStatus', 'nFSFileShareInfo_fileShareStatus' - Undocumented member.
 --
--- * 'nfsfsiNFSFileShareDefaults' - Undocumented member.
+-- 'role'', 'nFSFileShareInfo_role' - Undocumented member.
 --
--- * 'nfsfsiPath' - Undocumented member.
+-- 'tags', 'nFSFileShareInfo_tags' - A list of up to 50 tags assigned to the NFS file share, sorted
+-- alphabetically by key name. Each tag is a key-value pair. For a gateway
+-- with more than 10 tags assigned, you can view all tags using the
+-- @ListTagsForResource@ API operation.
 --
--- * 'nfsfsiGatewayARN' - Undocumented member.
+-- 'fileShareARN', 'nFSFileShareInfo_fileShareARN' - Undocumented member.
 --
--- * 'nfsfsiRequesterPays' - A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket. If this value is set to @true@ , the requester pays the costs; otherwise, the S3 bucket owner pays. However, the S3 bucket owner always pays the cost of storing data. Valid Values: @true@ | @false@
-nFSFileShareInfo ::
+-- 'cacheAttributes', 'nFSFileShareInfo_cacheAttributes' - Refresh cache information.
+--
+-- 'clientList', 'nFSFileShareInfo_clientList' - Undocumented member.
+--
+-- 'objectACL', 'nFSFileShareInfo_objectACL' - Undocumented member.
+--
+-- 'nFSFileShareDefaults', 'nFSFileShareInfo_nFSFileShareDefaults' - Undocumented member.
+--
+-- 'path', 'nFSFileShareInfo_path' - Undocumented member.
+--
+-- 'gatewayARN', 'nFSFileShareInfo_gatewayARN' - Undocumented member.
+--
+-- 'requesterPays', 'nFSFileShareInfo_requesterPays' - A value that sets who pays the cost of the request and the cost
+-- associated with data download from the S3 bucket. If this value is set
+-- to @true@, the requester pays the costs; otherwise, the S3 bucket owner
+-- pays. However, the S3 bucket owner always pays the cost of storing data.
+--
+-- @RequesterPays@ is a configuration for the S3 bucket that backs the file
+-- share, so make sure that the configuration on the file share is the same
+-- as the S3 bucket configuration.
+--
+-- Valid Values: @true@ | @false@
+newNFSFileShareInfo ::
   NFSFileShareInfo
-nFSFileShareInfo =
+newNFSFileShareInfo =
   NFSFileShareInfo'
-    { _nfsfsiDefaultStorageClass =
-        Nothing,
-      _nfsfsiFileShareName = Nothing,
-      _nfsfsiGuessMIMETypeEnabled = Nothing,
-      _nfsfsiReadOnly = Nothing,
-      _nfsfsiFileShareId = Nothing,
-      _nfsfsiKMSEncrypted = Nothing,
-      _nfsfsiLocationARN = Nothing,
-      _nfsfsiSquash = Nothing,
-      _nfsfsiNotificationPolicy = Nothing,
-      _nfsfsiKMSKey = Nothing,
-      _nfsfsiFileShareStatus = Nothing,
-      _nfsfsiRole = Nothing,
-      _nfsfsiTags = Nothing,
-      _nfsfsiFileShareARN = Nothing,
-      _nfsfsiCacheAttributes = Nothing,
-      _nfsfsiClientList = Nothing,
-      _nfsfsiObjectACL = Nothing,
-      _nfsfsiNFSFileShareDefaults = Nothing,
-      _nfsfsiPath = Nothing,
-      _nfsfsiGatewayARN = Nothing,
-      _nfsfsiRequesterPays = Nothing
+    { defaultStorageClass =
+        Prelude.Nothing,
+      fileShareName = Prelude.Nothing,
+      guessMIMETypeEnabled = Prelude.Nothing,
+      readOnly = Prelude.Nothing,
+      fileShareId = Prelude.Nothing,
+      kMSEncrypted = Prelude.Nothing,
+      locationARN = Prelude.Nothing,
+      squash = Prelude.Nothing,
+      notificationPolicy = Prelude.Nothing,
+      kMSKey = Prelude.Nothing,
+      fileShareStatus = Prelude.Nothing,
+      role' = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      fileShareARN = Prelude.Nothing,
+      cacheAttributes = Prelude.Nothing,
+      clientList = Prelude.Nothing,
+      objectACL = Prelude.Nothing,
+      nFSFileShareDefaults = Prelude.Nothing,
+      path = Prelude.Nothing,
+      gatewayARN = Prelude.Nothing,
+      requesterPays = Prelude.Nothing
     }
 
--- | The default storage class for objects put into an Amazon S3 bucket by the file gateway. The default value is @S3_INTELLIGENT_TIERING@ . Optional. Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ | @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
-nfsfsiDefaultStorageClass :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiDefaultStorageClass = lens _nfsfsiDefaultStorageClass (\s a -> s {_nfsfsiDefaultStorageClass = a})
+-- | The default storage class for objects put into an Amazon S3 bucket by
+-- the file gateway. The default value is @S3_INTELLIGENT_TIERING@.
+-- Optional.
+--
+-- Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ |
+-- @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
+nFSFileShareInfo_defaultStorageClass :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_defaultStorageClass = Lens.lens (\NFSFileShareInfo' {defaultStorageClass} -> defaultStorageClass) (\s@NFSFileShareInfo' {} a -> s {defaultStorageClass = a} :: NFSFileShareInfo)
 
 -- | The name of the file share. Optional.
-nfsfsiFileShareName :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiFileShareName = lens _nfsfsiFileShareName (\s a -> s {_nfsfsiFileShareName = a})
+--
+-- @FileShareName@ must be set if an S3 prefix name is set in
+-- @LocationARN@.
+nFSFileShareInfo_fileShareName :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_fileShareName = Lens.lens (\NFSFileShareInfo' {fileShareName} -> fileShareName) (\s@NFSFileShareInfo' {} a -> s {fileShareName = a} :: NFSFileShareInfo)
 
--- | A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to @true@ to enable MIME type guessing, otherwise set to @false@ . The default value is @true@ . Valid Values: @true@ | @false@
-nfsfsiGuessMIMETypeEnabled :: Lens' NFSFileShareInfo (Maybe Bool)
-nfsfsiGuessMIMETypeEnabled = lens _nfsfsiGuessMIMETypeEnabled (\s a -> s {_nfsfsiGuessMIMETypeEnabled = a})
+-- | A value that enables guessing of the MIME type for uploaded objects
+-- based on file extensions. Set this value to @true@ to enable MIME type
+-- guessing, otherwise set to @false@. The default value is @true@.
+--
+-- Valid Values: @true@ | @false@
+nFSFileShareInfo_guessMIMETypeEnabled :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Bool)
+nFSFileShareInfo_guessMIMETypeEnabled = Lens.lens (\NFSFileShareInfo' {guessMIMETypeEnabled} -> guessMIMETypeEnabled) (\s@NFSFileShareInfo' {} a -> s {guessMIMETypeEnabled = a} :: NFSFileShareInfo)
 
--- | A value that sets the write status of a file share. Set this value to @true@ to set the write status to read-only, otherwise set to @false@ . Valid Values: @true@ | @false@
-nfsfsiReadOnly :: Lens' NFSFileShareInfo (Maybe Bool)
-nfsfsiReadOnly = lens _nfsfsiReadOnly (\s a -> s {_nfsfsiReadOnly = a})
-
--- | Undocumented member.
-nfsfsiFileShareId :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiFileShareId = lens _nfsfsiFileShareId (\s a -> s {_nfsfsiFileShareId = a})
-
--- | Set to @true@ to use Amazon S3 server-side encryption with your own AWS KMS key, or @false@ to use a key managed by Amazon S3. Optional. Valid Values: @true@ | @false@
-nfsfsiKMSEncrypted :: Lens' NFSFileShareInfo (Maybe Bool)
-nfsfsiKMSEncrypted = lens _nfsfsiKMSEncrypted (\s a -> s {_nfsfsiKMSEncrypted = a})
-
--- | Undocumented member.
-nfsfsiLocationARN :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiLocationARN = lens _nfsfsiLocationARN (\s a -> s {_nfsfsiLocationARN = a})
+-- | A value that sets the write status of a file share. Set this value to
+-- @true@ to set the write status to read-only, otherwise set to @false@.
+--
+-- Valid Values: @true@ | @false@
+nFSFileShareInfo_readOnly :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Bool)
+nFSFileShareInfo_readOnly = Lens.lens (\NFSFileShareInfo' {readOnly} -> readOnly) (\s@NFSFileShareInfo' {} a -> s {readOnly = a} :: NFSFileShareInfo)
 
 -- | Undocumented member.
-nfsfsiSquash :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiSquash = lens _nfsfsiSquash (\s a -> s {_nfsfsiSquash = a})
+nFSFileShareInfo_fileShareId :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_fileShareId = Lens.lens (\NFSFileShareInfo' {fileShareId} -> fileShareId) (\s@NFSFileShareInfo' {} a -> s {fileShareId = a} :: NFSFileShareInfo)
+
+-- | Set to @true@ to use Amazon S3 server-side encryption with your own AWS
+-- KMS key, or @false@ to use a key managed by Amazon S3. Optional.
+--
+-- Valid Values: @true@ | @false@
+nFSFileShareInfo_kMSEncrypted :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Bool)
+nFSFileShareInfo_kMSEncrypted = Lens.lens (\NFSFileShareInfo' {kMSEncrypted} -> kMSEncrypted) (\s@NFSFileShareInfo' {} a -> s {kMSEncrypted = a} :: NFSFileShareInfo)
+
+-- | Undocumented member.
+nFSFileShareInfo_locationARN :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_locationARN = Lens.lens (\NFSFileShareInfo' {locationARN} -> locationARN) (\s@NFSFileShareInfo' {} a -> s {locationARN = a} :: NFSFileShareInfo)
+
+-- | Undocumented member.
+nFSFileShareInfo_squash :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_squash = Lens.lens (\NFSFileShareInfo' {squash} -> squash) (\s@NFSFileShareInfo' {} a -> s {squash = a} :: NFSFileShareInfo)
 
 -- | The notification policy of the file share.
-nfsfsiNotificationPolicy :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiNotificationPolicy = lens _nfsfsiNotificationPolicy (\s a -> s {_nfsfsiNotificationPolicy = a})
+nFSFileShareInfo_notificationPolicy :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_notificationPolicy = Lens.lens (\NFSFileShareInfo' {notificationPolicy} -> notificationPolicy) (\s@NFSFileShareInfo' {} a -> s {notificationPolicy = a} :: NFSFileShareInfo)
 
 -- | Undocumented member.
-nfsfsiKMSKey :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiKMSKey = lens _nfsfsiKMSKey (\s a -> s {_nfsfsiKMSKey = a})
+nFSFileShareInfo_kMSKey :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_kMSKey = Lens.lens (\NFSFileShareInfo' {kMSKey} -> kMSKey) (\s@NFSFileShareInfo' {} a -> s {kMSKey = a} :: NFSFileShareInfo)
 
 -- | Undocumented member.
-nfsfsiFileShareStatus :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiFileShareStatus = lens _nfsfsiFileShareStatus (\s a -> s {_nfsfsiFileShareStatus = a})
+nFSFileShareInfo_fileShareStatus :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_fileShareStatus = Lens.lens (\NFSFileShareInfo' {fileShareStatus} -> fileShareStatus) (\s@NFSFileShareInfo' {} a -> s {fileShareStatus = a} :: NFSFileShareInfo)
 
 -- | Undocumented member.
-nfsfsiRole :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiRole = lens _nfsfsiRole (\s a -> s {_nfsfsiRole = a})
+nFSFileShareInfo_role :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_role = Lens.lens (\NFSFileShareInfo' {role'} -> role') (\s@NFSFileShareInfo' {} a -> s {role' = a} :: NFSFileShareInfo)
 
--- | A list of up to 50 tags assigned to the NFS file share, sorted alphabetically by key name. Each tag is a key-value pair. For a gateway with more than 10 tags assigned, you can view all tags using the @ListTagsForResource@ API operation.
-nfsfsiTags :: Lens' NFSFileShareInfo [Tag]
-nfsfsiTags = lens _nfsfsiTags (\s a -> s {_nfsfsiTags = a}) . _Default . _Coerce
+-- | A list of up to 50 tags assigned to the NFS file share, sorted
+-- alphabetically by key name. Each tag is a key-value pair. For a gateway
+-- with more than 10 tags assigned, you can view all tags using the
+-- @ListTagsForResource@ API operation.
+nFSFileShareInfo_tags :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe [Tag])
+nFSFileShareInfo_tags = Lens.lens (\NFSFileShareInfo' {tags} -> tags) (\s@NFSFileShareInfo' {} a -> s {tags = a} :: NFSFileShareInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-nfsfsiFileShareARN :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiFileShareARN = lens _nfsfsiFileShareARN (\s a -> s {_nfsfsiFileShareARN = a})
+nFSFileShareInfo_fileShareARN :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_fileShareARN = Lens.lens (\NFSFileShareInfo' {fileShareARN} -> fileShareARN) (\s@NFSFileShareInfo' {} a -> s {fileShareARN = a} :: NFSFileShareInfo)
 
 -- | Refresh cache information.
-nfsfsiCacheAttributes :: Lens' NFSFileShareInfo (Maybe CacheAttributes)
-nfsfsiCacheAttributes = lens _nfsfsiCacheAttributes (\s a -> s {_nfsfsiCacheAttributes = a})
+nFSFileShareInfo_cacheAttributes :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe CacheAttributes)
+nFSFileShareInfo_cacheAttributes = Lens.lens (\NFSFileShareInfo' {cacheAttributes} -> cacheAttributes) (\s@NFSFileShareInfo' {} a -> s {cacheAttributes = a} :: NFSFileShareInfo)
 
 -- | Undocumented member.
-nfsfsiClientList :: Lens' NFSFileShareInfo (Maybe (NonEmpty Text))
-nfsfsiClientList = lens _nfsfsiClientList (\s a -> s {_nfsfsiClientList = a}) . mapping _List1
+nFSFileShareInfo_clientList :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+nFSFileShareInfo_clientList = Lens.lens (\NFSFileShareInfo' {clientList} -> clientList) (\s@NFSFileShareInfo' {} a -> s {clientList = a} :: NFSFileShareInfo) Prelude.. Lens.mapping Prelude._List1
 
 -- | Undocumented member.
-nfsfsiObjectACL :: Lens' NFSFileShareInfo (Maybe ObjectACL)
-nfsfsiObjectACL = lens _nfsfsiObjectACL (\s a -> s {_nfsfsiObjectACL = a})
+nFSFileShareInfo_objectACL :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe ObjectACL)
+nFSFileShareInfo_objectACL = Lens.lens (\NFSFileShareInfo' {objectACL} -> objectACL) (\s@NFSFileShareInfo' {} a -> s {objectACL = a} :: NFSFileShareInfo)
 
 -- | Undocumented member.
-nfsfsiNFSFileShareDefaults :: Lens' NFSFileShareInfo (Maybe NFSFileShareDefaults)
-nfsfsiNFSFileShareDefaults = lens _nfsfsiNFSFileShareDefaults (\s a -> s {_nfsfsiNFSFileShareDefaults = a})
+nFSFileShareInfo_nFSFileShareDefaults :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe NFSFileShareDefaults)
+nFSFileShareInfo_nFSFileShareDefaults = Lens.lens (\NFSFileShareInfo' {nFSFileShareDefaults} -> nFSFileShareDefaults) (\s@NFSFileShareInfo' {} a -> s {nFSFileShareDefaults = a} :: NFSFileShareInfo)
 
 -- | Undocumented member.
-nfsfsiPath :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiPath = lens _nfsfsiPath (\s a -> s {_nfsfsiPath = a})
+nFSFileShareInfo_path :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_path = Lens.lens (\NFSFileShareInfo' {path} -> path) (\s@NFSFileShareInfo' {} a -> s {path = a} :: NFSFileShareInfo)
 
 -- | Undocumented member.
-nfsfsiGatewayARN :: Lens' NFSFileShareInfo (Maybe Text)
-nfsfsiGatewayARN = lens _nfsfsiGatewayARN (\s a -> s {_nfsfsiGatewayARN = a})
+nFSFileShareInfo_gatewayARN :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Text)
+nFSFileShareInfo_gatewayARN = Lens.lens (\NFSFileShareInfo' {gatewayARN} -> gatewayARN) (\s@NFSFileShareInfo' {} a -> s {gatewayARN = a} :: NFSFileShareInfo)
 
--- | A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket. If this value is set to @true@ , the requester pays the costs; otherwise, the S3 bucket owner pays. However, the S3 bucket owner always pays the cost of storing data. Valid Values: @true@ | @false@
-nfsfsiRequesterPays :: Lens' NFSFileShareInfo (Maybe Bool)
-nfsfsiRequesterPays = lens _nfsfsiRequesterPays (\s a -> s {_nfsfsiRequesterPays = a})
+-- | A value that sets who pays the cost of the request and the cost
+-- associated with data download from the S3 bucket. If this value is set
+-- to @true@, the requester pays the costs; otherwise, the S3 bucket owner
+-- pays. However, the S3 bucket owner always pays the cost of storing data.
+--
+-- @RequesterPays@ is a configuration for the S3 bucket that backs the file
+-- share, so make sure that the configuration on the file share is the same
+-- as the S3 bucket configuration.
+--
+-- Valid Values: @true@ | @false@
+nFSFileShareInfo_requesterPays :: Lens.Lens' NFSFileShareInfo (Prelude.Maybe Prelude.Bool)
+nFSFileShareInfo_requesterPays = Lens.lens (\NFSFileShareInfo' {requesterPays} -> requesterPays) (\s@NFSFileShareInfo' {} a -> s {requesterPays = a} :: NFSFileShareInfo)
 
-instance FromJSON NFSFileShareInfo where
+instance Prelude.FromJSON NFSFileShareInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NFSFileShareInfo"
       ( \x ->
           NFSFileShareInfo'
-            <$> (x .:? "DefaultStorageClass")
-            <*> (x .:? "FileShareName")
-            <*> (x .:? "GuessMIMETypeEnabled")
-            <*> (x .:? "ReadOnly")
-            <*> (x .:? "FileShareId")
-            <*> (x .:? "KMSEncrypted")
-            <*> (x .:? "LocationARN")
-            <*> (x .:? "Squash")
-            <*> (x .:? "NotificationPolicy")
-            <*> (x .:? "KMSKey")
-            <*> (x .:? "FileShareStatus")
-            <*> (x .:? "Role")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "FileShareARN")
-            <*> (x .:? "CacheAttributes")
-            <*> (x .:? "ClientList")
-            <*> (x .:? "ObjectACL")
-            <*> (x .:? "NFSFileShareDefaults")
-            <*> (x .:? "Path")
-            <*> (x .:? "GatewayARN")
-            <*> (x .:? "RequesterPays")
+            Prelude.<$> (x Prelude..:? "DefaultStorageClass")
+            Prelude.<*> (x Prelude..:? "FileShareName")
+            Prelude.<*> (x Prelude..:? "GuessMIMETypeEnabled")
+            Prelude.<*> (x Prelude..:? "ReadOnly")
+            Prelude.<*> (x Prelude..:? "FileShareId")
+            Prelude.<*> (x Prelude..:? "KMSEncrypted")
+            Prelude.<*> (x Prelude..:? "LocationARN")
+            Prelude.<*> (x Prelude..:? "Squash")
+            Prelude.<*> (x Prelude..:? "NotificationPolicy")
+            Prelude.<*> (x Prelude..:? "KMSKey")
+            Prelude.<*> (x Prelude..:? "FileShareStatus")
+            Prelude.<*> (x Prelude..:? "Role")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "FileShareARN")
+            Prelude.<*> (x Prelude..:? "CacheAttributes")
+            Prelude.<*> (x Prelude..:? "ClientList")
+            Prelude.<*> (x Prelude..:? "ObjectACL")
+            Prelude.<*> (x Prelude..:? "NFSFileShareDefaults")
+            Prelude.<*> (x Prelude..:? "Path")
+            Prelude.<*> (x Prelude..:? "GatewayARN")
+            Prelude.<*> (x Prelude..:? "RequesterPays")
       )
 
-instance Hashable NFSFileShareInfo
+instance Prelude.Hashable NFSFileShareInfo
 
-instance NFData NFSFileShareInfo
+instance Prelude.NFData NFSFileShareInfo

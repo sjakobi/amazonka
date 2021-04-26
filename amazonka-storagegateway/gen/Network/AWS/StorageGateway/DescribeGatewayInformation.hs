@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,379 +21,396 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns metadata about a gateway such as its name, network interfaces, configured time zone, and the state (whether the gateway is running or not). To specify which gateway to describe, use the Amazon Resource Name (ARN) of the gateway in your request.
+-- Returns metadata about a gateway such as its name, network interfaces,
+-- configured time zone, and the state (whether the gateway is running or
+-- not). To specify which gateway to describe, use the Amazon Resource Name
+-- (ARN) of the gateway in your request.
 module Network.AWS.StorageGateway.DescribeGatewayInformation
   ( -- * Creating a Request
-    describeGatewayInformation,
-    DescribeGatewayInformation,
+    DescribeGatewayInformation (..),
+    newDescribeGatewayInformation,
 
     -- * Request Lenses
-    dgiGatewayARN,
+    describeGatewayInformation_gatewayARN,
 
     -- * Destructuring the Response
-    describeGatewayInformationResponse,
-    DescribeGatewayInformationResponse,
+    DescribeGatewayInformationResponse (..),
+    newDescribeGatewayInformationResponse,
 
     -- * Response Lenses
-    dgirrsGatewayState,
-    dgirrsGatewayName,
-    dgirrsDeprecationDate,
-    dgirrsSoftwareUpdatesEndDate,
-    dgirrsEndpointType,
-    dgirrsNextUpdateAvailabilityDate,
-    dgirrsGatewayTimezone,
-    dgirrsGatewayNetworkInterfaces,
-    dgirrsGatewayType,
-    dgirrsEC2InstanceRegion,
-    dgirrsLastSoftwareUpdate,
-    dgirrsTags,
-    dgirrsVPCEndpoint,
-    dgirrsCloudWatchLogGroupARN,
-    dgirrsEC2InstanceId,
-    dgirrsHostEnvironment,
-    dgirrsGatewayARN,
-    dgirrsGatewayId,
-    dgirrsResponseStatus,
+    describeGatewayInformationResponse_gatewayState,
+    describeGatewayInformationResponse_gatewayName,
+    describeGatewayInformationResponse_deprecationDate,
+    describeGatewayInformationResponse_softwareUpdatesEndDate,
+    describeGatewayInformationResponse_endpointType,
+    describeGatewayInformationResponse_nextUpdateAvailabilityDate,
+    describeGatewayInformationResponse_gatewayTimezone,
+    describeGatewayInformationResponse_gatewayNetworkInterfaces,
+    describeGatewayInformationResponse_gatewayType,
+    describeGatewayInformationResponse_ec2InstanceRegion,
+    describeGatewayInformationResponse_lastSoftwareUpdate,
+    describeGatewayInformationResponse_tags,
+    describeGatewayInformationResponse_vPCEndpoint,
+    describeGatewayInformationResponse_cloudWatchLogGroupARN,
+    describeGatewayInformationResponse_ec2InstanceId,
+    describeGatewayInformationResponse_hostEnvironment,
+    describeGatewayInformationResponse_gatewayARN,
+    describeGatewayInformationResponse_gatewayId,
+    describeGatewayInformationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
+import Network.AWS.StorageGateway.Types.HostEnvironment
+import Network.AWS.StorageGateway.Types.NetworkInterface
+import Network.AWS.StorageGateway.Types.Tag
 
 -- | A JSON object containing the ID of the gateway.
 --
---
---
--- /See:/ 'describeGatewayInformation' smart constructor.
-newtype DescribeGatewayInformation = DescribeGatewayInformation'
-  { _dgiGatewayARN ::
-      Text
+-- /See:/ 'newDescribeGatewayInformation' smart constructor.
+data DescribeGatewayInformation = DescribeGatewayInformation'
+  { gatewayARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGatewayInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGatewayInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgiGatewayARN' - Undocumented member.
-describeGatewayInformation ::
-  -- | 'dgiGatewayARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'gatewayARN', 'describeGatewayInformation_gatewayARN' - Undocumented member.
+newDescribeGatewayInformation ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
   DescribeGatewayInformation
-describeGatewayInformation pGatewayARN_ =
+newDescribeGatewayInformation pGatewayARN_ =
   DescribeGatewayInformation'
-    { _dgiGatewayARN =
+    { gatewayARN =
         pGatewayARN_
     }
 
 -- | Undocumented member.
-dgiGatewayARN :: Lens' DescribeGatewayInformation Text
-dgiGatewayARN = lens _dgiGatewayARN (\s a -> s {_dgiGatewayARN = a})
+describeGatewayInformation_gatewayARN :: Lens.Lens' DescribeGatewayInformation Prelude.Text
+describeGatewayInformation_gatewayARN = Lens.lens (\DescribeGatewayInformation' {gatewayARN} -> gatewayARN) (\s@DescribeGatewayInformation' {} a -> s {gatewayARN = a} :: DescribeGatewayInformation)
 
-instance AWSRequest DescribeGatewayInformation where
+instance
+  Prelude.AWSRequest
+    DescribeGatewayInformation
+  where
   type
     Rs DescribeGatewayInformation =
       DescribeGatewayInformationResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeGatewayInformationResponse'
-            <$> (x .?> "GatewayState")
-            <*> (x .?> "GatewayName")
-            <*> (x .?> "DeprecationDate")
-            <*> (x .?> "SoftwareUpdatesEndDate")
-            <*> (x .?> "EndpointType")
-            <*> (x .?> "NextUpdateAvailabilityDate")
-            <*> (x .?> "GatewayTimezone")
-            <*> (x .?> "GatewayNetworkInterfaces" .!@ mempty)
-            <*> (x .?> "GatewayType")
-            <*> (x .?> "Ec2InstanceRegion")
-            <*> (x .?> "LastSoftwareUpdate")
-            <*> (x .?> "Tags" .!@ mempty)
-            <*> (x .?> "VPCEndpoint")
-            <*> (x .?> "CloudWatchLogGroupARN")
-            <*> (x .?> "Ec2InstanceId")
-            <*> (x .?> "HostEnvironment")
-            <*> (x .?> "GatewayARN")
-            <*> (x .?> "GatewayId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayState")
+            Prelude.<*> (x Prelude..?> "GatewayName")
+            Prelude.<*> (x Prelude..?> "DeprecationDate")
+            Prelude.<*> (x Prelude..?> "SoftwareUpdatesEndDate")
+            Prelude.<*> (x Prelude..?> "EndpointType")
+            Prelude.<*> (x Prelude..?> "NextUpdateAvailabilityDate")
+            Prelude.<*> (x Prelude..?> "GatewayTimezone")
+            Prelude.<*> ( x Prelude..?> "GatewayNetworkInterfaces"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "GatewayType")
+            Prelude.<*> (x Prelude..?> "Ec2InstanceRegion")
+            Prelude.<*> (x Prelude..?> "LastSoftwareUpdate")
+            Prelude.<*> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "VPCEndpoint")
+            Prelude.<*> (x Prelude..?> "CloudWatchLogGroupARN")
+            Prelude.<*> (x Prelude..?> "Ec2InstanceId")
+            Prelude.<*> (x Prelude..?> "HostEnvironment")
+            Prelude.<*> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (x Prelude..?> "GatewayId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeGatewayInformation
+instance Prelude.Hashable DescribeGatewayInformation
 
-instance NFData DescribeGatewayInformation
+instance Prelude.NFData DescribeGatewayInformation
 
-instance ToHeaders DescribeGatewayInformation where
+instance Prelude.ToHeaders DescribeGatewayInformation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DescribeGatewayInformation" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DescribeGatewayInformation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeGatewayInformation where
+instance Prelude.ToJSON DescribeGatewayInformation where
   toJSON DescribeGatewayInformation' {..} =
-    object
-      (catMaybes [Just ("GatewayARN" .= _dgiGatewayARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("GatewayARN" Prelude..= gatewayARN)]
+      )
 
-instance ToPath DescribeGatewayInformation where
-  toPath = const "/"
+instance Prelude.ToPath DescribeGatewayInformation where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeGatewayInformation where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeGatewayInformation where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the following fields:
 --
---
---
--- /See:/ 'describeGatewayInformationResponse' smart constructor.
+-- /See:/ 'newDescribeGatewayInformationResponse' smart constructor.
 data DescribeGatewayInformationResponse = DescribeGatewayInformationResponse'
-  { _dgirrsGatewayState ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsGatewayName ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsDeprecationDate ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsSoftwareUpdatesEndDate ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsEndpointType ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsNextUpdateAvailabilityDate ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsGatewayTimezone ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsGatewayNetworkInterfaces ::
-      !( Maybe
-           [NetworkInterface]
-       ),
-    _dgirrsGatewayType ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsEC2InstanceRegion ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsLastSoftwareUpdate ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsTags ::
-      !( Maybe
-           [Tag]
-       ),
-    _dgirrsVPCEndpoint ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsCloudWatchLogGroupARN ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsEC2InstanceId ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsHostEnvironment ::
-      !( Maybe
-           HostEnvironment
-       ),
-    _dgirrsGatewayARN ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsGatewayId ::
-      !( Maybe
-           Text
-       ),
-    _dgirrsResponseStatus ::
-      !Int
+  { -- | A value that indicates the operating state of the gateway.
+    gatewayState :: Prelude.Maybe Prelude.Text,
+    -- | The name you configured for your gateway.
+    gatewayName :: Prelude.Maybe Prelude.Text,
+    -- | Date after which this gateway will not receive software updates for new
+    -- features and bug fixes.
+    deprecationDate :: Prelude.Maybe Prelude.Text,
+    -- | Date after which this gateway will not receive software updates for new
+    -- features.
+    softwareUpdatesEndDate :: Prelude.Maybe Prelude.Text,
+    -- | The type of endpoint for your gateway.
+    --
+    -- Valid Values: @STANDARD@ | @FIPS@
+    endpointType :: Prelude.Maybe Prelude.Text,
+    -- | The date on which an update to the gateway is available. This date is in
+    -- the time zone of the gateway. If the gateway is not available for an
+    -- update this field is not returned in the response.
+    nextUpdateAvailabilityDate :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates the time zone configured for the gateway.
+    gatewayTimezone :: Prelude.Maybe Prelude.Text,
+    -- | A NetworkInterface array that contains descriptions of the gateway
+    -- network interfaces.
+    gatewayNetworkInterfaces :: Prelude.Maybe [NetworkInterface],
+    -- | The type of the gateway.
+    gatewayType :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Region where the Amazon EC2 instance is located.
+    ec2InstanceRegion :: Prelude.Maybe Prelude.Text,
+    -- | The date on which the last software update was applied to the gateway.
+    -- If the gateway has never been updated, this field does not return a
+    -- value in the response.
+    lastSoftwareUpdate :: Prelude.Maybe Prelude.Text,
+    -- | A list of up to 50 tags assigned to the gateway, sorted alphabetically
+    -- by key name. Each tag is a key-value pair. For a gateway with more than
+    -- 10 tags assigned, you can view all tags using the @ListTagsForResource@
+    -- API operation.
+    tags :: Prelude.Maybe [Tag],
+    -- | The configuration settings for the virtual private cloud (VPC) endpoint
+    -- for your gateway.
+    vPCEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
+    -- is used to monitor events in the gateway.
+    cloudWatchLogGroupARN :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon EC2 instance that was used to launch the gateway.
+    ec2InstanceId :: Prelude.Maybe Prelude.Text,
+    -- | The type of hypervisor environment used by the host.
+    hostEnvironment :: Prelude.Maybe HostEnvironment,
+    gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier assigned to your gateway during activation. This
+    -- ID becomes part of the gateway Amazon Resource Name (ARN), which you use
+    -- as input for other operations.
+    gatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGatewayInformationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGatewayInformationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgirrsGatewayState' - A value that indicates the operating state of the gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgirrsGatewayName' - The name you configured for your gateway.
+-- 'gatewayState', 'describeGatewayInformationResponse_gatewayState' - A value that indicates the operating state of the gateway.
 --
--- * 'dgirrsDeprecationDate' - Date after which this gateway will not receive software updates for new features and bug fixes.
+-- 'gatewayName', 'describeGatewayInformationResponse_gatewayName' - The name you configured for your gateway.
 --
--- * 'dgirrsSoftwareUpdatesEndDate' - Date after which this gateway will not receive software updates for new features.
+-- 'deprecationDate', 'describeGatewayInformationResponse_deprecationDate' - Date after which this gateway will not receive software updates for new
+-- features and bug fixes.
 --
--- * 'dgirrsEndpointType' - The type of endpoint for your gateway. Valid Values: @STANDARD@ | @FIPS@
+-- 'softwareUpdatesEndDate', 'describeGatewayInformationResponse_softwareUpdatesEndDate' - Date after which this gateway will not receive software updates for new
+-- features.
 --
--- * 'dgirrsNextUpdateAvailabilityDate' - The date on which an update to the gateway is available. This date is in the time zone of the gateway. If the gateway is not available for an update this field is not returned in the response.
+-- 'endpointType', 'describeGatewayInformationResponse_endpointType' - The type of endpoint for your gateway.
 --
--- * 'dgirrsGatewayTimezone' - A value that indicates the time zone configured for the gateway.
+-- Valid Values: @STANDARD@ | @FIPS@
 --
--- * 'dgirrsGatewayNetworkInterfaces' - A 'NetworkInterface' array that contains descriptions of the gateway network interfaces.
+-- 'nextUpdateAvailabilityDate', 'describeGatewayInformationResponse_nextUpdateAvailabilityDate' - The date on which an update to the gateway is available. This date is in
+-- the time zone of the gateway. If the gateway is not available for an
+-- update this field is not returned in the response.
 --
--- * 'dgirrsGatewayType' - The type of the gateway.
+-- 'gatewayTimezone', 'describeGatewayInformationResponse_gatewayTimezone' - A value that indicates the time zone configured for the gateway.
 --
--- * 'dgirrsEC2InstanceRegion' - The AWS Region where the Amazon EC2 instance is located.
+-- 'gatewayNetworkInterfaces', 'describeGatewayInformationResponse_gatewayNetworkInterfaces' - A NetworkInterface array that contains descriptions of the gateway
+-- network interfaces.
 --
--- * 'dgirrsLastSoftwareUpdate' - The date on which the last software update was applied to the gateway. If the gateway has never been updated, this field does not return a value in the response.
+-- 'gatewayType', 'describeGatewayInformationResponse_gatewayType' - The type of the gateway.
 --
--- * 'dgirrsTags' - A list of up to 50 tags assigned to the gateway, sorted alphabetically by key name. Each tag is a key-value pair. For a gateway with more than 10 tags assigned, you can view all tags using the @ListTagsForResource@ API operation.
+-- 'ec2InstanceRegion', 'describeGatewayInformationResponse_ec2InstanceRegion' - The AWS Region where the Amazon EC2 instance is located.
 --
--- * 'dgirrsVPCEndpoint' - The configuration settings for the virtual private cloud (VPC) endpoint for your gateway.
+-- 'lastSoftwareUpdate', 'describeGatewayInformationResponse_lastSoftwareUpdate' - The date on which the last software update was applied to the gateway.
+-- If the gateway has never been updated, this field does not return a
+-- value in the response.
 --
--- * 'dgirrsCloudWatchLogGroupARN' - The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor events in the gateway.
+-- 'tags', 'describeGatewayInformationResponse_tags' - A list of up to 50 tags assigned to the gateway, sorted alphabetically
+-- by key name. Each tag is a key-value pair. For a gateway with more than
+-- 10 tags assigned, you can view all tags using the @ListTagsForResource@
+-- API operation.
 --
--- * 'dgirrsEC2InstanceId' - The ID of the Amazon EC2 instance that was used to launch the gateway.
+-- 'vPCEndpoint', 'describeGatewayInformationResponse_vPCEndpoint' - The configuration settings for the virtual private cloud (VPC) endpoint
+-- for your gateway.
 --
--- * 'dgirrsHostEnvironment' - The type of hypervisor environment used by the host.
+-- 'cloudWatchLogGroupARN', 'describeGatewayInformationResponse_cloudWatchLogGroupARN' - The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
+-- is used to monitor events in the gateway.
 --
--- * 'dgirrsGatewayARN' - Undocumented member.
+-- 'ec2InstanceId', 'describeGatewayInformationResponse_ec2InstanceId' - The ID of the Amazon EC2 instance that was used to launch the gateway.
 --
--- * 'dgirrsGatewayId' - The unique identifier assigned to your gateway during activation. This ID becomes part of the gateway Amazon Resource Name (ARN), which you use as input for other operations.
+-- 'hostEnvironment', 'describeGatewayInformationResponse_hostEnvironment' - The type of hypervisor environment used by the host.
 --
--- * 'dgirrsResponseStatus' - -- | The response status code.
-describeGatewayInformationResponse ::
-  -- | 'dgirrsResponseStatus'
-  Int ->
+-- 'gatewayARN', 'describeGatewayInformationResponse_gatewayARN' - Undocumented member.
+--
+-- 'gatewayId', 'describeGatewayInformationResponse_gatewayId' - The unique identifier assigned to your gateway during activation. This
+-- ID becomes part of the gateway Amazon Resource Name (ARN), which you use
+-- as input for other operations.
+--
+-- 'httpStatus', 'describeGatewayInformationResponse_httpStatus' - The response's http status code.
+newDescribeGatewayInformationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeGatewayInformationResponse
-describeGatewayInformationResponse pResponseStatus_ =
+newDescribeGatewayInformationResponse pHttpStatus_ =
   DescribeGatewayInformationResponse'
-    { _dgirrsGatewayState =
-        Nothing,
-      _dgirrsGatewayName = Nothing,
-      _dgirrsDeprecationDate = Nothing,
-      _dgirrsSoftwareUpdatesEndDate = Nothing,
-      _dgirrsEndpointType = Nothing,
-      _dgirrsNextUpdateAvailabilityDate =
-        Nothing,
-      _dgirrsGatewayTimezone = Nothing,
-      _dgirrsGatewayNetworkInterfaces =
-        Nothing,
-      _dgirrsGatewayType = Nothing,
-      _dgirrsEC2InstanceRegion = Nothing,
-      _dgirrsLastSoftwareUpdate = Nothing,
-      _dgirrsTags = Nothing,
-      _dgirrsVPCEndpoint = Nothing,
-      _dgirrsCloudWatchLogGroupARN = Nothing,
-      _dgirrsEC2InstanceId = Nothing,
-      _dgirrsHostEnvironment = Nothing,
-      _dgirrsGatewayARN = Nothing,
-      _dgirrsGatewayId = Nothing,
-      _dgirrsResponseStatus =
-        pResponseStatus_
+    { gatewayState =
+        Prelude.Nothing,
+      gatewayName = Prelude.Nothing,
+      deprecationDate = Prelude.Nothing,
+      softwareUpdatesEndDate =
+        Prelude.Nothing,
+      endpointType = Prelude.Nothing,
+      nextUpdateAvailabilityDate =
+        Prelude.Nothing,
+      gatewayTimezone = Prelude.Nothing,
+      gatewayNetworkInterfaces =
+        Prelude.Nothing,
+      gatewayType = Prelude.Nothing,
+      ec2InstanceRegion = Prelude.Nothing,
+      lastSoftwareUpdate = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      vPCEndpoint = Prelude.Nothing,
+      cloudWatchLogGroupARN = Prelude.Nothing,
+      ec2InstanceId = Prelude.Nothing,
+      hostEnvironment = Prelude.Nothing,
+      gatewayARN = Prelude.Nothing,
+      gatewayId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A value that indicates the operating state of the gateway.
-dgirrsGatewayState :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsGatewayState = lens _dgirrsGatewayState (\s a -> s {_dgirrsGatewayState = a})
+describeGatewayInformationResponse_gatewayState :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_gatewayState = Lens.lens (\DescribeGatewayInformationResponse' {gatewayState} -> gatewayState) (\s@DescribeGatewayInformationResponse' {} a -> s {gatewayState = a} :: DescribeGatewayInformationResponse)
 
 -- | The name you configured for your gateway.
-dgirrsGatewayName :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsGatewayName = lens _dgirrsGatewayName (\s a -> s {_dgirrsGatewayName = a})
+describeGatewayInformationResponse_gatewayName :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_gatewayName = Lens.lens (\DescribeGatewayInformationResponse' {gatewayName} -> gatewayName) (\s@DescribeGatewayInformationResponse' {} a -> s {gatewayName = a} :: DescribeGatewayInformationResponse)
 
--- | Date after which this gateway will not receive software updates for new features and bug fixes.
-dgirrsDeprecationDate :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsDeprecationDate = lens _dgirrsDeprecationDate (\s a -> s {_dgirrsDeprecationDate = a})
+-- | Date after which this gateway will not receive software updates for new
+-- features and bug fixes.
+describeGatewayInformationResponse_deprecationDate :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_deprecationDate = Lens.lens (\DescribeGatewayInformationResponse' {deprecationDate} -> deprecationDate) (\s@DescribeGatewayInformationResponse' {} a -> s {deprecationDate = a} :: DescribeGatewayInformationResponse)
 
--- | Date after which this gateway will not receive software updates for new features.
-dgirrsSoftwareUpdatesEndDate :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsSoftwareUpdatesEndDate = lens _dgirrsSoftwareUpdatesEndDate (\s a -> s {_dgirrsSoftwareUpdatesEndDate = a})
+-- | Date after which this gateway will not receive software updates for new
+-- features.
+describeGatewayInformationResponse_softwareUpdatesEndDate :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_softwareUpdatesEndDate = Lens.lens (\DescribeGatewayInformationResponse' {softwareUpdatesEndDate} -> softwareUpdatesEndDate) (\s@DescribeGatewayInformationResponse' {} a -> s {softwareUpdatesEndDate = a} :: DescribeGatewayInformationResponse)
 
--- | The type of endpoint for your gateway. Valid Values: @STANDARD@ | @FIPS@
-dgirrsEndpointType :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsEndpointType = lens _dgirrsEndpointType (\s a -> s {_dgirrsEndpointType = a})
+-- | The type of endpoint for your gateway.
+--
+-- Valid Values: @STANDARD@ | @FIPS@
+describeGatewayInformationResponse_endpointType :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_endpointType = Lens.lens (\DescribeGatewayInformationResponse' {endpointType} -> endpointType) (\s@DescribeGatewayInformationResponse' {} a -> s {endpointType = a} :: DescribeGatewayInformationResponse)
 
--- | The date on which an update to the gateway is available. This date is in the time zone of the gateway. If the gateway is not available for an update this field is not returned in the response.
-dgirrsNextUpdateAvailabilityDate :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsNextUpdateAvailabilityDate = lens _dgirrsNextUpdateAvailabilityDate (\s a -> s {_dgirrsNextUpdateAvailabilityDate = a})
+-- | The date on which an update to the gateway is available. This date is in
+-- the time zone of the gateway. If the gateway is not available for an
+-- update this field is not returned in the response.
+describeGatewayInformationResponse_nextUpdateAvailabilityDate :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_nextUpdateAvailabilityDate = Lens.lens (\DescribeGatewayInformationResponse' {nextUpdateAvailabilityDate} -> nextUpdateAvailabilityDate) (\s@DescribeGatewayInformationResponse' {} a -> s {nextUpdateAvailabilityDate = a} :: DescribeGatewayInformationResponse)
 
 -- | A value that indicates the time zone configured for the gateway.
-dgirrsGatewayTimezone :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsGatewayTimezone = lens _dgirrsGatewayTimezone (\s a -> s {_dgirrsGatewayTimezone = a})
+describeGatewayInformationResponse_gatewayTimezone :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_gatewayTimezone = Lens.lens (\DescribeGatewayInformationResponse' {gatewayTimezone} -> gatewayTimezone) (\s@DescribeGatewayInformationResponse' {} a -> s {gatewayTimezone = a} :: DescribeGatewayInformationResponse)
 
--- | A 'NetworkInterface' array that contains descriptions of the gateway network interfaces.
-dgirrsGatewayNetworkInterfaces :: Lens' DescribeGatewayInformationResponse [NetworkInterface]
-dgirrsGatewayNetworkInterfaces = lens _dgirrsGatewayNetworkInterfaces (\s a -> s {_dgirrsGatewayNetworkInterfaces = a}) . _Default . _Coerce
+-- | A NetworkInterface array that contains descriptions of the gateway
+-- network interfaces.
+describeGatewayInformationResponse_gatewayNetworkInterfaces :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe [NetworkInterface])
+describeGatewayInformationResponse_gatewayNetworkInterfaces = Lens.lens (\DescribeGatewayInformationResponse' {gatewayNetworkInterfaces} -> gatewayNetworkInterfaces) (\s@DescribeGatewayInformationResponse' {} a -> s {gatewayNetworkInterfaces = a} :: DescribeGatewayInformationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The type of the gateway.
-dgirrsGatewayType :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsGatewayType = lens _dgirrsGatewayType (\s a -> s {_dgirrsGatewayType = a})
+describeGatewayInformationResponse_gatewayType :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_gatewayType = Lens.lens (\DescribeGatewayInformationResponse' {gatewayType} -> gatewayType) (\s@DescribeGatewayInformationResponse' {} a -> s {gatewayType = a} :: DescribeGatewayInformationResponse)
 
 -- | The AWS Region where the Amazon EC2 instance is located.
-dgirrsEC2InstanceRegion :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsEC2InstanceRegion = lens _dgirrsEC2InstanceRegion (\s a -> s {_dgirrsEC2InstanceRegion = a})
+describeGatewayInformationResponse_ec2InstanceRegion :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_ec2InstanceRegion = Lens.lens (\DescribeGatewayInformationResponse' {ec2InstanceRegion} -> ec2InstanceRegion) (\s@DescribeGatewayInformationResponse' {} a -> s {ec2InstanceRegion = a} :: DescribeGatewayInformationResponse)
 
--- | The date on which the last software update was applied to the gateway. If the gateway has never been updated, this field does not return a value in the response.
-dgirrsLastSoftwareUpdate :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsLastSoftwareUpdate = lens _dgirrsLastSoftwareUpdate (\s a -> s {_dgirrsLastSoftwareUpdate = a})
+-- | The date on which the last software update was applied to the gateway.
+-- If the gateway has never been updated, this field does not return a
+-- value in the response.
+describeGatewayInformationResponse_lastSoftwareUpdate :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_lastSoftwareUpdate = Lens.lens (\DescribeGatewayInformationResponse' {lastSoftwareUpdate} -> lastSoftwareUpdate) (\s@DescribeGatewayInformationResponse' {} a -> s {lastSoftwareUpdate = a} :: DescribeGatewayInformationResponse)
 
--- | A list of up to 50 tags assigned to the gateway, sorted alphabetically by key name. Each tag is a key-value pair. For a gateway with more than 10 tags assigned, you can view all tags using the @ListTagsForResource@ API operation.
-dgirrsTags :: Lens' DescribeGatewayInformationResponse [Tag]
-dgirrsTags = lens _dgirrsTags (\s a -> s {_dgirrsTags = a}) . _Default . _Coerce
+-- | A list of up to 50 tags assigned to the gateway, sorted alphabetically
+-- by key name. Each tag is a key-value pair. For a gateway with more than
+-- 10 tags assigned, you can view all tags using the @ListTagsForResource@
+-- API operation.
+describeGatewayInformationResponse_tags :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe [Tag])
+describeGatewayInformationResponse_tags = Lens.lens (\DescribeGatewayInformationResponse' {tags} -> tags) (\s@DescribeGatewayInformationResponse' {} a -> s {tags = a} :: DescribeGatewayInformationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The configuration settings for the virtual private cloud (VPC) endpoint for your gateway.
-dgirrsVPCEndpoint :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsVPCEndpoint = lens _dgirrsVPCEndpoint (\s a -> s {_dgirrsVPCEndpoint = a})
+-- | The configuration settings for the virtual private cloud (VPC) endpoint
+-- for your gateway.
+describeGatewayInformationResponse_vPCEndpoint :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_vPCEndpoint = Lens.lens (\DescribeGatewayInformationResponse' {vPCEndpoint} -> vPCEndpoint) (\s@DescribeGatewayInformationResponse' {} a -> s {vPCEndpoint = a} :: DescribeGatewayInformationResponse)
 
--- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor events in the gateway.
-dgirrsCloudWatchLogGroupARN :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsCloudWatchLogGroupARN = lens _dgirrsCloudWatchLogGroupARN (\s a -> s {_dgirrsCloudWatchLogGroupARN = a})
+-- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
+-- is used to monitor events in the gateway.
+describeGatewayInformationResponse_cloudWatchLogGroupARN :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_cloudWatchLogGroupARN = Lens.lens (\DescribeGatewayInformationResponse' {cloudWatchLogGroupARN} -> cloudWatchLogGroupARN) (\s@DescribeGatewayInformationResponse' {} a -> s {cloudWatchLogGroupARN = a} :: DescribeGatewayInformationResponse)
 
 -- | The ID of the Amazon EC2 instance that was used to launch the gateway.
-dgirrsEC2InstanceId :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsEC2InstanceId = lens _dgirrsEC2InstanceId (\s a -> s {_dgirrsEC2InstanceId = a})
+describeGatewayInformationResponse_ec2InstanceId :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_ec2InstanceId = Lens.lens (\DescribeGatewayInformationResponse' {ec2InstanceId} -> ec2InstanceId) (\s@DescribeGatewayInformationResponse' {} a -> s {ec2InstanceId = a} :: DescribeGatewayInformationResponse)
 
 -- | The type of hypervisor environment used by the host.
-dgirrsHostEnvironment :: Lens' DescribeGatewayInformationResponse (Maybe HostEnvironment)
-dgirrsHostEnvironment = lens _dgirrsHostEnvironment (\s a -> s {_dgirrsHostEnvironment = a})
+describeGatewayInformationResponse_hostEnvironment :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe HostEnvironment)
+describeGatewayInformationResponse_hostEnvironment = Lens.lens (\DescribeGatewayInformationResponse' {hostEnvironment} -> hostEnvironment) (\s@DescribeGatewayInformationResponse' {} a -> s {hostEnvironment = a} :: DescribeGatewayInformationResponse)
 
 -- | Undocumented member.
-dgirrsGatewayARN :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsGatewayARN = lens _dgirrsGatewayARN (\s a -> s {_dgirrsGatewayARN = a})
+describeGatewayInformationResponse_gatewayARN :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_gatewayARN = Lens.lens (\DescribeGatewayInformationResponse' {gatewayARN} -> gatewayARN) (\s@DescribeGatewayInformationResponse' {} a -> s {gatewayARN = a} :: DescribeGatewayInformationResponse)
 
--- | The unique identifier assigned to your gateway during activation. This ID becomes part of the gateway Amazon Resource Name (ARN), which you use as input for other operations.
-dgirrsGatewayId :: Lens' DescribeGatewayInformationResponse (Maybe Text)
-dgirrsGatewayId = lens _dgirrsGatewayId (\s a -> s {_dgirrsGatewayId = a})
+-- | The unique identifier assigned to your gateway during activation. This
+-- ID becomes part of the gateway Amazon Resource Name (ARN), which you use
+-- as input for other operations.
+describeGatewayInformationResponse_gatewayId :: Lens.Lens' DescribeGatewayInformationResponse (Prelude.Maybe Prelude.Text)
+describeGatewayInformationResponse_gatewayId = Lens.lens (\DescribeGatewayInformationResponse' {gatewayId} -> gatewayId) (\s@DescribeGatewayInformationResponse' {} a -> s {gatewayId = a} :: DescribeGatewayInformationResponse)
 
--- | -- | The response status code.
-dgirrsResponseStatus :: Lens' DescribeGatewayInformationResponse Int
-dgirrsResponseStatus = lens _dgirrsResponseStatus (\s a -> s {_dgirrsResponseStatus = a})
+-- | The response's http status code.
+describeGatewayInformationResponse_httpStatus :: Lens.Lens' DescribeGatewayInformationResponse Prelude.Int
+describeGatewayInformationResponse_httpStatus = Lens.lens (\DescribeGatewayInformationResponse' {httpStatus} -> httpStatus) (\s@DescribeGatewayInformationResponse' {} a -> s {httpStatus = a} :: DescribeGatewayInformationResponse)
 
-instance NFData DescribeGatewayInformationResponse
+instance
+  Prelude.NFData
+    DescribeGatewayInformationResponse

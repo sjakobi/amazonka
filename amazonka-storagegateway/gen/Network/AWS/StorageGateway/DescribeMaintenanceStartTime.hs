@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,233 +21,252 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns your gateway's weekly maintenance start time including the day and time of the week. Note that values are in terms of the gateway's time zone.
+-- Returns your gateway\'s weekly maintenance start time including the day
+-- and time of the week. Note that values are in terms of the gateway\'s
+-- time zone.
 module Network.AWS.StorageGateway.DescribeMaintenanceStartTime
   ( -- * Creating a Request
-    describeMaintenanceStartTime,
-    DescribeMaintenanceStartTime,
+    DescribeMaintenanceStartTime (..),
+    newDescribeMaintenanceStartTime,
 
     -- * Request Lenses
-    dmstGatewayARN,
+    describeMaintenanceStartTime_gatewayARN,
 
     -- * Destructuring the Response
-    describeMaintenanceStartTimeResponse,
-    DescribeMaintenanceStartTimeResponse,
+    DescribeMaintenanceStartTimeResponse (..),
+    newDescribeMaintenanceStartTimeResponse,
 
     -- * Response Lenses
-    dmstrrsDayOfWeek,
-    dmstrrsDayOfMonth,
-    dmstrrsMinuteOfHour,
-    dmstrrsTimezone,
-    dmstrrsGatewayARN,
-    dmstrrsHourOfDay,
-    dmstrrsResponseStatus,
+    describeMaintenanceStartTimeResponse_dayOfWeek,
+    describeMaintenanceStartTimeResponse_dayOfMonth,
+    describeMaintenanceStartTimeResponse_minuteOfHour,
+    describeMaintenanceStartTimeResponse_timezone,
+    describeMaintenanceStartTimeResponse_gatewayARN,
+    describeMaintenanceStartTimeResponse_hourOfDay,
+    describeMaintenanceStartTimeResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StorageGateway.Types
 
 -- | A JSON object containing the Amazon Resource Name (ARN) of the gateway.
 --
---
---
--- /See:/ 'describeMaintenanceStartTime' smart constructor.
-newtype DescribeMaintenanceStartTime = DescribeMaintenanceStartTime'
-  { _dmstGatewayARN ::
-      Text
+-- /See:/ 'newDescribeMaintenanceStartTime' smart constructor.
+data DescribeMaintenanceStartTime = DescribeMaintenanceStartTime'
+  { gatewayARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeMaintenanceStartTime' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeMaintenanceStartTime' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmstGatewayARN' - Undocumented member.
-describeMaintenanceStartTime ::
-  -- | 'dmstGatewayARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'gatewayARN', 'describeMaintenanceStartTime_gatewayARN' - Undocumented member.
+newDescribeMaintenanceStartTime ::
+  -- | 'gatewayARN'
+  Prelude.Text ->
   DescribeMaintenanceStartTime
-describeMaintenanceStartTime pGatewayARN_ =
+newDescribeMaintenanceStartTime pGatewayARN_ =
   DescribeMaintenanceStartTime'
-    { _dmstGatewayARN =
+    { gatewayARN =
         pGatewayARN_
     }
 
 -- | Undocumented member.
-dmstGatewayARN :: Lens' DescribeMaintenanceStartTime Text
-dmstGatewayARN = lens _dmstGatewayARN (\s a -> s {_dmstGatewayARN = a})
+describeMaintenanceStartTime_gatewayARN :: Lens.Lens' DescribeMaintenanceStartTime Prelude.Text
+describeMaintenanceStartTime_gatewayARN = Lens.lens (\DescribeMaintenanceStartTime' {gatewayARN} -> gatewayARN) (\s@DescribeMaintenanceStartTime' {} a -> s {gatewayARN = a} :: DescribeMaintenanceStartTime)
 
-instance AWSRequest DescribeMaintenanceStartTime where
+instance
+  Prelude.AWSRequest
+    DescribeMaintenanceStartTime
+  where
   type
     Rs DescribeMaintenanceStartTime =
       DescribeMaintenanceStartTimeResponse
-  request = postJSON storageGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeMaintenanceStartTimeResponse'
-            <$> (x .?> "DayOfWeek")
-            <*> (x .?> "DayOfMonth")
-            <*> (x .?> "MinuteOfHour")
-            <*> (x .?> "Timezone")
-            <*> (x .?> "GatewayARN")
-            <*> (x .?> "HourOfDay")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DayOfWeek")
+            Prelude.<*> (x Prelude..?> "DayOfMonth")
+            Prelude.<*> (x Prelude..?> "MinuteOfHour")
+            Prelude.<*> (x Prelude..?> "Timezone")
+            Prelude.<*> (x Prelude..?> "GatewayARN")
+            Prelude.<*> (x Prelude..?> "HourOfDay")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeMaintenanceStartTime
+instance
+  Prelude.Hashable
+    DescribeMaintenanceStartTime
 
-instance NFData DescribeMaintenanceStartTime
+instance Prelude.NFData DescribeMaintenanceStartTime
 
-instance ToHeaders DescribeMaintenanceStartTime where
+instance
+  Prelude.ToHeaders
+    DescribeMaintenanceStartTime
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "StorageGateway_20130630.DescribeMaintenanceStartTime" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "StorageGateway_20130630.DescribeMaintenanceStartTime" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeMaintenanceStartTime where
+instance Prelude.ToJSON DescribeMaintenanceStartTime where
   toJSON DescribeMaintenanceStartTime' {..} =
-    object
-      (catMaybes [Just ("GatewayARN" .= _dmstGatewayARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("GatewayARN" Prelude..= gatewayARN)]
+      )
 
-instance ToPath DescribeMaintenanceStartTime where
-  toPath = const "/"
+instance Prelude.ToPath DescribeMaintenanceStartTime where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeMaintenanceStartTime where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeMaintenanceStartTime where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the following fields:
 --
+-- -   DescribeMaintenanceStartTimeOutput$DayOfMonth
 --
---     * 'DescribeMaintenanceStartTimeOutput$DayOfMonth'
+-- -   DescribeMaintenanceStartTimeOutput$DayOfWeek
 --
---     * 'DescribeMaintenanceStartTimeOutput$DayOfWeek'
+-- -   DescribeMaintenanceStartTimeOutput$HourOfDay
 --
---     * 'DescribeMaintenanceStartTimeOutput$HourOfDay'
+-- -   DescribeMaintenanceStartTimeOutput$MinuteOfHour
 --
---     * 'DescribeMaintenanceStartTimeOutput$MinuteOfHour'
+-- -   DescribeMaintenanceStartTimeOutput$Timezone
 --
---     * 'DescribeMaintenanceStartTimeOutput$Timezone'
---
---
---
---
--- /See:/ 'describeMaintenanceStartTimeResponse' smart constructor.
+-- /See:/ 'newDescribeMaintenanceStartTimeResponse' smart constructor.
 data DescribeMaintenanceStartTimeResponse = DescribeMaintenanceStartTimeResponse'
-  { _dmstrrsDayOfWeek ::
-      !( Maybe
-           Nat
-       ),
-    _dmstrrsDayOfMonth ::
-      !( Maybe
-           Nat
-       ),
-    _dmstrrsMinuteOfHour ::
-      !( Maybe
-           Nat
-       ),
-    _dmstrrsTimezone ::
-      !( Maybe
-           Text
-       ),
-    _dmstrrsGatewayARN ::
-      !( Maybe
-           Text
-       ),
-    _dmstrrsHourOfDay ::
-      !( Maybe
-           Nat
-       ),
-    _dmstrrsResponseStatus ::
-      !Int
+  { -- | An ordinal number between 0 and 6 that represents the day of the week,
+    -- where 0 represents Sunday and 6 represents Saturday. The day of week is
+    -- in the time zone of the gateway.
+    dayOfWeek :: Prelude.Maybe Prelude.Nat,
+    -- | The day of the month component of the maintenance start time represented
+    -- as an ordinal number from 1 to 28, where 1 represents the first day of
+    -- the month and 28 represents the last day of the month.
+    dayOfMonth :: Prelude.Maybe Prelude.Nat,
+    -- | The minute component of the maintenance start time represented as /mm/,
+    -- where /mm/ is the minute (0 to 59). The minute of the hour is in the
+    -- time zone of the gateway.
+    minuteOfHour :: Prelude.Maybe Prelude.Nat,
+    -- | A value that indicates the time zone that is set for the gateway. The
+    -- start time and day of week specified should be in the time zone of the
+    -- gateway.
+    timezone :: Prelude.Maybe Prelude.Text,
+    gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The hour component of the maintenance start time represented as /hh/,
+    -- where /hh/ is the hour (0 to 23). The hour of the day is in the time
+    -- zone of the gateway.
+    hourOfDay :: Prelude.Maybe Prelude.Nat,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeMaintenanceStartTimeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeMaintenanceStartTimeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmstrrsDayOfWeek' - An ordinal number between 0 and 6 that represents the day of the week, where 0 represents Sunday and 6 represents Saturday. The day of week is in the time zone of the gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmstrrsDayOfMonth' - The day of the month component of the maintenance start time represented as an ordinal number from 1 to 28, where 1 represents the first day of the month and 28 represents the last day of the month.
+-- 'dayOfWeek', 'describeMaintenanceStartTimeResponse_dayOfWeek' - An ordinal number between 0 and 6 that represents the day of the week,
+-- where 0 represents Sunday and 6 represents Saturday. The day of week is
+-- in the time zone of the gateway.
 --
--- * 'dmstrrsMinuteOfHour' - The minute component of the maintenance start time represented as /mm/ , where /mm/ is the minute (0 to 59). The minute of the hour is in the time zone of the gateway.
+-- 'dayOfMonth', 'describeMaintenanceStartTimeResponse_dayOfMonth' - The day of the month component of the maintenance start time represented
+-- as an ordinal number from 1 to 28, where 1 represents the first day of
+-- the month and 28 represents the last day of the month.
 --
--- * 'dmstrrsTimezone' - A value that indicates the time zone that is set for the gateway. The start time and day of week specified should be in the time zone of the gateway.
+-- 'minuteOfHour', 'describeMaintenanceStartTimeResponse_minuteOfHour' - The minute component of the maintenance start time represented as /mm/,
+-- where /mm/ is the minute (0 to 59). The minute of the hour is in the
+-- time zone of the gateway.
 --
--- * 'dmstrrsGatewayARN' - Undocumented member.
+-- 'timezone', 'describeMaintenanceStartTimeResponse_timezone' - A value that indicates the time zone that is set for the gateway. The
+-- start time and day of week specified should be in the time zone of the
+-- gateway.
 --
--- * 'dmstrrsHourOfDay' - The hour component of the maintenance start time represented as /hh/ , where /hh/ is the hour (0 to 23). The hour of the day is in the time zone of the gateway.
+-- 'gatewayARN', 'describeMaintenanceStartTimeResponse_gatewayARN' - Undocumented member.
 --
--- * 'dmstrrsResponseStatus' - -- | The response status code.
-describeMaintenanceStartTimeResponse ::
-  -- | 'dmstrrsResponseStatus'
-  Int ->
+-- 'hourOfDay', 'describeMaintenanceStartTimeResponse_hourOfDay' - The hour component of the maintenance start time represented as /hh/,
+-- where /hh/ is the hour (0 to 23). The hour of the day is in the time
+-- zone of the gateway.
+--
+-- 'httpStatus', 'describeMaintenanceStartTimeResponse_httpStatus' - The response's http status code.
+newDescribeMaintenanceStartTimeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeMaintenanceStartTimeResponse
-describeMaintenanceStartTimeResponse pResponseStatus_ =
+newDescribeMaintenanceStartTimeResponse pHttpStatus_ =
   DescribeMaintenanceStartTimeResponse'
-    { _dmstrrsDayOfWeek =
-        Nothing,
-      _dmstrrsDayOfMonth = Nothing,
-      _dmstrrsMinuteOfHour = Nothing,
-      _dmstrrsTimezone = Nothing,
-      _dmstrrsGatewayARN = Nothing,
-      _dmstrrsHourOfDay = Nothing,
-      _dmstrrsResponseStatus =
-        pResponseStatus_
+    { dayOfWeek =
+        Prelude.Nothing,
+      dayOfMonth = Prelude.Nothing,
+      minuteOfHour = Prelude.Nothing,
+      timezone = Prelude.Nothing,
+      gatewayARN = Prelude.Nothing,
+      hourOfDay = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An ordinal number between 0 and 6 that represents the day of the week, where 0 represents Sunday and 6 represents Saturday. The day of week is in the time zone of the gateway.
-dmstrrsDayOfWeek :: Lens' DescribeMaintenanceStartTimeResponse (Maybe Natural)
-dmstrrsDayOfWeek = lens _dmstrrsDayOfWeek (\s a -> s {_dmstrrsDayOfWeek = a}) . mapping _Nat
+-- | An ordinal number between 0 and 6 that represents the day of the week,
+-- where 0 represents Sunday and 6 represents Saturday. The day of week is
+-- in the time zone of the gateway.
+describeMaintenanceStartTimeResponse_dayOfWeek :: Lens.Lens' DescribeMaintenanceStartTimeResponse (Prelude.Maybe Prelude.Natural)
+describeMaintenanceStartTimeResponse_dayOfWeek = Lens.lens (\DescribeMaintenanceStartTimeResponse' {dayOfWeek} -> dayOfWeek) (\s@DescribeMaintenanceStartTimeResponse' {} a -> s {dayOfWeek = a} :: DescribeMaintenanceStartTimeResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | The day of the month component of the maintenance start time represented as an ordinal number from 1 to 28, where 1 represents the first day of the month and 28 represents the last day of the month.
-dmstrrsDayOfMonth :: Lens' DescribeMaintenanceStartTimeResponse (Maybe Natural)
-dmstrrsDayOfMonth = lens _dmstrrsDayOfMonth (\s a -> s {_dmstrrsDayOfMonth = a}) . mapping _Nat
+-- | The day of the month component of the maintenance start time represented
+-- as an ordinal number from 1 to 28, where 1 represents the first day of
+-- the month and 28 represents the last day of the month.
+describeMaintenanceStartTimeResponse_dayOfMonth :: Lens.Lens' DescribeMaintenanceStartTimeResponse (Prelude.Maybe Prelude.Natural)
+describeMaintenanceStartTimeResponse_dayOfMonth = Lens.lens (\DescribeMaintenanceStartTimeResponse' {dayOfMonth} -> dayOfMonth) (\s@DescribeMaintenanceStartTimeResponse' {} a -> s {dayOfMonth = a} :: DescribeMaintenanceStartTimeResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | The minute component of the maintenance start time represented as /mm/ , where /mm/ is the minute (0 to 59). The minute of the hour is in the time zone of the gateway.
-dmstrrsMinuteOfHour :: Lens' DescribeMaintenanceStartTimeResponse (Maybe Natural)
-dmstrrsMinuteOfHour = lens _dmstrrsMinuteOfHour (\s a -> s {_dmstrrsMinuteOfHour = a}) . mapping _Nat
+-- | The minute component of the maintenance start time represented as /mm/,
+-- where /mm/ is the minute (0 to 59). The minute of the hour is in the
+-- time zone of the gateway.
+describeMaintenanceStartTimeResponse_minuteOfHour :: Lens.Lens' DescribeMaintenanceStartTimeResponse (Prelude.Maybe Prelude.Natural)
+describeMaintenanceStartTimeResponse_minuteOfHour = Lens.lens (\DescribeMaintenanceStartTimeResponse' {minuteOfHour} -> minuteOfHour) (\s@DescribeMaintenanceStartTimeResponse' {} a -> s {minuteOfHour = a} :: DescribeMaintenanceStartTimeResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | A value that indicates the time zone that is set for the gateway. The start time and day of week specified should be in the time zone of the gateway.
-dmstrrsTimezone :: Lens' DescribeMaintenanceStartTimeResponse (Maybe Text)
-dmstrrsTimezone = lens _dmstrrsTimezone (\s a -> s {_dmstrrsTimezone = a})
+-- | A value that indicates the time zone that is set for the gateway. The
+-- start time and day of week specified should be in the time zone of the
+-- gateway.
+describeMaintenanceStartTimeResponse_timezone :: Lens.Lens' DescribeMaintenanceStartTimeResponse (Prelude.Maybe Prelude.Text)
+describeMaintenanceStartTimeResponse_timezone = Lens.lens (\DescribeMaintenanceStartTimeResponse' {timezone} -> timezone) (\s@DescribeMaintenanceStartTimeResponse' {} a -> s {timezone = a} :: DescribeMaintenanceStartTimeResponse)
 
 -- | Undocumented member.
-dmstrrsGatewayARN :: Lens' DescribeMaintenanceStartTimeResponse (Maybe Text)
-dmstrrsGatewayARN = lens _dmstrrsGatewayARN (\s a -> s {_dmstrrsGatewayARN = a})
+describeMaintenanceStartTimeResponse_gatewayARN :: Lens.Lens' DescribeMaintenanceStartTimeResponse (Prelude.Maybe Prelude.Text)
+describeMaintenanceStartTimeResponse_gatewayARN = Lens.lens (\DescribeMaintenanceStartTimeResponse' {gatewayARN} -> gatewayARN) (\s@DescribeMaintenanceStartTimeResponse' {} a -> s {gatewayARN = a} :: DescribeMaintenanceStartTimeResponse)
 
--- | The hour component of the maintenance start time represented as /hh/ , where /hh/ is the hour (0 to 23). The hour of the day is in the time zone of the gateway.
-dmstrrsHourOfDay :: Lens' DescribeMaintenanceStartTimeResponse (Maybe Natural)
-dmstrrsHourOfDay = lens _dmstrrsHourOfDay (\s a -> s {_dmstrrsHourOfDay = a}) . mapping _Nat
+-- | The hour component of the maintenance start time represented as /hh/,
+-- where /hh/ is the hour (0 to 23). The hour of the day is in the time
+-- zone of the gateway.
+describeMaintenanceStartTimeResponse_hourOfDay :: Lens.Lens' DescribeMaintenanceStartTimeResponse (Prelude.Maybe Prelude.Natural)
+describeMaintenanceStartTimeResponse_hourOfDay = Lens.lens (\DescribeMaintenanceStartTimeResponse' {hourOfDay} -> hourOfDay) (\s@DescribeMaintenanceStartTimeResponse' {} a -> s {hourOfDay = a} :: DescribeMaintenanceStartTimeResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | -- | The response status code.
-dmstrrsResponseStatus :: Lens' DescribeMaintenanceStartTimeResponse Int
-dmstrrsResponseStatus = lens _dmstrrsResponseStatus (\s a -> s {_dmstrrsResponseStatus = a})
+-- | The response's http status code.
+describeMaintenanceStartTimeResponse_httpStatus :: Lens.Lens' DescribeMaintenanceStartTimeResponse Prelude.Int
+describeMaintenanceStartTimeResponse_httpStatus = Lens.lens (\DescribeMaintenanceStartTimeResponse' {httpStatus} -> httpStatus) (\s@DescribeMaintenanceStartTimeResponse' {} a -> s {httpStatus = a} :: DescribeMaintenanceStartTimeResponse)
 
-instance NFData DescribeMaintenanceStartTimeResponse
+instance
+  Prelude.NFData
+    DescribeMaintenanceStartTimeResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.StorageGateway.Types.ActiveDirectoryStatus
   ( ActiveDirectoryStatus
       ( ..,
-        AccessDenied,
-        Detached,
-        Joined,
-        Joining,
-        NetworkError,
-        Timeout,
-        UnknownError
+        ActiveDirectoryStatusACCESSDENIED,
+        ActiveDirectoryStatusDETACHED,
+        ActiveDirectoryStatusJOINED,
+        ActiveDirectoryStatusJOINING,
+        ActiveDirectoryStatusNETWORKERROR,
+        ActiveDirectoryStatusTIMEOUT,
+        ActiveDirectoryStatusUNKNOWNERROR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActiveDirectoryStatus
-  = ActiveDirectoryStatus'
-      ( CI
-          Text
-      )
+newtype ActiveDirectoryStatus = ActiveDirectoryStatus'
+  { fromActiveDirectoryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccessDenied :: ActiveDirectoryStatus
-pattern AccessDenied = ActiveDirectoryStatus' "ACCESS_DENIED"
+pattern ActiveDirectoryStatusACCESSDENIED :: ActiveDirectoryStatus
+pattern ActiveDirectoryStatusACCESSDENIED = ActiveDirectoryStatus' "ACCESS_DENIED"
 
-pattern Detached :: ActiveDirectoryStatus
-pattern Detached = ActiveDirectoryStatus' "DETACHED"
+pattern ActiveDirectoryStatusDETACHED :: ActiveDirectoryStatus
+pattern ActiveDirectoryStatusDETACHED = ActiveDirectoryStatus' "DETACHED"
 
-pattern Joined :: ActiveDirectoryStatus
-pattern Joined = ActiveDirectoryStatus' "JOINED"
+pattern ActiveDirectoryStatusJOINED :: ActiveDirectoryStatus
+pattern ActiveDirectoryStatusJOINED = ActiveDirectoryStatus' "JOINED"
 
-pattern Joining :: ActiveDirectoryStatus
-pattern Joining = ActiveDirectoryStatus' "JOINING"
+pattern ActiveDirectoryStatusJOINING :: ActiveDirectoryStatus
+pattern ActiveDirectoryStatusJOINING = ActiveDirectoryStatus' "JOINING"
 
-pattern NetworkError :: ActiveDirectoryStatus
-pattern NetworkError = ActiveDirectoryStatus' "NETWORK_ERROR"
+pattern ActiveDirectoryStatusNETWORKERROR :: ActiveDirectoryStatus
+pattern ActiveDirectoryStatusNETWORKERROR = ActiveDirectoryStatus' "NETWORK_ERROR"
 
-pattern Timeout :: ActiveDirectoryStatus
-pattern Timeout = ActiveDirectoryStatus' "TIMEOUT"
+pattern ActiveDirectoryStatusTIMEOUT :: ActiveDirectoryStatus
+pattern ActiveDirectoryStatusTIMEOUT = ActiveDirectoryStatus' "TIMEOUT"
 
-pattern UnknownError :: ActiveDirectoryStatus
-pattern UnknownError = ActiveDirectoryStatus' "UNKNOWN_ERROR"
+pattern ActiveDirectoryStatusUNKNOWNERROR :: ActiveDirectoryStatus
+pattern ActiveDirectoryStatusUNKNOWNERROR = ActiveDirectoryStatus' "UNKNOWN_ERROR"
 
 {-# COMPLETE
-  AccessDenied,
-  Detached,
-  Joined,
-  Joining,
-  NetworkError,
-  Timeout,
-  UnknownError,
+  ActiveDirectoryStatusACCESSDENIED,
+  ActiveDirectoryStatusDETACHED,
+  ActiveDirectoryStatusJOINED,
+  ActiveDirectoryStatusJOINING,
+  ActiveDirectoryStatusNETWORKERROR,
+  ActiveDirectoryStatusTIMEOUT,
+  ActiveDirectoryStatusUNKNOWNERROR,
   ActiveDirectoryStatus'
   #-}
 
-instance FromText ActiveDirectoryStatus where
-  parser = (ActiveDirectoryStatus' . mk) <$> takeText
+instance Prelude.FromText ActiveDirectoryStatus where
+  parser = ActiveDirectoryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ActiveDirectoryStatus where
-  toText (ActiveDirectoryStatus' ci) = original ci
+instance Prelude.ToText ActiveDirectoryStatus where
+  toText (ActiveDirectoryStatus' x) = x
 
-instance Hashable ActiveDirectoryStatus
+instance Prelude.Hashable ActiveDirectoryStatus
 
-instance NFData ActiveDirectoryStatus
+instance Prelude.NFData ActiveDirectoryStatus
 
-instance ToByteString ActiveDirectoryStatus
+instance Prelude.ToByteString ActiveDirectoryStatus
 
-instance ToQuery ActiveDirectoryStatus
+instance Prelude.ToQuery ActiveDirectoryStatus
 
-instance ToHeader ActiveDirectoryStatus
+instance Prelude.ToHeader ActiveDirectoryStatus
 
-instance FromJSON ActiveDirectoryStatus where
-  parseJSON = parseJSONText "ActiveDirectoryStatus"
+instance Prelude.FromJSON ActiveDirectoryStatus where
+  parseJSON = Prelude.parseJSONText "ActiveDirectoryStatus"

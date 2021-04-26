@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,146 +19,187 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.BandwidthRateLimitInterval where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a bandwidth rate limit interval for a gateway. A bandwidth rate limit schedule consists of one or more bandwidth rate limit intervals. A bandwidth rate limit interval defines a period of time on one or more days of the week, during which bandwidth rate limits are specified for uploading, downloading, or both.
+-- | Describes a bandwidth rate limit interval for a gateway. A bandwidth
+-- rate limit schedule consists of one or more bandwidth rate limit
+-- intervals. A bandwidth rate limit interval defines a period of time on
+-- one or more days of the week, during which bandwidth rate limits are
+-- specified for uploading, downloading, or both.
 --
---
---
--- /See:/ 'bandwidthRateLimitInterval' smart constructor.
+-- /See:/ 'newBandwidthRateLimitInterval' smart constructor.
 data BandwidthRateLimitInterval = BandwidthRateLimitInterval'
-  { _brliAverageUploadRateLimitInBitsPerSec ::
-      !(Maybe Nat),
-    _brliAverageDownloadRateLimitInBitsPerSec ::
-      !(Maybe Nat),
-    _brliStartHourOfDay ::
-      !Nat,
-    _brliStartMinuteOfHour ::
-      !Nat,
-    _brliEndHourOfDay ::
-      !Nat,
-    _brliEndMinuteOfHour ::
-      !Nat,
-    _brliDaysOfWeek ::
-      !(List1 Nat)
+  { -- | The average upload rate limit component of the bandwidth rate limit
+    -- interval, in bits per second. This field does not appear in the response
+    -- if the upload rate limit is not set.
+    averageUploadRateLimitInBitsPerSec :: Prelude.Maybe Prelude.Nat,
+    -- | The average download rate limit component of the bandwidth rate limit
+    -- interval, in bits per second. This field does not appear in the response
+    -- if the download rate limit is not set.
+    averageDownloadRateLimitInBitsPerSec :: Prelude.Maybe Prelude.Nat,
+    -- | The hour of the day to start the bandwidth rate limit interval.
+    startHourOfDay :: Prelude.Nat,
+    -- | The minute of the hour to start the bandwidth rate limit interval. The
+    -- interval begins at the start of that minute. To begin an interval
+    -- exactly at the start of the hour, use the value @0@.
+    startMinuteOfHour :: Prelude.Nat,
+    -- | The hour of the day to end the bandwidth rate limit interval.
+    endHourOfDay :: Prelude.Nat,
+    -- | The minute of the hour to end the bandwidth rate limit interval.
+    --
+    -- The bandwidth rate limit interval ends at the end of the minute. To end
+    -- an interval at the end of an hour, use the value @59@.
+    endMinuteOfHour :: Prelude.Nat,
+    -- | The days of the week component of the bandwidth rate limit interval,
+    -- represented as ordinal numbers from 0 to 6, where 0 represents Sunday
+    -- and 6 Saturday.
+    daysOfWeek :: Prelude.List1 Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BandwidthRateLimitInterval' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BandwidthRateLimitInterval' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'brliAverageUploadRateLimitInBitsPerSec' - The average upload rate limit component of the bandwidth rate limit interval, in bits per second. This field does not appear in the response if the upload rate limit is not set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'brliAverageDownloadRateLimitInBitsPerSec' - The average download rate limit component of the bandwidth rate limit interval, in bits per second. This field does not appear in the response if the download rate limit is not set.
+-- 'averageUploadRateLimitInBitsPerSec', 'bandwidthRateLimitInterval_averageUploadRateLimitInBitsPerSec' - The average upload rate limit component of the bandwidth rate limit
+-- interval, in bits per second. This field does not appear in the response
+-- if the upload rate limit is not set.
 --
--- * 'brliStartHourOfDay' - The hour of the day to start the bandwidth rate limit interval.
+-- 'averageDownloadRateLimitInBitsPerSec', 'bandwidthRateLimitInterval_averageDownloadRateLimitInBitsPerSec' - The average download rate limit component of the bandwidth rate limit
+-- interval, in bits per second. This field does not appear in the response
+-- if the download rate limit is not set.
 --
--- * 'brliStartMinuteOfHour' - The minute of the hour to start the bandwidth rate limit interval. The interval begins at the start of that minute. To begin an interval exactly at the start of the hour, use the value @0@ .
+-- 'startHourOfDay', 'bandwidthRateLimitInterval_startHourOfDay' - The hour of the day to start the bandwidth rate limit interval.
 --
--- * 'brliEndHourOfDay' - The hour of the day to end the bandwidth rate limit interval.
+-- 'startMinuteOfHour', 'bandwidthRateLimitInterval_startMinuteOfHour' - The minute of the hour to start the bandwidth rate limit interval. The
+-- interval begins at the start of that minute. To begin an interval
+-- exactly at the start of the hour, use the value @0@.
 --
--- * 'brliEndMinuteOfHour' - The minute of the hour to end the bandwidth rate limit interval.  /Important:/ The bandwidth rate limit interval ends at the end of the minute. To end an interval at the end of an hour, use the value @59@ .
+-- 'endHourOfDay', 'bandwidthRateLimitInterval_endHourOfDay' - The hour of the day to end the bandwidth rate limit interval.
 --
--- * 'brliDaysOfWeek' - The days of the week component of the bandwidth rate limit interval, represented as ordinal numbers from 0 to 6, where 0 represents Sunday and 6 Saturday.
-bandwidthRateLimitInterval ::
-  -- | 'brliStartHourOfDay'
-  Natural ->
-  -- | 'brliStartMinuteOfHour'
-  Natural ->
-  -- | 'brliEndHourOfDay'
-  Natural ->
-  -- | 'brliEndMinuteOfHour'
-  Natural ->
-  -- | 'brliDaysOfWeek'
-  NonEmpty Natural ->
+-- 'endMinuteOfHour', 'bandwidthRateLimitInterval_endMinuteOfHour' - The minute of the hour to end the bandwidth rate limit interval.
+--
+-- The bandwidth rate limit interval ends at the end of the minute. To end
+-- an interval at the end of an hour, use the value @59@.
+--
+-- 'daysOfWeek', 'bandwidthRateLimitInterval_daysOfWeek' - The days of the week component of the bandwidth rate limit interval,
+-- represented as ordinal numbers from 0 to 6, where 0 represents Sunday
+-- and 6 Saturday.
+newBandwidthRateLimitInterval ::
+  -- | 'startHourOfDay'
+  Prelude.Natural ->
+  -- | 'startMinuteOfHour'
+  Prelude.Natural ->
+  -- | 'endHourOfDay'
+  Prelude.Natural ->
+  -- | 'endMinuteOfHour'
+  Prelude.Natural ->
+  -- | 'daysOfWeek'
+  Prelude.NonEmpty Prelude.Natural ->
   BandwidthRateLimitInterval
-bandwidthRateLimitInterval
+newBandwidthRateLimitInterval
   pStartHourOfDay_
   pStartMinuteOfHour_
   pEndHourOfDay_
   pEndMinuteOfHour_
   pDaysOfWeek_ =
     BandwidthRateLimitInterval'
-      { _brliAverageUploadRateLimitInBitsPerSec =
-          Nothing,
-        _brliAverageDownloadRateLimitInBitsPerSec =
-          Nothing,
-        _brliStartHourOfDay = _Nat # pStartHourOfDay_,
-        _brliStartMinuteOfHour =
-          _Nat # pStartMinuteOfHour_,
-        _brliEndHourOfDay = _Nat # pEndHourOfDay_,
-        _brliEndMinuteOfHour = _Nat # pEndMinuteOfHour_,
-        _brliDaysOfWeek = _List1 # pDaysOfWeek_
+      { averageUploadRateLimitInBitsPerSec =
+          Prelude.Nothing,
+        averageDownloadRateLimitInBitsPerSec =
+          Prelude.Nothing,
+        startHourOfDay =
+          Prelude._Nat Lens.# pStartHourOfDay_,
+        startMinuteOfHour =
+          Prelude._Nat Lens.# pStartMinuteOfHour_,
+        endHourOfDay =
+          Prelude._Nat Lens.# pEndHourOfDay_,
+        endMinuteOfHour =
+          Prelude._Nat Lens.# pEndMinuteOfHour_,
+        daysOfWeek = Prelude._List1 Lens.# pDaysOfWeek_
       }
 
--- | The average upload rate limit component of the bandwidth rate limit interval, in bits per second. This field does not appear in the response if the upload rate limit is not set.
-brliAverageUploadRateLimitInBitsPerSec :: Lens' BandwidthRateLimitInterval (Maybe Natural)
-brliAverageUploadRateLimitInBitsPerSec = lens _brliAverageUploadRateLimitInBitsPerSec (\s a -> s {_brliAverageUploadRateLimitInBitsPerSec = a}) . mapping _Nat
+-- | The average upload rate limit component of the bandwidth rate limit
+-- interval, in bits per second. This field does not appear in the response
+-- if the upload rate limit is not set.
+bandwidthRateLimitInterval_averageUploadRateLimitInBitsPerSec :: Lens.Lens' BandwidthRateLimitInterval (Prelude.Maybe Prelude.Natural)
+bandwidthRateLimitInterval_averageUploadRateLimitInBitsPerSec = Lens.lens (\BandwidthRateLimitInterval' {averageUploadRateLimitInBitsPerSec} -> averageUploadRateLimitInBitsPerSec) (\s@BandwidthRateLimitInterval' {} a -> s {averageUploadRateLimitInBitsPerSec = a} :: BandwidthRateLimitInterval) Prelude.. Lens.mapping Prelude._Nat
 
--- | The average download rate limit component of the bandwidth rate limit interval, in bits per second. This field does not appear in the response if the download rate limit is not set.
-brliAverageDownloadRateLimitInBitsPerSec :: Lens' BandwidthRateLimitInterval (Maybe Natural)
-brliAverageDownloadRateLimitInBitsPerSec = lens _brliAverageDownloadRateLimitInBitsPerSec (\s a -> s {_brliAverageDownloadRateLimitInBitsPerSec = a}) . mapping _Nat
+-- | The average download rate limit component of the bandwidth rate limit
+-- interval, in bits per second. This field does not appear in the response
+-- if the download rate limit is not set.
+bandwidthRateLimitInterval_averageDownloadRateLimitInBitsPerSec :: Lens.Lens' BandwidthRateLimitInterval (Prelude.Maybe Prelude.Natural)
+bandwidthRateLimitInterval_averageDownloadRateLimitInBitsPerSec = Lens.lens (\BandwidthRateLimitInterval' {averageDownloadRateLimitInBitsPerSec} -> averageDownloadRateLimitInBitsPerSec) (\s@BandwidthRateLimitInterval' {} a -> s {averageDownloadRateLimitInBitsPerSec = a} :: BandwidthRateLimitInterval) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The hour of the day to start the bandwidth rate limit interval.
-brliStartHourOfDay :: Lens' BandwidthRateLimitInterval Natural
-brliStartHourOfDay = lens _brliStartHourOfDay (\s a -> s {_brliStartHourOfDay = a}) . _Nat
+bandwidthRateLimitInterval_startHourOfDay :: Lens.Lens' BandwidthRateLimitInterval Prelude.Natural
+bandwidthRateLimitInterval_startHourOfDay = Lens.lens (\BandwidthRateLimitInterval' {startHourOfDay} -> startHourOfDay) (\s@BandwidthRateLimitInterval' {} a -> s {startHourOfDay = a} :: BandwidthRateLimitInterval) Prelude.. Prelude._Nat
 
--- | The minute of the hour to start the bandwidth rate limit interval. The interval begins at the start of that minute. To begin an interval exactly at the start of the hour, use the value @0@ .
-brliStartMinuteOfHour :: Lens' BandwidthRateLimitInterval Natural
-brliStartMinuteOfHour = lens _brliStartMinuteOfHour (\s a -> s {_brliStartMinuteOfHour = a}) . _Nat
+-- | The minute of the hour to start the bandwidth rate limit interval. The
+-- interval begins at the start of that minute. To begin an interval
+-- exactly at the start of the hour, use the value @0@.
+bandwidthRateLimitInterval_startMinuteOfHour :: Lens.Lens' BandwidthRateLimitInterval Prelude.Natural
+bandwidthRateLimitInterval_startMinuteOfHour = Lens.lens (\BandwidthRateLimitInterval' {startMinuteOfHour} -> startMinuteOfHour) (\s@BandwidthRateLimitInterval' {} a -> s {startMinuteOfHour = a} :: BandwidthRateLimitInterval) Prelude.. Prelude._Nat
 
 -- | The hour of the day to end the bandwidth rate limit interval.
-brliEndHourOfDay :: Lens' BandwidthRateLimitInterval Natural
-brliEndHourOfDay = lens _brliEndHourOfDay (\s a -> s {_brliEndHourOfDay = a}) . _Nat
+bandwidthRateLimitInterval_endHourOfDay :: Lens.Lens' BandwidthRateLimitInterval Prelude.Natural
+bandwidthRateLimitInterval_endHourOfDay = Lens.lens (\BandwidthRateLimitInterval' {endHourOfDay} -> endHourOfDay) (\s@BandwidthRateLimitInterval' {} a -> s {endHourOfDay = a} :: BandwidthRateLimitInterval) Prelude.. Prelude._Nat
 
--- | The minute of the hour to end the bandwidth rate limit interval.  /Important:/ The bandwidth rate limit interval ends at the end of the minute. To end an interval at the end of an hour, use the value @59@ .
-brliEndMinuteOfHour :: Lens' BandwidthRateLimitInterval Natural
-brliEndMinuteOfHour = lens _brliEndMinuteOfHour (\s a -> s {_brliEndMinuteOfHour = a}) . _Nat
+-- | The minute of the hour to end the bandwidth rate limit interval.
+--
+-- The bandwidth rate limit interval ends at the end of the minute. To end
+-- an interval at the end of an hour, use the value @59@.
+bandwidthRateLimitInterval_endMinuteOfHour :: Lens.Lens' BandwidthRateLimitInterval Prelude.Natural
+bandwidthRateLimitInterval_endMinuteOfHour = Lens.lens (\BandwidthRateLimitInterval' {endMinuteOfHour} -> endMinuteOfHour) (\s@BandwidthRateLimitInterval' {} a -> s {endMinuteOfHour = a} :: BandwidthRateLimitInterval) Prelude.. Prelude._Nat
 
--- | The days of the week component of the bandwidth rate limit interval, represented as ordinal numbers from 0 to 6, where 0 represents Sunday and 6 Saturday.
-brliDaysOfWeek :: Lens' BandwidthRateLimitInterval (NonEmpty Natural)
-brliDaysOfWeek = lens _brliDaysOfWeek (\s a -> s {_brliDaysOfWeek = a}) . _List1
+-- | The days of the week component of the bandwidth rate limit interval,
+-- represented as ordinal numbers from 0 to 6, where 0 represents Sunday
+-- and 6 Saturday.
+bandwidthRateLimitInterval_daysOfWeek :: Lens.Lens' BandwidthRateLimitInterval (Prelude.NonEmpty Prelude.Natural)
+bandwidthRateLimitInterval_daysOfWeek = Lens.lens (\BandwidthRateLimitInterval' {daysOfWeek} -> daysOfWeek) (\s@BandwidthRateLimitInterval' {} a -> s {daysOfWeek = a} :: BandwidthRateLimitInterval) Prelude.. Prelude._List1
 
-instance FromJSON BandwidthRateLimitInterval where
+instance Prelude.FromJSON BandwidthRateLimitInterval where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BandwidthRateLimitInterval"
       ( \x ->
           BandwidthRateLimitInterval'
-            <$> (x .:? "AverageUploadRateLimitInBitsPerSec")
-            <*> (x .:? "AverageDownloadRateLimitInBitsPerSec")
-            <*> (x .: "StartHourOfDay")
-            <*> (x .: "StartMinuteOfHour")
-            <*> (x .: "EndHourOfDay")
-            <*> (x .: "EndMinuteOfHour")
-            <*> (x .: "DaysOfWeek")
+            Prelude.<$> (x Prelude..:? "AverageUploadRateLimitInBitsPerSec")
+            Prelude.<*> ( x
+                            Prelude..:? "AverageDownloadRateLimitInBitsPerSec"
+                        )
+            Prelude.<*> (x Prelude..: "StartHourOfDay")
+            Prelude.<*> (x Prelude..: "StartMinuteOfHour")
+            Prelude.<*> (x Prelude..: "EndHourOfDay")
+            Prelude.<*> (x Prelude..: "EndMinuteOfHour")
+            Prelude.<*> (x Prelude..: "DaysOfWeek")
       )
 
-instance Hashable BandwidthRateLimitInterval
+instance Prelude.Hashable BandwidthRateLimitInterval
 
-instance NFData BandwidthRateLimitInterval
+instance Prelude.NFData BandwidthRateLimitInterval
 
-instance ToJSON BandwidthRateLimitInterval where
+instance Prelude.ToJSON BandwidthRateLimitInterval where
   toJSON BandwidthRateLimitInterval' {..} =
-    object
-      ( catMaybes
-          [ ("AverageUploadRateLimitInBitsPerSec" .=)
-              <$> _brliAverageUploadRateLimitInBitsPerSec,
-            ("AverageDownloadRateLimitInBitsPerSec" .=)
-              <$> _brliAverageDownloadRateLimitInBitsPerSec,
-            Just ("StartHourOfDay" .= _brliStartHourOfDay),
-            Just ("StartMinuteOfHour" .= _brliStartMinuteOfHour),
-            Just ("EndHourOfDay" .= _brliEndHourOfDay),
-            Just ("EndMinuteOfHour" .= _brliEndMinuteOfHour),
-            Just ("DaysOfWeek" .= _brliDaysOfWeek)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AverageUploadRateLimitInBitsPerSec" Prelude..=)
+              Prelude.<$> averageUploadRateLimitInBitsPerSec,
+            ("AverageDownloadRateLimitInBitsPerSec" Prelude..=)
+              Prelude.<$> averageDownloadRateLimitInBitsPerSec,
+            Prelude.Just
+              ("StartHourOfDay" Prelude..= startHourOfDay),
+            Prelude.Just
+              ("StartMinuteOfHour" Prelude..= startMinuteOfHour),
+            Prelude.Just
+              ("EndHourOfDay" Prelude..= endHourOfDay),
+            Prelude.Just
+              ("EndMinuteOfHour" Prelude..= endMinuteOfHour),
+            Prelude.Just ("DaysOfWeek" Prelude..= daysOfWeek)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.CacheAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Lists refresh cache information.
 --
---
---
--- /See:/ 'cacheAttributes' smart constructor.
-newtype CacheAttributes = CacheAttributes'
-  { _caCacheStaleTimeoutInSeconds ::
-      Maybe Int
+-- /See:/ 'newCacheAttributes' smart constructor.
+data CacheAttributes = CacheAttributes'
+  { -- | Refreshes a file share\'s cache by using Time To Live (TTL). TTL is the
+    -- length of time since the last refresh after which access to the
+    -- directory would cause the file gateway to first refresh that
+    -- directory\'s contents from the Amazon S3 bucket. The TTL duration is in
+    -- seconds.
+    --
+    -- Valid Values: 300 to 2,592,000 seconds (5 minutes to 30 days)
+    cacheStaleTimeoutInSeconds :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CacheAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CacheAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caCacheStaleTimeoutInSeconds' - Refreshes a file share's cache by using Time To Live (TTL). TTL is the length of time since the last refresh after which access to the directory would cause the file gateway to first refresh that directory's contents from the Amazon S3 bucket. The TTL duration is in seconds. Valid Values: 300 to 2,592,000 seconds (5 minutes to 30 days)
-cacheAttributes ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'cacheStaleTimeoutInSeconds', 'cacheAttributes_cacheStaleTimeoutInSeconds' - Refreshes a file share\'s cache by using Time To Live (TTL). TTL is the
+-- length of time since the last refresh after which access to the
+-- directory would cause the file gateway to first refresh that
+-- directory\'s contents from the Amazon S3 bucket. The TTL duration is in
+-- seconds.
+--
+-- Valid Values: 300 to 2,592,000 seconds (5 minutes to 30 days)
+newCacheAttributes ::
   CacheAttributes
-cacheAttributes =
+newCacheAttributes =
   CacheAttributes'
-    { _caCacheStaleTimeoutInSeconds =
-        Nothing
+    { cacheStaleTimeoutInSeconds =
+        Prelude.Nothing
     }
 
--- | Refreshes a file share's cache by using Time To Live (TTL). TTL is the length of time since the last refresh after which access to the directory would cause the file gateway to first refresh that directory's contents from the Amazon S3 bucket. The TTL duration is in seconds. Valid Values: 300 to 2,592,000 seconds (5 minutes to 30 days)
-caCacheStaleTimeoutInSeconds :: Lens' CacheAttributes (Maybe Int)
-caCacheStaleTimeoutInSeconds = lens _caCacheStaleTimeoutInSeconds (\s a -> s {_caCacheStaleTimeoutInSeconds = a})
+-- | Refreshes a file share\'s cache by using Time To Live (TTL). TTL is the
+-- length of time since the last refresh after which access to the
+-- directory would cause the file gateway to first refresh that
+-- directory\'s contents from the Amazon S3 bucket. The TTL duration is in
+-- seconds.
+--
+-- Valid Values: 300 to 2,592,000 seconds (5 minutes to 30 days)
+cacheAttributes_cacheStaleTimeoutInSeconds :: Lens.Lens' CacheAttributes (Prelude.Maybe Prelude.Int)
+cacheAttributes_cacheStaleTimeoutInSeconds = Lens.lens (\CacheAttributes' {cacheStaleTimeoutInSeconds} -> cacheStaleTimeoutInSeconds) (\s@CacheAttributes' {} a -> s {cacheStaleTimeoutInSeconds = a} :: CacheAttributes)
 
-instance FromJSON CacheAttributes where
+instance Prelude.FromJSON CacheAttributes where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CacheAttributes"
       ( \x ->
           CacheAttributes'
-            <$> (x .:? "CacheStaleTimeoutInSeconds")
+            Prelude.<$> (x Prelude..:? "CacheStaleTimeoutInSeconds")
       )
 
-instance Hashable CacheAttributes
+instance Prelude.Hashable CacheAttributes
 
-instance NFData CacheAttributes
+instance Prelude.NFData CacheAttributes
 
-instance ToJSON CacheAttributes where
+instance Prelude.ToJSON CacheAttributes where
   toJSON CacheAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("CacheStaleTimeoutInSeconds" .=)
-              <$> _caCacheStaleTimeoutInSeconds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CacheStaleTimeoutInSeconds" Prelude..=)
+              Prelude.<$> cacheStaleTimeoutInSeconds
           ]
       )

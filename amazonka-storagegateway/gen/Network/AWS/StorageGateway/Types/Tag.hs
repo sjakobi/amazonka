@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StorageGateway.Types.Tag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A key-value pair that helps you manage, filter, and search for your resource. Allowed characters: letters, white space, and numbers, representable in UTF-8, and the following characters: + - = . _ : /.
+-- | A key-value pair that helps you manage, filter, and search for your
+-- resource. Allowed characters: letters, white space, and numbers,
+-- representable in UTF-8, and the following characters: + - = . _ : \/.
 --
---
---
--- /See:/ 'tag' smart constructor.
-data Tag = Tag' {_tagKey :: !Text, _tagValue :: !Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newTag' smart constructor.
+data Tag = Tag'
+  { -- | Tag key. The key can\'t start with aws:.
+    key :: Prelude.Text,
+    -- | Value of the tag key.
+    value :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tagKey' - Tag key. The key can't start with aws:.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tagValue' - Value of the tag key.
-tag ::
-  -- | 'tagKey'
-  Text ->
-  -- | 'tagValue'
-  Text ->
+-- 'key', 'tag_key' - Tag key. The key can\'t start with aws:.
+--
+-- 'value', 'tag_value' - Value of the tag key.
+newTag ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   Tag
-tag pKey_ pValue_ =
-  Tag' {_tagKey = pKey_, _tagValue = pValue_}
+newTag pKey_ pValue_ =
+  Tag' {key = pKey_, value = pValue_}
 
--- | Tag key. The key can't start with aws:.
-tagKey :: Lens' Tag Text
-tagKey = lens _tagKey (\s a -> s {_tagKey = a})
+-- | Tag key. The key can\'t start with aws:.
+tag_key :: Lens.Lens' Tag Prelude.Text
+tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
 -- | Value of the tag key.
-tagValue :: Lens' Tag Text
-tagValue = lens _tagValue (\s a -> s {_tagValue = a})
+tag_value :: Lens.Lens' Tag Prelude.Text
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
-instance FromJSON Tag where
+instance Prelude.FromJSON Tag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Tag"
-      (\x -> Tag' <$> (x .: "Key") <*> (x .: "Value"))
+      ( \x ->
+          Tag'
+            Prelude.<$> (x Prelude..: "Key")
+            Prelude.<*> (x Prelude..: "Value")
+      )
 
-instance Hashable Tag
+instance Prelude.Hashable Tag
 
-instance NFData Tag
+instance Prelude.NFData Tag
 
-instance ToJSON Tag where
+instance Prelude.ToJSON Tag where
   toJSON Tag' {..} =
-    object
-      ( catMaybes
-          [ Just ("Key" .= _tagKey),
-            Just ("Value" .= _tagValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )
