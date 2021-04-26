@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.CodePipeline.Types.JobStatus
   ( JobStatus
       ( ..,
-        JSCreated,
-        JSDispatched,
-        JSFailed,
-        JSInProgress,
-        JSQueued,
-        JSSucceeded,
-        JSTimedOut
+        JobStatusCreated,
+        JobStatusDispatched,
+        JobStatusFailed,
+        JobStatusInProgress,
+        JobStatusQueued,
+        JobStatusSucceeded,
+        JobStatusTimedOut
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobStatus = JobStatus' (CI Text)
+newtype JobStatus = JobStatus'
+  { fromJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSCreated :: JobStatus
-pattern JSCreated = JobStatus' "Created"
+pattern JobStatusCreated :: JobStatus
+pattern JobStatusCreated = JobStatus' "Created"
 
-pattern JSDispatched :: JobStatus
-pattern JSDispatched = JobStatus' "Dispatched"
+pattern JobStatusDispatched :: JobStatus
+pattern JobStatusDispatched = JobStatus' "Dispatched"
 
-pattern JSFailed :: JobStatus
-pattern JSFailed = JobStatus' "Failed"
+pattern JobStatusFailed :: JobStatus
+pattern JobStatusFailed = JobStatus' "Failed"
 
-pattern JSInProgress :: JobStatus
-pattern JSInProgress = JobStatus' "InProgress"
+pattern JobStatusInProgress :: JobStatus
+pattern JobStatusInProgress = JobStatus' "InProgress"
 
-pattern JSQueued :: JobStatus
-pattern JSQueued = JobStatus' "Queued"
+pattern JobStatusQueued :: JobStatus
+pattern JobStatusQueued = JobStatus' "Queued"
 
-pattern JSSucceeded :: JobStatus
-pattern JSSucceeded = JobStatus' "Succeeded"
+pattern JobStatusSucceeded :: JobStatus
+pattern JobStatusSucceeded = JobStatus' "Succeeded"
 
-pattern JSTimedOut :: JobStatus
-pattern JSTimedOut = JobStatus' "TimedOut"
+pattern JobStatusTimedOut :: JobStatus
+pattern JobStatusTimedOut = JobStatus' "TimedOut"
 
 {-# COMPLETE
-  JSCreated,
-  JSDispatched,
-  JSFailed,
-  JSInProgress,
-  JSQueued,
-  JSSucceeded,
-  JSTimedOut,
+  JobStatusCreated,
+  JobStatusDispatched,
+  JobStatusFailed,
+  JobStatusInProgress,
+  JobStatusQueued,
+  JobStatusSucceeded,
+  JobStatusTimedOut,
   JobStatus'
   #-}
 
-instance FromText JobStatus where
-  parser = (JobStatus' . mk) <$> takeText
+instance Prelude.FromText JobStatus where
+  parser = JobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText JobStatus where
-  toText (JobStatus' ci) = original ci
+instance Prelude.ToText JobStatus where
+  toText (JobStatus' x) = x
 
-instance Hashable JobStatus
+instance Prelude.Hashable JobStatus
 
-instance NFData JobStatus
+instance Prelude.NFData JobStatus
 
-instance ToByteString JobStatus
+instance Prelude.ToByteString JobStatus
 
-instance ToQuery JobStatus
+instance Prelude.ToQuery JobStatus
 
-instance ToHeader JobStatus
+instance Prelude.ToHeader JobStatus
 
-instance FromJSON JobStatus where
-  parseJSON = parseJSONText "JobStatus"
+instance Prelude.FromJSON JobStatus where
+  parseJSON = Prelude.parseJSONText "JobStatus"

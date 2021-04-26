@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.CodePipeline.Types.BlockerType
   ( BlockerType
       ( ..,
-        Schedule
+        BlockerTypeSchedule
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BlockerType = BlockerType' (CI Text)
+newtype BlockerType = BlockerType'
+  { fromBlockerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Schedule :: BlockerType
-pattern Schedule = BlockerType' "Schedule"
+pattern BlockerTypeSchedule :: BlockerType
+pattern BlockerTypeSchedule = BlockerType' "Schedule"
 
 {-# COMPLETE
-  Schedule,
+  BlockerTypeSchedule,
   BlockerType'
   #-}
 
-instance FromText BlockerType where
-  parser = (BlockerType' . mk) <$> takeText
+instance Prelude.FromText BlockerType where
+  parser = BlockerType' Prelude.<$> Prelude.takeText
 
-instance ToText BlockerType where
-  toText (BlockerType' ci) = original ci
+instance Prelude.ToText BlockerType where
+  toText (BlockerType' x) = x
 
-instance Hashable BlockerType
+instance Prelude.Hashable BlockerType
 
-instance NFData BlockerType
+instance Prelude.NFData BlockerType
 
-instance ToByteString BlockerType
+instance Prelude.ToByteString BlockerType
 
-instance ToQuery BlockerType
+instance Prelude.ToQuery BlockerType
 
-instance ToHeader BlockerType
+instance Prelude.ToHeader BlockerType
 
-instance ToJSON BlockerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON BlockerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BlockerType where
-  parseJSON = parseJSONText "BlockerType"
+instance Prelude.FromJSON BlockerType where
+  parseJSON = Prelude.parseJSONText "BlockerType"

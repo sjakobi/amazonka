@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,142 +24,159 @@
 -- Enables artifacts in a pipeline to transition to a stage in a pipeline.
 module Network.AWS.CodePipeline.EnableStageTransition
   ( -- * Creating a Request
-    enableStageTransition,
-    EnableStageTransition,
+    EnableStageTransition (..),
+    newEnableStageTransition,
 
     -- * Request Lenses
-    estPipelineName,
-    estStageName,
-    estTransitionType,
+    enableStageTransition_pipelineName,
+    enableStageTransition_stageName,
+    enableStageTransition_transitionType,
 
     -- * Destructuring the Response
-    enableStageTransitionResponse,
-    EnableStageTransitionResponse,
+    EnableStageTransitionResponse (..),
+    newEnableStageTransitionResponse,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of an @EnableStageTransition@ action.
 --
---
---
--- /See:/ 'enableStageTransition' smart constructor.
+-- /See:/ 'newEnableStageTransition' smart constructor.
 data EnableStageTransition = EnableStageTransition'
-  { _estPipelineName ::
-      !Text,
-    _estStageName :: !Text,
-    _estTransitionType ::
-      !StageTransitionType
+  { -- | The name of the pipeline in which you want to enable the flow of
+    -- artifacts from one stage to another.
+    pipelineName :: Prelude.Text,
+    -- | The name of the stage where you want to enable the transition of
+    -- artifacts, either into the stage (inbound) or from that stage to the
+    -- next stage (outbound).
+    stageName :: Prelude.Text,
+    -- | Specifies whether artifacts are allowed to enter the stage and be
+    -- processed by the actions in that stage (inbound) or whether already
+    -- processed artifacts are allowed to transition to the next stage
+    -- (outbound).
+    transitionType :: StageTransitionType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableStageTransition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableStageTransition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'estPipelineName' - The name of the pipeline in which you want to enable the flow of artifacts from one stage to another.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'estStageName' - The name of the stage where you want to enable the transition of artifacts, either into the stage (inbound) or from that stage to the next stage (outbound).
+-- 'pipelineName', 'enableStageTransition_pipelineName' - The name of the pipeline in which you want to enable the flow of
+-- artifacts from one stage to another.
 --
--- * 'estTransitionType' - Specifies whether artifacts are allowed to enter the stage and be processed by the actions in that stage (inbound) or whether already processed artifacts are allowed to transition to the next stage (outbound).
-enableStageTransition ::
-  -- | 'estPipelineName'
-  Text ->
-  -- | 'estStageName'
-  Text ->
-  -- | 'estTransitionType'
+-- 'stageName', 'enableStageTransition_stageName' - The name of the stage where you want to enable the transition of
+-- artifacts, either into the stage (inbound) or from that stage to the
+-- next stage (outbound).
+--
+-- 'transitionType', 'enableStageTransition_transitionType' - Specifies whether artifacts are allowed to enter the stage and be
+-- processed by the actions in that stage (inbound) or whether already
+-- processed artifacts are allowed to transition to the next stage
+-- (outbound).
+newEnableStageTransition ::
+  -- | 'pipelineName'
+  Prelude.Text ->
+  -- | 'stageName'
+  Prelude.Text ->
+  -- | 'transitionType'
   StageTransitionType ->
   EnableStageTransition
-enableStageTransition
+newEnableStageTransition
   pPipelineName_
   pStageName_
   pTransitionType_ =
     EnableStageTransition'
-      { _estPipelineName =
+      { pipelineName =
           pPipelineName_,
-        _estStageName = pStageName_,
-        _estTransitionType = pTransitionType_
+        stageName = pStageName_,
+        transitionType = pTransitionType_
       }
 
--- | The name of the pipeline in which you want to enable the flow of artifacts from one stage to another.
-estPipelineName :: Lens' EnableStageTransition Text
-estPipelineName = lens _estPipelineName (\s a -> s {_estPipelineName = a})
+-- | The name of the pipeline in which you want to enable the flow of
+-- artifacts from one stage to another.
+enableStageTransition_pipelineName :: Lens.Lens' EnableStageTransition Prelude.Text
+enableStageTransition_pipelineName = Lens.lens (\EnableStageTransition' {pipelineName} -> pipelineName) (\s@EnableStageTransition' {} a -> s {pipelineName = a} :: EnableStageTransition)
 
--- | The name of the stage where you want to enable the transition of artifacts, either into the stage (inbound) or from that stage to the next stage (outbound).
-estStageName :: Lens' EnableStageTransition Text
-estStageName = lens _estStageName (\s a -> s {_estStageName = a})
+-- | The name of the stage where you want to enable the transition of
+-- artifacts, either into the stage (inbound) or from that stage to the
+-- next stage (outbound).
+enableStageTransition_stageName :: Lens.Lens' EnableStageTransition Prelude.Text
+enableStageTransition_stageName = Lens.lens (\EnableStageTransition' {stageName} -> stageName) (\s@EnableStageTransition' {} a -> s {stageName = a} :: EnableStageTransition)
 
--- | Specifies whether artifacts are allowed to enter the stage and be processed by the actions in that stage (inbound) or whether already processed artifacts are allowed to transition to the next stage (outbound).
-estTransitionType :: Lens' EnableStageTransition StageTransitionType
-estTransitionType = lens _estTransitionType (\s a -> s {_estTransitionType = a})
+-- | Specifies whether artifacts are allowed to enter the stage and be
+-- processed by the actions in that stage (inbound) or whether already
+-- processed artifacts are allowed to transition to the next stage
+-- (outbound).
+enableStageTransition_transitionType :: Lens.Lens' EnableStageTransition StageTransitionType
+enableStageTransition_transitionType = Lens.lens (\EnableStageTransition' {transitionType} -> transitionType) (\s@EnableStageTransition' {} a -> s {transitionType = a} :: EnableStageTransition)
 
-instance AWSRequest EnableStageTransition where
+instance Prelude.AWSRequest EnableStageTransition where
   type
     Rs EnableStageTransition =
       EnableStageTransitionResponse
-  request = postJSON codePipeline
-  response = receiveNull EnableStageTransitionResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull EnableStageTransitionResponse'
 
-instance Hashable EnableStageTransition
+instance Prelude.Hashable EnableStageTransition
 
-instance NFData EnableStageTransition
+instance Prelude.NFData EnableStageTransition
 
-instance ToHeaders EnableStageTransition where
+instance Prelude.ToHeaders EnableStageTransition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodePipeline_20150709.EnableStageTransition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodePipeline_20150709.EnableStageTransition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableStageTransition where
+instance Prelude.ToJSON EnableStageTransition where
   toJSON EnableStageTransition' {..} =
-    object
-      ( catMaybes
-          [ Just ("pipelineName" .= _estPipelineName),
-            Just ("stageName" .= _estStageName),
-            Just ("transitionType" .= _estTransitionType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("pipelineName" Prelude..= pipelineName),
+            Prelude.Just ("stageName" Prelude..= stageName),
+            Prelude.Just
+              ("transitionType" Prelude..= transitionType)
           ]
       )
 
-instance ToPath EnableStageTransition where
-  toPath = const "/"
+instance Prelude.ToPath EnableStageTransition where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableStageTransition where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableStageTransition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableStageTransitionResponse' smart constructor.
+-- | /See:/ 'newEnableStageTransitionResponse' smart constructor.
 data EnableStageTransitionResponse = EnableStageTransitionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableStageTransitionResponse' with the minimum fields required to make a request.
-enableStageTransitionResponse ::
+-- |
+-- Create a value of 'EnableStageTransitionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEnableStageTransitionResponse ::
   EnableStageTransitionResponse
-enableStageTransitionResponse =
+newEnableStageTransitionResponse =
   EnableStageTransitionResponse'
 
-instance NFData EnableStageTransitionResponse
+instance Prelude.NFData EnableStageTransitionResponse

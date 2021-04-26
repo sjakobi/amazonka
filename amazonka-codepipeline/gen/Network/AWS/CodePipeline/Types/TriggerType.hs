@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.CodePipeline.Types.TriggerType
   ( TriggerType
       ( ..,
-        CloudWatchEvent,
-        CreatePipeline,
-        PollForSourceChanges,
-        PutActionRevision,
-        StartPipelineExecution,
-        Webhook
+        TriggerTypeCloudWatchEvent,
+        TriggerTypeCreatePipeline,
+        TriggerTypePollForSourceChanges,
+        TriggerTypePutActionRevision,
+        TriggerTypeStartPipelineExecution,
+        TriggerTypeWebhook
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TriggerType = TriggerType' (CI Text)
+newtype TriggerType = TriggerType'
+  { fromTriggerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CloudWatchEvent :: TriggerType
-pattern CloudWatchEvent = TriggerType' "CloudWatchEvent"
+pattern TriggerTypeCloudWatchEvent :: TriggerType
+pattern TriggerTypeCloudWatchEvent = TriggerType' "CloudWatchEvent"
 
-pattern CreatePipeline :: TriggerType
-pattern CreatePipeline = TriggerType' "CreatePipeline"
+pattern TriggerTypeCreatePipeline :: TriggerType
+pattern TriggerTypeCreatePipeline = TriggerType' "CreatePipeline"
 
-pattern PollForSourceChanges :: TriggerType
-pattern PollForSourceChanges = TriggerType' "PollForSourceChanges"
+pattern TriggerTypePollForSourceChanges :: TriggerType
+pattern TriggerTypePollForSourceChanges = TriggerType' "PollForSourceChanges"
 
-pattern PutActionRevision :: TriggerType
-pattern PutActionRevision = TriggerType' "PutActionRevision"
+pattern TriggerTypePutActionRevision :: TriggerType
+pattern TriggerTypePutActionRevision = TriggerType' "PutActionRevision"
 
-pattern StartPipelineExecution :: TriggerType
-pattern StartPipelineExecution = TriggerType' "StartPipelineExecution"
+pattern TriggerTypeStartPipelineExecution :: TriggerType
+pattern TriggerTypeStartPipelineExecution = TriggerType' "StartPipelineExecution"
 
-pattern Webhook :: TriggerType
-pattern Webhook = TriggerType' "Webhook"
+pattern TriggerTypeWebhook :: TriggerType
+pattern TriggerTypeWebhook = TriggerType' "Webhook"
 
 {-# COMPLETE
-  CloudWatchEvent,
-  CreatePipeline,
-  PollForSourceChanges,
-  PutActionRevision,
-  StartPipelineExecution,
-  Webhook,
+  TriggerTypeCloudWatchEvent,
+  TriggerTypeCreatePipeline,
+  TriggerTypePollForSourceChanges,
+  TriggerTypePutActionRevision,
+  TriggerTypeStartPipelineExecution,
+  TriggerTypeWebhook,
   TriggerType'
   #-}
 
-instance FromText TriggerType where
-  parser = (TriggerType' . mk) <$> takeText
+instance Prelude.FromText TriggerType where
+  parser = TriggerType' Prelude.<$> Prelude.takeText
 
-instance ToText TriggerType where
-  toText (TriggerType' ci) = original ci
+instance Prelude.ToText TriggerType where
+  toText (TriggerType' x) = x
 
-instance Hashable TriggerType
+instance Prelude.Hashable TriggerType
 
-instance NFData TriggerType
+instance Prelude.NFData TriggerType
 
-instance ToByteString TriggerType
+instance Prelude.ToByteString TriggerType
 
-instance ToQuery TriggerType
+instance Prelude.ToQuery TriggerType
 
-instance ToHeader TriggerType
+instance Prelude.ToHeader TriggerType
 
-instance FromJSON TriggerType where
-  parseJSON = parseJSONText "TriggerType"
+instance Prelude.FromJSON TriggerType where
+  parseJSON = Prelude.parseJSONText "TriggerType"

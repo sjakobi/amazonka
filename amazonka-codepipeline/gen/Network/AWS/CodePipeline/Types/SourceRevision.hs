@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.SourceRevision where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the version (or revision) of a source artifact that initiated a pipeline execution.
+-- | Information about the version (or revision) of a source artifact that
+-- initiated a pipeline execution.
 --
---
---
--- /See:/ 'sourceRevision' smart constructor.
+-- /See:/ 'newSourceRevision' smart constructor.
 data SourceRevision = SourceRevision'
-  { _srRevisionId ::
-      !(Maybe Text),
-    _srRevisionSummary :: !(Maybe Text),
-    _srRevisionURL :: !(Maybe Text),
-    _srActionName :: !Text
+  { -- | The system-generated unique ID that identifies the revision number of
+    -- the artifact.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | Summary information about the most recent revision of the artifact. For
+    -- GitHub and AWS CodeCommit repositories, the commit message. For Amazon
+    -- S3 buckets or actions, the user-provided content of a
+    -- @codepipeline-artifact-revision-summary@ key specified in the object
+    -- metadata.
+    revisionSummary :: Prelude.Maybe Prelude.Text,
+    -- | The commit ID for the artifact revision. For artifacts stored in GitHub
+    -- or AWS CodeCommit repositories, the commit ID is linked to a commit
+    -- details page.
+    revisionUrl :: Prelude.Maybe Prelude.Text,
+    -- | The name of the action that processed the revision to the source
+    -- artifact.
+    actionName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceRevision' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceRevision' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srRevisionId' - The system-generated unique ID that identifies the revision number of the artifact.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srRevisionSummary' - Summary information about the most recent revision of the artifact. For GitHub and AWS CodeCommit repositories, the commit message. For Amazon S3 buckets or actions, the user-provided content of a @codepipeline-artifact-revision-summary@ key specified in the object metadata.
+-- 'revisionId', 'sourceRevision_revisionId' - The system-generated unique ID that identifies the revision number of
+-- the artifact.
 --
--- * 'srRevisionURL' - The commit ID for the artifact revision. For artifacts stored in GitHub or AWS CodeCommit repositories, the commit ID is linked to a commit details page.
+-- 'revisionSummary', 'sourceRevision_revisionSummary' - Summary information about the most recent revision of the artifact. For
+-- GitHub and AWS CodeCommit repositories, the commit message. For Amazon
+-- S3 buckets or actions, the user-provided content of a
+-- @codepipeline-artifact-revision-summary@ key specified in the object
+-- metadata.
 --
--- * 'srActionName' - The name of the action that processed the revision to the source artifact.
-sourceRevision ::
-  -- | 'srActionName'
-  Text ->
+-- 'revisionUrl', 'sourceRevision_revisionUrl' - The commit ID for the artifact revision. For artifacts stored in GitHub
+-- or AWS CodeCommit repositories, the commit ID is linked to a commit
+-- details page.
+--
+-- 'actionName', 'sourceRevision_actionName' - The name of the action that processed the revision to the source
+-- artifact.
+newSourceRevision ::
+  -- | 'actionName'
+  Prelude.Text ->
   SourceRevision
-sourceRevision pActionName_ =
+newSourceRevision pActionName_ =
   SourceRevision'
-    { _srRevisionId = Nothing,
-      _srRevisionSummary = Nothing,
-      _srRevisionURL = Nothing,
-      _srActionName = pActionName_
+    { revisionId = Prelude.Nothing,
+      revisionSummary = Prelude.Nothing,
+      revisionUrl = Prelude.Nothing,
+      actionName = pActionName_
     }
 
--- | The system-generated unique ID that identifies the revision number of the artifact.
-srRevisionId :: Lens' SourceRevision (Maybe Text)
-srRevisionId = lens _srRevisionId (\s a -> s {_srRevisionId = a})
+-- | The system-generated unique ID that identifies the revision number of
+-- the artifact.
+sourceRevision_revisionId :: Lens.Lens' SourceRevision (Prelude.Maybe Prelude.Text)
+sourceRevision_revisionId = Lens.lens (\SourceRevision' {revisionId} -> revisionId) (\s@SourceRevision' {} a -> s {revisionId = a} :: SourceRevision)
 
--- | Summary information about the most recent revision of the artifact. For GitHub and AWS CodeCommit repositories, the commit message. For Amazon S3 buckets or actions, the user-provided content of a @codepipeline-artifact-revision-summary@ key specified in the object metadata.
-srRevisionSummary :: Lens' SourceRevision (Maybe Text)
-srRevisionSummary = lens _srRevisionSummary (\s a -> s {_srRevisionSummary = a})
+-- | Summary information about the most recent revision of the artifact. For
+-- GitHub and AWS CodeCommit repositories, the commit message. For Amazon
+-- S3 buckets or actions, the user-provided content of a
+-- @codepipeline-artifact-revision-summary@ key specified in the object
+-- metadata.
+sourceRevision_revisionSummary :: Lens.Lens' SourceRevision (Prelude.Maybe Prelude.Text)
+sourceRevision_revisionSummary = Lens.lens (\SourceRevision' {revisionSummary} -> revisionSummary) (\s@SourceRevision' {} a -> s {revisionSummary = a} :: SourceRevision)
 
--- | The commit ID for the artifact revision. For artifacts stored in GitHub or AWS CodeCommit repositories, the commit ID is linked to a commit details page.
-srRevisionURL :: Lens' SourceRevision (Maybe Text)
-srRevisionURL = lens _srRevisionURL (\s a -> s {_srRevisionURL = a})
+-- | The commit ID for the artifact revision. For artifacts stored in GitHub
+-- or AWS CodeCommit repositories, the commit ID is linked to a commit
+-- details page.
+sourceRevision_revisionUrl :: Lens.Lens' SourceRevision (Prelude.Maybe Prelude.Text)
+sourceRevision_revisionUrl = Lens.lens (\SourceRevision' {revisionUrl} -> revisionUrl) (\s@SourceRevision' {} a -> s {revisionUrl = a} :: SourceRevision)
 
--- | The name of the action that processed the revision to the source artifact.
-srActionName :: Lens' SourceRevision Text
-srActionName = lens _srActionName (\s a -> s {_srActionName = a})
+-- | The name of the action that processed the revision to the source
+-- artifact.
+sourceRevision_actionName :: Lens.Lens' SourceRevision Prelude.Text
+sourceRevision_actionName = Lens.lens (\SourceRevision' {actionName} -> actionName) (\s@SourceRevision' {} a -> s {actionName = a} :: SourceRevision)
 
-instance FromJSON SourceRevision where
+instance Prelude.FromJSON SourceRevision where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SourceRevision"
       ( \x ->
           SourceRevision'
-            <$> (x .:? "revisionId")
-            <*> (x .:? "revisionSummary")
-            <*> (x .:? "revisionUrl")
-            <*> (x .: "actionName")
+            Prelude.<$> (x Prelude..:? "revisionId")
+            Prelude.<*> (x Prelude..:? "revisionSummary")
+            Prelude.<*> (x Prelude..:? "revisionUrl")
+            Prelude.<*> (x Prelude..: "actionName")
       )
 
-instance Hashable SourceRevision
+instance Prelude.Hashable SourceRevision
 
-instance NFData SourceRevision
+instance Prelude.NFData SourceRevision

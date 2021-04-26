@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.CodePipeline.Types.EncryptionKeyType
   ( EncryptionKeyType
       ( ..,
-        KMS
+        EncryptionKeyTypeKMS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EncryptionKeyType = EncryptionKeyType' (CI Text)
+newtype EncryptionKeyType = EncryptionKeyType'
+  { fromEncryptionKeyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern KMS :: EncryptionKeyType
-pattern KMS = EncryptionKeyType' "KMS"
+pattern EncryptionKeyTypeKMS :: EncryptionKeyType
+pattern EncryptionKeyTypeKMS = EncryptionKeyType' "KMS"
 
 {-# COMPLETE
-  KMS,
+  EncryptionKeyTypeKMS,
   EncryptionKeyType'
   #-}
 
-instance FromText EncryptionKeyType where
-  parser = (EncryptionKeyType' . mk) <$> takeText
+instance Prelude.FromText EncryptionKeyType where
+  parser = EncryptionKeyType' Prelude.<$> Prelude.takeText
 
-instance ToText EncryptionKeyType where
-  toText (EncryptionKeyType' ci) = original ci
+instance Prelude.ToText EncryptionKeyType where
+  toText (EncryptionKeyType' x) = x
 
-instance Hashable EncryptionKeyType
+instance Prelude.Hashable EncryptionKeyType
 
-instance NFData EncryptionKeyType
+instance Prelude.NFData EncryptionKeyType
 
-instance ToByteString EncryptionKeyType
+instance Prelude.ToByteString EncryptionKeyType
 
-instance ToQuery EncryptionKeyType
+instance Prelude.ToQuery EncryptionKeyType
 
-instance ToHeader EncryptionKeyType
+instance Prelude.ToHeader EncryptionKeyType
 
-instance ToJSON EncryptionKeyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EncryptionKeyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EncryptionKeyType where
-  parseJSON = parseJSONText "EncryptionKeyType"
+instance Prelude.FromJSON EncryptionKeyType where
+  parseJSON = Prelude.parseJSONText "EncryptionKeyType"

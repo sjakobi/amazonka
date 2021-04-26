@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.CodePipeline.Types.PipelineExecutionStatus
   ( PipelineExecutionStatus
       ( ..,
-        PESCancelled,
-        PESFailed,
-        PESInProgress,
-        PESStopped,
-        PESStopping,
-        PESSucceeded,
-        PESSuperseded
+        PipelineExecutionStatusCancelled,
+        PipelineExecutionStatusFailed,
+        PipelineExecutionStatusInProgress,
+        PipelineExecutionStatusStopped,
+        PipelineExecutionStatusStopping,
+        PipelineExecutionStatusSucceeded,
+        PipelineExecutionStatusSuperseded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PipelineExecutionStatus
-  = PipelineExecutionStatus'
-      ( CI
-          Text
-      )
+newtype PipelineExecutionStatus = PipelineExecutionStatus'
+  { fromPipelineExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PESCancelled :: PipelineExecutionStatus
-pattern PESCancelled = PipelineExecutionStatus' "Cancelled"
+pattern PipelineExecutionStatusCancelled :: PipelineExecutionStatus
+pattern PipelineExecutionStatusCancelled = PipelineExecutionStatus' "Cancelled"
 
-pattern PESFailed :: PipelineExecutionStatus
-pattern PESFailed = PipelineExecutionStatus' "Failed"
+pattern PipelineExecutionStatusFailed :: PipelineExecutionStatus
+pattern PipelineExecutionStatusFailed = PipelineExecutionStatus' "Failed"
 
-pattern PESInProgress :: PipelineExecutionStatus
-pattern PESInProgress = PipelineExecutionStatus' "InProgress"
+pattern PipelineExecutionStatusInProgress :: PipelineExecutionStatus
+pattern PipelineExecutionStatusInProgress = PipelineExecutionStatus' "InProgress"
 
-pattern PESStopped :: PipelineExecutionStatus
-pattern PESStopped = PipelineExecutionStatus' "Stopped"
+pattern PipelineExecutionStatusStopped :: PipelineExecutionStatus
+pattern PipelineExecutionStatusStopped = PipelineExecutionStatus' "Stopped"
 
-pattern PESStopping :: PipelineExecutionStatus
-pattern PESStopping = PipelineExecutionStatus' "Stopping"
+pattern PipelineExecutionStatusStopping :: PipelineExecutionStatus
+pattern PipelineExecutionStatusStopping = PipelineExecutionStatus' "Stopping"
 
-pattern PESSucceeded :: PipelineExecutionStatus
-pattern PESSucceeded = PipelineExecutionStatus' "Succeeded"
+pattern PipelineExecutionStatusSucceeded :: PipelineExecutionStatus
+pattern PipelineExecutionStatusSucceeded = PipelineExecutionStatus' "Succeeded"
 
-pattern PESSuperseded :: PipelineExecutionStatus
-pattern PESSuperseded = PipelineExecutionStatus' "Superseded"
+pattern PipelineExecutionStatusSuperseded :: PipelineExecutionStatus
+pattern PipelineExecutionStatusSuperseded = PipelineExecutionStatus' "Superseded"
 
 {-# COMPLETE
-  PESCancelled,
-  PESFailed,
-  PESInProgress,
-  PESStopped,
-  PESStopping,
-  PESSucceeded,
-  PESSuperseded,
+  PipelineExecutionStatusCancelled,
+  PipelineExecutionStatusFailed,
+  PipelineExecutionStatusInProgress,
+  PipelineExecutionStatusStopped,
+  PipelineExecutionStatusStopping,
+  PipelineExecutionStatusSucceeded,
+  PipelineExecutionStatusSuperseded,
   PipelineExecutionStatus'
   #-}
 
-instance FromText PipelineExecutionStatus where
-  parser = (PipelineExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText PipelineExecutionStatus where
+  parser = PipelineExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PipelineExecutionStatus where
-  toText (PipelineExecutionStatus' ci) = original ci
+instance Prelude.ToText PipelineExecutionStatus where
+  toText (PipelineExecutionStatus' x) = x
 
-instance Hashable PipelineExecutionStatus
+instance Prelude.Hashable PipelineExecutionStatus
 
-instance NFData PipelineExecutionStatus
+instance Prelude.NFData PipelineExecutionStatus
 
-instance ToByteString PipelineExecutionStatus
+instance Prelude.ToByteString PipelineExecutionStatus
 
-instance ToQuery PipelineExecutionStatus
+instance Prelude.ToQuery PipelineExecutionStatus
 
-instance ToHeader PipelineExecutionStatus
+instance Prelude.ToHeader PipelineExecutionStatus
 
-instance FromJSON PipelineExecutionStatus where
-  parseJSON = parseJSONText "PipelineExecutionStatus"
+instance Prelude.FromJSON PipelineExecutionStatus where
+  parseJSON = Prelude.parseJSONText "PipelineExecutionStatus"

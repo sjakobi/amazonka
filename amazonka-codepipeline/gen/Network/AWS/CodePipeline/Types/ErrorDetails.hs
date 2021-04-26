@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.ErrorDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about an error in AWS CodePipeline.
 --
---
---
--- /See:/ 'errorDetails' smart constructor.
+-- /See:/ 'newErrorDetails' smart constructor.
 data ErrorDetails = ErrorDetails'
-  { _edMessage ::
-      !(Maybe Text),
-    _edCode :: !(Maybe Text)
+  { -- | The text of the error message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The system ID or number code of the error.
+    code :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ErrorDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ErrorDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'edMessage' - The text of the error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'edCode' - The system ID or number code of the error.
-errorDetails ::
+-- 'message', 'errorDetails_message' - The text of the error message.
+--
+-- 'code', 'errorDetails_code' - The system ID or number code of the error.
+newErrorDetails ::
   ErrorDetails
-errorDetails =
+newErrorDetails =
   ErrorDetails'
-    { _edMessage = Nothing,
-      _edCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The text of the error message.
-edMessage :: Lens' ErrorDetails (Maybe Text)
-edMessage = lens _edMessage (\s a -> s {_edMessage = a})
+errorDetails_message :: Lens.Lens' ErrorDetails (Prelude.Maybe Prelude.Text)
+errorDetails_message = Lens.lens (\ErrorDetails' {message} -> message) (\s@ErrorDetails' {} a -> s {message = a} :: ErrorDetails)
 
 -- | The system ID or number code of the error.
-edCode :: Lens' ErrorDetails (Maybe Text)
-edCode = lens _edCode (\s a -> s {_edCode = a})
+errorDetails_code :: Lens.Lens' ErrorDetails (Prelude.Maybe Prelude.Text)
+errorDetails_code = Lens.lens (\ErrorDetails' {code} -> code) (\s@ErrorDetails' {} a -> s {code = a} :: ErrorDetails)
 
-instance FromJSON ErrorDetails where
+instance Prelude.FromJSON ErrorDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ErrorDetails"
       ( \x ->
           ErrorDetails'
-            <$> (x .:? "message") <*> (x .:? "code")
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "code")
       )
 
-instance Hashable ErrorDetails
+instance Prelude.Hashable ErrorDetails
 
-instance NFData ErrorDetails
+instance Prelude.NFData ErrorDetails

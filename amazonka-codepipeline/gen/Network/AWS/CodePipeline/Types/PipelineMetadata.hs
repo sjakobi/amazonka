@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.PipelineMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a pipeline.
 --
---
---
--- /See:/ 'pipelineMetadata' smart constructor.
+-- /See:/ 'newPipelineMetadata' smart constructor.
 data PipelineMetadata = PipelineMetadata'
-  { _pmPipelineARN ::
-      !(Maybe Text),
-    _pmCreated :: !(Maybe POSIX),
-    _pmUpdated :: !(Maybe POSIX)
+  { -- | The Amazon Resource Name (ARN) of the pipeline.
+    pipelineArn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the pipeline was created, in timestamp format.
+    created :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time the pipeline was last updated, in timestamp format.
+    updated :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PipelineMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PipelineMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pmPipelineARN' - The Amazon Resource Name (ARN) of the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pmCreated' - The date and time the pipeline was created, in timestamp format.
+-- 'pipelineArn', 'pipelineMetadata_pipelineArn' - The Amazon Resource Name (ARN) of the pipeline.
 --
--- * 'pmUpdated' - The date and time the pipeline was last updated, in timestamp format.
-pipelineMetadata ::
+-- 'created', 'pipelineMetadata_created' - The date and time the pipeline was created, in timestamp format.
+--
+-- 'updated', 'pipelineMetadata_updated' - The date and time the pipeline was last updated, in timestamp format.
+newPipelineMetadata ::
   PipelineMetadata
-pipelineMetadata =
+newPipelineMetadata =
   PipelineMetadata'
-    { _pmPipelineARN = Nothing,
-      _pmCreated = Nothing,
-      _pmUpdated = Nothing
+    { pipelineArn = Prelude.Nothing,
+      created = Prelude.Nothing,
+      updated = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the pipeline.
-pmPipelineARN :: Lens' PipelineMetadata (Maybe Text)
-pmPipelineARN = lens _pmPipelineARN (\s a -> s {_pmPipelineARN = a})
+pipelineMetadata_pipelineArn :: Lens.Lens' PipelineMetadata (Prelude.Maybe Prelude.Text)
+pipelineMetadata_pipelineArn = Lens.lens (\PipelineMetadata' {pipelineArn} -> pipelineArn) (\s@PipelineMetadata' {} a -> s {pipelineArn = a} :: PipelineMetadata)
 
 -- | The date and time the pipeline was created, in timestamp format.
-pmCreated :: Lens' PipelineMetadata (Maybe UTCTime)
-pmCreated = lens _pmCreated (\s a -> s {_pmCreated = a}) . mapping _Time
+pipelineMetadata_created :: Lens.Lens' PipelineMetadata (Prelude.Maybe Prelude.UTCTime)
+pipelineMetadata_created = Lens.lens (\PipelineMetadata' {created} -> created) (\s@PipelineMetadata' {} a -> s {created = a} :: PipelineMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date and time the pipeline was last updated, in timestamp format.
-pmUpdated :: Lens' PipelineMetadata (Maybe UTCTime)
-pmUpdated = lens _pmUpdated (\s a -> s {_pmUpdated = a}) . mapping _Time
+pipelineMetadata_updated :: Lens.Lens' PipelineMetadata (Prelude.Maybe Prelude.UTCTime)
+pipelineMetadata_updated = Lens.lens (\PipelineMetadata' {updated} -> updated) (\s@PipelineMetadata' {} a -> s {updated = a} :: PipelineMetadata) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON PipelineMetadata where
+instance Prelude.FromJSON PipelineMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PipelineMetadata"
       ( \x ->
           PipelineMetadata'
-            <$> (x .:? "pipelineArn")
-            <*> (x .:? "created")
-            <*> (x .:? "updated")
+            Prelude.<$> (x Prelude..:? "pipelineArn")
+            Prelude.<*> (x Prelude..:? "created")
+            Prelude.<*> (x Prelude..:? "updated")
       )
 
-instance Hashable PipelineMetadata
+instance Prelude.Hashable PipelineMetadata
 
-instance NFData PipelineMetadata
+instance Prelude.NFData PipelineMetadata

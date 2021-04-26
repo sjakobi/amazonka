@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,236 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about an action type created for an external provider, where the action is to be used by customers of the external provider. The action can be created with any supported integration model.
+-- Returns information about an action type created for an external
+-- provider, where the action is to be used by customers of the external
+-- provider. The action can be created with any supported integration
+-- model.
 module Network.AWS.CodePipeline.GetActionType
   ( -- * Creating a Request
-    getActionType,
-    GetActionType,
+    GetActionType (..),
+    newGetActionType,
 
     -- * Request Lenses
-    gatCategory,
-    gatOwner,
-    gatProvider,
-    gatVersion,
+    getActionType_category,
+    getActionType_owner,
+    getActionType_provider,
+    getActionType_version,
 
     -- * Destructuring the Response
-    getActionTypeResponse,
-    GetActionTypeResponse,
+    GetActionTypeResponse (..),
+    newGetActionTypeResponse,
 
     -- * Response Lenses
-    gatrrsActionType,
-    gatrrsResponseStatus,
+    getActionTypeResponse_actionType,
+    getActionTypeResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodePipeline.Types.ActionTypeDeclaration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getActionType' smart constructor.
+-- | /See:/ 'newGetActionType' smart constructor.
 data GetActionType = GetActionType'
-  { _gatCategory ::
-      !ActionCategory,
-    _gatOwner :: !Text,
-    _gatProvider :: !Text,
-    _gatVersion :: !Text
+  { -- | Defines what kind of action can be taken in the stage. The following are
+    -- the valid values:
+    --
+    -- -   @Source@
+    --
+    -- -   @Build@
+    --
+    -- -   @Test@
+    --
+    -- -   @Deploy@
+    --
+    -- -   @Approval@
+    --
+    -- -   @Invoke@
+    category :: ActionCategory,
+    -- | The creator of an action type that was created with any supported
+    -- integration model. There are two valid values: @AWS@ and @ThirdParty@.
+    owner :: Prelude.Text,
+    -- | The provider of the action type being called. The provider name is
+    -- specified when the action type is created.
+    provider :: Prelude.Text,
+    -- | A string that describes the action type version.
+    version :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetActionType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetActionType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gatCategory' - Defines what kind of action can be taken in the stage. The following are the valid values:     * @Source@      * @Build@      * @Test@      * @Deploy@      * @Approval@      * @Invoke@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gatOwner' - The creator of an action type that was created with any supported integration model. There are two valid values: @AWS@ and @ThirdParty@ .
+-- 'category', 'getActionType_category' - Defines what kind of action can be taken in the stage. The following are
+-- the valid values:
 --
--- * 'gatProvider' - The provider of the action type being called. The provider name is specified when the action type is created.
+-- -   @Source@
 --
--- * 'gatVersion' - A string that describes the action type version.
-getActionType ::
-  -- | 'gatCategory'
+-- -   @Build@
+--
+-- -   @Test@
+--
+-- -   @Deploy@
+--
+-- -   @Approval@
+--
+-- -   @Invoke@
+--
+-- 'owner', 'getActionType_owner' - The creator of an action type that was created with any supported
+-- integration model. There are two valid values: @AWS@ and @ThirdParty@.
+--
+-- 'provider', 'getActionType_provider' - The provider of the action type being called. The provider name is
+-- specified when the action type is created.
+--
+-- 'version', 'getActionType_version' - A string that describes the action type version.
+newGetActionType ::
+  -- | 'category'
   ActionCategory ->
-  -- | 'gatOwner'
-  Text ->
-  -- | 'gatProvider'
-  Text ->
-  -- | 'gatVersion'
-  Text ->
+  -- | 'owner'
+  Prelude.Text ->
+  -- | 'provider'
+  Prelude.Text ->
+  -- | 'version'
+  Prelude.Text ->
   GetActionType
-getActionType pCategory_ pOwner_ pProvider_ pVersion_ =
-  GetActionType'
-    { _gatCategory = pCategory_,
-      _gatOwner = pOwner_,
-      _gatProvider = pProvider_,
-      _gatVersion = pVersion_
-    }
+newGetActionType
+  pCategory_
+  pOwner_
+  pProvider_
+  pVersion_ =
+    GetActionType'
+      { category = pCategory_,
+        owner = pOwner_,
+        provider = pProvider_,
+        version = pVersion_
+      }
 
--- | Defines what kind of action can be taken in the stage. The following are the valid values:     * @Source@      * @Build@      * @Test@      * @Deploy@      * @Approval@      * @Invoke@
-gatCategory :: Lens' GetActionType ActionCategory
-gatCategory = lens _gatCategory (\s a -> s {_gatCategory = a})
+-- | Defines what kind of action can be taken in the stage. The following are
+-- the valid values:
+--
+-- -   @Source@
+--
+-- -   @Build@
+--
+-- -   @Test@
+--
+-- -   @Deploy@
+--
+-- -   @Approval@
+--
+-- -   @Invoke@
+getActionType_category :: Lens.Lens' GetActionType ActionCategory
+getActionType_category = Lens.lens (\GetActionType' {category} -> category) (\s@GetActionType' {} a -> s {category = a} :: GetActionType)
 
--- | The creator of an action type that was created with any supported integration model. There are two valid values: @AWS@ and @ThirdParty@ .
-gatOwner :: Lens' GetActionType Text
-gatOwner = lens _gatOwner (\s a -> s {_gatOwner = a})
+-- | The creator of an action type that was created with any supported
+-- integration model. There are two valid values: @AWS@ and @ThirdParty@.
+getActionType_owner :: Lens.Lens' GetActionType Prelude.Text
+getActionType_owner = Lens.lens (\GetActionType' {owner} -> owner) (\s@GetActionType' {} a -> s {owner = a} :: GetActionType)
 
--- | The provider of the action type being called. The provider name is specified when the action type is created.
-gatProvider :: Lens' GetActionType Text
-gatProvider = lens _gatProvider (\s a -> s {_gatProvider = a})
+-- | The provider of the action type being called. The provider name is
+-- specified when the action type is created.
+getActionType_provider :: Lens.Lens' GetActionType Prelude.Text
+getActionType_provider = Lens.lens (\GetActionType' {provider} -> provider) (\s@GetActionType' {} a -> s {provider = a} :: GetActionType)
 
 -- | A string that describes the action type version.
-gatVersion :: Lens' GetActionType Text
-gatVersion = lens _gatVersion (\s a -> s {_gatVersion = a})
+getActionType_version :: Lens.Lens' GetActionType Prelude.Text
+getActionType_version = Lens.lens (\GetActionType' {version} -> version) (\s@GetActionType' {} a -> s {version = a} :: GetActionType)
 
-instance AWSRequest GetActionType where
+instance Prelude.AWSRequest GetActionType where
   type Rs GetActionType = GetActionTypeResponse
-  request = postJSON codePipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetActionTypeResponse'
-            <$> (x .?> "actionType") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "actionType")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetActionType
+instance Prelude.Hashable GetActionType
 
-instance NFData GetActionType
+instance Prelude.NFData GetActionType
 
-instance ToHeaders GetActionType where
+instance Prelude.ToHeaders GetActionType where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodePipeline_20150709.GetActionType" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodePipeline_20150709.GetActionType" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetActionType where
+instance Prelude.ToJSON GetActionType where
   toJSON GetActionType' {..} =
-    object
-      ( catMaybes
-          [ Just ("category" .= _gatCategory),
-            Just ("owner" .= _gatOwner),
-            Just ("provider" .= _gatProvider),
-            Just ("version" .= _gatVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("category" Prelude..= category),
+            Prelude.Just ("owner" Prelude..= owner),
+            Prelude.Just ("provider" Prelude..= provider),
+            Prelude.Just ("version" Prelude..= version)
           ]
       )
 
-instance ToPath GetActionType where
-  toPath = const "/"
+instance Prelude.ToPath GetActionType where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetActionType where
-  toQuery = const mempty
+instance Prelude.ToQuery GetActionType where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getActionTypeResponse' smart constructor.
+-- | /See:/ 'newGetActionTypeResponse' smart constructor.
 data GetActionTypeResponse = GetActionTypeResponse'
-  { _gatrrsActionType ::
-      !( Maybe
-           ActionTypeDeclaration
-       ),
-    _gatrrsResponseStatus ::
-      !Int
+  { -- | The action type information for the requested action type, such as the
+    -- action type ID.
+    actionType :: Prelude.Maybe ActionTypeDeclaration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetActionTypeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetActionTypeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gatrrsActionType' - The action type information for the requested action type, such as the action type ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gatrrsResponseStatus' - -- | The response status code.
-getActionTypeResponse ::
-  -- | 'gatrrsResponseStatus'
-  Int ->
+-- 'actionType', 'getActionTypeResponse_actionType' - The action type information for the requested action type, such as the
+-- action type ID.
+--
+-- 'httpStatus', 'getActionTypeResponse_httpStatus' - The response's http status code.
+newGetActionTypeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetActionTypeResponse
-getActionTypeResponse pResponseStatus_ =
+newGetActionTypeResponse pHttpStatus_ =
   GetActionTypeResponse'
-    { _gatrrsActionType = Nothing,
-      _gatrrsResponseStatus = pResponseStatus_
+    { actionType =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The action type information for the requested action type, such as the action type ID.
-gatrrsActionType :: Lens' GetActionTypeResponse (Maybe ActionTypeDeclaration)
-gatrrsActionType = lens _gatrrsActionType (\s a -> s {_gatrrsActionType = a})
+-- | The action type information for the requested action type, such as the
+-- action type ID.
+getActionTypeResponse_actionType :: Lens.Lens' GetActionTypeResponse (Prelude.Maybe ActionTypeDeclaration)
+getActionTypeResponse_actionType = Lens.lens (\GetActionTypeResponse' {actionType} -> actionType) (\s@GetActionTypeResponse' {} a -> s {actionType = a} :: GetActionTypeResponse)
 
--- | -- | The response status code.
-gatrrsResponseStatus :: Lens' GetActionTypeResponse Int
-gatrrsResponseStatus = lens _gatrrsResponseStatus (\s a -> s {_gatrrsResponseStatus = a})
+-- | The response's http status code.
+getActionTypeResponse_httpStatus :: Lens.Lens' GetActionTypeResponse Prelude.Int
+getActionTypeResponse_httpStatus = Lens.lens (\GetActionTypeResponse' {httpStatus} -> httpStatus) (\s@GetActionTypeResponse' {} a -> s {httpStatus = a} :: GetActionTypeResponse)
 
-instance NFData GetActionTypeResponse
+instance Prelude.NFData GetActionTypeResponse

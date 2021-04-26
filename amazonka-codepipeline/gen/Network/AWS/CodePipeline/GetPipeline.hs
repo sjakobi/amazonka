@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,183 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the metadata, structure, stages, and actions of a pipeline. Can be used to return the entire structure of a pipeline in JSON format, which can then be modified and used to update the pipeline structure with 'UpdatePipeline' .
+-- Returns the metadata, structure, stages, and actions of a pipeline. Can
+-- be used to return the entire structure of a pipeline in JSON format,
+-- which can then be modified and used to update the pipeline structure
+-- with UpdatePipeline.
 module Network.AWS.CodePipeline.GetPipeline
   ( -- * Creating a Request
-    getPipeline,
-    GetPipeline,
+    GetPipeline (..),
+    newGetPipeline,
 
     -- * Request Lenses
-    gpVersion,
-    gpName,
+    getPipeline_version,
+    getPipeline_name,
 
     -- * Destructuring the Response
-    getPipelineResponse,
-    GetPipelineResponse,
+    GetPipelineResponse (..),
+    newGetPipelineResponse,
 
     -- * Response Lenses
-    gprrsMetadata,
-    gprrsPipeline,
-    gprrsResponseStatus,
+    getPipelineResponse_metadata,
+    getPipelineResponse_pipeline,
+    getPipelineResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodePipeline.Types.PipelineDeclaration
+import Network.AWS.CodePipeline.Types.PipelineMetadata
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @GetPipeline@ action.
 --
---
---
--- /See:/ 'getPipeline' smart constructor.
+-- /See:/ 'newGetPipeline' smart constructor.
 data GetPipeline = GetPipeline'
-  { _gpVersion ::
-      !(Maybe Nat),
-    _gpName :: !Text
+  { -- | The version number of the pipeline. If you do not specify a version,
+    -- defaults to the current version.
+    version :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the pipeline for which you want to get information. Pipeline
+    -- names must be unique under an AWS user account.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPipeline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPipeline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpVersion' - The version number of the pipeline. If you do not specify a version, defaults to the current version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpName' - The name of the pipeline for which you want to get information. Pipeline names must be unique under an AWS user account.
-getPipeline ::
-  -- | 'gpName'
-  Text ->
+-- 'version', 'getPipeline_version' - The version number of the pipeline. If you do not specify a version,
+-- defaults to the current version.
+--
+-- 'name', 'getPipeline_name' - The name of the pipeline for which you want to get information. Pipeline
+-- names must be unique under an AWS user account.
+newGetPipeline ::
+  -- | 'name'
+  Prelude.Text ->
   GetPipeline
-getPipeline pName_ =
+newGetPipeline pName_ =
   GetPipeline'
-    { _gpVersion = Nothing,
-      _gpName = pName_
+    { version = Prelude.Nothing,
+      name = pName_
     }
 
--- | The version number of the pipeline. If you do not specify a version, defaults to the current version.
-gpVersion :: Lens' GetPipeline (Maybe Natural)
-gpVersion = lens _gpVersion (\s a -> s {_gpVersion = a}) . mapping _Nat
+-- | The version number of the pipeline. If you do not specify a version,
+-- defaults to the current version.
+getPipeline_version :: Lens.Lens' GetPipeline (Prelude.Maybe Prelude.Natural)
+getPipeline_version = Lens.lens (\GetPipeline' {version} -> version) (\s@GetPipeline' {} a -> s {version = a} :: GetPipeline) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of the pipeline for which you want to get information. Pipeline names must be unique under an AWS user account.
-gpName :: Lens' GetPipeline Text
-gpName = lens _gpName (\s a -> s {_gpName = a})
+-- | The name of the pipeline for which you want to get information. Pipeline
+-- names must be unique under an AWS user account.
+getPipeline_name :: Lens.Lens' GetPipeline Prelude.Text
+getPipeline_name = Lens.lens (\GetPipeline' {name} -> name) (\s@GetPipeline' {} a -> s {name = a} :: GetPipeline)
 
-instance AWSRequest GetPipeline where
+instance Prelude.AWSRequest GetPipeline where
   type Rs GetPipeline = GetPipelineResponse
-  request = postJSON codePipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetPipelineResponse'
-            <$> (x .?> "metadata")
-            <*> (x .?> "pipeline")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "metadata")
+            Prelude.<*> (x Prelude..?> "pipeline")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPipeline
+instance Prelude.Hashable GetPipeline
 
-instance NFData GetPipeline
+instance Prelude.NFData GetPipeline
 
-instance ToHeaders GetPipeline where
+instance Prelude.ToHeaders GetPipeline where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodePipeline_20150709.GetPipeline" :: ByteString),
+              Prelude.=# ( "CodePipeline_20150709.GetPipeline" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetPipeline where
+instance Prelude.ToJSON GetPipeline where
   toJSON GetPipeline' {..} =
-    object
-      ( catMaybes
-          [ ("version" .=) <$> _gpVersion,
-            Just ("name" .= _gpName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("version" Prelude..=) Prelude.<$> version,
+            Prelude.Just ("name" Prelude..= name)
           ]
       )
 
-instance ToPath GetPipeline where
-  toPath = const "/"
+instance Prelude.ToPath GetPipeline where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetPipeline where
-  toQuery = const mempty
+instance Prelude.ToQuery GetPipeline where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetPipeline@ action.
 --
---
---
--- /See:/ 'getPipelineResponse' smart constructor.
+-- /See:/ 'newGetPipelineResponse' smart constructor.
 data GetPipelineResponse = GetPipelineResponse'
-  { _gprrsMetadata ::
-      !(Maybe PipelineMetadata),
-    _gprrsPipeline ::
-      !(Maybe PipelineDeclaration),
-    _gprrsResponseStatus :: !Int
+  { -- | Represents the pipeline metadata information returned as part of the
+    -- output of a @GetPipeline@ action.
+    metadata :: Prelude.Maybe PipelineMetadata,
+    -- | Represents the structure of actions and stages to be performed in the
+    -- pipeline.
+    pipeline :: Prelude.Maybe PipelineDeclaration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPipelineResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPipelineResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gprrsMetadata' - Represents the pipeline metadata information returned as part of the output of a @GetPipeline@ action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gprrsPipeline' - Represents the structure of actions and stages to be performed in the pipeline.
+-- 'metadata', 'getPipelineResponse_metadata' - Represents the pipeline metadata information returned as part of the
+-- output of a @GetPipeline@ action.
 --
--- * 'gprrsResponseStatus' - -- | The response status code.
-getPipelineResponse ::
-  -- | 'gprrsResponseStatus'
-  Int ->
+-- 'pipeline', 'getPipelineResponse_pipeline' - Represents the structure of actions and stages to be performed in the
+-- pipeline.
+--
+-- 'httpStatus', 'getPipelineResponse_httpStatus' - The response's http status code.
+newGetPipelineResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPipelineResponse
-getPipelineResponse pResponseStatus_ =
+newGetPipelineResponse pHttpStatus_ =
   GetPipelineResponse'
-    { _gprrsMetadata = Nothing,
-      _gprrsPipeline = Nothing,
-      _gprrsResponseStatus = pResponseStatus_
+    { metadata = Prelude.Nothing,
+      pipeline = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Represents the pipeline metadata information returned as part of the output of a @GetPipeline@ action.
-gprrsMetadata :: Lens' GetPipelineResponse (Maybe PipelineMetadata)
-gprrsMetadata = lens _gprrsMetadata (\s a -> s {_gprrsMetadata = a})
+-- | Represents the pipeline metadata information returned as part of the
+-- output of a @GetPipeline@ action.
+getPipelineResponse_metadata :: Lens.Lens' GetPipelineResponse (Prelude.Maybe PipelineMetadata)
+getPipelineResponse_metadata = Lens.lens (\GetPipelineResponse' {metadata} -> metadata) (\s@GetPipelineResponse' {} a -> s {metadata = a} :: GetPipelineResponse)
 
--- | Represents the structure of actions and stages to be performed in the pipeline.
-gprrsPipeline :: Lens' GetPipelineResponse (Maybe PipelineDeclaration)
-gprrsPipeline = lens _gprrsPipeline (\s a -> s {_gprrsPipeline = a})
+-- | Represents the structure of actions and stages to be performed in the
+-- pipeline.
+getPipelineResponse_pipeline :: Lens.Lens' GetPipelineResponse (Prelude.Maybe PipelineDeclaration)
+getPipelineResponse_pipeline = Lens.lens (\GetPipelineResponse' {pipeline} -> pipeline) (\s@GetPipelineResponse' {} a -> s {pipeline = a} :: GetPipelineResponse)
 
--- | -- | The response status code.
-gprrsResponseStatus :: Lens' GetPipelineResponse Int
-gprrsResponseStatus = lens _gprrsResponseStatus (\s a -> s {_gprrsResponseStatus = a})
+-- | The response's http status code.
+getPipelineResponse_httpStatus :: Lens.Lens' GetPipelineResponse Prelude.Int
+getPipelineResponse_httpStatus = Lens.lens (\GetPipelineResponse' {httpStatus} -> httpStatus) (\s@GetPipelineResponse' {} a -> s {httpStatus = a} :: GetPipelineResponse)
 
-instance NFData GetPipelineResponse
+instance Prelude.NFData GetPipelineResponse

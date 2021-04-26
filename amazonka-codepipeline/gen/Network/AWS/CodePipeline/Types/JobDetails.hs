@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,70 @@
 module Network.AWS.CodePipeline.Types.JobDetails where
 
 import Network.AWS.CodePipeline.Types.JobData
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about the details of a job.
 --
---
---
--- /See:/ 'jobDetails' smart constructor.
+-- /See:/ 'newJobDetails' smart constructor.
 data JobDetails = JobDetails'
-  { _jdAccountId ::
-      !(Maybe Text),
-    _jdData :: !(Maybe JobData),
-    _jdId :: !(Maybe Text)
+  { -- | The AWS account ID associated with the job.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | Represents other information about a job required for a job worker to
+    -- complete the job.
+    data' :: Prelude.Maybe JobData,
+    -- | The unique system-generated ID of the job.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jdAccountId' - The AWS account ID associated with the job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jdData' - Represents other information about a job required for a job worker to complete the job.
+-- 'accountId', 'jobDetails_accountId' - The AWS account ID associated with the job.
 --
--- * 'jdId' - The unique system-generated ID of the job.
-jobDetails ::
+-- 'data'', 'jobDetails_data' - Represents other information about a job required for a job worker to
+-- complete the job.
+--
+-- 'id', 'jobDetails_id' - The unique system-generated ID of the job.
+newJobDetails ::
   JobDetails
-jobDetails =
+newJobDetails =
   JobDetails'
-    { _jdAccountId = Nothing,
-      _jdData = Nothing,
-      _jdId = Nothing
+    { accountId = Prelude.Nothing,
+      data' = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
 -- | The AWS account ID associated with the job.
-jdAccountId :: Lens' JobDetails (Maybe Text)
-jdAccountId = lens _jdAccountId (\s a -> s {_jdAccountId = a})
+jobDetails_accountId :: Lens.Lens' JobDetails (Prelude.Maybe Prelude.Text)
+jobDetails_accountId = Lens.lens (\JobDetails' {accountId} -> accountId) (\s@JobDetails' {} a -> s {accountId = a} :: JobDetails)
 
--- | Represents other information about a job required for a job worker to complete the job.
-jdData :: Lens' JobDetails (Maybe JobData)
-jdData = lens _jdData (\s a -> s {_jdData = a})
+-- | Represents other information about a job required for a job worker to
+-- complete the job.
+jobDetails_data :: Lens.Lens' JobDetails (Prelude.Maybe JobData)
+jobDetails_data = Lens.lens (\JobDetails' {data'} -> data') (\s@JobDetails' {} a -> s {data' = a} :: JobDetails)
 
 -- | The unique system-generated ID of the job.
-jdId :: Lens' JobDetails (Maybe Text)
-jdId = lens _jdId (\s a -> s {_jdId = a})
+jobDetails_id :: Lens.Lens' JobDetails (Prelude.Maybe Prelude.Text)
+jobDetails_id = Lens.lens (\JobDetails' {id} -> id) (\s@JobDetails' {} a -> s {id = a} :: JobDetails)
 
-instance FromJSON JobDetails where
+instance Prelude.FromJSON JobDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobDetails"
       ( \x ->
           JobDetails'
-            <$> (x .:? "accountId")
-            <*> (x .:? "data")
-            <*> (x .:? "id")
+            Prelude.<$> (x Prelude..:? "accountId")
+            Prelude.<*> (x Prelude..:? "data")
+            Prelude.<*> (x Prelude..:? "id")
       )
 
-instance Hashable JobDetails
+instance Prelude.Hashable JobDetails
 
-instance NFData JobDetails
+instance Prelude.NFData JobDetails

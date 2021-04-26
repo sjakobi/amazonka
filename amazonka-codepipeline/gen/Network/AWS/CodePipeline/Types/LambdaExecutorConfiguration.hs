@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.LambdaExecutorConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about the configuration for the @Lambda@ action engine, or executor.
+-- | Details about the configuration for the @Lambda@ action engine, or
+-- executor.
 --
---
---
--- /See:/ 'lambdaExecutorConfiguration' smart constructor.
-newtype LambdaExecutorConfiguration = LambdaExecutorConfiguration'
-  { _lecLambdaFunctionARN ::
-      Text
+-- /See:/ 'newLambdaExecutorConfiguration' smart constructor.
+data LambdaExecutorConfiguration = LambdaExecutorConfiguration'
+  { -- | The ARN of the Lambda function used by the action engine.
+    lambdaFunctionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaExecutorConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaExecutorConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lecLambdaFunctionARN' - The ARN of the Lambda function used by the action engine.
-lambdaExecutorConfiguration ::
-  -- | 'lecLambdaFunctionARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'lambdaFunctionArn', 'lambdaExecutorConfiguration_lambdaFunctionArn' - The ARN of the Lambda function used by the action engine.
+newLambdaExecutorConfiguration ::
+  -- | 'lambdaFunctionArn'
+  Prelude.Text ->
   LambdaExecutorConfiguration
-lambdaExecutorConfiguration pLambdaFunctionARN_ =
+newLambdaExecutorConfiguration pLambdaFunctionArn_ =
   LambdaExecutorConfiguration'
-    { _lecLambdaFunctionARN =
-        pLambdaFunctionARN_
+    { lambdaFunctionArn =
+        pLambdaFunctionArn_
     }
 
 -- | The ARN of the Lambda function used by the action engine.
-lecLambdaFunctionARN :: Lens' LambdaExecutorConfiguration Text
-lecLambdaFunctionARN = lens _lecLambdaFunctionARN (\s a -> s {_lecLambdaFunctionARN = a})
+lambdaExecutorConfiguration_lambdaFunctionArn :: Lens.Lens' LambdaExecutorConfiguration Prelude.Text
+lambdaExecutorConfiguration_lambdaFunctionArn = Lens.lens (\LambdaExecutorConfiguration' {lambdaFunctionArn} -> lambdaFunctionArn) (\s@LambdaExecutorConfiguration' {} a -> s {lambdaFunctionArn = a} :: LambdaExecutorConfiguration)
 
-instance FromJSON LambdaExecutorConfiguration where
+instance Prelude.FromJSON LambdaExecutorConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaExecutorConfiguration"
       ( \x ->
           LambdaExecutorConfiguration'
-            <$> (x .: "lambdaFunctionArn")
+            Prelude.<$> (x Prelude..: "lambdaFunctionArn")
       )
 
-instance Hashable LambdaExecutorConfiguration
+instance Prelude.Hashable LambdaExecutorConfiguration
 
-instance NFData LambdaExecutorConfiguration
+instance Prelude.NFData LambdaExecutorConfiguration
 
-instance ToJSON LambdaExecutorConfiguration where
+instance Prelude.ToJSON LambdaExecutorConfiguration where
   toJSON LambdaExecutorConfiguration' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("lambdaFunctionArn" .= _lecLambdaFunctionARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("lambdaFunctionArn" Prelude..= lambdaFunctionArn)
           ]
       )

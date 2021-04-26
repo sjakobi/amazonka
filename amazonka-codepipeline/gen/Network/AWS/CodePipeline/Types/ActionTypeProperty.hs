@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,111 +19,136 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.ActionTypeProperty where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents information about each property specified in the action configuration, such as the description and key name that display for the customer using the action type.
+-- | Represents information about each property specified in the action
+-- configuration, such as the description and key name that display for the
+-- customer using the action type.
 --
---
---
--- /See:/ 'actionTypeProperty' smart constructor.
+-- /See:/ 'newActionTypeProperty' smart constructor.
 data ActionTypeProperty = ActionTypeProperty'
-  { _atpDescription ::
-      !(Maybe Text),
-    _atpQueryable :: !(Maybe Bool),
-    _atpName :: !Text,
-    _atpOptional :: !Bool,
-    _atpKey :: !Bool,
-    _atpNoEcho :: !Bool
+  { -- | The description of the property that is displayed to users.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates that the property is used with polling. An action type can
+    -- have up to one queryable property. If it has one, that property must be
+    -- both required and not secret.
+    queryable :: Prelude.Maybe Prelude.Bool,
+    -- | The property name that is displayed to users.
+    name :: Prelude.Text,
+    -- | Whether the configuration property is an optional value.
+    optional :: Prelude.Bool,
+    -- | Whether the configuration property is a key.
+    key :: Prelude.Bool,
+    -- | Whether to omit the field value entered by the customer in the log. If
+    -- @true@, the value is not saved in CloudTrail logs for the action
+    -- execution.
+    noEcho :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionTypeProperty' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionTypeProperty' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atpDescription' - The description of the property that is displayed to users.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atpQueryable' - Indicates that the property is used with polling. An action type can have up to one queryable property. If it has one, that property must be both required and not secret.
+-- 'description', 'actionTypeProperty_description' - The description of the property that is displayed to users.
 --
--- * 'atpName' - The property name that is displayed to users.
+-- 'queryable', 'actionTypeProperty_queryable' - Indicates that the property is used with polling. An action type can
+-- have up to one queryable property. If it has one, that property must be
+-- both required and not secret.
 --
--- * 'atpOptional' - Whether the configuration property is an optional value.
+-- 'name', 'actionTypeProperty_name' - The property name that is displayed to users.
 --
--- * 'atpKey' - Whether the configuration property is a key.
+-- 'optional', 'actionTypeProperty_optional' - Whether the configuration property is an optional value.
 --
--- * 'atpNoEcho' - Whether to omit the field value entered by the customer in the log. If @true@ , the value is not saved in CloudTrail logs for the action execution.
-actionTypeProperty ::
-  -- | 'atpName'
-  Text ->
-  -- | 'atpOptional'
-  Bool ->
-  -- | 'atpKey'
-  Bool ->
-  -- | 'atpNoEcho'
-  Bool ->
+-- 'key', 'actionTypeProperty_key' - Whether the configuration property is a key.
+--
+-- 'noEcho', 'actionTypeProperty_noEcho' - Whether to omit the field value entered by the customer in the log. If
+-- @true@, the value is not saved in CloudTrail logs for the action
+-- execution.
+newActionTypeProperty ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'optional'
+  Prelude.Bool ->
+  -- | 'key'
+  Prelude.Bool ->
+  -- | 'noEcho'
+  Prelude.Bool ->
   ActionTypeProperty
-actionTypeProperty pName_ pOptional_ pKey_ pNoEcho_ =
-  ActionTypeProperty'
-    { _atpDescription = Nothing,
-      _atpQueryable = Nothing,
-      _atpName = pName_,
-      _atpOptional = pOptional_,
-      _atpKey = pKey_,
-      _atpNoEcho = pNoEcho_
-    }
+newActionTypeProperty
+  pName_
+  pOptional_
+  pKey_
+  pNoEcho_ =
+    ActionTypeProperty'
+      { description = Prelude.Nothing,
+        queryable = Prelude.Nothing,
+        name = pName_,
+        optional = pOptional_,
+        key = pKey_,
+        noEcho = pNoEcho_
+      }
 
 -- | The description of the property that is displayed to users.
-atpDescription :: Lens' ActionTypeProperty (Maybe Text)
-atpDescription = lens _atpDescription (\s a -> s {_atpDescription = a})
+actionTypeProperty_description :: Lens.Lens' ActionTypeProperty (Prelude.Maybe Prelude.Text)
+actionTypeProperty_description = Lens.lens (\ActionTypeProperty' {description} -> description) (\s@ActionTypeProperty' {} a -> s {description = a} :: ActionTypeProperty)
 
--- | Indicates that the property is used with polling. An action type can have up to one queryable property. If it has one, that property must be both required and not secret.
-atpQueryable :: Lens' ActionTypeProperty (Maybe Bool)
-atpQueryable = lens _atpQueryable (\s a -> s {_atpQueryable = a})
+-- | Indicates that the property is used with polling. An action type can
+-- have up to one queryable property. If it has one, that property must be
+-- both required and not secret.
+actionTypeProperty_queryable :: Lens.Lens' ActionTypeProperty (Prelude.Maybe Prelude.Bool)
+actionTypeProperty_queryable = Lens.lens (\ActionTypeProperty' {queryable} -> queryable) (\s@ActionTypeProperty' {} a -> s {queryable = a} :: ActionTypeProperty)
 
 -- | The property name that is displayed to users.
-atpName :: Lens' ActionTypeProperty Text
-atpName = lens _atpName (\s a -> s {_atpName = a})
+actionTypeProperty_name :: Lens.Lens' ActionTypeProperty Prelude.Text
+actionTypeProperty_name = Lens.lens (\ActionTypeProperty' {name} -> name) (\s@ActionTypeProperty' {} a -> s {name = a} :: ActionTypeProperty)
 
 -- | Whether the configuration property is an optional value.
-atpOptional :: Lens' ActionTypeProperty Bool
-atpOptional = lens _atpOptional (\s a -> s {_atpOptional = a})
+actionTypeProperty_optional :: Lens.Lens' ActionTypeProperty Prelude.Bool
+actionTypeProperty_optional = Lens.lens (\ActionTypeProperty' {optional} -> optional) (\s@ActionTypeProperty' {} a -> s {optional = a} :: ActionTypeProperty)
 
 -- | Whether the configuration property is a key.
-atpKey :: Lens' ActionTypeProperty Bool
-atpKey = lens _atpKey (\s a -> s {_atpKey = a})
+actionTypeProperty_key :: Lens.Lens' ActionTypeProperty Prelude.Bool
+actionTypeProperty_key = Lens.lens (\ActionTypeProperty' {key} -> key) (\s@ActionTypeProperty' {} a -> s {key = a} :: ActionTypeProperty)
 
--- | Whether to omit the field value entered by the customer in the log. If @true@ , the value is not saved in CloudTrail logs for the action execution.
-atpNoEcho :: Lens' ActionTypeProperty Bool
-atpNoEcho = lens _atpNoEcho (\s a -> s {_atpNoEcho = a})
+-- | Whether to omit the field value entered by the customer in the log. If
+-- @true@, the value is not saved in CloudTrail logs for the action
+-- execution.
+actionTypeProperty_noEcho :: Lens.Lens' ActionTypeProperty Prelude.Bool
+actionTypeProperty_noEcho = Lens.lens (\ActionTypeProperty' {noEcho} -> noEcho) (\s@ActionTypeProperty' {} a -> s {noEcho = a} :: ActionTypeProperty)
 
-instance FromJSON ActionTypeProperty where
+instance Prelude.FromJSON ActionTypeProperty where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionTypeProperty"
       ( \x ->
           ActionTypeProperty'
-            <$> (x .:? "description")
-            <*> (x .:? "queryable")
-            <*> (x .: "name")
-            <*> (x .: "optional")
-            <*> (x .: "key")
-            <*> (x .: "noEcho")
+            Prelude.<$> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "queryable")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "optional")
+            Prelude.<*> (x Prelude..: "key")
+            Prelude.<*> (x Prelude..: "noEcho")
       )
 
-instance Hashable ActionTypeProperty
+instance Prelude.Hashable ActionTypeProperty
 
-instance NFData ActionTypeProperty
+instance Prelude.NFData ActionTypeProperty
 
-instance ToJSON ActionTypeProperty where
+instance Prelude.ToJSON ActionTypeProperty where
   toJSON ActionTypeProperty' {..} =
-    object
-      ( catMaybes
-          [ ("description" .=) <$> _atpDescription,
-            ("queryable" .=) <$> _atpQueryable,
-            Just ("name" .= _atpName),
-            Just ("optional" .= _atpOptional),
-            Just ("key" .= _atpKey),
-            Just ("noEcho" .= _atpNoEcho)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("description" Prelude..=) Prelude.<$> description,
+            ("queryable" Prelude..=) Prelude.<$> queryable,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("optional" Prelude..= optional),
+            Prelude.Just ("key" Prelude..= key),
+            Prelude.Just ("noEcho" Prelude..= noEcho)
           ]
       )

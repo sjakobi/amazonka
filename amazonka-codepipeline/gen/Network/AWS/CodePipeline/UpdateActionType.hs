@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,95 +21,106 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an action type that was created with any supported integration model, where the action type is to be used by customers of the action type provider. Use a JSON file with the action definition and @UpdateActionType@ to provide the full structure.
+-- Updates an action type that was created with any supported integration
+-- model, where the action type is to be used by customers of the action
+-- type provider. Use a JSON file with the action definition and
+-- @UpdateActionType@ to provide the full structure.
 module Network.AWS.CodePipeline.UpdateActionType
   ( -- * Creating a Request
-    updateActionType,
-    UpdateActionType,
+    UpdateActionType (..),
+    newUpdateActionType,
 
     -- * Request Lenses
-    uatActionType,
+    updateActionType_actionType,
 
     -- * Destructuring the Response
-    updateActionTypeResponse,
-    UpdateActionTypeResponse,
+    UpdateActionTypeResponse (..),
+    newUpdateActionTypeResponse,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateActionType' smart constructor.
-newtype UpdateActionType = UpdateActionType'
-  { _uatActionType ::
-      Maybe ActionTypeDeclaration
+-- | /See:/ 'newUpdateActionType' smart constructor.
+data UpdateActionType = UpdateActionType'
+  { -- | The action type definition for the action type to be updated.
+    actionType :: Prelude.Maybe ActionTypeDeclaration
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateActionType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateActionType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uatActionType' - The action type definition for the action type to be updated.
-updateActionType ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'actionType', 'updateActionType_actionType' - The action type definition for the action type to be updated.
+newUpdateActionType ::
   UpdateActionType
-updateActionType =
-  UpdateActionType' {_uatActionType = Nothing}
+newUpdateActionType =
+  UpdateActionType' {actionType = Prelude.Nothing}
 
 -- | The action type definition for the action type to be updated.
-uatActionType :: Lens' UpdateActionType (Maybe ActionTypeDeclaration)
-uatActionType = lens _uatActionType (\s a -> s {_uatActionType = a})
+updateActionType_actionType :: Lens.Lens' UpdateActionType (Prelude.Maybe ActionTypeDeclaration)
+updateActionType_actionType = Lens.lens (\UpdateActionType' {actionType} -> actionType) (\s@UpdateActionType' {} a -> s {actionType = a} :: UpdateActionType)
 
-instance AWSRequest UpdateActionType where
+instance Prelude.AWSRequest UpdateActionType where
   type Rs UpdateActionType = UpdateActionTypeResponse
-  request = postJSON codePipeline
-  response = receiveNull UpdateActionTypeResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull UpdateActionTypeResponse'
 
-instance Hashable UpdateActionType
+instance Prelude.Hashable UpdateActionType
 
-instance NFData UpdateActionType
+instance Prelude.NFData UpdateActionType
 
-instance ToHeaders UpdateActionType where
+instance Prelude.ToHeaders UpdateActionType where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodePipeline_20150709.UpdateActionType" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodePipeline_20150709.UpdateActionType" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateActionType where
+instance Prelude.ToJSON UpdateActionType where
   toJSON UpdateActionType' {..} =
-    object
-      (catMaybes [("actionType" .=) <$> _uatActionType])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("actionType" Prelude..=) Prelude.<$> actionType]
+      )
 
-instance ToPath UpdateActionType where
-  toPath = const "/"
+instance Prelude.ToPath UpdateActionType where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateActionType where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateActionType where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateActionTypeResponse' smart constructor.
+-- | /See:/ 'newUpdateActionTypeResponse' smart constructor.
 data UpdateActionTypeResponse = UpdateActionTypeResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateActionTypeResponse' with the minimum fields required to make a request.
-updateActionTypeResponse ::
+-- |
+-- Create a value of 'UpdateActionTypeResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateActionTypeResponse ::
   UpdateActionTypeResponse
-updateActionTypeResponse = UpdateActionTypeResponse'
+newUpdateActionTypeResponse =
+  UpdateActionTypeResponse'
 
-instance NFData UpdateActionTypeResponse
+instance Prelude.NFData UpdateActionTypeResponse

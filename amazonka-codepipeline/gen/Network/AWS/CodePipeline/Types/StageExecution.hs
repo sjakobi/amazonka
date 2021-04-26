@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,58 +20,74 @@
 module Network.AWS.CodePipeline.Types.StageExecution where
 
 import Network.AWS.CodePipeline.Types.StageExecutionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about the run of a stage.
 --
---
---
--- /See:/ 'stageExecution' smart constructor.
+-- /See:/ 'newStageExecution' smart constructor.
 data StageExecution = StageExecution'
-  { _sePipelineExecutionId ::
-      !Text,
-    _seStatus :: !StageExecutionStatus
+  { -- | The ID of the pipeline execution associated with the stage.
+    pipelineExecutionId :: Prelude.Text,
+    -- | The status of the stage, or for a completed stage, the last status of
+    -- the stage.
+    --
+    -- A status of cancelled means that the pipeline’s definition was updated
+    -- before the stage execution could be completed.
+    status :: StageExecutionStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StageExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StageExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sePipelineExecutionId' - The ID of the pipeline execution associated with the stage.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seStatus' - The status of the stage, or for a completed stage, the last status of the stage.
-stageExecution ::
-  -- | 'sePipelineExecutionId'
-  Text ->
-  -- | 'seStatus'
+-- 'pipelineExecutionId', 'stageExecution_pipelineExecutionId' - The ID of the pipeline execution associated with the stage.
+--
+-- 'status', 'stageExecution_status' - The status of the stage, or for a completed stage, the last status of
+-- the stage.
+--
+-- A status of cancelled means that the pipeline’s definition was updated
+-- before the stage execution could be completed.
+newStageExecution ::
+  -- | 'pipelineExecutionId'
+  Prelude.Text ->
+  -- | 'status'
   StageExecutionStatus ->
   StageExecution
-stageExecution pPipelineExecutionId_ pStatus_ =
+newStageExecution pPipelineExecutionId_ pStatus_ =
   StageExecution'
-    { _sePipelineExecutionId =
+    { pipelineExecutionId =
         pPipelineExecutionId_,
-      _seStatus = pStatus_
+      status = pStatus_
     }
 
 -- | The ID of the pipeline execution associated with the stage.
-sePipelineExecutionId :: Lens' StageExecution Text
-sePipelineExecutionId = lens _sePipelineExecutionId (\s a -> s {_sePipelineExecutionId = a})
+stageExecution_pipelineExecutionId :: Lens.Lens' StageExecution Prelude.Text
+stageExecution_pipelineExecutionId = Lens.lens (\StageExecution' {pipelineExecutionId} -> pipelineExecutionId) (\s@StageExecution' {} a -> s {pipelineExecutionId = a} :: StageExecution)
 
--- | The status of the stage, or for a completed stage, the last status of the stage.
-seStatus :: Lens' StageExecution StageExecutionStatus
-seStatus = lens _seStatus (\s a -> s {_seStatus = a})
+-- | The status of the stage, or for a completed stage, the last status of
+-- the stage.
+--
+-- A status of cancelled means that the pipeline’s definition was updated
+-- before the stage execution could be completed.
+stageExecution_status :: Lens.Lens' StageExecution StageExecutionStatus
+stageExecution_status = Lens.lens (\StageExecution' {status} -> status) (\s@StageExecution' {} a -> s {status = a} :: StageExecution)
 
-instance FromJSON StageExecution where
+instance Prelude.FromJSON StageExecution where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StageExecution"
       ( \x ->
           StageExecution'
-            <$> (x .: "pipelineExecutionId") <*> (x .: "status")
+            Prelude.<$> (x Prelude..: "pipelineExecutionId")
+            Prelude.<*> (x Prelude..: "status")
       )
 
-instance Hashable StageExecution
+instance Prelude.Hashable StageExecution
 
-instance NFData StageExecution
+instance Prelude.NFData StageExecution

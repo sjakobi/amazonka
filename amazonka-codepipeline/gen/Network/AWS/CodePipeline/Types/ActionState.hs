@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +21,93 @@ module Network.AWS.CodePipeline.Types.ActionState where
 
 import Network.AWS.CodePipeline.Types.ActionExecution
 import Network.AWS.CodePipeline.Types.ActionRevision
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about the state of an action.
 --
---
---
--- /See:/ 'actionState' smart constructor.
+-- /See:/ 'newActionState' smart constructor.
 data ActionState = ActionState'
-  { _asActionName ::
-      !(Maybe Text),
-    _asLatestExecution :: !(Maybe ActionExecution),
-    _asCurrentRevision :: !(Maybe ActionRevision),
-    _asEntityURL :: !(Maybe Text),
-    _asRevisionURL :: !(Maybe Text)
+  { -- | The name of the action.
+    actionName :: Prelude.Maybe Prelude.Text,
+    -- | Represents information about the run of an action.
+    latestExecution :: Prelude.Maybe ActionExecution,
+    -- | Represents information about the version (or revision) of an action.
+    currentRevision :: Prelude.Maybe ActionRevision,
+    -- | A URL link for more information about the state of the action, such as a
+    -- deployment group details page.
+    entityUrl :: Prelude.Maybe Prelude.Text,
+    -- | A URL link for more information about the revision, such as a commit
+    -- details page.
+    revisionUrl :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asActionName' - The name of the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asLatestExecution' - Represents information about the run of an action.
+-- 'actionName', 'actionState_actionName' - The name of the action.
 --
--- * 'asCurrentRevision' - Represents information about the version (or revision) of an action.
+-- 'latestExecution', 'actionState_latestExecution' - Represents information about the run of an action.
 --
--- * 'asEntityURL' - A URL link for more information about the state of the action, such as a deployment group details page.
+-- 'currentRevision', 'actionState_currentRevision' - Represents information about the version (or revision) of an action.
 --
--- * 'asRevisionURL' - A URL link for more information about the revision, such as a commit details page.
-actionState ::
+-- 'entityUrl', 'actionState_entityUrl' - A URL link for more information about the state of the action, such as a
+-- deployment group details page.
+--
+-- 'revisionUrl', 'actionState_revisionUrl' - A URL link for more information about the revision, such as a commit
+-- details page.
+newActionState ::
   ActionState
-actionState =
+newActionState =
   ActionState'
-    { _asActionName = Nothing,
-      _asLatestExecution = Nothing,
-      _asCurrentRevision = Nothing,
-      _asEntityURL = Nothing,
-      _asRevisionURL = Nothing
+    { actionName = Prelude.Nothing,
+      latestExecution = Prelude.Nothing,
+      currentRevision = Prelude.Nothing,
+      entityUrl = Prelude.Nothing,
+      revisionUrl = Prelude.Nothing
     }
 
 -- | The name of the action.
-asActionName :: Lens' ActionState (Maybe Text)
-asActionName = lens _asActionName (\s a -> s {_asActionName = a})
+actionState_actionName :: Lens.Lens' ActionState (Prelude.Maybe Prelude.Text)
+actionState_actionName = Lens.lens (\ActionState' {actionName} -> actionName) (\s@ActionState' {} a -> s {actionName = a} :: ActionState)
 
 -- | Represents information about the run of an action.
-asLatestExecution :: Lens' ActionState (Maybe ActionExecution)
-asLatestExecution = lens _asLatestExecution (\s a -> s {_asLatestExecution = a})
+actionState_latestExecution :: Lens.Lens' ActionState (Prelude.Maybe ActionExecution)
+actionState_latestExecution = Lens.lens (\ActionState' {latestExecution} -> latestExecution) (\s@ActionState' {} a -> s {latestExecution = a} :: ActionState)
 
 -- | Represents information about the version (or revision) of an action.
-asCurrentRevision :: Lens' ActionState (Maybe ActionRevision)
-asCurrentRevision = lens _asCurrentRevision (\s a -> s {_asCurrentRevision = a})
+actionState_currentRevision :: Lens.Lens' ActionState (Prelude.Maybe ActionRevision)
+actionState_currentRevision = Lens.lens (\ActionState' {currentRevision} -> currentRevision) (\s@ActionState' {} a -> s {currentRevision = a} :: ActionState)
 
--- | A URL link for more information about the state of the action, such as a deployment group details page.
-asEntityURL :: Lens' ActionState (Maybe Text)
-asEntityURL = lens _asEntityURL (\s a -> s {_asEntityURL = a})
+-- | A URL link for more information about the state of the action, such as a
+-- deployment group details page.
+actionState_entityUrl :: Lens.Lens' ActionState (Prelude.Maybe Prelude.Text)
+actionState_entityUrl = Lens.lens (\ActionState' {entityUrl} -> entityUrl) (\s@ActionState' {} a -> s {entityUrl = a} :: ActionState)
 
--- | A URL link for more information about the revision, such as a commit details page.
-asRevisionURL :: Lens' ActionState (Maybe Text)
-asRevisionURL = lens _asRevisionURL (\s a -> s {_asRevisionURL = a})
+-- | A URL link for more information about the revision, such as a commit
+-- details page.
+actionState_revisionUrl :: Lens.Lens' ActionState (Prelude.Maybe Prelude.Text)
+actionState_revisionUrl = Lens.lens (\ActionState' {revisionUrl} -> revisionUrl) (\s@ActionState' {} a -> s {revisionUrl = a} :: ActionState)
 
-instance FromJSON ActionState where
+instance Prelude.FromJSON ActionState where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionState"
       ( \x ->
           ActionState'
-            <$> (x .:? "actionName")
-            <*> (x .:? "latestExecution")
-            <*> (x .:? "currentRevision")
-            <*> (x .:? "entityUrl")
-            <*> (x .:? "revisionUrl")
+            Prelude.<$> (x Prelude..:? "actionName")
+            Prelude.<*> (x Prelude..:? "latestExecution")
+            Prelude.<*> (x Prelude..:? "currentRevision")
+            Prelude.<*> (x Prelude..:? "entityUrl")
+            Prelude.<*> (x Prelude..:? "revisionUrl")
       )
 
-instance Hashable ActionState
+instance Prelude.Hashable ActionState
 
-instance NFData ActionState
+instance Prelude.NFData ActionState

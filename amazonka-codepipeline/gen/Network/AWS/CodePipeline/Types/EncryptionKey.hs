@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,59 +20,89 @@
 module Network.AWS.CodePipeline.Types.EncryptionKey where
 
 import Network.AWS.CodePipeline.Types.EncryptionKeyType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents information about the key used to encrypt data in the artifact store, such as an AWS Key Management Service (AWS KMS) key.
+-- | Represents information about the key used to encrypt data in the
+-- artifact store, such as an AWS Key Management Service (AWS KMS) key.
 --
---
---
--- /See:/ 'encryptionKey' smart constructor.
+-- /See:/ 'newEncryptionKey' smart constructor.
 data EncryptionKey = EncryptionKey'
-  { _ekId :: !Text,
-    _ekType :: !EncryptionKeyType
+  { -- | The ID used to identify the key. For an AWS KMS key, you can use the key
+    -- ID, the key ARN, or the alias ARN.
+    --
+    -- Aliases are recognized only in the account that created the customer
+    -- master key (CMK). For cross-account actions, you can only use the key ID
+    -- or key ARN to identify the key.
+    id :: Prelude.Text,
+    -- | The type of encryption key, such as an AWS Key Management Service (AWS
+    -- KMS) key. When creating or updating a pipeline, the value must be set to
+    -- \'KMS\'.
+    type' :: EncryptionKeyType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EncryptionKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EncryptionKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ekId' - The ID used to identify the key. For an AWS KMS key, you can use the key ID, the key ARN, or the alias ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ekType' - The type of encryption key, such as an AWS Key Management Service (AWS KMS) key. When creating or updating a pipeline, the value must be set to 'KMS'.
-encryptionKey ::
-  -- | 'ekId'
-  Text ->
-  -- | 'ekType'
+-- 'id', 'encryptionKey_id' - The ID used to identify the key. For an AWS KMS key, you can use the key
+-- ID, the key ARN, or the alias ARN.
+--
+-- Aliases are recognized only in the account that created the customer
+-- master key (CMK). For cross-account actions, you can only use the key ID
+-- or key ARN to identify the key.
+--
+-- 'type'', 'encryptionKey_type' - The type of encryption key, such as an AWS Key Management Service (AWS
+-- KMS) key. When creating or updating a pipeline, the value must be set to
+-- \'KMS\'.
+newEncryptionKey ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'type''
   EncryptionKeyType ->
   EncryptionKey
-encryptionKey pId_ pType_ =
-  EncryptionKey' {_ekId = pId_, _ekType = pType_}
+newEncryptionKey pId_ pType_ =
+  EncryptionKey' {id = pId_, type' = pType_}
 
--- | The ID used to identify the key. For an AWS KMS key, you can use the key ID, the key ARN, or the alias ARN.
-ekId :: Lens' EncryptionKey Text
-ekId = lens _ekId (\s a -> s {_ekId = a})
+-- | The ID used to identify the key. For an AWS KMS key, you can use the key
+-- ID, the key ARN, or the alias ARN.
+--
+-- Aliases are recognized only in the account that created the customer
+-- master key (CMK). For cross-account actions, you can only use the key ID
+-- or key ARN to identify the key.
+encryptionKey_id :: Lens.Lens' EncryptionKey Prelude.Text
+encryptionKey_id = Lens.lens (\EncryptionKey' {id} -> id) (\s@EncryptionKey' {} a -> s {id = a} :: EncryptionKey)
 
--- | The type of encryption key, such as an AWS Key Management Service (AWS KMS) key. When creating or updating a pipeline, the value must be set to 'KMS'.
-ekType :: Lens' EncryptionKey EncryptionKeyType
-ekType = lens _ekType (\s a -> s {_ekType = a})
+-- | The type of encryption key, such as an AWS Key Management Service (AWS
+-- KMS) key. When creating or updating a pipeline, the value must be set to
+-- \'KMS\'.
+encryptionKey_type :: Lens.Lens' EncryptionKey EncryptionKeyType
+encryptionKey_type = Lens.lens (\EncryptionKey' {type'} -> type') (\s@EncryptionKey' {} a -> s {type' = a} :: EncryptionKey)
 
-instance FromJSON EncryptionKey where
+instance Prelude.FromJSON EncryptionKey where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EncryptionKey"
       ( \x ->
-          EncryptionKey' <$> (x .: "id") <*> (x .: "type")
+          EncryptionKey'
+            Prelude.<$> (x Prelude..: "id")
+            Prelude.<*> (x Prelude..: "type")
       )
 
-instance Hashable EncryptionKey
+instance Prelude.Hashable EncryptionKey
 
-instance NFData EncryptionKey
+instance Prelude.NFData EncryptionKey
 
-instance ToJSON EncryptionKey where
+instance Prelude.ToJSON EncryptionKey where
   toJSON EncryptionKey' {..} =
-    object
-      ( catMaybes
-          [Just ("id" .= _ekId), Just ("type" .= _ekType)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("id" Prelude..= id),
+            Prelude.Just ("type" Prelude..= type')
+          ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,74 @@
 module Network.AWS.CodePipeline.Types.ThirdPartyJobDetails where
 
 import Network.AWS.CodePipeline.Types.ThirdPartyJobData
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The details of a job sent in response to a @GetThirdPartyJobDetails@ request.
+-- | The details of a job sent in response to a @GetThirdPartyJobDetails@
+-- request.
 --
---
---
--- /See:/ 'thirdPartyJobDetails' smart constructor.
+-- /See:/ 'newThirdPartyJobDetails' smart constructor.
 data ThirdPartyJobDetails = ThirdPartyJobDetails'
-  { _tpjdNonce ::
-      !(Maybe Text),
-    _tpjdData ::
-      !(Maybe ThirdPartyJobData),
-    _tpjdId :: !(Maybe Text)
+  { -- | A system-generated random number that AWS CodePipeline uses to ensure
+    -- that the job is being worked on by only one job worker. Use this number
+    -- in an AcknowledgeThirdPartyJob request.
+    nonce :: Prelude.Maybe Prelude.Text,
+    -- | The data to be returned by the third party job worker.
+    data' :: Prelude.Maybe ThirdPartyJobData,
+    -- | The identifier used to identify the job details in AWS CodePipeline.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ThirdPartyJobDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ThirdPartyJobDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tpjdNonce' - A system-generated random number that AWS CodePipeline uses to ensure that the job is being worked on by only one job worker. Use this number in an 'AcknowledgeThirdPartyJob' request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tpjdData' - The data to be returned by the third party job worker.
+-- 'nonce', 'thirdPartyJobDetails_nonce' - A system-generated random number that AWS CodePipeline uses to ensure
+-- that the job is being worked on by only one job worker. Use this number
+-- in an AcknowledgeThirdPartyJob request.
 --
--- * 'tpjdId' - The identifier used to identify the job details in AWS CodePipeline.
-thirdPartyJobDetails ::
+-- 'data'', 'thirdPartyJobDetails_data' - The data to be returned by the third party job worker.
+--
+-- 'id', 'thirdPartyJobDetails_id' - The identifier used to identify the job details in AWS CodePipeline.
+newThirdPartyJobDetails ::
   ThirdPartyJobDetails
-thirdPartyJobDetails =
+newThirdPartyJobDetails =
   ThirdPartyJobDetails'
-    { _tpjdNonce = Nothing,
-      _tpjdData = Nothing,
-      _tpjdId = Nothing
+    { nonce = Prelude.Nothing,
+      data' = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
--- | A system-generated random number that AWS CodePipeline uses to ensure that the job is being worked on by only one job worker. Use this number in an 'AcknowledgeThirdPartyJob' request.
-tpjdNonce :: Lens' ThirdPartyJobDetails (Maybe Text)
-tpjdNonce = lens _tpjdNonce (\s a -> s {_tpjdNonce = a})
+-- | A system-generated random number that AWS CodePipeline uses to ensure
+-- that the job is being worked on by only one job worker. Use this number
+-- in an AcknowledgeThirdPartyJob request.
+thirdPartyJobDetails_nonce :: Lens.Lens' ThirdPartyJobDetails (Prelude.Maybe Prelude.Text)
+thirdPartyJobDetails_nonce = Lens.lens (\ThirdPartyJobDetails' {nonce} -> nonce) (\s@ThirdPartyJobDetails' {} a -> s {nonce = a} :: ThirdPartyJobDetails)
 
 -- | The data to be returned by the third party job worker.
-tpjdData :: Lens' ThirdPartyJobDetails (Maybe ThirdPartyJobData)
-tpjdData = lens _tpjdData (\s a -> s {_tpjdData = a})
+thirdPartyJobDetails_data :: Lens.Lens' ThirdPartyJobDetails (Prelude.Maybe ThirdPartyJobData)
+thirdPartyJobDetails_data = Lens.lens (\ThirdPartyJobDetails' {data'} -> data') (\s@ThirdPartyJobDetails' {} a -> s {data' = a} :: ThirdPartyJobDetails)
 
 -- | The identifier used to identify the job details in AWS CodePipeline.
-tpjdId :: Lens' ThirdPartyJobDetails (Maybe Text)
-tpjdId = lens _tpjdId (\s a -> s {_tpjdId = a})
+thirdPartyJobDetails_id :: Lens.Lens' ThirdPartyJobDetails (Prelude.Maybe Prelude.Text)
+thirdPartyJobDetails_id = Lens.lens (\ThirdPartyJobDetails' {id} -> id) (\s@ThirdPartyJobDetails' {} a -> s {id = a} :: ThirdPartyJobDetails)
 
-instance FromJSON ThirdPartyJobDetails where
+instance Prelude.FromJSON ThirdPartyJobDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ThirdPartyJobDetails"
       ( \x ->
           ThirdPartyJobDetails'
-            <$> (x .:? "nonce") <*> (x .:? "data") <*> (x .:? "id")
+            Prelude.<$> (x Prelude..:? "nonce")
+            Prelude.<*> (x Prelude..:? "data")
+            Prelude.<*> (x Prelude..:? "id")
       )
 
-instance Hashable ThirdPartyJobDetails
+instance Prelude.Hashable ThirdPartyJobDetails
 
-instance NFData ThirdPartyJobDetails
+instance Prelude.NFData ThirdPartyJobDetails

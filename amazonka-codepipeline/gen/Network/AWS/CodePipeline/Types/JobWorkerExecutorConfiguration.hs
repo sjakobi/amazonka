@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.JobWorkerExecutorConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about the polling configuration for the @JobWorker@ action engine, or executor.
+-- | Details about the polling configuration for the @JobWorker@ action
+-- engine, or executor.
 --
---
---
--- /See:/ 'jobWorkerExecutorConfiguration' smart constructor.
+-- /See:/ 'newJobWorkerExecutorConfiguration' smart constructor.
 data JobWorkerExecutorConfiguration = JobWorkerExecutorConfiguration'
-  { _jwecPollingAccounts ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       ),
-    _jwecPollingServicePrincipals ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       )
+  { -- | The accounts in which the job worker is configured and might poll for
+    -- jobs as part of the action execution.
+    pollingAccounts :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The service Principals in which the job worker is configured and might
+    -- poll for jobs as part of the action execution.
+    pollingServicePrincipals :: Prelude.Maybe (Prelude.List1 Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobWorkerExecutorConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobWorkerExecutorConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jwecPollingAccounts' - The accounts in which the job worker is configured and might poll for jobs as part of the action execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jwecPollingServicePrincipals' - The service Principals in which the job worker is configured and might poll for jobs as part of the action execution.
-jobWorkerExecutorConfiguration ::
+-- 'pollingAccounts', 'jobWorkerExecutorConfiguration_pollingAccounts' - The accounts in which the job worker is configured and might poll for
+-- jobs as part of the action execution.
+--
+-- 'pollingServicePrincipals', 'jobWorkerExecutorConfiguration_pollingServicePrincipals' - The service Principals in which the job worker is configured and might
+-- poll for jobs as part of the action execution.
+newJobWorkerExecutorConfiguration ::
   JobWorkerExecutorConfiguration
-jobWorkerExecutorConfiguration =
+newJobWorkerExecutorConfiguration =
   JobWorkerExecutorConfiguration'
-    { _jwecPollingAccounts =
-        Nothing,
-      _jwecPollingServicePrincipals = Nothing
+    { pollingAccounts =
+        Prelude.Nothing,
+      pollingServicePrincipals = Prelude.Nothing
     }
 
--- | The accounts in which the job worker is configured and might poll for jobs as part of the action execution.
-jwecPollingAccounts :: Lens' JobWorkerExecutorConfiguration (Maybe (NonEmpty Text))
-jwecPollingAccounts = lens _jwecPollingAccounts (\s a -> s {_jwecPollingAccounts = a}) . mapping _List1
+-- | The accounts in which the job worker is configured and might poll for
+-- jobs as part of the action execution.
+jobWorkerExecutorConfiguration_pollingAccounts :: Lens.Lens' JobWorkerExecutorConfiguration (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+jobWorkerExecutorConfiguration_pollingAccounts = Lens.lens (\JobWorkerExecutorConfiguration' {pollingAccounts} -> pollingAccounts) (\s@JobWorkerExecutorConfiguration' {} a -> s {pollingAccounts = a} :: JobWorkerExecutorConfiguration) Prelude.. Lens.mapping Prelude._List1
 
--- | The service Principals in which the job worker is configured and might poll for jobs as part of the action execution.
-jwecPollingServicePrincipals :: Lens' JobWorkerExecutorConfiguration (Maybe (NonEmpty Text))
-jwecPollingServicePrincipals = lens _jwecPollingServicePrincipals (\s a -> s {_jwecPollingServicePrincipals = a}) . mapping _List1
+-- | The service Principals in which the job worker is configured and might
+-- poll for jobs as part of the action execution.
+jobWorkerExecutorConfiguration_pollingServicePrincipals :: Lens.Lens' JobWorkerExecutorConfiguration (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+jobWorkerExecutorConfiguration_pollingServicePrincipals = Lens.lens (\JobWorkerExecutorConfiguration' {pollingServicePrincipals} -> pollingServicePrincipals) (\s@JobWorkerExecutorConfiguration' {} a -> s {pollingServicePrincipals = a} :: JobWorkerExecutorConfiguration) Prelude.. Lens.mapping Prelude._List1
 
-instance FromJSON JobWorkerExecutorConfiguration where
+instance
+  Prelude.FromJSON
+    JobWorkerExecutorConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobWorkerExecutorConfiguration"
       ( \x ->
           JobWorkerExecutorConfiguration'
-            <$> (x .:? "pollingAccounts")
-            <*> (x .:? "pollingServicePrincipals")
+            Prelude.<$> (x Prelude..:? "pollingAccounts")
+            Prelude.<*> (x Prelude..:? "pollingServicePrincipals")
       )
 
-instance Hashable JobWorkerExecutorConfiguration
+instance
+  Prelude.Hashable
+    JobWorkerExecutorConfiguration
 
-instance NFData JobWorkerExecutorConfiguration
+instance
+  Prelude.NFData
+    JobWorkerExecutorConfiguration
 
-instance ToJSON JobWorkerExecutorConfiguration where
+instance
+  Prelude.ToJSON
+    JobWorkerExecutorConfiguration
+  where
   toJSON JobWorkerExecutorConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("pollingAccounts" .=) <$> _jwecPollingAccounts,
-            ("pollingServicePrincipals" .=)
-              <$> _jwecPollingServicePrincipals
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("pollingAccounts" Prelude..=)
+              Prelude.<$> pollingAccounts,
+            ("pollingServicePrincipals" Prelude..=)
+              Prelude.<$> pollingServicePrincipals
           ]
       )

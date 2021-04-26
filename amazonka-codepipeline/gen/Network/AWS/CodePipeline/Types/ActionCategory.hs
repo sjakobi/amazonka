@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.CodePipeline.Types.ActionCategory
   ( ActionCategory
       ( ..,
-        Approval,
-        Build,
-        Deploy,
-        Invoke,
-        Source,
-        Test
+        ActionCategoryApproval,
+        ActionCategoryBuild,
+        ActionCategoryDeploy,
+        ActionCategoryInvoke,
+        ActionCategorySource,
+        ActionCategoryTest
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionCategory = ActionCategory' (CI Text)
+newtype ActionCategory = ActionCategory'
+  { fromActionCategory ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Approval :: ActionCategory
-pattern Approval = ActionCategory' "Approval"
+pattern ActionCategoryApproval :: ActionCategory
+pattern ActionCategoryApproval = ActionCategory' "Approval"
 
-pattern Build :: ActionCategory
-pattern Build = ActionCategory' "Build"
+pattern ActionCategoryBuild :: ActionCategory
+pattern ActionCategoryBuild = ActionCategory' "Build"
 
-pattern Deploy :: ActionCategory
-pattern Deploy = ActionCategory' "Deploy"
+pattern ActionCategoryDeploy :: ActionCategory
+pattern ActionCategoryDeploy = ActionCategory' "Deploy"
 
-pattern Invoke :: ActionCategory
-pattern Invoke = ActionCategory' "Invoke"
+pattern ActionCategoryInvoke :: ActionCategory
+pattern ActionCategoryInvoke = ActionCategory' "Invoke"
 
-pattern Source :: ActionCategory
-pattern Source = ActionCategory' "Source"
+pattern ActionCategorySource :: ActionCategory
+pattern ActionCategorySource = ActionCategory' "Source"
 
-pattern Test :: ActionCategory
-pattern Test = ActionCategory' "Test"
+pattern ActionCategoryTest :: ActionCategory
+pattern ActionCategoryTest = ActionCategory' "Test"
 
 {-# COMPLETE
-  Approval,
-  Build,
-  Deploy,
-  Invoke,
-  Source,
-  Test,
+  ActionCategoryApproval,
+  ActionCategoryBuild,
+  ActionCategoryDeploy,
+  ActionCategoryInvoke,
+  ActionCategorySource,
+  ActionCategoryTest,
   ActionCategory'
   #-}
 
-instance FromText ActionCategory where
-  parser = (ActionCategory' . mk) <$> takeText
+instance Prelude.FromText ActionCategory where
+  parser = ActionCategory' Prelude.<$> Prelude.takeText
 
-instance ToText ActionCategory where
-  toText (ActionCategory' ci) = original ci
+instance Prelude.ToText ActionCategory where
+  toText (ActionCategory' x) = x
 
-instance Hashable ActionCategory
+instance Prelude.Hashable ActionCategory
 
-instance NFData ActionCategory
+instance Prelude.NFData ActionCategory
 
-instance ToByteString ActionCategory
+instance Prelude.ToByteString ActionCategory
 
-instance ToQuery ActionCategory
+instance Prelude.ToQuery ActionCategory
 
-instance ToHeader ActionCategory
+instance Prelude.ToHeader ActionCategory
 
-instance ToJSON ActionCategory where
-  toJSON = toJSONText
+instance Prelude.ToJSON ActionCategory where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ActionCategory where
-  parseJSON = parseJSONText "ActionCategory"
+instance Prelude.FromJSON ActionCategory where
+  parseJSON = Prelude.parseJSONText "ActionCategory"

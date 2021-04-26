@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodePipeline.Types.ActionOwner
   ( ActionOwner
       ( ..,
-        AWS,
-        Custom,
-        ThirdParty
+        ActionOwnerAWS,
+        ActionOwnerCustom,
+        ActionOwnerThirdParty
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionOwner = ActionOwner' (CI Text)
+newtype ActionOwner = ActionOwner'
+  { fromActionOwner ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWS :: ActionOwner
-pattern AWS = ActionOwner' "AWS"
+pattern ActionOwnerAWS :: ActionOwner
+pattern ActionOwnerAWS = ActionOwner' "AWS"
 
-pattern Custom :: ActionOwner
-pattern Custom = ActionOwner' "Custom"
+pattern ActionOwnerCustom :: ActionOwner
+pattern ActionOwnerCustom = ActionOwner' "Custom"
 
-pattern ThirdParty :: ActionOwner
-pattern ThirdParty = ActionOwner' "ThirdParty"
+pattern ActionOwnerThirdParty :: ActionOwner
+pattern ActionOwnerThirdParty = ActionOwner' "ThirdParty"
 
 {-# COMPLETE
-  AWS,
-  Custom,
-  ThirdParty,
+  ActionOwnerAWS,
+  ActionOwnerCustom,
+  ActionOwnerThirdParty,
   ActionOwner'
   #-}
 
-instance FromText ActionOwner where
-  parser = (ActionOwner' . mk) <$> takeText
+instance Prelude.FromText ActionOwner where
+  parser = ActionOwner' Prelude.<$> Prelude.takeText
 
-instance ToText ActionOwner where
-  toText (ActionOwner' ci) = original ci
+instance Prelude.ToText ActionOwner where
+  toText (ActionOwner' x) = x
 
-instance Hashable ActionOwner
+instance Prelude.Hashable ActionOwner
 
-instance NFData ActionOwner
+instance Prelude.NFData ActionOwner
 
-instance ToByteString ActionOwner
+instance Prelude.ToByteString ActionOwner
 
-instance ToQuery ActionOwner
+instance Prelude.ToQuery ActionOwner
 
-instance ToHeader ActionOwner
+instance Prelude.ToHeader ActionOwner
 
-instance ToJSON ActionOwner where
-  toJSON = toJSONText
+instance Prelude.ToJSON ActionOwner where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ActionOwner where
-  parseJSON = parseJSONText "ActionOwner"
+instance Prelude.FromJSON ActionOwner where
+  parseJSON = Prelude.parseJSONText "ActionOwner"

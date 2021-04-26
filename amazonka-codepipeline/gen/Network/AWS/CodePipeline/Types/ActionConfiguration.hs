@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,50 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.ActionConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about an action configuration.
 --
---
---
--- /See:/ 'actionConfiguration' smart constructor.
-newtype ActionConfiguration = ActionConfiguration'
-  { _acConfiguration ::
-      Maybe (Map Text Text)
+-- /See:/ 'newActionConfiguration' smart constructor.
+data ActionConfiguration = ActionConfiguration'
+  { -- | The configuration data for the action.
+    configuration :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acConfiguration' - The configuration data for the action.
-actionConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'configuration', 'actionConfiguration_configuration' - The configuration data for the action.
+newActionConfiguration ::
   ActionConfiguration
-actionConfiguration =
-  ActionConfiguration' {_acConfiguration = Nothing}
+newActionConfiguration =
+  ActionConfiguration'
+    { configuration =
+        Prelude.Nothing
+    }
 
 -- | The configuration data for the action.
-acConfiguration :: Lens' ActionConfiguration (HashMap Text Text)
-acConfiguration = lens _acConfiguration (\s a -> s {_acConfiguration = a}) . _Default . _Map
+actionConfiguration_configuration :: Lens.Lens' ActionConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+actionConfiguration_configuration = Lens.lens (\ActionConfiguration' {configuration} -> configuration) (\s@ActionConfiguration' {} a -> s {configuration = a} :: ActionConfiguration) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON ActionConfiguration where
+instance Prelude.FromJSON ActionConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionConfiguration"
       ( \x ->
           ActionConfiguration'
-            <$> (x .:? "configuration" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "configuration"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ActionConfiguration
+instance Prelude.Hashable ActionConfiguration
 
-instance NFData ActionConfiguration
+instance Prelude.NFData ActionConfiguration

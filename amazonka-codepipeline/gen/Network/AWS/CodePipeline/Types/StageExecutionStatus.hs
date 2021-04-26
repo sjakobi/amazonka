@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.CodePipeline.Types.StageExecutionStatus
   ( StageExecutionStatus
       ( ..,
-        SESCancelled,
-        SESFailed,
-        SESInProgress,
-        SESStopped,
-        SESStopping,
-        SESSucceeded
+        StageExecutionStatusCancelled,
+        StageExecutionStatusFailed,
+        StageExecutionStatusInProgress,
+        StageExecutionStatusStopped,
+        StageExecutionStatusStopping,
+        StageExecutionStatusSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StageExecutionStatus
-  = StageExecutionStatus'
-      ( CI
-          Text
-      )
+newtype StageExecutionStatus = StageExecutionStatus'
+  { fromStageExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SESCancelled :: StageExecutionStatus
-pattern SESCancelled = StageExecutionStatus' "Cancelled"
+pattern StageExecutionStatusCancelled :: StageExecutionStatus
+pattern StageExecutionStatusCancelled = StageExecutionStatus' "Cancelled"
 
-pattern SESFailed :: StageExecutionStatus
-pattern SESFailed = StageExecutionStatus' "Failed"
+pattern StageExecutionStatusFailed :: StageExecutionStatus
+pattern StageExecutionStatusFailed = StageExecutionStatus' "Failed"
 
-pattern SESInProgress :: StageExecutionStatus
-pattern SESInProgress = StageExecutionStatus' "InProgress"
+pattern StageExecutionStatusInProgress :: StageExecutionStatus
+pattern StageExecutionStatusInProgress = StageExecutionStatus' "InProgress"
 
-pattern SESStopped :: StageExecutionStatus
-pattern SESStopped = StageExecutionStatus' "Stopped"
+pattern StageExecutionStatusStopped :: StageExecutionStatus
+pattern StageExecutionStatusStopped = StageExecutionStatus' "Stopped"
 
-pattern SESStopping :: StageExecutionStatus
-pattern SESStopping = StageExecutionStatus' "Stopping"
+pattern StageExecutionStatusStopping :: StageExecutionStatus
+pattern StageExecutionStatusStopping = StageExecutionStatus' "Stopping"
 
-pattern SESSucceeded :: StageExecutionStatus
-pattern SESSucceeded = StageExecutionStatus' "Succeeded"
+pattern StageExecutionStatusSucceeded :: StageExecutionStatus
+pattern StageExecutionStatusSucceeded = StageExecutionStatus' "Succeeded"
 
 {-# COMPLETE
-  SESCancelled,
-  SESFailed,
-  SESInProgress,
-  SESStopped,
-  SESStopping,
-  SESSucceeded,
+  StageExecutionStatusCancelled,
+  StageExecutionStatusFailed,
+  StageExecutionStatusInProgress,
+  StageExecutionStatusStopped,
+  StageExecutionStatusStopping,
+  StageExecutionStatusSucceeded,
   StageExecutionStatus'
   #-}
 
-instance FromText StageExecutionStatus where
-  parser = (StageExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText StageExecutionStatus where
+  parser = StageExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StageExecutionStatus where
-  toText (StageExecutionStatus' ci) = original ci
+instance Prelude.ToText StageExecutionStatus where
+  toText (StageExecutionStatus' x) = x
 
-instance Hashable StageExecutionStatus
+instance Prelude.Hashable StageExecutionStatus
 
-instance NFData StageExecutionStatus
+instance Prelude.NFData StageExecutionStatus
 
-instance ToByteString StageExecutionStatus
+instance Prelude.ToByteString StageExecutionStatus
 
-instance ToQuery StageExecutionStatus
+instance Prelude.ToQuery StageExecutionStatus
 
-instance ToHeader StageExecutionStatus
+instance Prelude.ToHeader StageExecutionStatus
 
-instance FromJSON StageExecutionStatus where
-  parseJSON = parseJSONText "StageExecutionStatus"
+instance Prelude.FromJSON StageExecutionStatus where
+  parseJSON = Prelude.parseJSONText "StageExecutionStatus"

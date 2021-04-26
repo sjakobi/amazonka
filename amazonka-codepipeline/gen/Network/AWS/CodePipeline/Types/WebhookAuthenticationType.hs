@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CodePipeline.Types.WebhookAuthenticationType
   ( WebhookAuthenticationType
       ( ..,
-        GithubHmac,
-        IP,
-        Unauthenticated
+        WebhookAuthenticationTypeGITHUBHMAC,
+        WebhookAuthenticationTypeIP,
+        WebhookAuthenticationTypeUNAUTHENTICATED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WebhookAuthenticationType
-  = WebhookAuthenticationType'
-      ( CI
-          Text
-      )
+newtype WebhookAuthenticationType = WebhookAuthenticationType'
+  { fromWebhookAuthenticationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GithubHmac :: WebhookAuthenticationType
-pattern GithubHmac = WebhookAuthenticationType' "GITHUB_HMAC"
+pattern WebhookAuthenticationTypeGITHUBHMAC :: WebhookAuthenticationType
+pattern WebhookAuthenticationTypeGITHUBHMAC = WebhookAuthenticationType' "GITHUB_HMAC"
 
-pattern IP :: WebhookAuthenticationType
-pattern IP = WebhookAuthenticationType' "IP"
+pattern WebhookAuthenticationTypeIP :: WebhookAuthenticationType
+pattern WebhookAuthenticationTypeIP = WebhookAuthenticationType' "IP"
 
-pattern Unauthenticated :: WebhookAuthenticationType
-pattern Unauthenticated = WebhookAuthenticationType' "UNAUTHENTICATED"
+pattern WebhookAuthenticationTypeUNAUTHENTICATED :: WebhookAuthenticationType
+pattern WebhookAuthenticationTypeUNAUTHENTICATED = WebhookAuthenticationType' "UNAUTHENTICATED"
 
 {-# COMPLETE
-  GithubHmac,
-  IP,
-  Unauthenticated,
+  WebhookAuthenticationTypeGITHUBHMAC,
+  WebhookAuthenticationTypeIP,
+  WebhookAuthenticationTypeUNAUTHENTICATED,
   WebhookAuthenticationType'
   #-}
 
-instance FromText WebhookAuthenticationType where
-  parser = (WebhookAuthenticationType' . mk) <$> takeText
+instance Prelude.FromText WebhookAuthenticationType where
+  parser = WebhookAuthenticationType' Prelude.<$> Prelude.takeText
 
-instance ToText WebhookAuthenticationType where
-  toText (WebhookAuthenticationType' ci) = original ci
+instance Prelude.ToText WebhookAuthenticationType where
+  toText (WebhookAuthenticationType' x) = x
 
-instance Hashable WebhookAuthenticationType
+instance Prelude.Hashable WebhookAuthenticationType
 
-instance NFData WebhookAuthenticationType
+instance Prelude.NFData WebhookAuthenticationType
 
-instance ToByteString WebhookAuthenticationType
+instance Prelude.ToByteString WebhookAuthenticationType
 
-instance ToQuery WebhookAuthenticationType
+instance Prelude.ToQuery WebhookAuthenticationType
 
-instance ToHeader WebhookAuthenticationType
+instance Prelude.ToHeader WebhookAuthenticationType
 
-instance ToJSON WebhookAuthenticationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON WebhookAuthenticationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WebhookAuthenticationType where
-  parseJSON = parseJSONText "WebhookAuthenticationType"
+instance Prelude.FromJSON WebhookAuthenticationType where
+  parseJSON = Prelude.parseJSONText "WebhookAuthenticationType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,90 +21,137 @@ module Network.AWS.CodePipeline.Types.ActionTypeExecutor where
 
 import Network.AWS.CodePipeline.Types.ExecutorConfiguration
 import Network.AWS.CodePipeline.Types.ExecutorType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The action engine, or executor, for an action type created for a provider, where the action is to be used by customers of the provider. The action engine is associated with the model used to create and update the action, such as the Lambda integration model.
+-- | The action engine, or executor, for an action type created for a
+-- provider, where the action is to be used by customers of the provider.
+-- The action engine is associated with the model used to create and update
+-- the action, such as the Lambda integration model.
 --
---
---
--- /See:/ 'actionTypeExecutor' smart constructor.
+-- /See:/ 'newActionTypeExecutor' smart constructor.
 data ActionTypeExecutor = ActionTypeExecutor'
-  { _atePolicyStatementsTemplate ::
-      !(Maybe Text),
-    _ateJobTimeout :: !(Maybe Nat),
-    _ateConfiguration ::
-      !ExecutorConfiguration,
-    _ateType :: !ExecutorType
+  { -- | The policy statement that specifies the permissions in the CodePipeline
+    -- customer’s account that are needed to successfully run an action.
+    --
+    -- To grant permission to another account, specify the account ID as the
+    -- Principal, a domain-style identifier defined by the service, for example
+    -- @codepipeline.amazonaws.com@.
+    --
+    -- The size of the passed JSON policy document cannot exceed 2048
+    -- characters.
+    policyStatementsTemplate :: Prelude.Maybe Prelude.Text,
+    -- | The timeout in seconds for the job. An action execution can have
+    -- multiple jobs. This is the timeout for a single job, not the entire
+    -- action execution.
+    jobTimeout :: Prelude.Maybe Prelude.Nat,
+    -- | The action configuration properties for the action type. These
+    -- properties are specified in the action definition when the action type
+    -- is created.
+    configuration :: ExecutorConfiguration,
+    -- | The integration model used to create and update the action type,
+    -- @Lambda@ or @JobWorker@.
+    type' :: ExecutorType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionTypeExecutor' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionTypeExecutor' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atePolicyStatementsTemplate' - The policy statement that specifies the permissions in the CodePipeline customer’s account that are needed to successfully run an action. To grant permission to another account, specify the account ID as the Principal, a domain-style identifier defined by the service, for example @codepipeline.amazonaws.com@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ateJobTimeout' - The timeout in seconds for the job. An action execution can have multiple jobs. This is the timeout for a single job, not the entire action execution.
+-- 'policyStatementsTemplate', 'actionTypeExecutor_policyStatementsTemplate' - The policy statement that specifies the permissions in the CodePipeline
+-- customer’s account that are needed to successfully run an action.
 --
--- * 'ateConfiguration' - The action configuration properties for the action type. These properties are specified in the action definition when the action type is created.
+-- To grant permission to another account, specify the account ID as the
+-- Principal, a domain-style identifier defined by the service, for example
+-- @codepipeline.amazonaws.com@.
 --
--- * 'ateType' - The integration model used to create and update the action type, @Lambda@ or @JobWorker@ .
-actionTypeExecutor ::
-  -- | 'ateConfiguration'
+-- The size of the passed JSON policy document cannot exceed 2048
+-- characters.
+--
+-- 'jobTimeout', 'actionTypeExecutor_jobTimeout' - The timeout in seconds for the job. An action execution can have
+-- multiple jobs. This is the timeout for a single job, not the entire
+-- action execution.
+--
+-- 'configuration', 'actionTypeExecutor_configuration' - The action configuration properties for the action type. These
+-- properties are specified in the action definition when the action type
+-- is created.
+--
+-- 'type'', 'actionTypeExecutor_type' - The integration model used to create and update the action type,
+-- @Lambda@ or @JobWorker@.
+newActionTypeExecutor ::
+  -- | 'configuration'
   ExecutorConfiguration ->
-  -- | 'ateType'
+  -- | 'type''
   ExecutorType ->
   ActionTypeExecutor
-actionTypeExecutor pConfiguration_ pType_ =
+newActionTypeExecutor pConfiguration_ pType_ =
   ActionTypeExecutor'
-    { _atePolicyStatementsTemplate =
-        Nothing,
-      _ateJobTimeout = Nothing,
-      _ateConfiguration = pConfiguration_,
-      _ateType = pType_
+    { policyStatementsTemplate =
+        Prelude.Nothing,
+      jobTimeout = Prelude.Nothing,
+      configuration = pConfiguration_,
+      type' = pType_
     }
 
--- | The policy statement that specifies the permissions in the CodePipeline customer’s account that are needed to successfully run an action. To grant permission to another account, specify the account ID as the Principal, a domain-style identifier defined by the service, for example @codepipeline.amazonaws.com@ .
-atePolicyStatementsTemplate :: Lens' ActionTypeExecutor (Maybe Text)
-atePolicyStatementsTemplate = lens _atePolicyStatementsTemplate (\s a -> s {_atePolicyStatementsTemplate = a})
+-- | The policy statement that specifies the permissions in the CodePipeline
+-- customer’s account that are needed to successfully run an action.
+--
+-- To grant permission to another account, specify the account ID as the
+-- Principal, a domain-style identifier defined by the service, for example
+-- @codepipeline.amazonaws.com@.
+--
+-- The size of the passed JSON policy document cannot exceed 2048
+-- characters.
+actionTypeExecutor_policyStatementsTemplate :: Lens.Lens' ActionTypeExecutor (Prelude.Maybe Prelude.Text)
+actionTypeExecutor_policyStatementsTemplate = Lens.lens (\ActionTypeExecutor' {policyStatementsTemplate} -> policyStatementsTemplate) (\s@ActionTypeExecutor' {} a -> s {policyStatementsTemplate = a} :: ActionTypeExecutor)
 
--- | The timeout in seconds for the job. An action execution can have multiple jobs. This is the timeout for a single job, not the entire action execution.
-ateJobTimeout :: Lens' ActionTypeExecutor (Maybe Natural)
-ateJobTimeout = lens _ateJobTimeout (\s a -> s {_ateJobTimeout = a}) . mapping _Nat
+-- | The timeout in seconds for the job. An action execution can have
+-- multiple jobs. This is the timeout for a single job, not the entire
+-- action execution.
+actionTypeExecutor_jobTimeout :: Lens.Lens' ActionTypeExecutor (Prelude.Maybe Prelude.Natural)
+actionTypeExecutor_jobTimeout = Lens.lens (\ActionTypeExecutor' {jobTimeout} -> jobTimeout) (\s@ActionTypeExecutor' {} a -> s {jobTimeout = a} :: ActionTypeExecutor) Prelude.. Lens.mapping Prelude._Nat
 
--- | The action configuration properties for the action type. These properties are specified in the action definition when the action type is created.
-ateConfiguration :: Lens' ActionTypeExecutor ExecutorConfiguration
-ateConfiguration = lens _ateConfiguration (\s a -> s {_ateConfiguration = a})
+-- | The action configuration properties for the action type. These
+-- properties are specified in the action definition when the action type
+-- is created.
+actionTypeExecutor_configuration :: Lens.Lens' ActionTypeExecutor ExecutorConfiguration
+actionTypeExecutor_configuration = Lens.lens (\ActionTypeExecutor' {configuration} -> configuration) (\s@ActionTypeExecutor' {} a -> s {configuration = a} :: ActionTypeExecutor)
 
--- | The integration model used to create and update the action type, @Lambda@ or @JobWorker@ .
-ateType :: Lens' ActionTypeExecutor ExecutorType
-ateType = lens _ateType (\s a -> s {_ateType = a})
+-- | The integration model used to create and update the action type,
+-- @Lambda@ or @JobWorker@.
+actionTypeExecutor_type :: Lens.Lens' ActionTypeExecutor ExecutorType
+actionTypeExecutor_type = Lens.lens (\ActionTypeExecutor' {type'} -> type') (\s@ActionTypeExecutor' {} a -> s {type' = a} :: ActionTypeExecutor)
 
-instance FromJSON ActionTypeExecutor where
+instance Prelude.FromJSON ActionTypeExecutor where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionTypeExecutor"
       ( \x ->
           ActionTypeExecutor'
-            <$> (x .:? "policyStatementsTemplate")
-            <*> (x .:? "jobTimeout")
-            <*> (x .: "configuration")
-            <*> (x .: "type")
+            Prelude.<$> (x Prelude..:? "policyStatementsTemplate")
+            Prelude.<*> (x Prelude..:? "jobTimeout")
+            Prelude.<*> (x Prelude..: "configuration")
+            Prelude.<*> (x Prelude..: "type")
       )
 
-instance Hashable ActionTypeExecutor
+instance Prelude.Hashable ActionTypeExecutor
 
-instance NFData ActionTypeExecutor
+instance Prelude.NFData ActionTypeExecutor
 
-instance ToJSON ActionTypeExecutor where
+instance Prelude.ToJSON ActionTypeExecutor where
   toJSON ActionTypeExecutor' {..} =
-    object
-      ( catMaybes
-          [ ("policyStatementsTemplate" .=)
-              <$> _atePolicyStatementsTemplate,
-            ("jobTimeout" .=) <$> _ateJobTimeout,
-            Just ("configuration" .= _ateConfiguration),
-            Just ("type" .= _ateType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("policyStatementsTemplate" Prelude..=)
+              Prelude.<$> policyStatementsTemplate,
+            ("jobTimeout" Prelude..=) Prelude.<$> jobTimeout,
+            Prelude.Just
+              ("configuration" Prelude..= configuration),
+            Prelude.Just ("type" Prelude..= type')
           ]
       )

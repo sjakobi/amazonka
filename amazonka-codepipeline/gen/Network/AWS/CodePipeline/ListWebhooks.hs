@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,203 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a listing of all the webhooks in this AWS Region for this account. The output lists all webhooks and includes the webhook URL and ARN and the configuration for each webhook.
---
---
+-- Gets a listing of all the webhooks in this AWS Region for this account.
+-- The output lists all webhooks and includes the webhook URL and ARN and
+-- the configuration for each webhook.
 --
 -- This operation returns paginated results.
 module Network.AWS.CodePipeline.ListWebhooks
   ( -- * Creating a Request
-    listWebhooks,
-    ListWebhooks,
+    ListWebhooks (..),
+    newListWebhooks,
 
     -- * Request Lenses
-    lwNextToken,
-    lwMaxResults,
+    listWebhooks_nextToken,
+    listWebhooks_maxResults,
 
     -- * Destructuring the Response
-    listWebhooksResponse,
-    ListWebhooksResponse,
+    ListWebhooksResponse (..),
+    newListWebhooksResponse,
 
     -- * Response Lenses
-    lwrrsNextToken,
-    lwrrsWebhooks,
-    lwrrsResponseStatus,
+    listWebhooksResponse_nextToken,
+    listWebhooksResponse_webhooks,
+    listWebhooksResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodePipeline.Types.ListWebhookItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listWebhooks' smart constructor.
+-- | /See:/ 'newListWebhooks' smart constructor.
 data ListWebhooks = ListWebhooks'
-  { _lwNextToken ::
-      !(Maybe Text),
-    _lwMaxResults :: !(Maybe Nat)
+  { -- | The token that was returned from the previous ListWebhooks call, which
+    -- can be used to return the next set of webhooks in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in a single call. To retrieve
+    -- the remaining results, make another call with the returned nextToken
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListWebhooks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListWebhooks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lwNextToken' - The token that was returned from the previous ListWebhooks call, which can be used to return the next set of webhooks in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lwMaxResults' - The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned nextToken value.
-listWebhooks ::
+-- 'nextToken', 'listWebhooks_nextToken' - The token that was returned from the previous ListWebhooks call, which
+-- can be used to return the next set of webhooks in the list.
+--
+-- 'maxResults', 'listWebhooks_maxResults' - The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another call with the returned nextToken
+-- value.
+newListWebhooks ::
   ListWebhooks
-listWebhooks =
+newListWebhooks =
   ListWebhooks'
-    { _lwNextToken = Nothing,
-      _lwMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The token that was returned from the previous ListWebhooks call, which can be used to return the next set of webhooks in the list.
-lwNextToken :: Lens' ListWebhooks (Maybe Text)
-lwNextToken = lens _lwNextToken (\s a -> s {_lwNextToken = a})
+-- | The token that was returned from the previous ListWebhooks call, which
+-- can be used to return the next set of webhooks in the list.
+listWebhooks_nextToken :: Lens.Lens' ListWebhooks (Prelude.Maybe Prelude.Text)
+listWebhooks_nextToken = Lens.lens (\ListWebhooks' {nextToken} -> nextToken) (\s@ListWebhooks' {} a -> s {nextToken = a} :: ListWebhooks)
 
--- | The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned nextToken value.
-lwMaxResults :: Lens' ListWebhooks (Maybe Natural)
-lwMaxResults = lens _lwMaxResults (\s a -> s {_lwMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another call with the returned nextToken
+-- value.
+listWebhooks_maxResults :: Lens.Lens' ListWebhooks (Prelude.Maybe Prelude.Natural)
+listWebhooks_maxResults = Lens.lens (\ListWebhooks' {maxResults} -> maxResults) (\s@ListWebhooks' {} a -> s {maxResults = a} :: ListWebhooks) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListWebhooks where
+instance Pager.AWSPager ListWebhooks where
   page rq rs
-    | stop (rs ^. lwrrsNextToken) = Nothing
-    | stop (rs ^. lwrrsWebhooks) = Nothing
-    | otherwise =
-      Just $ rq & lwNextToken .~ rs ^. lwrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listWebhooksResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listWebhooksResponse_webhooks Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listWebhooks_nextToken
+          Lens..~ rs
+          Lens.^? listWebhooksResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListWebhooks where
+instance Prelude.AWSRequest ListWebhooks where
   type Rs ListWebhooks = ListWebhooksResponse
-  request = postJSON codePipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListWebhooksResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "webhooks" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "webhooks" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListWebhooks
+instance Prelude.Hashable ListWebhooks
 
-instance NFData ListWebhooks
+instance Prelude.NFData ListWebhooks
 
-instance ToHeaders ListWebhooks where
+instance Prelude.ToHeaders ListWebhooks where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodePipeline_20150709.ListWebhooks" :: ByteString),
+              Prelude.=# ( "CodePipeline_20150709.ListWebhooks" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListWebhooks where
+instance Prelude.ToJSON ListWebhooks where
   toJSON ListWebhooks' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lwNextToken,
-            ("MaxResults" .=) <$> _lwMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListWebhooks where
-  toPath = const "/"
+instance Prelude.ToPath ListWebhooks where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListWebhooks where
-  toQuery = const mempty
+instance Prelude.ToQuery ListWebhooks where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listWebhooksResponse' smart constructor.
+-- | /See:/ 'newListWebhooksResponse' smart constructor.
 data ListWebhooksResponse = ListWebhooksResponse'
-  { _lwrrsNextToken ::
-      !(Maybe Text),
-    _lwrrsWebhooks ::
-      !(Maybe [ListWebhookItem]),
-    _lwrrsResponseStatus :: !Int
+  { -- | If the amount of returned information is significantly large, an
+    -- identifier is also returned and can be used in a subsequent ListWebhooks
+    -- call to return the next set of webhooks in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The JSON detail returned for each webhook in the list output for the
+    -- ListWebhooks call.
+    webhooks :: Prelude.Maybe [ListWebhookItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListWebhooksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListWebhooksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lwrrsNextToken' - If the amount of returned information is significantly large, an identifier is also returned and can be used in a subsequent ListWebhooks call to return the next set of webhooks in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lwrrsWebhooks' - The JSON detail returned for each webhook in the list output for the ListWebhooks call.
+-- 'nextToken', 'listWebhooksResponse_nextToken' - If the amount of returned information is significantly large, an
+-- identifier is also returned and can be used in a subsequent ListWebhooks
+-- call to return the next set of webhooks in the list.
 --
--- * 'lwrrsResponseStatus' - -- | The response status code.
-listWebhooksResponse ::
-  -- | 'lwrrsResponseStatus'
-  Int ->
+-- 'webhooks', 'listWebhooksResponse_webhooks' - The JSON detail returned for each webhook in the list output for the
+-- ListWebhooks call.
+--
+-- 'httpStatus', 'listWebhooksResponse_httpStatus' - The response's http status code.
+newListWebhooksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListWebhooksResponse
-listWebhooksResponse pResponseStatus_ =
+newListWebhooksResponse pHttpStatus_ =
   ListWebhooksResponse'
-    { _lwrrsNextToken = Nothing,
-      _lwrrsWebhooks = Nothing,
-      _lwrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      webhooks = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the amount of returned information is significantly large, an identifier is also returned and can be used in a subsequent ListWebhooks call to return the next set of webhooks in the list.
-lwrrsNextToken :: Lens' ListWebhooksResponse (Maybe Text)
-lwrrsNextToken = lens _lwrrsNextToken (\s a -> s {_lwrrsNextToken = a})
+-- | If the amount of returned information is significantly large, an
+-- identifier is also returned and can be used in a subsequent ListWebhooks
+-- call to return the next set of webhooks in the list.
+listWebhooksResponse_nextToken :: Lens.Lens' ListWebhooksResponse (Prelude.Maybe Prelude.Text)
+listWebhooksResponse_nextToken = Lens.lens (\ListWebhooksResponse' {nextToken} -> nextToken) (\s@ListWebhooksResponse' {} a -> s {nextToken = a} :: ListWebhooksResponse)
 
--- | The JSON detail returned for each webhook in the list output for the ListWebhooks call.
-lwrrsWebhooks :: Lens' ListWebhooksResponse [ListWebhookItem]
-lwrrsWebhooks = lens _lwrrsWebhooks (\s a -> s {_lwrrsWebhooks = a}) . _Default . _Coerce
+-- | The JSON detail returned for each webhook in the list output for the
+-- ListWebhooks call.
+listWebhooksResponse_webhooks :: Lens.Lens' ListWebhooksResponse (Prelude.Maybe [ListWebhookItem])
+listWebhooksResponse_webhooks = Lens.lens (\ListWebhooksResponse' {webhooks} -> webhooks) (\s@ListWebhooksResponse' {} a -> s {webhooks = a} :: ListWebhooksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lwrrsResponseStatus :: Lens' ListWebhooksResponse Int
-lwrrsResponseStatus = lens _lwrrsResponseStatus (\s a -> s {_lwrrsResponseStatus = a})
+-- | The response's http status code.
+listWebhooksResponse_httpStatus :: Lens.Lens' ListWebhooksResponse Prelude.Int
+listWebhooksResponse_httpStatus = Lens.lens (\ListWebhooksResponse' {httpStatus} -> httpStatus) (\s@ListWebhooksResponse' {} a -> s {httpStatus = a} :: ListWebhooksResponse)
 
-instance NFData ListWebhooksResponse
+instance Prelude.NFData ListWebhooksResponse

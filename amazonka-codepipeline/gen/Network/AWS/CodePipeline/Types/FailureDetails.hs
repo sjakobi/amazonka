@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,72 @@
 module Network.AWS.CodePipeline.Types.FailureDetails where
 
 import Network.AWS.CodePipeline.Types.FailureType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about failure details.
 --
---
---
--- /See:/ 'failureDetails' smart constructor.
+-- /See:/ 'newFailureDetails' smart constructor.
 data FailureDetails = FailureDetails'
-  { _fdExternalExecutionId ::
-      !(Maybe Text),
-    _fdType :: !FailureType,
-    _fdMessage :: !Text
+  { -- | The external ID of the run of the action that failed.
+    externalExecutionId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the failure.
+    type' :: FailureType,
+    -- | The message about the failure.
+    message :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailureDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailureDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdExternalExecutionId' - The external ID of the run of the action that failed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fdType' - The type of the failure.
+-- 'externalExecutionId', 'failureDetails_externalExecutionId' - The external ID of the run of the action that failed.
 --
--- * 'fdMessage' - The message about the failure.
-failureDetails ::
-  -- | 'fdType'
+-- 'type'', 'failureDetails_type' - The type of the failure.
+--
+-- 'message', 'failureDetails_message' - The message about the failure.
+newFailureDetails ::
+  -- | 'type''
   FailureType ->
-  -- | 'fdMessage'
-  Text ->
+  -- | 'message'
+  Prelude.Text ->
   FailureDetails
-failureDetails pType_ pMessage_ =
+newFailureDetails pType_ pMessage_ =
   FailureDetails'
-    { _fdExternalExecutionId = Nothing,
-      _fdType = pType_,
-      _fdMessage = pMessage_
+    { externalExecutionId =
+        Prelude.Nothing,
+      type' = pType_,
+      message = pMessage_
     }
 
 -- | The external ID of the run of the action that failed.
-fdExternalExecutionId :: Lens' FailureDetails (Maybe Text)
-fdExternalExecutionId = lens _fdExternalExecutionId (\s a -> s {_fdExternalExecutionId = a})
+failureDetails_externalExecutionId :: Lens.Lens' FailureDetails (Prelude.Maybe Prelude.Text)
+failureDetails_externalExecutionId = Lens.lens (\FailureDetails' {externalExecutionId} -> externalExecutionId) (\s@FailureDetails' {} a -> s {externalExecutionId = a} :: FailureDetails)
 
 -- | The type of the failure.
-fdType :: Lens' FailureDetails FailureType
-fdType = lens _fdType (\s a -> s {_fdType = a})
+failureDetails_type :: Lens.Lens' FailureDetails FailureType
+failureDetails_type = Lens.lens (\FailureDetails' {type'} -> type') (\s@FailureDetails' {} a -> s {type' = a} :: FailureDetails)
 
 -- | The message about the failure.
-fdMessage :: Lens' FailureDetails Text
-fdMessage = lens _fdMessage (\s a -> s {_fdMessage = a})
+failureDetails_message :: Lens.Lens' FailureDetails Prelude.Text
+failureDetails_message = Lens.lens (\FailureDetails' {message} -> message) (\s@FailureDetails' {} a -> s {message = a} :: FailureDetails)
 
-instance Hashable FailureDetails
+instance Prelude.Hashable FailureDetails
 
-instance NFData FailureDetails
+instance Prelude.NFData FailureDetails
 
-instance ToJSON FailureDetails where
+instance Prelude.ToJSON FailureDetails where
   toJSON FailureDetails' {..} =
-    object
-      ( catMaybes
-          [ ("externalExecutionId" .=)
-              <$> _fdExternalExecutionId,
-            Just ("type" .= _fdType),
-            Just ("message" .= _fdMessage)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("externalExecutionId" Prelude..=)
+              Prelude.<$> externalExecutionId,
+            Prelude.Just ("type" Prelude..= type'),
+            Prelude.Just ("message" Prelude..= message)
           ]
       )

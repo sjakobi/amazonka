@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Configures a connection between the webhook that was created and the external tool with events to be detected.
+-- Configures a connection between the webhook that was created and the
+-- external tool with events to be detected.
 module Network.AWS.CodePipeline.RegisterWebhookWithThirdParty
   ( -- * Creating a Request
-    registerWebhookWithThirdParty,
-    RegisterWebhookWithThirdParty,
+    RegisterWebhookWithThirdParty (..),
+    newRegisterWebhookWithThirdParty,
 
     -- * Request Lenses
-    rwwtpWebhookName,
+    registerWebhookWithThirdParty_webhookName,
 
     -- * Destructuring the Response
-    registerWebhookWithThirdPartyResponse,
-    RegisterWebhookWithThirdPartyResponse,
+    RegisterWebhookWithThirdPartyResponse (..),
+    newRegisterWebhookWithThirdPartyResponse,
 
     -- * Response Lenses
-    rwwtprrsResponseStatus,
+    registerWebhookWithThirdPartyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerWebhookWithThirdParty' smart constructor.
-newtype RegisterWebhookWithThirdParty = RegisterWebhookWithThirdParty'
-  { _rwwtpWebhookName ::
-      Maybe
-        Text
+-- | /See:/ 'newRegisterWebhookWithThirdParty' smart constructor.
+data RegisterWebhookWithThirdParty = RegisterWebhookWithThirdParty'
+  { -- | The name of an existing webhook created with PutWebhook to register with
+    -- a supported third party.
+    webhookName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterWebhookWithThirdParty' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterWebhookWithThirdParty' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rwwtpWebhookName' - The name of an existing webhook created with PutWebhook to register with a supported third party.
-registerWebhookWithThirdParty ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'webhookName', 'registerWebhookWithThirdParty_webhookName' - The name of an existing webhook created with PutWebhook to register with
+-- a supported third party.
+newRegisterWebhookWithThirdParty ::
   RegisterWebhookWithThirdParty
-registerWebhookWithThirdParty =
+newRegisterWebhookWithThirdParty =
   RegisterWebhookWithThirdParty'
-    { _rwwtpWebhookName =
-        Nothing
+    { webhookName =
+        Prelude.Nothing
     }
 
--- | The name of an existing webhook created with PutWebhook to register with a supported third party.
-rwwtpWebhookName :: Lens' RegisterWebhookWithThirdParty (Maybe Text)
-rwwtpWebhookName = lens _rwwtpWebhookName (\s a -> s {_rwwtpWebhookName = a})
+-- | The name of an existing webhook created with PutWebhook to register with
+-- a supported third party.
+registerWebhookWithThirdParty_webhookName :: Lens.Lens' RegisterWebhookWithThirdParty (Prelude.Maybe Prelude.Text)
+registerWebhookWithThirdParty_webhookName = Lens.lens (\RegisterWebhookWithThirdParty' {webhookName} -> webhookName) (\s@RegisterWebhookWithThirdParty' {} a -> s {webhookName = a} :: RegisterWebhookWithThirdParty)
 
-instance AWSRequest RegisterWebhookWithThirdParty where
+instance
+  Prelude.AWSRequest
+    RegisterWebhookWithThirdParty
+  where
   type
     Rs RegisterWebhookWithThirdParty =
       RegisterWebhookWithThirdPartyResponse
-  request = postJSON codePipeline
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           RegisterWebhookWithThirdPartyResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterWebhookWithThirdParty
+instance
+  Prelude.Hashable
+    RegisterWebhookWithThirdParty
 
-instance NFData RegisterWebhookWithThirdParty
+instance Prelude.NFData RegisterWebhookWithThirdParty
 
-instance ToHeaders RegisterWebhookWithThirdParty where
+instance
+  Prelude.ToHeaders
+    RegisterWebhookWithThirdParty
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodePipeline_20150709.RegisterWebhookWithThirdParty" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodePipeline_20150709.RegisterWebhookWithThirdParty" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterWebhookWithThirdParty where
+instance Prelude.ToJSON RegisterWebhookWithThirdParty where
   toJSON RegisterWebhookWithThirdParty' {..} =
-    object
-      ( catMaybes
-          [("webhookName" .=) <$> _rwwtpWebhookName]
+    Prelude.object
+      ( Prelude.catMaybes
+          [("webhookName" Prelude..=) Prelude.<$> webhookName]
       )
 
-instance ToPath RegisterWebhookWithThirdParty where
-  toPath = const "/"
+instance Prelude.ToPath RegisterWebhookWithThirdParty where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterWebhookWithThirdParty where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    RegisterWebhookWithThirdParty
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerWebhookWithThirdPartyResponse' smart constructor.
-newtype RegisterWebhookWithThirdPartyResponse = RegisterWebhookWithThirdPartyResponse'
-  { _rwwtprrsResponseStatus ::
-      Int
+-- | /See:/ 'newRegisterWebhookWithThirdPartyResponse' smart constructor.
+data RegisterWebhookWithThirdPartyResponse = RegisterWebhookWithThirdPartyResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterWebhookWithThirdPartyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterWebhookWithThirdPartyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rwwtprrsResponseStatus' - -- | The response status code.
-registerWebhookWithThirdPartyResponse ::
-  -- | 'rwwtprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'registerWebhookWithThirdPartyResponse_httpStatus' - The response's http status code.
+newRegisterWebhookWithThirdPartyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterWebhookWithThirdPartyResponse
-registerWebhookWithThirdPartyResponse
-  pResponseStatus_ =
-    RegisterWebhookWithThirdPartyResponse'
-      { _rwwtprrsResponseStatus =
-          pResponseStatus_
-      }
+newRegisterWebhookWithThirdPartyResponse pHttpStatus_ =
+  RegisterWebhookWithThirdPartyResponse'
+    { httpStatus =
+        pHttpStatus_
+    }
 
--- | -- | The response status code.
-rwwtprrsResponseStatus :: Lens' RegisterWebhookWithThirdPartyResponse Int
-rwwtprrsResponseStatus = lens _rwwtprrsResponseStatus (\s a -> s {_rwwtprrsResponseStatus = a})
+-- | The response's http status code.
+registerWebhookWithThirdPartyResponse_httpStatus :: Lens.Lens' RegisterWebhookWithThirdPartyResponse Prelude.Int
+registerWebhookWithThirdPartyResponse_httpStatus = Lens.lens (\RegisterWebhookWithThirdPartyResponse' {httpStatus} -> httpStatus) (\s@RegisterWebhookWithThirdPartyResponse' {} a -> s {httpStatus = a} :: RegisterWebhookWithThirdPartyResponse)
 
-instance NFData RegisterWebhookWithThirdPartyResponse
+instance
+  Prelude.NFData
+    RegisterWebhookWithThirdPartyResponse

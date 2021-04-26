@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +21,57 @@ module Network.AWS.CodePipeline.Types.ArtifactLocation where
 
 import Network.AWS.CodePipeline.Types.ArtifactLocationType
 import Network.AWS.CodePipeline.Types.S3ArtifactLocation
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about the location of an artifact.
 --
---
---
--- /See:/ 'artifactLocation' smart constructor.
+-- /See:/ 'newArtifactLocation' smart constructor.
 data ArtifactLocation = ArtifactLocation'
-  { _alS3Location ::
-      !(Maybe S3ArtifactLocation),
-    _alType ::
-      !(Maybe ArtifactLocationType)
+  { -- | The S3 bucket that contains the artifact.
+    s3Location :: Prelude.Maybe S3ArtifactLocation,
+    -- | The type of artifact in the location.
+    type' :: Prelude.Maybe ArtifactLocationType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArtifactLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArtifactLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'alS3Location' - The S3 bucket that contains the artifact.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'alType' - The type of artifact in the location.
-artifactLocation ::
+-- 's3Location', 'artifactLocation_s3Location' - The S3 bucket that contains the artifact.
+--
+-- 'type'', 'artifactLocation_type' - The type of artifact in the location.
+newArtifactLocation ::
   ArtifactLocation
-artifactLocation =
+newArtifactLocation =
   ArtifactLocation'
-    { _alS3Location = Nothing,
-      _alType = Nothing
+    { s3Location = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The S3 bucket that contains the artifact.
-alS3Location :: Lens' ArtifactLocation (Maybe S3ArtifactLocation)
-alS3Location = lens _alS3Location (\s a -> s {_alS3Location = a})
+artifactLocation_s3Location :: Lens.Lens' ArtifactLocation (Prelude.Maybe S3ArtifactLocation)
+artifactLocation_s3Location = Lens.lens (\ArtifactLocation' {s3Location} -> s3Location) (\s@ArtifactLocation' {} a -> s {s3Location = a} :: ArtifactLocation)
 
 -- | The type of artifact in the location.
-alType :: Lens' ArtifactLocation (Maybe ArtifactLocationType)
-alType = lens _alType (\s a -> s {_alType = a})
+artifactLocation_type :: Lens.Lens' ArtifactLocation (Prelude.Maybe ArtifactLocationType)
+artifactLocation_type = Lens.lens (\ArtifactLocation' {type'} -> type') (\s@ArtifactLocation' {} a -> s {type' = a} :: ArtifactLocation)
 
-instance FromJSON ArtifactLocation where
+instance Prelude.FromJSON ArtifactLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ArtifactLocation"
       ( \x ->
           ArtifactLocation'
-            <$> (x .:? "s3Location") <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "s3Location")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable ArtifactLocation
+instance Prelude.Hashable ArtifactLocation
 
-instance NFData ArtifactLocation
+instance Prelude.NFData ArtifactLocation

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,91 +23,99 @@ import Network.AWS.CodePipeline.Types.ActionConfigurationProperty
 import Network.AWS.CodePipeline.Types.ActionTypeId
 import Network.AWS.CodePipeline.Types.ActionTypeSettings
 import Network.AWS.CodePipeline.Types.ArtifactDetails
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about the details of an action type.
 --
---
---
--- /See:/ 'actionType' smart constructor.
+-- /See:/ 'newActionType' smart constructor.
 data ActionType = ActionType'
-  { _atActionConfigurationProperties ::
-      !(Maybe [ActionConfigurationProperty]),
-    _atSettings :: !(Maybe ActionTypeSettings),
-    _atId :: !ActionTypeId,
-    _atInputArtifactDetails :: !ArtifactDetails,
-    _atOutputArtifactDetails :: !ArtifactDetails
+  { -- | The configuration properties for the action type.
+    actionConfigurationProperties :: Prelude.Maybe [ActionConfigurationProperty],
+    -- | The settings for the action type.
+    settings :: Prelude.Maybe ActionTypeSettings,
+    -- | Represents information about an action type.
+    id :: ActionTypeId,
+    -- | The details of the input artifact for the action, such as its commit ID.
+    inputArtifactDetails :: ArtifactDetails,
+    -- | The details of the output artifact of the action, such as its commit ID.
+    outputArtifactDetails :: ArtifactDetails
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atActionConfigurationProperties' - The configuration properties for the action type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atSettings' - The settings for the action type.
+-- 'actionConfigurationProperties', 'actionType_actionConfigurationProperties' - The configuration properties for the action type.
 --
--- * 'atId' - Represents information about an action type.
+-- 'settings', 'actionType_settings' - The settings for the action type.
 --
--- * 'atInputArtifactDetails' - The details of the input artifact for the action, such as its commit ID.
+-- 'id', 'actionType_id' - Represents information about an action type.
 --
--- * 'atOutputArtifactDetails' - The details of the output artifact of the action, such as its commit ID.
-actionType ::
-  -- | 'atId'
+-- 'inputArtifactDetails', 'actionType_inputArtifactDetails' - The details of the input artifact for the action, such as its commit ID.
+--
+-- 'outputArtifactDetails', 'actionType_outputArtifactDetails' - The details of the output artifact of the action, such as its commit ID.
+newActionType ::
+  -- | 'id'
   ActionTypeId ->
-  -- | 'atInputArtifactDetails'
+  -- | 'inputArtifactDetails'
   ArtifactDetails ->
-  -- | 'atOutputArtifactDetails'
+  -- | 'outputArtifactDetails'
   ArtifactDetails ->
   ActionType
-actionType
+newActionType
   pId_
   pInputArtifactDetails_
   pOutputArtifactDetails_ =
     ActionType'
-      { _atActionConfigurationProperties =
-          Nothing,
-        _atSettings = Nothing,
-        _atId = pId_,
-        _atInputArtifactDetails = pInputArtifactDetails_,
-        _atOutputArtifactDetails = pOutputArtifactDetails_
+      { actionConfigurationProperties =
+          Prelude.Nothing,
+        settings = Prelude.Nothing,
+        id = pId_,
+        inputArtifactDetails = pInputArtifactDetails_,
+        outputArtifactDetails = pOutputArtifactDetails_
       }
 
 -- | The configuration properties for the action type.
-atActionConfigurationProperties :: Lens' ActionType [ActionConfigurationProperty]
-atActionConfigurationProperties = lens _atActionConfigurationProperties (\s a -> s {_atActionConfigurationProperties = a}) . _Default . _Coerce
+actionType_actionConfigurationProperties :: Lens.Lens' ActionType (Prelude.Maybe [ActionConfigurationProperty])
+actionType_actionConfigurationProperties = Lens.lens (\ActionType' {actionConfigurationProperties} -> actionConfigurationProperties) (\s@ActionType' {} a -> s {actionConfigurationProperties = a} :: ActionType) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The settings for the action type.
-atSettings :: Lens' ActionType (Maybe ActionTypeSettings)
-atSettings = lens _atSettings (\s a -> s {_atSettings = a})
+actionType_settings :: Lens.Lens' ActionType (Prelude.Maybe ActionTypeSettings)
+actionType_settings = Lens.lens (\ActionType' {settings} -> settings) (\s@ActionType' {} a -> s {settings = a} :: ActionType)
 
 -- | Represents information about an action type.
-atId :: Lens' ActionType ActionTypeId
-atId = lens _atId (\s a -> s {_atId = a})
+actionType_id :: Lens.Lens' ActionType ActionTypeId
+actionType_id = Lens.lens (\ActionType' {id} -> id) (\s@ActionType' {} a -> s {id = a} :: ActionType)
 
 -- | The details of the input artifact for the action, such as its commit ID.
-atInputArtifactDetails :: Lens' ActionType ArtifactDetails
-atInputArtifactDetails = lens _atInputArtifactDetails (\s a -> s {_atInputArtifactDetails = a})
+actionType_inputArtifactDetails :: Lens.Lens' ActionType ArtifactDetails
+actionType_inputArtifactDetails = Lens.lens (\ActionType' {inputArtifactDetails} -> inputArtifactDetails) (\s@ActionType' {} a -> s {inputArtifactDetails = a} :: ActionType)
 
 -- | The details of the output artifact of the action, such as its commit ID.
-atOutputArtifactDetails :: Lens' ActionType ArtifactDetails
-atOutputArtifactDetails = lens _atOutputArtifactDetails (\s a -> s {_atOutputArtifactDetails = a})
+actionType_outputArtifactDetails :: Lens.Lens' ActionType ArtifactDetails
+actionType_outputArtifactDetails = Lens.lens (\ActionType' {outputArtifactDetails} -> outputArtifactDetails) (\s@ActionType' {} a -> s {outputArtifactDetails = a} :: ActionType)
 
-instance FromJSON ActionType where
+instance Prelude.FromJSON ActionType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionType"
       ( \x ->
           ActionType'
-            <$> (x .:? "actionConfigurationProperties" .!= mempty)
-            <*> (x .:? "settings")
-            <*> (x .: "id")
-            <*> (x .: "inputArtifactDetails")
-            <*> (x .: "outputArtifactDetails")
+            Prelude.<$> ( x Prelude..:? "actionConfigurationProperties"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "settings")
+            Prelude.<*> (x Prelude..: "id")
+            Prelude.<*> (x Prelude..: "inputArtifactDetails")
+            Prelude.<*> (x Prelude..: "outputArtifactDetails")
       )
 
-instance Hashable ActionType
+instance Prelude.Hashable ActionType
 
-instance NFData ActionType
+instance Prelude.NFData ActionType

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,63 @@
 module Network.AWS.CodePipeline.Types.ApprovalResult where
 
 import Network.AWS.CodePipeline.Types.ApprovalStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about the result of an approval request.
 --
---
---
--- /See:/ 'approvalResult' smart constructor.
+-- /See:/ 'newApprovalResult' smart constructor.
 data ApprovalResult = ApprovalResult'
-  { _arSummary ::
-      !Text,
-    _arStatus :: !ApprovalStatus
+  { -- | The summary of the current status of the approval request.
+    summary :: Prelude.Text,
+    -- | The response submitted by a reviewer assigned to an approval action
+    -- request.
+    status :: ApprovalStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApprovalResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApprovalResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'arSummary' - The summary of the current status of the approval request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'arStatus' - The response submitted by a reviewer assigned to an approval action request.
-approvalResult ::
-  -- | 'arSummary'
-  Text ->
-  -- | 'arStatus'
+-- 'summary', 'approvalResult_summary' - The summary of the current status of the approval request.
+--
+-- 'status', 'approvalResult_status' - The response submitted by a reviewer assigned to an approval action
+-- request.
+newApprovalResult ::
+  -- | 'summary'
+  Prelude.Text ->
+  -- | 'status'
   ApprovalStatus ->
   ApprovalResult
-approvalResult pSummary_ pStatus_ =
+newApprovalResult pSummary_ pStatus_ =
   ApprovalResult'
-    { _arSummary = pSummary_,
-      _arStatus = pStatus_
+    { summary = pSummary_,
+      status = pStatus_
     }
 
 -- | The summary of the current status of the approval request.
-arSummary :: Lens' ApprovalResult Text
-arSummary = lens _arSummary (\s a -> s {_arSummary = a})
+approvalResult_summary :: Lens.Lens' ApprovalResult Prelude.Text
+approvalResult_summary = Lens.lens (\ApprovalResult' {summary} -> summary) (\s@ApprovalResult' {} a -> s {summary = a} :: ApprovalResult)
 
--- | The response submitted by a reviewer assigned to an approval action request.
-arStatus :: Lens' ApprovalResult ApprovalStatus
-arStatus = lens _arStatus (\s a -> s {_arStatus = a})
+-- | The response submitted by a reviewer assigned to an approval action
+-- request.
+approvalResult_status :: Lens.Lens' ApprovalResult ApprovalStatus
+approvalResult_status = Lens.lens (\ApprovalResult' {status} -> status) (\s@ApprovalResult' {} a -> s {status = a} :: ApprovalResult)
 
-instance Hashable ApprovalResult
+instance Prelude.Hashable ApprovalResult
 
-instance NFData ApprovalResult
+instance Prelude.NFData ApprovalResult
 
-instance ToJSON ApprovalResult where
+instance Prelude.ToJSON ApprovalResult where
   toJSON ApprovalResult' {..} =
-    object
-      ( catMaybes
-          [ Just ("summary" .= _arSummary),
-            Just ("status" .= _arStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("summary" Prelude..= summary),
+            Prelude.Just ("status" Prelude..= status)
           ]
       )

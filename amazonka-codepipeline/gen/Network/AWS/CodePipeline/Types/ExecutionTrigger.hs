@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,69 @@
 module Network.AWS.CodePipeline.Types.ExecutionTrigger where
 
 import Network.AWS.CodePipeline.Types.TriggerType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The interaction or event that started a pipeline execution.
 --
---
---
--- /See:/ 'executionTrigger' smart constructor.
+-- /See:/ 'newExecutionTrigger' smart constructor.
 data ExecutionTrigger = ExecutionTrigger'
-  { _etTriggerDetail ::
-      !(Maybe Text),
-    _etTriggerType ::
-      !(Maybe TriggerType)
+  { -- | Detail related to the event that started a pipeline execution, such as
+    -- the webhook ARN of the webhook that triggered the pipeline execution or
+    -- the user ARN for a user-initiated @start-pipeline-execution@ CLI
+    -- command.
+    triggerDetail :: Prelude.Maybe Prelude.Text,
+    -- | The type of change-detection method, command, or user interaction that
+    -- started a pipeline execution.
+    triggerType :: Prelude.Maybe TriggerType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecutionTrigger' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecutionTrigger' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etTriggerDetail' - Detail related to the event that started a pipeline execution, such as the webhook ARN of the webhook that triggered the pipeline execution or the user ARN for a user-initiated @start-pipeline-execution@ CLI command.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etTriggerType' - The type of change-detection method, command, or user interaction that started a pipeline execution.
-executionTrigger ::
+-- 'triggerDetail', 'executionTrigger_triggerDetail' - Detail related to the event that started a pipeline execution, such as
+-- the webhook ARN of the webhook that triggered the pipeline execution or
+-- the user ARN for a user-initiated @start-pipeline-execution@ CLI
+-- command.
+--
+-- 'triggerType', 'executionTrigger_triggerType' - The type of change-detection method, command, or user interaction that
+-- started a pipeline execution.
+newExecutionTrigger ::
   ExecutionTrigger
-executionTrigger =
+newExecutionTrigger =
   ExecutionTrigger'
-    { _etTriggerDetail = Nothing,
-      _etTriggerType = Nothing
+    { triggerDetail = Prelude.Nothing,
+      triggerType = Prelude.Nothing
     }
 
--- | Detail related to the event that started a pipeline execution, such as the webhook ARN of the webhook that triggered the pipeline execution or the user ARN for a user-initiated @start-pipeline-execution@ CLI command.
-etTriggerDetail :: Lens' ExecutionTrigger (Maybe Text)
-etTriggerDetail = lens _etTriggerDetail (\s a -> s {_etTriggerDetail = a})
+-- | Detail related to the event that started a pipeline execution, such as
+-- the webhook ARN of the webhook that triggered the pipeline execution or
+-- the user ARN for a user-initiated @start-pipeline-execution@ CLI
+-- command.
+executionTrigger_triggerDetail :: Lens.Lens' ExecutionTrigger (Prelude.Maybe Prelude.Text)
+executionTrigger_triggerDetail = Lens.lens (\ExecutionTrigger' {triggerDetail} -> triggerDetail) (\s@ExecutionTrigger' {} a -> s {triggerDetail = a} :: ExecutionTrigger)
 
--- | The type of change-detection method, command, or user interaction that started a pipeline execution.
-etTriggerType :: Lens' ExecutionTrigger (Maybe TriggerType)
-etTriggerType = lens _etTriggerType (\s a -> s {_etTriggerType = a})
+-- | The type of change-detection method, command, or user interaction that
+-- started a pipeline execution.
+executionTrigger_triggerType :: Lens.Lens' ExecutionTrigger (Prelude.Maybe TriggerType)
+executionTrigger_triggerType = Lens.lens (\ExecutionTrigger' {triggerType} -> triggerType) (\s@ExecutionTrigger' {} a -> s {triggerType = a} :: ExecutionTrigger)
 
-instance FromJSON ExecutionTrigger where
+instance Prelude.FromJSON ExecutionTrigger where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExecutionTrigger"
       ( \x ->
           ExecutionTrigger'
-            <$> (x .:? "triggerDetail") <*> (x .:? "triggerType")
+            Prelude.<$> (x Prelude..:? "triggerDetail")
+            Prelude.<*> (x Prelude..:? "triggerType")
       )
 
-instance Hashable ExecutionTrigger
+instance Prelude.Hashable ExecutionTrigger
 
-instance NFData ExecutionTrigger
+instance Prelude.NFData ExecutionTrigger

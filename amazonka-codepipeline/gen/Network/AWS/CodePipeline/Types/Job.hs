@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,71 +20,83 @@
 module Network.AWS.CodePipeline.Types.Job where
 
 import Network.AWS.CodePipeline.Types.JobData
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about a job.
 --
---
---
--- /See:/ 'job' smart constructor.
+-- /See:/ 'newJob' smart constructor.
 data Job = Job'
-  { _jAccountId :: !(Maybe Text),
-    _jNonce :: !(Maybe Text),
-    _jData :: !(Maybe JobData),
-    _jId :: !(Maybe Text)
+  { -- | The ID of the AWS account to use when performing the job.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | A system-generated random number that AWS CodePipeline uses to ensure
+    -- that the job is being worked on by only one job worker. Use this number
+    -- in an AcknowledgeJob request.
+    nonce :: Prelude.Maybe Prelude.Text,
+    -- | Other data about a job.
+    data' :: Prelude.Maybe JobData,
+    -- | The unique system-generated ID of the job.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Job' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Job' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jAccountId' - The ID of the AWS account to use when performing the job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jNonce' - A system-generated random number that AWS CodePipeline uses to ensure that the job is being worked on by only one job worker. Use this number in an 'AcknowledgeJob' request.
+-- 'accountId', 'job_accountId' - The ID of the AWS account to use when performing the job.
 --
--- * 'jData' - Other data about a job.
+-- 'nonce', 'job_nonce' - A system-generated random number that AWS CodePipeline uses to ensure
+-- that the job is being worked on by only one job worker. Use this number
+-- in an AcknowledgeJob request.
 --
--- * 'jId' - The unique system-generated ID of the job.
-job ::
+-- 'data'', 'job_data' - Other data about a job.
+--
+-- 'id', 'job_id' - The unique system-generated ID of the job.
+newJob ::
   Job
-job =
+newJob =
   Job'
-    { _jAccountId = Nothing,
-      _jNonce = Nothing,
-      _jData = Nothing,
-      _jId = Nothing
+    { accountId = Prelude.Nothing,
+      nonce = Prelude.Nothing,
+      data' = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
 -- | The ID of the AWS account to use when performing the job.
-jAccountId :: Lens' Job (Maybe Text)
-jAccountId = lens _jAccountId (\s a -> s {_jAccountId = a})
+job_accountId :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_accountId = Lens.lens (\Job' {accountId} -> accountId) (\s@Job' {} a -> s {accountId = a} :: Job)
 
--- | A system-generated random number that AWS CodePipeline uses to ensure that the job is being worked on by only one job worker. Use this number in an 'AcknowledgeJob' request.
-jNonce :: Lens' Job (Maybe Text)
-jNonce = lens _jNonce (\s a -> s {_jNonce = a})
+-- | A system-generated random number that AWS CodePipeline uses to ensure
+-- that the job is being worked on by only one job worker. Use this number
+-- in an AcknowledgeJob request.
+job_nonce :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_nonce = Lens.lens (\Job' {nonce} -> nonce) (\s@Job' {} a -> s {nonce = a} :: Job)
 
 -- | Other data about a job.
-jData :: Lens' Job (Maybe JobData)
-jData = lens _jData (\s a -> s {_jData = a})
+job_data :: Lens.Lens' Job (Prelude.Maybe JobData)
+job_data = Lens.lens (\Job' {data'} -> data') (\s@Job' {} a -> s {data' = a} :: Job)
 
 -- | The unique system-generated ID of the job.
-jId :: Lens' Job (Maybe Text)
-jId = lens _jId (\s a -> s {_jId = a})
+job_id :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_id = Lens.lens (\Job' {id} -> id) (\s@Job' {} a -> s {id = a} :: Job)
 
-instance FromJSON Job where
+instance Prelude.FromJSON Job where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Job"
       ( \x ->
           Job'
-            <$> (x .:? "accountId")
-            <*> (x .:? "nonce")
-            <*> (x .:? "data")
-            <*> (x .:? "id")
+            Prelude.<$> (x Prelude..:? "accountId")
+            Prelude.<*> (x Prelude..:? "nonce")
+            Prelude.<*> (x Prelude..:? "data")
+            Prelude.<*> (x Prelude..:? "id")
       )
 
-instance Hashable Job
+instance Prelude.Hashable Job
 
-instance NFData Job
+instance Prelude.NFData Job

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.CodePipeline.Types.FailureType
   ( FailureType
       ( ..,
-        ConfigurationError,
-        JobFailed,
-        PermissionError,
-        RevisionOutOfSync,
-        RevisionUnavailable,
-        SystemUnavailable
+        FailureTypeConfigurationError,
+        FailureTypeJobFailed,
+        FailureTypePermissionError,
+        FailureTypeRevisionOutOfSync,
+        FailureTypeRevisionUnavailable,
+        FailureTypeSystemUnavailable
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FailureType = FailureType' (CI Text)
+newtype FailureType = FailureType'
+  { fromFailureType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConfigurationError :: FailureType
-pattern ConfigurationError = FailureType' "ConfigurationError"
+pattern FailureTypeConfigurationError :: FailureType
+pattern FailureTypeConfigurationError = FailureType' "ConfigurationError"
 
-pattern JobFailed :: FailureType
-pattern JobFailed = FailureType' "JobFailed"
+pattern FailureTypeJobFailed :: FailureType
+pattern FailureTypeJobFailed = FailureType' "JobFailed"
 
-pattern PermissionError :: FailureType
-pattern PermissionError = FailureType' "PermissionError"
+pattern FailureTypePermissionError :: FailureType
+pattern FailureTypePermissionError = FailureType' "PermissionError"
 
-pattern RevisionOutOfSync :: FailureType
-pattern RevisionOutOfSync = FailureType' "RevisionOutOfSync"
+pattern FailureTypeRevisionOutOfSync :: FailureType
+pattern FailureTypeRevisionOutOfSync = FailureType' "RevisionOutOfSync"
 
-pattern RevisionUnavailable :: FailureType
-pattern RevisionUnavailable = FailureType' "RevisionUnavailable"
+pattern FailureTypeRevisionUnavailable :: FailureType
+pattern FailureTypeRevisionUnavailable = FailureType' "RevisionUnavailable"
 
-pattern SystemUnavailable :: FailureType
-pattern SystemUnavailable = FailureType' "SystemUnavailable"
+pattern FailureTypeSystemUnavailable :: FailureType
+pattern FailureTypeSystemUnavailable = FailureType' "SystemUnavailable"
 
 {-# COMPLETE
-  ConfigurationError,
-  JobFailed,
-  PermissionError,
-  RevisionOutOfSync,
-  RevisionUnavailable,
-  SystemUnavailable,
+  FailureTypeConfigurationError,
+  FailureTypeJobFailed,
+  FailureTypePermissionError,
+  FailureTypeRevisionOutOfSync,
+  FailureTypeRevisionUnavailable,
+  FailureTypeSystemUnavailable,
   FailureType'
   #-}
 
-instance FromText FailureType where
-  parser = (FailureType' . mk) <$> takeText
+instance Prelude.FromText FailureType where
+  parser = FailureType' Prelude.<$> Prelude.takeText
 
-instance ToText FailureType where
-  toText (FailureType' ci) = original ci
+instance Prelude.ToText FailureType where
+  toText (FailureType' x) = x
 
-instance Hashable FailureType
+instance Prelude.Hashable FailureType
 
-instance NFData FailureType
+instance Prelude.NFData FailureType
 
-instance ToByteString FailureType
+instance Prelude.ToByteString FailureType
 
-instance ToQuery FailureType
+instance Prelude.ToQuery FailureType
 
-instance ToHeader FailureType
+instance Prelude.ToHeader FailureType
 
-instance ToJSON FailureType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FailureType where
+  toJSON = Prelude.toJSONText

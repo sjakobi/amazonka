@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +21,79 @@ module Network.AWS.CodePipeline.Types.StageDeclaration where
 
 import Network.AWS.CodePipeline.Types.ActionDeclaration
 import Network.AWS.CodePipeline.Types.BlockerDeclaration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about a stage and its definition.
 --
---
---
--- /See:/ 'stageDeclaration' smart constructor.
+-- /See:/ 'newStageDeclaration' smart constructor.
 data StageDeclaration = StageDeclaration'
-  { _sdBlockers ::
-      !(Maybe [BlockerDeclaration]),
-    _sdName :: !Text,
-    _sdActions :: ![ActionDeclaration]
+  { -- | Reserved for future use.
+    blockers :: Prelude.Maybe [BlockerDeclaration],
+    -- | The name of the stage.
+    name :: Prelude.Text,
+    -- | The actions included in a stage.
+    actions :: [ActionDeclaration]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StageDeclaration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StageDeclaration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdBlockers' - Reserved for future use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdName' - The name of the stage.
+-- 'blockers', 'stageDeclaration_blockers' - Reserved for future use.
 --
--- * 'sdActions' - The actions included in a stage.
-stageDeclaration ::
-  -- | 'sdName'
-  Text ->
+-- 'name', 'stageDeclaration_name' - The name of the stage.
+--
+-- 'actions', 'stageDeclaration_actions' - The actions included in a stage.
+newStageDeclaration ::
+  -- | 'name'
+  Prelude.Text ->
   StageDeclaration
-stageDeclaration pName_ =
+newStageDeclaration pName_ =
   StageDeclaration'
-    { _sdBlockers = Nothing,
-      _sdName = pName_,
-      _sdActions = mempty
+    { blockers = Prelude.Nothing,
+      name = pName_,
+      actions = Prelude.mempty
     }
 
 -- | Reserved for future use.
-sdBlockers :: Lens' StageDeclaration [BlockerDeclaration]
-sdBlockers = lens _sdBlockers (\s a -> s {_sdBlockers = a}) . _Default . _Coerce
+stageDeclaration_blockers :: Lens.Lens' StageDeclaration (Prelude.Maybe [BlockerDeclaration])
+stageDeclaration_blockers = Lens.lens (\StageDeclaration' {blockers} -> blockers) (\s@StageDeclaration' {} a -> s {blockers = a} :: StageDeclaration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the stage.
-sdName :: Lens' StageDeclaration Text
-sdName = lens _sdName (\s a -> s {_sdName = a})
+stageDeclaration_name :: Lens.Lens' StageDeclaration Prelude.Text
+stageDeclaration_name = Lens.lens (\StageDeclaration' {name} -> name) (\s@StageDeclaration' {} a -> s {name = a} :: StageDeclaration)
 
 -- | The actions included in a stage.
-sdActions :: Lens' StageDeclaration [ActionDeclaration]
-sdActions = lens _sdActions (\s a -> s {_sdActions = a}) . _Coerce
+stageDeclaration_actions :: Lens.Lens' StageDeclaration [ActionDeclaration]
+stageDeclaration_actions = Lens.lens (\StageDeclaration' {actions} -> actions) (\s@StageDeclaration' {} a -> s {actions = a} :: StageDeclaration) Prelude.. Prelude._Coerce
 
-instance FromJSON StageDeclaration where
+instance Prelude.FromJSON StageDeclaration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StageDeclaration"
       ( \x ->
           StageDeclaration'
-            <$> (x .:? "blockers" .!= mempty)
-            <*> (x .: "name")
-            <*> (x .:? "actions" .!= mempty)
+            Prelude.<$> (x Prelude..:? "blockers" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..:? "actions" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable StageDeclaration
+instance Prelude.Hashable StageDeclaration
 
-instance NFData StageDeclaration
+instance Prelude.NFData StageDeclaration
 
-instance ToJSON StageDeclaration where
+instance Prelude.ToJSON StageDeclaration where
   toJSON StageDeclaration' {..} =
-    object
-      ( catMaybes
-          [ ("blockers" .=) <$> _sdBlockers,
-            Just ("name" .= _sdName),
-            Just ("actions" .= _sdActions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("blockers" Prelude..=) Prelude.<$> blockers,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("actions" Prelude..= actions)
           ]
       )

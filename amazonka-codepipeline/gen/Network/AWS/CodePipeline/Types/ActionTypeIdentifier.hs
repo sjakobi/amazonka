@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,95 +20,142 @@
 module Network.AWS.CodePipeline.Types.ActionTypeIdentifier where
 
 import Network.AWS.CodePipeline.Types.ActionCategory
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the category, owner, provider, and version of the action type.
 --
---
---
--- /See:/ 'actionTypeIdentifier' smart constructor.
+-- /See:/ 'newActionTypeIdentifier' smart constructor.
 data ActionTypeIdentifier = ActionTypeIdentifier'
-  { _aCategory ::
-      !ActionCategory,
-    _aOwner :: !Text,
-    _aProvider :: !Text,
-    _aVersion :: !Text
+  { -- | Defines what kind of action can be taken in the stage, one of the
+    -- following:
+    --
+    -- -   @Source@
+    --
+    -- -   @Build@
+    --
+    -- -   @Test@
+    --
+    -- -   @Deploy@
+    --
+    -- -   @Approval@
+    --
+    -- -   @Invoke@
+    category :: ActionCategory,
+    -- | The creator of the action type being called: @AWS@ or @ThirdParty@.
+    owner :: Prelude.Text,
+    -- | The provider of the action type being called. The provider name is
+    -- supplied when the action type is created.
+    provider :: Prelude.Text,
+    -- | A string that describes the action type version.
+    version :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionTypeIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionTypeIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aCategory' - Defines what kind of action can be taken in the stage, one of the following:     * @Source@      * @Build@      * @Test@      * @Deploy@      * @Approval@      * @Invoke@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aOwner' - The creator of the action type being called: @AWS@ or @ThirdParty@ .
+-- 'category', 'actionTypeIdentifier_category' - Defines what kind of action can be taken in the stage, one of the
+-- following:
 --
--- * 'aProvider' - The provider of the action type being called. The provider name is supplied when the action type is created.
+-- -   @Source@
 --
--- * 'aVersion' - A string that describes the action type version.
-actionTypeIdentifier ::
-  -- | 'aCategory'
+-- -   @Build@
+--
+-- -   @Test@
+--
+-- -   @Deploy@
+--
+-- -   @Approval@
+--
+-- -   @Invoke@
+--
+-- 'owner', 'actionTypeIdentifier_owner' - The creator of the action type being called: @AWS@ or @ThirdParty@.
+--
+-- 'provider', 'actionTypeIdentifier_provider' - The provider of the action type being called. The provider name is
+-- supplied when the action type is created.
+--
+-- 'version', 'actionTypeIdentifier_version' - A string that describes the action type version.
+newActionTypeIdentifier ::
+  -- | 'category'
   ActionCategory ->
-  -- | 'aOwner'
-  Text ->
-  -- | 'aProvider'
-  Text ->
-  -- | 'aVersion'
-  Text ->
+  -- | 'owner'
+  Prelude.Text ->
+  -- | 'provider'
+  Prelude.Text ->
+  -- | 'version'
+  Prelude.Text ->
   ActionTypeIdentifier
-actionTypeIdentifier
+newActionTypeIdentifier
   pCategory_
   pOwner_
   pProvider_
   pVersion_ =
     ActionTypeIdentifier'
-      { _aCategory = pCategory_,
-        _aOwner = pOwner_,
-        _aProvider = pProvider_,
-        _aVersion = pVersion_
+      { category = pCategory_,
+        owner = pOwner_,
+        provider = pProvider_,
+        version = pVersion_
       }
 
--- | Defines what kind of action can be taken in the stage, one of the following:     * @Source@      * @Build@      * @Test@      * @Deploy@      * @Approval@      * @Invoke@
-aCategory :: Lens' ActionTypeIdentifier ActionCategory
-aCategory = lens _aCategory (\s a -> s {_aCategory = a})
+-- | Defines what kind of action can be taken in the stage, one of the
+-- following:
+--
+-- -   @Source@
+--
+-- -   @Build@
+--
+-- -   @Test@
+--
+-- -   @Deploy@
+--
+-- -   @Approval@
+--
+-- -   @Invoke@
+actionTypeIdentifier_category :: Lens.Lens' ActionTypeIdentifier ActionCategory
+actionTypeIdentifier_category = Lens.lens (\ActionTypeIdentifier' {category} -> category) (\s@ActionTypeIdentifier' {} a -> s {category = a} :: ActionTypeIdentifier)
 
--- | The creator of the action type being called: @AWS@ or @ThirdParty@ .
-aOwner :: Lens' ActionTypeIdentifier Text
-aOwner = lens _aOwner (\s a -> s {_aOwner = a})
+-- | The creator of the action type being called: @AWS@ or @ThirdParty@.
+actionTypeIdentifier_owner :: Lens.Lens' ActionTypeIdentifier Prelude.Text
+actionTypeIdentifier_owner = Lens.lens (\ActionTypeIdentifier' {owner} -> owner) (\s@ActionTypeIdentifier' {} a -> s {owner = a} :: ActionTypeIdentifier)
 
--- | The provider of the action type being called. The provider name is supplied when the action type is created.
-aProvider :: Lens' ActionTypeIdentifier Text
-aProvider = lens _aProvider (\s a -> s {_aProvider = a})
+-- | The provider of the action type being called. The provider name is
+-- supplied when the action type is created.
+actionTypeIdentifier_provider :: Lens.Lens' ActionTypeIdentifier Prelude.Text
+actionTypeIdentifier_provider = Lens.lens (\ActionTypeIdentifier' {provider} -> provider) (\s@ActionTypeIdentifier' {} a -> s {provider = a} :: ActionTypeIdentifier)
 
 -- | A string that describes the action type version.
-aVersion :: Lens' ActionTypeIdentifier Text
-aVersion = lens _aVersion (\s a -> s {_aVersion = a})
+actionTypeIdentifier_version :: Lens.Lens' ActionTypeIdentifier Prelude.Text
+actionTypeIdentifier_version = Lens.lens (\ActionTypeIdentifier' {version} -> version) (\s@ActionTypeIdentifier' {} a -> s {version = a} :: ActionTypeIdentifier)
 
-instance FromJSON ActionTypeIdentifier where
+instance Prelude.FromJSON ActionTypeIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionTypeIdentifier"
       ( \x ->
           ActionTypeIdentifier'
-            <$> (x .: "category")
-            <*> (x .: "owner")
-            <*> (x .: "provider")
-            <*> (x .: "version")
+            Prelude.<$> (x Prelude..: "category")
+            Prelude.<*> (x Prelude..: "owner")
+            Prelude.<*> (x Prelude..: "provider")
+            Prelude.<*> (x Prelude..: "version")
       )
 
-instance Hashable ActionTypeIdentifier
+instance Prelude.Hashable ActionTypeIdentifier
 
-instance NFData ActionTypeIdentifier
+instance Prelude.NFData ActionTypeIdentifier
 
-instance ToJSON ActionTypeIdentifier where
+instance Prelude.ToJSON ActionTypeIdentifier where
   toJSON ActionTypeIdentifier' {..} =
-    object
-      ( catMaybes
-          [ Just ("category" .= _aCategory),
-            Just ("owner" .= _aOwner),
-            Just ("provider" .= _aProvider),
-            Just ("version" .= _aVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("category" Prelude..= category),
+            Prelude.Just ("owner" Prelude..= owner),
+            Prelude.Just ("provider" Prelude..= provider),
+            Prelude.Just ("version" Prelude..= version)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.AWSSessionCredentials where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents an AWS session credentials object. These credentials are temporary credentials that are issued by AWS Secure Token Service (STS). They can be used to access input and output artifacts in the S3 bucket used to store artifact for the pipeline in AWS CodePipeline.
+-- | Represents an AWS session credentials object. These credentials are
+-- temporary credentials that are issued by AWS Secure Token Service (STS).
+-- They can be used to access input and output artifacts in the S3 bucket
+-- used to store artifact for the pipeline in AWS CodePipeline.
 --
---
---
--- /See:/ 'awsSessionCredentials' smart constructor.
+-- /See:/ 'newAWSSessionCredentials' smart constructor.
 data AWSSessionCredentials = AWSSessionCredentials'
-  { _ascAccessKeyId ::
-      !(Sensitive Text),
-    _ascSecretAccessKey ::
-      !(Sensitive Text),
-    _ascSessionToken ::
-      !(Sensitive Text)
+  { -- | The access key for the session.
+    accessKeyId :: Prelude.Sensitive Prelude.Text,
+    -- | The secret access key for the session.
+    secretAccessKey :: Prelude.Sensitive Prelude.Text,
+    -- | The token for the session.
+    sessionToken :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AWSSessionCredentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AWSSessionCredentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ascAccessKeyId' - The access key for the session.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ascSecretAccessKey' - The secret access key for the session.
+-- 'accessKeyId', 'aWSSessionCredentials_accessKeyId' - The access key for the session.
 --
--- * 'ascSessionToken' - The token for the session.
-awsSessionCredentials ::
-  -- | 'ascAccessKeyId'
-  Text ->
-  -- | 'ascSecretAccessKey'
-  Text ->
-  -- | 'ascSessionToken'
-  Text ->
+-- 'secretAccessKey', 'aWSSessionCredentials_secretAccessKey' - The secret access key for the session.
+--
+-- 'sessionToken', 'aWSSessionCredentials_sessionToken' - The token for the session.
+newAWSSessionCredentials ::
+  -- | 'accessKeyId'
+  Prelude.Text ->
+  -- | 'secretAccessKey'
+  Prelude.Text ->
+  -- | 'sessionToken'
+  Prelude.Text ->
   AWSSessionCredentials
-awsSessionCredentials
+newAWSSessionCredentials
   pAccessKeyId_
   pSecretAccessKey_
   pSessionToken_ =
     AWSSessionCredentials'
-      { _ascAccessKeyId =
-          _Sensitive # pAccessKeyId_,
-        _ascSecretAccessKey = _Sensitive # pSecretAccessKey_,
-        _ascSessionToken = _Sensitive # pSessionToken_
+      { accessKeyId =
+          Prelude._Sensitive Lens.# pAccessKeyId_,
+        secretAccessKey =
+          Prelude._Sensitive Lens.# pSecretAccessKey_,
+        sessionToken =
+          Prelude._Sensitive Lens.# pSessionToken_
       }
 
 -- | The access key for the session.
-ascAccessKeyId :: Lens' AWSSessionCredentials Text
-ascAccessKeyId = lens _ascAccessKeyId (\s a -> s {_ascAccessKeyId = a}) . _Sensitive
+aWSSessionCredentials_accessKeyId :: Lens.Lens' AWSSessionCredentials Prelude.Text
+aWSSessionCredentials_accessKeyId = Lens.lens (\AWSSessionCredentials' {accessKeyId} -> accessKeyId) (\s@AWSSessionCredentials' {} a -> s {accessKeyId = a} :: AWSSessionCredentials) Prelude.. Prelude._Sensitive
 
 -- | The secret access key for the session.
-ascSecretAccessKey :: Lens' AWSSessionCredentials Text
-ascSecretAccessKey = lens _ascSecretAccessKey (\s a -> s {_ascSecretAccessKey = a}) . _Sensitive
+aWSSessionCredentials_secretAccessKey :: Lens.Lens' AWSSessionCredentials Prelude.Text
+aWSSessionCredentials_secretAccessKey = Lens.lens (\AWSSessionCredentials' {secretAccessKey} -> secretAccessKey) (\s@AWSSessionCredentials' {} a -> s {secretAccessKey = a} :: AWSSessionCredentials) Prelude.. Prelude._Sensitive
 
 -- | The token for the session.
-ascSessionToken :: Lens' AWSSessionCredentials Text
-ascSessionToken = lens _ascSessionToken (\s a -> s {_ascSessionToken = a}) . _Sensitive
+aWSSessionCredentials_sessionToken :: Lens.Lens' AWSSessionCredentials Prelude.Text
+aWSSessionCredentials_sessionToken = Lens.lens (\AWSSessionCredentials' {sessionToken} -> sessionToken) (\s@AWSSessionCredentials' {} a -> s {sessionToken = a} :: AWSSessionCredentials) Prelude.. Prelude._Sensitive
 
-instance FromJSON AWSSessionCredentials where
+instance Prelude.FromJSON AWSSessionCredentials where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AWSSessionCredentials"
       ( \x ->
           AWSSessionCredentials'
-            <$> (x .: "accessKeyId")
-            <*> (x .: "secretAccessKey")
-            <*> (x .: "sessionToken")
+            Prelude.<$> (x Prelude..: "accessKeyId")
+            Prelude.<*> (x Prelude..: "secretAccessKey")
+            Prelude.<*> (x Prelude..: "sessionToken")
       )
 
-instance Hashable AWSSessionCredentials
+instance Prelude.Hashable AWSSessionCredentials
 
-instance NFData AWSSessionCredentials
+instance Prelude.NFData AWSSessionCredentials

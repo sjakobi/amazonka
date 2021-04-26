@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.ActionTypePermissions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details identifying the users with permissions to use the action type.
 --
---
---
--- /See:/ 'actionTypePermissions' smart constructor.
-newtype ActionTypePermissions = ActionTypePermissions'
-  { _atpAllowedAccounts ::
-      List1 Text
+-- /See:/ 'newActionTypePermissions' smart constructor.
+data ActionTypePermissions = ActionTypePermissions'
+  { -- | A list of AWS account IDs with access to use the action type in their
+    -- pipelines.
+    allowedAccounts :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionTypePermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionTypePermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atpAllowedAccounts' - A list of AWS account IDs with access to use the action type in their pipelines.
-actionTypePermissions ::
-  -- | 'atpAllowedAccounts'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'allowedAccounts', 'actionTypePermissions_allowedAccounts' - A list of AWS account IDs with access to use the action type in their
+-- pipelines.
+newActionTypePermissions ::
+  -- | 'allowedAccounts'
+  Prelude.NonEmpty Prelude.Text ->
   ActionTypePermissions
-actionTypePermissions pAllowedAccounts_ =
+newActionTypePermissions pAllowedAccounts_ =
   ActionTypePermissions'
-    { _atpAllowedAccounts =
-        _List1 # pAllowedAccounts_
+    { allowedAccounts =
+        Prelude._List1 Lens.# pAllowedAccounts_
     }
 
--- | A list of AWS account IDs with access to use the action type in their pipelines.
-atpAllowedAccounts :: Lens' ActionTypePermissions (NonEmpty Text)
-atpAllowedAccounts = lens _atpAllowedAccounts (\s a -> s {_atpAllowedAccounts = a}) . _List1
+-- | A list of AWS account IDs with access to use the action type in their
+-- pipelines.
+actionTypePermissions_allowedAccounts :: Lens.Lens' ActionTypePermissions (Prelude.NonEmpty Prelude.Text)
+actionTypePermissions_allowedAccounts = Lens.lens (\ActionTypePermissions' {allowedAccounts} -> allowedAccounts) (\s@ActionTypePermissions' {} a -> s {allowedAccounts = a} :: ActionTypePermissions) Prelude.. Prelude._List1
 
-instance FromJSON ActionTypePermissions where
+instance Prelude.FromJSON ActionTypePermissions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionTypePermissions"
       ( \x ->
-          ActionTypePermissions' <$> (x .: "allowedAccounts")
+          ActionTypePermissions'
+            Prelude.<$> (x Prelude..: "allowedAccounts")
       )
 
-instance Hashable ActionTypePermissions
+instance Prelude.Hashable ActionTypePermissions
 
-instance NFData ActionTypePermissions
+instance Prelude.NFData ActionTypePermissions
 
-instance ToJSON ActionTypePermissions where
+instance Prelude.ToJSON ActionTypePermissions where
   toJSON ActionTypePermissions' {..} =
-    object
-      ( catMaybes
-          [Just ("allowedAccounts" .= _atpAllowedAccounts)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("allowedAccounts" Prelude..= allowedAccounts)
+          ]
       )

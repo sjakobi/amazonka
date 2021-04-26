@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.ActionContext where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the context of an action in the stage of a pipeline to a job worker.
+-- | Represents the context of an action in the stage of a pipeline to a job
+-- worker.
 --
---
---
--- /See:/ 'actionContext' smart constructor.
+-- /See:/ 'newActionContext' smart constructor.
 data ActionContext = ActionContext'
-  { _acActionExecutionId ::
-      !(Maybe Text),
-    _acName :: !(Maybe Text)
+  { -- | The system-generated unique ID that corresponds to an action\'s
+    -- execution.
+    actionExecutionId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the action in the context of a job.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionContext' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionContext' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acActionExecutionId' - The system-generated unique ID that corresponds to an action's execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acName' - The name of the action in the context of a job.
-actionContext ::
+-- 'actionExecutionId', 'actionContext_actionExecutionId' - The system-generated unique ID that corresponds to an action\'s
+-- execution.
+--
+-- 'name', 'actionContext_name' - The name of the action in the context of a job.
+newActionContext ::
   ActionContext
-actionContext =
+newActionContext =
   ActionContext'
-    { _acActionExecutionId = Nothing,
-      _acName = Nothing
+    { actionExecutionId = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
--- | The system-generated unique ID that corresponds to an action's execution.
-acActionExecutionId :: Lens' ActionContext (Maybe Text)
-acActionExecutionId = lens _acActionExecutionId (\s a -> s {_acActionExecutionId = a})
+-- | The system-generated unique ID that corresponds to an action\'s
+-- execution.
+actionContext_actionExecutionId :: Lens.Lens' ActionContext (Prelude.Maybe Prelude.Text)
+actionContext_actionExecutionId = Lens.lens (\ActionContext' {actionExecutionId} -> actionExecutionId) (\s@ActionContext' {} a -> s {actionExecutionId = a} :: ActionContext)
 
 -- | The name of the action in the context of a job.
-acName :: Lens' ActionContext (Maybe Text)
-acName = lens _acName (\s a -> s {_acName = a})
+actionContext_name :: Lens.Lens' ActionContext (Prelude.Maybe Prelude.Text)
+actionContext_name = Lens.lens (\ActionContext' {name} -> name) (\s@ActionContext' {} a -> s {name = a} :: ActionContext)
 
-instance FromJSON ActionContext where
+instance Prelude.FromJSON ActionContext where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionContext"
       ( \x ->
           ActionContext'
-            <$> (x .:? "actionExecutionId") <*> (x .:? "name")
+            Prelude.<$> (x Prelude..:? "actionExecutionId")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable ActionContext
+instance Prelude.Hashable ActionContext
 
-instance NFData ActionContext
+instance Prelude.NFData ActionContext

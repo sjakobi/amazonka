@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.OutputArtifact where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about the output of an action.
 --
---
---
--- /See:/ 'outputArtifact' smart constructor.
-newtype OutputArtifact = OutputArtifact'
-  { _oaName ::
-      Text
+-- /See:/ 'newOutputArtifact' smart constructor.
+data OutputArtifact = OutputArtifact'
+  { -- | The name of the output of an artifact, such as \"My App\".
+    --
+    -- The input artifact of an action must exactly match the output artifact
+    -- declared in a preceding action, but the input artifact does not have to
+    -- be the next action in strict sequence from the action that provided the
+    -- output artifact. Actions in parallel can declare different output
+    -- artifacts, which are in turn consumed by different following actions.
+    --
+    -- Output artifact names must be unique within a pipeline.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oaName' - The name of the output of an artifact, such as "My App". The input artifact of an action must exactly match the output artifact declared in a preceding action, but the input artifact does not have to be the next action in strict sequence from the action that provided the output artifact. Actions in parallel can declare different output artifacts, which are in turn consumed by different following actions. Output artifact names must be unique within a pipeline.
-outputArtifact ::
-  -- | 'oaName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'outputArtifact_name' - The name of the output of an artifact, such as \"My App\".
+--
+-- The input artifact of an action must exactly match the output artifact
+-- declared in a preceding action, but the input artifact does not have to
+-- be the next action in strict sequence from the action that provided the
+-- output artifact. Actions in parallel can declare different output
+-- artifacts, which are in turn consumed by different following actions.
+--
+-- Output artifact names must be unique within a pipeline.
+newOutputArtifact ::
+  -- | 'name'
+  Prelude.Text ->
   OutputArtifact
-outputArtifact pName_ =
-  OutputArtifact' {_oaName = pName_}
+newOutputArtifact pName_ =
+  OutputArtifact' {name = pName_}
 
--- | The name of the output of an artifact, such as "My App". The input artifact of an action must exactly match the output artifact declared in a preceding action, but the input artifact does not have to be the next action in strict sequence from the action that provided the output artifact. Actions in parallel can declare different output artifacts, which are in turn consumed by different following actions. Output artifact names must be unique within a pipeline.
-oaName :: Lens' OutputArtifact Text
-oaName = lens _oaName (\s a -> s {_oaName = a})
+-- | The name of the output of an artifact, such as \"My App\".
+--
+-- The input artifact of an action must exactly match the output artifact
+-- declared in a preceding action, but the input artifact does not have to
+-- be the next action in strict sequence from the action that provided the
+-- output artifact. Actions in parallel can declare different output
+-- artifacts, which are in turn consumed by different following actions.
+--
+-- Output artifact names must be unique within a pipeline.
+outputArtifact_name :: Lens.Lens' OutputArtifact Prelude.Text
+outputArtifact_name = Lens.lens (\OutputArtifact' {name} -> name) (\s@OutputArtifact' {} a -> s {name = a} :: OutputArtifact)
 
-instance FromJSON OutputArtifact where
+instance Prelude.FromJSON OutputArtifact where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputArtifact"
-      (\x -> OutputArtifact' <$> (x .: "name"))
+      ( \x ->
+          OutputArtifact' Prelude.<$> (x Prelude..: "name")
+      )
 
-instance Hashable OutputArtifact
+instance Prelude.Hashable OutputArtifact
 
-instance NFData OutputArtifact
+instance Prelude.NFData OutputArtifact
 
-instance ToJSON OutputArtifact where
+instance Prelude.ToJSON OutputArtifact where
   toJSON OutputArtifact' {..} =
-    object (catMaybes [Just ("name" .= _oaName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("name" Prelude..= name)]
+      )

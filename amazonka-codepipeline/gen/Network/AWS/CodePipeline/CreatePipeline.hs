@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,167 +22,178 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a pipeline.
+--
+-- In the pipeline structure, you must include either @artifactStore@ or
+-- @artifactStores@ in your pipeline, but you cannot use both. If you
+-- create a cross-region action in your pipeline, you must use
+-- @artifactStores@.
 module Network.AWS.CodePipeline.CreatePipeline
   ( -- * Creating a Request
-    createPipeline,
-    CreatePipeline,
+    CreatePipeline (..),
+    newCreatePipeline,
 
     -- * Request Lenses
-    cpTags,
-    cpPipeline,
+    createPipeline_tags,
+    createPipeline_pipeline,
 
     -- * Destructuring the Response
-    createPipelineResponse,
-    CreatePipelineResponse,
+    CreatePipelineResponse (..),
+    newCreatePipelineResponse,
 
     -- * Response Lenses
-    cprrsTags,
-    cprrsPipeline,
-    cprrsResponseStatus,
+    createPipelineResponse_tags,
+    createPipelineResponse_pipeline,
+    createPipelineResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodePipeline.Types.PipelineDeclaration
+import Network.AWS.CodePipeline.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @CreatePipeline@ action.
 --
---
---
--- /See:/ 'createPipeline' smart constructor.
+-- /See:/ 'newCreatePipeline' smart constructor.
 data CreatePipeline = CreatePipeline'
-  { _cpTags ::
-      !(Maybe [Tag]),
-    _cpPipeline :: !PipelineDeclaration
+  { -- | The tags for the pipeline.
+    tags :: Prelude.Maybe [Tag],
+    -- | Represents the structure of actions and stages to be performed in the
+    -- pipeline.
+    pipeline :: PipelineDeclaration
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePipeline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePipeline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpTags' - The tags for the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpPipeline' - Represents the structure of actions and stages to be performed in the pipeline.
-createPipeline ::
-  -- | 'cpPipeline'
+-- 'tags', 'createPipeline_tags' - The tags for the pipeline.
+--
+-- 'pipeline', 'createPipeline_pipeline' - Represents the structure of actions and stages to be performed in the
+-- pipeline.
+newCreatePipeline ::
+  -- | 'pipeline'
   PipelineDeclaration ->
   CreatePipeline
-createPipeline pPipeline_ =
+newCreatePipeline pPipeline_ =
   CreatePipeline'
-    { _cpTags = Nothing,
-      _cpPipeline = pPipeline_
+    { tags = Prelude.Nothing,
+      pipeline = pPipeline_
     }
 
 -- | The tags for the pipeline.
-cpTags :: Lens' CreatePipeline [Tag]
-cpTags = lens _cpTags (\s a -> s {_cpTags = a}) . _Default . _Coerce
+createPipeline_tags :: Lens.Lens' CreatePipeline (Prelude.Maybe [Tag])
+createPipeline_tags = Lens.lens (\CreatePipeline' {tags} -> tags) (\s@CreatePipeline' {} a -> s {tags = a} :: CreatePipeline) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Represents the structure of actions and stages to be performed in the pipeline.
-cpPipeline :: Lens' CreatePipeline PipelineDeclaration
-cpPipeline = lens _cpPipeline (\s a -> s {_cpPipeline = a})
+-- | Represents the structure of actions and stages to be performed in the
+-- pipeline.
+createPipeline_pipeline :: Lens.Lens' CreatePipeline PipelineDeclaration
+createPipeline_pipeline = Lens.lens (\CreatePipeline' {pipeline} -> pipeline) (\s@CreatePipeline' {} a -> s {pipeline = a} :: CreatePipeline)
 
-instance AWSRequest CreatePipeline where
+instance Prelude.AWSRequest CreatePipeline where
   type Rs CreatePipeline = CreatePipelineResponse
-  request = postJSON codePipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreatePipelineResponse'
-            <$> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "pipeline")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "pipeline")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreatePipeline
+instance Prelude.Hashable CreatePipeline
 
-instance NFData CreatePipeline
+instance Prelude.NFData CreatePipeline
 
-instance ToHeaders CreatePipeline where
+instance Prelude.ToHeaders CreatePipeline where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodePipeline_20150709.CreatePipeline" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodePipeline_20150709.CreatePipeline" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePipeline where
+instance Prelude.ToJSON CreatePipeline where
   toJSON CreatePipeline' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _cpTags,
-            Just ("pipeline" .= _cpPipeline)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("pipeline" Prelude..= pipeline)
           ]
       )
 
-instance ToPath CreatePipeline where
-  toPath = const "/"
+instance Prelude.ToPath CreatePipeline where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreatePipeline where
-  toQuery = const mempty
+instance Prelude.ToQuery CreatePipeline where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @CreatePipeline@ action.
 --
---
---
--- /See:/ 'createPipelineResponse' smart constructor.
+-- /See:/ 'newCreatePipelineResponse' smart constructor.
 data CreatePipelineResponse = CreatePipelineResponse'
-  { _cprrsTags ::
-      !(Maybe [Tag]),
-    _cprrsPipeline ::
-      !( Maybe
-           PipelineDeclaration
-       ),
-    _cprrsResponseStatus ::
-      !Int
+  { -- | Specifies the tags applied to the pipeline.
+    tags :: Prelude.Maybe [Tag],
+    -- | Represents the structure of actions and stages to be performed in the
+    -- pipeline.
+    pipeline :: Prelude.Maybe PipelineDeclaration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePipelineResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePipelineResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprrsTags' - Specifies the tags applied to the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprrsPipeline' - Represents the structure of actions and stages to be performed in the pipeline.
+-- 'tags', 'createPipelineResponse_tags' - Specifies the tags applied to the pipeline.
 --
--- * 'cprrsResponseStatus' - -- | The response status code.
-createPipelineResponse ::
-  -- | 'cprrsResponseStatus'
-  Int ->
+-- 'pipeline', 'createPipelineResponse_pipeline' - Represents the structure of actions and stages to be performed in the
+-- pipeline.
+--
+-- 'httpStatus', 'createPipelineResponse_httpStatus' - The response's http status code.
+newCreatePipelineResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreatePipelineResponse
-createPipelineResponse pResponseStatus_ =
+newCreatePipelineResponse pHttpStatus_ =
   CreatePipelineResponse'
-    { _cprrsTags = Nothing,
-      _cprrsPipeline = Nothing,
-      _cprrsResponseStatus = pResponseStatus_
+    { tags = Prelude.Nothing,
+      pipeline = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Specifies the tags applied to the pipeline.
-cprrsTags :: Lens' CreatePipelineResponse [Tag]
-cprrsTags = lens _cprrsTags (\s a -> s {_cprrsTags = a}) . _Default . _Coerce
+createPipelineResponse_tags :: Lens.Lens' CreatePipelineResponse (Prelude.Maybe [Tag])
+createPipelineResponse_tags = Lens.lens (\CreatePipelineResponse' {tags} -> tags) (\s@CreatePipelineResponse' {} a -> s {tags = a} :: CreatePipelineResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Represents the structure of actions and stages to be performed in the pipeline.
-cprrsPipeline :: Lens' CreatePipelineResponse (Maybe PipelineDeclaration)
-cprrsPipeline = lens _cprrsPipeline (\s a -> s {_cprrsPipeline = a})
+-- | Represents the structure of actions and stages to be performed in the
+-- pipeline.
+createPipelineResponse_pipeline :: Lens.Lens' CreatePipelineResponse (Prelude.Maybe PipelineDeclaration)
+createPipelineResponse_pipeline = Lens.lens (\CreatePipelineResponse' {pipeline} -> pipeline) (\s@CreatePipelineResponse' {} a -> s {pipeline = a} :: CreatePipelineResponse)
 
--- | -- | The response status code.
-cprrsResponseStatus :: Lens' CreatePipelineResponse Int
-cprrsResponseStatus = lens _cprrsResponseStatus (\s a -> s {_cprrsResponseStatus = a})
+-- | The response's http status code.
+createPipelineResponse_httpStatus :: Lens.Lens' CreatePipelineResponse Prelude.Int
+createPipelineResponse_httpStatus = Lens.lens (\CreatePipelineResponse' {httpStatus} -> httpStatus) (\s@CreatePipelineResponse' {} a -> s {httpStatus = a} :: CreatePipelineResponse)
 
-instance NFData CreatePipelineResponse
+instance Prelude.NFData CreatePipelineResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about any jobs for AWS CodePipeline to act on. @PollForJobs@ is valid only for action types with "Custom" in the owner field. If the action type contains "AWS" or "ThirdParty" in the owner field, the @PollForJobs@ action returns an error.
+-- Returns information about any jobs for AWS CodePipeline to act on.
+-- @PollForJobs@ is valid only for action types with \"Custom\" in the
+-- owner field. If the action type contains \"AWS\" or \"ThirdParty\" in
+-- the owner field, the @PollForJobs@ action returns an error.
 --
---
--- /Important:/ When this API is called, AWS CodePipeline returns temporary credentials for the S3 bucket used to store artifacts for the pipeline, if the action requires access to that S3 bucket for input or output artifacts. This API also returns any secret values defined for the action.
+-- When this API is called, AWS CodePipeline returns temporary credentials
+-- for the S3 bucket used to store artifacts for the pipeline, if the
+-- action requires access to that S3 bucket for input or output artifacts.
+-- This API also returns any secret values defined for the action.
 module Network.AWS.CodePipeline.PollForJobs
   ( -- * Creating a Request
-    pollForJobs,
-    PollForJobs,
+    PollForJobs (..),
+    newPollForJobs,
 
     -- * Request Lenses
-    pfjQueryParam,
-    pfjMaxBatchSize,
-    pfjActionTypeId,
+    pollForJobs_queryParam,
+    pollForJobs_maxBatchSize,
+    pollForJobs_actionTypeId,
 
     -- * Destructuring the Response
-    pollForJobsResponse,
-    PollForJobsResponse,
+    PollForJobsResponse (..),
+    newPollForJobsResponse,
 
     -- * Response Lenses
-    pfjrrsJobs,
-    pfjrrsResponseStatus,
+    pollForJobsResponse_jobs,
+    pollForJobsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodePipeline.Types.Job
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @PollForJobs@ action.
 --
---
---
--- /See:/ 'pollForJobs' smart constructor.
+-- /See:/ 'newPollForJobs' smart constructor.
 data PollForJobs = PollForJobs'
-  { _pfjQueryParam ::
-      !(Maybe (Map Text Text)),
-    _pfjMaxBatchSize :: !(Maybe Nat),
-    _pfjActionTypeId :: !ActionTypeId
+  { -- | A map of property names and values. For an action type with no queryable
+    -- properties, this value must be null or an empty map. For an action type
+    -- with a queryable property, you must supply that property as a key in the
+    -- map. Only jobs whose action configuration matches the mapped value are
+    -- returned.
+    queryParam :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The maximum number of jobs to return in a poll for jobs call.
+    maxBatchSize :: Prelude.Maybe Prelude.Nat,
+    -- | Represents information about an action type.
+    actionTypeId :: ActionTypeId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PollForJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PollForJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pfjQueryParam' - A map of property names and values. For an action type with no queryable properties, this value must be null or an empty map. For an action type with a queryable property, you must supply that property as a key in the map. Only jobs whose action configuration matches the mapped value are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pfjMaxBatchSize' - The maximum number of jobs to return in a poll for jobs call.
+-- 'queryParam', 'pollForJobs_queryParam' - A map of property names and values. For an action type with no queryable
+-- properties, this value must be null or an empty map. For an action type
+-- with a queryable property, you must supply that property as a key in the
+-- map. Only jobs whose action configuration matches the mapped value are
+-- returned.
 --
--- * 'pfjActionTypeId' - Represents information about an action type.
-pollForJobs ::
-  -- | 'pfjActionTypeId'
+-- 'maxBatchSize', 'pollForJobs_maxBatchSize' - The maximum number of jobs to return in a poll for jobs call.
+--
+-- 'actionTypeId', 'pollForJobs_actionTypeId' - Represents information about an action type.
+newPollForJobs ::
+  -- | 'actionTypeId'
   ActionTypeId ->
   PollForJobs
-pollForJobs pActionTypeId_ =
+newPollForJobs pActionTypeId_ =
   PollForJobs'
-    { _pfjQueryParam = Nothing,
-      _pfjMaxBatchSize = Nothing,
-      _pfjActionTypeId = pActionTypeId_
+    { queryParam = Prelude.Nothing,
+      maxBatchSize = Prelude.Nothing,
+      actionTypeId = pActionTypeId_
     }
 
--- | A map of property names and values. For an action type with no queryable properties, this value must be null or an empty map. For an action type with a queryable property, you must supply that property as a key in the map. Only jobs whose action configuration matches the mapped value are returned.
-pfjQueryParam :: Lens' PollForJobs (HashMap Text Text)
-pfjQueryParam = lens _pfjQueryParam (\s a -> s {_pfjQueryParam = a}) . _Default . _Map
+-- | A map of property names and values. For an action type with no queryable
+-- properties, this value must be null or an empty map. For an action type
+-- with a queryable property, you must supply that property as a key in the
+-- map. Only jobs whose action configuration matches the mapped value are
+-- returned.
+pollForJobs_queryParam :: Lens.Lens' PollForJobs (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+pollForJobs_queryParam = Lens.lens (\PollForJobs' {queryParam} -> queryParam) (\s@PollForJobs' {} a -> s {queryParam = a} :: PollForJobs) Prelude.. Lens.mapping Prelude._Map
 
 -- | The maximum number of jobs to return in a poll for jobs call.
-pfjMaxBatchSize :: Lens' PollForJobs (Maybe Natural)
-pfjMaxBatchSize = lens _pfjMaxBatchSize (\s a -> s {_pfjMaxBatchSize = a}) . mapping _Nat
+pollForJobs_maxBatchSize :: Lens.Lens' PollForJobs (Prelude.Maybe Prelude.Natural)
+pollForJobs_maxBatchSize = Lens.lens (\PollForJobs' {maxBatchSize} -> maxBatchSize) (\s@PollForJobs' {} a -> s {maxBatchSize = a} :: PollForJobs) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Represents information about an action type.
-pfjActionTypeId :: Lens' PollForJobs ActionTypeId
-pfjActionTypeId = lens _pfjActionTypeId (\s a -> s {_pfjActionTypeId = a})
+pollForJobs_actionTypeId :: Lens.Lens' PollForJobs ActionTypeId
+pollForJobs_actionTypeId = Lens.lens (\PollForJobs' {actionTypeId} -> actionTypeId) (\s@PollForJobs' {} a -> s {actionTypeId = a} :: PollForJobs)
 
-instance AWSRequest PollForJobs where
+instance Prelude.AWSRequest PollForJobs where
   type Rs PollForJobs = PollForJobsResponse
-  request = postJSON codePipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PollForJobsResponse'
-            <$> (x .?> "jobs" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "jobs" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PollForJobs
+instance Prelude.Hashable PollForJobs
 
-instance NFData PollForJobs
+instance Prelude.NFData PollForJobs
 
-instance ToHeaders PollForJobs where
+instance Prelude.ToHeaders PollForJobs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodePipeline_20150709.PollForJobs" :: ByteString),
+              Prelude.=# ( "CodePipeline_20150709.PollForJobs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PollForJobs where
+instance Prelude.ToJSON PollForJobs where
   toJSON PollForJobs' {..} =
-    object
-      ( catMaybes
-          [ ("queryParam" .=) <$> _pfjQueryParam,
-            ("maxBatchSize" .=) <$> _pfjMaxBatchSize,
-            Just ("actionTypeId" .= _pfjActionTypeId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("queryParam" Prelude..=) Prelude.<$> queryParam,
+            ("maxBatchSize" Prelude..=) Prelude.<$> maxBatchSize,
+            Prelude.Just
+              ("actionTypeId" Prelude..= actionTypeId)
           ]
       )
 
-instance ToPath PollForJobs where
-  toPath = const "/"
+instance Prelude.ToPath PollForJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery PollForJobs where
-  toQuery = const mempty
+instance Prelude.ToQuery PollForJobs where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @PollForJobs@ action.
 --
---
---
--- /See:/ 'pollForJobsResponse' smart constructor.
+-- /See:/ 'newPollForJobsResponse' smart constructor.
 data PollForJobsResponse = PollForJobsResponse'
-  { _pfjrrsJobs ::
-      !(Maybe [Job]),
-    _pfjrrsResponseStatus :: !Int
+  { -- | Information about the jobs to take action on.
+    jobs :: Prelude.Maybe [Job],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PollForJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PollForJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pfjrrsJobs' - Information about the jobs to take action on.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pfjrrsResponseStatus' - -- | The response status code.
-pollForJobsResponse ::
-  -- | 'pfjrrsResponseStatus'
-  Int ->
+-- 'jobs', 'pollForJobsResponse_jobs' - Information about the jobs to take action on.
+--
+-- 'httpStatus', 'pollForJobsResponse_httpStatus' - The response's http status code.
+newPollForJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PollForJobsResponse
-pollForJobsResponse pResponseStatus_ =
+newPollForJobsResponse pHttpStatus_ =
   PollForJobsResponse'
-    { _pfjrrsJobs = Nothing,
-      _pfjrrsResponseStatus = pResponseStatus_
+    { jobs = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the jobs to take action on.
-pfjrrsJobs :: Lens' PollForJobsResponse [Job]
-pfjrrsJobs = lens _pfjrrsJobs (\s a -> s {_pfjrrsJobs = a}) . _Default . _Coerce
+pollForJobsResponse_jobs :: Lens.Lens' PollForJobsResponse (Prelude.Maybe [Job])
+pollForJobsResponse_jobs = Lens.lens (\PollForJobsResponse' {jobs} -> jobs) (\s@PollForJobsResponse' {} a -> s {jobs = a} :: PollForJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-pfjrrsResponseStatus :: Lens' PollForJobsResponse Int
-pfjrrsResponseStatus = lens _pfjrrsResponseStatus (\s a -> s {_pfjrrsResponseStatus = a})
+-- | The response's http status code.
+pollForJobsResponse_httpStatus :: Lens.Lens' PollForJobsResponse Prelude.Int
+pollForJobsResponse_httpStatus = Lens.lens (\PollForJobsResponse' {httpStatus} -> httpStatus) (\s@PollForJobsResponse' {} a -> s {httpStatus = a} :: PollForJobsResponse)
 
-instance NFData PollForJobsResponse
+instance Prelude.NFData PollForJobsResponse

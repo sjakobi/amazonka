@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CodePipeline.Types.StageTransitionType
   ( StageTransitionType
       ( ..,
-        Inbound,
-        Outbound
+        StageTransitionTypeInbound,
+        StageTransitionTypeOutbound
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StageTransitionType
-  = StageTransitionType'
-      ( CI
-          Text
-      )
+newtype StageTransitionType = StageTransitionType'
+  { fromStageTransitionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Inbound :: StageTransitionType
-pattern Inbound = StageTransitionType' "Inbound"
+pattern StageTransitionTypeInbound :: StageTransitionType
+pattern StageTransitionTypeInbound = StageTransitionType' "Inbound"
 
-pattern Outbound :: StageTransitionType
-pattern Outbound = StageTransitionType' "Outbound"
+pattern StageTransitionTypeOutbound :: StageTransitionType
+pattern StageTransitionTypeOutbound = StageTransitionType' "Outbound"
 
 {-# COMPLETE
-  Inbound,
-  Outbound,
+  StageTransitionTypeInbound,
+  StageTransitionTypeOutbound,
   StageTransitionType'
   #-}
 
-instance FromText StageTransitionType where
-  parser = (StageTransitionType' . mk) <$> takeText
+instance Prelude.FromText StageTransitionType where
+  parser = StageTransitionType' Prelude.<$> Prelude.takeText
 
-instance ToText StageTransitionType where
-  toText (StageTransitionType' ci) = original ci
+instance Prelude.ToText StageTransitionType where
+  toText (StageTransitionType' x) = x
 
-instance Hashable StageTransitionType
+instance Prelude.Hashable StageTransitionType
 
-instance NFData StageTransitionType
+instance Prelude.NFData StageTransitionType
 
-instance ToByteString StageTransitionType
+instance Prelude.ToByteString StageTransitionType
 
-instance ToQuery StageTransitionType
+instance Prelude.ToQuery StageTransitionType
 
-instance ToHeader StageTransitionType
+instance Prelude.ToHeader StageTransitionType
 
-instance ToJSON StageTransitionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StageTransitionType where
+  toJSON = Prelude.toJSONText

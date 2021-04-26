@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.CodePipeline.Types.StageRetryMode
   ( StageRetryMode
       ( ..,
-        FailedActions
+        StageRetryModeFAILEDACTIONS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StageRetryMode = StageRetryMode' (CI Text)
+newtype StageRetryMode = StageRetryMode'
+  { fromStageRetryMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FailedActions :: StageRetryMode
-pattern FailedActions = StageRetryMode' "FAILED_ACTIONS"
+pattern StageRetryModeFAILEDACTIONS :: StageRetryMode
+pattern StageRetryModeFAILEDACTIONS = StageRetryMode' "FAILED_ACTIONS"
 
 {-# COMPLETE
-  FailedActions,
+  StageRetryModeFAILEDACTIONS,
   StageRetryMode'
   #-}
 
-instance FromText StageRetryMode where
-  parser = (StageRetryMode' . mk) <$> takeText
+instance Prelude.FromText StageRetryMode where
+  parser = StageRetryMode' Prelude.<$> Prelude.takeText
 
-instance ToText StageRetryMode where
-  toText (StageRetryMode' ci) = original ci
+instance Prelude.ToText StageRetryMode where
+  toText (StageRetryMode' x) = x
 
-instance Hashable StageRetryMode
+instance Prelude.Hashable StageRetryMode
 
-instance NFData StageRetryMode
+instance Prelude.NFData StageRetryMode
 
-instance ToByteString StageRetryMode
+instance Prelude.ToByteString StageRetryMode
 
-instance ToQuery StageRetryMode
+instance Prelude.ToQuery StageRetryMode
 
-instance ToHeader StageRetryMode
+instance Prelude.ToHeader StageRetryMode
 
-instance ToJSON StageRetryMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON StageRetryMode where
+  toJSON = Prelude.toJSONText

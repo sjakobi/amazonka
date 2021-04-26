@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CodePipeline.Types.ApprovalStatus
   ( ApprovalStatus
       ( ..,
-        Approved,
-        Rejected
+        ApprovalStatusApproved,
+        ApprovalStatusRejected
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ApprovalStatus = ApprovalStatus' (CI Text)
+newtype ApprovalStatus = ApprovalStatus'
+  { fromApprovalStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Approved :: ApprovalStatus
-pattern Approved = ApprovalStatus' "Approved"
+pattern ApprovalStatusApproved :: ApprovalStatus
+pattern ApprovalStatusApproved = ApprovalStatus' "Approved"
 
-pattern Rejected :: ApprovalStatus
-pattern Rejected = ApprovalStatus' "Rejected"
+pattern ApprovalStatusRejected :: ApprovalStatus
+pattern ApprovalStatusRejected = ApprovalStatus' "Rejected"
 
 {-# COMPLETE
-  Approved,
-  Rejected,
+  ApprovalStatusApproved,
+  ApprovalStatusRejected,
   ApprovalStatus'
   #-}
 
-instance FromText ApprovalStatus where
-  parser = (ApprovalStatus' . mk) <$> takeText
+instance Prelude.FromText ApprovalStatus where
+  parser = ApprovalStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ApprovalStatus where
-  toText (ApprovalStatus' ci) = original ci
+instance Prelude.ToText ApprovalStatus where
+  toText (ApprovalStatus' x) = x
 
-instance Hashable ApprovalStatus
+instance Prelude.Hashable ApprovalStatus
 
-instance NFData ApprovalStatus
+instance Prelude.NFData ApprovalStatus
 
-instance ToByteString ApprovalStatus
+instance Prelude.ToByteString ApprovalStatus
 
-instance ToQuery ApprovalStatus
+instance Prelude.ToQuery ApprovalStatus
 
-instance ToHeader ApprovalStatus
+instance Prelude.ToHeader ApprovalStatus
 
-instance ToJSON ApprovalStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ApprovalStatus where
+  toJSON = Prelude.toJSONText

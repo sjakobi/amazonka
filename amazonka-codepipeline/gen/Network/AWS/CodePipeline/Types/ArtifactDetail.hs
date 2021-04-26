@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,58 @@
 module Network.AWS.CodePipeline.Types.ArtifactDetail where
 
 import Network.AWS.CodePipeline.Types.S3Location
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Artifact details for the action execution, such as the artifact location.
+-- | Artifact details for the action execution, such as the artifact
+-- location.
 --
---
---
--- /See:/ 'artifactDetail' smart constructor.
+-- /See:/ 'newArtifactDetail' smart constructor.
 data ArtifactDetail = ArtifactDetail'
-  { _adS3location ::
-      !(Maybe S3Location),
-    _adName :: !(Maybe Text)
+  { -- | The Amazon S3 artifact location for the action execution.
+    s3location :: Prelude.Maybe S3Location,
+    -- | The artifact object name for the action execution.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArtifactDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArtifactDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adS3location' - The Amazon S3 artifact location for the action execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adName' - The artifact object name for the action execution.
-artifactDetail ::
+-- 's3location', 'artifactDetail_s3location' - The Amazon S3 artifact location for the action execution.
+--
+-- 'name', 'artifactDetail_name' - The artifact object name for the action execution.
+newArtifactDetail ::
   ArtifactDetail
-artifactDetail =
+newArtifactDetail =
   ArtifactDetail'
-    { _adS3location = Nothing,
-      _adName = Nothing
+    { s3location = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon S3 artifact location for the action execution.
-adS3location :: Lens' ArtifactDetail (Maybe S3Location)
-adS3location = lens _adS3location (\s a -> s {_adS3location = a})
+artifactDetail_s3location :: Lens.Lens' ArtifactDetail (Prelude.Maybe S3Location)
+artifactDetail_s3location = Lens.lens (\ArtifactDetail' {s3location} -> s3location) (\s@ArtifactDetail' {} a -> s {s3location = a} :: ArtifactDetail)
 
 -- | The artifact object name for the action execution.
-adName :: Lens' ArtifactDetail (Maybe Text)
-adName = lens _adName (\s a -> s {_adName = a})
+artifactDetail_name :: Lens.Lens' ArtifactDetail (Prelude.Maybe Prelude.Text)
+artifactDetail_name = Lens.lens (\ArtifactDetail' {name} -> name) (\s@ArtifactDetail' {} a -> s {name = a} :: ArtifactDetail)
 
-instance FromJSON ArtifactDetail where
+instance Prelude.FromJSON ArtifactDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ArtifactDetail"
       ( \x ->
           ArtifactDetail'
-            <$> (x .:? "s3location") <*> (x .:? "name")
+            Prelude.<$> (x Prelude..:? "s3location")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable ArtifactDetail
+instance Prelude.Hashable ArtifactDetail
 
-instance NFData ArtifactDetail
+instance Prelude.NFData ArtifactDetail

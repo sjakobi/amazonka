@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,171 +21,178 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Requests the details of a job for a third party action. Used for partner actions only.
+-- Requests the details of a job for a third party action. Used for partner
+-- actions only.
 --
---
--- /Important:/ When this API is called, AWS CodePipeline returns temporary credentials for the S3 bucket used to store artifacts for the pipeline, if the action requires access to that S3 bucket for input or output artifacts. This API also returns any secret values defined for the action.
+-- When this API is called, AWS CodePipeline returns temporary credentials
+-- for the S3 bucket used to store artifacts for the pipeline, if the
+-- action requires access to that S3 bucket for input or output artifacts.
+-- This API also returns any secret values defined for the action.
 module Network.AWS.CodePipeline.GetThirdPartyJobDetails
   ( -- * Creating a Request
-    getThirdPartyJobDetails,
-    GetThirdPartyJobDetails,
+    GetThirdPartyJobDetails (..),
+    newGetThirdPartyJobDetails,
 
     -- * Request Lenses
-    gtpjdJobId,
-    gtpjdClientToken,
+    getThirdPartyJobDetails_jobId,
+    getThirdPartyJobDetails_clientToken,
 
     -- * Destructuring the Response
-    getThirdPartyJobDetailsResponse,
-    GetThirdPartyJobDetailsResponse,
+    GetThirdPartyJobDetailsResponse (..),
+    newGetThirdPartyJobDetailsResponse,
 
     -- * Response Lenses
-    gtpjdrrsJobDetails,
-    gtpjdrrsResponseStatus,
+    getThirdPartyJobDetailsResponse_jobDetails,
+    getThirdPartyJobDetailsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodePipeline.Types.ThirdPartyJobDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @GetThirdPartyJobDetails@ action.
 --
---
---
--- /See:/ 'getThirdPartyJobDetails' smart constructor.
+-- /See:/ 'newGetThirdPartyJobDetails' smart constructor.
 data GetThirdPartyJobDetails = GetThirdPartyJobDetails'
-  { _gtpjdJobId ::
-      !Text,
-    _gtpjdClientToken ::
-      !Text
+  { -- | The unique system-generated ID used for identifying the job.
+    jobId :: Prelude.Text,
+    -- | The clientToken portion of the clientId and clientToken pair used to
+    -- verify that the calling entity is allowed access to the job and its
+    -- details.
+    clientToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetThirdPartyJobDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetThirdPartyJobDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtpjdJobId' - The unique system-generated ID used for identifying the job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtpjdClientToken' - The clientToken portion of the clientId and clientToken pair used to verify that the calling entity is allowed access to the job and its details.
-getThirdPartyJobDetails ::
-  -- | 'gtpjdJobId'
-  Text ->
-  -- | 'gtpjdClientToken'
-  Text ->
+-- 'jobId', 'getThirdPartyJobDetails_jobId' - The unique system-generated ID used for identifying the job.
+--
+-- 'clientToken', 'getThirdPartyJobDetails_clientToken' - The clientToken portion of the clientId and clientToken pair used to
+-- verify that the calling entity is allowed access to the job and its
+-- details.
+newGetThirdPartyJobDetails ::
+  -- | 'jobId'
+  Prelude.Text ->
+  -- | 'clientToken'
+  Prelude.Text ->
   GetThirdPartyJobDetails
-getThirdPartyJobDetails pJobId_ pClientToken_ =
+newGetThirdPartyJobDetails pJobId_ pClientToken_ =
   GetThirdPartyJobDetails'
-    { _gtpjdJobId = pJobId_,
-      _gtpjdClientToken = pClientToken_
+    { jobId = pJobId_,
+      clientToken = pClientToken_
     }
 
 -- | The unique system-generated ID used for identifying the job.
-gtpjdJobId :: Lens' GetThirdPartyJobDetails Text
-gtpjdJobId = lens _gtpjdJobId (\s a -> s {_gtpjdJobId = a})
+getThirdPartyJobDetails_jobId :: Lens.Lens' GetThirdPartyJobDetails Prelude.Text
+getThirdPartyJobDetails_jobId = Lens.lens (\GetThirdPartyJobDetails' {jobId} -> jobId) (\s@GetThirdPartyJobDetails' {} a -> s {jobId = a} :: GetThirdPartyJobDetails)
 
--- | The clientToken portion of the clientId and clientToken pair used to verify that the calling entity is allowed access to the job and its details.
-gtpjdClientToken :: Lens' GetThirdPartyJobDetails Text
-gtpjdClientToken = lens _gtpjdClientToken (\s a -> s {_gtpjdClientToken = a})
+-- | The clientToken portion of the clientId and clientToken pair used to
+-- verify that the calling entity is allowed access to the job and its
+-- details.
+getThirdPartyJobDetails_clientToken :: Lens.Lens' GetThirdPartyJobDetails Prelude.Text
+getThirdPartyJobDetails_clientToken = Lens.lens (\GetThirdPartyJobDetails' {clientToken} -> clientToken) (\s@GetThirdPartyJobDetails' {} a -> s {clientToken = a} :: GetThirdPartyJobDetails)
 
-instance AWSRequest GetThirdPartyJobDetails where
+instance Prelude.AWSRequest GetThirdPartyJobDetails where
   type
     Rs GetThirdPartyJobDetails =
       GetThirdPartyJobDetailsResponse
-  request = postJSON codePipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetThirdPartyJobDetailsResponse'
-            <$> (x .?> "jobDetails") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "jobDetails")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetThirdPartyJobDetails
+instance Prelude.Hashable GetThirdPartyJobDetails
 
-instance NFData GetThirdPartyJobDetails
+instance Prelude.NFData GetThirdPartyJobDetails
 
-instance ToHeaders GetThirdPartyJobDetails where
+instance Prelude.ToHeaders GetThirdPartyJobDetails where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodePipeline_20150709.GetThirdPartyJobDetails" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodePipeline_20150709.GetThirdPartyJobDetails" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetThirdPartyJobDetails where
+instance Prelude.ToJSON GetThirdPartyJobDetails where
   toJSON GetThirdPartyJobDetails' {..} =
-    object
-      ( catMaybes
-          [ Just ("jobId" .= _gtpjdJobId),
-            Just ("clientToken" .= _gtpjdClientToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("jobId" Prelude..= jobId),
+            Prelude.Just ("clientToken" Prelude..= clientToken)
           ]
       )
 
-instance ToPath GetThirdPartyJobDetails where
-  toPath = const "/"
+instance Prelude.ToPath GetThirdPartyJobDetails where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetThirdPartyJobDetails where
-  toQuery = const mempty
+instance Prelude.ToQuery GetThirdPartyJobDetails where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetThirdPartyJobDetails@ action.
 --
---
---
--- /See:/ 'getThirdPartyJobDetailsResponse' smart constructor.
+-- /See:/ 'newGetThirdPartyJobDetailsResponse' smart constructor.
 data GetThirdPartyJobDetailsResponse = GetThirdPartyJobDetailsResponse'
-  { _gtpjdrrsJobDetails ::
-      !( Maybe
-           ThirdPartyJobDetails
-       ),
-    _gtpjdrrsResponseStatus ::
-      !Int
+  { -- | The details of the job, including any protected values defined for the
+    -- job.
+    jobDetails :: Prelude.Maybe ThirdPartyJobDetails,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetThirdPartyJobDetailsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetThirdPartyJobDetailsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtpjdrrsJobDetails' - The details of the job, including any protected values defined for the job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtpjdrrsResponseStatus' - -- | The response status code.
-getThirdPartyJobDetailsResponse ::
-  -- | 'gtpjdrrsResponseStatus'
-  Int ->
+-- 'jobDetails', 'getThirdPartyJobDetailsResponse_jobDetails' - The details of the job, including any protected values defined for the
+-- job.
+--
+-- 'httpStatus', 'getThirdPartyJobDetailsResponse_httpStatus' - The response's http status code.
+newGetThirdPartyJobDetailsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetThirdPartyJobDetailsResponse
-getThirdPartyJobDetailsResponse pResponseStatus_ =
+newGetThirdPartyJobDetailsResponse pHttpStatus_ =
   GetThirdPartyJobDetailsResponse'
-    { _gtpjdrrsJobDetails =
-        Nothing,
-      _gtpjdrrsResponseStatus = pResponseStatus_
+    { jobDetails =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The details of the job, including any protected values defined for the job.
-gtpjdrrsJobDetails :: Lens' GetThirdPartyJobDetailsResponse (Maybe ThirdPartyJobDetails)
-gtpjdrrsJobDetails = lens _gtpjdrrsJobDetails (\s a -> s {_gtpjdrrsJobDetails = a})
+-- | The details of the job, including any protected values defined for the
+-- job.
+getThirdPartyJobDetailsResponse_jobDetails :: Lens.Lens' GetThirdPartyJobDetailsResponse (Prelude.Maybe ThirdPartyJobDetails)
+getThirdPartyJobDetailsResponse_jobDetails = Lens.lens (\GetThirdPartyJobDetailsResponse' {jobDetails} -> jobDetails) (\s@GetThirdPartyJobDetailsResponse' {} a -> s {jobDetails = a} :: GetThirdPartyJobDetailsResponse)
 
--- | -- | The response status code.
-gtpjdrrsResponseStatus :: Lens' GetThirdPartyJobDetailsResponse Int
-gtpjdrrsResponseStatus = lens _gtpjdrrsResponseStatus (\s a -> s {_gtpjdrrsResponseStatus = a})
+-- | The response's http status code.
+getThirdPartyJobDetailsResponse_httpStatus :: Lens.Lens' GetThirdPartyJobDetailsResponse Prelude.Int
+getThirdPartyJobDetailsResponse_httpStatus = Lens.lens (\GetThirdPartyJobDetailsResponse' {httpStatus} -> httpStatus) (\s@GetThirdPartyJobDetailsResponse' {} a -> s {httpStatus = a} :: GetThirdPartyJobDetailsResponse)
 
-instance NFData GetThirdPartyJobDetailsResponse
+instance
+  Prelude.NFData
+    GetThirdPartyJobDetailsResponse

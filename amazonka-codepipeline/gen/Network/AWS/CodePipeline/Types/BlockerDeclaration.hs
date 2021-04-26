@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,67 @@
 module Network.AWS.CodePipeline.Types.BlockerDeclaration where
 
 import Network.AWS.CodePipeline.Types.BlockerType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Reserved for future use.
 --
---
---
--- /See:/ 'blockerDeclaration' smart constructor.
+-- /See:/ 'newBlockerDeclaration' smart constructor.
 data BlockerDeclaration = BlockerDeclaration'
-  { _bdName ::
-      !Text,
-    _bdType :: !BlockerType
+  { -- | Reserved for future use.
+    name :: Prelude.Text,
+    -- | Reserved for future use.
+    type' :: BlockerType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BlockerDeclaration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BlockerDeclaration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdName' - Reserved for future use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdType' - Reserved for future use.
-blockerDeclaration ::
-  -- | 'bdName'
-  Text ->
-  -- | 'bdType'
+-- 'name', 'blockerDeclaration_name' - Reserved for future use.
+--
+-- 'type'', 'blockerDeclaration_type' - Reserved for future use.
+newBlockerDeclaration ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   BlockerType ->
   BlockerDeclaration
-blockerDeclaration pName_ pType_ =
-  BlockerDeclaration'
-    { _bdName = pName_,
-      _bdType = pType_
-    }
+newBlockerDeclaration pName_ pType_ =
+  BlockerDeclaration' {name = pName_, type' = pType_}
 
 -- | Reserved for future use.
-bdName :: Lens' BlockerDeclaration Text
-bdName = lens _bdName (\s a -> s {_bdName = a})
+blockerDeclaration_name :: Lens.Lens' BlockerDeclaration Prelude.Text
+blockerDeclaration_name = Lens.lens (\BlockerDeclaration' {name} -> name) (\s@BlockerDeclaration' {} a -> s {name = a} :: BlockerDeclaration)
 
 -- | Reserved for future use.
-bdType :: Lens' BlockerDeclaration BlockerType
-bdType = lens _bdType (\s a -> s {_bdType = a})
+blockerDeclaration_type :: Lens.Lens' BlockerDeclaration BlockerType
+blockerDeclaration_type = Lens.lens (\BlockerDeclaration' {type'} -> type') (\s@BlockerDeclaration' {} a -> s {type' = a} :: BlockerDeclaration)
 
-instance FromJSON BlockerDeclaration where
+instance Prelude.FromJSON BlockerDeclaration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BlockerDeclaration"
       ( \x ->
           BlockerDeclaration'
-            <$> (x .: "name") <*> (x .: "type")
+            Prelude.<$> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "type")
       )
 
-instance Hashable BlockerDeclaration
+instance Prelude.Hashable BlockerDeclaration
 
-instance NFData BlockerDeclaration
+instance Prelude.NFData BlockerDeclaration
 
-instance ToJSON BlockerDeclaration where
+instance Prelude.ToJSON BlockerDeclaration where
   toJSON BlockerDeclaration' {..} =
-    object
-      ( catMaybes
-          [Just ("name" .= _bdName), Just ("type" .= _bdType)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("type" Prelude..= type')
+          ]
       )

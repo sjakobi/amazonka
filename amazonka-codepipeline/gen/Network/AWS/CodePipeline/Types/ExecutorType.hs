@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CodePipeline.Types.ExecutorType
   ( ExecutorType
       ( ..,
-        JobWorker,
-        Lambda
+        ExecutorTypeJobWorker,
+        ExecutorTypeLambda
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutorType = ExecutorType' (CI Text)
+newtype ExecutorType = ExecutorType'
+  { fromExecutorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JobWorker :: ExecutorType
-pattern JobWorker = ExecutorType' "JobWorker"
+pattern ExecutorTypeJobWorker :: ExecutorType
+pattern ExecutorTypeJobWorker = ExecutorType' "JobWorker"
 
-pattern Lambda :: ExecutorType
-pattern Lambda = ExecutorType' "Lambda"
+pattern ExecutorTypeLambda :: ExecutorType
+pattern ExecutorTypeLambda = ExecutorType' "Lambda"
 
 {-# COMPLETE
-  JobWorker,
-  Lambda,
+  ExecutorTypeJobWorker,
+  ExecutorTypeLambda,
   ExecutorType'
   #-}
 
-instance FromText ExecutorType where
-  parser = (ExecutorType' . mk) <$> takeText
+instance Prelude.FromText ExecutorType where
+  parser = ExecutorType' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutorType where
-  toText (ExecutorType' ci) = original ci
+instance Prelude.ToText ExecutorType where
+  toText (ExecutorType' x) = x
 
-instance Hashable ExecutorType
+instance Prelude.Hashable ExecutorType
 
-instance NFData ExecutorType
+instance Prelude.NFData ExecutorType
 
-instance ToByteString ExecutorType
+instance Prelude.ToByteString ExecutorType
 
-instance ToQuery ExecutorType
+instance Prelude.ToQuery ExecutorType
 
-instance ToHeader ExecutorType
+instance Prelude.ToHeader ExecutorType
 
-instance ToJSON ExecutorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExecutorType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExecutorType where
-  parseJSON = parseJSONText "ExecutorType"
+instance Prelude.FromJSON ExecutorType where
+  parseJSON = Prelude.parseJSONText "ExecutorType"

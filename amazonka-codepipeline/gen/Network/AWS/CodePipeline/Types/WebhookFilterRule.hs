@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,111 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.WebhookFilterRule where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The event criteria that specify when a webhook notification is sent to your URL.
+-- | The event criteria that specify when a webhook notification is sent to
+-- your URL.
 --
---
---
--- /See:/ 'webhookFilterRule' smart constructor.
+-- /See:/ 'newWebhookFilterRule' smart constructor.
 data WebhookFilterRule = WebhookFilterRule'
-  { _wfrMatchEquals ::
-      !(Maybe Text),
-    _wfrJsonPath :: !Text
+  { -- | The value selected by the @JsonPath@ expression must match what is
+    -- supplied in the @MatchEquals@ field. Otherwise, the request is ignored.
+    -- Properties from the target action configuration can be included as
+    -- placeholders in this value by surrounding the action configuration key
+    -- with curly brackets. For example, if the value supplied here is
+    -- \"refs\/heads\/{Branch}\" and the target action has an action
+    -- configuration property called \"Branch\" with a value of \"master\", the
+    -- @MatchEquals@ value is evaluated as \"refs\/heads\/master\". For a list
+    -- of action configuration properties for built-in action types, see
+    -- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Pipeline Structure Reference Action Requirements>.
+    matchEquals :: Prelude.Maybe Prelude.Text,
+    -- | A JsonPath expression that is applied to the body\/payload of the
+    -- webhook. The value selected by the JsonPath expression must match the
+    -- value specified in the @MatchEquals@ field. Otherwise, the request is
+    -- ignored. For more information, see
+    -- <https://github.com/json-path/JsonPath Java JsonPath implementation> in
+    -- GitHub.
+    jsonPath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WebhookFilterRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WebhookFilterRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wfrMatchEquals' - The value selected by the @JsonPath@ expression must match what is supplied in the @MatchEquals@ field. Otherwise, the request is ignored. Properties from the target action configuration can be included as placeholders in this value by surrounding the action configuration key with curly brackets. For example, if the value supplied here is "refs/heads/{Branch}" and the target action has an action configuration property called "Branch" with a value of "master", the @MatchEquals@ value is evaluated as "refs/heads/master". For a list of action configuration properties for built-in action types, see <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Pipeline Structure Reference Action Requirements> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wfrJsonPath' - A JsonPath expression that is applied to the body/payload of the webhook. The value selected by the JsonPath expression must match the value specified in the @MatchEquals@ field. Otherwise, the request is ignored. For more information, see <https://github.com/json-path/JsonPath Java JsonPath implementation> in GitHub.
-webhookFilterRule ::
-  -- | 'wfrJsonPath'
-  Text ->
+-- 'matchEquals', 'webhookFilterRule_matchEquals' - The value selected by the @JsonPath@ expression must match what is
+-- supplied in the @MatchEquals@ field. Otherwise, the request is ignored.
+-- Properties from the target action configuration can be included as
+-- placeholders in this value by surrounding the action configuration key
+-- with curly brackets. For example, if the value supplied here is
+-- \"refs\/heads\/{Branch}\" and the target action has an action
+-- configuration property called \"Branch\" with a value of \"master\", the
+-- @MatchEquals@ value is evaluated as \"refs\/heads\/master\". For a list
+-- of action configuration properties for built-in action types, see
+-- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Pipeline Structure Reference Action Requirements>.
+--
+-- 'jsonPath', 'webhookFilterRule_jsonPath' - A JsonPath expression that is applied to the body\/payload of the
+-- webhook. The value selected by the JsonPath expression must match the
+-- value specified in the @MatchEquals@ field. Otherwise, the request is
+-- ignored. For more information, see
+-- <https://github.com/json-path/JsonPath Java JsonPath implementation> in
+-- GitHub.
+newWebhookFilterRule ::
+  -- | 'jsonPath'
+  Prelude.Text ->
   WebhookFilterRule
-webhookFilterRule pJsonPath_ =
+newWebhookFilterRule pJsonPath_ =
   WebhookFilterRule'
-    { _wfrMatchEquals = Nothing,
-      _wfrJsonPath = pJsonPath_
+    { matchEquals = Prelude.Nothing,
+      jsonPath = pJsonPath_
     }
 
--- | The value selected by the @JsonPath@ expression must match what is supplied in the @MatchEquals@ field. Otherwise, the request is ignored. Properties from the target action configuration can be included as placeholders in this value by surrounding the action configuration key with curly brackets. For example, if the value supplied here is "refs/heads/{Branch}" and the target action has an action configuration property called "Branch" with a value of "master", the @MatchEquals@ value is evaluated as "refs/heads/master". For a list of action configuration properties for built-in action types, see <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Pipeline Structure Reference Action Requirements> .
-wfrMatchEquals :: Lens' WebhookFilterRule (Maybe Text)
-wfrMatchEquals = lens _wfrMatchEquals (\s a -> s {_wfrMatchEquals = a})
+-- | The value selected by the @JsonPath@ expression must match what is
+-- supplied in the @MatchEquals@ field. Otherwise, the request is ignored.
+-- Properties from the target action configuration can be included as
+-- placeholders in this value by surrounding the action configuration key
+-- with curly brackets. For example, if the value supplied here is
+-- \"refs\/heads\/{Branch}\" and the target action has an action
+-- configuration property called \"Branch\" with a value of \"master\", the
+-- @MatchEquals@ value is evaluated as \"refs\/heads\/master\". For a list
+-- of action configuration properties for built-in action types, see
+-- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Pipeline Structure Reference Action Requirements>.
+webhookFilterRule_matchEquals :: Lens.Lens' WebhookFilterRule (Prelude.Maybe Prelude.Text)
+webhookFilterRule_matchEquals = Lens.lens (\WebhookFilterRule' {matchEquals} -> matchEquals) (\s@WebhookFilterRule' {} a -> s {matchEquals = a} :: WebhookFilterRule)
 
--- | A JsonPath expression that is applied to the body/payload of the webhook. The value selected by the JsonPath expression must match the value specified in the @MatchEquals@ field. Otherwise, the request is ignored. For more information, see <https://github.com/json-path/JsonPath Java JsonPath implementation> in GitHub.
-wfrJsonPath :: Lens' WebhookFilterRule Text
-wfrJsonPath = lens _wfrJsonPath (\s a -> s {_wfrJsonPath = a})
+-- | A JsonPath expression that is applied to the body\/payload of the
+-- webhook. The value selected by the JsonPath expression must match the
+-- value specified in the @MatchEquals@ field. Otherwise, the request is
+-- ignored. For more information, see
+-- <https://github.com/json-path/JsonPath Java JsonPath implementation> in
+-- GitHub.
+webhookFilterRule_jsonPath :: Lens.Lens' WebhookFilterRule Prelude.Text
+webhookFilterRule_jsonPath = Lens.lens (\WebhookFilterRule' {jsonPath} -> jsonPath) (\s@WebhookFilterRule' {} a -> s {jsonPath = a} :: WebhookFilterRule)
 
-instance FromJSON WebhookFilterRule where
+instance Prelude.FromJSON WebhookFilterRule where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WebhookFilterRule"
       ( \x ->
           WebhookFilterRule'
-            <$> (x .:? "matchEquals") <*> (x .: "jsonPath")
+            Prelude.<$> (x Prelude..:? "matchEquals")
+            Prelude.<*> (x Prelude..: "jsonPath")
       )
 
-instance Hashable WebhookFilterRule
+instance Prelude.Hashable WebhookFilterRule
 
-instance NFData WebhookFilterRule
+instance Prelude.NFData WebhookFilterRule
 
-instance ToJSON WebhookFilterRule where
+instance Prelude.ToJSON WebhookFilterRule where
   toJSON WebhookFilterRule' {..} =
-    object
-      ( catMaybes
-          [ ("matchEquals" .=) <$> _wfrMatchEquals,
-            Just ("jsonPath" .= _wfrJsonPath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("matchEquals" Prelude..=) Prelude.<$> matchEquals,
+            Prelude.Just ("jsonPath" Prelude..= jsonPath)
           ]
       )

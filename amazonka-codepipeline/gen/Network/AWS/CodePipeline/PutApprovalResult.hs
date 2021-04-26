@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,198 +21,213 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides the response to a manual approval request to AWS CodePipeline. Valid responses include Approved and Rejected.
+-- Provides the response to a manual approval request to AWS CodePipeline.
+-- Valid responses include Approved and Rejected.
 module Network.AWS.CodePipeline.PutApprovalResult
   ( -- * Creating a Request
-    putApprovalResult,
-    PutApprovalResult,
+    PutApprovalResult (..),
+    newPutApprovalResult,
 
     -- * Request Lenses
-    pPipelineName,
-    pStageName,
-    pActionName,
-    pResult,
-    pToken,
+    putApprovalResult_pipelineName,
+    putApprovalResult_stageName,
+    putApprovalResult_actionName,
+    putApprovalResult_result,
+    putApprovalResult_token,
 
     -- * Destructuring the Response
-    putApprovalResultResponse,
-    PutApprovalResultResponse,
+    PutApprovalResultResponse (..),
+    newPutApprovalResultResponse,
 
     -- * Response Lenses
-    prsApprovedAt,
-    prsResponseStatus,
+    putApprovalResultResponse_approvedAt,
+    putApprovalResultResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @PutApprovalResult@ action.
 --
---
---
--- /See:/ 'putApprovalResult' smart constructor.
+-- /See:/ 'newPutApprovalResult' smart constructor.
 data PutApprovalResult = PutApprovalResult'
-  { _pPipelineName ::
-      !Text,
-    _pStageName :: !Text,
-    _pActionName :: !Text,
-    _pResult :: !ApprovalResult,
-    _pToken :: !Text
+  { -- | The name of the pipeline that contains the action.
+    pipelineName :: Prelude.Text,
+    -- | The name of the stage that contains the action.
+    stageName :: Prelude.Text,
+    -- | The name of the action for which approval is requested.
+    actionName :: Prelude.Text,
+    -- | Represents information about the result of the approval request.
+    result :: ApprovalResult,
+    -- | The system-generated token used to identify a unique approval request.
+    -- The token for each open approval request can be obtained using the
+    -- GetPipelineState action. It is used to validate that the approval
+    -- request corresponding to this token is still valid.
+    token :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutApprovalResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutApprovalResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pPipelineName' - The name of the pipeline that contains the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pStageName' - The name of the stage that contains the action.
+-- 'pipelineName', 'putApprovalResult_pipelineName' - The name of the pipeline that contains the action.
 --
--- * 'pActionName' - The name of the action for which approval is requested.
+-- 'stageName', 'putApprovalResult_stageName' - The name of the stage that contains the action.
 --
--- * 'pResult' - Represents information about the result of the approval request.
+-- 'actionName', 'putApprovalResult_actionName' - The name of the action for which approval is requested.
 --
--- * 'pToken' - The system-generated token used to identify a unique approval request. The token for each open approval request can be obtained using the 'GetPipelineState' action. It is used to validate that the approval request corresponding to this token is still valid.
-putApprovalResult ::
-  -- | 'pPipelineName'
-  Text ->
-  -- | 'pStageName'
-  Text ->
-  -- | 'pActionName'
-  Text ->
-  -- | 'pResult'
+-- 'result', 'putApprovalResult_result' - Represents information about the result of the approval request.
+--
+-- 'token', 'putApprovalResult_token' - The system-generated token used to identify a unique approval request.
+-- The token for each open approval request can be obtained using the
+-- GetPipelineState action. It is used to validate that the approval
+-- request corresponding to this token is still valid.
+newPutApprovalResult ::
+  -- | 'pipelineName'
+  Prelude.Text ->
+  -- | 'stageName'
+  Prelude.Text ->
+  -- | 'actionName'
+  Prelude.Text ->
+  -- | 'result'
   ApprovalResult ->
-  -- | 'pToken'
-  Text ->
+  -- | 'token'
+  Prelude.Text ->
   PutApprovalResult
-putApprovalResult
+newPutApprovalResult
   pPipelineName_
   pStageName_
   pActionName_
   pResult_
   pToken_ =
     PutApprovalResult'
-      { _pPipelineName = pPipelineName_,
-        _pStageName = pStageName_,
-        _pActionName = pActionName_,
-        _pResult = pResult_,
-        _pToken = pToken_
+      { pipelineName = pPipelineName_,
+        stageName = pStageName_,
+        actionName = pActionName_,
+        result = pResult_,
+        token = pToken_
       }
 
 -- | The name of the pipeline that contains the action.
-pPipelineName :: Lens' PutApprovalResult Text
-pPipelineName = lens _pPipelineName (\s a -> s {_pPipelineName = a})
+putApprovalResult_pipelineName :: Lens.Lens' PutApprovalResult Prelude.Text
+putApprovalResult_pipelineName = Lens.lens (\PutApprovalResult' {pipelineName} -> pipelineName) (\s@PutApprovalResult' {} a -> s {pipelineName = a} :: PutApprovalResult)
 
 -- | The name of the stage that contains the action.
-pStageName :: Lens' PutApprovalResult Text
-pStageName = lens _pStageName (\s a -> s {_pStageName = a})
+putApprovalResult_stageName :: Lens.Lens' PutApprovalResult Prelude.Text
+putApprovalResult_stageName = Lens.lens (\PutApprovalResult' {stageName} -> stageName) (\s@PutApprovalResult' {} a -> s {stageName = a} :: PutApprovalResult)
 
 -- | The name of the action for which approval is requested.
-pActionName :: Lens' PutApprovalResult Text
-pActionName = lens _pActionName (\s a -> s {_pActionName = a})
+putApprovalResult_actionName :: Lens.Lens' PutApprovalResult Prelude.Text
+putApprovalResult_actionName = Lens.lens (\PutApprovalResult' {actionName} -> actionName) (\s@PutApprovalResult' {} a -> s {actionName = a} :: PutApprovalResult)
 
 -- | Represents information about the result of the approval request.
-pResult :: Lens' PutApprovalResult ApprovalResult
-pResult = lens _pResult (\s a -> s {_pResult = a})
+putApprovalResult_result :: Lens.Lens' PutApprovalResult ApprovalResult
+putApprovalResult_result = Lens.lens (\PutApprovalResult' {result} -> result) (\s@PutApprovalResult' {} a -> s {result = a} :: PutApprovalResult)
 
--- | The system-generated token used to identify a unique approval request. The token for each open approval request can be obtained using the 'GetPipelineState' action. It is used to validate that the approval request corresponding to this token is still valid.
-pToken :: Lens' PutApprovalResult Text
-pToken = lens _pToken (\s a -> s {_pToken = a})
+-- | The system-generated token used to identify a unique approval request.
+-- The token for each open approval request can be obtained using the
+-- GetPipelineState action. It is used to validate that the approval
+-- request corresponding to this token is still valid.
+putApprovalResult_token :: Lens.Lens' PutApprovalResult Prelude.Text
+putApprovalResult_token = Lens.lens (\PutApprovalResult' {token} -> token) (\s@PutApprovalResult' {} a -> s {token = a} :: PutApprovalResult)
 
-instance AWSRequest PutApprovalResult where
+instance Prelude.AWSRequest PutApprovalResult where
   type Rs PutApprovalResult = PutApprovalResultResponse
-  request = postJSON codePipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutApprovalResultResponse'
-            <$> (x .?> "approvedAt") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "approvedAt")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutApprovalResult
+instance Prelude.Hashable PutApprovalResult
 
-instance NFData PutApprovalResult
+instance Prelude.NFData PutApprovalResult
 
-instance ToHeaders PutApprovalResult where
+instance Prelude.ToHeaders PutApprovalResult where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodePipeline_20150709.PutApprovalResult" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodePipeline_20150709.PutApprovalResult" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutApprovalResult where
+instance Prelude.ToJSON PutApprovalResult where
   toJSON PutApprovalResult' {..} =
-    object
-      ( catMaybes
-          [ Just ("pipelineName" .= _pPipelineName),
-            Just ("stageName" .= _pStageName),
-            Just ("actionName" .= _pActionName),
-            Just ("result" .= _pResult),
-            Just ("token" .= _pToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("pipelineName" Prelude..= pipelineName),
+            Prelude.Just ("stageName" Prelude..= stageName),
+            Prelude.Just ("actionName" Prelude..= actionName),
+            Prelude.Just ("result" Prelude..= result),
+            Prelude.Just ("token" Prelude..= token)
           ]
       )
 
-instance ToPath PutApprovalResult where
-  toPath = const "/"
+instance Prelude.ToPath PutApprovalResult where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutApprovalResult where
-  toQuery = const mempty
+instance Prelude.ToQuery PutApprovalResult where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @PutApprovalResult@ action.
 --
---
---
--- /See:/ 'putApprovalResultResponse' smart constructor.
+-- /See:/ 'newPutApprovalResultResponse' smart constructor.
 data PutApprovalResultResponse = PutApprovalResultResponse'
-  { _prsApprovedAt ::
-      !(Maybe POSIX),
-    _prsResponseStatus ::
-      !Int
+  { -- | The timestamp showing when the approval or rejection was submitted.
+    approvedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutApprovalResultResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutApprovalResultResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prsApprovedAt' - The timestamp showing when the approval or rejection was submitted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prsResponseStatus' - -- | The response status code.
-putApprovalResultResponse ::
-  -- | 'prsResponseStatus'
-  Int ->
+-- 'approvedAt', 'putApprovalResultResponse_approvedAt' - The timestamp showing when the approval or rejection was submitted.
+--
+-- 'httpStatus', 'putApprovalResultResponse_httpStatus' - The response's http status code.
+newPutApprovalResultResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutApprovalResultResponse
-putApprovalResultResponse pResponseStatus_ =
+newPutApprovalResultResponse pHttpStatus_ =
   PutApprovalResultResponse'
-    { _prsApprovedAt =
-        Nothing,
-      _prsResponseStatus = pResponseStatus_
+    { approvedAt =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The timestamp showing when the approval or rejection was submitted.
-prsApprovedAt :: Lens' PutApprovalResultResponse (Maybe UTCTime)
-prsApprovedAt = lens _prsApprovedAt (\s a -> s {_prsApprovedAt = a}) . mapping _Time
+putApprovalResultResponse_approvedAt :: Lens.Lens' PutApprovalResultResponse (Prelude.Maybe Prelude.UTCTime)
+putApprovalResultResponse_approvedAt = Lens.lens (\PutApprovalResultResponse' {approvedAt} -> approvedAt) (\s@PutApprovalResultResponse' {} a -> s {approvedAt = a} :: PutApprovalResultResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-prsResponseStatus :: Lens' PutApprovalResultResponse Int
-prsResponseStatus = lens _prsResponseStatus (\s a -> s {_prsResponseStatus = a})
+-- | The response's http status code.
+putApprovalResultResponse_httpStatus :: Lens.Lens' PutApprovalResultResponse Prelude.Int
+putApprovalResultResponse_httpStatus = Lens.lens (\PutApprovalResultResponse' {httpStatus} -> httpStatus) (\s@PutApprovalResultResponse' {} a -> s {httpStatus = a} :: PutApprovalResultResponse)
 
-instance NFData PutApprovalResultResponse
+instance Prelude.NFData PutApprovalResultResponse

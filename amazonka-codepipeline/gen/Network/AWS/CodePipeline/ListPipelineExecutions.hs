@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,202 +23,235 @@
 --
 -- Gets a summary of the most recent executions for a pipeline.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CodePipeline.ListPipelineExecutions
   ( -- * Creating a Request
-    listPipelineExecutions,
-    ListPipelineExecutions,
+    ListPipelineExecutions (..),
+    newListPipelineExecutions,
 
     -- * Request Lenses
-    lpeNextToken,
-    lpeMaxResults,
-    lpePipelineName,
+    listPipelineExecutions_nextToken,
+    listPipelineExecutions_maxResults,
+    listPipelineExecutions_pipelineName,
 
     -- * Destructuring the Response
-    listPipelineExecutionsResponse,
-    ListPipelineExecutionsResponse,
+    ListPipelineExecutionsResponse (..),
+    newListPipelineExecutionsResponse,
 
     -- * Response Lenses
-    lperrsNextToken,
-    lperrsPipelineExecutionSummaries,
-    lperrsResponseStatus,
+    listPipelineExecutionsResponse_nextToken,
+    listPipelineExecutionsResponse_pipelineExecutionSummaries,
+    listPipelineExecutionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodePipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodePipeline.Types.PipelineExecutionSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @ListPipelineExecutions@ action.
 --
---
---
--- /See:/ 'listPipelineExecutions' smart constructor.
+-- /See:/ 'newListPipelineExecutions' smart constructor.
 data ListPipelineExecutions = ListPipelineExecutions'
-  { _lpeNextToken ::
-      !(Maybe Text),
-    _lpeMaxResults ::
-      !(Maybe Nat),
-    _lpePipelineName :: !Text
+  { -- | The token that was returned from the previous @ListPipelineExecutions@
+    -- call, which can be used to return the next set of pipeline executions in
+    -- the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in a single call. To retrieve
+    -- the remaining results, make another call with the returned nextToken
+    -- value. Pipeline history is limited to the most recent 12 months, based
+    -- on pipeline execution start times. Default value is 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the pipeline for which you want to get execution summary
+    -- information.
+    pipelineName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPipelineExecutions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPipelineExecutions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpeNextToken' - The token that was returned from the previous @ListPipelineExecutions@ call, which can be used to return the next set of pipeline executions in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpeMaxResults' - The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned nextToken value. Pipeline history is limited to the most recent 12 months, based on pipeline execution start times. Default value is 100.
+-- 'nextToken', 'listPipelineExecutions_nextToken' - The token that was returned from the previous @ListPipelineExecutions@
+-- call, which can be used to return the next set of pipeline executions in
+-- the list.
 --
--- * 'lpePipelineName' - The name of the pipeline for which you want to get execution summary information.
-listPipelineExecutions ::
-  -- | 'lpePipelineName'
-  Text ->
+-- 'maxResults', 'listPipelineExecutions_maxResults' - The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another call with the returned nextToken
+-- value. Pipeline history is limited to the most recent 12 months, based
+-- on pipeline execution start times. Default value is 100.
+--
+-- 'pipelineName', 'listPipelineExecutions_pipelineName' - The name of the pipeline for which you want to get execution summary
+-- information.
+newListPipelineExecutions ::
+  -- | 'pipelineName'
+  Prelude.Text ->
   ListPipelineExecutions
-listPipelineExecutions pPipelineName_ =
+newListPipelineExecutions pPipelineName_ =
   ListPipelineExecutions'
-    { _lpeNextToken = Nothing,
-      _lpeMaxResults = Nothing,
-      _lpePipelineName = pPipelineName_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      pipelineName = pPipelineName_
     }
 
--- | The token that was returned from the previous @ListPipelineExecutions@ call, which can be used to return the next set of pipeline executions in the list.
-lpeNextToken :: Lens' ListPipelineExecutions (Maybe Text)
-lpeNextToken = lens _lpeNextToken (\s a -> s {_lpeNextToken = a})
+-- | The token that was returned from the previous @ListPipelineExecutions@
+-- call, which can be used to return the next set of pipeline executions in
+-- the list.
+listPipelineExecutions_nextToken :: Lens.Lens' ListPipelineExecutions (Prelude.Maybe Prelude.Text)
+listPipelineExecutions_nextToken = Lens.lens (\ListPipelineExecutions' {nextToken} -> nextToken) (\s@ListPipelineExecutions' {} a -> s {nextToken = a} :: ListPipelineExecutions)
 
--- | The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned nextToken value. Pipeline history is limited to the most recent 12 months, based on pipeline execution start times. Default value is 100.
-lpeMaxResults :: Lens' ListPipelineExecutions (Maybe Natural)
-lpeMaxResults = lens _lpeMaxResults (\s a -> s {_lpeMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another call with the returned nextToken
+-- value. Pipeline history is limited to the most recent 12 months, based
+-- on pipeline execution start times. Default value is 100.
+listPipelineExecutions_maxResults :: Lens.Lens' ListPipelineExecutions (Prelude.Maybe Prelude.Natural)
+listPipelineExecutions_maxResults = Lens.lens (\ListPipelineExecutions' {maxResults} -> maxResults) (\s@ListPipelineExecutions' {} a -> s {maxResults = a} :: ListPipelineExecutions) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of the pipeline for which you want to get execution summary information.
-lpePipelineName :: Lens' ListPipelineExecutions Text
-lpePipelineName = lens _lpePipelineName (\s a -> s {_lpePipelineName = a})
+-- | The name of the pipeline for which you want to get execution summary
+-- information.
+listPipelineExecutions_pipelineName :: Lens.Lens' ListPipelineExecutions Prelude.Text
+listPipelineExecutions_pipelineName = Lens.lens (\ListPipelineExecutions' {pipelineName} -> pipelineName) (\s@ListPipelineExecutions' {} a -> s {pipelineName = a} :: ListPipelineExecutions)
 
-instance AWSPager ListPipelineExecutions where
+instance Pager.AWSPager ListPipelineExecutions where
   page rq rs
-    | stop (rs ^. lperrsNextToken) = Nothing
-    | stop (rs ^. lperrsPipelineExecutionSummaries) =
-      Nothing
-    | otherwise =
-      Just $ rq & lpeNextToken .~ rs ^. lperrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listPipelineExecutionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listPipelineExecutionsResponse_pipelineExecutionSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listPipelineExecutions_nextToken
+          Lens..~ rs
+          Lens.^? listPipelineExecutionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListPipelineExecutions where
+instance Prelude.AWSRequest ListPipelineExecutions where
   type
     Rs ListPipelineExecutions =
       ListPipelineExecutionsResponse
-  request = postJSON codePipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListPipelineExecutionsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "pipelineExecutionSummaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "pipelineExecutionSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPipelineExecutions
+instance Prelude.Hashable ListPipelineExecutions
 
-instance NFData ListPipelineExecutions
+instance Prelude.NFData ListPipelineExecutions
 
-instance ToHeaders ListPipelineExecutions where
+instance Prelude.ToHeaders ListPipelineExecutions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodePipeline_20150709.ListPipelineExecutions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodePipeline_20150709.ListPipelineExecutions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListPipelineExecutions where
+instance Prelude.ToJSON ListPipelineExecutions where
   toJSON ListPipelineExecutions' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lpeNextToken,
-            ("maxResults" .=) <$> _lpeMaxResults,
-            Just ("pipelineName" .= _lpePipelineName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("pipelineName" Prelude..= pipelineName)
           ]
       )
 
-instance ToPath ListPipelineExecutions where
-  toPath = const "/"
+instance Prelude.ToPath ListPipelineExecutions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListPipelineExecutions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListPipelineExecutions where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @ListPipelineExecutions@ action.
 --
---
---
--- /See:/ 'listPipelineExecutionsResponse' smart constructor.
+-- /See:/ 'newListPipelineExecutionsResponse' smart constructor.
 data ListPipelineExecutionsResponse = ListPipelineExecutionsResponse'
-  { _lperrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lperrsPipelineExecutionSummaries ::
-      !( Maybe
-           [PipelineExecutionSummary]
-       ),
-    _lperrsResponseStatus ::
-      !Int
+  { -- | A token that can be used in the next @ListPipelineExecutions@ call. To
+    -- view all items in the list, continue to call this operation with each
+    -- subsequent token until no more nextToken values are returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of executions in the history of a pipeline.
+    pipelineExecutionSummaries :: Prelude.Maybe [PipelineExecutionSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPipelineExecutionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPipelineExecutionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lperrsNextToken' - A token that can be used in the next @ListPipelineExecutions@ call. To view all items in the list, continue to call this operation with each subsequent token until no more nextToken values are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lperrsPipelineExecutionSummaries' - A list of executions in the history of a pipeline.
+-- 'nextToken', 'listPipelineExecutionsResponse_nextToken' - A token that can be used in the next @ListPipelineExecutions@ call. To
+-- view all items in the list, continue to call this operation with each
+-- subsequent token until no more nextToken values are returned.
 --
--- * 'lperrsResponseStatus' - -- | The response status code.
-listPipelineExecutionsResponse ::
-  -- | 'lperrsResponseStatus'
-  Int ->
+-- 'pipelineExecutionSummaries', 'listPipelineExecutionsResponse_pipelineExecutionSummaries' - A list of executions in the history of a pipeline.
+--
+-- 'httpStatus', 'listPipelineExecutionsResponse_httpStatus' - The response's http status code.
+newListPipelineExecutionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPipelineExecutionsResponse
-listPipelineExecutionsResponse pResponseStatus_ =
+newListPipelineExecutionsResponse pHttpStatus_ =
   ListPipelineExecutionsResponse'
-    { _lperrsNextToken =
-        Nothing,
-      _lperrsPipelineExecutionSummaries = Nothing,
-      _lperrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      pipelineExecutionSummaries =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A token that can be used in the next @ListPipelineExecutions@ call. To view all items in the list, continue to call this operation with each subsequent token until no more nextToken values are returned.
-lperrsNextToken :: Lens' ListPipelineExecutionsResponse (Maybe Text)
-lperrsNextToken = lens _lperrsNextToken (\s a -> s {_lperrsNextToken = a})
+-- | A token that can be used in the next @ListPipelineExecutions@ call. To
+-- view all items in the list, continue to call this operation with each
+-- subsequent token until no more nextToken values are returned.
+listPipelineExecutionsResponse_nextToken :: Lens.Lens' ListPipelineExecutionsResponse (Prelude.Maybe Prelude.Text)
+listPipelineExecutionsResponse_nextToken = Lens.lens (\ListPipelineExecutionsResponse' {nextToken} -> nextToken) (\s@ListPipelineExecutionsResponse' {} a -> s {nextToken = a} :: ListPipelineExecutionsResponse)
 
 -- | A list of executions in the history of a pipeline.
-lperrsPipelineExecutionSummaries :: Lens' ListPipelineExecutionsResponse [PipelineExecutionSummary]
-lperrsPipelineExecutionSummaries = lens _lperrsPipelineExecutionSummaries (\s a -> s {_lperrsPipelineExecutionSummaries = a}) . _Default . _Coerce
+listPipelineExecutionsResponse_pipelineExecutionSummaries :: Lens.Lens' ListPipelineExecutionsResponse (Prelude.Maybe [PipelineExecutionSummary])
+listPipelineExecutionsResponse_pipelineExecutionSummaries = Lens.lens (\ListPipelineExecutionsResponse' {pipelineExecutionSummaries} -> pipelineExecutionSummaries) (\s@ListPipelineExecutionsResponse' {} a -> s {pipelineExecutionSummaries = a} :: ListPipelineExecutionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lperrsResponseStatus :: Lens' ListPipelineExecutionsResponse Int
-lperrsResponseStatus = lens _lperrsResponseStatus (\s a -> s {_lperrsResponseStatus = a})
+-- | The response's http status code.
+listPipelineExecutionsResponse_httpStatus :: Lens.Lens' ListPipelineExecutionsResponse Prelude.Int
+listPipelineExecutionsResponse_httpStatus = Lens.lens (\ListPipelineExecutionsResponse' {httpStatus} -> httpStatus) (\s@ListPipelineExecutionsResponse' {} a -> s {httpStatus = a} :: ListPipelineExecutionsResponse)
 
-instance NFData ListPipelineExecutionsResponse
+instance
+  Prelude.NFData
+    ListPipelineExecutionsResponse

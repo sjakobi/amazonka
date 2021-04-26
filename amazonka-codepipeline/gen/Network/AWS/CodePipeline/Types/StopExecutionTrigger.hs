@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,47 +19,45 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodePipeline.Types.StopExecutionTrigger where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The interaction that stopped a pipeline execution.
 --
---
---
--- /See:/ 'stopExecutionTrigger' smart constructor.
-newtype StopExecutionTrigger = StopExecutionTrigger'
-  { _setReason ::
-      Maybe Text
+-- /See:/ 'newStopExecutionTrigger' smart constructor.
+data StopExecutionTrigger = StopExecutionTrigger'
+  { -- | The user-specified reason the pipeline was stopped.
+    reason :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopExecutionTrigger' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopExecutionTrigger' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'setReason' - The user-specified reason the pipeline was stopped.
-stopExecutionTrigger ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'reason', 'stopExecutionTrigger_reason' - The user-specified reason the pipeline was stopped.
+newStopExecutionTrigger ::
   StopExecutionTrigger
-stopExecutionTrigger =
-  StopExecutionTrigger' {_setReason = Nothing}
+newStopExecutionTrigger =
+  StopExecutionTrigger' {reason = Prelude.Nothing}
 
 -- | The user-specified reason the pipeline was stopped.
-setReason :: Lens' StopExecutionTrigger (Maybe Text)
-setReason = lens _setReason (\s a -> s {_setReason = a})
+stopExecutionTrigger_reason :: Lens.Lens' StopExecutionTrigger (Prelude.Maybe Prelude.Text)
+stopExecutionTrigger_reason = Lens.lens (\StopExecutionTrigger' {reason} -> reason) (\s@StopExecutionTrigger' {} a -> s {reason = a} :: StopExecutionTrigger)
 
-instance FromJSON StopExecutionTrigger where
+instance Prelude.FromJSON StopExecutionTrigger where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StopExecutionTrigger"
-      (\x -> StopExecutionTrigger' <$> (x .:? "reason"))
+      ( \x ->
+          StopExecutionTrigger'
+            Prelude.<$> (x Prelude..:? "reason")
+      )
 
-instance Hashable StopExecutionTrigger
+instance Prelude.Hashable StopExecutionTrigger
 
-instance NFData StopExecutionTrigger
+instance Prelude.NFData StopExecutionTrigger

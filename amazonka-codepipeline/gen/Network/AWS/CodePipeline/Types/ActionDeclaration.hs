@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,140 +22,217 @@ module Network.AWS.CodePipeline.Types.ActionDeclaration where
 import Network.AWS.CodePipeline.Types.ActionTypeId
 import Network.AWS.CodePipeline.Types.InputArtifact
 import Network.AWS.CodePipeline.Types.OutputArtifact
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about an action declaration.
 --
---
---
--- /See:/ 'actionDeclaration' smart constructor.
+-- /See:/ 'newActionDeclaration' smart constructor.
 data ActionDeclaration = ActionDeclaration'
-  { _actRoleARN ::
-      !(Maybe Text),
-    _actConfiguration ::
-      !(Maybe (Map Text Text)),
-    _actRunOrder :: !(Maybe Nat),
-    _actNamespace :: !(Maybe Text),
-    _actInputArtifacts ::
-      !(Maybe [InputArtifact]),
-    _actRegion :: !(Maybe Text),
-    _actOutputArtifacts ::
-      !(Maybe [OutputArtifact]),
-    _actName :: !Text,
-    _actActionTypeId :: !ActionTypeId
+  { -- | The ARN of the IAM service role that performs the declared action. This
+    -- is assumed through the roleArn for the pipeline.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The action\'s configuration. These are key-value pairs that specify
+    -- input values for an action. For more information, see
+    -- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Action Structure Requirements in CodePipeline>.
+    -- For the list of configuration properties for the AWS CloudFormation
+    -- action type in CodePipeline, see
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-action-reference.html Configuration Properties Reference>
+    -- in the /AWS CloudFormation User Guide/. For template snippets with
+    -- examples, see
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-parameter-override-functions.html Using Parameter Override Functions with CodePipeline Pipelines>
+    -- in the /AWS CloudFormation User Guide/.
+    --
+    -- The values can be represented in either JSON or YAML format. For
+    -- example, the JSON configuration item format is as follows:
+    --
+    -- /JSON:/
+    --
+    -- @\"Configuration\" : { Key : Value },@
+    configuration :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The order in which actions are run.
+    runOrder :: Prelude.Maybe Prelude.Nat,
+    -- | The variable namespace associated with the action. All variables
+    -- produced as output by this action fall under this namespace.
+    namespace :: Prelude.Maybe Prelude.Text,
+    -- | The name or ID of the artifact consumed by the action, such as a test or
+    -- build artifact.
+    inputArtifacts :: Prelude.Maybe [InputArtifact],
+    -- | The action declaration\'s AWS Region, such as us-east-1.
+    region :: Prelude.Maybe Prelude.Text,
+    -- | The name or ID of the result of the action declaration, such as a test
+    -- or build artifact.
+    outputArtifacts :: Prelude.Maybe [OutputArtifact],
+    -- | The action declaration\'s name.
+    name :: Prelude.Text,
+    -- | Specifies the action type and the provider of the action.
+    actionTypeId :: ActionTypeId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionDeclaration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionDeclaration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'actRoleARN' - The ARN of the IAM service role that performs the declared action. This is assumed through the roleArn for the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'actConfiguration' - The action's configuration. These are key-value pairs that specify input values for an action. For more information, see <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Action Structure Requirements in CodePipeline> . For the list of configuration properties for the AWS CloudFormation action type in CodePipeline, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-action-reference.html Configuration Properties Reference> in the /AWS CloudFormation User Guide/ . For template snippets with examples, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-parameter-override-functions.html Using Parameter Override Functions with CodePipeline Pipelines> in the /AWS CloudFormation User Guide/ . The values can be represented in either JSON or YAML format. For example, the JSON configuration item format is as follows:  /JSON:/  @"Configuration" : { Key : Value },@
+-- 'roleArn', 'actionDeclaration_roleArn' - The ARN of the IAM service role that performs the declared action. This
+-- is assumed through the roleArn for the pipeline.
 --
--- * 'actRunOrder' - The order in which actions are run.
+-- 'configuration', 'actionDeclaration_configuration' - The action\'s configuration. These are key-value pairs that specify
+-- input values for an action. For more information, see
+-- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Action Structure Requirements in CodePipeline>.
+-- For the list of configuration properties for the AWS CloudFormation
+-- action type in CodePipeline, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-action-reference.html Configuration Properties Reference>
+-- in the /AWS CloudFormation User Guide/. For template snippets with
+-- examples, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-parameter-override-functions.html Using Parameter Override Functions with CodePipeline Pipelines>
+-- in the /AWS CloudFormation User Guide/.
 --
--- * 'actNamespace' - The variable namespace associated with the action. All variables produced as output by this action fall under this namespace.
+-- The values can be represented in either JSON or YAML format. For
+-- example, the JSON configuration item format is as follows:
 --
--- * 'actInputArtifacts' - The name or ID of the artifact consumed by the action, such as a test or build artifact.
+-- /JSON:/
 --
--- * 'actRegion' - The action declaration's AWS Region, such as us-east-1.
+-- @\"Configuration\" : { Key : Value },@
 --
--- * 'actOutputArtifacts' - The name or ID of the result of the action declaration, such as a test or build artifact.
+-- 'runOrder', 'actionDeclaration_runOrder' - The order in which actions are run.
 --
--- * 'actName' - The action declaration's name.
+-- 'namespace', 'actionDeclaration_namespace' - The variable namespace associated with the action. All variables
+-- produced as output by this action fall under this namespace.
 --
--- * 'actActionTypeId' - Specifies the action type and the provider of the action.
-actionDeclaration ::
-  -- | 'actName'
-  Text ->
-  -- | 'actActionTypeId'
+-- 'inputArtifacts', 'actionDeclaration_inputArtifacts' - The name or ID of the artifact consumed by the action, such as a test or
+-- build artifact.
+--
+-- 'region', 'actionDeclaration_region' - The action declaration\'s AWS Region, such as us-east-1.
+--
+-- 'outputArtifacts', 'actionDeclaration_outputArtifacts' - The name or ID of the result of the action declaration, such as a test
+-- or build artifact.
+--
+-- 'name', 'actionDeclaration_name' - The action declaration\'s name.
+--
+-- 'actionTypeId', 'actionDeclaration_actionTypeId' - Specifies the action type and the provider of the action.
+newActionDeclaration ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'actionTypeId'
   ActionTypeId ->
   ActionDeclaration
-actionDeclaration pName_ pActionTypeId_ =
+newActionDeclaration pName_ pActionTypeId_ =
   ActionDeclaration'
-    { _actRoleARN = Nothing,
-      _actConfiguration = Nothing,
-      _actRunOrder = Nothing,
-      _actNamespace = Nothing,
-      _actInputArtifacts = Nothing,
-      _actRegion = Nothing,
-      _actOutputArtifacts = Nothing,
-      _actName = pName_,
-      _actActionTypeId = pActionTypeId_
+    { roleArn = Prelude.Nothing,
+      configuration = Prelude.Nothing,
+      runOrder = Prelude.Nothing,
+      namespace = Prelude.Nothing,
+      inputArtifacts = Prelude.Nothing,
+      region = Prelude.Nothing,
+      outputArtifacts = Prelude.Nothing,
+      name = pName_,
+      actionTypeId = pActionTypeId_
     }
 
--- | The ARN of the IAM service role that performs the declared action. This is assumed through the roleArn for the pipeline.
-actRoleARN :: Lens' ActionDeclaration (Maybe Text)
-actRoleARN = lens _actRoleARN (\s a -> s {_actRoleARN = a})
+-- | The ARN of the IAM service role that performs the declared action. This
+-- is assumed through the roleArn for the pipeline.
+actionDeclaration_roleArn :: Lens.Lens' ActionDeclaration (Prelude.Maybe Prelude.Text)
+actionDeclaration_roleArn = Lens.lens (\ActionDeclaration' {roleArn} -> roleArn) (\s@ActionDeclaration' {} a -> s {roleArn = a} :: ActionDeclaration)
 
--- | The action's configuration. These are key-value pairs that specify input values for an action. For more information, see <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Action Structure Requirements in CodePipeline> . For the list of configuration properties for the AWS CloudFormation action type in CodePipeline, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-action-reference.html Configuration Properties Reference> in the /AWS CloudFormation User Guide/ . For template snippets with examples, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-parameter-override-functions.html Using Parameter Override Functions with CodePipeline Pipelines> in the /AWS CloudFormation User Guide/ . The values can be represented in either JSON or YAML format. For example, the JSON configuration item format is as follows:  /JSON:/  @"Configuration" : { Key : Value },@
-actConfiguration :: Lens' ActionDeclaration (HashMap Text Text)
-actConfiguration = lens _actConfiguration (\s a -> s {_actConfiguration = a}) . _Default . _Map
+-- | The action\'s configuration. These are key-value pairs that specify
+-- input values for an action. For more information, see
+-- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements Action Structure Requirements in CodePipeline>.
+-- For the list of configuration properties for the AWS CloudFormation
+-- action type in CodePipeline, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-action-reference.html Configuration Properties Reference>
+-- in the /AWS CloudFormation User Guide/. For template snippets with
+-- examples, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-parameter-override-functions.html Using Parameter Override Functions with CodePipeline Pipelines>
+-- in the /AWS CloudFormation User Guide/.
+--
+-- The values can be represented in either JSON or YAML format. For
+-- example, the JSON configuration item format is as follows:
+--
+-- /JSON:/
+--
+-- @\"Configuration\" : { Key : Value },@
+actionDeclaration_configuration :: Lens.Lens' ActionDeclaration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+actionDeclaration_configuration = Lens.lens (\ActionDeclaration' {configuration} -> configuration) (\s@ActionDeclaration' {} a -> s {configuration = a} :: ActionDeclaration) Prelude.. Lens.mapping Prelude._Map
 
 -- | The order in which actions are run.
-actRunOrder :: Lens' ActionDeclaration (Maybe Natural)
-actRunOrder = lens _actRunOrder (\s a -> s {_actRunOrder = a}) . mapping _Nat
+actionDeclaration_runOrder :: Lens.Lens' ActionDeclaration (Prelude.Maybe Prelude.Natural)
+actionDeclaration_runOrder = Lens.lens (\ActionDeclaration' {runOrder} -> runOrder) (\s@ActionDeclaration' {} a -> s {runOrder = a} :: ActionDeclaration) Prelude.. Lens.mapping Prelude._Nat
 
--- | The variable namespace associated with the action. All variables produced as output by this action fall under this namespace.
-actNamespace :: Lens' ActionDeclaration (Maybe Text)
-actNamespace = lens _actNamespace (\s a -> s {_actNamespace = a})
+-- | The variable namespace associated with the action. All variables
+-- produced as output by this action fall under this namespace.
+actionDeclaration_namespace :: Lens.Lens' ActionDeclaration (Prelude.Maybe Prelude.Text)
+actionDeclaration_namespace = Lens.lens (\ActionDeclaration' {namespace} -> namespace) (\s@ActionDeclaration' {} a -> s {namespace = a} :: ActionDeclaration)
 
--- | The name or ID of the artifact consumed by the action, such as a test or build artifact.
-actInputArtifacts :: Lens' ActionDeclaration [InputArtifact]
-actInputArtifacts = lens _actInputArtifacts (\s a -> s {_actInputArtifacts = a}) . _Default . _Coerce
+-- | The name or ID of the artifact consumed by the action, such as a test or
+-- build artifact.
+actionDeclaration_inputArtifacts :: Lens.Lens' ActionDeclaration (Prelude.Maybe [InputArtifact])
+actionDeclaration_inputArtifacts = Lens.lens (\ActionDeclaration' {inputArtifacts} -> inputArtifacts) (\s@ActionDeclaration' {} a -> s {inputArtifacts = a} :: ActionDeclaration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The action declaration's AWS Region, such as us-east-1.
-actRegion :: Lens' ActionDeclaration (Maybe Text)
-actRegion = lens _actRegion (\s a -> s {_actRegion = a})
+-- | The action declaration\'s AWS Region, such as us-east-1.
+actionDeclaration_region :: Lens.Lens' ActionDeclaration (Prelude.Maybe Prelude.Text)
+actionDeclaration_region = Lens.lens (\ActionDeclaration' {region} -> region) (\s@ActionDeclaration' {} a -> s {region = a} :: ActionDeclaration)
 
--- | The name or ID of the result of the action declaration, such as a test or build artifact.
-actOutputArtifacts :: Lens' ActionDeclaration [OutputArtifact]
-actOutputArtifacts = lens _actOutputArtifacts (\s a -> s {_actOutputArtifacts = a}) . _Default . _Coerce
+-- | The name or ID of the result of the action declaration, such as a test
+-- or build artifact.
+actionDeclaration_outputArtifacts :: Lens.Lens' ActionDeclaration (Prelude.Maybe [OutputArtifact])
+actionDeclaration_outputArtifacts = Lens.lens (\ActionDeclaration' {outputArtifacts} -> outputArtifacts) (\s@ActionDeclaration' {} a -> s {outputArtifacts = a} :: ActionDeclaration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The action declaration's name.
-actName :: Lens' ActionDeclaration Text
-actName = lens _actName (\s a -> s {_actName = a})
+-- | The action declaration\'s name.
+actionDeclaration_name :: Lens.Lens' ActionDeclaration Prelude.Text
+actionDeclaration_name = Lens.lens (\ActionDeclaration' {name} -> name) (\s@ActionDeclaration' {} a -> s {name = a} :: ActionDeclaration)
 
 -- | Specifies the action type and the provider of the action.
-actActionTypeId :: Lens' ActionDeclaration ActionTypeId
-actActionTypeId = lens _actActionTypeId (\s a -> s {_actActionTypeId = a})
+actionDeclaration_actionTypeId :: Lens.Lens' ActionDeclaration ActionTypeId
+actionDeclaration_actionTypeId = Lens.lens (\ActionDeclaration' {actionTypeId} -> actionTypeId) (\s@ActionDeclaration' {} a -> s {actionTypeId = a} :: ActionDeclaration)
 
-instance FromJSON ActionDeclaration where
+instance Prelude.FromJSON ActionDeclaration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionDeclaration"
       ( \x ->
           ActionDeclaration'
-            <$> (x .:? "roleArn")
-            <*> (x .:? "configuration" .!= mempty)
-            <*> (x .:? "runOrder")
-            <*> (x .:? "namespace")
-            <*> (x .:? "inputArtifacts" .!= mempty)
-            <*> (x .:? "region")
-            <*> (x .:? "outputArtifacts" .!= mempty)
-            <*> (x .: "name")
-            <*> (x .: "actionTypeId")
+            Prelude.<$> (x Prelude..:? "roleArn")
+            Prelude.<*> ( x Prelude..:? "configuration"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "runOrder")
+            Prelude.<*> (x Prelude..:? "namespace")
+            Prelude.<*> ( x Prelude..:? "inputArtifacts"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "region")
+            Prelude.<*> ( x Prelude..:? "outputArtifacts"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "actionTypeId")
       )
 
-instance Hashable ActionDeclaration
+instance Prelude.Hashable ActionDeclaration
 
-instance NFData ActionDeclaration
+instance Prelude.NFData ActionDeclaration
 
-instance ToJSON ActionDeclaration where
+instance Prelude.ToJSON ActionDeclaration where
   toJSON ActionDeclaration' {..} =
-    object
-      ( catMaybes
-          [ ("roleArn" .=) <$> _actRoleARN,
-            ("configuration" .=) <$> _actConfiguration,
-            ("runOrder" .=) <$> _actRunOrder,
-            ("namespace" .=) <$> _actNamespace,
-            ("inputArtifacts" .=) <$> _actInputArtifacts,
-            ("region" .=) <$> _actRegion,
-            ("outputArtifacts" .=) <$> _actOutputArtifacts,
-            Just ("name" .= _actName),
-            Just ("actionTypeId" .= _actActionTypeId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("roleArn" Prelude..=) Prelude.<$> roleArn,
+            ("configuration" Prelude..=)
+              Prelude.<$> configuration,
+            ("runOrder" Prelude..=) Prelude.<$> runOrder,
+            ("namespace" Prelude..=) Prelude.<$> namespace,
+            ("inputArtifacts" Prelude..=)
+              Prelude.<$> inputArtifacts,
+            ("region" Prelude..=) Prelude.<$> region,
+            ("outputArtifacts" Prelude..=)
+              Prelude.<$> outputArtifacts,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just
+              ("actionTypeId" Prelude..= actionTypeId)
           ]
       )

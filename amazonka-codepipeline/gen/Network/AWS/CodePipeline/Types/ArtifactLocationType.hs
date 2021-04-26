@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.CodePipeline.Types.ArtifactLocationType
   ( ArtifactLocationType
       ( ..,
-        S3
+        ArtifactLocationTypeS3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArtifactLocationType
-  = ArtifactLocationType'
-      ( CI
-          Text
-      )
+newtype ArtifactLocationType = ArtifactLocationType'
+  { fromArtifactLocationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern S3 :: ArtifactLocationType
-pattern S3 = ArtifactLocationType' "S3"
+pattern ArtifactLocationTypeS3 :: ArtifactLocationType
+pattern ArtifactLocationTypeS3 = ArtifactLocationType' "S3"
 
 {-# COMPLETE
-  S3,
+  ArtifactLocationTypeS3,
   ArtifactLocationType'
   #-}
 
-instance FromText ArtifactLocationType where
-  parser = (ArtifactLocationType' . mk) <$> takeText
+instance Prelude.FromText ArtifactLocationType where
+  parser = ArtifactLocationType' Prelude.<$> Prelude.takeText
 
-instance ToText ArtifactLocationType where
-  toText (ArtifactLocationType' ci) = original ci
+instance Prelude.ToText ArtifactLocationType where
+  toText (ArtifactLocationType' x) = x
 
-instance Hashable ArtifactLocationType
+instance Prelude.Hashable ArtifactLocationType
 
-instance NFData ArtifactLocationType
+instance Prelude.NFData ArtifactLocationType
 
-instance ToByteString ArtifactLocationType
+instance Prelude.ToByteString ArtifactLocationType
 
-instance ToQuery ArtifactLocationType
+instance Prelude.ToQuery ArtifactLocationType
 
-instance ToHeader ArtifactLocationType
+instance Prelude.ToHeader ArtifactLocationType
 
-instance FromJSON ArtifactLocationType where
-  parseJSON = parseJSONText "ArtifactLocationType"
+instance Prelude.FromJSON ArtifactLocationType where
+  parseJSON = Prelude.parseJSONText "ArtifactLocationType"

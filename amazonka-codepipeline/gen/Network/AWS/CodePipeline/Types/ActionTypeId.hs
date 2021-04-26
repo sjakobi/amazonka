@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,91 +21,163 @@ module Network.AWS.CodePipeline.Types.ActionTypeId where
 
 import Network.AWS.CodePipeline.Types.ActionCategory
 import Network.AWS.CodePipeline.Types.ActionOwner
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about an action type.
 --
---
---
--- /See:/ 'actionTypeId' smart constructor.
+-- /See:/ 'newActionTypeId' smart constructor.
 data ActionTypeId = ActionTypeId'
-  { _atiCategory ::
-      !ActionCategory,
-    _atiOwner :: !ActionOwner,
-    _atiProvider :: !Text,
-    _atiVersion :: !Text
+  { -- | A category defines what kind of action can be taken in the stage, and
+    -- constrains the provider type for the action. Valid categories are
+    -- limited to one of the following values.
+    --
+    -- -   Source
+    --
+    -- -   Build
+    --
+    -- -   Test
+    --
+    -- -   Deploy
+    --
+    -- -   Invoke
+    --
+    -- -   Approval
+    category :: ActionCategory,
+    -- | The creator of the action being called. There are three valid values for
+    -- the @Owner@ field in the action category section within your pipeline
+    -- structure: @AWS@, @ThirdParty@, and @Custom@. For more information, see
+    -- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline>.
+    owner :: ActionOwner,
+    -- | The provider of the service being called by the action. Valid providers
+    -- are determined by the action category. For example, an action in the
+    -- Deploy category type might have a provider of AWS CodeDeploy, which
+    -- would be specified as CodeDeploy. For more information, see
+    -- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline>.
+    provider :: Prelude.Text,
+    -- | A string that describes the action version.
+    version :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionTypeId' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionTypeId' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atiCategory' - A category defines what kind of action can be taken in the stage, and constrains the provider type for the action. Valid categories are limited to one of the following values.      * Source     * Build     * Test     * Deploy     * Invoke     * Approval
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atiOwner' - The creator of the action being called. There are three valid values for the @Owner@ field in the action category section within your pipeline structure: @AWS@ , @ThirdParty@ , and @Custom@ . For more information, see <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline> .
+-- 'category', 'actionTypeId_category' - A category defines what kind of action can be taken in the stage, and
+-- constrains the provider type for the action. Valid categories are
+-- limited to one of the following values.
 --
--- * 'atiProvider' - The provider of the service being called by the action. Valid providers are determined by the action category. For example, an action in the Deploy category type might have a provider of AWS CodeDeploy, which would be specified as CodeDeploy. For more information, see <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline> .
+-- -   Source
 --
--- * 'atiVersion' - A string that describes the action version.
-actionTypeId ::
-  -- | 'atiCategory'
+-- -   Build
+--
+-- -   Test
+--
+-- -   Deploy
+--
+-- -   Invoke
+--
+-- -   Approval
+--
+-- 'owner', 'actionTypeId_owner' - The creator of the action being called. There are three valid values for
+-- the @Owner@ field in the action category section within your pipeline
+-- structure: @AWS@, @ThirdParty@, and @Custom@. For more information, see
+-- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline>.
+--
+-- 'provider', 'actionTypeId_provider' - The provider of the service being called by the action. Valid providers
+-- are determined by the action category. For example, an action in the
+-- Deploy category type might have a provider of AWS CodeDeploy, which
+-- would be specified as CodeDeploy. For more information, see
+-- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline>.
+--
+-- 'version', 'actionTypeId_version' - A string that describes the action version.
+newActionTypeId ::
+  -- | 'category'
   ActionCategory ->
-  -- | 'atiOwner'
+  -- | 'owner'
   ActionOwner ->
-  -- | 'atiProvider'
-  Text ->
-  -- | 'atiVersion'
-  Text ->
+  -- | 'provider'
+  Prelude.Text ->
+  -- | 'version'
+  Prelude.Text ->
   ActionTypeId
-actionTypeId pCategory_ pOwner_ pProvider_ pVersion_ =
-  ActionTypeId'
-    { _atiCategory = pCategory_,
-      _atiOwner = pOwner_,
-      _atiProvider = pProvider_,
-      _atiVersion = pVersion_
-    }
+newActionTypeId
+  pCategory_
+  pOwner_
+  pProvider_
+  pVersion_ =
+    ActionTypeId'
+      { category = pCategory_,
+        owner = pOwner_,
+        provider = pProvider_,
+        version = pVersion_
+      }
 
--- | A category defines what kind of action can be taken in the stage, and constrains the provider type for the action. Valid categories are limited to one of the following values.      * Source     * Build     * Test     * Deploy     * Invoke     * Approval
-atiCategory :: Lens' ActionTypeId ActionCategory
-atiCategory = lens _atiCategory (\s a -> s {_atiCategory = a})
+-- | A category defines what kind of action can be taken in the stage, and
+-- constrains the provider type for the action. Valid categories are
+-- limited to one of the following values.
+--
+-- -   Source
+--
+-- -   Build
+--
+-- -   Test
+--
+-- -   Deploy
+--
+-- -   Invoke
+--
+-- -   Approval
+actionTypeId_category :: Lens.Lens' ActionTypeId ActionCategory
+actionTypeId_category = Lens.lens (\ActionTypeId' {category} -> category) (\s@ActionTypeId' {} a -> s {category = a} :: ActionTypeId)
 
--- | The creator of the action being called. There are three valid values for the @Owner@ field in the action category section within your pipeline structure: @AWS@ , @ThirdParty@ , and @Custom@ . For more information, see <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline> .
-atiOwner :: Lens' ActionTypeId ActionOwner
-atiOwner = lens _atiOwner (\s a -> s {_atiOwner = a})
+-- | The creator of the action being called. There are three valid values for
+-- the @Owner@ field in the action category section within your pipeline
+-- structure: @AWS@, @ThirdParty@, and @Custom@. For more information, see
+-- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline>.
+actionTypeId_owner :: Lens.Lens' ActionTypeId ActionOwner
+actionTypeId_owner = Lens.lens (\ActionTypeId' {owner} -> owner) (\s@ActionTypeId' {} a -> s {owner = a} :: ActionTypeId)
 
--- | The provider of the service being called by the action. Valid providers are determined by the action category. For example, an action in the Deploy category type might have a provider of AWS CodeDeploy, which would be specified as CodeDeploy. For more information, see <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline> .
-atiProvider :: Lens' ActionTypeId Text
-atiProvider = lens _atiProvider (\s a -> s {_atiProvider = a})
+-- | The provider of the service being called by the action. Valid providers
+-- are determined by the action category. For example, an action in the
+-- Deploy category type might have a provider of AWS CodeDeploy, which
+-- would be specified as CodeDeploy. For more information, see
+-- <https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers Valid Action Types and Providers in CodePipeline>.
+actionTypeId_provider :: Lens.Lens' ActionTypeId Prelude.Text
+actionTypeId_provider = Lens.lens (\ActionTypeId' {provider} -> provider) (\s@ActionTypeId' {} a -> s {provider = a} :: ActionTypeId)
 
 -- | A string that describes the action version.
-atiVersion :: Lens' ActionTypeId Text
-atiVersion = lens _atiVersion (\s a -> s {_atiVersion = a})
+actionTypeId_version :: Lens.Lens' ActionTypeId Prelude.Text
+actionTypeId_version = Lens.lens (\ActionTypeId' {version} -> version) (\s@ActionTypeId' {} a -> s {version = a} :: ActionTypeId)
 
-instance FromJSON ActionTypeId where
+instance Prelude.FromJSON ActionTypeId where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionTypeId"
       ( \x ->
           ActionTypeId'
-            <$> (x .: "category")
-            <*> (x .: "owner")
-            <*> (x .: "provider")
-            <*> (x .: "version")
+            Prelude.<$> (x Prelude..: "category")
+            Prelude.<*> (x Prelude..: "owner")
+            Prelude.<*> (x Prelude..: "provider")
+            Prelude.<*> (x Prelude..: "version")
       )
 
-instance Hashable ActionTypeId
+instance Prelude.Hashable ActionTypeId
 
-instance NFData ActionTypeId
+instance Prelude.NFData ActionTypeId
 
-instance ToJSON ActionTypeId where
+instance Prelude.ToJSON ActionTypeId where
   toJSON ActionTypeId' {..} =
-    object
-      ( catMaybes
-          [ Just ("category" .= _atiCategory),
-            Just ("owner" .= _atiOwner),
-            Just ("provider" .= _atiProvider),
-            Just ("version" .= _atiVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("category" Prelude..= category),
+            Prelude.Just ("owner" Prelude..= owner),
+            Prelude.Just ("provider" Prelude..= provider),
+            Prelude.Just ("version" Prelude..= version)
           ]
       )
