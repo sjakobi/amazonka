@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CodeBuild.Types.ReportCodeCoverageSortByType
   ( ReportCodeCoverageSortByType
       ( ..,
-        RCCSBTFilePath,
-        RCCSBTLineCoveragePercentage
+        ReportCodeCoverageSortByTypeFILEPATH,
+        ReportCodeCoverageSortByTypeLINECOVERAGEPERCENTAGE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportCodeCoverageSortByType
-  = ReportCodeCoverageSortByType'
-      ( CI
-          Text
-      )
+newtype ReportCodeCoverageSortByType = ReportCodeCoverageSortByType'
+  { fromReportCodeCoverageSortByType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RCCSBTFilePath :: ReportCodeCoverageSortByType
-pattern RCCSBTFilePath = ReportCodeCoverageSortByType' "FILE_PATH"
+pattern ReportCodeCoverageSortByTypeFILEPATH :: ReportCodeCoverageSortByType
+pattern ReportCodeCoverageSortByTypeFILEPATH = ReportCodeCoverageSortByType' "FILE_PATH"
 
-pattern RCCSBTLineCoveragePercentage :: ReportCodeCoverageSortByType
-pattern RCCSBTLineCoveragePercentage = ReportCodeCoverageSortByType' "LINE_COVERAGE_PERCENTAGE"
+pattern ReportCodeCoverageSortByTypeLINECOVERAGEPERCENTAGE :: ReportCodeCoverageSortByType
+pattern ReportCodeCoverageSortByTypeLINECOVERAGEPERCENTAGE = ReportCodeCoverageSortByType' "LINE_COVERAGE_PERCENTAGE"
 
 {-# COMPLETE
-  RCCSBTFilePath,
-  RCCSBTLineCoveragePercentage,
+  ReportCodeCoverageSortByTypeFILEPATH,
+  ReportCodeCoverageSortByTypeLINECOVERAGEPERCENTAGE,
   ReportCodeCoverageSortByType'
   #-}
 
-instance FromText ReportCodeCoverageSortByType where
-  parser = (ReportCodeCoverageSortByType' . mk) <$> takeText
+instance Prelude.FromText ReportCodeCoverageSortByType where
+  parser = ReportCodeCoverageSortByType' Prelude.<$> Prelude.takeText
 
-instance ToText ReportCodeCoverageSortByType where
-  toText (ReportCodeCoverageSortByType' ci) = original ci
+instance Prelude.ToText ReportCodeCoverageSortByType where
+  toText (ReportCodeCoverageSortByType' x) = x
 
-instance Hashable ReportCodeCoverageSortByType
+instance Prelude.Hashable ReportCodeCoverageSortByType
 
-instance NFData ReportCodeCoverageSortByType
+instance Prelude.NFData ReportCodeCoverageSortByType
 
-instance ToByteString ReportCodeCoverageSortByType
+instance Prelude.ToByteString ReportCodeCoverageSortByType
 
-instance ToQuery ReportCodeCoverageSortByType
+instance Prelude.ToQuery ReportCodeCoverageSortByType
 
-instance ToHeader ReportCodeCoverageSortByType
+instance Prelude.ToHeader ReportCodeCoverageSortByType
 
-instance ToJSON ReportCodeCoverageSortByType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReportCodeCoverageSortByType where
+  toJSON = Prelude.toJSONText

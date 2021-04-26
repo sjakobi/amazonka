@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,107 +20,138 @@
 module Network.AWS.CodeBuild.Types.S3ReportExportConfig where
 
 import Network.AWS.CodeBuild.Types.ReportPackagingType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the S3 bucket where the raw data of a report are exported.
+-- | Information about the S3 bucket where the raw data of a report are
+-- exported.
 --
---
---
--- /See:/ 's3ReportExportConfig' smart constructor.
+-- /See:/ 'newS3ReportExportConfig' smart constructor.
 data S3ReportExportConfig = S3ReportExportConfig'
-  { _srecBucketOwner ::
-      !(Maybe Text),
-    _srecEncryptionKey ::
-      !(Maybe Text),
-    _srecPackaging ::
-      !(Maybe ReportPackagingType),
-    _srecEncryptionDisabled ::
-      !(Maybe Bool),
-    _srecBucket :: !(Maybe Text),
-    _srecPath :: !(Maybe Text)
+  { -- | The AWS account identifier of the owner of the Amazon S3 bucket. This
+    -- allows report data to be exported to an Amazon S3 bucket that is owned
+    -- by an account other than the account running the build.
+    bucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The encryption key for the report\'s encrypted raw data.
+    encryptionKey :: Prelude.Maybe Prelude.Text,
+    -- | The type of build output artifact to create. Valid values include:
+    --
+    -- -   @NONE@: AWS CodeBuild creates the raw data in the output bucket.
+    --     This is the default if packaging is not specified.
+    --
+    -- -   @ZIP@: AWS CodeBuild creates a ZIP file with the raw data in the
+    --     output bucket.
+    packaging :: Prelude.Maybe ReportPackagingType,
+    -- | A boolean value that specifies if the results of a report are encrypted.
+    encryptionDisabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the S3 bucket where the raw data of a report are exported.
+    bucket :: Prelude.Maybe Prelude.Text,
+    -- | The path to the exported report\'s raw data results.
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3ReportExportConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3ReportExportConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srecBucketOwner' - The AWS account identifier of the owner of the Amazon S3 bucket. This allows report data to be exported to an Amazon S3 bucket that is owned by an account other than the account running the build.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srecEncryptionKey' - The encryption key for the report's encrypted raw data.
+-- 'bucketOwner', 's3ReportExportConfig_bucketOwner' - The AWS account identifier of the owner of the Amazon S3 bucket. This
+-- allows report data to be exported to an Amazon S3 bucket that is owned
+-- by an account other than the account running the build.
 --
--- * 'srecPackaging' - The type of build output artifact to create. Valid values include:      * @NONE@ : AWS CodeBuild creates the raw data in the output bucket. This is the default if packaging is not specified.      * @ZIP@ : AWS CodeBuild creates a ZIP file with the raw data in the output bucket.
+-- 'encryptionKey', 's3ReportExportConfig_encryptionKey' - The encryption key for the report\'s encrypted raw data.
 --
--- * 'srecEncryptionDisabled' - A boolean value that specifies if the results of a report are encrypted.
+-- 'packaging', 's3ReportExportConfig_packaging' - The type of build output artifact to create. Valid values include:
 --
--- * 'srecBucket' - The name of the S3 bucket where the raw data of a report are exported.
+-- -   @NONE@: AWS CodeBuild creates the raw data in the output bucket.
+--     This is the default if packaging is not specified.
 --
--- * 'srecPath' - The path to the exported report's raw data results.
-s3ReportExportConfig ::
+-- -   @ZIP@: AWS CodeBuild creates a ZIP file with the raw data in the
+--     output bucket.
+--
+-- 'encryptionDisabled', 's3ReportExportConfig_encryptionDisabled' - A boolean value that specifies if the results of a report are encrypted.
+--
+-- 'bucket', 's3ReportExportConfig_bucket' - The name of the S3 bucket where the raw data of a report are exported.
+--
+-- 'path', 's3ReportExportConfig_path' - The path to the exported report\'s raw data results.
+newS3ReportExportConfig ::
   S3ReportExportConfig
-s3ReportExportConfig =
+newS3ReportExportConfig =
   S3ReportExportConfig'
-    { _srecBucketOwner = Nothing,
-      _srecEncryptionKey = Nothing,
-      _srecPackaging = Nothing,
-      _srecEncryptionDisabled = Nothing,
-      _srecBucket = Nothing,
-      _srecPath = Nothing
+    { bucketOwner =
+        Prelude.Nothing,
+      encryptionKey = Prelude.Nothing,
+      packaging = Prelude.Nothing,
+      encryptionDisabled = Prelude.Nothing,
+      bucket = Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
--- | The AWS account identifier of the owner of the Amazon S3 bucket. This allows report data to be exported to an Amazon S3 bucket that is owned by an account other than the account running the build.
-srecBucketOwner :: Lens' S3ReportExportConfig (Maybe Text)
-srecBucketOwner = lens _srecBucketOwner (\s a -> s {_srecBucketOwner = a})
+-- | The AWS account identifier of the owner of the Amazon S3 bucket. This
+-- allows report data to be exported to an Amazon S3 bucket that is owned
+-- by an account other than the account running the build.
+s3ReportExportConfig_bucketOwner :: Lens.Lens' S3ReportExportConfig (Prelude.Maybe Prelude.Text)
+s3ReportExportConfig_bucketOwner = Lens.lens (\S3ReportExportConfig' {bucketOwner} -> bucketOwner) (\s@S3ReportExportConfig' {} a -> s {bucketOwner = a} :: S3ReportExportConfig)
 
--- | The encryption key for the report's encrypted raw data.
-srecEncryptionKey :: Lens' S3ReportExportConfig (Maybe Text)
-srecEncryptionKey = lens _srecEncryptionKey (\s a -> s {_srecEncryptionKey = a})
+-- | The encryption key for the report\'s encrypted raw data.
+s3ReportExportConfig_encryptionKey :: Lens.Lens' S3ReportExportConfig (Prelude.Maybe Prelude.Text)
+s3ReportExportConfig_encryptionKey = Lens.lens (\S3ReportExportConfig' {encryptionKey} -> encryptionKey) (\s@S3ReportExportConfig' {} a -> s {encryptionKey = a} :: S3ReportExportConfig)
 
--- | The type of build output artifact to create. Valid values include:      * @NONE@ : AWS CodeBuild creates the raw data in the output bucket. This is the default if packaging is not specified.      * @ZIP@ : AWS CodeBuild creates a ZIP file with the raw data in the output bucket.
-srecPackaging :: Lens' S3ReportExportConfig (Maybe ReportPackagingType)
-srecPackaging = lens _srecPackaging (\s a -> s {_srecPackaging = a})
+-- | The type of build output artifact to create. Valid values include:
+--
+-- -   @NONE@: AWS CodeBuild creates the raw data in the output bucket.
+--     This is the default if packaging is not specified.
+--
+-- -   @ZIP@: AWS CodeBuild creates a ZIP file with the raw data in the
+--     output bucket.
+s3ReportExportConfig_packaging :: Lens.Lens' S3ReportExportConfig (Prelude.Maybe ReportPackagingType)
+s3ReportExportConfig_packaging = Lens.lens (\S3ReportExportConfig' {packaging} -> packaging) (\s@S3ReportExportConfig' {} a -> s {packaging = a} :: S3ReportExportConfig)
 
 -- | A boolean value that specifies if the results of a report are encrypted.
-srecEncryptionDisabled :: Lens' S3ReportExportConfig (Maybe Bool)
-srecEncryptionDisabled = lens _srecEncryptionDisabled (\s a -> s {_srecEncryptionDisabled = a})
+s3ReportExportConfig_encryptionDisabled :: Lens.Lens' S3ReportExportConfig (Prelude.Maybe Prelude.Bool)
+s3ReportExportConfig_encryptionDisabled = Lens.lens (\S3ReportExportConfig' {encryptionDisabled} -> encryptionDisabled) (\s@S3ReportExportConfig' {} a -> s {encryptionDisabled = a} :: S3ReportExportConfig)
 
 -- | The name of the S3 bucket where the raw data of a report are exported.
-srecBucket :: Lens' S3ReportExportConfig (Maybe Text)
-srecBucket = lens _srecBucket (\s a -> s {_srecBucket = a})
+s3ReportExportConfig_bucket :: Lens.Lens' S3ReportExportConfig (Prelude.Maybe Prelude.Text)
+s3ReportExportConfig_bucket = Lens.lens (\S3ReportExportConfig' {bucket} -> bucket) (\s@S3ReportExportConfig' {} a -> s {bucket = a} :: S3ReportExportConfig)
 
--- | The path to the exported report's raw data results.
-srecPath :: Lens' S3ReportExportConfig (Maybe Text)
-srecPath = lens _srecPath (\s a -> s {_srecPath = a})
+-- | The path to the exported report\'s raw data results.
+s3ReportExportConfig_path :: Lens.Lens' S3ReportExportConfig (Prelude.Maybe Prelude.Text)
+s3ReportExportConfig_path = Lens.lens (\S3ReportExportConfig' {path} -> path) (\s@S3ReportExportConfig' {} a -> s {path = a} :: S3ReportExportConfig)
 
-instance FromJSON S3ReportExportConfig where
+instance Prelude.FromJSON S3ReportExportConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "S3ReportExportConfig"
       ( \x ->
           S3ReportExportConfig'
-            <$> (x .:? "bucketOwner")
-            <*> (x .:? "encryptionKey")
-            <*> (x .:? "packaging")
-            <*> (x .:? "encryptionDisabled")
-            <*> (x .:? "bucket")
-            <*> (x .:? "path")
+            Prelude.<$> (x Prelude..:? "bucketOwner")
+            Prelude.<*> (x Prelude..:? "encryptionKey")
+            Prelude.<*> (x Prelude..:? "packaging")
+            Prelude.<*> (x Prelude..:? "encryptionDisabled")
+            Prelude.<*> (x Prelude..:? "bucket")
+            Prelude.<*> (x Prelude..:? "path")
       )
 
-instance Hashable S3ReportExportConfig
+instance Prelude.Hashable S3ReportExportConfig
 
-instance NFData S3ReportExportConfig
+instance Prelude.NFData S3ReportExportConfig
 
-instance ToJSON S3ReportExportConfig where
+instance Prelude.ToJSON S3ReportExportConfig where
   toJSON S3ReportExportConfig' {..} =
-    object
-      ( catMaybes
-          [ ("bucketOwner" .=) <$> _srecBucketOwner,
-            ("encryptionKey" .=) <$> _srecEncryptionKey,
-            ("packaging" .=) <$> _srecPackaging,
-            ("encryptionDisabled" .=)
-              <$> _srecEncryptionDisabled,
-            ("bucket" .=) <$> _srecBucket,
-            ("path" .=) <$> _srecPath
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("bucketOwner" Prelude..=) Prelude.<$> bucketOwner,
+            ("encryptionKey" Prelude..=)
+              Prelude.<$> encryptionKey,
+            ("packaging" Prelude..=) Prelude.<$> packaging,
+            ("encryptionDisabled" Prelude..=)
+              Prelude.<$> encryptionDisabled,
+            ("bucket" Prelude..=) Prelude.<$> bucket,
+            ("path" Prelude..=) Prelude.<$> path
           ]
       )

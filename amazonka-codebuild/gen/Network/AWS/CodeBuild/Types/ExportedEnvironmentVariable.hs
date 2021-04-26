@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types.ExportedEnvironmentVariable where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an exported environment variable.
 --
---
---
--- /See:/ 'exportedEnvironmentVariable' smart constructor.
+-- /See:/ 'newExportedEnvironmentVariable' smart constructor.
 data ExportedEnvironmentVariable = ExportedEnvironmentVariable'
-  { _eevName ::
-      !(Maybe Text),
-    _eevValue ::
-      !(Maybe Text)
+  { -- | The name of this exported environment variable.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value assigned to this exported environment variable.
+    --
+    -- During a build, the value of a variable is available starting with the
+    -- @install@ phase. It can be updated between the start of the @install@
+    -- phase and the end of the @post_build@ phase. After the @post_build@
+    -- phase ends, the value of exported variables cannot change.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportedEnvironmentVariable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportedEnvironmentVariable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eevName' - The name of this exported environment variable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eevValue' - The value assigned to this exported environment variable.
-exportedEnvironmentVariable ::
+-- 'name', 'exportedEnvironmentVariable_name' - The name of this exported environment variable.
+--
+-- 'value', 'exportedEnvironmentVariable_value' - The value assigned to this exported environment variable.
+--
+-- During a build, the value of a variable is available starting with the
+-- @install@ phase. It can be updated between the start of the @install@
+-- phase and the end of the @post_build@ phase. After the @post_build@
+-- phase ends, the value of exported variables cannot change.
+newExportedEnvironmentVariable ::
   ExportedEnvironmentVariable
-exportedEnvironmentVariable =
+newExportedEnvironmentVariable =
   ExportedEnvironmentVariable'
-    { _eevName = Nothing,
-      _eevValue = Nothing
+    { name =
+        Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The name of this exported environment variable.
-eevName :: Lens' ExportedEnvironmentVariable (Maybe Text)
-eevName = lens _eevName (\s a -> s {_eevName = a})
+exportedEnvironmentVariable_name :: Lens.Lens' ExportedEnvironmentVariable (Prelude.Maybe Prelude.Text)
+exportedEnvironmentVariable_name = Lens.lens (\ExportedEnvironmentVariable' {name} -> name) (\s@ExportedEnvironmentVariable' {} a -> s {name = a} :: ExportedEnvironmentVariable)
 
 -- | The value assigned to this exported environment variable.
-eevValue :: Lens' ExportedEnvironmentVariable (Maybe Text)
-eevValue = lens _eevValue (\s a -> s {_eevValue = a})
+--
+-- During a build, the value of a variable is available starting with the
+-- @install@ phase. It can be updated between the start of the @install@
+-- phase and the end of the @post_build@ phase. After the @post_build@
+-- phase ends, the value of exported variables cannot change.
+exportedEnvironmentVariable_value :: Lens.Lens' ExportedEnvironmentVariable (Prelude.Maybe Prelude.Text)
+exportedEnvironmentVariable_value = Lens.lens (\ExportedEnvironmentVariable' {value} -> value) (\s@ExportedEnvironmentVariable' {} a -> s {value = a} :: ExportedEnvironmentVariable)
 
-instance FromJSON ExportedEnvironmentVariable where
+instance Prelude.FromJSON ExportedEnvironmentVariable where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExportedEnvironmentVariable"
       ( \x ->
           ExportedEnvironmentVariable'
-            <$> (x .:? "name") <*> (x .:? "value")
+            Prelude.<$> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "value")
       )
 
-instance Hashable ExportedEnvironmentVariable
+instance Prelude.Hashable ExportedEnvironmentVariable
 
-instance NFData ExportedEnvironmentVariable
+instance Prelude.NFData ExportedEnvironmentVariable

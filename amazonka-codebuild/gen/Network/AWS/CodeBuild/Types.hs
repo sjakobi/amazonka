@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types
   ( -- * Service Configuration
-    codeBuild,
+    defaultService,
 
     -- * Errors
     _OAuthProviderException,
@@ -127,503 +130,215 @@ module Network.AWS.CodeBuild.Types
 
     -- * BatchRestrictions
     BatchRestrictions (..),
-    batchRestrictions,
-    brComputeTypesAllowed,
-    brMaximumBuildsAllowed,
+    newBatchRestrictions,
 
     -- * Build
     Build (..),
-    build,
-    bVpcConfig,
-    bBuildBatchARN,
-    bResolvedSourceVersion,
-    bSecondaryArtifacts,
-    bSourceVersion,
-    bPhases,
-    bCache,
-    bServiceRole,
-    bSecondarySourceVersions,
-    bNetworkInterface,
-    bEncryptionKey,
-    bArtifacts,
-    bBuildNumber,
-    bStartTime,
-    bId,
-    bEnvironment,
-    bSource,
-    bArn,
-    bProjectName,
-    bEndTime,
-    bBuildStatus,
-    bLogs,
-    bBuildComplete,
-    bDebugSession,
-    bQueuedTimeoutInMinutes,
-    bSecondarySources,
-    bTimeoutInMinutes,
-    bCurrentPhase,
-    bInitiator,
-    bReportARNs,
-    bFileSystemLocations,
-    bExportedEnvironmentVariables,
+    newBuild,
 
     -- * BuildArtifacts
     BuildArtifacts (..),
-    buildArtifacts,
-    baSha256sum,
-    baOverrideArtifactName,
-    baArtifactIdentifier,
-    baMd5sum,
-    baEncryptionDisabled,
-    baLocation,
+    newBuildArtifacts,
 
     -- * BuildBatch
     BuildBatch (..),
-    buildBatch,
-    bbVpcConfig,
-    bbResolvedSourceVersion,
-    bbSecondaryArtifacts,
-    bbSourceVersion,
-    bbPhases,
-    bbCache,
-    bbServiceRole,
-    bbBuildBatchNumber,
-    bbSecondarySourceVersions,
-    bbEncryptionKey,
-    bbArtifacts,
-    bbStartTime,
-    bbId,
-    bbEnvironment,
-    bbSource,
-    bbArn,
-    bbProjectName,
-    bbEndTime,
-    bbBuildGroups,
-    bbBuildTimeoutInMinutes,
-    bbQueuedTimeoutInMinutes,
-    bbSecondarySources,
-    bbComplete,
-    bbLogConfig,
-    bbCurrentPhase,
-    bbBuildBatchStatus,
-    bbInitiator,
-    bbBuildBatchConfig,
-    bbFileSystemLocations,
-    bbDebugSessionEnabled,
+    newBuildBatch,
 
     -- * BuildBatchFilter
     BuildBatchFilter (..),
-    buildBatchFilter,
-    bbfStatus,
+    newBuildBatchFilter,
 
     -- * BuildBatchPhase
     BuildBatchPhase (..),
-    buildBatchPhase,
-    bbpPhaseType,
-    bbpContexts,
-    bbpStartTime,
-    bbpEndTime,
-    bbpDurationInSeconds,
-    bbpPhaseStatus,
+    newBuildBatchPhase,
 
     -- * BuildGroup
     BuildGroup (..),
-    buildGroup,
-    bgDependsOn,
-    bgCurrentBuildSummary,
-    bgIdentifier,
-    bgIgnoreFailure,
-    bgPriorBuildSummaryList,
+    newBuildGroup,
 
     -- * BuildNotDeleted
     BuildNotDeleted (..),
-    buildNotDeleted,
-    bndId,
-    bndStatusCode,
+    newBuildNotDeleted,
 
     -- * BuildPhase
     BuildPhase (..),
-    buildPhase,
-    bpPhaseType,
-    bpContexts,
-    bpStartTime,
-    bpEndTime,
-    bpDurationInSeconds,
-    bpPhaseStatus,
+    newBuildPhase,
 
     -- * BuildStatusConfig
     BuildStatusConfig (..),
-    buildStatusConfig,
-    bscContext,
-    bscTargetURL,
+    newBuildStatusConfig,
 
     -- * BuildSummary
     BuildSummary (..),
-    buildSummary,
-    bsSecondaryArtifacts,
-    bsRequestedOn,
-    bsArn,
-    bsBuildStatus,
-    bsPrimaryArtifact,
+    newBuildSummary,
 
     -- * CloudWatchLogsConfig
     CloudWatchLogsConfig (..),
-    cloudWatchLogsConfig,
-    cwlcGroupName,
-    cwlcStreamName,
-    cwlcStatus,
+    newCloudWatchLogsConfig,
 
     -- * CodeCoverage
     CodeCoverage (..),
-    codeCoverage,
-    ccBranchesMissed,
-    ccLinesCovered,
-    ccBranchesCovered,
-    ccFilePath,
-    ccReportARN,
-    ccId,
-    ccExpired,
-    ccLineCoveragePercentage,
-    ccLinesMissed,
-    ccBranchCoveragePercentage,
+    newCodeCoverage,
 
     -- * CodeCoverageReportSummary
     CodeCoverageReportSummary (..),
-    codeCoverageReportSummary,
-    ccrsBranchesMissed,
-    ccrsLinesCovered,
-    ccrsBranchesCovered,
-    ccrsLineCoveragePercentage,
-    ccrsLinesMissed,
-    ccrsBranchCoveragePercentage,
+    newCodeCoverageReportSummary,
 
     -- * DebugSession
     DebugSession (..),
-    debugSession,
-    dsSessionTarget,
-    dsSessionEnabled,
+    newDebugSession,
 
     -- * EnvironmentImage
     EnvironmentImage (..),
-    environmentImage,
-    eiVersions,
-    eiName,
-    eiDescription,
+    newEnvironmentImage,
 
     -- * EnvironmentLanguage
     EnvironmentLanguage (..),
-    environmentLanguage,
-    elImages,
-    elLanguage,
+    newEnvironmentLanguage,
 
     -- * EnvironmentPlatform
     EnvironmentPlatform (..),
-    environmentPlatform,
-    epPlatform,
-    epLanguages,
+    newEnvironmentPlatform,
 
     -- * EnvironmentVariable
     EnvironmentVariable (..),
-    environmentVariable,
-    evType,
-    evName,
-    evValue,
+    newEnvironmentVariable,
 
     -- * ExportedEnvironmentVariable
     ExportedEnvironmentVariable (..),
-    exportedEnvironmentVariable,
-    eevName,
-    eevValue,
+    newExportedEnvironmentVariable,
 
     -- * GitSubmodulesConfig
     GitSubmodulesConfig (..),
-    gitSubmodulesConfig,
-    gscFetchSubmodules,
+    newGitSubmodulesConfig,
 
     -- * LogsConfig
     LogsConfig (..),
-    logsConfig,
-    lcS3Logs,
-    lcCloudWatchLogs,
+    newLogsConfig,
 
     -- * LogsLocation
     LogsLocation (..),
-    logsLocation,
-    llS3Logs,
-    llCloudWatchLogs,
-    llDeepLink,
-    llGroupName,
-    llCloudWatchLogsARN,
-    llS3LogsARN,
-    llS3DeepLink,
-    llStreamName,
+    newLogsLocation,
 
     -- * NetworkInterface
     NetworkInterface (..),
-    networkInterface,
-    niSubnetId,
-    niNetworkInterfaceId,
+    newNetworkInterface,
 
     -- * PhaseContext
     PhaseContext (..),
-    phaseContext,
-    pcMessage,
-    pcStatusCode,
+    newPhaseContext,
 
     -- * Project
     Project (..),
-    project,
-    pVpcConfig,
-    pSecondaryArtifacts,
-    pSourceVersion,
-    pCache,
-    pServiceRole,
-    pSecondarySourceVersions,
-    pWebhook,
-    pEncryptionKey,
-    pConcurrentBuildLimit,
-    pArtifacts,
-    pEnvironment,
-    pSource,
-    pArn,
-    pLogsConfig,
-    pName,
-    pQueuedTimeoutInMinutes,
-    pSecondarySources,
-    pTags,
-    pTimeoutInMinutes,
-    pDescription,
-    pLastModified,
-    pCreated,
-    pBuildBatchConfig,
-    pBadge,
-    pFileSystemLocations,
+    newProject,
 
     -- * ProjectArtifacts
     ProjectArtifacts (..),
-    projectArtifacts,
-    paNamespaceType,
-    paOverrideArtifactName,
-    paArtifactIdentifier,
-    paName,
-    paPackaging,
-    paEncryptionDisabled,
-    paLocation,
-    paPath,
-    paType,
+    newProjectArtifacts,
 
     -- * ProjectBadge
     ProjectBadge (..),
-    projectBadge,
-    pbBadgeRequestURL,
-    pbBadgeEnabled,
+    newProjectBadge,
 
     -- * ProjectBuildBatchConfig
     ProjectBuildBatchConfig (..),
-    projectBuildBatchConfig,
-    pbbcCombineArtifacts,
-    pbbcServiceRole,
-    pbbcTimeoutInMins,
-    pbbcRestrictions,
+    newProjectBuildBatchConfig,
 
     -- * ProjectCache
     ProjectCache (..),
-    projectCache,
-    pcModes,
-    pcLocation,
-    pcType,
+    newProjectCache,
 
     -- * ProjectEnvironment
     ProjectEnvironment (..),
-    projectEnvironment,
-    pePrivilegedMode,
-    peImagePullCredentialsType,
-    peRegistryCredential,
-    peEnvironmentVariables,
-    peCertificate,
-    peType,
-    peImage,
-    peComputeType,
+    newProjectEnvironment,
 
     -- * ProjectFileSystemLocation
     ProjectFileSystemLocation (..),
-    projectFileSystemLocation,
-    pfslIdentifier,
-    pfslMountOptions,
-    pfslMountPoint,
-    pfslType,
-    pfslLocation,
+    newProjectFileSystemLocation,
 
     -- * ProjectSource
     ProjectSource (..),
-    projectSource,
-    psGitCloneDepth,
-    psBuildStatusConfig,
-    psAuth,
-    psReportBuildStatus,
-    psInsecureSSL,
-    psSourceIdentifier,
-    psBuildspec,
-    psLocation,
-    psGitSubmodulesConfig,
-    psType,
+    newProjectSource,
 
     -- * ProjectSourceVersion
     ProjectSourceVersion (..),
-    projectSourceVersion,
-    psvSourceIdentifier,
-    psvSourceVersion,
+    newProjectSourceVersion,
 
     -- * RegistryCredential
     RegistryCredential (..),
-    registryCredential,
-    rcCredential,
-    rcCredentialProvider,
+    newRegistryCredential,
 
     -- * Report
     Report (..),
-    report,
-    rCodeCoverageSummary,
-    rReportGroupARN,
-    rStatus,
-    rExportConfig,
-    rArn,
-    rTestSummary,
-    rName,
-    rExpired,
-    rExecutionId,
-    rCreated,
-    rType,
-    rTruncated,
+    newReport,
 
     -- * ReportExportConfig
     ReportExportConfig (..),
-    reportExportConfig,
-    recS3Destination,
-    recExportConfigType,
+    newReportExportConfig,
 
     -- * ReportFilter
     ReportFilter (..),
-    reportFilter,
-    rfStatus,
+    newReportFilter,
 
     -- * ReportGroup
     ReportGroup (..),
-    reportGroup,
-    rgStatus,
-    rgExportConfig,
-    rgArn,
-    rgName,
-    rgTags,
-    rgLastModified,
-    rgCreated,
-    rgType,
+    newReportGroup,
 
     -- * ReportGroupTrendStats
     ReportGroupTrendStats (..),
-    reportGroupTrendStats,
-    rgtsMin,
-    rgtsMax,
-    rgtsAverage,
+    newReportGroupTrendStats,
 
     -- * ReportWithRawData
     ReportWithRawData (..),
-    reportWithRawData,
-    rwrdReportARN,
-    rwrdData,
+    newReportWithRawData,
 
     -- * ResolvedArtifact
     ResolvedArtifact (..),
-    resolvedArtifact,
-    raIdentifier,
-    raType,
-    raLocation,
+    newResolvedArtifact,
 
     -- * S3LogsConfig
     S3LogsConfig (..),
-    s3LogsConfig,
-    slcEncryptionDisabled,
-    slcLocation,
-    slcStatus,
+    newS3LogsConfig,
 
     -- * S3ReportExportConfig
     S3ReportExportConfig (..),
-    s3ReportExportConfig,
-    srecBucketOwner,
-    srecEncryptionKey,
-    srecPackaging,
-    srecEncryptionDisabled,
-    srecBucket,
-    srecPath,
+    newS3ReportExportConfig,
 
     -- * SourceAuth
     SourceAuth (..),
-    sourceAuth,
-    saResource,
-    saType,
+    newSourceAuth,
 
     -- * SourceCredentialsInfo
     SourceCredentialsInfo (..),
-    sourceCredentialsInfo,
-    sciArn,
-    sciAuthType,
-    sciServerType,
+    newSourceCredentialsInfo,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * TestCase
     TestCase (..),
-    testCase,
-    tcTestRawDataPath,
-    tcStatus,
-    tcMessage,
-    tcReportARN,
-    tcPrefix,
-    tcName,
-    tcExpired,
-    tcDurationInNanoSeconds,
+    newTestCase,
 
     -- * TestCaseFilter
     TestCaseFilter (..),
-    testCaseFilter,
-    tcfStatus,
-    tcfKeyword,
+    newTestCaseFilter,
 
     -- * TestReportSummary
     TestReportSummary (..),
-    testReportSummary,
-    trsTotal,
-    trsStatusCounts,
-    trsDurationInNanoSeconds,
+    newTestReportSummary,
 
-    -- * VPCConfig
-    VPCConfig (..),
-    vpcConfig,
-    vcSecurityGroupIds,
-    vcVpcId,
-    vcSubnets,
+    -- * VpcConfig
+    VpcConfig (..),
+    newVpcConfig,
 
     -- * Webhook
     Webhook (..),
-    webhook,
-    wBranchFilter,
-    wPayloadURL,
-    wFilterGroups,
-    wSecret,
-    wBuildType,
-    wUrl,
-    wLastModifiedSecret,
+    newWebhook,
 
     -- * WebhookFilter
     WebhookFilter (..),
-    webhookFilter,
-    wfExcludeMatchedPattern,
-    wfType,
-    wfPattern,
+    newWebhookFilter,
   )
 where
 
@@ -710,97 +425,117 @@ import Network.AWS.CodeBuild.Types.Tag
 import Network.AWS.CodeBuild.Types.TestCase
 import Network.AWS.CodeBuild.Types.TestCaseFilter
 import Network.AWS.CodeBuild.Types.TestReportSummary
-import Network.AWS.CodeBuild.Types.VPCConfig
+import Network.AWS.CodeBuild.Types.VpcConfig
 import Network.AWS.CodeBuild.Types.Webhook
 import Network.AWS.CodeBuild.Types.WebhookBuildType
 import Network.AWS.CodeBuild.Types.WebhookFilter
 import Network.AWS.CodeBuild.Types.WebhookFilterType
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-10-06@ of the Amazon CodeBuild SDK configuration.
-codeBuild :: Service
-codeBuild =
-  Service
-    { _svcAbbrev = "CodeBuild",
-      _svcSigner = v4,
-      _svcPrefix = "codebuild",
-      _svcVersion = "2016-10-06",
-      _svcEndpoint = defaultEndpoint codeBuild,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "CodeBuild",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "CodeBuild",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "codebuild",
+      Prelude._svcVersion = "2016-10-06",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "CodeBuild",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | There was a problem with the underlying OAuth provider.
-_OAuthProviderException :: AsError a => Getting (First ServiceError) a ServiceError
+_OAuthProviderException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OAuthProviderException =
-  _MatchServiceError
-    codeBuild
+  Prelude._MatchServiceError
+    defaultService
     "OAuthProviderException"
 
--- | The specified AWS resource cannot be created, because an AWS resource with the same settings already exists.
-_ResourceAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified AWS resource cannot be created, because an AWS resource
+-- with the same settings already exists.
+_ResourceAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAlreadyExistsException =
-  _MatchServiceError
-    codeBuild
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAlreadyExistsException"
 
 -- | The input value that was provided is not valid.
-_InvalidInputException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidInputException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidInputException =
-  _MatchServiceError
-    codeBuild
+  Prelude._MatchServiceError
+    defaultService
     "InvalidInputException"
 
 -- | An AWS service limit was exceeded for the calling AWS account.
-_AccountLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_AccountLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccountLimitExceededException =
-  _MatchServiceError
-    codeBuild
+  Prelude._MatchServiceError
+    defaultService
     "AccountLimitExceededException"
 
 -- | The specified AWS resource cannot be found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    codeBuild
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"

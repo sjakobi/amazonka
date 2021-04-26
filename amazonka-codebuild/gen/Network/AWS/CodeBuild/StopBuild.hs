@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,113 +24,134 @@
 -- Attempts to stop running a build.
 module Network.AWS.CodeBuild.StopBuild
   ( -- * Creating a Request
-    stopBuild,
-    StopBuild,
+    StopBuild (..),
+    newStopBuild,
 
     -- * Request Lenses
-    sbId,
+    stopBuild_id,
 
     -- * Destructuring the Response
-    stopBuildResponse,
-    StopBuildResponse,
+    StopBuildResponse (..),
+    newStopBuildResponse,
 
     -- * Response Lenses
-    storsBuild,
-    storsResponseStatus,
+    stopBuildResponse_build,
+    stopBuildResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.Build
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopBuild' smart constructor.
-newtype StopBuild = StopBuild' {_sbId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newStopBuild' smart constructor.
+data StopBuild = StopBuild'
+  { -- | The ID of the build.
+    id :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopBuild' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopBuild' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sbId' - The ID of the build.
-stopBuild ::
-  -- | 'sbId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'stopBuild_id' - The ID of the build.
+newStopBuild ::
+  -- | 'id'
+  Prelude.Text ->
   StopBuild
-stopBuild pId_ = StopBuild' {_sbId = pId_}
+newStopBuild pId_ = StopBuild' {id = pId_}
 
 -- | The ID of the build.
-sbId :: Lens' StopBuild Text
-sbId = lens _sbId (\s a -> s {_sbId = a})
+stopBuild_id :: Lens.Lens' StopBuild Prelude.Text
+stopBuild_id = Lens.lens (\StopBuild' {id} -> id) (\s@StopBuild' {} a -> s {id = a} :: StopBuild)
 
-instance AWSRequest StopBuild where
+instance Prelude.AWSRequest StopBuild where
   type Rs StopBuild = StopBuildResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopBuildResponse'
-            <$> (x .?> "build") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "build")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopBuild
+instance Prelude.Hashable StopBuild
 
-instance NFData StopBuild
+instance Prelude.NFData StopBuild
 
-instance ToHeaders StopBuild where
+instance Prelude.ToHeaders StopBuild where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeBuild_20161006.StopBuild" :: ByteString),
+              Prelude.=# ( "CodeBuild_20161006.StopBuild" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopBuild where
+instance Prelude.ToJSON StopBuild where
   toJSON StopBuild' {..} =
-    object (catMaybes [Just ("id" .= _sbId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("id" Prelude..= id)]
+      )
 
-instance ToPath StopBuild where
-  toPath = const "/"
+instance Prelude.ToPath StopBuild where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopBuild where
-  toQuery = const mempty
+instance Prelude.ToQuery StopBuild where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopBuildResponse' smart constructor.
+-- | /See:/ 'newStopBuildResponse' smart constructor.
 data StopBuildResponse = StopBuildResponse'
-  { _storsBuild ::
-      !(Maybe Build),
-    _storsResponseStatus :: !Int
+  { -- | Information about the build.
+    build :: Prelude.Maybe Build,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopBuildResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopBuildResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'storsBuild' - Information about the build.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'storsResponseStatus' - -- | The response status code.
-stopBuildResponse ::
-  -- | 'storsResponseStatus'
-  Int ->
+-- 'build', 'stopBuildResponse_build' - Information about the build.
+--
+-- 'httpStatus', 'stopBuildResponse_httpStatus' - The response's http status code.
+newStopBuildResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopBuildResponse
-stopBuildResponse pResponseStatus_ =
+newStopBuildResponse pHttpStatus_ =
   StopBuildResponse'
-    { _storsBuild = Nothing,
-      _storsResponseStatus = pResponseStatus_
+    { build = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the build.
-storsBuild :: Lens' StopBuildResponse (Maybe Build)
-storsBuild = lens _storsBuild (\s a -> s {_storsBuild = a})
+stopBuildResponse_build :: Lens.Lens' StopBuildResponse (Prelude.Maybe Build)
+stopBuildResponse_build = Lens.lens (\StopBuildResponse' {build} -> build) (\s@StopBuildResponse' {} a -> s {build = a} :: StopBuildResponse)
 
--- | -- | The response status code.
-storsResponseStatus :: Lens' StopBuildResponse Int
-storsResponseStatus = lens _storsResponseStatus (\s a -> s {_storsResponseStatus = a})
+-- | The response's http status code.
+stopBuildResponse_httpStatus :: Lens.Lens' StopBuildResponse Prelude.Int
+stopBuildResponse_httpStatus = Lens.lens (\StopBuildResponse' {httpStatus} -> httpStatus) (\s@StopBuildResponse' {} a -> s {httpStatus = a} :: StopBuildResponse)
 
-instance NFData StopBuildResponse
+instance Prelude.NFData StopBuildResponse

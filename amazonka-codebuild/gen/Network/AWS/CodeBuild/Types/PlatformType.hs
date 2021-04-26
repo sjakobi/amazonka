@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.CodeBuild.Types.PlatformType
   ( PlatformType
       ( ..,
-        AmazonLinux,
-        Debian,
-        Ubuntu,
-        WindowsServer
+        PlatformTypeAMAZONLINUX,
+        PlatformTypeDEBIAN,
+        PlatformTypeUBUNTU,
+        PlatformTypeWINDOWSSERVER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlatformType = PlatformType' (CI Text)
+newtype PlatformType = PlatformType'
+  { fromPlatformType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AmazonLinux :: PlatformType
-pattern AmazonLinux = PlatformType' "AMAZON_LINUX"
+pattern PlatformTypeAMAZONLINUX :: PlatformType
+pattern PlatformTypeAMAZONLINUX = PlatformType' "AMAZON_LINUX"
 
-pattern Debian :: PlatformType
-pattern Debian = PlatformType' "DEBIAN"
+pattern PlatformTypeDEBIAN :: PlatformType
+pattern PlatformTypeDEBIAN = PlatformType' "DEBIAN"
 
-pattern Ubuntu :: PlatformType
-pattern Ubuntu = PlatformType' "UBUNTU"
+pattern PlatformTypeUBUNTU :: PlatformType
+pattern PlatformTypeUBUNTU = PlatformType' "UBUNTU"
 
-pattern WindowsServer :: PlatformType
-pattern WindowsServer = PlatformType' "WINDOWS_SERVER"
+pattern PlatformTypeWINDOWSSERVER :: PlatformType
+pattern PlatformTypeWINDOWSSERVER = PlatformType' "WINDOWS_SERVER"
 
 {-# COMPLETE
-  AmazonLinux,
-  Debian,
-  Ubuntu,
-  WindowsServer,
+  PlatformTypeAMAZONLINUX,
+  PlatformTypeDEBIAN,
+  PlatformTypeUBUNTU,
+  PlatformTypeWINDOWSSERVER,
   PlatformType'
   #-}
 
-instance FromText PlatformType where
-  parser = (PlatformType' . mk) <$> takeText
+instance Prelude.FromText PlatformType where
+  parser = PlatformType' Prelude.<$> Prelude.takeText
 
-instance ToText PlatformType where
-  toText (PlatformType' ci) = original ci
+instance Prelude.ToText PlatformType where
+  toText (PlatformType' x) = x
 
-instance Hashable PlatformType
+instance Prelude.Hashable PlatformType
 
-instance NFData PlatformType
+instance Prelude.NFData PlatformType
 
-instance ToByteString PlatformType
+instance Prelude.ToByteString PlatformType
 
-instance ToQuery PlatformType
+instance Prelude.ToQuery PlatformType
 
-instance ToHeader PlatformType
+instance Prelude.ToHeader PlatformType
 
-instance FromJSON PlatformType where
-  parseJSON = parseJSONText "PlatformType"
+instance Prelude.FromJSON PlatformType where
+  parseJSON = Prelude.parseJSONText "PlatformType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,111 +24,120 @@
 -- Deletes a report.
 module Network.AWS.CodeBuild.DeleteReport
   ( -- * Creating a Request
-    deleteReport,
-    DeleteReport,
+    DeleteReport (..),
+    newDeleteReport,
 
     -- * Request Lenses
-    drArn,
+    deleteReport_arn,
 
     -- * Destructuring the Response
-    deleteReportResponse,
-    DeleteReportResponse,
+    DeleteReportResponse (..),
+    newDeleteReportResponse,
 
     -- * Response Lenses
-    drrrsResponseStatus,
+    deleteReportResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteReport' smart constructor.
-newtype DeleteReport = DeleteReport' {_drArn :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteReport' smart constructor.
+data DeleteReport = DeleteReport'
+  { -- | The ARN of the report to delete.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteReport' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteReport' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drArn' - The ARN of the report to delete.
-deleteReport ::
-  -- | 'drArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'deleteReport_arn' - The ARN of the report to delete.
+newDeleteReport ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteReport
-deleteReport pArn_ = DeleteReport' {_drArn = pArn_}
+newDeleteReport pArn_ = DeleteReport' {arn = pArn_}
 
 -- | The ARN of the report to delete.
-drArn :: Lens' DeleteReport Text
-drArn = lens _drArn (\s a -> s {_drArn = a})
+deleteReport_arn :: Lens.Lens' DeleteReport Prelude.Text
+deleteReport_arn = Lens.lens (\DeleteReport' {arn} -> arn) (\s@DeleteReport' {} a -> s {arn = a} :: DeleteReport)
 
-instance AWSRequest DeleteReport where
+instance Prelude.AWSRequest DeleteReport where
   type Rs DeleteReport = DeleteReportResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteReportResponse' <$> (pure (fromEnum s))
+          DeleteReportResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteReport
+instance Prelude.Hashable DeleteReport
 
-instance NFData DeleteReport
+instance Prelude.NFData DeleteReport
 
-instance ToHeaders DeleteReport where
+instance Prelude.ToHeaders DeleteReport where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeBuild_20161006.DeleteReport" :: ByteString),
+              Prelude.=# ( "CodeBuild_20161006.DeleteReport" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteReport where
+instance Prelude.ToJSON DeleteReport where
   toJSON DeleteReport' {..} =
-    object (catMaybes [Just ("arn" .= _drArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath DeleteReport where
-  toPath = const "/"
+instance Prelude.ToPath DeleteReport where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteReport where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteReport where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteReportResponse' smart constructor.
-newtype DeleteReportResponse = DeleteReportResponse'
-  { _drrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteReportResponse' smart constructor.
+data DeleteReportResponse = DeleteReportResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteReportResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteReportResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drrrsResponseStatus' - -- | The response status code.
-deleteReportResponse ::
-  -- | 'drrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteReportResponse_httpStatus' - The response's http status code.
+newDeleteReportResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteReportResponse
-deleteReportResponse pResponseStatus_ =
-  DeleteReportResponse'
-    { _drrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteReportResponse pHttpStatus_ =
+  DeleteReportResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-drrrsResponseStatus :: Lens' DeleteReportResponse Int
-drrrsResponseStatus = lens _drrrsResponseStatus (\s a -> s {_drrrsResponseStatus = a})
+-- | The response's http status code.
+deleteReportResponse_httpStatus :: Lens.Lens' DeleteReportResponse Prelude.Int
+deleteReportResponse_httpStatus = Lens.lens (\DeleteReportResponse' {httpStatus} -> httpStatus) (\s@DeleteReportResponse' {} a -> s {httpStatus = a} :: DeleteReportResponse)
 
-instance NFData DeleteReportResponse
+instance Prelude.NFData DeleteReportResponse

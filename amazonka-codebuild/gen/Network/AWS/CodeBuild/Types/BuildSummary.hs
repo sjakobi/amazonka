@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +21,149 @@ module Network.AWS.CodeBuild.Types.BuildSummary where
 
 import Network.AWS.CodeBuild.Types.ResolvedArtifact
 import Network.AWS.CodeBuild.Types.StatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains summary information about a batch build group.
 --
---
---
--- /See:/ 'buildSummary' smart constructor.
+-- /See:/ 'newBuildSummary' smart constructor.
 data BuildSummary = BuildSummary'
-  { _bsSecondaryArtifacts ::
-      !(Maybe [ResolvedArtifact]),
-    _bsRequestedOn :: !(Maybe POSIX),
-    _bsArn :: !(Maybe Text),
-    _bsBuildStatus :: !(Maybe StatusType),
-    _bsPrimaryArtifact ::
-      !(Maybe ResolvedArtifact)
+  { -- | An array of @ResolvedArtifact@ objects that represents the secondary
+    -- build artifacts for the build group.
+    secondaryArtifacts :: Prelude.Maybe [ResolvedArtifact],
+    -- | When the build was started, expressed in Unix time format.
+    requestedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The batch build ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The status of the build group.
+    --
+    -- [FAILED]
+    --     The build group failed.
+    --
+    -- [FAULT]
+    --     The build group faulted.
+    --
+    -- [IN_PROGRESS]
+    --     The build group is still in progress.
+    --
+    -- [STOPPED]
+    --     The build group stopped.
+    --
+    -- [SUCCEEDED]
+    --     The build group succeeded.
+    --
+    -- [TIMED_OUT]
+    --     The build group timed out.
+    buildStatus :: Prelude.Maybe StatusType,
+    -- | A @ResolvedArtifact@ object that represents the primary build artifacts
+    -- for the build group.
+    primaryArtifact :: Prelude.Maybe ResolvedArtifact
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BuildSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BuildSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsSecondaryArtifacts' - An array of @ResolvedArtifact@ objects that represents the secondary build artifacts for the build group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsRequestedOn' - When the build was started, expressed in Unix time format.
+-- 'secondaryArtifacts', 'buildSummary_secondaryArtifacts' - An array of @ResolvedArtifact@ objects that represents the secondary
+-- build artifacts for the build group.
 --
--- * 'bsArn' - The batch build ARN.
+-- 'requestedOn', 'buildSummary_requestedOn' - When the build was started, expressed in Unix time format.
 --
--- * 'bsBuildStatus' - The status of the build group.     * FAILED    * The build group failed.     * FAULT    * The build group faulted.     * IN_PROGRESS    * The build group is still in progress.     * STOPPED    * The build group stopped.     * SUCCEEDED    * The build group succeeded.     * TIMED_OUT    * The build group timed out.
+-- 'arn', 'buildSummary_arn' - The batch build ARN.
 --
--- * 'bsPrimaryArtifact' - A @ResolvedArtifact@ object that represents the primary build artifacts for the build group.
-buildSummary ::
+-- 'buildStatus', 'buildSummary_buildStatus' - The status of the build group.
+--
+-- [FAILED]
+--     The build group failed.
+--
+-- [FAULT]
+--     The build group faulted.
+--
+-- [IN_PROGRESS]
+--     The build group is still in progress.
+--
+-- [STOPPED]
+--     The build group stopped.
+--
+-- [SUCCEEDED]
+--     The build group succeeded.
+--
+-- [TIMED_OUT]
+--     The build group timed out.
+--
+-- 'primaryArtifact', 'buildSummary_primaryArtifact' - A @ResolvedArtifact@ object that represents the primary build artifacts
+-- for the build group.
+newBuildSummary ::
   BuildSummary
-buildSummary =
+newBuildSummary =
   BuildSummary'
-    { _bsSecondaryArtifacts = Nothing,
-      _bsRequestedOn = Nothing,
-      _bsArn = Nothing,
-      _bsBuildStatus = Nothing,
-      _bsPrimaryArtifact = Nothing
+    { secondaryArtifacts = Prelude.Nothing,
+      requestedOn = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      buildStatus = Prelude.Nothing,
+      primaryArtifact = Prelude.Nothing
     }
 
--- | An array of @ResolvedArtifact@ objects that represents the secondary build artifacts for the build group.
-bsSecondaryArtifacts :: Lens' BuildSummary [ResolvedArtifact]
-bsSecondaryArtifacts = lens _bsSecondaryArtifacts (\s a -> s {_bsSecondaryArtifacts = a}) . _Default . _Coerce
+-- | An array of @ResolvedArtifact@ objects that represents the secondary
+-- build artifacts for the build group.
+buildSummary_secondaryArtifacts :: Lens.Lens' BuildSummary (Prelude.Maybe [ResolvedArtifact])
+buildSummary_secondaryArtifacts = Lens.lens (\BuildSummary' {secondaryArtifacts} -> secondaryArtifacts) (\s@BuildSummary' {} a -> s {secondaryArtifacts = a} :: BuildSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | When the build was started, expressed in Unix time format.
-bsRequestedOn :: Lens' BuildSummary (Maybe UTCTime)
-bsRequestedOn = lens _bsRequestedOn (\s a -> s {_bsRequestedOn = a}) . mapping _Time
+buildSummary_requestedOn :: Lens.Lens' BuildSummary (Prelude.Maybe Prelude.UTCTime)
+buildSummary_requestedOn = Lens.lens (\BuildSummary' {requestedOn} -> requestedOn) (\s@BuildSummary' {} a -> s {requestedOn = a} :: BuildSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The batch build ARN.
-bsArn :: Lens' BuildSummary (Maybe Text)
-bsArn = lens _bsArn (\s a -> s {_bsArn = a})
+buildSummary_arn :: Lens.Lens' BuildSummary (Prelude.Maybe Prelude.Text)
+buildSummary_arn = Lens.lens (\BuildSummary' {arn} -> arn) (\s@BuildSummary' {} a -> s {arn = a} :: BuildSummary)
 
--- | The status of the build group.     * FAILED    * The build group failed.     * FAULT    * The build group faulted.     * IN_PROGRESS    * The build group is still in progress.     * STOPPED    * The build group stopped.     * SUCCEEDED    * The build group succeeded.     * TIMED_OUT    * The build group timed out.
-bsBuildStatus :: Lens' BuildSummary (Maybe StatusType)
-bsBuildStatus = lens _bsBuildStatus (\s a -> s {_bsBuildStatus = a})
+-- | The status of the build group.
+--
+-- [FAILED]
+--     The build group failed.
+--
+-- [FAULT]
+--     The build group faulted.
+--
+-- [IN_PROGRESS]
+--     The build group is still in progress.
+--
+-- [STOPPED]
+--     The build group stopped.
+--
+-- [SUCCEEDED]
+--     The build group succeeded.
+--
+-- [TIMED_OUT]
+--     The build group timed out.
+buildSummary_buildStatus :: Lens.Lens' BuildSummary (Prelude.Maybe StatusType)
+buildSummary_buildStatus = Lens.lens (\BuildSummary' {buildStatus} -> buildStatus) (\s@BuildSummary' {} a -> s {buildStatus = a} :: BuildSummary)
 
--- | A @ResolvedArtifact@ object that represents the primary build artifacts for the build group.
-bsPrimaryArtifact :: Lens' BuildSummary (Maybe ResolvedArtifact)
-bsPrimaryArtifact = lens _bsPrimaryArtifact (\s a -> s {_bsPrimaryArtifact = a})
+-- | A @ResolvedArtifact@ object that represents the primary build artifacts
+-- for the build group.
+buildSummary_primaryArtifact :: Lens.Lens' BuildSummary (Prelude.Maybe ResolvedArtifact)
+buildSummary_primaryArtifact = Lens.lens (\BuildSummary' {primaryArtifact} -> primaryArtifact) (\s@BuildSummary' {} a -> s {primaryArtifact = a} :: BuildSummary)
 
-instance FromJSON BuildSummary where
+instance Prelude.FromJSON BuildSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BuildSummary"
       ( \x ->
           BuildSummary'
-            <$> (x .:? "secondaryArtifacts" .!= mempty)
-            <*> (x .:? "requestedOn")
-            <*> (x .:? "arn")
-            <*> (x .:? "buildStatus")
-            <*> (x .:? "primaryArtifact")
+            Prelude.<$> ( x Prelude..:? "secondaryArtifacts"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "requestedOn")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "buildStatus")
+            Prelude.<*> (x Prelude..:? "primaryArtifact")
       )
 
-instance Hashable BuildSummary
+instance Prelude.Hashable BuildSummary
 
-instance NFData BuildSummary
+instance Prelude.NFData BuildSummary

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.CodeBuild.Types.StatusType
   ( StatusType
       ( ..,
-        Failed,
-        Fault,
-        InProgress,
-        Stopped,
-        Succeeded,
-        TimedOut
+        StatusTypeFAILED,
+        StatusTypeFAULT,
+        StatusTypeINPROGRESS,
+        StatusTypeSTOPPED,
+        StatusTypeSUCCEEDED,
+        StatusTypeTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StatusType = StatusType' (CI Text)
+newtype StatusType = StatusType'
+  { fromStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: StatusType
-pattern Failed = StatusType' "FAILED"
+pattern StatusTypeFAILED :: StatusType
+pattern StatusTypeFAILED = StatusType' "FAILED"
 
-pattern Fault :: StatusType
-pattern Fault = StatusType' "FAULT"
+pattern StatusTypeFAULT :: StatusType
+pattern StatusTypeFAULT = StatusType' "FAULT"
 
-pattern InProgress :: StatusType
-pattern InProgress = StatusType' "IN_PROGRESS"
+pattern StatusTypeINPROGRESS :: StatusType
+pattern StatusTypeINPROGRESS = StatusType' "IN_PROGRESS"
 
-pattern Stopped :: StatusType
-pattern Stopped = StatusType' "STOPPED"
+pattern StatusTypeSTOPPED :: StatusType
+pattern StatusTypeSTOPPED = StatusType' "STOPPED"
 
-pattern Succeeded :: StatusType
-pattern Succeeded = StatusType' "SUCCEEDED"
+pattern StatusTypeSUCCEEDED :: StatusType
+pattern StatusTypeSUCCEEDED = StatusType' "SUCCEEDED"
 
-pattern TimedOut :: StatusType
-pattern TimedOut = StatusType' "TIMED_OUT"
+pattern StatusTypeTIMEDOUT :: StatusType
+pattern StatusTypeTIMEDOUT = StatusType' "TIMED_OUT"
 
 {-# COMPLETE
-  Failed,
-  Fault,
-  InProgress,
-  Stopped,
-  Succeeded,
-  TimedOut,
+  StatusTypeFAILED,
+  StatusTypeFAULT,
+  StatusTypeINPROGRESS,
+  StatusTypeSTOPPED,
+  StatusTypeSUCCEEDED,
+  StatusTypeTIMEDOUT,
   StatusType'
   #-}
 
-instance FromText StatusType where
-  parser = (StatusType' . mk) <$> takeText
+instance Prelude.FromText StatusType where
+  parser = StatusType' Prelude.<$> Prelude.takeText
 
-instance ToText StatusType where
-  toText (StatusType' ci) = original ci
+instance Prelude.ToText StatusType where
+  toText (StatusType' x) = x
 
-instance Hashable StatusType
+instance Prelude.Hashable StatusType
 
-instance NFData StatusType
+instance Prelude.NFData StatusType
 
-instance ToByteString StatusType
+instance Prelude.ToByteString StatusType
 
-instance ToQuery StatusType
+instance Prelude.ToQuery StatusType
 
-instance ToHeader StatusType
+instance Prelude.ToHeader StatusType
 
-instance ToJSON StatusType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StatusType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StatusType where
-  parseJSON = parseJSONText "StatusType"
+instance Prelude.FromJSON StatusType where
+  parseJSON = Prelude.parseJSONText "StatusType"

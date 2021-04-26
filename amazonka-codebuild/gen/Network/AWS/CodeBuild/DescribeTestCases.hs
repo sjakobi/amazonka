@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,190 +23,253 @@
 --
 -- Returns a list of details about test cases for a report.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CodeBuild.DescribeTestCases
   ( -- * Creating a Request
-    describeTestCases,
-    DescribeTestCases,
+    DescribeTestCases (..),
+    newDescribeTestCases,
 
     -- * Request Lenses
-    dtcNextToken,
-    dtcMaxResults,
-    dtcFilter,
-    dtcReportARN,
+    describeTestCases_nextToken,
+    describeTestCases_maxResults,
+    describeTestCases_filter,
+    describeTestCases_reportArn,
 
     -- * Destructuring the Response
-    describeTestCasesResponse,
-    DescribeTestCasesResponse,
+    DescribeTestCasesResponse (..),
+    newDescribeTestCasesResponse,
 
     -- * Response Lenses
-    dtcrrsNextToken,
-    dtcrrsTestCases,
-    dtcrrsResponseStatus,
+    describeTestCasesResponse_nextToken,
+    describeTestCasesResponse_testCases,
+    describeTestCasesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.TestCase
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTestCases' smart constructor.
+-- | /See:/ 'newDescribeTestCases' smart constructor.
 data DescribeTestCases = DescribeTestCases'
-  { _dtcNextToken ::
-      !(Maybe Text),
-    _dtcMaxResults :: !(Maybe Nat),
-    _dtcFilter ::
-      !(Maybe TestCaseFilter),
-    _dtcReportARN :: !Text
+  { -- | During a previous call, the maximum number of items that can be returned
+    -- is the value specified in @maxResults@. If there more items in the list,
+    -- then a unique string called a /nextToken/ is returned. To get the next
+    -- batch of items in the list, call this operation again, adding the next
+    -- token to the call. To get all of the items in the list, keep calling
+    -- this operation with each subsequent next token that is returned, until
+    -- no more next tokens are returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of paginated test cases returned per response. Use
+    -- @nextToken@ to iterate pages in the list of returned @TestCase@ objects.
+    -- The default value is 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A @TestCaseFilter@ object used to filter the returned reports.
+    filter' :: Prelude.Maybe TestCaseFilter,
+    -- | The ARN of the report for which test cases are returned.
+    reportArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTestCases' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTestCases' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtcNextToken' - During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtcMaxResults' - The maximum number of paginated test cases returned per response. Use @nextToken@ to iterate pages in the list of returned @TestCase@ objects. The default value is 100.
+-- 'nextToken', 'describeTestCases_nextToken' - During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
 --
--- * 'dtcFilter' - A @TestCaseFilter@ object used to filter the returned reports.
+-- 'maxResults', 'describeTestCases_maxResults' - The maximum number of paginated test cases returned per response. Use
+-- @nextToken@ to iterate pages in the list of returned @TestCase@ objects.
+-- The default value is 100.
 --
--- * 'dtcReportARN' - The ARN of the report for which test cases are returned.
-describeTestCases ::
-  -- | 'dtcReportARN'
-  Text ->
+-- 'filter'', 'describeTestCases_filter' - A @TestCaseFilter@ object used to filter the returned reports.
+--
+-- 'reportArn', 'describeTestCases_reportArn' - The ARN of the report for which test cases are returned.
+newDescribeTestCases ::
+  -- | 'reportArn'
+  Prelude.Text ->
   DescribeTestCases
-describeTestCases pReportARN_ =
+newDescribeTestCases pReportArn_ =
   DescribeTestCases'
-    { _dtcNextToken = Nothing,
-      _dtcMaxResults = Nothing,
-      _dtcFilter = Nothing,
-      _dtcReportARN = pReportARN_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      reportArn = pReportArn_
     }
 
--- | During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
-dtcNextToken :: Lens' DescribeTestCases (Maybe Text)
-dtcNextToken = lens _dtcNextToken (\s a -> s {_dtcNextToken = a})
+-- | During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
+describeTestCases_nextToken :: Lens.Lens' DescribeTestCases (Prelude.Maybe Prelude.Text)
+describeTestCases_nextToken = Lens.lens (\DescribeTestCases' {nextToken} -> nextToken) (\s@DescribeTestCases' {} a -> s {nextToken = a} :: DescribeTestCases)
 
--- | The maximum number of paginated test cases returned per response. Use @nextToken@ to iterate pages in the list of returned @TestCase@ objects. The default value is 100.
-dtcMaxResults :: Lens' DescribeTestCases (Maybe Natural)
-dtcMaxResults = lens _dtcMaxResults (\s a -> s {_dtcMaxResults = a}) . mapping _Nat
+-- | The maximum number of paginated test cases returned per response. Use
+-- @nextToken@ to iterate pages in the list of returned @TestCase@ objects.
+-- The default value is 100.
+describeTestCases_maxResults :: Lens.Lens' DescribeTestCases (Prelude.Maybe Prelude.Natural)
+describeTestCases_maxResults = Lens.lens (\DescribeTestCases' {maxResults} -> maxResults) (\s@DescribeTestCases' {} a -> s {maxResults = a} :: DescribeTestCases) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A @TestCaseFilter@ object used to filter the returned reports.
-dtcFilter :: Lens' DescribeTestCases (Maybe TestCaseFilter)
-dtcFilter = lens _dtcFilter (\s a -> s {_dtcFilter = a})
+describeTestCases_filter :: Lens.Lens' DescribeTestCases (Prelude.Maybe TestCaseFilter)
+describeTestCases_filter = Lens.lens (\DescribeTestCases' {filter'} -> filter') (\s@DescribeTestCases' {} a -> s {filter' = a} :: DescribeTestCases)
 
 -- | The ARN of the report for which test cases are returned.
-dtcReportARN :: Lens' DescribeTestCases Text
-dtcReportARN = lens _dtcReportARN (\s a -> s {_dtcReportARN = a})
+describeTestCases_reportArn :: Lens.Lens' DescribeTestCases Prelude.Text
+describeTestCases_reportArn = Lens.lens (\DescribeTestCases' {reportArn} -> reportArn) (\s@DescribeTestCases' {} a -> s {reportArn = a} :: DescribeTestCases)
 
-instance AWSPager DescribeTestCases where
+instance Pager.AWSPager DescribeTestCases where
   page rq rs
-    | stop (rs ^. dtcrrsNextToken) = Nothing
-    | stop (rs ^. dtcrrsTestCases) = Nothing
-    | otherwise =
-      Just $ rq & dtcNextToken .~ rs ^. dtcrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeTestCasesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeTestCasesResponse_testCases
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeTestCases_nextToken
+          Lens..~ rs
+          Lens.^? describeTestCasesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeTestCases where
+instance Prelude.AWSRequest DescribeTestCases where
   type Rs DescribeTestCases = DescribeTestCasesResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTestCasesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "testCases" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "testCases"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTestCases
+instance Prelude.Hashable DescribeTestCases
 
-instance NFData DescribeTestCases
+instance Prelude.NFData DescribeTestCases
 
-instance ToHeaders DescribeTestCases where
+instance Prelude.ToHeaders DescribeTestCases where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.DescribeTestCases" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.DescribeTestCases" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTestCases where
+instance Prelude.ToJSON DescribeTestCases where
   toJSON DescribeTestCases' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _dtcNextToken,
-            ("maxResults" .=) <$> _dtcMaxResults,
-            ("filter" .=) <$> _dtcFilter,
-            Just ("reportArn" .= _dtcReportARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("filter" Prelude..=) Prelude.<$> filter',
+            Prelude.Just ("reportArn" Prelude..= reportArn)
           ]
       )
 
-instance ToPath DescribeTestCases where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTestCases where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTestCases where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeTestCases where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeTestCasesResponse' smart constructor.
+-- | /See:/ 'newDescribeTestCasesResponse' smart constructor.
 data DescribeTestCasesResponse = DescribeTestCasesResponse'
-  { _dtcrrsNextToken ::
-      !(Maybe Text),
-    _dtcrrsTestCases ::
-      !(Maybe [TestCase]),
-    _dtcrrsResponseStatus ::
-      !Int
+  { -- | During a previous call, the maximum number of items that can be returned
+    -- is the value specified in @maxResults@. If there more items in the list,
+    -- then a unique string called a /nextToken/ is returned. To get the next
+    -- batch of items in the list, call this operation again, adding the next
+    -- token to the call. To get all of the items in the list, keep calling
+    -- this operation with each subsequent next token that is returned, until
+    -- no more next tokens are returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The returned list of test cases.
+    testCases :: Prelude.Maybe [TestCase],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTestCasesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTestCasesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtcrrsNextToken' - During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtcrrsTestCases' - The returned list of test cases.
+-- 'nextToken', 'describeTestCasesResponse_nextToken' - During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
 --
--- * 'dtcrrsResponseStatus' - -- | The response status code.
-describeTestCasesResponse ::
-  -- | 'dtcrrsResponseStatus'
-  Int ->
+-- 'testCases', 'describeTestCasesResponse_testCases' - The returned list of test cases.
+--
+-- 'httpStatus', 'describeTestCasesResponse_httpStatus' - The response's http status code.
+newDescribeTestCasesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTestCasesResponse
-describeTestCasesResponse pResponseStatus_ =
+newDescribeTestCasesResponse pHttpStatus_ =
   DescribeTestCasesResponse'
-    { _dtcrrsNextToken =
-        Nothing,
-      _dtcrrsTestCases = Nothing,
-      _dtcrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      testCases = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
-dtcrrsNextToken :: Lens' DescribeTestCasesResponse (Maybe Text)
-dtcrrsNextToken = lens _dtcrrsNextToken (\s a -> s {_dtcrrsNextToken = a})
+-- | During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
+describeTestCasesResponse_nextToken :: Lens.Lens' DescribeTestCasesResponse (Prelude.Maybe Prelude.Text)
+describeTestCasesResponse_nextToken = Lens.lens (\DescribeTestCasesResponse' {nextToken} -> nextToken) (\s@DescribeTestCasesResponse' {} a -> s {nextToken = a} :: DescribeTestCasesResponse)
 
 -- | The returned list of test cases.
-dtcrrsTestCases :: Lens' DescribeTestCasesResponse [TestCase]
-dtcrrsTestCases = lens _dtcrrsTestCases (\s a -> s {_dtcrrsTestCases = a}) . _Default . _Coerce
+describeTestCasesResponse_testCases :: Lens.Lens' DescribeTestCasesResponse (Prelude.Maybe [TestCase])
+describeTestCasesResponse_testCases = Lens.lens (\DescribeTestCasesResponse' {testCases} -> testCases) (\s@DescribeTestCasesResponse' {} a -> s {testCases = a} :: DescribeTestCasesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dtcrrsResponseStatus :: Lens' DescribeTestCasesResponse Int
-dtcrrsResponseStatus = lens _dtcrrsResponseStatus (\s a -> s {_dtcrrsResponseStatus = a})
+-- | The response's http status code.
+describeTestCasesResponse_httpStatus :: Lens.Lens' DescribeTestCasesResponse Prelude.Int
+describeTestCasesResponse_httpStatus = Lens.lens (\DescribeTestCasesResponse' {httpStatus} -> httpStatus) (\s@DescribeTestCasesResponse' {} a -> s {httpStatus = a} :: DescribeTestCasesResponse)
 
-instance NFData DescribeTestCasesResponse
+instance Prelude.NFData DescribeTestCasesResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a report group. Before you delete a report group, you must delete its reports.
+-- Deletes a report group. Before you delete a report group, you must
+-- delete its reports.
 module Network.AWS.CodeBuild.DeleteReportGroup
   ( -- * Creating a Request
-    deleteReportGroup,
-    DeleteReportGroup,
+    DeleteReportGroup (..),
+    newDeleteReportGroup,
 
     -- * Request Lenses
-    drgDeleteReports,
-    drgArn,
+    deleteReportGroup_deleteReports,
+    deleteReportGroup_arn,
 
     -- * Destructuring the Response
-    deleteReportGroupResponse,
-    DeleteReportGroupResponse,
+    DeleteReportGroupResponse (..),
+    newDeleteReportGroupResponse,
 
     -- * Response Lenses
-    drgrrsResponseStatus,
+    deleteReportGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteReportGroup' smart constructor.
+-- | /See:/ 'newDeleteReportGroup' smart constructor.
 data DeleteReportGroup = DeleteReportGroup'
-  { _drgDeleteReports ::
-      !(Maybe Bool),
-    _drgArn :: !Text
+  { -- | If @true@, deletes any reports that belong to a report group before
+    -- deleting the report group.
+    --
+    -- If @false@, you must delete any reports in the report group. Use
+    -- <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_ListReportsForReportGroup.html ListReportsForReportGroup>
+    -- to get the reports in a report group. Use
+    -- <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_DeleteReport.html DeleteReport>
+    -- to delete the reports. If you call @DeleteReportGroup@ for a report
+    -- group that contains one or more reports, an exception is thrown.
+    deleteReports :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN of the report group to delete.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteReportGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteReportGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drgDeleteReports' - If @true@ , deletes any reports that belong to a report group before deleting the report group.  If @false@ , you must delete any reports in the report group. Use <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_ListReportsForReportGroup.html ListReportsForReportGroup> to get the reports in a report group. Use <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_DeleteReport.html DeleteReport> to delete the reports. If you call @DeleteReportGroup@ for a report group that contains one or more reports, an exception is thrown.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drgArn' - The ARN of the report group to delete.
-deleteReportGroup ::
-  -- | 'drgArn'
-  Text ->
+-- 'deleteReports', 'deleteReportGroup_deleteReports' - If @true@, deletes any reports that belong to a report group before
+-- deleting the report group.
+--
+-- If @false@, you must delete any reports in the report group. Use
+-- <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_ListReportsForReportGroup.html ListReportsForReportGroup>
+-- to get the reports in a report group. Use
+-- <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_DeleteReport.html DeleteReport>
+-- to delete the reports. If you call @DeleteReportGroup@ for a report
+-- group that contains one or more reports, an exception is thrown.
+--
+-- 'arn', 'deleteReportGroup_arn' - The ARN of the report group to delete.
+newDeleteReportGroup ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteReportGroup
-deleteReportGroup pArn_ =
+newDeleteReportGroup pArn_ =
   DeleteReportGroup'
-    { _drgDeleteReports = Nothing,
-      _drgArn = pArn_
+    { deleteReports = Prelude.Nothing,
+      arn = pArn_
     }
 
--- | If @true@ , deletes any reports that belong to a report group before deleting the report group.  If @false@ , you must delete any reports in the report group. Use <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_ListReportsForReportGroup.html ListReportsForReportGroup> to get the reports in a report group. Use <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_DeleteReport.html DeleteReport> to delete the reports. If you call @DeleteReportGroup@ for a report group that contains one or more reports, an exception is thrown.
-drgDeleteReports :: Lens' DeleteReportGroup (Maybe Bool)
-drgDeleteReports = lens _drgDeleteReports (\s a -> s {_drgDeleteReports = a})
+-- | If @true@, deletes any reports that belong to a report group before
+-- deleting the report group.
+--
+-- If @false@, you must delete any reports in the report group. Use
+-- <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_ListReportsForReportGroup.html ListReportsForReportGroup>
+-- to get the reports in a report group. Use
+-- <https://docs.aws.amazon.com/codebuild/latest/APIReference/API_DeleteReport.html DeleteReport>
+-- to delete the reports. If you call @DeleteReportGroup@ for a report
+-- group that contains one or more reports, an exception is thrown.
+deleteReportGroup_deleteReports :: Lens.Lens' DeleteReportGroup (Prelude.Maybe Prelude.Bool)
+deleteReportGroup_deleteReports = Lens.lens (\DeleteReportGroup' {deleteReports} -> deleteReports) (\s@DeleteReportGroup' {} a -> s {deleteReports = a} :: DeleteReportGroup)
 
 -- | The ARN of the report group to delete.
-drgArn :: Lens' DeleteReportGroup Text
-drgArn = lens _drgArn (\s a -> s {_drgArn = a})
+deleteReportGroup_arn :: Lens.Lens' DeleteReportGroup Prelude.Text
+deleteReportGroup_arn = Lens.lens (\DeleteReportGroup' {arn} -> arn) (\s@DeleteReportGroup' {} a -> s {arn = a} :: DeleteReportGroup)
 
-instance AWSRequest DeleteReportGroup where
+instance Prelude.AWSRequest DeleteReportGroup where
   type Rs DeleteReportGroup = DeleteReportGroupResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteReportGroupResponse' <$> (pure (fromEnum s))
+          DeleteReportGroupResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteReportGroup
+instance Prelude.Hashable DeleteReportGroup
 
-instance NFData DeleteReportGroup
+instance Prelude.NFData DeleteReportGroup
 
-instance ToHeaders DeleteReportGroup where
+instance Prelude.ToHeaders DeleteReportGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.DeleteReportGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.DeleteReportGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteReportGroup where
+instance Prelude.ToJSON DeleteReportGroup where
   toJSON DeleteReportGroup' {..} =
-    object
-      ( catMaybes
-          [ ("deleteReports" .=) <$> _drgDeleteReports,
-            Just ("arn" .= _drgArn)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("deleteReports" Prelude..=)
+              Prelude.<$> deleteReports,
+            Prelude.Just ("arn" Prelude..= arn)
           ]
       )
 
-instance ToPath DeleteReportGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteReportGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteReportGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteReportGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteReportGroupResponse' smart constructor.
-newtype DeleteReportGroupResponse = DeleteReportGroupResponse'
-  { _drgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteReportGroupResponse' smart constructor.
+data DeleteReportGroupResponse = DeleteReportGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteReportGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteReportGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drgrrsResponseStatus' - -- | The response status code.
-deleteReportGroupResponse ::
-  -- | 'drgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteReportGroupResponse_httpStatus' - The response's http status code.
+newDeleteReportGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteReportGroupResponse
-deleteReportGroupResponse pResponseStatus_ =
+newDeleteReportGroupResponse pHttpStatus_ =
   DeleteReportGroupResponse'
-    { _drgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drgrrsResponseStatus :: Lens' DeleteReportGroupResponse Int
-drgrrsResponseStatus = lens _drgrrsResponseStatus (\s a -> s {_drgrrsResponseStatus = a})
+-- | The response's http status code.
+deleteReportGroupResponse_httpStatus :: Lens.Lens' DeleteReportGroupResponse Prelude.Int
+deleteReportGroupResponse_httpStatus = Lens.lens (\DeleteReportGroupResponse' {httpStatus} -> httpStatus) (\s@DeleteReportGroupResponse' {} a -> s {httpStatus = a} :: DeleteReportGroupResponse)
 
-instance NFData DeleteReportGroupResponse
+instance Prelude.NFData DeleteReportGroupResponse

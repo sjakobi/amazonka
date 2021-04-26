@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,98 +19,100 @@
 module Network.AWS.CodeBuild.Types.BuildPhaseType
   ( BuildPhaseType
       ( ..,
-        Build,
-        Completed,
-        DownloadSource,
-        Finalizing,
-        Install,
-        PostBuild,
-        PreBuild,
-        Provisioning,
-        Queued,
-        Submitted,
-        UploadArtifacts
+        BuildPhaseTypeBUILD,
+        BuildPhaseTypeCOMPLETED,
+        BuildPhaseTypeDOWNLOADSOURCE,
+        BuildPhaseTypeFINALIZING,
+        BuildPhaseTypeINSTALL,
+        BuildPhaseTypePOSTBUILD,
+        BuildPhaseTypePREBUILD,
+        BuildPhaseTypePROVISIONING,
+        BuildPhaseTypeQUEUED,
+        BuildPhaseTypeSUBMITTED,
+        BuildPhaseTypeUPLOADARTIFACTS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BuildPhaseType = BuildPhaseType' (CI Text)
+newtype BuildPhaseType = BuildPhaseType'
+  { fromBuildPhaseType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Build :: BuildPhaseType
-pattern Build = BuildPhaseType' "BUILD"
+pattern BuildPhaseTypeBUILD :: BuildPhaseType
+pattern BuildPhaseTypeBUILD = BuildPhaseType' "BUILD"
 
-pattern Completed :: BuildPhaseType
-pattern Completed = BuildPhaseType' "COMPLETED"
+pattern BuildPhaseTypeCOMPLETED :: BuildPhaseType
+pattern BuildPhaseTypeCOMPLETED = BuildPhaseType' "COMPLETED"
 
-pattern DownloadSource :: BuildPhaseType
-pattern DownloadSource = BuildPhaseType' "DOWNLOAD_SOURCE"
+pattern BuildPhaseTypeDOWNLOADSOURCE :: BuildPhaseType
+pattern BuildPhaseTypeDOWNLOADSOURCE = BuildPhaseType' "DOWNLOAD_SOURCE"
 
-pattern Finalizing :: BuildPhaseType
-pattern Finalizing = BuildPhaseType' "FINALIZING"
+pattern BuildPhaseTypeFINALIZING :: BuildPhaseType
+pattern BuildPhaseTypeFINALIZING = BuildPhaseType' "FINALIZING"
 
-pattern Install :: BuildPhaseType
-pattern Install = BuildPhaseType' "INSTALL"
+pattern BuildPhaseTypeINSTALL :: BuildPhaseType
+pattern BuildPhaseTypeINSTALL = BuildPhaseType' "INSTALL"
 
-pattern PostBuild :: BuildPhaseType
-pattern PostBuild = BuildPhaseType' "POST_BUILD"
+pattern BuildPhaseTypePOSTBUILD :: BuildPhaseType
+pattern BuildPhaseTypePOSTBUILD = BuildPhaseType' "POST_BUILD"
 
-pattern PreBuild :: BuildPhaseType
-pattern PreBuild = BuildPhaseType' "PRE_BUILD"
+pattern BuildPhaseTypePREBUILD :: BuildPhaseType
+pattern BuildPhaseTypePREBUILD = BuildPhaseType' "PRE_BUILD"
 
-pattern Provisioning :: BuildPhaseType
-pattern Provisioning = BuildPhaseType' "PROVISIONING"
+pattern BuildPhaseTypePROVISIONING :: BuildPhaseType
+pattern BuildPhaseTypePROVISIONING = BuildPhaseType' "PROVISIONING"
 
-pattern Queued :: BuildPhaseType
-pattern Queued = BuildPhaseType' "QUEUED"
+pattern BuildPhaseTypeQUEUED :: BuildPhaseType
+pattern BuildPhaseTypeQUEUED = BuildPhaseType' "QUEUED"
 
-pattern Submitted :: BuildPhaseType
-pattern Submitted = BuildPhaseType' "SUBMITTED"
+pattern BuildPhaseTypeSUBMITTED :: BuildPhaseType
+pattern BuildPhaseTypeSUBMITTED = BuildPhaseType' "SUBMITTED"
 
-pattern UploadArtifacts :: BuildPhaseType
-pattern UploadArtifacts = BuildPhaseType' "UPLOAD_ARTIFACTS"
+pattern BuildPhaseTypeUPLOADARTIFACTS :: BuildPhaseType
+pattern BuildPhaseTypeUPLOADARTIFACTS = BuildPhaseType' "UPLOAD_ARTIFACTS"
 
 {-# COMPLETE
-  Build,
-  Completed,
-  DownloadSource,
-  Finalizing,
-  Install,
-  PostBuild,
-  PreBuild,
-  Provisioning,
-  Queued,
-  Submitted,
-  UploadArtifacts,
+  BuildPhaseTypeBUILD,
+  BuildPhaseTypeCOMPLETED,
+  BuildPhaseTypeDOWNLOADSOURCE,
+  BuildPhaseTypeFINALIZING,
+  BuildPhaseTypeINSTALL,
+  BuildPhaseTypePOSTBUILD,
+  BuildPhaseTypePREBUILD,
+  BuildPhaseTypePROVISIONING,
+  BuildPhaseTypeQUEUED,
+  BuildPhaseTypeSUBMITTED,
+  BuildPhaseTypeUPLOADARTIFACTS,
   BuildPhaseType'
   #-}
 
-instance FromText BuildPhaseType where
-  parser = (BuildPhaseType' . mk) <$> takeText
+instance Prelude.FromText BuildPhaseType where
+  parser = BuildPhaseType' Prelude.<$> Prelude.takeText
 
-instance ToText BuildPhaseType where
-  toText (BuildPhaseType' ci) = original ci
+instance Prelude.ToText BuildPhaseType where
+  toText (BuildPhaseType' x) = x
 
-instance Hashable BuildPhaseType
+instance Prelude.Hashable BuildPhaseType
 
-instance NFData BuildPhaseType
+instance Prelude.NFData BuildPhaseType
 
-instance ToByteString BuildPhaseType
+instance Prelude.ToByteString BuildPhaseType
 
-instance ToQuery BuildPhaseType
+instance Prelude.ToQuery BuildPhaseType
 
-instance ToHeader BuildPhaseType
+instance Prelude.ToHeader BuildPhaseType
 
-instance FromJSON BuildPhaseType where
-  parseJSON = parseJSONText "BuildPhaseType"
+instance Prelude.FromJSON BuildPhaseType where
+  parseJSON = Prelude.parseJSONText "BuildPhaseType"

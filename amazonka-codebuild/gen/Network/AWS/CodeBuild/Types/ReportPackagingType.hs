@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CodeBuild.Types.ReportPackagingType
   ( ReportPackagingType
       ( ..,
-        None,
-        Zip
+        ReportPackagingTypeNONE,
+        ReportPackagingTypeZIP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportPackagingType
-  = ReportPackagingType'
-      ( CI
-          Text
-      )
+newtype ReportPackagingType = ReportPackagingType'
+  { fromReportPackagingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern None :: ReportPackagingType
-pattern None = ReportPackagingType' "NONE"
+pattern ReportPackagingTypeNONE :: ReportPackagingType
+pattern ReportPackagingTypeNONE = ReportPackagingType' "NONE"
 
-pattern Zip :: ReportPackagingType
-pattern Zip = ReportPackagingType' "ZIP"
+pattern ReportPackagingTypeZIP :: ReportPackagingType
+pattern ReportPackagingTypeZIP = ReportPackagingType' "ZIP"
 
 {-# COMPLETE
-  None,
-  Zip,
+  ReportPackagingTypeNONE,
+  ReportPackagingTypeZIP,
   ReportPackagingType'
   #-}
 
-instance FromText ReportPackagingType where
-  parser = (ReportPackagingType' . mk) <$> takeText
+instance Prelude.FromText ReportPackagingType where
+  parser = ReportPackagingType' Prelude.<$> Prelude.takeText
 
-instance ToText ReportPackagingType where
-  toText (ReportPackagingType' ci) = original ci
+instance Prelude.ToText ReportPackagingType where
+  toText (ReportPackagingType' x) = x
 
-instance Hashable ReportPackagingType
+instance Prelude.Hashable ReportPackagingType
 
-instance NFData ReportPackagingType
+instance Prelude.NFData ReportPackagingType
 
-instance ToByteString ReportPackagingType
+instance Prelude.ToByteString ReportPackagingType
 
-instance ToQuery ReportPackagingType
+instance Prelude.ToQuery ReportPackagingType
 
-instance ToHeader ReportPackagingType
+instance Prelude.ToHeader ReportPackagingType
 
-instance ToJSON ReportPackagingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReportPackagingType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ReportPackagingType where
-  parseJSON = parseJSONText "ReportPackagingType"
+instance Prelude.FromJSON ReportPackagingType where
+  parseJSON = Prelude.parseJSONText "ReportPackagingType"

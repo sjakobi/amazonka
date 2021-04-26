@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.CodeBuild.Types.ComputeType
   ( ComputeType
       ( ..,
-        BuildGENERAL12XLARGE,
-        BuildGENERAL1Large,
-        BuildGENERAL1Medium,
-        BuildGENERAL1Small
+        ComputeTypeBUILDGENERAL12XLARGE,
+        ComputeTypeBUILDGENERAL1LARGE,
+        ComputeTypeBUILDGENERAL1MEDIUM,
+        ComputeTypeBUILDGENERAL1SMALL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComputeType = ComputeType' (CI Text)
+newtype ComputeType = ComputeType'
+  { fromComputeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BuildGENERAL12XLARGE :: ComputeType
-pattern BuildGENERAL12XLARGE = ComputeType' "BUILD_GENERAL1_2XLARGE"
+pattern ComputeTypeBUILDGENERAL12XLARGE :: ComputeType
+pattern ComputeTypeBUILDGENERAL12XLARGE = ComputeType' "BUILD_GENERAL1_2XLARGE"
 
-pattern BuildGENERAL1Large :: ComputeType
-pattern BuildGENERAL1Large = ComputeType' "BUILD_GENERAL1_LARGE"
+pattern ComputeTypeBUILDGENERAL1LARGE :: ComputeType
+pattern ComputeTypeBUILDGENERAL1LARGE = ComputeType' "BUILD_GENERAL1_LARGE"
 
-pattern BuildGENERAL1Medium :: ComputeType
-pattern BuildGENERAL1Medium = ComputeType' "BUILD_GENERAL1_MEDIUM"
+pattern ComputeTypeBUILDGENERAL1MEDIUM :: ComputeType
+pattern ComputeTypeBUILDGENERAL1MEDIUM = ComputeType' "BUILD_GENERAL1_MEDIUM"
 
-pattern BuildGENERAL1Small :: ComputeType
-pattern BuildGENERAL1Small = ComputeType' "BUILD_GENERAL1_SMALL"
+pattern ComputeTypeBUILDGENERAL1SMALL :: ComputeType
+pattern ComputeTypeBUILDGENERAL1SMALL = ComputeType' "BUILD_GENERAL1_SMALL"
 
 {-# COMPLETE
-  BuildGENERAL12XLARGE,
-  BuildGENERAL1Large,
-  BuildGENERAL1Medium,
-  BuildGENERAL1Small,
+  ComputeTypeBUILDGENERAL12XLARGE,
+  ComputeTypeBUILDGENERAL1LARGE,
+  ComputeTypeBUILDGENERAL1MEDIUM,
+  ComputeTypeBUILDGENERAL1SMALL,
   ComputeType'
   #-}
 
-instance FromText ComputeType where
-  parser = (ComputeType' . mk) <$> takeText
+instance Prelude.FromText ComputeType where
+  parser = ComputeType' Prelude.<$> Prelude.takeText
 
-instance ToText ComputeType where
-  toText (ComputeType' ci) = original ci
+instance Prelude.ToText ComputeType where
+  toText (ComputeType' x) = x
 
-instance Hashable ComputeType
+instance Prelude.Hashable ComputeType
 
-instance NFData ComputeType
+instance Prelude.NFData ComputeType
 
-instance ToByteString ComputeType
+instance Prelude.ToByteString ComputeType
 
-instance ToQuery ComputeType
+instance Prelude.ToQuery ComputeType
 
-instance ToHeader ComputeType
+instance Prelude.ToHeader ComputeType
 
-instance ToJSON ComputeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComputeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ComputeType where
-  parseJSON = parseJSONText "ComputeType"
+instance Prelude.FromJSON ComputeType where
+  parseJSON = Prelude.parseJSONText "ComputeType"

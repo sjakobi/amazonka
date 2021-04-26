@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CodeBuild.Types.EnvironmentVariableType
   ( EnvironmentVariableType
       ( ..,
-        EVTParameterStore,
-        EVTPlaintext,
-        EVTSecretsManager
+        EnvironmentVariableTypePARAMETERSTORE,
+        EnvironmentVariableTypePLAINTEXT,
+        EnvironmentVariableTypeSECRETSMANAGER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnvironmentVariableType
-  = EnvironmentVariableType'
-      ( CI
-          Text
-      )
+newtype EnvironmentVariableType = EnvironmentVariableType'
+  { fromEnvironmentVariableType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EVTParameterStore :: EnvironmentVariableType
-pattern EVTParameterStore = EnvironmentVariableType' "PARAMETER_STORE"
+pattern EnvironmentVariableTypePARAMETERSTORE :: EnvironmentVariableType
+pattern EnvironmentVariableTypePARAMETERSTORE = EnvironmentVariableType' "PARAMETER_STORE"
 
-pattern EVTPlaintext :: EnvironmentVariableType
-pattern EVTPlaintext = EnvironmentVariableType' "PLAINTEXT"
+pattern EnvironmentVariableTypePLAINTEXT :: EnvironmentVariableType
+pattern EnvironmentVariableTypePLAINTEXT = EnvironmentVariableType' "PLAINTEXT"
 
-pattern EVTSecretsManager :: EnvironmentVariableType
-pattern EVTSecretsManager = EnvironmentVariableType' "SECRETS_MANAGER"
+pattern EnvironmentVariableTypeSECRETSMANAGER :: EnvironmentVariableType
+pattern EnvironmentVariableTypeSECRETSMANAGER = EnvironmentVariableType' "SECRETS_MANAGER"
 
 {-# COMPLETE
-  EVTParameterStore,
-  EVTPlaintext,
-  EVTSecretsManager,
+  EnvironmentVariableTypePARAMETERSTORE,
+  EnvironmentVariableTypePLAINTEXT,
+  EnvironmentVariableTypeSECRETSMANAGER,
   EnvironmentVariableType'
   #-}
 
-instance FromText EnvironmentVariableType where
-  parser = (EnvironmentVariableType' . mk) <$> takeText
+instance Prelude.FromText EnvironmentVariableType where
+  parser = EnvironmentVariableType' Prelude.<$> Prelude.takeText
 
-instance ToText EnvironmentVariableType where
-  toText (EnvironmentVariableType' ci) = original ci
+instance Prelude.ToText EnvironmentVariableType where
+  toText (EnvironmentVariableType' x) = x
 
-instance Hashable EnvironmentVariableType
+instance Prelude.Hashable EnvironmentVariableType
 
-instance NFData EnvironmentVariableType
+instance Prelude.NFData EnvironmentVariableType
 
-instance ToByteString EnvironmentVariableType
+instance Prelude.ToByteString EnvironmentVariableType
 
-instance ToQuery EnvironmentVariableType
+instance Prelude.ToQuery EnvironmentVariableType
 
-instance ToHeader EnvironmentVariableType
+instance Prelude.ToHeader EnvironmentVariableType
 
-instance ToJSON EnvironmentVariableType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EnvironmentVariableType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EnvironmentVariableType where
-  parseJSON = parseJSONText "EnvironmentVariableType"
+instance Prelude.FromJSON EnvironmentVariableType where
+  parseJSON = Prelude.parseJSONText "EnvironmentVariableType"

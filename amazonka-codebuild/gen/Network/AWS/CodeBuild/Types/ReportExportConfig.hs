@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +21,84 @@ module Network.AWS.CodeBuild.Types.ReportExportConfig where
 
 import Network.AWS.CodeBuild.Types.ReportExportConfigType
 import Network.AWS.CodeBuild.Types.S3ReportExportConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the location where the run of a report is exported.
 --
---
---
--- /See:/ 'reportExportConfig' smart constructor.
+-- /See:/ 'newReportExportConfig' smart constructor.
 data ReportExportConfig = ReportExportConfig'
-  { _recS3Destination ::
-      !(Maybe S3ReportExportConfig),
-    _recExportConfigType ::
-      !(Maybe ReportExportConfigType)
+  { -- | A @S3ReportExportConfig@ object that contains information about the S3
+    -- bucket where the run of a report is exported.
+    s3Destination :: Prelude.Maybe S3ReportExportConfig,
+    -- | The export configuration type. Valid values are:
+    --
+    -- -   @S3@: The report results are exported to an S3 bucket.
+    --
+    -- -   @NO_EXPORT@: The report results are not exported.
+    exportConfigType :: Prelude.Maybe ReportExportConfigType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReportExportConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReportExportConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'recS3Destination' - A @S3ReportExportConfig@ object that contains information about the S3 bucket where the run of a report is exported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'recExportConfigType' - The export configuration type. Valid values are:      * @S3@ : The report results are exported to an S3 bucket.      * @NO_EXPORT@ : The report results are not exported.
-reportExportConfig ::
+-- 's3Destination', 'reportExportConfig_s3Destination' - A @S3ReportExportConfig@ object that contains information about the S3
+-- bucket where the run of a report is exported.
+--
+-- 'exportConfigType', 'reportExportConfig_exportConfigType' - The export configuration type. Valid values are:
+--
+-- -   @S3@: The report results are exported to an S3 bucket.
+--
+-- -   @NO_EXPORT@: The report results are not exported.
+newReportExportConfig ::
   ReportExportConfig
-reportExportConfig =
+newReportExportConfig =
   ReportExportConfig'
-    { _recS3Destination = Nothing,
-      _recExportConfigType = Nothing
+    { s3Destination =
+        Prelude.Nothing,
+      exportConfigType = Prelude.Nothing
     }
 
--- | A @S3ReportExportConfig@ object that contains information about the S3 bucket where the run of a report is exported.
-recS3Destination :: Lens' ReportExportConfig (Maybe S3ReportExportConfig)
-recS3Destination = lens _recS3Destination (\s a -> s {_recS3Destination = a})
+-- | A @S3ReportExportConfig@ object that contains information about the S3
+-- bucket where the run of a report is exported.
+reportExportConfig_s3Destination :: Lens.Lens' ReportExportConfig (Prelude.Maybe S3ReportExportConfig)
+reportExportConfig_s3Destination = Lens.lens (\ReportExportConfig' {s3Destination} -> s3Destination) (\s@ReportExportConfig' {} a -> s {s3Destination = a} :: ReportExportConfig)
 
--- | The export configuration type. Valid values are:      * @S3@ : The report results are exported to an S3 bucket.      * @NO_EXPORT@ : The report results are not exported.
-recExportConfigType :: Lens' ReportExportConfig (Maybe ReportExportConfigType)
-recExportConfigType = lens _recExportConfigType (\s a -> s {_recExportConfigType = a})
+-- | The export configuration type. Valid values are:
+--
+-- -   @S3@: The report results are exported to an S3 bucket.
+--
+-- -   @NO_EXPORT@: The report results are not exported.
+reportExportConfig_exportConfigType :: Lens.Lens' ReportExportConfig (Prelude.Maybe ReportExportConfigType)
+reportExportConfig_exportConfigType = Lens.lens (\ReportExportConfig' {exportConfigType} -> exportConfigType) (\s@ReportExportConfig' {} a -> s {exportConfigType = a} :: ReportExportConfig)
 
-instance FromJSON ReportExportConfig where
+instance Prelude.FromJSON ReportExportConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReportExportConfig"
       ( \x ->
           ReportExportConfig'
-            <$> (x .:? "s3Destination")
-            <*> (x .:? "exportConfigType")
+            Prelude.<$> (x Prelude..:? "s3Destination")
+            Prelude.<*> (x Prelude..:? "exportConfigType")
       )
 
-instance Hashable ReportExportConfig
+instance Prelude.Hashable ReportExportConfig
 
-instance NFData ReportExportConfig
+instance Prelude.NFData ReportExportConfig
 
-instance ToJSON ReportExportConfig where
+instance Prelude.ToJSON ReportExportConfig where
   toJSON ReportExportConfig' {..} =
-    object
-      ( catMaybes
-          [ ("s3Destination" .=) <$> _recS3Destination,
-            ("exportConfigType" .=) <$> _recExportConfigType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("s3Destination" Prelude..=)
+              Prelude.<$> s3Destination,
+            ("exportConfigType" Prelude..=)
+              Prelude.<$> exportConfigType
           ]
       )

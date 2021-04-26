@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.CodeBuild.Types.WebhookFilterType
   ( WebhookFilterType
       ( ..,
-        ActorAccountId,
-        BaseRef,
-        CommitMessage,
-        Event,
-        FilePath,
-        HeadRef
+        WebhookFilterTypeACTORACCOUNTID,
+        WebhookFilterTypeBASEREF,
+        WebhookFilterTypeCOMMITMESSAGE,
+        WebhookFilterTypeEVENT,
+        WebhookFilterTypeFILEPATH,
+        WebhookFilterTypeHEADREF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WebhookFilterType = WebhookFilterType' (CI Text)
+newtype WebhookFilterType = WebhookFilterType'
+  { fromWebhookFilterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ActorAccountId :: WebhookFilterType
-pattern ActorAccountId = WebhookFilterType' "ACTOR_ACCOUNT_ID"
+pattern WebhookFilterTypeACTORACCOUNTID :: WebhookFilterType
+pattern WebhookFilterTypeACTORACCOUNTID = WebhookFilterType' "ACTOR_ACCOUNT_ID"
 
-pattern BaseRef :: WebhookFilterType
-pattern BaseRef = WebhookFilterType' "BASE_REF"
+pattern WebhookFilterTypeBASEREF :: WebhookFilterType
+pattern WebhookFilterTypeBASEREF = WebhookFilterType' "BASE_REF"
 
-pattern CommitMessage :: WebhookFilterType
-pattern CommitMessage = WebhookFilterType' "COMMIT_MESSAGE"
+pattern WebhookFilterTypeCOMMITMESSAGE :: WebhookFilterType
+pattern WebhookFilterTypeCOMMITMESSAGE = WebhookFilterType' "COMMIT_MESSAGE"
 
-pattern Event :: WebhookFilterType
-pattern Event = WebhookFilterType' "EVENT"
+pattern WebhookFilterTypeEVENT :: WebhookFilterType
+pattern WebhookFilterTypeEVENT = WebhookFilterType' "EVENT"
 
-pattern FilePath :: WebhookFilterType
-pattern FilePath = WebhookFilterType' "FILE_PATH"
+pattern WebhookFilterTypeFILEPATH :: WebhookFilterType
+pattern WebhookFilterTypeFILEPATH = WebhookFilterType' "FILE_PATH"
 
-pattern HeadRef :: WebhookFilterType
-pattern HeadRef = WebhookFilterType' "HEAD_REF"
+pattern WebhookFilterTypeHEADREF :: WebhookFilterType
+pattern WebhookFilterTypeHEADREF = WebhookFilterType' "HEAD_REF"
 
 {-# COMPLETE
-  ActorAccountId,
-  BaseRef,
-  CommitMessage,
-  Event,
-  FilePath,
-  HeadRef,
+  WebhookFilterTypeACTORACCOUNTID,
+  WebhookFilterTypeBASEREF,
+  WebhookFilterTypeCOMMITMESSAGE,
+  WebhookFilterTypeEVENT,
+  WebhookFilterTypeFILEPATH,
+  WebhookFilterTypeHEADREF,
   WebhookFilterType'
   #-}
 
-instance FromText WebhookFilterType where
-  parser = (WebhookFilterType' . mk) <$> takeText
+instance Prelude.FromText WebhookFilterType where
+  parser = WebhookFilterType' Prelude.<$> Prelude.takeText
 
-instance ToText WebhookFilterType where
-  toText (WebhookFilterType' ci) = original ci
+instance Prelude.ToText WebhookFilterType where
+  toText (WebhookFilterType' x) = x
 
-instance Hashable WebhookFilterType
+instance Prelude.Hashable WebhookFilterType
 
-instance NFData WebhookFilterType
+instance Prelude.NFData WebhookFilterType
 
-instance ToByteString WebhookFilterType
+instance Prelude.ToByteString WebhookFilterType
 
-instance ToQuery WebhookFilterType
+instance Prelude.ToQuery WebhookFilterType
 
-instance ToHeader WebhookFilterType
+instance Prelude.ToHeader WebhookFilterType
 
-instance ToJSON WebhookFilterType where
-  toJSON = toJSONText
+instance Prelude.ToJSON WebhookFilterType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WebhookFilterType where
-  parseJSON = parseJSONText "WebhookFilterType"
+instance Prelude.FromJSON WebhookFilterType where
+  parseJSON = Prelude.parseJSONText "WebhookFilterType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types.DebugSession where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the debug session for a build. For more information, see <https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html Viewing a running build in Session Manager> .
+-- | Contains information about the debug session for a build. For more
+-- information, see
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html Viewing a running build in Session Manager>.
 --
---
---
--- /See:/ 'debugSession' smart constructor.
+-- /See:/ 'newDebugSession' smart constructor.
 data DebugSession = DebugSession'
-  { _dsSessionTarget ::
-      !(Maybe Text),
-    _dsSessionEnabled :: !(Maybe Bool)
+  { -- | Contains the identifier of the Session Manager session used for the
+    -- build. To work with the paused build, you open this session to examine,
+    -- control, and resume the build.
+    sessionTarget :: Prelude.Maybe Prelude.Text,
+    -- | Specifies if session debugging is enabled for this build.
+    sessionEnabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DebugSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DebugSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsSessionTarget' - Contains the identifier of the Session Manager session used for the build. To work with the paused build, you open this session to examine, control, and resume the build.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsSessionEnabled' - Specifies if session debugging is enabled for this build.
-debugSession ::
+-- 'sessionTarget', 'debugSession_sessionTarget' - Contains the identifier of the Session Manager session used for the
+-- build. To work with the paused build, you open this session to examine,
+-- control, and resume the build.
+--
+-- 'sessionEnabled', 'debugSession_sessionEnabled' - Specifies if session debugging is enabled for this build.
+newDebugSession ::
   DebugSession
-debugSession =
+newDebugSession =
   DebugSession'
-    { _dsSessionTarget = Nothing,
-      _dsSessionEnabled = Nothing
+    { sessionTarget = Prelude.Nothing,
+      sessionEnabled = Prelude.Nothing
     }
 
--- | Contains the identifier of the Session Manager session used for the build. To work with the paused build, you open this session to examine, control, and resume the build.
-dsSessionTarget :: Lens' DebugSession (Maybe Text)
-dsSessionTarget = lens _dsSessionTarget (\s a -> s {_dsSessionTarget = a})
+-- | Contains the identifier of the Session Manager session used for the
+-- build. To work with the paused build, you open this session to examine,
+-- control, and resume the build.
+debugSession_sessionTarget :: Lens.Lens' DebugSession (Prelude.Maybe Prelude.Text)
+debugSession_sessionTarget = Lens.lens (\DebugSession' {sessionTarget} -> sessionTarget) (\s@DebugSession' {} a -> s {sessionTarget = a} :: DebugSession)
 
 -- | Specifies if session debugging is enabled for this build.
-dsSessionEnabled :: Lens' DebugSession (Maybe Bool)
-dsSessionEnabled = lens _dsSessionEnabled (\s a -> s {_dsSessionEnabled = a})
+debugSession_sessionEnabled :: Lens.Lens' DebugSession (Prelude.Maybe Prelude.Bool)
+debugSession_sessionEnabled = Lens.lens (\DebugSession' {sessionEnabled} -> sessionEnabled) (\s@DebugSession' {} a -> s {sessionEnabled = a} :: DebugSession)
 
-instance FromJSON DebugSession where
+instance Prelude.FromJSON DebugSession where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DebugSession"
       ( \x ->
           DebugSession'
-            <$> (x .:? "sessionTarget") <*> (x .:? "sessionEnabled")
+            Prelude.<$> (x Prelude..:? "sessionTarget")
+            Prelude.<*> (x Prelude..:? "sessionEnabled")
       )
 
-instance Hashable DebugSession
+instance Prelude.Hashable DebugSession
 
-instance NFData DebugSession
+instance Prelude.NFData DebugSession

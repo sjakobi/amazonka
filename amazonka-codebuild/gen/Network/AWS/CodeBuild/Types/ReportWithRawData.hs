@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types.ReportWithRawData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the unmodified data for the report. For more information, see .
 --
---
---
--- /See:/ 'reportWithRawData' smart constructor.
+-- /See:/ 'newReportWithRawData' smart constructor.
 data ReportWithRawData = ReportWithRawData'
-  { _rwrdReportARN ::
-      !(Maybe Text),
-    _rwrdData :: !(Maybe Text)
+  { -- | The ARN of the report.
+    reportArn :: Prelude.Maybe Prelude.Text,
+    -- | The value of the requested data field from the report.
+    data' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReportWithRawData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReportWithRawData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rwrdReportARN' - The ARN of the report.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rwrdData' - The value of the requested data field from the report.
-reportWithRawData ::
+-- 'reportArn', 'reportWithRawData_reportArn' - The ARN of the report.
+--
+-- 'data'', 'reportWithRawData_data' - The value of the requested data field from the report.
+newReportWithRawData ::
   ReportWithRawData
-reportWithRawData =
+newReportWithRawData =
   ReportWithRawData'
-    { _rwrdReportARN = Nothing,
-      _rwrdData = Nothing
+    { reportArn = Prelude.Nothing,
+      data' = Prelude.Nothing
     }
 
 -- | The ARN of the report.
-rwrdReportARN :: Lens' ReportWithRawData (Maybe Text)
-rwrdReportARN = lens _rwrdReportARN (\s a -> s {_rwrdReportARN = a})
+reportWithRawData_reportArn :: Lens.Lens' ReportWithRawData (Prelude.Maybe Prelude.Text)
+reportWithRawData_reportArn = Lens.lens (\ReportWithRawData' {reportArn} -> reportArn) (\s@ReportWithRawData' {} a -> s {reportArn = a} :: ReportWithRawData)
 
 -- | The value of the requested data field from the report.
-rwrdData :: Lens' ReportWithRawData (Maybe Text)
-rwrdData = lens _rwrdData (\s a -> s {_rwrdData = a})
+reportWithRawData_data :: Lens.Lens' ReportWithRawData (Prelude.Maybe Prelude.Text)
+reportWithRawData_data = Lens.lens (\ReportWithRawData' {data'} -> data') (\s@ReportWithRawData' {} a -> s {data' = a} :: ReportWithRawData)
 
-instance FromJSON ReportWithRawData where
+instance Prelude.FromJSON ReportWithRawData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReportWithRawData"
       ( \x ->
           ReportWithRawData'
-            <$> (x .:? "reportArn") <*> (x .:? "data")
+            Prelude.<$> (x Prelude..:? "reportArn")
+            Prelude.<*> (x Prelude..:? "data")
       )
 
-instance Hashable ReportWithRawData
+instance Prelude.Hashable ReportWithRawData
 
-instance NFData ReportWithRawData
+instance Prelude.NFData ReportWithRawData

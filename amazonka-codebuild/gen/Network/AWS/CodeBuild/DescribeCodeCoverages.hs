@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,241 +23,278 @@
 --
 -- Retrieves one or more code coverage reports.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CodeBuild.DescribeCodeCoverages
   ( -- * Creating a Request
-    describeCodeCoverages,
-    DescribeCodeCoverages,
+    DescribeCodeCoverages (..),
+    newDescribeCodeCoverages,
 
     -- * Request Lenses
-    dccSortOrder,
-    dccNextToken,
-    dccMaxLineCoveragePercentage,
-    dccMaxResults,
-    dccSortBy,
-    dccMinLineCoveragePercentage,
-    dccReportARN,
+    describeCodeCoverages_sortOrder,
+    describeCodeCoverages_nextToken,
+    describeCodeCoverages_maxLineCoveragePercentage,
+    describeCodeCoverages_maxResults,
+    describeCodeCoverages_sortBy,
+    describeCodeCoverages_minLineCoveragePercentage,
+    describeCodeCoverages_reportArn,
 
     -- * Destructuring the Response
-    describeCodeCoveragesResponse,
-    DescribeCodeCoveragesResponse,
+    DescribeCodeCoveragesResponse (..),
+    newDescribeCodeCoveragesResponse,
 
     -- * Response Lenses
-    dccrrsNextToken,
-    dccrrsCodeCoverages,
-    dccrrsResponseStatus,
+    describeCodeCoveragesResponse_nextToken,
+    describeCodeCoveragesResponse_codeCoverages,
+    describeCodeCoveragesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.CodeCoverage
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCodeCoverages' smart constructor.
+-- | /See:/ 'newDescribeCodeCoverages' smart constructor.
 data DescribeCodeCoverages = DescribeCodeCoverages'
-  { _dccSortOrder ::
-      !(Maybe SortOrderType),
-    _dccNextToken ::
-      !(Maybe Text),
-    _dccMaxLineCoveragePercentage ::
-      !(Maybe Double),
-    _dccMaxResults ::
-      !(Maybe Nat),
-    _dccSortBy ::
-      !( Maybe
-           ReportCodeCoverageSortByType
-       ),
-    _dccMinLineCoveragePercentage ::
-      !(Maybe Double),
-    _dccReportARN :: !Text
+  { -- | Specifies if the results are sorted in ascending or descending order.
+    sortOrder :: Prelude.Maybe SortOrderType,
+    -- | The @nextToken@ value returned from a previous call to
+    -- @DescribeCodeCoverages@. This specifies the next item to return. To
+    -- return the beginning of the list, exclude this parameter.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum line coverage percentage to report.
+    maxLineCoveragePercentage :: Prelude.Maybe Prelude.Double,
+    -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies how the results are sorted. Possible values are:
+    --
+    -- [FILE_PATH]
+    --     The results are sorted by file path.
+    --
+    -- [LINE_COVERAGE_PERCENTAGE]
+    --     The results are sorted by the percentage of lines that are covered.
+    sortBy :: Prelude.Maybe ReportCodeCoverageSortByType,
+    -- | The minimum line coverage percentage to report.
+    minLineCoveragePercentage :: Prelude.Maybe Prelude.Double,
+    -- | The ARN of the report for which test cases are returned.
+    reportArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCodeCoverages' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCodeCoverages' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dccSortOrder' - Specifies if the results are sorted in ascending or descending order.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dccNextToken' - The @nextToken@ value returned from a previous call to @DescribeCodeCoverages@ . This specifies the next item to return. To return the beginning of the list, exclude this parameter.
+-- 'sortOrder', 'describeCodeCoverages_sortOrder' - Specifies if the results are sorted in ascending or descending order.
 --
--- * 'dccMaxLineCoveragePercentage' - The maximum line coverage percentage to report.
+-- 'nextToken', 'describeCodeCoverages_nextToken' - The @nextToken@ value returned from a previous call to
+-- @DescribeCodeCoverages@. This specifies the next item to return. To
+-- return the beginning of the list, exclude this parameter.
 --
--- * 'dccMaxResults' - The maximum number of results to return.
+-- 'maxLineCoveragePercentage', 'describeCodeCoverages_maxLineCoveragePercentage' - The maximum line coverage percentage to report.
 --
--- * 'dccSortBy' - Specifies how the results are sorted. Possible values are:     * FILE_PATH    * The results are sorted by file path.     * LINE_COVERAGE_PERCENTAGE    * The results are sorted by the percentage of lines that are covered.
+-- 'maxResults', 'describeCodeCoverages_maxResults' - The maximum number of results to return.
 --
--- * 'dccMinLineCoveragePercentage' - The minimum line coverage percentage to report.
+-- 'sortBy', 'describeCodeCoverages_sortBy' - Specifies how the results are sorted. Possible values are:
 --
--- * 'dccReportARN' - The ARN of the report for which test cases are returned.
-describeCodeCoverages ::
-  -- | 'dccReportARN'
-  Text ->
+-- [FILE_PATH]
+--     The results are sorted by file path.
+--
+-- [LINE_COVERAGE_PERCENTAGE]
+--     The results are sorted by the percentage of lines that are covered.
+--
+-- 'minLineCoveragePercentage', 'describeCodeCoverages_minLineCoveragePercentage' - The minimum line coverage percentage to report.
+--
+-- 'reportArn', 'describeCodeCoverages_reportArn' - The ARN of the report for which test cases are returned.
+newDescribeCodeCoverages ::
+  -- | 'reportArn'
+  Prelude.Text ->
   DescribeCodeCoverages
-describeCodeCoverages pReportARN_ =
+newDescribeCodeCoverages pReportArn_ =
   DescribeCodeCoverages'
-    { _dccSortOrder = Nothing,
-      _dccNextToken = Nothing,
-      _dccMaxLineCoveragePercentage = Nothing,
-      _dccMaxResults = Nothing,
-      _dccSortBy = Nothing,
-      _dccMinLineCoveragePercentage = Nothing,
-      _dccReportARN = pReportARN_
+    { sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxLineCoveragePercentage = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      minLineCoveragePercentage = Prelude.Nothing,
+      reportArn = pReportArn_
     }
 
 -- | Specifies if the results are sorted in ascending or descending order.
-dccSortOrder :: Lens' DescribeCodeCoverages (Maybe SortOrderType)
-dccSortOrder = lens _dccSortOrder (\s a -> s {_dccSortOrder = a})
+describeCodeCoverages_sortOrder :: Lens.Lens' DescribeCodeCoverages (Prelude.Maybe SortOrderType)
+describeCodeCoverages_sortOrder = Lens.lens (\DescribeCodeCoverages' {sortOrder} -> sortOrder) (\s@DescribeCodeCoverages' {} a -> s {sortOrder = a} :: DescribeCodeCoverages)
 
--- | The @nextToken@ value returned from a previous call to @DescribeCodeCoverages@ . This specifies the next item to return. To return the beginning of the list, exclude this parameter.
-dccNextToken :: Lens' DescribeCodeCoverages (Maybe Text)
-dccNextToken = lens _dccNextToken (\s a -> s {_dccNextToken = a})
+-- | The @nextToken@ value returned from a previous call to
+-- @DescribeCodeCoverages@. This specifies the next item to return. To
+-- return the beginning of the list, exclude this parameter.
+describeCodeCoverages_nextToken :: Lens.Lens' DescribeCodeCoverages (Prelude.Maybe Prelude.Text)
+describeCodeCoverages_nextToken = Lens.lens (\DescribeCodeCoverages' {nextToken} -> nextToken) (\s@DescribeCodeCoverages' {} a -> s {nextToken = a} :: DescribeCodeCoverages)
 
 -- | The maximum line coverage percentage to report.
-dccMaxLineCoveragePercentage :: Lens' DescribeCodeCoverages (Maybe Double)
-dccMaxLineCoveragePercentage = lens _dccMaxLineCoveragePercentage (\s a -> s {_dccMaxLineCoveragePercentage = a})
+describeCodeCoverages_maxLineCoveragePercentage :: Lens.Lens' DescribeCodeCoverages (Prelude.Maybe Prelude.Double)
+describeCodeCoverages_maxLineCoveragePercentage = Lens.lens (\DescribeCodeCoverages' {maxLineCoveragePercentage} -> maxLineCoveragePercentage) (\s@DescribeCodeCoverages' {} a -> s {maxLineCoveragePercentage = a} :: DescribeCodeCoverages)
 
 -- | The maximum number of results to return.
-dccMaxResults :: Lens' DescribeCodeCoverages (Maybe Natural)
-dccMaxResults = lens _dccMaxResults (\s a -> s {_dccMaxResults = a}) . mapping _Nat
+describeCodeCoverages_maxResults :: Lens.Lens' DescribeCodeCoverages (Prelude.Maybe Prelude.Natural)
+describeCodeCoverages_maxResults = Lens.lens (\DescribeCodeCoverages' {maxResults} -> maxResults) (\s@DescribeCodeCoverages' {} a -> s {maxResults = a} :: DescribeCodeCoverages) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies how the results are sorted. Possible values are:     * FILE_PATH    * The results are sorted by file path.     * LINE_COVERAGE_PERCENTAGE    * The results are sorted by the percentage of lines that are covered.
-dccSortBy :: Lens' DescribeCodeCoverages (Maybe ReportCodeCoverageSortByType)
-dccSortBy = lens _dccSortBy (\s a -> s {_dccSortBy = a})
+-- | Specifies how the results are sorted. Possible values are:
+--
+-- [FILE_PATH]
+--     The results are sorted by file path.
+--
+-- [LINE_COVERAGE_PERCENTAGE]
+--     The results are sorted by the percentage of lines that are covered.
+describeCodeCoverages_sortBy :: Lens.Lens' DescribeCodeCoverages (Prelude.Maybe ReportCodeCoverageSortByType)
+describeCodeCoverages_sortBy = Lens.lens (\DescribeCodeCoverages' {sortBy} -> sortBy) (\s@DescribeCodeCoverages' {} a -> s {sortBy = a} :: DescribeCodeCoverages)
 
 -- | The minimum line coverage percentage to report.
-dccMinLineCoveragePercentage :: Lens' DescribeCodeCoverages (Maybe Double)
-dccMinLineCoveragePercentage = lens _dccMinLineCoveragePercentage (\s a -> s {_dccMinLineCoveragePercentage = a})
+describeCodeCoverages_minLineCoveragePercentage :: Lens.Lens' DescribeCodeCoverages (Prelude.Maybe Prelude.Double)
+describeCodeCoverages_minLineCoveragePercentage = Lens.lens (\DescribeCodeCoverages' {minLineCoveragePercentage} -> minLineCoveragePercentage) (\s@DescribeCodeCoverages' {} a -> s {minLineCoveragePercentage = a} :: DescribeCodeCoverages)
 
 -- | The ARN of the report for which test cases are returned.
-dccReportARN :: Lens' DescribeCodeCoverages Text
-dccReportARN = lens _dccReportARN (\s a -> s {_dccReportARN = a})
+describeCodeCoverages_reportArn :: Lens.Lens' DescribeCodeCoverages Prelude.Text
+describeCodeCoverages_reportArn = Lens.lens (\DescribeCodeCoverages' {reportArn} -> reportArn) (\s@DescribeCodeCoverages' {} a -> s {reportArn = a} :: DescribeCodeCoverages)
 
-instance AWSPager DescribeCodeCoverages where
+instance Pager.AWSPager DescribeCodeCoverages where
   page rq rs
-    | stop (rs ^. dccrrsNextToken) = Nothing
-    | stop (rs ^. dccrrsCodeCoverages) = Nothing
-    | otherwise =
-      Just $ rq & dccNextToken .~ rs ^. dccrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeCodeCoveragesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeCodeCoveragesResponse_codeCoverages
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeCodeCoverages_nextToken
+          Lens..~ rs
+          Lens.^? describeCodeCoveragesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeCodeCoverages where
+instance Prelude.AWSRequest DescribeCodeCoverages where
   type
     Rs DescribeCodeCoverages =
       DescribeCodeCoveragesResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCodeCoveragesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "codeCoverages" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "codeCoverages"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCodeCoverages
+instance Prelude.Hashable DescribeCodeCoverages
 
-instance NFData DescribeCodeCoverages
+instance Prelude.NFData DescribeCodeCoverages
 
-instance ToHeaders DescribeCodeCoverages where
+instance Prelude.ToHeaders DescribeCodeCoverages where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.DescribeCodeCoverages" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.DescribeCodeCoverages" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCodeCoverages where
+instance Prelude.ToJSON DescribeCodeCoverages where
   toJSON DescribeCodeCoverages' {..} =
-    object
-      ( catMaybes
-          [ ("sortOrder" .=) <$> _dccSortOrder,
-            ("nextToken" .=) <$> _dccNextToken,
-            ("maxLineCoveragePercentage" .=)
-              <$> _dccMaxLineCoveragePercentage,
-            ("maxResults" .=) <$> _dccMaxResults,
-            ("sortBy" .=) <$> _dccSortBy,
-            ("minLineCoveragePercentage" .=)
-              <$> _dccMinLineCoveragePercentage,
-            Just ("reportArn" .= _dccReportARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("sortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxLineCoveragePercentage" Prelude..=)
+              Prelude.<$> maxLineCoveragePercentage,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("sortBy" Prelude..=) Prelude.<$> sortBy,
+            ("minLineCoveragePercentage" Prelude..=)
+              Prelude.<$> minLineCoveragePercentage,
+            Prelude.Just ("reportArn" Prelude..= reportArn)
           ]
       )
 
-instance ToPath DescribeCodeCoverages where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCodeCoverages where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCodeCoverages where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeCodeCoverages where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeCodeCoveragesResponse' smart constructor.
+-- | /See:/ 'newDescribeCodeCoveragesResponse' smart constructor.
 data DescribeCodeCoveragesResponse = DescribeCodeCoveragesResponse'
-  { _dccrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dccrrsCodeCoverages ::
-      !( Maybe
-           [CodeCoverage]
-       ),
-    _dccrrsResponseStatus ::
-      !Int
+  { -- | If there are more items to return, this contains a token that is passed
+    -- to a subsequent call to @DescribeCodeCoverages@ to retrieve the next set
+    -- of items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @CodeCoverage@ objects that contain the results.
+    codeCoverages :: Prelude.Maybe [CodeCoverage],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCodeCoveragesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCodeCoveragesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dccrrsNextToken' - If there are more items to return, this contains a token that is passed to a subsequent call to @DescribeCodeCoverages@ to retrieve the next set of items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dccrrsCodeCoverages' - An array of @CodeCoverage@ objects that contain the results.
+-- 'nextToken', 'describeCodeCoveragesResponse_nextToken' - If there are more items to return, this contains a token that is passed
+-- to a subsequent call to @DescribeCodeCoverages@ to retrieve the next set
+-- of items.
 --
--- * 'dccrrsResponseStatus' - -- | The response status code.
-describeCodeCoveragesResponse ::
-  -- | 'dccrrsResponseStatus'
-  Int ->
+-- 'codeCoverages', 'describeCodeCoveragesResponse_codeCoverages' - An array of @CodeCoverage@ objects that contain the results.
+--
+-- 'httpStatus', 'describeCodeCoveragesResponse_httpStatus' - The response's http status code.
+newDescribeCodeCoveragesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCodeCoveragesResponse
-describeCodeCoveragesResponse pResponseStatus_ =
+newDescribeCodeCoveragesResponse pHttpStatus_ =
   DescribeCodeCoveragesResponse'
-    { _dccrrsNextToken =
-        Nothing,
-      _dccrrsCodeCoverages = Nothing,
-      _dccrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      codeCoverages = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are more items to return, this contains a token that is passed to a subsequent call to @DescribeCodeCoverages@ to retrieve the next set of items.
-dccrrsNextToken :: Lens' DescribeCodeCoveragesResponse (Maybe Text)
-dccrrsNextToken = lens _dccrrsNextToken (\s a -> s {_dccrrsNextToken = a})
+-- | If there are more items to return, this contains a token that is passed
+-- to a subsequent call to @DescribeCodeCoverages@ to retrieve the next set
+-- of items.
+describeCodeCoveragesResponse_nextToken :: Lens.Lens' DescribeCodeCoveragesResponse (Prelude.Maybe Prelude.Text)
+describeCodeCoveragesResponse_nextToken = Lens.lens (\DescribeCodeCoveragesResponse' {nextToken} -> nextToken) (\s@DescribeCodeCoveragesResponse' {} a -> s {nextToken = a} :: DescribeCodeCoveragesResponse)
 
 -- | An array of @CodeCoverage@ objects that contain the results.
-dccrrsCodeCoverages :: Lens' DescribeCodeCoveragesResponse [CodeCoverage]
-dccrrsCodeCoverages = lens _dccrrsCodeCoverages (\s a -> s {_dccrrsCodeCoverages = a}) . _Default . _Coerce
+describeCodeCoveragesResponse_codeCoverages :: Lens.Lens' DescribeCodeCoveragesResponse (Prelude.Maybe [CodeCoverage])
+describeCodeCoveragesResponse_codeCoverages = Lens.lens (\DescribeCodeCoveragesResponse' {codeCoverages} -> codeCoverages) (\s@DescribeCodeCoveragesResponse' {} a -> s {codeCoverages = a} :: DescribeCodeCoveragesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dccrrsResponseStatus :: Lens' DescribeCodeCoveragesResponse Int
-dccrrsResponseStatus = lens _dccrrsResponseStatus (\s a -> s {_dccrrsResponseStatus = a})
+-- | The response's http status code.
+describeCodeCoveragesResponse_httpStatus :: Lens.Lens' DescribeCodeCoveragesResponse Prelude.Int
+describeCodeCoveragesResponse_httpStatus = Lens.lens (\DescribeCodeCoveragesResponse' {httpStatus} -> httpStatus) (\s@DescribeCodeCoveragesResponse' {} a -> s {httpStatus = a} :: DescribeCodeCoveragesResponse)
 
-instance NFData DescribeCodeCoveragesResponse
+instance Prelude.NFData DescribeCodeCoveragesResponse

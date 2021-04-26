@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,143 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a set of GitHub, GitHub Enterprise, or Bitbucket source credentials.
+-- Deletes a set of GitHub, GitHub Enterprise, or Bitbucket source
+-- credentials.
 module Network.AWS.CodeBuild.DeleteSourceCredentials
   ( -- * Creating a Request
-    deleteSourceCredentials,
-    DeleteSourceCredentials,
+    DeleteSourceCredentials (..),
+    newDeleteSourceCredentials,
 
     -- * Request Lenses
-    dscArn,
+    deleteSourceCredentials_arn,
 
     -- * Destructuring the Response
-    deleteSourceCredentialsResponse,
-    DeleteSourceCredentialsResponse,
+    DeleteSourceCredentialsResponse (..),
+    newDeleteSourceCredentialsResponse,
 
     -- * Response Lenses
-    dscrrsArn,
-    dscrrsResponseStatus,
+    deleteSourceCredentialsResponse_arn,
+    deleteSourceCredentialsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSourceCredentials' smart constructor.
-newtype DeleteSourceCredentials = DeleteSourceCredentials'
-  { _dscArn ::
-      Text
+-- | /See:/ 'newDeleteSourceCredentials' smart constructor.
+data DeleteSourceCredentials = DeleteSourceCredentials'
+  { -- | The Amazon Resource Name (ARN) of the token.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSourceCredentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSourceCredentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscArn' - The Amazon Resource Name (ARN) of the token.
-deleteSourceCredentials ::
-  -- | 'dscArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'deleteSourceCredentials_arn' - The Amazon Resource Name (ARN) of the token.
+newDeleteSourceCredentials ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteSourceCredentials
-deleteSourceCredentials pArn_ =
-  DeleteSourceCredentials' {_dscArn = pArn_}
+newDeleteSourceCredentials pArn_ =
+  DeleteSourceCredentials' {arn = pArn_}
 
 -- | The Amazon Resource Name (ARN) of the token.
-dscArn :: Lens' DeleteSourceCredentials Text
-dscArn = lens _dscArn (\s a -> s {_dscArn = a})
+deleteSourceCredentials_arn :: Lens.Lens' DeleteSourceCredentials Prelude.Text
+deleteSourceCredentials_arn = Lens.lens (\DeleteSourceCredentials' {arn} -> arn) (\s@DeleteSourceCredentials' {} a -> s {arn = a} :: DeleteSourceCredentials)
 
-instance AWSRequest DeleteSourceCredentials where
+instance Prelude.AWSRequest DeleteSourceCredentials where
   type
     Rs DeleteSourceCredentials =
       DeleteSourceCredentialsResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteSourceCredentialsResponse'
-            <$> (x .?> "arn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "arn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSourceCredentials
+instance Prelude.Hashable DeleteSourceCredentials
 
-instance NFData DeleteSourceCredentials
+instance Prelude.NFData DeleteSourceCredentials
 
-instance ToHeaders DeleteSourceCredentials where
+instance Prelude.ToHeaders DeleteSourceCredentials where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.DeleteSourceCredentials" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.DeleteSourceCredentials" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteSourceCredentials where
+instance Prelude.ToJSON DeleteSourceCredentials where
   toJSON DeleteSourceCredentials' {..} =
-    object (catMaybes [Just ("arn" .= _dscArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath DeleteSourceCredentials where
-  toPath = const "/"
+instance Prelude.ToPath DeleteSourceCredentials where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSourceCredentials where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSourceCredentials where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSourceCredentialsResponse' smart constructor.
+-- | /See:/ 'newDeleteSourceCredentialsResponse' smart constructor.
 data DeleteSourceCredentialsResponse = DeleteSourceCredentialsResponse'
-  { _dscrrsArn ::
-      !( Maybe
-           Text
-       ),
-    _dscrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the token.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSourceCredentialsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSourceCredentialsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscrrsArn' - The Amazon Resource Name (ARN) of the token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dscrrsResponseStatus' - -- | The response status code.
-deleteSourceCredentialsResponse ::
-  -- | 'dscrrsResponseStatus'
-  Int ->
+-- 'arn', 'deleteSourceCredentialsResponse_arn' - The Amazon Resource Name (ARN) of the token.
+--
+-- 'httpStatus', 'deleteSourceCredentialsResponse_httpStatus' - The response's http status code.
+newDeleteSourceCredentialsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSourceCredentialsResponse
-deleteSourceCredentialsResponse pResponseStatus_ =
+newDeleteSourceCredentialsResponse pHttpStatus_ =
   DeleteSourceCredentialsResponse'
-    { _dscrrsArn =
-        Nothing,
-      _dscrrsResponseStatus = pResponseStatus_
+    { arn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the token.
-dscrrsArn :: Lens' DeleteSourceCredentialsResponse (Maybe Text)
-dscrrsArn = lens _dscrrsArn (\s a -> s {_dscrrsArn = a})
+deleteSourceCredentialsResponse_arn :: Lens.Lens' DeleteSourceCredentialsResponse (Prelude.Maybe Prelude.Text)
+deleteSourceCredentialsResponse_arn = Lens.lens (\DeleteSourceCredentialsResponse' {arn} -> arn) (\s@DeleteSourceCredentialsResponse' {} a -> s {arn = a} :: DeleteSourceCredentialsResponse)
 
--- | -- | The response status code.
-dscrrsResponseStatus :: Lens' DeleteSourceCredentialsResponse Int
-dscrrsResponseStatus = lens _dscrrsResponseStatus (\s a -> s {_dscrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSourceCredentialsResponse_httpStatus :: Lens.Lens' DeleteSourceCredentialsResponse Prelude.Int
+deleteSourceCredentialsResponse_httpStatus = Lens.lens (\DeleteSourceCredentialsResponse' {httpStatus} -> httpStatus) (\s@DeleteSourceCredentialsResponse' {} a -> s {httpStatus = a} :: DeleteSourceCredentialsResponse)
 
-instance NFData DeleteSourceCredentialsResponse
+instance
+  Prelude.NFData
+    DeleteSourceCredentialsResponse

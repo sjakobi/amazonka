@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,37 +20,44 @@
 module Network.AWS.CodeBuild.Types.ReportFilter where
 
 import Network.AWS.CodeBuild.Types.ReportStatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A filter used to return reports with the status specified by the input @status@ parameter.
+-- | A filter used to return reports with the status specified by the input
+-- @status@ parameter.
 --
---
---
--- /See:/ 'reportFilter' smart constructor.
-newtype ReportFilter = ReportFilter'
-  { _rfStatus ::
-      Maybe ReportStatusType
+-- /See:/ 'newReportFilter' smart constructor.
+data ReportFilter = ReportFilter'
+  { -- | The status used to filter reports. You can filter using one status only.
+    status :: Prelude.Maybe ReportStatusType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReportFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReportFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rfStatus' - The status used to filter reports. You can filter using one status only.
-reportFilter ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'status', 'reportFilter_status' - The status used to filter reports. You can filter using one status only.
+newReportFilter ::
   ReportFilter
-reportFilter = ReportFilter' {_rfStatus = Nothing}
+newReportFilter =
+  ReportFilter' {status = Prelude.Nothing}
 
 -- | The status used to filter reports. You can filter using one status only.
-rfStatus :: Lens' ReportFilter (Maybe ReportStatusType)
-rfStatus = lens _rfStatus (\s a -> s {_rfStatus = a})
+reportFilter_status :: Lens.Lens' ReportFilter (Prelude.Maybe ReportStatusType)
+reportFilter_status = Lens.lens (\ReportFilter' {status} -> status) (\s@ReportFilter' {} a -> s {status = a} :: ReportFilter)
 
-instance Hashable ReportFilter
+instance Prelude.Hashable ReportFilter
 
-instance NFData ReportFilter
+instance Prelude.NFData ReportFilter
 
-instance ToJSON ReportFilter where
+instance Prelude.ToJSON ReportFilter where
   toJSON ReportFilter' {..} =
-    object (catMaybes [("status" .=) <$> _rfStatus])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("status" Prelude..=) Prelude.<$> status]
+      )

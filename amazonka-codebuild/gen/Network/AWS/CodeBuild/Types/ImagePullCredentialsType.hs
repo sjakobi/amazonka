@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CodeBuild.Types.ImagePullCredentialsType
   ( ImagePullCredentialsType
       ( ..,
-        Codebuild,
-        ServiceRole
+        ImagePullCredentialsTypeCODEBUILD,
+        ImagePullCredentialsTypeSERVICEROLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImagePullCredentialsType
-  = ImagePullCredentialsType'
-      ( CI
-          Text
-      )
+newtype ImagePullCredentialsType = ImagePullCredentialsType'
+  { fromImagePullCredentialsType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Codebuild :: ImagePullCredentialsType
-pattern Codebuild = ImagePullCredentialsType' "CODEBUILD"
+pattern ImagePullCredentialsTypeCODEBUILD :: ImagePullCredentialsType
+pattern ImagePullCredentialsTypeCODEBUILD = ImagePullCredentialsType' "CODEBUILD"
 
-pattern ServiceRole :: ImagePullCredentialsType
-pattern ServiceRole = ImagePullCredentialsType' "SERVICE_ROLE"
+pattern ImagePullCredentialsTypeSERVICEROLE :: ImagePullCredentialsType
+pattern ImagePullCredentialsTypeSERVICEROLE = ImagePullCredentialsType' "SERVICE_ROLE"
 
 {-# COMPLETE
-  Codebuild,
-  ServiceRole,
+  ImagePullCredentialsTypeCODEBUILD,
+  ImagePullCredentialsTypeSERVICEROLE,
   ImagePullCredentialsType'
   #-}
 
-instance FromText ImagePullCredentialsType where
-  parser = (ImagePullCredentialsType' . mk) <$> takeText
+instance Prelude.FromText ImagePullCredentialsType where
+  parser = ImagePullCredentialsType' Prelude.<$> Prelude.takeText
 
-instance ToText ImagePullCredentialsType where
-  toText (ImagePullCredentialsType' ci) = original ci
+instance Prelude.ToText ImagePullCredentialsType where
+  toText (ImagePullCredentialsType' x) = x
 
-instance Hashable ImagePullCredentialsType
+instance Prelude.Hashable ImagePullCredentialsType
 
-instance NFData ImagePullCredentialsType
+instance Prelude.NFData ImagePullCredentialsType
 
-instance ToByteString ImagePullCredentialsType
+instance Prelude.ToByteString ImagePullCredentialsType
 
-instance ToQuery ImagePullCredentialsType
+instance Prelude.ToQuery ImagePullCredentialsType
 
-instance ToHeader ImagePullCredentialsType
+instance Prelude.ToHeader ImagePullCredentialsType
 
-instance ToJSON ImagePullCredentialsType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ImagePullCredentialsType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ImagePullCredentialsType where
-  parseJSON = parseJSONText "ImagePullCredentialsType"
+instance Prelude.FromJSON ImagePullCredentialsType where
+  parseJSON = Prelude.parseJSONText "ImagePullCredentialsType"

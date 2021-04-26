@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,128 +24,140 @@
 -- Gets a resource policy that is identified by its resource ARN.
 module Network.AWS.CodeBuild.GetResourcePolicy
   ( -- * Creating a Request
-    getResourcePolicy,
-    GetResourcePolicy,
+    GetResourcePolicy (..),
+    newGetResourcePolicy,
 
     -- * Request Lenses
-    grpResourceARN,
+    getResourcePolicy_resourceArn,
 
     -- * Destructuring the Response
-    getResourcePolicyResponse,
-    GetResourcePolicyResponse,
+    GetResourcePolicyResponse (..),
+    newGetResourcePolicyResponse,
 
     -- * Response Lenses
-    grprrsPolicy,
-    grprrsResponseStatus,
+    getResourcePolicyResponse_policy,
+    getResourcePolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getResourcePolicy' smart constructor.
-newtype GetResourcePolicy = GetResourcePolicy'
-  { _grpResourceARN ::
-      Text
+-- | /See:/ 'newGetResourcePolicy' smart constructor.
+data GetResourcePolicy = GetResourcePolicy'
+  { -- | The ARN of the resource that is associated with the resource policy.
+    resourceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResourcePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResourcePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grpResourceARN' - The ARN of the resource that is associated with the resource policy.
-getResourcePolicy ::
-  -- | 'grpResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'getResourcePolicy_resourceArn' - The ARN of the resource that is associated with the resource policy.
+newGetResourcePolicy ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   GetResourcePolicy
-getResourcePolicy pResourceARN_ =
-  GetResourcePolicy' {_grpResourceARN = pResourceARN_}
+newGetResourcePolicy pResourceArn_ =
+  GetResourcePolicy' {resourceArn = pResourceArn_}
 
 -- | The ARN of the resource that is associated with the resource policy.
-grpResourceARN :: Lens' GetResourcePolicy Text
-grpResourceARN = lens _grpResourceARN (\s a -> s {_grpResourceARN = a})
+getResourcePolicy_resourceArn :: Lens.Lens' GetResourcePolicy Prelude.Text
+getResourcePolicy_resourceArn = Lens.lens (\GetResourcePolicy' {resourceArn} -> resourceArn) (\s@GetResourcePolicy' {} a -> s {resourceArn = a} :: GetResourcePolicy)
 
-instance AWSRequest GetResourcePolicy where
+instance Prelude.AWSRequest GetResourcePolicy where
   type Rs GetResourcePolicy = GetResourcePolicyResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetResourcePolicyResponse'
-            <$> (x .?> "policy") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "policy")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetResourcePolicy
+instance Prelude.Hashable GetResourcePolicy
 
-instance NFData GetResourcePolicy
+instance Prelude.NFData GetResourcePolicy
 
-instance ToHeaders GetResourcePolicy where
+instance Prelude.ToHeaders GetResourcePolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.GetResourcePolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.GetResourcePolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetResourcePolicy where
+instance Prelude.ToJSON GetResourcePolicy where
   toJSON GetResourcePolicy' {..} =
-    object
-      (catMaybes [Just ("resourceArn" .= _grpResourceARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("resourceArn" Prelude..= resourceArn)
+          ]
+      )
 
-instance ToPath GetResourcePolicy where
-  toPath = const "/"
+instance Prelude.ToPath GetResourcePolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetResourcePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery GetResourcePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getResourcePolicyResponse' smart constructor.
+-- | /See:/ 'newGetResourcePolicyResponse' smart constructor.
 data GetResourcePolicyResponse = GetResourcePolicyResponse'
-  { _grprrsPolicy ::
-      !(Maybe Text),
-    _grprrsResponseStatus ::
-      !Int
+  { -- | The resource policy for the resource identified by the input ARN
+    -- parameter.
+    policy :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResourcePolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResourcePolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grprrsPolicy' - The resource policy for the resource identified by the input ARN parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grprrsResponseStatus' - -- | The response status code.
-getResourcePolicyResponse ::
-  -- | 'grprrsResponseStatus'
-  Int ->
+-- 'policy', 'getResourcePolicyResponse_policy' - The resource policy for the resource identified by the input ARN
+-- parameter.
+--
+-- 'httpStatus', 'getResourcePolicyResponse_httpStatus' - The response's http status code.
+newGetResourcePolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetResourcePolicyResponse
-getResourcePolicyResponse pResponseStatus_ =
+newGetResourcePolicyResponse pHttpStatus_ =
   GetResourcePolicyResponse'
-    { _grprrsPolicy = Nothing,
-      _grprrsResponseStatus = pResponseStatus_
+    { policy =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The resource policy for the resource identified by the input ARN parameter.
-grprrsPolicy :: Lens' GetResourcePolicyResponse (Maybe Text)
-grprrsPolicy = lens _grprrsPolicy (\s a -> s {_grprrsPolicy = a})
+-- | The resource policy for the resource identified by the input ARN
+-- parameter.
+getResourcePolicyResponse_policy :: Lens.Lens' GetResourcePolicyResponse (Prelude.Maybe Prelude.Text)
+getResourcePolicyResponse_policy = Lens.lens (\GetResourcePolicyResponse' {policy} -> policy) (\s@GetResourcePolicyResponse' {} a -> s {policy = a} :: GetResourcePolicyResponse)
 
--- | -- | The response status code.
-grprrsResponseStatus :: Lens' GetResourcePolicyResponse Int
-grprrsResponseStatus = lens _grprrsResponseStatus (\s a -> s {_grprrsResponseStatus = a})
+-- | The response's http status code.
+getResourcePolicyResponse_httpStatus :: Lens.Lens' GetResourcePolicyResponse Prelude.Int
+getResourcePolicyResponse_httpStatus = Lens.lens (\GetResourcePolicyResponse' {httpStatus} -> httpStatus) (\s@GetResourcePolicyResponse' {} a -> s {httpStatus = a} :: GetResourcePolicyResponse)
 
-instance NFData GetResourcePolicyResponse
+instance Prelude.NFData GetResourcePolicyResponse

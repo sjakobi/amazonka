@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,171 +24,189 @@
 -- Creates a report group. A report group contains a collection of reports.
 module Network.AWS.CodeBuild.CreateReportGroup
   ( -- * Creating a Request
-    createReportGroup,
-    CreateReportGroup,
+    CreateReportGroup (..),
+    newCreateReportGroup,
 
     -- * Request Lenses
-    crgTags,
-    crgName,
-    crgType,
-    crgExportConfig,
+    createReportGroup_tags,
+    createReportGroup_name,
+    createReportGroup_type,
+    createReportGroup_exportConfig,
 
     -- * Destructuring the Response
-    createReportGroupResponse,
-    CreateReportGroupResponse,
+    CreateReportGroupResponse (..),
+    newCreateReportGroupResponse,
 
     -- * Response Lenses
-    crgrrsReportGroup,
-    crgrrsResponseStatus,
+    createReportGroupResponse_reportGroup,
+    createReportGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.ReportGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createReportGroup' smart constructor.
+-- | /See:/ 'newCreateReportGroup' smart constructor.
 data CreateReportGroup = CreateReportGroup'
-  { _crgTags ::
-      !(Maybe [Tag]),
-    _crgName :: !Text,
-    _crgType :: !ReportType,
-    _crgExportConfig ::
-      !ReportExportConfig
+  { -- | A list of tag key and value pairs associated with this report group.
+    --
+    -- These tags are available for use by AWS services that support AWS
+    -- CodeBuild report group tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the report group.
+    name :: Prelude.Text,
+    -- | The type of report group.
+    type' :: ReportType,
+    -- | A @ReportExportConfig@ object that contains information about where the
+    -- report group test results are exported.
+    exportConfig :: ReportExportConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReportGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReportGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crgTags' - A list of tag key and value pairs associated with this report group.  These tags are available for use by AWS services that support AWS CodeBuild report group tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crgName' - The name of the report group.
+-- 'tags', 'createReportGroup_tags' - A list of tag key and value pairs associated with this report group.
 --
--- * 'crgType' - The type of report group.
+-- These tags are available for use by AWS services that support AWS
+-- CodeBuild report group tags.
 --
--- * 'crgExportConfig' - A @ReportExportConfig@ object that contains information about where the report group test results are exported.
-createReportGroup ::
-  -- | 'crgName'
-  Text ->
-  -- | 'crgType'
+-- 'name', 'createReportGroup_name' - The name of the report group.
+--
+-- 'type'', 'createReportGroup_type' - The type of report group.
+--
+-- 'exportConfig', 'createReportGroup_exportConfig' - A @ReportExportConfig@ object that contains information about where the
+-- report group test results are exported.
+newCreateReportGroup ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   ReportType ->
-  -- | 'crgExportConfig'
+  -- | 'exportConfig'
   ReportExportConfig ->
   CreateReportGroup
-createReportGroup pName_ pType_ pExportConfig_ =
+newCreateReportGroup pName_ pType_ pExportConfig_ =
   CreateReportGroup'
-    { _crgTags = Nothing,
-      _crgName = pName_,
-      _crgType = pType_,
-      _crgExportConfig = pExportConfig_
+    { tags = Prelude.Nothing,
+      name = pName_,
+      type' = pType_,
+      exportConfig = pExportConfig_
     }
 
--- | A list of tag key and value pairs associated with this report group.  These tags are available for use by AWS services that support AWS CodeBuild report group tags.
-crgTags :: Lens' CreateReportGroup [Tag]
-crgTags = lens _crgTags (\s a -> s {_crgTags = a}) . _Default . _Coerce
+-- | A list of tag key and value pairs associated with this report group.
+--
+-- These tags are available for use by AWS services that support AWS
+-- CodeBuild report group tags.
+createReportGroup_tags :: Lens.Lens' CreateReportGroup (Prelude.Maybe [Tag])
+createReportGroup_tags = Lens.lens (\CreateReportGroup' {tags} -> tags) (\s@CreateReportGroup' {} a -> s {tags = a} :: CreateReportGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the report group.
-crgName :: Lens' CreateReportGroup Text
-crgName = lens _crgName (\s a -> s {_crgName = a})
+createReportGroup_name :: Lens.Lens' CreateReportGroup Prelude.Text
+createReportGroup_name = Lens.lens (\CreateReportGroup' {name} -> name) (\s@CreateReportGroup' {} a -> s {name = a} :: CreateReportGroup)
 
 -- | The type of report group.
-crgType :: Lens' CreateReportGroup ReportType
-crgType = lens _crgType (\s a -> s {_crgType = a})
+createReportGroup_type :: Lens.Lens' CreateReportGroup ReportType
+createReportGroup_type = Lens.lens (\CreateReportGroup' {type'} -> type') (\s@CreateReportGroup' {} a -> s {type' = a} :: CreateReportGroup)
 
--- | A @ReportExportConfig@ object that contains information about where the report group test results are exported.
-crgExportConfig :: Lens' CreateReportGroup ReportExportConfig
-crgExportConfig = lens _crgExportConfig (\s a -> s {_crgExportConfig = a})
+-- | A @ReportExportConfig@ object that contains information about where the
+-- report group test results are exported.
+createReportGroup_exportConfig :: Lens.Lens' CreateReportGroup ReportExportConfig
+createReportGroup_exportConfig = Lens.lens (\CreateReportGroup' {exportConfig} -> exportConfig) (\s@CreateReportGroup' {} a -> s {exportConfig = a} :: CreateReportGroup)
 
-instance AWSRequest CreateReportGroup where
+instance Prelude.AWSRequest CreateReportGroup where
   type Rs CreateReportGroup = CreateReportGroupResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateReportGroupResponse'
-            <$> (x .?> "reportGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "reportGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateReportGroup
+instance Prelude.Hashable CreateReportGroup
 
-instance NFData CreateReportGroup
+instance Prelude.NFData CreateReportGroup
 
-instance ToHeaders CreateReportGroup where
+instance Prelude.ToHeaders CreateReportGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.CreateReportGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.CreateReportGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateReportGroup where
+instance Prelude.ToJSON CreateReportGroup where
   toJSON CreateReportGroup' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _crgTags,
-            Just ("name" .= _crgName),
-            Just ("type" .= _crgType),
-            Just ("exportConfig" .= _crgExportConfig)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("type" Prelude..= type'),
+            Prelude.Just
+              ("exportConfig" Prelude..= exportConfig)
           ]
       )
 
-instance ToPath CreateReportGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateReportGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateReportGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateReportGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createReportGroupResponse' smart constructor.
+-- | /See:/ 'newCreateReportGroupResponse' smart constructor.
 data CreateReportGroupResponse = CreateReportGroupResponse'
-  { _crgrrsReportGroup ::
-      !( Maybe
-           ReportGroup
-       ),
-    _crgrrsResponseStatus ::
-      !Int
+  { -- | Information about the report group that was created.
+    reportGroup :: Prelude.Maybe ReportGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReportGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReportGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crgrrsReportGroup' - Information about the report group that was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crgrrsResponseStatus' - -- | The response status code.
-createReportGroupResponse ::
-  -- | 'crgrrsResponseStatus'
-  Int ->
+-- 'reportGroup', 'createReportGroupResponse_reportGroup' - Information about the report group that was created.
+--
+-- 'httpStatus', 'createReportGroupResponse_httpStatus' - The response's http status code.
+newCreateReportGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateReportGroupResponse
-createReportGroupResponse pResponseStatus_ =
+newCreateReportGroupResponse pHttpStatus_ =
   CreateReportGroupResponse'
-    { _crgrrsReportGroup =
-        Nothing,
-      _crgrrsResponseStatus = pResponseStatus_
+    { reportGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the report group that was created.
-crgrrsReportGroup :: Lens' CreateReportGroupResponse (Maybe ReportGroup)
-crgrrsReportGroup = lens _crgrrsReportGroup (\s a -> s {_crgrrsReportGroup = a})
+createReportGroupResponse_reportGroup :: Lens.Lens' CreateReportGroupResponse (Prelude.Maybe ReportGroup)
+createReportGroupResponse_reportGroup = Lens.lens (\CreateReportGroupResponse' {reportGroup} -> reportGroup) (\s@CreateReportGroupResponse' {} a -> s {reportGroup = a} :: CreateReportGroupResponse)
 
--- | -- | The response status code.
-crgrrsResponseStatus :: Lens' CreateReportGroupResponse Int
-crgrrsResponseStatus = lens _crgrrsResponseStatus (\s a -> s {_crgrrsResponseStatus = a})
+-- | The response's http status code.
+createReportGroupResponse_httpStatus :: Lens.Lens' CreateReportGroupResponse Prelude.Int
+createReportGroupResponse_httpStatus = Lens.lens (\CreateReportGroupResponse' {httpStatus} -> httpStatus) (\s@CreateReportGroupResponse' {} a -> s {httpStatus = a} :: CreateReportGroupResponse)
 
-instance NFData CreateReportGroupResponse
+instance Prelude.NFData CreateReportGroupResponse

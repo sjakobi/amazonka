@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stores a resource policy for the ARN of a @Project@ or @ReportGroup@ object.
+-- Stores a resource policy for the ARN of a @Project@ or @ReportGroup@
+-- object.
 module Network.AWS.CodeBuild.PutResourcePolicy
   ( -- * Creating a Request
-    putResourcePolicy,
-    PutResourcePolicy,
+    PutResourcePolicy (..),
+    newPutResourcePolicy,
 
     -- * Request Lenses
-    prpPolicy,
-    prpResourceARN,
+    putResourcePolicy_policy,
+    putResourcePolicy_resourceArn,
 
     -- * Destructuring the Response
-    putResourcePolicyResponse,
-    PutResourcePolicyResponse,
+    PutResourcePolicyResponse (..),
+    newPutResourcePolicyResponse,
 
     -- * Response Lenses
-    prprrsResourceARN,
-    prprrsResponseStatus,
+    putResourcePolicyResponse_resourceArn,
+    putResourcePolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putResourcePolicy' smart constructor.
+-- | /See:/ 'newPutResourcePolicy' smart constructor.
 data PutResourcePolicy = PutResourcePolicy'
-  { _prpPolicy ::
-      !Text,
-    _prpResourceARN :: !Text
+  { -- | A JSON-formatted resource policy. For more information, see
+    -- <https://docs.aws.amazon.com/codebuild/latest/userguide/project-sharing.html#project-sharing-share Sharing a Project>
+    -- and
+    -- <https://docs.aws.amazon.com/codebuild/latest/userguide/report-groups-sharing.html#report-groups-sharing-share Sharing a Report Group>
+    -- in the /AWS CodeBuild User Guide/.
+    policy :: Prelude.Text,
+    -- | The ARN of the @Project@ or @ReportGroup@ resource you want to associate
+    -- with a resource policy.
+    resourceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutResourcePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutResourcePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prpPolicy' - A JSON-formatted resource policy. For more information, see <https://docs.aws.amazon.com/codebuild/latest/userguide/project-sharing.html#project-sharing-share Sharing a Project> and <https://docs.aws.amazon.com/codebuild/latest/userguide/report-groups-sharing.html#report-groups-sharing-share Sharing a Report Group> in the /AWS CodeBuild User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prpResourceARN' - The ARN of the @Project@ or @ReportGroup@ resource you want to associate with a resource policy.
-putResourcePolicy ::
-  -- | 'prpPolicy'
-  Text ->
-  -- | 'prpResourceARN'
-  Text ->
+-- 'policy', 'putResourcePolicy_policy' - A JSON-formatted resource policy. For more information, see
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/project-sharing.html#project-sharing-share Sharing a Project>
+-- and
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/report-groups-sharing.html#report-groups-sharing-share Sharing a Report Group>
+-- in the /AWS CodeBuild User Guide/.
+--
+-- 'resourceArn', 'putResourcePolicy_resourceArn' - The ARN of the @Project@ or @ReportGroup@ resource you want to associate
+-- with a resource policy.
+newPutResourcePolicy ::
+  -- | 'policy'
+  Prelude.Text ->
+  -- | 'resourceArn'
+  Prelude.Text ->
   PutResourcePolicy
-putResourcePolicy pPolicy_ pResourceARN_ =
+newPutResourcePolicy pPolicy_ pResourceArn_ =
   PutResourcePolicy'
-    { _prpPolicy = pPolicy_,
-      _prpResourceARN = pResourceARN_
+    { policy = pPolicy_,
+      resourceArn = pResourceArn_
     }
 
--- | A JSON-formatted resource policy. For more information, see <https://docs.aws.amazon.com/codebuild/latest/userguide/project-sharing.html#project-sharing-share Sharing a Project> and <https://docs.aws.amazon.com/codebuild/latest/userguide/report-groups-sharing.html#report-groups-sharing-share Sharing a Report Group> in the /AWS CodeBuild User Guide/ .
-prpPolicy :: Lens' PutResourcePolicy Text
-prpPolicy = lens _prpPolicy (\s a -> s {_prpPolicy = a})
+-- | A JSON-formatted resource policy. For more information, see
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/project-sharing.html#project-sharing-share Sharing a Project>
+-- and
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/report-groups-sharing.html#report-groups-sharing-share Sharing a Report Group>
+-- in the /AWS CodeBuild User Guide/.
+putResourcePolicy_policy :: Lens.Lens' PutResourcePolicy Prelude.Text
+putResourcePolicy_policy = Lens.lens (\PutResourcePolicy' {policy} -> policy) (\s@PutResourcePolicy' {} a -> s {policy = a} :: PutResourcePolicy)
 
--- | The ARN of the @Project@ or @ReportGroup@ resource you want to associate with a resource policy.
-prpResourceARN :: Lens' PutResourcePolicy Text
-prpResourceARN = lens _prpResourceARN (\s a -> s {_prpResourceARN = a})
+-- | The ARN of the @Project@ or @ReportGroup@ resource you want to associate
+-- with a resource policy.
+putResourcePolicy_resourceArn :: Lens.Lens' PutResourcePolicy Prelude.Text
+putResourcePolicy_resourceArn = Lens.lens (\PutResourcePolicy' {resourceArn} -> resourceArn) (\s@PutResourcePolicy' {} a -> s {resourceArn = a} :: PutResourcePolicy)
 
-instance AWSRequest PutResourcePolicy where
+instance Prelude.AWSRequest PutResourcePolicy where
   type Rs PutResourcePolicy = PutResourcePolicyResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutResourcePolicyResponse'
-            <$> (x .?> "resourceArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "resourceArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutResourcePolicy
+instance Prelude.Hashable PutResourcePolicy
 
-instance NFData PutResourcePolicy
+instance Prelude.NFData PutResourcePolicy
 
-instance ToHeaders PutResourcePolicy where
+instance Prelude.ToHeaders PutResourcePolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.PutResourcePolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.PutResourcePolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutResourcePolicy where
+instance Prelude.ToJSON PutResourcePolicy where
   toJSON PutResourcePolicy' {..} =
-    object
-      ( catMaybes
-          [ Just ("policy" .= _prpPolicy),
-            Just ("resourceArn" .= _prpResourceARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("policy" Prelude..= policy),
+            Prelude.Just ("resourceArn" Prelude..= resourceArn)
           ]
       )
 
-instance ToPath PutResourcePolicy where
-  toPath = const "/"
+instance Prelude.ToPath PutResourcePolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutResourcePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery PutResourcePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putResourcePolicyResponse' smart constructor.
+-- | /See:/ 'newPutResourcePolicyResponse' smart constructor.
 data PutResourcePolicyResponse = PutResourcePolicyResponse'
-  { _prprrsResourceARN ::
-      !(Maybe Text),
-    _prprrsResponseStatus ::
-      !Int
+  { -- | The ARN of the @Project@ or @ReportGroup@ resource that is associated
+    -- with a resource policy.
+    resourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutResourcePolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutResourcePolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prprrsResourceARN' - The ARN of the @Project@ or @ReportGroup@ resource that is associated with a resource policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prprrsResponseStatus' - -- | The response status code.
-putResourcePolicyResponse ::
-  -- | 'prprrsResponseStatus'
-  Int ->
+-- 'resourceArn', 'putResourcePolicyResponse_resourceArn' - The ARN of the @Project@ or @ReportGroup@ resource that is associated
+-- with a resource policy.
+--
+-- 'httpStatus', 'putResourcePolicyResponse_httpStatus' - The response's http status code.
+newPutResourcePolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutResourcePolicyResponse
-putResourcePolicyResponse pResponseStatus_ =
+newPutResourcePolicyResponse pHttpStatus_ =
   PutResourcePolicyResponse'
-    { _prprrsResourceARN =
-        Nothing,
-      _prprrsResponseStatus = pResponseStatus_
+    { resourceArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The ARN of the @Project@ or @ReportGroup@ resource that is associated with a resource policy.
-prprrsResourceARN :: Lens' PutResourcePolicyResponse (Maybe Text)
-prprrsResourceARN = lens _prprrsResourceARN (\s a -> s {_prprrsResourceARN = a})
+-- | The ARN of the @Project@ or @ReportGroup@ resource that is associated
+-- with a resource policy.
+putResourcePolicyResponse_resourceArn :: Lens.Lens' PutResourcePolicyResponse (Prelude.Maybe Prelude.Text)
+putResourcePolicyResponse_resourceArn = Lens.lens (\PutResourcePolicyResponse' {resourceArn} -> resourceArn) (\s@PutResourcePolicyResponse' {} a -> s {resourceArn = a} :: PutResourcePolicyResponse)
 
--- | -- | The response status code.
-prprrsResponseStatus :: Lens' PutResourcePolicyResponse Int
-prprrsResponseStatus = lens _prprrsResponseStatus (\s a -> s {_prprrsResponseStatus = a})
+-- | The response's http status code.
+putResourcePolicyResponse_httpStatus :: Lens.Lens' PutResourcePolicyResponse Prelude.Int
+putResourcePolicyResponse_httpStatus = Lens.lens (\PutResourcePolicyResponse' {httpStatus} -> httpStatus) (\s@PutResourcePolicyResponse' {} a -> s {httpStatus = a} :: PutResourcePolicyResponse)
 
-instance NFData PutResourcePolicyResponse
+instance Prelude.NFData PutResourcePolicyResponse

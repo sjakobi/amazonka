@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,209 +21,290 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of report groups that are shared with other AWS accounts or users.
---
---
+-- Gets a list of report groups that are shared with other AWS accounts or
+-- users.
 --
 -- This operation returns paginated results.
 module Network.AWS.CodeBuild.ListSharedReportGroups
   ( -- * Creating a Request
-    listSharedReportGroups,
-    ListSharedReportGroups,
+    ListSharedReportGroups (..),
+    newListSharedReportGroups,
 
     -- * Request Lenses
-    lsrgSortOrder,
-    lsrgNextToken,
-    lsrgMaxResults,
-    lsrgSortBy,
+    listSharedReportGroups_sortOrder,
+    listSharedReportGroups_nextToken,
+    listSharedReportGroups_maxResults,
+    listSharedReportGroups_sortBy,
 
     -- * Destructuring the Response
-    listSharedReportGroupsResponse,
-    ListSharedReportGroupsResponse,
+    ListSharedReportGroupsResponse (..),
+    newListSharedReportGroupsResponse,
 
     -- * Response Lenses
-    lsrgrrsNextToken,
-    lsrgrrsReportGroups,
-    lsrgrrsResponseStatus,
+    listSharedReportGroupsResponse_nextToken,
+    listSharedReportGroupsResponse_reportGroups,
+    listSharedReportGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSharedReportGroups' smart constructor.
+-- | /See:/ 'newListSharedReportGroups' smart constructor.
 data ListSharedReportGroups = ListSharedReportGroups'
-  { _lsrgSortOrder ::
-      !(Maybe SortOrderType),
-    _lsrgNextToken ::
-      !(Maybe Text),
-    _lsrgMaxResults ::
-      !(Maybe Nat),
-    _lsrgSortBy ::
-      !( Maybe
-           SharedResourceSortByType
-       )
+  { -- | The order in which to list shared report groups. Valid values include:
+    --
+    -- -   @ASCENDING@: List in ascending order.
+    --
+    -- -   @DESCENDING@: List in descending order.
+    sortOrder :: Prelude.Maybe SortOrderType,
+    -- | During a previous call, the maximum number of items that can be returned
+    -- is the value specified in @maxResults@. If there more items in the list,
+    -- then a unique string called a /nextToken/ is returned. To get the next
+    -- batch of items in the list, call this operation again, adding the next
+    -- token to the call. To get all of the items in the list, keep calling
+    -- this operation with each subsequent next token that is returned, until
+    -- no more next tokens are returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of paginated shared report groups per response. Use
+    -- @nextToken@ to iterate pages in the list of returned @ReportGroup@
+    -- objects. The default value is 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The criterion to be used to list report groups shared with the current
+    -- AWS account or user. Valid values include:
+    --
+    -- -   @ARN@: List based on the ARN.
+    --
+    -- -   @MODIFIED_TIME@: List based on when information about the shared
+    --     report group was last changed.
+    sortBy :: Prelude.Maybe SharedResourceSortByType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSharedReportGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSharedReportGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsrgSortOrder' - The order in which to list shared report groups. Valid values include:     * @ASCENDING@ : List in ascending order.     * @DESCENDING@ : List in descending order.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsrgNextToken' - During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
+-- 'sortOrder', 'listSharedReportGroups_sortOrder' - The order in which to list shared report groups. Valid values include:
 --
--- * 'lsrgMaxResults' - The maximum number of paginated shared report groups per response. Use @nextToken@ to iterate pages in the list of returned @ReportGroup@ objects. The default value is 100.
+-- -   @ASCENDING@: List in ascending order.
 --
--- * 'lsrgSortBy' - The criterion to be used to list report groups shared with the current AWS account or user. Valid values include:      * @ARN@ : List based on the ARN.      * @MODIFIED_TIME@ : List based on when information about the shared report group was last changed.
-listSharedReportGroups ::
+-- -   @DESCENDING@: List in descending order.
+--
+-- 'nextToken', 'listSharedReportGroups_nextToken' - During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
+--
+-- 'maxResults', 'listSharedReportGroups_maxResults' - The maximum number of paginated shared report groups per response. Use
+-- @nextToken@ to iterate pages in the list of returned @ReportGroup@
+-- objects. The default value is 100.
+--
+-- 'sortBy', 'listSharedReportGroups_sortBy' - The criterion to be used to list report groups shared with the current
+-- AWS account or user. Valid values include:
+--
+-- -   @ARN@: List based on the ARN.
+--
+-- -   @MODIFIED_TIME@: List based on when information about the shared
+--     report group was last changed.
+newListSharedReportGroups ::
   ListSharedReportGroups
-listSharedReportGroups =
+newListSharedReportGroups =
   ListSharedReportGroups'
-    { _lsrgSortOrder = Nothing,
-      _lsrgNextToken = Nothing,
-      _lsrgMaxResults = Nothing,
-      _lsrgSortBy = Nothing
+    { sortOrder =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      sortBy = Prelude.Nothing
     }
 
--- | The order in which to list shared report groups. Valid values include:     * @ASCENDING@ : List in ascending order.     * @DESCENDING@ : List in descending order.
-lsrgSortOrder :: Lens' ListSharedReportGroups (Maybe SortOrderType)
-lsrgSortOrder = lens _lsrgSortOrder (\s a -> s {_lsrgSortOrder = a})
+-- | The order in which to list shared report groups. Valid values include:
+--
+-- -   @ASCENDING@: List in ascending order.
+--
+-- -   @DESCENDING@: List in descending order.
+listSharedReportGroups_sortOrder :: Lens.Lens' ListSharedReportGroups (Prelude.Maybe SortOrderType)
+listSharedReportGroups_sortOrder = Lens.lens (\ListSharedReportGroups' {sortOrder} -> sortOrder) (\s@ListSharedReportGroups' {} a -> s {sortOrder = a} :: ListSharedReportGroups)
 
--- | During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
-lsrgNextToken :: Lens' ListSharedReportGroups (Maybe Text)
-lsrgNextToken = lens _lsrgNextToken (\s a -> s {_lsrgNextToken = a})
+-- | During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
+listSharedReportGroups_nextToken :: Lens.Lens' ListSharedReportGroups (Prelude.Maybe Prelude.Text)
+listSharedReportGroups_nextToken = Lens.lens (\ListSharedReportGroups' {nextToken} -> nextToken) (\s@ListSharedReportGroups' {} a -> s {nextToken = a} :: ListSharedReportGroups)
 
--- | The maximum number of paginated shared report groups per response. Use @nextToken@ to iterate pages in the list of returned @ReportGroup@ objects. The default value is 100.
-lsrgMaxResults :: Lens' ListSharedReportGroups (Maybe Natural)
-lsrgMaxResults = lens _lsrgMaxResults (\s a -> s {_lsrgMaxResults = a}) . mapping _Nat
+-- | The maximum number of paginated shared report groups per response. Use
+-- @nextToken@ to iterate pages in the list of returned @ReportGroup@
+-- objects. The default value is 100.
+listSharedReportGroups_maxResults :: Lens.Lens' ListSharedReportGroups (Prelude.Maybe Prelude.Natural)
+listSharedReportGroups_maxResults = Lens.lens (\ListSharedReportGroups' {maxResults} -> maxResults) (\s@ListSharedReportGroups' {} a -> s {maxResults = a} :: ListSharedReportGroups) Prelude.. Lens.mapping Prelude._Nat
 
--- | The criterion to be used to list report groups shared with the current AWS account or user. Valid values include:      * @ARN@ : List based on the ARN.      * @MODIFIED_TIME@ : List based on when information about the shared report group was last changed.
-lsrgSortBy :: Lens' ListSharedReportGroups (Maybe SharedResourceSortByType)
-lsrgSortBy = lens _lsrgSortBy (\s a -> s {_lsrgSortBy = a})
+-- | The criterion to be used to list report groups shared with the current
+-- AWS account or user. Valid values include:
+--
+-- -   @ARN@: List based on the ARN.
+--
+-- -   @MODIFIED_TIME@: List based on when information about the shared
+--     report group was last changed.
+listSharedReportGroups_sortBy :: Lens.Lens' ListSharedReportGroups (Prelude.Maybe SharedResourceSortByType)
+listSharedReportGroups_sortBy = Lens.lens (\ListSharedReportGroups' {sortBy} -> sortBy) (\s@ListSharedReportGroups' {} a -> s {sortBy = a} :: ListSharedReportGroups)
 
-instance AWSPager ListSharedReportGroups where
+instance Pager.AWSPager ListSharedReportGroups where
   page rq rs
-    | stop (rs ^. lsrgrrsNextToken) = Nothing
-    | stop (rs ^. lsrgrrsReportGroups) = Nothing
-    | otherwise =
-      Just $ rq & lsrgNextToken .~ rs ^. lsrgrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSharedReportGroupsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSharedReportGroupsResponse_reportGroups
+              Prelude.. Lens._Just
+              Prelude.. Lens.to Prelude.toList
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSharedReportGroups_nextToken
+          Lens..~ rs
+          Lens.^? listSharedReportGroupsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSharedReportGroups where
+instance Prelude.AWSRequest ListSharedReportGroups where
   type
     Rs ListSharedReportGroups =
       ListSharedReportGroupsResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSharedReportGroupsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "reportGroups")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "reportGroups")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSharedReportGroups
+instance Prelude.Hashable ListSharedReportGroups
 
-instance NFData ListSharedReportGroups
+instance Prelude.NFData ListSharedReportGroups
 
-instance ToHeaders ListSharedReportGroups where
+instance Prelude.ToHeaders ListSharedReportGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.ListSharedReportGroups" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.ListSharedReportGroups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSharedReportGroups where
+instance Prelude.ToJSON ListSharedReportGroups where
   toJSON ListSharedReportGroups' {..} =
-    object
-      ( catMaybes
-          [ ("sortOrder" .=) <$> _lsrgSortOrder,
-            ("nextToken" .=) <$> _lsrgNextToken,
-            ("maxResults" .=) <$> _lsrgMaxResults,
-            ("sortBy" .=) <$> _lsrgSortBy
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("sortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("sortBy" Prelude..=) Prelude.<$> sortBy
           ]
       )
 
-instance ToPath ListSharedReportGroups where
-  toPath = const "/"
+instance Prelude.ToPath ListSharedReportGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSharedReportGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSharedReportGroups where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSharedReportGroupsResponse' smart constructor.
+-- | /See:/ 'newListSharedReportGroupsResponse' smart constructor.
 data ListSharedReportGroupsResponse = ListSharedReportGroupsResponse'
-  { _lsrgrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lsrgrrsReportGroups ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       ),
-    _lsrgrrsResponseStatus ::
-      !Int
+  { -- | During a previous call, the maximum number of items that can be returned
+    -- is the value specified in @maxResults@. If there more items in the list,
+    -- then a unique string called a /nextToken/ is returned. To get the next
+    -- batch of items in the list, call this operation again, adding the next
+    -- token to the call. To get all of the items in the list, keep calling
+    -- this operation with each subsequent next token that is returned, until
+    -- no more next tokens are returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of ARNs for the report groups shared with the current AWS
+    -- account or user.
+    reportGroups :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSharedReportGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSharedReportGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsrgrrsNextToken' - During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsrgrrsReportGroups' - The list of ARNs for the report groups shared with the current AWS account or user.
+-- 'nextToken', 'listSharedReportGroupsResponse_nextToken' - During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
 --
--- * 'lsrgrrsResponseStatus' - -- | The response status code.
-listSharedReportGroupsResponse ::
-  -- | 'lsrgrrsResponseStatus'
-  Int ->
+-- 'reportGroups', 'listSharedReportGroupsResponse_reportGroups' - The list of ARNs for the report groups shared with the current AWS
+-- account or user.
+--
+-- 'httpStatus', 'listSharedReportGroupsResponse_httpStatus' - The response's http status code.
+newListSharedReportGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSharedReportGroupsResponse
-listSharedReportGroupsResponse pResponseStatus_ =
+newListSharedReportGroupsResponse pHttpStatus_ =
   ListSharedReportGroupsResponse'
-    { _lsrgrrsNextToken =
-        Nothing,
-      _lsrgrrsReportGroups = Nothing,
-      _lsrgrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      reportGroups = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
-lsrgrrsNextToken :: Lens' ListSharedReportGroupsResponse (Maybe Text)
-lsrgrrsNextToken = lens _lsrgrrsNextToken (\s a -> s {_lsrgrrsNextToken = a})
+-- | During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
+listSharedReportGroupsResponse_nextToken :: Lens.Lens' ListSharedReportGroupsResponse (Prelude.Maybe Prelude.Text)
+listSharedReportGroupsResponse_nextToken = Lens.lens (\ListSharedReportGroupsResponse' {nextToken} -> nextToken) (\s@ListSharedReportGroupsResponse' {} a -> s {nextToken = a} :: ListSharedReportGroupsResponse)
 
--- | The list of ARNs for the report groups shared with the current AWS account or user.
-lsrgrrsReportGroups :: Lens' ListSharedReportGroupsResponse (Maybe (NonEmpty Text))
-lsrgrrsReportGroups = lens _lsrgrrsReportGroups (\s a -> s {_lsrgrrsReportGroups = a}) . mapping _List1
+-- | The list of ARNs for the report groups shared with the current AWS
+-- account or user.
+listSharedReportGroupsResponse_reportGroups :: Lens.Lens' ListSharedReportGroupsResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+listSharedReportGroupsResponse_reportGroups = Lens.lens (\ListSharedReportGroupsResponse' {reportGroups} -> reportGroups) (\s@ListSharedReportGroupsResponse' {} a -> s {reportGroups = a} :: ListSharedReportGroupsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-lsrgrrsResponseStatus :: Lens' ListSharedReportGroupsResponse Int
-lsrgrrsResponseStatus = lens _lsrgrrsResponseStatus (\s a -> s {_lsrgrrsResponseStatus = a})
+-- | The response's http status code.
+listSharedReportGroupsResponse_httpStatus :: Lens.Lens' ListSharedReportGroupsResponse Prelude.Int
+listSharedReportGroupsResponse_httpStatus = Lens.lens (\ListSharedReportGroupsResponse' {httpStatus} -> httpStatus) (\s@ListSharedReportGroupsResponse' {} a -> s {httpStatus = a} :: ListSharedReportGroupsResponse)
 
-instance NFData ListSharedReportGroupsResponse
+instance
+  Prelude.NFData
+    ListSharedReportGroupsResponse

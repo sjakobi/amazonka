@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CodeBuild.Types.ReportExportConfigType
   ( ReportExportConfigType
       ( ..,
-        RECTNoExport,
-        RECTS3
+        ReportExportConfigTypeNOEXPORT,
+        ReportExportConfigTypeS3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportExportConfigType
-  = ReportExportConfigType'
-      ( CI
-          Text
-      )
+newtype ReportExportConfigType = ReportExportConfigType'
+  { fromReportExportConfigType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RECTNoExport :: ReportExportConfigType
-pattern RECTNoExport = ReportExportConfigType' "NO_EXPORT"
+pattern ReportExportConfigTypeNOEXPORT :: ReportExportConfigType
+pattern ReportExportConfigTypeNOEXPORT = ReportExportConfigType' "NO_EXPORT"
 
-pattern RECTS3 :: ReportExportConfigType
-pattern RECTS3 = ReportExportConfigType' "S3"
+pattern ReportExportConfigTypeS3 :: ReportExportConfigType
+pattern ReportExportConfigTypeS3 = ReportExportConfigType' "S3"
 
 {-# COMPLETE
-  RECTNoExport,
-  RECTS3,
+  ReportExportConfigTypeNOEXPORT,
+  ReportExportConfigTypeS3,
   ReportExportConfigType'
   #-}
 
-instance FromText ReportExportConfigType where
-  parser = (ReportExportConfigType' . mk) <$> takeText
+instance Prelude.FromText ReportExportConfigType where
+  parser = ReportExportConfigType' Prelude.<$> Prelude.takeText
 
-instance ToText ReportExportConfigType where
-  toText (ReportExportConfigType' ci) = original ci
+instance Prelude.ToText ReportExportConfigType where
+  toText (ReportExportConfigType' x) = x
 
-instance Hashable ReportExportConfigType
+instance Prelude.Hashable ReportExportConfigType
 
-instance NFData ReportExportConfigType
+instance Prelude.NFData ReportExportConfigType
 
-instance ToByteString ReportExportConfigType
+instance Prelude.ToByteString ReportExportConfigType
 
-instance ToQuery ReportExportConfigType
+instance Prelude.ToQuery ReportExportConfigType
 
-instance ToHeader ReportExportConfigType
+instance Prelude.ToHeader ReportExportConfigType
 
-instance ToJSON ReportExportConfigType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReportExportConfigType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ReportExportConfigType where
-  parseJSON = parseJSONText "ReportExportConfigType"
+instance Prelude.FromJSON ReportExportConfigType where
+  parseJSON = Prelude.parseJSONText "ReportExportConfigType"

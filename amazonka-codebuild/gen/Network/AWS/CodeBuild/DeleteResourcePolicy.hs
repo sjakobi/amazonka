@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,131 +24,128 @@
 -- Deletes a resource policy that is identified by its resource ARN.
 module Network.AWS.CodeBuild.DeleteResourcePolicy
   ( -- * Creating a Request
-    deleteResourcePolicy,
-    DeleteResourcePolicy,
+    DeleteResourcePolicy (..),
+    newDeleteResourcePolicy,
 
     -- * Request Lenses
-    drpResourceARN,
+    deleteResourcePolicy_resourceArn,
 
     -- * Destructuring the Response
-    deleteResourcePolicyResponse,
-    DeleteResourcePolicyResponse,
+    DeleteResourcePolicyResponse (..),
+    newDeleteResourcePolicyResponse,
 
     -- * Response Lenses
-    drprrsResponseStatus,
+    deleteResourcePolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteResourcePolicy' smart constructor.
-newtype DeleteResourcePolicy = DeleteResourcePolicy'
-  { _drpResourceARN ::
-      Text
+-- | /See:/ 'newDeleteResourcePolicy' smart constructor.
+data DeleteResourcePolicy = DeleteResourcePolicy'
+  { -- | The ARN of the resource that is associated with the resource policy.
+    resourceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourcePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteResourcePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drpResourceARN' - The ARN of the resource that is associated with the resource policy.
-deleteResourcePolicy ::
-  -- | 'drpResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'deleteResourcePolicy_resourceArn' - The ARN of the resource that is associated with the resource policy.
+newDeleteResourcePolicy ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   DeleteResourcePolicy
-deleteResourcePolicy pResourceARN_ =
-  DeleteResourcePolicy'
-    { _drpResourceARN =
-        pResourceARN_
-    }
+newDeleteResourcePolicy pResourceArn_ =
+  DeleteResourcePolicy' {resourceArn = pResourceArn_}
 
 -- | The ARN of the resource that is associated with the resource policy.
-drpResourceARN :: Lens' DeleteResourcePolicy Text
-drpResourceARN = lens _drpResourceARN (\s a -> s {_drpResourceARN = a})
+deleteResourcePolicy_resourceArn :: Lens.Lens' DeleteResourcePolicy Prelude.Text
+deleteResourcePolicy_resourceArn = Lens.lens (\DeleteResourcePolicy' {resourceArn} -> resourceArn) (\s@DeleteResourcePolicy' {} a -> s {resourceArn = a} :: DeleteResourcePolicy)
 
-instance AWSRequest DeleteResourcePolicy where
+instance Prelude.AWSRequest DeleteResourcePolicy where
   type
     Rs DeleteResourcePolicy =
       DeleteResourcePolicyResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteResourcePolicyResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteResourcePolicy
+instance Prelude.Hashable DeleteResourcePolicy
 
-instance NFData DeleteResourcePolicy
+instance Prelude.NFData DeleteResourcePolicy
 
-instance ToHeaders DeleteResourcePolicy where
+instance Prelude.ToHeaders DeleteResourcePolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.DeleteResourcePolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.DeleteResourcePolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteResourcePolicy where
+instance Prelude.ToJSON DeleteResourcePolicy where
   toJSON DeleteResourcePolicy' {..} =
-    object
-      (catMaybes [Just ("resourceArn" .= _drpResourceARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("resourceArn" Prelude..= resourceArn)
+          ]
+      )
 
-instance ToPath DeleteResourcePolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteResourcePolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteResourcePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteResourcePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteResourcePolicyResponse' smart constructor.
-newtype DeleteResourcePolicyResponse = DeleteResourcePolicyResponse'
-  { _drprrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteResourcePolicyResponse' smart constructor.
+data DeleteResourcePolicyResponse = DeleteResourcePolicyResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourcePolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteResourcePolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drprrsResponseStatus' - -- | The response status code.
-deleteResourcePolicyResponse ::
-  -- | 'drprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteResourcePolicyResponse_httpStatus' - The response's http status code.
+newDeleteResourcePolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteResourcePolicyResponse
-deleteResourcePolicyResponse pResponseStatus_ =
+newDeleteResourcePolicyResponse pHttpStatus_ =
   DeleteResourcePolicyResponse'
-    { _drprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drprrsResponseStatus :: Lens' DeleteResourcePolicyResponse Int
-drprrsResponseStatus = lens _drprrsResponseStatus (\s a -> s {_drprrsResponseStatus = a})
+-- | The response's http status code.
+deleteResourcePolicyResponse_httpStatus :: Lens.Lens' DeleteResourcePolicyResponse Prelude.Int
+deleteResourcePolicyResponse_httpStatus = Lens.lens (\DeleteResourcePolicyResponse' {httpStatus} -> httpStatus) (\s@DeleteResourcePolicyResponse' {} a -> s {httpStatus = a} :: DeleteResourcePolicyResponse)
 
-instance NFData DeleteResourcePolicyResponse
+instance Prelude.NFData DeleteResourcePolicyResponse

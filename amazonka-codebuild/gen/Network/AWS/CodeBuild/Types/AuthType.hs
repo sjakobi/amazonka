@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodeBuild.Types.AuthType
   ( AuthType
       ( ..,
-        ATBasicAuth,
-        ATOauth,
-        ATPersonalAccessToken
+        AuthTypeBASICAUTH,
+        AuthTypeOAUTH,
+        AuthTypePERSONALACCESSTOKEN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthType = AuthType' (CI Text)
+newtype AuthType = AuthType'
+  { fromAuthType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ATBasicAuth :: AuthType
-pattern ATBasicAuth = AuthType' "BASIC_AUTH"
+pattern AuthTypeBASICAUTH :: AuthType
+pattern AuthTypeBASICAUTH = AuthType' "BASIC_AUTH"
 
-pattern ATOauth :: AuthType
-pattern ATOauth = AuthType' "OAUTH"
+pattern AuthTypeOAUTH :: AuthType
+pattern AuthTypeOAUTH = AuthType' "OAUTH"
 
-pattern ATPersonalAccessToken :: AuthType
-pattern ATPersonalAccessToken = AuthType' "PERSONAL_ACCESS_TOKEN"
+pattern AuthTypePERSONALACCESSTOKEN :: AuthType
+pattern AuthTypePERSONALACCESSTOKEN = AuthType' "PERSONAL_ACCESS_TOKEN"
 
 {-# COMPLETE
-  ATBasicAuth,
-  ATOauth,
-  ATPersonalAccessToken,
+  AuthTypeBASICAUTH,
+  AuthTypeOAUTH,
+  AuthTypePERSONALACCESSTOKEN,
   AuthType'
   #-}
 
-instance FromText AuthType where
-  parser = (AuthType' . mk) <$> takeText
+instance Prelude.FromText AuthType where
+  parser = AuthType' Prelude.<$> Prelude.takeText
 
-instance ToText AuthType where
-  toText (AuthType' ci) = original ci
+instance Prelude.ToText AuthType where
+  toText (AuthType' x) = x
 
-instance Hashable AuthType
+instance Prelude.Hashable AuthType
 
-instance NFData AuthType
+instance Prelude.NFData AuthType
 
-instance ToByteString AuthType
+instance Prelude.ToByteString AuthType
 
-instance ToQuery AuthType
+instance Prelude.ToQuery AuthType
 
-instance ToHeader AuthType
+instance Prelude.ToHeader AuthType
 
-instance ToJSON AuthType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthType where
-  parseJSON = parseJSONText "AuthType"
+instance Prelude.FromJSON AuthType where
+  parseJSON = Prelude.parseJSONText "AuthType"

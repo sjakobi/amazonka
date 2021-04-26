@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,76 +20,98 @@
 module Network.AWS.CodeBuild.Types.RegistryCredential where
 
 import Network.AWS.CodeBuild.Types.CredentialProviderType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about credentials that provide access to a private Docker registry. When this is set:
+-- | Information about credentials that provide access to a private Docker
+-- registry. When this is set:
 --
+-- -   @imagePullCredentialsType@ must be set to @SERVICE_ROLE@.
 --
---     * @imagePullCredentialsType@ must be set to @SERVICE_ROLE@ .
+-- -   images cannot be curated or an Amazon ECR image.
 --
---     * images cannot be curated or an Amazon ECR image.
+-- For more information, see
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-private-registry.html Private Registry with AWS Secrets Manager Sample for AWS CodeBuild>.
 --
---
---
--- For more information, see <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-private-registry.html Private Registry with AWS Secrets Manager Sample for AWS CodeBuild> .
---
---
--- /See:/ 'registryCredential' smart constructor.
+-- /See:/ 'newRegistryCredential' smart constructor.
 data RegistryCredential = RegistryCredential'
-  { _rcCredential ::
-      !Text,
-    _rcCredentialProvider ::
-      !CredentialProviderType
+  { -- | The Amazon Resource Name (ARN) or name of credentials created using AWS
+    -- Secrets Manager.
+    --
+    -- The @credential@ can use the name of the credentials only if they exist
+    -- in your current AWS Region.
+    credential :: Prelude.Text,
+    -- | The service that created the credentials to access a private Docker
+    -- registry. The valid value, SECRETS_MANAGER, is for AWS Secrets Manager.
+    credentialProvider :: CredentialProviderType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegistryCredential' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegistryCredential' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcCredential' - The Amazon Resource Name (ARN) or name of credentials created using AWS Secrets Manager.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcCredentialProvider' - The service that created the credentials to access a private Docker registry. The valid value, SECRETS_MANAGER, is for AWS Secrets Manager.
-registryCredential ::
-  -- | 'rcCredential'
-  Text ->
-  -- | 'rcCredentialProvider'
+-- 'credential', 'registryCredential_credential' - The Amazon Resource Name (ARN) or name of credentials created using AWS
+-- Secrets Manager.
+--
+-- The @credential@ can use the name of the credentials only if they exist
+-- in your current AWS Region.
+--
+-- 'credentialProvider', 'registryCredential_credentialProvider' - The service that created the credentials to access a private Docker
+-- registry. The valid value, SECRETS_MANAGER, is for AWS Secrets Manager.
+newRegistryCredential ::
+  -- | 'credential'
+  Prelude.Text ->
+  -- | 'credentialProvider'
   CredentialProviderType ->
   RegistryCredential
-registryCredential pCredential_ pCredentialProvider_ =
-  RegistryCredential'
-    { _rcCredential = pCredential_,
-      _rcCredentialProvider = pCredentialProvider_
-    }
+newRegistryCredential
+  pCredential_
+  pCredentialProvider_ =
+    RegistryCredential'
+      { credential = pCredential_,
+        credentialProvider = pCredentialProvider_
+      }
 
--- | The Amazon Resource Name (ARN) or name of credentials created using AWS Secrets Manager.
-rcCredential :: Lens' RegistryCredential Text
-rcCredential = lens _rcCredential (\s a -> s {_rcCredential = a})
+-- | The Amazon Resource Name (ARN) or name of credentials created using AWS
+-- Secrets Manager.
+--
+-- The @credential@ can use the name of the credentials only if they exist
+-- in your current AWS Region.
+registryCredential_credential :: Lens.Lens' RegistryCredential Prelude.Text
+registryCredential_credential = Lens.lens (\RegistryCredential' {credential} -> credential) (\s@RegistryCredential' {} a -> s {credential = a} :: RegistryCredential)
 
--- | The service that created the credentials to access a private Docker registry. The valid value, SECRETS_MANAGER, is for AWS Secrets Manager.
-rcCredentialProvider :: Lens' RegistryCredential CredentialProviderType
-rcCredentialProvider = lens _rcCredentialProvider (\s a -> s {_rcCredentialProvider = a})
+-- | The service that created the credentials to access a private Docker
+-- registry. The valid value, SECRETS_MANAGER, is for AWS Secrets Manager.
+registryCredential_credentialProvider :: Lens.Lens' RegistryCredential CredentialProviderType
+registryCredential_credentialProvider = Lens.lens (\RegistryCredential' {credentialProvider} -> credentialProvider) (\s@RegistryCredential' {} a -> s {credentialProvider = a} :: RegistryCredential)
 
-instance FromJSON RegistryCredential where
+instance Prelude.FromJSON RegistryCredential where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RegistryCredential"
       ( \x ->
           RegistryCredential'
-            <$> (x .: "credential") <*> (x .: "credentialProvider")
+            Prelude.<$> (x Prelude..: "credential")
+            Prelude.<*> (x Prelude..: "credentialProvider")
       )
 
-instance Hashable RegistryCredential
+instance Prelude.Hashable RegistryCredential
 
-instance NFData RegistryCredential
+instance Prelude.NFData RegistryCredential
 
-instance ToJSON RegistryCredential where
+instance Prelude.ToJSON RegistryCredential where
   toJSON RegistryCredential' {..} =
-    object
-      ( catMaybes
-          [ Just ("credential" .= _rcCredential),
-            Just
-              ("credentialProvider" .= _rcCredentialProvider)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("credential" Prelude..= credential),
+            Prelude.Just
+              ( "credentialProvider"
+                  Prelude..= credentialProvider
+              )
           ]
       )

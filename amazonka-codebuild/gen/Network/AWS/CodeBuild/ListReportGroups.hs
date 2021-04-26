@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,188 +23,276 @@
 --
 -- Gets a list ARNs for the report groups in the current AWS account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CodeBuild.ListReportGroups
   ( -- * Creating a Request
-    listReportGroups,
-    ListReportGroups,
+    ListReportGroups (..),
+    newListReportGroups,
 
     -- * Request Lenses
-    lrgSortOrder,
-    lrgNextToken,
-    lrgMaxResults,
-    lrgSortBy,
+    listReportGroups_sortOrder,
+    listReportGroups_nextToken,
+    listReportGroups_maxResults,
+    listReportGroups_sortBy,
 
     -- * Destructuring the Response
-    listReportGroupsResponse,
-    ListReportGroupsResponse,
+    ListReportGroupsResponse (..),
+    newListReportGroupsResponse,
 
     -- * Response Lenses
-    lrgrrsNextToken,
-    lrgrrsReportGroups,
-    lrgrrsResponseStatus,
+    listReportGroupsResponse_nextToken,
+    listReportGroupsResponse_reportGroups,
+    listReportGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listReportGroups' smart constructor.
+-- | /See:/ 'newListReportGroups' smart constructor.
 data ListReportGroups = ListReportGroups'
-  { _lrgSortOrder ::
-      !(Maybe SortOrderType),
-    _lrgNextToken :: !(Maybe Text),
-    _lrgMaxResults :: !(Maybe Nat),
-    _lrgSortBy ::
-      !(Maybe ReportGroupSortByType)
+  { -- | Used to specify the order to sort the list of returned report groups.
+    -- Valid values are @ASCENDING@ and @DESCENDING@.
+    sortOrder :: Prelude.Maybe SortOrderType,
+    -- | During a previous call, the maximum number of items that can be returned
+    -- is the value specified in @maxResults@. If there more items in the list,
+    -- then a unique string called a /nextToken/ is returned. To get the next
+    -- batch of items in the list, call this operation again, adding the next
+    -- token to the call. To get all of the items in the list, keep calling
+    -- this operation with each subsequent next token that is returned, until
+    -- no more next tokens are returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of paginated report groups returned per response. Use
+    -- @nextToken@ to iterate pages in the list of returned @ReportGroup@
+    -- objects. The default value is 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The criterion to be used to list build report groups. Valid values
+    -- include:
+    --
+    -- -   @CREATED_TIME@: List based on when each report group was created.
+    --
+    -- -   @LAST_MODIFIED_TIME@: List based on when each report group was last
+    --     changed.
+    --
+    -- -   @NAME@: List based on each report group\'s name.
+    sortBy :: Prelude.Maybe ReportGroupSortByType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListReportGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListReportGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrgSortOrder' - Used to specify the order to sort the list of returned report groups. Valid values are @ASCENDING@ and @DESCENDING@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrgNextToken' - During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
+-- 'sortOrder', 'listReportGroups_sortOrder' - Used to specify the order to sort the list of returned report groups.
+-- Valid values are @ASCENDING@ and @DESCENDING@.
 --
--- * 'lrgMaxResults' - The maximum number of paginated report groups returned per response. Use @nextToken@ to iterate pages in the list of returned @ReportGroup@ objects. The default value is 100.
+-- 'nextToken', 'listReportGroups_nextToken' - During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
 --
--- * 'lrgSortBy' - The criterion to be used to list build report groups. Valid values include:      * @CREATED_TIME@ : List based on when each report group was created.     * @LAST_MODIFIED_TIME@ : List based on when each report group was last changed.     * @NAME@ : List based on each report group's name.
-listReportGroups ::
+-- 'maxResults', 'listReportGroups_maxResults' - The maximum number of paginated report groups returned per response. Use
+-- @nextToken@ to iterate pages in the list of returned @ReportGroup@
+-- objects. The default value is 100.
+--
+-- 'sortBy', 'listReportGroups_sortBy' - The criterion to be used to list build report groups. Valid values
+-- include:
+--
+-- -   @CREATED_TIME@: List based on when each report group was created.
+--
+-- -   @LAST_MODIFIED_TIME@: List based on when each report group was last
+--     changed.
+--
+-- -   @NAME@: List based on each report group\'s name.
+newListReportGroups ::
   ListReportGroups
-listReportGroups =
+newListReportGroups =
   ListReportGroups'
-    { _lrgSortOrder = Nothing,
-      _lrgNextToken = Nothing,
-      _lrgMaxResults = Nothing,
-      _lrgSortBy = Nothing
+    { sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      sortBy = Prelude.Nothing
     }
 
--- | Used to specify the order to sort the list of returned report groups. Valid values are @ASCENDING@ and @DESCENDING@ .
-lrgSortOrder :: Lens' ListReportGroups (Maybe SortOrderType)
-lrgSortOrder = lens _lrgSortOrder (\s a -> s {_lrgSortOrder = a})
+-- | Used to specify the order to sort the list of returned report groups.
+-- Valid values are @ASCENDING@ and @DESCENDING@.
+listReportGroups_sortOrder :: Lens.Lens' ListReportGroups (Prelude.Maybe SortOrderType)
+listReportGroups_sortOrder = Lens.lens (\ListReportGroups' {sortOrder} -> sortOrder) (\s@ListReportGroups' {} a -> s {sortOrder = a} :: ListReportGroups)
 
--- | During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
-lrgNextToken :: Lens' ListReportGroups (Maybe Text)
-lrgNextToken = lens _lrgNextToken (\s a -> s {_lrgNextToken = a})
+-- | During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
+listReportGroups_nextToken :: Lens.Lens' ListReportGroups (Prelude.Maybe Prelude.Text)
+listReportGroups_nextToken = Lens.lens (\ListReportGroups' {nextToken} -> nextToken) (\s@ListReportGroups' {} a -> s {nextToken = a} :: ListReportGroups)
 
--- | The maximum number of paginated report groups returned per response. Use @nextToken@ to iterate pages in the list of returned @ReportGroup@ objects. The default value is 100.
-lrgMaxResults :: Lens' ListReportGroups (Maybe Natural)
-lrgMaxResults = lens _lrgMaxResults (\s a -> s {_lrgMaxResults = a}) . mapping _Nat
+-- | The maximum number of paginated report groups returned per response. Use
+-- @nextToken@ to iterate pages in the list of returned @ReportGroup@
+-- objects. The default value is 100.
+listReportGroups_maxResults :: Lens.Lens' ListReportGroups (Prelude.Maybe Prelude.Natural)
+listReportGroups_maxResults = Lens.lens (\ListReportGroups' {maxResults} -> maxResults) (\s@ListReportGroups' {} a -> s {maxResults = a} :: ListReportGroups) Prelude.. Lens.mapping Prelude._Nat
 
--- | The criterion to be used to list build report groups. Valid values include:      * @CREATED_TIME@ : List based on when each report group was created.     * @LAST_MODIFIED_TIME@ : List based on when each report group was last changed.     * @NAME@ : List based on each report group's name.
-lrgSortBy :: Lens' ListReportGroups (Maybe ReportGroupSortByType)
-lrgSortBy = lens _lrgSortBy (\s a -> s {_lrgSortBy = a})
+-- | The criterion to be used to list build report groups. Valid values
+-- include:
+--
+-- -   @CREATED_TIME@: List based on when each report group was created.
+--
+-- -   @LAST_MODIFIED_TIME@: List based on when each report group was last
+--     changed.
+--
+-- -   @NAME@: List based on each report group\'s name.
+listReportGroups_sortBy :: Lens.Lens' ListReportGroups (Prelude.Maybe ReportGroupSortByType)
+listReportGroups_sortBy = Lens.lens (\ListReportGroups' {sortBy} -> sortBy) (\s@ListReportGroups' {} a -> s {sortBy = a} :: ListReportGroups)
 
-instance AWSPager ListReportGroups where
+instance Pager.AWSPager ListReportGroups where
   page rq rs
-    | stop (rs ^. lrgrrsNextToken) = Nothing
-    | stop (rs ^. lrgrrsReportGroups) = Nothing
-    | otherwise =
-      Just $ rq & lrgNextToken .~ rs ^. lrgrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listReportGroupsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listReportGroupsResponse_reportGroups
+              Prelude.. Lens._Just
+              Prelude.. Lens.to Prelude.toList
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listReportGroups_nextToken
+          Lens..~ rs
+          Lens.^? listReportGroupsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListReportGroups where
+instance Prelude.AWSRequest ListReportGroups where
   type Rs ListReportGroups = ListReportGroupsResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListReportGroupsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "reportGroups")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "reportGroups")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListReportGroups
+instance Prelude.Hashable ListReportGroups
 
-instance NFData ListReportGroups
+instance Prelude.NFData ListReportGroups
 
-instance ToHeaders ListReportGroups where
+instance Prelude.ToHeaders ListReportGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.ListReportGroups" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.ListReportGroups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListReportGroups where
+instance Prelude.ToJSON ListReportGroups where
   toJSON ListReportGroups' {..} =
-    object
-      ( catMaybes
-          [ ("sortOrder" .=) <$> _lrgSortOrder,
-            ("nextToken" .=) <$> _lrgNextToken,
-            ("maxResults" .=) <$> _lrgMaxResults,
-            ("sortBy" .=) <$> _lrgSortBy
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("sortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("sortBy" Prelude..=) Prelude.<$> sortBy
           ]
       )
 
-instance ToPath ListReportGroups where
-  toPath = const "/"
+instance Prelude.ToPath ListReportGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListReportGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery ListReportGroups where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listReportGroupsResponse' smart constructor.
+-- | /See:/ 'newListReportGroupsResponse' smart constructor.
 data ListReportGroupsResponse = ListReportGroupsResponse'
-  { _lrgrrsNextToken ::
-      !(Maybe Text),
-    _lrgrrsReportGroups ::
-      !(Maybe (List1 Text)),
-    _lrgrrsResponseStatus ::
-      !Int
+  { -- | During a previous call, the maximum number of items that can be returned
+    -- is the value specified in @maxResults@. If there more items in the list,
+    -- then a unique string called a /nextToken/ is returned. To get the next
+    -- batch of items in the list, call this operation again, adding the next
+    -- token to the call. To get all of the items in the list, keep calling
+    -- this operation with each subsequent next token that is returned, until
+    -- no more next tokens are returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of ARNs for the report groups in the current AWS account.
+    reportGroups :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListReportGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListReportGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrgrrsNextToken' - During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrgrrsReportGroups' - The list of ARNs for the report groups in the current AWS account.
+-- 'nextToken', 'listReportGroupsResponse_nextToken' - During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
 --
--- * 'lrgrrsResponseStatus' - -- | The response status code.
-listReportGroupsResponse ::
-  -- | 'lrgrrsResponseStatus'
-  Int ->
+-- 'reportGroups', 'listReportGroupsResponse_reportGroups' - The list of ARNs for the report groups in the current AWS account.
+--
+-- 'httpStatus', 'listReportGroupsResponse_httpStatus' - The response's http status code.
+newListReportGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListReportGroupsResponse
-listReportGroupsResponse pResponseStatus_ =
+newListReportGroupsResponse pHttpStatus_ =
   ListReportGroupsResponse'
-    { _lrgrrsNextToken =
-        Nothing,
-      _lrgrrsReportGroups = Nothing,
-      _lrgrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      reportGroups = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | During a previous call, the maximum number of items that can be returned is the value specified in @maxResults@ . If there more items in the list, then a unique string called a /nextToken/ is returned. To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
-lrgrrsNextToken :: Lens' ListReportGroupsResponse (Maybe Text)
-lrgrrsNextToken = lens _lrgrrsNextToken (\s a -> s {_lrgrrsNextToken = a})
+-- | During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
+listReportGroupsResponse_nextToken :: Lens.Lens' ListReportGroupsResponse (Prelude.Maybe Prelude.Text)
+listReportGroupsResponse_nextToken = Lens.lens (\ListReportGroupsResponse' {nextToken} -> nextToken) (\s@ListReportGroupsResponse' {} a -> s {nextToken = a} :: ListReportGroupsResponse)
 
 -- | The list of ARNs for the report groups in the current AWS account.
-lrgrrsReportGroups :: Lens' ListReportGroupsResponse (Maybe (NonEmpty Text))
-lrgrrsReportGroups = lens _lrgrrsReportGroups (\s a -> s {_lrgrrsReportGroups = a}) . mapping _List1
+listReportGroupsResponse_reportGroups :: Lens.Lens' ListReportGroupsResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+listReportGroupsResponse_reportGroups = Lens.lens (\ListReportGroupsResponse' {reportGroups} -> reportGroups) (\s@ListReportGroupsResponse' {} a -> s {reportGroups = a} :: ListReportGroupsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-lrgrrsResponseStatus :: Lens' ListReportGroupsResponse Int
-lrgrrsResponseStatus = lens _lrgrrsResponseStatus (\s a -> s {_lrgrrsResponseStatus = a})
+-- | The response's http status code.
+listReportGroupsResponse_httpStatus :: Lens.Lens' ListReportGroupsResponse Prelude.Int
+listReportGroupsResponse_httpStatus = Lens.lens (\ListReportGroupsResponse' {httpStatus} -> httpStatus) (\s@ListReportGroupsResponse' {} a -> s {httpStatus = a} :: ListReportGroupsResponse)
 
-instance NFData ListReportGroupsResponse
+instance Prelude.NFData ListReportGroupsResponse

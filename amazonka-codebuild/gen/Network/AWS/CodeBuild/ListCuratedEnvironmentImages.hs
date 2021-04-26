@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,124 +24,135 @@
 -- Gets information about Docker images that are managed by AWS CodeBuild.
 module Network.AWS.CodeBuild.ListCuratedEnvironmentImages
   ( -- * Creating a Request
-    listCuratedEnvironmentImages,
-    ListCuratedEnvironmentImages,
+    ListCuratedEnvironmentImages (..),
+    newListCuratedEnvironmentImages,
 
     -- * Destructuring the Response
-    listCuratedEnvironmentImagesResponse,
-    ListCuratedEnvironmentImagesResponse,
+    ListCuratedEnvironmentImagesResponse (..),
+    newListCuratedEnvironmentImagesResponse,
 
     -- * Response Lenses
-    lceirrsPlatforms,
-    lceirrsResponseStatus,
+    listCuratedEnvironmentImagesResponse_platforms,
+    listCuratedEnvironmentImagesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.EnvironmentPlatform
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listCuratedEnvironmentImages' smart constructor.
+-- | /See:/ 'newListCuratedEnvironmentImages' smart constructor.
 data ListCuratedEnvironmentImages = ListCuratedEnvironmentImages'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCuratedEnvironmentImages' with the minimum fields required to make a request.
-listCuratedEnvironmentImages ::
+-- |
+-- Create a value of 'ListCuratedEnvironmentImages' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newListCuratedEnvironmentImages ::
   ListCuratedEnvironmentImages
-listCuratedEnvironmentImages =
+newListCuratedEnvironmentImages =
   ListCuratedEnvironmentImages'
 
-instance AWSRequest ListCuratedEnvironmentImages where
+instance
+  Prelude.AWSRequest
+    ListCuratedEnvironmentImages
+  where
   type
     Rs ListCuratedEnvironmentImages =
       ListCuratedEnvironmentImagesResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListCuratedEnvironmentImagesResponse'
-            <$> (x .?> "platforms" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "platforms"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListCuratedEnvironmentImages
+instance
+  Prelude.Hashable
+    ListCuratedEnvironmentImages
 
-instance NFData ListCuratedEnvironmentImages
+instance Prelude.NFData ListCuratedEnvironmentImages
 
-instance ToHeaders ListCuratedEnvironmentImages where
+instance
+  Prelude.ToHeaders
+    ListCuratedEnvironmentImages
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.ListCuratedEnvironmentImages" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.ListCuratedEnvironmentImages" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListCuratedEnvironmentImages where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON ListCuratedEnvironmentImages where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath ListCuratedEnvironmentImages where
-  toPath = const "/"
+instance Prelude.ToPath ListCuratedEnvironmentImages where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListCuratedEnvironmentImages where
-  toQuery = const mempty
+instance Prelude.ToQuery ListCuratedEnvironmentImages where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listCuratedEnvironmentImagesResponse' smart constructor.
+-- | /See:/ 'newListCuratedEnvironmentImagesResponse' smart constructor.
 data ListCuratedEnvironmentImagesResponse = ListCuratedEnvironmentImagesResponse'
-  { _lceirrsPlatforms ::
-      !( Maybe
-           [EnvironmentPlatform]
-       ),
-    _lceirrsResponseStatus ::
-      !Int
+  { -- | Information about supported platforms for Docker images that are managed
+    -- by AWS CodeBuild.
+    platforms :: Prelude.Maybe [EnvironmentPlatform],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCuratedEnvironmentImagesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCuratedEnvironmentImagesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lceirrsPlatforms' - Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lceirrsResponseStatus' - -- | The response status code.
-listCuratedEnvironmentImagesResponse ::
-  -- | 'lceirrsResponseStatus'
-  Int ->
+-- 'platforms', 'listCuratedEnvironmentImagesResponse_platforms' - Information about supported platforms for Docker images that are managed
+-- by AWS CodeBuild.
+--
+-- 'httpStatus', 'listCuratedEnvironmentImagesResponse_httpStatus' - The response's http status code.
+newListCuratedEnvironmentImagesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListCuratedEnvironmentImagesResponse
-listCuratedEnvironmentImagesResponse pResponseStatus_ =
+newListCuratedEnvironmentImagesResponse pHttpStatus_ =
   ListCuratedEnvironmentImagesResponse'
-    { _lceirrsPlatforms =
-        Nothing,
-      _lceirrsResponseStatus =
-        pResponseStatus_
+    { platforms =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about supported platforms for Docker images that are managed by AWS CodeBuild.
-lceirrsPlatforms :: Lens' ListCuratedEnvironmentImagesResponse [EnvironmentPlatform]
-lceirrsPlatforms = lens _lceirrsPlatforms (\s a -> s {_lceirrsPlatforms = a}) . _Default . _Coerce
+-- | Information about supported platforms for Docker images that are managed
+-- by AWS CodeBuild.
+listCuratedEnvironmentImagesResponse_platforms :: Lens.Lens' ListCuratedEnvironmentImagesResponse (Prelude.Maybe [EnvironmentPlatform])
+listCuratedEnvironmentImagesResponse_platforms = Lens.lens (\ListCuratedEnvironmentImagesResponse' {platforms} -> platforms) (\s@ListCuratedEnvironmentImagesResponse' {} a -> s {platforms = a} :: ListCuratedEnvironmentImagesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lceirrsResponseStatus :: Lens' ListCuratedEnvironmentImagesResponse Int
-lceirrsResponseStatus = lens _lceirrsResponseStatus (\s a -> s {_lceirrsResponseStatus = a})
+-- | The response's http status code.
+listCuratedEnvironmentImagesResponse_httpStatus :: Lens.Lens' ListCuratedEnvironmentImagesResponse Prelude.Int
+listCuratedEnvironmentImagesResponse_httpStatus = Lens.lens (\ListCuratedEnvironmentImagesResponse' {httpStatus} -> httpStatus) (\s@ListCuratedEnvironmentImagesResponse' {} a -> s {httpStatus = a} :: ListCuratedEnvironmentImagesResponse)
 
-instance NFData ListCuratedEnvironmentImagesResponse
+instance
+  Prelude.NFData
+    ListCuratedEnvironmentImagesResponse

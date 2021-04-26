@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,125 +24,134 @@
 -- Stops a running batch build.
 module Network.AWS.CodeBuild.StopBuildBatch
   ( -- * Creating a Request
-    stopBuildBatch,
-    StopBuildBatch,
+    StopBuildBatch (..),
+    newStopBuildBatch,
 
     -- * Request Lenses
-    sbbId,
+    stopBuildBatch_id,
 
     -- * Destructuring the Response
-    stopBuildBatchResponse,
-    StopBuildBatchResponse,
+    StopBuildBatchResponse (..),
+    newStopBuildBatchResponse,
 
     -- * Response Lenses
-    sbbrrsBuildBatch,
-    sbbrrsResponseStatus,
+    stopBuildBatchResponse_buildBatch,
+    stopBuildBatchResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.BuildBatch
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopBuildBatch' smart constructor.
-newtype StopBuildBatch = StopBuildBatch'
-  { _sbbId ::
-      Text
+-- | /See:/ 'newStopBuildBatch' smart constructor.
+data StopBuildBatch = StopBuildBatch'
+  { -- | The identifier of the batch build to stop.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopBuildBatch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopBuildBatch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sbbId' - The identifier of the batch build to stop.
-stopBuildBatch ::
-  -- | 'sbbId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'stopBuildBatch_id' - The identifier of the batch build to stop.
+newStopBuildBatch ::
+  -- | 'id'
+  Prelude.Text ->
   StopBuildBatch
-stopBuildBatch pId_ = StopBuildBatch' {_sbbId = pId_}
+newStopBuildBatch pId_ = StopBuildBatch' {id = pId_}
 
 -- | The identifier of the batch build to stop.
-sbbId :: Lens' StopBuildBatch Text
-sbbId = lens _sbbId (\s a -> s {_sbbId = a})
+stopBuildBatch_id :: Lens.Lens' StopBuildBatch Prelude.Text
+stopBuildBatch_id = Lens.lens (\StopBuildBatch' {id} -> id) (\s@StopBuildBatch' {} a -> s {id = a} :: StopBuildBatch)
 
-instance AWSRequest StopBuildBatch where
+instance Prelude.AWSRequest StopBuildBatch where
   type Rs StopBuildBatch = StopBuildBatchResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopBuildBatchResponse'
-            <$> (x .?> "buildBatch") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "buildBatch")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopBuildBatch
+instance Prelude.Hashable StopBuildBatch
 
-instance NFData StopBuildBatch
+instance Prelude.NFData StopBuildBatch
 
-instance ToHeaders StopBuildBatch where
+instance Prelude.ToHeaders StopBuildBatch where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeBuild_20161006.StopBuildBatch" :: ByteString),
+              Prelude.=# ( "CodeBuild_20161006.StopBuildBatch" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopBuildBatch where
+instance Prelude.ToJSON StopBuildBatch where
   toJSON StopBuildBatch' {..} =
-    object (catMaybes [Just ("id" .= _sbbId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("id" Prelude..= id)]
+      )
 
-instance ToPath StopBuildBatch where
-  toPath = const "/"
+instance Prelude.ToPath StopBuildBatch where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopBuildBatch where
-  toQuery = const mempty
+instance Prelude.ToQuery StopBuildBatch where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopBuildBatchResponse' smart constructor.
+-- | /See:/ 'newStopBuildBatchResponse' smart constructor.
 data StopBuildBatchResponse = StopBuildBatchResponse'
-  { _sbbrrsBuildBatch ::
-      !(Maybe BuildBatch),
-    _sbbrrsResponseStatus ::
-      !Int
+  { buildBatch :: Prelude.Maybe BuildBatch,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopBuildBatchResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopBuildBatchResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sbbrrsBuildBatch' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sbbrrsResponseStatus' - -- | The response status code.
-stopBuildBatchResponse ::
-  -- | 'sbbrrsResponseStatus'
-  Int ->
+-- 'buildBatch', 'stopBuildBatchResponse_buildBatch' - Undocumented member.
+--
+-- 'httpStatus', 'stopBuildBatchResponse_httpStatus' - The response's http status code.
+newStopBuildBatchResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopBuildBatchResponse
-stopBuildBatchResponse pResponseStatus_ =
+newStopBuildBatchResponse pHttpStatus_ =
   StopBuildBatchResponse'
-    { _sbbrrsBuildBatch =
-        Nothing,
-      _sbbrrsResponseStatus = pResponseStatus_
+    { buildBatch =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-sbbrrsBuildBatch :: Lens' StopBuildBatchResponse (Maybe BuildBatch)
-sbbrrsBuildBatch = lens _sbbrrsBuildBatch (\s a -> s {_sbbrrsBuildBatch = a})
+stopBuildBatchResponse_buildBatch :: Lens.Lens' StopBuildBatchResponse (Prelude.Maybe BuildBatch)
+stopBuildBatchResponse_buildBatch = Lens.lens (\StopBuildBatchResponse' {buildBatch} -> buildBatch) (\s@StopBuildBatchResponse' {} a -> s {buildBatch = a} :: StopBuildBatchResponse)
 
--- | -- | The response status code.
-sbbrrsResponseStatus :: Lens' StopBuildBatchResponse Int
-sbbrrsResponseStatus = lens _sbbrrsResponseStatus (\s a -> s {_sbbrrsResponseStatus = a})
+-- | The response's http status code.
+stopBuildBatchResponse_httpStatus :: Lens.Lens' StopBuildBatchResponse Prelude.Int
+stopBuildBatchResponse_httpStatus = Lens.lens (\StopBuildBatchResponse' {httpStatus} -> httpStatus) (\s@StopBuildBatchResponse' {} a -> s {httpStatus = a} :: StopBuildBatchResponse)
 
-instance NFData StopBuildBatchResponse
+instance Prelude.NFData StopBuildBatchResponse

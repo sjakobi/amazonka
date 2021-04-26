@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CodeBuild.Types.SortOrderType
   ( SortOrderType
       ( ..,
-        Ascending,
-        Descending
+        SortOrderTypeASCENDING,
+        SortOrderTypeDESCENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortOrderType = SortOrderType' (CI Text)
+newtype SortOrderType = SortOrderType'
+  { fromSortOrderType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ascending :: SortOrderType
-pattern Ascending = SortOrderType' "ASCENDING"
+pattern SortOrderTypeASCENDING :: SortOrderType
+pattern SortOrderTypeASCENDING = SortOrderType' "ASCENDING"
 
-pattern Descending :: SortOrderType
-pattern Descending = SortOrderType' "DESCENDING"
+pattern SortOrderTypeDESCENDING :: SortOrderType
+pattern SortOrderTypeDESCENDING = SortOrderType' "DESCENDING"
 
 {-# COMPLETE
-  Ascending,
-  Descending,
+  SortOrderTypeASCENDING,
+  SortOrderTypeDESCENDING,
   SortOrderType'
   #-}
 
-instance FromText SortOrderType where
-  parser = (SortOrderType' . mk) <$> takeText
+instance Prelude.FromText SortOrderType where
+  parser = SortOrderType' Prelude.<$> Prelude.takeText
 
-instance ToText SortOrderType where
-  toText (SortOrderType' ci) = original ci
+instance Prelude.ToText SortOrderType where
+  toText (SortOrderType' x) = x
 
-instance Hashable SortOrderType
+instance Prelude.Hashable SortOrderType
 
-instance NFData SortOrderType
+instance Prelude.NFData SortOrderType
 
-instance ToByteString SortOrderType
+instance Prelude.ToByteString SortOrderType
 
-instance ToQuery SortOrderType
+instance Prelude.ToQuery SortOrderType
 
-instance ToHeader SortOrderType
+instance Prelude.ToHeader SortOrderType
 
-instance ToJSON SortOrderType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortOrderType where
+  toJSON = Prelude.toJSONText

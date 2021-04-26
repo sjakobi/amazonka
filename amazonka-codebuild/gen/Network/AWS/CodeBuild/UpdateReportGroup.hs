@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,156 +24,186 @@
 -- Updates a report group.
 module Network.AWS.CodeBuild.UpdateReportGroup
   ( -- * Creating a Request
-    updateReportGroup,
-    UpdateReportGroup,
+    UpdateReportGroup (..),
+    newUpdateReportGroup,
 
     -- * Request Lenses
-    urgExportConfig,
-    urgTags,
-    urgArn,
+    updateReportGroup_exportConfig,
+    updateReportGroup_tags,
+    updateReportGroup_arn,
 
     -- * Destructuring the Response
-    updateReportGroupResponse,
-    UpdateReportGroupResponse,
+    UpdateReportGroupResponse (..),
+    newUpdateReportGroupResponse,
 
     -- * Response Lenses
-    urgrrsReportGroup,
-    urgrrsResponseStatus,
+    updateReportGroupResponse_reportGroup,
+    updateReportGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.ReportGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateReportGroup' smart constructor.
+-- | /See:/ 'newUpdateReportGroup' smart constructor.
 data UpdateReportGroup = UpdateReportGroup'
-  { _urgExportConfig ::
-      !(Maybe ReportExportConfig),
-    _urgTags :: !(Maybe [Tag]),
-    _urgArn :: !Text
+  { -- | Used to specify an updated export type. Valid values are:
+    --
+    -- -   @S3@: The report results are exported to an S3 bucket.
+    --
+    -- -   @NO_EXPORT@: The report results are not exported.
+    exportConfig :: Prelude.Maybe ReportExportConfig,
+    -- | An updated list of tag key and value pairs associated with this report
+    -- group.
+    --
+    -- These tags are available for use by AWS services that support AWS
+    -- CodeBuild report group tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The ARN of the report group to update.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateReportGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateReportGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urgExportConfig' - Used to specify an updated export type. Valid values are:      * @S3@ : The report results are exported to an S3 bucket.      * @NO_EXPORT@ : The report results are not exported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urgTags' - An updated list of tag key and value pairs associated with this report group.  These tags are available for use by AWS services that support AWS CodeBuild report group tags.
+-- 'exportConfig', 'updateReportGroup_exportConfig' - Used to specify an updated export type. Valid values are:
 --
--- * 'urgArn' - The ARN of the report group to update.
-updateReportGroup ::
-  -- | 'urgArn'
-  Text ->
+-- -   @S3@: The report results are exported to an S3 bucket.
+--
+-- -   @NO_EXPORT@: The report results are not exported.
+--
+-- 'tags', 'updateReportGroup_tags' - An updated list of tag key and value pairs associated with this report
+-- group.
+--
+-- These tags are available for use by AWS services that support AWS
+-- CodeBuild report group tags.
+--
+-- 'arn', 'updateReportGroup_arn' - The ARN of the report group to update.
+newUpdateReportGroup ::
+  -- | 'arn'
+  Prelude.Text ->
   UpdateReportGroup
-updateReportGroup pArn_ =
+newUpdateReportGroup pArn_ =
   UpdateReportGroup'
-    { _urgExportConfig = Nothing,
-      _urgTags = Nothing,
-      _urgArn = pArn_
+    { exportConfig = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      arn = pArn_
     }
 
--- | Used to specify an updated export type. Valid values are:      * @S3@ : The report results are exported to an S3 bucket.      * @NO_EXPORT@ : The report results are not exported.
-urgExportConfig :: Lens' UpdateReportGroup (Maybe ReportExportConfig)
-urgExportConfig = lens _urgExportConfig (\s a -> s {_urgExportConfig = a})
+-- | Used to specify an updated export type. Valid values are:
+--
+-- -   @S3@: The report results are exported to an S3 bucket.
+--
+-- -   @NO_EXPORT@: The report results are not exported.
+updateReportGroup_exportConfig :: Lens.Lens' UpdateReportGroup (Prelude.Maybe ReportExportConfig)
+updateReportGroup_exportConfig = Lens.lens (\UpdateReportGroup' {exportConfig} -> exportConfig) (\s@UpdateReportGroup' {} a -> s {exportConfig = a} :: UpdateReportGroup)
 
--- | An updated list of tag key and value pairs associated with this report group.  These tags are available for use by AWS services that support AWS CodeBuild report group tags.
-urgTags :: Lens' UpdateReportGroup [Tag]
-urgTags = lens _urgTags (\s a -> s {_urgTags = a}) . _Default . _Coerce
+-- | An updated list of tag key and value pairs associated with this report
+-- group.
+--
+-- These tags are available for use by AWS services that support AWS
+-- CodeBuild report group tags.
+updateReportGroup_tags :: Lens.Lens' UpdateReportGroup (Prelude.Maybe [Tag])
+updateReportGroup_tags = Lens.lens (\UpdateReportGroup' {tags} -> tags) (\s@UpdateReportGroup' {} a -> s {tags = a} :: UpdateReportGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ARN of the report group to update.
-urgArn :: Lens' UpdateReportGroup Text
-urgArn = lens _urgArn (\s a -> s {_urgArn = a})
+updateReportGroup_arn :: Lens.Lens' UpdateReportGroup Prelude.Text
+updateReportGroup_arn = Lens.lens (\UpdateReportGroup' {arn} -> arn) (\s@UpdateReportGroup' {} a -> s {arn = a} :: UpdateReportGroup)
 
-instance AWSRequest UpdateReportGroup where
+instance Prelude.AWSRequest UpdateReportGroup where
   type Rs UpdateReportGroup = UpdateReportGroupResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateReportGroupResponse'
-            <$> (x .?> "reportGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "reportGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateReportGroup
+instance Prelude.Hashable UpdateReportGroup
 
-instance NFData UpdateReportGroup
+instance Prelude.NFData UpdateReportGroup
 
-instance ToHeaders UpdateReportGroup where
+instance Prelude.ToHeaders UpdateReportGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.UpdateReportGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.UpdateReportGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateReportGroup where
+instance Prelude.ToJSON UpdateReportGroup where
   toJSON UpdateReportGroup' {..} =
-    object
-      ( catMaybes
-          [ ("exportConfig" .=) <$> _urgExportConfig,
-            ("tags" .=) <$> _urgTags,
-            Just ("arn" .= _urgArn)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("exportConfig" Prelude..=)
+              Prelude.<$> exportConfig,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("arn" Prelude..= arn)
           ]
       )
 
-instance ToPath UpdateReportGroup where
-  toPath = const "/"
+instance Prelude.ToPath UpdateReportGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateReportGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateReportGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateReportGroupResponse' smart constructor.
+-- | /See:/ 'newUpdateReportGroupResponse' smart constructor.
 data UpdateReportGroupResponse = UpdateReportGroupResponse'
-  { _urgrrsReportGroup ::
-      !( Maybe
-           ReportGroup
-       ),
-    _urgrrsResponseStatus ::
-      !Int
+  { -- | Information about the updated report group.
+    reportGroup :: Prelude.Maybe ReportGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateReportGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateReportGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urgrrsReportGroup' - Information about the updated report group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urgrrsResponseStatus' - -- | The response status code.
-updateReportGroupResponse ::
-  -- | 'urgrrsResponseStatus'
-  Int ->
+-- 'reportGroup', 'updateReportGroupResponse_reportGroup' - Information about the updated report group.
+--
+-- 'httpStatus', 'updateReportGroupResponse_httpStatus' - The response's http status code.
+newUpdateReportGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateReportGroupResponse
-updateReportGroupResponse pResponseStatus_ =
+newUpdateReportGroupResponse pHttpStatus_ =
   UpdateReportGroupResponse'
-    { _urgrrsReportGroup =
-        Nothing,
-      _urgrrsResponseStatus = pResponseStatus_
+    { reportGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the updated report group.
-urgrrsReportGroup :: Lens' UpdateReportGroupResponse (Maybe ReportGroup)
-urgrrsReportGroup = lens _urgrrsReportGroup (\s a -> s {_urgrrsReportGroup = a})
+updateReportGroupResponse_reportGroup :: Lens.Lens' UpdateReportGroupResponse (Prelude.Maybe ReportGroup)
+updateReportGroupResponse_reportGroup = Lens.lens (\UpdateReportGroupResponse' {reportGroup} -> reportGroup) (\s@UpdateReportGroupResponse' {} a -> s {reportGroup = a} :: UpdateReportGroupResponse)
 
--- | -- | The response status code.
-urgrrsResponseStatus :: Lens' UpdateReportGroupResponse Int
-urgrrsResponseStatus = lens _urgrrsResponseStatus (\s a -> s {_urgrrsResponseStatus = a})
+-- | The response's http status code.
+updateReportGroupResponse_httpStatus :: Lens.Lens' UpdateReportGroupResponse Prelude.Int
+updateReportGroupResponse_httpStatus = Lens.lens (\UpdateReportGroupResponse' {httpStatus} -> httpStatus) (\s@UpdateReportGroupResponse' {} a -> s {httpStatus = a} :: UpdateReportGroupResponse)
 
-instance NFData UpdateReportGroupResponse
+instance Prelude.NFData UpdateReportGroupResponse

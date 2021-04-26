@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.CodeBuild.Types.SourceAuthType
   ( SourceAuthType
       ( ..,
-        Oauth
+        SourceAuthTypeOAUTH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SourceAuthType = SourceAuthType' (CI Text)
+newtype SourceAuthType = SourceAuthType'
+  { fromSourceAuthType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Oauth :: SourceAuthType
-pattern Oauth = SourceAuthType' "OAUTH"
+pattern SourceAuthTypeOAUTH :: SourceAuthType
+pattern SourceAuthTypeOAUTH = SourceAuthType' "OAUTH"
 
 {-# COMPLETE
-  Oauth,
+  SourceAuthTypeOAUTH,
   SourceAuthType'
   #-}
 
-instance FromText SourceAuthType where
-  parser = (SourceAuthType' . mk) <$> takeText
+instance Prelude.FromText SourceAuthType where
+  parser = SourceAuthType' Prelude.<$> Prelude.takeText
 
-instance ToText SourceAuthType where
-  toText (SourceAuthType' ci) = original ci
+instance Prelude.ToText SourceAuthType where
+  toText (SourceAuthType' x) = x
 
-instance Hashable SourceAuthType
+instance Prelude.Hashable SourceAuthType
 
-instance NFData SourceAuthType
+instance Prelude.NFData SourceAuthType
 
-instance ToByteString SourceAuthType
+instance Prelude.ToByteString SourceAuthType
 
-instance ToQuery SourceAuthType
+instance Prelude.ToQuery SourceAuthType
 
-instance ToHeader SourceAuthType
+instance Prelude.ToHeader SourceAuthType
 
-instance ToJSON SourceAuthType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SourceAuthType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SourceAuthType where
-  parseJSON = parseJSONText "SourceAuthType"
+instance Prelude.FromJSON SourceAuthType where
+  parseJSON = Prelude.parseJSONText "SourceAuthType"

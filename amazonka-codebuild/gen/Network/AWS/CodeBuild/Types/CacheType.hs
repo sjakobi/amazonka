@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodeBuild.Types.CacheType
   ( CacheType
       ( ..,
-        CTLocal,
-        CTNoCache,
-        CTS3
+        CacheTypeLOCAL,
+        CacheTypeNOCACHE,
+        CacheTypeS3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CacheType = CacheType' (CI Text)
+newtype CacheType = CacheType'
+  { fromCacheType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CTLocal :: CacheType
-pattern CTLocal = CacheType' "LOCAL"
+pattern CacheTypeLOCAL :: CacheType
+pattern CacheTypeLOCAL = CacheType' "LOCAL"
 
-pattern CTNoCache :: CacheType
-pattern CTNoCache = CacheType' "NO_CACHE"
+pattern CacheTypeNOCACHE :: CacheType
+pattern CacheTypeNOCACHE = CacheType' "NO_CACHE"
 
-pattern CTS3 :: CacheType
-pattern CTS3 = CacheType' "S3"
+pattern CacheTypeS3 :: CacheType
+pattern CacheTypeS3 = CacheType' "S3"
 
 {-# COMPLETE
-  CTLocal,
-  CTNoCache,
-  CTS3,
+  CacheTypeLOCAL,
+  CacheTypeNOCACHE,
+  CacheTypeS3,
   CacheType'
   #-}
 
-instance FromText CacheType where
-  parser = (CacheType' . mk) <$> takeText
+instance Prelude.FromText CacheType where
+  parser = CacheType' Prelude.<$> Prelude.takeText
 
-instance ToText CacheType where
-  toText (CacheType' ci) = original ci
+instance Prelude.ToText CacheType where
+  toText (CacheType' x) = x
 
-instance Hashable CacheType
+instance Prelude.Hashable CacheType
 
-instance NFData CacheType
+instance Prelude.NFData CacheType
 
-instance ToByteString CacheType
+instance Prelude.ToByteString CacheType
 
-instance ToQuery CacheType
+instance Prelude.ToQuery CacheType
 
-instance ToHeader CacheType
+instance Prelude.ToHeader CacheType
 
-instance ToJSON CacheType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CacheType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CacheType where
-  parseJSON = parseJSONText "CacheType"
+instance Prelude.FromJSON CacheType where
+  parseJSON = Prelude.parseJSONText "CacheType"

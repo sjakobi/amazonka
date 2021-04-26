@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,307 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Analyzes and accumulates test report values for the specified test reports.
+-- Analyzes and accumulates test report values for the specified test
+-- reports.
 module Network.AWS.CodeBuild.GetReportGroupTrend
   ( -- * Creating a Request
-    getReportGroupTrend,
-    GetReportGroupTrend,
+    GetReportGroupTrend (..),
+    newGetReportGroupTrend,
 
     -- * Request Lenses
-    grgtNumOfReports,
-    grgtReportGroupARN,
-    grgtTrendField,
+    getReportGroupTrend_numOfReports,
+    getReportGroupTrend_reportGroupArn,
+    getReportGroupTrend_trendField,
 
     -- * Destructuring the Response
-    getReportGroupTrendResponse,
-    GetReportGroupTrendResponse,
+    GetReportGroupTrendResponse (..),
+    newGetReportGroupTrendResponse,
 
     -- * Response Lenses
-    grgtrrsRawData,
-    grgtrrsStats,
-    grgtrrsResponseStatus,
+    getReportGroupTrendResponse_rawData,
+    getReportGroupTrendResponse_stats,
+    getReportGroupTrendResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.ReportGroupTrendStats
+import Network.AWS.CodeBuild.Types.ReportWithRawData
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getReportGroupTrend' smart constructor.
+-- | /See:/ 'newGetReportGroupTrend' smart constructor.
 data GetReportGroupTrend = GetReportGroupTrend'
-  { _grgtNumOfReports ::
-      !(Maybe Nat),
-    _grgtReportGroupARN :: !Text,
-    _grgtTrendField ::
-      !ReportGroupTrendFieldType
+  { -- | The number of reports to analyze. This operation always retrieves the
+    -- most recent reports.
+    --
+    -- If this parameter is omitted, the most recent 100 reports are analyzed.
+    numOfReports :: Prelude.Maybe Prelude.Nat,
+    -- | The ARN of the report group that contains the reports to analyze.
+    reportGroupArn :: Prelude.Text,
+    -- | The test report value to accumulate. This must be one of the following
+    -- values:
+    --
+    -- [Test reports:]
+    --     [DURATION]
+    --         Accumulate the test run times for the specified reports.
+    --
+    --     [PASS_RATE]
+    --         Accumulate the percentage of tests that passed for the specified
+    --         test reports.
+    --
+    --     [TOTAL]
+    --         Accumulate the total number of tests for the specified test
+    --         reports.
+    --
+    -- [Code coverage reports:]
+    --     [BRANCH_COVERAGE]
+    --         Accumulate the branch coverage percentages for the specified
+    --         test reports.
+    --
+    --     [BRANCHES_COVERED]
+    --         Accumulate the branches covered values for the specified test
+    --         reports.
+    --
+    --     [BRANCHES_MISSED]
+    --         Accumulate the branches missed values for the specified test
+    --         reports.
+    --
+    --     [LINE_COVERAGE]
+    --         Accumulate the line coverage percentages for the specified test
+    --         reports.
+    --
+    --     [LINES_COVERED]
+    --         Accumulate the lines covered values for the specified test
+    --         reports.
+    --
+    --     [LINES_MISSED]
+    --         Accumulate the lines not covered values for the specified test
+    --         reports.
+    trendField :: ReportGroupTrendFieldType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetReportGroupTrend' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetReportGroupTrend' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grgtNumOfReports' - The number of reports to analyze. This operation always retrieves the most recent reports. If this parameter is omitted, the most recent 100 reports are analyzed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grgtReportGroupARN' - The ARN of the report group that contains the reports to analyze.
+-- 'numOfReports', 'getReportGroupTrend_numOfReports' - The number of reports to analyze. This operation always retrieves the
+-- most recent reports.
 --
--- * 'grgtTrendField' - The test report value to accumulate. This must be one of the following values:     * Test reports:    *     * DURATION    * Accumulate the test run times for the specified reports.     * PASS_RATE    * Accumulate the percentage of tests that passed for the specified test reports.     * TOTAL    * Accumulate the total number of tests for the specified test reports.     * Code coverage reports:    *     * BRANCH_COVERAGE    * Accumulate the branch coverage percentages for the specified test reports.     * BRANCHES_COVERED    * Accumulate the branches covered values for the specified test reports.     * BRANCHES_MISSED    * Accumulate the branches missed values for the specified test reports.     * LINE_COVERAGE    * Accumulate the line coverage percentages for the specified test reports.     * LINES_COVERED    * Accumulate the lines covered values for the specified test reports.     * LINES_MISSED    * Accumulate the lines not covered values for the specified test reports.
-getReportGroupTrend ::
-  -- | 'grgtReportGroupARN'
-  Text ->
-  -- | 'grgtTrendField'
+-- If this parameter is omitted, the most recent 100 reports are analyzed.
+--
+-- 'reportGroupArn', 'getReportGroupTrend_reportGroupArn' - The ARN of the report group that contains the reports to analyze.
+--
+-- 'trendField', 'getReportGroupTrend_trendField' - The test report value to accumulate. This must be one of the following
+-- values:
+--
+-- [Test reports:]
+--     [DURATION]
+--         Accumulate the test run times for the specified reports.
+--
+--     [PASS_RATE]
+--         Accumulate the percentage of tests that passed for the specified
+--         test reports.
+--
+--     [TOTAL]
+--         Accumulate the total number of tests for the specified test
+--         reports.
+--
+-- [Code coverage reports:]
+--     [BRANCH_COVERAGE]
+--         Accumulate the branch coverage percentages for the specified
+--         test reports.
+--
+--     [BRANCHES_COVERED]
+--         Accumulate the branches covered values for the specified test
+--         reports.
+--
+--     [BRANCHES_MISSED]
+--         Accumulate the branches missed values for the specified test
+--         reports.
+--
+--     [LINE_COVERAGE]
+--         Accumulate the line coverage percentages for the specified test
+--         reports.
+--
+--     [LINES_COVERED]
+--         Accumulate the lines covered values for the specified test
+--         reports.
+--
+--     [LINES_MISSED]
+--         Accumulate the lines not covered values for the specified test
+--         reports.
+newGetReportGroupTrend ::
+  -- | 'reportGroupArn'
+  Prelude.Text ->
+  -- | 'trendField'
   ReportGroupTrendFieldType ->
   GetReportGroupTrend
-getReportGroupTrend pReportGroupARN_ pTrendField_ =
+newGetReportGroupTrend pReportGroupArn_ pTrendField_ =
   GetReportGroupTrend'
-    { _grgtNumOfReports = Nothing,
-      _grgtReportGroupARN = pReportGroupARN_,
-      _grgtTrendField = pTrendField_
+    { numOfReports =
+        Prelude.Nothing,
+      reportGroupArn = pReportGroupArn_,
+      trendField = pTrendField_
     }
 
--- | The number of reports to analyze. This operation always retrieves the most recent reports. If this parameter is omitted, the most recent 100 reports are analyzed.
-grgtNumOfReports :: Lens' GetReportGroupTrend (Maybe Natural)
-grgtNumOfReports = lens _grgtNumOfReports (\s a -> s {_grgtNumOfReports = a}) . mapping _Nat
+-- | The number of reports to analyze. This operation always retrieves the
+-- most recent reports.
+--
+-- If this parameter is omitted, the most recent 100 reports are analyzed.
+getReportGroupTrend_numOfReports :: Lens.Lens' GetReportGroupTrend (Prelude.Maybe Prelude.Natural)
+getReportGroupTrend_numOfReports = Lens.lens (\GetReportGroupTrend' {numOfReports} -> numOfReports) (\s@GetReportGroupTrend' {} a -> s {numOfReports = a} :: GetReportGroupTrend) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ARN of the report group that contains the reports to analyze.
-grgtReportGroupARN :: Lens' GetReportGroupTrend Text
-grgtReportGroupARN = lens _grgtReportGroupARN (\s a -> s {_grgtReportGroupARN = a})
+getReportGroupTrend_reportGroupArn :: Lens.Lens' GetReportGroupTrend Prelude.Text
+getReportGroupTrend_reportGroupArn = Lens.lens (\GetReportGroupTrend' {reportGroupArn} -> reportGroupArn) (\s@GetReportGroupTrend' {} a -> s {reportGroupArn = a} :: GetReportGroupTrend)
 
--- | The test report value to accumulate. This must be one of the following values:     * Test reports:    *     * DURATION    * Accumulate the test run times for the specified reports.     * PASS_RATE    * Accumulate the percentage of tests that passed for the specified test reports.     * TOTAL    * Accumulate the total number of tests for the specified test reports.     * Code coverage reports:    *     * BRANCH_COVERAGE    * Accumulate the branch coverage percentages for the specified test reports.     * BRANCHES_COVERED    * Accumulate the branches covered values for the specified test reports.     * BRANCHES_MISSED    * Accumulate the branches missed values for the specified test reports.     * LINE_COVERAGE    * Accumulate the line coverage percentages for the specified test reports.     * LINES_COVERED    * Accumulate the lines covered values for the specified test reports.     * LINES_MISSED    * Accumulate the lines not covered values for the specified test reports.
-grgtTrendField :: Lens' GetReportGroupTrend ReportGroupTrendFieldType
-grgtTrendField = lens _grgtTrendField (\s a -> s {_grgtTrendField = a})
+-- | The test report value to accumulate. This must be one of the following
+-- values:
+--
+-- [Test reports:]
+--     [DURATION]
+--         Accumulate the test run times for the specified reports.
+--
+--     [PASS_RATE]
+--         Accumulate the percentage of tests that passed for the specified
+--         test reports.
+--
+--     [TOTAL]
+--         Accumulate the total number of tests for the specified test
+--         reports.
+--
+-- [Code coverage reports:]
+--     [BRANCH_COVERAGE]
+--         Accumulate the branch coverage percentages for the specified
+--         test reports.
+--
+--     [BRANCHES_COVERED]
+--         Accumulate the branches covered values for the specified test
+--         reports.
+--
+--     [BRANCHES_MISSED]
+--         Accumulate the branches missed values for the specified test
+--         reports.
+--
+--     [LINE_COVERAGE]
+--         Accumulate the line coverage percentages for the specified test
+--         reports.
+--
+--     [LINES_COVERED]
+--         Accumulate the lines covered values for the specified test
+--         reports.
+--
+--     [LINES_MISSED]
+--         Accumulate the lines not covered values for the specified test
+--         reports.
+getReportGroupTrend_trendField :: Lens.Lens' GetReportGroupTrend ReportGroupTrendFieldType
+getReportGroupTrend_trendField = Lens.lens (\GetReportGroupTrend' {trendField} -> trendField) (\s@GetReportGroupTrend' {} a -> s {trendField = a} :: GetReportGroupTrend)
 
-instance AWSRequest GetReportGroupTrend where
+instance Prelude.AWSRequest GetReportGroupTrend where
   type
     Rs GetReportGroupTrend =
       GetReportGroupTrendResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetReportGroupTrendResponse'
-            <$> (x .?> "rawData" .!@ mempty)
-            <*> (x .?> "stats")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "rawData" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "stats")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetReportGroupTrend
+instance Prelude.Hashable GetReportGroupTrend
 
-instance NFData GetReportGroupTrend
+instance Prelude.NFData GetReportGroupTrend
 
-instance ToHeaders GetReportGroupTrend where
+instance Prelude.ToHeaders GetReportGroupTrend where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.GetReportGroupTrend" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.GetReportGroupTrend" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetReportGroupTrend where
+instance Prelude.ToJSON GetReportGroupTrend where
   toJSON GetReportGroupTrend' {..} =
-    object
-      ( catMaybes
-          [ ("numOfReports" .=) <$> _grgtNumOfReports,
-            Just ("reportGroupArn" .= _grgtReportGroupARN),
-            Just ("trendField" .= _grgtTrendField)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("numOfReports" Prelude..=)
+              Prelude.<$> numOfReports,
+            Prelude.Just
+              ("reportGroupArn" Prelude..= reportGroupArn),
+            Prelude.Just ("trendField" Prelude..= trendField)
           ]
       )
 
-instance ToPath GetReportGroupTrend where
-  toPath = const "/"
+instance Prelude.ToPath GetReportGroupTrend where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetReportGroupTrend where
-  toQuery = const mempty
+instance Prelude.ToQuery GetReportGroupTrend where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getReportGroupTrendResponse' smart constructor.
+-- | /See:/ 'newGetReportGroupTrendResponse' smart constructor.
 data GetReportGroupTrendResponse = GetReportGroupTrendResponse'
-  { _grgtrrsRawData ::
-      !( Maybe
-           [ReportWithRawData]
-       ),
-    _grgtrrsStats ::
-      !( Maybe
-           ReportGroupTrendStats
-       ),
-    _grgtrrsResponseStatus ::
-      !Int
+  { -- | An array that contains the raw data for each report.
+    rawData :: Prelude.Maybe [ReportWithRawData],
+    -- | Contains the accumulated trend data.
+    stats :: Prelude.Maybe ReportGroupTrendStats,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetReportGroupTrendResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetReportGroupTrendResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grgtrrsRawData' - An array that contains the raw data for each report.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grgtrrsStats' - Contains the accumulated trend data.
+-- 'rawData', 'getReportGroupTrendResponse_rawData' - An array that contains the raw data for each report.
 --
--- * 'grgtrrsResponseStatus' - -- | The response status code.
-getReportGroupTrendResponse ::
-  -- | 'grgtrrsResponseStatus'
-  Int ->
+-- 'stats', 'getReportGroupTrendResponse_stats' - Contains the accumulated trend data.
+--
+-- 'httpStatus', 'getReportGroupTrendResponse_httpStatus' - The response's http status code.
+newGetReportGroupTrendResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetReportGroupTrendResponse
-getReportGroupTrendResponse pResponseStatus_ =
+newGetReportGroupTrendResponse pHttpStatus_ =
   GetReportGroupTrendResponse'
-    { _grgtrrsRawData =
-        Nothing,
-      _grgtrrsStats = Nothing,
-      _grgtrrsResponseStatus = pResponseStatus_
+    { rawData =
+        Prelude.Nothing,
+      stats = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An array that contains the raw data for each report.
-grgtrrsRawData :: Lens' GetReportGroupTrendResponse [ReportWithRawData]
-grgtrrsRawData = lens _grgtrrsRawData (\s a -> s {_grgtrrsRawData = a}) . _Default . _Coerce
+getReportGroupTrendResponse_rawData :: Lens.Lens' GetReportGroupTrendResponse (Prelude.Maybe [ReportWithRawData])
+getReportGroupTrendResponse_rawData = Lens.lens (\GetReportGroupTrendResponse' {rawData} -> rawData) (\s@GetReportGroupTrendResponse' {} a -> s {rawData = a} :: GetReportGroupTrendResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Contains the accumulated trend data.
-grgtrrsStats :: Lens' GetReportGroupTrendResponse (Maybe ReportGroupTrendStats)
-grgtrrsStats = lens _grgtrrsStats (\s a -> s {_grgtrrsStats = a})
+getReportGroupTrendResponse_stats :: Lens.Lens' GetReportGroupTrendResponse (Prelude.Maybe ReportGroupTrendStats)
+getReportGroupTrendResponse_stats = Lens.lens (\GetReportGroupTrendResponse' {stats} -> stats) (\s@GetReportGroupTrendResponse' {} a -> s {stats = a} :: GetReportGroupTrendResponse)
 
--- | -- | The response status code.
-grgtrrsResponseStatus :: Lens' GetReportGroupTrendResponse Int
-grgtrrsResponseStatus = lens _grgtrrsResponseStatus (\s a -> s {_grgtrrsResponseStatus = a})
+-- | The response's http status code.
+getReportGroupTrendResponse_httpStatus :: Lens.Lens' GetReportGroupTrendResponse Prelude.Int
+getReportGroupTrendResponse_httpStatus = Lens.lens (\GetReportGroupTrendResponse' {httpStatus} -> httpStatus) (\s@GetReportGroupTrendResponse' {} a -> s {httpStatus = a} :: GetReportGroupTrendResponse)
 
-instance NFData GetReportGroupTrendResponse
+instance Prelude.NFData GetReportGroupTrendResponse

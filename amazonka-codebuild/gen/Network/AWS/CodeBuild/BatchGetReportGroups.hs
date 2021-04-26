@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,163 +24,157 @@
 -- Returns an array of report groups.
 module Network.AWS.CodeBuild.BatchGetReportGroups
   ( -- * Creating a Request
-    batchGetReportGroups,
-    BatchGetReportGroups,
+    BatchGetReportGroups (..),
+    newBatchGetReportGroups,
 
     -- * Request Lenses
-    bgrgReportGroupARNs,
+    batchGetReportGroups_reportGroupArns,
 
     -- * Destructuring the Response
-    batchGetReportGroupsResponse,
-    BatchGetReportGroupsResponse,
+    BatchGetReportGroupsResponse (..),
+    newBatchGetReportGroupsResponse,
 
     -- * Response Lenses
-    bgrgrrsReportGroupsNotFound,
-    bgrgrrsReportGroups,
-    bgrgrrsResponseStatus,
+    batchGetReportGroupsResponse_reportGroupsNotFound,
+    batchGetReportGroupsResponse_reportGroups,
+    batchGetReportGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.ReportGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchGetReportGroups' smart constructor.
-newtype BatchGetReportGroups = BatchGetReportGroups'
-  { _bgrgReportGroupARNs ::
-      List1 Text
+-- | /See:/ 'newBatchGetReportGroups' smart constructor.
+data BatchGetReportGroups = BatchGetReportGroups'
+  { -- | An array of report group ARNs that identify the report groups to return.
+    reportGroupArns :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetReportGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetReportGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgrgReportGroupARNs' - An array of report group ARNs that identify the report groups to return.
-batchGetReportGroups ::
-  -- | 'bgrgReportGroupARNs'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'reportGroupArns', 'batchGetReportGroups_reportGroupArns' - An array of report group ARNs that identify the report groups to return.
+newBatchGetReportGroups ::
+  -- | 'reportGroupArns'
+  Prelude.NonEmpty Prelude.Text ->
   BatchGetReportGroups
-batchGetReportGroups pReportGroupARNs_ =
+newBatchGetReportGroups pReportGroupArns_ =
   BatchGetReportGroups'
-    { _bgrgReportGroupARNs =
-        _List1 # pReportGroupARNs_
+    { reportGroupArns =
+        Prelude._List1 Lens.# pReportGroupArns_
     }
 
 -- | An array of report group ARNs that identify the report groups to return.
-bgrgReportGroupARNs :: Lens' BatchGetReportGroups (NonEmpty Text)
-bgrgReportGroupARNs = lens _bgrgReportGroupARNs (\s a -> s {_bgrgReportGroupARNs = a}) . _List1
+batchGetReportGroups_reportGroupArns :: Lens.Lens' BatchGetReportGroups (Prelude.NonEmpty Prelude.Text)
+batchGetReportGroups_reportGroupArns = Lens.lens (\BatchGetReportGroups' {reportGroupArns} -> reportGroupArns) (\s@BatchGetReportGroups' {} a -> s {reportGroupArns = a} :: BatchGetReportGroups) Prelude.. Prelude._List1
 
-instance AWSRequest BatchGetReportGroups where
+instance Prelude.AWSRequest BatchGetReportGroups where
   type
     Rs BatchGetReportGroups =
       BatchGetReportGroupsResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetReportGroupsResponse'
-            <$> (x .?> "reportGroupsNotFound")
-            <*> (x .?> "reportGroups")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "reportGroupsNotFound")
+            Prelude.<*> (x Prelude..?> "reportGroups")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetReportGroups
+instance Prelude.Hashable BatchGetReportGroups
 
-instance NFData BatchGetReportGroups
+instance Prelude.NFData BatchGetReportGroups
 
-instance ToHeaders BatchGetReportGroups where
+instance Prelude.ToHeaders BatchGetReportGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.BatchGetReportGroups" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.BatchGetReportGroups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetReportGroups where
+instance Prelude.ToJSON BatchGetReportGroups where
   toJSON BatchGetReportGroups' {..} =
-    object
-      ( catMaybes
-          [Just ("reportGroupArns" .= _bgrgReportGroupARNs)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("reportGroupArns" Prelude..= reportGroupArns)
+          ]
       )
 
-instance ToPath BatchGetReportGroups where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetReportGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetReportGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetReportGroups where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchGetReportGroupsResponse' smart constructor.
+-- | /See:/ 'newBatchGetReportGroupsResponse' smart constructor.
 data BatchGetReportGroupsResponse = BatchGetReportGroupsResponse'
-  { _bgrgrrsReportGroupsNotFound ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       ),
-    _bgrgrrsReportGroups ::
-      !( Maybe
-           ( List1
-               ReportGroup
-           )
-       ),
-    _bgrgrrsResponseStatus ::
-      !Int
+  { -- | An array of ARNs passed to @BatchGetReportGroups@ that are not
+    -- associated with a @ReportGroup@.
+    reportGroupsNotFound :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The array of report groups returned by @BatchGetReportGroups@.
+    reportGroups :: Prelude.Maybe (Prelude.List1 ReportGroup),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetReportGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetReportGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgrgrrsReportGroupsNotFound' - An array of ARNs passed to @BatchGetReportGroups@ that are not associated with a @ReportGroup@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgrgrrsReportGroups' - The array of report groups returned by @BatchGetReportGroups@ .
+-- 'reportGroupsNotFound', 'batchGetReportGroupsResponse_reportGroupsNotFound' - An array of ARNs passed to @BatchGetReportGroups@ that are not
+-- associated with a @ReportGroup@.
 --
--- * 'bgrgrrsResponseStatus' - -- | The response status code.
-batchGetReportGroupsResponse ::
-  -- | 'bgrgrrsResponseStatus'
-  Int ->
+-- 'reportGroups', 'batchGetReportGroupsResponse_reportGroups' - The array of report groups returned by @BatchGetReportGroups@.
+--
+-- 'httpStatus', 'batchGetReportGroupsResponse_httpStatus' - The response's http status code.
+newBatchGetReportGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetReportGroupsResponse
-batchGetReportGroupsResponse pResponseStatus_ =
+newBatchGetReportGroupsResponse pHttpStatus_ =
   BatchGetReportGroupsResponse'
-    { _bgrgrrsReportGroupsNotFound =
-        Nothing,
-      _bgrgrrsReportGroups = Nothing,
-      _bgrgrrsResponseStatus = pResponseStatus_
+    { reportGroupsNotFound =
+        Prelude.Nothing,
+      reportGroups = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of ARNs passed to @BatchGetReportGroups@ that are not associated with a @ReportGroup@ .
-bgrgrrsReportGroupsNotFound :: Lens' BatchGetReportGroupsResponse (Maybe (NonEmpty Text))
-bgrgrrsReportGroupsNotFound = lens _bgrgrrsReportGroupsNotFound (\s a -> s {_bgrgrrsReportGroupsNotFound = a}) . mapping _List1
+-- | An array of ARNs passed to @BatchGetReportGroups@ that are not
+-- associated with a @ReportGroup@.
+batchGetReportGroupsResponse_reportGroupsNotFound :: Lens.Lens' BatchGetReportGroupsResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+batchGetReportGroupsResponse_reportGroupsNotFound = Lens.lens (\BatchGetReportGroupsResponse' {reportGroupsNotFound} -> reportGroupsNotFound) (\s@BatchGetReportGroupsResponse' {} a -> s {reportGroupsNotFound = a} :: BatchGetReportGroupsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | The array of report groups returned by @BatchGetReportGroups@ .
-bgrgrrsReportGroups :: Lens' BatchGetReportGroupsResponse (Maybe (NonEmpty ReportGroup))
-bgrgrrsReportGroups = lens _bgrgrrsReportGroups (\s a -> s {_bgrgrrsReportGroups = a}) . mapping _List1
+-- | The array of report groups returned by @BatchGetReportGroups@.
+batchGetReportGroupsResponse_reportGroups :: Lens.Lens' BatchGetReportGroupsResponse (Prelude.Maybe (Prelude.NonEmpty ReportGroup))
+batchGetReportGroupsResponse_reportGroups = Lens.lens (\BatchGetReportGroupsResponse' {reportGroups} -> reportGroups) (\s@BatchGetReportGroupsResponse' {} a -> s {reportGroups = a} :: BatchGetReportGroupsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-bgrgrrsResponseStatus :: Lens' BatchGetReportGroupsResponse Int
-bgrgrrsResponseStatus = lens _bgrgrrsResponseStatus (\s a -> s {_bgrgrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetReportGroupsResponse_httpStatus :: Lens.Lens' BatchGetReportGroupsResponse Prelude.Int
+batchGetReportGroupsResponse_httpStatus = Lens.lens (\BatchGetReportGroupsResponse' {httpStatus} -> httpStatus) (\s@BatchGetReportGroupsResponse' {} a -> s {httpStatus = a} :: BatchGetReportGroupsResponse)
 
-instance NFData BatchGetReportGroupsResponse
+instance Prelude.NFData BatchGetReportGroupsResponse

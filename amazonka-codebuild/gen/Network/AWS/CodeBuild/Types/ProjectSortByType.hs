@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CodeBuild.Types.ProjectSortByType
   ( ProjectSortByType
       ( ..,
-        CreatedTime,
-        LastModifiedTime,
-        Name
+        ProjectSortByTypeCREATEDTIME,
+        ProjectSortByTypeLASTMODIFIEDTIME,
+        ProjectSortByTypeNAME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProjectSortByType = ProjectSortByType' (CI Text)
+newtype ProjectSortByType = ProjectSortByType'
+  { fromProjectSortByType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreatedTime :: ProjectSortByType
-pattern CreatedTime = ProjectSortByType' "CREATED_TIME"
+pattern ProjectSortByTypeCREATEDTIME :: ProjectSortByType
+pattern ProjectSortByTypeCREATEDTIME = ProjectSortByType' "CREATED_TIME"
 
-pattern LastModifiedTime :: ProjectSortByType
-pattern LastModifiedTime = ProjectSortByType' "LAST_MODIFIED_TIME"
+pattern ProjectSortByTypeLASTMODIFIEDTIME :: ProjectSortByType
+pattern ProjectSortByTypeLASTMODIFIEDTIME = ProjectSortByType' "LAST_MODIFIED_TIME"
 
-pattern Name :: ProjectSortByType
-pattern Name = ProjectSortByType' "NAME"
+pattern ProjectSortByTypeNAME :: ProjectSortByType
+pattern ProjectSortByTypeNAME = ProjectSortByType' "NAME"
 
 {-# COMPLETE
-  CreatedTime,
-  LastModifiedTime,
-  Name,
+  ProjectSortByTypeCREATEDTIME,
+  ProjectSortByTypeLASTMODIFIEDTIME,
+  ProjectSortByTypeNAME,
   ProjectSortByType'
   #-}
 
-instance FromText ProjectSortByType where
-  parser = (ProjectSortByType' . mk) <$> takeText
+instance Prelude.FromText ProjectSortByType where
+  parser = ProjectSortByType' Prelude.<$> Prelude.takeText
 
-instance ToText ProjectSortByType where
-  toText (ProjectSortByType' ci) = original ci
+instance Prelude.ToText ProjectSortByType where
+  toText (ProjectSortByType' x) = x
 
-instance Hashable ProjectSortByType
+instance Prelude.Hashable ProjectSortByType
 
-instance NFData ProjectSortByType
+instance Prelude.NFData ProjectSortByType
 
-instance ToByteString ProjectSortByType
+instance Prelude.ToByteString ProjectSortByType
 
-instance ToQuery ProjectSortByType
+instance Prelude.ToQuery ProjectSortByType
 
-instance ToHeader ProjectSortByType
+instance Prelude.ToHeader ProjectSortByType
 
-instance ToJSON ProjectSortByType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProjectSortByType where
+  toJSON = Prelude.toJSONText

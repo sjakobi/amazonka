@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CodeBuild.Types.WebhookBuildType
   ( WebhookBuildType
       ( ..,
-        WBTBuild,
-        WBTBuildBatch
+        WebhookBuildTypeBUILD,
+        WebhookBuildTypeBUILDBATCH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WebhookBuildType = WebhookBuildType' (CI Text)
+newtype WebhookBuildType = WebhookBuildType'
+  { fromWebhookBuildType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern WBTBuild :: WebhookBuildType
-pattern WBTBuild = WebhookBuildType' "BUILD"
+pattern WebhookBuildTypeBUILD :: WebhookBuildType
+pattern WebhookBuildTypeBUILD = WebhookBuildType' "BUILD"
 
-pattern WBTBuildBatch :: WebhookBuildType
-pattern WBTBuildBatch = WebhookBuildType' "BUILD_BATCH"
+pattern WebhookBuildTypeBUILDBATCH :: WebhookBuildType
+pattern WebhookBuildTypeBUILDBATCH = WebhookBuildType' "BUILD_BATCH"
 
 {-# COMPLETE
-  WBTBuild,
-  WBTBuildBatch,
+  WebhookBuildTypeBUILD,
+  WebhookBuildTypeBUILDBATCH,
   WebhookBuildType'
   #-}
 
-instance FromText WebhookBuildType where
-  parser = (WebhookBuildType' . mk) <$> takeText
+instance Prelude.FromText WebhookBuildType where
+  parser = WebhookBuildType' Prelude.<$> Prelude.takeText
 
-instance ToText WebhookBuildType where
-  toText (WebhookBuildType' ci) = original ci
+instance Prelude.ToText WebhookBuildType where
+  toText (WebhookBuildType' x) = x
 
-instance Hashable WebhookBuildType
+instance Prelude.Hashable WebhookBuildType
 
-instance NFData WebhookBuildType
+instance Prelude.NFData WebhookBuildType
 
-instance ToByteString WebhookBuildType
+instance Prelude.ToByteString WebhookBuildType
 
-instance ToQuery WebhookBuildType
+instance Prelude.ToQuery WebhookBuildType
 
-instance ToHeader WebhookBuildType
+instance Prelude.ToHeader WebhookBuildType
 
-instance ToJSON WebhookBuildType where
-  toJSON = toJSONText
+instance Prelude.ToJSON WebhookBuildType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WebhookBuildType where
-  parseJSON = parseJSONText "WebhookBuildType"
+instance Prelude.FromJSON WebhookBuildType where
+  parseJSON = Prelude.parseJSONText "WebhookBuildType"

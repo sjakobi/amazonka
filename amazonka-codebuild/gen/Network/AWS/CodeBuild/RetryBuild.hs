@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,131 +24,159 @@
 -- Restarts a build.
 module Network.AWS.CodeBuild.RetryBuild
   ( -- * Creating a Request
-    retryBuild,
-    RetryBuild,
+    RetryBuild (..),
+    newRetryBuild,
 
     -- * Request Lenses
-    rbIdempotencyToken,
-    rbId,
+    retryBuild_idempotencyToken,
+    retryBuild_id,
 
     -- * Destructuring the Response
-    retryBuildResponse,
-    RetryBuildResponse,
+    RetryBuildResponse (..),
+    newRetryBuildResponse,
 
     -- * Response Lenses
-    rbrrsBuild,
-    rbrrsResponseStatus,
+    retryBuildResponse_build,
+    retryBuildResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.Build
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'retryBuild' smart constructor.
+-- | /See:/ 'newRetryBuild' smart constructor.
 data RetryBuild = RetryBuild'
-  { _rbIdempotencyToken ::
-      !(Maybe Text),
-    _rbId :: !(Maybe Text)
+  { -- | A unique, case sensitive identifier you provide to ensure the
+    -- idempotency of the @RetryBuild@ request. The token is included in the
+    -- @RetryBuild@ request and is valid for five minutes. If you repeat the
+    -- @RetryBuild@ request with the same token, but change a parameter, AWS
+    -- CodeBuild returns a parameter mismatch error.
+    idempotencyToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the identifier of the build to restart.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RetryBuild' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RetryBuild' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rbIdempotencyToken' - A unique, case sensitive identifier you provide to ensure the idempotency of the @RetryBuild@ request. The token is included in the @RetryBuild@ request and is valid for five minutes. If you repeat the @RetryBuild@ request with the same token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rbId' - Specifies the identifier of the build to restart.
-retryBuild ::
+-- 'idempotencyToken', 'retryBuild_idempotencyToken' - A unique, case sensitive identifier you provide to ensure the
+-- idempotency of the @RetryBuild@ request. The token is included in the
+-- @RetryBuild@ request and is valid for five minutes. If you repeat the
+-- @RetryBuild@ request with the same token, but change a parameter, AWS
+-- CodeBuild returns a parameter mismatch error.
+--
+-- 'id', 'retryBuild_id' - Specifies the identifier of the build to restart.
+newRetryBuild ::
   RetryBuild
-retryBuild =
+newRetryBuild =
   RetryBuild'
-    { _rbIdempotencyToken = Nothing,
-      _rbId = Nothing
+    { idempotencyToken = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
--- | A unique, case sensitive identifier you provide to ensure the idempotency of the @RetryBuild@ request. The token is included in the @RetryBuild@ request and is valid for five minutes. If you repeat the @RetryBuild@ request with the same token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
-rbIdempotencyToken :: Lens' RetryBuild (Maybe Text)
-rbIdempotencyToken = lens _rbIdempotencyToken (\s a -> s {_rbIdempotencyToken = a})
+-- | A unique, case sensitive identifier you provide to ensure the
+-- idempotency of the @RetryBuild@ request. The token is included in the
+-- @RetryBuild@ request and is valid for five minutes. If you repeat the
+-- @RetryBuild@ request with the same token, but change a parameter, AWS
+-- CodeBuild returns a parameter mismatch error.
+retryBuild_idempotencyToken :: Lens.Lens' RetryBuild (Prelude.Maybe Prelude.Text)
+retryBuild_idempotencyToken = Lens.lens (\RetryBuild' {idempotencyToken} -> idempotencyToken) (\s@RetryBuild' {} a -> s {idempotencyToken = a} :: RetryBuild)
 
 -- | Specifies the identifier of the build to restart.
-rbId :: Lens' RetryBuild (Maybe Text)
-rbId = lens _rbId (\s a -> s {_rbId = a})
+retryBuild_id :: Lens.Lens' RetryBuild (Prelude.Maybe Prelude.Text)
+retryBuild_id = Lens.lens (\RetryBuild' {id} -> id) (\s@RetryBuild' {} a -> s {id = a} :: RetryBuild)
 
-instance AWSRequest RetryBuild where
+instance Prelude.AWSRequest RetryBuild where
   type Rs RetryBuild = RetryBuildResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RetryBuildResponse'
-            <$> (x .?> "build") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "build")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RetryBuild
+instance Prelude.Hashable RetryBuild
 
-instance NFData RetryBuild
+instance Prelude.NFData RetryBuild
 
-instance ToHeaders RetryBuild where
+instance Prelude.ToHeaders RetryBuild where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeBuild_20161006.RetryBuild" :: ByteString),
+              Prelude.=# ( "CodeBuild_20161006.RetryBuild" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RetryBuild where
+instance Prelude.ToJSON RetryBuild where
   toJSON RetryBuild' {..} =
-    object
-      ( catMaybes
-          [ ("idempotencyToken" .=) <$> _rbIdempotencyToken,
-            ("id" .=) <$> _rbId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("idempotencyToken" Prelude..=)
+              Prelude.<$> idempotencyToken,
+            ("id" Prelude..=) Prelude.<$> id
           ]
       )
 
-instance ToPath RetryBuild where
-  toPath = const "/"
+instance Prelude.ToPath RetryBuild where
+  toPath = Prelude.const "/"
 
-instance ToQuery RetryBuild where
-  toQuery = const mempty
+instance Prelude.ToQuery RetryBuild where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'retryBuildResponse' smart constructor.
+-- | /See:/ 'newRetryBuildResponse' smart constructor.
 data RetryBuildResponse = RetryBuildResponse'
-  { _rbrrsBuild ::
-      !(Maybe Build),
-    _rbrrsResponseStatus :: !Int
+  { build :: Prelude.Maybe Build,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RetryBuildResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RetryBuildResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rbrrsBuild' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rbrrsResponseStatus' - -- | The response status code.
-retryBuildResponse ::
-  -- | 'rbrrsResponseStatus'
-  Int ->
+-- 'build', 'retryBuildResponse_build' - Undocumented member.
+--
+-- 'httpStatus', 'retryBuildResponse_httpStatus' - The response's http status code.
+newRetryBuildResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RetryBuildResponse
-retryBuildResponse pResponseStatus_ =
+newRetryBuildResponse pHttpStatus_ =
   RetryBuildResponse'
-    { _rbrrsBuild = Nothing,
-      _rbrrsResponseStatus = pResponseStatus_
+    { build = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-rbrrsBuild :: Lens' RetryBuildResponse (Maybe Build)
-rbrrsBuild = lens _rbrrsBuild (\s a -> s {_rbrrsBuild = a})
+retryBuildResponse_build :: Lens.Lens' RetryBuildResponse (Prelude.Maybe Build)
+retryBuildResponse_build = Lens.lens (\RetryBuildResponse' {build} -> build) (\s@RetryBuildResponse' {} a -> s {build = a} :: RetryBuildResponse)
 
--- | -- | The response status code.
-rbrrsResponseStatus :: Lens' RetryBuildResponse Int
-rbrrsResponseStatus = lens _rbrrsResponseStatus (\s a -> s {_rbrrsResponseStatus = a})
+-- | The response's http status code.
+retryBuildResponse_httpStatus :: Lens.Lens' RetryBuildResponse Prelude.Int
+retryBuildResponse_httpStatus = Lens.lens (\RetryBuildResponse' {httpStatus} -> httpStatus) (\s@RetryBuildResponse' {} a -> s {httpStatus = a} :: RetryBuildResponse)
 
-instance NFData RetryBuildResponse
+instance Prelude.NFData RetryBuildResponse

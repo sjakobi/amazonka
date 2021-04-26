@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,220 +23,255 @@
 --
 -- Retrieves the identifiers of the build batches for a specific project.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CodeBuild.ListBuildBatchesForProject
   ( -- * Creating a Request
-    listBuildBatchesForProject,
-    ListBuildBatchesForProject,
+    ListBuildBatchesForProject (..),
+    newListBuildBatchesForProject,
 
     -- * Request Lenses
-    lbbfpSortOrder,
-    lbbfpNextToken,
-    lbbfpMaxResults,
-    lbbfpProjectName,
-    lbbfpFilter,
+    listBuildBatchesForProject_sortOrder,
+    listBuildBatchesForProject_nextToken,
+    listBuildBatchesForProject_maxResults,
+    listBuildBatchesForProject_projectName,
+    listBuildBatchesForProject_filter,
 
     -- * Destructuring the Response
-    listBuildBatchesForProjectResponse,
-    ListBuildBatchesForProjectResponse,
+    ListBuildBatchesForProjectResponse (..),
+    newListBuildBatchesForProjectResponse,
 
     -- * Response Lenses
-    lbbfprrsNextToken,
-    lbbfprrsIds,
-    lbbfprrsResponseStatus,
+    listBuildBatchesForProjectResponse_nextToken,
+    listBuildBatchesForProjectResponse_ids,
+    listBuildBatchesForProjectResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listBuildBatchesForProject' smart constructor.
+-- | /See:/ 'newListBuildBatchesForProject' smart constructor.
 data ListBuildBatchesForProject = ListBuildBatchesForProject'
-  { _lbbfpSortOrder ::
-      !( Maybe
-           SortOrderType
-       ),
-    _lbbfpNextToken ::
-      !(Maybe Text),
-    _lbbfpMaxResults ::
-      !(Maybe Nat),
-    _lbbfpProjectName ::
-      !(Maybe Text),
-    _lbbfpFilter ::
-      !( Maybe
-           BuildBatchFilter
-       )
+  { -- | Specifies the sort order of the returned items. Valid values include:
+    --
+    -- -   @ASCENDING@: List the batch build identifiers in ascending order by
+    --     identifier.
+    --
+    -- -   @DESCENDING@: List the batch build identifiers in descending order
+    --     by identifier.
+    sortOrder :: Prelude.Maybe SortOrderType,
+    -- | The @nextToken@ value returned from a previous call to
+    -- @ListBuildBatchesForProject@. This specifies the next item to return. To
+    -- return the beginning of the list, exclude this parameter.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the project.
+    projectName :: Prelude.Maybe Prelude.Text,
+    -- | A @BuildBatchFilter@ object that specifies the filters for the search.
+    filter' :: Prelude.Maybe BuildBatchFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBuildBatchesForProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBuildBatchesForProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbbfpSortOrder' - Specifies the sort order of the returned items. Valid values include:     * @ASCENDING@ : List the batch build identifiers in ascending order by identifier.     * @DESCENDING@ : List the batch build identifiers in descending order by identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbbfpNextToken' - The @nextToken@ value returned from a previous call to @ListBuildBatchesForProject@ . This specifies the next item to return. To return the beginning of the list, exclude this parameter.
+-- 'sortOrder', 'listBuildBatchesForProject_sortOrder' - Specifies the sort order of the returned items. Valid values include:
 --
--- * 'lbbfpMaxResults' - The maximum number of results to return.
+-- -   @ASCENDING@: List the batch build identifiers in ascending order by
+--     identifier.
 --
--- * 'lbbfpProjectName' - The name of the project.
+-- -   @DESCENDING@: List the batch build identifiers in descending order
+--     by identifier.
 --
--- * 'lbbfpFilter' - A @BuildBatchFilter@ object that specifies the filters for the search.
-listBuildBatchesForProject ::
+-- 'nextToken', 'listBuildBatchesForProject_nextToken' - The @nextToken@ value returned from a previous call to
+-- @ListBuildBatchesForProject@. This specifies the next item to return. To
+-- return the beginning of the list, exclude this parameter.
+--
+-- 'maxResults', 'listBuildBatchesForProject_maxResults' - The maximum number of results to return.
+--
+-- 'projectName', 'listBuildBatchesForProject_projectName' - The name of the project.
+--
+-- 'filter'', 'listBuildBatchesForProject_filter' - A @BuildBatchFilter@ object that specifies the filters for the search.
+newListBuildBatchesForProject ::
   ListBuildBatchesForProject
-listBuildBatchesForProject =
+newListBuildBatchesForProject =
   ListBuildBatchesForProject'
-    { _lbbfpSortOrder =
-        Nothing,
-      _lbbfpNextToken = Nothing,
-      _lbbfpMaxResults = Nothing,
-      _lbbfpProjectName = Nothing,
-      _lbbfpFilter = Nothing
+    { sortOrder =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      projectName = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
--- | Specifies the sort order of the returned items. Valid values include:     * @ASCENDING@ : List the batch build identifiers in ascending order by identifier.     * @DESCENDING@ : List the batch build identifiers in descending order by identifier.
-lbbfpSortOrder :: Lens' ListBuildBatchesForProject (Maybe SortOrderType)
-lbbfpSortOrder = lens _lbbfpSortOrder (\s a -> s {_lbbfpSortOrder = a})
+-- | Specifies the sort order of the returned items. Valid values include:
+--
+-- -   @ASCENDING@: List the batch build identifiers in ascending order by
+--     identifier.
+--
+-- -   @DESCENDING@: List the batch build identifiers in descending order
+--     by identifier.
+listBuildBatchesForProject_sortOrder :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe SortOrderType)
+listBuildBatchesForProject_sortOrder = Lens.lens (\ListBuildBatchesForProject' {sortOrder} -> sortOrder) (\s@ListBuildBatchesForProject' {} a -> s {sortOrder = a} :: ListBuildBatchesForProject)
 
--- | The @nextToken@ value returned from a previous call to @ListBuildBatchesForProject@ . This specifies the next item to return. To return the beginning of the list, exclude this parameter.
-lbbfpNextToken :: Lens' ListBuildBatchesForProject (Maybe Text)
-lbbfpNextToken = lens _lbbfpNextToken (\s a -> s {_lbbfpNextToken = a})
+-- | The @nextToken@ value returned from a previous call to
+-- @ListBuildBatchesForProject@. This specifies the next item to return. To
+-- return the beginning of the list, exclude this parameter.
+listBuildBatchesForProject_nextToken :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe Prelude.Text)
+listBuildBatchesForProject_nextToken = Lens.lens (\ListBuildBatchesForProject' {nextToken} -> nextToken) (\s@ListBuildBatchesForProject' {} a -> s {nextToken = a} :: ListBuildBatchesForProject)
 
 -- | The maximum number of results to return.
-lbbfpMaxResults :: Lens' ListBuildBatchesForProject (Maybe Natural)
-lbbfpMaxResults = lens _lbbfpMaxResults (\s a -> s {_lbbfpMaxResults = a}) . mapping _Nat
+listBuildBatchesForProject_maxResults :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe Prelude.Natural)
+listBuildBatchesForProject_maxResults = Lens.lens (\ListBuildBatchesForProject' {maxResults} -> maxResults) (\s@ListBuildBatchesForProject' {} a -> s {maxResults = a} :: ListBuildBatchesForProject) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the project.
-lbbfpProjectName :: Lens' ListBuildBatchesForProject (Maybe Text)
-lbbfpProjectName = lens _lbbfpProjectName (\s a -> s {_lbbfpProjectName = a})
+listBuildBatchesForProject_projectName :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe Prelude.Text)
+listBuildBatchesForProject_projectName = Lens.lens (\ListBuildBatchesForProject' {projectName} -> projectName) (\s@ListBuildBatchesForProject' {} a -> s {projectName = a} :: ListBuildBatchesForProject)
 
 -- | A @BuildBatchFilter@ object that specifies the filters for the search.
-lbbfpFilter :: Lens' ListBuildBatchesForProject (Maybe BuildBatchFilter)
-lbbfpFilter = lens _lbbfpFilter (\s a -> s {_lbbfpFilter = a})
+listBuildBatchesForProject_filter :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe BuildBatchFilter)
+listBuildBatchesForProject_filter = Lens.lens (\ListBuildBatchesForProject' {filter'} -> filter') (\s@ListBuildBatchesForProject' {} a -> s {filter' = a} :: ListBuildBatchesForProject)
 
-instance AWSPager ListBuildBatchesForProject where
+instance Pager.AWSPager ListBuildBatchesForProject where
   page rq rs
-    | stop (rs ^. lbbfprrsNextToken) = Nothing
-    | stop (rs ^. lbbfprrsIds) = Nothing
-    | otherwise =
-      Just $ rq & lbbfpNextToken .~ rs ^. lbbfprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listBuildBatchesForProjectResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listBuildBatchesForProjectResponse_ids
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listBuildBatchesForProject_nextToken
+          Lens..~ rs
+          Lens.^? listBuildBatchesForProjectResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListBuildBatchesForProject where
+instance
+  Prelude.AWSRequest
+    ListBuildBatchesForProject
+  where
   type
     Rs ListBuildBatchesForProject =
       ListBuildBatchesForProjectResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListBuildBatchesForProjectResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "ids" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "ids" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListBuildBatchesForProject
+instance Prelude.Hashable ListBuildBatchesForProject
 
-instance NFData ListBuildBatchesForProject
+instance Prelude.NFData ListBuildBatchesForProject
 
-instance ToHeaders ListBuildBatchesForProject where
+instance Prelude.ToHeaders ListBuildBatchesForProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.ListBuildBatchesForProject" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.ListBuildBatchesForProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListBuildBatchesForProject where
+instance Prelude.ToJSON ListBuildBatchesForProject where
   toJSON ListBuildBatchesForProject' {..} =
-    object
-      ( catMaybes
-          [ ("sortOrder" .=) <$> _lbbfpSortOrder,
-            ("nextToken" .=) <$> _lbbfpNextToken,
-            ("maxResults" .=) <$> _lbbfpMaxResults,
-            ("projectName" .=) <$> _lbbfpProjectName,
-            ("filter" .=) <$> _lbbfpFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("sortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("projectName" Prelude..=) Prelude.<$> projectName,
+            ("filter" Prelude..=) Prelude.<$> filter'
           ]
       )
 
-instance ToPath ListBuildBatchesForProject where
-  toPath = const "/"
+instance Prelude.ToPath ListBuildBatchesForProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListBuildBatchesForProject where
-  toQuery = const mempty
+instance Prelude.ToQuery ListBuildBatchesForProject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listBuildBatchesForProjectResponse' smart constructor.
+-- | /See:/ 'newListBuildBatchesForProjectResponse' smart constructor.
 data ListBuildBatchesForProjectResponse = ListBuildBatchesForProjectResponse'
-  { _lbbfprrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lbbfprrsIds ::
-      !( Maybe
-           [Text]
-       ),
-    _lbbfprrsResponseStatus ::
-      !Int
+  { -- | If there are more items to return, this contains a token that is passed
+    -- to a subsequent call to @ListBuildBatchesForProject@ to retrieve the
+    -- next set of items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of strings that contains the batch build identifiers.
+    ids :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBuildBatchesForProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBuildBatchesForProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbbfprrsNextToken' - If there are more items to return, this contains a token that is passed to a subsequent call to @ListBuildBatchesForProject@ to retrieve the next set of items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbbfprrsIds' - An array of strings that contains the batch build identifiers.
+-- 'nextToken', 'listBuildBatchesForProjectResponse_nextToken' - If there are more items to return, this contains a token that is passed
+-- to a subsequent call to @ListBuildBatchesForProject@ to retrieve the
+-- next set of items.
 --
--- * 'lbbfprrsResponseStatus' - -- | The response status code.
-listBuildBatchesForProjectResponse ::
-  -- | 'lbbfprrsResponseStatus'
-  Int ->
+-- 'ids', 'listBuildBatchesForProjectResponse_ids' - An array of strings that contains the batch build identifiers.
+--
+-- 'httpStatus', 'listBuildBatchesForProjectResponse_httpStatus' - The response's http status code.
+newListBuildBatchesForProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListBuildBatchesForProjectResponse
-listBuildBatchesForProjectResponse pResponseStatus_ =
+newListBuildBatchesForProjectResponse pHttpStatus_ =
   ListBuildBatchesForProjectResponse'
-    { _lbbfprrsNextToken =
-        Nothing,
-      _lbbfprrsIds = Nothing,
-      _lbbfprrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      ids = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are more items to return, this contains a token that is passed to a subsequent call to @ListBuildBatchesForProject@ to retrieve the next set of items.
-lbbfprrsNextToken :: Lens' ListBuildBatchesForProjectResponse (Maybe Text)
-lbbfprrsNextToken = lens _lbbfprrsNextToken (\s a -> s {_lbbfprrsNextToken = a})
+-- | If there are more items to return, this contains a token that is passed
+-- to a subsequent call to @ListBuildBatchesForProject@ to retrieve the
+-- next set of items.
+listBuildBatchesForProjectResponse_nextToken :: Lens.Lens' ListBuildBatchesForProjectResponse (Prelude.Maybe Prelude.Text)
+listBuildBatchesForProjectResponse_nextToken = Lens.lens (\ListBuildBatchesForProjectResponse' {nextToken} -> nextToken) (\s@ListBuildBatchesForProjectResponse' {} a -> s {nextToken = a} :: ListBuildBatchesForProjectResponse)
 
 -- | An array of strings that contains the batch build identifiers.
-lbbfprrsIds :: Lens' ListBuildBatchesForProjectResponse [Text]
-lbbfprrsIds = lens _lbbfprrsIds (\s a -> s {_lbbfprrsIds = a}) . _Default . _Coerce
+listBuildBatchesForProjectResponse_ids :: Lens.Lens' ListBuildBatchesForProjectResponse (Prelude.Maybe [Prelude.Text])
+listBuildBatchesForProjectResponse_ids = Lens.lens (\ListBuildBatchesForProjectResponse' {ids} -> ids) (\s@ListBuildBatchesForProjectResponse' {} a -> s {ids = a} :: ListBuildBatchesForProjectResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lbbfprrsResponseStatus :: Lens' ListBuildBatchesForProjectResponse Int
-lbbfprrsResponseStatus = lens _lbbfprrsResponseStatus (\s a -> s {_lbbfprrsResponseStatus = a})
+-- | The response's http status code.
+listBuildBatchesForProjectResponse_httpStatus :: Lens.Lens' ListBuildBatchesForProjectResponse Prelude.Int
+listBuildBatchesForProjectResponse_httpStatus = Lens.lens (\ListBuildBatchesForProjectResponse' {httpStatus} -> httpStatus) (\s@ListBuildBatchesForProjectResponse' {} a -> s {httpStatus = a} :: ListBuildBatchesForProjectResponse)
 
-instance NFData ListBuildBatchesForProjectResponse
+instance
+  Prelude.NFData
+    ListBuildBatchesForProjectResponse

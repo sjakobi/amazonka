@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.CodeBuild.Types.ReportGroupSortByType
   ( ReportGroupSortByType
       ( ..,
-        RGSBTCreatedTime,
-        RGSBTLastModifiedTime,
-        RGSBTName
+        ReportGroupSortByTypeCREATEDTIME,
+        ReportGroupSortByTypeLASTMODIFIEDTIME,
+        ReportGroupSortByTypeNAME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportGroupSortByType
-  = ReportGroupSortByType'
-      ( CI
-          Text
-      )
+newtype ReportGroupSortByType = ReportGroupSortByType'
+  { fromReportGroupSortByType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RGSBTCreatedTime :: ReportGroupSortByType
-pattern RGSBTCreatedTime = ReportGroupSortByType' "CREATED_TIME"
+pattern ReportGroupSortByTypeCREATEDTIME :: ReportGroupSortByType
+pattern ReportGroupSortByTypeCREATEDTIME = ReportGroupSortByType' "CREATED_TIME"
 
-pattern RGSBTLastModifiedTime :: ReportGroupSortByType
-pattern RGSBTLastModifiedTime = ReportGroupSortByType' "LAST_MODIFIED_TIME"
+pattern ReportGroupSortByTypeLASTMODIFIEDTIME :: ReportGroupSortByType
+pattern ReportGroupSortByTypeLASTMODIFIEDTIME = ReportGroupSortByType' "LAST_MODIFIED_TIME"
 
-pattern RGSBTName :: ReportGroupSortByType
-pattern RGSBTName = ReportGroupSortByType' "NAME"
+pattern ReportGroupSortByTypeNAME :: ReportGroupSortByType
+pattern ReportGroupSortByTypeNAME = ReportGroupSortByType' "NAME"
 
 {-# COMPLETE
-  RGSBTCreatedTime,
-  RGSBTLastModifiedTime,
-  RGSBTName,
+  ReportGroupSortByTypeCREATEDTIME,
+  ReportGroupSortByTypeLASTMODIFIEDTIME,
+  ReportGroupSortByTypeNAME,
   ReportGroupSortByType'
   #-}
 
-instance FromText ReportGroupSortByType where
-  parser = (ReportGroupSortByType' . mk) <$> takeText
+instance Prelude.FromText ReportGroupSortByType where
+  parser = ReportGroupSortByType' Prelude.<$> Prelude.takeText
 
-instance ToText ReportGroupSortByType where
-  toText (ReportGroupSortByType' ci) = original ci
+instance Prelude.ToText ReportGroupSortByType where
+  toText (ReportGroupSortByType' x) = x
 
-instance Hashable ReportGroupSortByType
+instance Prelude.Hashable ReportGroupSortByType
 
-instance NFData ReportGroupSortByType
+instance Prelude.NFData ReportGroupSortByType
 
-instance ToByteString ReportGroupSortByType
+instance Prelude.ToByteString ReportGroupSortByType
 
-instance ToQuery ReportGroupSortByType
+instance Prelude.ToQuery ReportGroupSortByType
 
-instance ToHeader ReportGroupSortByType
+instance Prelude.ToHeader ReportGroupSortByType
 
-instance ToJSON ReportGroupSortByType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReportGroupSortByType where
+  toJSON = Prelude.toJSONText

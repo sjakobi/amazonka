@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CodeBuild.Types.RetryBuildBatchType
   ( RetryBuildBatchType
       ( ..,
-        RetryAllBuilds,
-        RetryFailedBuilds
+        RetryBuildBatchTypeRETRYALLBUILDS,
+        RetryBuildBatchTypeRETRYFAILEDBUILDS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RetryBuildBatchType
-  = RetryBuildBatchType'
-      ( CI
-          Text
-      )
+newtype RetryBuildBatchType = RetryBuildBatchType'
+  { fromRetryBuildBatchType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RetryAllBuilds :: RetryBuildBatchType
-pattern RetryAllBuilds = RetryBuildBatchType' "RETRY_ALL_BUILDS"
+pattern RetryBuildBatchTypeRETRYALLBUILDS :: RetryBuildBatchType
+pattern RetryBuildBatchTypeRETRYALLBUILDS = RetryBuildBatchType' "RETRY_ALL_BUILDS"
 
-pattern RetryFailedBuilds :: RetryBuildBatchType
-pattern RetryFailedBuilds = RetryBuildBatchType' "RETRY_FAILED_BUILDS"
+pattern RetryBuildBatchTypeRETRYFAILEDBUILDS :: RetryBuildBatchType
+pattern RetryBuildBatchTypeRETRYFAILEDBUILDS = RetryBuildBatchType' "RETRY_FAILED_BUILDS"
 
 {-# COMPLETE
-  RetryAllBuilds,
-  RetryFailedBuilds,
+  RetryBuildBatchTypeRETRYALLBUILDS,
+  RetryBuildBatchTypeRETRYFAILEDBUILDS,
   RetryBuildBatchType'
   #-}
 
-instance FromText RetryBuildBatchType where
-  parser = (RetryBuildBatchType' . mk) <$> takeText
+instance Prelude.FromText RetryBuildBatchType where
+  parser = RetryBuildBatchType' Prelude.<$> Prelude.takeText
 
-instance ToText RetryBuildBatchType where
-  toText (RetryBuildBatchType' ci) = original ci
+instance Prelude.ToText RetryBuildBatchType where
+  toText (RetryBuildBatchType' x) = x
 
-instance Hashable RetryBuildBatchType
+instance Prelude.Hashable RetryBuildBatchType
 
-instance NFData RetryBuildBatchType
+instance Prelude.NFData RetryBuildBatchType
 
-instance ToByteString RetryBuildBatchType
+instance Prelude.ToByteString RetryBuildBatchType
 
-instance ToQuery RetryBuildBatchType
+instance Prelude.ToQuery RetryBuildBatchType
 
-instance ToHeader RetryBuildBatchType
+instance Prelude.ToHeader RetryBuildBatchType
 
-instance ToJSON RetryBuildBatchType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RetryBuildBatchType where
+  toJSON = Prelude.toJSONText

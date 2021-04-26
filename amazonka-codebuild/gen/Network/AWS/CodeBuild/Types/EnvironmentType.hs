@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.CodeBuild.Types.EnvironmentType
   ( EnvironmentType
       ( ..,
-        ArmContainer,
-        LinuxContainer,
-        LinuxGpuContainer,
-        WindowsContainer,
-        WindowsServer2019Container
+        EnvironmentTypeARMCONTAINER,
+        EnvironmentTypeLINUXCONTAINER,
+        EnvironmentTypeLINUXGPUCONTAINER,
+        EnvironmentTypeWINDOWSCONTAINER,
+        EnvironmentTypeWINDOWSSERVER2019CONTAINER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnvironmentType = EnvironmentType' (CI Text)
+newtype EnvironmentType = EnvironmentType'
+  { fromEnvironmentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ArmContainer :: EnvironmentType
-pattern ArmContainer = EnvironmentType' "ARM_CONTAINER"
+pattern EnvironmentTypeARMCONTAINER :: EnvironmentType
+pattern EnvironmentTypeARMCONTAINER = EnvironmentType' "ARM_CONTAINER"
 
-pattern LinuxContainer :: EnvironmentType
-pattern LinuxContainer = EnvironmentType' "LINUX_CONTAINER"
+pattern EnvironmentTypeLINUXCONTAINER :: EnvironmentType
+pattern EnvironmentTypeLINUXCONTAINER = EnvironmentType' "LINUX_CONTAINER"
 
-pattern LinuxGpuContainer :: EnvironmentType
-pattern LinuxGpuContainer = EnvironmentType' "LINUX_GPU_CONTAINER"
+pattern EnvironmentTypeLINUXGPUCONTAINER :: EnvironmentType
+pattern EnvironmentTypeLINUXGPUCONTAINER = EnvironmentType' "LINUX_GPU_CONTAINER"
 
-pattern WindowsContainer :: EnvironmentType
-pattern WindowsContainer = EnvironmentType' "WINDOWS_CONTAINER"
+pattern EnvironmentTypeWINDOWSCONTAINER :: EnvironmentType
+pattern EnvironmentTypeWINDOWSCONTAINER = EnvironmentType' "WINDOWS_CONTAINER"
 
-pattern WindowsServer2019Container :: EnvironmentType
-pattern WindowsServer2019Container = EnvironmentType' "WINDOWS_SERVER_2019_CONTAINER"
+pattern EnvironmentTypeWINDOWSSERVER2019CONTAINER :: EnvironmentType
+pattern EnvironmentTypeWINDOWSSERVER2019CONTAINER = EnvironmentType' "WINDOWS_SERVER_2019_CONTAINER"
 
 {-# COMPLETE
-  ArmContainer,
-  LinuxContainer,
-  LinuxGpuContainer,
-  WindowsContainer,
-  WindowsServer2019Container,
+  EnvironmentTypeARMCONTAINER,
+  EnvironmentTypeLINUXCONTAINER,
+  EnvironmentTypeLINUXGPUCONTAINER,
+  EnvironmentTypeWINDOWSCONTAINER,
+  EnvironmentTypeWINDOWSSERVER2019CONTAINER,
   EnvironmentType'
   #-}
 
-instance FromText EnvironmentType where
-  parser = (EnvironmentType' . mk) <$> takeText
+instance Prelude.FromText EnvironmentType where
+  parser = EnvironmentType' Prelude.<$> Prelude.takeText
 
-instance ToText EnvironmentType where
-  toText (EnvironmentType' ci) = original ci
+instance Prelude.ToText EnvironmentType where
+  toText (EnvironmentType' x) = x
 
-instance Hashable EnvironmentType
+instance Prelude.Hashable EnvironmentType
 
-instance NFData EnvironmentType
+instance Prelude.NFData EnvironmentType
 
-instance ToByteString EnvironmentType
+instance Prelude.ToByteString EnvironmentType
 
-instance ToQuery EnvironmentType
+instance Prelude.ToQuery EnvironmentType
 
-instance ToHeader EnvironmentType
+instance Prelude.ToHeader EnvironmentType
 
-instance ToJSON EnvironmentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EnvironmentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EnvironmentType where
-  parseJSON = parseJSONText "EnvironmentType"
+instance Prelude.FromJSON EnvironmentType where
+  parseJSON = Prelude.parseJSONText "EnvironmentType"

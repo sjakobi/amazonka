@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,77 +20,112 @@
 module Network.AWS.CodeBuild.Types.CloudWatchLogsConfig where
 
 import Network.AWS.CodeBuild.Types.LogsConfigStatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about Amazon CloudWatch Logs for a build project.
 --
---
---
--- /See:/ 'cloudWatchLogsConfig' smart constructor.
+-- /See:/ 'newCloudWatchLogsConfig' smart constructor.
 data CloudWatchLogsConfig = CloudWatchLogsConfig'
-  { _cwlcGroupName ::
-      !(Maybe Text),
-    _cwlcStreamName ::
-      !(Maybe Text),
-    _cwlcStatus ::
-      !LogsConfigStatusType
+  { -- | The group name of the logs in Amazon CloudWatch Logs. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams>.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The prefix of the stream name of the Amazon CloudWatch Logs. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams>.
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the logs in Amazon CloudWatch Logs for a build
+    -- project. Valid values are:
+    --
+    -- -   @ENABLED@: Amazon CloudWatch Logs are enabled for this build
+    --     project.
+    --
+    -- -   @DISABLED@: Amazon CloudWatch Logs are not enabled for this build
+    --     project.
+    status :: LogsConfigStatusType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudWatchLogsConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudWatchLogsConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwlcGroupName' - The group name of the logs in Amazon CloudWatch Logs. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwlcStreamName' - The prefix of the stream name of the Amazon CloudWatch Logs. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams> .
+-- 'groupName', 'cloudWatchLogsConfig_groupName' - The group name of the logs in Amazon CloudWatch Logs. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams>.
 --
--- * 'cwlcStatus' - The current status of the logs in Amazon CloudWatch Logs for a build project. Valid values are:     * @ENABLED@ : Amazon CloudWatch Logs are enabled for this build project.     * @DISABLED@ : Amazon CloudWatch Logs are not enabled for this build project.
-cloudWatchLogsConfig ::
-  -- | 'cwlcStatus'
+-- 'streamName', 'cloudWatchLogsConfig_streamName' - The prefix of the stream name of the Amazon CloudWatch Logs. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams>.
+--
+-- 'status', 'cloudWatchLogsConfig_status' - The current status of the logs in Amazon CloudWatch Logs for a build
+-- project. Valid values are:
+--
+-- -   @ENABLED@: Amazon CloudWatch Logs are enabled for this build
+--     project.
+--
+-- -   @DISABLED@: Amazon CloudWatch Logs are not enabled for this build
+--     project.
+newCloudWatchLogsConfig ::
+  -- | 'status'
   LogsConfigStatusType ->
   CloudWatchLogsConfig
-cloudWatchLogsConfig pStatus_ =
+newCloudWatchLogsConfig pStatus_ =
   CloudWatchLogsConfig'
-    { _cwlcGroupName = Nothing,
-      _cwlcStreamName = Nothing,
-      _cwlcStatus = pStatus_
+    { groupName = Prelude.Nothing,
+      streamName = Prelude.Nothing,
+      status = pStatus_
     }
 
--- | The group name of the logs in Amazon CloudWatch Logs. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams> .
-cwlcGroupName :: Lens' CloudWatchLogsConfig (Maybe Text)
-cwlcGroupName = lens _cwlcGroupName (\s a -> s {_cwlcGroupName = a})
+-- | The group name of the logs in Amazon CloudWatch Logs. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams>.
+cloudWatchLogsConfig_groupName :: Lens.Lens' CloudWatchLogsConfig (Prelude.Maybe Prelude.Text)
+cloudWatchLogsConfig_groupName = Lens.lens (\CloudWatchLogsConfig' {groupName} -> groupName) (\s@CloudWatchLogsConfig' {} a -> s {groupName = a} :: CloudWatchLogsConfig)
 
--- | The prefix of the stream name of the Amazon CloudWatch Logs. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams> .
-cwlcStreamName :: Lens' CloudWatchLogsConfig (Maybe Text)
-cwlcStreamName = lens _cwlcStreamName (\s a -> s {_cwlcStreamName = a})
+-- | The prefix of the stream name of the Amazon CloudWatch Logs. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html Working with Log Groups and Log Streams>.
+cloudWatchLogsConfig_streamName :: Lens.Lens' CloudWatchLogsConfig (Prelude.Maybe Prelude.Text)
+cloudWatchLogsConfig_streamName = Lens.lens (\CloudWatchLogsConfig' {streamName} -> streamName) (\s@CloudWatchLogsConfig' {} a -> s {streamName = a} :: CloudWatchLogsConfig)
 
--- | The current status of the logs in Amazon CloudWatch Logs for a build project. Valid values are:     * @ENABLED@ : Amazon CloudWatch Logs are enabled for this build project.     * @DISABLED@ : Amazon CloudWatch Logs are not enabled for this build project.
-cwlcStatus :: Lens' CloudWatchLogsConfig LogsConfigStatusType
-cwlcStatus = lens _cwlcStatus (\s a -> s {_cwlcStatus = a})
+-- | The current status of the logs in Amazon CloudWatch Logs for a build
+-- project. Valid values are:
+--
+-- -   @ENABLED@: Amazon CloudWatch Logs are enabled for this build
+--     project.
+--
+-- -   @DISABLED@: Amazon CloudWatch Logs are not enabled for this build
+--     project.
+cloudWatchLogsConfig_status :: Lens.Lens' CloudWatchLogsConfig LogsConfigStatusType
+cloudWatchLogsConfig_status = Lens.lens (\CloudWatchLogsConfig' {status} -> status) (\s@CloudWatchLogsConfig' {} a -> s {status = a} :: CloudWatchLogsConfig)
 
-instance FromJSON CloudWatchLogsConfig where
+instance Prelude.FromJSON CloudWatchLogsConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CloudWatchLogsConfig"
       ( \x ->
           CloudWatchLogsConfig'
-            <$> (x .:? "groupName")
-            <*> (x .:? "streamName")
-            <*> (x .: "status")
+            Prelude.<$> (x Prelude..:? "groupName")
+            Prelude.<*> (x Prelude..:? "streamName")
+            Prelude.<*> (x Prelude..: "status")
       )
 
-instance Hashable CloudWatchLogsConfig
+instance Prelude.Hashable CloudWatchLogsConfig
 
-instance NFData CloudWatchLogsConfig
+instance Prelude.NFData CloudWatchLogsConfig
 
-instance ToJSON CloudWatchLogsConfig where
+instance Prelude.ToJSON CloudWatchLogsConfig where
   toJSON CloudWatchLogsConfig' {..} =
-    object
-      ( catMaybes
-          [ ("groupName" .=) <$> _cwlcGroupName,
-            ("streamName" .=) <$> _cwlcStreamName,
-            Just ("status" .= _cwlcStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("groupName" Prelude..=) Prelude.<$> groupName,
+            ("streamName" Prelude..=) Prelude.<$> streamName,
+            Prelude.Just ("status" Prelude..= status)
           ]
       )

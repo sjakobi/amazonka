@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,91 +22,235 @@ module Network.AWS.CodeBuild.Types.BuildBatchPhase where
 import Network.AWS.CodeBuild.Types.BuildBatchPhaseType
 import Network.AWS.CodeBuild.Types.PhaseContext
 import Network.AWS.CodeBuild.Types.StatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a stage for a batch build.
 --
---
---
--- /See:/ 'buildBatchPhase' smart constructor.
+-- /See:/ 'newBuildBatchPhase' smart constructor.
 data BuildBatchPhase = BuildBatchPhase'
-  { _bbpPhaseType ::
-      !(Maybe BuildBatchPhaseType),
-    _bbpContexts :: !(Maybe [PhaseContext]),
-    _bbpStartTime :: !(Maybe POSIX),
-    _bbpEndTime :: !(Maybe POSIX),
-    _bbpDurationInSeconds ::
-      !(Maybe Integer),
-    _bbpPhaseStatus :: !(Maybe StatusType)
+  { -- | The name of the batch build phase. Valid values include:
+    --
+    -- [COMBINE_ARTIFACTS]
+    --     Build output artifacts are being combined and uploaded to the output
+    --     location.
+    --
+    -- [DOWNLOAD_BATCHSPEC]
+    --     The batch build specification is being downloaded.
+    --
+    -- [FAILED]
+    --     One or more of the builds failed.
+    --
+    -- [IN_PROGRESS]
+    --     The batch build is in progress.
+    --
+    -- [STOPPED]
+    --     The batch build was stopped.
+    --
+    -- [SUBMITTED]
+    --     The btach build has been submitted.
+    --
+    -- [SUCCEEDED]
+    --     The batch build succeeded.
+    phaseType :: Prelude.Maybe BuildBatchPhaseType,
+    -- | Additional information about the batch build phase. Especially to help
+    -- troubleshoot a failed batch build.
+    contexts :: Prelude.Maybe [PhaseContext],
+    -- | When the batch build phase started, expressed in Unix time format.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | When the batch build phase ended, expressed in Unix time format.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | How long, in seconds, between the starting and ending times of the batch
+    -- build\'s phase.
+    durationInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | The current status of the batch build phase. Valid values include:
+    --
+    -- [FAILED]
+    --     The build phase failed.
+    --
+    -- [FAULT]
+    --     The build phase faulted.
+    --
+    -- [IN_PROGRESS]
+    --     The build phase is still in progress.
+    --
+    -- [QUEUED]
+    --     The build has been submitted and is queued behind other submitted
+    --     builds.
+    --
+    -- [STOPPED]
+    --     The build phase stopped.
+    --
+    -- [SUCCEEDED]
+    --     The build phase succeeded.
+    --
+    -- [TIMED_OUT]
+    --     The build phase timed out.
+    phaseStatus :: Prelude.Maybe StatusType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BuildBatchPhase' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BuildBatchPhase' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bbpPhaseType' - The name of the batch build phase. Valid values include:     * COMBINE_ARTIFACTS    * Build output artifacts are being combined and uploaded to the output location.     * DOWNLOAD_BATCHSPEC    * The batch build specification is being downloaded.     * FAILED    * One or more of the builds failed.     * IN_PROGRESS    * The batch build is in progress.     * STOPPED    * The batch build was stopped.     * SUBMITTED    * The btach build has been submitted.     * SUCCEEDED    * The batch build succeeded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bbpContexts' - Additional information about the batch build phase. Especially to help troubleshoot a failed batch build.
+-- 'phaseType', 'buildBatchPhase_phaseType' - The name of the batch build phase. Valid values include:
 --
--- * 'bbpStartTime' - When the batch build phase started, expressed in Unix time format.
+-- [COMBINE_ARTIFACTS]
+--     Build output artifacts are being combined and uploaded to the output
+--     location.
 --
--- * 'bbpEndTime' - When the batch build phase ended, expressed in Unix time format.
+-- [DOWNLOAD_BATCHSPEC]
+--     The batch build specification is being downloaded.
 --
--- * 'bbpDurationInSeconds' - How long, in seconds, between the starting and ending times of the batch build's phase.
+-- [FAILED]
+--     One or more of the builds failed.
 --
--- * 'bbpPhaseStatus' - The current status of the batch build phase. Valid values include:     * FAILED    * The build phase failed.     * FAULT    * The build phase faulted.     * IN_PROGRESS    * The build phase is still in progress.     * QUEUED    * The build has been submitted and is queued behind other submitted builds.     * STOPPED    * The build phase stopped.     * SUCCEEDED    * The build phase succeeded.     * TIMED_OUT    * The build phase timed out.
-buildBatchPhase ::
+-- [IN_PROGRESS]
+--     The batch build is in progress.
+--
+-- [STOPPED]
+--     The batch build was stopped.
+--
+-- [SUBMITTED]
+--     The btach build has been submitted.
+--
+-- [SUCCEEDED]
+--     The batch build succeeded.
+--
+-- 'contexts', 'buildBatchPhase_contexts' - Additional information about the batch build phase. Especially to help
+-- troubleshoot a failed batch build.
+--
+-- 'startTime', 'buildBatchPhase_startTime' - When the batch build phase started, expressed in Unix time format.
+--
+-- 'endTime', 'buildBatchPhase_endTime' - When the batch build phase ended, expressed in Unix time format.
+--
+-- 'durationInSeconds', 'buildBatchPhase_durationInSeconds' - How long, in seconds, between the starting and ending times of the batch
+-- build\'s phase.
+--
+-- 'phaseStatus', 'buildBatchPhase_phaseStatus' - The current status of the batch build phase. Valid values include:
+--
+-- [FAILED]
+--     The build phase failed.
+--
+-- [FAULT]
+--     The build phase faulted.
+--
+-- [IN_PROGRESS]
+--     The build phase is still in progress.
+--
+-- [QUEUED]
+--     The build has been submitted and is queued behind other submitted
+--     builds.
+--
+-- [STOPPED]
+--     The build phase stopped.
+--
+-- [SUCCEEDED]
+--     The build phase succeeded.
+--
+-- [TIMED_OUT]
+--     The build phase timed out.
+newBuildBatchPhase ::
   BuildBatchPhase
-buildBatchPhase =
+newBuildBatchPhase =
   BuildBatchPhase'
-    { _bbpPhaseType = Nothing,
-      _bbpContexts = Nothing,
-      _bbpStartTime = Nothing,
-      _bbpEndTime = Nothing,
-      _bbpDurationInSeconds = Nothing,
-      _bbpPhaseStatus = Nothing
+    { phaseType = Prelude.Nothing,
+      contexts = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      durationInSeconds = Prelude.Nothing,
+      phaseStatus = Prelude.Nothing
     }
 
--- | The name of the batch build phase. Valid values include:     * COMBINE_ARTIFACTS    * Build output artifacts are being combined and uploaded to the output location.     * DOWNLOAD_BATCHSPEC    * The batch build specification is being downloaded.     * FAILED    * One or more of the builds failed.     * IN_PROGRESS    * The batch build is in progress.     * STOPPED    * The batch build was stopped.     * SUBMITTED    * The btach build has been submitted.     * SUCCEEDED    * The batch build succeeded.
-bbpPhaseType :: Lens' BuildBatchPhase (Maybe BuildBatchPhaseType)
-bbpPhaseType = lens _bbpPhaseType (\s a -> s {_bbpPhaseType = a})
+-- | The name of the batch build phase. Valid values include:
+--
+-- [COMBINE_ARTIFACTS]
+--     Build output artifacts are being combined and uploaded to the output
+--     location.
+--
+-- [DOWNLOAD_BATCHSPEC]
+--     The batch build specification is being downloaded.
+--
+-- [FAILED]
+--     One or more of the builds failed.
+--
+-- [IN_PROGRESS]
+--     The batch build is in progress.
+--
+-- [STOPPED]
+--     The batch build was stopped.
+--
+-- [SUBMITTED]
+--     The btach build has been submitted.
+--
+-- [SUCCEEDED]
+--     The batch build succeeded.
+buildBatchPhase_phaseType :: Lens.Lens' BuildBatchPhase (Prelude.Maybe BuildBatchPhaseType)
+buildBatchPhase_phaseType = Lens.lens (\BuildBatchPhase' {phaseType} -> phaseType) (\s@BuildBatchPhase' {} a -> s {phaseType = a} :: BuildBatchPhase)
 
--- | Additional information about the batch build phase. Especially to help troubleshoot a failed batch build.
-bbpContexts :: Lens' BuildBatchPhase [PhaseContext]
-bbpContexts = lens _bbpContexts (\s a -> s {_bbpContexts = a}) . _Default . _Coerce
+-- | Additional information about the batch build phase. Especially to help
+-- troubleshoot a failed batch build.
+buildBatchPhase_contexts :: Lens.Lens' BuildBatchPhase (Prelude.Maybe [PhaseContext])
+buildBatchPhase_contexts = Lens.lens (\BuildBatchPhase' {contexts} -> contexts) (\s@BuildBatchPhase' {} a -> s {contexts = a} :: BuildBatchPhase) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | When the batch build phase started, expressed in Unix time format.
-bbpStartTime :: Lens' BuildBatchPhase (Maybe UTCTime)
-bbpStartTime = lens _bbpStartTime (\s a -> s {_bbpStartTime = a}) . mapping _Time
+buildBatchPhase_startTime :: Lens.Lens' BuildBatchPhase (Prelude.Maybe Prelude.UTCTime)
+buildBatchPhase_startTime = Lens.lens (\BuildBatchPhase' {startTime} -> startTime) (\s@BuildBatchPhase' {} a -> s {startTime = a} :: BuildBatchPhase) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the batch build phase ended, expressed in Unix time format.
-bbpEndTime :: Lens' BuildBatchPhase (Maybe UTCTime)
-bbpEndTime = lens _bbpEndTime (\s a -> s {_bbpEndTime = a}) . mapping _Time
+buildBatchPhase_endTime :: Lens.Lens' BuildBatchPhase (Prelude.Maybe Prelude.UTCTime)
+buildBatchPhase_endTime = Lens.lens (\BuildBatchPhase' {endTime} -> endTime) (\s@BuildBatchPhase' {} a -> s {endTime = a} :: BuildBatchPhase) Prelude.. Lens.mapping Prelude._Time
 
--- | How long, in seconds, between the starting and ending times of the batch build's phase.
-bbpDurationInSeconds :: Lens' BuildBatchPhase (Maybe Integer)
-bbpDurationInSeconds = lens _bbpDurationInSeconds (\s a -> s {_bbpDurationInSeconds = a})
+-- | How long, in seconds, between the starting and ending times of the batch
+-- build\'s phase.
+buildBatchPhase_durationInSeconds :: Lens.Lens' BuildBatchPhase (Prelude.Maybe Prelude.Integer)
+buildBatchPhase_durationInSeconds = Lens.lens (\BuildBatchPhase' {durationInSeconds} -> durationInSeconds) (\s@BuildBatchPhase' {} a -> s {durationInSeconds = a} :: BuildBatchPhase)
 
--- | The current status of the batch build phase. Valid values include:     * FAILED    * The build phase failed.     * FAULT    * The build phase faulted.     * IN_PROGRESS    * The build phase is still in progress.     * QUEUED    * The build has been submitted and is queued behind other submitted builds.     * STOPPED    * The build phase stopped.     * SUCCEEDED    * The build phase succeeded.     * TIMED_OUT    * The build phase timed out.
-bbpPhaseStatus :: Lens' BuildBatchPhase (Maybe StatusType)
-bbpPhaseStatus = lens _bbpPhaseStatus (\s a -> s {_bbpPhaseStatus = a})
+-- | The current status of the batch build phase. Valid values include:
+--
+-- [FAILED]
+--     The build phase failed.
+--
+-- [FAULT]
+--     The build phase faulted.
+--
+-- [IN_PROGRESS]
+--     The build phase is still in progress.
+--
+-- [QUEUED]
+--     The build has been submitted and is queued behind other submitted
+--     builds.
+--
+-- [STOPPED]
+--     The build phase stopped.
+--
+-- [SUCCEEDED]
+--     The build phase succeeded.
+--
+-- [TIMED_OUT]
+--     The build phase timed out.
+buildBatchPhase_phaseStatus :: Lens.Lens' BuildBatchPhase (Prelude.Maybe StatusType)
+buildBatchPhase_phaseStatus = Lens.lens (\BuildBatchPhase' {phaseStatus} -> phaseStatus) (\s@BuildBatchPhase' {} a -> s {phaseStatus = a} :: BuildBatchPhase)
 
-instance FromJSON BuildBatchPhase where
+instance Prelude.FromJSON BuildBatchPhase where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BuildBatchPhase"
       ( \x ->
           BuildBatchPhase'
-            <$> (x .:? "phaseType")
-            <*> (x .:? "contexts" .!= mempty)
-            <*> (x .:? "startTime")
-            <*> (x .:? "endTime")
-            <*> (x .:? "durationInSeconds")
-            <*> (x .:? "phaseStatus")
+            Prelude.<$> (x Prelude..:? "phaseType")
+            Prelude.<*> (x Prelude..:? "contexts" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "startTime")
+            Prelude.<*> (x Prelude..:? "endTime")
+            Prelude.<*> (x Prelude..:? "durationInSeconds")
+            Prelude.<*> (x Prelude..:? "phaseStatus")
       )
 
-instance Hashable BuildBatchPhase
+instance Prelude.Hashable BuildBatchPhase
 
-instance NFData BuildBatchPhase
+instance Prelude.NFData BuildBatchPhase

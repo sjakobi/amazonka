@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -27,328 +31,592 @@ import Network.AWS.CodeBuild.Types.ProjectFileSystemLocation
 import Network.AWS.CodeBuild.Types.ProjectSource
 import Network.AWS.CodeBuild.Types.ProjectSourceVersion
 import Network.AWS.CodeBuild.Types.StatusType
-import Network.AWS.CodeBuild.Types.VPCConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.CodeBuild.Types.VpcConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a build.
 --
---
---
--- /See:/ 'build' smart constructor.
+-- /See:/ 'newBuild' smart constructor.
 data Build = Build'
-  { _bVpcConfig ::
-      !(Maybe VPCConfig),
-    _bBuildBatchARN :: !(Maybe Text),
-    _bResolvedSourceVersion :: !(Maybe Text),
-    _bSecondaryArtifacts :: !(Maybe [BuildArtifacts]),
-    _bSourceVersion :: !(Maybe Text),
-    _bPhases :: !(Maybe [BuildPhase]),
-    _bCache :: !(Maybe ProjectCache),
-    _bServiceRole :: !(Maybe Text),
-    _bSecondarySourceVersions ::
-      !(Maybe [ProjectSourceVersion]),
-    _bNetworkInterface :: !(Maybe NetworkInterface),
-    _bEncryptionKey :: !(Maybe Text),
-    _bArtifacts :: !(Maybe BuildArtifacts),
-    _bBuildNumber :: !(Maybe Integer),
-    _bStartTime :: !(Maybe POSIX),
-    _bId :: !(Maybe Text),
-    _bEnvironment :: !(Maybe ProjectEnvironment),
-    _bSource :: !(Maybe ProjectSource),
-    _bArn :: !(Maybe Text),
-    _bProjectName :: !(Maybe Text),
-    _bEndTime :: !(Maybe POSIX),
-    _bBuildStatus :: !(Maybe StatusType),
-    _bLogs :: !(Maybe LogsLocation),
-    _bBuildComplete :: !(Maybe Bool),
-    _bDebugSession :: !(Maybe DebugSession),
-    _bQueuedTimeoutInMinutes :: !(Maybe Int),
-    _bSecondarySources :: !(Maybe [ProjectSource]),
-    _bTimeoutInMinutes :: !(Maybe Int),
-    _bCurrentPhase :: !(Maybe Text),
-    _bInitiator :: !(Maybe Text),
-    _bReportARNs :: !(Maybe [Text]),
-    _bFileSystemLocations ::
-      !(Maybe [ProjectFileSystemLocation]),
-    _bExportedEnvironmentVariables ::
-      !(Maybe [ExportedEnvironmentVariable])
+  { -- | If your AWS CodeBuild project accesses resources in an Amazon VPC, you
+    -- provide this parameter that identifies the VPC ID and the list of
+    -- security group IDs and subnet IDs. The security groups and subnets must
+    -- belong to the same VPC. You must provide at least one security group and
+    -- one subnet ID.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | The ARN of the batch build that this build is a member of, if
+    -- applicable.
+    buildBatchArn :: Prelude.Maybe Prelude.Text,
+    -- | An identifier for the version of this build\'s source code.
+    --
+    -- -   For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the
+    --     commit ID.
+    --
+    -- -   For AWS CodePipeline, the source revision provided by AWS
+    --     CodePipeline.
+    --
+    -- -   For Amazon S3, this does not apply.
+    resolvedSourceVersion :: Prelude.Maybe Prelude.Text,
+    -- | An array of @ProjectArtifacts@ objects.
+    secondaryArtifacts :: Prelude.Maybe [BuildArtifacts],
+    -- | Any version identifier for the version of the source code to be built.
+    -- If @sourceVersion@ is specified at the project level, then this
+    -- @sourceVersion@ (at the build level) takes precedence.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild>
+    -- in the /AWS CodeBuild User Guide/.
+    sourceVersion :: Prelude.Maybe Prelude.Text,
+    -- | Information about all previous build phases that are complete and
+    -- information about any current build phase that is not yet complete.
+    phases :: Prelude.Maybe [BuildPhase],
+    -- | Information about the cache for the build.
+    cache :: Prelude.Maybe ProjectCache,
+    -- | The name of a service role used for this build.
+    serviceRole :: Prelude.Maybe Prelude.Text,
+    -- | An array of @ProjectSourceVersion@ objects. Each @ProjectSourceVersion@
+    -- must be one of:
+    --
+    -- -   For AWS CodeCommit: the commit ID, branch, or Git tag to use.
+    --
+    -- -   For GitHub: the commit ID, pull request ID, branch name, or tag name
+    --     that corresponds to the version of the source code you want to
+    --     build. If a pull request ID is specified, it must use the format
+    --     @pr\/pull-request-ID@ (for example, @pr\/25@). If a branch name is
+    --     specified, the branch\'s HEAD commit ID is used. If not specified,
+    --     the default branch\'s HEAD commit ID is used.
+    --
+    -- -   For Bitbucket: the commit ID, branch name, or tag name that
+    --     corresponds to the version of the source code you want to build. If
+    --     a branch name is specified, the branch\'s HEAD commit ID is used. If
+    --     not specified, the default branch\'s HEAD commit ID is used.
+    --
+    -- -   For Amazon S3: the version ID of the object that represents the
+    --     build input ZIP file to use.
+    secondarySourceVersions :: Prelude.Maybe [ProjectSourceVersion],
+    -- | Describes a network interface.
+    networkInterface :: Prelude.Maybe NetworkInterface,
+    -- | The AWS Key Management Service (AWS KMS) customer master key (CMK) to be
+    -- used for encrypting the build output artifacts.
+    --
+    -- You can use a cross-account KMS key to encrypt the build output
+    -- artifacts if your service role has permission to that key.
+    --
+    -- You can specify either the Amazon Resource Name (ARN) of the CMK or, if
+    -- available, the CMK\'s alias (using the format @alias\/\<alias-name>@).
+    encryptionKey :: Prelude.Maybe Prelude.Text,
+    -- | Information about the output artifacts for the build.
+    artifacts :: Prelude.Maybe BuildArtifacts,
+    -- | The number of the build. For each project, the @buildNumber@ of its
+    -- first build is @1@. The @buildNumber@ of each subsequent build is
+    -- incremented by @1@. If a build is deleted, the @buildNumber@ of other
+    -- builds does not change.
+    buildNumber :: Prelude.Maybe Prelude.Integer,
+    -- | When the build process started, expressed in Unix time format.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The unique ID for the build.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Information about the build environment for this build.
+    environment :: Prelude.Maybe ProjectEnvironment,
+    -- | Information about the source code to be built.
+    source :: Prelude.Maybe ProjectSource,
+    -- | The Amazon Resource Name (ARN) of the build.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS CodeBuild project.
+    projectName :: Prelude.Maybe Prelude.Text,
+    -- | When the build process ended, expressed in Unix time format.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The current status of the build. Valid values include:
+    --
+    -- -   @FAILED@: The build failed.
+    --
+    -- -   @FAULT@: The build faulted.
+    --
+    -- -   @IN_PROGRESS@: The build is still in progress.
+    --
+    -- -   @STOPPED@: The build stopped.
+    --
+    -- -   @SUCCEEDED@: The build succeeded.
+    --
+    -- -   @TIMED_OUT@: The build timed out.
+    buildStatus :: Prelude.Maybe StatusType,
+    -- | Information about the build\'s logs in Amazon CloudWatch Logs.
+    logs :: Prelude.Maybe LogsLocation,
+    -- | Whether the build is complete. True if complete; otherwise, false.
+    buildComplete :: Prelude.Maybe Prelude.Bool,
+    -- | Contains information about the debug session for this build.
+    debugSession :: Prelude.Maybe DebugSession,
+    -- | The number of minutes a build is allowed to be queued before it times
+    -- out.
+    queuedTimeoutInMinutes :: Prelude.Maybe Prelude.Int,
+    -- | An array of @ProjectSource@ objects.
+    secondarySources :: Prelude.Maybe [ProjectSource],
+    -- | How long, in minutes, for AWS CodeBuild to wait before timing out this
+    -- build if it does not get marked as completed.
+    timeoutInMinutes :: Prelude.Maybe Prelude.Int,
+    -- | The current build phase.
+    currentPhase :: Prelude.Maybe Prelude.Text,
+    -- | The entity that started the build. Valid values include:
+    --
+    -- -   If AWS CodePipeline started the build, the pipeline\'s name (for
+    --     example, @codepipeline\/my-demo-pipeline@).
+    --
+    -- -   If an AWS Identity and Access Management (IAM) user started the
+    --     build, the user\'s name (for example, @MyUserName@).
+    --
+    -- -   If the Jenkins plugin for AWS CodeBuild started the build, the
+    --     string @CodeBuild-Jenkins-Plugin@.
+    initiator :: Prelude.Maybe Prelude.Text,
+    -- | An array of the ARNs associated with this build\'s reports.
+    reportArns :: Prelude.Maybe [Prelude.Text],
+    -- | An array of @ProjectFileSystemLocation@ objects for a CodeBuild build
+    -- project. A @ProjectFileSystemLocation@ object specifies the
+    -- @identifier@, @location@, @mountOptions@, @mountPoint@, and @type@ of a
+    -- file system created using Amazon Elastic File System.
+    fileSystemLocations :: Prelude.Maybe [ProjectFileSystemLocation],
+    -- | A list of exported environment variables for this build.
+    exportedEnvironmentVariables :: Prelude.Maybe [ExportedEnvironmentVariable]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Build' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Build' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bVpcConfig' - If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that identifies the VPC ID and the list of security group IDs and subnet IDs. The security groups and subnets must belong to the same VPC. You must provide at least one security group and one subnet ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bBuildBatchARN' - The ARN of the batch build that this build is a member of, if applicable.
+-- 'vpcConfig', 'build_vpcConfig' - If your AWS CodeBuild project accesses resources in an Amazon VPC, you
+-- provide this parameter that identifies the VPC ID and the list of
+-- security group IDs and subnet IDs. The security groups and subnets must
+-- belong to the same VPC. You must provide at least one security group and
+-- one subnet ID.
 --
--- * 'bResolvedSourceVersion' - An identifier for the version of this build's source code.      * For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.      * For AWS CodePipeline, the source revision provided by AWS CodePipeline.      * For Amazon S3, this does not apply.
+-- 'buildBatchArn', 'build_buildBatchArn' - The ARN of the batch build that this build is a member of, if
+-- applicable.
 --
--- * 'bSecondaryArtifacts' - An array of @ProjectArtifacts@ objects.
+-- 'resolvedSourceVersion', 'build_resolvedSourceVersion' - An identifier for the version of this build\'s source code.
 --
--- * 'bSourceVersion' - Any version identifier for the version of the source code to be built. If @sourceVersion@ is specified at the project level, then this @sourceVersion@ (at the build level) takes precedence.  For more information, see <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild> in the /AWS CodeBuild User Guide/ .
+-- -   For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the
+--     commit ID.
 --
--- * 'bPhases' - Information about all previous build phases that are complete and information about any current build phase that is not yet complete.
+-- -   For AWS CodePipeline, the source revision provided by AWS
+--     CodePipeline.
 --
--- * 'bCache' - Information about the cache for the build.
+-- -   For Amazon S3, this does not apply.
 --
--- * 'bServiceRole' - The name of a service role used for this build.
+-- 'secondaryArtifacts', 'build_secondaryArtifacts' - An array of @ProjectArtifacts@ objects.
 --
--- * 'bSecondarySourceVersions' - An array of @ProjectSourceVersion@ objects. Each @ProjectSourceVersion@ must be one of:      * For AWS CodeCommit: the commit ID, branch, or Git tag to use.     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a pull request ID is specified, it must use the format @pr/pull-request-ID@ (for example, @pr/25@ ). If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
+-- 'sourceVersion', 'build_sourceVersion' - Any version identifier for the version of the source code to be built.
+-- If @sourceVersion@ is specified at the project level, then this
+-- @sourceVersion@ (at the build level) takes precedence.
 --
--- * 'bNetworkInterface' - Describes a network interface.
+-- For more information, see
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild>
+-- in the /AWS CodeBuild User Guide/.
 --
--- * 'bEncryptionKey' - The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output artifacts. You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the format @alias/<alias-name>@ ).
+-- 'phases', 'build_phases' - Information about all previous build phases that are complete and
+-- information about any current build phase that is not yet complete.
 --
--- * 'bArtifacts' - Information about the output artifacts for the build.
+-- 'cache', 'build_cache' - Information about the cache for the build.
 --
--- * 'bBuildNumber' - The number of the build. For each project, the @buildNumber@ of its first build is @1@ . The @buildNumber@ of each subsequent build is incremented by @1@ . If a build is deleted, the @buildNumber@ of other builds does not change.
+-- 'serviceRole', 'build_serviceRole' - The name of a service role used for this build.
 --
--- * 'bStartTime' - When the build process started, expressed in Unix time format.
+-- 'secondarySourceVersions', 'build_secondarySourceVersions' - An array of @ProjectSourceVersion@ objects. Each @ProjectSourceVersion@
+-- must be one of:
 --
--- * 'bId' - The unique ID for the build.
+-- -   For AWS CodeCommit: the commit ID, branch, or Git tag to use.
 --
--- * 'bEnvironment' - Information about the build environment for this build.
+-- -   For GitHub: the commit ID, pull request ID, branch name, or tag name
+--     that corresponds to the version of the source code you want to
+--     build. If a pull request ID is specified, it must use the format
+--     @pr\/pull-request-ID@ (for example, @pr\/25@). If a branch name is
+--     specified, the branch\'s HEAD commit ID is used. If not specified,
+--     the default branch\'s HEAD commit ID is used.
 --
--- * 'bSource' - Information about the source code to be built.
+-- -   For Bitbucket: the commit ID, branch name, or tag name that
+--     corresponds to the version of the source code you want to build. If
+--     a branch name is specified, the branch\'s HEAD commit ID is used. If
+--     not specified, the default branch\'s HEAD commit ID is used.
 --
--- * 'bArn' - The Amazon Resource Name (ARN) of the build.
+-- -   For Amazon S3: the version ID of the object that represents the
+--     build input ZIP file to use.
 --
--- * 'bProjectName' - The name of the AWS CodeBuild project.
+-- 'networkInterface', 'build_networkInterface' - Describes a network interface.
 --
--- * 'bEndTime' - When the build process ended, expressed in Unix time format.
+-- 'encryptionKey', 'build_encryptionKey' - The AWS Key Management Service (AWS KMS) customer master key (CMK) to be
+-- used for encrypting the build output artifacts.
 --
--- * 'bBuildStatus' - The current status of the build. Valid values include:     * @FAILED@ : The build failed.     * @FAULT@ : The build faulted.     * @IN_PROGRESS@ : The build is still in progress.     * @STOPPED@ : The build stopped.     * @SUCCEEDED@ : The build succeeded.     * @TIMED_OUT@ : The build timed out.
+-- You can use a cross-account KMS key to encrypt the build output
+-- artifacts if your service role has permission to that key.
 --
--- * 'bLogs' - Information about the build's logs in Amazon CloudWatch Logs.
+-- You can specify either the Amazon Resource Name (ARN) of the CMK or, if
+-- available, the CMK\'s alias (using the format @alias\/\<alias-name>@).
 --
--- * 'bBuildComplete' - Whether the build is complete. True if complete; otherwise, false.
+-- 'artifacts', 'build_artifacts' - Information about the output artifacts for the build.
 --
--- * 'bDebugSession' - Contains information about the debug session for this build.
+-- 'buildNumber', 'build_buildNumber' - The number of the build. For each project, the @buildNumber@ of its
+-- first build is @1@. The @buildNumber@ of each subsequent build is
+-- incremented by @1@. If a build is deleted, the @buildNumber@ of other
+-- builds does not change.
 --
--- * 'bQueuedTimeoutInMinutes' - The number of minutes a build is allowed to be queued before it times out.
+-- 'startTime', 'build_startTime' - When the build process started, expressed in Unix time format.
 --
--- * 'bSecondarySources' - An array of @ProjectSource@ objects.
+-- 'id', 'build_id' - The unique ID for the build.
 --
--- * 'bTimeoutInMinutes' - How long, in minutes, for AWS CodeBuild to wait before timing out this build if it does not get marked as completed.
+-- 'environment', 'build_environment' - Information about the build environment for this build.
 --
--- * 'bCurrentPhase' - The current build phase.
+-- 'source', 'build_source' - Information about the source code to be built.
 --
--- * 'bInitiator' - The entity that started the build. Valid values include:     * If AWS CodePipeline started the build, the pipeline's name (for example, @codepipeline/my-demo-pipeline@ ).     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example, @MyUserName@ ).     * If the Jenkins plugin for AWS CodeBuild started the build, the string @CodeBuild-Jenkins-Plugin@ .
+-- 'arn', 'build_arn' - The Amazon Resource Name (ARN) of the build.
 --
--- * 'bReportARNs' - An array of the ARNs associated with this build's reports.
+-- 'projectName', 'build_projectName' - The name of the AWS CodeBuild project.
 --
--- * 'bFileSystemLocations' - An array of @ProjectFileSystemLocation@ objects for a CodeBuild build project. A @ProjectFileSystemLocation@ object specifies the @identifier@ , @location@ , @mountOptions@ , @mountPoint@ , and @type@ of a file system created using Amazon Elastic File System.
+-- 'endTime', 'build_endTime' - When the build process ended, expressed in Unix time format.
 --
--- * 'bExportedEnvironmentVariables' - A list of exported environment variables for this build.
-build ::
+-- 'buildStatus', 'build_buildStatus' - The current status of the build. Valid values include:
+--
+-- -   @FAILED@: The build failed.
+--
+-- -   @FAULT@: The build faulted.
+--
+-- -   @IN_PROGRESS@: The build is still in progress.
+--
+-- -   @STOPPED@: The build stopped.
+--
+-- -   @SUCCEEDED@: The build succeeded.
+--
+-- -   @TIMED_OUT@: The build timed out.
+--
+-- 'logs', 'build_logs' - Information about the build\'s logs in Amazon CloudWatch Logs.
+--
+-- 'buildComplete', 'build_buildComplete' - Whether the build is complete. True if complete; otherwise, false.
+--
+-- 'debugSession', 'build_debugSession' - Contains information about the debug session for this build.
+--
+-- 'queuedTimeoutInMinutes', 'build_queuedTimeoutInMinutes' - The number of minutes a build is allowed to be queued before it times
+-- out.
+--
+-- 'secondarySources', 'build_secondarySources' - An array of @ProjectSource@ objects.
+--
+-- 'timeoutInMinutes', 'build_timeoutInMinutes' - How long, in minutes, for AWS CodeBuild to wait before timing out this
+-- build if it does not get marked as completed.
+--
+-- 'currentPhase', 'build_currentPhase' - The current build phase.
+--
+-- 'initiator', 'build_initiator' - The entity that started the build. Valid values include:
+--
+-- -   If AWS CodePipeline started the build, the pipeline\'s name (for
+--     example, @codepipeline\/my-demo-pipeline@).
+--
+-- -   If an AWS Identity and Access Management (IAM) user started the
+--     build, the user\'s name (for example, @MyUserName@).
+--
+-- -   If the Jenkins plugin for AWS CodeBuild started the build, the
+--     string @CodeBuild-Jenkins-Plugin@.
+--
+-- 'reportArns', 'build_reportArns' - An array of the ARNs associated with this build\'s reports.
+--
+-- 'fileSystemLocations', 'build_fileSystemLocations' - An array of @ProjectFileSystemLocation@ objects for a CodeBuild build
+-- project. A @ProjectFileSystemLocation@ object specifies the
+-- @identifier@, @location@, @mountOptions@, @mountPoint@, and @type@ of a
+-- file system created using Amazon Elastic File System.
+--
+-- 'exportedEnvironmentVariables', 'build_exportedEnvironmentVariables' - A list of exported environment variables for this build.
+newBuild ::
   Build
-build =
+newBuild =
   Build'
-    { _bVpcConfig = Nothing,
-      _bBuildBatchARN = Nothing,
-      _bResolvedSourceVersion = Nothing,
-      _bSecondaryArtifacts = Nothing,
-      _bSourceVersion = Nothing,
-      _bPhases = Nothing,
-      _bCache = Nothing,
-      _bServiceRole = Nothing,
-      _bSecondarySourceVersions = Nothing,
-      _bNetworkInterface = Nothing,
-      _bEncryptionKey = Nothing,
-      _bArtifacts = Nothing,
-      _bBuildNumber = Nothing,
-      _bStartTime = Nothing,
-      _bId = Nothing,
-      _bEnvironment = Nothing,
-      _bSource = Nothing,
-      _bArn = Nothing,
-      _bProjectName = Nothing,
-      _bEndTime = Nothing,
-      _bBuildStatus = Nothing,
-      _bLogs = Nothing,
-      _bBuildComplete = Nothing,
-      _bDebugSession = Nothing,
-      _bQueuedTimeoutInMinutes = Nothing,
-      _bSecondarySources = Nothing,
-      _bTimeoutInMinutes = Nothing,
-      _bCurrentPhase = Nothing,
-      _bInitiator = Nothing,
-      _bReportARNs = Nothing,
-      _bFileSystemLocations = Nothing,
-      _bExportedEnvironmentVariables = Nothing
+    { vpcConfig = Prelude.Nothing,
+      buildBatchArn = Prelude.Nothing,
+      resolvedSourceVersion = Prelude.Nothing,
+      secondaryArtifacts = Prelude.Nothing,
+      sourceVersion = Prelude.Nothing,
+      phases = Prelude.Nothing,
+      cache = Prelude.Nothing,
+      serviceRole = Prelude.Nothing,
+      secondarySourceVersions = Prelude.Nothing,
+      networkInterface = Prelude.Nothing,
+      encryptionKey = Prelude.Nothing,
+      artifacts = Prelude.Nothing,
+      buildNumber = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      id = Prelude.Nothing,
+      environment = Prelude.Nothing,
+      source = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      projectName = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      buildStatus = Prelude.Nothing,
+      logs = Prelude.Nothing,
+      buildComplete = Prelude.Nothing,
+      debugSession = Prelude.Nothing,
+      queuedTimeoutInMinutes = Prelude.Nothing,
+      secondarySources = Prelude.Nothing,
+      timeoutInMinutes = Prelude.Nothing,
+      currentPhase = Prelude.Nothing,
+      initiator = Prelude.Nothing,
+      reportArns = Prelude.Nothing,
+      fileSystemLocations = Prelude.Nothing,
+      exportedEnvironmentVariables = Prelude.Nothing
     }
 
--- | If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that identifies the VPC ID and the list of security group IDs and subnet IDs. The security groups and subnets must belong to the same VPC. You must provide at least one security group and one subnet ID.
-bVpcConfig :: Lens' Build (Maybe VPCConfig)
-bVpcConfig = lens _bVpcConfig (\s a -> s {_bVpcConfig = a})
+-- | If your AWS CodeBuild project accesses resources in an Amazon VPC, you
+-- provide this parameter that identifies the VPC ID and the list of
+-- security group IDs and subnet IDs. The security groups and subnets must
+-- belong to the same VPC. You must provide at least one security group and
+-- one subnet ID.
+build_vpcConfig :: Lens.Lens' Build (Prelude.Maybe VpcConfig)
+build_vpcConfig = Lens.lens (\Build' {vpcConfig} -> vpcConfig) (\s@Build' {} a -> s {vpcConfig = a} :: Build)
 
--- | The ARN of the batch build that this build is a member of, if applicable.
-bBuildBatchARN :: Lens' Build (Maybe Text)
-bBuildBatchARN = lens _bBuildBatchARN (\s a -> s {_bBuildBatchARN = a})
+-- | The ARN of the batch build that this build is a member of, if
+-- applicable.
+build_buildBatchArn :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_buildBatchArn = Lens.lens (\Build' {buildBatchArn} -> buildBatchArn) (\s@Build' {} a -> s {buildBatchArn = a} :: Build)
 
--- | An identifier for the version of this build's source code.      * For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.      * For AWS CodePipeline, the source revision provided by AWS CodePipeline.      * For Amazon S3, this does not apply.
-bResolvedSourceVersion :: Lens' Build (Maybe Text)
-bResolvedSourceVersion = lens _bResolvedSourceVersion (\s a -> s {_bResolvedSourceVersion = a})
+-- | An identifier for the version of this build\'s source code.
+--
+-- -   For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the
+--     commit ID.
+--
+-- -   For AWS CodePipeline, the source revision provided by AWS
+--     CodePipeline.
+--
+-- -   For Amazon S3, this does not apply.
+build_resolvedSourceVersion :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_resolvedSourceVersion = Lens.lens (\Build' {resolvedSourceVersion} -> resolvedSourceVersion) (\s@Build' {} a -> s {resolvedSourceVersion = a} :: Build)
 
 -- | An array of @ProjectArtifacts@ objects.
-bSecondaryArtifacts :: Lens' Build [BuildArtifacts]
-bSecondaryArtifacts = lens _bSecondaryArtifacts (\s a -> s {_bSecondaryArtifacts = a}) . _Default . _Coerce
+build_secondaryArtifacts :: Lens.Lens' Build (Prelude.Maybe [BuildArtifacts])
+build_secondaryArtifacts = Lens.lens (\Build' {secondaryArtifacts} -> secondaryArtifacts) (\s@Build' {} a -> s {secondaryArtifacts = a} :: Build) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Any version identifier for the version of the source code to be built. If @sourceVersion@ is specified at the project level, then this @sourceVersion@ (at the build level) takes precedence.  For more information, see <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild> in the /AWS CodeBuild User Guide/ .
-bSourceVersion :: Lens' Build (Maybe Text)
-bSourceVersion = lens _bSourceVersion (\s a -> s {_bSourceVersion = a})
+-- | Any version identifier for the version of the source code to be built.
+-- If @sourceVersion@ is specified at the project level, then this
+-- @sourceVersion@ (at the build level) takes precedence.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild>
+-- in the /AWS CodeBuild User Guide/.
+build_sourceVersion :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_sourceVersion = Lens.lens (\Build' {sourceVersion} -> sourceVersion) (\s@Build' {} a -> s {sourceVersion = a} :: Build)
 
--- | Information about all previous build phases that are complete and information about any current build phase that is not yet complete.
-bPhases :: Lens' Build [BuildPhase]
-bPhases = lens _bPhases (\s a -> s {_bPhases = a}) . _Default . _Coerce
+-- | Information about all previous build phases that are complete and
+-- information about any current build phase that is not yet complete.
+build_phases :: Lens.Lens' Build (Prelude.Maybe [BuildPhase])
+build_phases = Lens.lens (\Build' {phases} -> phases) (\s@Build' {} a -> s {phases = a} :: Build) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the cache for the build.
-bCache :: Lens' Build (Maybe ProjectCache)
-bCache = lens _bCache (\s a -> s {_bCache = a})
+build_cache :: Lens.Lens' Build (Prelude.Maybe ProjectCache)
+build_cache = Lens.lens (\Build' {cache} -> cache) (\s@Build' {} a -> s {cache = a} :: Build)
 
 -- | The name of a service role used for this build.
-bServiceRole :: Lens' Build (Maybe Text)
-bServiceRole = lens _bServiceRole (\s a -> s {_bServiceRole = a})
+build_serviceRole :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_serviceRole = Lens.lens (\Build' {serviceRole} -> serviceRole) (\s@Build' {} a -> s {serviceRole = a} :: Build)
 
--- | An array of @ProjectSourceVersion@ objects. Each @ProjectSourceVersion@ must be one of:      * For AWS CodeCommit: the commit ID, branch, or Git tag to use.     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a pull request ID is specified, it must use the format @pr/pull-request-ID@ (for example, @pr/25@ ). If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
-bSecondarySourceVersions :: Lens' Build [ProjectSourceVersion]
-bSecondarySourceVersions = lens _bSecondarySourceVersions (\s a -> s {_bSecondarySourceVersions = a}) . _Default . _Coerce
+-- | An array of @ProjectSourceVersion@ objects. Each @ProjectSourceVersion@
+-- must be one of:
+--
+-- -   For AWS CodeCommit: the commit ID, branch, or Git tag to use.
+--
+-- -   For GitHub: the commit ID, pull request ID, branch name, or tag name
+--     that corresponds to the version of the source code you want to
+--     build. If a pull request ID is specified, it must use the format
+--     @pr\/pull-request-ID@ (for example, @pr\/25@). If a branch name is
+--     specified, the branch\'s HEAD commit ID is used. If not specified,
+--     the default branch\'s HEAD commit ID is used.
+--
+-- -   For Bitbucket: the commit ID, branch name, or tag name that
+--     corresponds to the version of the source code you want to build. If
+--     a branch name is specified, the branch\'s HEAD commit ID is used. If
+--     not specified, the default branch\'s HEAD commit ID is used.
+--
+-- -   For Amazon S3: the version ID of the object that represents the
+--     build input ZIP file to use.
+build_secondarySourceVersions :: Lens.Lens' Build (Prelude.Maybe [ProjectSourceVersion])
+build_secondarySourceVersions = Lens.lens (\Build' {secondarySourceVersions} -> secondarySourceVersions) (\s@Build' {} a -> s {secondarySourceVersions = a} :: Build) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Describes a network interface.
-bNetworkInterface :: Lens' Build (Maybe NetworkInterface)
-bNetworkInterface = lens _bNetworkInterface (\s a -> s {_bNetworkInterface = a})
+build_networkInterface :: Lens.Lens' Build (Prelude.Maybe NetworkInterface)
+build_networkInterface = Lens.lens (\Build' {networkInterface} -> networkInterface) (\s@Build' {} a -> s {networkInterface = a} :: Build)
 
--- | The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output artifacts. You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the format @alias/<alias-name>@ ).
-bEncryptionKey :: Lens' Build (Maybe Text)
-bEncryptionKey = lens _bEncryptionKey (\s a -> s {_bEncryptionKey = a})
+-- | The AWS Key Management Service (AWS KMS) customer master key (CMK) to be
+-- used for encrypting the build output artifacts.
+--
+-- You can use a cross-account KMS key to encrypt the build output
+-- artifacts if your service role has permission to that key.
+--
+-- You can specify either the Amazon Resource Name (ARN) of the CMK or, if
+-- available, the CMK\'s alias (using the format @alias\/\<alias-name>@).
+build_encryptionKey :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_encryptionKey = Lens.lens (\Build' {encryptionKey} -> encryptionKey) (\s@Build' {} a -> s {encryptionKey = a} :: Build)
 
 -- | Information about the output artifacts for the build.
-bArtifacts :: Lens' Build (Maybe BuildArtifacts)
-bArtifacts = lens _bArtifacts (\s a -> s {_bArtifacts = a})
+build_artifacts :: Lens.Lens' Build (Prelude.Maybe BuildArtifacts)
+build_artifacts = Lens.lens (\Build' {artifacts} -> artifacts) (\s@Build' {} a -> s {artifacts = a} :: Build)
 
--- | The number of the build. For each project, the @buildNumber@ of its first build is @1@ . The @buildNumber@ of each subsequent build is incremented by @1@ . If a build is deleted, the @buildNumber@ of other builds does not change.
-bBuildNumber :: Lens' Build (Maybe Integer)
-bBuildNumber = lens _bBuildNumber (\s a -> s {_bBuildNumber = a})
+-- | The number of the build. For each project, the @buildNumber@ of its
+-- first build is @1@. The @buildNumber@ of each subsequent build is
+-- incremented by @1@. If a build is deleted, the @buildNumber@ of other
+-- builds does not change.
+build_buildNumber :: Lens.Lens' Build (Prelude.Maybe Prelude.Integer)
+build_buildNumber = Lens.lens (\Build' {buildNumber} -> buildNumber) (\s@Build' {} a -> s {buildNumber = a} :: Build)
 
 -- | When the build process started, expressed in Unix time format.
-bStartTime :: Lens' Build (Maybe UTCTime)
-bStartTime = lens _bStartTime (\s a -> s {_bStartTime = a}) . mapping _Time
+build_startTime :: Lens.Lens' Build (Prelude.Maybe Prelude.UTCTime)
+build_startTime = Lens.lens (\Build' {startTime} -> startTime) (\s@Build' {} a -> s {startTime = a} :: Build) Prelude.. Lens.mapping Prelude._Time
 
 -- | The unique ID for the build.
-bId :: Lens' Build (Maybe Text)
-bId = lens _bId (\s a -> s {_bId = a})
+build_id :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_id = Lens.lens (\Build' {id} -> id) (\s@Build' {} a -> s {id = a} :: Build)
 
 -- | Information about the build environment for this build.
-bEnvironment :: Lens' Build (Maybe ProjectEnvironment)
-bEnvironment = lens _bEnvironment (\s a -> s {_bEnvironment = a})
+build_environment :: Lens.Lens' Build (Prelude.Maybe ProjectEnvironment)
+build_environment = Lens.lens (\Build' {environment} -> environment) (\s@Build' {} a -> s {environment = a} :: Build)
 
 -- | Information about the source code to be built.
-bSource :: Lens' Build (Maybe ProjectSource)
-bSource = lens _bSource (\s a -> s {_bSource = a})
+build_source :: Lens.Lens' Build (Prelude.Maybe ProjectSource)
+build_source = Lens.lens (\Build' {source} -> source) (\s@Build' {} a -> s {source = a} :: Build)
 
 -- | The Amazon Resource Name (ARN) of the build.
-bArn :: Lens' Build (Maybe Text)
-bArn = lens _bArn (\s a -> s {_bArn = a})
+build_arn :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_arn = Lens.lens (\Build' {arn} -> arn) (\s@Build' {} a -> s {arn = a} :: Build)
 
 -- | The name of the AWS CodeBuild project.
-bProjectName :: Lens' Build (Maybe Text)
-bProjectName = lens _bProjectName (\s a -> s {_bProjectName = a})
+build_projectName :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_projectName = Lens.lens (\Build' {projectName} -> projectName) (\s@Build' {} a -> s {projectName = a} :: Build)
 
 -- | When the build process ended, expressed in Unix time format.
-bEndTime :: Lens' Build (Maybe UTCTime)
-bEndTime = lens _bEndTime (\s a -> s {_bEndTime = a}) . mapping _Time
+build_endTime :: Lens.Lens' Build (Prelude.Maybe Prelude.UTCTime)
+build_endTime = Lens.lens (\Build' {endTime} -> endTime) (\s@Build' {} a -> s {endTime = a} :: Build) Prelude.. Lens.mapping Prelude._Time
 
--- | The current status of the build. Valid values include:     * @FAILED@ : The build failed.     * @FAULT@ : The build faulted.     * @IN_PROGRESS@ : The build is still in progress.     * @STOPPED@ : The build stopped.     * @SUCCEEDED@ : The build succeeded.     * @TIMED_OUT@ : The build timed out.
-bBuildStatus :: Lens' Build (Maybe StatusType)
-bBuildStatus = lens _bBuildStatus (\s a -> s {_bBuildStatus = a})
+-- | The current status of the build. Valid values include:
+--
+-- -   @FAILED@: The build failed.
+--
+-- -   @FAULT@: The build faulted.
+--
+-- -   @IN_PROGRESS@: The build is still in progress.
+--
+-- -   @STOPPED@: The build stopped.
+--
+-- -   @SUCCEEDED@: The build succeeded.
+--
+-- -   @TIMED_OUT@: The build timed out.
+build_buildStatus :: Lens.Lens' Build (Prelude.Maybe StatusType)
+build_buildStatus = Lens.lens (\Build' {buildStatus} -> buildStatus) (\s@Build' {} a -> s {buildStatus = a} :: Build)
 
--- | Information about the build's logs in Amazon CloudWatch Logs.
-bLogs :: Lens' Build (Maybe LogsLocation)
-bLogs = lens _bLogs (\s a -> s {_bLogs = a})
+-- | Information about the build\'s logs in Amazon CloudWatch Logs.
+build_logs :: Lens.Lens' Build (Prelude.Maybe LogsLocation)
+build_logs = Lens.lens (\Build' {logs} -> logs) (\s@Build' {} a -> s {logs = a} :: Build)
 
 -- | Whether the build is complete. True if complete; otherwise, false.
-bBuildComplete :: Lens' Build (Maybe Bool)
-bBuildComplete = lens _bBuildComplete (\s a -> s {_bBuildComplete = a})
+build_buildComplete :: Lens.Lens' Build (Prelude.Maybe Prelude.Bool)
+build_buildComplete = Lens.lens (\Build' {buildComplete} -> buildComplete) (\s@Build' {} a -> s {buildComplete = a} :: Build)
 
 -- | Contains information about the debug session for this build.
-bDebugSession :: Lens' Build (Maybe DebugSession)
-bDebugSession = lens _bDebugSession (\s a -> s {_bDebugSession = a})
+build_debugSession :: Lens.Lens' Build (Prelude.Maybe DebugSession)
+build_debugSession = Lens.lens (\Build' {debugSession} -> debugSession) (\s@Build' {} a -> s {debugSession = a} :: Build)
 
--- | The number of minutes a build is allowed to be queued before it times out.
-bQueuedTimeoutInMinutes :: Lens' Build (Maybe Int)
-bQueuedTimeoutInMinutes = lens _bQueuedTimeoutInMinutes (\s a -> s {_bQueuedTimeoutInMinutes = a})
+-- | The number of minutes a build is allowed to be queued before it times
+-- out.
+build_queuedTimeoutInMinutes :: Lens.Lens' Build (Prelude.Maybe Prelude.Int)
+build_queuedTimeoutInMinutes = Lens.lens (\Build' {queuedTimeoutInMinutes} -> queuedTimeoutInMinutes) (\s@Build' {} a -> s {queuedTimeoutInMinutes = a} :: Build)
 
 -- | An array of @ProjectSource@ objects.
-bSecondarySources :: Lens' Build [ProjectSource]
-bSecondarySources = lens _bSecondarySources (\s a -> s {_bSecondarySources = a}) . _Default . _Coerce
+build_secondarySources :: Lens.Lens' Build (Prelude.Maybe [ProjectSource])
+build_secondarySources = Lens.lens (\Build' {secondarySources} -> secondarySources) (\s@Build' {} a -> s {secondarySources = a} :: Build) Prelude.. Lens.mapping Prelude._Coerce
 
--- | How long, in minutes, for AWS CodeBuild to wait before timing out this build if it does not get marked as completed.
-bTimeoutInMinutes :: Lens' Build (Maybe Int)
-bTimeoutInMinutes = lens _bTimeoutInMinutes (\s a -> s {_bTimeoutInMinutes = a})
+-- | How long, in minutes, for AWS CodeBuild to wait before timing out this
+-- build if it does not get marked as completed.
+build_timeoutInMinutes :: Lens.Lens' Build (Prelude.Maybe Prelude.Int)
+build_timeoutInMinutes = Lens.lens (\Build' {timeoutInMinutes} -> timeoutInMinutes) (\s@Build' {} a -> s {timeoutInMinutes = a} :: Build)
 
 -- | The current build phase.
-bCurrentPhase :: Lens' Build (Maybe Text)
-bCurrentPhase = lens _bCurrentPhase (\s a -> s {_bCurrentPhase = a})
+build_currentPhase :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_currentPhase = Lens.lens (\Build' {currentPhase} -> currentPhase) (\s@Build' {} a -> s {currentPhase = a} :: Build)
 
--- | The entity that started the build. Valid values include:     * If AWS CodePipeline started the build, the pipeline's name (for example, @codepipeline/my-demo-pipeline@ ).     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example, @MyUserName@ ).     * If the Jenkins plugin for AWS CodeBuild started the build, the string @CodeBuild-Jenkins-Plugin@ .
-bInitiator :: Lens' Build (Maybe Text)
-bInitiator = lens _bInitiator (\s a -> s {_bInitiator = a})
+-- | The entity that started the build. Valid values include:
+--
+-- -   If AWS CodePipeline started the build, the pipeline\'s name (for
+--     example, @codepipeline\/my-demo-pipeline@).
+--
+-- -   If an AWS Identity and Access Management (IAM) user started the
+--     build, the user\'s name (for example, @MyUserName@).
+--
+-- -   If the Jenkins plugin for AWS CodeBuild started the build, the
+--     string @CodeBuild-Jenkins-Plugin@.
+build_initiator :: Lens.Lens' Build (Prelude.Maybe Prelude.Text)
+build_initiator = Lens.lens (\Build' {initiator} -> initiator) (\s@Build' {} a -> s {initiator = a} :: Build)
 
--- | An array of the ARNs associated with this build's reports.
-bReportARNs :: Lens' Build [Text]
-bReportARNs = lens _bReportARNs (\s a -> s {_bReportARNs = a}) . _Default . _Coerce
+-- | An array of the ARNs associated with this build\'s reports.
+build_reportArns :: Lens.Lens' Build (Prelude.Maybe [Prelude.Text])
+build_reportArns = Lens.lens (\Build' {reportArns} -> reportArns) (\s@Build' {} a -> s {reportArns = a} :: Build) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An array of @ProjectFileSystemLocation@ objects for a CodeBuild build project. A @ProjectFileSystemLocation@ object specifies the @identifier@ , @location@ , @mountOptions@ , @mountPoint@ , and @type@ of a file system created using Amazon Elastic File System.
-bFileSystemLocations :: Lens' Build [ProjectFileSystemLocation]
-bFileSystemLocations = lens _bFileSystemLocations (\s a -> s {_bFileSystemLocations = a}) . _Default . _Coerce
+-- | An array of @ProjectFileSystemLocation@ objects for a CodeBuild build
+-- project. A @ProjectFileSystemLocation@ object specifies the
+-- @identifier@, @location@, @mountOptions@, @mountPoint@, and @type@ of a
+-- file system created using Amazon Elastic File System.
+build_fileSystemLocations :: Lens.Lens' Build (Prelude.Maybe [ProjectFileSystemLocation])
+build_fileSystemLocations = Lens.lens (\Build' {fileSystemLocations} -> fileSystemLocations) (\s@Build' {} a -> s {fileSystemLocations = a} :: Build) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of exported environment variables for this build.
-bExportedEnvironmentVariables :: Lens' Build [ExportedEnvironmentVariable]
-bExportedEnvironmentVariables = lens _bExportedEnvironmentVariables (\s a -> s {_bExportedEnvironmentVariables = a}) . _Default . _Coerce
+build_exportedEnvironmentVariables :: Lens.Lens' Build (Prelude.Maybe [ExportedEnvironmentVariable])
+build_exportedEnvironmentVariables = Lens.lens (\Build' {exportedEnvironmentVariables} -> exportedEnvironmentVariables) (\s@Build' {} a -> s {exportedEnvironmentVariables = a} :: Build) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Build where
+instance Prelude.FromJSON Build where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Build"
       ( \x ->
           Build'
-            <$> (x .:? "vpcConfig")
-            <*> (x .:? "buildBatchArn")
-            <*> (x .:? "resolvedSourceVersion")
-            <*> (x .:? "secondaryArtifacts" .!= mempty)
-            <*> (x .:? "sourceVersion")
-            <*> (x .:? "phases" .!= mempty)
-            <*> (x .:? "cache")
-            <*> (x .:? "serviceRole")
-            <*> (x .:? "secondarySourceVersions" .!= mempty)
-            <*> (x .:? "networkInterface")
-            <*> (x .:? "encryptionKey")
-            <*> (x .:? "artifacts")
-            <*> (x .:? "buildNumber")
-            <*> (x .:? "startTime")
-            <*> (x .:? "id")
-            <*> (x .:? "environment")
-            <*> (x .:? "source")
-            <*> (x .:? "arn")
-            <*> (x .:? "projectName")
-            <*> (x .:? "endTime")
-            <*> (x .:? "buildStatus")
-            <*> (x .:? "logs")
-            <*> (x .:? "buildComplete")
-            <*> (x .:? "debugSession")
-            <*> (x .:? "queuedTimeoutInMinutes")
-            <*> (x .:? "secondarySources" .!= mempty)
-            <*> (x .:? "timeoutInMinutes")
-            <*> (x .:? "currentPhase")
-            <*> (x .:? "initiator")
-            <*> (x .:? "reportArns" .!= mempty)
-            <*> (x .:? "fileSystemLocations" .!= mempty)
-            <*> (x .:? "exportedEnvironmentVariables" .!= mempty)
+            Prelude.<$> (x Prelude..:? "vpcConfig")
+            Prelude.<*> (x Prelude..:? "buildBatchArn")
+            Prelude.<*> (x Prelude..:? "resolvedSourceVersion")
+            Prelude.<*> ( x Prelude..:? "secondaryArtifacts"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "sourceVersion")
+            Prelude.<*> (x Prelude..:? "phases" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "cache")
+            Prelude.<*> (x Prelude..:? "serviceRole")
+            Prelude.<*> ( x Prelude..:? "secondarySourceVersions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "networkInterface")
+            Prelude.<*> (x Prelude..:? "encryptionKey")
+            Prelude.<*> (x Prelude..:? "artifacts")
+            Prelude.<*> (x Prelude..:? "buildNumber")
+            Prelude.<*> (x Prelude..:? "startTime")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "environment")
+            Prelude.<*> (x Prelude..:? "source")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "projectName")
+            Prelude.<*> (x Prelude..:? "endTime")
+            Prelude.<*> (x Prelude..:? "buildStatus")
+            Prelude.<*> (x Prelude..:? "logs")
+            Prelude.<*> (x Prelude..:? "buildComplete")
+            Prelude.<*> (x Prelude..:? "debugSession")
+            Prelude.<*> (x Prelude..:? "queuedTimeoutInMinutes")
+            Prelude.<*> ( x Prelude..:? "secondarySources"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "timeoutInMinutes")
+            Prelude.<*> (x Prelude..:? "currentPhase")
+            Prelude.<*> (x Prelude..:? "initiator")
+            Prelude.<*> ( x Prelude..:? "reportArns"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "fileSystemLocations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "exportedEnvironmentVariables"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Build
+instance Prelude.Hashable Build
 
-instance NFData Build
+instance Prelude.NFData Build

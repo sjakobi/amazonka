@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodeBuild.Types.ArtifactsType
   ( ArtifactsType
       ( ..,
-        Codepipeline,
-        NoArtifacts,
-        S3
+        ArtifactsTypeCODEPIPELINE,
+        ArtifactsTypeNOARTIFACTS,
+        ArtifactsTypeS3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArtifactsType = ArtifactsType' (CI Text)
+newtype ArtifactsType = ArtifactsType'
+  { fromArtifactsType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Codepipeline :: ArtifactsType
-pattern Codepipeline = ArtifactsType' "CODEPIPELINE"
+pattern ArtifactsTypeCODEPIPELINE :: ArtifactsType
+pattern ArtifactsTypeCODEPIPELINE = ArtifactsType' "CODEPIPELINE"
 
-pattern NoArtifacts :: ArtifactsType
-pattern NoArtifacts = ArtifactsType' "NO_ARTIFACTS"
+pattern ArtifactsTypeNOARTIFACTS :: ArtifactsType
+pattern ArtifactsTypeNOARTIFACTS = ArtifactsType' "NO_ARTIFACTS"
 
-pattern S3 :: ArtifactsType
-pattern S3 = ArtifactsType' "S3"
+pattern ArtifactsTypeS3 :: ArtifactsType
+pattern ArtifactsTypeS3 = ArtifactsType' "S3"
 
 {-# COMPLETE
-  Codepipeline,
-  NoArtifacts,
-  S3,
+  ArtifactsTypeCODEPIPELINE,
+  ArtifactsTypeNOARTIFACTS,
+  ArtifactsTypeS3,
   ArtifactsType'
   #-}
 
-instance FromText ArtifactsType where
-  parser = (ArtifactsType' . mk) <$> takeText
+instance Prelude.FromText ArtifactsType where
+  parser = ArtifactsType' Prelude.<$> Prelude.takeText
 
-instance ToText ArtifactsType where
-  toText (ArtifactsType' ci) = original ci
+instance Prelude.ToText ArtifactsType where
+  toText (ArtifactsType' x) = x
 
-instance Hashable ArtifactsType
+instance Prelude.Hashable ArtifactsType
 
-instance NFData ArtifactsType
+instance Prelude.NFData ArtifactsType
 
-instance ToByteString ArtifactsType
+instance Prelude.ToByteString ArtifactsType
 
-instance ToQuery ArtifactsType
+instance Prelude.ToQuery ArtifactsType
 
-instance ToHeader ArtifactsType
+instance Prelude.ToHeader ArtifactsType
 
-instance ToJSON ArtifactsType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ArtifactsType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ArtifactsType where
-  parseJSON = parseJSONText "ArtifactsType"
+instance Prelude.FromJSON ArtifactsType where
+  parseJSON = Prelude.parseJSONText "ArtifactsType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types.TestReportSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a test report.
 --
---
---
--- /See:/ 'testReportSummary' smart constructor.
+-- /See:/ 'newTestReportSummary' smart constructor.
 data TestReportSummary = TestReportSummary'
-  { _trsTotal ::
-      !Int,
-    _trsStatusCounts :: !(Map Text Int),
-    _trsDurationInNanoSeconds ::
-      !Integer
+  { -- | The number of test cases in this @TestReportSummary@. The total includes
+    -- truncated test cases.
+    total :: Prelude.Int,
+    -- | A map that contains the number of each type of status returned by the
+    -- test results in this @TestReportSummary@.
+    statusCounts :: Prelude.Map Prelude.Text Prelude.Int,
+    -- | The number of nanoseconds it took to run all of the test cases in this
+    -- report.
+    durationInNanoSeconds :: Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestReportSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestReportSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trsTotal' - The number of test cases in this @TestReportSummary@ . The total includes truncated test cases.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trsStatusCounts' - A map that contains the number of each type of status returned by the test results in this @TestReportSummary@ .
+-- 'total', 'testReportSummary_total' - The number of test cases in this @TestReportSummary@. The total includes
+-- truncated test cases.
 --
--- * 'trsDurationInNanoSeconds' - The number of nanoseconds it took to run all of the test cases in this report.
-testReportSummary ::
-  -- | 'trsTotal'
-  Int ->
-  -- | 'trsDurationInNanoSeconds'
-  Integer ->
+-- 'statusCounts', 'testReportSummary_statusCounts' - A map that contains the number of each type of status returned by the
+-- test results in this @TestReportSummary@.
+--
+-- 'durationInNanoSeconds', 'testReportSummary_durationInNanoSeconds' - The number of nanoseconds it took to run all of the test cases in this
+-- report.
+newTestReportSummary ::
+  -- | 'total'
+  Prelude.Int ->
+  -- | 'durationInNanoSeconds'
+  Prelude.Integer ->
   TestReportSummary
-testReportSummary pTotal_ pDurationInNanoSeconds_ =
+newTestReportSummary pTotal_ pDurationInNanoSeconds_ =
   TestReportSummary'
-    { _trsTotal = pTotal_,
-      _trsStatusCounts = mempty,
-      _trsDurationInNanoSeconds = pDurationInNanoSeconds_
+    { total = pTotal_,
+      statusCounts = Prelude.mempty,
+      durationInNanoSeconds = pDurationInNanoSeconds_
     }
 
--- | The number of test cases in this @TestReportSummary@ . The total includes truncated test cases.
-trsTotal :: Lens' TestReportSummary Int
-trsTotal = lens _trsTotal (\s a -> s {_trsTotal = a})
+-- | The number of test cases in this @TestReportSummary@. The total includes
+-- truncated test cases.
+testReportSummary_total :: Lens.Lens' TestReportSummary Prelude.Int
+testReportSummary_total = Lens.lens (\TestReportSummary' {total} -> total) (\s@TestReportSummary' {} a -> s {total = a} :: TestReportSummary)
 
--- | A map that contains the number of each type of status returned by the test results in this @TestReportSummary@ .
-trsStatusCounts :: Lens' TestReportSummary (HashMap Text Int)
-trsStatusCounts = lens _trsStatusCounts (\s a -> s {_trsStatusCounts = a}) . _Map
+-- | A map that contains the number of each type of status returned by the
+-- test results in this @TestReportSummary@.
+testReportSummary_statusCounts :: Lens.Lens' TestReportSummary (Prelude.HashMap Prelude.Text Prelude.Int)
+testReportSummary_statusCounts = Lens.lens (\TestReportSummary' {statusCounts} -> statusCounts) (\s@TestReportSummary' {} a -> s {statusCounts = a} :: TestReportSummary) Prelude.. Prelude._Map
 
--- | The number of nanoseconds it took to run all of the test cases in this report.
-trsDurationInNanoSeconds :: Lens' TestReportSummary Integer
-trsDurationInNanoSeconds = lens _trsDurationInNanoSeconds (\s a -> s {_trsDurationInNanoSeconds = a})
+-- | The number of nanoseconds it took to run all of the test cases in this
+-- report.
+testReportSummary_durationInNanoSeconds :: Lens.Lens' TestReportSummary Prelude.Integer
+testReportSummary_durationInNanoSeconds = Lens.lens (\TestReportSummary' {durationInNanoSeconds} -> durationInNanoSeconds) (\s@TestReportSummary' {} a -> s {durationInNanoSeconds = a} :: TestReportSummary)
 
-instance FromJSON TestReportSummary where
+instance Prelude.FromJSON TestReportSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TestReportSummary"
       ( \x ->
           TestReportSummary'
-            <$> (x .: "total")
-            <*> (x .:? "statusCounts" .!= mempty)
-            <*> (x .: "durationInNanoSeconds")
+            Prelude.<$> (x Prelude..: "total")
+            Prelude.<*> ( x Prelude..:? "statusCounts"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "durationInNanoSeconds")
       )
 
-instance Hashable TestReportSummary
+instance Prelude.Hashable TestReportSummary
 
-instance NFData TestReportSummary
+instance Prelude.NFData TestReportSummary

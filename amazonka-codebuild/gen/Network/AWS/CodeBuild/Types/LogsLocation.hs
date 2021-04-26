@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,109 +21,135 @@ module Network.AWS.CodeBuild.Types.LogsLocation where
 
 import Network.AWS.CodeBuild.Types.CloudWatchLogsConfig
 import Network.AWS.CodeBuild.Types.S3LogsConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about build logs in Amazon CloudWatch Logs.
 --
---
---
--- /See:/ 'logsLocation' smart constructor.
+-- /See:/ 'newLogsLocation' smart constructor.
 data LogsLocation = LogsLocation'
-  { _llS3Logs ::
-      !(Maybe S3LogsConfig),
-    _llCloudWatchLogs ::
-      !(Maybe CloudWatchLogsConfig),
-    _llDeepLink :: !(Maybe Text),
-    _llGroupName :: !(Maybe Text),
-    _llCloudWatchLogsARN :: !(Maybe Text),
-    _llS3LogsARN :: !(Maybe Text),
-    _llS3DeepLink :: !(Maybe Text),
-    _llStreamName :: !(Maybe Text)
+  { -- | Information about S3 logs for a build project.
+    s3Logs :: Prelude.Maybe S3LogsConfig,
+    -- | Information about Amazon CloudWatch Logs for a build project.
+    cloudWatchLogs :: Prelude.Maybe CloudWatchLogsConfig,
+    -- | The URL to an individual build log in Amazon CloudWatch Logs.
+    deepLink :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Amazon CloudWatch Logs group for the build logs.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of Amazon CloudWatch Logs for a build project. Its format is
+    -- @arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}@.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies Resources Defined by Amazon CloudWatch Logs>.
+    cloudWatchLogsArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of S3 logs for a build project. Its format is
+    -- @arn:${Partition}:s3:::${BucketName}\/${ObjectName}@. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies Resources Defined by Amazon S3>.
+    s3LogsArn :: Prelude.Maybe Prelude.Text,
+    -- | The URL to a build log in an S3 bucket.
+    s3DeepLink :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Amazon CloudWatch Logs stream for the build logs.
+    streamName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LogsLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LogsLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llS3Logs' - Information about S3 logs for a build project.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llCloudWatchLogs' - Information about Amazon CloudWatch Logs for a build project.
+-- 's3Logs', 'logsLocation_s3Logs' - Information about S3 logs for a build project.
 --
--- * 'llDeepLink' - The URL to an individual build log in Amazon CloudWatch Logs.
+-- 'cloudWatchLogs', 'logsLocation_cloudWatchLogs' - Information about Amazon CloudWatch Logs for a build project.
 --
--- * 'llGroupName' - The name of the Amazon CloudWatch Logs group for the build logs.
+-- 'deepLink', 'logsLocation_deepLink' - The URL to an individual build log in Amazon CloudWatch Logs.
 --
--- * 'llCloudWatchLogsARN' - The ARN of Amazon CloudWatch Logs for a build project. Its format is @arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}@ . For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies Resources Defined by Amazon CloudWatch Logs> .
+-- 'groupName', 'logsLocation_groupName' - The name of the Amazon CloudWatch Logs group for the build logs.
 --
--- * 'llS3LogsARN' - The ARN of S3 logs for a build project. Its format is @arn:${Partition}:s3:::${BucketName}/${ObjectName}@ . For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies Resources Defined by Amazon S3> .
+-- 'cloudWatchLogsArn', 'logsLocation_cloudWatchLogsArn' - The ARN of Amazon CloudWatch Logs for a build project. Its format is
+-- @arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}@.
+-- For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies Resources Defined by Amazon CloudWatch Logs>.
 --
--- * 'llS3DeepLink' - The URL to a build log in an S3 bucket.
+-- 's3LogsArn', 'logsLocation_s3LogsArn' - The ARN of S3 logs for a build project. Its format is
+-- @arn:${Partition}:s3:::${BucketName}\/${ObjectName}@. For more
+-- information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies Resources Defined by Amazon S3>.
 --
--- * 'llStreamName' - The name of the Amazon CloudWatch Logs stream for the build logs.
-logsLocation ::
+-- 's3DeepLink', 'logsLocation_s3DeepLink' - The URL to a build log in an S3 bucket.
+--
+-- 'streamName', 'logsLocation_streamName' - The name of the Amazon CloudWatch Logs stream for the build logs.
+newLogsLocation ::
   LogsLocation
-logsLocation =
+newLogsLocation =
   LogsLocation'
-    { _llS3Logs = Nothing,
-      _llCloudWatchLogs = Nothing,
-      _llDeepLink = Nothing,
-      _llGroupName = Nothing,
-      _llCloudWatchLogsARN = Nothing,
-      _llS3LogsARN = Nothing,
-      _llS3DeepLink = Nothing,
-      _llStreamName = Nothing
+    { s3Logs = Prelude.Nothing,
+      cloudWatchLogs = Prelude.Nothing,
+      deepLink = Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      cloudWatchLogsArn = Prelude.Nothing,
+      s3LogsArn = Prelude.Nothing,
+      s3DeepLink = Prelude.Nothing,
+      streamName = Prelude.Nothing
     }
 
 -- | Information about S3 logs for a build project.
-llS3Logs :: Lens' LogsLocation (Maybe S3LogsConfig)
-llS3Logs = lens _llS3Logs (\s a -> s {_llS3Logs = a})
+logsLocation_s3Logs :: Lens.Lens' LogsLocation (Prelude.Maybe S3LogsConfig)
+logsLocation_s3Logs = Lens.lens (\LogsLocation' {s3Logs} -> s3Logs) (\s@LogsLocation' {} a -> s {s3Logs = a} :: LogsLocation)
 
 -- | Information about Amazon CloudWatch Logs for a build project.
-llCloudWatchLogs :: Lens' LogsLocation (Maybe CloudWatchLogsConfig)
-llCloudWatchLogs = lens _llCloudWatchLogs (\s a -> s {_llCloudWatchLogs = a})
+logsLocation_cloudWatchLogs :: Lens.Lens' LogsLocation (Prelude.Maybe CloudWatchLogsConfig)
+logsLocation_cloudWatchLogs = Lens.lens (\LogsLocation' {cloudWatchLogs} -> cloudWatchLogs) (\s@LogsLocation' {} a -> s {cloudWatchLogs = a} :: LogsLocation)
 
 -- | The URL to an individual build log in Amazon CloudWatch Logs.
-llDeepLink :: Lens' LogsLocation (Maybe Text)
-llDeepLink = lens _llDeepLink (\s a -> s {_llDeepLink = a})
+logsLocation_deepLink :: Lens.Lens' LogsLocation (Prelude.Maybe Prelude.Text)
+logsLocation_deepLink = Lens.lens (\LogsLocation' {deepLink} -> deepLink) (\s@LogsLocation' {} a -> s {deepLink = a} :: LogsLocation)
 
 -- | The name of the Amazon CloudWatch Logs group for the build logs.
-llGroupName :: Lens' LogsLocation (Maybe Text)
-llGroupName = lens _llGroupName (\s a -> s {_llGroupName = a})
+logsLocation_groupName :: Lens.Lens' LogsLocation (Prelude.Maybe Prelude.Text)
+logsLocation_groupName = Lens.lens (\LogsLocation' {groupName} -> groupName) (\s@LogsLocation' {} a -> s {groupName = a} :: LogsLocation)
 
--- | The ARN of Amazon CloudWatch Logs for a build project. Its format is @arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}@ . For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies Resources Defined by Amazon CloudWatch Logs> .
-llCloudWatchLogsARN :: Lens' LogsLocation (Maybe Text)
-llCloudWatchLogsARN = lens _llCloudWatchLogsARN (\s a -> s {_llCloudWatchLogsARN = a})
+-- | The ARN of Amazon CloudWatch Logs for a build project. Its format is
+-- @arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}@.
+-- For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies Resources Defined by Amazon CloudWatch Logs>.
+logsLocation_cloudWatchLogsArn :: Lens.Lens' LogsLocation (Prelude.Maybe Prelude.Text)
+logsLocation_cloudWatchLogsArn = Lens.lens (\LogsLocation' {cloudWatchLogsArn} -> cloudWatchLogsArn) (\s@LogsLocation' {} a -> s {cloudWatchLogsArn = a} :: LogsLocation)
 
--- | The ARN of S3 logs for a build project. Its format is @arn:${Partition}:s3:::${BucketName}/${ObjectName}@ . For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies Resources Defined by Amazon S3> .
-llS3LogsARN :: Lens' LogsLocation (Maybe Text)
-llS3LogsARN = lens _llS3LogsARN (\s a -> s {_llS3LogsARN = a})
+-- | The ARN of S3 logs for a build project. Its format is
+-- @arn:${Partition}:s3:::${BucketName}\/${ObjectName}@. For more
+-- information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies Resources Defined by Amazon S3>.
+logsLocation_s3LogsArn :: Lens.Lens' LogsLocation (Prelude.Maybe Prelude.Text)
+logsLocation_s3LogsArn = Lens.lens (\LogsLocation' {s3LogsArn} -> s3LogsArn) (\s@LogsLocation' {} a -> s {s3LogsArn = a} :: LogsLocation)
 
 -- | The URL to a build log in an S3 bucket.
-llS3DeepLink :: Lens' LogsLocation (Maybe Text)
-llS3DeepLink = lens _llS3DeepLink (\s a -> s {_llS3DeepLink = a})
+logsLocation_s3DeepLink :: Lens.Lens' LogsLocation (Prelude.Maybe Prelude.Text)
+logsLocation_s3DeepLink = Lens.lens (\LogsLocation' {s3DeepLink} -> s3DeepLink) (\s@LogsLocation' {} a -> s {s3DeepLink = a} :: LogsLocation)
 
 -- | The name of the Amazon CloudWatch Logs stream for the build logs.
-llStreamName :: Lens' LogsLocation (Maybe Text)
-llStreamName = lens _llStreamName (\s a -> s {_llStreamName = a})
+logsLocation_streamName :: Lens.Lens' LogsLocation (Prelude.Maybe Prelude.Text)
+logsLocation_streamName = Lens.lens (\LogsLocation' {streamName} -> streamName) (\s@LogsLocation' {} a -> s {streamName = a} :: LogsLocation)
 
-instance FromJSON LogsLocation where
+instance Prelude.FromJSON LogsLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LogsLocation"
       ( \x ->
           LogsLocation'
-            <$> (x .:? "s3Logs")
-            <*> (x .:? "cloudWatchLogs")
-            <*> (x .:? "deepLink")
-            <*> (x .:? "groupName")
-            <*> (x .:? "cloudWatchLogsArn")
-            <*> (x .:? "s3LogsArn")
-            <*> (x .:? "s3DeepLink")
-            <*> (x .:? "streamName")
+            Prelude.<$> (x Prelude..:? "s3Logs")
+            Prelude.<*> (x Prelude..:? "cloudWatchLogs")
+            Prelude.<*> (x Prelude..:? "deepLink")
+            Prelude.<*> (x Prelude..:? "groupName")
+            Prelude.<*> (x Prelude..:? "cloudWatchLogsArn")
+            Prelude.<*> (x Prelude..:? "s3LogsArn")
+            Prelude.<*> (x Prelude..:? "s3DeepLink")
+            Prelude.<*> (x Prelude..:? "streamName")
       )
 
-instance Hashable LogsLocation
+instance Prelude.Hashable LogsLocation
 
-instance NFData LogsLocation
+instance Prelude.NFData LogsLocation

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.CodeBuild.Types.CredentialProviderType
   ( CredentialProviderType
       ( ..,
-        SecretsManager
+        CredentialProviderTypeSECRETSMANAGER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CredentialProviderType
-  = CredentialProviderType'
-      ( CI
-          Text
-      )
+newtype CredentialProviderType = CredentialProviderType'
+  { fromCredentialProviderType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SecretsManager :: CredentialProviderType
-pattern SecretsManager = CredentialProviderType' "SECRETS_MANAGER"
+pattern CredentialProviderTypeSECRETSMANAGER :: CredentialProviderType
+pattern CredentialProviderTypeSECRETSMANAGER = CredentialProviderType' "SECRETS_MANAGER"
 
 {-# COMPLETE
-  SecretsManager,
+  CredentialProviderTypeSECRETSMANAGER,
   CredentialProviderType'
   #-}
 
-instance FromText CredentialProviderType where
-  parser = (CredentialProviderType' . mk) <$> takeText
+instance Prelude.FromText CredentialProviderType where
+  parser = CredentialProviderType' Prelude.<$> Prelude.takeText
 
-instance ToText CredentialProviderType where
-  toText (CredentialProviderType' ci) = original ci
+instance Prelude.ToText CredentialProviderType where
+  toText (CredentialProviderType' x) = x
 
-instance Hashable CredentialProviderType
+instance Prelude.Hashable CredentialProviderType
 
-instance NFData CredentialProviderType
+instance Prelude.NFData CredentialProviderType
 
-instance ToByteString CredentialProviderType
+instance Prelude.ToByteString CredentialProviderType
 
-instance ToQuery CredentialProviderType
+instance Prelude.ToQuery CredentialProviderType
 
-instance ToHeader CredentialProviderType
+instance Prelude.ToHeader CredentialProviderType
 
-instance ToJSON CredentialProviderType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CredentialProviderType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CredentialProviderType where
-  parseJSON = parseJSONText "CredentialProviderType"
+instance Prelude.FromJSON CredentialProviderType where
+  parseJSON = Prelude.parseJSONText "CredentialProviderType"

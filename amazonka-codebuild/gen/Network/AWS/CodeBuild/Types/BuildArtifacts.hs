@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,148 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types.BuildArtifacts where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about build output artifacts.
 --
---
---
--- /See:/ 'buildArtifacts' smart constructor.
+-- /See:/ 'newBuildArtifacts' smart constructor.
 data BuildArtifacts = BuildArtifacts'
-  { _baSha256sum ::
-      !(Maybe Text),
-    _baOverrideArtifactName :: !(Maybe Bool),
-    _baArtifactIdentifier :: !(Maybe Text),
-    _baMd5sum :: !(Maybe Text),
-    _baEncryptionDisabled :: !(Maybe Bool),
-    _baLocation :: !(Maybe Text)
+  { -- | The SHA-256 hash of the build artifact.
+    --
+    -- You can use this hash along with a checksum tool to confirm file
+    -- integrity and authenticity.
+    --
+    -- This value is available only if the build project\'s @packaging@ value
+    -- is set to @ZIP@.
+    sha256sum :: Prelude.Maybe Prelude.Text,
+    -- | If this flag is set, a name specified in the buildspec file overrides
+    -- the artifact name. The name specified in a buildspec file is calculated
+    -- at build time and uses the Shell Command Language. For example, you can
+    -- append a date and time to your artifact name so that it is always
+    -- unique.
+    overrideArtifactName :: Prelude.Maybe Prelude.Bool,
+    -- | An identifier for this artifact definition.
+    artifactIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The MD5 hash of the build artifact.
+    --
+    -- You can use this hash along with a checksum tool to confirm file
+    -- integrity and authenticity.
+    --
+    -- This value is available only if the build project\'s @packaging@ value
+    -- is set to @ZIP@.
+    md5sum :: Prelude.Maybe Prelude.Text,
+    -- | Information that tells you if encryption for build artifacts is
+    -- disabled.
+    encryptionDisabled :: Prelude.Maybe Prelude.Bool,
+    -- | Information about the location of the build artifacts.
+    location :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BuildArtifacts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BuildArtifacts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'baSha256sum' - The SHA-256 hash of the build artifact. You can use this hash along with a checksum tool to confirm file integrity and authenticity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'baOverrideArtifactName' - If this flag is set, a name specified in the buildspec file overrides the artifact name. The name specified in a buildspec file is calculated at build time and uses the Shell Command Language. For example, you can append a date and time to your artifact name so that it is always unique.
+-- 'sha256sum', 'buildArtifacts_sha256sum' - The SHA-256 hash of the build artifact.
 --
--- * 'baArtifactIdentifier' - An identifier for this artifact definition.
+-- You can use this hash along with a checksum tool to confirm file
+-- integrity and authenticity.
 --
--- * 'baMd5sum' - The MD5 hash of the build artifact. You can use this hash along with a checksum tool to confirm file integrity and authenticity.
+-- This value is available only if the build project\'s @packaging@ value
+-- is set to @ZIP@.
 --
--- * 'baEncryptionDisabled' - Information that tells you if encryption for build artifacts is disabled.
+-- 'overrideArtifactName', 'buildArtifacts_overrideArtifactName' - If this flag is set, a name specified in the buildspec file overrides
+-- the artifact name. The name specified in a buildspec file is calculated
+-- at build time and uses the Shell Command Language. For example, you can
+-- append a date and time to your artifact name so that it is always
+-- unique.
 --
--- * 'baLocation' - Information about the location of the build artifacts.
-buildArtifacts ::
+-- 'artifactIdentifier', 'buildArtifacts_artifactIdentifier' - An identifier for this artifact definition.
+--
+-- 'md5sum', 'buildArtifacts_md5sum' - The MD5 hash of the build artifact.
+--
+-- You can use this hash along with a checksum tool to confirm file
+-- integrity and authenticity.
+--
+-- This value is available only if the build project\'s @packaging@ value
+-- is set to @ZIP@.
+--
+-- 'encryptionDisabled', 'buildArtifacts_encryptionDisabled' - Information that tells you if encryption for build artifacts is
+-- disabled.
+--
+-- 'location', 'buildArtifacts_location' - Information about the location of the build artifacts.
+newBuildArtifacts ::
   BuildArtifacts
-buildArtifacts =
+newBuildArtifacts =
   BuildArtifacts'
-    { _baSha256sum = Nothing,
-      _baOverrideArtifactName = Nothing,
-      _baArtifactIdentifier = Nothing,
-      _baMd5sum = Nothing,
-      _baEncryptionDisabled = Nothing,
-      _baLocation = Nothing
+    { sha256sum = Prelude.Nothing,
+      overrideArtifactName = Prelude.Nothing,
+      artifactIdentifier = Prelude.Nothing,
+      md5sum = Prelude.Nothing,
+      encryptionDisabled = Prelude.Nothing,
+      location = Prelude.Nothing
     }
 
--- | The SHA-256 hash of the build artifact. You can use this hash along with a checksum tool to confirm file integrity and authenticity.
-baSha256sum :: Lens' BuildArtifacts (Maybe Text)
-baSha256sum = lens _baSha256sum (\s a -> s {_baSha256sum = a})
+-- | The SHA-256 hash of the build artifact.
+--
+-- You can use this hash along with a checksum tool to confirm file
+-- integrity and authenticity.
+--
+-- This value is available only if the build project\'s @packaging@ value
+-- is set to @ZIP@.
+buildArtifacts_sha256sum :: Lens.Lens' BuildArtifacts (Prelude.Maybe Prelude.Text)
+buildArtifacts_sha256sum = Lens.lens (\BuildArtifacts' {sha256sum} -> sha256sum) (\s@BuildArtifacts' {} a -> s {sha256sum = a} :: BuildArtifacts)
 
--- | If this flag is set, a name specified in the buildspec file overrides the artifact name. The name specified in a buildspec file is calculated at build time and uses the Shell Command Language. For example, you can append a date and time to your artifact name so that it is always unique.
-baOverrideArtifactName :: Lens' BuildArtifacts (Maybe Bool)
-baOverrideArtifactName = lens _baOverrideArtifactName (\s a -> s {_baOverrideArtifactName = a})
+-- | If this flag is set, a name specified in the buildspec file overrides
+-- the artifact name. The name specified in a buildspec file is calculated
+-- at build time and uses the Shell Command Language. For example, you can
+-- append a date and time to your artifact name so that it is always
+-- unique.
+buildArtifacts_overrideArtifactName :: Lens.Lens' BuildArtifacts (Prelude.Maybe Prelude.Bool)
+buildArtifacts_overrideArtifactName = Lens.lens (\BuildArtifacts' {overrideArtifactName} -> overrideArtifactName) (\s@BuildArtifacts' {} a -> s {overrideArtifactName = a} :: BuildArtifacts)
 
 -- | An identifier for this artifact definition.
-baArtifactIdentifier :: Lens' BuildArtifacts (Maybe Text)
-baArtifactIdentifier = lens _baArtifactIdentifier (\s a -> s {_baArtifactIdentifier = a})
+buildArtifacts_artifactIdentifier :: Lens.Lens' BuildArtifacts (Prelude.Maybe Prelude.Text)
+buildArtifacts_artifactIdentifier = Lens.lens (\BuildArtifacts' {artifactIdentifier} -> artifactIdentifier) (\s@BuildArtifacts' {} a -> s {artifactIdentifier = a} :: BuildArtifacts)
 
--- | The MD5 hash of the build artifact. You can use this hash along with a checksum tool to confirm file integrity and authenticity.
-baMd5sum :: Lens' BuildArtifacts (Maybe Text)
-baMd5sum = lens _baMd5sum (\s a -> s {_baMd5sum = a})
+-- | The MD5 hash of the build artifact.
+--
+-- You can use this hash along with a checksum tool to confirm file
+-- integrity and authenticity.
+--
+-- This value is available only if the build project\'s @packaging@ value
+-- is set to @ZIP@.
+buildArtifacts_md5sum :: Lens.Lens' BuildArtifacts (Prelude.Maybe Prelude.Text)
+buildArtifacts_md5sum = Lens.lens (\BuildArtifacts' {md5sum} -> md5sum) (\s@BuildArtifacts' {} a -> s {md5sum = a} :: BuildArtifacts)
 
--- | Information that tells you if encryption for build artifacts is disabled.
-baEncryptionDisabled :: Lens' BuildArtifacts (Maybe Bool)
-baEncryptionDisabled = lens _baEncryptionDisabled (\s a -> s {_baEncryptionDisabled = a})
+-- | Information that tells you if encryption for build artifacts is
+-- disabled.
+buildArtifacts_encryptionDisabled :: Lens.Lens' BuildArtifacts (Prelude.Maybe Prelude.Bool)
+buildArtifacts_encryptionDisabled = Lens.lens (\BuildArtifacts' {encryptionDisabled} -> encryptionDisabled) (\s@BuildArtifacts' {} a -> s {encryptionDisabled = a} :: BuildArtifacts)
 
 -- | Information about the location of the build artifacts.
-baLocation :: Lens' BuildArtifacts (Maybe Text)
-baLocation = lens _baLocation (\s a -> s {_baLocation = a})
+buildArtifacts_location :: Lens.Lens' BuildArtifacts (Prelude.Maybe Prelude.Text)
+buildArtifacts_location = Lens.lens (\BuildArtifacts' {location} -> location) (\s@BuildArtifacts' {} a -> s {location = a} :: BuildArtifacts)
 
-instance FromJSON BuildArtifacts where
+instance Prelude.FromJSON BuildArtifacts where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BuildArtifacts"
       ( \x ->
           BuildArtifacts'
-            <$> (x .:? "sha256sum")
-            <*> (x .:? "overrideArtifactName")
-            <*> (x .:? "artifactIdentifier")
-            <*> (x .:? "md5sum")
-            <*> (x .:? "encryptionDisabled")
-            <*> (x .:? "location")
+            Prelude.<$> (x Prelude..:? "sha256sum")
+            Prelude.<*> (x Prelude..:? "overrideArtifactName")
+            Prelude.<*> (x Prelude..:? "artifactIdentifier")
+            Prelude.<*> (x Prelude..:? "md5sum")
+            Prelude.<*> (x Prelude..:? "encryptionDisabled")
+            Prelude.<*> (x Prelude..:? "location")
       )
 
-instance Hashable BuildArtifacts
+instance Prelude.Hashable BuildArtifacts
 
-instance NFData BuildArtifacts
+instance Prelude.NFData BuildArtifacts

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types.BatchRestrictions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies restrictions for the batch build.
 --
---
---
--- /See:/ 'batchRestrictions' smart constructor.
+-- /See:/ 'newBatchRestrictions' smart constructor.
 data BatchRestrictions = BatchRestrictions'
-  { _brComputeTypesAllowed ::
-      !(Maybe [Text]),
-    _brMaximumBuildsAllowed ::
-      !(Maybe Int)
+  { -- | An array of strings that specify the compute types that are allowed for
+    -- the batch build. See
+    -- <https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html Build environment compute types>
+    -- in the /AWS CodeBuild User Guide/ for these values.
+    computeTypesAllowed :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies the maximum number of builds allowed.
+    maximumBuildsAllowed :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchRestrictions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchRestrictions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'brComputeTypesAllowed' - An array of strings that specify the compute types that are allowed for the batch build. See <https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html Build environment compute types> in the /AWS CodeBuild User Guide/ for these values.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'brMaximumBuildsAllowed' - Specifies the maximum number of builds allowed.
-batchRestrictions ::
+-- 'computeTypesAllowed', 'batchRestrictions_computeTypesAllowed' - An array of strings that specify the compute types that are allowed for
+-- the batch build. See
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html Build environment compute types>
+-- in the /AWS CodeBuild User Guide/ for these values.
+--
+-- 'maximumBuildsAllowed', 'batchRestrictions_maximumBuildsAllowed' - Specifies the maximum number of builds allowed.
+newBatchRestrictions ::
   BatchRestrictions
-batchRestrictions =
+newBatchRestrictions =
   BatchRestrictions'
-    { _brComputeTypesAllowed =
-        Nothing,
-      _brMaximumBuildsAllowed = Nothing
+    { computeTypesAllowed =
+        Prelude.Nothing,
+      maximumBuildsAllowed = Prelude.Nothing
     }
 
--- | An array of strings that specify the compute types that are allowed for the batch build. See <https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html Build environment compute types> in the /AWS CodeBuild User Guide/ for these values.
-brComputeTypesAllowed :: Lens' BatchRestrictions [Text]
-brComputeTypesAllowed = lens _brComputeTypesAllowed (\s a -> s {_brComputeTypesAllowed = a}) . _Default . _Coerce
+-- | An array of strings that specify the compute types that are allowed for
+-- the batch build. See
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html Build environment compute types>
+-- in the /AWS CodeBuild User Guide/ for these values.
+batchRestrictions_computeTypesAllowed :: Lens.Lens' BatchRestrictions (Prelude.Maybe [Prelude.Text])
+batchRestrictions_computeTypesAllowed = Lens.lens (\BatchRestrictions' {computeTypesAllowed} -> computeTypesAllowed) (\s@BatchRestrictions' {} a -> s {computeTypesAllowed = a} :: BatchRestrictions) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Specifies the maximum number of builds allowed.
-brMaximumBuildsAllowed :: Lens' BatchRestrictions (Maybe Int)
-brMaximumBuildsAllowed = lens _brMaximumBuildsAllowed (\s a -> s {_brMaximumBuildsAllowed = a})
+batchRestrictions_maximumBuildsAllowed :: Lens.Lens' BatchRestrictions (Prelude.Maybe Prelude.Int)
+batchRestrictions_maximumBuildsAllowed = Lens.lens (\BatchRestrictions' {maximumBuildsAllowed} -> maximumBuildsAllowed) (\s@BatchRestrictions' {} a -> s {maximumBuildsAllowed = a} :: BatchRestrictions)
 
-instance FromJSON BatchRestrictions where
+instance Prelude.FromJSON BatchRestrictions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchRestrictions"
       ( \x ->
           BatchRestrictions'
-            <$> (x .:? "computeTypesAllowed" .!= mempty)
-            <*> (x .:? "maximumBuildsAllowed")
+            Prelude.<$> ( x Prelude..:? "computeTypesAllowed"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "maximumBuildsAllowed")
       )
 
-instance Hashable BatchRestrictions
+instance Prelude.Hashable BatchRestrictions
 
-instance NFData BatchRestrictions
+instance Prelude.NFData BatchRestrictions
 
-instance ToJSON BatchRestrictions where
+instance Prelude.ToJSON BatchRestrictions where
   toJSON BatchRestrictions' {..} =
-    object
-      ( catMaybes
-          [ ("computeTypesAllowed" .=)
-              <$> _brComputeTypesAllowed,
-            ("maximumBuildsAllowed" .=)
-              <$> _brMaximumBuildsAllowed
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("computeTypesAllowed" Prelude..=)
+              Prelude.<$> computeTypesAllowed,
+            ("maximumBuildsAllowed" Prelude..=)
+              Prelude.<$> maximumBuildsAllowed
           ]
       )

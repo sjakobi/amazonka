@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Restarts a failed batch build. Only batch builds that have failed can be retried.
+-- Restarts a failed batch build. Only batch builds that have failed can be
+-- retried.
 module Network.AWS.CodeBuild.RetryBuildBatch
   ( -- * Creating a Request
-    retryBuildBatch,
-    RetryBuildBatch,
+    RetryBuildBatch (..),
+    newRetryBuildBatch,
 
     -- * Request Lenses
-    rbbIdempotencyToken,
-    rbbRetryType,
-    rbbId,
+    retryBuildBatch_idempotencyToken,
+    retryBuildBatch_retryType,
+    retryBuildBatch_id,
 
     -- * Destructuring the Response
-    retryBuildBatchResponse,
-    RetryBuildBatchResponse,
+    RetryBuildBatchResponse (..),
+    newRetryBuildBatchResponse,
 
     -- * Response Lenses
-    rbbrrsBuildBatch,
-    rbbrrsResponseStatus,
+    retryBuildBatchResponse_buildBatch,
+    retryBuildBatchResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.BuildBatch
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'retryBuildBatch' smart constructor.
+-- | /See:/ 'newRetryBuildBatch' smart constructor.
 data RetryBuildBatch = RetryBuildBatch'
-  { _rbbIdempotencyToken ::
-      !(Maybe Text),
-    _rbbRetryType ::
-      !(Maybe RetryBuildBatchType),
-    _rbbId :: !(Maybe Text)
+  { -- | A unique, case sensitive identifier you provide to ensure the
+    -- idempotency of the @RetryBuildBatch@ request. The token is included in
+    -- the @RetryBuildBatch@ request and is valid for five minutes. If you
+    -- repeat the @RetryBuildBatch@ request with the same token, but change a
+    -- parameter, AWS CodeBuild returns a parameter mismatch error.
+    idempotencyToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the type of retry to perform.
+    retryType :: Prelude.Maybe RetryBuildBatchType,
+    -- | Specifies the identifier of the batch build to restart.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RetryBuildBatch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RetryBuildBatch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rbbIdempotencyToken' - A unique, case sensitive identifier you provide to ensure the idempotency of the @RetryBuildBatch@ request. The token is included in the @RetryBuildBatch@ request and is valid for five minutes. If you repeat the @RetryBuildBatch@ request with the same token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rbbRetryType' - Specifies the type of retry to perform.
+-- 'idempotencyToken', 'retryBuildBatch_idempotencyToken' - A unique, case sensitive identifier you provide to ensure the
+-- idempotency of the @RetryBuildBatch@ request. The token is included in
+-- the @RetryBuildBatch@ request and is valid for five minutes. If you
+-- repeat the @RetryBuildBatch@ request with the same token, but change a
+-- parameter, AWS CodeBuild returns a parameter mismatch error.
 --
--- * 'rbbId' - Specifies the identifier of the batch build to restart.
-retryBuildBatch ::
+-- 'retryType', 'retryBuildBatch_retryType' - Specifies the type of retry to perform.
+--
+-- 'id', 'retryBuildBatch_id' - Specifies the identifier of the batch build to restart.
+newRetryBuildBatch ::
   RetryBuildBatch
-retryBuildBatch =
+newRetryBuildBatch =
   RetryBuildBatch'
-    { _rbbIdempotencyToken = Nothing,
-      _rbbRetryType = Nothing,
-      _rbbId = Nothing
+    { idempotencyToken =
+        Prelude.Nothing,
+      retryType = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
--- | A unique, case sensitive identifier you provide to ensure the idempotency of the @RetryBuildBatch@ request. The token is included in the @RetryBuildBatch@ request and is valid for five minutes. If you repeat the @RetryBuildBatch@ request with the same token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
-rbbIdempotencyToken :: Lens' RetryBuildBatch (Maybe Text)
-rbbIdempotencyToken = lens _rbbIdempotencyToken (\s a -> s {_rbbIdempotencyToken = a})
+-- | A unique, case sensitive identifier you provide to ensure the
+-- idempotency of the @RetryBuildBatch@ request. The token is included in
+-- the @RetryBuildBatch@ request and is valid for five minutes. If you
+-- repeat the @RetryBuildBatch@ request with the same token, but change a
+-- parameter, AWS CodeBuild returns a parameter mismatch error.
+retryBuildBatch_idempotencyToken :: Lens.Lens' RetryBuildBatch (Prelude.Maybe Prelude.Text)
+retryBuildBatch_idempotencyToken = Lens.lens (\RetryBuildBatch' {idempotencyToken} -> idempotencyToken) (\s@RetryBuildBatch' {} a -> s {idempotencyToken = a} :: RetryBuildBatch)
 
 -- | Specifies the type of retry to perform.
-rbbRetryType :: Lens' RetryBuildBatch (Maybe RetryBuildBatchType)
-rbbRetryType = lens _rbbRetryType (\s a -> s {_rbbRetryType = a})
+retryBuildBatch_retryType :: Lens.Lens' RetryBuildBatch (Prelude.Maybe RetryBuildBatchType)
+retryBuildBatch_retryType = Lens.lens (\RetryBuildBatch' {retryType} -> retryType) (\s@RetryBuildBatch' {} a -> s {retryType = a} :: RetryBuildBatch)
 
 -- | Specifies the identifier of the batch build to restart.
-rbbId :: Lens' RetryBuildBatch (Maybe Text)
-rbbId = lens _rbbId (\s a -> s {_rbbId = a})
+retryBuildBatch_id :: Lens.Lens' RetryBuildBatch (Prelude.Maybe Prelude.Text)
+retryBuildBatch_id = Lens.lens (\RetryBuildBatch' {id} -> id) (\s@RetryBuildBatch' {} a -> s {id = a} :: RetryBuildBatch)
 
-instance AWSRequest RetryBuildBatch where
+instance Prelude.AWSRequest RetryBuildBatch where
   type Rs RetryBuildBatch = RetryBuildBatchResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RetryBuildBatchResponse'
-            <$> (x .?> "buildBatch") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "buildBatch")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RetryBuildBatch
+instance Prelude.Hashable RetryBuildBatch
 
-instance NFData RetryBuildBatch
+instance Prelude.NFData RetryBuildBatch
 
-instance ToHeaders RetryBuildBatch where
+instance Prelude.ToHeaders RetryBuildBatch where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeBuild_20161006.RetryBuildBatch" :: ByteString),
+              Prelude.=# ( "CodeBuild_20161006.RetryBuildBatch" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RetryBuildBatch where
+instance Prelude.ToJSON RetryBuildBatch where
   toJSON RetryBuildBatch' {..} =
-    object
-      ( catMaybes
-          [ ("idempotencyToken" .=) <$> _rbbIdempotencyToken,
-            ("retryType" .=) <$> _rbbRetryType,
-            ("id" .=) <$> _rbbId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("idempotencyToken" Prelude..=)
+              Prelude.<$> idempotencyToken,
+            ("retryType" Prelude..=) Prelude.<$> retryType,
+            ("id" Prelude..=) Prelude.<$> id
           ]
       )
 
-instance ToPath RetryBuildBatch where
-  toPath = const "/"
+instance Prelude.ToPath RetryBuildBatch where
+  toPath = Prelude.const "/"
 
-instance ToQuery RetryBuildBatch where
-  toQuery = const mempty
+instance Prelude.ToQuery RetryBuildBatch where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'retryBuildBatchResponse' smart constructor.
+-- | /See:/ 'newRetryBuildBatchResponse' smart constructor.
 data RetryBuildBatchResponse = RetryBuildBatchResponse'
-  { _rbbrrsBuildBatch ::
-      !(Maybe BuildBatch),
-    _rbbrrsResponseStatus ::
-      !Int
+  { buildBatch :: Prelude.Maybe BuildBatch,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RetryBuildBatchResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RetryBuildBatchResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rbbrrsBuildBatch' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rbbrrsResponseStatus' - -- | The response status code.
-retryBuildBatchResponse ::
-  -- | 'rbbrrsResponseStatus'
-  Int ->
+-- 'buildBatch', 'retryBuildBatchResponse_buildBatch' - Undocumented member.
+--
+-- 'httpStatus', 'retryBuildBatchResponse_httpStatus' - The response's http status code.
+newRetryBuildBatchResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RetryBuildBatchResponse
-retryBuildBatchResponse pResponseStatus_ =
+newRetryBuildBatchResponse pHttpStatus_ =
   RetryBuildBatchResponse'
-    { _rbbrrsBuildBatch =
-        Nothing,
-      _rbbrrsResponseStatus = pResponseStatus_
+    { buildBatch =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-rbbrrsBuildBatch :: Lens' RetryBuildBatchResponse (Maybe BuildBatch)
-rbbrrsBuildBatch = lens _rbbrrsBuildBatch (\s a -> s {_rbbrrsBuildBatch = a})
+retryBuildBatchResponse_buildBatch :: Lens.Lens' RetryBuildBatchResponse (Prelude.Maybe BuildBatch)
+retryBuildBatchResponse_buildBatch = Lens.lens (\RetryBuildBatchResponse' {buildBatch} -> buildBatch) (\s@RetryBuildBatchResponse' {} a -> s {buildBatch = a} :: RetryBuildBatchResponse)
 
--- | -- | The response status code.
-rbbrrsResponseStatus :: Lens' RetryBuildBatchResponse Int
-rbbrrsResponseStatus = lens _rbbrrsResponseStatus (\s a -> s {_rbbrrsResponseStatus = a})
+-- | The response's http status code.
+retryBuildBatchResponse_httpStatus :: Lens.Lens' RetryBuildBatchResponse Prelude.Int
+retryBuildBatchResponse_httpStatus = Lens.lens (\RetryBuildBatchResponse' {httpStatus} -> httpStatus) (\s@RetryBuildBatchResponse' {} a -> s {httpStatus = a} :: RetryBuildBatchResponse)
 
-instance NFData RetryBuildBatchResponse
+instance Prelude.NFData RetryBuildBatchResponse

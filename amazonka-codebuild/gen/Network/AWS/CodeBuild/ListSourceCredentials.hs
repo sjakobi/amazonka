@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,122 +24,127 @@
 -- Returns a list of @SourceCredentialsInfo@ objects.
 module Network.AWS.CodeBuild.ListSourceCredentials
   ( -- * Creating a Request
-    listSourceCredentials,
-    ListSourceCredentials,
+    ListSourceCredentials (..),
+    newListSourceCredentials,
 
     -- * Destructuring the Response
-    listSourceCredentialsResponse,
-    ListSourceCredentialsResponse,
+    ListSourceCredentialsResponse (..),
+    newListSourceCredentialsResponse,
 
     -- * Response Lenses
-    lscrrsSourceCredentialsInfos,
-    lscrrsResponseStatus,
+    listSourceCredentialsResponse_sourceCredentialsInfos,
+    listSourceCredentialsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.SourceCredentialsInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSourceCredentials' smart constructor.
+-- | /See:/ 'newListSourceCredentials' smart constructor.
 data ListSourceCredentials = ListSourceCredentials'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSourceCredentials' with the minimum fields required to make a request.
-listSourceCredentials ::
+-- |
+-- Create a value of 'ListSourceCredentials' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newListSourceCredentials ::
   ListSourceCredentials
-listSourceCredentials = ListSourceCredentials'
+newListSourceCredentials = ListSourceCredentials'
 
-instance AWSRequest ListSourceCredentials where
+instance Prelude.AWSRequest ListSourceCredentials where
   type
     Rs ListSourceCredentials =
       ListSourceCredentialsResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSourceCredentialsResponse'
-            <$> (x .?> "sourceCredentialsInfos" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "sourceCredentialsInfos"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSourceCredentials
+instance Prelude.Hashable ListSourceCredentials
 
-instance NFData ListSourceCredentials
+instance Prelude.NFData ListSourceCredentials
 
-instance ToHeaders ListSourceCredentials where
+instance Prelude.ToHeaders ListSourceCredentials where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeBuild_20161006.ListSourceCredentials" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeBuild_20161006.ListSourceCredentials" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSourceCredentials where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON ListSourceCredentials where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath ListSourceCredentials where
-  toPath = const "/"
+instance Prelude.ToPath ListSourceCredentials where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSourceCredentials where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSourceCredentials where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSourceCredentialsResponse' smart constructor.
+-- | /See:/ 'newListSourceCredentialsResponse' smart constructor.
 data ListSourceCredentialsResponse = ListSourceCredentialsResponse'
-  { _lscrrsSourceCredentialsInfos ::
-      !( Maybe
-           [SourceCredentialsInfo]
-       ),
-    _lscrrsResponseStatus ::
-      !Int
+  { -- | A list of @SourceCredentialsInfo@ objects. Each @SourceCredentialsInfo@
+    -- object includes the authentication type, token ARN, and type of source
+    -- provider for one set of credentials.
+    sourceCredentialsInfos :: Prelude.Maybe [SourceCredentialsInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSourceCredentialsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSourceCredentialsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lscrrsSourceCredentialsInfos' - A list of @SourceCredentialsInfo@ objects. Each @SourceCredentialsInfo@ object includes the authentication type, token ARN, and type of source provider for one set of credentials.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lscrrsResponseStatus' - -- | The response status code.
-listSourceCredentialsResponse ::
-  -- | 'lscrrsResponseStatus'
-  Int ->
+-- 'sourceCredentialsInfos', 'listSourceCredentialsResponse_sourceCredentialsInfos' - A list of @SourceCredentialsInfo@ objects. Each @SourceCredentialsInfo@
+-- object includes the authentication type, token ARN, and type of source
+-- provider for one set of credentials.
+--
+-- 'httpStatus', 'listSourceCredentialsResponse_httpStatus' - The response's http status code.
+newListSourceCredentialsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSourceCredentialsResponse
-listSourceCredentialsResponse pResponseStatus_ =
+newListSourceCredentialsResponse pHttpStatus_ =
   ListSourceCredentialsResponse'
-    { _lscrrsSourceCredentialsInfos =
-        Nothing,
-      _lscrrsResponseStatus = pResponseStatus_
+    { sourceCredentialsInfos =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of @SourceCredentialsInfo@ objects. Each @SourceCredentialsInfo@ object includes the authentication type, token ARN, and type of source provider for one set of credentials.
-lscrrsSourceCredentialsInfos :: Lens' ListSourceCredentialsResponse [SourceCredentialsInfo]
-lscrrsSourceCredentialsInfos = lens _lscrrsSourceCredentialsInfos (\s a -> s {_lscrrsSourceCredentialsInfos = a}) . _Default . _Coerce
+-- | A list of @SourceCredentialsInfo@ objects. Each @SourceCredentialsInfo@
+-- object includes the authentication type, token ARN, and type of source
+-- provider for one set of credentials.
+listSourceCredentialsResponse_sourceCredentialsInfos :: Lens.Lens' ListSourceCredentialsResponse (Prelude.Maybe [SourceCredentialsInfo])
+listSourceCredentialsResponse_sourceCredentialsInfos = Lens.lens (\ListSourceCredentialsResponse' {sourceCredentialsInfos} -> sourceCredentialsInfos) (\s@ListSourceCredentialsResponse' {} a -> s {sourceCredentialsInfos = a} :: ListSourceCredentialsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lscrrsResponseStatus :: Lens' ListSourceCredentialsResponse Int
-lscrrsResponseStatus = lens _lscrrsResponseStatus (\s a -> s {_lscrrsResponseStatus = a})
+-- | The response's http status code.
+listSourceCredentialsResponse_httpStatus :: Lens.Lens' ListSourceCredentialsResponse Prelude.Int
+listSourceCredentialsResponse_httpStatus = Lens.lens (\ListSourceCredentialsResponse' {httpStatus} -> httpStatus) (\s@ListSourceCredentialsResponse' {} a -> s {httpStatus = a} :: ListSourceCredentialsResponse)
 
-instance NFData ListSourceCredentialsResponse
+instance Prelude.NFData ListSourceCredentialsResponse

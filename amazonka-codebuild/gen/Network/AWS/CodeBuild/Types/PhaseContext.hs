@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types.PhaseContext where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Additional information about a build phase that has an error. You can use this information for troubleshooting.
+-- | Additional information about a build phase that has an error. You can
+-- use this information for troubleshooting.
 --
---
---
--- /See:/ 'phaseContext' smart constructor.
+-- /See:/ 'newPhaseContext' smart constructor.
 data PhaseContext = PhaseContext'
-  { _pcMessage ::
-      !(Maybe Text),
-    _pcStatusCode :: !(Maybe Text)
+  { -- | An explanation of the build phase\'s context. This might include a
+    -- command ID and an exit code.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The status code for the context of the build phase.
+    statusCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PhaseContext' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PhaseContext' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcMessage' - An explanation of the build phase's context. This might include a command ID and an exit code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcStatusCode' - The status code for the context of the build phase.
-phaseContext ::
+-- 'message', 'phaseContext_message' - An explanation of the build phase\'s context. This might include a
+-- command ID and an exit code.
+--
+-- 'statusCode', 'phaseContext_statusCode' - The status code for the context of the build phase.
+newPhaseContext ::
   PhaseContext
-phaseContext =
+newPhaseContext =
   PhaseContext'
-    { _pcMessage = Nothing,
-      _pcStatusCode = Nothing
+    { message = Prelude.Nothing,
+      statusCode = Prelude.Nothing
     }
 
--- | An explanation of the build phase's context. This might include a command ID and an exit code.
-pcMessage :: Lens' PhaseContext (Maybe Text)
-pcMessage = lens _pcMessage (\s a -> s {_pcMessage = a})
+-- | An explanation of the build phase\'s context. This might include a
+-- command ID and an exit code.
+phaseContext_message :: Lens.Lens' PhaseContext (Prelude.Maybe Prelude.Text)
+phaseContext_message = Lens.lens (\PhaseContext' {message} -> message) (\s@PhaseContext' {} a -> s {message = a} :: PhaseContext)
 
 -- | The status code for the context of the build phase.
-pcStatusCode :: Lens' PhaseContext (Maybe Text)
-pcStatusCode = lens _pcStatusCode (\s a -> s {_pcStatusCode = a})
+phaseContext_statusCode :: Lens.Lens' PhaseContext (Prelude.Maybe Prelude.Text)
+phaseContext_statusCode = Lens.lens (\PhaseContext' {statusCode} -> statusCode) (\s@PhaseContext' {} a -> s {statusCode = a} :: PhaseContext)
 
-instance FromJSON PhaseContext where
+instance Prelude.FromJSON PhaseContext where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PhaseContext"
       ( \x ->
           PhaseContext'
-            <$> (x .:? "message") <*> (x .:? "statusCode")
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "statusCode")
       )
 
-instance Hashable PhaseContext
+instance Prelude.Hashable PhaseContext
 
-instance NFData PhaseContext
+instance Prelude.NFData PhaseContext

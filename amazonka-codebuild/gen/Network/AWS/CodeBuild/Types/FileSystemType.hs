@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.CodeBuild.Types.FileSystemType
   ( FileSystemType
       ( ..,
-        Efs
+        FileSystemTypeEFS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FileSystemType = FileSystemType' (CI Text)
+newtype FileSystemType = FileSystemType'
+  { fromFileSystemType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Efs :: FileSystemType
-pattern Efs = FileSystemType' "EFS"
+pattern FileSystemTypeEFS :: FileSystemType
+pattern FileSystemTypeEFS = FileSystemType' "EFS"
 
 {-# COMPLETE
-  Efs,
+  FileSystemTypeEFS,
   FileSystemType'
   #-}
 
-instance FromText FileSystemType where
-  parser = (FileSystemType' . mk) <$> takeText
+instance Prelude.FromText FileSystemType where
+  parser = FileSystemType' Prelude.<$> Prelude.takeText
 
-instance ToText FileSystemType where
-  toText (FileSystemType' ci) = original ci
+instance Prelude.ToText FileSystemType where
+  toText (FileSystemType' x) = x
 
-instance Hashable FileSystemType
+instance Prelude.Hashable FileSystemType
 
-instance NFData FileSystemType
+instance Prelude.NFData FileSystemType
 
-instance ToByteString FileSystemType
+instance Prelude.ToByteString FileSystemType
 
-instance ToQuery FileSystemType
+instance Prelude.ToQuery FileSystemType
 
-instance ToHeader FileSystemType
+instance Prelude.ToHeader FileSystemType
 
-instance ToJSON FileSystemType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FileSystemType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FileSystemType where
-  parseJSON = parseJSONText "FileSystemType"
+instance Prelude.FromJSON FileSystemType where
+  parseJSON = Prelude.parseJSONText "FileSystemType"

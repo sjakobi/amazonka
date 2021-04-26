@@ -11,12 +11,22 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS CodeBuild__
+-- AWS CodeBuild
 --
--- AWS CodeBuild is a fully managed build service in the cloud. AWS CodeBuild compiles your source code, runs unit tests, and produces artifacts that are ready to deploy. AWS CodeBuild eliminates the need to provision, manage, and scale your own build servers. It provides prepackaged build environments for the most popular programming languages and build tools, such as Apache Maven, Gradle, and more. You can also fully customize build environments in AWS CodeBuild to use your own build tools. AWS CodeBuild scales automatically to meet peak build requests. You pay only for the build time you consume. For more information about AWS CodeBuild, see the /<https:\/\/docs.aws.amazon.com\/codebuild\/latest\/userguide\/welcome.html AWS CodeBuild User Guide> ./
+-- AWS CodeBuild is a fully managed build service in the cloud. AWS
+-- CodeBuild compiles your source code, runs unit tests, and produces
+-- artifacts that are ready to deploy. AWS CodeBuild eliminates the need to
+-- provision, manage, and scale your own build servers. It provides
+-- prepackaged build environments for the most popular programming
+-- languages and build tools, such as Apache Maven, Gradle, and more. You
+-- can also fully customize build environments in AWS CodeBuild to use your
+-- own build tools. AWS CodeBuild scales automatically to meet peak build
+-- requests. You pay only for the build time you consume. For more
+-- information about AWS CodeBuild, see the
+-- /<https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html AWS CodeBuild User Guide>./
 module Network.AWS.CodeBuild
   ( -- * Service Configuration
-    codeBuild,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -43,136 +53,268 @@ module Network.AWS.CodeBuild
     -- $operations
 
     -- ** DeleteReport
-    module Network.AWS.CodeBuild.DeleteReport,
+    DeleteReport (DeleteReport'),
+    newDeleteReport,
+    DeleteReportResponse (DeleteReportResponse'),
+    newDeleteReportResponse,
 
     -- ** BatchGetReports
-    module Network.AWS.CodeBuild.BatchGetReports,
+    BatchGetReports (BatchGetReports'),
+    newBatchGetReports,
+    BatchGetReportsResponse (BatchGetReportsResponse'),
+    newBatchGetReportsResponse,
 
     -- ** ListBuilds (Paginated)
-    module Network.AWS.CodeBuild.ListBuilds,
+    ListBuilds (ListBuilds'),
+    newListBuilds,
+    ListBuildsResponse (ListBuildsResponse'),
+    newListBuildsResponse,
 
     -- ** GetResourcePolicy
-    module Network.AWS.CodeBuild.GetResourcePolicy,
+    GetResourcePolicy (GetResourcePolicy'),
+    newGetResourcePolicy,
+    GetResourcePolicyResponse (GetResourcePolicyResponse'),
+    newGetResourcePolicyResponse,
 
     -- ** ListProjects (Paginated)
-    module Network.AWS.CodeBuild.ListProjects,
+    ListProjects (ListProjects'),
+    newListProjects,
+    ListProjectsResponse (ListProjectsResponse'),
+    newListProjectsResponse,
 
     -- ** DescribeTestCases (Paginated)
-    module Network.AWS.CodeBuild.DescribeTestCases,
+    DescribeTestCases (DescribeTestCases'),
+    newDescribeTestCases,
+    DescribeTestCasesResponse (DescribeTestCasesResponse'),
+    newDescribeTestCasesResponse,
 
     -- ** ListBuildsForProject (Paginated)
-    module Network.AWS.CodeBuild.ListBuildsForProject,
+    ListBuildsForProject (ListBuildsForProject'),
+    newListBuildsForProject,
+    ListBuildsForProjectResponse (ListBuildsForProjectResponse'),
+    newListBuildsForProjectResponse,
 
     -- ** CreateProject
-    module Network.AWS.CodeBuild.CreateProject,
+    CreateProject (CreateProject'),
+    newCreateProject,
+    CreateProjectResponse (CreateProjectResponse'),
+    newCreateProjectResponse,
 
     -- ** ListBuildBatches (Paginated)
-    module Network.AWS.CodeBuild.ListBuildBatches,
+    ListBuildBatches (ListBuildBatches'),
+    newListBuildBatches,
+    ListBuildBatchesResponse (ListBuildBatchesResponse'),
+    newListBuildBatchesResponse,
 
     -- ** DeleteBuildBatch
-    module Network.AWS.CodeBuild.DeleteBuildBatch,
+    DeleteBuildBatch (DeleteBuildBatch'),
+    newDeleteBuildBatch,
+    DeleteBuildBatchResponse (DeleteBuildBatchResponse'),
+    newDeleteBuildBatchResponse,
 
     -- ** PutResourcePolicy
-    module Network.AWS.CodeBuild.PutResourcePolicy,
+    PutResourcePolicy (PutResourcePolicy'),
+    newPutResourcePolicy,
+    PutResourcePolicyResponse (PutResourcePolicyResponse'),
+    newPutResourcePolicyResponse,
 
     -- ** DeleteReportGroup
-    module Network.AWS.CodeBuild.DeleteReportGroup,
+    DeleteReportGroup (DeleteReportGroup'),
+    newDeleteReportGroup,
+    DeleteReportGroupResponse (DeleteReportGroupResponse'),
+    newDeleteReportGroupResponse,
 
     -- ** BatchDeleteBuilds
-    module Network.AWS.CodeBuild.BatchDeleteBuilds,
+    BatchDeleteBuilds (BatchDeleteBuilds'),
+    newBatchDeleteBuilds,
+    BatchDeleteBuildsResponse (BatchDeleteBuildsResponse'),
+    newBatchDeleteBuildsResponse,
 
     -- ** BatchGetReportGroups
-    module Network.AWS.CodeBuild.BatchGetReportGroups,
+    BatchGetReportGroups (BatchGetReportGroups'),
+    newBatchGetReportGroups,
+    BatchGetReportGroupsResponse (BatchGetReportGroupsResponse'),
+    newBatchGetReportGroupsResponse,
 
     -- ** UpdateReportGroup
-    module Network.AWS.CodeBuild.UpdateReportGroup,
+    UpdateReportGroup (UpdateReportGroup'),
+    newUpdateReportGroup,
+    UpdateReportGroupResponse (UpdateReportGroupResponse'),
+    newUpdateReportGroupResponse,
 
     -- ** ListBuildBatchesForProject (Paginated)
-    module Network.AWS.CodeBuild.ListBuildBatchesForProject,
+    ListBuildBatchesForProject (ListBuildBatchesForProject'),
+    newListBuildBatchesForProject,
+    ListBuildBatchesForProjectResponse (ListBuildBatchesForProjectResponse'),
+    newListBuildBatchesForProjectResponse,
 
     -- ** CreateReportGroup
-    module Network.AWS.CodeBuild.CreateReportGroup,
+    CreateReportGroup (CreateReportGroup'),
+    newCreateReportGroup,
+    CreateReportGroupResponse (CreateReportGroupResponse'),
+    newCreateReportGroupResponse,
 
     -- ** DescribeCodeCoverages (Paginated)
-    module Network.AWS.CodeBuild.DescribeCodeCoverages,
+    DescribeCodeCoverages (DescribeCodeCoverages'),
+    newDescribeCodeCoverages,
+    DescribeCodeCoveragesResponse (DescribeCodeCoveragesResponse'),
+    newDescribeCodeCoveragesResponse,
 
     -- ** StartBuildBatch
-    module Network.AWS.CodeBuild.StartBuildBatch,
+    StartBuildBatch (StartBuildBatch'),
+    newStartBuildBatch,
+    StartBuildBatchResponse (StartBuildBatchResponse'),
+    newStartBuildBatchResponse,
 
     -- ** UpdateWebhook
-    module Network.AWS.CodeBuild.UpdateWebhook,
+    UpdateWebhook (UpdateWebhook'),
+    newUpdateWebhook,
+    UpdateWebhookResponse (UpdateWebhookResponse'),
+    newUpdateWebhookResponse,
 
     -- ** RetryBuildBatch
-    module Network.AWS.CodeBuild.RetryBuildBatch,
+    RetryBuildBatch (RetryBuildBatch'),
+    newRetryBuildBatch,
+    RetryBuildBatchResponse (RetryBuildBatchResponse'),
+    newRetryBuildBatchResponse,
 
     -- ** DeleteWebhook
-    module Network.AWS.CodeBuild.DeleteWebhook,
+    DeleteWebhook (DeleteWebhook'),
+    newDeleteWebhook,
+    DeleteWebhookResponse (DeleteWebhookResponse'),
+    newDeleteWebhookResponse,
 
     -- ** StopBuildBatch
-    module Network.AWS.CodeBuild.StopBuildBatch,
+    StopBuildBatch (StopBuildBatch'),
+    newStopBuildBatch,
+    StopBuildBatchResponse (StopBuildBatchResponse'),
+    newStopBuildBatchResponse,
 
     -- ** ListSourceCredentials
-    module Network.AWS.CodeBuild.ListSourceCredentials,
+    ListSourceCredentials (ListSourceCredentials'),
+    newListSourceCredentials,
+    ListSourceCredentialsResponse (ListSourceCredentialsResponse'),
+    newListSourceCredentialsResponse,
 
     -- ** CreateWebhook
-    module Network.AWS.CodeBuild.CreateWebhook,
+    CreateWebhook (CreateWebhook'),
+    newCreateWebhook,
+    CreateWebhookResponse (CreateWebhookResponse'),
+    newCreateWebhookResponse,
 
     -- ** BatchGetBuilds
-    module Network.AWS.CodeBuild.BatchGetBuilds,
+    BatchGetBuilds (BatchGetBuilds'),
+    newBatchGetBuilds,
+    BatchGetBuildsResponse (BatchGetBuildsResponse'),
+    newBatchGetBuildsResponse,
 
     -- ** ListReports (Paginated)
-    module Network.AWS.CodeBuild.ListReports,
+    ListReports (ListReports'),
+    newListReports,
+    ListReportsResponse (ListReportsResponse'),
+    newListReportsResponse,
 
     -- ** BatchGetProjects
-    module Network.AWS.CodeBuild.BatchGetProjects,
+    BatchGetProjects (BatchGetProjects'),
+    newBatchGetProjects,
+    BatchGetProjectsResponse (BatchGetProjectsResponse'),
+    newBatchGetProjectsResponse,
 
     -- ** DeleteProject
-    module Network.AWS.CodeBuild.DeleteProject,
+    DeleteProject (DeleteProject'),
+    newDeleteProject,
+    DeleteProjectResponse (DeleteProjectResponse'),
+    newDeleteProjectResponse,
 
     -- ** UpdateProject
-    module Network.AWS.CodeBuild.UpdateProject,
+    UpdateProject (UpdateProject'),
+    newUpdateProject,
+    UpdateProjectResponse (UpdateProjectResponse'),
+    newUpdateProjectResponse,
 
     -- ** DeleteSourceCredentials
-    module Network.AWS.CodeBuild.DeleteSourceCredentials,
+    DeleteSourceCredentials (DeleteSourceCredentials'),
+    newDeleteSourceCredentials,
+    DeleteSourceCredentialsResponse (DeleteSourceCredentialsResponse'),
+    newDeleteSourceCredentialsResponse,
 
     -- ** ListSharedReportGroups (Paginated)
-    module Network.AWS.CodeBuild.ListSharedReportGroups,
+    ListSharedReportGroups (ListSharedReportGroups'),
+    newListSharedReportGroups,
+    ListSharedReportGroupsResponse (ListSharedReportGroupsResponse'),
+    newListSharedReportGroupsResponse,
 
     -- ** StopBuild
-    module Network.AWS.CodeBuild.StopBuild,
+    StopBuild (StopBuild'),
+    newStopBuild,
+    StopBuildResponse (StopBuildResponse'),
+    newStopBuildResponse,
 
     -- ** RetryBuild
-    module Network.AWS.CodeBuild.RetryBuild,
+    RetryBuild (RetryBuild'),
+    newRetryBuild,
+    RetryBuildResponse (RetryBuildResponse'),
+    newRetryBuildResponse,
 
     -- ** BatchGetBuildBatches
-    module Network.AWS.CodeBuild.BatchGetBuildBatches,
+    BatchGetBuildBatches (BatchGetBuildBatches'),
+    newBatchGetBuildBatches,
+    BatchGetBuildBatchesResponse (BatchGetBuildBatchesResponse'),
+    newBatchGetBuildBatchesResponse,
 
     -- ** GetReportGroupTrend
-    module Network.AWS.CodeBuild.GetReportGroupTrend,
+    GetReportGroupTrend (GetReportGroupTrend'),
+    newGetReportGroupTrend,
+    GetReportGroupTrendResponse (GetReportGroupTrendResponse'),
+    newGetReportGroupTrendResponse,
 
     -- ** StartBuild
-    module Network.AWS.CodeBuild.StartBuild,
+    StartBuild (StartBuild'),
+    newStartBuild,
+    StartBuildResponse (StartBuildResponse'),
+    newStartBuildResponse,
 
     -- ** DeleteResourcePolicy
-    module Network.AWS.CodeBuild.DeleteResourcePolicy,
+    DeleteResourcePolicy (DeleteResourcePolicy'),
+    newDeleteResourcePolicy,
+    DeleteResourcePolicyResponse (DeleteResourcePolicyResponse'),
+    newDeleteResourcePolicyResponse,
 
     -- ** ListCuratedEnvironmentImages
-    module Network.AWS.CodeBuild.ListCuratedEnvironmentImages,
+    ListCuratedEnvironmentImages (ListCuratedEnvironmentImages'),
+    newListCuratedEnvironmentImages,
+    ListCuratedEnvironmentImagesResponse (ListCuratedEnvironmentImagesResponse'),
+    newListCuratedEnvironmentImagesResponse,
 
     -- ** ListReportGroups (Paginated)
-    module Network.AWS.CodeBuild.ListReportGroups,
+    ListReportGroups (ListReportGroups'),
+    newListReportGroups,
+    ListReportGroupsResponse (ListReportGroupsResponse'),
+    newListReportGroupsResponse,
 
     -- ** ImportSourceCredentials
-    module Network.AWS.CodeBuild.ImportSourceCredentials,
+    ImportSourceCredentials (ImportSourceCredentials'),
+    newImportSourceCredentials,
+    ImportSourceCredentialsResponse (ImportSourceCredentialsResponse'),
+    newImportSourceCredentialsResponse,
 
     -- ** InvalidateProjectCache
-    module Network.AWS.CodeBuild.InvalidateProjectCache,
+    InvalidateProjectCache (InvalidateProjectCache'),
+    newInvalidateProjectCache,
+    InvalidateProjectCacheResponse (InvalidateProjectCacheResponse'),
+    newInvalidateProjectCacheResponse,
 
     -- ** ListReportsForReportGroup (Paginated)
-    module Network.AWS.CodeBuild.ListReportsForReportGroup,
+    ListReportsForReportGroup (ListReportsForReportGroup'),
+    newListReportsForReportGroup,
+    ListReportsForReportGroupResponse (ListReportsForReportGroupResponse'),
+    newListReportsForReportGroupResponse,
 
     -- ** ListSharedProjects (Paginated)
-    module Network.AWS.CodeBuild.ListSharedProjects,
+    ListSharedProjects (ListSharedProjects'),
+    newListSharedProjects,
+    ListSharedProjectsResponse (ListSharedProjectsResponse'),
+    newListSharedProjectsResponse,
 
     -- * Types
 
@@ -282,504 +424,216 @@ module Network.AWS.CodeBuild
     WebhookFilterType (..),
 
     -- ** BatchRestrictions
-    BatchRestrictions,
-    batchRestrictions,
-    brComputeTypesAllowed,
-    brMaximumBuildsAllowed,
+    BatchRestrictions (BatchRestrictions'),
+    newBatchRestrictions,
 
     -- ** Build
-    Build,
-    build,
-    bVpcConfig,
-    bBuildBatchARN,
-    bResolvedSourceVersion,
-    bSecondaryArtifacts,
-    bSourceVersion,
-    bPhases,
-    bCache,
-    bServiceRole,
-    bSecondarySourceVersions,
-    bNetworkInterface,
-    bEncryptionKey,
-    bArtifacts,
-    bBuildNumber,
-    bStartTime,
-    bId,
-    bEnvironment,
-    bSource,
-    bArn,
-    bProjectName,
-    bEndTime,
-    bBuildStatus,
-    bLogs,
-    bBuildComplete,
-    bDebugSession,
-    bQueuedTimeoutInMinutes,
-    bSecondarySources,
-    bTimeoutInMinutes,
-    bCurrentPhase,
-    bInitiator,
-    bReportARNs,
-    bFileSystemLocations,
-    bExportedEnvironmentVariables,
+    Build (Build'),
+    newBuild,
 
     -- ** BuildArtifacts
-    BuildArtifacts,
-    buildArtifacts,
-    baSha256sum,
-    baOverrideArtifactName,
-    baArtifactIdentifier,
-    baMd5sum,
-    baEncryptionDisabled,
-    baLocation,
+    BuildArtifacts (BuildArtifacts'),
+    newBuildArtifacts,
 
     -- ** BuildBatch
-    BuildBatch,
-    buildBatch,
-    bbVpcConfig,
-    bbResolvedSourceVersion,
-    bbSecondaryArtifacts,
-    bbSourceVersion,
-    bbPhases,
-    bbCache,
-    bbServiceRole,
-    bbBuildBatchNumber,
-    bbSecondarySourceVersions,
-    bbEncryptionKey,
-    bbArtifacts,
-    bbStartTime,
-    bbId,
-    bbEnvironment,
-    bbSource,
-    bbArn,
-    bbProjectName,
-    bbEndTime,
-    bbBuildGroups,
-    bbBuildTimeoutInMinutes,
-    bbQueuedTimeoutInMinutes,
-    bbSecondarySources,
-    bbComplete,
-    bbLogConfig,
-    bbCurrentPhase,
-    bbBuildBatchStatus,
-    bbInitiator,
-    bbBuildBatchConfig,
-    bbFileSystemLocations,
-    bbDebugSessionEnabled,
+    BuildBatch (BuildBatch'),
+    newBuildBatch,
 
     -- ** BuildBatchFilter
-    BuildBatchFilter,
-    buildBatchFilter,
-    bbfStatus,
+    BuildBatchFilter (BuildBatchFilter'),
+    newBuildBatchFilter,
 
     -- ** BuildBatchPhase
-    BuildBatchPhase,
-    buildBatchPhase,
-    bbpPhaseType,
-    bbpContexts,
-    bbpStartTime,
-    bbpEndTime,
-    bbpDurationInSeconds,
-    bbpPhaseStatus,
+    BuildBatchPhase (BuildBatchPhase'),
+    newBuildBatchPhase,
 
     -- ** BuildGroup
-    BuildGroup,
-    buildGroup,
-    bgDependsOn,
-    bgCurrentBuildSummary,
-    bgIdentifier,
-    bgIgnoreFailure,
-    bgPriorBuildSummaryList,
+    BuildGroup (BuildGroup'),
+    newBuildGroup,
 
     -- ** BuildNotDeleted
-    BuildNotDeleted,
-    buildNotDeleted,
-    bndId,
-    bndStatusCode,
+    BuildNotDeleted (BuildNotDeleted'),
+    newBuildNotDeleted,
 
     -- ** BuildPhase
-    BuildPhase,
-    buildPhase,
-    bpPhaseType,
-    bpContexts,
-    bpStartTime,
-    bpEndTime,
-    bpDurationInSeconds,
-    bpPhaseStatus,
+    BuildPhase (BuildPhase'),
+    newBuildPhase,
 
     -- ** BuildStatusConfig
-    BuildStatusConfig,
-    buildStatusConfig,
-    bscContext,
-    bscTargetURL,
+    BuildStatusConfig (BuildStatusConfig'),
+    newBuildStatusConfig,
 
     -- ** BuildSummary
-    BuildSummary,
-    buildSummary,
-    bsSecondaryArtifacts,
-    bsRequestedOn,
-    bsArn,
-    bsBuildStatus,
-    bsPrimaryArtifact,
+    BuildSummary (BuildSummary'),
+    newBuildSummary,
 
     -- ** CloudWatchLogsConfig
-    CloudWatchLogsConfig,
-    cloudWatchLogsConfig,
-    cwlcGroupName,
-    cwlcStreamName,
-    cwlcStatus,
+    CloudWatchLogsConfig (CloudWatchLogsConfig'),
+    newCloudWatchLogsConfig,
 
     -- ** CodeCoverage
-    CodeCoverage,
-    codeCoverage,
-    ccBranchesMissed,
-    ccLinesCovered,
-    ccBranchesCovered,
-    ccFilePath,
-    ccReportARN,
-    ccId,
-    ccExpired,
-    ccLineCoveragePercentage,
-    ccLinesMissed,
-    ccBranchCoveragePercentage,
+    CodeCoverage (CodeCoverage'),
+    newCodeCoverage,
 
     -- ** CodeCoverageReportSummary
-    CodeCoverageReportSummary,
-    codeCoverageReportSummary,
-    ccrsBranchesMissed,
-    ccrsLinesCovered,
-    ccrsBranchesCovered,
-    ccrsLineCoveragePercentage,
-    ccrsLinesMissed,
-    ccrsBranchCoveragePercentage,
+    CodeCoverageReportSummary (CodeCoverageReportSummary'),
+    newCodeCoverageReportSummary,
 
     -- ** DebugSession
-    DebugSession,
-    debugSession,
-    dsSessionTarget,
-    dsSessionEnabled,
+    DebugSession (DebugSession'),
+    newDebugSession,
 
     -- ** EnvironmentImage
-    EnvironmentImage,
-    environmentImage,
-    eiVersions,
-    eiName,
-    eiDescription,
+    EnvironmentImage (EnvironmentImage'),
+    newEnvironmentImage,
 
     -- ** EnvironmentLanguage
-    EnvironmentLanguage,
-    environmentLanguage,
-    elImages,
-    elLanguage,
+    EnvironmentLanguage (EnvironmentLanguage'),
+    newEnvironmentLanguage,
 
     -- ** EnvironmentPlatform
-    EnvironmentPlatform,
-    environmentPlatform,
-    epPlatform,
-    epLanguages,
+    EnvironmentPlatform (EnvironmentPlatform'),
+    newEnvironmentPlatform,
 
     -- ** EnvironmentVariable
-    EnvironmentVariable,
-    environmentVariable,
-    evType,
-    evName,
-    evValue,
+    EnvironmentVariable (EnvironmentVariable'),
+    newEnvironmentVariable,
 
     -- ** ExportedEnvironmentVariable
-    ExportedEnvironmentVariable,
-    exportedEnvironmentVariable,
-    eevName,
-    eevValue,
+    ExportedEnvironmentVariable (ExportedEnvironmentVariable'),
+    newExportedEnvironmentVariable,
 
     -- ** GitSubmodulesConfig
-    GitSubmodulesConfig,
-    gitSubmodulesConfig,
-    gscFetchSubmodules,
+    GitSubmodulesConfig (GitSubmodulesConfig'),
+    newGitSubmodulesConfig,
 
     -- ** LogsConfig
-    LogsConfig,
-    logsConfig,
-    lcS3Logs,
-    lcCloudWatchLogs,
+    LogsConfig (LogsConfig'),
+    newLogsConfig,
 
     -- ** LogsLocation
-    LogsLocation,
-    logsLocation,
-    llS3Logs,
-    llCloudWatchLogs,
-    llDeepLink,
-    llGroupName,
-    llCloudWatchLogsARN,
-    llS3LogsARN,
-    llS3DeepLink,
-    llStreamName,
+    LogsLocation (LogsLocation'),
+    newLogsLocation,
 
     -- ** NetworkInterface
-    NetworkInterface,
-    networkInterface,
-    niSubnetId,
-    niNetworkInterfaceId,
+    NetworkInterface (NetworkInterface'),
+    newNetworkInterface,
 
     -- ** PhaseContext
-    PhaseContext,
-    phaseContext,
-    pcMessage,
-    pcStatusCode,
+    PhaseContext (PhaseContext'),
+    newPhaseContext,
 
     -- ** Project
-    Project,
-    project,
-    pVpcConfig,
-    pSecondaryArtifacts,
-    pSourceVersion,
-    pCache,
-    pServiceRole,
-    pSecondarySourceVersions,
-    pWebhook,
-    pEncryptionKey,
-    pConcurrentBuildLimit,
-    pArtifacts,
-    pEnvironment,
-    pSource,
-    pArn,
-    pLogsConfig,
-    pName,
-    pQueuedTimeoutInMinutes,
-    pSecondarySources,
-    pTags,
-    pTimeoutInMinutes,
-    pDescription,
-    pLastModified,
-    pCreated,
-    pBuildBatchConfig,
-    pBadge,
-    pFileSystemLocations,
+    Project (Project'),
+    newProject,
 
     -- ** ProjectArtifacts
-    ProjectArtifacts,
-    projectArtifacts,
-    paNamespaceType,
-    paOverrideArtifactName,
-    paArtifactIdentifier,
-    paName,
-    paPackaging,
-    paEncryptionDisabled,
-    paLocation,
-    paPath,
-    paType,
+    ProjectArtifacts (ProjectArtifacts'),
+    newProjectArtifacts,
 
     -- ** ProjectBadge
-    ProjectBadge,
-    projectBadge,
-    pbBadgeRequestURL,
-    pbBadgeEnabled,
+    ProjectBadge (ProjectBadge'),
+    newProjectBadge,
 
     -- ** ProjectBuildBatchConfig
-    ProjectBuildBatchConfig,
-    projectBuildBatchConfig,
-    pbbcCombineArtifacts,
-    pbbcServiceRole,
-    pbbcTimeoutInMins,
-    pbbcRestrictions,
+    ProjectBuildBatchConfig (ProjectBuildBatchConfig'),
+    newProjectBuildBatchConfig,
 
     -- ** ProjectCache
-    ProjectCache,
-    projectCache,
-    pcModes,
-    pcLocation,
-    pcType,
+    ProjectCache (ProjectCache'),
+    newProjectCache,
 
     -- ** ProjectEnvironment
-    ProjectEnvironment,
-    projectEnvironment,
-    pePrivilegedMode,
-    peImagePullCredentialsType,
-    peRegistryCredential,
-    peEnvironmentVariables,
-    peCertificate,
-    peType,
-    peImage,
-    peComputeType,
+    ProjectEnvironment (ProjectEnvironment'),
+    newProjectEnvironment,
 
     -- ** ProjectFileSystemLocation
-    ProjectFileSystemLocation,
-    projectFileSystemLocation,
-    pfslIdentifier,
-    pfslMountOptions,
-    pfslMountPoint,
-    pfslType,
-    pfslLocation,
+    ProjectFileSystemLocation (ProjectFileSystemLocation'),
+    newProjectFileSystemLocation,
 
     -- ** ProjectSource
-    ProjectSource,
-    projectSource,
-    psGitCloneDepth,
-    psBuildStatusConfig,
-    psAuth,
-    psReportBuildStatus,
-    psInsecureSSL,
-    psSourceIdentifier,
-    psBuildspec,
-    psLocation,
-    psGitSubmodulesConfig,
-    psType,
+    ProjectSource (ProjectSource'),
+    newProjectSource,
 
     -- ** ProjectSourceVersion
-    ProjectSourceVersion,
-    projectSourceVersion,
-    psvSourceIdentifier,
-    psvSourceVersion,
+    ProjectSourceVersion (ProjectSourceVersion'),
+    newProjectSourceVersion,
 
     -- ** RegistryCredential
-    RegistryCredential,
-    registryCredential,
-    rcCredential,
-    rcCredentialProvider,
+    RegistryCredential (RegistryCredential'),
+    newRegistryCredential,
 
     -- ** Report
-    Report,
-    report,
-    rCodeCoverageSummary,
-    rReportGroupARN,
-    rStatus,
-    rExportConfig,
-    rArn,
-    rTestSummary,
-    rName,
-    rExpired,
-    rExecutionId,
-    rCreated,
-    rType,
-    rTruncated,
+    Report (Report'),
+    newReport,
 
     -- ** ReportExportConfig
-    ReportExportConfig,
-    reportExportConfig,
-    recS3Destination,
-    recExportConfigType,
+    ReportExportConfig (ReportExportConfig'),
+    newReportExportConfig,
 
     -- ** ReportFilter
-    ReportFilter,
-    reportFilter,
-    rfStatus,
+    ReportFilter (ReportFilter'),
+    newReportFilter,
 
     -- ** ReportGroup
-    ReportGroup,
-    reportGroup,
-    rgStatus,
-    rgExportConfig,
-    rgArn,
-    rgName,
-    rgTags,
-    rgLastModified,
-    rgCreated,
-    rgType,
+    ReportGroup (ReportGroup'),
+    newReportGroup,
 
     -- ** ReportGroupTrendStats
-    ReportGroupTrendStats,
-    reportGroupTrendStats,
-    rgtsMin,
-    rgtsMax,
-    rgtsAverage,
+    ReportGroupTrendStats (ReportGroupTrendStats'),
+    newReportGroupTrendStats,
 
     -- ** ReportWithRawData
-    ReportWithRawData,
-    reportWithRawData,
-    rwrdReportARN,
-    rwrdData,
+    ReportWithRawData (ReportWithRawData'),
+    newReportWithRawData,
 
     -- ** ResolvedArtifact
-    ResolvedArtifact,
-    resolvedArtifact,
-    raIdentifier,
-    raType,
-    raLocation,
+    ResolvedArtifact (ResolvedArtifact'),
+    newResolvedArtifact,
 
     -- ** S3LogsConfig
-    S3LogsConfig,
-    s3LogsConfig,
-    slcEncryptionDisabled,
-    slcLocation,
-    slcStatus,
+    S3LogsConfig (S3LogsConfig'),
+    newS3LogsConfig,
 
     -- ** S3ReportExportConfig
-    S3ReportExportConfig,
-    s3ReportExportConfig,
-    srecBucketOwner,
-    srecEncryptionKey,
-    srecPackaging,
-    srecEncryptionDisabled,
-    srecBucket,
-    srecPath,
+    S3ReportExportConfig (S3ReportExportConfig'),
+    newS3ReportExportConfig,
 
     -- ** SourceAuth
-    SourceAuth,
-    sourceAuth,
-    saResource,
-    saType,
+    SourceAuth (SourceAuth'),
+    newSourceAuth,
 
     -- ** SourceCredentialsInfo
-    SourceCredentialsInfo,
-    sourceCredentialsInfo,
-    sciArn,
-    sciAuthType,
-    sciServerType,
+    SourceCredentialsInfo (SourceCredentialsInfo'),
+    newSourceCredentialsInfo,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TestCase
-    TestCase,
-    testCase,
-    tcTestRawDataPath,
-    tcStatus,
-    tcMessage,
-    tcReportARN,
-    tcPrefix,
-    tcName,
-    tcExpired,
-    tcDurationInNanoSeconds,
+    TestCase (TestCase'),
+    newTestCase,
 
     -- ** TestCaseFilter
-    TestCaseFilter,
-    testCaseFilter,
-    tcfStatus,
-    tcfKeyword,
+    TestCaseFilter (TestCaseFilter'),
+    newTestCaseFilter,
 
     -- ** TestReportSummary
-    TestReportSummary,
-    testReportSummary,
-    trsTotal,
-    trsStatusCounts,
-    trsDurationInNanoSeconds,
+    TestReportSummary (TestReportSummary'),
+    newTestReportSummary,
 
-    -- ** VPCConfig
-    VPCConfig,
-    vpcConfig,
-    vcSecurityGroupIds,
-    vcVpcId,
-    vcSubnets,
+    -- ** VpcConfig
+    VpcConfig (VpcConfig'),
+    newVpcConfig,
 
     -- ** Webhook
-    Webhook,
-    webhook,
-    wBranchFilter,
-    wPayloadURL,
-    wFilterGroups,
-    wSecret,
-    wBuildType,
-    wUrl,
-    wLastModifiedSecret,
+    Webhook (Webhook'),
+    newWebhook,
 
     -- ** WebhookFilter
-    WebhookFilter,
-    webhookFilter,
-    wfExcludeMatchedPattern,
-    wfType,
-    wfPattern,
+    WebhookFilter (WebhookFilter'),
+    newWebhookFilter,
   )
 where
 
@@ -805,6 +659,7 @@ import Network.AWS.CodeBuild.GetReportGroupTrend
 import Network.AWS.CodeBuild.GetResourcePolicy
 import Network.AWS.CodeBuild.ImportSourceCredentials
 import Network.AWS.CodeBuild.InvalidateProjectCache
+import Network.AWS.CodeBuild.Lens
 import Network.AWS.CodeBuild.ListBuildBatches
 import Network.AWS.CodeBuild.ListBuildBatchesForProject
 import Network.AWS.CodeBuild.ListBuilds

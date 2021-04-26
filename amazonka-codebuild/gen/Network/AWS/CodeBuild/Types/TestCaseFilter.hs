@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types.TestCaseFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A filter used to return specific types of test cases. In order to pass the filter, the report must meet all of the filter properties.
+-- | A filter used to return specific types of test cases. In order to pass
+-- the filter, the report must meet all of the filter properties.
 --
---
---
--- /See:/ 'testCaseFilter' smart constructor.
+-- /See:/ 'newTestCaseFilter' smart constructor.
 data TestCaseFilter = TestCaseFilter'
-  { _tcfStatus ::
-      !(Maybe Text),
-    _tcfKeyword :: !(Maybe Text)
+  { -- | The status used to filter test cases. A @TestCaseFilter@ can have one
+    -- status. Valid values are:
+    --
+    -- -   @SUCCEEDED@
+    --
+    -- -   @FAILED@
+    --
+    -- -   @ERROR@
+    --
+    -- -   @SKIPPED@
+    --
+    -- -   @UNKNOWN@
+    status :: Prelude.Maybe Prelude.Text,
+    -- | A keyword that is used to filter on the @name@ or the @prefix@ of the
+    -- test cases. Only test cases where the keyword is a substring of the
+    -- @name@ or the @prefix@ will be returned.
+    keyword :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestCaseFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestCaseFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcfStatus' - The status used to filter test cases. A @TestCaseFilter@ can have one status. Valid values are:     * @SUCCEEDED@      * @FAILED@      * @ERROR@      * @SKIPPED@      * @UNKNOWN@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcfKeyword' - A keyword that is used to filter on the @name@ or the @prefix@ of the test cases. Only test cases where the keyword is a substring of the @name@ or the @prefix@ will be returned.
-testCaseFilter ::
+-- 'status', 'testCaseFilter_status' - The status used to filter test cases. A @TestCaseFilter@ can have one
+-- status. Valid values are:
+--
+-- -   @SUCCEEDED@
+--
+-- -   @FAILED@
+--
+-- -   @ERROR@
+--
+-- -   @SKIPPED@
+--
+-- -   @UNKNOWN@
+--
+-- 'keyword', 'testCaseFilter_keyword' - A keyword that is used to filter on the @name@ or the @prefix@ of the
+-- test cases. Only test cases where the keyword is a substring of the
+-- @name@ or the @prefix@ will be returned.
+newTestCaseFilter ::
   TestCaseFilter
-testCaseFilter =
+newTestCaseFilter =
   TestCaseFilter'
-    { _tcfStatus = Nothing,
-      _tcfKeyword = Nothing
+    { status = Prelude.Nothing,
+      keyword = Prelude.Nothing
     }
 
--- | The status used to filter test cases. A @TestCaseFilter@ can have one status. Valid values are:     * @SUCCEEDED@      * @FAILED@      * @ERROR@      * @SKIPPED@      * @UNKNOWN@
-tcfStatus :: Lens' TestCaseFilter (Maybe Text)
-tcfStatus = lens _tcfStatus (\s a -> s {_tcfStatus = a})
+-- | The status used to filter test cases. A @TestCaseFilter@ can have one
+-- status. Valid values are:
+--
+-- -   @SUCCEEDED@
+--
+-- -   @FAILED@
+--
+-- -   @ERROR@
+--
+-- -   @SKIPPED@
+--
+-- -   @UNKNOWN@
+testCaseFilter_status :: Lens.Lens' TestCaseFilter (Prelude.Maybe Prelude.Text)
+testCaseFilter_status = Lens.lens (\TestCaseFilter' {status} -> status) (\s@TestCaseFilter' {} a -> s {status = a} :: TestCaseFilter)
 
--- | A keyword that is used to filter on the @name@ or the @prefix@ of the test cases. Only test cases where the keyword is a substring of the @name@ or the @prefix@ will be returned.
-tcfKeyword :: Lens' TestCaseFilter (Maybe Text)
-tcfKeyword = lens _tcfKeyword (\s a -> s {_tcfKeyword = a})
+-- | A keyword that is used to filter on the @name@ or the @prefix@ of the
+-- test cases. Only test cases where the keyword is a substring of the
+-- @name@ or the @prefix@ will be returned.
+testCaseFilter_keyword :: Lens.Lens' TestCaseFilter (Prelude.Maybe Prelude.Text)
+testCaseFilter_keyword = Lens.lens (\TestCaseFilter' {keyword} -> keyword) (\s@TestCaseFilter' {} a -> s {keyword = a} :: TestCaseFilter)
 
-instance Hashable TestCaseFilter
+instance Prelude.Hashable TestCaseFilter
 
-instance NFData TestCaseFilter
+instance Prelude.NFData TestCaseFilter
 
-instance ToJSON TestCaseFilter where
+instance Prelude.ToJSON TestCaseFilter where
   toJSON TestCaseFilter' {..} =
-    object
-      ( catMaybes
-          [ ("status" .=) <$> _tcfStatus,
-            ("keyword" .=) <$> _tcfKeyword
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("status" Prelude..=) Prelude.<$> status,
+            ("keyword" Prelude..=) Prelude.<$> keyword
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodeBuild.Types.CacheMode
   ( CacheMode
       ( ..,
-        LocalCustomCache,
-        LocalDockerLayerCache,
-        LocalSourceCache
+        CacheModeLOCALCUSTOMCACHE,
+        CacheModeLOCALDOCKERLAYERCACHE,
+        CacheModeLOCALSOURCECACHE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CacheMode = CacheMode' (CI Text)
+newtype CacheMode = CacheMode'
+  { fromCacheMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LocalCustomCache :: CacheMode
-pattern LocalCustomCache = CacheMode' "LOCAL_CUSTOM_CACHE"
+pattern CacheModeLOCALCUSTOMCACHE :: CacheMode
+pattern CacheModeLOCALCUSTOMCACHE = CacheMode' "LOCAL_CUSTOM_CACHE"
 
-pattern LocalDockerLayerCache :: CacheMode
-pattern LocalDockerLayerCache = CacheMode' "LOCAL_DOCKER_LAYER_CACHE"
+pattern CacheModeLOCALDOCKERLAYERCACHE :: CacheMode
+pattern CacheModeLOCALDOCKERLAYERCACHE = CacheMode' "LOCAL_DOCKER_LAYER_CACHE"
 
-pattern LocalSourceCache :: CacheMode
-pattern LocalSourceCache = CacheMode' "LOCAL_SOURCE_CACHE"
+pattern CacheModeLOCALSOURCECACHE :: CacheMode
+pattern CacheModeLOCALSOURCECACHE = CacheMode' "LOCAL_SOURCE_CACHE"
 
 {-# COMPLETE
-  LocalCustomCache,
-  LocalDockerLayerCache,
-  LocalSourceCache,
+  CacheModeLOCALCUSTOMCACHE,
+  CacheModeLOCALDOCKERLAYERCACHE,
+  CacheModeLOCALSOURCECACHE,
   CacheMode'
   #-}
 
-instance FromText CacheMode where
-  parser = (CacheMode' . mk) <$> takeText
+instance Prelude.FromText CacheMode where
+  parser = CacheMode' Prelude.<$> Prelude.takeText
 
-instance ToText CacheMode where
-  toText (CacheMode' ci) = original ci
+instance Prelude.ToText CacheMode where
+  toText (CacheMode' x) = x
 
-instance Hashable CacheMode
+instance Prelude.Hashable CacheMode
 
-instance NFData CacheMode
+instance Prelude.NFData CacheMode
 
-instance ToByteString CacheMode
+instance Prelude.ToByteString CacheMode
 
-instance ToQuery CacheMode
+instance Prelude.ToQuery CacheMode
 
-instance ToHeader CacheMode
+instance Prelude.ToHeader CacheMode
 
-instance ToJSON CacheMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON CacheMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CacheMode where
-  parseJSON = parseJSONText "CacheMode"
+instance Prelude.FromJSON CacheMode where
+  parseJSON = Prelude.parseJSONText "CacheMode"

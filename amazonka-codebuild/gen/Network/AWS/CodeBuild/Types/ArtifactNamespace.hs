@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CodeBuild.Types.ArtifactNamespace
   ( ArtifactNamespace
       ( ..,
-        ANBuildId,
-        ANNone
+        ArtifactNamespaceBUILDID,
+        ArtifactNamespaceNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArtifactNamespace = ArtifactNamespace' (CI Text)
+newtype ArtifactNamespace = ArtifactNamespace'
+  { fromArtifactNamespace ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ANBuildId :: ArtifactNamespace
-pattern ANBuildId = ArtifactNamespace' "BUILD_ID"
+pattern ArtifactNamespaceBUILDID :: ArtifactNamespace
+pattern ArtifactNamespaceBUILDID = ArtifactNamespace' "BUILD_ID"
 
-pattern ANNone :: ArtifactNamespace
-pattern ANNone = ArtifactNamespace' "NONE"
+pattern ArtifactNamespaceNONE :: ArtifactNamespace
+pattern ArtifactNamespaceNONE = ArtifactNamespace' "NONE"
 
 {-# COMPLETE
-  ANBuildId,
-  ANNone,
+  ArtifactNamespaceBUILDID,
+  ArtifactNamespaceNONE,
   ArtifactNamespace'
   #-}
 
-instance FromText ArtifactNamespace where
-  parser = (ArtifactNamespace' . mk) <$> takeText
+instance Prelude.FromText ArtifactNamespace where
+  parser = ArtifactNamespace' Prelude.<$> Prelude.takeText
 
-instance ToText ArtifactNamespace where
-  toText (ArtifactNamespace' ci) = original ci
+instance Prelude.ToText ArtifactNamespace where
+  toText (ArtifactNamespace' x) = x
 
-instance Hashable ArtifactNamespace
+instance Prelude.Hashable ArtifactNamespace
 
-instance NFData ArtifactNamespace
+instance Prelude.NFData ArtifactNamespace
 
-instance ToByteString ArtifactNamespace
+instance Prelude.ToByteString ArtifactNamespace
 
-instance ToQuery ArtifactNamespace
+instance Prelude.ToQuery ArtifactNamespace
 
-instance ToHeader ArtifactNamespace
+instance Prelude.ToHeader ArtifactNamespace
 
-instance ToJSON ArtifactNamespace where
-  toJSON = toJSONText
+instance Prelude.ToJSON ArtifactNamespace where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ArtifactNamespace where
-  parseJSON = parseJSONText "ArtifactNamespace"
+instance Prelude.FromJSON ArtifactNamespace where
+  parseJSON = Prelude.parseJSONText "ArtifactNamespace"

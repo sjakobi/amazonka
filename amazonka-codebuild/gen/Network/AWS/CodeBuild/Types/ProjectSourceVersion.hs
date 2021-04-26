@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,147 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeBuild.Types.ProjectSourceVersion where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A source identifier and its corresponding version.
 --
---
---
--- /See:/ 'projectSourceVersion' smart constructor.
+-- /See:/ 'newProjectSourceVersion' smart constructor.
 data ProjectSourceVersion = ProjectSourceVersion'
-  { _psvSourceIdentifier ::
-      !Text,
-    _psvSourceVersion :: !Text
+  { -- | An identifier for a source in the build project. The identifier can only
+    -- contain alphanumeric characters and underscores, and must be less than
+    -- 128 characters in length.
+    sourceIdentifier :: Prelude.Text,
+    -- | The source version for the corresponding source identifier. If
+    -- specified, must be one of:
+    --
+    -- -   For AWS CodeCommit: the commit ID, branch, or Git tag to use.
+    --
+    -- -   For GitHub: the commit ID, pull request ID, branch name, or tag name
+    --     that corresponds to the version of the source code you want to
+    --     build. If a pull request ID is specified, it must use the format
+    --     @pr\/pull-request-ID@ (for example, @pr\/25@). If a branch name is
+    --     specified, the branch\'s HEAD commit ID is used. If not specified,
+    --     the default branch\'s HEAD commit ID is used.
+    --
+    -- -   For Bitbucket: the commit ID, branch name, or tag name that
+    --     corresponds to the version of the source code you want to build. If
+    --     a branch name is specified, the branch\'s HEAD commit ID is used. If
+    --     not specified, the default branch\'s HEAD commit ID is used.
+    --
+    -- -   For Amazon S3: the version ID of the object that represents the
+    --     build input ZIP file to use.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild>
+    -- in the /AWS CodeBuild User Guide/.
+    sourceVersion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProjectSourceVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProjectSourceVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psvSourceIdentifier' - An identifier for a source in the build project. The identifier can only contain alphanumeric characters and underscores, and must be less than 128 characters in length.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psvSourceVersion' - The source version for the corresponding source identifier. If specified, must be one of:     * For AWS CodeCommit: the commit ID, branch, or Git tag to use.     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a pull request ID is specified, it must use the format @pr/pull-request-ID@ (for example, @pr/25@ ). If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use. For more information, see <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild> in the /AWS CodeBuild User Guide/ .
-projectSourceVersion ::
-  -- | 'psvSourceIdentifier'
-  Text ->
-  -- | 'psvSourceVersion'
-  Text ->
+-- 'sourceIdentifier', 'projectSourceVersion_sourceIdentifier' - An identifier for a source in the build project. The identifier can only
+-- contain alphanumeric characters and underscores, and must be less than
+-- 128 characters in length.
+--
+-- 'sourceVersion', 'projectSourceVersion_sourceVersion' - The source version for the corresponding source identifier. If
+-- specified, must be one of:
+--
+-- -   For AWS CodeCommit: the commit ID, branch, or Git tag to use.
+--
+-- -   For GitHub: the commit ID, pull request ID, branch name, or tag name
+--     that corresponds to the version of the source code you want to
+--     build. If a pull request ID is specified, it must use the format
+--     @pr\/pull-request-ID@ (for example, @pr\/25@). If a branch name is
+--     specified, the branch\'s HEAD commit ID is used. If not specified,
+--     the default branch\'s HEAD commit ID is used.
+--
+-- -   For Bitbucket: the commit ID, branch name, or tag name that
+--     corresponds to the version of the source code you want to build. If
+--     a branch name is specified, the branch\'s HEAD commit ID is used. If
+--     not specified, the default branch\'s HEAD commit ID is used.
+--
+-- -   For Amazon S3: the version ID of the object that represents the
+--     build input ZIP file to use.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild>
+-- in the /AWS CodeBuild User Guide/.
+newProjectSourceVersion ::
+  -- | 'sourceIdentifier'
+  Prelude.Text ->
+  -- | 'sourceVersion'
+  Prelude.Text ->
   ProjectSourceVersion
-projectSourceVersion
+newProjectSourceVersion
   pSourceIdentifier_
   pSourceVersion_ =
     ProjectSourceVersion'
-      { _psvSourceIdentifier =
+      { sourceIdentifier =
           pSourceIdentifier_,
-        _psvSourceVersion = pSourceVersion_
+        sourceVersion = pSourceVersion_
       }
 
--- | An identifier for a source in the build project. The identifier can only contain alphanumeric characters and underscores, and must be less than 128 characters in length.
-psvSourceIdentifier :: Lens' ProjectSourceVersion Text
-psvSourceIdentifier = lens _psvSourceIdentifier (\s a -> s {_psvSourceIdentifier = a})
+-- | An identifier for a source in the build project. The identifier can only
+-- contain alphanumeric characters and underscores, and must be less than
+-- 128 characters in length.
+projectSourceVersion_sourceIdentifier :: Lens.Lens' ProjectSourceVersion Prelude.Text
+projectSourceVersion_sourceIdentifier = Lens.lens (\ProjectSourceVersion' {sourceIdentifier} -> sourceIdentifier) (\s@ProjectSourceVersion' {} a -> s {sourceIdentifier = a} :: ProjectSourceVersion)
 
--- | The source version for the corresponding source identifier. If specified, must be one of:     * For AWS CodeCommit: the commit ID, branch, or Git tag to use.     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a pull request ID is specified, it must use the format @pr/pull-request-ID@ (for example, @pr/25@ ). If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use. For more information, see <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild> in the /AWS CodeBuild User Guide/ .
-psvSourceVersion :: Lens' ProjectSourceVersion Text
-psvSourceVersion = lens _psvSourceVersion (\s a -> s {_psvSourceVersion = a})
+-- | The source version for the corresponding source identifier. If
+-- specified, must be one of:
+--
+-- -   For AWS CodeCommit: the commit ID, branch, or Git tag to use.
+--
+-- -   For GitHub: the commit ID, pull request ID, branch name, or tag name
+--     that corresponds to the version of the source code you want to
+--     build. If a pull request ID is specified, it must use the format
+--     @pr\/pull-request-ID@ (for example, @pr\/25@). If a branch name is
+--     specified, the branch\'s HEAD commit ID is used. If not specified,
+--     the default branch\'s HEAD commit ID is used.
+--
+-- -   For Bitbucket: the commit ID, branch name, or tag name that
+--     corresponds to the version of the source code you want to build. If
+--     a branch name is specified, the branch\'s HEAD commit ID is used. If
+--     not specified, the default branch\'s HEAD commit ID is used.
+--
+-- -   For Amazon S3: the version ID of the object that represents the
+--     build input ZIP file to use.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html Source Version Sample with CodeBuild>
+-- in the /AWS CodeBuild User Guide/.
+projectSourceVersion_sourceVersion :: Lens.Lens' ProjectSourceVersion Prelude.Text
+projectSourceVersion_sourceVersion = Lens.lens (\ProjectSourceVersion' {sourceVersion} -> sourceVersion) (\s@ProjectSourceVersion' {} a -> s {sourceVersion = a} :: ProjectSourceVersion)
 
-instance FromJSON ProjectSourceVersion where
+instance Prelude.FromJSON ProjectSourceVersion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProjectSourceVersion"
       ( \x ->
           ProjectSourceVersion'
-            <$> (x .: "sourceIdentifier") <*> (x .: "sourceVersion")
+            Prelude.<$> (x Prelude..: "sourceIdentifier")
+            Prelude.<*> (x Prelude..: "sourceVersion")
       )
 
-instance Hashable ProjectSourceVersion
+instance Prelude.Hashable ProjectSourceVersion
 
-instance NFData ProjectSourceVersion
+instance Prelude.NFData ProjectSourceVersion
 
-instance ToJSON ProjectSourceVersion where
+instance Prelude.ToJSON ProjectSourceVersion where
   toJSON ProjectSourceVersion' {..} =
-    object
-      ( catMaybes
-          [ Just ("sourceIdentifier" .= _psvSourceIdentifier),
-            Just ("sourceVersion" .= _psvSourceVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("sourceIdentifier" Prelude..= sourceIdentifier),
+            Prelude.Just
+              ("sourceVersion" Prelude..= sourceVersion)
           ]
       )

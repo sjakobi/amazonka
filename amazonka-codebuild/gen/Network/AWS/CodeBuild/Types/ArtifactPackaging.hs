@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CodeBuild.Types.ArtifactPackaging
   ( ArtifactPackaging
       ( ..,
-        APNone,
-        APZip
+        ArtifactPackagingNONE,
+        ArtifactPackagingZIP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArtifactPackaging = ArtifactPackaging' (CI Text)
+newtype ArtifactPackaging = ArtifactPackaging'
+  { fromArtifactPackaging ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern APNone :: ArtifactPackaging
-pattern APNone = ArtifactPackaging' "NONE"
+pattern ArtifactPackagingNONE :: ArtifactPackaging
+pattern ArtifactPackagingNONE = ArtifactPackaging' "NONE"
 
-pattern APZip :: ArtifactPackaging
-pattern APZip = ArtifactPackaging' "ZIP"
+pattern ArtifactPackagingZIP :: ArtifactPackaging
+pattern ArtifactPackagingZIP = ArtifactPackaging' "ZIP"
 
 {-# COMPLETE
-  APNone,
-  APZip,
+  ArtifactPackagingNONE,
+  ArtifactPackagingZIP,
   ArtifactPackaging'
   #-}
 
-instance FromText ArtifactPackaging where
-  parser = (ArtifactPackaging' . mk) <$> takeText
+instance Prelude.FromText ArtifactPackaging where
+  parser = ArtifactPackaging' Prelude.<$> Prelude.takeText
 
-instance ToText ArtifactPackaging where
-  toText (ArtifactPackaging' ci) = original ci
+instance Prelude.ToText ArtifactPackaging where
+  toText (ArtifactPackaging' x) = x
 
-instance Hashable ArtifactPackaging
+instance Prelude.Hashable ArtifactPackaging
 
-instance NFData ArtifactPackaging
+instance Prelude.NFData ArtifactPackaging
 
-instance ToByteString ArtifactPackaging
+instance Prelude.ToByteString ArtifactPackaging
 
-instance ToQuery ArtifactPackaging
+instance Prelude.ToQuery ArtifactPackaging
 
-instance ToHeader ArtifactPackaging
+instance Prelude.ToHeader ArtifactPackaging
 
-instance ToJSON ArtifactPackaging where
-  toJSON = toJSONText
+instance Prelude.ToJSON ArtifactPackaging where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ArtifactPackaging where
-  parseJSON = parseJSONText "ArtifactPackaging"
+instance Prelude.FromJSON ArtifactPackaging where
+  parseJSON = Prelude.parseJSONText "ArtifactPackaging"

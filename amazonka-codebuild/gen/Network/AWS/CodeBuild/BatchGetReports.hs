@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,141 +24,152 @@
 -- Returns an array of reports.
 module Network.AWS.CodeBuild.BatchGetReports
   ( -- * Creating a Request
-    batchGetReports,
-    BatchGetReports,
+    BatchGetReports (..),
+    newBatchGetReports,
 
     -- * Request Lenses
-    bgrReportARNs,
+    batchGetReports_reportArns,
 
     -- * Destructuring the Response
-    batchGetReportsResponse,
-    BatchGetReportsResponse,
+    BatchGetReportsResponse (..),
+    newBatchGetReportsResponse,
 
     -- * Response Lenses
-    bgrrrsReports,
-    bgrrrsReportsNotFound,
-    bgrrrsResponseStatus,
+    batchGetReportsResponse_reports,
+    batchGetReportsResponse_reportsNotFound,
+    batchGetReportsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeBuild.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeBuild.Types.Report
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchGetReports' smart constructor.
-newtype BatchGetReports = BatchGetReports'
-  { _bgrReportARNs ::
-      List1 Text
+-- | /See:/ 'newBatchGetReports' smart constructor.
+data BatchGetReports = BatchGetReports'
+  { -- | An array of ARNs that identify the @Report@ objects to return.
+    reportArns :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetReports' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetReports' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgrReportARNs' - An array of ARNs that identify the @Report@ objects to return.
-batchGetReports ::
-  -- | 'bgrReportARNs'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'reportArns', 'batchGetReports_reportArns' - An array of ARNs that identify the @Report@ objects to return.
+newBatchGetReports ::
+  -- | 'reportArns'
+  Prelude.NonEmpty Prelude.Text ->
   BatchGetReports
-batchGetReports pReportARNs_ =
+newBatchGetReports pReportArns_ =
   BatchGetReports'
-    { _bgrReportARNs =
-        _List1 # pReportARNs_
+    { reportArns =
+        Prelude._List1 Lens.# pReportArns_
     }
 
 -- | An array of ARNs that identify the @Report@ objects to return.
-bgrReportARNs :: Lens' BatchGetReports (NonEmpty Text)
-bgrReportARNs = lens _bgrReportARNs (\s a -> s {_bgrReportARNs = a}) . _List1
+batchGetReports_reportArns :: Lens.Lens' BatchGetReports (Prelude.NonEmpty Prelude.Text)
+batchGetReports_reportArns = Lens.lens (\BatchGetReports' {reportArns} -> reportArns) (\s@BatchGetReports' {} a -> s {reportArns = a} :: BatchGetReports) Prelude.. Prelude._List1
 
-instance AWSRequest BatchGetReports where
+instance Prelude.AWSRequest BatchGetReports where
   type Rs BatchGetReports = BatchGetReportsResponse
-  request = postJSON codeBuild
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetReportsResponse'
-            <$> (x .?> "reports")
-            <*> (x .?> "reportsNotFound")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "reports")
+            Prelude.<*> (x Prelude..?> "reportsNotFound")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetReports
+instance Prelude.Hashable BatchGetReports
 
-instance NFData BatchGetReports
+instance Prelude.NFData BatchGetReports
 
-instance ToHeaders BatchGetReports where
+instance Prelude.ToHeaders BatchGetReports where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeBuild_20161006.BatchGetReports" :: ByteString),
+              Prelude.=# ( "CodeBuild_20161006.BatchGetReports" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetReports where
+instance Prelude.ToJSON BatchGetReports where
   toJSON BatchGetReports' {..} =
-    object
-      (catMaybes [Just ("reportArns" .= _bgrReportARNs)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("reportArns" Prelude..= reportArns)]
+      )
 
-instance ToPath BatchGetReports where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetReports where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetReports where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetReports where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchGetReportsResponse' smart constructor.
+-- | /See:/ 'newBatchGetReportsResponse' smart constructor.
 data BatchGetReportsResponse = BatchGetReportsResponse'
-  { _bgrrrsReports ::
-      !(Maybe (List1 Report)),
-    _bgrrrsReportsNotFound ::
-      !(Maybe (List1 Text)),
-    _bgrrrsResponseStatus ::
-      !Int
+  { -- | The array of @Report@ objects returned by @BatchGetReports@.
+    reports :: Prelude.Maybe (Prelude.List1 Report),
+    -- | An array of ARNs passed to @BatchGetReportGroups@ that are not
+    -- associated with a @Report@.
+    reportsNotFound :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetReportsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetReportsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgrrrsReports' - The array of @Report@ objects returned by @BatchGetReports@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgrrrsReportsNotFound' - An array of ARNs passed to @BatchGetReportGroups@ that are not associated with a @Report@ .
+-- 'reports', 'batchGetReportsResponse_reports' - The array of @Report@ objects returned by @BatchGetReports@.
 --
--- * 'bgrrrsResponseStatus' - -- | The response status code.
-batchGetReportsResponse ::
-  -- | 'bgrrrsResponseStatus'
-  Int ->
+-- 'reportsNotFound', 'batchGetReportsResponse_reportsNotFound' - An array of ARNs passed to @BatchGetReportGroups@ that are not
+-- associated with a @Report@.
+--
+-- 'httpStatus', 'batchGetReportsResponse_httpStatus' - The response's http status code.
+newBatchGetReportsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetReportsResponse
-batchGetReportsResponse pResponseStatus_ =
+newBatchGetReportsResponse pHttpStatus_ =
   BatchGetReportsResponse'
-    { _bgrrrsReports = Nothing,
-      _bgrrrsReportsNotFound = Nothing,
-      _bgrrrsResponseStatus = pResponseStatus_
+    { reports = Prelude.Nothing,
+      reportsNotFound = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The array of @Report@ objects returned by @BatchGetReports@ .
-bgrrrsReports :: Lens' BatchGetReportsResponse (Maybe (NonEmpty Report))
-bgrrrsReports = lens _bgrrrsReports (\s a -> s {_bgrrrsReports = a}) . mapping _List1
+-- | The array of @Report@ objects returned by @BatchGetReports@.
+batchGetReportsResponse_reports :: Lens.Lens' BatchGetReportsResponse (Prelude.Maybe (Prelude.NonEmpty Report))
+batchGetReportsResponse_reports = Lens.lens (\BatchGetReportsResponse' {reports} -> reports) (\s@BatchGetReportsResponse' {} a -> s {reports = a} :: BatchGetReportsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | An array of ARNs passed to @BatchGetReportGroups@ that are not associated with a @Report@ .
-bgrrrsReportsNotFound :: Lens' BatchGetReportsResponse (Maybe (NonEmpty Text))
-bgrrrsReportsNotFound = lens _bgrrrsReportsNotFound (\s a -> s {_bgrrrsReportsNotFound = a}) . mapping _List1
+-- | An array of ARNs passed to @BatchGetReportGroups@ that are not
+-- associated with a @Report@.
+batchGetReportsResponse_reportsNotFound :: Lens.Lens' BatchGetReportsResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+batchGetReportsResponse_reportsNotFound = Lens.lens (\BatchGetReportsResponse' {reportsNotFound} -> reportsNotFound) (\s@BatchGetReportsResponse' {} a -> s {reportsNotFound = a} :: BatchGetReportsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-bgrrrsResponseStatus :: Lens' BatchGetReportsResponse Int
-bgrrrsResponseStatus = lens _bgrrrsResponseStatus (\s a -> s {_bgrrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetReportsResponse_httpStatus :: Lens.Lens' BatchGetReportsResponse Prelude.Int
+batchGetReportsResponse_httpStatus = Lens.lens (\BatchGetReportsResponse' {httpStatus} -> httpStatus) (\s@BatchGetReportsResponse' {} a -> s {httpStatus = a} :: BatchGetReportsResponse)
 
-instance NFData BatchGetReportsResponse
+instance Prelude.NFData BatchGetReportsResponse

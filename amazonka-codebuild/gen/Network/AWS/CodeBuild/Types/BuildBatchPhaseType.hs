@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.CodeBuild.Types.BuildBatchPhaseType
   ( BuildBatchPhaseType
       ( ..,
-        BBPTCombineArtifacts,
-        BBPTDownloadBatchspec,
-        BBPTFailed,
-        BBPTInProgress,
-        BBPTStopped,
-        BBPTSubmitted,
-        BBPTSucceeded
+        BuildBatchPhaseTypeCOMBINEARTIFACTS,
+        BuildBatchPhaseTypeDOWNLOADBATCHSPEC,
+        BuildBatchPhaseTypeFAILED,
+        BuildBatchPhaseTypeINPROGRESS,
+        BuildBatchPhaseTypeSTOPPED,
+        BuildBatchPhaseTypeSUBMITTED,
+        BuildBatchPhaseTypeSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BuildBatchPhaseType
-  = BuildBatchPhaseType'
-      ( CI
-          Text
-      )
+newtype BuildBatchPhaseType = BuildBatchPhaseType'
+  { fromBuildBatchPhaseType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BBPTCombineArtifacts :: BuildBatchPhaseType
-pattern BBPTCombineArtifacts = BuildBatchPhaseType' "COMBINE_ARTIFACTS"
+pattern BuildBatchPhaseTypeCOMBINEARTIFACTS :: BuildBatchPhaseType
+pattern BuildBatchPhaseTypeCOMBINEARTIFACTS = BuildBatchPhaseType' "COMBINE_ARTIFACTS"
 
-pattern BBPTDownloadBatchspec :: BuildBatchPhaseType
-pattern BBPTDownloadBatchspec = BuildBatchPhaseType' "DOWNLOAD_BATCHSPEC"
+pattern BuildBatchPhaseTypeDOWNLOADBATCHSPEC :: BuildBatchPhaseType
+pattern BuildBatchPhaseTypeDOWNLOADBATCHSPEC = BuildBatchPhaseType' "DOWNLOAD_BATCHSPEC"
 
-pattern BBPTFailed :: BuildBatchPhaseType
-pattern BBPTFailed = BuildBatchPhaseType' "FAILED"
+pattern BuildBatchPhaseTypeFAILED :: BuildBatchPhaseType
+pattern BuildBatchPhaseTypeFAILED = BuildBatchPhaseType' "FAILED"
 
-pattern BBPTInProgress :: BuildBatchPhaseType
-pattern BBPTInProgress = BuildBatchPhaseType' "IN_PROGRESS"
+pattern BuildBatchPhaseTypeINPROGRESS :: BuildBatchPhaseType
+pattern BuildBatchPhaseTypeINPROGRESS = BuildBatchPhaseType' "IN_PROGRESS"
 
-pattern BBPTStopped :: BuildBatchPhaseType
-pattern BBPTStopped = BuildBatchPhaseType' "STOPPED"
+pattern BuildBatchPhaseTypeSTOPPED :: BuildBatchPhaseType
+pattern BuildBatchPhaseTypeSTOPPED = BuildBatchPhaseType' "STOPPED"
 
-pattern BBPTSubmitted :: BuildBatchPhaseType
-pattern BBPTSubmitted = BuildBatchPhaseType' "SUBMITTED"
+pattern BuildBatchPhaseTypeSUBMITTED :: BuildBatchPhaseType
+pattern BuildBatchPhaseTypeSUBMITTED = BuildBatchPhaseType' "SUBMITTED"
 
-pattern BBPTSucceeded :: BuildBatchPhaseType
-pattern BBPTSucceeded = BuildBatchPhaseType' "SUCCEEDED"
+pattern BuildBatchPhaseTypeSUCCEEDED :: BuildBatchPhaseType
+pattern BuildBatchPhaseTypeSUCCEEDED = BuildBatchPhaseType' "SUCCEEDED"
 
 {-# COMPLETE
-  BBPTCombineArtifacts,
-  BBPTDownloadBatchspec,
-  BBPTFailed,
-  BBPTInProgress,
-  BBPTStopped,
-  BBPTSubmitted,
-  BBPTSucceeded,
+  BuildBatchPhaseTypeCOMBINEARTIFACTS,
+  BuildBatchPhaseTypeDOWNLOADBATCHSPEC,
+  BuildBatchPhaseTypeFAILED,
+  BuildBatchPhaseTypeINPROGRESS,
+  BuildBatchPhaseTypeSTOPPED,
+  BuildBatchPhaseTypeSUBMITTED,
+  BuildBatchPhaseTypeSUCCEEDED,
   BuildBatchPhaseType'
   #-}
 
-instance FromText BuildBatchPhaseType where
-  parser = (BuildBatchPhaseType' . mk) <$> takeText
+instance Prelude.FromText BuildBatchPhaseType where
+  parser = BuildBatchPhaseType' Prelude.<$> Prelude.takeText
 
-instance ToText BuildBatchPhaseType where
-  toText (BuildBatchPhaseType' ci) = original ci
+instance Prelude.ToText BuildBatchPhaseType where
+  toText (BuildBatchPhaseType' x) = x
 
-instance Hashable BuildBatchPhaseType
+instance Prelude.Hashable BuildBatchPhaseType
 
-instance NFData BuildBatchPhaseType
+instance Prelude.NFData BuildBatchPhaseType
 
-instance ToByteString BuildBatchPhaseType
+instance Prelude.ToByteString BuildBatchPhaseType
 
-instance ToQuery BuildBatchPhaseType
+instance Prelude.ToQuery BuildBatchPhaseType
 
-instance ToHeader BuildBatchPhaseType
+instance Prelude.ToHeader BuildBatchPhaseType
 
-instance FromJSON BuildBatchPhaseType where
-  parseJSON = parseJSONText "BuildBatchPhaseType"
+instance Prelude.FromJSON BuildBatchPhaseType where
+  parseJSON = Prelude.parseJSONText "BuildBatchPhaseType"

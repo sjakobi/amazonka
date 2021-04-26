@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +21,74 @@ module Network.AWS.CodeBuild.Types.SourceCredentialsInfo where
 
 import Network.AWS.CodeBuild.Types.AuthType
 import Network.AWS.CodeBuild.Types.ServerType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the credentials for a GitHub, GitHub Enterprise, or Bitbucket repository.
+-- | Information about the credentials for a GitHub, GitHub Enterprise, or
+-- Bitbucket repository.
 --
---
---
--- /See:/ 'sourceCredentialsInfo' smart constructor.
+-- /See:/ 'newSourceCredentialsInfo' smart constructor.
 data SourceCredentialsInfo = SourceCredentialsInfo'
-  { _sciArn ::
-      !(Maybe Text),
-    _sciAuthType ::
-      !(Maybe AuthType),
-    _sciServerType ::
-      !(Maybe ServerType)
+  { -- | The Amazon Resource Name (ARN) of the token.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The type of authentication used by the credentials. Valid options are
+    -- OAUTH, BASIC_AUTH, or PERSONAL_ACCESS_TOKEN.
+    authType :: Prelude.Maybe AuthType,
+    -- | The type of source provider. The valid options are GITHUB,
+    -- GITHUB_ENTERPRISE, or BITBUCKET.
+    serverType :: Prelude.Maybe ServerType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceCredentialsInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceCredentialsInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sciArn' - The Amazon Resource Name (ARN) of the token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sciAuthType' - The type of authentication used by the credentials. Valid options are OAUTH, BASIC_AUTH, or PERSONAL_ACCESS_TOKEN.
+-- 'arn', 'sourceCredentialsInfo_arn' - The Amazon Resource Name (ARN) of the token.
 --
--- * 'sciServerType' - The type of source provider. The valid options are GITHUB, GITHUB_ENTERPRISE, or BITBUCKET.
-sourceCredentialsInfo ::
+-- 'authType', 'sourceCredentialsInfo_authType' - The type of authentication used by the credentials. Valid options are
+-- OAUTH, BASIC_AUTH, or PERSONAL_ACCESS_TOKEN.
+--
+-- 'serverType', 'sourceCredentialsInfo_serverType' - The type of source provider. The valid options are GITHUB,
+-- GITHUB_ENTERPRISE, or BITBUCKET.
+newSourceCredentialsInfo ::
   SourceCredentialsInfo
-sourceCredentialsInfo =
+newSourceCredentialsInfo =
   SourceCredentialsInfo'
-    { _sciArn = Nothing,
-      _sciAuthType = Nothing,
-      _sciServerType = Nothing
+    { arn = Prelude.Nothing,
+      authType = Prelude.Nothing,
+      serverType = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the token.
-sciArn :: Lens' SourceCredentialsInfo (Maybe Text)
-sciArn = lens _sciArn (\s a -> s {_sciArn = a})
+sourceCredentialsInfo_arn :: Lens.Lens' SourceCredentialsInfo (Prelude.Maybe Prelude.Text)
+sourceCredentialsInfo_arn = Lens.lens (\SourceCredentialsInfo' {arn} -> arn) (\s@SourceCredentialsInfo' {} a -> s {arn = a} :: SourceCredentialsInfo)
 
--- | The type of authentication used by the credentials. Valid options are OAUTH, BASIC_AUTH, or PERSONAL_ACCESS_TOKEN.
-sciAuthType :: Lens' SourceCredentialsInfo (Maybe AuthType)
-sciAuthType = lens _sciAuthType (\s a -> s {_sciAuthType = a})
+-- | The type of authentication used by the credentials. Valid options are
+-- OAUTH, BASIC_AUTH, or PERSONAL_ACCESS_TOKEN.
+sourceCredentialsInfo_authType :: Lens.Lens' SourceCredentialsInfo (Prelude.Maybe AuthType)
+sourceCredentialsInfo_authType = Lens.lens (\SourceCredentialsInfo' {authType} -> authType) (\s@SourceCredentialsInfo' {} a -> s {authType = a} :: SourceCredentialsInfo)
 
--- | The type of source provider. The valid options are GITHUB, GITHUB_ENTERPRISE, or BITBUCKET.
-sciServerType :: Lens' SourceCredentialsInfo (Maybe ServerType)
-sciServerType = lens _sciServerType (\s a -> s {_sciServerType = a})
+-- | The type of source provider. The valid options are GITHUB,
+-- GITHUB_ENTERPRISE, or BITBUCKET.
+sourceCredentialsInfo_serverType :: Lens.Lens' SourceCredentialsInfo (Prelude.Maybe ServerType)
+sourceCredentialsInfo_serverType = Lens.lens (\SourceCredentialsInfo' {serverType} -> serverType) (\s@SourceCredentialsInfo' {} a -> s {serverType = a} :: SourceCredentialsInfo)
 
-instance FromJSON SourceCredentialsInfo where
+instance Prelude.FromJSON SourceCredentialsInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SourceCredentialsInfo"
       ( \x ->
           SourceCredentialsInfo'
-            <$> (x .:? "arn")
-            <*> (x .:? "authType")
-            <*> (x .:? "serverType")
+            Prelude.<$> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "authType")
+            Prelude.<*> (x Prelude..:? "serverType")
       )
 
-instance Hashable SourceCredentialsInfo
+instance Prelude.Hashable SourceCredentialsInfo
 
-instance NFData SourceCredentialsInfo
+instance Prelude.NFData SourceCredentialsInfo
