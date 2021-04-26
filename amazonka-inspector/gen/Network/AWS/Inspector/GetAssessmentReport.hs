@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,207 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Produces an assessment report that includes detailed and comprehensive results of a specified assessment run.
+-- Produces an assessment report that includes detailed and comprehensive
+-- results of a specified assessment run.
 module Network.AWS.Inspector.GetAssessmentReport
   ( -- * Creating a Request
-    getAssessmentReport,
-    GetAssessmentReport,
+    GetAssessmentReport (..),
+    newGetAssessmentReport,
 
     -- * Request Lenses
-    garAssessmentRunARN,
-    garReportFileFormat,
-    garReportType,
+    getAssessmentReport_assessmentRunArn,
+    getAssessmentReport_reportFileFormat,
+    getAssessmentReport_reportType,
 
     -- * Destructuring the Response
-    getAssessmentReportResponse,
-    GetAssessmentReportResponse,
+    GetAssessmentReportResponse (..),
+    newGetAssessmentReportResponse,
 
     -- * Response Lenses
-    garrrsUrl,
-    garrrsResponseStatus,
-    garrrsStatus,
+    getAssessmentReportResponse_url,
+    getAssessmentReportResponse_httpStatus,
+    getAssessmentReportResponse_status,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Inspector.Types.ReportStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAssessmentReport' smart constructor.
+-- | /See:/ 'newGetAssessmentReport' smart constructor.
 data GetAssessmentReport = GetAssessmentReport'
-  { _garAssessmentRunARN ::
-      !Text,
-    _garReportFileFormat ::
-      !ReportFileFormat,
-    _garReportType :: !ReportType
+  { -- | The ARN that specifies the assessment run for which you want to generate
+    -- a report.
+    assessmentRunArn :: Prelude.Text,
+    -- | Specifies the file format (html or pdf) of the assessment report that
+    -- you want to generate.
+    reportFileFormat :: ReportFileFormat,
+    -- | Specifies the type of the assessment report that you want to generate.
+    -- There are two types of assessment reports: a finding report and a full
+    -- report. For more information, see
+    -- <https://docs.aws.amazon.com/inspector/latest/userguide/inspector_reports.html Assessment Reports>.
+    reportType :: ReportType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAssessmentReport' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAssessmentReport' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'garAssessmentRunARN' - The ARN that specifies the assessment run for which you want to generate a report.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'garReportFileFormat' - Specifies the file format (html or pdf) of the assessment report that you want to generate.
+-- 'assessmentRunArn', 'getAssessmentReport_assessmentRunArn' - The ARN that specifies the assessment run for which you want to generate
+-- a report.
 --
--- * 'garReportType' - Specifies the type of the assessment report that you want to generate. There are two types of assessment reports: a finding report and a full report. For more information, see <https://docs.aws.amazon.com/inspector/latest/userguide/inspector_reports.html Assessment Reports> .
-getAssessmentReport ::
-  -- | 'garAssessmentRunARN'
-  Text ->
-  -- | 'garReportFileFormat'
+-- 'reportFileFormat', 'getAssessmentReport_reportFileFormat' - Specifies the file format (html or pdf) of the assessment report that
+-- you want to generate.
+--
+-- 'reportType', 'getAssessmentReport_reportType' - Specifies the type of the assessment report that you want to generate.
+-- There are two types of assessment reports: a finding report and a full
+-- report. For more information, see
+-- <https://docs.aws.amazon.com/inspector/latest/userguide/inspector_reports.html Assessment Reports>.
+newGetAssessmentReport ::
+  -- | 'assessmentRunArn'
+  Prelude.Text ->
+  -- | 'reportFileFormat'
   ReportFileFormat ->
-  -- | 'garReportType'
+  -- | 'reportType'
   ReportType ->
   GetAssessmentReport
-getAssessmentReport
-  pAssessmentRunARN_
+newGetAssessmentReport
+  pAssessmentRunArn_
   pReportFileFormat_
   pReportType_ =
     GetAssessmentReport'
-      { _garAssessmentRunARN =
-          pAssessmentRunARN_,
-        _garReportFileFormat = pReportFileFormat_,
-        _garReportType = pReportType_
+      { assessmentRunArn =
+          pAssessmentRunArn_,
+        reportFileFormat = pReportFileFormat_,
+        reportType = pReportType_
       }
 
--- | The ARN that specifies the assessment run for which you want to generate a report.
-garAssessmentRunARN :: Lens' GetAssessmentReport Text
-garAssessmentRunARN = lens _garAssessmentRunARN (\s a -> s {_garAssessmentRunARN = a})
+-- | The ARN that specifies the assessment run for which you want to generate
+-- a report.
+getAssessmentReport_assessmentRunArn :: Lens.Lens' GetAssessmentReport Prelude.Text
+getAssessmentReport_assessmentRunArn = Lens.lens (\GetAssessmentReport' {assessmentRunArn} -> assessmentRunArn) (\s@GetAssessmentReport' {} a -> s {assessmentRunArn = a} :: GetAssessmentReport)
 
--- | Specifies the file format (html or pdf) of the assessment report that you want to generate.
-garReportFileFormat :: Lens' GetAssessmentReport ReportFileFormat
-garReportFileFormat = lens _garReportFileFormat (\s a -> s {_garReportFileFormat = a})
+-- | Specifies the file format (html or pdf) of the assessment report that
+-- you want to generate.
+getAssessmentReport_reportFileFormat :: Lens.Lens' GetAssessmentReport ReportFileFormat
+getAssessmentReport_reportFileFormat = Lens.lens (\GetAssessmentReport' {reportFileFormat} -> reportFileFormat) (\s@GetAssessmentReport' {} a -> s {reportFileFormat = a} :: GetAssessmentReport)
 
--- | Specifies the type of the assessment report that you want to generate. There are two types of assessment reports: a finding report and a full report. For more information, see <https://docs.aws.amazon.com/inspector/latest/userguide/inspector_reports.html Assessment Reports> .
-garReportType :: Lens' GetAssessmentReport ReportType
-garReportType = lens _garReportType (\s a -> s {_garReportType = a})
+-- | Specifies the type of the assessment report that you want to generate.
+-- There are two types of assessment reports: a finding report and a full
+-- report. For more information, see
+-- <https://docs.aws.amazon.com/inspector/latest/userguide/inspector_reports.html Assessment Reports>.
+getAssessmentReport_reportType :: Lens.Lens' GetAssessmentReport ReportType
+getAssessmentReport_reportType = Lens.lens (\GetAssessmentReport' {reportType} -> reportType) (\s@GetAssessmentReport' {} a -> s {reportType = a} :: GetAssessmentReport)
 
-instance AWSRequest GetAssessmentReport where
+instance Prelude.AWSRequest GetAssessmentReport where
   type
     Rs GetAssessmentReport =
       GetAssessmentReportResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAssessmentReportResponse'
-            <$> (x .?> "url")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "status")
+            Prelude.<$> (x Prelude..?> "url")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "status")
       )
 
-instance Hashable GetAssessmentReport
+instance Prelude.Hashable GetAssessmentReport
 
-instance NFData GetAssessmentReport
+instance Prelude.NFData GetAssessmentReport
 
-instance ToHeaders GetAssessmentReport where
+instance Prelude.ToHeaders GetAssessmentReport where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.GetAssessmentReport" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.GetAssessmentReport" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAssessmentReport where
+instance Prelude.ToJSON GetAssessmentReport where
   toJSON GetAssessmentReport' {..} =
-    object
-      ( catMaybes
-          [ Just ("assessmentRunArn" .= _garAssessmentRunARN),
-            Just ("reportFileFormat" .= _garReportFileFormat),
-            Just ("reportType" .= _garReportType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("assessmentRunArn" Prelude..= assessmentRunArn),
+            Prelude.Just
+              ("reportFileFormat" Prelude..= reportFileFormat),
+            Prelude.Just ("reportType" Prelude..= reportType)
           ]
       )
 
-instance ToPath GetAssessmentReport where
-  toPath = const "/"
+instance Prelude.ToPath GetAssessmentReport where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAssessmentReport where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAssessmentReport where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAssessmentReportResponse' smart constructor.
+-- | /See:/ 'newGetAssessmentReportResponse' smart constructor.
 data GetAssessmentReportResponse = GetAssessmentReportResponse'
-  { _garrrsUrl ::
-      !(Maybe Text),
-    _garrrsResponseStatus ::
-      !Int,
-    _garrrsStatus ::
-      !ReportStatus
+  { -- | Specifies the URL where you can find the generated assessment report.
+    -- This parameter is only returned if the report is successfully generated.
+    url :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Specifies the status of the request to generate an assessment report.
+    status :: ReportStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAssessmentReportResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAssessmentReportResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'garrrsUrl' - Specifies the URL where you can find the generated assessment report. This parameter is only returned if the report is successfully generated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'garrrsResponseStatus' - -- | The response status code.
+-- 'url', 'getAssessmentReportResponse_url' - Specifies the URL where you can find the generated assessment report.
+-- This parameter is only returned if the report is successfully generated.
 --
--- * 'garrrsStatus' - Specifies the status of the request to generate an assessment report.
-getAssessmentReportResponse ::
-  -- | 'garrrsResponseStatus'
-  Int ->
-  -- | 'garrrsStatus'
+-- 'httpStatus', 'getAssessmentReportResponse_httpStatus' - The response's http status code.
+--
+-- 'status', 'getAssessmentReportResponse_status' - Specifies the status of the request to generate an assessment report.
+newGetAssessmentReportResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'status'
   ReportStatus ->
   GetAssessmentReportResponse
-getAssessmentReportResponse pResponseStatus_ pStatus_ =
+newGetAssessmentReportResponse pHttpStatus_ pStatus_ =
   GetAssessmentReportResponse'
-    { _garrrsUrl = Nothing,
-      _garrrsResponseStatus = pResponseStatus_,
-      _garrrsStatus = pStatus_
+    { url = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      status = pStatus_
     }
 
--- | Specifies the URL where you can find the generated assessment report. This parameter is only returned if the report is successfully generated.
-garrrsUrl :: Lens' GetAssessmentReportResponse (Maybe Text)
-garrrsUrl = lens _garrrsUrl (\s a -> s {_garrrsUrl = a})
+-- | Specifies the URL where you can find the generated assessment report.
+-- This parameter is only returned if the report is successfully generated.
+getAssessmentReportResponse_url :: Lens.Lens' GetAssessmentReportResponse (Prelude.Maybe Prelude.Text)
+getAssessmentReportResponse_url = Lens.lens (\GetAssessmentReportResponse' {url} -> url) (\s@GetAssessmentReportResponse' {} a -> s {url = a} :: GetAssessmentReportResponse)
 
--- | -- | The response status code.
-garrrsResponseStatus :: Lens' GetAssessmentReportResponse Int
-garrrsResponseStatus = lens _garrrsResponseStatus (\s a -> s {_garrrsResponseStatus = a})
+-- | The response's http status code.
+getAssessmentReportResponse_httpStatus :: Lens.Lens' GetAssessmentReportResponse Prelude.Int
+getAssessmentReportResponse_httpStatus = Lens.lens (\GetAssessmentReportResponse' {httpStatus} -> httpStatus) (\s@GetAssessmentReportResponse' {} a -> s {httpStatus = a} :: GetAssessmentReportResponse)
 
 -- | Specifies the status of the request to generate an assessment report.
-garrrsStatus :: Lens' GetAssessmentReportResponse ReportStatus
-garrrsStatus = lens _garrrsStatus (\s a -> s {_garrrsStatus = a})
+getAssessmentReportResponse_status :: Lens.Lens' GetAssessmentReportResponse ReportStatus
+getAssessmentReportResponse_status = Lens.lens (\GetAssessmentReportResponse' {status} -> status) (\s@GetAssessmentReportResponse' {} a -> s {status = a} :: GetAssessmentReportResponse)
 
-instance NFData GetAssessmentReportResponse
+instance Prelude.NFData GetAssessmentReportResponse

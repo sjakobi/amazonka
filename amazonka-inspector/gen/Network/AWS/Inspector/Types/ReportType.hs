@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Inspector.Types.ReportType
   ( ReportType
       ( ..,
-        Finding,
-        Full
+        ReportTypeFINDING,
+        ReportTypeFULL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportType = ReportType' (CI Text)
+newtype ReportType = ReportType'
+  { fromReportType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Finding :: ReportType
-pattern Finding = ReportType' "FINDING"
+pattern ReportTypeFINDING :: ReportType
+pattern ReportTypeFINDING = ReportType' "FINDING"
 
-pattern Full :: ReportType
-pattern Full = ReportType' "FULL"
+pattern ReportTypeFULL :: ReportType
+pattern ReportTypeFULL = ReportType' "FULL"
 
 {-# COMPLETE
-  Finding,
-  Full,
+  ReportTypeFINDING,
+  ReportTypeFULL,
   ReportType'
   #-}
 
-instance FromText ReportType where
-  parser = (ReportType' . mk) <$> takeText
+instance Prelude.FromText ReportType where
+  parser = ReportType' Prelude.<$> Prelude.takeText
 
-instance ToText ReportType where
-  toText (ReportType' ci) = original ci
+instance Prelude.ToText ReportType where
+  toText (ReportType' x) = x
 
-instance Hashable ReportType
+instance Prelude.Hashable ReportType
 
-instance NFData ReportType
+instance Prelude.NFData ReportType
 
-instance ToByteString ReportType
+instance Prelude.ToByteString ReportType
 
-instance ToQuery ReportType
+instance Prelude.ToQuery ReportType
 
-instance ToHeader ReportType
+instance Prelude.ToHeader ReportType
 
-instance ToJSON ReportType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReportType where
+  toJSON = Prelude.toJSONText

@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Inspector.Types
   ( -- * Service Configuration
-    inspector,
+    defaultService,
 
     -- * Errors
     _PreviewGenerationInProgressException,
@@ -32,8 +35,8 @@ module Network.AWS.Inspector.Types
     -- * AgentHealthCode
     AgentHealthCode (..),
 
-    -- * AssessmentRunNotificationSNSStatusCode
-    AssessmentRunNotificationSNSStatusCode (..),
+    -- * AssessmentRunNotificationSnsStatusCode
+    AssessmentRunNotificationSnsStatusCode (..),
 
     -- * AssessmentRunState
     AssessmentRunState (..),
@@ -73,288 +76,131 @@ module Network.AWS.Inspector.Types
 
     -- * AgentFilter
     AgentFilter (..),
-    agentFilter,
-    afAgentHealths,
-    afAgentHealthCodes,
+    newAgentFilter,
 
     -- * AgentPreview
     AgentPreview (..),
-    agentPreview,
-    apHostname,
-    apAgentVersion,
-    apKernelVersion,
-    apOperatingSystem,
-    apAgentHealth,
-    apAutoScalingGroup,
-    apIpv4Address,
-    apAgentId,
+    newAgentPreview,
 
     -- * AssessmentRun
     AssessmentRun (..),
-    assessmentRun,
-    arStartedAt,
-    arCompletedAt,
-    arArn,
-    arName,
-    arAssessmentTemplateARN,
-    arState,
-    arDurationInSeconds,
-    arRulesPackageARNs,
-    arUserAttributesForFindings,
-    arCreatedAt,
-    arStateChangedAt,
-    arDataCollected,
-    arStateChanges,
-    arNotifications,
-    arFindingCounts,
+    newAssessmentRun,
 
     -- * AssessmentRunAgent
     AssessmentRunAgent (..),
-    assessmentRunAgent,
-    araAgentHealthDetails,
-    araAutoScalingGroup,
-    araAgentId,
-    araAssessmentRunARN,
-    araAgentHealth,
-    araAgentHealthCode,
-    araTelemetryMetadata,
+    newAssessmentRunAgent,
 
     -- * AssessmentRunFilter
     AssessmentRunFilter (..),
-    assessmentRunFilter,
-    arfStates,
-    arfRulesPackageARNs,
-    arfDurationRange,
-    arfStateChangeTimeRange,
-    arfStartTimeRange,
-    arfNamePattern,
-    arfCompletionTimeRange,
+    newAssessmentRunFilter,
 
     -- * AssessmentRunNotification
     AssessmentRunNotification (..),
-    assessmentRunNotification,
-    arnMessage,
-    arnSnsPublishStatusCode,
-    arnSnsTopicARN,
-    arnDate,
-    arnEvent,
-    arnError,
+    newAssessmentRunNotification,
 
     -- * AssessmentRunStateChange
     AssessmentRunStateChange (..),
-    assessmentRunStateChange,
-    arscStateChangedAt,
-    arscState,
+    newAssessmentRunStateChange,
 
     -- * AssessmentTarget
     AssessmentTarget (..),
-    assessmentTarget,
-    atResourceGroupARN,
-    atArn,
-    atName,
-    atCreatedAt,
-    atUpdatedAt,
+    newAssessmentTarget,
 
     -- * AssessmentTargetFilter
     AssessmentTargetFilter (..),
-    assessmentTargetFilter,
-    atfAssessmentTargetNamePattern,
+    newAssessmentTargetFilter,
 
     -- * AssessmentTemplate
     AssessmentTemplate (..),
-    assessmentTemplate,
-    aLastAssessmentRunARN,
-    aArn,
-    aName,
-    aAssessmentTargetARN,
-    aDurationInSeconds,
-    aRulesPackageARNs,
-    aUserAttributesForFindings,
-    aAssessmentRunCount,
-    aCreatedAt,
+    newAssessmentTemplate,
 
     -- * AssessmentTemplateFilter
     AssessmentTemplateFilter (..),
-    assessmentTemplateFilter,
-    atfRulesPackageARNs,
-    atfDurationRange,
-    atfNamePattern,
+    newAssessmentTemplateFilter,
 
     -- * AssetAttributes
     AssetAttributes (..),
-    assetAttributes,
-    aaHostname,
-    aaAgentId,
-    aaAmiId,
-    aaTags,
-    aaIpv4Addresses,
-    aaNetworkInterfaces,
-    aaAutoScalingGroup,
-    aaSchemaVersion,
+    newAssetAttributes,
 
     -- * Attribute
     Attribute (..),
-    attribute,
-    aValue,
-    aKey,
+    newAttribute,
 
     -- * DurationRange
     DurationRange (..),
-    durationRange,
-    drMinSeconds,
-    drMaxSeconds,
+    newDurationRange,
 
     -- * EventSubscription
     EventSubscription (..),
-    eventSubscription,
-    esEvent,
-    esSubscribedAt,
+    newEventSubscription,
 
     -- * Exclusion
     Exclusion (..),
-    exclusion,
-    eAttributes,
-    eArn,
-    eTitle,
-    eDescription,
-    eRecommendation,
-    eScopes,
+    newExclusion,
 
     -- * ExclusionPreview
     ExclusionPreview (..),
-    exclusionPreview,
-    epAttributes,
-    epTitle,
-    epDescription,
-    epRecommendation,
-    epScopes,
+    newExclusionPreview,
 
     -- * FailedItemDetails
     FailedItemDetails (..),
-    failedItemDetails,
-    fidFailureCode,
-    fidRetryable,
+    newFailedItemDetails,
 
     -- * Finding
     Finding (..),
-    finding,
-    fAssetAttributes,
-    fSeverity,
-    fTitle,
-    fAssetType,
-    fNumericSeverity,
-    fId,
-    fService,
-    fServiceAttributes,
-    fConfidence,
-    fRecommendation,
-    fIndicatorOfCompromise,
-    fDescription,
-    fSchemaVersion,
-    fArn,
-    fAttributes,
-    fUserAttributes,
-    fCreatedAt,
-    fUpdatedAt,
+    newFinding,
 
     -- * FindingFilter
     FindingFilter (..),
-    findingFilter,
-    ffAgentIds,
-    ffRulesPackageARNs,
-    ffCreationTimeRange,
-    ffSeverities,
-    ffAttributes,
-    ffUserAttributes,
-    ffAutoScalingGroups,
-    ffRuleNames,
+    newFindingFilter,
 
     -- * InspectorServiceAttributes
     InspectorServiceAttributes (..),
-    inspectorServiceAttributes,
-    isaRulesPackageARN,
-    isaAssessmentRunARN,
-    isaSchemaVersion,
+    newInspectorServiceAttributes,
 
     -- * NetworkInterface
     NetworkInterface (..),
-    networkInterface,
-    niPrivateIPAddresses,
-    niIpv6Addresses,
-    niSecurityGroups,
-    niPublicDNSName,
-    niSubnetId,
-    niNetworkInterfaceId,
-    niPrivateDNSName,
-    niVpcId,
-    niPublicIP,
-    niPrivateIPAddress,
+    newNetworkInterface,
 
-    -- * PrivateIP
-    PrivateIP (..),
-    privateIP,
-    piPrivateDNSName,
-    piPrivateIPAddress,
+    -- * PrivateIp
+    PrivateIp (..),
+    newPrivateIp,
 
     -- * ResourceGroup
     ResourceGroup (..),
-    resourceGroup,
-    rgArn,
-    rgTags,
-    rgCreatedAt,
+    newResourceGroup,
 
     -- * ResourceGroupTag
     ResourceGroupTag (..),
-    resourceGroupTag,
-    rgtValue,
-    rgtKey,
+    newResourceGroupTag,
 
     -- * RulesPackage
     RulesPackage (..),
-    rulesPackage,
-    rpDescription,
-    rpArn,
-    rpName,
-    rpVersion,
-    rpProvider,
+    newRulesPackage,
 
     -- * Scope
     Scope (..),
-    scope,
-    sKey,
-    sValue,
+    newScope,
 
     -- * SecurityGroup
     SecurityGroup (..),
-    securityGroup,
-    sgGroupName,
-    sgGroupId,
+    newSecurityGroup,
 
     -- * Subscription
     Subscription (..),
-    subscription,
-    sResourceARN,
-    sTopicARN,
-    sEventSubscriptions,
+    newSubscription,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagValue,
-    tagKey,
+    newTag,
 
     -- * TelemetryMetadata
     TelemetryMetadata (..),
-    telemetryMetadata,
-    tmDataSize,
-    tmMessageType,
-    tmCount,
+    newTelemetryMetadata,
 
     -- * TimestampRange
     TimestampRange (..),
-    timestampRange,
-    trBeginDate,
-    trEndDate,
+    newTimestampRange,
   )
 where
 
@@ -366,7 +212,7 @@ import Network.AWS.Inspector.Types.AssessmentRun
 import Network.AWS.Inspector.Types.AssessmentRunAgent
 import Network.AWS.Inspector.Types.AssessmentRunFilter
 import Network.AWS.Inspector.Types.AssessmentRunNotification
-import Network.AWS.Inspector.Types.AssessmentRunNotificationSNSStatusCode
+import Network.AWS.Inspector.Types.AssessmentRunNotificationSnsStatusCode
 import Network.AWS.Inspector.Types.AssessmentRunState
 import Network.AWS.Inspector.Types.AssessmentRunStateChange
 import Network.AWS.Inspector.Types.AssessmentTarget
@@ -389,7 +235,7 @@ import Network.AWS.Inspector.Types.InspectorServiceAttributes
 import Network.AWS.Inspector.Types.Locale
 import Network.AWS.Inspector.Types.NetworkInterface
 import Network.AWS.Inspector.Types.PreviewStatus
-import Network.AWS.Inspector.Types.PrivateIP
+import Network.AWS.Inspector.Types.PrivateIp
 import Network.AWS.Inspector.Types.ReportFileFormat
 import Network.AWS.Inspector.Types.ReportStatus
 import Network.AWS.Inspector.Types.ReportType
@@ -405,132 +251,165 @@ import Network.AWS.Inspector.Types.Subscription
 import Network.AWS.Inspector.Types.Tag
 import Network.AWS.Inspector.Types.TelemetryMetadata
 import Network.AWS.Inspector.Types.TimestampRange
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-02-16@ of the Amazon Inspector SDK configuration.
-inspector :: Service
-inspector =
-  Service
-    { _svcAbbrev = "Inspector",
-      _svcSigner = v4,
-      _svcPrefix = "inspector",
-      _svcVersion = "2016-02-16",
-      _svcEndpoint = defaultEndpoint inspector,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Inspector",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Inspector",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "inspector",
+      Prelude._svcVersion = "2016-02-16",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "Inspector",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The request is rejected. The specified assessment template is currently generating an exclusions preview.
-_PreviewGenerationInProgressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request is rejected. The specified assessment template is currently
+-- generating an exclusions preview.
+_PreviewGenerationInProgressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PreviewGenerationInProgressException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "PreviewGenerationInProgressException"
 
 -- | The serice is temporary unavailable.
-_ServiceTemporarilyUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceTemporarilyUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceTemporarilyUnavailableException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "ServiceTemporarilyUnavailableException"
 
--- | Used by the 'GetAssessmentReport' API. The request was rejected because you tried to generate a report for an assessment run that existed before reporting was supported in Amazon Inspector. You can only generate reports for assessment runs that took place or will take place after generating reports in Amazon Inspector became available.
-_UnsupportedFeatureException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Used by the GetAssessmentReport API. The request was rejected because
+-- you tried to generate a report for an assessment run that existed before
+-- reporting was supported in Amazon Inspector. You can only generate
+-- reports for assessment runs that took place or will take place after
+-- generating reports in Amazon Inspector became available.
+_UnsupportedFeatureException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedFeatureException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedFeatureException"
 
 -- | Internal server error.
-_InternalException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalException =
-  _MatchServiceError inspector "InternalException"
+  Prelude._MatchServiceError
+    defaultService
+    "InternalException"
 
--- | The request was rejected because an invalid or out-of-range value was supplied for an input parameter.
-_InvalidInputException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request was rejected because an invalid or out-of-range value was
+-- supplied for an input parameter.
+_InvalidInputException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidInputException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "InvalidInputException"
 
--- | Amazon Inspector cannot assume the cross-account role that it needs to list your EC2 instances during the assessment run.
-_InvalidCrossAccountRoleException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Amazon Inspector cannot assume the cross-account role that it needs to
+-- list your EC2 instances during the assessment run.
+_InvalidCrossAccountRoleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidCrossAccountRoleException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "InvalidCrossAccountRoleException"
 
--- | You cannot perform a specified action if an assessment run is currently in progress.
-_AssessmentRunInProgressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You cannot perform a specified action if an assessment run is currently
+-- in progress.
+_AssessmentRunInProgressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AssessmentRunInProgressException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "AssessmentRunInProgressException"
 
--- | You started an assessment run, but one of the instances is already participating in another assessment run.
-_AgentsAlreadyRunningAssessmentException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You started an assessment run, but one of the instances is already
+-- participating in another assessment run.
+_AgentsAlreadyRunningAssessmentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AgentsAlreadyRunningAssessmentException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "AgentsAlreadyRunningAssessmentException"
 
 -- | You do not have required permissions to access the requested resource.
-_AccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+_AccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "AccessDeniedException"
 
--- | The request was rejected because it attempted to create resources beyond the current AWS account limits. The error code describes the limit exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request was rejected because it attempted to create resources beyond
+-- the current AWS account limits. The error code describes the limit
+-- exceeded.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | The request was rejected because it referenced an entity that does not exist. The error code describes the entity.
-_NoSuchEntityException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request was rejected because it referenced an entity that does not
+-- exist. The error code describes the entity.
+_NoSuchEntityException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoSuchEntityException =
-  _MatchServiceError
-    inspector
+  Prelude._MatchServiceError
+    defaultService
     "NoSuchEntityException"

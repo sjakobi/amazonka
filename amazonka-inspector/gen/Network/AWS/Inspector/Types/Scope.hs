@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,45 +20,58 @@
 module Network.AWS.Inspector.Types.Scope where
 
 import Network.AWS.Inspector.Types.ScopeType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This data type contains key-value pairs that identify various Amazon resources.
+-- | This data type contains key-value pairs that identify various Amazon
+-- resources.
 --
---
---
--- /See:/ 'scope' smart constructor.
+-- /See:/ 'newScope' smart constructor.
 data Scope = Scope'
-  { _sKey :: !(Maybe ScopeType),
-    _sValue :: !(Maybe Text)
+  { -- | The type of the scope.
+    key :: Prelude.Maybe ScopeType,
+    -- | The resource identifier for the specified scope type.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Scope' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Scope' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sKey' - The type of the scope.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sValue' - The resource identifier for the specified scope type.
-scope ::
+-- 'key', 'scope_key' - The type of the scope.
+--
+-- 'value', 'scope_value' - The resource identifier for the specified scope type.
+newScope ::
   Scope
-scope = Scope' {_sKey = Nothing, _sValue = Nothing}
+newScope =
+  Scope'
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
 -- | The type of the scope.
-sKey :: Lens' Scope (Maybe ScopeType)
-sKey = lens _sKey (\s a -> s {_sKey = a})
+scope_key :: Lens.Lens' Scope (Prelude.Maybe ScopeType)
+scope_key = Lens.lens (\Scope' {key} -> key) (\s@Scope' {} a -> s {key = a} :: Scope)
 
 -- | The resource identifier for the specified scope type.
-sValue :: Lens' Scope (Maybe Text)
-sValue = lens _sValue (\s a -> s {_sValue = a})
+scope_value :: Lens.Lens' Scope (Prelude.Maybe Prelude.Text)
+scope_value = Lens.lens (\Scope' {value} -> value) (\s@Scope' {} a -> s {value = a} :: Scope)
 
-instance FromJSON Scope where
+instance Prelude.FromJSON Scope where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Scope"
-      (\x -> Scope' <$> (x .:? "key") <*> (x .:? "value"))
+      ( \x ->
+          Scope'
+            Prelude.<$> (x Prelude..:? "key")
+            Prelude.<*> (x Prelude..:? "value")
+      )
 
-instance Hashable Scope
+instance Prelude.Hashable Scope
 
-instance NFData Scope
+instance Prelude.NFData Scope

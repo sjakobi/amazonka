@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,137 +20,174 @@
 module Network.AWS.Inspector.Types.AssessmentTemplate where
 
 import Network.AWS.Inspector.Types.Attribute
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an Amazon Inspector assessment template. This data type is used as the response element in the 'DescribeAssessmentTemplates' action.
+-- | Contains information about an Amazon Inspector assessment template. This
+-- data type is used as the response element in the
+-- DescribeAssessmentTemplates action.
 --
---
---
--- /See:/ 'assessmentTemplate' smart constructor.
+-- /See:/ 'newAssessmentTemplate' smart constructor.
 data AssessmentTemplate = AssessmentTemplate'
-  { _aLastAssessmentRunARN ::
-      !(Maybe Text),
-    _aArn :: !Text,
-    _aName :: !Text,
-    _aAssessmentTargetARN :: !Text,
-    _aDurationInSeconds :: !Nat,
-    _aRulesPackageARNs :: ![Text],
-    _aUserAttributesForFindings ::
-      ![Attribute],
-    _aAssessmentRunCount :: !Int,
-    _aCreatedAt :: !POSIX
+  { -- | The Amazon Resource Name (ARN) of the most recent assessment run
+    -- associated with this assessment template. This value exists only when
+    -- the value of assessmentRunCount is greaterpa than zero.
+    lastAssessmentRunArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the assessment template.
+    arn :: Prelude.Text,
+    -- | The name of the assessment template.
+    name :: Prelude.Text,
+    -- | The ARN of the assessment target that corresponds to this assessment
+    -- template.
+    assessmentTargetArn :: Prelude.Text,
+    -- | The duration in seconds specified for this assessment template. The
+    -- default value is 3600 seconds (one hour). The maximum value is 86400
+    -- seconds (one day).
+    durationInSeconds :: Prelude.Nat,
+    -- | The rules packages that are specified for this assessment template.
+    rulesPackageArns :: [Prelude.Text],
+    -- | The user-defined attributes that are assigned to every generated finding
+    -- from the assessment run that uses this assessment template.
+    userAttributesForFindings :: [Attribute],
+    -- | The number of existing assessment runs associated with this assessment
+    -- template. This value can be zero or a positive integer.
+    assessmentRunCount :: Prelude.Int,
+    -- | The time at which the assessment template is created.
+    createdAt :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssessmentTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssessmentTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aLastAssessmentRunARN' - The Amazon Resource Name (ARN) of the most recent assessment run associated with this assessment template. This value exists only when the value of assessmentRunCount is greaterpa than zero.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aArn' - The ARN of the assessment template.
+-- 'lastAssessmentRunArn', 'assessmentTemplate_lastAssessmentRunArn' - The Amazon Resource Name (ARN) of the most recent assessment run
+-- associated with this assessment template. This value exists only when
+-- the value of assessmentRunCount is greaterpa than zero.
 --
--- * 'aName' - The name of the assessment template.
+-- 'arn', 'assessmentTemplate_arn' - The ARN of the assessment template.
 --
--- * 'aAssessmentTargetARN' - The ARN of the assessment target that corresponds to this assessment template.
+-- 'name', 'assessmentTemplate_name' - The name of the assessment template.
 --
--- * 'aDurationInSeconds' - The duration in seconds specified for this assessment template. The default value is 3600 seconds (one hour). The maximum value is 86400 seconds (one day).
+-- 'assessmentTargetArn', 'assessmentTemplate_assessmentTargetArn' - The ARN of the assessment target that corresponds to this assessment
+-- template.
 --
--- * 'aRulesPackageARNs' - The rules packages that are specified for this assessment template.
+-- 'durationInSeconds', 'assessmentTemplate_durationInSeconds' - The duration in seconds specified for this assessment template. The
+-- default value is 3600 seconds (one hour). The maximum value is 86400
+-- seconds (one day).
 --
--- * 'aUserAttributesForFindings' - The user-defined attributes that are assigned to every generated finding from the assessment run that uses this assessment template.
+-- 'rulesPackageArns', 'assessmentTemplate_rulesPackageArns' - The rules packages that are specified for this assessment template.
 --
--- * 'aAssessmentRunCount' - The number of existing assessment runs associated with this assessment template. This value can be zero or a positive integer.
+-- 'userAttributesForFindings', 'assessmentTemplate_userAttributesForFindings' - The user-defined attributes that are assigned to every generated finding
+-- from the assessment run that uses this assessment template.
 --
--- * 'aCreatedAt' - The time at which the assessment template is created.
-assessmentTemplate ::
-  -- | 'aArn'
-  Text ->
-  -- | 'aName'
-  Text ->
-  -- | 'aAssessmentTargetARN'
-  Text ->
-  -- | 'aDurationInSeconds'
-  Natural ->
-  -- | 'aAssessmentRunCount'
-  Int ->
-  -- | 'aCreatedAt'
-  UTCTime ->
+-- 'assessmentRunCount', 'assessmentTemplate_assessmentRunCount' - The number of existing assessment runs associated with this assessment
+-- template. This value can be zero or a positive integer.
+--
+-- 'createdAt', 'assessmentTemplate_createdAt' - The time at which the assessment template is created.
+newAssessmentTemplate ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'assessmentTargetArn'
+  Prelude.Text ->
+  -- | 'durationInSeconds'
+  Prelude.Natural ->
+  -- | 'assessmentRunCount'
+  Prelude.Int ->
+  -- | 'createdAt'
+  Prelude.UTCTime ->
   AssessmentTemplate
-assessmentTemplate
+newAssessmentTemplate
   pArn_
   pName_
-  pAssessmentTargetARN_
+  pAssessmentTargetArn_
   pDurationInSeconds_
   pAssessmentRunCount_
   pCreatedAt_ =
     AssessmentTemplate'
-      { _aLastAssessmentRunARN =
-          Nothing,
-        _aArn = pArn_,
-        _aName = pName_,
-        _aAssessmentTargetARN = pAssessmentTargetARN_,
-        _aDurationInSeconds = _Nat # pDurationInSeconds_,
-        _aRulesPackageARNs = mempty,
-        _aUserAttributesForFindings = mempty,
-        _aAssessmentRunCount = pAssessmentRunCount_,
-        _aCreatedAt = _Time # pCreatedAt_
+      { lastAssessmentRunArn =
+          Prelude.Nothing,
+        arn = pArn_,
+        name = pName_,
+        assessmentTargetArn = pAssessmentTargetArn_,
+        durationInSeconds =
+          Prelude._Nat Lens.# pDurationInSeconds_,
+        rulesPackageArns = Prelude.mempty,
+        userAttributesForFindings = Prelude.mempty,
+        assessmentRunCount = pAssessmentRunCount_,
+        createdAt = Prelude._Time Lens.# pCreatedAt_
       }
 
--- | The Amazon Resource Name (ARN) of the most recent assessment run associated with this assessment template. This value exists only when the value of assessmentRunCount is greaterpa than zero.
-aLastAssessmentRunARN :: Lens' AssessmentTemplate (Maybe Text)
-aLastAssessmentRunARN = lens _aLastAssessmentRunARN (\s a -> s {_aLastAssessmentRunARN = a})
+-- | The Amazon Resource Name (ARN) of the most recent assessment run
+-- associated with this assessment template. This value exists only when
+-- the value of assessmentRunCount is greaterpa than zero.
+assessmentTemplate_lastAssessmentRunArn :: Lens.Lens' AssessmentTemplate (Prelude.Maybe Prelude.Text)
+assessmentTemplate_lastAssessmentRunArn = Lens.lens (\AssessmentTemplate' {lastAssessmentRunArn} -> lastAssessmentRunArn) (\s@AssessmentTemplate' {} a -> s {lastAssessmentRunArn = a} :: AssessmentTemplate)
 
 -- | The ARN of the assessment template.
-aArn :: Lens' AssessmentTemplate Text
-aArn = lens _aArn (\s a -> s {_aArn = a})
+assessmentTemplate_arn :: Lens.Lens' AssessmentTemplate Prelude.Text
+assessmentTemplate_arn = Lens.lens (\AssessmentTemplate' {arn} -> arn) (\s@AssessmentTemplate' {} a -> s {arn = a} :: AssessmentTemplate)
 
 -- | The name of the assessment template.
-aName :: Lens' AssessmentTemplate Text
-aName = lens _aName (\s a -> s {_aName = a})
+assessmentTemplate_name :: Lens.Lens' AssessmentTemplate Prelude.Text
+assessmentTemplate_name = Lens.lens (\AssessmentTemplate' {name} -> name) (\s@AssessmentTemplate' {} a -> s {name = a} :: AssessmentTemplate)
 
--- | The ARN of the assessment target that corresponds to this assessment template.
-aAssessmentTargetARN :: Lens' AssessmentTemplate Text
-aAssessmentTargetARN = lens _aAssessmentTargetARN (\s a -> s {_aAssessmentTargetARN = a})
+-- | The ARN of the assessment target that corresponds to this assessment
+-- template.
+assessmentTemplate_assessmentTargetArn :: Lens.Lens' AssessmentTemplate Prelude.Text
+assessmentTemplate_assessmentTargetArn = Lens.lens (\AssessmentTemplate' {assessmentTargetArn} -> assessmentTargetArn) (\s@AssessmentTemplate' {} a -> s {assessmentTargetArn = a} :: AssessmentTemplate)
 
--- | The duration in seconds specified for this assessment template. The default value is 3600 seconds (one hour). The maximum value is 86400 seconds (one day).
-aDurationInSeconds :: Lens' AssessmentTemplate Natural
-aDurationInSeconds = lens _aDurationInSeconds (\s a -> s {_aDurationInSeconds = a}) . _Nat
+-- | The duration in seconds specified for this assessment template. The
+-- default value is 3600 seconds (one hour). The maximum value is 86400
+-- seconds (one day).
+assessmentTemplate_durationInSeconds :: Lens.Lens' AssessmentTemplate Prelude.Natural
+assessmentTemplate_durationInSeconds = Lens.lens (\AssessmentTemplate' {durationInSeconds} -> durationInSeconds) (\s@AssessmentTemplate' {} a -> s {durationInSeconds = a} :: AssessmentTemplate) Prelude.. Prelude._Nat
 
 -- | The rules packages that are specified for this assessment template.
-aRulesPackageARNs :: Lens' AssessmentTemplate [Text]
-aRulesPackageARNs = lens _aRulesPackageARNs (\s a -> s {_aRulesPackageARNs = a}) . _Coerce
+assessmentTemplate_rulesPackageArns :: Lens.Lens' AssessmentTemplate [Prelude.Text]
+assessmentTemplate_rulesPackageArns = Lens.lens (\AssessmentTemplate' {rulesPackageArns} -> rulesPackageArns) (\s@AssessmentTemplate' {} a -> s {rulesPackageArns = a} :: AssessmentTemplate) Prelude.. Prelude._Coerce
 
--- | The user-defined attributes that are assigned to every generated finding from the assessment run that uses this assessment template.
-aUserAttributesForFindings :: Lens' AssessmentTemplate [Attribute]
-aUserAttributesForFindings = lens _aUserAttributesForFindings (\s a -> s {_aUserAttributesForFindings = a}) . _Coerce
+-- | The user-defined attributes that are assigned to every generated finding
+-- from the assessment run that uses this assessment template.
+assessmentTemplate_userAttributesForFindings :: Lens.Lens' AssessmentTemplate [Attribute]
+assessmentTemplate_userAttributesForFindings = Lens.lens (\AssessmentTemplate' {userAttributesForFindings} -> userAttributesForFindings) (\s@AssessmentTemplate' {} a -> s {userAttributesForFindings = a} :: AssessmentTemplate) Prelude.. Prelude._Coerce
 
--- | The number of existing assessment runs associated with this assessment template. This value can be zero or a positive integer.
-aAssessmentRunCount :: Lens' AssessmentTemplate Int
-aAssessmentRunCount = lens _aAssessmentRunCount (\s a -> s {_aAssessmentRunCount = a})
+-- | The number of existing assessment runs associated with this assessment
+-- template. This value can be zero or a positive integer.
+assessmentTemplate_assessmentRunCount :: Lens.Lens' AssessmentTemplate Prelude.Int
+assessmentTemplate_assessmentRunCount = Lens.lens (\AssessmentTemplate' {assessmentRunCount} -> assessmentRunCount) (\s@AssessmentTemplate' {} a -> s {assessmentRunCount = a} :: AssessmentTemplate)
 
 -- | The time at which the assessment template is created.
-aCreatedAt :: Lens' AssessmentTemplate UTCTime
-aCreatedAt = lens _aCreatedAt (\s a -> s {_aCreatedAt = a}) . _Time
+assessmentTemplate_createdAt :: Lens.Lens' AssessmentTemplate Prelude.UTCTime
+assessmentTemplate_createdAt = Lens.lens (\AssessmentTemplate' {createdAt} -> createdAt) (\s@AssessmentTemplate' {} a -> s {createdAt = a} :: AssessmentTemplate) Prelude.. Prelude._Time
 
-instance FromJSON AssessmentTemplate where
+instance Prelude.FromJSON AssessmentTemplate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AssessmentTemplate"
       ( \x ->
           AssessmentTemplate'
-            <$> (x .:? "lastAssessmentRunArn")
-            <*> (x .: "arn")
-            <*> (x .: "name")
-            <*> (x .: "assessmentTargetArn")
-            <*> (x .: "durationInSeconds")
-            <*> (x .:? "rulesPackageArns" .!= mempty)
-            <*> (x .:? "userAttributesForFindings" .!= mempty)
-            <*> (x .: "assessmentRunCount")
-            <*> (x .: "createdAt")
+            Prelude.<$> (x Prelude..:? "lastAssessmentRunArn")
+            Prelude.<*> (x Prelude..: "arn")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "assessmentTargetArn")
+            Prelude.<*> (x Prelude..: "durationInSeconds")
+            Prelude.<*> ( x Prelude..:? "rulesPackageArns"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "userAttributesForFindings"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "assessmentRunCount")
+            Prelude.<*> (x Prelude..: "createdAt")
       )
 
-instance Hashable AssessmentTemplate
+instance Prelude.Hashable AssessmentTemplate
 
-instance NFData AssessmentTemplate
+instance Prelude.NFData AssessmentTemplate

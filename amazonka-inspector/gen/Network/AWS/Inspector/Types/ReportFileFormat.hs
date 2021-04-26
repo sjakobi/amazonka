@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Inspector.Types.ReportFileFormat
   ( ReportFileFormat
       ( ..,
-        HTML,
-        Pdf
+        ReportFileFormatHTML,
+        ReportFileFormatPDF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportFileFormat = ReportFileFormat' (CI Text)
+newtype ReportFileFormat = ReportFileFormat'
+  { fromReportFileFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTML :: ReportFileFormat
-pattern HTML = ReportFileFormat' "HTML"
+pattern ReportFileFormatHTML :: ReportFileFormat
+pattern ReportFileFormatHTML = ReportFileFormat' "HTML"
 
-pattern Pdf :: ReportFileFormat
-pattern Pdf = ReportFileFormat' "PDF"
+pattern ReportFileFormatPDF :: ReportFileFormat
+pattern ReportFileFormatPDF = ReportFileFormat' "PDF"
 
 {-# COMPLETE
-  HTML,
-  Pdf,
+  ReportFileFormatHTML,
+  ReportFileFormatPDF,
   ReportFileFormat'
   #-}
 
-instance FromText ReportFileFormat where
-  parser = (ReportFileFormat' . mk) <$> takeText
+instance Prelude.FromText ReportFileFormat where
+  parser = ReportFileFormat' Prelude.<$> Prelude.takeText
 
-instance ToText ReportFileFormat where
-  toText (ReportFileFormat' ci) = original ci
+instance Prelude.ToText ReportFileFormat where
+  toText (ReportFileFormat' x) = x
 
-instance Hashable ReportFileFormat
+instance Prelude.Hashable ReportFileFormat
 
-instance NFData ReportFileFormat
+instance Prelude.NFData ReportFileFormat
 
-instance ToByteString ReportFileFormat
+instance Prelude.ToByteString ReportFileFormat
 
-instance ToQuery ReportFileFormat
+instance Prelude.ToQuery ReportFileFormat
 
-instance ToHeader ReportFileFormat
+instance Prelude.ToHeader ReportFileFormat
 
-instance ToJSON ReportFileFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReportFileFormat where
+  toJSON = Prelude.toJSONText

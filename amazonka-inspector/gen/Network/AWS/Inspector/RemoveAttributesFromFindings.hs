@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes entire attributes (key and value pairs) from the findings that are specified by the ARNs of the findings where an attribute with the specified key exists.
+-- Removes entire attributes (key and value pairs) from the findings that
+-- are specified by the ARNs of the findings where an attribute with the
+-- specified key exists.
 module Network.AWS.Inspector.RemoveAttributesFromFindings
   ( -- * Creating a Request
-    removeAttributesFromFindings,
-    RemoveAttributesFromFindings,
+    RemoveAttributesFromFindings (..),
+    newRemoveAttributesFromFindings,
 
     -- * Request Lenses
-    raffFindingARNs,
-    raffAttributeKeys,
+    removeAttributesFromFindings_findingArns,
+    removeAttributesFromFindings_attributeKeys,
 
     -- * Destructuring the Response
-    removeAttributesFromFindingsResponse,
-    RemoveAttributesFromFindingsResponse,
+    RemoveAttributesFromFindingsResponse (..),
+    newRemoveAttributesFromFindingsResponse,
 
     -- * Response Lenses
-    raffrrsResponseStatus,
-    raffrrsFailedItems,
+    removeAttributesFromFindingsResponse_httpStatus,
+    removeAttributesFromFindingsResponse_failedItems,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Inspector.Types.FailedItemDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'removeAttributesFromFindings' smart constructor.
+-- | /See:/ 'newRemoveAttributesFromFindings' smart constructor.
 data RemoveAttributesFromFindings = RemoveAttributesFromFindings'
-  { _raffFindingARNs ::
-      !(List1 Text),
-    _raffAttributeKeys ::
-      ![Text]
+  { -- | The ARNs that specify the findings that you want to remove attributes
+    -- from.
+    findingArns :: Prelude.List1 Prelude.Text,
+    -- | The array of attribute keys that you want to remove from specified
+    -- findings.
+    attributeKeys :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveAttributesFromFindings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveAttributesFromFindings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'raffFindingARNs' - The ARNs that specify the findings that you want to remove attributes from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'raffAttributeKeys' - The array of attribute keys that you want to remove from specified findings.
-removeAttributesFromFindings ::
-  -- | 'raffFindingARNs'
-  NonEmpty Text ->
+-- 'findingArns', 'removeAttributesFromFindings_findingArns' - The ARNs that specify the findings that you want to remove attributes
+-- from.
+--
+-- 'attributeKeys', 'removeAttributesFromFindings_attributeKeys' - The array of attribute keys that you want to remove from specified
+-- findings.
+newRemoveAttributesFromFindings ::
+  -- | 'findingArns'
+  Prelude.NonEmpty Prelude.Text ->
   RemoveAttributesFromFindings
-removeAttributesFromFindings pFindingARNs_ =
+newRemoveAttributesFromFindings pFindingArns_ =
   RemoveAttributesFromFindings'
-    { _raffFindingARNs =
-        _List1 # pFindingARNs_,
-      _raffAttributeKeys = mempty
+    { findingArns =
+        Prelude._List1 Lens.# pFindingArns_,
+      attributeKeys = Prelude.mempty
     }
 
--- | The ARNs that specify the findings that you want to remove attributes from.
-raffFindingARNs :: Lens' RemoveAttributesFromFindings (NonEmpty Text)
-raffFindingARNs = lens _raffFindingARNs (\s a -> s {_raffFindingARNs = a}) . _List1
+-- | The ARNs that specify the findings that you want to remove attributes
+-- from.
+removeAttributesFromFindings_findingArns :: Lens.Lens' RemoveAttributesFromFindings (Prelude.NonEmpty Prelude.Text)
+removeAttributesFromFindings_findingArns = Lens.lens (\RemoveAttributesFromFindings' {findingArns} -> findingArns) (\s@RemoveAttributesFromFindings' {} a -> s {findingArns = a} :: RemoveAttributesFromFindings) Prelude.. Prelude._List1
 
--- | The array of attribute keys that you want to remove from specified findings.
-raffAttributeKeys :: Lens' RemoveAttributesFromFindings [Text]
-raffAttributeKeys = lens _raffAttributeKeys (\s a -> s {_raffAttributeKeys = a}) . _Coerce
+-- | The array of attribute keys that you want to remove from specified
+-- findings.
+removeAttributesFromFindings_attributeKeys :: Lens.Lens' RemoveAttributesFromFindings [Prelude.Text]
+removeAttributesFromFindings_attributeKeys = Lens.lens (\RemoveAttributesFromFindings' {attributeKeys} -> attributeKeys) (\s@RemoveAttributesFromFindings' {} a -> s {attributeKeys = a} :: RemoveAttributesFromFindings) Prelude.. Prelude._Coerce
 
-instance AWSRequest RemoveAttributesFromFindings where
+instance
+  Prelude.AWSRequest
+    RemoveAttributesFromFindings
+  where
   type
     Rs RemoveAttributesFromFindings =
       RemoveAttributesFromFindingsResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RemoveAttributesFromFindingsResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "failedItems" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "failedItems"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable RemoveAttributesFromFindings
+instance
+  Prelude.Hashable
+    RemoveAttributesFromFindings
 
-instance NFData RemoveAttributesFromFindings
+instance Prelude.NFData RemoveAttributesFromFindings
 
-instance ToHeaders RemoveAttributesFromFindings where
+instance
+  Prelude.ToHeaders
+    RemoveAttributesFromFindings
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.RemoveAttributesFromFindings" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.RemoveAttributesFromFindings" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RemoveAttributesFromFindings where
+instance Prelude.ToJSON RemoveAttributesFromFindings where
   toJSON RemoveAttributesFromFindings' {..} =
-    object
-      ( catMaybes
-          [ Just ("findingArns" .= _raffFindingARNs),
-            Just ("attributeKeys" .= _raffAttributeKeys)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("findingArns" Prelude..= findingArns),
+            Prelude.Just
+              ("attributeKeys" Prelude..= attributeKeys)
           ]
       )
 
-instance ToPath RemoveAttributesFromFindings where
-  toPath = const "/"
+instance Prelude.ToPath RemoveAttributesFromFindings where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemoveAttributesFromFindings where
-  toQuery = const mempty
+instance Prelude.ToQuery RemoveAttributesFromFindings where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'removeAttributesFromFindingsResponse' smart constructor.
+-- | /See:/ 'newRemoveAttributesFromFindingsResponse' smart constructor.
 data RemoveAttributesFromFindingsResponse = RemoveAttributesFromFindingsResponse'
-  { _raffrrsResponseStatus ::
-      !Int,
-    _raffrrsFailedItems ::
-      !( Map
-           Text
-           FailedItemDetails
-       )
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Attributes details that cannot be described. An error code is provided
+    -- for each failed item.
+    failedItems :: Prelude.Map Prelude.Text FailedItemDetails
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveAttributesFromFindingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveAttributesFromFindingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'raffrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'raffrrsFailedItems' - Attributes details that cannot be described. An error code is provided for each failed item.
-removeAttributesFromFindingsResponse ::
-  -- | 'raffrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'removeAttributesFromFindingsResponse_httpStatus' - The response's http status code.
+--
+-- 'failedItems', 'removeAttributesFromFindingsResponse_failedItems' - Attributes details that cannot be described. An error code is provided
+-- for each failed item.
+newRemoveAttributesFromFindingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RemoveAttributesFromFindingsResponse
-removeAttributesFromFindingsResponse pResponseStatus_ =
+newRemoveAttributesFromFindingsResponse pHttpStatus_ =
   RemoveAttributesFromFindingsResponse'
-    { _raffrrsResponseStatus =
-        pResponseStatus_,
-      _raffrrsFailedItems = mempty
+    { httpStatus =
+        pHttpStatus_,
+      failedItems = Prelude.mempty
     }
 
--- | -- | The response status code.
-raffrrsResponseStatus :: Lens' RemoveAttributesFromFindingsResponse Int
-raffrrsResponseStatus = lens _raffrrsResponseStatus (\s a -> s {_raffrrsResponseStatus = a})
+-- | The response's http status code.
+removeAttributesFromFindingsResponse_httpStatus :: Lens.Lens' RemoveAttributesFromFindingsResponse Prelude.Int
+removeAttributesFromFindingsResponse_httpStatus = Lens.lens (\RemoveAttributesFromFindingsResponse' {httpStatus} -> httpStatus) (\s@RemoveAttributesFromFindingsResponse' {} a -> s {httpStatus = a} :: RemoveAttributesFromFindingsResponse)
 
--- | Attributes details that cannot be described. An error code is provided for each failed item.
-raffrrsFailedItems :: Lens' RemoveAttributesFromFindingsResponse (HashMap Text FailedItemDetails)
-raffrrsFailedItems = lens _raffrrsFailedItems (\s a -> s {_raffrrsFailedItems = a}) . _Map
+-- | Attributes details that cannot be described. An error code is provided
+-- for each failed item.
+removeAttributesFromFindingsResponse_failedItems :: Lens.Lens' RemoveAttributesFromFindingsResponse (Prelude.HashMap Prelude.Text FailedItemDetails)
+removeAttributesFromFindingsResponse_failedItems = Lens.lens (\RemoveAttributesFromFindingsResponse' {failedItems} -> failedItems) (\s@RemoveAttributesFromFindingsResponse' {} a -> s {failedItems = a} :: RemoveAttributesFromFindingsResponse) Prelude.. Prelude._Map
 
-instance NFData RemoveAttributesFromFindingsResponse
+instance
+  Prelude.NFData
+    RemoveAttributesFromFindingsResponse

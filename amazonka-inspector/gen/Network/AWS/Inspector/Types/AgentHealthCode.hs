@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.Inspector.Types.AgentHealthCode
   ( AgentHealthCode
       ( ..,
-        AHCIdle,
-        AHCRunning,
-        AHCShutdown,
-        AHCThrottled,
-        AHCUnhealthy,
-        AHCUnknown
+        AgentHealthCodeIDLE,
+        AgentHealthCodeRUNNING,
+        AgentHealthCodeSHUTDOWN,
+        AgentHealthCodeTHROTTLED,
+        AgentHealthCodeUNHEALTHY,
+        AgentHealthCodeUNKNOWN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AgentHealthCode = AgentHealthCode' (CI Text)
+newtype AgentHealthCode = AgentHealthCode'
+  { fromAgentHealthCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AHCIdle :: AgentHealthCode
-pattern AHCIdle = AgentHealthCode' "IDLE"
+pattern AgentHealthCodeIDLE :: AgentHealthCode
+pattern AgentHealthCodeIDLE = AgentHealthCode' "IDLE"
 
-pattern AHCRunning :: AgentHealthCode
-pattern AHCRunning = AgentHealthCode' "RUNNING"
+pattern AgentHealthCodeRUNNING :: AgentHealthCode
+pattern AgentHealthCodeRUNNING = AgentHealthCode' "RUNNING"
 
-pattern AHCShutdown :: AgentHealthCode
-pattern AHCShutdown = AgentHealthCode' "SHUTDOWN"
+pattern AgentHealthCodeSHUTDOWN :: AgentHealthCode
+pattern AgentHealthCodeSHUTDOWN = AgentHealthCode' "SHUTDOWN"
 
-pattern AHCThrottled :: AgentHealthCode
-pattern AHCThrottled = AgentHealthCode' "THROTTLED"
+pattern AgentHealthCodeTHROTTLED :: AgentHealthCode
+pattern AgentHealthCodeTHROTTLED = AgentHealthCode' "THROTTLED"
 
-pattern AHCUnhealthy :: AgentHealthCode
-pattern AHCUnhealthy = AgentHealthCode' "UNHEALTHY"
+pattern AgentHealthCodeUNHEALTHY :: AgentHealthCode
+pattern AgentHealthCodeUNHEALTHY = AgentHealthCode' "UNHEALTHY"
 
-pattern AHCUnknown :: AgentHealthCode
-pattern AHCUnknown = AgentHealthCode' "UNKNOWN"
+pattern AgentHealthCodeUNKNOWN :: AgentHealthCode
+pattern AgentHealthCodeUNKNOWN = AgentHealthCode' "UNKNOWN"
 
 {-# COMPLETE
-  AHCIdle,
-  AHCRunning,
-  AHCShutdown,
-  AHCThrottled,
-  AHCUnhealthy,
-  AHCUnknown,
+  AgentHealthCodeIDLE,
+  AgentHealthCodeRUNNING,
+  AgentHealthCodeSHUTDOWN,
+  AgentHealthCodeTHROTTLED,
+  AgentHealthCodeUNHEALTHY,
+  AgentHealthCodeUNKNOWN,
   AgentHealthCode'
   #-}
 
-instance FromText AgentHealthCode where
-  parser = (AgentHealthCode' . mk) <$> takeText
+instance Prelude.FromText AgentHealthCode where
+  parser = AgentHealthCode' Prelude.<$> Prelude.takeText
 
-instance ToText AgentHealthCode where
-  toText (AgentHealthCode' ci) = original ci
+instance Prelude.ToText AgentHealthCode where
+  toText (AgentHealthCode' x) = x
 
-instance Hashable AgentHealthCode
+instance Prelude.Hashable AgentHealthCode
 
-instance NFData AgentHealthCode
+instance Prelude.NFData AgentHealthCode
 
-instance ToByteString AgentHealthCode
+instance Prelude.ToByteString AgentHealthCode
 
-instance ToQuery AgentHealthCode
+instance Prelude.ToQuery AgentHealthCode
 
-instance ToHeader AgentHealthCode
+instance Prelude.ToHeader AgentHealthCode
 
-instance ToJSON AgentHealthCode where
-  toJSON = toJSONText
+instance Prelude.ToJSON AgentHealthCode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AgentHealthCode where
-  parseJSON = parseJSONText "AgentHealthCode"
+instance Prelude.FromJSON AgentHealthCode where
+  parseJSON = Prelude.parseJSONText "AgentHealthCode"

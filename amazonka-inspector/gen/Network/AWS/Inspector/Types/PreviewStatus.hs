@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Inspector.Types.PreviewStatus
   ( PreviewStatus
       ( ..,
-        PSCompleted,
-        PSWorkInProgress
+        PreviewStatusCOMPLETED,
+        PreviewStatusWORKINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PreviewStatus = PreviewStatus' (CI Text)
+newtype PreviewStatus = PreviewStatus'
+  { fromPreviewStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSCompleted :: PreviewStatus
-pattern PSCompleted = PreviewStatus' "COMPLETED"
+pattern PreviewStatusCOMPLETED :: PreviewStatus
+pattern PreviewStatusCOMPLETED = PreviewStatus' "COMPLETED"
 
-pattern PSWorkInProgress :: PreviewStatus
-pattern PSWorkInProgress = PreviewStatus' "WORK_IN_PROGRESS"
+pattern PreviewStatusWORKINPROGRESS :: PreviewStatus
+pattern PreviewStatusWORKINPROGRESS = PreviewStatus' "WORK_IN_PROGRESS"
 
 {-# COMPLETE
-  PSCompleted,
-  PSWorkInProgress,
+  PreviewStatusCOMPLETED,
+  PreviewStatusWORKINPROGRESS,
   PreviewStatus'
   #-}
 
-instance FromText PreviewStatus where
-  parser = (PreviewStatus' . mk) <$> takeText
+instance Prelude.FromText PreviewStatus where
+  parser = PreviewStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PreviewStatus where
-  toText (PreviewStatus' ci) = original ci
+instance Prelude.ToText PreviewStatus where
+  toText (PreviewStatus' x) = x
 
-instance Hashable PreviewStatus
+instance Prelude.Hashable PreviewStatus
 
-instance NFData PreviewStatus
+instance Prelude.NFData PreviewStatus
 
-instance ToByteString PreviewStatus
+instance Prelude.ToByteString PreviewStatus
 
-instance ToQuery PreviewStatus
+instance Prelude.ToQuery PreviewStatus
 
-instance ToHeader PreviewStatus
+instance Prelude.ToHeader PreviewStatus
 
-instance FromJSON PreviewStatus where
-  parseJSON = parseJSONText "PreviewStatus"
+instance Prelude.FromJSON PreviewStatus where
+  parseJSON = Prelude.parseJSONText "PreviewStatus"

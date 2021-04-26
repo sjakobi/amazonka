@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +21,68 @@ module Network.AWS.Inspector.Types.AgentFilter where
 
 import Network.AWS.Inspector.Types.AgentHealth
 import Network.AWS.Inspector.Types.AgentHealthCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an Amazon Inspector agent. This data type is used as a request parameter in the 'ListAssessmentRunAgents' action.
+-- | Contains information about an Amazon Inspector agent. This data type is
+-- used as a request parameter in the ListAssessmentRunAgents action.
 --
---
---
--- /See:/ 'agentFilter' smart constructor.
+-- /See:/ 'newAgentFilter' smart constructor.
 data AgentFilter = AgentFilter'
-  { _afAgentHealths ::
-      ![AgentHealth],
-    _afAgentHealthCodes :: ![AgentHealthCode]
+  { -- | The current health state of the agent. Values can be set to __HEALTHY__
+    -- or __UNHEALTHY__.
+    agentHealths :: [AgentHealth],
+    -- | The detailed health state of the agent. Values can be set to __IDLE__,
+    -- __RUNNING__, __SHUTDOWN__, __UNHEALTHY__, __THROTTLED__, and
+    -- __UNKNOWN__.
+    agentHealthCodes :: [AgentHealthCode]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AgentFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AgentFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'afAgentHealths' - The current health state of the agent. Values can be set to __HEALTHY__ or __UNHEALTHY__ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'afAgentHealthCodes' - The detailed health state of the agent. Values can be set to __IDLE__ , __RUNNING__ , __SHUTDOWN__ , __UNHEALTHY__ , __THROTTLED__ , and __UNKNOWN__ .
-agentFilter ::
+-- 'agentHealths', 'agentFilter_agentHealths' - The current health state of the agent. Values can be set to __HEALTHY__
+-- or __UNHEALTHY__.
+--
+-- 'agentHealthCodes', 'agentFilter_agentHealthCodes' - The detailed health state of the agent. Values can be set to __IDLE__,
+-- __RUNNING__, __SHUTDOWN__, __UNHEALTHY__, __THROTTLED__, and
+-- __UNKNOWN__.
+newAgentFilter ::
   AgentFilter
-agentFilter =
+newAgentFilter =
   AgentFilter'
-    { _afAgentHealths = mempty,
-      _afAgentHealthCodes = mempty
+    { agentHealths = Prelude.mempty,
+      agentHealthCodes = Prelude.mempty
     }
 
--- | The current health state of the agent. Values can be set to __HEALTHY__ or __UNHEALTHY__ .
-afAgentHealths :: Lens' AgentFilter [AgentHealth]
-afAgentHealths = lens _afAgentHealths (\s a -> s {_afAgentHealths = a}) . _Coerce
+-- | The current health state of the agent. Values can be set to __HEALTHY__
+-- or __UNHEALTHY__.
+agentFilter_agentHealths :: Lens.Lens' AgentFilter [AgentHealth]
+agentFilter_agentHealths = Lens.lens (\AgentFilter' {agentHealths} -> agentHealths) (\s@AgentFilter' {} a -> s {agentHealths = a} :: AgentFilter) Prelude.. Prelude._Coerce
 
--- | The detailed health state of the agent. Values can be set to __IDLE__ , __RUNNING__ , __SHUTDOWN__ , __UNHEALTHY__ , __THROTTLED__ , and __UNKNOWN__ .
-afAgentHealthCodes :: Lens' AgentFilter [AgentHealthCode]
-afAgentHealthCodes = lens _afAgentHealthCodes (\s a -> s {_afAgentHealthCodes = a}) . _Coerce
+-- | The detailed health state of the agent. Values can be set to __IDLE__,
+-- __RUNNING__, __SHUTDOWN__, __UNHEALTHY__, __THROTTLED__, and
+-- __UNKNOWN__.
+agentFilter_agentHealthCodes :: Lens.Lens' AgentFilter [AgentHealthCode]
+agentFilter_agentHealthCodes = Lens.lens (\AgentFilter' {agentHealthCodes} -> agentHealthCodes) (\s@AgentFilter' {} a -> s {agentHealthCodes = a} :: AgentFilter) Prelude.. Prelude._Coerce
 
-instance Hashable AgentFilter
+instance Prelude.Hashable AgentFilter
 
-instance NFData AgentFilter
+instance Prelude.NFData AgentFilter
 
-instance ToJSON AgentFilter where
+instance Prelude.ToJSON AgentFilter where
   toJSON AgentFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("agentHealths" .= _afAgentHealths),
-            Just ("agentHealthCodes" .= _afAgentHealthCodes)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("agentHealths" Prelude..= agentHealths),
+            Prelude.Just
+              ("agentHealthCodes" Prelude..= agentHealthCodes)
           ]
       )

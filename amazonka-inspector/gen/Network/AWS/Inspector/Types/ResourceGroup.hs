@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,68 +20,79 @@
 module Network.AWS.Inspector.Types.ResourceGroup where
 
 import Network.AWS.Inspector.Types.ResourceGroupTag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about a resource group. The resource group defines a set of tags that, when queried, identify the AWS resources that make up the assessment target. This data type is used as the response element in the 'DescribeResourceGroups' action.
+-- | Contains information about a resource group. The resource group defines
+-- a set of tags that, when queried, identify the AWS resources that make
+-- up the assessment target. This data type is used as the response element
+-- in the DescribeResourceGroups action.
 --
---
---
--- /See:/ 'resourceGroup' smart constructor.
+-- /See:/ 'newResourceGroup' smart constructor.
 data ResourceGroup = ResourceGroup'
-  { _rgArn :: !Text,
-    _rgTags :: !(List1 ResourceGroupTag),
-    _rgCreatedAt :: !POSIX
+  { -- | The ARN of the resource group.
+    arn :: Prelude.Text,
+    -- | The tags (key and value pairs) of the resource group. This data type
+    -- property is used in the CreateResourceGroup action.
+    tags :: Prelude.List1 ResourceGroupTag,
+    -- | The time at which resource group is created.
+    createdAt :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgArn' - The ARN of the resource group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgTags' - The tags (key and value pairs) of the resource group. This data type property is used in the 'CreateResourceGroup' action.
+-- 'arn', 'resourceGroup_arn' - The ARN of the resource group.
 --
--- * 'rgCreatedAt' - The time at which resource group is created.
-resourceGroup ::
-  -- | 'rgArn'
-  Text ->
-  -- | 'rgTags'
-  NonEmpty ResourceGroupTag ->
-  -- | 'rgCreatedAt'
-  UTCTime ->
+-- 'tags', 'resourceGroup_tags' - The tags (key and value pairs) of the resource group. This data type
+-- property is used in the CreateResourceGroup action.
+--
+-- 'createdAt', 'resourceGroup_createdAt' - The time at which resource group is created.
+newResourceGroup ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'tags'
+  Prelude.NonEmpty ResourceGroupTag ->
+  -- | 'createdAt'
+  Prelude.UTCTime ->
   ResourceGroup
-resourceGroup pArn_ pTags_ pCreatedAt_ =
+newResourceGroup pArn_ pTags_ pCreatedAt_ =
   ResourceGroup'
-    { _rgArn = pArn_,
-      _rgTags = _List1 # pTags_,
-      _rgCreatedAt = _Time # pCreatedAt_
+    { arn = pArn_,
+      tags = Prelude._List1 Lens.# pTags_,
+      createdAt = Prelude._Time Lens.# pCreatedAt_
     }
 
 -- | The ARN of the resource group.
-rgArn :: Lens' ResourceGroup Text
-rgArn = lens _rgArn (\s a -> s {_rgArn = a})
+resourceGroup_arn :: Lens.Lens' ResourceGroup Prelude.Text
+resourceGroup_arn = Lens.lens (\ResourceGroup' {arn} -> arn) (\s@ResourceGroup' {} a -> s {arn = a} :: ResourceGroup)
 
--- | The tags (key and value pairs) of the resource group. This data type property is used in the 'CreateResourceGroup' action.
-rgTags :: Lens' ResourceGroup (NonEmpty ResourceGroupTag)
-rgTags = lens _rgTags (\s a -> s {_rgTags = a}) . _List1
+-- | The tags (key and value pairs) of the resource group. This data type
+-- property is used in the CreateResourceGroup action.
+resourceGroup_tags :: Lens.Lens' ResourceGroup (Prelude.NonEmpty ResourceGroupTag)
+resourceGroup_tags = Lens.lens (\ResourceGroup' {tags} -> tags) (\s@ResourceGroup' {} a -> s {tags = a} :: ResourceGroup) Prelude.. Prelude._List1
 
 -- | The time at which resource group is created.
-rgCreatedAt :: Lens' ResourceGroup UTCTime
-rgCreatedAt = lens _rgCreatedAt (\s a -> s {_rgCreatedAt = a}) . _Time
+resourceGroup_createdAt :: Lens.Lens' ResourceGroup Prelude.UTCTime
+resourceGroup_createdAt = Lens.lens (\ResourceGroup' {createdAt} -> createdAt) (\s@ResourceGroup' {} a -> s {createdAt = a} :: ResourceGroup) Prelude.. Prelude._Time
 
-instance FromJSON ResourceGroup where
+instance Prelude.FromJSON ResourceGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceGroup"
       ( \x ->
           ResourceGroup'
-            <$> (x .: "arn")
-            <*> (x .: "tags")
-            <*> (x .: "createdAt")
+            Prelude.<$> (x Prelude..: "arn")
+            Prelude.<*> (x Prelude..: "tags")
+            Prelude.<*> (x Prelude..: "createdAt")
       )
 
-instance Hashable ResourceGroup
+instance Prelude.Hashable ResourceGroup
 
-instance NFData ResourceGroup
+instance Prelude.NFData ResourceGroup

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the assessment templates that are specified by the ARNs of the assessment templates.
+-- Describes the assessment templates that are specified by the ARNs of the
+-- assessment templates.
 module Network.AWS.Inspector.DescribeAssessmentTemplates
   ( -- * Creating a Request
-    describeAssessmentTemplates,
-    DescribeAssessmentTemplates,
+    DescribeAssessmentTemplates (..),
+    newDescribeAssessmentTemplates,
 
     -- * Request Lenses
-    datAssessmentTemplateARNs,
+    describeAssessmentTemplates_assessmentTemplateArns,
 
     -- * Destructuring the Response
-    describeAssessmentTemplatesResponse,
-    DescribeAssessmentTemplatesResponse,
+    DescribeAssessmentTemplatesResponse (..),
+    newDescribeAssessmentTemplatesResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
-    drsAssessmentTemplates,
-    drsFailedItems,
+    describeAssessmentTemplatesResponse_httpStatus,
+    describeAssessmentTemplatesResponse_assessmentTemplates,
+    describeAssessmentTemplatesResponse_failedItems,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Inspector.Types.AssessmentTemplate
+import Network.AWS.Inspector.Types.FailedItemDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAssessmentTemplates' smart constructor.
-newtype DescribeAssessmentTemplates = DescribeAssessmentTemplates'
-  { _datAssessmentTemplateARNs ::
-      List1 Text
+-- | /See:/ 'newDescribeAssessmentTemplates' smart constructor.
+data DescribeAssessmentTemplates = DescribeAssessmentTemplates'
+  { assessmentTemplateArns :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAssessmentTemplates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAssessmentTemplates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datAssessmentTemplateARNs' - Undocumented member.
-describeAssessmentTemplates ::
-  -- | 'datAssessmentTemplateARNs'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'assessmentTemplateArns', 'describeAssessmentTemplates_assessmentTemplateArns' - Undocumented member.
+newDescribeAssessmentTemplates ::
+  -- | 'assessmentTemplateArns'
+  Prelude.NonEmpty Prelude.Text ->
   DescribeAssessmentTemplates
-describeAssessmentTemplates pAssessmentTemplateARNs_ =
-  DescribeAssessmentTemplates'
-    { _datAssessmentTemplateARNs =
-        _List1 # pAssessmentTemplateARNs_
-    }
+newDescribeAssessmentTemplates
+  pAssessmentTemplateArns_ =
+    DescribeAssessmentTemplates'
+      { assessmentTemplateArns =
+          Prelude._List1
+            Lens.# pAssessmentTemplateArns_
+      }
 
 -- | Undocumented member.
-datAssessmentTemplateARNs :: Lens' DescribeAssessmentTemplates (NonEmpty Text)
-datAssessmentTemplateARNs = lens _datAssessmentTemplateARNs (\s a -> s {_datAssessmentTemplateARNs = a}) . _List1
+describeAssessmentTemplates_assessmentTemplateArns :: Lens.Lens' DescribeAssessmentTemplates (Prelude.NonEmpty Prelude.Text)
+describeAssessmentTemplates_assessmentTemplateArns = Lens.lens (\DescribeAssessmentTemplates' {assessmentTemplateArns} -> assessmentTemplateArns) (\s@DescribeAssessmentTemplates' {} a -> s {assessmentTemplateArns = a} :: DescribeAssessmentTemplates) Prelude.. Prelude._List1
 
-instance AWSRequest DescribeAssessmentTemplates where
+instance
+  Prelude.AWSRequest
+    DescribeAssessmentTemplates
+  where
   type
     Rs DescribeAssessmentTemplates =
       DescribeAssessmentTemplatesResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAssessmentTemplatesResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "assessmentTemplates" .!@ mempty)
-            <*> (x .?> "failedItems" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "assessmentTemplates"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "failedItems"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable DescribeAssessmentTemplates
+instance Prelude.Hashable DescribeAssessmentTemplates
 
-instance NFData DescribeAssessmentTemplates
+instance Prelude.NFData DescribeAssessmentTemplates
 
-instance ToHeaders DescribeAssessmentTemplates where
+instance
+  Prelude.ToHeaders
+    DescribeAssessmentTemplates
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.DescribeAssessmentTemplates" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.DescribeAssessmentTemplates" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAssessmentTemplates where
+instance Prelude.ToJSON DescribeAssessmentTemplates where
   toJSON DescribeAssessmentTemplates' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "assessmentTemplateArns"
-                  .= _datAssessmentTemplateARNs
+                  Prelude..= assessmentTemplateArns
               )
           ]
       )
 
-instance ToPath DescribeAssessmentTemplates where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAssessmentTemplates where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAssessmentTemplates where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAssessmentTemplates where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAssessmentTemplatesResponse' smart constructor.
+-- | /See:/ 'newDescribeAssessmentTemplatesResponse' smart constructor.
 data DescribeAssessmentTemplatesResponse = DescribeAssessmentTemplatesResponse'
-  { _drsResponseStatus ::
-      !Int,
-    _drsAssessmentTemplates ::
-      ![AssessmentTemplate],
-    _drsFailedItems ::
-      !( Map
-           Text
-           FailedItemDetails
-       )
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about the assessment templates.
+    assessmentTemplates :: [AssessmentTemplate],
+    -- | Assessment template details that cannot be described. An error code is
+    -- provided for each failed item.
+    failedItems :: Prelude.Map Prelude.Text FailedItemDetails
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAssessmentTemplatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAssessmentTemplatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsAssessmentTemplates' - Information about the assessment templates.
+-- 'httpStatus', 'describeAssessmentTemplatesResponse_httpStatus' - The response's http status code.
 --
--- * 'drsFailedItems' - Assessment template details that cannot be described. An error code is provided for each failed item.
-describeAssessmentTemplatesResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'assessmentTemplates', 'describeAssessmentTemplatesResponse_assessmentTemplates' - Information about the assessment templates.
+--
+-- 'failedItems', 'describeAssessmentTemplatesResponse_failedItems' - Assessment template details that cannot be described. An error code is
+-- provided for each failed item.
+newDescribeAssessmentTemplatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAssessmentTemplatesResponse
-describeAssessmentTemplatesResponse pResponseStatus_ =
+newDescribeAssessmentTemplatesResponse pHttpStatus_ =
   DescribeAssessmentTemplatesResponse'
-    { _drsResponseStatus =
-        pResponseStatus_,
-      _drsAssessmentTemplates = mempty,
-      _drsFailedItems = mempty
+    { httpStatus =
+        pHttpStatus_,
+      assessmentTemplates = Prelude.mempty,
+      failedItems = Prelude.mempty
     }
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeAssessmentTemplatesResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeAssessmentTemplatesResponse_httpStatus :: Lens.Lens' DescribeAssessmentTemplatesResponse Prelude.Int
+describeAssessmentTemplatesResponse_httpStatus = Lens.lens (\DescribeAssessmentTemplatesResponse' {httpStatus} -> httpStatus) (\s@DescribeAssessmentTemplatesResponse' {} a -> s {httpStatus = a} :: DescribeAssessmentTemplatesResponse)
 
 -- | Information about the assessment templates.
-drsAssessmentTemplates :: Lens' DescribeAssessmentTemplatesResponse [AssessmentTemplate]
-drsAssessmentTemplates = lens _drsAssessmentTemplates (\s a -> s {_drsAssessmentTemplates = a}) . _Coerce
+describeAssessmentTemplatesResponse_assessmentTemplates :: Lens.Lens' DescribeAssessmentTemplatesResponse [AssessmentTemplate]
+describeAssessmentTemplatesResponse_assessmentTemplates = Lens.lens (\DescribeAssessmentTemplatesResponse' {assessmentTemplates} -> assessmentTemplates) (\s@DescribeAssessmentTemplatesResponse' {} a -> s {assessmentTemplates = a} :: DescribeAssessmentTemplatesResponse) Prelude.. Prelude._Coerce
 
--- | Assessment template details that cannot be described. An error code is provided for each failed item.
-drsFailedItems :: Lens' DescribeAssessmentTemplatesResponse (HashMap Text FailedItemDetails)
-drsFailedItems = lens _drsFailedItems (\s a -> s {_drsFailedItems = a}) . _Map
+-- | Assessment template details that cannot be described. An error code is
+-- provided for each failed item.
+describeAssessmentTemplatesResponse_failedItems :: Lens.Lens' DescribeAssessmentTemplatesResponse (Prelude.HashMap Prelude.Text FailedItemDetails)
+describeAssessmentTemplatesResponse_failedItems = Lens.lens (\DescribeAssessmentTemplatesResponse' {failedItems} -> failedItems) (\s@DescribeAssessmentTemplatesResponse' {} a -> s {failedItems = a} :: DescribeAssessmentTemplatesResponse) Prelude.. Prelude._Map
 
-instance NFData DescribeAssessmentTemplatesResponse
+instance
+  Prelude.NFData
+    DescribeAssessmentTemplatesResponse

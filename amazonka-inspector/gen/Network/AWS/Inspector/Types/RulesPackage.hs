@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Inspector.Types.RulesPackage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an Amazon Inspector rules package. This data type is used as the response element in the 'DescribeRulesPackages' action.
+-- | Contains information about an Amazon Inspector rules package. This data
+-- type is used as the response element in the DescribeRulesPackages
+-- action.
 --
---
---
--- /See:/ 'rulesPackage' smart constructor.
+-- /See:/ 'newRulesPackage' smart constructor.
 data RulesPackage = RulesPackage'
-  { _rpDescription ::
-      !(Maybe Text),
-    _rpArn :: !Text,
-    _rpName :: !Text,
-    _rpVersion :: !Text,
-    _rpProvider :: !Text
+  { -- | The description of the rules package.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the rules package.
+    arn :: Prelude.Text,
+    -- | The name of the rules package.
+    name :: Prelude.Text,
+    -- | The version ID of the rules package.
+    version :: Prelude.Text,
+    -- | The provider of the rules package.
+    provider :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RulesPackage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RulesPackage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpDescription' - The description of the rules package.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpArn' - The ARN of the rules package.
+-- 'description', 'rulesPackage_description' - The description of the rules package.
 --
--- * 'rpName' - The name of the rules package.
+-- 'arn', 'rulesPackage_arn' - The ARN of the rules package.
 --
--- * 'rpVersion' - The version ID of the rules package.
+-- 'name', 'rulesPackage_name' - The name of the rules package.
 --
--- * 'rpProvider' - The provider of the rules package.
-rulesPackage ::
-  -- | 'rpArn'
-  Text ->
-  -- | 'rpName'
-  Text ->
-  -- | 'rpVersion'
-  Text ->
-  -- | 'rpProvider'
-  Text ->
+-- 'version', 'rulesPackage_version' - The version ID of the rules package.
+--
+-- 'provider', 'rulesPackage_provider' - The provider of the rules package.
+newRulesPackage ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'version'
+  Prelude.Text ->
+  -- | 'provider'
+  Prelude.Text ->
   RulesPackage
-rulesPackage pArn_ pName_ pVersion_ pProvider_ =
+newRulesPackage pArn_ pName_ pVersion_ pProvider_ =
   RulesPackage'
-    { _rpDescription = Nothing,
-      _rpArn = pArn_,
-      _rpName = pName_,
-      _rpVersion = pVersion_,
-      _rpProvider = pProvider_
+    { description = Prelude.Nothing,
+      arn = pArn_,
+      name = pName_,
+      version = pVersion_,
+      provider = pProvider_
     }
 
 -- | The description of the rules package.
-rpDescription :: Lens' RulesPackage (Maybe Text)
-rpDescription = lens _rpDescription (\s a -> s {_rpDescription = a})
+rulesPackage_description :: Lens.Lens' RulesPackage (Prelude.Maybe Prelude.Text)
+rulesPackage_description = Lens.lens (\RulesPackage' {description} -> description) (\s@RulesPackage' {} a -> s {description = a} :: RulesPackage)
 
 -- | The ARN of the rules package.
-rpArn :: Lens' RulesPackage Text
-rpArn = lens _rpArn (\s a -> s {_rpArn = a})
+rulesPackage_arn :: Lens.Lens' RulesPackage Prelude.Text
+rulesPackage_arn = Lens.lens (\RulesPackage' {arn} -> arn) (\s@RulesPackage' {} a -> s {arn = a} :: RulesPackage)
 
 -- | The name of the rules package.
-rpName :: Lens' RulesPackage Text
-rpName = lens _rpName (\s a -> s {_rpName = a})
+rulesPackage_name :: Lens.Lens' RulesPackage Prelude.Text
+rulesPackage_name = Lens.lens (\RulesPackage' {name} -> name) (\s@RulesPackage' {} a -> s {name = a} :: RulesPackage)
 
 -- | The version ID of the rules package.
-rpVersion :: Lens' RulesPackage Text
-rpVersion = lens _rpVersion (\s a -> s {_rpVersion = a})
+rulesPackage_version :: Lens.Lens' RulesPackage Prelude.Text
+rulesPackage_version = Lens.lens (\RulesPackage' {version} -> version) (\s@RulesPackage' {} a -> s {version = a} :: RulesPackage)
 
 -- | The provider of the rules package.
-rpProvider :: Lens' RulesPackage Text
-rpProvider = lens _rpProvider (\s a -> s {_rpProvider = a})
+rulesPackage_provider :: Lens.Lens' RulesPackage Prelude.Text
+rulesPackage_provider = Lens.lens (\RulesPackage' {provider} -> provider) (\s@RulesPackage' {} a -> s {provider = a} :: RulesPackage)
 
-instance FromJSON RulesPackage where
+instance Prelude.FromJSON RulesPackage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RulesPackage"
       ( \x ->
           RulesPackage'
-            <$> (x .:? "description")
-            <*> (x .: "arn")
-            <*> (x .: "name")
-            <*> (x .: "version")
-            <*> (x .: "provider")
+            Prelude.<$> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..: "arn")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "version")
+            Prelude.<*> (x Prelude..: "provider")
       )
 
-instance Hashable RulesPackage
+instance Prelude.Hashable RulesPackage
 
-instance NFData RulesPackage
+instance Prelude.NFData RulesPackage

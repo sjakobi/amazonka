@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,115 +22,129 @@ module Network.AWS.Inspector.Types.AssessmentRunAgent where
 import Network.AWS.Inspector.Types.AgentHealth
 import Network.AWS.Inspector.Types.AgentHealthCode
 import Network.AWS.Inspector.Types.TelemetryMetadata
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an Amazon Inspector agent. This data type is used as a response element in the 'ListAssessmentRunAgents' action.
+-- | Contains information about an Amazon Inspector agent. This data type is
+-- used as a response element in the ListAssessmentRunAgents action.
 --
---
---
--- /See:/ 'assessmentRunAgent' smart constructor.
+-- /See:/ 'newAssessmentRunAgent' smart constructor.
 data AssessmentRunAgent = AssessmentRunAgent'
-  { _araAgentHealthDetails ::
-      !(Maybe Text),
-    _araAutoScalingGroup ::
-      !(Maybe Text),
-    _araAgentId :: !Text,
-    _araAssessmentRunARN :: !Text,
-    _araAgentHealth :: !AgentHealth,
-    _araAgentHealthCode ::
-      !AgentHealthCode,
-    _araTelemetryMetadata ::
-      ![TelemetryMetadata]
+  { -- | The description for the agent health code.
+    agentHealthDetails :: Prelude.Maybe Prelude.Text,
+    -- | The Auto Scaling group of the EC2 instance that is specified by the
+    -- agent ID.
+    autoScalingGroup :: Prelude.Maybe Prelude.Text,
+    -- | The AWS account of the EC2 instance where the agent is installed.
+    agentId :: Prelude.Text,
+    -- | The ARN of the assessment run that is associated with the agent.
+    assessmentRunArn :: Prelude.Text,
+    -- | The current health state of the agent.
+    agentHealth :: AgentHealth,
+    -- | The detailed health state of the agent.
+    agentHealthCode :: AgentHealthCode,
+    -- | The Amazon Inspector application data metrics that are collected by the
+    -- agent.
+    telemetryMetadata :: [TelemetryMetadata]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssessmentRunAgent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssessmentRunAgent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'araAgentHealthDetails' - The description for the agent health code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'araAutoScalingGroup' - The Auto Scaling group of the EC2 instance that is specified by the agent ID.
+-- 'agentHealthDetails', 'assessmentRunAgent_agentHealthDetails' - The description for the agent health code.
 --
--- * 'araAgentId' - The AWS account of the EC2 instance where the agent is installed.
+-- 'autoScalingGroup', 'assessmentRunAgent_autoScalingGroup' - The Auto Scaling group of the EC2 instance that is specified by the
+-- agent ID.
 --
--- * 'araAssessmentRunARN' - The ARN of the assessment run that is associated with the agent.
+-- 'agentId', 'assessmentRunAgent_agentId' - The AWS account of the EC2 instance where the agent is installed.
 --
--- * 'araAgentHealth' - The current health state of the agent.
+-- 'assessmentRunArn', 'assessmentRunAgent_assessmentRunArn' - The ARN of the assessment run that is associated with the agent.
 --
--- * 'araAgentHealthCode' - The detailed health state of the agent.
+-- 'agentHealth', 'assessmentRunAgent_agentHealth' - The current health state of the agent.
 --
--- * 'araTelemetryMetadata' - The Amazon Inspector application data metrics that are collected by the agent.
-assessmentRunAgent ::
-  -- | 'araAgentId'
-  Text ->
-  -- | 'araAssessmentRunARN'
-  Text ->
-  -- | 'araAgentHealth'
+-- 'agentHealthCode', 'assessmentRunAgent_agentHealthCode' - The detailed health state of the agent.
+--
+-- 'telemetryMetadata', 'assessmentRunAgent_telemetryMetadata' - The Amazon Inspector application data metrics that are collected by the
+-- agent.
+newAssessmentRunAgent ::
+  -- | 'agentId'
+  Prelude.Text ->
+  -- | 'assessmentRunArn'
+  Prelude.Text ->
+  -- | 'agentHealth'
   AgentHealth ->
-  -- | 'araAgentHealthCode'
+  -- | 'agentHealthCode'
   AgentHealthCode ->
   AssessmentRunAgent
-assessmentRunAgent
+newAssessmentRunAgent
   pAgentId_
-  pAssessmentRunARN_
+  pAssessmentRunArn_
   pAgentHealth_
   pAgentHealthCode_ =
     AssessmentRunAgent'
-      { _araAgentHealthDetails =
-          Nothing,
-        _araAutoScalingGroup = Nothing,
-        _araAgentId = pAgentId_,
-        _araAssessmentRunARN = pAssessmentRunARN_,
-        _araAgentHealth = pAgentHealth_,
-        _araAgentHealthCode = pAgentHealthCode_,
-        _araTelemetryMetadata = mempty
+      { agentHealthDetails =
+          Prelude.Nothing,
+        autoScalingGroup = Prelude.Nothing,
+        agentId = pAgentId_,
+        assessmentRunArn = pAssessmentRunArn_,
+        agentHealth = pAgentHealth_,
+        agentHealthCode = pAgentHealthCode_,
+        telemetryMetadata = Prelude.mempty
       }
 
 -- | The description for the agent health code.
-araAgentHealthDetails :: Lens' AssessmentRunAgent (Maybe Text)
-araAgentHealthDetails = lens _araAgentHealthDetails (\s a -> s {_araAgentHealthDetails = a})
+assessmentRunAgent_agentHealthDetails :: Lens.Lens' AssessmentRunAgent (Prelude.Maybe Prelude.Text)
+assessmentRunAgent_agentHealthDetails = Lens.lens (\AssessmentRunAgent' {agentHealthDetails} -> agentHealthDetails) (\s@AssessmentRunAgent' {} a -> s {agentHealthDetails = a} :: AssessmentRunAgent)
 
--- | The Auto Scaling group of the EC2 instance that is specified by the agent ID.
-araAutoScalingGroup :: Lens' AssessmentRunAgent (Maybe Text)
-araAutoScalingGroup = lens _araAutoScalingGroup (\s a -> s {_araAutoScalingGroup = a})
+-- | The Auto Scaling group of the EC2 instance that is specified by the
+-- agent ID.
+assessmentRunAgent_autoScalingGroup :: Lens.Lens' AssessmentRunAgent (Prelude.Maybe Prelude.Text)
+assessmentRunAgent_autoScalingGroup = Lens.lens (\AssessmentRunAgent' {autoScalingGroup} -> autoScalingGroup) (\s@AssessmentRunAgent' {} a -> s {autoScalingGroup = a} :: AssessmentRunAgent)
 
 -- | The AWS account of the EC2 instance where the agent is installed.
-araAgentId :: Lens' AssessmentRunAgent Text
-araAgentId = lens _araAgentId (\s a -> s {_araAgentId = a})
+assessmentRunAgent_agentId :: Lens.Lens' AssessmentRunAgent Prelude.Text
+assessmentRunAgent_agentId = Lens.lens (\AssessmentRunAgent' {agentId} -> agentId) (\s@AssessmentRunAgent' {} a -> s {agentId = a} :: AssessmentRunAgent)
 
 -- | The ARN of the assessment run that is associated with the agent.
-araAssessmentRunARN :: Lens' AssessmentRunAgent Text
-araAssessmentRunARN = lens _araAssessmentRunARN (\s a -> s {_araAssessmentRunARN = a})
+assessmentRunAgent_assessmentRunArn :: Lens.Lens' AssessmentRunAgent Prelude.Text
+assessmentRunAgent_assessmentRunArn = Lens.lens (\AssessmentRunAgent' {assessmentRunArn} -> assessmentRunArn) (\s@AssessmentRunAgent' {} a -> s {assessmentRunArn = a} :: AssessmentRunAgent)
 
 -- | The current health state of the agent.
-araAgentHealth :: Lens' AssessmentRunAgent AgentHealth
-araAgentHealth = lens _araAgentHealth (\s a -> s {_araAgentHealth = a})
+assessmentRunAgent_agentHealth :: Lens.Lens' AssessmentRunAgent AgentHealth
+assessmentRunAgent_agentHealth = Lens.lens (\AssessmentRunAgent' {agentHealth} -> agentHealth) (\s@AssessmentRunAgent' {} a -> s {agentHealth = a} :: AssessmentRunAgent)
 
 -- | The detailed health state of the agent.
-araAgentHealthCode :: Lens' AssessmentRunAgent AgentHealthCode
-araAgentHealthCode = lens _araAgentHealthCode (\s a -> s {_araAgentHealthCode = a})
+assessmentRunAgent_agentHealthCode :: Lens.Lens' AssessmentRunAgent AgentHealthCode
+assessmentRunAgent_agentHealthCode = Lens.lens (\AssessmentRunAgent' {agentHealthCode} -> agentHealthCode) (\s@AssessmentRunAgent' {} a -> s {agentHealthCode = a} :: AssessmentRunAgent)
 
--- | The Amazon Inspector application data metrics that are collected by the agent.
-araTelemetryMetadata :: Lens' AssessmentRunAgent [TelemetryMetadata]
-araTelemetryMetadata = lens _araTelemetryMetadata (\s a -> s {_araTelemetryMetadata = a}) . _Coerce
+-- | The Amazon Inspector application data metrics that are collected by the
+-- agent.
+assessmentRunAgent_telemetryMetadata :: Lens.Lens' AssessmentRunAgent [TelemetryMetadata]
+assessmentRunAgent_telemetryMetadata = Lens.lens (\AssessmentRunAgent' {telemetryMetadata} -> telemetryMetadata) (\s@AssessmentRunAgent' {} a -> s {telemetryMetadata = a} :: AssessmentRunAgent) Prelude.. Prelude._Coerce
 
-instance FromJSON AssessmentRunAgent where
+instance Prelude.FromJSON AssessmentRunAgent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AssessmentRunAgent"
       ( \x ->
           AssessmentRunAgent'
-            <$> (x .:? "agentHealthDetails")
-            <*> (x .:? "autoScalingGroup")
-            <*> (x .: "agentId")
-            <*> (x .: "assessmentRunArn")
-            <*> (x .: "agentHealth")
-            <*> (x .: "agentHealthCode")
-            <*> (x .:? "telemetryMetadata" .!= mempty)
+            Prelude.<$> (x Prelude..:? "agentHealthDetails")
+            Prelude.<*> (x Prelude..:? "autoScalingGroup")
+            Prelude.<*> (x Prelude..: "agentId")
+            Prelude.<*> (x Prelude..: "assessmentRunArn")
+            Prelude.<*> (x Prelude..: "agentHealth")
+            Prelude.<*> (x Prelude..: "agentHealthCode")
+            Prelude.<*> ( x Prelude..:? "telemetryMetadata"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AssessmentRunAgent
+instance Prelude.Hashable AssessmentRunAgent
 
-instance NFData AssessmentRunAgent
+instance Prelude.NFData AssessmentRunAgent

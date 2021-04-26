@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,167 +21,179 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the exclusions that are specified by the exclusions' ARNs.
+-- Describes the exclusions that are specified by the exclusions\' ARNs.
 module Network.AWS.Inspector.DescribeExclusions
   ( -- * Creating a Request
-    describeExclusions,
-    DescribeExclusions,
+    DescribeExclusions (..),
+    newDescribeExclusions,
 
     -- * Request Lenses
-    deLocale,
-    deExclusionARNs,
+    describeExclusions_locale,
+    describeExclusions_exclusionArns,
 
     -- * Destructuring the Response
-    describeExclusionsResponse,
-    DescribeExclusionsResponse,
+    DescribeExclusionsResponse (..),
+    newDescribeExclusionsResponse,
 
     -- * Response Lenses
-    derrsResponseStatus,
-    derrsExclusions,
-    derrsFailedItems,
+    describeExclusionsResponse_httpStatus,
+    describeExclusionsResponse_exclusions,
+    describeExclusionsResponse_failedItems,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Inspector.Types.Exclusion
+import Network.AWS.Inspector.Types.FailedItemDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeExclusions' smart constructor.
+-- | /See:/ 'newDescribeExclusions' smart constructor.
 data DescribeExclusions = DescribeExclusions'
-  { _deLocale ::
-      !(Maybe Locale),
-    _deExclusionARNs :: !(List1 Text)
+  { -- | The locale into which you want to translate the exclusion\'s title,
+    -- description, and recommendation.
+    locale :: Prelude.Maybe Locale,
+    -- | The list of ARNs that specify the exclusions that you want to describe.
+    exclusionArns :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExclusions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExclusions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deLocale' - The locale into which you want to translate the exclusion's title, description, and recommendation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deExclusionARNs' - The list of ARNs that specify the exclusions that you want to describe.
-describeExclusions ::
-  -- | 'deExclusionARNs'
-  NonEmpty Text ->
+-- 'locale', 'describeExclusions_locale' - The locale into which you want to translate the exclusion\'s title,
+-- description, and recommendation.
+--
+-- 'exclusionArns', 'describeExclusions_exclusionArns' - The list of ARNs that specify the exclusions that you want to describe.
+newDescribeExclusions ::
+  -- | 'exclusionArns'
+  Prelude.NonEmpty Prelude.Text ->
   DescribeExclusions
-describeExclusions pExclusionARNs_ =
+newDescribeExclusions pExclusionArns_ =
   DescribeExclusions'
-    { _deLocale = Nothing,
-      _deExclusionARNs = _List1 # pExclusionARNs_
+    { locale = Prelude.Nothing,
+      exclusionArns =
+        Prelude._List1 Lens.# pExclusionArns_
     }
 
--- | The locale into which you want to translate the exclusion's title, description, and recommendation.
-deLocale :: Lens' DescribeExclusions (Maybe Locale)
-deLocale = lens _deLocale (\s a -> s {_deLocale = a})
+-- | The locale into which you want to translate the exclusion\'s title,
+-- description, and recommendation.
+describeExclusions_locale :: Lens.Lens' DescribeExclusions (Prelude.Maybe Locale)
+describeExclusions_locale = Lens.lens (\DescribeExclusions' {locale} -> locale) (\s@DescribeExclusions' {} a -> s {locale = a} :: DescribeExclusions)
 
 -- | The list of ARNs that specify the exclusions that you want to describe.
-deExclusionARNs :: Lens' DescribeExclusions (NonEmpty Text)
-deExclusionARNs = lens _deExclusionARNs (\s a -> s {_deExclusionARNs = a}) . _List1
+describeExclusions_exclusionArns :: Lens.Lens' DescribeExclusions (Prelude.NonEmpty Prelude.Text)
+describeExclusions_exclusionArns = Lens.lens (\DescribeExclusions' {exclusionArns} -> exclusionArns) (\s@DescribeExclusions' {} a -> s {exclusionArns = a} :: DescribeExclusions) Prelude.. Prelude._List1
 
-instance AWSRequest DescribeExclusions where
+instance Prelude.AWSRequest DescribeExclusions where
   type
     Rs DescribeExclusions =
       DescribeExclusionsResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeExclusionsResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "exclusions" .!@ mempty)
-            <*> (x .?> "failedItems" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "exclusions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "failedItems"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable DescribeExclusions
+instance Prelude.Hashable DescribeExclusions
 
-instance NFData DescribeExclusions
+instance Prelude.NFData DescribeExclusions
 
-instance ToHeaders DescribeExclusions where
+instance Prelude.ToHeaders DescribeExclusions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.DescribeExclusions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.DescribeExclusions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeExclusions where
+instance Prelude.ToJSON DescribeExclusions where
   toJSON DescribeExclusions' {..} =
-    object
-      ( catMaybes
-          [ ("locale" .=) <$> _deLocale,
-            Just ("exclusionArns" .= _deExclusionARNs)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("locale" Prelude..=) Prelude.<$> locale,
+            Prelude.Just
+              ("exclusionArns" Prelude..= exclusionArns)
           ]
       )
 
-instance ToPath DescribeExclusions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeExclusions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeExclusions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeExclusions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeExclusionsResponse' smart constructor.
+-- | /See:/ 'newDescribeExclusionsResponse' smart constructor.
 data DescribeExclusionsResponse = DescribeExclusionsResponse'
-  { _derrsResponseStatus ::
-      !Int,
-    _derrsExclusions ::
-      !( Map
-           Text
-           Exclusion
-       ),
-    _derrsFailedItems ::
-      !( Map
-           Text
-           FailedItemDetails
-       )
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about the exclusions.
+    exclusions :: Prelude.Map Prelude.Text Exclusion,
+    -- | Exclusion details that cannot be described. An error code is provided
+    -- for each failed item.
+    failedItems :: Prelude.Map Prelude.Text FailedItemDetails
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExclusionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExclusionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'derrsExclusions' - Information about the exclusions.
+-- 'httpStatus', 'describeExclusionsResponse_httpStatus' - The response's http status code.
 --
--- * 'derrsFailedItems' - Exclusion details that cannot be described. An error code is provided for each failed item.
-describeExclusionsResponse ::
-  -- | 'derrsResponseStatus'
-  Int ->
+-- 'exclusions', 'describeExclusionsResponse_exclusions' - Information about the exclusions.
+--
+-- 'failedItems', 'describeExclusionsResponse_failedItems' - Exclusion details that cannot be described. An error code is provided
+-- for each failed item.
+newDescribeExclusionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeExclusionsResponse
-describeExclusionsResponse pResponseStatus_ =
+newDescribeExclusionsResponse pHttpStatus_ =
   DescribeExclusionsResponse'
-    { _derrsResponseStatus =
-        pResponseStatus_,
-      _derrsExclusions = mempty,
-      _derrsFailedItems = mempty
+    { httpStatus =
+        pHttpStatus_,
+      exclusions = Prelude.mempty,
+      failedItems = Prelude.mempty
     }
 
--- | -- | The response status code.
-derrsResponseStatus :: Lens' DescribeExclusionsResponse Int
-derrsResponseStatus = lens _derrsResponseStatus (\s a -> s {_derrsResponseStatus = a})
+-- | The response's http status code.
+describeExclusionsResponse_httpStatus :: Lens.Lens' DescribeExclusionsResponse Prelude.Int
+describeExclusionsResponse_httpStatus = Lens.lens (\DescribeExclusionsResponse' {httpStatus} -> httpStatus) (\s@DescribeExclusionsResponse' {} a -> s {httpStatus = a} :: DescribeExclusionsResponse)
 
 -- | Information about the exclusions.
-derrsExclusions :: Lens' DescribeExclusionsResponse (HashMap Text Exclusion)
-derrsExclusions = lens _derrsExclusions (\s a -> s {_derrsExclusions = a}) . _Map
+describeExclusionsResponse_exclusions :: Lens.Lens' DescribeExclusionsResponse (Prelude.HashMap Prelude.Text Exclusion)
+describeExclusionsResponse_exclusions = Lens.lens (\DescribeExclusionsResponse' {exclusions} -> exclusions) (\s@DescribeExclusionsResponse' {} a -> s {exclusions = a} :: DescribeExclusionsResponse) Prelude.. Prelude._Map
 
--- | Exclusion details that cannot be described. An error code is provided for each failed item.
-derrsFailedItems :: Lens' DescribeExclusionsResponse (HashMap Text FailedItemDetails)
-derrsFailedItems = lens _derrsFailedItems (\s a -> s {_derrsFailedItems = a}) . _Map
+-- | Exclusion details that cannot be described. An error code is provided
+-- for each failed item.
+describeExclusionsResponse_failedItems :: Lens.Lens' DescribeExclusionsResponse (Prelude.HashMap Prelude.Text FailedItemDetails)
+describeExclusionsResponse_failedItems = Lens.lens (\DescribeExclusionsResponse' {failedItems} -> failedItems) (\s@DescribeExclusionsResponse' {} a -> s {failedItems = a} :: DescribeExclusionsResponse) Prelude.. Prelude._Map
 
-instance NFData DescribeExclusionsResponse
+instance Prelude.NFData DescribeExclusionsResponse

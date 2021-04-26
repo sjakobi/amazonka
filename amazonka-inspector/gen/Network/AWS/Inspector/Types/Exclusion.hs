@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,105 +21,114 @@ module Network.AWS.Inspector.Types.Exclusion where
 
 import Network.AWS.Inspector.Types.Attribute
 import Network.AWS.Inspector.Types.Scope
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about what was excluded from an assessment run.
 --
---
---
--- /See:/ 'exclusion' smart constructor.
+-- /See:/ 'newExclusion' smart constructor.
 data Exclusion = Exclusion'
-  { _eAttributes ::
-      !(Maybe [Attribute]),
-    _eArn :: !Text,
-    _eTitle :: !Text,
-    _eDescription :: !Text,
-    _eRecommendation :: !Text,
-    _eScopes :: !(List1 Scope)
+  { -- | The system-defined attributes for the exclusion.
+    attributes :: Prelude.Maybe [Attribute],
+    -- | The ARN that specifies the exclusion.
+    arn :: Prelude.Text,
+    -- | The name of the exclusion.
+    title :: Prelude.Text,
+    -- | The description of the exclusion.
+    description :: Prelude.Text,
+    -- | The recommendation for the exclusion.
+    recommendation :: Prelude.Text,
+    -- | The AWS resources for which the exclusion pertains.
+    scopes :: Prelude.List1 Scope
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Exclusion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Exclusion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eAttributes' - The system-defined attributes for the exclusion.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eArn' - The ARN that specifies the exclusion.
+-- 'attributes', 'exclusion_attributes' - The system-defined attributes for the exclusion.
 --
--- * 'eTitle' - The name of the exclusion.
+-- 'arn', 'exclusion_arn' - The ARN that specifies the exclusion.
 --
--- * 'eDescription' - The description of the exclusion.
+-- 'title', 'exclusion_title' - The name of the exclusion.
 --
--- * 'eRecommendation' - The recommendation for the exclusion.
+-- 'description', 'exclusion_description' - The description of the exclusion.
 --
--- * 'eScopes' - The AWS resources for which the exclusion pertains.
-exclusion ::
-  -- | 'eArn'
-  Text ->
-  -- | 'eTitle'
-  Text ->
-  -- | 'eDescription'
-  Text ->
-  -- | 'eRecommendation'
-  Text ->
-  -- | 'eScopes'
-  NonEmpty Scope ->
+-- 'recommendation', 'exclusion_recommendation' - The recommendation for the exclusion.
+--
+-- 'scopes', 'exclusion_scopes' - The AWS resources for which the exclusion pertains.
+newExclusion ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'title'
+  Prelude.Text ->
+  -- | 'description'
+  Prelude.Text ->
+  -- | 'recommendation'
+  Prelude.Text ->
+  -- | 'scopes'
+  Prelude.NonEmpty Scope ->
   Exclusion
-exclusion
+newExclusion
   pArn_
   pTitle_
   pDescription_
   pRecommendation_
   pScopes_ =
     Exclusion'
-      { _eAttributes = Nothing,
-        _eArn = pArn_,
-        _eTitle = pTitle_,
-        _eDescription = pDescription_,
-        _eRecommendation = pRecommendation_,
-        _eScopes = _List1 # pScopes_
+      { attributes = Prelude.Nothing,
+        arn = pArn_,
+        title = pTitle_,
+        description = pDescription_,
+        recommendation = pRecommendation_,
+        scopes = Prelude._List1 Lens.# pScopes_
       }
 
 -- | The system-defined attributes for the exclusion.
-eAttributes :: Lens' Exclusion [Attribute]
-eAttributes = lens _eAttributes (\s a -> s {_eAttributes = a}) . _Default . _Coerce
+exclusion_attributes :: Lens.Lens' Exclusion (Prelude.Maybe [Attribute])
+exclusion_attributes = Lens.lens (\Exclusion' {attributes} -> attributes) (\s@Exclusion' {} a -> s {attributes = a} :: Exclusion) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ARN that specifies the exclusion.
-eArn :: Lens' Exclusion Text
-eArn = lens _eArn (\s a -> s {_eArn = a})
+exclusion_arn :: Lens.Lens' Exclusion Prelude.Text
+exclusion_arn = Lens.lens (\Exclusion' {arn} -> arn) (\s@Exclusion' {} a -> s {arn = a} :: Exclusion)
 
 -- | The name of the exclusion.
-eTitle :: Lens' Exclusion Text
-eTitle = lens _eTitle (\s a -> s {_eTitle = a})
+exclusion_title :: Lens.Lens' Exclusion Prelude.Text
+exclusion_title = Lens.lens (\Exclusion' {title} -> title) (\s@Exclusion' {} a -> s {title = a} :: Exclusion)
 
 -- | The description of the exclusion.
-eDescription :: Lens' Exclusion Text
-eDescription = lens _eDescription (\s a -> s {_eDescription = a})
+exclusion_description :: Lens.Lens' Exclusion Prelude.Text
+exclusion_description = Lens.lens (\Exclusion' {description} -> description) (\s@Exclusion' {} a -> s {description = a} :: Exclusion)
 
 -- | The recommendation for the exclusion.
-eRecommendation :: Lens' Exclusion Text
-eRecommendation = lens _eRecommendation (\s a -> s {_eRecommendation = a})
+exclusion_recommendation :: Lens.Lens' Exclusion Prelude.Text
+exclusion_recommendation = Lens.lens (\Exclusion' {recommendation} -> recommendation) (\s@Exclusion' {} a -> s {recommendation = a} :: Exclusion)
 
 -- | The AWS resources for which the exclusion pertains.
-eScopes :: Lens' Exclusion (NonEmpty Scope)
-eScopes = lens _eScopes (\s a -> s {_eScopes = a}) . _List1
+exclusion_scopes :: Lens.Lens' Exclusion (Prelude.NonEmpty Scope)
+exclusion_scopes = Lens.lens (\Exclusion' {scopes} -> scopes) (\s@Exclusion' {} a -> s {scopes = a} :: Exclusion) Prelude.. Prelude._List1
 
-instance FromJSON Exclusion where
+instance Prelude.FromJSON Exclusion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Exclusion"
       ( \x ->
           Exclusion'
-            <$> (x .:? "attributes" .!= mempty)
-            <*> (x .: "arn")
-            <*> (x .: "title")
-            <*> (x .: "description")
-            <*> (x .: "recommendation")
-            <*> (x .: "scopes")
+            Prelude.<$> ( x Prelude..:? "attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "arn")
+            Prelude.<*> (x Prelude..: "title")
+            Prelude.<*> (x Prelude..: "description")
+            Prelude.<*> (x Prelude..: "recommendation")
+            Prelude.<*> (x Prelude..: "scopes")
       )
 
-instance Hashable Exclusion
+instance Prelude.Hashable Exclusion
 
-instance NFData Exclusion
+instance Prelude.NFData Exclusion

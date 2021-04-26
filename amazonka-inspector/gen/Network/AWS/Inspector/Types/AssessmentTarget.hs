@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,105 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Inspector.Types.AssessmentTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an Amazon Inspector application. This data type is used as the response element in the 'DescribeAssessmentTargets' action.
+-- | Contains information about an Amazon Inspector application. This data
+-- type is used as the response element in the DescribeAssessmentTargets
+-- action.
 --
---
---
--- /See:/ 'assessmentTarget' smart constructor.
+-- /See:/ 'newAssessmentTarget' smart constructor.
 data AssessmentTarget = AssessmentTarget'
-  { _atResourceGroupARN ::
-      !(Maybe Text),
-    _atArn :: !Text,
-    _atName :: !Text,
-    _atCreatedAt :: !POSIX,
-    _atUpdatedAt :: !POSIX
+  { -- | The ARN that specifies the resource group that is associated with the
+    -- assessment target.
+    resourceGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN that specifies the Amazon Inspector assessment target.
+    arn :: Prelude.Text,
+    -- | The name of the Amazon Inspector assessment target.
+    name :: Prelude.Text,
+    -- | The time at which the assessment target is created.
+    createdAt :: Prelude.POSIX,
+    -- | The time at which UpdateAssessmentTarget is called.
+    updatedAt :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssessmentTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssessmentTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atResourceGroupARN' - The ARN that specifies the resource group that is associated with the assessment target.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atArn' - The ARN that specifies the Amazon Inspector assessment target.
+-- 'resourceGroupArn', 'assessmentTarget_resourceGroupArn' - The ARN that specifies the resource group that is associated with the
+-- assessment target.
 --
--- * 'atName' - The name of the Amazon Inspector assessment target.
+-- 'arn', 'assessmentTarget_arn' - The ARN that specifies the Amazon Inspector assessment target.
 --
--- * 'atCreatedAt' - The time at which the assessment target is created.
+-- 'name', 'assessmentTarget_name' - The name of the Amazon Inspector assessment target.
 --
--- * 'atUpdatedAt' - The time at which 'UpdateAssessmentTarget' is called.
-assessmentTarget ::
-  -- | 'atArn'
-  Text ->
-  -- | 'atName'
-  Text ->
-  -- | 'atCreatedAt'
-  UTCTime ->
-  -- | 'atUpdatedAt'
-  UTCTime ->
+-- 'createdAt', 'assessmentTarget_createdAt' - The time at which the assessment target is created.
+--
+-- 'updatedAt', 'assessmentTarget_updatedAt' - The time at which UpdateAssessmentTarget is called.
+newAssessmentTarget ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'createdAt'
+  Prelude.UTCTime ->
+  -- | 'updatedAt'
+  Prelude.UTCTime ->
   AssessmentTarget
-assessmentTarget pArn_ pName_ pCreatedAt_ pUpdatedAt_ =
-  AssessmentTarget'
-    { _atResourceGroupARN = Nothing,
-      _atArn = pArn_,
-      _atName = pName_,
-      _atCreatedAt = _Time # pCreatedAt_,
-      _atUpdatedAt = _Time # pUpdatedAt_
-    }
+newAssessmentTarget
+  pArn_
+  pName_
+  pCreatedAt_
+  pUpdatedAt_ =
+    AssessmentTarget'
+      { resourceGroupArn =
+          Prelude.Nothing,
+        arn = pArn_,
+        name = pName_,
+        createdAt = Prelude._Time Lens.# pCreatedAt_,
+        updatedAt = Prelude._Time Lens.# pUpdatedAt_
+      }
 
--- | The ARN that specifies the resource group that is associated with the assessment target.
-atResourceGroupARN :: Lens' AssessmentTarget (Maybe Text)
-atResourceGroupARN = lens _atResourceGroupARN (\s a -> s {_atResourceGroupARN = a})
+-- | The ARN that specifies the resource group that is associated with the
+-- assessment target.
+assessmentTarget_resourceGroupArn :: Lens.Lens' AssessmentTarget (Prelude.Maybe Prelude.Text)
+assessmentTarget_resourceGroupArn = Lens.lens (\AssessmentTarget' {resourceGroupArn} -> resourceGroupArn) (\s@AssessmentTarget' {} a -> s {resourceGroupArn = a} :: AssessmentTarget)
 
 -- | The ARN that specifies the Amazon Inspector assessment target.
-atArn :: Lens' AssessmentTarget Text
-atArn = lens _atArn (\s a -> s {_atArn = a})
+assessmentTarget_arn :: Lens.Lens' AssessmentTarget Prelude.Text
+assessmentTarget_arn = Lens.lens (\AssessmentTarget' {arn} -> arn) (\s@AssessmentTarget' {} a -> s {arn = a} :: AssessmentTarget)
 
 -- | The name of the Amazon Inspector assessment target.
-atName :: Lens' AssessmentTarget Text
-atName = lens _atName (\s a -> s {_atName = a})
+assessmentTarget_name :: Lens.Lens' AssessmentTarget Prelude.Text
+assessmentTarget_name = Lens.lens (\AssessmentTarget' {name} -> name) (\s@AssessmentTarget' {} a -> s {name = a} :: AssessmentTarget)
 
 -- | The time at which the assessment target is created.
-atCreatedAt :: Lens' AssessmentTarget UTCTime
-atCreatedAt = lens _atCreatedAt (\s a -> s {_atCreatedAt = a}) . _Time
+assessmentTarget_createdAt :: Lens.Lens' AssessmentTarget Prelude.UTCTime
+assessmentTarget_createdAt = Lens.lens (\AssessmentTarget' {createdAt} -> createdAt) (\s@AssessmentTarget' {} a -> s {createdAt = a} :: AssessmentTarget) Prelude.. Prelude._Time
 
--- | The time at which 'UpdateAssessmentTarget' is called.
-atUpdatedAt :: Lens' AssessmentTarget UTCTime
-atUpdatedAt = lens _atUpdatedAt (\s a -> s {_atUpdatedAt = a}) . _Time
+-- | The time at which UpdateAssessmentTarget is called.
+assessmentTarget_updatedAt :: Lens.Lens' AssessmentTarget Prelude.UTCTime
+assessmentTarget_updatedAt = Lens.lens (\AssessmentTarget' {updatedAt} -> updatedAt) (\s@AssessmentTarget' {} a -> s {updatedAt = a} :: AssessmentTarget) Prelude.. Prelude._Time
 
-instance FromJSON AssessmentTarget where
+instance Prelude.FromJSON AssessmentTarget where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AssessmentTarget"
       ( \x ->
           AssessmentTarget'
-            <$> (x .:? "resourceGroupArn")
-            <*> (x .: "arn")
-            <*> (x .: "name")
-            <*> (x .: "createdAt")
-            <*> (x .: "updatedAt")
+            Prelude.<$> (x Prelude..:? "resourceGroupArn")
+            Prelude.<*> (x Prelude..: "arn")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "createdAt")
+            Prelude.<*> (x Prelude..: "updatedAt")
       )
 
-instance Hashable AssessmentTarget
+instance Prelude.Hashable AssessmentTarget
 
-instance NFData AssessmentTarget
+instance Prelude.NFData AssessmentTarget

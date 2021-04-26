@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,130 +19,154 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Inspector.Types.NetworkInterface where
 
-import Network.AWS.Inspector.Types.PrivateIP
+import Network.AWS.Inspector.Types.PrivateIp
 import Network.AWS.Inspector.Types.SecurityGroup
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the network interfaces interacting with an EC2 instance. This data type is used as one of the elements of the 'AssetAttributes' data type.
+-- | Contains information about the network interfaces interacting with an
+-- EC2 instance. This data type is used as one of the elements of the
+-- AssetAttributes data type.
 --
---
---
--- /See:/ 'networkInterface' smart constructor.
+-- /See:/ 'newNetworkInterface' smart constructor.
 data NetworkInterface = NetworkInterface'
-  { _niPrivateIPAddresses ::
-      !(Maybe [PrivateIP]),
-    _niIpv6Addresses :: !(Maybe [Text]),
-    _niSecurityGroups ::
-      !(Maybe [SecurityGroup]),
-    _niPublicDNSName :: !(Maybe Text),
-    _niSubnetId :: !(Maybe Text),
-    _niNetworkInterfaceId ::
-      !(Maybe Text),
-    _niPrivateDNSName :: !(Maybe Text),
-    _niVpcId :: !(Maybe Text),
-    _niPublicIP :: !(Maybe Text),
-    _niPrivateIPAddress :: !(Maybe Text)
+  { -- | A list of the private IP addresses associated with the network
+    -- interface. Includes the privateDnsName and privateIpAddress.
+    privateIpAddresses :: Prelude.Maybe [PrivateIp],
+    -- | The IP addresses associated with the network interface.
+    ipv6Addresses :: Prelude.Maybe [Prelude.Text],
+    -- | A list of the security groups associated with the network interface.
+    -- Includes the groupId and groupName.
+    securityGroups :: Prelude.Maybe [SecurityGroup],
+    -- | The name of a public DNS associated with the network interface.
+    publicDnsName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a subnet associated with the network interface.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the network interface.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The name of a private DNS associated with the network interface.
+    privateDnsName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a VPC associated with the network interface.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | The public IP address from which the network interface is reachable.
+    publicIp :: Prelude.Maybe Prelude.Text,
+    -- | The private IP address associated with the network interface.
+    privateIpAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'niPrivateIPAddresses' - A list of the private IP addresses associated with the network interface. Includes the privateDnsName and privateIpAddress.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'niIpv6Addresses' - The IP addresses associated with the network interface.
+-- 'privateIpAddresses', 'networkInterface_privateIpAddresses' - A list of the private IP addresses associated with the network
+-- interface. Includes the privateDnsName and privateIpAddress.
 --
--- * 'niSecurityGroups' - A list of the security groups associated with the network interface. Includes the groupId and groupName.
+-- 'ipv6Addresses', 'networkInterface_ipv6Addresses' - The IP addresses associated with the network interface.
 --
--- * 'niPublicDNSName' - The name of a public DNS associated with the network interface.
+-- 'securityGroups', 'networkInterface_securityGroups' - A list of the security groups associated with the network interface.
+-- Includes the groupId and groupName.
 --
--- * 'niSubnetId' - The ID of a subnet associated with the network interface.
+-- 'publicDnsName', 'networkInterface_publicDnsName' - The name of a public DNS associated with the network interface.
 --
--- * 'niNetworkInterfaceId' - The ID of the network interface.
+-- 'subnetId', 'networkInterface_subnetId' - The ID of a subnet associated with the network interface.
 --
--- * 'niPrivateDNSName' - The name of a private DNS associated with the network interface.
+-- 'networkInterfaceId', 'networkInterface_networkInterfaceId' - The ID of the network interface.
 --
--- * 'niVpcId' - The ID of a VPC associated with the network interface.
+-- 'privateDnsName', 'networkInterface_privateDnsName' - The name of a private DNS associated with the network interface.
 --
--- * 'niPublicIP' - The public IP address from which the network interface is reachable.
+-- 'vpcId', 'networkInterface_vpcId' - The ID of a VPC associated with the network interface.
 --
--- * 'niPrivateIPAddress' - The private IP address associated with the network interface.
-networkInterface ::
+-- 'publicIp', 'networkInterface_publicIp' - The public IP address from which the network interface is reachable.
+--
+-- 'privateIpAddress', 'networkInterface_privateIpAddress' - The private IP address associated with the network interface.
+newNetworkInterface ::
   NetworkInterface
-networkInterface =
+newNetworkInterface =
   NetworkInterface'
-    { _niPrivateIPAddresses = Nothing,
-      _niIpv6Addresses = Nothing,
-      _niSecurityGroups = Nothing,
-      _niPublicDNSName = Nothing,
-      _niSubnetId = Nothing,
-      _niNetworkInterfaceId = Nothing,
-      _niPrivateDNSName = Nothing,
-      _niVpcId = Nothing,
-      _niPublicIP = Nothing,
-      _niPrivateIPAddress = Nothing
+    { privateIpAddresses =
+        Prelude.Nothing,
+      ipv6Addresses = Prelude.Nothing,
+      securityGroups = Prelude.Nothing,
+      publicDnsName = Prelude.Nothing,
+      subnetId = Prelude.Nothing,
+      networkInterfaceId = Prelude.Nothing,
+      privateDnsName = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      publicIp = Prelude.Nothing,
+      privateIpAddress = Prelude.Nothing
     }
 
--- | A list of the private IP addresses associated with the network interface. Includes the privateDnsName and privateIpAddress.
-niPrivateIPAddresses :: Lens' NetworkInterface [PrivateIP]
-niPrivateIPAddresses = lens _niPrivateIPAddresses (\s a -> s {_niPrivateIPAddresses = a}) . _Default . _Coerce
+-- | A list of the private IP addresses associated with the network
+-- interface. Includes the privateDnsName and privateIpAddress.
+networkInterface_privateIpAddresses :: Lens.Lens' NetworkInterface (Prelude.Maybe [PrivateIp])
+networkInterface_privateIpAddresses = Lens.lens (\NetworkInterface' {privateIpAddresses} -> privateIpAddresses) (\s@NetworkInterface' {} a -> s {privateIpAddresses = a} :: NetworkInterface) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The IP addresses associated with the network interface.
-niIpv6Addresses :: Lens' NetworkInterface [Text]
-niIpv6Addresses = lens _niIpv6Addresses (\s a -> s {_niIpv6Addresses = a}) . _Default . _Coerce
+networkInterface_ipv6Addresses :: Lens.Lens' NetworkInterface (Prelude.Maybe [Prelude.Text])
+networkInterface_ipv6Addresses = Lens.lens (\NetworkInterface' {ipv6Addresses} -> ipv6Addresses) (\s@NetworkInterface' {} a -> s {ipv6Addresses = a} :: NetworkInterface) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of the security groups associated with the network interface. Includes the groupId and groupName.
-niSecurityGroups :: Lens' NetworkInterface [SecurityGroup]
-niSecurityGroups = lens _niSecurityGroups (\s a -> s {_niSecurityGroups = a}) . _Default . _Coerce
+-- | A list of the security groups associated with the network interface.
+-- Includes the groupId and groupName.
+networkInterface_securityGroups :: Lens.Lens' NetworkInterface (Prelude.Maybe [SecurityGroup])
+networkInterface_securityGroups = Lens.lens (\NetworkInterface' {securityGroups} -> securityGroups) (\s@NetworkInterface' {} a -> s {securityGroups = a} :: NetworkInterface) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of a public DNS associated with the network interface.
-niPublicDNSName :: Lens' NetworkInterface (Maybe Text)
-niPublicDNSName = lens _niPublicDNSName (\s a -> s {_niPublicDNSName = a})
+networkInterface_publicDnsName :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_publicDnsName = Lens.lens (\NetworkInterface' {publicDnsName} -> publicDnsName) (\s@NetworkInterface' {} a -> s {publicDnsName = a} :: NetworkInterface)
 
 -- | The ID of a subnet associated with the network interface.
-niSubnetId :: Lens' NetworkInterface (Maybe Text)
-niSubnetId = lens _niSubnetId (\s a -> s {_niSubnetId = a})
+networkInterface_subnetId :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_subnetId = Lens.lens (\NetworkInterface' {subnetId} -> subnetId) (\s@NetworkInterface' {} a -> s {subnetId = a} :: NetworkInterface)
 
 -- | The ID of the network interface.
-niNetworkInterfaceId :: Lens' NetworkInterface (Maybe Text)
-niNetworkInterfaceId = lens _niNetworkInterfaceId (\s a -> s {_niNetworkInterfaceId = a})
+networkInterface_networkInterfaceId :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_networkInterfaceId = Lens.lens (\NetworkInterface' {networkInterfaceId} -> networkInterfaceId) (\s@NetworkInterface' {} a -> s {networkInterfaceId = a} :: NetworkInterface)
 
 -- | The name of a private DNS associated with the network interface.
-niPrivateDNSName :: Lens' NetworkInterface (Maybe Text)
-niPrivateDNSName = lens _niPrivateDNSName (\s a -> s {_niPrivateDNSName = a})
+networkInterface_privateDnsName :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_privateDnsName = Lens.lens (\NetworkInterface' {privateDnsName} -> privateDnsName) (\s@NetworkInterface' {} a -> s {privateDnsName = a} :: NetworkInterface)
 
 -- | The ID of a VPC associated with the network interface.
-niVpcId :: Lens' NetworkInterface (Maybe Text)
-niVpcId = lens _niVpcId (\s a -> s {_niVpcId = a})
+networkInterface_vpcId :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_vpcId = Lens.lens (\NetworkInterface' {vpcId} -> vpcId) (\s@NetworkInterface' {} a -> s {vpcId = a} :: NetworkInterface)
 
 -- | The public IP address from which the network interface is reachable.
-niPublicIP :: Lens' NetworkInterface (Maybe Text)
-niPublicIP = lens _niPublicIP (\s a -> s {_niPublicIP = a})
+networkInterface_publicIp :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_publicIp = Lens.lens (\NetworkInterface' {publicIp} -> publicIp) (\s@NetworkInterface' {} a -> s {publicIp = a} :: NetworkInterface)
 
 -- | The private IP address associated with the network interface.
-niPrivateIPAddress :: Lens' NetworkInterface (Maybe Text)
-niPrivateIPAddress = lens _niPrivateIPAddress (\s a -> s {_niPrivateIPAddress = a})
+networkInterface_privateIpAddress :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_privateIpAddress = Lens.lens (\NetworkInterface' {privateIpAddress} -> privateIpAddress) (\s@NetworkInterface' {} a -> s {privateIpAddress = a} :: NetworkInterface)
 
-instance FromJSON NetworkInterface where
+instance Prelude.FromJSON NetworkInterface where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NetworkInterface"
       ( \x ->
           NetworkInterface'
-            <$> (x .:? "privateIpAddresses" .!= mempty)
-            <*> (x .:? "ipv6Addresses" .!= mempty)
-            <*> (x .:? "securityGroups" .!= mempty)
-            <*> (x .:? "publicDnsName")
-            <*> (x .:? "subnetId")
-            <*> (x .:? "networkInterfaceId")
-            <*> (x .:? "privateDnsName")
-            <*> (x .:? "vpcId")
-            <*> (x .:? "publicIp")
-            <*> (x .:? "privateIpAddress")
+            Prelude.<$> ( x Prelude..:? "privateIpAddresses"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "ipv6Addresses"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "securityGroups"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "publicDnsName")
+            Prelude.<*> (x Prelude..:? "subnetId")
+            Prelude.<*> (x Prelude..:? "networkInterfaceId")
+            Prelude.<*> (x Prelude..:? "privateDnsName")
+            Prelude.<*> (x Prelude..:? "vpcId")
+            Prelude.<*> (x Prelude..:? "publicIp")
+            Prelude.<*> (x Prelude..:? "privateIpAddress")
       )
 
-instance Hashable NetworkInterface
+instance Prelude.Hashable NetworkInterface
 
-instance NFData NetworkInterface
+instance Prelude.NFData NetworkInterface

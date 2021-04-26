@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Inspector.Types.DurationRange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This data type is used in the 'AssessmentTemplateFilter' data type.
+-- | This data type is used in the AssessmentTemplateFilter data type.
 --
---
---
--- /See:/ 'durationRange' smart constructor.
+-- /See:/ 'newDurationRange' smart constructor.
 data DurationRange = DurationRange'
-  { _drMinSeconds ::
-      !(Maybe Nat),
-    _drMaxSeconds :: !(Maybe Nat)
+  { -- | The minimum value of the duration range. Must be greater than zero.
+    minSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum value of the duration range. Must be less than or equal to
+    -- 604800 seconds (1 week).
+    maxSeconds :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DurationRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DurationRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drMinSeconds' - The minimum value of the duration range. Must be greater than zero.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drMaxSeconds' - The maximum value of the duration range. Must be less than or equal to 604800 seconds (1 week).
-durationRange ::
+-- 'minSeconds', 'durationRange_minSeconds' - The minimum value of the duration range. Must be greater than zero.
+--
+-- 'maxSeconds', 'durationRange_maxSeconds' - The maximum value of the duration range. Must be less than or equal to
+-- 604800 seconds (1 week).
+newDurationRange ::
   DurationRange
-durationRange =
+newDurationRange =
   DurationRange'
-    { _drMinSeconds = Nothing,
-      _drMaxSeconds = Nothing
+    { minSeconds = Prelude.Nothing,
+      maxSeconds = Prelude.Nothing
     }
 
 -- | The minimum value of the duration range. Must be greater than zero.
-drMinSeconds :: Lens' DurationRange (Maybe Natural)
-drMinSeconds = lens _drMinSeconds (\s a -> s {_drMinSeconds = a}) . mapping _Nat
+durationRange_minSeconds :: Lens.Lens' DurationRange (Prelude.Maybe Prelude.Natural)
+durationRange_minSeconds = Lens.lens (\DurationRange' {minSeconds} -> minSeconds) (\s@DurationRange' {} a -> s {minSeconds = a} :: DurationRange) Prelude.. Lens.mapping Prelude._Nat
 
--- | The maximum value of the duration range. Must be less than or equal to 604800 seconds (1 week).
-drMaxSeconds :: Lens' DurationRange (Maybe Natural)
-drMaxSeconds = lens _drMaxSeconds (\s a -> s {_drMaxSeconds = a}) . mapping _Nat
+-- | The maximum value of the duration range. Must be less than or equal to
+-- 604800 seconds (1 week).
+durationRange_maxSeconds :: Lens.Lens' DurationRange (Prelude.Maybe Prelude.Natural)
+durationRange_maxSeconds = Lens.lens (\DurationRange' {maxSeconds} -> maxSeconds) (\s@DurationRange' {} a -> s {maxSeconds = a} :: DurationRange) Prelude.. Lens.mapping Prelude._Nat
 
-instance Hashable DurationRange
+instance Prelude.Hashable DurationRange
 
-instance NFData DurationRange
+instance Prelude.NFData DurationRange
 
-instance ToJSON DurationRange where
+instance Prelude.ToJSON DurationRange where
   toJSON DurationRange' {..} =
-    object
-      ( catMaybes
-          [ ("minSeconds" .=) <$> _drMinSeconds,
-            ("maxSeconds" .=) <$> _drMaxSeconds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("minSeconds" Prelude..=) Prelude.<$> minSeconds,
+            ("maxSeconds" Prelude..=) Prelude.<$> maxSeconds
           ]
       )

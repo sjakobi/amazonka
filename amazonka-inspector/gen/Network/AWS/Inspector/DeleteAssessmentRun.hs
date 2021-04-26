@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,112 +21,113 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the assessment run that is specified by the ARN of the assessment run.
+-- Deletes the assessment run that is specified by the ARN of the
+-- assessment run.
 module Network.AWS.Inspector.DeleteAssessmentRun
   ( -- * Creating a Request
-    deleteAssessmentRun,
-    DeleteAssessmentRun,
+    DeleteAssessmentRun (..),
+    newDeleteAssessmentRun,
 
     -- * Request Lenses
-    darAssessmentRunARN,
+    deleteAssessmentRun_assessmentRunArn,
 
     -- * Destructuring the Response
-    deleteAssessmentRunResponse,
-    DeleteAssessmentRunResponse,
+    DeleteAssessmentRunResponse (..),
+    newDeleteAssessmentRunResponse,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAssessmentRun' smart constructor.
-newtype DeleteAssessmentRun = DeleteAssessmentRun'
-  { _darAssessmentRunARN ::
-      Text
+-- | /See:/ 'newDeleteAssessmentRun' smart constructor.
+data DeleteAssessmentRun = DeleteAssessmentRun'
+  { -- | The ARN that specifies the assessment run that you want to delete.
+    assessmentRunArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAssessmentRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAssessmentRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darAssessmentRunARN' - The ARN that specifies the assessment run that you want to delete.
-deleteAssessmentRun ::
-  -- | 'darAssessmentRunARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'assessmentRunArn', 'deleteAssessmentRun_assessmentRunArn' - The ARN that specifies the assessment run that you want to delete.
+newDeleteAssessmentRun ::
+  -- | 'assessmentRunArn'
+  Prelude.Text ->
   DeleteAssessmentRun
-deleteAssessmentRun pAssessmentRunARN_ =
+newDeleteAssessmentRun pAssessmentRunArn_ =
   DeleteAssessmentRun'
-    { _darAssessmentRunARN =
-        pAssessmentRunARN_
+    { assessmentRunArn =
+        pAssessmentRunArn_
     }
 
 -- | The ARN that specifies the assessment run that you want to delete.
-darAssessmentRunARN :: Lens' DeleteAssessmentRun Text
-darAssessmentRunARN = lens _darAssessmentRunARN (\s a -> s {_darAssessmentRunARN = a})
+deleteAssessmentRun_assessmentRunArn :: Lens.Lens' DeleteAssessmentRun Prelude.Text
+deleteAssessmentRun_assessmentRunArn = Lens.lens (\DeleteAssessmentRun' {assessmentRunArn} -> assessmentRunArn) (\s@DeleteAssessmentRun' {} a -> s {assessmentRunArn = a} :: DeleteAssessmentRun)
 
-instance AWSRequest DeleteAssessmentRun where
+instance Prelude.AWSRequest DeleteAssessmentRun where
   type
     Rs DeleteAssessmentRun =
       DeleteAssessmentRunResponse
-  request = postJSON inspector
-  response = receiveNull DeleteAssessmentRunResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteAssessmentRunResponse'
 
-instance Hashable DeleteAssessmentRun
+instance Prelude.Hashable DeleteAssessmentRun
 
-instance NFData DeleteAssessmentRun
+instance Prelude.NFData DeleteAssessmentRun
 
-instance ToHeaders DeleteAssessmentRun where
+instance Prelude.ToHeaders DeleteAssessmentRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.DeleteAssessmentRun" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.DeleteAssessmentRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAssessmentRun where
+instance Prelude.ToJSON DeleteAssessmentRun where
   toJSON DeleteAssessmentRun' {..} =
-    object
-      ( catMaybes
-          [Just ("assessmentRunArn" .= _darAssessmentRunARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("assessmentRunArn" Prelude..= assessmentRunArn)
+          ]
       )
 
-instance ToPath DeleteAssessmentRun where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAssessmentRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAssessmentRun where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAssessmentRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAssessmentRunResponse' smart constructor.
+-- | /See:/ 'newDeleteAssessmentRunResponse' smart constructor.
 data DeleteAssessmentRunResponse = DeleteAssessmentRunResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAssessmentRunResponse' with the minimum fields required to make a request.
-deleteAssessmentRunResponse ::
+-- |
+-- Create a value of 'DeleteAssessmentRunResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAssessmentRunResponse ::
   DeleteAssessmentRunResponse
-deleteAssessmentRunResponse =
+newDeleteAssessmentRunResponse =
   DeleteAssessmentRunResponse'
 
-instance NFData DeleteAssessmentRunResponse
+instance Prelude.NFData DeleteAssessmentRunResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,206 +21,261 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the assessment templates that correspond to the assessment targets that are specified by the ARNs of the assessment targets.
---
---
+-- Lists the assessment templates that correspond to the assessment targets
+-- that are specified by the ARNs of the assessment targets.
 --
 -- This operation returns paginated results.
 module Network.AWS.Inspector.ListAssessmentTemplates
   ( -- * Creating a Request
-    listAssessmentTemplates,
-    ListAssessmentTemplates,
+    ListAssessmentTemplates (..),
+    newListAssessmentTemplates,
 
     -- * Request Lenses
-    lNextToken,
-    lMaxResults,
-    lAssessmentTargetARNs,
-    lFilter,
+    listAssessmentTemplates_nextToken,
+    listAssessmentTemplates_maxResults,
+    listAssessmentTemplates_assessmentTargetArns,
+    listAssessmentTemplates_filter,
 
     -- * Destructuring the Response
-    listAssessmentTemplatesResponse,
-    ListAssessmentTemplatesResponse,
+    ListAssessmentTemplatesResponse (..),
+    newListAssessmentTemplatesResponse,
 
     -- * Response Lenses
-    latrrsNextToken,
-    latrrsResponseStatus,
-    latrrsAssessmentTemplateARNs,
+    listAssessmentTemplatesResponse_nextToken,
+    listAssessmentTemplatesResponse_httpStatus,
+    listAssessmentTemplatesResponse_assessmentTemplateArns,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAssessmentTemplates' smart constructor.
+-- | /See:/ 'newListAssessmentTemplates' smart constructor.
 data ListAssessmentTemplates = ListAssessmentTemplates'
-  { _lNextToken ::
-      !(Maybe Text),
-    _lMaxResults ::
-      !(Maybe Int),
-    _lAssessmentTargetARNs ::
-      !(Maybe [Text]),
-    _lFilter ::
-      !( Maybe
-           AssessmentTemplateFilter
-       )
+  { -- | You can use this parameter when paginating results. Set the value of
+    -- this parameter to null on your first call to the
+    -- __ListAssessmentTemplates__ action. Subsequent calls to the action fill
+    -- __nextToken__ in the request with the value of __NextToken__ from the
+    -- previous response to continue listing data.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | You can use this parameter to indicate the maximum number of items you
+    -- want in the response. The default value is 10. The maximum value is 500.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A list of ARNs that specifies the assessment targets whose assessment
+    -- templates you want to list.
+    assessmentTargetArns :: Prelude.Maybe [Prelude.Text],
+    -- | You can use this parameter to specify a subset of data to be included in
+    -- the action\'s response.
+    --
+    -- For a record to match a filter, all specified filter attributes must
+    -- match. When multiple values are specified for a filter attribute, any of
+    -- the values can match.
+    filter' :: Prelude.Maybe AssessmentTemplateFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAssessmentTemplates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAssessmentTemplates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lNextToken' - You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the __ListAssessmentTemplates__ action. Subsequent calls to the action fill __nextToken__ in the request with the value of __NextToken__ from the previous response to continue listing data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lMaxResults' - You can use this parameter to indicate the maximum number of items you want in the response. The default value is 10. The maximum value is 500.
+-- 'nextToken', 'listAssessmentTemplates_nextToken' - You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the
+-- __ListAssessmentTemplates__ action. Subsequent calls to the action fill
+-- __nextToken__ in the request with the value of __NextToken__ from the
+-- previous response to continue listing data.
 --
--- * 'lAssessmentTargetARNs' - A list of ARNs that specifies the assessment targets whose assessment templates you want to list.
+-- 'maxResults', 'listAssessmentTemplates_maxResults' - You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 10. The maximum value is 500.
 --
--- * 'lFilter' - You can use this parameter to specify a subset of data to be included in the action's response. For a record to match a filter, all specified filter attributes must match. When multiple values are specified for a filter attribute, any of the values can match.
-listAssessmentTemplates ::
+-- 'assessmentTargetArns', 'listAssessmentTemplates_assessmentTargetArns' - A list of ARNs that specifies the assessment targets whose assessment
+-- templates you want to list.
+--
+-- 'filter'', 'listAssessmentTemplates_filter' - You can use this parameter to specify a subset of data to be included in
+-- the action\'s response.
+--
+-- For a record to match a filter, all specified filter attributes must
+-- match. When multiple values are specified for a filter attribute, any of
+-- the values can match.
+newListAssessmentTemplates ::
   ListAssessmentTemplates
-listAssessmentTemplates =
+newListAssessmentTemplates =
   ListAssessmentTemplates'
-    { _lNextToken = Nothing,
-      _lMaxResults = Nothing,
-      _lAssessmentTargetARNs = Nothing,
-      _lFilter = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      assessmentTargetArns = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
--- | You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the __ListAssessmentTemplates__ action. Subsequent calls to the action fill __nextToken__ in the request with the value of __NextToken__ from the previous response to continue listing data.
-lNextToken :: Lens' ListAssessmentTemplates (Maybe Text)
-lNextToken = lens _lNextToken (\s a -> s {_lNextToken = a})
+-- | You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the
+-- __ListAssessmentTemplates__ action. Subsequent calls to the action fill
+-- __nextToken__ in the request with the value of __NextToken__ from the
+-- previous response to continue listing data.
+listAssessmentTemplates_nextToken :: Lens.Lens' ListAssessmentTemplates (Prelude.Maybe Prelude.Text)
+listAssessmentTemplates_nextToken = Lens.lens (\ListAssessmentTemplates' {nextToken} -> nextToken) (\s@ListAssessmentTemplates' {} a -> s {nextToken = a} :: ListAssessmentTemplates)
 
--- | You can use this parameter to indicate the maximum number of items you want in the response. The default value is 10. The maximum value is 500.
-lMaxResults :: Lens' ListAssessmentTemplates (Maybe Int)
-lMaxResults = lens _lMaxResults (\s a -> s {_lMaxResults = a})
+-- | You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 10. The maximum value is 500.
+listAssessmentTemplates_maxResults :: Lens.Lens' ListAssessmentTemplates (Prelude.Maybe Prelude.Int)
+listAssessmentTemplates_maxResults = Lens.lens (\ListAssessmentTemplates' {maxResults} -> maxResults) (\s@ListAssessmentTemplates' {} a -> s {maxResults = a} :: ListAssessmentTemplates)
 
--- | A list of ARNs that specifies the assessment targets whose assessment templates you want to list.
-lAssessmentTargetARNs :: Lens' ListAssessmentTemplates [Text]
-lAssessmentTargetARNs = lens _lAssessmentTargetARNs (\s a -> s {_lAssessmentTargetARNs = a}) . _Default . _Coerce
+-- | A list of ARNs that specifies the assessment targets whose assessment
+-- templates you want to list.
+listAssessmentTemplates_assessmentTargetArns :: Lens.Lens' ListAssessmentTemplates (Prelude.Maybe [Prelude.Text])
+listAssessmentTemplates_assessmentTargetArns = Lens.lens (\ListAssessmentTemplates' {assessmentTargetArns} -> assessmentTargetArns) (\s@ListAssessmentTemplates' {} a -> s {assessmentTargetArns = a} :: ListAssessmentTemplates) Prelude.. Lens.mapping Prelude._Coerce
 
--- | You can use this parameter to specify a subset of data to be included in the action's response. For a record to match a filter, all specified filter attributes must match. When multiple values are specified for a filter attribute, any of the values can match.
-lFilter :: Lens' ListAssessmentTemplates (Maybe AssessmentTemplateFilter)
-lFilter = lens _lFilter (\s a -> s {_lFilter = a})
+-- | You can use this parameter to specify a subset of data to be included in
+-- the action\'s response.
+--
+-- For a record to match a filter, all specified filter attributes must
+-- match. When multiple values are specified for a filter attribute, any of
+-- the values can match.
+listAssessmentTemplates_filter :: Lens.Lens' ListAssessmentTemplates (Prelude.Maybe AssessmentTemplateFilter)
+listAssessmentTemplates_filter = Lens.lens (\ListAssessmentTemplates' {filter'} -> filter') (\s@ListAssessmentTemplates' {} a -> s {filter' = a} :: ListAssessmentTemplates)
 
-instance AWSPager ListAssessmentTemplates where
+instance Pager.AWSPager ListAssessmentTemplates where
   page rq rs
-    | stop (rs ^. latrrsNextToken) = Nothing
-    | stop (rs ^. latrrsAssessmentTemplateARNs) = Nothing
-    | otherwise =
-      Just $ rq & lNextToken .~ rs ^. latrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAssessmentTemplatesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listAssessmentTemplatesResponse_assessmentTemplateArns
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAssessmentTemplates_nextToken
+          Lens..~ rs
+          Lens.^? listAssessmentTemplatesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListAssessmentTemplates where
+instance Prelude.AWSRequest ListAssessmentTemplates where
   type
     Rs ListAssessmentTemplates =
       ListAssessmentTemplatesResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAssessmentTemplatesResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "assessmentTemplateArns" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "assessmentTemplateArns"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListAssessmentTemplates
+instance Prelude.Hashable ListAssessmentTemplates
 
-instance NFData ListAssessmentTemplates
+instance Prelude.NFData ListAssessmentTemplates
 
-instance ToHeaders ListAssessmentTemplates where
+instance Prelude.ToHeaders ListAssessmentTemplates where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.ListAssessmentTemplates" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.ListAssessmentTemplates" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListAssessmentTemplates where
+instance Prelude.ToJSON ListAssessmentTemplates where
   toJSON ListAssessmentTemplates' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lNextToken,
-            ("maxResults" .=) <$> _lMaxResults,
-            ("assessmentTargetArns" .=)
-              <$> _lAssessmentTargetARNs,
-            ("filter" .=) <$> _lFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("assessmentTargetArns" Prelude..=)
+              Prelude.<$> assessmentTargetArns,
+            ("filter" Prelude..=) Prelude.<$> filter'
           ]
       )
 
-instance ToPath ListAssessmentTemplates where
-  toPath = const "/"
+instance Prelude.ToPath ListAssessmentTemplates where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListAssessmentTemplates where
-  toQuery = const mempty
+instance Prelude.ToQuery ListAssessmentTemplates where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listAssessmentTemplatesResponse' smart constructor.
+-- | /See:/ 'newListAssessmentTemplatesResponse' smart constructor.
 data ListAssessmentTemplatesResponse = ListAssessmentTemplatesResponse'
-  { _latrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _latrrsResponseStatus ::
-      !Int,
-    _latrrsAssessmentTemplateARNs ::
-      ![Text]
+  { -- | When a response is generated, if there is more data to be listed, this
+    -- parameter is present in the response and contains the value to use for
+    -- the __nextToken__ parameter in a subsequent pagination request. If there
+    -- is no more data to be listed, this parameter is set to null.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of ARNs that specifies the assessment templates returned by the
+    -- action.
+    assessmentTemplateArns :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAssessmentTemplatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAssessmentTemplatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'latrrsNextToken' - When a response is generated, if there is more data to be listed, this parameter is present in the response and contains the value to use for the __nextToken__ parameter in a subsequent pagination request. If there is no more data to be listed, this parameter is set to null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'latrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listAssessmentTemplatesResponse_nextToken' - When a response is generated, if there is more data to be listed, this
+-- parameter is present in the response and contains the value to use for
+-- the __nextToken__ parameter in a subsequent pagination request. If there
+-- is no more data to be listed, this parameter is set to null.
 --
--- * 'latrrsAssessmentTemplateARNs' - A list of ARNs that specifies the assessment templates returned by the action.
-listAssessmentTemplatesResponse ::
-  -- | 'latrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listAssessmentTemplatesResponse_httpStatus' - The response's http status code.
+--
+-- 'assessmentTemplateArns', 'listAssessmentTemplatesResponse_assessmentTemplateArns' - A list of ARNs that specifies the assessment templates returned by the
+-- action.
+newListAssessmentTemplatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAssessmentTemplatesResponse
-listAssessmentTemplatesResponse pResponseStatus_ =
+newListAssessmentTemplatesResponse pHttpStatus_ =
   ListAssessmentTemplatesResponse'
-    { _latrrsNextToken =
-        Nothing,
-      _latrrsResponseStatus = pResponseStatus_,
-      _latrrsAssessmentTemplateARNs = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      assessmentTemplateArns = Prelude.mempty
     }
 
--- | When a response is generated, if there is more data to be listed, this parameter is present in the response and contains the value to use for the __nextToken__ parameter in a subsequent pagination request. If there is no more data to be listed, this parameter is set to null.
-latrrsNextToken :: Lens' ListAssessmentTemplatesResponse (Maybe Text)
-latrrsNextToken = lens _latrrsNextToken (\s a -> s {_latrrsNextToken = a})
+-- | When a response is generated, if there is more data to be listed, this
+-- parameter is present in the response and contains the value to use for
+-- the __nextToken__ parameter in a subsequent pagination request. If there
+-- is no more data to be listed, this parameter is set to null.
+listAssessmentTemplatesResponse_nextToken :: Lens.Lens' ListAssessmentTemplatesResponse (Prelude.Maybe Prelude.Text)
+listAssessmentTemplatesResponse_nextToken = Lens.lens (\ListAssessmentTemplatesResponse' {nextToken} -> nextToken) (\s@ListAssessmentTemplatesResponse' {} a -> s {nextToken = a} :: ListAssessmentTemplatesResponse)
 
--- | -- | The response status code.
-latrrsResponseStatus :: Lens' ListAssessmentTemplatesResponse Int
-latrrsResponseStatus = lens _latrrsResponseStatus (\s a -> s {_latrrsResponseStatus = a})
+-- | The response's http status code.
+listAssessmentTemplatesResponse_httpStatus :: Lens.Lens' ListAssessmentTemplatesResponse Prelude.Int
+listAssessmentTemplatesResponse_httpStatus = Lens.lens (\ListAssessmentTemplatesResponse' {httpStatus} -> httpStatus) (\s@ListAssessmentTemplatesResponse' {} a -> s {httpStatus = a} :: ListAssessmentTemplatesResponse)
 
--- | A list of ARNs that specifies the assessment templates returned by the action.
-latrrsAssessmentTemplateARNs :: Lens' ListAssessmentTemplatesResponse [Text]
-latrrsAssessmentTemplateARNs = lens _latrrsAssessmentTemplateARNs (\s a -> s {_latrrsAssessmentTemplateARNs = a}) . _Coerce
+-- | A list of ARNs that specifies the assessment templates returned by the
+-- action.
+listAssessmentTemplatesResponse_assessmentTemplateArns :: Lens.Lens' ListAssessmentTemplatesResponse [Prelude.Text]
+listAssessmentTemplatesResponse_assessmentTemplateArns = Lens.lens (\ListAssessmentTemplatesResponse' {assessmentTemplateArns} -> assessmentTemplateArns) (\s@ListAssessmentTemplatesResponse' {} a -> s {assessmentTemplateArns = a} :: ListAssessmentTemplatesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListAssessmentTemplatesResponse
+instance
+  Prelude.NFData
+    ListAssessmentTemplatesResponse

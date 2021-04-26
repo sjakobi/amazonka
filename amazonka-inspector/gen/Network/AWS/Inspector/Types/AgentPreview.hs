@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,110 +20,134 @@
 module Network.AWS.Inspector.Types.AgentPreview where
 
 import Network.AWS.Inspector.Types.AgentHealth
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Used as a response element in the 'PreviewAgents' action.
+-- | Used as a response element in the PreviewAgents action.
 --
---
---
--- /See:/ 'agentPreview' smart constructor.
+-- /See:/ 'newAgentPreview' smart constructor.
 data AgentPreview = AgentPreview'
-  { _apHostname ::
-      !(Maybe Text),
-    _apAgentVersion :: !(Maybe Text),
-    _apKernelVersion :: !(Maybe Text),
-    _apOperatingSystem :: !(Maybe Text),
-    _apAgentHealth :: !(Maybe AgentHealth),
-    _apAutoScalingGroup :: !(Maybe Text),
-    _apIpv4Address :: !(Maybe Text),
-    _apAgentId :: !Text
+  { -- | The hostname of the EC2 instance on which the Amazon Inspector Agent is
+    -- installed.
+    hostname :: Prelude.Maybe Prelude.Text,
+    -- | The version of the Amazon Inspector Agent.
+    agentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The kernel version of the operating system running on the EC2 instance
+    -- on which the Amazon Inspector Agent is installed.
+    kernelVersion :: Prelude.Maybe Prelude.Text,
+    -- | The operating system running on the EC2 instance on which the Amazon
+    -- Inspector Agent is installed.
+    operatingSystem :: Prelude.Maybe Prelude.Text,
+    -- | The health status of the Amazon Inspector Agent.
+    agentHealth :: Prelude.Maybe AgentHealth,
+    -- | The Auto Scaling group for the EC2 instance where the agent is
+    -- installed.
+    autoScalingGroup :: Prelude.Maybe Prelude.Text,
+    -- | The IP address of the EC2 instance on which the Amazon Inspector Agent
+    -- is installed.
+    ipv4Address :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the EC2 instance where the agent is installed.
+    agentId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AgentPreview' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AgentPreview' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apHostname' - The hostname of the EC2 instance on which the Amazon Inspector Agent is installed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apAgentVersion' - The version of the Amazon Inspector Agent.
+-- 'hostname', 'agentPreview_hostname' - The hostname of the EC2 instance on which the Amazon Inspector Agent is
+-- installed.
 --
--- * 'apKernelVersion' - The kernel version of the operating system running on the EC2 instance on which the Amazon Inspector Agent is installed.
+-- 'agentVersion', 'agentPreview_agentVersion' - The version of the Amazon Inspector Agent.
 --
--- * 'apOperatingSystem' - The operating system running on the EC2 instance on which the Amazon Inspector Agent is installed.
+-- 'kernelVersion', 'agentPreview_kernelVersion' - The kernel version of the operating system running on the EC2 instance
+-- on which the Amazon Inspector Agent is installed.
 --
--- * 'apAgentHealth' - The health status of the Amazon Inspector Agent.
+-- 'operatingSystem', 'agentPreview_operatingSystem' - The operating system running on the EC2 instance on which the Amazon
+-- Inspector Agent is installed.
 --
--- * 'apAutoScalingGroup' - The Auto Scaling group for the EC2 instance where the agent is installed.
+-- 'agentHealth', 'agentPreview_agentHealth' - The health status of the Amazon Inspector Agent.
 --
--- * 'apIpv4Address' - The IP address of the EC2 instance on which the Amazon Inspector Agent is installed.
+-- 'autoScalingGroup', 'agentPreview_autoScalingGroup' - The Auto Scaling group for the EC2 instance where the agent is
+-- installed.
 --
--- * 'apAgentId' - The ID of the EC2 instance where the agent is installed.
-agentPreview ::
-  -- | 'apAgentId'
-  Text ->
+-- 'ipv4Address', 'agentPreview_ipv4Address' - The IP address of the EC2 instance on which the Amazon Inspector Agent
+-- is installed.
+--
+-- 'agentId', 'agentPreview_agentId' - The ID of the EC2 instance where the agent is installed.
+newAgentPreview ::
+  -- | 'agentId'
+  Prelude.Text ->
   AgentPreview
-agentPreview pAgentId_ =
+newAgentPreview pAgentId_ =
   AgentPreview'
-    { _apHostname = Nothing,
-      _apAgentVersion = Nothing,
-      _apKernelVersion = Nothing,
-      _apOperatingSystem = Nothing,
-      _apAgentHealth = Nothing,
-      _apAutoScalingGroup = Nothing,
-      _apIpv4Address = Nothing,
-      _apAgentId = pAgentId_
+    { hostname = Prelude.Nothing,
+      agentVersion = Prelude.Nothing,
+      kernelVersion = Prelude.Nothing,
+      operatingSystem = Prelude.Nothing,
+      agentHealth = Prelude.Nothing,
+      autoScalingGroup = Prelude.Nothing,
+      ipv4Address = Prelude.Nothing,
+      agentId = pAgentId_
     }
 
--- | The hostname of the EC2 instance on which the Amazon Inspector Agent is installed.
-apHostname :: Lens' AgentPreview (Maybe Text)
-apHostname = lens _apHostname (\s a -> s {_apHostname = a})
+-- | The hostname of the EC2 instance on which the Amazon Inspector Agent is
+-- installed.
+agentPreview_hostname :: Lens.Lens' AgentPreview (Prelude.Maybe Prelude.Text)
+agentPreview_hostname = Lens.lens (\AgentPreview' {hostname} -> hostname) (\s@AgentPreview' {} a -> s {hostname = a} :: AgentPreview)
 
 -- | The version of the Amazon Inspector Agent.
-apAgentVersion :: Lens' AgentPreview (Maybe Text)
-apAgentVersion = lens _apAgentVersion (\s a -> s {_apAgentVersion = a})
+agentPreview_agentVersion :: Lens.Lens' AgentPreview (Prelude.Maybe Prelude.Text)
+agentPreview_agentVersion = Lens.lens (\AgentPreview' {agentVersion} -> agentVersion) (\s@AgentPreview' {} a -> s {agentVersion = a} :: AgentPreview)
 
--- | The kernel version of the operating system running on the EC2 instance on which the Amazon Inspector Agent is installed.
-apKernelVersion :: Lens' AgentPreview (Maybe Text)
-apKernelVersion = lens _apKernelVersion (\s a -> s {_apKernelVersion = a})
+-- | The kernel version of the operating system running on the EC2 instance
+-- on which the Amazon Inspector Agent is installed.
+agentPreview_kernelVersion :: Lens.Lens' AgentPreview (Prelude.Maybe Prelude.Text)
+agentPreview_kernelVersion = Lens.lens (\AgentPreview' {kernelVersion} -> kernelVersion) (\s@AgentPreview' {} a -> s {kernelVersion = a} :: AgentPreview)
 
--- | The operating system running on the EC2 instance on which the Amazon Inspector Agent is installed.
-apOperatingSystem :: Lens' AgentPreview (Maybe Text)
-apOperatingSystem = lens _apOperatingSystem (\s a -> s {_apOperatingSystem = a})
+-- | The operating system running on the EC2 instance on which the Amazon
+-- Inspector Agent is installed.
+agentPreview_operatingSystem :: Lens.Lens' AgentPreview (Prelude.Maybe Prelude.Text)
+agentPreview_operatingSystem = Lens.lens (\AgentPreview' {operatingSystem} -> operatingSystem) (\s@AgentPreview' {} a -> s {operatingSystem = a} :: AgentPreview)
 
 -- | The health status of the Amazon Inspector Agent.
-apAgentHealth :: Lens' AgentPreview (Maybe AgentHealth)
-apAgentHealth = lens _apAgentHealth (\s a -> s {_apAgentHealth = a})
+agentPreview_agentHealth :: Lens.Lens' AgentPreview (Prelude.Maybe AgentHealth)
+agentPreview_agentHealth = Lens.lens (\AgentPreview' {agentHealth} -> agentHealth) (\s@AgentPreview' {} a -> s {agentHealth = a} :: AgentPreview)
 
--- | The Auto Scaling group for the EC2 instance where the agent is installed.
-apAutoScalingGroup :: Lens' AgentPreview (Maybe Text)
-apAutoScalingGroup = lens _apAutoScalingGroup (\s a -> s {_apAutoScalingGroup = a})
+-- | The Auto Scaling group for the EC2 instance where the agent is
+-- installed.
+agentPreview_autoScalingGroup :: Lens.Lens' AgentPreview (Prelude.Maybe Prelude.Text)
+agentPreview_autoScalingGroup = Lens.lens (\AgentPreview' {autoScalingGroup} -> autoScalingGroup) (\s@AgentPreview' {} a -> s {autoScalingGroup = a} :: AgentPreview)
 
--- | The IP address of the EC2 instance on which the Amazon Inspector Agent is installed.
-apIpv4Address :: Lens' AgentPreview (Maybe Text)
-apIpv4Address = lens _apIpv4Address (\s a -> s {_apIpv4Address = a})
+-- | The IP address of the EC2 instance on which the Amazon Inspector Agent
+-- is installed.
+agentPreview_ipv4Address :: Lens.Lens' AgentPreview (Prelude.Maybe Prelude.Text)
+agentPreview_ipv4Address = Lens.lens (\AgentPreview' {ipv4Address} -> ipv4Address) (\s@AgentPreview' {} a -> s {ipv4Address = a} :: AgentPreview)
 
 -- | The ID of the EC2 instance where the agent is installed.
-apAgentId :: Lens' AgentPreview Text
-apAgentId = lens _apAgentId (\s a -> s {_apAgentId = a})
+agentPreview_agentId :: Lens.Lens' AgentPreview Prelude.Text
+agentPreview_agentId = Lens.lens (\AgentPreview' {agentId} -> agentId) (\s@AgentPreview' {} a -> s {agentId = a} :: AgentPreview)
 
-instance FromJSON AgentPreview where
+instance Prelude.FromJSON AgentPreview where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AgentPreview"
       ( \x ->
           AgentPreview'
-            <$> (x .:? "hostname")
-            <*> (x .:? "agentVersion")
-            <*> (x .:? "kernelVersion")
-            <*> (x .:? "operatingSystem")
-            <*> (x .:? "agentHealth")
-            <*> (x .:? "autoScalingGroup")
-            <*> (x .:? "ipv4Address")
-            <*> (x .: "agentId")
+            Prelude.<$> (x Prelude..:? "hostname")
+            Prelude.<*> (x Prelude..:? "agentVersion")
+            Prelude.<*> (x Prelude..:? "kernelVersion")
+            Prelude.<*> (x Prelude..:? "operatingSystem")
+            Prelude.<*> (x Prelude..:? "agentHealth")
+            Prelude.<*> (x Prelude..:? "autoScalingGroup")
+            Prelude.<*> (x Prelude..:? "ipv4Address")
+            Prelude.<*> (x Prelude..: "agentId")
       )
 
-instance Hashable AgentPreview
+instance Prelude.Hashable AgentPreview
 
-instance NFData AgentPreview
+instance Prelude.NFData AgentPreview

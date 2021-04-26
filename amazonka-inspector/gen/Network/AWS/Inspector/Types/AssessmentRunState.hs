@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,115 +19,113 @@
 module Network.AWS.Inspector.Types.AssessmentRunState
   ( AssessmentRunState
       ( ..,
-        Canceled,
-        CollectingData,
-        Completed,
-        CompletedWithErrors,
-        Created,
-        DataCollected,
-        Error',
-        EvaluatingRules,
-        Failed,
-        StartDataCollectionInProgress,
-        StartDataCollectionPending,
-        StartEvaluatingRulesPending,
-        StopDataCollectionPending
+        AssessmentRunStateCANCELED,
+        AssessmentRunStateCOLLECTINGDATA,
+        AssessmentRunStateCOMPLETED,
+        AssessmentRunStateCOMPLETEDWITHERRORS,
+        AssessmentRunStateCREATED,
+        AssessmentRunStateDATACOLLECTED,
+        AssessmentRunStateERROR,
+        AssessmentRunStateEVALUATINGRULES,
+        AssessmentRunStateFAILED,
+        AssessmentRunStateSTARTDATACOLLECTIONINPROGRESS,
+        AssessmentRunStateSTARTDATACOLLECTIONPENDING,
+        AssessmentRunStateSTARTEVALUATINGRULESPENDING,
+        AssessmentRunStateSTOPDATACOLLECTIONPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssessmentRunState
-  = AssessmentRunState'
-      ( CI
-          Text
-      )
+newtype AssessmentRunState = AssessmentRunState'
+  { fromAssessmentRunState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Canceled :: AssessmentRunState
-pattern Canceled = AssessmentRunState' "CANCELED"
+pattern AssessmentRunStateCANCELED :: AssessmentRunState
+pattern AssessmentRunStateCANCELED = AssessmentRunState' "CANCELED"
 
-pattern CollectingData :: AssessmentRunState
-pattern CollectingData = AssessmentRunState' "COLLECTING_DATA"
+pattern AssessmentRunStateCOLLECTINGDATA :: AssessmentRunState
+pattern AssessmentRunStateCOLLECTINGDATA = AssessmentRunState' "COLLECTING_DATA"
 
-pattern Completed :: AssessmentRunState
-pattern Completed = AssessmentRunState' "COMPLETED"
+pattern AssessmentRunStateCOMPLETED :: AssessmentRunState
+pattern AssessmentRunStateCOMPLETED = AssessmentRunState' "COMPLETED"
 
-pattern CompletedWithErrors :: AssessmentRunState
-pattern CompletedWithErrors = AssessmentRunState' "COMPLETED_WITH_ERRORS"
+pattern AssessmentRunStateCOMPLETEDWITHERRORS :: AssessmentRunState
+pattern AssessmentRunStateCOMPLETEDWITHERRORS = AssessmentRunState' "COMPLETED_WITH_ERRORS"
 
-pattern Created :: AssessmentRunState
-pattern Created = AssessmentRunState' "CREATED"
+pattern AssessmentRunStateCREATED :: AssessmentRunState
+pattern AssessmentRunStateCREATED = AssessmentRunState' "CREATED"
 
-pattern DataCollected :: AssessmentRunState
-pattern DataCollected = AssessmentRunState' "DATA_COLLECTED"
+pattern AssessmentRunStateDATACOLLECTED :: AssessmentRunState
+pattern AssessmentRunStateDATACOLLECTED = AssessmentRunState' "DATA_COLLECTED"
 
-pattern Error' :: AssessmentRunState
-pattern Error' = AssessmentRunState' "ERROR"
+pattern AssessmentRunStateERROR :: AssessmentRunState
+pattern AssessmentRunStateERROR = AssessmentRunState' "ERROR"
 
-pattern EvaluatingRules :: AssessmentRunState
-pattern EvaluatingRules = AssessmentRunState' "EVALUATING_RULES"
+pattern AssessmentRunStateEVALUATINGRULES :: AssessmentRunState
+pattern AssessmentRunStateEVALUATINGRULES = AssessmentRunState' "EVALUATING_RULES"
 
-pattern Failed :: AssessmentRunState
-pattern Failed = AssessmentRunState' "FAILED"
+pattern AssessmentRunStateFAILED :: AssessmentRunState
+pattern AssessmentRunStateFAILED = AssessmentRunState' "FAILED"
 
-pattern StartDataCollectionInProgress :: AssessmentRunState
-pattern StartDataCollectionInProgress = AssessmentRunState' "START_DATA_COLLECTION_IN_PROGRESS"
+pattern AssessmentRunStateSTARTDATACOLLECTIONINPROGRESS :: AssessmentRunState
+pattern AssessmentRunStateSTARTDATACOLLECTIONINPROGRESS = AssessmentRunState' "START_DATA_COLLECTION_IN_PROGRESS"
 
-pattern StartDataCollectionPending :: AssessmentRunState
-pattern StartDataCollectionPending = AssessmentRunState' "START_DATA_COLLECTION_PENDING"
+pattern AssessmentRunStateSTARTDATACOLLECTIONPENDING :: AssessmentRunState
+pattern AssessmentRunStateSTARTDATACOLLECTIONPENDING = AssessmentRunState' "START_DATA_COLLECTION_PENDING"
 
-pattern StartEvaluatingRulesPending :: AssessmentRunState
-pattern StartEvaluatingRulesPending = AssessmentRunState' "START_EVALUATING_RULES_PENDING"
+pattern AssessmentRunStateSTARTEVALUATINGRULESPENDING :: AssessmentRunState
+pattern AssessmentRunStateSTARTEVALUATINGRULESPENDING = AssessmentRunState' "START_EVALUATING_RULES_PENDING"
 
-pattern StopDataCollectionPending :: AssessmentRunState
-pattern StopDataCollectionPending = AssessmentRunState' "STOP_DATA_COLLECTION_PENDING"
+pattern AssessmentRunStateSTOPDATACOLLECTIONPENDING :: AssessmentRunState
+pattern AssessmentRunStateSTOPDATACOLLECTIONPENDING = AssessmentRunState' "STOP_DATA_COLLECTION_PENDING"
 
 {-# COMPLETE
-  Canceled,
-  CollectingData,
-  Completed,
-  CompletedWithErrors,
-  Created,
-  DataCollected,
-  Error',
-  EvaluatingRules,
-  Failed,
-  StartDataCollectionInProgress,
-  StartDataCollectionPending,
-  StartEvaluatingRulesPending,
-  StopDataCollectionPending,
+  AssessmentRunStateCANCELED,
+  AssessmentRunStateCOLLECTINGDATA,
+  AssessmentRunStateCOMPLETED,
+  AssessmentRunStateCOMPLETEDWITHERRORS,
+  AssessmentRunStateCREATED,
+  AssessmentRunStateDATACOLLECTED,
+  AssessmentRunStateERROR,
+  AssessmentRunStateEVALUATINGRULES,
+  AssessmentRunStateFAILED,
+  AssessmentRunStateSTARTDATACOLLECTIONINPROGRESS,
+  AssessmentRunStateSTARTDATACOLLECTIONPENDING,
+  AssessmentRunStateSTARTEVALUATINGRULESPENDING,
+  AssessmentRunStateSTOPDATACOLLECTIONPENDING,
   AssessmentRunState'
   #-}
 
-instance FromText AssessmentRunState where
-  parser = (AssessmentRunState' . mk) <$> takeText
+instance Prelude.FromText AssessmentRunState where
+  parser = AssessmentRunState' Prelude.<$> Prelude.takeText
 
-instance ToText AssessmentRunState where
-  toText (AssessmentRunState' ci) = original ci
+instance Prelude.ToText AssessmentRunState where
+  toText (AssessmentRunState' x) = x
 
-instance Hashable AssessmentRunState
+instance Prelude.Hashable AssessmentRunState
 
-instance NFData AssessmentRunState
+instance Prelude.NFData AssessmentRunState
 
-instance ToByteString AssessmentRunState
+instance Prelude.ToByteString AssessmentRunState
 
-instance ToQuery AssessmentRunState
+instance Prelude.ToQuery AssessmentRunState
 
-instance ToHeader AssessmentRunState
+instance Prelude.ToHeader AssessmentRunState
 
-instance ToJSON AssessmentRunState where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssessmentRunState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AssessmentRunState where
-  parseJSON = parseJSONText "AssessmentRunState"
+instance Prelude.FromJSON AssessmentRunState where
+  parseJSON = Prelude.parseJSONText "AssessmentRunState"

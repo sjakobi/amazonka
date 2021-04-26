@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Inspector.Types.ReportStatus
   ( ReportStatus
       ( ..,
-        RSCompleted,
-        RSFailed,
-        RSWorkInProgress
+        ReportStatusCOMPLETED,
+        ReportStatusFAILED,
+        ReportStatusWORKINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportStatus = ReportStatus' (CI Text)
+newtype ReportStatus = ReportStatus'
+  { fromReportStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSCompleted :: ReportStatus
-pattern RSCompleted = ReportStatus' "COMPLETED"
+pattern ReportStatusCOMPLETED :: ReportStatus
+pattern ReportStatusCOMPLETED = ReportStatus' "COMPLETED"
 
-pattern RSFailed :: ReportStatus
-pattern RSFailed = ReportStatus' "FAILED"
+pattern ReportStatusFAILED :: ReportStatus
+pattern ReportStatusFAILED = ReportStatus' "FAILED"
 
-pattern RSWorkInProgress :: ReportStatus
-pattern RSWorkInProgress = ReportStatus' "WORK_IN_PROGRESS"
+pattern ReportStatusWORKINPROGRESS :: ReportStatus
+pattern ReportStatusWORKINPROGRESS = ReportStatus' "WORK_IN_PROGRESS"
 
 {-# COMPLETE
-  RSCompleted,
-  RSFailed,
-  RSWorkInProgress,
+  ReportStatusCOMPLETED,
+  ReportStatusFAILED,
+  ReportStatusWORKINPROGRESS,
   ReportStatus'
   #-}
 
-instance FromText ReportStatus where
-  parser = (ReportStatus' . mk) <$> takeText
+instance Prelude.FromText ReportStatus where
+  parser = ReportStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReportStatus where
-  toText (ReportStatus' ci) = original ci
+instance Prelude.ToText ReportStatus where
+  toText (ReportStatus' x) = x
 
-instance Hashable ReportStatus
+instance Prelude.Hashable ReportStatus
 
-instance NFData ReportStatus
+instance Prelude.NFData ReportStatus
 
-instance ToByteString ReportStatus
+instance Prelude.ToByteString ReportStatus
 
-instance ToQuery ReportStatus
+instance Prelude.ToQuery ReportStatus
 
-instance ToHeader ReportStatus
+instance Prelude.ToHeader ReportStatus
 
-instance FromJSON ReportStatus where
-  parseJSON = parseJSONText "ReportStatus"
+instance Prelude.FromJSON ReportStatus where
+  parseJSON = Prelude.parseJSONText "ReportStatus"

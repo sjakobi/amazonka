@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the assessment targets that are specified by the ARNs of the assessment targets.
+-- Describes the assessment targets that are specified by the ARNs of the
+-- assessment targets.
 module Network.AWS.Inspector.DescribeAssessmentTargets
   ( -- * Creating a Request
-    describeAssessmentTargets,
-    DescribeAssessmentTargets,
+    DescribeAssessmentTargets (..),
+    newDescribeAssessmentTargets,
 
     -- * Request Lenses
-    datAssessmentTargetARNs,
+    describeAssessmentTargets_assessmentTargetArns,
 
     -- * Destructuring the Response
-    describeAssessmentTargetsResponse,
-    DescribeAssessmentTargetsResponse,
+    DescribeAssessmentTargetsResponse (..),
+    newDescribeAssessmentTargetsResponse,
 
     -- * Response Lenses
-    datrrsResponseStatus,
-    datrrsAssessmentTargets,
-    datrrsFailedItems,
+    describeAssessmentTargetsResponse_httpStatus,
+    describeAssessmentTargetsResponse_assessmentTargets,
+    describeAssessmentTargetsResponse_failedItems,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Inspector.Types.AssessmentTarget
+import Network.AWS.Inspector.Types.FailedItemDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAssessmentTargets' smart constructor.
-newtype DescribeAssessmentTargets = DescribeAssessmentTargets'
-  { _datAssessmentTargetARNs ::
-      List1 Text
+-- | /See:/ 'newDescribeAssessmentTargets' smart constructor.
+data DescribeAssessmentTargets = DescribeAssessmentTargets'
+  { -- | The ARNs that specifies the assessment targets that you want to
+    -- describe.
+    assessmentTargetArns :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAssessmentTargets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAssessmentTargets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datAssessmentTargetARNs' - The ARNs that specifies the assessment targets that you want to describe.
-describeAssessmentTargets ::
-  -- | 'datAssessmentTargetARNs'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'assessmentTargetArns', 'describeAssessmentTargets_assessmentTargetArns' - The ARNs that specifies the assessment targets that you want to
+-- describe.
+newDescribeAssessmentTargets ::
+  -- | 'assessmentTargetArns'
+  Prelude.NonEmpty Prelude.Text ->
   DescribeAssessmentTargets
-describeAssessmentTargets pAssessmentTargetARNs_ =
+newDescribeAssessmentTargets pAssessmentTargetArns_ =
   DescribeAssessmentTargets'
-    { _datAssessmentTargetARNs =
-        _List1 # pAssessmentTargetARNs_
+    { assessmentTargetArns =
+        Prelude._List1 Lens.# pAssessmentTargetArns_
     }
 
--- | The ARNs that specifies the assessment targets that you want to describe.
-datAssessmentTargetARNs :: Lens' DescribeAssessmentTargets (NonEmpty Text)
-datAssessmentTargetARNs = lens _datAssessmentTargetARNs (\s a -> s {_datAssessmentTargetARNs = a}) . _List1
+-- | The ARNs that specifies the assessment targets that you want to
+-- describe.
+describeAssessmentTargets_assessmentTargetArns :: Lens.Lens' DescribeAssessmentTargets (Prelude.NonEmpty Prelude.Text)
+describeAssessmentTargets_assessmentTargetArns = Lens.lens (\DescribeAssessmentTargets' {assessmentTargetArns} -> assessmentTargetArns) (\s@DescribeAssessmentTargets' {} a -> s {assessmentTargetArns = a} :: DescribeAssessmentTargets) Prelude.. Prelude._List1
 
-instance AWSRequest DescribeAssessmentTargets where
+instance Prelude.AWSRequest DescribeAssessmentTargets where
   type
     Rs DescribeAssessmentTargets =
       DescribeAssessmentTargetsResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAssessmentTargetsResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "assessmentTargets" .!@ mempty)
-            <*> (x .?> "failedItems" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "assessmentTargets"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "failedItems"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable DescribeAssessmentTargets
+instance Prelude.Hashable DescribeAssessmentTargets
 
-instance NFData DescribeAssessmentTargets
+instance Prelude.NFData DescribeAssessmentTargets
 
-instance ToHeaders DescribeAssessmentTargets where
+instance Prelude.ToHeaders DescribeAssessmentTargets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.DescribeAssessmentTargets" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.DescribeAssessmentTargets" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAssessmentTargets where
+instance Prelude.ToJSON DescribeAssessmentTargets where
   toJSON DescribeAssessmentTargets' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "assessmentTargetArns"
-                  .= _datAssessmentTargetARNs
+                  Prelude..= assessmentTargetArns
               )
           ]
       )
 
-instance ToPath DescribeAssessmentTargets where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAssessmentTargets where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAssessmentTargets where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAssessmentTargets where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAssessmentTargetsResponse' smart constructor.
+-- | /See:/ 'newDescribeAssessmentTargetsResponse' smart constructor.
 data DescribeAssessmentTargetsResponse = DescribeAssessmentTargetsResponse'
-  { _datrrsResponseStatus ::
-      !Int,
-    _datrrsAssessmentTargets ::
-      ![AssessmentTarget],
-    _datrrsFailedItems ::
-      !( Map
-           Text
-           FailedItemDetails
-       )
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about the assessment targets.
+    assessmentTargets :: [AssessmentTarget],
+    -- | Assessment target details that cannot be described. An error code is
+    -- provided for each failed item.
+    failedItems :: Prelude.Map Prelude.Text FailedItemDetails
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAssessmentTargetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAssessmentTargetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'datrrsAssessmentTargets' - Information about the assessment targets.
+-- 'httpStatus', 'describeAssessmentTargetsResponse_httpStatus' - The response's http status code.
 --
--- * 'datrrsFailedItems' - Assessment target details that cannot be described. An error code is provided for each failed item.
-describeAssessmentTargetsResponse ::
-  -- | 'datrrsResponseStatus'
-  Int ->
+-- 'assessmentTargets', 'describeAssessmentTargetsResponse_assessmentTargets' - Information about the assessment targets.
+--
+-- 'failedItems', 'describeAssessmentTargetsResponse_failedItems' - Assessment target details that cannot be described. An error code is
+-- provided for each failed item.
+newDescribeAssessmentTargetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAssessmentTargetsResponse
-describeAssessmentTargetsResponse pResponseStatus_ =
+newDescribeAssessmentTargetsResponse pHttpStatus_ =
   DescribeAssessmentTargetsResponse'
-    { _datrrsResponseStatus =
-        pResponseStatus_,
-      _datrrsAssessmentTargets = mempty,
-      _datrrsFailedItems = mempty
+    { httpStatus =
+        pHttpStatus_,
+      assessmentTargets = Prelude.mempty,
+      failedItems = Prelude.mempty
     }
 
--- | -- | The response status code.
-datrrsResponseStatus :: Lens' DescribeAssessmentTargetsResponse Int
-datrrsResponseStatus = lens _datrrsResponseStatus (\s a -> s {_datrrsResponseStatus = a})
+-- | The response's http status code.
+describeAssessmentTargetsResponse_httpStatus :: Lens.Lens' DescribeAssessmentTargetsResponse Prelude.Int
+describeAssessmentTargetsResponse_httpStatus = Lens.lens (\DescribeAssessmentTargetsResponse' {httpStatus} -> httpStatus) (\s@DescribeAssessmentTargetsResponse' {} a -> s {httpStatus = a} :: DescribeAssessmentTargetsResponse)
 
 -- | Information about the assessment targets.
-datrrsAssessmentTargets :: Lens' DescribeAssessmentTargetsResponse [AssessmentTarget]
-datrrsAssessmentTargets = lens _datrrsAssessmentTargets (\s a -> s {_datrrsAssessmentTargets = a}) . _Coerce
+describeAssessmentTargetsResponse_assessmentTargets :: Lens.Lens' DescribeAssessmentTargetsResponse [AssessmentTarget]
+describeAssessmentTargetsResponse_assessmentTargets = Lens.lens (\DescribeAssessmentTargetsResponse' {assessmentTargets} -> assessmentTargets) (\s@DescribeAssessmentTargetsResponse' {} a -> s {assessmentTargets = a} :: DescribeAssessmentTargetsResponse) Prelude.. Prelude._Coerce
 
--- | Assessment target details that cannot be described. An error code is provided for each failed item.
-datrrsFailedItems :: Lens' DescribeAssessmentTargetsResponse (HashMap Text FailedItemDetails)
-datrrsFailedItems = lens _datrrsFailedItems (\s a -> s {_datrrsFailedItems = a}) . _Map
+-- | Assessment target details that cannot be described. An error code is
+-- provided for each failed item.
+describeAssessmentTargetsResponse_failedItems :: Lens.Lens' DescribeAssessmentTargetsResponse (Prelude.HashMap Prelude.Text FailedItemDetails)
+describeAssessmentTargetsResponse_failedItems = Lens.lens (\DescribeAssessmentTargetsResponse' {failedItems} -> failedItems) (\s@DescribeAssessmentTargetsResponse' {} a -> s {failedItems = a} :: DescribeAssessmentTargetsResponse) Prelude.. Prelude._Map
 
-instance NFData DescribeAssessmentTargetsResponse
+instance
+  Prelude.NFData
+    DescribeAssessmentTargetsResponse

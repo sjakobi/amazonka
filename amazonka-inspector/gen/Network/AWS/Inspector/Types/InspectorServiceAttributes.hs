@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Inspector.Types.InspectorServiceAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This data type is used in the 'Finding' data type.
+-- | This data type is used in the Finding data type.
 --
---
---
--- /See:/ 'inspectorServiceAttributes' smart constructor.
+-- /See:/ 'newInspectorServiceAttributes' smart constructor.
 data InspectorServiceAttributes = InspectorServiceAttributes'
-  { _isaRulesPackageARN ::
-      !(Maybe Text),
-    _isaAssessmentRunARN ::
-      !(Maybe Text),
-    _isaSchemaVersion ::
-      !Nat
+  { -- | The ARN of the rules package that is used to generate the finding.
+    rulesPackageArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the assessment run during which the finding is generated.
+    assessmentRunArn :: Prelude.Maybe Prelude.Text,
+    -- | The schema version of this data type.
+    schemaVersion :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InspectorServiceAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InspectorServiceAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isaRulesPackageARN' - The ARN of the rules package that is used to generate the finding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isaAssessmentRunARN' - The ARN of the assessment run during which the finding is generated.
+-- 'rulesPackageArn', 'inspectorServiceAttributes_rulesPackageArn' - The ARN of the rules package that is used to generate the finding.
 --
--- * 'isaSchemaVersion' - The schema version of this data type.
-inspectorServiceAttributes ::
-  -- | 'isaSchemaVersion'
-  Natural ->
+-- 'assessmentRunArn', 'inspectorServiceAttributes_assessmentRunArn' - The ARN of the assessment run during which the finding is generated.
+--
+-- 'schemaVersion', 'inspectorServiceAttributes_schemaVersion' - The schema version of this data type.
+newInspectorServiceAttributes ::
+  -- | 'schemaVersion'
+  Prelude.Natural ->
   InspectorServiceAttributes
-inspectorServiceAttributes pSchemaVersion_ =
+newInspectorServiceAttributes pSchemaVersion_ =
   InspectorServiceAttributes'
-    { _isaRulesPackageARN =
-        Nothing,
-      _isaAssessmentRunARN = Nothing,
-      _isaSchemaVersion = _Nat # pSchemaVersion_
+    { rulesPackageArn =
+        Prelude.Nothing,
+      assessmentRunArn = Prelude.Nothing,
+      schemaVersion =
+        Prelude._Nat Lens.# pSchemaVersion_
     }
 
 -- | The ARN of the rules package that is used to generate the finding.
-isaRulesPackageARN :: Lens' InspectorServiceAttributes (Maybe Text)
-isaRulesPackageARN = lens _isaRulesPackageARN (\s a -> s {_isaRulesPackageARN = a})
+inspectorServiceAttributes_rulesPackageArn :: Lens.Lens' InspectorServiceAttributes (Prelude.Maybe Prelude.Text)
+inspectorServiceAttributes_rulesPackageArn = Lens.lens (\InspectorServiceAttributes' {rulesPackageArn} -> rulesPackageArn) (\s@InspectorServiceAttributes' {} a -> s {rulesPackageArn = a} :: InspectorServiceAttributes)
 
 -- | The ARN of the assessment run during which the finding is generated.
-isaAssessmentRunARN :: Lens' InspectorServiceAttributes (Maybe Text)
-isaAssessmentRunARN = lens _isaAssessmentRunARN (\s a -> s {_isaAssessmentRunARN = a})
+inspectorServiceAttributes_assessmentRunArn :: Lens.Lens' InspectorServiceAttributes (Prelude.Maybe Prelude.Text)
+inspectorServiceAttributes_assessmentRunArn = Lens.lens (\InspectorServiceAttributes' {assessmentRunArn} -> assessmentRunArn) (\s@InspectorServiceAttributes' {} a -> s {assessmentRunArn = a} :: InspectorServiceAttributes)
 
 -- | The schema version of this data type.
-isaSchemaVersion :: Lens' InspectorServiceAttributes Natural
-isaSchemaVersion = lens _isaSchemaVersion (\s a -> s {_isaSchemaVersion = a}) . _Nat
+inspectorServiceAttributes_schemaVersion :: Lens.Lens' InspectorServiceAttributes Prelude.Natural
+inspectorServiceAttributes_schemaVersion = Lens.lens (\InspectorServiceAttributes' {schemaVersion} -> schemaVersion) (\s@InspectorServiceAttributes' {} a -> s {schemaVersion = a} :: InspectorServiceAttributes) Prelude.. Prelude._Nat
 
-instance FromJSON InspectorServiceAttributes where
+instance Prelude.FromJSON InspectorServiceAttributes where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InspectorServiceAttributes"
       ( \x ->
           InspectorServiceAttributes'
-            <$> (x .:? "rulesPackageArn")
-            <*> (x .:? "assessmentRunArn")
-            <*> (x .: "schemaVersion")
+            Prelude.<$> (x Prelude..:? "rulesPackageArn")
+            Prelude.<*> (x Prelude..:? "assessmentRunArn")
+            Prelude.<*> (x Prelude..: "schemaVersion")
       )
 
-instance Hashable InspectorServiceAttributes
+instance Prelude.Hashable InspectorServiceAttributes
 
-instance NFData InspectorServiceAttributes
+instance Prelude.NFData InspectorServiceAttributes

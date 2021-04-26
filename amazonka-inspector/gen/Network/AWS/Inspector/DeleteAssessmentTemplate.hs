@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,117 +21,118 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the assessment template that is specified by the ARN of the assessment template.
+-- Deletes the assessment template that is specified by the ARN of the
+-- assessment template.
 module Network.AWS.Inspector.DeleteAssessmentTemplate
   ( -- * Creating a Request
-    deleteAssessmentTemplate,
-    DeleteAssessmentTemplate,
+    DeleteAssessmentTemplate (..),
+    newDeleteAssessmentTemplate,
 
     -- * Request Lenses
-    datAssessmentTemplateARN,
+    deleteAssessmentTemplate_assessmentTemplateArn,
 
     -- * Destructuring the Response
-    deleteAssessmentTemplateResponse,
-    DeleteAssessmentTemplateResponse,
+    DeleteAssessmentTemplateResponse (..),
+    newDeleteAssessmentTemplateResponse,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAssessmentTemplate' smart constructor.
-newtype DeleteAssessmentTemplate = DeleteAssessmentTemplate'
-  { _datAssessmentTemplateARN ::
-      Text
+-- | /See:/ 'newDeleteAssessmentTemplate' smart constructor.
+data DeleteAssessmentTemplate = DeleteAssessmentTemplate'
+  { -- | The ARN that specifies the assessment template that you want to delete.
+    assessmentTemplateArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAssessmentTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAssessmentTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datAssessmentTemplateARN' - The ARN that specifies the assessment template that you want to delete.
-deleteAssessmentTemplate ::
-  -- | 'datAssessmentTemplateARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'assessmentTemplateArn', 'deleteAssessmentTemplate_assessmentTemplateArn' - The ARN that specifies the assessment template that you want to delete.
+newDeleteAssessmentTemplate ::
+  -- | 'assessmentTemplateArn'
+  Prelude.Text ->
   DeleteAssessmentTemplate
-deleteAssessmentTemplate pAssessmentTemplateARN_ =
+newDeleteAssessmentTemplate pAssessmentTemplateArn_ =
   DeleteAssessmentTemplate'
-    { _datAssessmentTemplateARN =
-        pAssessmentTemplateARN_
+    { assessmentTemplateArn =
+        pAssessmentTemplateArn_
     }
 
 -- | The ARN that specifies the assessment template that you want to delete.
-datAssessmentTemplateARN :: Lens' DeleteAssessmentTemplate Text
-datAssessmentTemplateARN = lens _datAssessmentTemplateARN (\s a -> s {_datAssessmentTemplateARN = a})
+deleteAssessmentTemplate_assessmentTemplateArn :: Lens.Lens' DeleteAssessmentTemplate Prelude.Text
+deleteAssessmentTemplate_assessmentTemplateArn = Lens.lens (\DeleteAssessmentTemplate' {assessmentTemplateArn} -> assessmentTemplateArn) (\s@DeleteAssessmentTemplate' {} a -> s {assessmentTemplateArn = a} :: DeleteAssessmentTemplate)
 
-instance AWSRequest DeleteAssessmentTemplate where
+instance Prelude.AWSRequest DeleteAssessmentTemplate where
   type
     Rs DeleteAssessmentTemplate =
       DeleteAssessmentTemplateResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteAssessmentTemplateResponse'
+    Response.receiveNull
+      DeleteAssessmentTemplateResponse'
 
-instance Hashable DeleteAssessmentTemplate
+instance Prelude.Hashable DeleteAssessmentTemplate
 
-instance NFData DeleteAssessmentTemplate
+instance Prelude.NFData DeleteAssessmentTemplate
 
-instance ToHeaders DeleteAssessmentTemplate where
+instance Prelude.ToHeaders DeleteAssessmentTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.DeleteAssessmentTemplate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.DeleteAssessmentTemplate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAssessmentTemplate where
+instance Prelude.ToJSON DeleteAssessmentTemplate where
   toJSON DeleteAssessmentTemplate' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "assessmentTemplateArn"
-                  .= _datAssessmentTemplateARN
+                  Prelude..= assessmentTemplateArn
               )
           ]
       )
 
-instance ToPath DeleteAssessmentTemplate where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAssessmentTemplate where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAssessmentTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAssessmentTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAssessmentTemplateResponse' smart constructor.
+-- | /See:/ 'newDeleteAssessmentTemplateResponse' smart constructor.
 data DeleteAssessmentTemplateResponse = DeleteAssessmentTemplateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAssessmentTemplateResponse' with the minimum fields required to make a request.
-deleteAssessmentTemplateResponse ::
+-- |
+-- Create a value of 'DeleteAssessmentTemplateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAssessmentTemplateResponse ::
   DeleteAssessmentTemplateResponse
-deleteAssessmentTemplateResponse =
+newDeleteAssessmentTemplateResponse =
   DeleteAssessmentTemplateResponse'
 
-instance NFData DeleteAssessmentTemplateResponse
+instance
+  Prelude.NFData
+    DeleteAssessmentTemplateResponse

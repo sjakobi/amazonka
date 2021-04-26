@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.Inspector.Types.FailedItemErrorCode
   ( FailedItemErrorCode
       ( ..,
-        AccessDenied,
-        DuplicateARN,
-        InternalError,
-        InvalidARN,
-        ItemDoesNotExist,
-        LimitExceeded
+        FailedItemErrorCodeACCESSDENIED,
+        FailedItemErrorCodeDUPLICATEARN,
+        FailedItemErrorCodeINTERNALERROR,
+        FailedItemErrorCodeINVALIDARN,
+        FailedItemErrorCodeITEMDOESNOTEXIST,
+        FailedItemErrorCodeLIMITEXCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FailedItemErrorCode
-  = FailedItemErrorCode'
-      ( CI
-          Text
-      )
+newtype FailedItemErrorCode = FailedItemErrorCode'
+  { fromFailedItemErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccessDenied :: FailedItemErrorCode
-pattern AccessDenied = FailedItemErrorCode' "ACCESS_DENIED"
+pattern FailedItemErrorCodeACCESSDENIED :: FailedItemErrorCode
+pattern FailedItemErrorCodeACCESSDENIED = FailedItemErrorCode' "ACCESS_DENIED"
 
-pattern DuplicateARN :: FailedItemErrorCode
-pattern DuplicateARN = FailedItemErrorCode' "DUPLICATE_ARN"
+pattern FailedItemErrorCodeDUPLICATEARN :: FailedItemErrorCode
+pattern FailedItemErrorCodeDUPLICATEARN = FailedItemErrorCode' "DUPLICATE_ARN"
 
-pattern InternalError :: FailedItemErrorCode
-pattern InternalError = FailedItemErrorCode' "INTERNAL_ERROR"
+pattern FailedItemErrorCodeINTERNALERROR :: FailedItemErrorCode
+pattern FailedItemErrorCodeINTERNALERROR = FailedItemErrorCode' "INTERNAL_ERROR"
 
-pattern InvalidARN :: FailedItemErrorCode
-pattern InvalidARN = FailedItemErrorCode' "INVALID_ARN"
+pattern FailedItemErrorCodeINVALIDARN :: FailedItemErrorCode
+pattern FailedItemErrorCodeINVALIDARN = FailedItemErrorCode' "INVALID_ARN"
 
-pattern ItemDoesNotExist :: FailedItemErrorCode
-pattern ItemDoesNotExist = FailedItemErrorCode' "ITEM_DOES_NOT_EXIST"
+pattern FailedItemErrorCodeITEMDOESNOTEXIST :: FailedItemErrorCode
+pattern FailedItemErrorCodeITEMDOESNOTEXIST = FailedItemErrorCode' "ITEM_DOES_NOT_EXIST"
 
-pattern LimitExceeded :: FailedItemErrorCode
-pattern LimitExceeded = FailedItemErrorCode' "LIMIT_EXCEEDED"
+pattern FailedItemErrorCodeLIMITEXCEEDED :: FailedItemErrorCode
+pattern FailedItemErrorCodeLIMITEXCEEDED = FailedItemErrorCode' "LIMIT_EXCEEDED"
 
 {-# COMPLETE
-  AccessDenied,
-  DuplicateARN,
-  InternalError,
-  InvalidARN,
-  ItemDoesNotExist,
-  LimitExceeded,
+  FailedItemErrorCodeACCESSDENIED,
+  FailedItemErrorCodeDUPLICATEARN,
+  FailedItemErrorCodeINTERNALERROR,
+  FailedItemErrorCodeINVALIDARN,
+  FailedItemErrorCodeITEMDOESNOTEXIST,
+  FailedItemErrorCodeLIMITEXCEEDED,
   FailedItemErrorCode'
   #-}
 
-instance FromText FailedItemErrorCode where
-  parser = (FailedItemErrorCode' . mk) <$> takeText
+instance Prelude.FromText FailedItemErrorCode where
+  parser = FailedItemErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText FailedItemErrorCode where
-  toText (FailedItemErrorCode' ci) = original ci
+instance Prelude.ToText FailedItemErrorCode where
+  toText (FailedItemErrorCode' x) = x
 
-instance Hashable FailedItemErrorCode
+instance Prelude.Hashable FailedItemErrorCode
 
-instance NFData FailedItemErrorCode
+instance Prelude.NFData FailedItemErrorCode
 
-instance ToByteString FailedItemErrorCode
+instance Prelude.ToByteString FailedItemErrorCode
 
-instance ToQuery FailedItemErrorCode
+instance Prelude.ToQuery FailedItemErrorCode
 
-instance ToHeader FailedItemErrorCode
+instance Prelude.ToHeader FailedItemErrorCode
 
-instance FromJSON FailedItemErrorCode where
-  parseJSON = parseJSONText "FailedItemErrorCode"
+instance Prelude.FromJSON FailedItemErrorCode where
+  parseJSON = Prelude.parseJSONText "FailedItemErrorCode"

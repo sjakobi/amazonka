@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Inspector.Types.Severity
   ( Severity
       ( ..,
-        High,
-        Informational,
-        Low,
-        Medium,
-        Undefined
+        SeverityHigh,
+        SeverityInformational,
+        SeverityLow,
+        SeverityMedium,
+        SeverityUndefined
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Severity = Severity' (CI Text)
+newtype Severity = Severity'
+  { fromSeverity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern High :: Severity
-pattern High = Severity' "High"
+pattern SeverityHigh :: Severity
+pattern SeverityHigh = Severity' "High"
 
-pattern Informational :: Severity
-pattern Informational = Severity' "Informational"
+pattern SeverityInformational :: Severity
+pattern SeverityInformational = Severity' "Informational"
 
-pattern Low :: Severity
-pattern Low = Severity' "Low"
+pattern SeverityLow :: Severity
+pattern SeverityLow = Severity' "Low"
 
-pattern Medium :: Severity
-pattern Medium = Severity' "Medium"
+pattern SeverityMedium :: Severity
+pattern SeverityMedium = Severity' "Medium"
 
-pattern Undefined :: Severity
-pattern Undefined = Severity' "Undefined"
+pattern SeverityUndefined :: Severity
+pattern SeverityUndefined = Severity' "Undefined"
 
 {-# COMPLETE
-  High,
-  Informational,
-  Low,
-  Medium,
-  Undefined,
+  SeverityHigh,
+  SeverityInformational,
+  SeverityLow,
+  SeverityMedium,
+  SeverityUndefined,
   Severity'
   #-}
 
-instance FromText Severity where
-  parser = (Severity' . mk) <$> takeText
+instance Prelude.FromText Severity where
+  parser = Severity' Prelude.<$> Prelude.takeText
 
-instance ToText Severity where
-  toText (Severity' ci) = original ci
+instance Prelude.ToText Severity where
+  toText (Severity' x) = x
 
-instance Hashable Severity
+instance Prelude.Hashable Severity
 
-instance NFData Severity
+instance Prelude.NFData Severity
 
-instance ToByteString Severity
+instance Prelude.ToByteString Severity
 
-instance ToQuery Severity
+instance Prelude.ToQuery Severity
 
-instance ToHeader Severity
+instance Prelude.ToHeader Severity
 
-instance ToJSON Severity where
-  toJSON = toJSONText
+instance Prelude.ToJSON Severity where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Severity where
-  parseJSON = parseJSONText "Severity"
+instance Prelude.FromJSON Severity where
+  parseJSON = Prelude.parseJSONText "Severity"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Inspector.Types.ResourceGroupTag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This data type is used as one of the elements of the 'ResourceGroup' data type.
+-- | This data type is used as one of the elements of the ResourceGroup data
+-- type.
 --
---
---
--- /See:/ 'resourceGroupTag' smart constructor.
+-- /See:/ 'newResourceGroupTag' smart constructor.
 data ResourceGroupTag = ResourceGroupTag'
-  { _rgtValue ::
-      !(Maybe Text),
-    _rgtKey :: !Text
+  { -- | The value assigned to a tag key.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | A tag key.
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceGroupTag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceGroupTag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgtValue' - The value assigned to a tag key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgtKey' - A tag key.
-resourceGroupTag ::
-  -- | 'rgtKey'
-  Text ->
+-- 'value', 'resourceGroupTag_value' - The value assigned to a tag key.
+--
+-- 'key', 'resourceGroupTag_key' - A tag key.
+newResourceGroupTag ::
+  -- | 'key'
+  Prelude.Text ->
   ResourceGroupTag
-resourceGroupTag pKey_ =
+newResourceGroupTag pKey_ =
   ResourceGroupTag'
-    { _rgtValue = Nothing,
-      _rgtKey = pKey_
+    { value = Prelude.Nothing,
+      key = pKey_
     }
 
 -- | The value assigned to a tag key.
-rgtValue :: Lens' ResourceGroupTag (Maybe Text)
-rgtValue = lens _rgtValue (\s a -> s {_rgtValue = a})
+resourceGroupTag_value :: Lens.Lens' ResourceGroupTag (Prelude.Maybe Prelude.Text)
+resourceGroupTag_value = Lens.lens (\ResourceGroupTag' {value} -> value) (\s@ResourceGroupTag' {} a -> s {value = a} :: ResourceGroupTag)
 
 -- | A tag key.
-rgtKey :: Lens' ResourceGroupTag Text
-rgtKey = lens _rgtKey (\s a -> s {_rgtKey = a})
+resourceGroupTag_key :: Lens.Lens' ResourceGroupTag Prelude.Text
+resourceGroupTag_key = Lens.lens (\ResourceGroupTag' {key} -> key) (\s@ResourceGroupTag' {} a -> s {key = a} :: ResourceGroupTag)
 
-instance FromJSON ResourceGroupTag where
+instance Prelude.FromJSON ResourceGroupTag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceGroupTag"
       ( \x ->
           ResourceGroupTag'
-            <$> (x .:? "value") <*> (x .: "key")
+            Prelude.<$> (x Prelude..:? "value")
+            Prelude.<*> (x Prelude..: "key")
       )
 
-instance Hashable ResourceGroupTag
+instance Prelude.Hashable ResourceGroupTag
 
-instance NFData ResourceGroupTag
+instance Prelude.NFData ResourceGroupTag
 
-instance ToJSON ResourceGroupTag where
+instance Prelude.ToJSON ResourceGroupTag where
   toJSON ResourceGroupTag' {..} =
-    object
-      ( catMaybes
-          [ ("value" .=) <$> _rgtValue,
-            Just ("key" .= _rgtKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("value" Prelude..=) Prelude.<$> value,
+            Prelude.Just ("key" Prelude..= key)
           ]
       )

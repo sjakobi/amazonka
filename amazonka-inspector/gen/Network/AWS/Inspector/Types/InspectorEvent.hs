@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Inspector.Types.InspectorEvent
   ( InspectorEvent
       ( ..,
-        AssessmentRunCompleted,
-        AssessmentRunStarted,
-        AssessmentRunStateChanged,
-        FindingReported,
-        Other
+        InspectorEventASSESSMENTRUNCOMPLETED,
+        InspectorEventASSESSMENTRUNSTARTED,
+        InspectorEventASSESSMENTRUNSTATECHANGED,
+        InspectorEventFINDINGREPORTED,
+        InspectorEventOTHER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InspectorEvent = InspectorEvent' (CI Text)
+newtype InspectorEvent = InspectorEvent'
+  { fromInspectorEvent ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AssessmentRunCompleted :: InspectorEvent
-pattern AssessmentRunCompleted = InspectorEvent' "ASSESSMENT_RUN_COMPLETED"
+pattern InspectorEventASSESSMENTRUNCOMPLETED :: InspectorEvent
+pattern InspectorEventASSESSMENTRUNCOMPLETED = InspectorEvent' "ASSESSMENT_RUN_COMPLETED"
 
-pattern AssessmentRunStarted :: InspectorEvent
-pattern AssessmentRunStarted = InspectorEvent' "ASSESSMENT_RUN_STARTED"
+pattern InspectorEventASSESSMENTRUNSTARTED :: InspectorEvent
+pattern InspectorEventASSESSMENTRUNSTARTED = InspectorEvent' "ASSESSMENT_RUN_STARTED"
 
-pattern AssessmentRunStateChanged :: InspectorEvent
-pattern AssessmentRunStateChanged = InspectorEvent' "ASSESSMENT_RUN_STATE_CHANGED"
+pattern InspectorEventASSESSMENTRUNSTATECHANGED :: InspectorEvent
+pattern InspectorEventASSESSMENTRUNSTATECHANGED = InspectorEvent' "ASSESSMENT_RUN_STATE_CHANGED"
 
-pattern FindingReported :: InspectorEvent
-pattern FindingReported = InspectorEvent' "FINDING_REPORTED"
+pattern InspectorEventFINDINGREPORTED :: InspectorEvent
+pattern InspectorEventFINDINGREPORTED = InspectorEvent' "FINDING_REPORTED"
 
-pattern Other :: InspectorEvent
-pattern Other = InspectorEvent' "OTHER"
+pattern InspectorEventOTHER :: InspectorEvent
+pattern InspectorEventOTHER = InspectorEvent' "OTHER"
 
 {-# COMPLETE
-  AssessmentRunCompleted,
-  AssessmentRunStarted,
-  AssessmentRunStateChanged,
-  FindingReported,
-  Other,
+  InspectorEventASSESSMENTRUNCOMPLETED,
+  InspectorEventASSESSMENTRUNSTARTED,
+  InspectorEventASSESSMENTRUNSTATECHANGED,
+  InspectorEventFINDINGREPORTED,
+  InspectorEventOTHER,
   InspectorEvent'
   #-}
 
-instance FromText InspectorEvent where
-  parser = (InspectorEvent' . mk) <$> takeText
+instance Prelude.FromText InspectorEvent where
+  parser = InspectorEvent' Prelude.<$> Prelude.takeText
 
-instance ToText InspectorEvent where
-  toText (InspectorEvent' ci) = original ci
+instance Prelude.ToText InspectorEvent where
+  toText (InspectorEvent' x) = x
 
-instance Hashable InspectorEvent
+instance Prelude.Hashable InspectorEvent
 
-instance NFData InspectorEvent
+instance Prelude.NFData InspectorEvent
 
-instance ToByteString InspectorEvent
+instance Prelude.ToByteString InspectorEvent
 
-instance ToQuery InspectorEvent
+instance Prelude.ToQuery InspectorEvent
 
-instance ToHeader InspectorEvent
+instance Prelude.ToHeader InspectorEvent
 
-instance ToJSON InspectorEvent where
-  toJSON = toJSONText
+instance Prelude.ToJSON InspectorEvent where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InspectorEvent where
-  parseJSON = parseJSONText "InspectorEvent"
+instance Prelude.FromJSON InspectorEvent where
+  parseJSON = Prelude.parseJSONText "InspectorEvent"

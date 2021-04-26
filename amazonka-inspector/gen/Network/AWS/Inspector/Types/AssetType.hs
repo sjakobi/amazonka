@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.Inspector.Types.AssetType
   ( AssetType
       ( ..,
-        EC2Instance
+        AssetTypeEC2Instance
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssetType = AssetType' (CI Text)
+newtype AssetType = AssetType'
+  { fromAssetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EC2Instance :: AssetType
-pattern EC2Instance = AssetType' "ec2-instance"
+pattern AssetTypeEC2Instance :: AssetType
+pattern AssetTypeEC2Instance = AssetType' "ec2-instance"
 
 {-# COMPLETE
-  EC2Instance,
+  AssetTypeEC2Instance,
   AssetType'
   #-}
 
-instance FromText AssetType where
-  parser = (AssetType' . mk) <$> takeText
+instance Prelude.FromText AssetType where
+  parser = AssetType' Prelude.<$> Prelude.takeText
 
-instance ToText AssetType where
-  toText (AssetType' ci) = original ci
+instance Prelude.ToText AssetType where
+  toText (AssetType' x) = x
 
-instance Hashable AssetType
+instance Prelude.Hashable AssetType
 
-instance NFData AssetType
+instance Prelude.NFData AssetType
 
-instance ToByteString AssetType
+instance Prelude.ToByteString AssetType
 
-instance ToQuery AssetType
+instance Prelude.ToQuery AssetType
 
-instance ToHeader AssetType
+instance Prelude.ToHeader AssetType
 
-instance FromJSON AssetType where
-  parseJSON = parseJSONText "AssetType"
+instance Prelude.FromJSON AssetType where
+  parseJSON = Prelude.parseJSONText "AssetType"

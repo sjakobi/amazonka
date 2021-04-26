@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,118 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the assessment target that is specified by the ARN of the assessment target.
+-- Deletes the assessment target that is specified by the ARN of the
+-- assessment target.
 module Network.AWS.Inspector.DeleteAssessmentTarget
   ( -- * Creating a Request
-    deleteAssessmentTarget,
-    DeleteAssessmentTarget,
+    DeleteAssessmentTarget (..),
+    newDeleteAssessmentTarget,
 
     -- * Request Lenses
-    datAssessmentTargetARN,
+    deleteAssessmentTarget_assessmentTargetArn,
 
     -- * Destructuring the Response
-    deleteAssessmentTargetResponse,
-    DeleteAssessmentTargetResponse,
+    DeleteAssessmentTargetResponse (..),
+    newDeleteAssessmentTargetResponse,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAssessmentTarget' smart constructor.
-newtype DeleteAssessmentTarget = DeleteAssessmentTarget'
-  { _datAssessmentTargetARN ::
-      Text
+-- | /See:/ 'newDeleteAssessmentTarget' smart constructor.
+data DeleteAssessmentTarget = DeleteAssessmentTarget'
+  { -- | The ARN that specifies the assessment target that you want to delete.
+    assessmentTargetArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAssessmentTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAssessmentTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datAssessmentTargetARN' - The ARN that specifies the assessment target that you want to delete.
-deleteAssessmentTarget ::
-  -- | 'datAssessmentTargetARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'assessmentTargetArn', 'deleteAssessmentTarget_assessmentTargetArn' - The ARN that specifies the assessment target that you want to delete.
+newDeleteAssessmentTarget ::
+  -- | 'assessmentTargetArn'
+  Prelude.Text ->
   DeleteAssessmentTarget
-deleteAssessmentTarget pAssessmentTargetARN_ =
+newDeleteAssessmentTarget pAssessmentTargetArn_ =
   DeleteAssessmentTarget'
-    { _datAssessmentTargetARN =
-        pAssessmentTargetARN_
+    { assessmentTargetArn =
+        pAssessmentTargetArn_
     }
 
 -- | The ARN that specifies the assessment target that you want to delete.
-datAssessmentTargetARN :: Lens' DeleteAssessmentTarget Text
-datAssessmentTargetARN = lens _datAssessmentTargetARN (\s a -> s {_datAssessmentTargetARN = a})
+deleteAssessmentTarget_assessmentTargetArn :: Lens.Lens' DeleteAssessmentTarget Prelude.Text
+deleteAssessmentTarget_assessmentTargetArn = Lens.lens (\DeleteAssessmentTarget' {assessmentTargetArn} -> assessmentTargetArn) (\s@DeleteAssessmentTarget' {} a -> s {assessmentTargetArn = a} :: DeleteAssessmentTarget)
 
-instance AWSRequest DeleteAssessmentTarget where
+instance Prelude.AWSRequest DeleteAssessmentTarget where
   type
     Rs DeleteAssessmentTarget =
       DeleteAssessmentTargetResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteAssessmentTargetResponse'
+    Response.receiveNull
+      DeleteAssessmentTargetResponse'
 
-instance Hashable DeleteAssessmentTarget
+instance Prelude.Hashable DeleteAssessmentTarget
 
-instance NFData DeleteAssessmentTarget
+instance Prelude.NFData DeleteAssessmentTarget
 
-instance ToHeaders DeleteAssessmentTarget where
+instance Prelude.ToHeaders DeleteAssessmentTarget where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.DeleteAssessmentTarget" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.DeleteAssessmentTarget" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAssessmentTarget where
+instance Prelude.ToJSON DeleteAssessmentTarget where
   toJSON DeleteAssessmentTarget' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("assessmentTargetArn" .= _datAssessmentTargetARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "assessmentTargetArn"
+                  Prelude..= assessmentTargetArn
+              )
           ]
       )
 
-instance ToPath DeleteAssessmentTarget where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAssessmentTarget where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAssessmentTarget where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAssessmentTarget where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAssessmentTargetResponse' smart constructor.
+-- | /See:/ 'newDeleteAssessmentTargetResponse' smart constructor.
 data DeleteAssessmentTargetResponse = DeleteAssessmentTargetResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAssessmentTargetResponse' with the minimum fields required to make a request.
-deleteAssessmentTargetResponse ::
+-- |
+-- Create a value of 'DeleteAssessmentTargetResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAssessmentTargetResponse ::
   DeleteAssessmentTargetResponse
-deleteAssessmentTargetResponse =
+newDeleteAssessmentTargetResponse =
   DeleteAssessmentTargetResponse'
 
-instance NFData DeleteAssessmentTargetResponse
+instance
+  Prelude.NFData
+    DeleteAssessmentTargetResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Inspector.Types.StopAction
   ( StopAction
       ( ..,
-        SkipEvaluation,
-        StartEvaluation
+        StopActionSKIPEVALUATION,
+        StopActionSTARTEVALUATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StopAction = StopAction' (CI Text)
+newtype StopAction = StopAction'
+  { fromStopAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SkipEvaluation :: StopAction
-pattern SkipEvaluation = StopAction' "SKIP_EVALUATION"
+pattern StopActionSKIPEVALUATION :: StopAction
+pattern StopActionSKIPEVALUATION = StopAction' "SKIP_EVALUATION"
 
-pattern StartEvaluation :: StopAction
-pattern StartEvaluation = StopAction' "START_EVALUATION"
+pattern StopActionSTARTEVALUATION :: StopAction
+pattern StopActionSTARTEVALUATION = StopAction' "START_EVALUATION"
 
 {-# COMPLETE
-  SkipEvaluation,
-  StartEvaluation,
+  StopActionSKIPEVALUATION,
+  StopActionSTARTEVALUATION,
   StopAction'
   #-}
 
-instance FromText StopAction where
-  parser = (StopAction' . mk) <$> takeText
+instance Prelude.FromText StopAction where
+  parser = StopAction' Prelude.<$> Prelude.takeText
 
-instance ToText StopAction where
-  toText (StopAction' ci) = original ci
+instance Prelude.ToText StopAction where
+  toText (StopAction' x) = x
 
-instance Hashable StopAction
+instance Prelude.Hashable StopAction
 
-instance NFData StopAction
+instance Prelude.NFData StopAction
 
-instance ToByteString StopAction
+instance Prelude.ToByteString StopAction
 
-instance ToQuery StopAction
+instance Prelude.ToQuery StopAction
 
-instance ToHeader StopAction
+instance Prelude.ToHeader StopAction
 
-instance ToJSON StopAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON StopAction where
+  toJSON = Prelude.toJSONText

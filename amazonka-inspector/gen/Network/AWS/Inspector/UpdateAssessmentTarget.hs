@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the assessment target that is specified by the ARN of the assessment target.
+-- Updates the assessment target that is specified by the ARN of the
+-- assessment target.
 --
---
--- If resourceGroupArn is not specified, all EC2 instances in the current AWS account and region are included in the assessment target.
+-- If resourceGroupArn is not specified, all EC2 instances in the current
+-- AWS account and region are included in the assessment target.
 module Network.AWS.Inspector.UpdateAssessmentTarget
   ( -- * Creating a Request
-    updateAssessmentTarget,
-    UpdateAssessmentTarget,
+    UpdateAssessmentTarget (..),
+    newUpdateAssessmentTarget,
 
     -- * Request Lenses
-    uatResourceGroupARN,
-    uatAssessmentTargetARN,
-    uatAssessmentTargetName,
+    updateAssessmentTarget_resourceGroupArn,
+    updateAssessmentTarget_assessmentTargetArn,
+    updateAssessmentTarget_assessmentTargetName,
 
     -- * Destructuring the Response
-    updateAssessmentTargetResponse,
-    UpdateAssessmentTargetResponse,
+    UpdateAssessmentTargetResponse (..),
+    newUpdateAssessmentTargetResponse,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateAssessmentTarget' smart constructor.
+-- | /See:/ 'newUpdateAssessmentTarget' smart constructor.
 data UpdateAssessmentTarget = UpdateAssessmentTarget'
-  { _uatResourceGroupARN ::
-      !(Maybe Text),
-    _uatAssessmentTargetARN ::
-      !Text,
-    _uatAssessmentTargetName ::
-      !Text
+  { -- | The ARN of the resource group that is used to specify the new resource
+    -- group to associate with the assessment target.
+    resourceGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the assessment target that you want to update.
+    assessmentTargetArn :: Prelude.Text,
+    -- | The name of the assessment target that you want to update.
+    assessmentTargetName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAssessmentTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAssessmentTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uatResourceGroupARN' - The ARN of the resource group that is used to specify the new resource group to associate with the assessment target.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uatAssessmentTargetARN' - The ARN of the assessment target that you want to update.
+-- 'resourceGroupArn', 'updateAssessmentTarget_resourceGroupArn' - The ARN of the resource group that is used to specify the new resource
+-- group to associate with the assessment target.
 --
--- * 'uatAssessmentTargetName' - The name of the assessment target that you want to update.
-updateAssessmentTarget ::
-  -- | 'uatAssessmentTargetARN'
-  Text ->
-  -- | 'uatAssessmentTargetName'
-  Text ->
+-- 'assessmentTargetArn', 'updateAssessmentTarget_assessmentTargetArn' - The ARN of the assessment target that you want to update.
+--
+-- 'assessmentTargetName', 'updateAssessmentTarget_assessmentTargetName' - The name of the assessment target that you want to update.
+newUpdateAssessmentTarget ::
+  -- | 'assessmentTargetArn'
+  Prelude.Text ->
+  -- | 'assessmentTargetName'
+  Prelude.Text ->
   UpdateAssessmentTarget
-updateAssessmentTarget
-  pAssessmentTargetARN_
+newUpdateAssessmentTarget
+  pAssessmentTargetArn_
   pAssessmentTargetName_ =
     UpdateAssessmentTarget'
-      { _uatResourceGroupARN =
-          Nothing,
-        _uatAssessmentTargetARN = pAssessmentTargetARN_,
-        _uatAssessmentTargetName = pAssessmentTargetName_
+      { resourceGroupArn =
+          Prelude.Nothing,
+        assessmentTargetArn = pAssessmentTargetArn_,
+        assessmentTargetName = pAssessmentTargetName_
       }
 
--- | The ARN of the resource group that is used to specify the new resource group to associate with the assessment target.
-uatResourceGroupARN :: Lens' UpdateAssessmentTarget (Maybe Text)
-uatResourceGroupARN = lens _uatResourceGroupARN (\s a -> s {_uatResourceGroupARN = a})
+-- | The ARN of the resource group that is used to specify the new resource
+-- group to associate with the assessment target.
+updateAssessmentTarget_resourceGroupArn :: Lens.Lens' UpdateAssessmentTarget (Prelude.Maybe Prelude.Text)
+updateAssessmentTarget_resourceGroupArn = Lens.lens (\UpdateAssessmentTarget' {resourceGroupArn} -> resourceGroupArn) (\s@UpdateAssessmentTarget' {} a -> s {resourceGroupArn = a} :: UpdateAssessmentTarget)
 
 -- | The ARN of the assessment target that you want to update.
-uatAssessmentTargetARN :: Lens' UpdateAssessmentTarget Text
-uatAssessmentTargetARN = lens _uatAssessmentTargetARN (\s a -> s {_uatAssessmentTargetARN = a})
+updateAssessmentTarget_assessmentTargetArn :: Lens.Lens' UpdateAssessmentTarget Prelude.Text
+updateAssessmentTarget_assessmentTargetArn = Lens.lens (\UpdateAssessmentTarget' {assessmentTargetArn} -> assessmentTargetArn) (\s@UpdateAssessmentTarget' {} a -> s {assessmentTargetArn = a} :: UpdateAssessmentTarget)
 
 -- | The name of the assessment target that you want to update.
-uatAssessmentTargetName :: Lens' UpdateAssessmentTarget Text
-uatAssessmentTargetName = lens _uatAssessmentTargetName (\s a -> s {_uatAssessmentTargetName = a})
+updateAssessmentTarget_assessmentTargetName :: Lens.Lens' UpdateAssessmentTarget Prelude.Text
+updateAssessmentTarget_assessmentTargetName = Lens.lens (\UpdateAssessmentTarget' {assessmentTargetName} -> assessmentTargetName) (\s@UpdateAssessmentTarget' {} a -> s {assessmentTargetName = a} :: UpdateAssessmentTarget)
 
-instance AWSRequest UpdateAssessmentTarget where
+instance Prelude.AWSRequest UpdateAssessmentTarget where
   type
     Rs UpdateAssessmentTarget =
       UpdateAssessmentTargetResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateAssessmentTargetResponse'
+    Response.receiveNull
+      UpdateAssessmentTargetResponse'
 
-instance Hashable UpdateAssessmentTarget
+instance Prelude.Hashable UpdateAssessmentTarget
 
-instance NFData UpdateAssessmentTarget
+instance Prelude.NFData UpdateAssessmentTarget
 
-instance ToHeaders UpdateAssessmentTarget where
+instance Prelude.ToHeaders UpdateAssessmentTarget where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.UpdateAssessmentTarget" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.UpdateAssessmentTarget" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateAssessmentTarget where
+instance Prelude.ToJSON UpdateAssessmentTarget where
   toJSON UpdateAssessmentTarget' {..} =
-    object
-      ( catMaybes
-          [ ("resourceGroupArn" .=) <$> _uatResourceGroupARN,
-            Just
-              ("assessmentTargetArn" .= _uatAssessmentTargetARN),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("resourceGroupArn" Prelude..=)
+              Prelude.<$> resourceGroupArn,
+            Prelude.Just
+              ( "assessmentTargetArn"
+                  Prelude..= assessmentTargetArn
+              ),
+            Prelude.Just
               ( "assessmentTargetName"
-                  .= _uatAssessmentTargetName
+                  Prelude..= assessmentTargetName
               )
           ]
       )
 
-instance ToPath UpdateAssessmentTarget where
-  toPath = const "/"
+instance Prelude.ToPath UpdateAssessmentTarget where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateAssessmentTarget where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateAssessmentTarget where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateAssessmentTargetResponse' smart constructor.
+-- | /See:/ 'newUpdateAssessmentTargetResponse' smart constructor.
 data UpdateAssessmentTargetResponse = UpdateAssessmentTargetResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAssessmentTargetResponse' with the minimum fields required to make a request.
-updateAssessmentTargetResponse ::
+-- |
+-- Create a value of 'UpdateAssessmentTargetResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateAssessmentTargetResponse ::
   UpdateAssessmentTargetResponse
-updateAssessmentTargetResponse =
+newUpdateAssessmentTargetResponse =
   UpdateAssessmentTargetResponse'
 
-instance NFData UpdateAssessmentTargetResponse
+instance
+  Prelude.NFData
+    UpdateAssessmentTargetResponse

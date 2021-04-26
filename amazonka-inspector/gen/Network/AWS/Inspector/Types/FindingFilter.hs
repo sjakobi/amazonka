@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,108 +22,163 @@ module Network.AWS.Inspector.Types.FindingFilter where
 import Network.AWS.Inspector.Types.Attribute
 import Network.AWS.Inspector.Types.Severity
 import Network.AWS.Inspector.Types.TimestampRange
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This data type is used as a request parameter in the 'ListFindings' action.
+-- | This data type is used as a request parameter in the ListFindings
+-- action.
 --
---
---
--- /See:/ 'findingFilter' smart constructor.
+-- /See:/ 'newFindingFilter' smart constructor.
 data FindingFilter = FindingFilter'
-  { _ffAgentIds ::
-      !(Maybe [Text]),
-    _ffRulesPackageARNs :: !(Maybe [Text]),
-    _ffCreationTimeRange ::
-      !(Maybe TimestampRange),
-    _ffSeverities :: !(Maybe [Severity]),
-    _ffAttributes :: !(Maybe [Attribute]),
-    _ffUserAttributes :: !(Maybe [Attribute]),
-    _ffAutoScalingGroups :: !(Maybe [Text]),
-    _ffRuleNames :: !(Maybe [Text])
+  { -- | For a record to match a filter, one of the values that is specified for
+    -- this data type property must be the exact match of the value of the
+    -- __agentId__ property of the Finding data type.
+    agentIds :: Prelude.Maybe [Prelude.Text],
+    -- | For a record to match a filter, one of the values that is specified for
+    -- this data type property must be the exact match of the value of the
+    -- __rulesPackageArn__ property of the Finding data type.
+    rulesPackageArns :: Prelude.Maybe [Prelude.Text],
+    -- | The time range during which the finding is generated.
+    creationTimeRange :: Prelude.Maybe TimestampRange,
+    -- | For a record to match a filter, one of the values that is specified for
+    -- this data type property must be the exact match of the value of the
+    -- __severity__ property of the Finding data type.
+    severities :: Prelude.Maybe [Severity],
+    -- | For a record to match a filter, the list of values that are specified
+    -- for this data type property must be contained in the list of values of
+    -- the __attributes__ property of the Finding data type.
+    attributes :: Prelude.Maybe [Attribute],
+    -- | For a record to match a filter, the value that is specified for this
+    -- data type property must be contained in the list of values of the
+    -- __userAttributes__ property of the Finding data type.
+    userAttributes :: Prelude.Maybe [Attribute],
+    -- | For a record to match a filter, one of the values that is specified for
+    -- this data type property must be the exact match of the value of the
+    -- __autoScalingGroup__ property of the Finding data type.
+    autoScalingGroups :: Prelude.Maybe [Prelude.Text],
+    -- | For a record to match a filter, one of the values that is specified for
+    -- this data type property must be the exact match of the value of the
+    -- __ruleName__ property of the Finding data type.
+    ruleNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FindingFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FindingFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ffAgentIds' - For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __agentId__ property of the 'Finding' data type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ffRulesPackageARNs' - For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __rulesPackageArn__ property of the 'Finding' data type.
+-- 'agentIds', 'findingFilter_agentIds' - For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __agentId__ property of the Finding data type.
 --
--- * 'ffCreationTimeRange' - The time range during which the finding is generated.
+-- 'rulesPackageArns', 'findingFilter_rulesPackageArns' - For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __rulesPackageArn__ property of the Finding data type.
 --
--- * 'ffSeverities' - For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __severity__ property of the 'Finding' data type.
+-- 'creationTimeRange', 'findingFilter_creationTimeRange' - The time range during which the finding is generated.
 --
--- * 'ffAttributes' - For a record to match a filter, the list of values that are specified for this data type property must be contained in the list of values of the __attributes__ property of the 'Finding' data type.
+-- 'severities', 'findingFilter_severities' - For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __severity__ property of the Finding data type.
 --
--- * 'ffUserAttributes' - For a record to match a filter, the value that is specified for this data type property must be contained in the list of values of the __userAttributes__ property of the 'Finding' data type.
+-- 'attributes', 'findingFilter_attributes' - For a record to match a filter, the list of values that are specified
+-- for this data type property must be contained in the list of values of
+-- the __attributes__ property of the Finding data type.
 --
--- * 'ffAutoScalingGroups' - For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __autoScalingGroup__ property of the 'Finding' data type.
+-- 'userAttributes', 'findingFilter_userAttributes' - For a record to match a filter, the value that is specified for this
+-- data type property must be contained in the list of values of the
+-- __userAttributes__ property of the Finding data type.
 --
--- * 'ffRuleNames' - For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __ruleName__ property of the 'Finding' data type.
-findingFilter ::
+-- 'autoScalingGroups', 'findingFilter_autoScalingGroups' - For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __autoScalingGroup__ property of the Finding data type.
+--
+-- 'ruleNames', 'findingFilter_ruleNames' - For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __ruleName__ property of the Finding data type.
+newFindingFilter ::
   FindingFilter
-findingFilter =
+newFindingFilter =
   FindingFilter'
-    { _ffAgentIds = Nothing,
-      _ffRulesPackageARNs = Nothing,
-      _ffCreationTimeRange = Nothing,
-      _ffSeverities = Nothing,
-      _ffAttributes = Nothing,
-      _ffUserAttributes = Nothing,
-      _ffAutoScalingGroups = Nothing,
-      _ffRuleNames = Nothing
+    { agentIds = Prelude.Nothing,
+      rulesPackageArns = Prelude.Nothing,
+      creationTimeRange = Prelude.Nothing,
+      severities = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      userAttributes = Prelude.Nothing,
+      autoScalingGroups = Prelude.Nothing,
+      ruleNames = Prelude.Nothing
     }
 
--- | For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __agentId__ property of the 'Finding' data type.
-ffAgentIds :: Lens' FindingFilter [Text]
-ffAgentIds = lens _ffAgentIds (\s a -> s {_ffAgentIds = a}) . _Default . _Coerce
+-- | For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __agentId__ property of the Finding data type.
+findingFilter_agentIds :: Lens.Lens' FindingFilter (Prelude.Maybe [Prelude.Text])
+findingFilter_agentIds = Lens.lens (\FindingFilter' {agentIds} -> agentIds) (\s@FindingFilter' {} a -> s {agentIds = a} :: FindingFilter) Prelude.. Lens.mapping Prelude._Coerce
 
--- | For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __rulesPackageArn__ property of the 'Finding' data type.
-ffRulesPackageARNs :: Lens' FindingFilter [Text]
-ffRulesPackageARNs = lens _ffRulesPackageARNs (\s a -> s {_ffRulesPackageARNs = a}) . _Default . _Coerce
+-- | For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __rulesPackageArn__ property of the Finding data type.
+findingFilter_rulesPackageArns :: Lens.Lens' FindingFilter (Prelude.Maybe [Prelude.Text])
+findingFilter_rulesPackageArns = Lens.lens (\FindingFilter' {rulesPackageArns} -> rulesPackageArns) (\s@FindingFilter' {} a -> s {rulesPackageArns = a} :: FindingFilter) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time range during which the finding is generated.
-ffCreationTimeRange :: Lens' FindingFilter (Maybe TimestampRange)
-ffCreationTimeRange = lens _ffCreationTimeRange (\s a -> s {_ffCreationTimeRange = a})
+findingFilter_creationTimeRange :: Lens.Lens' FindingFilter (Prelude.Maybe TimestampRange)
+findingFilter_creationTimeRange = Lens.lens (\FindingFilter' {creationTimeRange} -> creationTimeRange) (\s@FindingFilter' {} a -> s {creationTimeRange = a} :: FindingFilter)
 
--- | For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __severity__ property of the 'Finding' data type.
-ffSeverities :: Lens' FindingFilter [Severity]
-ffSeverities = lens _ffSeverities (\s a -> s {_ffSeverities = a}) . _Default . _Coerce
+-- | For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __severity__ property of the Finding data type.
+findingFilter_severities :: Lens.Lens' FindingFilter (Prelude.Maybe [Severity])
+findingFilter_severities = Lens.lens (\FindingFilter' {severities} -> severities) (\s@FindingFilter' {} a -> s {severities = a} :: FindingFilter) Prelude.. Lens.mapping Prelude._Coerce
 
--- | For a record to match a filter, the list of values that are specified for this data type property must be contained in the list of values of the __attributes__ property of the 'Finding' data type.
-ffAttributes :: Lens' FindingFilter [Attribute]
-ffAttributes = lens _ffAttributes (\s a -> s {_ffAttributes = a}) . _Default . _Coerce
+-- | For a record to match a filter, the list of values that are specified
+-- for this data type property must be contained in the list of values of
+-- the __attributes__ property of the Finding data type.
+findingFilter_attributes :: Lens.Lens' FindingFilter (Prelude.Maybe [Attribute])
+findingFilter_attributes = Lens.lens (\FindingFilter' {attributes} -> attributes) (\s@FindingFilter' {} a -> s {attributes = a} :: FindingFilter) Prelude.. Lens.mapping Prelude._Coerce
 
--- | For a record to match a filter, the value that is specified for this data type property must be contained in the list of values of the __userAttributes__ property of the 'Finding' data type.
-ffUserAttributes :: Lens' FindingFilter [Attribute]
-ffUserAttributes = lens _ffUserAttributes (\s a -> s {_ffUserAttributes = a}) . _Default . _Coerce
+-- | For a record to match a filter, the value that is specified for this
+-- data type property must be contained in the list of values of the
+-- __userAttributes__ property of the Finding data type.
+findingFilter_userAttributes :: Lens.Lens' FindingFilter (Prelude.Maybe [Attribute])
+findingFilter_userAttributes = Lens.lens (\FindingFilter' {userAttributes} -> userAttributes) (\s@FindingFilter' {} a -> s {userAttributes = a} :: FindingFilter) Prelude.. Lens.mapping Prelude._Coerce
 
--- | For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __autoScalingGroup__ property of the 'Finding' data type.
-ffAutoScalingGroups :: Lens' FindingFilter [Text]
-ffAutoScalingGroups = lens _ffAutoScalingGroups (\s a -> s {_ffAutoScalingGroups = a}) . _Default . _Coerce
+-- | For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __autoScalingGroup__ property of the Finding data type.
+findingFilter_autoScalingGroups :: Lens.Lens' FindingFilter (Prelude.Maybe [Prelude.Text])
+findingFilter_autoScalingGroups = Lens.lens (\FindingFilter' {autoScalingGroups} -> autoScalingGroups) (\s@FindingFilter' {} a -> s {autoScalingGroups = a} :: FindingFilter) Prelude.. Lens.mapping Prelude._Coerce
 
--- | For a record to match a filter, one of the values that is specified for this data type property must be the exact match of the value of the __ruleName__ property of the 'Finding' data type.
-ffRuleNames :: Lens' FindingFilter [Text]
-ffRuleNames = lens _ffRuleNames (\s a -> s {_ffRuleNames = a}) . _Default . _Coerce
+-- | For a record to match a filter, one of the values that is specified for
+-- this data type property must be the exact match of the value of the
+-- __ruleName__ property of the Finding data type.
+findingFilter_ruleNames :: Lens.Lens' FindingFilter (Prelude.Maybe [Prelude.Text])
+findingFilter_ruleNames = Lens.lens (\FindingFilter' {ruleNames} -> ruleNames) (\s@FindingFilter' {} a -> s {ruleNames = a} :: FindingFilter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable FindingFilter
+instance Prelude.Hashable FindingFilter
 
-instance NFData FindingFilter
+instance Prelude.NFData FindingFilter
 
-instance ToJSON FindingFilter where
+instance Prelude.ToJSON FindingFilter where
   toJSON FindingFilter' {..} =
-    object
-      ( catMaybes
-          [ ("agentIds" .=) <$> _ffAgentIds,
-            ("rulesPackageArns" .=) <$> _ffRulesPackageARNs,
-            ("creationTimeRange" .=) <$> _ffCreationTimeRange,
-            ("severities" .=) <$> _ffSeverities,
-            ("attributes" .=) <$> _ffAttributes,
-            ("userAttributes" .=) <$> _ffUserAttributes,
-            ("autoScalingGroups" .=) <$> _ffAutoScalingGroups,
-            ("ruleNames" .=) <$> _ffRuleNames
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("agentIds" Prelude..=) Prelude.<$> agentIds,
+            ("rulesPackageArns" Prelude..=)
+              Prelude.<$> rulesPackageArns,
+            ("creationTimeRange" Prelude..=)
+              Prelude.<$> creationTimeRange,
+            ("severities" Prelude..=) Prelude.<$> severities,
+            ("attributes" Prelude..=) Prelude.<$> attributes,
+            ("userAttributes" Prelude..=)
+              Prelude.<$> userAttributes,
+            ("autoScalingGroups" Prelude..=)
+              Prelude.<$> autoScalingGroups,
+            ("ruleNames" Prelude..=) Prelude.<$> ruleNames
           ]
       )

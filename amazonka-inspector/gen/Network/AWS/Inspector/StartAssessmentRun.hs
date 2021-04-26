@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,174 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts the assessment run specified by the ARN of the assessment template. For this API to function properly, you must not exceed the limit of running up to 500 concurrent agents per AWS account.
+-- Starts the assessment run specified by the ARN of the assessment
+-- template. For this API to function properly, you must not exceed the
+-- limit of running up to 500 concurrent agents per AWS account.
 module Network.AWS.Inspector.StartAssessmentRun
   ( -- * Creating a Request
-    startAssessmentRun,
-    StartAssessmentRun,
+    StartAssessmentRun (..),
+    newStartAssessmentRun,
 
     -- * Request Lenses
-    sarAssessmentRunName,
-    sarAssessmentTemplateARN,
+    startAssessmentRun_assessmentRunName,
+    startAssessmentRun_assessmentTemplateArn,
 
     -- * Destructuring the Response
-    startAssessmentRunResponse,
-    StartAssessmentRunResponse,
+    StartAssessmentRunResponse (..),
+    newStartAssessmentRunResponse,
 
     -- * Response Lenses
-    sarrrsResponseStatus,
-    sarrrsAssessmentRunARN,
+    startAssessmentRunResponse_httpStatus,
+    startAssessmentRunResponse_assessmentRunArn,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startAssessmentRun' smart constructor.
+-- | /See:/ 'newStartAssessmentRun' smart constructor.
 data StartAssessmentRun = StartAssessmentRun'
-  { _sarAssessmentRunName ::
-      !(Maybe Text),
-    _sarAssessmentTemplateARN ::
-      !Text
+  { -- | You can specify the name for the assessment run. The name must be unique
+    -- for the assessment template whose ARN is used to start the assessment
+    -- run.
+    assessmentRunName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the assessment template of the assessment run that you want
+    -- to start.
+    assessmentTemplateArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartAssessmentRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartAssessmentRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sarAssessmentRunName' - You can specify the name for the assessment run. The name must be unique for the assessment template whose ARN is used to start the assessment run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sarAssessmentTemplateARN' - The ARN of the assessment template of the assessment run that you want to start.
-startAssessmentRun ::
-  -- | 'sarAssessmentTemplateARN'
-  Text ->
+-- 'assessmentRunName', 'startAssessmentRun_assessmentRunName' - You can specify the name for the assessment run. The name must be unique
+-- for the assessment template whose ARN is used to start the assessment
+-- run.
+--
+-- 'assessmentTemplateArn', 'startAssessmentRun_assessmentTemplateArn' - The ARN of the assessment template of the assessment run that you want
+-- to start.
+newStartAssessmentRun ::
+  -- | 'assessmentTemplateArn'
+  Prelude.Text ->
   StartAssessmentRun
-startAssessmentRun pAssessmentTemplateARN_ =
+newStartAssessmentRun pAssessmentTemplateArn_ =
   StartAssessmentRun'
-    { _sarAssessmentRunName =
-        Nothing,
-      _sarAssessmentTemplateARN = pAssessmentTemplateARN_
+    { assessmentRunName =
+        Prelude.Nothing,
+      assessmentTemplateArn = pAssessmentTemplateArn_
     }
 
--- | You can specify the name for the assessment run. The name must be unique for the assessment template whose ARN is used to start the assessment run.
-sarAssessmentRunName :: Lens' StartAssessmentRun (Maybe Text)
-sarAssessmentRunName = lens _sarAssessmentRunName (\s a -> s {_sarAssessmentRunName = a})
+-- | You can specify the name for the assessment run. The name must be unique
+-- for the assessment template whose ARN is used to start the assessment
+-- run.
+startAssessmentRun_assessmentRunName :: Lens.Lens' StartAssessmentRun (Prelude.Maybe Prelude.Text)
+startAssessmentRun_assessmentRunName = Lens.lens (\StartAssessmentRun' {assessmentRunName} -> assessmentRunName) (\s@StartAssessmentRun' {} a -> s {assessmentRunName = a} :: StartAssessmentRun)
 
--- | The ARN of the assessment template of the assessment run that you want to start.
-sarAssessmentTemplateARN :: Lens' StartAssessmentRun Text
-sarAssessmentTemplateARN = lens _sarAssessmentTemplateARN (\s a -> s {_sarAssessmentTemplateARN = a})
+-- | The ARN of the assessment template of the assessment run that you want
+-- to start.
+startAssessmentRun_assessmentTemplateArn :: Lens.Lens' StartAssessmentRun Prelude.Text
+startAssessmentRun_assessmentTemplateArn = Lens.lens (\StartAssessmentRun' {assessmentTemplateArn} -> assessmentTemplateArn) (\s@StartAssessmentRun' {} a -> s {assessmentTemplateArn = a} :: StartAssessmentRun)
 
-instance AWSRequest StartAssessmentRun where
+instance Prelude.AWSRequest StartAssessmentRun where
   type
     Rs StartAssessmentRun =
       StartAssessmentRunResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartAssessmentRunResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "assessmentRunArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "assessmentRunArn")
       )
 
-instance Hashable StartAssessmentRun
+instance Prelude.Hashable StartAssessmentRun
 
-instance NFData StartAssessmentRun
+instance Prelude.NFData StartAssessmentRun
 
-instance ToHeaders StartAssessmentRun where
+instance Prelude.ToHeaders StartAssessmentRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.StartAssessmentRun" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.StartAssessmentRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartAssessmentRun where
+instance Prelude.ToJSON StartAssessmentRun where
   toJSON StartAssessmentRun' {..} =
-    object
-      ( catMaybes
-          [ ("assessmentRunName" .=) <$> _sarAssessmentRunName,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("assessmentRunName" Prelude..=)
+              Prelude.<$> assessmentRunName,
+            Prelude.Just
               ( "assessmentTemplateArn"
-                  .= _sarAssessmentTemplateARN
+                  Prelude..= assessmentTemplateArn
               )
           ]
       )
 
-instance ToPath StartAssessmentRun where
-  toPath = const "/"
+instance Prelude.ToPath StartAssessmentRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartAssessmentRun where
-  toQuery = const mempty
+instance Prelude.ToQuery StartAssessmentRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startAssessmentRunResponse' smart constructor.
+-- | /See:/ 'newStartAssessmentRunResponse' smart constructor.
 data StartAssessmentRunResponse = StartAssessmentRunResponse'
-  { _sarrrsResponseStatus ::
-      !Int,
-    _sarrrsAssessmentRunARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ARN of the assessment run that has been started.
+    assessmentRunArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartAssessmentRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartAssessmentRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sarrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sarrrsAssessmentRunARN' - The ARN of the assessment run that has been started.
-startAssessmentRunResponse ::
-  -- | 'sarrrsResponseStatus'
-  Int ->
-  -- | 'sarrrsAssessmentRunARN'
-  Text ->
+-- 'httpStatus', 'startAssessmentRunResponse_httpStatus' - The response's http status code.
+--
+-- 'assessmentRunArn', 'startAssessmentRunResponse_assessmentRunArn' - The ARN of the assessment run that has been started.
+newStartAssessmentRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'assessmentRunArn'
+  Prelude.Text ->
   StartAssessmentRunResponse
-startAssessmentRunResponse
-  pResponseStatus_
-  pAssessmentRunARN_ =
+newStartAssessmentRunResponse
+  pHttpStatus_
+  pAssessmentRunArn_ =
     StartAssessmentRunResponse'
-      { _sarrrsResponseStatus =
-          pResponseStatus_,
-        _sarrrsAssessmentRunARN = pAssessmentRunARN_
+      { httpStatus =
+          pHttpStatus_,
+        assessmentRunArn = pAssessmentRunArn_
       }
 
--- | -- | The response status code.
-sarrrsResponseStatus :: Lens' StartAssessmentRunResponse Int
-sarrrsResponseStatus = lens _sarrrsResponseStatus (\s a -> s {_sarrrsResponseStatus = a})
+-- | The response's http status code.
+startAssessmentRunResponse_httpStatus :: Lens.Lens' StartAssessmentRunResponse Prelude.Int
+startAssessmentRunResponse_httpStatus = Lens.lens (\StartAssessmentRunResponse' {httpStatus} -> httpStatus) (\s@StartAssessmentRunResponse' {} a -> s {httpStatus = a} :: StartAssessmentRunResponse)
 
 -- | The ARN of the assessment run that has been started.
-sarrrsAssessmentRunARN :: Lens' StartAssessmentRunResponse Text
-sarrrsAssessmentRunARN = lens _sarrrsAssessmentRunARN (\s a -> s {_sarrrsAssessmentRunARN = a})
+startAssessmentRunResponse_assessmentRunArn :: Lens.Lens' StartAssessmentRunResponse Prelude.Text
+startAssessmentRunResponse_assessmentRunArn = Lens.lens (\StartAssessmentRunResponse' {assessmentRunArn} -> assessmentRunArn) (\s@StartAssessmentRunResponse' {} a -> s {assessmentRunArn = a} :: StartAssessmentRunResponse)
 
-instance NFData StartAssessmentRunResponse
+instance Prelude.NFData StartAssessmentRunResponse

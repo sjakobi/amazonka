@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,205 +24,234 @@ import Network.AWS.Inspector.Types.AssetType
 import Network.AWS.Inspector.Types.Attribute
 import Network.AWS.Inspector.Types.InspectorServiceAttributes
 import Network.AWS.Inspector.Types.Severity
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an Amazon Inspector finding. This data type is used as the response element in the 'DescribeFindings' action.
+-- | Contains information about an Amazon Inspector finding. This data type
+-- is used as the response element in the DescribeFindings action.
 --
---
---
--- /See:/ 'finding' smart constructor.
+-- /See:/ 'newFinding' smart constructor.
 data Finding = Finding'
-  { _fAssetAttributes ::
-      !(Maybe AssetAttributes),
-    _fSeverity :: !(Maybe Severity),
-    _fTitle :: !(Maybe Text),
-    _fAssetType :: !(Maybe AssetType),
-    _fNumericSeverity :: !(Maybe Double),
-    _fId :: !(Maybe Text),
-    _fService :: !(Maybe Text),
-    _fServiceAttributes ::
-      !(Maybe InspectorServiceAttributes),
-    _fConfidence :: !(Maybe Nat),
-    _fRecommendation :: !(Maybe Text),
-    _fIndicatorOfCompromise :: !(Maybe Bool),
-    _fDescription :: !(Maybe Text),
-    _fSchemaVersion :: !(Maybe Nat),
-    _fArn :: !Text,
-    _fAttributes :: ![Attribute],
-    _fUserAttributes :: ![Attribute],
-    _fCreatedAt :: !POSIX,
-    _fUpdatedAt :: !POSIX
+  { -- | A collection of attributes of the host from which the finding is
+    -- generated.
+    assetAttributes :: Prelude.Maybe AssetAttributes,
+    -- | The finding severity. Values can be set to High, Medium, Low, and
+    -- Informational.
+    severity :: Prelude.Maybe Severity,
+    -- | The name of the finding.
+    title :: Prelude.Maybe Prelude.Text,
+    -- | The type of the host from which the finding is generated.
+    assetType :: Prelude.Maybe AssetType,
+    -- | The numeric value of the finding severity.
+    numericSeverity :: Prelude.Maybe Prelude.Double,
+    -- | The ID of the finding.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The data element is set to \"Inspector\".
+    service :: Prelude.Maybe Prelude.Text,
+    -- | This data type is used in the Finding data type.
+    serviceAttributes :: Prelude.Maybe InspectorServiceAttributes,
+    -- | This data element is currently not used.
+    confidence :: Prelude.Maybe Prelude.Nat,
+    -- | The recommendation for the finding.
+    recommendation :: Prelude.Maybe Prelude.Text,
+    -- | This data element is currently not used.
+    indicatorOfCompromise :: Prelude.Maybe Prelude.Bool,
+    -- | The description of the finding.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The schema version of this data type.
+    schemaVersion :: Prelude.Maybe Prelude.Nat,
+    -- | The ARN that specifies the finding.
+    arn :: Prelude.Text,
+    -- | The system-defined attributes for the finding.
+    attributes :: [Attribute],
+    -- | The user-defined attributes that are assigned to the finding.
+    userAttributes :: [Attribute],
+    -- | The time when the finding was generated.
+    createdAt :: Prelude.POSIX,
+    -- | The time when AddAttributesToFindings is called.
+    updatedAt :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Finding' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Finding' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fAssetAttributes' - A collection of attributes of the host from which the finding is generated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fSeverity' - The finding severity. Values can be set to High, Medium, Low, and Informational.
+-- 'assetAttributes', 'finding_assetAttributes' - A collection of attributes of the host from which the finding is
+-- generated.
 --
--- * 'fTitle' - The name of the finding.
+-- 'severity', 'finding_severity' - The finding severity. Values can be set to High, Medium, Low, and
+-- Informational.
 --
--- * 'fAssetType' - The type of the host from which the finding is generated.
+-- 'title', 'finding_title' - The name of the finding.
 --
--- * 'fNumericSeverity' - The numeric value of the finding severity.
+-- 'assetType', 'finding_assetType' - The type of the host from which the finding is generated.
 --
--- * 'fId' - The ID of the finding.
+-- 'numericSeverity', 'finding_numericSeverity' - The numeric value of the finding severity.
 --
--- * 'fService' - The data element is set to "Inspector".
+-- 'id', 'finding_id' - The ID of the finding.
 --
--- * 'fServiceAttributes' - This data type is used in the 'Finding' data type.
+-- 'service', 'finding_service' - The data element is set to \"Inspector\".
 --
--- * 'fConfidence' - This data element is currently not used.
+-- 'serviceAttributes', 'finding_serviceAttributes' - This data type is used in the Finding data type.
 --
--- * 'fRecommendation' - The recommendation for the finding.
+-- 'confidence', 'finding_confidence' - This data element is currently not used.
 --
--- * 'fIndicatorOfCompromise' - This data element is currently not used.
+-- 'recommendation', 'finding_recommendation' - The recommendation for the finding.
 --
--- * 'fDescription' - The description of the finding.
+-- 'indicatorOfCompromise', 'finding_indicatorOfCompromise' - This data element is currently not used.
 --
--- * 'fSchemaVersion' - The schema version of this data type.
+-- 'description', 'finding_description' - The description of the finding.
 --
--- * 'fArn' - The ARN that specifies the finding.
+-- 'schemaVersion', 'finding_schemaVersion' - The schema version of this data type.
 --
--- * 'fAttributes' - The system-defined attributes for the finding.
+-- 'arn', 'finding_arn' - The ARN that specifies the finding.
 --
--- * 'fUserAttributes' - The user-defined attributes that are assigned to the finding.
+-- 'attributes', 'finding_attributes' - The system-defined attributes for the finding.
 --
--- * 'fCreatedAt' - The time when the finding was generated.
+-- 'userAttributes', 'finding_userAttributes' - The user-defined attributes that are assigned to the finding.
 --
--- * 'fUpdatedAt' - The time when 'AddAttributesToFindings' is called.
-finding ::
-  -- | 'fArn'
-  Text ->
-  -- | 'fCreatedAt'
-  UTCTime ->
-  -- | 'fUpdatedAt'
-  UTCTime ->
+-- 'createdAt', 'finding_createdAt' - The time when the finding was generated.
+--
+-- 'updatedAt', 'finding_updatedAt' - The time when AddAttributesToFindings is called.
+newFinding ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'createdAt'
+  Prelude.UTCTime ->
+  -- | 'updatedAt'
+  Prelude.UTCTime ->
   Finding
-finding pArn_ pCreatedAt_ pUpdatedAt_ =
+newFinding pArn_ pCreatedAt_ pUpdatedAt_ =
   Finding'
-    { _fAssetAttributes = Nothing,
-      _fSeverity = Nothing,
-      _fTitle = Nothing,
-      _fAssetType = Nothing,
-      _fNumericSeverity = Nothing,
-      _fId = Nothing,
-      _fService = Nothing,
-      _fServiceAttributes = Nothing,
-      _fConfidence = Nothing,
-      _fRecommendation = Nothing,
-      _fIndicatorOfCompromise = Nothing,
-      _fDescription = Nothing,
-      _fSchemaVersion = Nothing,
-      _fArn = pArn_,
-      _fAttributes = mempty,
-      _fUserAttributes = mempty,
-      _fCreatedAt = _Time # pCreatedAt_,
-      _fUpdatedAt = _Time # pUpdatedAt_
+    { assetAttributes = Prelude.Nothing,
+      severity = Prelude.Nothing,
+      title = Prelude.Nothing,
+      assetType = Prelude.Nothing,
+      numericSeverity = Prelude.Nothing,
+      id = Prelude.Nothing,
+      service = Prelude.Nothing,
+      serviceAttributes = Prelude.Nothing,
+      confidence = Prelude.Nothing,
+      recommendation = Prelude.Nothing,
+      indicatorOfCompromise = Prelude.Nothing,
+      description = Prelude.Nothing,
+      schemaVersion = Prelude.Nothing,
+      arn = pArn_,
+      attributes = Prelude.mempty,
+      userAttributes = Prelude.mempty,
+      createdAt = Prelude._Time Lens.# pCreatedAt_,
+      updatedAt = Prelude._Time Lens.# pUpdatedAt_
     }
 
--- | A collection of attributes of the host from which the finding is generated.
-fAssetAttributes :: Lens' Finding (Maybe AssetAttributes)
-fAssetAttributes = lens _fAssetAttributes (\s a -> s {_fAssetAttributes = a})
+-- | A collection of attributes of the host from which the finding is
+-- generated.
+finding_assetAttributes :: Lens.Lens' Finding (Prelude.Maybe AssetAttributes)
+finding_assetAttributes = Lens.lens (\Finding' {assetAttributes} -> assetAttributes) (\s@Finding' {} a -> s {assetAttributes = a} :: Finding)
 
--- | The finding severity. Values can be set to High, Medium, Low, and Informational.
-fSeverity :: Lens' Finding (Maybe Severity)
-fSeverity = lens _fSeverity (\s a -> s {_fSeverity = a})
+-- | The finding severity. Values can be set to High, Medium, Low, and
+-- Informational.
+finding_severity :: Lens.Lens' Finding (Prelude.Maybe Severity)
+finding_severity = Lens.lens (\Finding' {severity} -> severity) (\s@Finding' {} a -> s {severity = a} :: Finding)
 
 -- | The name of the finding.
-fTitle :: Lens' Finding (Maybe Text)
-fTitle = lens _fTitle (\s a -> s {_fTitle = a})
+finding_title :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_title = Lens.lens (\Finding' {title} -> title) (\s@Finding' {} a -> s {title = a} :: Finding)
 
 -- | The type of the host from which the finding is generated.
-fAssetType :: Lens' Finding (Maybe AssetType)
-fAssetType = lens _fAssetType (\s a -> s {_fAssetType = a})
+finding_assetType :: Lens.Lens' Finding (Prelude.Maybe AssetType)
+finding_assetType = Lens.lens (\Finding' {assetType} -> assetType) (\s@Finding' {} a -> s {assetType = a} :: Finding)
 
 -- | The numeric value of the finding severity.
-fNumericSeverity :: Lens' Finding (Maybe Double)
-fNumericSeverity = lens _fNumericSeverity (\s a -> s {_fNumericSeverity = a})
+finding_numericSeverity :: Lens.Lens' Finding (Prelude.Maybe Prelude.Double)
+finding_numericSeverity = Lens.lens (\Finding' {numericSeverity} -> numericSeverity) (\s@Finding' {} a -> s {numericSeverity = a} :: Finding)
 
 -- | The ID of the finding.
-fId :: Lens' Finding (Maybe Text)
-fId = lens _fId (\s a -> s {_fId = a})
+finding_id :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_id = Lens.lens (\Finding' {id} -> id) (\s@Finding' {} a -> s {id = a} :: Finding)
 
--- | The data element is set to "Inspector".
-fService :: Lens' Finding (Maybe Text)
-fService = lens _fService (\s a -> s {_fService = a})
+-- | The data element is set to \"Inspector\".
+finding_service :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_service = Lens.lens (\Finding' {service} -> service) (\s@Finding' {} a -> s {service = a} :: Finding)
 
--- | This data type is used in the 'Finding' data type.
-fServiceAttributes :: Lens' Finding (Maybe InspectorServiceAttributes)
-fServiceAttributes = lens _fServiceAttributes (\s a -> s {_fServiceAttributes = a})
+-- | This data type is used in the Finding data type.
+finding_serviceAttributes :: Lens.Lens' Finding (Prelude.Maybe InspectorServiceAttributes)
+finding_serviceAttributes = Lens.lens (\Finding' {serviceAttributes} -> serviceAttributes) (\s@Finding' {} a -> s {serviceAttributes = a} :: Finding)
 
 -- | This data element is currently not used.
-fConfidence :: Lens' Finding (Maybe Natural)
-fConfidence = lens _fConfidence (\s a -> s {_fConfidence = a}) . mapping _Nat
+finding_confidence :: Lens.Lens' Finding (Prelude.Maybe Prelude.Natural)
+finding_confidence = Lens.lens (\Finding' {confidence} -> confidence) (\s@Finding' {} a -> s {confidence = a} :: Finding) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The recommendation for the finding.
-fRecommendation :: Lens' Finding (Maybe Text)
-fRecommendation = lens _fRecommendation (\s a -> s {_fRecommendation = a})
+finding_recommendation :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_recommendation = Lens.lens (\Finding' {recommendation} -> recommendation) (\s@Finding' {} a -> s {recommendation = a} :: Finding)
 
 -- | This data element is currently not used.
-fIndicatorOfCompromise :: Lens' Finding (Maybe Bool)
-fIndicatorOfCompromise = lens _fIndicatorOfCompromise (\s a -> s {_fIndicatorOfCompromise = a})
+finding_indicatorOfCompromise :: Lens.Lens' Finding (Prelude.Maybe Prelude.Bool)
+finding_indicatorOfCompromise = Lens.lens (\Finding' {indicatorOfCompromise} -> indicatorOfCompromise) (\s@Finding' {} a -> s {indicatorOfCompromise = a} :: Finding)
 
 -- | The description of the finding.
-fDescription :: Lens' Finding (Maybe Text)
-fDescription = lens _fDescription (\s a -> s {_fDescription = a})
+finding_description :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_description = Lens.lens (\Finding' {description} -> description) (\s@Finding' {} a -> s {description = a} :: Finding)
 
 -- | The schema version of this data type.
-fSchemaVersion :: Lens' Finding (Maybe Natural)
-fSchemaVersion = lens _fSchemaVersion (\s a -> s {_fSchemaVersion = a}) . mapping _Nat
+finding_schemaVersion :: Lens.Lens' Finding (Prelude.Maybe Prelude.Natural)
+finding_schemaVersion = Lens.lens (\Finding' {schemaVersion} -> schemaVersion) (\s@Finding' {} a -> s {schemaVersion = a} :: Finding) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ARN that specifies the finding.
-fArn :: Lens' Finding Text
-fArn = lens _fArn (\s a -> s {_fArn = a})
+finding_arn :: Lens.Lens' Finding Prelude.Text
+finding_arn = Lens.lens (\Finding' {arn} -> arn) (\s@Finding' {} a -> s {arn = a} :: Finding)
 
 -- | The system-defined attributes for the finding.
-fAttributes :: Lens' Finding [Attribute]
-fAttributes = lens _fAttributes (\s a -> s {_fAttributes = a}) . _Coerce
+finding_attributes :: Lens.Lens' Finding [Attribute]
+finding_attributes = Lens.lens (\Finding' {attributes} -> attributes) (\s@Finding' {} a -> s {attributes = a} :: Finding) Prelude.. Prelude._Coerce
 
 -- | The user-defined attributes that are assigned to the finding.
-fUserAttributes :: Lens' Finding [Attribute]
-fUserAttributes = lens _fUserAttributes (\s a -> s {_fUserAttributes = a}) . _Coerce
+finding_userAttributes :: Lens.Lens' Finding [Attribute]
+finding_userAttributes = Lens.lens (\Finding' {userAttributes} -> userAttributes) (\s@Finding' {} a -> s {userAttributes = a} :: Finding) Prelude.. Prelude._Coerce
 
 -- | The time when the finding was generated.
-fCreatedAt :: Lens' Finding UTCTime
-fCreatedAt = lens _fCreatedAt (\s a -> s {_fCreatedAt = a}) . _Time
+finding_createdAt :: Lens.Lens' Finding Prelude.UTCTime
+finding_createdAt = Lens.lens (\Finding' {createdAt} -> createdAt) (\s@Finding' {} a -> s {createdAt = a} :: Finding) Prelude.. Prelude._Time
 
--- | The time when 'AddAttributesToFindings' is called.
-fUpdatedAt :: Lens' Finding UTCTime
-fUpdatedAt = lens _fUpdatedAt (\s a -> s {_fUpdatedAt = a}) . _Time
+-- | The time when AddAttributesToFindings is called.
+finding_updatedAt :: Lens.Lens' Finding Prelude.UTCTime
+finding_updatedAt = Lens.lens (\Finding' {updatedAt} -> updatedAt) (\s@Finding' {} a -> s {updatedAt = a} :: Finding) Prelude.. Prelude._Time
 
-instance FromJSON Finding where
+instance Prelude.FromJSON Finding where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Finding"
       ( \x ->
           Finding'
-            <$> (x .:? "assetAttributes")
-            <*> (x .:? "severity")
-            <*> (x .:? "title")
-            <*> (x .:? "assetType")
-            <*> (x .:? "numericSeverity")
-            <*> (x .:? "id")
-            <*> (x .:? "service")
-            <*> (x .:? "serviceAttributes")
-            <*> (x .:? "confidence")
-            <*> (x .:? "recommendation")
-            <*> (x .:? "indicatorOfCompromise")
-            <*> (x .:? "description")
-            <*> (x .:? "schemaVersion")
-            <*> (x .: "arn")
-            <*> (x .:? "attributes" .!= mempty)
-            <*> (x .:? "userAttributes" .!= mempty)
-            <*> (x .: "createdAt")
-            <*> (x .: "updatedAt")
+            Prelude.<$> (x Prelude..:? "assetAttributes")
+            Prelude.<*> (x Prelude..:? "severity")
+            Prelude.<*> (x Prelude..:? "title")
+            Prelude.<*> (x Prelude..:? "assetType")
+            Prelude.<*> (x Prelude..:? "numericSeverity")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "service")
+            Prelude.<*> (x Prelude..:? "serviceAttributes")
+            Prelude.<*> (x Prelude..:? "confidence")
+            Prelude.<*> (x Prelude..:? "recommendation")
+            Prelude.<*> (x Prelude..:? "indicatorOfCompromise")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "schemaVersion")
+            Prelude.<*> (x Prelude..: "arn")
+            Prelude.<*> ( x Prelude..:? "attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "userAttributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "createdAt")
+            Prelude.<*> (x Prelude..: "updatedAt")
       )
 
-instance Hashable Finding
+instance Prelude.Hashable Finding
 
-instance NFData Finding
+instance Prelude.NFData Finding

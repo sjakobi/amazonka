@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,152 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Information about the data that is collected for the specified assessment run.
+-- Information about the data that is collected for the specified
+-- assessment run.
 module Network.AWS.Inspector.GetTelemetryMetadata
   ( -- * Creating a Request
-    getTelemetryMetadata,
-    GetTelemetryMetadata,
+    GetTelemetryMetadata (..),
+    newGetTelemetryMetadata,
 
     -- * Request Lenses
-    gtmAssessmentRunARN,
+    getTelemetryMetadata_assessmentRunArn,
 
     -- * Destructuring the Response
-    getTelemetryMetadataResponse,
-    GetTelemetryMetadataResponse,
+    GetTelemetryMetadataResponse (..),
+    newGetTelemetryMetadataResponse,
 
     -- * Response Lenses
-    gtmrrsResponseStatus,
-    gtmrrsTelemetryMetadata,
+    getTelemetryMetadataResponse_httpStatus,
+    getTelemetryMetadataResponse_telemetryMetadata,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Inspector.Types.TelemetryMetadata
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getTelemetryMetadata' smart constructor.
-newtype GetTelemetryMetadata = GetTelemetryMetadata'
-  { _gtmAssessmentRunARN ::
-      Text
+-- | /See:/ 'newGetTelemetryMetadata' smart constructor.
+data GetTelemetryMetadata = GetTelemetryMetadata'
+  { -- | The ARN that specifies the assessment run that has the telemetry data
+    -- that you want to obtain.
+    assessmentRunArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTelemetryMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTelemetryMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtmAssessmentRunARN' - The ARN that specifies the assessment run that has the telemetry data that you want to obtain.
-getTelemetryMetadata ::
-  -- | 'gtmAssessmentRunARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'assessmentRunArn', 'getTelemetryMetadata_assessmentRunArn' - The ARN that specifies the assessment run that has the telemetry data
+-- that you want to obtain.
+newGetTelemetryMetadata ::
+  -- | 'assessmentRunArn'
+  Prelude.Text ->
   GetTelemetryMetadata
-getTelemetryMetadata pAssessmentRunARN_ =
+newGetTelemetryMetadata pAssessmentRunArn_ =
   GetTelemetryMetadata'
-    { _gtmAssessmentRunARN =
-        pAssessmentRunARN_
+    { assessmentRunArn =
+        pAssessmentRunArn_
     }
 
--- | The ARN that specifies the assessment run that has the telemetry data that you want to obtain.
-gtmAssessmentRunARN :: Lens' GetTelemetryMetadata Text
-gtmAssessmentRunARN = lens _gtmAssessmentRunARN (\s a -> s {_gtmAssessmentRunARN = a})
+-- | The ARN that specifies the assessment run that has the telemetry data
+-- that you want to obtain.
+getTelemetryMetadata_assessmentRunArn :: Lens.Lens' GetTelemetryMetadata Prelude.Text
+getTelemetryMetadata_assessmentRunArn = Lens.lens (\GetTelemetryMetadata' {assessmentRunArn} -> assessmentRunArn) (\s@GetTelemetryMetadata' {} a -> s {assessmentRunArn = a} :: GetTelemetryMetadata)
 
-instance AWSRequest GetTelemetryMetadata where
+instance Prelude.AWSRequest GetTelemetryMetadata where
   type
     Rs GetTelemetryMetadata =
       GetTelemetryMetadataResponse
-  request = postJSON inspector
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTelemetryMetadataResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "telemetryMetadata" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "telemetryMetadata"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable GetTelemetryMetadata
+instance Prelude.Hashable GetTelemetryMetadata
 
-instance NFData GetTelemetryMetadata
+instance Prelude.NFData GetTelemetryMetadata
 
-instance ToHeaders GetTelemetryMetadata where
+instance Prelude.ToHeaders GetTelemetryMetadata where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "InspectorService.GetTelemetryMetadata" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "InspectorService.GetTelemetryMetadata" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetTelemetryMetadata where
+instance Prelude.ToJSON GetTelemetryMetadata where
   toJSON GetTelemetryMetadata' {..} =
-    object
-      ( catMaybes
-          [Just ("assessmentRunArn" .= _gtmAssessmentRunARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("assessmentRunArn" Prelude..= assessmentRunArn)
+          ]
       )
 
-instance ToPath GetTelemetryMetadata where
-  toPath = const "/"
+instance Prelude.ToPath GetTelemetryMetadata where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetTelemetryMetadata where
-  toQuery = const mempty
+instance Prelude.ToQuery GetTelemetryMetadata where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getTelemetryMetadataResponse' smart constructor.
+-- | /See:/ 'newGetTelemetryMetadataResponse' smart constructor.
 data GetTelemetryMetadataResponse = GetTelemetryMetadataResponse'
-  { _gtmrrsResponseStatus ::
-      !Int,
-    _gtmrrsTelemetryMetadata ::
-      ![TelemetryMetadata]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Telemetry details.
+    telemetryMetadata :: [TelemetryMetadata]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTelemetryMetadataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTelemetryMetadataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtmrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtmrrsTelemetryMetadata' - Telemetry details.
-getTelemetryMetadataResponse ::
-  -- | 'gtmrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getTelemetryMetadataResponse_httpStatus' - The response's http status code.
+--
+-- 'telemetryMetadata', 'getTelemetryMetadataResponse_telemetryMetadata' - Telemetry details.
+newGetTelemetryMetadataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTelemetryMetadataResponse
-getTelemetryMetadataResponse pResponseStatus_ =
+newGetTelemetryMetadataResponse pHttpStatus_ =
   GetTelemetryMetadataResponse'
-    { _gtmrrsResponseStatus =
-        pResponseStatus_,
-      _gtmrrsTelemetryMetadata = mempty
+    { httpStatus =
+        pHttpStatus_,
+      telemetryMetadata = Prelude.mempty
     }
 
--- | -- | The response status code.
-gtmrrsResponseStatus :: Lens' GetTelemetryMetadataResponse Int
-gtmrrsResponseStatus = lens _gtmrrsResponseStatus (\s a -> s {_gtmrrsResponseStatus = a})
+-- | The response's http status code.
+getTelemetryMetadataResponse_httpStatus :: Lens.Lens' GetTelemetryMetadataResponse Prelude.Int
+getTelemetryMetadataResponse_httpStatus = Lens.lens (\GetTelemetryMetadataResponse' {httpStatus} -> httpStatus) (\s@GetTelemetryMetadataResponse' {} a -> s {httpStatus = a} :: GetTelemetryMetadataResponse)
 
 -- | Telemetry details.
-gtmrrsTelemetryMetadata :: Lens' GetTelemetryMetadataResponse [TelemetryMetadata]
-gtmrrsTelemetryMetadata = lens _gtmrrsTelemetryMetadata (\s a -> s {_gtmrrsTelemetryMetadata = a}) . _Coerce
+getTelemetryMetadataResponse_telemetryMetadata :: Lens.Lens' GetTelemetryMetadataResponse [TelemetryMetadata]
+getTelemetryMetadataResponse_telemetryMetadata = Lens.lens (\GetTelemetryMetadataResponse' {telemetryMetadata} -> telemetryMetadata) (\s@GetTelemetryMetadataResponse' {} a -> s {telemetryMetadata = a} :: GetTelemetryMetadataResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetTelemetryMetadataResponse
+instance Prelude.NFData GetTelemetryMetadataResponse

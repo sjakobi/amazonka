@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,124 +21,138 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables the process of sending Amazon Simple Notification Service (SNS) notifications about a specified event to a specified SNS topic.
+-- Enables the process of sending Amazon Simple Notification Service (SNS)
+-- notifications about a specified event to a specified SNS topic.
 module Network.AWS.Inspector.SubscribeToEvent
   ( -- * Creating a Request
-    subscribeToEvent,
-    SubscribeToEvent,
+    SubscribeToEvent (..),
+    newSubscribeToEvent,
 
     -- * Request Lenses
-    steResourceARN,
-    steEvent,
-    steTopicARN,
+    subscribeToEvent_resourceArn,
+    subscribeToEvent_event,
+    subscribeToEvent_topicArn,
 
     -- * Destructuring the Response
-    subscribeToEventResponse,
-    SubscribeToEventResponse,
+    SubscribeToEventResponse (..),
+    newSubscribeToEventResponse,
   )
 where
 
 import Network.AWS.Inspector.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'subscribeToEvent' smart constructor.
+-- | /See:/ 'newSubscribeToEvent' smart constructor.
 data SubscribeToEvent = SubscribeToEvent'
-  { _steResourceARN ::
-      !Text,
-    _steEvent :: !InspectorEvent,
-    _steTopicARN :: !Text
+  { -- | The ARN of the assessment template that is used during the event for
+    -- which you want to receive SNS notifications.
+    resourceArn :: Prelude.Text,
+    -- | The event for which you want to receive SNS notifications.
+    event :: InspectorEvent,
+    -- | The ARN of the SNS topic to which the SNS notifications are sent.
+    topicArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubscribeToEvent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubscribeToEvent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'steResourceARN' - The ARN of the assessment template that is used during the event for which you want to receive SNS notifications.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'steEvent' - The event for which you want to receive SNS notifications.
+-- 'resourceArn', 'subscribeToEvent_resourceArn' - The ARN of the assessment template that is used during the event for
+-- which you want to receive SNS notifications.
 --
--- * 'steTopicARN' - The ARN of the SNS topic to which the SNS notifications are sent.
-subscribeToEvent ::
-  -- | 'steResourceARN'
-  Text ->
-  -- | 'steEvent'
+-- 'event', 'subscribeToEvent_event' - The event for which you want to receive SNS notifications.
+--
+-- 'topicArn', 'subscribeToEvent_topicArn' - The ARN of the SNS topic to which the SNS notifications are sent.
+newSubscribeToEvent ::
+  -- | 'resourceArn'
+  Prelude.Text ->
+  -- | 'event'
   InspectorEvent ->
-  -- | 'steTopicARN'
-  Text ->
+  -- | 'topicArn'
+  Prelude.Text ->
   SubscribeToEvent
-subscribeToEvent pResourceARN_ pEvent_ pTopicARN_ =
+newSubscribeToEvent pResourceArn_ pEvent_ pTopicArn_ =
   SubscribeToEvent'
-    { _steResourceARN = pResourceARN_,
-      _steEvent = pEvent_,
-      _steTopicARN = pTopicARN_
+    { resourceArn = pResourceArn_,
+      event = pEvent_,
+      topicArn = pTopicArn_
     }
 
--- | The ARN of the assessment template that is used during the event for which you want to receive SNS notifications.
-steResourceARN :: Lens' SubscribeToEvent Text
-steResourceARN = lens _steResourceARN (\s a -> s {_steResourceARN = a})
+-- | The ARN of the assessment template that is used during the event for
+-- which you want to receive SNS notifications.
+subscribeToEvent_resourceArn :: Lens.Lens' SubscribeToEvent Prelude.Text
+subscribeToEvent_resourceArn = Lens.lens (\SubscribeToEvent' {resourceArn} -> resourceArn) (\s@SubscribeToEvent' {} a -> s {resourceArn = a} :: SubscribeToEvent)
 
 -- | The event for which you want to receive SNS notifications.
-steEvent :: Lens' SubscribeToEvent InspectorEvent
-steEvent = lens _steEvent (\s a -> s {_steEvent = a})
+subscribeToEvent_event :: Lens.Lens' SubscribeToEvent InspectorEvent
+subscribeToEvent_event = Lens.lens (\SubscribeToEvent' {event} -> event) (\s@SubscribeToEvent' {} a -> s {event = a} :: SubscribeToEvent)
 
 -- | The ARN of the SNS topic to which the SNS notifications are sent.
-steTopicARN :: Lens' SubscribeToEvent Text
-steTopicARN = lens _steTopicARN (\s a -> s {_steTopicARN = a})
+subscribeToEvent_topicArn :: Lens.Lens' SubscribeToEvent Prelude.Text
+subscribeToEvent_topicArn = Lens.lens (\SubscribeToEvent' {topicArn} -> topicArn) (\s@SubscribeToEvent' {} a -> s {topicArn = a} :: SubscribeToEvent)
 
-instance AWSRequest SubscribeToEvent where
+instance Prelude.AWSRequest SubscribeToEvent where
   type Rs SubscribeToEvent = SubscribeToEventResponse
-  request = postJSON inspector
-  response = receiveNull SubscribeToEventResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull SubscribeToEventResponse'
 
-instance Hashable SubscribeToEvent
+instance Prelude.Hashable SubscribeToEvent
 
-instance NFData SubscribeToEvent
+instance Prelude.NFData SubscribeToEvent
 
-instance ToHeaders SubscribeToEvent where
+instance Prelude.ToHeaders SubscribeToEvent where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("InspectorService.SubscribeToEvent" :: ByteString),
+              Prelude.=# ( "InspectorService.SubscribeToEvent" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SubscribeToEvent where
+instance Prelude.ToJSON SubscribeToEvent where
   toJSON SubscribeToEvent' {..} =
-    object
-      ( catMaybes
-          [ Just ("resourceArn" .= _steResourceARN),
-            Just ("event" .= _steEvent),
-            Just ("topicArn" .= _steTopicARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("resourceArn" Prelude..= resourceArn),
+            Prelude.Just ("event" Prelude..= event),
+            Prelude.Just ("topicArn" Prelude..= topicArn)
           ]
       )
 
-instance ToPath SubscribeToEvent where
-  toPath = const "/"
+instance Prelude.ToPath SubscribeToEvent where
+  toPath = Prelude.const "/"
 
-instance ToQuery SubscribeToEvent where
-  toQuery = const mempty
+instance Prelude.ToQuery SubscribeToEvent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'subscribeToEventResponse' smart constructor.
+-- | /See:/ 'newSubscribeToEventResponse' smart constructor.
 data SubscribeToEventResponse = SubscribeToEventResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubscribeToEventResponse' with the minimum fields required to make a request.
-subscribeToEventResponse ::
+-- |
+-- Create a value of 'SubscribeToEventResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newSubscribeToEventResponse ::
   SubscribeToEventResponse
-subscribeToEventResponse = SubscribeToEventResponse'
+newSubscribeToEventResponse =
+  SubscribeToEventResponse'
 
-instance NFData SubscribeToEventResponse
+instance Prelude.NFData SubscribeToEventResponse

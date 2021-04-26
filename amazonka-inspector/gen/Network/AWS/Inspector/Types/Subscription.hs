@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,84 @@
 module Network.AWS.Inspector.Types.Subscription where
 
 import Network.AWS.Inspector.Types.EventSubscription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This data type is used as a response element in the 'ListEventSubscriptions' action.
+-- | This data type is used as a response element in the
+-- ListEventSubscriptions action.
 --
---
---
--- /See:/ 'subscription' smart constructor.
+-- /See:/ 'newSubscription' smart constructor.
 data Subscription = Subscription'
-  { _sResourceARN ::
-      !Text,
-    _sTopicARN :: !Text,
-    _sEventSubscriptions ::
-      !(List1 EventSubscription)
+  { -- | The ARN of the assessment template that is used during the event for
+    -- which the SNS notification is sent.
+    resourceArn :: Prelude.Text,
+    -- | The ARN of the Amazon Simple Notification Service (SNS) topic to which
+    -- the SNS notifications are sent.
+    topicArn :: Prelude.Text,
+    -- | The list of existing event subscriptions.
+    eventSubscriptions :: Prelude.List1 EventSubscription
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Subscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Subscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sResourceARN' - The ARN of the assessment template that is used during the event for which the SNS notification is sent.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sTopicARN' - The ARN of the Amazon Simple Notification Service (SNS) topic to which the SNS notifications are sent.
+-- 'resourceArn', 'subscription_resourceArn' - The ARN of the assessment template that is used during the event for
+-- which the SNS notification is sent.
 --
--- * 'sEventSubscriptions' - The list of existing event subscriptions.
-subscription ::
-  -- | 'sResourceARN'
-  Text ->
-  -- | 'sTopicARN'
-  Text ->
-  -- | 'sEventSubscriptions'
-  NonEmpty EventSubscription ->
+-- 'topicArn', 'subscription_topicArn' - The ARN of the Amazon Simple Notification Service (SNS) topic to which
+-- the SNS notifications are sent.
+--
+-- 'eventSubscriptions', 'subscription_eventSubscriptions' - The list of existing event subscriptions.
+newSubscription ::
+  -- | 'resourceArn'
+  Prelude.Text ->
+  -- | 'topicArn'
+  Prelude.Text ->
+  -- | 'eventSubscriptions'
+  Prelude.NonEmpty EventSubscription ->
   Subscription
-subscription
-  pResourceARN_
-  pTopicARN_
+newSubscription
+  pResourceArn_
+  pTopicArn_
   pEventSubscriptions_ =
     Subscription'
-      { _sResourceARN = pResourceARN_,
-        _sTopicARN = pTopicARN_,
-        _sEventSubscriptions = _List1 # pEventSubscriptions_
+      { resourceArn = pResourceArn_,
+        topicArn = pTopicArn_,
+        eventSubscriptions =
+          Prelude._List1 Lens.# pEventSubscriptions_
       }
 
--- | The ARN of the assessment template that is used during the event for which the SNS notification is sent.
-sResourceARN :: Lens' Subscription Text
-sResourceARN = lens _sResourceARN (\s a -> s {_sResourceARN = a})
+-- | The ARN of the assessment template that is used during the event for
+-- which the SNS notification is sent.
+subscription_resourceArn :: Lens.Lens' Subscription Prelude.Text
+subscription_resourceArn = Lens.lens (\Subscription' {resourceArn} -> resourceArn) (\s@Subscription' {} a -> s {resourceArn = a} :: Subscription)
 
--- | The ARN of the Amazon Simple Notification Service (SNS) topic to which the SNS notifications are sent.
-sTopicARN :: Lens' Subscription Text
-sTopicARN = lens _sTopicARN (\s a -> s {_sTopicARN = a})
+-- | The ARN of the Amazon Simple Notification Service (SNS) topic to which
+-- the SNS notifications are sent.
+subscription_topicArn :: Lens.Lens' Subscription Prelude.Text
+subscription_topicArn = Lens.lens (\Subscription' {topicArn} -> topicArn) (\s@Subscription' {} a -> s {topicArn = a} :: Subscription)
 
 -- | The list of existing event subscriptions.
-sEventSubscriptions :: Lens' Subscription (NonEmpty EventSubscription)
-sEventSubscriptions = lens _sEventSubscriptions (\s a -> s {_sEventSubscriptions = a}) . _List1
+subscription_eventSubscriptions :: Lens.Lens' Subscription (Prelude.NonEmpty EventSubscription)
+subscription_eventSubscriptions = Lens.lens (\Subscription' {eventSubscriptions} -> eventSubscriptions) (\s@Subscription' {} a -> s {eventSubscriptions = a} :: Subscription) Prelude.. Prelude._List1
 
-instance FromJSON Subscription where
+instance Prelude.FromJSON Subscription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Subscription"
       ( \x ->
           Subscription'
-            <$> (x .: "resourceArn")
-            <*> (x .: "topicArn")
-            <*> (x .: "eventSubscriptions")
+            Prelude.<$> (x Prelude..: "resourceArn")
+            Prelude.<*> (x Prelude..: "topicArn")
+            Prelude.<*> (x Prelude..: "eventSubscriptions")
       )
 
-instance Hashable Subscription
+instance Prelude.Hashable Subscription
 
-instance NFData Subscription
+instance Prelude.NFData Subscription

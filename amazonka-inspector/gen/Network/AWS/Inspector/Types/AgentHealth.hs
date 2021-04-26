@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Inspector.Types.AgentHealth
   ( AgentHealth
       ( ..,
-        Healthy,
-        Unhealthy,
-        Unknown
+        AgentHealthHEALTHY,
+        AgentHealthUNHEALTHY,
+        AgentHealthUNKNOWN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AgentHealth = AgentHealth' (CI Text)
+newtype AgentHealth = AgentHealth'
+  { fromAgentHealth ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Healthy :: AgentHealth
-pattern Healthy = AgentHealth' "HEALTHY"
+pattern AgentHealthHEALTHY :: AgentHealth
+pattern AgentHealthHEALTHY = AgentHealth' "HEALTHY"
 
-pattern Unhealthy :: AgentHealth
-pattern Unhealthy = AgentHealth' "UNHEALTHY"
+pattern AgentHealthUNHEALTHY :: AgentHealth
+pattern AgentHealthUNHEALTHY = AgentHealth' "UNHEALTHY"
 
-pattern Unknown :: AgentHealth
-pattern Unknown = AgentHealth' "UNKNOWN"
+pattern AgentHealthUNKNOWN :: AgentHealth
+pattern AgentHealthUNKNOWN = AgentHealth' "UNKNOWN"
 
 {-# COMPLETE
-  Healthy,
-  Unhealthy,
-  Unknown,
+  AgentHealthHEALTHY,
+  AgentHealthUNHEALTHY,
+  AgentHealthUNKNOWN,
   AgentHealth'
   #-}
 
-instance FromText AgentHealth where
-  parser = (AgentHealth' . mk) <$> takeText
+instance Prelude.FromText AgentHealth where
+  parser = AgentHealth' Prelude.<$> Prelude.takeText
 
-instance ToText AgentHealth where
-  toText (AgentHealth' ci) = original ci
+instance Prelude.ToText AgentHealth where
+  toText (AgentHealth' x) = x
 
-instance Hashable AgentHealth
+instance Prelude.Hashable AgentHealth
 
-instance NFData AgentHealth
+instance Prelude.NFData AgentHealth
 
-instance ToByteString AgentHealth
+instance Prelude.ToByteString AgentHealth
 
-instance ToQuery AgentHealth
+instance Prelude.ToQuery AgentHealth
 
-instance ToHeader AgentHealth
+instance Prelude.ToHeader AgentHealth
 
-instance ToJSON AgentHealth where
-  toJSON = toJSONText
+instance Prelude.ToJSON AgentHealth where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AgentHealth where
-  parseJSON = parseJSONText "AgentHealth"
+instance Prelude.FromJSON AgentHealth where
+  parseJSON = Prelude.parseJSONText "AgentHealth"

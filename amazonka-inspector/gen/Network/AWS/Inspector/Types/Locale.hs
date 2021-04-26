@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,47 @@
 module Network.AWS.Inspector.Types.Locale
   ( Locale
       ( ..,
-        EnUs
+        LocaleENUS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Locale = Locale' (CI Text)
+newtype Locale = Locale' {fromLocale :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EnUs :: Locale
-pattern EnUs = Locale' "EN_US"
+pattern LocaleENUS :: Locale
+pattern LocaleENUS = Locale' "EN_US"
 
 {-# COMPLETE
-  EnUs,
+  LocaleENUS,
   Locale'
   #-}
 
-instance FromText Locale where
-  parser = (Locale' . mk) <$> takeText
+instance Prelude.FromText Locale where
+  parser = Locale' Prelude.<$> Prelude.takeText
 
-instance ToText Locale where
-  toText (Locale' ci) = original ci
+instance Prelude.ToText Locale where
+  toText (Locale' x) = x
 
-instance Hashable Locale
+instance Prelude.Hashable Locale
 
-instance NFData Locale
+instance Prelude.NFData Locale
 
-instance ToByteString Locale
+instance Prelude.ToByteString Locale
 
-instance ToQuery Locale
+instance Prelude.ToQuery Locale
 
-instance ToHeader Locale
+instance Prelude.ToHeader Locale
 
-instance ToJSON Locale where
-  toJSON = toJSONText
+instance Prelude.ToJSON Locale where
+  toJSON = Prelude.toJSONText

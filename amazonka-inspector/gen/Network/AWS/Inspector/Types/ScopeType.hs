@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Inspector.Types.ScopeType
   ( ScopeType
       ( ..,
-        InstanceId,
-        RulesPackageARN
+        ScopeTypeINSTANCEID,
+        ScopeTypeRULESPACKAGEARN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScopeType = ScopeType' (CI Text)
+newtype ScopeType = ScopeType'
+  { fromScopeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InstanceId :: ScopeType
-pattern InstanceId = ScopeType' "INSTANCE_ID"
+pattern ScopeTypeINSTANCEID :: ScopeType
+pattern ScopeTypeINSTANCEID = ScopeType' "INSTANCE_ID"
 
-pattern RulesPackageARN :: ScopeType
-pattern RulesPackageARN = ScopeType' "RULES_PACKAGE_ARN"
+pattern ScopeTypeRULESPACKAGEARN :: ScopeType
+pattern ScopeTypeRULESPACKAGEARN = ScopeType' "RULES_PACKAGE_ARN"
 
 {-# COMPLETE
-  InstanceId,
-  RulesPackageARN,
+  ScopeTypeINSTANCEID,
+  ScopeTypeRULESPACKAGEARN,
   ScopeType'
   #-}
 
-instance FromText ScopeType where
-  parser = (ScopeType' . mk) <$> takeText
+instance Prelude.FromText ScopeType where
+  parser = ScopeType' Prelude.<$> Prelude.takeText
 
-instance ToText ScopeType where
-  toText (ScopeType' ci) = original ci
+instance Prelude.ToText ScopeType where
+  toText (ScopeType' x) = x
 
-instance Hashable ScopeType
+instance Prelude.Hashable ScopeType
 
-instance NFData ScopeType
+instance Prelude.NFData ScopeType
 
-instance ToByteString ScopeType
+instance Prelude.ToByteString ScopeType
 
-instance ToQuery ScopeType
+instance Prelude.ToQuery ScopeType
 
-instance ToHeader ScopeType
+instance Prelude.ToHeader ScopeType
 
-instance FromJSON ScopeType where
-  parseJSON = parseJSONText "ScopeType"
+instance Prelude.FromJSON ScopeType where
+  parseJSON = Prelude.parseJSONText "ScopeType"
