@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,138 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Information about the Amazon Simple Notification Service (SNS) topic that is used to record AWS Firewall Manager SNS logs.
+-- Information about the Amazon Simple Notification Service (SNS) topic
+-- that is used to record AWS Firewall Manager SNS logs.
 module Network.AWS.FMS.GetNotificationChannel
   ( -- * Creating a Request
-    getNotificationChannel,
-    GetNotificationChannel,
+    GetNotificationChannel (..),
+    newGetNotificationChannel,
 
     -- * Destructuring the Response
-    getNotificationChannelResponse,
-    GetNotificationChannelResponse,
+    GetNotificationChannelResponse (..),
+    newGetNotificationChannelResponse,
 
     -- * Response Lenses
-    gncrrsSNSRoleName,
-    gncrrsSNSTopicARN,
-    gncrrsResponseStatus,
+    getNotificationChannelResponse_snsRoleName,
+    getNotificationChannelResponse_snsTopicArn,
+    getNotificationChannelResponse_httpStatus,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getNotificationChannel' smart constructor.
+-- | /See:/ 'newGetNotificationChannel' smart constructor.
 data GetNotificationChannel = GetNotificationChannel'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetNotificationChannel' with the minimum fields required to make a request.
-getNotificationChannel ::
+-- |
+-- Create a value of 'GetNotificationChannel' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetNotificationChannel ::
   GetNotificationChannel
-getNotificationChannel = GetNotificationChannel'
+newGetNotificationChannel = GetNotificationChannel'
 
-instance AWSRequest GetNotificationChannel where
+instance Prelude.AWSRequest GetNotificationChannel where
   type
     Rs GetNotificationChannel =
       GetNotificationChannelResponse
-  request = postJSON fms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetNotificationChannelResponse'
-            <$> (x .?> "SnsRoleName")
-            <*> (x .?> "SnsTopicArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SnsRoleName")
+            Prelude.<*> (x Prelude..?> "SnsTopicArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetNotificationChannel
+instance Prelude.Hashable GetNotificationChannel
 
-instance NFData GetNotificationChannel
+instance Prelude.NFData GetNotificationChannel
 
-instance ToHeaders GetNotificationChannel where
+instance Prelude.ToHeaders GetNotificationChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSFMS_20180101.GetNotificationChannel" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSFMS_20180101.GetNotificationChannel" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetNotificationChannel where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetNotificationChannel where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetNotificationChannel where
-  toPath = const "/"
+instance Prelude.ToPath GetNotificationChannel where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetNotificationChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery GetNotificationChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getNotificationChannelResponse' smart constructor.
+-- | /See:/ 'newGetNotificationChannelResponse' smart constructor.
 data GetNotificationChannelResponse = GetNotificationChannelResponse'
-  { _gncrrsSNSRoleName ::
-      !( Maybe
-           Text
-       ),
-    _gncrrsSNSTopicARN ::
-      !( Maybe
-           Text
-       ),
-    _gncrrsResponseStatus ::
-      !Int
+  { -- | The IAM role that is used by AWS Firewall Manager to record activity to
+    -- SNS.
+    snsRoleName :: Prelude.Maybe Prelude.Text,
+    -- | The SNS topic that records AWS Firewall Manager activity.
+    snsTopicArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetNotificationChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetNotificationChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gncrrsSNSRoleName' - The IAM role that is used by AWS Firewall Manager to record activity to SNS.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gncrrsSNSTopicARN' - The SNS topic that records AWS Firewall Manager activity.
+-- 'snsRoleName', 'getNotificationChannelResponse_snsRoleName' - The IAM role that is used by AWS Firewall Manager to record activity to
+-- SNS.
 --
--- * 'gncrrsResponseStatus' - -- | The response status code.
-getNotificationChannelResponse ::
-  -- | 'gncrrsResponseStatus'
-  Int ->
+-- 'snsTopicArn', 'getNotificationChannelResponse_snsTopicArn' - The SNS topic that records AWS Firewall Manager activity.
+--
+-- 'httpStatus', 'getNotificationChannelResponse_httpStatus' - The response's http status code.
+newGetNotificationChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetNotificationChannelResponse
-getNotificationChannelResponse pResponseStatus_ =
+newGetNotificationChannelResponse pHttpStatus_ =
   GetNotificationChannelResponse'
-    { _gncrrsSNSRoleName =
-        Nothing,
-      _gncrrsSNSTopicARN = Nothing,
-      _gncrrsResponseStatus = pResponseStatus_
+    { snsRoleName =
+        Prelude.Nothing,
+      snsTopicArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The IAM role that is used by AWS Firewall Manager to record activity to SNS.
-gncrrsSNSRoleName :: Lens' GetNotificationChannelResponse (Maybe Text)
-gncrrsSNSRoleName = lens _gncrrsSNSRoleName (\s a -> s {_gncrrsSNSRoleName = a})
+-- | The IAM role that is used by AWS Firewall Manager to record activity to
+-- SNS.
+getNotificationChannelResponse_snsRoleName :: Lens.Lens' GetNotificationChannelResponse (Prelude.Maybe Prelude.Text)
+getNotificationChannelResponse_snsRoleName = Lens.lens (\GetNotificationChannelResponse' {snsRoleName} -> snsRoleName) (\s@GetNotificationChannelResponse' {} a -> s {snsRoleName = a} :: GetNotificationChannelResponse)
 
 -- | The SNS topic that records AWS Firewall Manager activity.
-gncrrsSNSTopicARN :: Lens' GetNotificationChannelResponse (Maybe Text)
-gncrrsSNSTopicARN = lens _gncrrsSNSTopicARN (\s a -> s {_gncrrsSNSTopicARN = a})
+getNotificationChannelResponse_snsTopicArn :: Lens.Lens' GetNotificationChannelResponse (Prelude.Maybe Prelude.Text)
+getNotificationChannelResponse_snsTopicArn = Lens.lens (\GetNotificationChannelResponse' {snsTopicArn} -> snsTopicArn) (\s@GetNotificationChannelResponse' {} a -> s {snsTopicArn = a} :: GetNotificationChannelResponse)
 
--- | -- | The response status code.
-gncrrsResponseStatus :: Lens' GetNotificationChannelResponse Int
-gncrrsResponseStatus = lens _gncrrsResponseStatus (\s a -> s {_gncrrsResponseStatus = a})
+-- | The response's http status code.
+getNotificationChannelResponse_httpStatus :: Lens.Lens' GetNotificationChannelResponse Prelude.Int
+getNotificationChannelResponse_httpStatus = Lens.lens (\GetNotificationChannelResponse' {httpStatus} -> httpStatus) (\s@GetNotificationChannelResponse' {} a -> s {httpStatus = a} :: GetNotificationChannelResponse)
 
-instance NFData GetNotificationChannelResponse
+instance
+  Prelude.NFData
+    GetNotificationChannelResponse

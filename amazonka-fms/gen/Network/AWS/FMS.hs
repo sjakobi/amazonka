@@ -11,14 +11,20 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Firewall Manager__
+-- AWS Firewall Manager
 --
--- This is the /AWS Firewall Manager API Reference/ . This guide is for developers who need detailed information about the AWS Firewall Manager API actions, data types, and errors. For detailed information about AWS Firewall Manager features, see the <https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html AWS Firewall Manager Developer Guide> .
+-- This is the /AWS Firewall Manager API Reference/. This guide is for
+-- developers who need detailed information about the AWS Firewall Manager
+-- API actions, data types, and errors. For detailed information about AWS
+-- Firewall Manager features, see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html AWS Firewall Manager Developer Guide>.
 --
--- Some API actions require explicit resource permissions. For information, see the developer guide topic <https://docs.aws.amazon.com/waf/latest/developerguide/fms-api-permissions-ref.html Firewall Manager required permissions for API actions> .
+-- Some API actions require explicit resource permissions. For information,
+-- see the developer guide topic
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/fms-api-permissions-ref.html Firewall Manager required permissions for API actions>.
 module Network.AWS.FMS
   ( -- * Service Configuration
-    fms,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -48,82 +54,160 @@ module Network.AWS.FMS
     -- $operations
 
     -- ** DeleteNotificationChannel
-    module Network.AWS.FMS.DeleteNotificationChannel,
+    DeleteNotificationChannel (DeleteNotificationChannel'),
+    newDeleteNotificationChannel,
+    DeleteNotificationChannelResponse (DeleteNotificationChannelResponse'),
+    newDeleteNotificationChannelResponse,
 
     -- ** ListPolicies (Paginated)
-    module Network.AWS.FMS.ListPolicies,
+    ListPolicies (ListPolicies'),
+    newListPolicies,
+    ListPoliciesResponse (ListPoliciesResponse'),
+    newListPoliciesResponse,
 
     -- ** DeletePolicy
-    module Network.AWS.FMS.DeletePolicy,
+    DeletePolicy (DeletePolicy'),
+    newDeletePolicy,
+    DeletePolicyResponse (DeletePolicyResponse'),
+    newDeletePolicyResponse,
 
     -- ** ListAppsLists
-    module Network.AWS.FMS.ListAppsLists,
+    ListAppsLists (ListAppsLists'),
+    newListAppsLists,
+    ListAppsListsResponse (ListAppsListsResponse'),
+    newListAppsListsResponse,
 
     -- ** GetProtectionStatus
-    module Network.AWS.FMS.GetProtectionStatus,
+    GetProtectionStatus (GetProtectionStatus'),
+    newGetProtectionStatus,
+    GetProtectionStatusResponse (GetProtectionStatusResponse'),
+    newGetProtectionStatusResponse,
 
     -- ** PutAppsList
-    module Network.AWS.FMS.PutAppsList,
+    PutAppsList (PutAppsList'),
+    newPutAppsList,
+    PutAppsListResponse (PutAppsListResponse'),
+    newPutAppsListResponse,
 
     -- ** ListProtocolsLists
-    module Network.AWS.FMS.ListProtocolsLists,
+    ListProtocolsLists (ListProtocolsLists'),
+    newListProtocolsLists,
+    ListProtocolsListsResponse (ListProtocolsListsResponse'),
+    newListProtocolsListsResponse,
 
     -- ** GetAppsList
-    module Network.AWS.FMS.GetAppsList,
+    GetAppsList (GetAppsList'),
+    newGetAppsList,
+    GetAppsListResponse (GetAppsListResponse'),
+    newGetAppsListResponse,
 
     -- ** PutProtocolsList
-    module Network.AWS.FMS.PutProtocolsList,
+    PutProtocolsList (PutProtocolsList'),
+    newPutProtocolsList,
+    PutProtocolsListResponse (PutProtocolsListResponse'),
+    newPutProtocolsListResponse,
 
     -- ** ListComplianceStatus (Paginated)
-    module Network.AWS.FMS.ListComplianceStatus,
+    ListComplianceStatus (ListComplianceStatus'),
+    newListComplianceStatus,
+    ListComplianceStatusResponse (ListComplianceStatusResponse'),
+    newListComplianceStatusResponse,
 
     -- ** UntagResource
-    module Network.AWS.FMS.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** TagResource
-    module Network.AWS.FMS.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** GetNotificationChannel
-    module Network.AWS.FMS.GetNotificationChannel,
+    GetNotificationChannel (GetNotificationChannel'),
+    newGetNotificationChannel,
+    GetNotificationChannelResponse (GetNotificationChannelResponse'),
+    newGetNotificationChannelResponse,
 
     -- ** AssociateAdminAccount
-    module Network.AWS.FMS.AssociateAdminAccount,
+    AssociateAdminAccount (AssociateAdminAccount'),
+    newAssociateAdminAccount,
+    AssociateAdminAccountResponse (AssociateAdminAccountResponse'),
+    newAssociateAdminAccountResponse,
 
     -- ** PutNotificationChannel
-    module Network.AWS.FMS.PutNotificationChannel,
+    PutNotificationChannel (PutNotificationChannel'),
+    newPutNotificationChannel,
+    PutNotificationChannelResponse (PutNotificationChannelResponse'),
+    newPutNotificationChannelResponse,
 
     -- ** DisassociateAdminAccount
-    module Network.AWS.FMS.DisassociateAdminAccount,
+    DisassociateAdminAccount (DisassociateAdminAccount'),
+    newDisassociateAdminAccount,
+    DisassociateAdminAccountResponse (DisassociateAdminAccountResponse'),
+    newDisassociateAdminAccountResponse,
 
     -- ** PutPolicy
-    module Network.AWS.FMS.PutPolicy,
+    PutPolicy (PutPolicy'),
+    newPutPolicy,
+    PutPolicyResponse (PutPolicyResponse'),
+    newPutPolicyResponse,
 
     -- ** DeleteAppsList
-    module Network.AWS.FMS.DeleteAppsList,
+    DeleteAppsList (DeleteAppsList'),
+    newDeleteAppsList,
+    DeleteAppsListResponse (DeleteAppsListResponse'),
+    newDeleteAppsListResponse,
 
     -- ** GetProtocolsList
-    module Network.AWS.FMS.GetProtocolsList,
+    GetProtocolsList (GetProtocolsList'),
+    newGetProtocolsList,
+    GetProtocolsListResponse (GetProtocolsListResponse'),
+    newGetProtocolsListResponse,
 
     -- ** GetPolicy
-    module Network.AWS.FMS.GetPolicy,
+    GetPolicy (GetPolicy'),
+    newGetPolicy,
+    GetPolicyResponse (GetPolicyResponse'),
+    newGetPolicyResponse,
 
     -- ** DeleteProtocolsList
-    module Network.AWS.FMS.DeleteProtocolsList,
+    DeleteProtocolsList (DeleteProtocolsList'),
+    newDeleteProtocolsList,
+    DeleteProtocolsListResponse (DeleteProtocolsListResponse'),
+    newDeleteProtocolsListResponse,
 
     -- ** GetAdminAccount
-    module Network.AWS.FMS.GetAdminAccount,
+    GetAdminAccount (GetAdminAccount'),
+    newGetAdminAccount,
+    GetAdminAccountResponse (GetAdminAccountResponse'),
+    newGetAdminAccountResponse,
 
     -- ** ListMemberAccounts (Paginated)
-    module Network.AWS.FMS.ListMemberAccounts,
+    ListMemberAccounts (ListMemberAccounts'),
+    newListMemberAccounts,
+    ListMemberAccountsResponse (ListMemberAccountsResponse'),
+    newListMemberAccountsResponse,
 
     -- ** GetViolationDetails
-    module Network.AWS.FMS.GetViolationDetails,
+    GetViolationDetails (GetViolationDetails'),
+    newGetViolationDetails,
+    GetViolationDetailsResponse (GetViolationDetailsResponse'),
+    newGetViolationDetailsResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.FMS.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** GetComplianceDetail
-    module Network.AWS.FMS.GetComplianceDetail,
+    GetComplianceDetail (GetComplianceDetail'),
+    newGetComplianceDetail,
+    GetComplianceDetailResponse (GetComplianceDetailResponse'),
+    newGetComplianceDetailResponse,
 
     -- * Types
 
@@ -148,249 +232,121 @@ module Network.AWS.FMS
     -- ** ViolationReason
     ViolationReason (..),
 
-    -- ** AWSEC2InstanceViolation
-    AWSEC2InstanceViolation,
-    awsEC2InstanceViolation,
-    aeivViolationTarget,
-    aeivAWSEC2NetworkInterfaceViolations,
-
-    -- ** AWSEC2NetworkInterfaceViolation
-    AWSEC2NetworkInterfaceViolation,
-    awsEC2NetworkInterfaceViolation,
-    aenivViolationTarget,
-    aenivViolatingSecurityGroups,
-
-    -- ** AWSVPCSecurityGroupViolation
-    AWSVPCSecurityGroupViolation,
-    awsVPCSecurityGroupViolation,
-    avsgvPartialMatches,
-    avsgvPossibleSecurityGroupRemediationActions,
-    avsgvViolationTarget,
-    avsgvViolationTargetDescription,
-
     -- ** App
-    App,
-    app,
-    appAppName,
-    appProtocol,
-    appPort,
+    App (App'),
+    newApp,
 
     -- ** AppsListData
-    AppsListData,
-    appsListData,
-    aldLastUpdateTime,
-    aldListId,
-    aldPreviousAppsList,
-    aldCreateTime,
-    aldListUpdateToken,
-    aldListName,
-    aldAppsList,
+    AppsListData (AppsListData'),
+    newAppsListData,
 
     -- ** AppsListDataSummary
-    AppsListDataSummary,
-    appsListDataSummary,
-    aldsAppsList,
-    aldsListName,
-    aldsListARN,
-    aldsListId,
+    AppsListDataSummary (AppsListDataSummary'),
+    newAppsListDataSummary,
+
+    -- ** AwsEc2InstanceViolation
+    AwsEc2InstanceViolation (AwsEc2InstanceViolation'),
+    newAwsEc2InstanceViolation,
+
+    -- ** AwsEc2NetworkInterfaceViolation
+    AwsEc2NetworkInterfaceViolation (AwsEc2NetworkInterfaceViolation'),
+    newAwsEc2NetworkInterfaceViolation,
+
+    -- ** AwsVPCSecurityGroupViolation
+    AwsVPCSecurityGroupViolation (AwsVPCSecurityGroupViolation'),
+    newAwsVPCSecurityGroupViolation,
 
     -- ** ComplianceViolator
-    ComplianceViolator,
-    complianceViolator,
-    cvResourceId,
-    cvResourceType,
-    cvViolationReason,
+    ComplianceViolator (ComplianceViolator'),
+    newComplianceViolator,
 
     -- ** EvaluationResult
-    EvaluationResult,
-    evaluationResult,
-    erComplianceStatus,
-    erEvaluationLimitExceeded,
-    erViolatorCount,
+    EvaluationResult (EvaluationResult'),
+    newEvaluationResult,
 
     -- ** NetworkFirewallMissingExpectedRTViolation
-    NetworkFirewallMissingExpectedRTViolation,
-    networkFirewallMissingExpectedRTViolation,
-    nfmertvCurrentRouteTable,
-    nfmertvViolationTarget,
-    nfmertvAvailabilityZone,
-    nfmertvExpectedRouteTable,
-    nfmertvVPC,
+    NetworkFirewallMissingExpectedRTViolation (NetworkFirewallMissingExpectedRTViolation'),
+    newNetworkFirewallMissingExpectedRTViolation,
 
     -- ** NetworkFirewallMissingFirewallViolation
-    NetworkFirewallMissingFirewallViolation,
-    networkFirewallMissingFirewallViolation,
-    nfmfvTargetViolationReason,
-    nfmfvViolationTarget,
-    nfmfvAvailabilityZone,
-    nfmfvVPC,
+    NetworkFirewallMissingFirewallViolation (NetworkFirewallMissingFirewallViolation'),
+    newNetworkFirewallMissingFirewallViolation,
 
     -- ** NetworkFirewallMissingSubnetViolation
-    NetworkFirewallMissingSubnetViolation,
-    networkFirewallMissingSubnetViolation,
-    nfmsvTargetViolationReason,
-    nfmsvViolationTarget,
-    nfmsvAvailabilityZone,
-    nfmsvVPC,
+    NetworkFirewallMissingSubnetViolation (NetworkFirewallMissingSubnetViolation'),
+    newNetworkFirewallMissingSubnetViolation,
 
     -- ** NetworkFirewallPolicyDescription
-    NetworkFirewallPolicyDescription,
-    networkFirewallPolicyDescription,
-    nfpdStatelessRuleGroups,
-    nfpdStatelessFragmentDefaultActions,
-    nfpdStatelessDefaultActions,
-    nfpdStatefulRuleGroups,
-    nfpdStatelessCustomActions,
+    NetworkFirewallPolicyDescription (NetworkFirewallPolicyDescription'),
+    newNetworkFirewallPolicyDescription,
 
     -- ** NetworkFirewallPolicyModifiedViolation
-    NetworkFirewallPolicyModifiedViolation,
-    networkFirewallPolicyModifiedViolation,
-    nfpmvCurrentPolicyDescription,
-    nfpmvViolationTarget,
-    nfpmvExpectedPolicyDescription,
+    NetworkFirewallPolicyModifiedViolation (NetworkFirewallPolicyModifiedViolation'),
+    newNetworkFirewallPolicyModifiedViolation,
 
     -- ** PartialMatch
-    PartialMatch,
-    partialMatch,
-    pmTargetViolationReasons,
-    pmReference,
+    PartialMatch (PartialMatch'),
+    newPartialMatch,
 
     -- ** Policy
-    Policy,
-    policy,
-    pResourceTags,
-    pResourceTypeList,
-    pPolicyUpdateToken,
-    pIncludeMap,
-    pPolicyId,
-    pExcludeMap,
-    pPolicyName,
-    pSecurityServicePolicyData,
-    pResourceType,
-    pExcludeResourceTags,
-    pRemediationEnabled,
+    Policy (Policy'),
+    newPolicy,
 
     -- ** PolicyComplianceDetail
-    PolicyComplianceDetail,
-    policyComplianceDetail,
-    pcdViolators,
-    pcdPolicyOwner,
-    pcdMemberAccount,
-    pcdEvaluationLimitExceeded,
-    pcdIssueInfoMap,
-    pcdPolicyId,
-    pcdExpiredAt,
+    PolicyComplianceDetail (PolicyComplianceDetail'),
+    newPolicyComplianceDetail,
 
     -- ** PolicyComplianceStatus
-    PolicyComplianceStatus,
-    policyComplianceStatus,
-    pcsPolicyName,
-    pcsPolicyOwner,
-    pcsMemberAccount,
-    pcsLastUpdated,
-    pcsEvaluationResults,
-    pcsIssueInfoMap,
-    pcsPolicyId,
+    PolicyComplianceStatus (PolicyComplianceStatus'),
+    newPolicyComplianceStatus,
 
     -- ** PolicySummary
-    PolicySummary,
-    policySummary,
-    psPolicyName,
-    psSecurityServiceType,
-    psResourceType,
-    psRemediationEnabled,
-    psPolicyId,
-    psPolicyARN,
+    PolicySummary (PolicySummary'),
+    newPolicySummary,
 
     -- ** ProtocolsListData
-    ProtocolsListData,
-    protocolsListData,
-    pldLastUpdateTime,
-    pldListId,
-    pldCreateTime,
-    pldPreviousProtocolsList,
-    pldListUpdateToken,
-    pldListName,
-    pldProtocolsList,
+    ProtocolsListData (ProtocolsListData'),
+    newProtocolsListData,
 
     -- ** ProtocolsListDataSummary
-    ProtocolsListDataSummary,
-    protocolsListDataSummary,
-    pldsListName,
-    pldsProtocolsList,
-    pldsListARN,
-    pldsListId,
+    ProtocolsListDataSummary (ProtocolsListDataSummary'),
+    newProtocolsListDataSummary,
 
     -- ** ResourceTag
-    ResourceTag,
-    resourceTag,
-    rtValue,
-    rtKey,
+    ResourceTag (ResourceTag'),
+    newResourceTag,
 
     -- ** ResourceViolation
-    ResourceViolation,
-    resourceViolation,
-    rvNetworkFirewallMissingSubnetViolation,
-    rvAWSEC2NetworkInterfaceViolation,
-    rvNetworkFirewallMissingExpectedRTViolation,
-    rvAWSEC2InstanceViolation,
-    rvNetworkFirewallMissingFirewallViolation,
-    rvNetworkFirewallPolicyModifiedViolation,
-    rvAWSVPCSecurityGroupViolation,
+    ResourceViolation (ResourceViolation'),
+    newResourceViolation,
 
     -- ** SecurityGroupRemediationAction
-    SecurityGroupRemediationAction,
-    securityGroupRemediationAction,
-    sgraRemediationActionType,
-    sgraRemediationResult,
-    sgraIsDefaultAction,
-    sgraDescription,
+    SecurityGroupRemediationAction (SecurityGroupRemediationAction'),
+    newSecurityGroupRemediationAction,
 
     -- ** SecurityGroupRuleDescription
-    SecurityGroupRuleDescription,
-    securityGroupRuleDescription,
-    sgrdFromPort,
-    sgrdIPV4Range,
-    sgrdPrefixListId,
-    sgrdIPV6Range,
-    sgrdProtocol,
-    sgrdToPort,
+    SecurityGroupRuleDescription (SecurityGroupRuleDescription'),
+    newSecurityGroupRuleDescription,
 
     -- ** SecurityServicePolicyData
-    SecurityServicePolicyData,
-    securityServicePolicyData,
-    sspdManagedServiceData,
-    sspdType,
+    SecurityServicePolicyData (SecurityServicePolicyData'),
+    newSecurityServicePolicyData,
 
     -- ** StatefulRuleGroup
-    StatefulRuleGroup,
-    statefulRuleGroup,
-    sResourceId,
-    sRuleGroupName,
+    StatefulRuleGroup (StatefulRuleGroup'),
+    newStatefulRuleGroup,
 
     -- ** StatelessRuleGroup
-    StatelessRuleGroup,
-    statelessRuleGroup,
-    srgResourceId,
-    srgPriority,
-    srgRuleGroupName,
+    StatelessRuleGroup (StatelessRuleGroup'),
+    newStatelessRuleGroup,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** ViolationDetail
-    ViolationDetail,
-    violationDetail,
-    vdResourceDescription,
-    vdResourceTags,
-    vdPolicyId,
-    vdMemberAccount,
-    vdResourceId,
-    vdResourceType,
-    vdResourceViolations,
+    ViolationDetail (ViolationDetail'),
+    newViolationDetail,
   )
 where
 
@@ -408,6 +364,7 @@ import Network.AWS.FMS.GetPolicy
 import Network.AWS.FMS.GetProtectionStatus
 import Network.AWS.FMS.GetProtocolsList
 import Network.AWS.FMS.GetViolationDetails
+import Network.AWS.FMS.Lens
 import Network.AWS.FMS.ListAppsLists
 import Network.AWS.FMS.ListComplianceStatus
 import Network.AWS.FMS.ListMemberAccounts

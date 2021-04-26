@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,145 +24,160 @@
 -- Creates an AWS Firewall Manager applications list.
 module Network.AWS.FMS.PutAppsList
   ( -- * Creating a Request
-    putAppsList,
-    PutAppsList,
+    PutAppsList (..),
+    newPutAppsList,
 
     -- * Request Lenses
-    palTagList,
-    palAppsList,
+    putAppsList_tagList,
+    putAppsList_appsList,
 
     -- * Destructuring the Response
-    putAppsListResponse,
-    PutAppsListResponse,
+    PutAppsListResponse (..),
+    newPutAppsListResponse,
 
     -- * Response Lenses
-    palrrsAppsList,
-    palrrsAppsListARN,
-    palrrsResponseStatus,
+    putAppsListResponse_appsList,
+    putAppsListResponse_appsListArn,
+    putAppsListResponse_httpStatus,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.FMS.Types.AppsListData
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putAppsList' smart constructor.
+-- | /See:/ 'newPutAppsList' smart constructor.
 data PutAppsList = PutAppsList'
-  { _palTagList ::
-      !(Maybe [Tag]),
-    _palAppsList :: !AppsListData
+  { -- | The tags associated with the resource.
+    tagList :: Prelude.Maybe [Tag],
+    -- | The details of the AWS Firewall Manager applications list to be created.
+    appsList :: AppsListData
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutAppsList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutAppsList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'palTagList' - The tags associated with the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'palAppsList' - The details of the AWS Firewall Manager applications list to be created.
-putAppsList ::
-  -- | 'palAppsList'
+-- 'tagList', 'putAppsList_tagList' - The tags associated with the resource.
+--
+-- 'appsList', 'putAppsList_appsList' - The details of the AWS Firewall Manager applications list to be created.
+newPutAppsList ::
+  -- | 'appsList'
   AppsListData ->
   PutAppsList
-putAppsList pAppsList_ =
+newPutAppsList pAppsList_ =
   PutAppsList'
-    { _palTagList = Nothing,
-      _palAppsList = pAppsList_
+    { tagList = Prelude.Nothing,
+      appsList = pAppsList_
     }
 
 -- | The tags associated with the resource.
-palTagList :: Lens' PutAppsList [Tag]
-palTagList = lens _palTagList (\s a -> s {_palTagList = a}) . _Default . _Coerce
+putAppsList_tagList :: Lens.Lens' PutAppsList (Prelude.Maybe [Tag])
+putAppsList_tagList = Lens.lens (\PutAppsList' {tagList} -> tagList) (\s@PutAppsList' {} a -> s {tagList = a} :: PutAppsList) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The details of the AWS Firewall Manager applications list to be created.
-palAppsList :: Lens' PutAppsList AppsListData
-palAppsList = lens _palAppsList (\s a -> s {_palAppsList = a})
+putAppsList_appsList :: Lens.Lens' PutAppsList AppsListData
+putAppsList_appsList = Lens.lens (\PutAppsList' {appsList} -> appsList) (\s@PutAppsList' {} a -> s {appsList = a} :: PutAppsList)
 
-instance AWSRequest PutAppsList where
+instance Prelude.AWSRequest PutAppsList where
   type Rs PutAppsList = PutAppsListResponse
-  request = postJSON fms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutAppsListResponse'
-            <$> (x .?> "AppsList")
-            <*> (x .?> "AppsListArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AppsList")
+            Prelude.<*> (x Prelude..?> "AppsListArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutAppsList
+instance Prelude.Hashable PutAppsList
 
-instance NFData PutAppsList
+instance Prelude.NFData PutAppsList
 
-instance ToHeaders PutAppsList where
+instance Prelude.ToHeaders PutAppsList where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSFMS_20180101.PutAppsList" :: ByteString),
+              Prelude.=# ( "AWSFMS_20180101.PutAppsList" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutAppsList where
+instance Prelude.ToJSON PutAppsList where
   toJSON PutAppsList' {..} =
-    object
-      ( catMaybes
-          [ ("TagList" .=) <$> _palTagList,
-            Just ("AppsList" .= _palAppsList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TagList" Prelude..=) Prelude.<$> tagList,
+            Prelude.Just ("AppsList" Prelude..= appsList)
           ]
       )
 
-instance ToPath PutAppsList where
-  toPath = const "/"
+instance Prelude.ToPath PutAppsList where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutAppsList where
-  toQuery = const mempty
+instance Prelude.ToQuery PutAppsList where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putAppsListResponse' smart constructor.
+-- | /See:/ 'newPutAppsListResponse' smart constructor.
 data PutAppsListResponse = PutAppsListResponse'
-  { _palrrsAppsList ::
-      !(Maybe AppsListData),
-    _palrrsAppsListARN ::
-      !(Maybe Text),
-    _palrrsResponseStatus :: !Int
+  { -- | The details of the AWS Firewall Manager applications list.
+    appsList :: Prelude.Maybe AppsListData,
+    -- | The Amazon Resource Name (ARN) of the applications list.
+    appsListArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutAppsListResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutAppsListResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'palrrsAppsList' - The details of the AWS Firewall Manager applications list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'palrrsAppsListARN' - The Amazon Resource Name (ARN) of the applications list.
+-- 'appsList', 'putAppsListResponse_appsList' - The details of the AWS Firewall Manager applications list.
 --
--- * 'palrrsResponseStatus' - -- | The response status code.
-putAppsListResponse ::
-  -- | 'palrrsResponseStatus'
-  Int ->
+-- 'appsListArn', 'putAppsListResponse_appsListArn' - The Amazon Resource Name (ARN) of the applications list.
+--
+-- 'httpStatus', 'putAppsListResponse_httpStatus' - The response's http status code.
+newPutAppsListResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutAppsListResponse
-putAppsListResponse pResponseStatus_ =
+newPutAppsListResponse pHttpStatus_ =
   PutAppsListResponse'
-    { _palrrsAppsList = Nothing,
-      _palrrsAppsListARN = Nothing,
-      _palrrsResponseStatus = pResponseStatus_
+    { appsList = Prelude.Nothing,
+      appsListArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The details of the AWS Firewall Manager applications list.
-palrrsAppsList :: Lens' PutAppsListResponse (Maybe AppsListData)
-palrrsAppsList = lens _palrrsAppsList (\s a -> s {_palrrsAppsList = a})
+putAppsListResponse_appsList :: Lens.Lens' PutAppsListResponse (Prelude.Maybe AppsListData)
+putAppsListResponse_appsList = Lens.lens (\PutAppsListResponse' {appsList} -> appsList) (\s@PutAppsListResponse' {} a -> s {appsList = a} :: PutAppsListResponse)
 
 -- | The Amazon Resource Name (ARN) of the applications list.
-palrrsAppsListARN :: Lens' PutAppsListResponse (Maybe Text)
-palrrsAppsListARN = lens _palrrsAppsListARN (\s a -> s {_palrrsAppsListARN = a})
+putAppsListResponse_appsListArn :: Lens.Lens' PutAppsListResponse (Prelude.Maybe Prelude.Text)
+putAppsListResponse_appsListArn = Lens.lens (\PutAppsListResponse' {appsListArn} -> appsListArn) (\s@PutAppsListResponse' {} a -> s {appsListArn = a} :: PutAppsListResponse)
 
--- | -- | The response status code.
-palrrsResponseStatus :: Lens' PutAppsListResponse Int
-palrrsResponseStatus = lens _palrrsResponseStatus (\s a -> s {_palrrsResponseStatus = a})
+-- | The response's http status code.
+putAppsListResponse_httpStatus :: Lens.Lens' PutAppsListResponse Prelude.Int
+putAppsListResponse_httpStatus = Lens.lens (\PutAppsListResponse' {httpStatus} -> httpStatus) (\s@PutAppsListResponse' {} a -> s {httpStatus = a} :: PutAppsListResponse)
 
-instance NFData PutAppsListResponse
+instance Prelude.NFData PutAppsListResponse

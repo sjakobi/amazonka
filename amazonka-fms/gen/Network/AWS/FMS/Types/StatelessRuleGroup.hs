@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.FMS.Types.StatelessRuleGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | AWS Network Firewall stateless rule group, used in a 'NetworkFirewallPolicyDescription' .
+-- | AWS Network Firewall stateless rule group, used in a
+-- NetworkFirewallPolicyDescription.
 --
---
---
--- /See:/ 'statelessRuleGroup' smart constructor.
+-- /See:/ 'newStatelessRuleGroup' smart constructor.
 data StatelessRuleGroup = StatelessRuleGroup'
-  { _srgResourceId ::
-      !(Maybe Text),
-    _srgPriority :: !(Maybe Nat),
-    _srgRuleGroupName ::
-      !(Maybe Text)
+  { -- | The resource ID of the rule group.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The priority of the rule group. AWS Network Firewall evaluates the
+    -- stateless rule groups in a firewall policy starting from the lowest
+    -- priority setting.
+    priority :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the rule group.
+    ruleGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StatelessRuleGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StatelessRuleGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srgResourceId' - The resource ID of the rule group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srgPriority' - The priority of the rule group. AWS Network Firewall evaluates the stateless rule groups in a firewall policy starting from the lowest priority setting.
+-- 'resourceId', 'statelessRuleGroup_resourceId' - The resource ID of the rule group.
 --
--- * 'srgRuleGroupName' - The name of the rule group.
-statelessRuleGroup ::
+-- 'priority', 'statelessRuleGroup_priority' - The priority of the rule group. AWS Network Firewall evaluates the
+-- stateless rule groups in a firewall policy starting from the lowest
+-- priority setting.
+--
+-- 'ruleGroupName', 'statelessRuleGroup_ruleGroupName' - The name of the rule group.
+newStatelessRuleGroup ::
   StatelessRuleGroup
-statelessRuleGroup =
+newStatelessRuleGroup =
   StatelessRuleGroup'
-    { _srgResourceId = Nothing,
-      _srgPriority = Nothing,
-      _srgRuleGroupName = Nothing
+    { resourceId = Prelude.Nothing,
+      priority = Prelude.Nothing,
+      ruleGroupName = Prelude.Nothing
     }
 
 -- | The resource ID of the rule group.
-srgResourceId :: Lens' StatelessRuleGroup (Maybe Text)
-srgResourceId = lens _srgResourceId (\s a -> s {_srgResourceId = a})
+statelessRuleGroup_resourceId :: Lens.Lens' StatelessRuleGroup (Prelude.Maybe Prelude.Text)
+statelessRuleGroup_resourceId = Lens.lens (\StatelessRuleGroup' {resourceId} -> resourceId) (\s@StatelessRuleGroup' {} a -> s {resourceId = a} :: StatelessRuleGroup)
 
--- | The priority of the rule group. AWS Network Firewall evaluates the stateless rule groups in a firewall policy starting from the lowest priority setting.
-srgPriority :: Lens' StatelessRuleGroup (Maybe Natural)
-srgPriority = lens _srgPriority (\s a -> s {_srgPriority = a}) . mapping _Nat
+-- | The priority of the rule group. AWS Network Firewall evaluates the
+-- stateless rule groups in a firewall policy starting from the lowest
+-- priority setting.
+statelessRuleGroup_priority :: Lens.Lens' StatelessRuleGroup (Prelude.Maybe Prelude.Natural)
+statelessRuleGroup_priority = Lens.lens (\StatelessRuleGroup' {priority} -> priority) (\s@StatelessRuleGroup' {} a -> s {priority = a} :: StatelessRuleGroup) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the rule group.
-srgRuleGroupName :: Lens' StatelessRuleGroup (Maybe Text)
-srgRuleGroupName = lens _srgRuleGroupName (\s a -> s {_srgRuleGroupName = a})
+statelessRuleGroup_ruleGroupName :: Lens.Lens' StatelessRuleGroup (Prelude.Maybe Prelude.Text)
+statelessRuleGroup_ruleGroupName = Lens.lens (\StatelessRuleGroup' {ruleGroupName} -> ruleGroupName) (\s@StatelessRuleGroup' {} a -> s {ruleGroupName = a} :: StatelessRuleGroup)
 
-instance FromJSON StatelessRuleGroup where
+instance Prelude.FromJSON StatelessRuleGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StatelessRuleGroup"
       ( \x ->
           StatelessRuleGroup'
-            <$> (x .:? "ResourceId")
-            <*> (x .:? "Priority")
-            <*> (x .:? "RuleGroupName")
+            Prelude.<$> (x Prelude..:? "ResourceId")
+            Prelude.<*> (x Prelude..:? "Priority")
+            Prelude.<*> (x Prelude..:? "RuleGroupName")
       )
 
-instance Hashable StatelessRuleGroup
+instance Prelude.Hashable StatelessRuleGroup
 
-instance NFData StatelessRuleGroup
+instance Prelude.NFData StatelessRuleGroup

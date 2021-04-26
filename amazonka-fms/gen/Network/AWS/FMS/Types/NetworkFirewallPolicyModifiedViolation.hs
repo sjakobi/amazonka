@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,81 @@
 module Network.AWS.FMS.Types.NetworkFirewallPolicyModifiedViolation where
 
 import Network.AWS.FMS.Types.NetworkFirewallPolicyDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Violation details for AWS Network Firewall for a firewall policy that has a different 'NetworkFirewallPolicyDescription' than is required by the Firewall Manager policy.
+-- | Violation details for AWS Network Firewall for a firewall policy that
+-- has a different NetworkFirewallPolicyDescription than is required by the
+-- Firewall Manager policy.
 --
---
---
--- /See:/ 'networkFirewallPolicyModifiedViolation' smart constructor.
+-- /See:/ 'newNetworkFirewallPolicyModifiedViolation' smart constructor.
 data NetworkFirewallPolicyModifiedViolation = NetworkFirewallPolicyModifiedViolation'
-  { _nfpmvCurrentPolicyDescription ::
-      !( Maybe
-           NetworkFirewallPolicyDescription
-       ),
-    _nfpmvViolationTarget ::
-      !( Maybe
-           Text
-       ),
-    _nfpmvExpectedPolicyDescription ::
-      !( Maybe
-           NetworkFirewallPolicyDescription
-       )
+  { -- | The policy that\'s currently in use in the individual account.
+    currentPolicyDescription :: Prelude.Maybe NetworkFirewallPolicyDescription,
+    -- | The ID of the AWS Network Firewall or VPC resource that\'s in violation.
+    violationTarget :: Prelude.Maybe Prelude.Text,
+    -- | The policy that should be in use in the individual account in order to
+    -- be compliant.
+    expectedPolicyDescription :: Prelude.Maybe NetworkFirewallPolicyDescription
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkFirewallPolicyModifiedViolation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkFirewallPolicyModifiedViolation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nfpmvCurrentPolicyDescription' - The policy that's currently in use in the individual account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nfpmvViolationTarget' - The ID of the AWS Network Firewall or VPC resource that's in violation.
+-- 'currentPolicyDescription', 'networkFirewallPolicyModifiedViolation_currentPolicyDescription' - The policy that\'s currently in use in the individual account.
 --
--- * 'nfpmvExpectedPolicyDescription' - The policy that should be in use in the individual account in order to be compliant.
-networkFirewallPolicyModifiedViolation ::
+-- 'violationTarget', 'networkFirewallPolicyModifiedViolation_violationTarget' - The ID of the AWS Network Firewall or VPC resource that\'s in violation.
+--
+-- 'expectedPolicyDescription', 'networkFirewallPolicyModifiedViolation_expectedPolicyDescription' - The policy that should be in use in the individual account in order to
+-- be compliant.
+newNetworkFirewallPolicyModifiedViolation ::
   NetworkFirewallPolicyModifiedViolation
-networkFirewallPolicyModifiedViolation =
+newNetworkFirewallPolicyModifiedViolation =
   NetworkFirewallPolicyModifiedViolation'
-    { _nfpmvCurrentPolicyDescription =
-        Nothing,
-      _nfpmvViolationTarget = Nothing,
-      _nfpmvExpectedPolicyDescription =
-        Nothing
+    { currentPolicyDescription =
+        Prelude.Nothing,
+      violationTarget = Prelude.Nothing,
+      expectedPolicyDescription =
+        Prelude.Nothing
     }
 
--- | The policy that's currently in use in the individual account.
-nfpmvCurrentPolicyDescription :: Lens' NetworkFirewallPolicyModifiedViolation (Maybe NetworkFirewallPolicyDescription)
-nfpmvCurrentPolicyDescription = lens _nfpmvCurrentPolicyDescription (\s a -> s {_nfpmvCurrentPolicyDescription = a})
+-- | The policy that\'s currently in use in the individual account.
+networkFirewallPolicyModifiedViolation_currentPolicyDescription :: Lens.Lens' NetworkFirewallPolicyModifiedViolation (Prelude.Maybe NetworkFirewallPolicyDescription)
+networkFirewallPolicyModifiedViolation_currentPolicyDescription = Lens.lens (\NetworkFirewallPolicyModifiedViolation' {currentPolicyDescription} -> currentPolicyDescription) (\s@NetworkFirewallPolicyModifiedViolation' {} a -> s {currentPolicyDescription = a} :: NetworkFirewallPolicyModifiedViolation)
 
--- | The ID of the AWS Network Firewall or VPC resource that's in violation.
-nfpmvViolationTarget :: Lens' NetworkFirewallPolicyModifiedViolation (Maybe Text)
-nfpmvViolationTarget = lens _nfpmvViolationTarget (\s a -> s {_nfpmvViolationTarget = a})
+-- | The ID of the AWS Network Firewall or VPC resource that\'s in violation.
+networkFirewallPolicyModifiedViolation_violationTarget :: Lens.Lens' NetworkFirewallPolicyModifiedViolation (Prelude.Maybe Prelude.Text)
+networkFirewallPolicyModifiedViolation_violationTarget = Lens.lens (\NetworkFirewallPolicyModifiedViolation' {violationTarget} -> violationTarget) (\s@NetworkFirewallPolicyModifiedViolation' {} a -> s {violationTarget = a} :: NetworkFirewallPolicyModifiedViolation)
 
--- | The policy that should be in use in the individual account in order to be compliant.
-nfpmvExpectedPolicyDescription :: Lens' NetworkFirewallPolicyModifiedViolation (Maybe NetworkFirewallPolicyDescription)
-nfpmvExpectedPolicyDescription = lens _nfpmvExpectedPolicyDescription (\s a -> s {_nfpmvExpectedPolicyDescription = a})
+-- | The policy that should be in use in the individual account in order to
+-- be compliant.
+networkFirewallPolicyModifiedViolation_expectedPolicyDescription :: Lens.Lens' NetworkFirewallPolicyModifiedViolation (Prelude.Maybe NetworkFirewallPolicyDescription)
+networkFirewallPolicyModifiedViolation_expectedPolicyDescription = Lens.lens (\NetworkFirewallPolicyModifiedViolation' {expectedPolicyDescription} -> expectedPolicyDescription) (\s@NetworkFirewallPolicyModifiedViolation' {} a -> s {expectedPolicyDescription = a} :: NetworkFirewallPolicyModifiedViolation)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     NetworkFirewallPolicyModifiedViolation
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NetworkFirewallPolicyModifiedViolation"
       ( \x ->
           NetworkFirewallPolicyModifiedViolation'
-            <$> (x .:? "CurrentPolicyDescription")
-            <*> (x .:? "ViolationTarget")
-            <*> (x .:? "ExpectedPolicyDescription")
+            Prelude.<$> (x Prelude..:? "CurrentPolicyDescription")
+            Prelude.<*> (x Prelude..:? "ViolationTarget")
+            Prelude.<*> (x Prelude..:? "ExpectedPolicyDescription")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     NetworkFirewallPolicyModifiedViolation
 
 instance
-  NFData
+  Prelude.NFData
     NetworkFirewallPolicyModifiedViolation

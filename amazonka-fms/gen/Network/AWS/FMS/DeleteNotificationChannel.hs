@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,90 +21,94 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an AWS Firewall Manager association with the IAM role and the Amazon Simple Notification Service (SNS) topic that is used to record AWS Firewall Manager SNS logs.
+-- Deletes an AWS Firewall Manager association with the IAM role and the
+-- Amazon Simple Notification Service (SNS) topic that is used to record
+-- AWS Firewall Manager SNS logs.
 module Network.AWS.FMS.DeleteNotificationChannel
   ( -- * Creating a Request
-    deleteNotificationChannel,
-    DeleteNotificationChannel,
+    DeleteNotificationChannel (..),
+    newDeleteNotificationChannel,
 
     -- * Destructuring the Response
-    deleteNotificationChannelResponse,
-    DeleteNotificationChannelResponse,
+    DeleteNotificationChannelResponse (..),
+    newDeleteNotificationChannelResponse,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteNotificationChannel' smart constructor.
+-- | /See:/ 'newDeleteNotificationChannel' smart constructor.
 data DeleteNotificationChannel = DeleteNotificationChannel'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteNotificationChannel' with the minimum fields required to make a request.
-deleteNotificationChannel ::
+-- |
+-- Create a value of 'DeleteNotificationChannel' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteNotificationChannel ::
   DeleteNotificationChannel
-deleteNotificationChannel =
+newDeleteNotificationChannel =
   DeleteNotificationChannel'
 
-instance AWSRequest DeleteNotificationChannel where
+instance Prelude.AWSRequest DeleteNotificationChannel where
   type
     Rs DeleteNotificationChannel =
       DeleteNotificationChannelResponse
-  request = postJSON fms
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteNotificationChannelResponse'
+    Response.receiveNull
+      DeleteNotificationChannelResponse'
 
-instance Hashable DeleteNotificationChannel
+instance Prelude.Hashable DeleteNotificationChannel
 
-instance NFData DeleteNotificationChannel
+instance Prelude.NFData DeleteNotificationChannel
 
-instance ToHeaders DeleteNotificationChannel where
+instance Prelude.ToHeaders DeleteNotificationChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSFMS_20180101.DeleteNotificationChannel" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSFMS_20180101.DeleteNotificationChannel" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteNotificationChannel where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DeleteNotificationChannel where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DeleteNotificationChannel where
-  toPath = const "/"
+instance Prelude.ToPath DeleteNotificationChannel where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteNotificationChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteNotificationChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteNotificationChannelResponse' smart constructor.
+-- | /See:/ 'newDeleteNotificationChannelResponse' smart constructor.
 data DeleteNotificationChannelResponse = DeleteNotificationChannelResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteNotificationChannelResponse' with the minimum fields required to make a request.
-deleteNotificationChannelResponse ::
+-- |
+-- Create a value of 'DeleteNotificationChannelResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteNotificationChannelResponse ::
   DeleteNotificationChannelResponse
-deleteNotificationChannelResponse =
+newDeleteNotificationChannelResponse =
   DeleteNotificationChannelResponse'
 
-instance NFData DeleteNotificationChannelResponse
+instance
+  Prelude.NFData
+    DeleteNotificationChannelResponse

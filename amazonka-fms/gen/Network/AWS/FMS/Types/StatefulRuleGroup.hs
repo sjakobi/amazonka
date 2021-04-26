@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.FMS.Types.StatefulRuleGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | AWS Network Firewall stateful rule group, used in a 'NetworkFirewallPolicyDescription' .
+-- | AWS Network Firewall stateful rule group, used in a
+-- NetworkFirewallPolicyDescription.
 --
---
---
--- /See:/ 'statefulRuleGroup' smart constructor.
+-- /See:/ 'newStatefulRuleGroup' smart constructor.
 data StatefulRuleGroup = StatefulRuleGroup'
-  { _sResourceId ::
-      !(Maybe Text),
-    _sRuleGroupName :: !(Maybe Text)
+  { -- | The resource ID of the rule group.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the rule group.
+    ruleGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StatefulRuleGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StatefulRuleGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sResourceId' - The resource ID of the rule group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sRuleGroupName' - The name of the rule group.
-statefulRuleGroup ::
+-- 'resourceId', 'statefulRuleGroup_resourceId' - The resource ID of the rule group.
+--
+-- 'ruleGroupName', 'statefulRuleGroup_ruleGroupName' - The name of the rule group.
+newStatefulRuleGroup ::
   StatefulRuleGroup
-statefulRuleGroup =
+newStatefulRuleGroup =
   StatefulRuleGroup'
-    { _sResourceId = Nothing,
-      _sRuleGroupName = Nothing
+    { resourceId = Prelude.Nothing,
+      ruleGroupName = Prelude.Nothing
     }
 
 -- | The resource ID of the rule group.
-sResourceId :: Lens' StatefulRuleGroup (Maybe Text)
-sResourceId = lens _sResourceId (\s a -> s {_sResourceId = a})
+statefulRuleGroup_resourceId :: Lens.Lens' StatefulRuleGroup (Prelude.Maybe Prelude.Text)
+statefulRuleGroup_resourceId = Lens.lens (\StatefulRuleGroup' {resourceId} -> resourceId) (\s@StatefulRuleGroup' {} a -> s {resourceId = a} :: StatefulRuleGroup)
 
 -- | The name of the rule group.
-sRuleGroupName :: Lens' StatefulRuleGroup (Maybe Text)
-sRuleGroupName = lens _sRuleGroupName (\s a -> s {_sRuleGroupName = a})
+statefulRuleGroup_ruleGroupName :: Lens.Lens' StatefulRuleGroup (Prelude.Maybe Prelude.Text)
+statefulRuleGroup_ruleGroupName = Lens.lens (\StatefulRuleGroup' {ruleGroupName} -> ruleGroupName) (\s@StatefulRuleGroup' {} a -> s {ruleGroupName = a} :: StatefulRuleGroup)
 
-instance FromJSON StatefulRuleGroup where
+instance Prelude.FromJSON StatefulRuleGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StatefulRuleGroup"
       ( \x ->
           StatefulRuleGroup'
-            <$> (x .:? "ResourceId") <*> (x .:? "RuleGroupName")
+            Prelude.<$> (x Prelude..:? "ResourceId")
+            Prelude.<*> (x Prelude..:? "RuleGroupName")
       )
 
-instance Hashable StatefulRuleGroup
+instance Prelude.Hashable StatefulRuleGroup
 
-instance NFData StatefulRuleGroup
+instance Prelude.NFData StatefulRuleGroup

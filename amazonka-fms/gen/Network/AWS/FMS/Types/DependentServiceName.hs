@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.FMS.Types.DependentServiceName
   ( DependentServiceName
       ( ..,
-        AWSSHieldAdvanced,
-        AWSconfig,
-        AWSvpc,
-        AWSwaf
+        DependentServiceNameAWSCONFIG,
+        DependentServiceNameAWSSHIELDADVANCED,
+        DependentServiceNameAWSVPC,
+        DependentServiceNameAWSWAF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DependentServiceName
-  = DependentServiceName'
-      ( CI
-          Text
-      )
+newtype DependentServiceName = DependentServiceName'
+  { fromDependentServiceName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSSHieldAdvanced :: DependentServiceName
-pattern AWSSHieldAdvanced = DependentServiceName' "AWSSHIELD_ADVANCED"
+pattern DependentServiceNameAWSCONFIG :: DependentServiceName
+pattern DependentServiceNameAWSCONFIG = DependentServiceName' "AWSCONFIG"
 
-pattern AWSconfig :: DependentServiceName
-pattern AWSconfig = DependentServiceName' "AWSCONFIG"
+pattern DependentServiceNameAWSSHIELDADVANCED :: DependentServiceName
+pattern DependentServiceNameAWSSHIELDADVANCED = DependentServiceName' "AWSSHIELD_ADVANCED"
 
-pattern AWSvpc :: DependentServiceName
-pattern AWSvpc = DependentServiceName' "AWSVPC"
+pattern DependentServiceNameAWSVPC :: DependentServiceName
+pattern DependentServiceNameAWSVPC = DependentServiceName' "AWSVPC"
 
-pattern AWSwaf :: DependentServiceName
-pattern AWSwaf = DependentServiceName' "AWSWAF"
+pattern DependentServiceNameAWSWAF :: DependentServiceName
+pattern DependentServiceNameAWSWAF = DependentServiceName' "AWSWAF"
 
 {-# COMPLETE
-  AWSSHieldAdvanced,
-  AWSconfig,
-  AWSvpc,
-  AWSwaf,
+  DependentServiceNameAWSCONFIG,
+  DependentServiceNameAWSSHIELDADVANCED,
+  DependentServiceNameAWSVPC,
+  DependentServiceNameAWSWAF,
   DependentServiceName'
   #-}
 
-instance FromText DependentServiceName where
-  parser = (DependentServiceName' . mk) <$> takeText
+instance Prelude.FromText DependentServiceName where
+  parser = DependentServiceName' Prelude.<$> Prelude.takeText
 
-instance ToText DependentServiceName where
-  toText (DependentServiceName' ci) = original ci
+instance Prelude.ToText DependentServiceName where
+  toText (DependentServiceName' x) = x
 
-instance Hashable DependentServiceName
+instance Prelude.Hashable DependentServiceName
 
-instance NFData DependentServiceName
+instance Prelude.NFData DependentServiceName
 
-instance ToByteString DependentServiceName
+instance Prelude.ToByteString DependentServiceName
 
-instance ToQuery DependentServiceName
+instance Prelude.ToQuery DependentServiceName
 
-instance ToHeader DependentServiceName
+instance Prelude.ToHeader DependentServiceName
 
-instance FromJSON DependentServiceName where
-  parseJSON = parseJSONText "DependentServiceName"
+instance Prelude.FromJSON DependentServiceName where
+  parseJSON = Prelude.parseJSONText "DependentServiceName"

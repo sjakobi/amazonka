@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.FMS.Types.ResourceTag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The resource tags that AWS Firewall Manager uses to determine if a particular resource should be included or excluded from the AWS Firewall Manager policy. Tags enable you to categorize your AWS resources in different ways, for example, by purpose, owner, or environment. Each tag consists of a key and an optional value. Firewall Manager combines the tags with "AND" so that, if you add more than one tag to a policy scope, a resource must have all the specified tags to be included or excluded. For more information, see <https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html Working with Tag Editor> .
+-- | The resource tags that AWS Firewall Manager uses to determine if a
+-- particular resource should be included or excluded from the AWS Firewall
+-- Manager policy. Tags enable you to categorize your AWS resources in
+-- different ways, for example, by purpose, owner, or environment. Each tag
+-- consists of a key and an optional value. Firewall Manager combines the
+-- tags with \"AND\" so that, if you add more than one tag to a policy
+-- scope, a resource must have all the specified tags to be included or
+-- excluded. For more information, see
+-- <https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html Working with Tag Editor>.
 --
---
---
--- /See:/ 'resourceTag' smart constructor.
+-- /See:/ 'newResourceTag' smart constructor.
 data ResourceTag = ResourceTag'
-  { _rtValue ::
-      !(Maybe Text),
-    _rtKey :: !Text
+  { -- | The resource tag value.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The resource tag key.
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceTag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceTag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtValue' - The resource tag value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtKey' - The resource tag key.
-resourceTag ::
-  -- | 'rtKey'
-  Text ->
+-- 'value', 'resourceTag_value' - The resource tag value.
+--
+-- 'key', 'resourceTag_key' - The resource tag key.
+newResourceTag ::
+  -- | 'key'
+  Prelude.Text ->
   ResourceTag
-resourceTag pKey_ =
-  ResourceTag' {_rtValue = Nothing, _rtKey = pKey_}
+newResourceTag pKey_ =
+  ResourceTag' {value = Prelude.Nothing, key = pKey_}
 
 -- | The resource tag value.
-rtValue :: Lens' ResourceTag (Maybe Text)
-rtValue = lens _rtValue (\s a -> s {_rtValue = a})
+resourceTag_value :: Lens.Lens' ResourceTag (Prelude.Maybe Prelude.Text)
+resourceTag_value = Lens.lens (\ResourceTag' {value} -> value) (\s@ResourceTag' {} a -> s {value = a} :: ResourceTag)
 
 -- | The resource tag key.
-rtKey :: Lens' ResourceTag Text
-rtKey = lens _rtKey (\s a -> s {_rtKey = a})
+resourceTag_key :: Lens.Lens' ResourceTag Prelude.Text
+resourceTag_key = Lens.lens (\ResourceTag' {key} -> key) (\s@ResourceTag' {} a -> s {key = a} :: ResourceTag)
 
-instance FromJSON ResourceTag where
+instance Prelude.FromJSON ResourceTag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceTag"
       ( \x ->
-          ResourceTag' <$> (x .:? "Value") <*> (x .: "Key")
+          ResourceTag'
+            Prelude.<$> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..: "Key")
       )
 
-instance Hashable ResourceTag
+instance Prelude.Hashable ResourceTag
 
-instance NFData ResourceTag
+instance Prelude.NFData ResourceTag
 
-instance ToJSON ResourceTag where
+instance Prelude.ToJSON ResourceTag where
   toJSON ResourceTag' {..} =
-    object
-      ( catMaybes
-          [("Value" .=) <$> _rtValue, Just ("Key" .= _rtKey)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Value" Prelude..=) Prelude.<$> value,
+            Prelude.Just ("Key" Prelude..= key)
+          ]
       )

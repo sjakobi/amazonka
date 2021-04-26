@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,157 +24,162 @@
 -- Creates an AWS Firewall Manager protocols list.
 module Network.AWS.FMS.PutProtocolsList
   ( -- * Creating a Request
-    putProtocolsList,
-    PutProtocolsList,
+    PutProtocolsList (..),
+    newPutProtocolsList,
 
     -- * Request Lenses
-    pplTagList,
-    pplProtocolsList,
+    putProtocolsList_tagList,
+    putProtocolsList_protocolsList,
 
     -- * Destructuring the Response
-    putProtocolsListResponse,
-    PutProtocolsListResponse,
+    PutProtocolsListResponse (..),
+    newPutProtocolsListResponse,
 
     -- * Response Lenses
-    pplrrsProtocolsList,
-    pplrrsProtocolsListARN,
-    pplrrsResponseStatus,
+    putProtocolsListResponse_protocolsList,
+    putProtocolsListResponse_protocolsListArn,
+    putProtocolsListResponse_httpStatus,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.FMS.Types.ProtocolsListData
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putProtocolsList' smart constructor.
+-- | /See:/ 'newPutProtocolsList' smart constructor.
 data PutProtocolsList = PutProtocolsList'
-  { _pplTagList ::
-      !(Maybe [Tag]),
-    _pplProtocolsList ::
-      !ProtocolsListData
+  { -- | The tags associated with the resource.
+    tagList :: Prelude.Maybe [Tag],
+    -- | The details of the AWS Firewall Manager protocols list to be created.
+    protocolsList :: ProtocolsListData
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutProtocolsList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutProtocolsList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pplTagList' - The tags associated with the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pplProtocolsList' - The details of the AWS Firewall Manager protocols list to be created.
-putProtocolsList ::
-  -- | 'pplProtocolsList'
+-- 'tagList', 'putProtocolsList_tagList' - The tags associated with the resource.
+--
+-- 'protocolsList', 'putProtocolsList_protocolsList' - The details of the AWS Firewall Manager protocols list to be created.
+newPutProtocolsList ::
+  -- | 'protocolsList'
   ProtocolsListData ->
   PutProtocolsList
-putProtocolsList pProtocolsList_ =
+newPutProtocolsList pProtocolsList_ =
   PutProtocolsList'
-    { _pplTagList = Nothing,
-      _pplProtocolsList = pProtocolsList_
+    { tagList = Prelude.Nothing,
+      protocolsList = pProtocolsList_
     }
 
 -- | The tags associated with the resource.
-pplTagList :: Lens' PutProtocolsList [Tag]
-pplTagList = lens _pplTagList (\s a -> s {_pplTagList = a}) . _Default . _Coerce
+putProtocolsList_tagList :: Lens.Lens' PutProtocolsList (Prelude.Maybe [Tag])
+putProtocolsList_tagList = Lens.lens (\PutProtocolsList' {tagList} -> tagList) (\s@PutProtocolsList' {} a -> s {tagList = a} :: PutProtocolsList) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The details of the AWS Firewall Manager protocols list to be created.
-pplProtocolsList :: Lens' PutProtocolsList ProtocolsListData
-pplProtocolsList = lens _pplProtocolsList (\s a -> s {_pplProtocolsList = a})
+putProtocolsList_protocolsList :: Lens.Lens' PutProtocolsList ProtocolsListData
+putProtocolsList_protocolsList = Lens.lens (\PutProtocolsList' {protocolsList} -> protocolsList) (\s@PutProtocolsList' {} a -> s {protocolsList = a} :: PutProtocolsList)
 
-instance AWSRequest PutProtocolsList where
+instance Prelude.AWSRequest PutProtocolsList where
   type Rs PutProtocolsList = PutProtocolsListResponse
-  request = postJSON fms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutProtocolsListResponse'
-            <$> (x .?> "ProtocolsList")
-            <*> (x .?> "ProtocolsListArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ProtocolsList")
+            Prelude.<*> (x Prelude..?> "ProtocolsListArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutProtocolsList
+instance Prelude.Hashable PutProtocolsList
 
-instance NFData PutProtocolsList
+instance Prelude.NFData PutProtocolsList
 
-instance ToHeaders PutProtocolsList where
+instance Prelude.ToHeaders PutProtocolsList where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSFMS_20180101.PutProtocolsList" :: ByteString),
+              Prelude.=# ( "AWSFMS_20180101.PutProtocolsList" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutProtocolsList where
+instance Prelude.ToJSON PutProtocolsList where
   toJSON PutProtocolsList' {..} =
-    object
-      ( catMaybes
-          [ ("TagList" .=) <$> _pplTagList,
-            Just ("ProtocolsList" .= _pplProtocolsList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TagList" Prelude..=) Prelude.<$> tagList,
+            Prelude.Just
+              ("ProtocolsList" Prelude..= protocolsList)
           ]
       )
 
-instance ToPath PutProtocolsList where
-  toPath = const "/"
+instance Prelude.ToPath PutProtocolsList where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutProtocolsList where
-  toQuery = const mempty
+instance Prelude.ToQuery PutProtocolsList where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putProtocolsListResponse' smart constructor.
+-- | /See:/ 'newPutProtocolsListResponse' smart constructor.
 data PutProtocolsListResponse = PutProtocolsListResponse'
-  { _pplrrsProtocolsList ::
-      !( Maybe
-           ProtocolsListData
-       ),
-    _pplrrsProtocolsListARN ::
-      !(Maybe Text),
-    _pplrrsResponseStatus ::
-      !Int
+  { -- | The details of the AWS Firewall Manager protocols list.
+    protocolsList :: Prelude.Maybe ProtocolsListData,
+    -- | The Amazon Resource Name (ARN) of the protocols list.
+    protocolsListArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutProtocolsListResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutProtocolsListResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pplrrsProtocolsList' - The details of the AWS Firewall Manager protocols list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pplrrsProtocolsListARN' - The Amazon Resource Name (ARN) of the protocols list.
+-- 'protocolsList', 'putProtocolsListResponse_protocolsList' - The details of the AWS Firewall Manager protocols list.
 --
--- * 'pplrrsResponseStatus' - -- | The response status code.
-putProtocolsListResponse ::
-  -- | 'pplrrsResponseStatus'
-  Int ->
+-- 'protocolsListArn', 'putProtocolsListResponse_protocolsListArn' - The Amazon Resource Name (ARN) of the protocols list.
+--
+-- 'httpStatus', 'putProtocolsListResponse_httpStatus' - The response's http status code.
+newPutProtocolsListResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutProtocolsListResponse
-putProtocolsListResponse pResponseStatus_ =
+newPutProtocolsListResponse pHttpStatus_ =
   PutProtocolsListResponse'
-    { _pplrrsProtocolsList =
-        Nothing,
-      _pplrrsProtocolsListARN = Nothing,
-      _pplrrsResponseStatus = pResponseStatus_
+    { protocolsList =
+        Prelude.Nothing,
+      protocolsListArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The details of the AWS Firewall Manager protocols list.
-pplrrsProtocolsList :: Lens' PutProtocolsListResponse (Maybe ProtocolsListData)
-pplrrsProtocolsList = lens _pplrrsProtocolsList (\s a -> s {_pplrrsProtocolsList = a})
+putProtocolsListResponse_protocolsList :: Lens.Lens' PutProtocolsListResponse (Prelude.Maybe ProtocolsListData)
+putProtocolsListResponse_protocolsList = Lens.lens (\PutProtocolsListResponse' {protocolsList} -> protocolsList) (\s@PutProtocolsListResponse' {} a -> s {protocolsList = a} :: PutProtocolsListResponse)
 
 -- | The Amazon Resource Name (ARN) of the protocols list.
-pplrrsProtocolsListARN :: Lens' PutProtocolsListResponse (Maybe Text)
-pplrrsProtocolsListARN = lens _pplrrsProtocolsListARN (\s a -> s {_pplrrsProtocolsListARN = a})
+putProtocolsListResponse_protocolsListArn :: Lens.Lens' PutProtocolsListResponse (Prelude.Maybe Prelude.Text)
+putProtocolsListResponse_protocolsListArn = Lens.lens (\PutProtocolsListResponse' {protocolsListArn} -> protocolsListArn) (\s@PutProtocolsListResponse' {} a -> s {protocolsListArn = a} :: PutProtocolsListResponse)
 
--- | -- | The response status code.
-pplrrsResponseStatus :: Lens' PutProtocolsListResponse Int
-pplrrsResponseStatus = lens _pplrrsResponseStatus (\s a -> s {_pplrrsResponseStatus = a})
+-- | The response's http status code.
+putProtocolsListResponse_httpStatus :: Lens.Lens' PutProtocolsListResponse Prelude.Int
+putProtocolsListResponse_httpStatus = Lens.lens (\PutProtocolsListResponse' {httpStatus} -> httpStatus) (\s@PutProtocolsListResponse' {} a -> s {httpStatus = a} :: PutProtocolsListResponse)
 
-instance NFData PutProtocolsListResponse
+instance Prelude.NFData PutProtocolsListResponse

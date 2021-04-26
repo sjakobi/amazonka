@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.FMS.Types.PolicyComplianceStatusType
   ( PolicyComplianceStatusType
       ( ..,
-        Compliant,
-        NonCompliant
+        PolicyComplianceStatusTypeCOMPLIANT,
+        PolicyComplianceStatusTypeNONCOMPLIANT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicyComplianceStatusType
-  = PolicyComplianceStatusType'
-      ( CI
-          Text
-      )
+newtype PolicyComplianceStatusType = PolicyComplianceStatusType'
+  { fromPolicyComplianceStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Compliant :: PolicyComplianceStatusType
-pattern Compliant = PolicyComplianceStatusType' "COMPLIANT"
+pattern PolicyComplianceStatusTypeCOMPLIANT :: PolicyComplianceStatusType
+pattern PolicyComplianceStatusTypeCOMPLIANT = PolicyComplianceStatusType' "COMPLIANT"
 
-pattern NonCompliant :: PolicyComplianceStatusType
-pattern NonCompliant = PolicyComplianceStatusType' "NON_COMPLIANT"
+pattern PolicyComplianceStatusTypeNONCOMPLIANT :: PolicyComplianceStatusType
+pattern PolicyComplianceStatusTypeNONCOMPLIANT = PolicyComplianceStatusType' "NON_COMPLIANT"
 
 {-# COMPLETE
-  Compliant,
-  NonCompliant,
+  PolicyComplianceStatusTypeCOMPLIANT,
+  PolicyComplianceStatusTypeNONCOMPLIANT,
   PolicyComplianceStatusType'
   #-}
 
-instance FromText PolicyComplianceStatusType where
-  parser = (PolicyComplianceStatusType' . mk) <$> takeText
+instance Prelude.FromText PolicyComplianceStatusType where
+  parser = PolicyComplianceStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText PolicyComplianceStatusType where
-  toText (PolicyComplianceStatusType' ci) = original ci
+instance Prelude.ToText PolicyComplianceStatusType where
+  toText (PolicyComplianceStatusType' x) = x
 
-instance Hashable PolicyComplianceStatusType
+instance Prelude.Hashable PolicyComplianceStatusType
 
-instance NFData PolicyComplianceStatusType
+instance Prelude.NFData PolicyComplianceStatusType
 
-instance ToByteString PolicyComplianceStatusType
+instance Prelude.ToByteString PolicyComplianceStatusType
 
-instance ToQuery PolicyComplianceStatusType
+instance Prelude.ToQuery PolicyComplianceStatusType
 
-instance ToHeader PolicyComplianceStatusType
+instance Prelude.ToHeader PolicyComplianceStatusType
 
-instance FromJSON PolicyComplianceStatusType where
-  parseJSON = parseJSONText "PolicyComplianceStatusType"
+instance Prelude.FromJSON PolicyComplianceStatusType where
+  parseJSON = Prelude.parseJSONText "PolicyComplianceStatusType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,118 +19,144 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.FMS.Types.ProtocolsListData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An AWS Firewall Manager protocols list.
 --
---
---
--- /See:/ 'protocolsListData' smart constructor.
+-- /See:/ 'newProtocolsListData' smart constructor.
 data ProtocolsListData = ProtocolsListData'
-  { _pldLastUpdateTime ::
-      !(Maybe POSIX),
-    _pldListId :: !(Maybe Text),
-    _pldCreateTime :: !(Maybe POSIX),
-    _pldPreviousProtocolsList ::
-      !(Maybe (Map Text [Text])),
-    _pldListUpdateToken ::
-      !(Maybe Text),
-    _pldListName :: !Text,
-    _pldProtocolsList :: ![Text]
+  { -- | The time that the AWS Firewall Manager protocols list was last updated.
+    lastUpdateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the AWS Firewall Manager protocols list.
+    listId :: Prelude.Maybe Prelude.Text,
+    -- | The time that the AWS Firewall Manager protocols list was created.
+    createTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A map of previous version numbers to their corresponding protocol
+    -- arrays.
+    previousProtocolsList :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | A unique identifier for each update to the list. When you update the
+    -- list, the update token must match the token of the current version of
+    -- the application list. You can retrieve the update token by getting the
+    -- list.
+    listUpdateToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS Firewall Manager protocols list.
+    listName :: Prelude.Text,
+    -- | An array of protocols in the AWS Firewall Manager protocols list.
+    protocolsList :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProtocolsListData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProtocolsListData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pldLastUpdateTime' - The time that the AWS Firewall Manager protocols list was last updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pldListId' - The ID of the AWS Firewall Manager protocols list.
+-- 'lastUpdateTime', 'protocolsListData_lastUpdateTime' - The time that the AWS Firewall Manager protocols list was last updated.
 --
--- * 'pldCreateTime' - The time that the AWS Firewall Manager protocols list was created.
+-- 'listId', 'protocolsListData_listId' - The ID of the AWS Firewall Manager protocols list.
 --
--- * 'pldPreviousProtocolsList' - A map of previous version numbers to their corresponding protocol arrays.
+-- 'createTime', 'protocolsListData_createTime' - The time that the AWS Firewall Manager protocols list was created.
 --
--- * 'pldListUpdateToken' - A unique identifier for each update to the list. When you update the list, the update token must match the token of the current version of the application list. You can retrieve the update token by getting the list.
+-- 'previousProtocolsList', 'protocolsListData_previousProtocolsList' - A map of previous version numbers to their corresponding protocol
+-- arrays.
 --
--- * 'pldListName' - The name of the AWS Firewall Manager protocols list.
+-- 'listUpdateToken', 'protocolsListData_listUpdateToken' - A unique identifier for each update to the list. When you update the
+-- list, the update token must match the token of the current version of
+-- the application list. You can retrieve the update token by getting the
+-- list.
 --
--- * 'pldProtocolsList' - An array of protocols in the AWS Firewall Manager protocols list.
-protocolsListData ::
-  -- | 'pldListName'
-  Text ->
+-- 'listName', 'protocolsListData_listName' - The name of the AWS Firewall Manager protocols list.
+--
+-- 'protocolsList', 'protocolsListData_protocolsList' - An array of protocols in the AWS Firewall Manager protocols list.
+newProtocolsListData ::
+  -- | 'listName'
+  Prelude.Text ->
   ProtocolsListData
-protocolsListData pListName_ =
+newProtocolsListData pListName_ =
   ProtocolsListData'
-    { _pldLastUpdateTime = Nothing,
-      _pldListId = Nothing,
-      _pldCreateTime = Nothing,
-      _pldPreviousProtocolsList = Nothing,
-      _pldListUpdateToken = Nothing,
-      _pldListName = pListName_,
-      _pldProtocolsList = mempty
+    { lastUpdateTime =
+        Prelude.Nothing,
+      listId = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      previousProtocolsList = Prelude.Nothing,
+      listUpdateToken = Prelude.Nothing,
+      listName = pListName_,
+      protocolsList = Prelude.mempty
     }
 
 -- | The time that the AWS Firewall Manager protocols list was last updated.
-pldLastUpdateTime :: Lens' ProtocolsListData (Maybe UTCTime)
-pldLastUpdateTime = lens _pldLastUpdateTime (\s a -> s {_pldLastUpdateTime = a}) . mapping _Time
+protocolsListData_lastUpdateTime :: Lens.Lens' ProtocolsListData (Prelude.Maybe Prelude.UTCTime)
+protocolsListData_lastUpdateTime = Lens.lens (\ProtocolsListData' {lastUpdateTime} -> lastUpdateTime) (\s@ProtocolsListData' {} a -> s {lastUpdateTime = a} :: ProtocolsListData) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the AWS Firewall Manager protocols list.
-pldListId :: Lens' ProtocolsListData (Maybe Text)
-pldListId = lens _pldListId (\s a -> s {_pldListId = a})
+protocolsListData_listId :: Lens.Lens' ProtocolsListData (Prelude.Maybe Prelude.Text)
+protocolsListData_listId = Lens.lens (\ProtocolsListData' {listId} -> listId) (\s@ProtocolsListData' {} a -> s {listId = a} :: ProtocolsListData)
 
 -- | The time that the AWS Firewall Manager protocols list was created.
-pldCreateTime :: Lens' ProtocolsListData (Maybe UTCTime)
-pldCreateTime = lens _pldCreateTime (\s a -> s {_pldCreateTime = a}) . mapping _Time
+protocolsListData_createTime :: Lens.Lens' ProtocolsListData (Prelude.Maybe Prelude.UTCTime)
+protocolsListData_createTime = Lens.lens (\ProtocolsListData' {createTime} -> createTime) (\s@ProtocolsListData' {} a -> s {createTime = a} :: ProtocolsListData) Prelude.. Lens.mapping Prelude._Time
 
--- | A map of previous version numbers to their corresponding protocol arrays.
-pldPreviousProtocolsList :: Lens' ProtocolsListData (HashMap Text [Text])
-pldPreviousProtocolsList = lens _pldPreviousProtocolsList (\s a -> s {_pldPreviousProtocolsList = a}) . _Default . _Map
+-- | A map of previous version numbers to their corresponding protocol
+-- arrays.
+protocolsListData_previousProtocolsList :: Lens.Lens' ProtocolsListData (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+protocolsListData_previousProtocolsList = Lens.lens (\ProtocolsListData' {previousProtocolsList} -> previousProtocolsList) (\s@ProtocolsListData' {} a -> s {previousProtocolsList = a} :: ProtocolsListData) Prelude.. Lens.mapping Prelude._Map
 
--- | A unique identifier for each update to the list. When you update the list, the update token must match the token of the current version of the application list. You can retrieve the update token by getting the list.
-pldListUpdateToken :: Lens' ProtocolsListData (Maybe Text)
-pldListUpdateToken = lens _pldListUpdateToken (\s a -> s {_pldListUpdateToken = a})
+-- | A unique identifier for each update to the list. When you update the
+-- list, the update token must match the token of the current version of
+-- the application list. You can retrieve the update token by getting the
+-- list.
+protocolsListData_listUpdateToken :: Lens.Lens' ProtocolsListData (Prelude.Maybe Prelude.Text)
+protocolsListData_listUpdateToken = Lens.lens (\ProtocolsListData' {listUpdateToken} -> listUpdateToken) (\s@ProtocolsListData' {} a -> s {listUpdateToken = a} :: ProtocolsListData)
 
 -- | The name of the AWS Firewall Manager protocols list.
-pldListName :: Lens' ProtocolsListData Text
-pldListName = lens _pldListName (\s a -> s {_pldListName = a})
+protocolsListData_listName :: Lens.Lens' ProtocolsListData Prelude.Text
+protocolsListData_listName = Lens.lens (\ProtocolsListData' {listName} -> listName) (\s@ProtocolsListData' {} a -> s {listName = a} :: ProtocolsListData)
 
 -- | An array of protocols in the AWS Firewall Manager protocols list.
-pldProtocolsList :: Lens' ProtocolsListData [Text]
-pldProtocolsList = lens _pldProtocolsList (\s a -> s {_pldProtocolsList = a}) . _Coerce
+protocolsListData_protocolsList :: Lens.Lens' ProtocolsListData [Prelude.Text]
+protocolsListData_protocolsList = Lens.lens (\ProtocolsListData' {protocolsList} -> protocolsList) (\s@ProtocolsListData' {} a -> s {protocolsList = a} :: ProtocolsListData) Prelude.. Prelude._Coerce
 
-instance FromJSON ProtocolsListData where
+instance Prelude.FromJSON ProtocolsListData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProtocolsListData"
       ( \x ->
           ProtocolsListData'
-            <$> (x .:? "LastUpdateTime")
-            <*> (x .:? "ListId")
-            <*> (x .:? "CreateTime")
-            <*> (x .:? "PreviousProtocolsList" .!= mempty)
-            <*> (x .:? "ListUpdateToken")
-            <*> (x .: "ListName")
-            <*> (x .:? "ProtocolsList" .!= mempty)
+            Prelude.<$> (x Prelude..:? "LastUpdateTime")
+            Prelude.<*> (x Prelude..:? "ListId")
+            Prelude.<*> (x Prelude..:? "CreateTime")
+            Prelude.<*> ( x Prelude..:? "PreviousProtocolsList"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ListUpdateToken")
+            Prelude.<*> (x Prelude..: "ListName")
+            Prelude.<*> ( x Prelude..:? "ProtocolsList"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ProtocolsListData
+instance Prelude.Hashable ProtocolsListData
 
-instance NFData ProtocolsListData
+instance Prelude.NFData ProtocolsListData
 
-instance ToJSON ProtocolsListData where
+instance Prelude.ToJSON ProtocolsListData where
   toJSON ProtocolsListData' {..} =
-    object
-      ( catMaybes
-          [ ("LastUpdateTime" .=) <$> _pldLastUpdateTime,
-            ("ListId" .=) <$> _pldListId,
-            ("CreateTime" .=) <$> _pldCreateTime,
-            ("PreviousProtocolsList" .=)
-              <$> _pldPreviousProtocolsList,
-            ("ListUpdateToken" .=) <$> _pldListUpdateToken,
-            Just ("ListName" .= _pldListName),
-            Just ("ProtocolsList" .= _pldProtocolsList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LastUpdateTime" Prelude..=)
+              Prelude.<$> lastUpdateTime,
+            ("ListId" Prelude..=) Prelude.<$> listId,
+            ("CreateTime" Prelude..=) Prelude.<$> createTime,
+            ("PreviousProtocolsList" Prelude..=)
+              Prelude.<$> previousProtocolsList,
+            ("ListUpdateToken" Prelude..=)
+              Prelude.<$> listUpdateToken,
+            Prelude.Just ("ListName" Prelude..= listName),
+            Prelude.Just
+              ("ProtocolsList" Prelude..= protocolsList)
           ]
       )

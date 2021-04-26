@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.FMS.Types.AccountRoleStatus
   ( AccountRoleStatus
       ( ..,
-        Creating,
-        Deleted,
-        Deleting,
-        PendingDeletion,
-        Ready
+        AccountRoleStatusCREATING,
+        AccountRoleStatusDELETED,
+        AccountRoleStatusDELETING,
+        AccountRoleStatusPENDINGDELETION,
+        AccountRoleStatusREADY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccountRoleStatus = AccountRoleStatus' (CI Text)
+newtype AccountRoleStatus = AccountRoleStatus'
+  { fromAccountRoleStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Creating :: AccountRoleStatus
-pattern Creating = AccountRoleStatus' "CREATING"
+pattern AccountRoleStatusCREATING :: AccountRoleStatus
+pattern AccountRoleStatusCREATING = AccountRoleStatus' "CREATING"
 
-pattern Deleted :: AccountRoleStatus
-pattern Deleted = AccountRoleStatus' "DELETED"
+pattern AccountRoleStatusDELETED :: AccountRoleStatus
+pattern AccountRoleStatusDELETED = AccountRoleStatus' "DELETED"
 
-pattern Deleting :: AccountRoleStatus
-pattern Deleting = AccountRoleStatus' "DELETING"
+pattern AccountRoleStatusDELETING :: AccountRoleStatus
+pattern AccountRoleStatusDELETING = AccountRoleStatus' "DELETING"
 
-pattern PendingDeletion :: AccountRoleStatus
-pattern PendingDeletion = AccountRoleStatus' "PENDING_DELETION"
+pattern AccountRoleStatusPENDINGDELETION :: AccountRoleStatus
+pattern AccountRoleStatusPENDINGDELETION = AccountRoleStatus' "PENDING_DELETION"
 
-pattern Ready :: AccountRoleStatus
-pattern Ready = AccountRoleStatus' "READY"
+pattern AccountRoleStatusREADY :: AccountRoleStatus
+pattern AccountRoleStatusREADY = AccountRoleStatus' "READY"
 
 {-# COMPLETE
-  Creating,
-  Deleted,
-  Deleting,
-  PendingDeletion,
-  Ready,
+  AccountRoleStatusCREATING,
+  AccountRoleStatusDELETED,
+  AccountRoleStatusDELETING,
+  AccountRoleStatusPENDINGDELETION,
+  AccountRoleStatusREADY,
   AccountRoleStatus'
   #-}
 
-instance FromText AccountRoleStatus where
-  parser = (AccountRoleStatus' . mk) <$> takeText
+instance Prelude.FromText AccountRoleStatus where
+  parser = AccountRoleStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AccountRoleStatus where
-  toText (AccountRoleStatus' ci) = original ci
+instance Prelude.ToText AccountRoleStatus where
+  toText (AccountRoleStatus' x) = x
 
-instance Hashable AccountRoleStatus
+instance Prelude.Hashable AccountRoleStatus
 
-instance NFData AccountRoleStatus
+instance Prelude.NFData AccountRoleStatus
 
-instance ToByteString AccountRoleStatus
+instance Prelude.ToByteString AccountRoleStatus
 
-instance ToQuery AccountRoleStatus
+instance Prelude.ToQuery AccountRoleStatus
 
-instance ToHeader AccountRoleStatus
+instance Prelude.ToHeader AccountRoleStatus
 
-instance FromJSON AccountRoleStatus where
-  parseJSON = parseJSONText "AccountRoleStatus"
+instance Prelude.FromJSON AccountRoleStatus where
+  parseJSON = Prelude.parseJSONText "AccountRoleStatus"

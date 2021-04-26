@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,132 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the AWS Firewall Manager administrator account. AWS Firewall Manager must be associated with the master account of your AWS organization or associated with a member account that has the appropriate permissions. If the account ID that you submit is not an AWS Organizations master account, AWS Firewall Manager will set the appropriate permissions for the given member account.
+-- Sets the AWS Firewall Manager administrator account. AWS Firewall
+-- Manager must be associated with the master account of your AWS
+-- organization or associated with a member account that has the
+-- appropriate permissions. If the account ID that you submit is not an AWS
+-- Organizations master account, AWS Firewall Manager will set the
+-- appropriate permissions for the given member account.
 --
---
--- The account that you associate with AWS Firewall Manager is called the AWS Firewall Manager administrator account.
+-- The account that you associate with AWS Firewall Manager is called the
+-- AWS Firewall Manager administrator account.
 module Network.AWS.FMS.AssociateAdminAccount
   ( -- * Creating a Request
-    associateAdminAccount,
-    AssociateAdminAccount,
+    AssociateAdminAccount (..),
+    newAssociateAdminAccount,
 
     -- * Request Lenses
-    aaaAdminAccount,
+    associateAdminAccount_adminAccount,
 
     -- * Destructuring the Response
-    associateAdminAccountResponse,
-    AssociateAdminAccountResponse,
+    AssociateAdminAccountResponse (..),
+    newAssociateAdminAccountResponse,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateAdminAccount' smart constructor.
-newtype AssociateAdminAccount = AssociateAdminAccount'
-  { _aaaAdminAccount ::
-      Text
+-- | /See:/ 'newAssociateAdminAccount' smart constructor.
+data AssociateAdminAccount = AssociateAdminAccount'
+  { -- | The AWS account ID to associate with AWS Firewall Manager as the AWS
+    -- Firewall Manager administrator account. This can be an AWS Organizations
+    -- master account or a member account. For more information about AWS
+    -- Organizations and master accounts, see
+    -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html Managing the AWS Accounts in Your Organization>.
+    adminAccount :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateAdminAccount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateAdminAccount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaaAdminAccount' - The AWS account ID to associate with AWS Firewall Manager as the AWS Firewall Manager administrator account. This can be an AWS Organizations master account or a member account. For more information about AWS Organizations and master accounts, see <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html Managing the AWS Accounts in Your Organization> .
-associateAdminAccount ::
-  -- | 'aaaAdminAccount'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'adminAccount', 'associateAdminAccount_adminAccount' - The AWS account ID to associate with AWS Firewall Manager as the AWS
+-- Firewall Manager administrator account. This can be an AWS Organizations
+-- master account or a member account. For more information about AWS
+-- Organizations and master accounts, see
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html Managing the AWS Accounts in Your Organization>.
+newAssociateAdminAccount ::
+  -- | 'adminAccount'
+  Prelude.Text ->
   AssociateAdminAccount
-associateAdminAccount pAdminAccount_ =
+newAssociateAdminAccount pAdminAccount_ =
   AssociateAdminAccount'
-    { _aaaAdminAccount =
+    { adminAccount =
         pAdminAccount_
     }
 
--- | The AWS account ID to associate with AWS Firewall Manager as the AWS Firewall Manager administrator account. This can be an AWS Organizations master account or a member account. For more information about AWS Organizations and master accounts, see <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html Managing the AWS Accounts in Your Organization> .
-aaaAdminAccount :: Lens' AssociateAdminAccount Text
-aaaAdminAccount = lens _aaaAdminAccount (\s a -> s {_aaaAdminAccount = a})
+-- | The AWS account ID to associate with AWS Firewall Manager as the AWS
+-- Firewall Manager administrator account. This can be an AWS Organizations
+-- master account or a member account. For more information about AWS
+-- Organizations and master accounts, see
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html Managing the AWS Accounts in Your Organization>.
+associateAdminAccount_adminAccount :: Lens.Lens' AssociateAdminAccount Prelude.Text
+associateAdminAccount_adminAccount = Lens.lens (\AssociateAdminAccount' {adminAccount} -> adminAccount) (\s@AssociateAdminAccount' {} a -> s {adminAccount = a} :: AssociateAdminAccount)
 
-instance AWSRequest AssociateAdminAccount where
+instance Prelude.AWSRequest AssociateAdminAccount where
   type
     Rs AssociateAdminAccount =
       AssociateAdminAccountResponse
-  request = postJSON fms
-  response = receiveNull AssociateAdminAccountResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull AssociateAdminAccountResponse'
 
-instance Hashable AssociateAdminAccount
+instance Prelude.Hashable AssociateAdminAccount
 
-instance NFData AssociateAdminAccount
+instance Prelude.NFData AssociateAdminAccount
 
-instance ToHeaders AssociateAdminAccount where
+instance Prelude.ToHeaders AssociateAdminAccount where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSFMS_20180101.AssociateAdminAccount" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSFMS_20180101.AssociateAdminAccount" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateAdminAccount where
+instance Prelude.ToJSON AssociateAdminAccount where
   toJSON AssociateAdminAccount' {..} =
-    object
-      ( catMaybes
-          [Just ("AdminAccount" .= _aaaAdminAccount)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("AdminAccount" Prelude..= adminAccount)
+          ]
       )
 
-instance ToPath AssociateAdminAccount where
-  toPath = const "/"
+instance Prelude.ToPath AssociateAdminAccount where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateAdminAccount where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateAdminAccount where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateAdminAccountResponse' smart constructor.
+-- | /See:/ 'newAssociateAdminAccountResponse' smart constructor.
 data AssociateAdminAccountResponse = AssociateAdminAccountResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateAdminAccountResponse' with the minimum fields required to make a request.
-associateAdminAccountResponse ::
+-- |
+-- Create a value of 'AssociateAdminAccountResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAssociateAdminAccountResponse ::
   AssociateAdminAccountResponse
-associateAdminAccountResponse =
+newAssociateAdminAccountResponse =
   AssociateAdminAccountResponse'
 
-instance NFData AssociateAdminAccountResponse
+instance Prelude.NFData AssociateAdminAccountResponse

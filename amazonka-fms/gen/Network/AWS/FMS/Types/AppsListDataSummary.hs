@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,77 @@
 module Network.AWS.FMS.Types.AppsListDataSummary where
 
 import Network.AWS.FMS.Types.App
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details of the AWS Firewall Manager applications list.
 --
---
---
--- /See:/ 'appsListDataSummary' smart constructor.
+-- /See:/ 'newAppsListDataSummary' smart constructor.
 data AppsListDataSummary = AppsListDataSummary'
-  { _aldsAppsList ::
-      !(Maybe [App]),
-    _aldsListName :: !(Maybe Text),
-    _aldsListARN :: !(Maybe Text),
-    _aldsListId :: !(Maybe Text)
+  { -- | An array of @App@ objects in the AWS Firewall Manager applications list.
+    appsList :: Prelude.Maybe [App],
+    -- | The name of the applications list.
+    listName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the applications list.
+    listArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the applications list.
+    listId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AppsListDataSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AppsListDataSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aldsAppsList' - An array of @App@ objects in the AWS Firewall Manager applications list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aldsListName' - The name of the applications list.
+-- 'appsList', 'appsListDataSummary_appsList' - An array of @App@ objects in the AWS Firewall Manager applications list.
 --
--- * 'aldsListARN' - The Amazon Resource Name (ARN) of the applications list.
+-- 'listName', 'appsListDataSummary_listName' - The name of the applications list.
 --
--- * 'aldsListId' - The ID of the applications list.
-appsListDataSummary ::
+-- 'listArn', 'appsListDataSummary_listArn' - The Amazon Resource Name (ARN) of the applications list.
+--
+-- 'listId', 'appsListDataSummary_listId' - The ID of the applications list.
+newAppsListDataSummary ::
   AppsListDataSummary
-appsListDataSummary =
+newAppsListDataSummary =
   AppsListDataSummary'
-    { _aldsAppsList = Nothing,
-      _aldsListName = Nothing,
-      _aldsListARN = Nothing,
-      _aldsListId = Nothing
+    { appsList = Prelude.Nothing,
+      listName = Prelude.Nothing,
+      listArn = Prelude.Nothing,
+      listId = Prelude.Nothing
     }
 
 -- | An array of @App@ objects in the AWS Firewall Manager applications list.
-aldsAppsList :: Lens' AppsListDataSummary [App]
-aldsAppsList = lens _aldsAppsList (\s a -> s {_aldsAppsList = a}) . _Default . _Coerce
+appsListDataSummary_appsList :: Lens.Lens' AppsListDataSummary (Prelude.Maybe [App])
+appsListDataSummary_appsList = Lens.lens (\AppsListDataSummary' {appsList} -> appsList) (\s@AppsListDataSummary' {} a -> s {appsList = a} :: AppsListDataSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the applications list.
-aldsListName :: Lens' AppsListDataSummary (Maybe Text)
-aldsListName = lens _aldsListName (\s a -> s {_aldsListName = a})
+appsListDataSummary_listName :: Lens.Lens' AppsListDataSummary (Prelude.Maybe Prelude.Text)
+appsListDataSummary_listName = Lens.lens (\AppsListDataSummary' {listName} -> listName) (\s@AppsListDataSummary' {} a -> s {listName = a} :: AppsListDataSummary)
 
 -- | The Amazon Resource Name (ARN) of the applications list.
-aldsListARN :: Lens' AppsListDataSummary (Maybe Text)
-aldsListARN = lens _aldsListARN (\s a -> s {_aldsListARN = a})
+appsListDataSummary_listArn :: Lens.Lens' AppsListDataSummary (Prelude.Maybe Prelude.Text)
+appsListDataSummary_listArn = Lens.lens (\AppsListDataSummary' {listArn} -> listArn) (\s@AppsListDataSummary' {} a -> s {listArn = a} :: AppsListDataSummary)
 
 -- | The ID of the applications list.
-aldsListId :: Lens' AppsListDataSummary (Maybe Text)
-aldsListId = lens _aldsListId (\s a -> s {_aldsListId = a})
+appsListDataSummary_listId :: Lens.Lens' AppsListDataSummary (Prelude.Maybe Prelude.Text)
+appsListDataSummary_listId = Lens.lens (\AppsListDataSummary' {listId} -> listId) (\s@AppsListDataSummary' {} a -> s {listId = a} :: AppsListDataSummary)
 
-instance FromJSON AppsListDataSummary where
+instance Prelude.FromJSON AppsListDataSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AppsListDataSummary"
       ( \x ->
           AppsListDataSummary'
-            <$> (x .:? "AppsList" .!= mempty)
-            <*> (x .:? "ListName")
-            <*> (x .:? "ListArn")
-            <*> (x .:? "ListId")
+            Prelude.<$> (x Prelude..:? "AppsList" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ListName")
+            Prelude.<*> (x Prelude..:? "ListArn")
+            Prelude.<*> (x Prelude..:? "ListId")
       )
 
-instance Hashable AppsListDataSummary
+instance Prelude.Hashable AppsListDataSummary
 
-instance NFData AppsListDataSummary
+instance Prelude.NFData AppsListDataSummary

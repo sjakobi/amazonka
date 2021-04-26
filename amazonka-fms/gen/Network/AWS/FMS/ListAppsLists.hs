@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,165 +24,215 @@
 -- Returns an array of @AppsListDataSummary@ objects.
 module Network.AWS.FMS.ListAppsLists
   ( -- * Creating a Request
-    listAppsLists,
-    ListAppsLists,
+    ListAppsLists (..),
+    newListAppsLists,
 
     -- * Request Lenses
-    lalNextToken,
-    lalDefaultLists,
-    lalMaxResults,
+    listAppsLists_nextToken,
+    listAppsLists_defaultLists,
+    listAppsLists_maxResults,
 
     -- * Destructuring the Response
-    listAppsListsResponse,
-    ListAppsListsResponse,
+    ListAppsListsResponse (..),
+    newListAppsListsResponse,
 
     -- * Response Lenses
-    lalrrsNextToken,
-    lalrrsAppsLists,
-    lalrrsResponseStatus,
+    listAppsListsResponse_nextToken,
+    listAppsListsResponse_appsLists,
+    listAppsListsResponse_httpStatus,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.FMS.Types.AppsListDataSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAppsLists' smart constructor.
+-- | /See:/ 'newListAppsLists' smart constructor.
 data ListAppsLists = ListAppsLists'
-  { _lalNextToken ::
-      !(Maybe Text),
-    _lalDefaultLists :: !(Maybe Bool),
-    _lalMaxResults :: !Nat
+  { -- | If you specify a value for @MaxResults@ in your list request, and you
+    -- have more objects than the maximum, AWS Firewall Manager returns this
+    -- token in the response. For all but the first request, you provide the
+    -- token returned by the prior request in the request parameters, to
+    -- retrieve the next batch of objects.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the lists to retrieve are default lists owned by AWS
+    -- Firewall Manager.
+    defaultLists :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of objects that you want AWS Firewall Manager to
+    -- return for this request. If more objects are available, in the response,
+    -- AWS Firewall Manager provides a @NextToken@ value that you can use in a
+    -- subsequent call to get the next batch of objects.
+    --
+    -- If you don\'t specify this, AWS Firewall Manager returns all available
+    -- objects.
+    maxResults :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAppsLists' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAppsLists' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lalNextToken' - If you specify a value for @MaxResults@ in your list request, and you have more objects than the maximum, AWS Firewall Manager returns this token in the response. For all but the first request, you provide the token returned by the prior request in the request parameters, to retrieve the next batch of objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lalDefaultLists' - Specifies whether the lists to retrieve are default lists owned by AWS Firewall Manager.
+-- 'nextToken', 'listAppsLists_nextToken' - If you specify a value for @MaxResults@ in your list request, and you
+-- have more objects than the maximum, AWS Firewall Manager returns this
+-- token in the response. For all but the first request, you provide the
+-- token returned by the prior request in the request parameters, to
+-- retrieve the next batch of objects.
 --
--- * 'lalMaxResults' - The maximum number of objects that you want AWS Firewall Manager to return for this request. If more objects are available, in the response, AWS Firewall Manager provides a @NextToken@ value that you can use in a subsequent call to get the next batch of objects. If you don't specify this, AWS Firewall Manager returns all available objects.
-listAppsLists ::
-  -- | 'lalMaxResults'
-  Natural ->
+-- 'defaultLists', 'listAppsLists_defaultLists' - Specifies whether the lists to retrieve are default lists owned by AWS
+-- Firewall Manager.
+--
+-- 'maxResults', 'listAppsLists_maxResults' - The maximum number of objects that you want AWS Firewall Manager to
+-- return for this request. If more objects are available, in the response,
+-- AWS Firewall Manager provides a @NextToken@ value that you can use in a
+-- subsequent call to get the next batch of objects.
+--
+-- If you don\'t specify this, AWS Firewall Manager returns all available
+-- objects.
+newListAppsLists ::
+  -- | 'maxResults'
+  Prelude.Natural ->
   ListAppsLists
-listAppsLists pMaxResults_ =
+newListAppsLists pMaxResults_ =
   ListAppsLists'
-    { _lalNextToken = Nothing,
-      _lalDefaultLists = Nothing,
-      _lalMaxResults = _Nat # pMaxResults_
+    { nextToken = Prelude.Nothing,
+      defaultLists = Prelude.Nothing,
+      maxResults = Prelude._Nat Lens.# pMaxResults_
     }
 
--- | If you specify a value for @MaxResults@ in your list request, and you have more objects than the maximum, AWS Firewall Manager returns this token in the response. For all but the first request, you provide the token returned by the prior request in the request parameters, to retrieve the next batch of objects.
-lalNextToken :: Lens' ListAppsLists (Maybe Text)
-lalNextToken = lens _lalNextToken (\s a -> s {_lalNextToken = a})
+-- | If you specify a value for @MaxResults@ in your list request, and you
+-- have more objects than the maximum, AWS Firewall Manager returns this
+-- token in the response. For all but the first request, you provide the
+-- token returned by the prior request in the request parameters, to
+-- retrieve the next batch of objects.
+listAppsLists_nextToken :: Lens.Lens' ListAppsLists (Prelude.Maybe Prelude.Text)
+listAppsLists_nextToken = Lens.lens (\ListAppsLists' {nextToken} -> nextToken) (\s@ListAppsLists' {} a -> s {nextToken = a} :: ListAppsLists)
 
--- | Specifies whether the lists to retrieve are default lists owned by AWS Firewall Manager.
-lalDefaultLists :: Lens' ListAppsLists (Maybe Bool)
-lalDefaultLists = lens _lalDefaultLists (\s a -> s {_lalDefaultLists = a})
+-- | Specifies whether the lists to retrieve are default lists owned by AWS
+-- Firewall Manager.
+listAppsLists_defaultLists :: Lens.Lens' ListAppsLists (Prelude.Maybe Prelude.Bool)
+listAppsLists_defaultLists = Lens.lens (\ListAppsLists' {defaultLists} -> defaultLists) (\s@ListAppsLists' {} a -> s {defaultLists = a} :: ListAppsLists)
 
--- | The maximum number of objects that you want AWS Firewall Manager to return for this request. If more objects are available, in the response, AWS Firewall Manager provides a @NextToken@ value that you can use in a subsequent call to get the next batch of objects. If you don't specify this, AWS Firewall Manager returns all available objects.
-lalMaxResults :: Lens' ListAppsLists Natural
-lalMaxResults = lens _lalMaxResults (\s a -> s {_lalMaxResults = a}) . _Nat
+-- | The maximum number of objects that you want AWS Firewall Manager to
+-- return for this request. If more objects are available, in the response,
+-- AWS Firewall Manager provides a @NextToken@ value that you can use in a
+-- subsequent call to get the next batch of objects.
+--
+-- If you don\'t specify this, AWS Firewall Manager returns all available
+-- objects.
+listAppsLists_maxResults :: Lens.Lens' ListAppsLists Prelude.Natural
+listAppsLists_maxResults = Lens.lens (\ListAppsLists' {maxResults} -> maxResults) (\s@ListAppsLists' {} a -> s {maxResults = a} :: ListAppsLists) Prelude.. Prelude._Nat
 
-instance AWSRequest ListAppsLists where
+instance Prelude.AWSRequest ListAppsLists where
   type Rs ListAppsLists = ListAppsListsResponse
-  request = postJSON fms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAppsListsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "AppsLists" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "AppsLists"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAppsLists
+instance Prelude.Hashable ListAppsLists
 
-instance NFData ListAppsLists
+instance Prelude.NFData ListAppsLists
 
-instance ToHeaders ListAppsLists where
+instance Prelude.ToHeaders ListAppsLists where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSFMS_20180101.ListAppsLists" :: ByteString),
+              Prelude.=# ( "AWSFMS_20180101.ListAppsLists" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListAppsLists where
+instance Prelude.ToJSON ListAppsLists where
   toJSON ListAppsLists' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lalNextToken,
-            ("DefaultLists" .=) <$> _lalDefaultLists,
-            Just ("MaxResults" .= _lalMaxResults)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("DefaultLists" Prelude..=) Prelude.<$> defaultLists,
+            Prelude.Just ("MaxResults" Prelude..= maxResults)
           ]
       )
 
-instance ToPath ListAppsLists where
-  toPath = const "/"
+instance Prelude.ToPath ListAppsLists where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListAppsLists where
-  toQuery = const mempty
+instance Prelude.ToQuery ListAppsLists where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listAppsListsResponse' smart constructor.
+-- | /See:/ 'newListAppsListsResponse' smart constructor.
 data ListAppsListsResponse = ListAppsListsResponse'
-  { _lalrrsNextToken ::
-      !(Maybe Text),
-    _lalrrsAppsLists ::
-      !( Maybe
-           [AppsListDataSummary]
-       ),
-    _lalrrsResponseStatus ::
-      !Int
+  { -- | If you specify a value for @MaxResults@ in your list request, and you
+    -- have more objects than the maximum, AWS Firewall Manager returns this
+    -- token in the response. You can use this token in subsequent requests to
+    -- retrieve the next batch of objects.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @AppsListDataSummary@ objects.
+    appsLists :: Prelude.Maybe [AppsListDataSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAppsListsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAppsListsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lalrrsNextToken' - If you specify a value for @MaxResults@ in your list request, and you have more objects than the maximum, AWS Firewall Manager returns this token in the response. You can use this token in subsequent requests to retrieve the next batch of objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lalrrsAppsLists' - An array of @AppsListDataSummary@ objects.
+-- 'nextToken', 'listAppsListsResponse_nextToken' - If you specify a value for @MaxResults@ in your list request, and you
+-- have more objects than the maximum, AWS Firewall Manager returns this
+-- token in the response. You can use this token in subsequent requests to
+-- retrieve the next batch of objects.
 --
--- * 'lalrrsResponseStatus' - -- | The response status code.
-listAppsListsResponse ::
-  -- | 'lalrrsResponseStatus'
-  Int ->
+-- 'appsLists', 'listAppsListsResponse_appsLists' - An array of @AppsListDataSummary@ objects.
+--
+-- 'httpStatus', 'listAppsListsResponse_httpStatus' - The response's http status code.
+newListAppsListsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAppsListsResponse
-listAppsListsResponse pResponseStatus_ =
+newListAppsListsResponse pHttpStatus_ =
   ListAppsListsResponse'
-    { _lalrrsNextToken = Nothing,
-      _lalrrsAppsLists = Nothing,
-      _lalrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      appsLists = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If you specify a value for @MaxResults@ in your list request, and you have more objects than the maximum, AWS Firewall Manager returns this token in the response. You can use this token in subsequent requests to retrieve the next batch of objects.
-lalrrsNextToken :: Lens' ListAppsListsResponse (Maybe Text)
-lalrrsNextToken = lens _lalrrsNextToken (\s a -> s {_lalrrsNextToken = a})
+-- | If you specify a value for @MaxResults@ in your list request, and you
+-- have more objects than the maximum, AWS Firewall Manager returns this
+-- token in the response. You can use this token in subsequent requests to
+-- retrieve the next batch of objects.
+listAppsListsResponse_nextToken :: Lens.Lens' ListAppsListsResponse (Prelude.Maybe Prelude.Text)
+listAppsListsResponse_nextToken = Lens.lens (\ListAppsListsResponse' {nextToken} -> nextToken) (\s@ListAppsListsResponse' {} a -> s {nextToken = a} :: ListAppsListsResponse)
 
 -- | An array of @AppsListDataSummary@ objects.
-lalrrsAppsLists :: Lens' ListAppsListsResponse [AppsListDataSummary]
-lalrrsAppsLists = lens _lalrrsAppsLists (\s a -> s {_lalrrsAppsLists = a}) . _Default . _Coerce
+listAppsListsResponse_appsLists :: Lens.Lens' ListAppsListsResponse (Prelude.Maybe [AppsListDataSummary])
+listAppsListsResponse_appsLists = Lens.lens (\ListAppsListsResponse' {appsLists} -> appsLists) (\s@ListAppsListsResponse' {} a -> s {appsLists = a} :: ListAppsListsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lalrrsResponseStatus :: Lens' ListAppsListsResponse Int
-lalrrsResponseStatus = lens _lalrrsResponseStatus (\s a -> s {_lalrrsResponseStatus = a})
+-- | The response's http status code.
+listAppsListsResponse_httpStatus :: Lens.Lens' ListAppsListsResponse Prelude.Int
+listAppsListsResponse_httpStatus = Lens.lens (\ListAppsListsResponse' {httpStatus} -> httpStatus) (\s@ListAppsListsResponse' {} a -> s {httpStatus = a} :: ListAppsListsResponse)
 
-instance NFData ListAppsListsResponse
+instance Prelude.NFData ListAppsListsResponse

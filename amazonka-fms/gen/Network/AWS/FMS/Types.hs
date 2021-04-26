@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.FMS.Types
   ( -- * Service Configuration
-    fms,
+    defaultService,
 
     -- * Errors
     _InvalidTypeException,
@@ -42,259 +45,131 @@ module Network.AWS.FMS.Types
     -- * ViolationReason
     ViolationReason (..),
 
-    -- * AWSEC2InstanceViolation
-    AWSEC2InstanceViolation (..),
-    awsEC2InstanceViolation,
-    aeivViolationTarget,
-    aeivAWSEC2NetworkInterfaceViolations,
-
-    -- * AWSEC2NetworkInterfaceViolation
-    AWSEC2NetworkInterfaceViolation (..),
-    awsEC2NetworkInterfaceViolation,
-    aenivViolationTarget,
-    aenivViolatingSecurityGroups,
-
-    -- * AWSVPCSecurityGroupViolation
-    AWSVPCSecurityGroupViolation (..),
-    awsVPCSecurityGroupViolation,
-    avsgvPartialMatches,
-    avsgvPossibleSecurityGroupRemediationActions,
-    avsgvViolationTarget,
-    avsgvViolationTargetDescription,
-
     -- * App
     App (..),
-    app,
-    appAppName,
-    appProtocol,
-    appPort,
+    newApp,
 
     -- * AppsListData
     AppsListData (..),
-    appsListData,
-    aldLastUpdateTime,
-    aldListId,
-    aldPreviousAppsList,
-    aldCreateTime,
-    aldListUpdateToken,
-    aldListName,
-    aldAppsList,
+    newAppsListData,
 
     -- * AppsListDataSummary
     AppsListDataSummary (..),
-    appsListDataSummary,
-    aldsAppsList,
-    aldsListName,
-    aldsListARN,
-    aldsListId,
+    newAppsListDataSummary,
+
+    -- * AwsEc2InstanceViolation
+    AwsEc2InstanceViolation (..),
+    newAwsEc2InstanceViolation,
+
+    -- * AwsEc2NetworkInterfaceViolation
+    AwsEc2NetworkInterfaceViolation (..),
+    newAwsEc2NetworkInterfaceViolation,
+
+    -- * AwsVPCSecurityGroupViolation
+    AwsVPCSecurityGroupViolation (..),
+    newAwsVPCSecurityGroupViolation,
 
     -- * ComplianceViolator
     ComplianceViolator (..),
-    complianceViolator,
-    cvResourceId,
-    cvResourceType,
-    cvViolationReason,
+    newComplianceViolator,
 
     -- * EvaluationResult
     EvaluationResult (..),
-    evaluationResult,
-    erComplianceStatus,
-    erEvaluationLimitExceeded,
-    erViolatorCount,
+    newEvaluationResult,
 
     -- * NetworkFirewallMissingExpectedRTViolation
     NetworkFirewallMissingExpectedRTViolation (..),
-    networkFirewallMissingExpectedRTViolation,
-    nfmertvCurrentRouteTable,
-    nfmertvViolationTarget,
-    nfmertvAvailabilityZone,
-    nfmertvExpectedRouteTable,
-    nfmertvVPC,
+    newNetworkFirewallMissingExpectedRTViolation,
 
     -- * NetworkFirewallMissingFirewallViolation
     NetworkFirewallMissingFirewallViolation (..),
-    networkFirewallMissingFirewallViolation,
-    nfmfvTargetViolationReason,
-    nfmfvViolationTarget,
-    nfmfvAvailabilityZone,
-    nfmfvVPC,
+    newNetworkFirewallMissingFirewallViolation,
 
     -- * NetworkFirewallMissingSubnetViolation
     NetworkFirewallMissingSubnetViolation (..),
-    networkFirewallMissingSubnetViolation,
-    nfmsvTargetViolationReason,
-    nfmsvViolationTarget,
-    nfmsvAvailabilityZone,
-    nfmsvVPC,
+    newNetworkFirewallMissingSubnetViolation,
 
     -- * NetworkFirewallPolicyDescription
     NetworkFirewallPolicyDescription (..),
-    networkFirewallPolicyDescription,
-    nfpdStatelessRuleGroups,
-    nfpdStatelessFragmentDefaultActions,
-    nfpdStatelessDefaultActions,
-    nfpdStatefulRuleGroups,
-    nfpdStatelessCustomActions,
+    newNetworkFirewallPolicyDescription,
 
     -- * NetworkFirewallPolicyModifiedViolation
     NetworkFirewallPolicyModifiedViolation (..),
-    networkFirewallPolicyModifiedViolation,
-    nfpmvCurrentPolicyDescription,
-    nfpmvViolationTarget,
-    nfpmvExpectedPolicyDescription,
+    newNetworkFirewallPolicyModifiedViolation,
 
     -- * PartialMatch
     PartialMatch (..),
-    partialMatch,
-    pmTargetViolationReasons,
-    pmReference,
+    newPartialMatch,
 
     -- * Policy
     Policy (..),
-    policy,
-    pResourceTags,
-    pResourceTypeList,
-    pPolicyUpdateToken,
-    pIncludeMap,
-    pPolicyId,
-    pExcludeMap,
-    pPolicyName,
-    pSecurityServicePolicyData,
-    pResourceType,
-    pExcludeResourceTags,
-    pRemediationEnabled,
+    newPolicy,
 
     -- * PolicyComplianceDetail
     PolicyComplianceDetail (..),
-    policyComplianceDetail,
-    pcdViolators,
-    pcdPolicyOwner,
-    pcdMemberAccount,
-    pcdEvaluationLimitExceeded,
-    pcdIssueInfoMap,
-    pcdPolicyId,
-    pcdExpiredAt,
+    newPolicyComplianceDetail,
 
     -- * PolicyComplianceStatus
     PolicyComplianceStatus (..),
-    policyComplianceStatus,
-    pcsPolicyName,
-    pcsPolicyOwner,
-    pcsMemberAccount,
-    pcsLastUpdated,
-    pcsEvaluationResults,
-    pcsIssueInfoMap,
-    pcsPolicyId,
+    newPolicyComplianceStatus,
 
     -- * PolicySummary
     PolicySummary (..),
-    policySummary,
-    psPolicyName,
-    psSecurityServiceType,
-    psResourceType,
-    psRemediationEnabled,
-    psPolicyId,
-    psPolicyARN,
+    newPolicySummary,
 
     -- * ProtocolsListData
     ProtocolsListData (..),
-    protocolsListData,
-    pldLastUpdateTime,
-    pldListId,
-    pldCreateTime,
-    pldPreviousProtocolsList,
-    pldListUpdateToken,
-    pldListName,
-    pldProtocolsList,
+    newProtocolsListData,
 
     -- * ProtocolsListDataSummary
     ProtocolsListDataSummary (..),
-    protocolsListDataSummary,
-    pldsListName,
-    pldsProtocolsList,
-    pldsListARN,
-    pldsListId,
+    newProtocolsListDataSummary,
 
     -- * ResourceTag
     ResourceTag (..),
-    resourceTag,
-    rtValue,
-    rtKey,
+    newResourceTag,
 
     -- * ResourceViolation
     ResourceViolation (..),
-    resourceViolation,
-    rvNetworkFirewallMissingSubnetViolation,
-    rvAWSEC2NetworkInterfaceViolation,
-    rvNetworkFirewallMissingExpectedRTViolation,
-    rvAWSEC2InstanceViolation,
-    rvNetworkFirewallMissingFirewallViolation,
-    rvNetworkFirewallPolicyModifiedViolation,
-    rvAWSVPCSecurityGroupViolation,
+    newResourceViolation,
 
     -- * SecurityGroupRemediationAction
     SecurityGroupRemediationAction (..),
-    securityGroupRemediationAction,
-    sgraRemediationActionType,
-    sgraRemediationResult,
-    sgraIsDefaultAction,
-    sgraDescription,
+    newSecurityGroupRemediationAction,
 
     -- * SecurityGroupRuleDescription
     SecurityGroupRuleDescription (..),
-    securityGroupRuleDescription,
-    sgrdFromPort,
-    sgrdIPV4Range,
-    sgrdPrefixListId,
-    sgrdIPV6Range,
-    sgrdProtocol,
-    sgrdToPort,
+    newSecurityGroupRuleDescription,
 
     -- * SecurityServicePolicyData
     SecurityServicePolicyData (..),
-    securityServicePolicyData,
-    sspdManagedServiceData,
-    sspdType,
+    newSecurityServicePolicyData,
 
     -- * StatefulRuleGroup
     StatefulRuleGroup (..),
-    statefulRuleGroup,
-    sResourceId,
-    sRuleGroupName,
+    newStatefulRuleGroup,
 
     -- * StatelessRuleGroup
     StatelessRuleGroup (..),
-    statelessRuleGroup,
-    srgResourceId,
-    srgPriority,
-    srgRuleGroupName,
+    newStatelessRuleGroup,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * ViolationDetail
     ViolationDetail (..),
-    violationDetail,
-    vdResourceDescription,
-    vdResourceTags,
-    vdPolicyId,
-    vdMemberAccount,
-    vdResourceId,
-    vdResourceType,
-    vdResourceViolations,
+    newViolationDetail,
   )
 where
 
-import Network.AWS.FMS.Types.AWSEC2InstanceViolation
-import Network.AWS.FMS.Types.AWSEC2NetworkInterfaceViolation
-import Network.AWS.FMS.Types.AWSVPCSecurityGroupViolation
 import Network.AWS.FMS.Types.AccountRoleStatus
 import Network.AWS.FMS.Types.App
 import Network.AWS.FMS.Types.AppsListData
 import Network.AWS.FMS.Types.AppsListDataSummary
+import Network.AWS.FMS.Types.AwsEc2InstanceViolation
+import Network.AWS.FMS.Types.AwsEc2NetworkInterfaceViolation
+import Network.AWS.FMS.Types.AwsVPCSecurityGroupViolation
 import Network.AWS.FMS.Types.ComplianceViolator
 import Network.AWS.FMS.Types.CustomerPolicyScopeIdType
 import Network.AWS.FMS.Types.DependentServiceName
@@ -324,87 +199,128 @@ import Network.AWS.FMS.Types.StatelessRuleGroup
 import Network.AWS.FMS.Types.Tag
 import Network.AWS.FMS.Types.ViolationDetail
 import Network.AWS.FMS.Types.ViolationReason
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2018-01-01@ of the Amazon Firewall Management Service SDK configuration.
-fms :: Service
-fms =
-  Service
-    { _svcAbbrev = "FMS",
-      _svcSigner = v4,
-      _svcPrefix = "fms",
-      _svcVersion = "2018-01-01",
-      _svcEndpoint = defaultEndpoint fms,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "FMS",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "FMS",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "fms",
+      Prelude._svcVersion = "2018-01-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "FMS",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The value of the @Type@ parameter is invalid.
-_InvalidTypeException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidTypeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTypeException =
-  _MatchServiceError fms "InvalidTypeException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidTypeException"
 
--- | The operation failed because there was nothing to do or the operation wasn't possible. For example, you might have submitted an @AssociateAdminAccount@ request for an account ID that was already set as the AWS Firewall Manager administrator. Or you might have tried to access a Region that's disabled by default, and that you need to enable for the Firewall Manager administrator account and for AWS Organizations before you can access it.
-_InvalidOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The operation failed because there was nothing to do or the operation
+-- wasn\'t possible. For example, you might have submitted an
+-- @AssociateAdminAccount@ request for an account ID that was already set
+-- as the AWS Firewall Manager administrator. Or you might have tried to
+-- access a Region that\'s disabled by default, and that you need to enable
+-- for the Firewall Manager administrator account and for AWS Organizations
+-- before you can access it.
+_InvalidOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidOperationException =
-  _MatchServiceError fms "InvalidOperationException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidOperationException"
 
--- | The operation failed because of a system problem, even though the request was valid. Retry your request.
-_InternalErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The operation failed because of a system problem, even though the
+-- request was valid. Retry your request.
+_InternalErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalErrorException =
-  _MatchServiceError fms "InternalErrorException"
+  Prelude._MatchServiceError
+    defaultService
+    "InternalErrorException"
 
 -- | The parameters of the request were invalid.
-_InvalidInputException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidInputException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidInputException =
-  _MatchServiceError fms "InvalidInputException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidInputException"
 
--- | The operation exceeds a resource limit, for example, the maximum number of @policy@ objects that you can create for an AWS account. For more information, see <https://docs.aws.amazon.com/waf/latest/developerguide/fms-limits.html Firewall Manager Limits> in the /AWS WAF Developer Guide/ .
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The operation exceeds a resource limit, for example, the maximum number
+-- of @policy@ objects that you can create for an AWS account. For more
+-- information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/fms-limits.html Firewall Manager Limits>
+-- in the /AWS WAF Developer Guide/.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError fms "LimitExceededException"
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceededException"
 
 -- | The specified resource was not found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError fms "ResourceNotFoundException"
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"

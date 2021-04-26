@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,143 +24,146 @@
 -- Retrieves the list of tags for the specified AWS resource.
 module Network.AWS.FMS.ListTagsForResource
   ( -- * Creating a Request
-    listTagsForResource,
-    ListTagsForResource,
+    ListTagsForResource (..),
+    newListTagsForResource,
 
     -- * Request Lenses
-    ltfrResourceARN,
+    listTagsForResource_resourceArn,
 
     -- * Destructuring the Response
-    listTagsForResourceResponse,
-    ListTagsForResourceResponse,
+    ListTagsForResourceResponse (..),
+    newListTagsForResourceResponse,
 
     -- * Response Lenses
-    ltfrrrsTagList,
-    ltfrrrsResponseStatus,
+    listTagsForResourceResponse_tagList,
+    listTagsForResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.FMS.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTagsForResource' smart constructor.
-newtype ListTagsForResource = ListTagsForResource'
-  { _ltfrResourceARN ::
-      Text
+-- | /See:/ 'newListTagsForResource' smart constructor.
+data ListTagsForResource = ListTagsForResource'
+  { -- | The Amazon Resource Name (ARN) of the resource to return tags for. The
+    -- AWS Firewall Manager resources that support tagging are policies,
+    -- applications lists, and protocols lists.
+    resourceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrResourceARN' - The Amazon Resource Name (ARN) of the resource to return tags for. The AWS Firewall Manager resources that support tagging are policies, applications lists, and protocols lists.
-listTagsForResource ::
-  -- | 'ltfrResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'listTagsForResource_resourceArn' - The Amazon Resource Name (ARN) of the resource to return tags for. The
+-- AWS Firewall Manager resources that support tagging are policies,
+-- applications lists, and protocols lists.
+newListTagsForResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   ListTagsForResource
-listTagsForResource pResourceARN_ =
-  ListTagsForResource'
-    { _ltfrResourceARN =
-        pResourceARN_
-    }
+newListTagsForResource pResourceArn_ =
+  ListTagsForResource' {resourceArn = pResourceArn_}
 
--- | The Amazon Resource Name (ARN) of the resource to return tags for. The AWS Firewall Manager resources that support tagging are policies, applications lists, and protocols lists.
-ltfrResourceARN :: Lens' ListTagsForResource Text
-ltfrResourceARN = lens _ltfrResourceARN (\s a -> s {_ltfrResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the resource to return tags for. The
+-- AWS Firewall Manager resources that support tagging are policies,
+-- applications lists, and protocols lists.
+listTagsForResource_resourceArn :: Lens.Lens' ListTagsForResource Prelude.Text
+listTagsForResource_resourceArn = Lens.lens (\ListTagsForResource' {resourceArn} -> resourceArn) (\s@ListTagsForResource' {} a -> s {resourceArn = a} :: ListTagsForResource)
 
-instance AWSRequest ListTagsForResource where
+instance Prelude.AWSRequest ListTagsForResource where
   type
     Rs ListTagsForResource =
       ListTagsForResourceResponse
-  request = postJSON fms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            <$> (x .?> "TagList" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TagList" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTagsForResource
+instance Prelude.Hashable ListTagsForResource
 
-instance NFData ListTagsForResource
+instance Prelude.NFData ListTagsForResource
 
-instance ToHeaders ListTagsForResource where
+instance Prelude.ToHeaders ListTagsForResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSFMS_20180101.ListTagsForResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSFMS_20180101.ListTagsForResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTagsForResource where
+instance Prelude.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    object
-      ( catMaybes
-          [Just ("ResourceArn" .= _ltfrResourceARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceArn" Prelude..= resourceArn)
+          ]
       )
 
-instance ToPath ListTagsForResource where
-  toPath = const "/"
+instance Prelude.ToPath ListTagsForResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTagsForResource where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTagsForResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTagsForResourceResponse' smart constructor.
+-- | /See:/ 'newListTagsForResourceResponse' smart constructor.
 data ListTagsForResourceResponse = ListTagsForResourceResponse'
-  { _ltfrrrsTagList ::
-      !(Maybe [Tag]),
-    _ltfrrrsResponseStatus ::
-      !Int
+  { -- | The tags associated with the resource.
+    tagList :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrrrsTagList' - The tags associated with the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfrrrsResponseStatus' - -- | The response status code.
-listTagsForResourceResponse ::
-  -- | 'ltfrrrsResponseStatus'
-  Int ->
+-- 'tagList', 'listTagsForResourceResponse_tagList' - The tags associated with the resource.
+--
+-- 'httpStatus', 'listTagsForResourceResponse_httpStatus' - The response's http status code.
+newListTagsForResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsForResourceResponse
-listTagsForResourceResponse pResponseStatus_ =
+newListTagsForResourceResponse pHttpStatus_ =
   ListTagsForResourceResponse'
-    { _ltfrrrsTagList =
-        Nothing,
-      _ltfrrrsResponseStatus = pResponseStatus_
+    { tagList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The tags associated with the resource.
-ltfrrrsTagList :: Lens' ListTagsForResourceResponse [Tag]
-ltfrrrsTagList = lens _ltfrrrsTagList (\s a -> s {_ltfrrrsTagList = a}) . _Default . _Coerce
+listTagsForResourceResponse_tagList :: Lens.Lens' ListTagsForResourceResponse (Prelude.Maybe [Tag])
+listTagsForResourceResponse_tagList = Lens.lens (\ListTagsForResourceResponse' {tagList} -> tagList) (\s@ListTagsForResourceResponse' {} a -> s {tagList = a} :: ListTagsForResourceResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltfrrrsResponseStatus :: Lens' ListTagsForResourceResponse Int
-ltfrrrsResponseStatus = lens _ltfrrrsResponseStatus (\s a -> s {_ltfrrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsForResourceResponse_httpStatus :: Lens.Lens' ListTagsForResourceResponse Prelude.Int
+listTagsForResourceResponse_httpStatus = Lens.lens (\ListTagsForResourceResponse' {httpStatus} -> httpStatus) (\s@ListTagsForResourceResponse' {} a -> s {httpStatus = a} :: ListTagsForResourceResponse)
 
-instance NFData ListTagsForResourceResponse
+instance Prelude.NFData ListTagsForResourceResponse

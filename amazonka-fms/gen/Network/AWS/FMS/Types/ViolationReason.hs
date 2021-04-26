@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,108 +19,110 @@
 module Network.AWS.FMS.Types.ViolationReason
   ( ViolationReason
       ( ..,
-        MissingExpectedRouteTable,
-        MissingFirewall,
-        MissingFirewallSubnetInAz,
-        NetworkFirewallPolicyModified,
-        ResourceIncorrectWebACL,
-        ResourceMissingSecurityGroup,
-        ResourceMissingShieldProtection,
-        ResourceMissingWebACL,
-        ResourceMissingWebACLOrShieldProtection,
-        ResourceViolatesAuditSecurityGroup,
-        SecurityGroupRedundant,
-        SecurityGroupUnused,
-        WebACLMissingRuleGroup
+        ViolationReasonMISSINGEXPECTEDROUTETABLE,
+        ViolationReasonMISSINGFIREWALL,
+        ViolationReasonMISSINGFIREWALLSUBNETINAZ,
+        ViolationReasonNETWORKFIREWALLPOLICYMODIFIED,
+        ViolationReasonRESOURCEINCORRECTWEBACL,
+        ViolationReasonRESOURCEMISSINGSECURITYGROUP,
+        ViolationReasonRESOURCEMISSINGSHIELDPROTECTION,
+        ViolationReasonRESOURCEMISSINGWEBACL,
+        ViolationReasonRESOURCEMISSINGWEBACLORSHIELDPROTECTION,
+        ViolationReasonRESOURCEVIOLATESAUDITSECURITYGROUP,
+        ViolationReasonSECURITYGROUPREDUNDANT,
+        ViolationReasonSECURITYGROUPUNUSED,
+        ViolationReasonWEBACLMISSINGRULEGROUP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ViolationReason = ViolationReason' (CI Text)
+newtype ViolationReason = ViolationReason'
+  { fromViolationReason ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MissingExpectedRouteTable :: ViolationReason
-pattern MissingExpectedRouteTable = ViolationReason' "MISSING_EXPECTED_ROUTE_TABLE"
+pattern ViolationReasonMISSINGEXPECTEDROUTETABLE :: ViolationReason
+pattern ViolationReasonMISSINGEXPECTEDROUTETABLE = ViolationReason' "MISSING_EXPECTED_ROUTE_TABLE"
 
-pattern MissingFirewall :: ViolationReason
-pattern MissingFirewall = ViolationReason' "MISSING_FIREWALL"
+pattern ViolationReasonMISSINGFIREWALL :: ViolationReason
+pattern ViolationReasonMISSINGFIREWALL = ViolationReason' "MISSING_FIREWALL"
 
-pattern MissingFirewallSubnetInAz :: ViolationReason
-pattern MissingFirewallSubnetInAz = ViolationReason' "MISSING_FIREWALL_SUBNET_IN_AZ"
+pattern ViolationReasonMISSINGFIREWALLSUBNETINAZ :: ViolationReason
+pattern ViolationReasonMISSINGFIREWALLSUBNETINAZ = ViolationReason' "MISSING_FIREWALL_SUBNET_IN_AZ"
 
-pattern NetworkFirewallPolicyModified :: ViolationReason
-pattern NetworkFirewallPolicyModified = ViolationReason' "NETWORK_FIREWALL_POLICY_MODIFIED"
+pattern ViolationReasonNETWORKFIREWALLPOLICYMODIFIED :: ViolationReason
+pattern ViolationReasonNETWORKFIREWALLPOLICYMODIFIED = ViolationReason' "NETWORK_FIREWALL_POLICY_MODIFIED"
 
-pattern ResourceIncorrectWebACL :: ViolationReason
-pattern ResourceIncorrectWebACL = ViolationReason' "RESOURCE_INCORRECT_WEB_ACL"
+pattern ViolationReasonRESOURCEINCORRECTWEBACL :: ViolationReason
+pattern ViolationReasonRESOURCEINCORRECTWEBACL = ViolationReason' "RESOURCE_INCORRECT_WEB_ACL"
 
-pattern ResourceMissingSecurityGroup :: ViolationReason
-pattern ResourceMissingSecurityGroup = ViolationReason' "RESOURCE_MISSING_SECURITY_GROUP"
+pattern ViolationReasonRESOURCEMISSINGSECURITYGROUP :: ViolationReason
+pattern ViolationReasonRESOURCEMISSINGSECURITYGROUP = ViolationReason' "RESOURCE_MISSING_SECURITY_GROUP"
 
-pattern ResourceMissingShieldProtection :: ViolationReason
-pattern ResourceMissingShieldProtection = ViolationReason' "RESOURCE_MISSING_SHIELD_PROTECTION"
+pattern ViolationReasonRESOURCEMISSINGSHIELDPROTECTION :: ViolationReason
+pattern ViolationReasonRESOURCEMISSINGSHIELDPROTECTION = ViolationReason' "RESOURCE_MISSING_SHIELD_PROTECTION"
 
-pattern ResourceMissingWebACL :: ViolationReason
-pattern ResourceMissingWebACL = ViolationReason' "RESOURCE_MISSING_WEB_ACL"
+pattern ViolationReasonRESOURCEMISSINGWEBACL :: ViolationReason
+pattern ViolationReasonRESOURCEMISSINGWEBACL = ViolationReason' "RESOURCE_MISSING_WEB_ACL"
 
-pattern ResourceMissingWebACLOrShieldProtection :: ViolationReason
-pattern ResourceMissingWebACLOrShieldProtection = ViolationReason' "RESOURCE_MISSING_WEB_ACL_OR_SHIELD_PROTECTION"
+pattern ViolationReasonRESOURCEMISSINGWEBACLORSHIELDPROTECTION :: ViolationReason
+pattern ViolationReasonRESOURCEMISSINGWEBACLORSHIELDPROTECTION = ViolationReason' "RESOURCE_MISSING_WEB_ACL_OR_SHIELD_PROTECTION"
 
-pattern ResourceViolatesAuditSecurityGroup :: ViolationReason
-pattern ResourceViolatesAuditSecurityGroup = ViolationReason' "RESOURCE_VIOLATES_AUDIT_SECURITY_GROUP"
+pattern ViolationReasonRESOURCEVIOLATESAUDITSECURITYGROUP :: ViolationReason
+pattern ViolationReasonRESOURCEVIOLATESAUDITSECURITYGROUP = ViolationReason' "RESOURCE_VIOLATES_AUDIT_SECURITY_GROUP"
 
-pattern SecurityGroupRedundant :: ViolationReason
-pattern SecurityGroupRedundant = ViolationReason' "SECURITY_GROUP_REDUNDANT"
+pattern ViolationReasonSECURITYGROUPREDUNDANT :: ViolationReason
+pattern ViolationReasonSECURITYGROUPREDUNDANT = ViolationReason' "SECURITY_GROUP_REDUNDANT"
 
-pattern SecurityGroupUnused :: ViolationReason
-pattern SecurityGroupUnused = ViolationReason' "SECURITY_GROUP_UNUSED"
+pattern ViolationReasonSECURITYGROUPUNUSED :: ViolationReason
+pattern ViolationReasonSECURITYGROUPUNUSED = ViolationReason' "SECURITY_GROUP_UNUSED"
 
-pattern WebACLMissingRuleGroup :: ViolationReason
-pattern WebACLMissingRuleGroup = ViolationReason' "WEB_ACL_MISSING_RULE_GROUP"
+pattern ViolationReasonWEBACLMISSINGRULEGROUP :: ViolationReason
+pattern ViolationReasonWEBACLMISSINGRULEGROUP = ViolationReason' "WEB_ACL_MISSING_RULE_GROUP"
 
 {-# COMPLETE
-  MissingExpectedRouteTable,
-  MissingFirewall,
-  MissingFirewallSubnetInAz,
-  NetworkFirewallPolicyModified,
-  ResourceIncorrectWebACL,
-  ResourceMissingSecurityGroup,
-  ResourceMissingShieldProtection,
-  ResourceMissingWebACL,
-  ResourceMissingWebACLOrShieldProtection,
-  ResourceViolatesAuditSecurityGroup,
-  SecurityGroupRedundant,
-  SecurityGroupUnused,
-  WebACLMissingRuleGroup,
+  ViolationReasonMISSINGEXPECTEDROUTETABLE,
+  ViolationReasonMISSINGFIREWALL,
+  ViolationReasonMISSINGFIREWALLSUBNETINAZ,
+  ViolationReasonNETWORKFIREWALLPOLICYMODIFIED,
+  ViolationReasonRESOURCEINCORRECTWEBACL,
+  ViolationReasonRESOURCEMISSINGSECURITYGROUP,
+  ViolationReasonRESOURCEMISSINGSHIELDPROTECTION,
+  ViolationReasonRESOURCEMISSINGWEBACL,
+  ViolationReasonRESOURCEMISSINGWEBACLORSHIELDPROTECTION,
+  ViolationReasonRESOURCEVIOLATESAUDITSECURITYGROUP,
+  ViolationReasonSECURITYGROUPREDUNDANT,
+  ViolationReasonSECURITYGROUPUNUSED,
+  ViolationReasonWEBACLMISSINGRULEGROUP,
   ViolationReason'
   #-}
 
-instance FromText ViolationReason where
-  parser = (ViolationReason' . mk) <$> takeText
+instance Prelude.FromText ViolationReason where
+  parser = ViolationReason' Prelude.<$> Prelude.takeText
 
-instance ToText ViolationReason where
-  toText (ViolationReason' ci) = original ci
+instance Prelude.ToText ViolationReason where
+  toText (ViolationReason' x) = x
 
-instance Hashable ViolationReason
+instance Prelude.Hashable ViolationReason
 
-instance NFData ViolationReason
+instance Prelude.NFData ViolationReason
 
-instance ToByteString ViolationReason
+instance Prelude.ToByteString ViolationReason
 
-instance ToQuery ViolationReason
+instance Prelude.ToQuery ViolationReason
 
-instance ToHeader ViolationReason
+instance Prelude.ToHeader ViolationReason
 
-instance FromJSON ViolationReason where
-  parseJSON = parseJSONText "ViolationReason"
+instance Prelude.FromJSON ViolationReason where
+  parseJSON = Prelude.parseJSONText "ViolationReason"

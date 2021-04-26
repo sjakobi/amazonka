@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,85 +19,83 @@
 module Network.AWS.FMS.Types.SecurityServiceType
   ( SecurityServiceType
       ( ..,
-        NetworkFirewall,
-        SecurityGroupsCommon,
-        SecurityGroupsContentAudit,
-        SecurityGroupsUsageAudit,
-        ShieldAdvanced,
-        WAFV2,
-        Waf
+        SecurityServiceTypeNETWORKFIREWALL,
+        SecurityServiceTypeSECURITYGROUPSCOMMON,
+        SecurityServiceTypeSECURITYGROUPSCONTENTAUDIT,
+        SecurityServiceTypeSECURITYGROUPSUSAGEAUDIT,
+        SecurityServiceTypeSHIELDADVANCED,
+        SecurityServiceTypeWAF,
+        SecurityServiceTypeWAFV2
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SecurityServiceType
-  = SecurityServiceType'
-      ( CI
-          Text
-      )
+newtype SecurityServiceType = SecurityServiceType'
+  { fromSecurityServiceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NetworkFirewall :: SecurityServiceType
-pattern NetworkFirewall = SecurityServiceType' "NETWORK_FIREWALL"
+pattern SecurityServiceTypeNETWORKFIREWALL :: SecurityServiceType
+pattern SecurityServiceTypeNETWORKFIREWALL = SecurityServiceType' "NETWORK_FIREWALL"
 
-pattern SecurityGroupsCommon :: SecurityServiceType
-pattern SecurityGroupsCommon = SecurityServiceType' "SECURITY_GROUPS_COMMON"
+pattern SecurityServiceTypeSECURITYGROUPSCOMMON :: SecurityServiceType
+pattern SecurityServiceTypeSECURITYGROUPSCOMMON = SecurityServiceType' "SECURITY_GROUPS_COMMON"
 
-pattern SecurityGroupsContentAudit :: SecurityServiceType
-pattern SecurityGroupsContentAudit = SecurityServiceType' "SECURITY_GROUPS_CONTENT_AUDIT"
+pattern SecurityServiceTypeSECURITYGROUPSCONTENTAUDIT :: SecurityServiceType
+pattern SecurityServiceTypeSECURITYGROUPSCONTENTAUDIT = SecurityServiceType' "SECURITY_GROUPS_CONTENT_AUDIT"
 
-pattern SecurityGroupsUsageAudit :: SecurityServiceType
-pattern SecurityGroupsUsageAudit = SecurityServiceType' "SECURITY_GROUPS_USAGE_AUDIT"
+pattern SecurityServiceTypeSECURITYGROUPSUSAGEAUDIT :: SecurityServiceType
+pattern SecurityServiceTypeSECURITYGROUPSUSAGEAUDIT = SecurityServiceType' "SECURITY_GROUPS_USAGE_AUDIT"
 
-pattern ShieldAdvanced :: SecurityServiceType
-pattern ShieldAdvanced = SecurityServiceType' "SHIELD_ADVANCED"
+pattern SecurityServiceTypeSHIELDADVANCED :: SecurityServiceType
+pattern SecurityServiceTypeSHIELDADVANCED = SecurityServiceType' "SHIELD_ADVANCED"
 
-pattern WAFV2 :: SecurityServiceType
-pattern WAFV2 = SecurityServiceType' "WAFV2"
+pattern SecurityServiceTypeWAF :: SecurityServiceType
+pattern SecurityServiceTypeWAF = SecurityServiceType' "WAF"
 
-pattern Waf :: SecurityServiceType
-pattern Waf = SecurityServiceType' "WAF"
+pattern SecurityServiceTypeWAFV2 :: SecurityServiceType
+pattern SecurityServiceTypeWAFV2 = SecurityServiceType' "WAFV2"
 
 {-# COMPLETE
-  NetworkFirewall,
-  SecurityGroupsCommon,
-  SecurityGroupsContentAudit,
-  SecurityGroupsUsageAudit,
-  ShieldAdvanced,
-  WAFV2,
-  Waf,
+  SecurityServiceTypeNETWORKFIREWALL,
+  SecurityServiceTypeSECURITYGROUPSCOMMON,
+  SecurityServiceTypeSECURITYGROUPSCONTENTAUDIT,
+  SecurityServiceTypeSECURITYGROUPSUSAGEAUDIT,
+  SecurityServiceTypeSHIELDADVANCED,
+  SecurityServiceTypeWAF,
+  SecurityServiceTypeWAFV2,
   SecurityServiceType'
   #-}
 
-instance FromText SecurityServiceType where
-  parser = (SecurityServiceType' . mk) <$> takeText
+instance Prelude.FromText SecurityServiceType where
+  parser = SecurityServiceType' Prelude.<$> Prelude.takeText
 
-instance ToText SecurityServiceType where
-  toText (SecurityServiceType' ci) = original ci
+instance Prelude.ToText SecurityServiceType where
+  toText (SecurityServiceType' x) = x
 
-instance Hashable SecurityServiceType
+instance Prelude.Hashable SecurityServiceType
 
-instance NFData SecurityServiceType
+instance Prelude.NFData SecurityServiceType
 
-instance ToByteString SecurityServiceType
+instance Prelude.ToByteString SecurityServiceType
 
-instance ToQuery SecurityServiceType
+instance Prelude.ToQuery SecurityServiceType
 
-instance ToHeader SecurityServiceType
+instance Prelude.ToHeader SecurityServiceType
 
-instance ToJSON SecurityServiceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SecurityServiceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SecurityServiceType where
-  parseJSON = parseJSONText "SecurityServiceType"
+instance Prelude.FromJSON SecurityServiceType where
+  parseJSON = Prelude.parseJSONText "SecurityServiceType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.FMS.Types.ProtocolsListDataSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details of the AWS Firewall Manager protocols list.
 --
---
---
--- /See:/ 'protocolsListDataSummary' smart constructor.
+-- /See:/ 'newProtocolsListDataSummary' smart constructor.
 data ProtocolsListDataSummary = ProtocolsListDataSummary'
-  { _pldsListName ::
-      !(Maybe Text),
-    _pldsProtocolsList ::
-      !(Maybe [Text]),
-    _pldsListARN ::
-      !(Maybe Text),
-    _pldsListId ::
-      !(Maybe Text)
+  { -- | The name of the specified protocols list.
+    listName :: Prelude.Maybe Prelude.Text,
+    -- | An array of protocols in the AWS Firewall Manager protocols list.
+    protocolsList :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon Resource Name (ARN) of the specified protocols list.
+    listArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the specified protocols list.
+    listId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProtocolsListDataSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProtocolsListDataSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pldsListName' - The name of the specified protocols list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pldsProtocolsList' - An array of protocols in the AWS Firewall Manager protocols list.
+-- 'listName', 'protocolsListDataSummary_listName' - The name of the specified protocols list.
 --
--- * 'pldsListARN' - The Amazon Resource Name (ARN) of the specified protocols list.
+-- 'protocolsList', 'protocolsListDataSummary_protocolsList' - An array of protocols in the AWS Firewall Manager protocols list.
 --
--- * 'pldsListId' - The ID of the specified protocols list.
-protocolsListDataSummary ::
+-- 'listArn', 'protocolsListDataSummary_listArn' - The Amazon Resource Name (ARN) of the specified protocols list.
+--
+-- 'listId', 'protocolsListDataSummary_listId' - The ID of the specified protocols list.
+newProtocolsListDataSummary ::
   ProtocolsListDataSummary
-protocolsListDataSummary =
+newProtocolsListDataSummary =
   ProtocolsListDataSummary'
-    { _pldsListName = Nothing,
-      _pldsProtocolsList = Nothing,
-      _pldsListARN = Nothing,
-      _pldsListId = Nothing
+    { listName =
+        Prelude.Nothing,
+      protocolsList = Prelude.Nothing,
+      listArn = Prelude.Nothing,
+      listId = Prelude.Nothing
     }
 
 -- | The name of the specified protocols list.
-pldsListName :: Lens' ProtocolsListDataSummary (Maybe Text)
-pldsListName = lens _pldsListName (\s a -> s {_pldsListName = a})
+protocolsListDataSummary_listName :: Lens.Lens' ProtocolsListDataSummary (Prelude.Maybe Prelude.Text)
+protocolsListDataSummary_listName = Lens.lens (\ProtocolsListDataSummary' {listName} -> listName) (\s@ProtocolsListDataSummary' {} a -> s {listName = a} :: ProtocolsListDataSummary)
 
 -- | An array of protocols in the AWS Firewall Manager protocols list.
-pldsProtocolsList :: Lens' ProtocolsListDataSummary [Text]
-pldsProtocolsList = lens _pldsProtocolsList (\s a -> s {_pldsProtocolsList = a}) . _Default . _Coerce
+protocolsListDataSummary_protocolsList :: Lens.Lens' ProtocolsListDataSummary (Prelude.Maybe [Prelude.Text])
+protocolsListDataSummary_protocolsList = Lens.lens (\ProtocolsListDataSummary' {protocolsList} -> protocolsList) (\s@ProtocolsListDataSummary' {} a -> s {protocolsList = a} :: ProtocolsListDataSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon Resource Name (ARN) of the specified protocols list.
-pldsListARN :: Lens' ProtocolsListDataSummary (Maybe Text)
-pldsListARN = lens _pldsListARN (\s a -> s {_pldsListARN = a})
+protocolsListDataSummary_listArn :: Lens.Lens' ProtocolsListDataSummary (Prelude.Maybe Prelude.Text)
+protocolsListDataSummary_listArn = Lens.lens (\ProtocolsListDataSummary' {listArn} -> listArn) (\s@ProtocolsListDataSummary' {} a -> s {listArn = a} :: ProtocolsListDataSummary)
 
 -- | The ID of the specified protocols list.
-pldsListId :: Lens' ProtocolsListDataSummary (Maybe Text)
-pldsListId = lens _pldsListId (\s a -> s {_pldsListId = a})
+protocolsListDataSummary_listId :: Lens.Lens' ProtocolsListDataSummary (Prelude.Maybe Prelude.Text)
+protocolsListDataSummary_listId = Lens.lens (\ProtocolsListDataSummary' {listId} -> listId) (\s@ProtocolsListDataSummary' {} a -> s {listId = a} :: ProtocolsListDataSummary)
 
-instance FromJSON ProtocolsListDataSummary where
+instance Prelude.FromJSON ProtocolsListDataSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProtocolsListDataSummary"
       ( \x ->
           ProtocolsListDataSummary'
-            <$> (x .:? "ListName")
-            <*> (x .:? "ProtocolsList" .!= mempty)
-            <*> (x .:? "ListArn")
-            <*> (x .:? "ListId")
+            Prelude.<$> (x Prelude..:? "ListName")
+            Prelude.<*> ( x Prelude..:? "ProtocolsList"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ListArn")
+            Prelude.<*> (x Prelude..:? "ListId")
       )
 
-instance Hashable ProtocolsListDataSummary
+instance Prelude.Hashable ProtocolsListDataSummary
 
-instance NFData ProtocolsListDataSummary
+instance Prelude.NFData ProtocolsListDataSummary

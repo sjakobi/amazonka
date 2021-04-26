@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,79 @@
 module Network.AWS.FMS.Types.ComplianceViolator where
 
 import Network.AWS.FMS.Types.ViolationReason
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details of the resource that is not protected by the policy.
 --
---
---
--- /See:/ 'complianceViolator' smart constructor.
+-- /See:/ 'newComplianceViolator' smart constructor.
 data ComplianceViolator = ComplianceViolator'
-  { _cvResourceId ::
-      !(Maybe Text),
-    _cvResourceType :: !(Maybe Text),
-    _cvViolationReason ::
-      !(Maybe ViolationReason)
+  { -- | The resource ID.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The resource type. This is in the format shown in the
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS Resource Types Reference>.
+    -- For example: @AWS::ElasticLoadBalancingV2::LoadBalancer@,
+    -- @AWS::CloudFront::Distribution@, or
+    -- @AWS::NetworkFirewall::FirewallPolicy@.
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | The reason that the resource is not protected by the policy.
+    violationReason :: Prelude.Maybe ViolationReason
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComplianceViolator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComplianceViolator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cvResourceId' - The resource ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cvResourceType' - The resource type. This is in the format shown in the <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS Resource Types Reference> . For example: @AWS::ElasticLoadBalancingV2::LoadBalancer@ , @AWS::CloudFront::Distribution@ , or @AWS::NetworkFirewall::FirewallPolicy@ .
+-- 'resourceId', 'complianceViolator_resourceId' - The resource ID.
 --
--- * 'cvViolationReason' - The reason that the resource is not protected by the policy.
-complianceViolator ::
+-- 'resourceType', 'complianceViolator_resourceType' - The resource type. This is in the format shown in the
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS Resource Types Reference>.
+-- For example: @AWS::ElasticLoadBalancingV2::LoadBalancer@,
+-- @AWS::CloudFront::Distribution@, or
+-- @AWS::NetworkFirewall::FirewallPolicy@.
+--
+-- 'violationReason', 'complianceViolator_violationReason' - The reason that the resource is not protected by the policy.
+newComplianceViolator ::
   ComplianceViolator
-complianceViolator =
+newComplianceViolator =
   ComplianceViolator'
-    { _cvResourceId = Nothing,
-      _cvResourceType = Nothing,
-      _cvViolationReason = Nothing
+    { resourceId = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      violationReason = Prelude.Nothing
     }
 
 -- | The resource ID.
-cvResourceId :: Lens' ComplianceViolator (Maybe Text)
-cvResourceId = lens _cvResourceId (\s a -> s {_cvResourceId = a})
+complianceViolator_resourceId :: Lens.Lens' ComplianceViolator (Prelude.Maybe Prelude.Text)
+complianceViolator_resourceId = Lens.lens (\ComplianceViolator' {resourceId} -> resourceId) (\s@ComplianceViolator' {} a -> s {resourceId = a} :: ComplianceViolator)
 
--- | The resource type. This is in the format shown in the <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS Resource Types Reference> . For example: @AWS::ElasticLoadBalancingV2::LoadBalancer@ , @AWS::CloudFront::Distribution@ , or @AWS::NetworkFirewall::FirewallPolicy@ .
-cvResourceType :: Lens' ComplianceViolator (Maybe Text)
-cvResourceType = lens _cvResourceType (\s a -> s {_cvResourceType = a})
+-- | The resource type. This is in the format shown in the
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html AWS Resource Types Reference>.
+-- For example: @AWS::ElasticLoadBalancingV2::LoadBalancer@,
+-- @AWS::CloudFront::Distribution@, or
+-- @AWS::NetworkFirewall::FirewallPolicy@.
+complianceViolator_resourceType :: Lens.Lens' ComplianceViolator (Prelude.Maybe Prelude.Text)
+complianceViolator_resourceType = Lens.lens (\ComplianceViolator' {resourceType} -> resourceType) (\s@ComplianceViolator' {} a -> s {resourceType = a} :: ComplianceViolator)
 
 -- | The reason that the resource is not protected by the policy.
-cvViolationReason :: Lens' ComplianceViolator (Maybe ViolationReason)
-cvViolationReason = lens _cvViolationReason (\s a -> s {_cvViolationReason = a})
+complianceViolator_violationReason :: Lens.Lens' ComplianceViolator (Prelude.Maybe ViolationReason)
+complianceViolator_violationReason = Lens.lens (\ComplianceViolator' {violationReason} -> violationReason) (\s@ComplianceViolator' {} a -> s {violationReason = a} :: ComplianceViolator)
 
-instance FromJSON ComplianceViolator where
+instance Prelude.FromJSON ComplianceViolator where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ComplianceViolator"
       ( \x ->
           ComplianceViolator'
-            <$> (x .:? "ResourceId")
-            <*> (x .:? "ResourceType")
-            <*> (x .:? "ViolationReason")
+            Prelude.<$> (x Prelude..:? "ResourceId")
+            Prelude.<*> (x Prelude..:? "ResourceType")
+            Prelude.<*> (x Prelude..:? "ViolationReason")
       )
 
-instance Hashable ComplianceViolator
+instance Prelude.Hashable ComplianceViolator
 
-instance NFData ComplianceViolator
+instance Prelude.NFData ComplianceViolator

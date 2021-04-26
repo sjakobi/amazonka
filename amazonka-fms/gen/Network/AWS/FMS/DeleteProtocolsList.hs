@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,103 +24,110 @@
 -- Permanently deletes an AWS Firewall Manager protocols list.
 module Network.AWS.FMS.DeleteProtocolsList
   ( -- * Creating a Request
-    deleteProtocolsList,
-    DeleteProtocolsList,
+    DeleteProtocolsList (..),
+    newDeleteProtocolsList,
 
     -- * Request Lenses
-    dplListId,
+    deleteProtocolsList_listId,
 
     -- * Destructuring the Response
-    deleteProtocolsListResponse,
-    DeleteProtocolsListResponse,
+    DeleteProtocolsListResponse (..),
+    newDeleteProtocolsListResponse,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteProtocolsList' smart constructor.
-newtype DeleteProtocolsList = DeleteProtocolsList'
-  { _dplListId ::
-      Text
+-- | /See:/ 'newDeleteProtocolsList' smart constructor.
+data DeleteProtocolsList = DeleteProtocolsList'
+  { -- | The ID of the protocols list that you want to delete. You can retrieve
+    -- this ID from @PutProtocolsList@, @ListProtocolsLists@, and
+    -- @GetProtocolsLost@.
+    listId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProtocolsList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProtocolsList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dplListId' - The ID of the protocols list that you want to delete. You can retrieve this ID from @PutProtocolsList@ , @ListProtocolsLists@ , and @GetProtocolsLost@ .
-deleteProtocolsList ::
-  -- | 'dplListId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'listId', 'deleteProtocolsList_listId' - The ID of the protocols list that you want to delete. You can retrieve
+-- this ID from @PutProtocolsList@, @ListProtocolsLists@, and
+-- @GetProtocolsLost@.
+newDeleteProtocolsList ::
+  -- | 'listId'
+  Prelude.Text ->
   DeleteProtocolsList
-deleteProtocolsList pListId_ =
-  DeleteProtocolsList' {_dplListId = pListId_}
+newDeleteProtocolsList pListId_ =
+  DeleteProtocolsList' {listId = pListId_}
 
--- | The ID of the protocols list that you want to delete. You can retrieve this ID from @PutProtocolsList@ , @ListProtocolsLists@ , and @GetProtocolsLost@ .
-dplListId :: Lens' DeleteProtocolsList Text
-dplListId = lens _dplListId (\s a -> s {_dplListId = a})
+-- | The ID of the protocols list that you want to delete. You can retrieve
+-- this ID from @PutProtocolsList@, @ListProtocolsLists@, and
+-- @GetProtocolsLost@.
+deleteProtocolsList_listId :: Lens.Lens' DeleteProtocolsList Prelude.Text
+deleteProtocolsList_listId = Lens.lens (\DeleteProtocolsList' {listId} -> listId) (\s@DeleteProtocolsList' {} a -> s {listId = a} :: DeleteProtocolsList)
 
-instance AWSRequest DeleteProtocolsList where
+instance Prelude.AWSRequest DeleteProtocolsList where
   type
     Rs DeleteProtocolsList =
       DeleteProtocolsListResponse
-  request = postJSON fms
-  response = receiveNull DeleteProtocolsListResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteProtocolsListResponse'
 
-instance Hashable DeleteProtocolsList
+instance Prelude.Hashable DeleteProtocolsList
 
-instance NFData DeleteProtocolsList
+instance Prelude.NFData DeleteProtocolsList
 
-instance ToHeaders DeleteProtocolsList where
+instance Prelude.ToHeaders DeleteProtocolsList where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSFMS_20180101.DeleteProtocolsList" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSFMS_20180101.DeleteProtocolsList" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteProtocolsList where
+instance Prelude.ToJSON DeleteProtocolsList where
   toJSON DeleteProtocolsList' {..} =
-    object (catMaybes [Just ("ListId" .= _dplListId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ListId" Prelude..= listId)]
+      )
 
-instance ToPath DeleteProtocolsList where
-  toPath = const "/"
+instance Prelude.ToPath DeleteProtocolsList where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteProtocolsList where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteProtocolsList where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteProtocolsListResponse' smart constructor.
+-- | /See:/ 'newDeleteProtocolsListResponse' smart constructor.
 data DeleteProtocolsListResponse = DeleteProtocolsListResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProtocolsListResponse' with the minimum fields required to make a request.
-deleteProtocolsListResponse ::
+-- |
+-- Create a value of 'DeleteProtocolsListResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteProtocolsListResponse ::
   DeleteProtocolsListResponse
-deleteProtocolsListResponse =
+newDeleteProtocolsListResponse =
   DeleteProtocolsListResponse'
 
-instance NFData DeleteProtocolsListResponse
+instance Prelude.NFData DeleteProtocolsListResponse

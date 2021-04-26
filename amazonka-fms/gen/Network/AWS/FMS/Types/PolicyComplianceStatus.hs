@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,119 +21,124 @@ module Network.AWS.FMS.Types.PolicyComplianceStatus where
 
 import Network.AWS.FMS.Types.DependentServiceName
 import Network.AWS.FMS.Types.EvaluationResult
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates whether the account is compliant with the specified policy. An account is considered noncompliant if it includes resources that are not protected by the policy, for AWS WAF and Shield Advanced policies, or that are noncompliant with the policy, for security group policies.
+-- | Indicates whether the account is compliant with the specified policy. An
+-- account is considered noncompliant if it includes resources that are not
+-- protected by the policy, for AWS WAF and Shield Advanced policies, or
+-- that are noncompliant with the policy, for security group policies.
 --
---
---
--- /See:/ 'policyComplianceStatus' smart constructor.
+-- /See:/ 'newPolicyComplianceStatus' smart constructor.
 data PolicyComplianceStatus = PolicyComplianceStatus'
-  { _pcsPolicyName ::
-      !(Maybe Text),
-    _pcsPolicyOwner ::
-      !(Maybe Text),
-    _pcsMemberAccount ::
-      !(Maybe Text),
-    _pcsLastUpdated ::
-      !(Maybe POSIX),
-    _pcsEvaluationResults ::
-      !( Maybe
-           [EvaluationResult]
-       ),
-    _pcsIssueInfoMap ::
-      !( Maybe
-           ( Map
-               DependentServiceName
-               Text
-           )
-       ),
-    _pcsPolicyId ::
-      !(Maybe Text)
+  { -- | The name of the AWS Firewall Manager policy.
+    policyName :: Prelude.Maybe Prelude.Text,
+    -- | The AWS account that created the AWS Firewall Manager policy.
+    policyOwner :: Prelude.Maybe Prelude.Text,
+    -- | The member account ID.
+    memberAccount :: Prelude.Maybe Prelude.Text,
+    -- | Timestamp of the last update to the @EvaluationResult@ objects.
+    lastUpdated :: Prelude.Maybe Prelude.POSIX,
+    -- | An array of @EvaluationResult@ objects.
+    evaluationResults :: Prelude.Maybe [EvaluationResult],
+    -- | Details about problems with dependent services, such as AWS WAF or AWS
+    -- Config, that are causing a resource to be noncompliant. The details
+    -- include the name of the dependent service and the error message received
+    -- that indicates the problem with the service.
+    issueInfoMap :: Prelude.Maybe (Prelude.Map DependentServiceName Prelude.Text),
+    -- | The ID of the AWS Firewall Manager policy.
+    policyId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyComplianceStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyComplianceStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcsPolicyName' - The name of the AWS Firewall Manager policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcsPolicyOwner' - The AWS account that created the AWS Firewall Manager policy.
+-- 'policyName', 'policyComplianceStatus_policyName' - The name of the AWS Firewall Manager policy.
 --
--- * 'pcsMemberAccount' - The member account ID.
+-- 'policyOwner', 'policyComplianceStatus_policyOwner' - The AWS account that created the AWS Firewall Manager policy.
 --
--- * 'pcsLastUpdated' - Timestamp of the last update to the @EvaluationResult@ objects.
+-- 'memberAccount', 'policyComplianceStatus_memberAccount' - The member account ID.
 --
--- * 'pcsEvaluationResults' - An array of @EvaluationResult@ objects.
+-- 'lastUpdated', 'policyComplianceStatus_lastUpdated' - Timestamp of the last update to the @EvaluationResult@ objects.
 --
--- * 'pcsIssueInfoMap' - Details about problems with dependent services, such as AWS WAF or AWS Config, that are causing a resource to be noncompliant. The details include the name of the dependent service and the error message received that indicates the problem with the service.
+-- 'evaluationResults', 'policyComplianceStatus_evaluationResults' - An array of @EvaluationResult@ objects.
 --
--- * 'pcsPolicyId' - The ID of the AWS Firewall Manager policy.
-policyComplianceStatus ::
+-- 'issueInfoMap', 'policyComplianceStatus_issueInfoMap' - Details about problems with dependent services, such as AWS WAF or AWS
+-- Config, that are causing a resource to be noncompliant. The details
+-- include the name of the dependent service and the error message received
+-- that indicates the problem with the service.
+--
+-- 'policyId', 'policyComplianceStatus_policyId' - The ID of the AWS Firewall Manager policy.
+newPolicyComplianceStatus ::
   PolicyComplianceStatus
-policyComplianceStatus =
+newPolicyComplianceStatus =
   PolicyComplianceStatus'
-    { _pcsPolicyName = Nothing,
-      _pcsPolicyOwner = Nothing,
-      _pcsMemberAccount = Nothing,
-      _pcsLastUpdated = Nothing,
-      _pcsEvaluationResults = Nothing,
-      _pcsIssueInfoMap = Nothing,
-      _pcsPolicyId = Nothing
+    { policyName =
+        Prelude.Nothing,
+      policyOwner = Prelude.Nothing,
+      memberAccount = Prelude.Nothing,
+      lastUpdated = Prelude.Nothing,
+      evaluationResults = Prelude.Nothing,
+      issueInfoMap = Prelude.Nothing,
+      policyId = Prelude.Nothing
     }
 
 -- | The name of the AWS Firewall Manager policy.
-pcsPolicyName :: Lens' PolicyComplianceStatus (Maybe Text)
-pcsPolicyName = lens _pcsPolicyName (\s a -> s {_pcsPolicyName = a})
+policyComplianceStatus_policyName :: Lens.Lens' PolicyComplianceStatus (Prelude.Maybe Prelude.Text)
+policyComplianceStatus_policyName = Lens.lens (\PolicyComplianceStatus' {policyName} -> policyName) (\s@PolicyComplianceStatus' {} a -> s {policyName = a} :: PolicyComplianceStatus)
 
 -- | The AWS account that created the AWS Firewall Manager policy.
-pcsPolicyOwner :: Lens' PolicyComplianceStatus (Maybe Text)
-pcsPolicyOwner = lens _pcsPolicyOwner (\s a -> s {_pcsPolicyOwner = a})
+policyComplianceStatus_policyOwner :: Lens.Lens' PolicyComplianceStatus (Prelude.Maybe Prelude.Text)
+policyComplianceStatus_policyOwner = Lens.lens (\PolicyComplianceStatus' {policyOwner} -> policyOwner) (\s@PolicyComplianceStatus' {} a -> s {policyOwner = a} :: PolicyComplianceStatus)
 
 -- | The member account ID.
-pcsMemberAccount :: Lens' PolicyComplianceStatus (Maybe Text)
-pcsMemberAccount = lens _pcsMemberAccount (\s a -> s {_pcsMemberAccount = a})
+policyComplianceStatus_memberAccount :: Lens.Lens' PolicyComplianceStatus (Prelude.Maybe Prelude.Text)
+policyComplianceStatus_memberAccount = Lens.lens (\PolicyComplianceStatus' {memberAccount} -> memberAccount) (\s@PolicyComplianceStatus' {} a -> s {memberAccount = a} :: PolicyComplianceStatus)
 
 -- | Timestamp of the last update to the @EvaluationResult@ objects.
-pcsLastUpdated :: Lens' PolicyComplianceStatus (Maybe UTCTime)
-pcsLastUpdated = lens _pcsLastUpdated (\s a -> s {_pcsLastUpdated = a}) . mapping _Time
+policyComplianceStatus_lastUpdated :: Lens.Lens' PolicyComplianceStatus (Prelude.Maybe Prelude.UTCTime)
+policyComplianceStatus_lastUpdated = Lens.lens (\PolicyComplianceStatus' {lastUpdated} -> lastUpdated) (\s@PolicyComplianceStatus' {} a -> s {lastUpdated = a} :: PolicyComplianceStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | An array of @EvaluationResult@ objects.
-pcsEvaluationResults :: Lens' PolicyComplianceStatus [EvaluationResult]
-pcsEvaluationResults = lens _pcsEvaluationResults (\s a -> s {_pcsEvaluationResults = a}) . _Default . _Coerce
+policyComplianceStatus_evaluationResults :: Lens.Lens' PolicyComplianceStatus (Prelude.Maybe [EvaluationResult])
+policyComplianceStatus_evaluationResults = Lens.lens (\PolicyComplianceStatus' {evaluationResults} -> evaluationResults) (\s@PolicyComplianceStatus' {} a -> s {evaluationResults = a} :: PolicyComplianceStatus) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Details about problems with dependent services, such as AWS WAF or AWS Config, that are causing a resource to be noncompliant. The details include the name of the dependent service and the error message received that indicates the problem with the service.
-pcsIssueInfoMap :: Lens' PolicyComplianceStatus (HashMap DependentServiceName Text)
-pcsIssueInfoMap = lens _pcsIssueInfoMap (\s a -> s {_pcsIssueInfoMap = a}) . _Default . _Map
+-- | Details about problems with dependent services, such as AWS WAF or AWS
+-- Config, that are causing a resource to be noncompliant. The details
+-- include the name of the dependent service and the error message received
+-- that indicates the problem with the service.
+policyComplianceStatus_issueInfoMap :: Lens.Lens' PolicyComplianceStatus (Prelude.Maybe (Prelude.HashMap DependentServiceName Prelude.Text))
+policyComplianceStatus_issueInfoMap = Lens.lens (\PolicyComplianceStatus' {issueInfoMap} -> issueInfoMap) (\s@PolicyComplianceStatus' {} a -> s {issueInfoMap = a} :: PolicyComplianceStatus) Prelude.. Lens.mapping Prelude._Map
 
 -- | The ID of the AWS Firewall Manager policy.
-pcsPolicyId :: Lens' PolicyComplianceStatus (Maybe Text)
-pcsPolicyId = lens _pcsPolicyId (\s a -> s {_pcsPolicyId = a})
+policyComplianceStatus_policyId :: Lens.Lens' PolicyComplianceStatus (Prelude.Maybe Prelude.Text)
+policyComplianceStatus_policyId = Lens.lens (\PolicyComplianceStatus' {policyId} -> policyId) (\s@PolicyComplianceStatus' {} a -> s {policyId = a} :: PolicyComplianceStatus)
 
-instance FromJSON PolicyComplianceStatus where
+instance Prelude.FromJSON PolicyComplianceStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PolicyComplianceStatus"
       ( \x ->
           PolicyComplianceStatus'
-            <$> (x .:? "PolicyName")
-            <*> (x .:? "PolicyOwner")
-            <*> (x .:? "MemberAccount")
-            <*> (x .:? "LastUpdated")
-            <*> (x .:? "EvaluationResults" .!= mempty)
-            <*> (x .:? "IssueInfoMap" .!= mempty)
-            <*> (x .:? "PolicyId")
+            Prelude.<$> (x Prelude..:? "PolicyName")
+            Prelude.<*> (x Prelude..:? "PolicyOwner")
+            Prelude.<*> (x Prelude..:? "MemberAccount")
+            Prelude.<*> (x Prelude..:? "LastUpdated")
+            Prelude.<*> ( x Prelude..:? "EvaluationResults"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "IssueInfoMap"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "PolicyId")
       )
 
-instance Hashable PolicyComplianceStatus
+instance Prelude.Hashable PolicyComplianceStatus
 
-instance NFData PolicyComplianceStatus
+instance Prelude.NFData PolicyComplianceStatus

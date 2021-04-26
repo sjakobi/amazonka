@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,91 @@
 module Network.AWS.FMS.Types.EvaluationResult where
 
 import Network.AWS.FMS.Types.PolicyComplianceStatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the compliance status for the account. An account is considered noncompliant if it includes resources that are not protected by the specified policy or that don't comply with the policy.
+-- | Describes the compliance status for the account. An account is
+-- considered noncompliant if it includes resources that are not protected
+-- by the specified policy or that don\'t comply with the policy.
 --
---
---
--- /See:/ 'evaluationResult' smart constructor.
+-- /See:/ 'newEvaluationResult' smart constructor.
 data EvaluationResult = EvaluationResult'
-  { _erComplianceStatus ::
-      !(Maybe PolicyComplianceStatusType),
-    _erEvaluationLimitExceeded ::
-      !(Maybe Bool),
-    _erViolatorCount :: !(Maybe Nat)
+  { -- | Describes an AWS account\'s compliance with the AWS Firewall Manager
+    -- policy.
+    complianceStatus :: Prelude.Maybe PolicyComplianceStatusType,
+    -- | Indicates that over 100 resources are noncompliant with the AWS Firewall
+    -- Manager policy.
+    evaluationLimitExceeded :: Prelude.Maybe Prelude.Bool,
+    -- | The number of resources that are noncompliant with the specified policy.
+    -- For AWS WAF and Shield Advanced policies, a resource is considered
+    -- noncompliant if it is not associated with the policy. For security group
+    -- policies, a resource is considered noncompliant if it doesn\'t comply
+    -- with the rules of the policy and remediation is disabled or not
+    -- possible.
+    violatorCount :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EvaluationResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EvaluationResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erComplianceStatus' - Describes an AWS account's compliance with the AWS Firewall Manager policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'erEvaluationLimitExceeded' - Indicates that over 100 resources are noncompliant with the AWS Firewall Manager policy.
+-- 'complianceStatus', 'evaluationResult_complianceStatus' - Describes an AWS account\'s compliance with the AWS Firewall Manager
+-- policy.
 --
--- * 'erViolatorCount' - The number of resources that are noncompliant with the specified policy. For AWS WAF and Shield Advanced policies, a resource is considered noncompliant if it is not associated with the policy. For security group policies, a resource is considered noncompliant if it doesn't comply with the rules of the policy and remediation is disabled or not possible.
-evaluationResult ::
+-- 'evaluationLimitExceeded', 'evaluationResult_evaluationLimitExceeded' - Indicates that over 100 resources are noncompliant with the AWS Firewall
+-- Manager policy.
+--
+-- 'violatorCount', 'evaluationResult_violatorCount' - The number of resources that are noncompliant with the specified policy.
+-- For AWS WAF and Shield Advanced policies, a resource is considered
+-- noncompliant if it is not associated with the policy. For security group
+-- policies, a resource is considered noncompliant if it doesn\'t comply
+-- with the rules of the policy and remediation is disabled or not
+-- possible.
+newEvaluationResult ::
   EvaluationResult
-evaluationResult =
+newEvaluationResult =
   EvaluationResult'
-    { _erComplianceStatus = Nothing,
-      _erEvaluationLimitExceeded = Nothing,
-      _erViolatorCount = Nothing
+    { complianceStatus =
+        Prelude.Nothing,
+      evaluationLimitExceeded = Prelude.Nothing,
+      violatorCount = Prelude.Nothing
     }
 
--- | Describes an AWS account's compliance with the AWS Firewall Manager policy.
-erComplianceStatus :: Lens' EvaluationResult (Maybe PolicyComplianceStatusType)
-erComplianceStatus = lens _erComplianceStatus (\s a -> s {_erComplianceStatus = a})
+-- | Describes an AWS account\'s compliance with the AWS Firewall Manager
+-- policy.
+evaluationResult_complianceStatus :: Lens.Lens' EvaluationResult (Prelude.Maybe PolicyComplianceStatusType)
+evaluationResult_complianceStatus = Lens.lens (\EvaluationResult' {complianceStatus} -> complianceStatus) (\s@EvaluationResult' {} a -> s {complianceStatus = a} :: EvaluationResult)
 
--- | Indicates that over 100 resources are noncompliant with the AWS Firewall Manager policy.
-erEvaluationLimitExceeded :: Lens' EvaluationResult (Maybe Bool)
-erEvaluationLimitExceeded = lens _erEvaluationLimitExceeded (\s a -> s {_erEvaluationLimitExceeded = a})
+-- | Indicates that over 100 resources are noncompliant with the AWS Firewall
+-- Manager policy.
+evaluationResult_evaluationLimitExceeded :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Bool)
+evaluationResult_evaluationLimitExceeded = Lens.lens (\EvaluationResult' {evaluationLimitExceeded} -> evaluationLimitExceeded) (\s@EvaluationResult' {} a -> s {evaluationLimitExceeded = a} :: EvaluationResult)
 
--- | The number of resources that are noncompliant with the specified policy. For AWS WAF and Shield Advanced policies, a resource is considered noncompliant if it is not associated with the policy. For security group policies, a resource is considered noncompliant if it doesn't comply with the rules of the policy and remediation is disabled or not possible.
-erViolatorCount :: Lens' EvaluationResult (Maybe Natural)
-erViolatorCount = lens _erViolatorCount (\s a -> s {_erViolatorCount = a}) . mapping _Nat
+-- | The number of resources that are noncompliant with the specified policy.
+-- For AWS WAF and Shield Advanced policies, a resource is considered
+-- noncompliant if it is not associated with the policy. For security group
+-- policies, a resource is considered noncompliant if it doesn\'t comply
+-- with the rules of the policy and remediation is disabled or not
+-- possible.
+evaluationResult_violatorCount :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Natural)
+evaluationResult_violatorCount = Lens.lens (\EvaluationResult' {violatorCount} -> violatorCount) (\s@EvaluationResult' {} a -> s {violatorCount = a} :: EvaluationResult) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON EvaluationResult where
+instance Prelude.FromJSON EvaluationResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EvaluationResult"
       ( \x ->
           EvaluationResult'
-            <$> (x .:? "ComplianceStatus")
-            <*> (x .:? "EvaluationLimitExceeded")
-            <*> (x .:? "ViolatorCount")
+            Prelude.<$> (x Prelude..:? "ComplianceStatus")
+            Prelude.<*> (x Prelude..:? "EvaluationLimitExceeded")
+            Prelude.<*> (x Prelude..:? "ViolatorCount")
       )
 
-instance Hashable EvaluationResult
+instance Prelude.Hashable EvaluationResult
 
-instance NFData EvaluationResult
+instance Prelude.NFData EvaluationResult

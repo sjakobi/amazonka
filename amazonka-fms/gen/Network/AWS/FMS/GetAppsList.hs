@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the specified AWS Firewall Manager applications list.
+-- Returns information about the specified AWS Firewall Manager
+-- applications list.
 module Network.AWS.FMS.GetAppsList
   ( -- * Creating a Request
-    getAppsList,
-    GetAppsList,
+    GetAppsList (..),
+    newGetAppsList,
 
     -- * Request Lenses
-    galDefaultList,
-    galListId,
+    getAppsList_defaultList,
+    getAppsList_listId,
 
     -- * Destructuring the Response
-    getAppsListResponse,
-    GetAppsListResponse,
+    GetAppsListResponse (..),
+    newGetAppsListResponse,
 
     -- * Response Lenses
-    galrrsAppsList,
-    galrrsAppsListARN,
-    galrrsResponseStatus,
+    getAppsListResponse_appsList,
+    getAppsListResponse_appsListArn,
+    getAppsListResponse_httpStatus,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.FMS.Types.AppsListData
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAppsList' smart constructor.
+-- | /See:/ 'newGetAppsList' smart constructor.
 data GetAppsList = GetAppsList'
-  { _galDefaultList ::
-      !(Maybe Bool),
-    _galListId :: !Text
+  { -- | Specifies whether the list to retrieve is a default list owned by AWS
+    -- Firewall Manager.
+    defaultList :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the AWS Firewall Manager applications list that you want the
+    -- details for.
+    listId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppsList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppsList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'galDefaultList' - Specifies whether the list to retrieve is a default list owned by AWS Firewall Manager.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'galListId' - The ID of the AWS Firewall Manager applications list that you want the details for.
-getAppsList ::
-  -- | 'galListId'
-  Text ->
+-- 'defaultList', 'getAppsList_defaultList' - Specifies whether the list to retrieve is a default list owned by AWS
+-- Firewall Manager.
+--
+-- 'listId', 'getAppsList_listId' - The ID of the AWS Firewall Manager applications list that you want the
+-- details for.
+newGetAppsList ::
+  -- | 'listId'
+  Prelude.Text ->
   GetAppsList
-getAppsList pListId_ =
+newGetAppsList pListId_ =
   GetAppsList'
-    { _galDefaultList = Nothing,
-      _galListId = pListId_
+    { defaultList = Prelude.Nothing,
+      listId = pListId_
     }
 
--- | Specifies whether the list to retrieve is a default list owned by AWS Firewall Manager.
-galDefaultList :: Lens' GetAppsList (Maybe Bool)
-galDefaultList = lens _galDefaultList (\s a -> s {_galDefaultList = a})
+-- | Specifies whether the list to retrieve is a default list owned by AWS
+-- Firewall Manager.
+getAppsList_defaultList :: Lens.Lens' GetAppsList (Prelude.Maybe Prelude.Bool)
+getAppsList_defaultList = Lens.lens (\GetAppsList' {defaultList} -> defaultList) (\s@GetAppsList' {} a -> s {defaultList = a} :: GetAppsList)
 
--- | The ID of the AWS Firewall Manager applications list that you want the details for.
-galListId :: Lens' GetAppsList Text
-galListId = lens _galListId (\s a -> s {_galListId = a})
+-- | The ID of the AWS Firewall Manager applications list that you want the
+-- details for.
+getAppsList_listId :: Lens.Lens' GetAppsList Prelude.Text
+getAppsList_listId = Lens.lens (\GetAppsList' {listId} -> listId) (\s@GetAppsList' {} a -> s {listId = a} :: GetAppsList)
 
-instance AWSRequest GetAppsList where
+instance Prelude.AWSRequest GetAppsList where
   type Rs GetAppsList = GetAppsListResponse
-  request = postJSON fms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAppsListResponse'
-            <$> (x .?> "AppsList")
-            <*> (x .?> "AppsListArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AppsList")
+            Prelude.<*> (x Prelude..?> "AppsListArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAppsList
+instance Prelude.Hashable GetAppsList
 
-instance NFData GetAppsList
+instance Prelude.NFData GetAppsList
 
-instance ToHeaders GetAppsList where
+instance Prelude.ToHeaders GetAppsList where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSFMS_20180101.GetAppsList" :: ByteString),
+              Prelude.=# ( "AWSFMS_20180101.GetAppsList" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAppsList where
+instance Prelude.ToJSON GetAppsList where
   toJSON GetAppsList' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultList" .=) <$> _galDefaultList,
-            Just ("ListId" .= _galListId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultList" Prelude..=) Prelude.<$> defaultList,
+            Prelude.Just ("ListId" Prelude..= listId)
           ]
       )
 
-instance ToPath GetAppsList where
-  toPath = const "/"
+instance Prelude.ToPath GetAppsList where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAppsList where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAppsList where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAppsListResponse' smart constructor.
+-- | /See:/ 'newGetAppsListResponse' smart constructor.
 data GetAppsListResponse = GetAppsListResponse'
-  { _galrrsAppsList ::
-      !(Maybe AppsListData),
-    _galrrsAppsListARN ::
-      !(Maybe Text),
-    _galrrsResponseStatus :: !Int
+  { -- | Information about the specified AWS Firewall Manager applications list.
+    appsList :: Prelude.Maybe AppsListData,
+    -- | The Amazon Resource Name (ARN) of the applications list.
+    appsListArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppsListResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppsListResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'galrrsAppsList' - Information about the specified AWS Firewall Manager applications list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'galrrsAppsListARN' - The Amazon Resource Name (ARN) of the applications list.
+-- 'appsList', 'getAppsListResponse_appsList' - Information about the specified AWS Firewall Manager applications list.
 --
--- * 'galrrsResponseStatus' - -- | The response status code.
-getAppsListResponse ::
-  -- | 'galrrsResponseStatus'
-  Int ->
+-- 'appsListArn', 'getAppsListResponse_appsListArn' - The Amazon Resource Name (ARN) of the applications list.
+--
+-- 'httpStatus', 'getAppsListResponse_httpStatus' - The response's http status code.
+newGetAppsListResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAppsListResponse
-getAppsListResponse pResponseStatus_ =
+newGetAppsListResponse pHttpStatus_ =
   GetAppsListResponse'
-    { _galrrsAppsList = Nothing,
-      _galrrsAppsListARN = Nothing,
-      _galrrsResponseStatus = pResponseStatus_
+    { appsList = Prelude.Nothing,
+      appsListArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the specified AWS Firewall Manager applications list.
-galrrsAppsList :: Lens' GetAppsListResponse (Maybe AppsListData)
-galrrsAppsList = lens _galrrsAppsList (\s a -> s {_galrrsAppsList = a})
+getAppsListResponse_appsList :: Lens.Lens' GetAppsListResponse (Prelude.Maybe AppsListData)
+getAppsListResponse_appsList = Lens.lens (\GetAppsListResponse' {appsList} -> appsList) (\s@GetAppsListResponse' {} a -> s {appsList = a} :: GetAppsListResponse)
 
 -- | The Amazon Resource Name (ARN) of the applications list.
-galrrsAppsListARN :: Lens' GetAppsListResponse (Maybe Text)
-galrrsAppsListARN = lens _galrrsAppsListARN (\s a -> s {_galrrsAppsListARN = a})
+getAppsListResponse_appsListArn :: Lens.Lens' GetAppsListResponse (Prelude.Maybe Prelude.Text)
+getAppsListResponse_appsListArn = Lens.lens (\GetAppsListResponse' {appsListArn} -> appsListArn) (\s@GetAppsListResponse' {} a -> s {appsListArn = a} :: GetAppsListResponse)
 
--- | -- | The response status code.
-galrrsResponseStatus :: Lens' GetAppsListResponse Int
-galrrsResponseStatus = lens _galrrsResponseStatus (\s a -> s {_galrrsResponseStatus = a})
+-- | The response's http status code.
+getAppsListResponse_httpStatus :: Lens.Lens' GetAppsListResponse Prelude.Int
+getAppsListResponse_httpStatus = Lens.lens (\GetAppsListResponse' {httpStatus} -> httpStatus) (\s@GetAppsListResponse' {} a -> s {httpStatus = a} :: GetAppsListResponse)
 
-instance NFData GetAppsListResponse
+instance Prelude.NFData GetAppsListResponse

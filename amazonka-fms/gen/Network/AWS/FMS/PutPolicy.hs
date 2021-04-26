@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,164 +23,184 @@
 --
 -- Creates an AWS Firewall Manager policy.
 --
---
 -- Firewall Manager provides the following types of policies:
 --
---     * An AWS WAF policy (type WAFV2), which defines rule groups to run first in the corresponding AWS WAF web ACL and rule groups to run last in the web ACL.
+-- -   An AWS WAF policy (type WAFV2), which defines rule groups to run
+--     first in the corresponding AWS WAF web ACL and rule groups to run
+--     last in the web ACL.
 --
---     * An AWS WAF Classic policy (type WAF), which defines a rule group.
+-- -   An AWS WAF Classic policy (type WAF), which defines a rule group.
 --
---     * A Shield Advanced policy, which applies Shield Advanced protection to specified accounts and resources.
+-- -   A Shield Advanced policy, which applies Shield Advanced protection
+--     to specified accounts and resources.
 --
---     * A security group policy, which manages VPC security groups across your AWS organization.
+-- -   A security group policy, which manages VPC security groups across
+--     your AWS organization.
 --
---     * An AWS Network Firewall policy, which provides firewall rules to filter network traffic in specified Amazon VPCs.
+-- -   An AWS Network Firewall policy, which provides firewall rules to
+--     filter network traffic in specified Amazon VPCs.
 --
+-- Each policy is specific to one of the types. If you want to enforce more
+-- than one policy type across accounts, create multiple policies. You can
+-- create multiple policies for each type.
 --
---
--- Each policy is specific to one of the types. If you want to enforce more than one policy type across accounts, create multiple policies. You can create multiple policies for each type.
---
--- You must be subscribed to Shield Advanced to create a Shield Advanced policy. For more information about subscribing to Shield Advanced, see <https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_CreateSubscription.html CreateSubscription> .
+-- You must be subscribed to Shield Advanced to create a Shield Advanced
+-- policy. For more information about subscribing to Shield Advanced, see
+-- <https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_CreateSubscription.html CreateSubscription>.
 module Network.AWS.FMS.PutPolicy
   ( -- * Creating a Request
-    putPolicy,
-    PutPolicy,
+    PutPolicy (..),
+    newPutPolicy,
 
     -- * Request Lenses
-    ppTagList,
-    ppPolicy,
+    putPolicy_tagList,
+    putPolicy_policy,
 
     -- * Destructuring the Response
-    putPolicyResponse,
-    PutPolicyResponse,
+    PutPolicyResponse (..),
+    newPutPolicyResponse,
 
     -- * Response Lenses
-    pprrsPolicy,
-    pprrsPolicyARN,
-    pprrsResponseStatus,
+    putPolicyResponse_policy,
+    putPolicyResponse_policyArn,
+    putPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.FMS.Types.Policy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putPolicy' smart constructor.
+-- | /See:/ 'newPutPolicy' smart constructor.
 data PutPolicy = PutPolicy'
-  { _ppTagList ::
-      !(Maybe [Tag]),
-    _ppPolicy :: !Policy
+  { -- | The tags to add to the AWS resource.
+    tagList :: Prelude.Maybe [Tag],
+    -- | The details of the AWS Firewall Manager policy to be created.
+    policy :: Policy
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppTagList' - The tags to add to the AWS resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ppPolicy' - The details of the AWS Firewall Manager policy to be created.
-putPolicy ::
-  -- | 'ppPolicy'
+-- 'tagList', 'putPolicy_tagList' - The tags to add to the AWS resource.
+--
+-- 'policy', 'putPolicy_policy' - The details of the AWS Firewall Manager policy to be created.
+newPutPolicy ::
+  -- | 'policy'
   Policy ->
   PutPolicy
-putPolicy pPolicy_ =
+newPutPolicy pPolicy_ =
   PutPolicy'
-    { _ppTagList = Nothing,
-      _ppPolicy = pPolicy_
+    { tagList = Prelude.Nothing,
+      policy = pPolicy_
     }
 
 -- | The tags to add to the AWS resource.
-ppTagList :: Lens' PutPolicy [Tag]
-ppTagList = lens _ppTagList (\s a -> s {_ppTagList = a}) . _Default . _Coerce
+putPolicy_tagList :: Lens.Lens' PutPolicy (Prelude.Maybe [Tag])
+putPolicy_tagList = Lens.lens (\PutPolicy' {tagList} -> tagList) (\s@PutPolicy' {} a -> s {tagList = a} :: PutPolicy) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The details of the AWS Firewall Manager policy to be created.
-ppPolicy :: Lens' PutPolicy Policy
-ppPolicy = lens _ppPolicy (\s a -> s {_ppPolicy = a})
+putPolicy_policy :: Lens.Lens' PutPolicy Policy
+putPolicy_policy = Lens.lens (\PutPolicy' {policy} -> policy) (\s@PutPolicy' {} a -> s {policy = a} :: PutPolicy)
 
-instance AWSRequest PutPolicy where
+instance Prelude.AWSRequest PutPolicy where
   type Rs PutPolicy = PutPolicyResponse
-  request = postJSON fms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutPolicyResponse'
-            <$> (x .?> "Policy")
-            <*> (x .?> "PolicyArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Policy")
+            Prelude.<*> (x Prelude..?> "PolicyArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutPolicy
+instance Prelude.Hashable PutPolicy
 
-instance NFData PutPolicy
+instance Prelude.NFData PutPolicy
 
-instance ToHeaders PutPolicy where
+instance Prelude.ToHeaders PutPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSFMS_20180101.PutPolicy" :: ByteString),
+              Prelude.=# ("AWSFMS_20180101.PutPolicy" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutPolicy where
+instance Prelude.ToJSON PutPolicy where
   toJSON PutPolicy' {..} =
-    object
-      ( catMaybes
-          [ ("TagList" .=) <$> _ppTagList,
-            Just ("Policy" .= _ppPolicy)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TagList" Prelude..=) Prelude.<$> tagList,
+            Prelude.Just ("Policy" Prelude..= policy)
           ]
       )
 
-instance ToPath PutPolicy where
-  toPath = const "/"
+instance Prelude.ToPath PutPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery PutPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putPolicyResponse' smart constructor.
+-- | /See:/ 'newPutPolicyResponse' smart constructor.
 data PutPolicyResponse = PutPolicyResponse'
-  { _pprrsPolicy ::
-      !(Maybe Policy),
-    _pprrsPolicyARN :: !(Maybe Text),
-    _pprrsResponseStatus :: !Int
+  { -- | The details of the AWS Firewall Manager policy.
+    policy :: Prelude.Maybe Policy,
+    -- | The Amazon Resource Name (ARN) of the policy.
+    policyArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pprrsPolicy' - The details of the AWS Firewall Manager policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pprrsPolicyARN' - The Amazon Resource Name (ARN) of the policy.
+-- 'policy', 'putPolicyResponse_policy' - The details of the AWS Firewall Manager policy.
 --
--- * 'pprrsResponseStatus' - -- | The response status code.
-putPolicyResponse ::
-  -- | 'pprrsResponseStatus'
-  Int ->
+-- 'policyArn', 'putPolicyResponse_policyArn' - The Amazon Resource Name (ARN) of the policy.
+--
+-- 'httpStatus', 'putPolicyResponse_httpStatus' - The response's http status code.
+newPutPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutPolicyResponse
-putPolicyResponse pResponseStatus_ =
+newPutPolicyResponse pHttpStatus_ =
   PutPolicyResponse'
-    { _pprrsPolicy = Nothing,
-      _pprrsPolicyARN = Nothing,
-      _pprrsResponseStatus = pResponseStatus_
+    { policy = Prelude.Nothing,
+      policyArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The details of the AWS Firewall Manager policy.
-pprrsPolicy :: Lens' PutPolicyResponse (Maybe Policy)
-pprrsPolicy = lens _pprrsPolicy (\s a -> s {_pprrsPolicy = a})
+putPolicyResponse_policy :: Lens.Lens' PutPolicyResponse (Prelude.Maybe Policy)
+putPolicyResponse_policy = Lens.lens (\PutPolicyResponse' {policy} -> policy) (\s@PutPolicyResponse' {} a -> s {policy = a} :: PutPolicyResponse)
 
 -- | The Amazon Resource Name (ARN) of the policy.
-pprrsPolicyARN :: Lens' PutPolicyResponse (Maybe Text)
-pprrsPolicyARN = lens _pprrsPolicyARN (\s a -> s {_pprrsPolicyARN = a})
+putPolicyResponse_policyArn :: Lens.Lens' PutPolicyResponse (Prelude.Maybe Prelude.Text)
+putPolicyResponse_policyArn = Lens.lens (\PutPolicyResponse' {policyArn} -> policyArn) (\s@PutPolicyResponse' {} a -> s {policyArn = a} :: PutPolicyResponse)
 
--- | -- | The response status code.
-pprrsResponseStatus :: Lens' PutPolicyResponse Int
-pprrsResponseStatus = lens _pprrsResponseStatus (\s a -> s {_pprrsResponseStatus = a})
+-- | The response's http status code.
+putPolicyResponse_httpStatus :: Lens.Lens' PutPolicyResponse Prelude.Int
+putPolicyResponse_httpStatus = Lens.lens (\PutPolicyResponse' {httpStatus} -> httpStatus) (\s@PutPolicyResponse' {} a -> s {httpStatus = a} :: PutPolicyResponse)
 
-instance NFData PutPolicyResponse
+instance Prelude.NFData PutPolicyResponse

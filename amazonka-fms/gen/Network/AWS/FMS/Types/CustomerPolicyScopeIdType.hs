@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.FMS.Types.CustomerPolicyScopeIdType
   ( CustomerPolicyScopeIdType
       ( ..,
-        Account,
-        OrgUnit
+        CustomerPolicyScopeIdTypeACCOUNT,
+        CustomerPolicyScopeIdTypeORGUNIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CustomerPolicyScopeIdType
-  = CustomerPolicyScopeIdType'
-      ( CI
-          Text
-      )
+newtype CustomerPolicyScopeIdType = CustomerPolicyScopeIdType'
+  { fromCustomerPolicyScopeIdType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Account :: CustomerPolicyScopeIdType
-pattern Account = CustomerPolicyScopeIdType' "ACCOUNT"
+pattern CustomerPolicyScopeIdTypeACCOUNT :: CustomerPolicyScopeIdType
+pattern CustomerPolicyScopeIdTypeACCOUNT = CustomerPolicyScopeIdType' "ACCOUNT"
 
-pattern OrgUnit :: CustomerPolicyScopeIdType
-pattern OrgUnit = CustomerPolicyScopeIdType' "ORG_UNIT"
+pattern CustomerPolicyScopeIdTypeORGUNIT :: CustomerPolicyScopeIdType
+pattern CustomerPolicyScopeIdTypeORGUNIT = CustomerPolicyScopeIdType' "ORG_UNIT"
 
 {-# COMPLETE
-  Account,
-  OrgUnit,
+  CustomerPolicyScopeIdTypeACCOUNT,
+  CustomerPolicyScopeIdTypeORGUNIT,
   CustomerPolicyScopeIdType'
   #-}
 
-instance FromText CustomerPolicyScopeIdType where
-  parser = (CustomerPolicyScopeIdType' . mk) <$> takeText
+instance Prelude.FromText CustomerPolicyScopeIdType where
+  parser = CustomerPolicyScopeIdType' Prelude.<$> Prelude.takeText
 
-instance ToText CustomerPolicyScopeIdType where
-  toText (CustomerPolicyScopeIdType' ci) = original ci
+instance Prelude.ToText CustomerPolicyScopeIdType where
+  toText (CustomerPolicyScopeIdType' x) = x
 
-instance Hashable CustomerPolicyScopeIdType
+instance Prelude.Hashable CustomerPolicyScopeIdType
 
-instance NFData CustomerPolicyScopeIdType
+instance Prelude.NFData CustomerPolicyScopeIdType
 
-instance ToByteString CustomerPolicyScopeIdType
+instance Prelude.ToByteString CustomerPolicyScopeIdType
 
-instance ToQuery CustomerPolicyScopeIdType
+instance Prelude.ToQuery CustomerPolicyScopeIdType
 
-instance ToHeader CustomerPolicyScopeIdType
+instance Prelude.ToHeader CustomerPolicyScopeIdType
 
-instance ToJSON CustomerPolicyScopeIdType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CustomerPolicyScopeIdType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CustomerPolicyScopeIdType where
-  parseJSON = parseJSONText "CustomerPolicyScopeIdType"
+instance Prelude.FromJSON CustomerPolicyScopeIdType where
+  parseJSON = Prelude.parseJSONText "CustomerPolicyScopeIdType"

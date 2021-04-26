@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.FMS.Types.RemediationActionType
   ( RemediationActionType
       ( ..,
-        Modify,
-        Remove
+        RemediationActionTypeMODIFY,
+        RemediationActionTypeREMOVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RemediationActionType
-  = RemediationActionType'
-      ( CI
-          Text
-      )
+newtype RemediationActionType = RemediationActionType'
+  { fromRemediationActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Modify :: RemediationActionType
-pattern Modify = RemediationActionType' "MODIFY"
+pattern RemediationActionTypeMODIFY :: RemediationActionType
+pattern RemediationActionTypeMODIFY = RemediationActionType' "MODIFY"
 
-pattern Remove :: RemediationActionType
-pattern Remove = RemediationActionType' "REMOVE"
+pattern RemediationActionTypeREMOVE :: RemediationActionType
+pattern RemediationActionTypeREMOVE = RemediationActionType' "REMOVE"
 
 {-# COMPLETE
-  Modify,
-  Remove,
+  RemediationActionTypeMODIFY,
+  RemediationActionTypeREMOVE,
   RemediationActionType'
   #-}
 
-instance FromText RemediationActionType where
-  parser = (RemediationActionType' . mk) <$> takeText
+instance Prelude.FromText RemediationActionType where
+  parser = RemediationActionType' Prelude.<$> Prelude.takeText
 
-instance ToText RemediationActionType where
-  toText (RemediationActionType' ci) = original ci
+instance Prelude.ToText RemediationActionType where
+  toText (RemediationActionType' x) = x
 
-instance Hashable RemediationActionType
+instance Prelude.Hashable RemediationActionType
 
-instance NFData RemediationActionType
+instance Prelude.NFData RemediationActionType
 
-instance ToByteString RemediationActionType
+instance Prelude.ToByteString RemediationActionType
 
-instance ToQuery RemediationActionType
+instance Prelude.ToQuery RemediationActionType
 
-instance ToHeader RemediationActionType
+instance Prelude.ToHeader RemediationActionType
 
-instance FromJSON RemediationActionType where
-  parseJSON = parseJSONText "RemediationActionType"
+instance Prelude.FromJSON RemediationActionType where
+  parseJSON = Prelude.parseJSONText "RemediationActionType"

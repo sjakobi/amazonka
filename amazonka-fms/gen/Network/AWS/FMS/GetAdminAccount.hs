@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the AWS Organizations master account that is associated with AWS Firewall Manager as the AWS Firewall Manager administrator.
+-- Returns the AWS Organizations master account that is associated with AWS
+-- Firewall Manager as the AWS Firewall Manager administrator.
 module Network.AWS.FMS.GetAdminAccount
   ( -- * Creating a Request
-    getAdminAccount,
-    GetAdminAccount,
+    GetAdminAccount (..),
+    newGetAdminAccount,
 
     -- * Destructuring the Response
-    getAdminAccountResponse,
-    GetAdminAccountResponse,
+    GetAdminAccountResponse (..),
+    newGetAdminAccountResponse,
 
     -- * Response Lenses
-    gaarrsAdminAccount,
-    gaarrsRoleStatus,
-    gaarrsResponseStatus,
+    getAdminAccountResponse_adminAccount,
+    getAdminAccountResponse_roleStatus,
+    getAdminAccountResponse_httpStatus,
   )
 where
 
 import Network.AWS.FMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.FMS.Types.AccountRoleStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAdminAccount' smart constructor.
+-- | /See:/ 'newGetAdminAccount' smart constructor.
 data GetAdminAccount = GetAdminAccount'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAdminAccount' with the minimum fields required to make a request.
-getAdminAccount ::
+-- |
+-- Create a value of 'GetAdminAccount' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetAdminAccount ::
   GetAdminAccount
-getAdminAccount = GetAdminAccount'
+newGetAdminAccount = GetAdminAccount'
 
-instance AWSRequest GetAdminAccount where
+instance Prelude.AWSRequest GetAdminAccount where
   type Rs GetAdminAccount = GetAdminAccountResponse
-  request = postJSON fms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAdminAccountResponse'
-            <$> (x .?> "AdminAccount")
-            <*> (x .?> "RoleStatus")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AdminAccount")
+            Prelude.<*> (x Prelude..?> "RoleStatus")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAdminAccount
+instance Prelude.Hashable GetAdminAccount
 
-instance NFData GetAdminAccount
+instance Prelude.NFData GetAdminAccount
 
-instance ToHeaders GetAdminAccount where
+instance Prelude.ToHeaders GetAdminAccount where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSFMS_20180101.GetAdminAccount" :: ByteString),
+              Prelude.=# ( "AWSFMS_20180101.GetAdminAccount" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAdminAccount where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetAdminAccount where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetAdminAccount where
-  toPath = const "/"
+instance Prelude.ToPath GetAdminAccount where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAdminAccount where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAdminAccount where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAdminAccountResponse' smart constructor.
+-- | /See:/ 'newGetAdminAccountResponse' smart constructor.
 data GetAdminAccountResponse = GetAdminAccountResponse'
-  { _gaarrsAdminAccount ::
-      !(Maybe Text),
-    _gaarrsRoleStatus ::
-      !( Maybe
-           AccountRoleStatus
-       ),
-    _gaarrsResponseStatus ::
-      !Int
+  { -- | The AWS account that is set as the AWS Firewall Manager administrator.
+    adminAccount :: Prelude.Maybe Prelude.Text,
+    -- | The status of the AWS account that you set as the AWS Firewall Manager
+    -- administrator.
+    roleStatus :: Prelude.Maybe AccountRoleStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAdminAccountResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAdminAccountResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaarrsAdminAccount' - The AWS account that is set as the AWS Firewall Manager administrator.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaarrsRoleStatus' - The status of the AWS account that you set as the AWS Firewall Manager administrator.
+-- 'adminAccount', 'getAdminAccountResponse_adminAccount' - The AWS account that is set as the AWS Firewall Manager administrator.
 --
--- * 'gaarrsResponseStatus' - -- | The response status code.
-getAdminAccountResponse ::
-  -- | 'gaarrsResponseStatus'
-  Int ->
+-- 'roleStatus', 'getAdminAccountResponse_roleStatus' - The status of the AWS account that you set as the AWS Firewall Manager
+-- administrator.
+--
+-- 'httpStatus', 'getAdminAccountResponse_httpStatus' - The response's http status code.
+newGetAdminAccountResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAdminAccountResponse
-getAdminAccountResponse pResponseStatus_ =
+newGetAdminAccountResponse pHttpStatus_ =
   GetAdminAccountResponse'
-    { _gaarrsAdminAccount =
-        Nothing,
-      _gaarrsRoleStatus = Nothing,
-      _gaarrsResponseStatus = pResponseStatus_
+    { adminAccount =
+        Prelude.Nothing,
+      roleStatus = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The AWS account that is set as the AWS Firewall Manager administrator.
-gaarrsAdminAccount :: Lens' GetAdminAccountResponse (Maybe Text)
-gaarrsAdminAccount = lens _gaarrsAdminAccount (\s a -> s {_gaarrsAdminAccount = a})
+getAdminAccountResponse_adminAccount :: Lens.Lens' GetAdminAccountResponse (Prelude.Maybe Prelude.Text)
+getAdminAccountResponse_adminAccount = Lens.lens (\GetAdminAccountResponse' {adminAccount} -> adminAccount) (\s@GetAdminAccountResponse' {} a -> s {adminAccount = a} :: GetAdminAccountResponse)
 
--- | The status of the AWS account that you set as the AWS Firewall Manager administrator.
-gaarrsRoleStatus :: Lens' GetAdminAccountResponse (Maybe AccountRoleStatus)
-gaarrsRoleStatus = lens _gaarrsRoleStatus (\s a -> s {_gaarrsRoleStatus = a})
+-- | The status of the AWS account that you set as the AWS Firewall Manager
+-- administrator.
+getAdminAccountResponse_roleStatus :: Lens.Lens' GetAdminAccountResponse (Prelude.Maybe AccountRoleStatus)
+getAdminAccountResponse_roleStatus = Lens.lens (\GetAdminAccountResponse' {roleStatus} -> roleStatus) (\s@GetAdminAccountResponse' {} a -> s {roleStatus = a} :: GetAdminAccountResponse)
 
--- | -- | The response status code.
-gaarrsResponseStatus :: Lens' GetAdminAccountResponse Int
-gaarrsResponseStatus = lens _gaarrsResponseStatus (\s a -> s {_gaarrsResponseStatus = a})
+-- | The response's http status code.
+getAdminAccountResponse_httpStatus :: Lens.Lens' GetAdminAccountResponse Prelude.Int
+getAdminAccountResponse_httpStatus = Lens.lens (\GetAdminAccountResponse' {httpStatus} -> httpStatus) (\s@GetAdminAccountResponse' {} a -> s {httpStatus = a} :: GetAdminAccountResponse)
 
-instance NFData GetAdminAccountResponse
+instance Prelude.NFData GetAdminAccountResponse

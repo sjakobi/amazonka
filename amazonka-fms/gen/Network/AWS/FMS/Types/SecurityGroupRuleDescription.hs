@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.FMS.Types.SecurityGroupRuleDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a set of permissions for a security group rule.
 --
---
---
--- /See:/ 'securityGroupRuleDescription' smart constructor.
+-- /See:/ 'newSecurityGroupRuleDescription' smart constructor.
 data SecurityGroupRuleDescription = SecurityGroupRuleDescription'
-  { _sgrdFromPort ::
-      !(Maybe Nat),
-    _sgrdIPV4Range ::
-      !(Maybe Text),
-    _sgrdPrefixListId ::
-      !(Maybe Text),
-    _sgrdIPV6Range ::
-      !(Maybe Text),
-    _sgrdProtocol ::
-      !(Maybe Text),
-    _sgrdToPort ::
-      !(Maybe Nat)
+  { -- | The start of the port range for the TCP and UDP protocols, or an
+    -- ICMP\/ICMPv6 type number. A value of @-1@ indicates all ICMP\/ICMPv6
+    -- types.
+    fromPort :: Prelude.Maybe Prelude.Nat,
+    -- | The IPv4 ranges for the security group rule.
+    iPV4Range :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the prefix list for the security group rule.
+    prefixListId :: Prelude.Maybe Prelude.Text,
+    -- | The IPv6 ranges for the security group rule.
+    iPV6Range :: Prelude.Maybe Prelude.Text,
+    -- | The IP protocol name (@tcp@, @udp@, @icmp@, @icmpv6@) or number.
+    protocol :: Prelude.Maybe Prelude.Text,
+    -- | The end of the port range for the TCP and UDP protocols, or an
+    -- ICMP\/ICMPv6 code. A value of @-1@ indicates all ICMP\/ICMPv6 codes.
+    toPort :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SecurityGroupRuleDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SecurityGroupRuleDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgrdFromPort' - The start of the port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of @-1@ indicates all ICMP/ICMPv6 types.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgrdIPV4Range' - The IPv4 ranges for the security group rule.
+-- 'fromPort', 'securityGroupRuleDescription_fromPort' - The start of the port range for the TCP and UDP protocols, or an
+-- ICMP\/ICMPv6 type number. A value of @-1@ indicates all ICMP\/ICMPv6
+-- types.
 --
--- * 'sgrdPrefixListId' - The ID of the prefix list for the security group rule.
+-- 'iPV4Range', 'securityGroupRuleDescription_iPV4Range' - The IPv4 ranges for the security group rule.
 --
--- * 'sgrdIPV6Range' - The IPv6 ranges for the security group rule.
+-- 'prefixListId', 'securityGroupRuleDescription_prefixListId' - The ID of the prefix list for the security group rule.
 --
--- * 'sgrdProtocol' - The IP protocol name (@tcp@ , @udp@ , @icmp@ , @icmpv6@ ) or number.
+-- 'iPV6Range', 'securityGroupRuleDescription_iPV6Range' - The IPv6 ranges for the security group rule.
 --
--- * 'sgrdToPort' - The end of the port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of @-1@ indicates all ICMP/ICMPv6 codes.
-securityGroupRuleDescription ::
+-- 'protocol', 'securityGroupRuleDescription_protocol' - The IP protocol name (@tcp@, @udp@, @icmp@, @icmpv6@) or number.
+--
+-- 'toPort', 'securityGroupRuleDescription_toPort' - The end of the port range for the TCP and UDP protocols, or an
+-- ICMP\/ICMPv6 code. A value of @-1@ indicates all ICMP\/ICMPv6 codes.
+newSecurityGroupRuleDescription ::
   SecurityGroupRuleDescription
-securityGroupRuleDescription =
+newSecurityGroupRuleDescription =
   SecurityGroupRuleDescription'
-    { _sgrdFromPort =
-        Nothing,
-      _sgrdIPV4Range = Nothing,
-      _sgrdPrefixListId = Nothing,
-      _sgrdIPV6Range = Nothing,
-      _sgrdProtocol = Nothing,
-      _sgrdToPort = Nothing
+    { fromPort =
+        Prelude.Nothing,
+      iPV4Range = Prelude.Nothing,
+      prefixListId = Prelude.Nothing,
+      iPV6Range = Prelude.Nothing,
+      protocol = Prelude.Nothing,
+      toPort = Prelude.Nothing
     }
 
--- | The start of the port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of @-1@ indicates all ICMP/ICMPv6 types.
-sgrdFromPort :: Lens' SecurityGroupRuleDescription (Maybe Natural)
-sgrdFromPort = lens _sgrdFromPort (\s a -> s {_sgrdFromPort = a}) . mapping _Nat
+-- | The start of the port range for the TCP and UDP protocols, or an
+-- ICMP\/ICMPv6 type number. A value of @-1@ indicates all ICMP\/ICMPv6
+-- types.
+securityGroupRuleDescription_fromPort :: Lens.Lens' SecurityGroupRuleDescription (Prelude.Maybe Prelude.Natural)
+securityGroupRuleDescription_fromPort = Lens.lens (\SecurityGroupRuleDescription' {fromPort} -> fromPort) (\s@SecurityGroupRuleDescription' {} a -> s {fromPort = a} :: SecurityGroupRuleDescription) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The IPv4 ranges for the security group rule.
-sgrdIPV4Range :: Lens' SecurityGroupRuleDescription (Maybe Text)
-sgrdIPV4Range = lens _sgrdIPV4Range (\s a -> s {_sgrdIPV4Range = a})
+securityGroupRuleDescription_iPV4Range :: Lens.Lens' SecurityGroupRuleDescription (Prelude.Maybe Prelude.Text)
+securityGroupRuleDescription_iPV4Range = Lens.lens (\SecurityGroupRuleDescription' {iPV4Range} -> iPV4Range) (\s@SecurityGroupRuleDescription' {} a -> s {iPV4Range = a} :: SecurityGroupRuleDescription)
 
 -- | The ID of the prefix list for the security group rule.
-sgrdPrefixListId :: Lens' SecurityGroupRuleDescription (Maybe Text)
-sgrdPrefixListId = lens _sgrdPrefixListId (\s a -> s {_sgrdPrefixListId = a})
+securityGroupRuleDescription_prefixListId :: Lens.Lens' SecurityGroupRuleDescription (Prelude.Maybe Prelude.Text)
+securityGroupRuleDescription_prefixListId = Lens.lens (\SecurityGroupRuleDescription' {prefixListId} -> prefixListId) (\s@SecurityGroupRuleDescription' {} a -> s {prefixListId = a} :: SecurityGroupRuleDescription)
 
 -- | The IPv6 ranges for the security group rule.
-sgrdIPV6Range :: Lens' SecurityGroupRuleDescription (Maybe Text)
-sgrdIPV6Range = lens _sgrdIPV6Range (\s a -> s {_sgrdIPV6Range = a})
+securityGroupRuleDescription_iPV6Range :: Lens.Lens' SecurityGroupRuleDescription (Prelude.Maybe Prelude.Text)
+securityGroupRuleDescription_iPV6Range = Lens.lens (\SecurityGroupRuleDescription' {iPV6Range} -> iPV6Range) (\s@SecurityGroupRuleDescription' {} a -> s {iPV6Range = a} :: SecurityGroupRuleDescription)
 
--- | The IP protocol name (@tcp@ , @udp@ , @icmp@ , @icmpv6@ ) or number.
-sgrdProtocol :: Lens' SecurityGroupRuleDescription (Maybe Text)
-sgrdProtocol = lens _sgrdProtocol (\s a -> s {_sgrdProtocol = a})
+-- | The IP protocol name (@tcp@, @udp@, @icmp@, @icmpv6@) or number.
+securityGroupRuleDescription_protocol :: Lens.Lens' SecurityGroupRuleDescription (Prelude.Maybe Prelude.Text)
+securityGroupRuleDescription_protocol = Lens.lens (\SecurityGroupRuleDescription' {protocol} -> protocol) (\s@SecurityGroupRuleDescription' {} a -> s {protocol = a} :: SecurityGroupRuleDescription)
 
--- | The end of the port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of @-1@ indicates all ICMP/ICMPv6 codes.
-sgrdToPort :: Lens' SecurityGroupRuleDescription (Maybe Natural)
-sgrdToPort = lens _sgrdToPort (\s a -> s {_sgrdToPort = a}) . mapping _Nat
+-- | The end of the port range for the TCP and UDP protocols, or an
+-- ICMP\/ICMPv6 code. A value of @-1@ indicates all ICMP\/ICMPv6 codes.
+securityGroupRuleDescription_toPort :: Lens.Lens' SecurityGroupRuleDescription (Prelude.Maybe Prelude.Natural)
+securityGroupRuleDescription_toPort = Lens.lens (\SecurityGroupRuleDescription' {toPort} -> toPort) (\s@SecurityGroupRuleDescription' {} a -> s {toPort = a} :: SecurityGroupRuleDescription) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON SecurityGroupRuleDescription where
+instance
+  Prelude.FromJSON
+    SecurityGroupRuleDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SecurityGroupRuleDescription"
       ( \x ->
           SecurityGroupRuleDescription'
-            <$> (x .:? "FromPort")
-            <*> (x .:? "IPV4Range")
-            <*> (x .:? "PrefixListId")
-            <*> (x .:? "IPV6Range")
-            <*> (x .:? "Protocol")
-            <*> (x .:? "ToPort")
+            Prelude.<$> (x Prelude..:? "FromPort")
+            Prelude.<*> (x Prelude..:? "IPV4Range")
+            Prelude.<*> (x Prelude..:? "PrefixListId")
+            Prelude.<*> (x Prelude..:? "IPV6Range")
+            Prelude.<*> (x Prelude..:? "Protocol")
+            Prelude.<*> (x Prelude..:? "ToPort")
       )
 
-instance Hashable SecurityGroupRuleDescription
+instance
+  Prelude.Hashable
+    SecurityGroupRuleDescription
 
-instance NFData SecurityGroupRuleDescription
+instance Prelude.NFData SecurityGroupRuleDescription
