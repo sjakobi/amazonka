@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EFS.Types.FileSystemPolicyDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'fileSystemPolicyDescription' smart constructor.
+-- | /See:/ 'newFileSystemPolicyDescription' smart constructor.
 data FileSystemPolicyDescription = FileSystemPolicyDescription'
-  { _fspdFileSystemId ::
-      !(Maybe Text),
-    _fspdPolicy ::
-      !(Maybe Text)
+  { -- | Specifies the EFS file system to which the @FileSystemPolicy@ applies.
+    fileSystemId :: Prelude.Maybe Prelude.Text,
+    -- | The JSON formatted @FileSystemPolicy@ for the EFS file system.
+    policy :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileSystemPolicyDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileSystemPolicyDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fspdFileSystemId' - Specifies the EFS file system to which the @FileSystemPolicy@ applies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fspdPolicy' - The JSON formatted @FileSystemPolicy@ for the EFS file system.
-fileSystemPolicyDescription ::
+-- 'fileSystemId', 'fileSystemPolicyDescription_fileSystemId' - Specifies the EFS file system to which the @FileSystemPolicy@ applies.
+--
+-- 'policy', 'fileSystemPolicyDescription_policy' - The JSON formatted @FileSystemPolicy@ for the EFS file system.
+newFileSystemPolicyDescription ::
   FileSystemPolicyDescription
-fileSystemPolicyDescription =
+newFileSystemPolicyDescription =
   FileSystemPolicyDescription'
-    { _fspdFileSystemId =
-        Nothing,
-      _fspdPolicy = Nothing
+    { fileSystemId =
+        Prelude.Nothing,
+      policy = Prelude.Nothing
     }
 
 -- | Specifies the EFS file system to which the @FileSystemPolicy@ applies.
-fspdFileSystemId :: Lens' FileSystemPolicyDescription (Maybe Text)
-fspdFileSystemId = lens _fspdFileSystemId (\s a -> s {_fspdFileSystemId = a})
+fileSystemPolicyDescription_fileSystemId :: Lens.Lens' FileSystemPolicyDescription (Prelude.Maybe Prelude.Text)
+fileSystemPolicyDescription_fileSystemId = Lens.lens (\FileSystemPolicyDescription' {fileSystemId} -> fileSystemId) (\s@FileSystemPolicyDescription' {} a -> s {fileSystemId = a} :: FileSystemPolicyDescription)
 
 -- | The JSON formatted @FileSystemPolicy@ for the EFS file system.
-fspdPolicy :: Lens' FileSystemPolicyDescription (Maybe Text)
-fspdPolicy = lens _fspdPolicy (\s a -> s {_fspdPolicy = a})
+fileSystemPolicyDescription_policy :: Lens.Lens' FileSystemPolicyDescription (Prelude.Maybe Prelude.Text)
+fileSystemPolicyDescription_policy = Lens.lens (\FileSystemPolicyDescription' {policy} -> policy) (\s@FileSystemPolicyDescription' {} a -> s {policy = a} :: FileSystemPolicyDescription)
 
-instance FromJSON FileSystemPolicyDescription where
+instance Prelude.FromJSON FileSystemPolicyDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileSystemPolicyDescription"
       ( \x ->
           FileSystemPolicyDescription'
-            <$> (x .:? "FileSystemId") <*> (x .:? "Policy")
+            Prelude.<$> (x Prelude..:? "FileSystemId")
+            Prelude.<*> (x Prelude..:? "Policy")
       )
 
-instance Hashable FileSystemPolicyDescription
+instance Prelude.Hashable FileSystemPolicyDescription
 
-instance NFData FileSystemPolicyDescription
+instance Prelude.NFData FileSystemPolicyDescription

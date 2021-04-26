@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.EFS.Types.LifeCycleState
   ( LifeCycleState
       ( ..,
-        Available,
-        Creating,
-        Deleted,
-        Deleting,
-        Updating
+        LifeCycleStateAvailable,
+        LifeCycleStateCreating,
+        LifeCycleStateDeleted,
+        LifeCycleStateDeleting,
+        LifeCycleStateUpdating
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LifeCycleState = LifeCycleState' (CI Text)
+newtype LifeCycleState = LifeCycleState'
+  { fromLifeCycleState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: LifeCycleState
-pattern Available = LifeCycleState' "available"
+pattern LifeCycleStateAvailable :: LifeCycleState
+pattern LifeCycleStateAvailable = LifeCycleState' "available"
 
-pattern Creating :: LifeCycleState
-pattern Creating = LifeCycleState' "creating"
+pattern LifeCycleStateCreating :: LifeCycleState
+pattern LifeCycleStateCreating = LifeCycleState' "creating"
 
-pattern Deleted :: LifeCycleState
-pattern Deleted = LifeCycleState' "deleted"
+pattern LifeCycleStateDeleted :: LifeCycleState
+pattern LifeCycleStateDeleted = LifeCycleState' "deleted"
 
-pattern Deleting :: LifeCycleState
-pattern Deleting = LifeCycleState' "deleting"
+pattern LifeCycleStateDeleting :: LifeCycleState
+pattern LifeCycleStateDeleting = LifeCycleState' "deleting"
 
-pattern Updating :: LifeCycleState
-pattern Updating = LifeCycleState' "updating"
+pattern LifeCycleStateUpdating :: LifeCycleState
+pattern LifeCycleStateUpdating = LifeCycleState' "updating"
 
 {-# COMPLETE
-  Available,
-  Creating,
-  Deleted,
-  Deleting,
-  Updating,
+  LifeCycleStateAvailable,
+  LifeCycleStateCreating,
+  LifeCycleStateDeleted,
+  LifeCycleStateDeleting,
+  LifeCycleStateUpdating,
   LifeCycleState'
   #-}
 
-instance FromText LifeCycleState where
-  parser = (LifeCycleState' . mk) <$> takeText
+instance Prelude.FromText LifeCycleState where
+  parser = LifeCycleState' Prelude.<$> Prelude.takeText
 
-instance ToText LifeCycleState where
-  toText (LifeCycleState' ci) = original ci
+instance Prelude.ToText LifeCycleState where
+  toText (LifeCycleState' x) = x
 
-instance Hashable LifeCycleState
+instance Prelude.Hashable LifeCycleState
 
-instance NFData LifeCycleState
+instance Prelude.NFData LifeCycleState
 
-instance ToByteString LifeCycleState
+instance Prelude.ToByteString LifeCycleState
 
-instance ToQuery LifeCycleState
+instance Prelude.ToQuery LifeCycleState
 
-instance ToHeader LifeCycleState
+instance Prelude.ToHeader LifeCycleState
 
-instance FromJSON LifeCycleState where
-  parseJSON = parseJSONText "LifeCycleState"
+instance Prelude.FromJSON LifeCycleState where
+  parseJSON = Prelude.parseJSONText "LifeCycleState"

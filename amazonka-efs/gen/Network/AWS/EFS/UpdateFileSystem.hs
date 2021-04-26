@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,114 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the throughput mode or the amount of provisioned throughput of an existing file system.
+-- Updates the throughput mode or the amount of provisioned throughput of
+-- an existing file system.
 module Network.AWS.EFS.UpdateFileSystem
   ( -- * Creating a Request
-    updateFileSystem,
-    UpdateFileSystem,
+    UpdateFileSystem (..),
+    newUpdateFileSystem,
 
     -- * Request Lenses
-    ufsThroughputMode,
-    ufsProvisionedThroughputInMibps,
-    ufsFileSystemId,
+    updateFileSystem_throughputMode,
+    updateFileSystem_provisionedThroughputInMibps,
+    updateFileSystem_fileSystemId,
 
     -- * Destructuring the Response
-    fileSystemDescription,
-    FileSystemDescription,
+    FileSystemDescription (..),
+    newFileSystemDescription,
 
     -- * Response Lenses
-    fsdThroughputMode,
-    fsdEncrypted,
-    fsdFileSystemARN,
-    fsdProvisionedThroughputInMibps,
-    fsdKMSKeyId,
-    fsdName,
-    fsdOwnerId,
-    fsdCreationToken,
-    fsdFileSystemId,
-    fsdCreationTime,
-    fsdLifeCycleState,
-    fsdNumberOfMountTargets,
-    fsdSizeInBytes,
-    fsdPerformanceMode,
-    fsdTags,
+    fileSystemDescription_throughputMode,
+    fileSystemDescription_encrypted,
+    fileSystemDescription_fileSystemArn,
+    fileSystemDescription_provisionedThroughputInMibps,
+    fileSystemDescription_kmsKeyId,
+    fileSystemDescription_name,
+    fileSystemDescription_ownerId,
+    fileSystemDescription_creationToken,
+    fileSystemDescription_fileSystemId,
+    fileSystemDescription_creationTime,
+    fileSystemDescription_lifeCycleState,
+    fileSystemDescription_numberOfMountTargets,
+    fileSystemDescription_sizeInBytes,
+    fileSystemDescription_performanceMode,
+    fileSystemDescription_tags,
   )
 where
 
 import Network.AWS.EFS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EFS.Types.FileSystemDescription
+import Network.AWS.EFS.Types.FileSystemSize
+import Network.AWS.EFS.Types.LifeCycleState
+import Network.AWS.EFS.Types.PerformanceMode
+import Network.AWS.EFS.Types.Tag
+import Network.AWS.EFS.Types.ThroughputMode
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateFileSystem' smart constructor.
+-- | /See:/ 'newUpdateFileSystem' smart constructor.
 data UpdateFileSystem = UpdateFileSystem'
-  { _ufsThroughputMode ::
-      !(Maybe ThroughputMode),
-    _ufsProvisionedThroughputInMibps ::
-      !(Maybe Double),
-    _ufsFileSystemId :: !Text
+  { -- | (Optional) The throughput mode that you want your file system to use. If
+    -- you\'re not updating your throughput mode, you don\'t need to provide
+    -- this value in your request. If you are changing the @ThroughputMode@ to
+    -- @provisioned@, you must also set a value for
+    -- @ProvisionedThroughputInMibps@.
+    throughputMode :: Prelude.Maybe ThroughputMode,
+    -- | (Optional) The amount of throughput, in MiB\/s, that you want to
+    -- provision for your file system. Valid values are 1-1024. Required if
+    -- @ThroughputMode@ is changed to @provisioned@ on update. If you\'re not
+    -- updating the amount of provisioned throughput for your file system, you
+    -- don\'t need to provide this value in your request.
+    provisionedThroughputInMibps :: Prelude.Maybe Prelude.Double,
+    -- | The ID of the file system that you want to update.
+    fileSystemId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFileSystem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFileSystem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufsThroughputMode' - (Optional) The throughput mode that you want your file system to use. If you're not updating your throughput mode, you don't need to provide this value in your request. If you are changing the @ThroughputMode@ to @provisioned@ , you must also set a value for @ProvisionedThroughputInMibps@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufsProvisionedThroughputInMibps' - (Optional) The amount of throughput, in MiB/s, that you want to provision for your file system. Valid values are 1-1024. Required if @ThroughputMode@ is changed to @provisioned@ on update. If you're not updating the amount of provisioned throughput for your file system, you don't need to provide this value in your request.
+-- 'throughputMode', 'updateFileSystem_throughputMode' - (Optional) The throughput mode that you want your file system to use. If
+-- you\'re not updating your throughput mode, you don\'t need to provide
+-- this value in your request. If you are changing the @ThroughputMode@ to
+-- @provisioned@, you must also set a value for
+-- @ProvisionedThroughputInMibps@.
 --
--- * 'ufsFileSystemId' - The ID of the file system that you want to update.
-updateFileSystem ::
-  -- | 'ufsFileSystemId'
-  Text ->
+-- 'provisionedThroughputInMibps', 'updateFileSystem_provisionedThroughputInMibps' - (Optional) The amount of throughput, in MiB\/s, that you want to
+-- provision for your file system. Valid values are 1-1024. Required if
+-- @ThroughputMode@ is changed to @provisioned@ on update. If you\'re not
+-- updating the amount of provisioned throughput for your file system, you
+-- don\'t need to provide this value in your request.
+--
+-- 'fileSystemId', 'updateFileSystem_fileSystemId' - The ID of the file system that you want to update.
+newUpdateFileSystem ::
+  -- | 'fileSystemId'
+  Prelude.Text ->
   UpdateFileSystem
-updateFileSystem pFileSystemId_ =
+newUpdateFileSystem pFileSystemId_ =
   UpdateFileSystem'
-    { _ufsThroughputMode = Nothing,
-      _ufsProvisionedThroughputInMibps = Nothing,
-      _ufsFileSystemId = pFileSystemId_
+    { throughputMode = Prelude.Nothing,
+      provisionedThroughputInMibps = Prelude.Nothing,
+      fileSystemId = pFileSystemId_
     }
 
--- | (Optional) The throughput mode that you want your file system to use. If you're not updating your throughput mode, you don't need to provide this value in your request. If you are changing the @ThroughputMode@ to @provisioned@ , you must also set a value for @ProvisionedThroughputInMibps@ .
-ufsThroughputMode :: Lens' UpdateFileSystem (Maybe ThroughputMode)
-ufsThroughputMode = lens _ufsThroughputMode (\s a -> s {_ufsThroughputMode = a})
+-- | (Optional) The throughput mode that you want your file system to use. If
+-- you\'re not updating your throughput mode, you don\'t need to provide
+-- this value in your request. If you are changing the @ThroughputMode@ to
+-- @provisioned@, you must also set a value for
+-- @ProvisionedThroughputInMibps@.
+updateFileSystem_throughputMode :: Lens.Lens' UpdateFileSystem (Prelude.Maybe ThroughputMode)
+updateFileSystem_throughputMode = Lens.lens (\UpdateFileSystem' {throughputMode} -> throughputMode) (\s@UpdateFileSystem' {} a -> s {throughputMode = a} :: UpdateFileSystem)
 
--- | (Optional) The amount of throughput, in MiB/s, that you want to provision for your file system. Valid values are 1-1024. Required if @ThroughputMode@ is changed to @provisioned@ on update. If you're not updating the amount of provisioned throughput for your file system, you don't need to provide this value in your request.
-ufsProvisionedThroughputInMibps :: Lens' UpdateFileSystem (Maybe Double)
-ufsProvisionedThroughputInMibps = lens _ufsProvisionedThroughputInMibps (\s a -> s {_ufsProvisionedThroughputInMibps = a})
+-- | (Optional) The amount of throughput, in MiB\/s, that you want to
+-- provision for your file system. Valid values are 1-1024. Required if
+-- @ThroughputMode@ is changed to @provisioned@ on update. If you\'re not
+-- updating the amount of provisioned throughput for your file system, you
+-- don\'t need to provide this value in your request.
+updateFileSystem_provisionedThroughputInMibps :: Lens.Lens' UpdateFileSystem (Prelude.Maybe Prelude.Double)
+updateFileSystem_provisionedThroughputInMibps = Lens.lens (\UpdateFileSystem' {provisionedThroughputInMibps} -> provisionedThroughputInMibps) (\s@UpdateFileSystem' {} a -> s {provisionedThroughputInMibps = a} :: UpdateFileSystem)
 
 -- | The ID of the file system that you want to update.
-ufsFileSystemId :: Lens' UpdateFileSystem Text
-ufsFileSystemId = lens _ufsFileSystemId (\s a -> s {_ufsFileSystemId = a})
+updateFileSystem_fileSystemId :: Lens.Lens' UpdateFileSystem Prelude.Text
+updateFileSystem_fileSystemId = Lens.lens (\UpdateFileSystem' {fileSystemId} -> fileSystemId) (\s@UpdateFileSystem' {} a -> s {fileSystemId = a} :: UpdateFileSystem)
 
-instance AWSRequest UpdateFileSystem where
+instance Prelude.AWSRequest UpdateFileSystem where
   type Rs UpdateFileSystem = FileSystemDescription
-  request = putJSON efs
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateFileSystem
+instance Prelude.Hashable UpdateFileSystem
 
-instance NFData UpdateFileSystem
+instance Prelude.NFData UpdateFileSystem
 
-instance ToHeaders UpdateFileSystem where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateFileSystem where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateFileSystem where
+instance Prelude.ToJSON UpdateFileSystem where
   toJSON UpdateFileSystem' {..} =
-    object
-      ( catMaybes
-          [ ("ThroughputMode" .=) <$> _ufsThroughputMode,
-            ("ProvisionedThroughputInMibps" .=)
-              <$> _ufsProvisionedThroughputInMibps
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ThroughputMode" Prelude..=)
+              Prelude.<$> throughputMode,
+            ("ProvisionedThroughputInMibps" Prelude..=)
+              Prelude.<$> provisionedThroughputInMibps
           ]
       )
 
-instance ToPath UpdateFileSystem where
+instance Prelude.ToPath UpdateFileSystem where
   toPath UpdateFileSystem' {..} =
-    mconcat
-      ["/2015-02-01/file-systems/", toBS _ufsFileSystemId]
+    Prelude.mconcat
+      [ "/2015-02-01/file-systems/",
+        Prelude.toBS fileSystemId
+      ]
 
-instance ToQuery UpdateFileSystem where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFileSystem where
+  toQuery = Prelude.const Prelude.mempty

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,48 +20,49 @@
 module Network.AWS.EFS.Types.BackupPolicyDescription where
 
 import Network.AWS.EFS.Types.BackupPolicy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'backupPolicyDescription' smart constructor.
-newtype BackupPolicyDescription = BackupPolicyDescription'
-  { _bpdBackupPolicy ::
-      Maybe BackupPolicy
+-- | /See:/ 'newBackupPolicyDescription' smart constructor.
+data BackupPolicyDescription = BackupPolicyDescription'
+  { -- | Describes the file system\'s backup policy, indicating whether automatic
+    -- backups are turned on or off..
+    backupPolicy :: Prelude.Maybe BackupPolicy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BackupPolicyDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BackupPolicyDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bpdBackupPolicy' - Describes the file system's backup policy, indicating whether automatic backups are turned on or off..
-backupPolicyDescription ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'backupPolicy', 'backupPolicyDescription_backupPolicy' - Describes the file system\'s backup policy, indicating whether automatic
+-- backups are turned on or off..
+newBackupPolicyDescription ::
   BackupPolicyDescription
-backupPolicyDescription =
+newBackupPolicyDescription =
   BackupPolicyDescription'
-    { _bpdBackupPolicy =
-        Nothing
+    { backupPolicy =
+        Prelude.Nothing
     }
 
--- | Describes the file system's backup policy, indicating whether automatic backups are turned on or off..
-bpdBackupPolicy :: Lens' BackupPolicyDescription (Maybe BackupPolicy)
-bpdBackupPolicy = lens _bpdBackupPolicy (\s a -> s {_bpdBackupPolicy = a})
+-- | Describes the file system\'s backup policy, indicating whether automatic
+-- backups are turned on or off..
+backupPolicyDescription_backupPolicy :: Lens.Lens' BackupPolicyDescription (Prelude.Maybe BackupPolicy)
+backupPolicyDescription_backupPolicy = Lens.lens (\BackupPolicyDescription' {backupPolicy} -> backupPolicy) (\s@BackupPolicyDescription' {} a -> s {backupPolicy = a} :: BackupPolicyDescription)
 
-instance FromJSON BackupPolicyDescription where
+instance Prelude.FromJSON BackupPolicyDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BackupPolicyDescription"
       ( \x ->
-          BackupPolicyDescription' <$> (x .:? "BackupPolicy")
+          BackupPolicyDescription'
+            Prelude.<$> (x Prelude..:? "BackupPolicy")
       )
 
-instance Hashable BackupPolicyDescription
+instance Prelude.Hashable BackupPolicyDescription
 
-instance NFData BackupPolicyDescription
+instance Prelude.NFData BackupPolicyDescription

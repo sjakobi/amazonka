@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables lifecycle management by creating a new @LifecycleConfiguration@ object. A @LifecycleConfiguration@ object defines when files in an Amazon EFS file system are automatically transitioned to the lower-cost EFS Infrequent Access (IA) storage class. A @LifecycleConfiguration@ applies to all files in a file system.
+-- Enables lifecycle management by creating a new @LifecycleConfiguration@
+-- object. A @LifecycleConfiguration@ object defines when files in an
+-- Amazon EFS file system are automatically transitioned to the lower-cost
+-- EFS Infrequent Access (IA) storage class. A @LifecycleConfiguration@
+-- applies to all files in a file system.
 --
---
--- Each Amazon EFS file system supports one lifecycle configuration, which applies to all files in the file system. If a @LifecycleConfiguration@ object already exists for the specified file system, a @PutLifecycleConfiguration@ call modifies the existing configuration. A @PutLifecycleConfiguration@ call with an empty @LifecyclePolicies@ array in the request body deletes any existing @LifecycleConfiguration@ and disables lifecycle management.
+-- Each Amazon EFS file system supports one lifecycle configuration, which
+-- applies to all files in the file system. If a @LifecycleConfiguration@
+-- object already exists for the specified file system, a
+-- @PutLifecycleConfiguration@ call modifies the existing configuration. A
+-- @PutLifecycleConfiguration@ call with an empty @LifecyclePolicies@ array
+-- in the request body deletes any existing @LifecycleConfiguration@ and
+-- disables lifecycle management.
 --
 -- In the request, specify the following:
 --
---     * The ID for the file system for which you are enabling, disabling, or modifying lifecycle management.
+-- -   The ID for the file system for which you are enabling, disabling, or
+--     modifying lifecycle management.
 --
---     * A @LifecyclePolicies@ array of @LifecyclePolicy@ objects that define when files are moved to the IA storage class. The array can contain only one @LifecyclePolicy@ item.
+-- -   A @LifecyclePolicies@ array of @LifecyclePolicy@ objects that define
+--     when files are moved to the IA storage class. The array can contain
+--     only one @LifecyclePolicy@ item.
 --
+-- This operation requires permissions for the
+-- @elasticfilesystem:PutLifecycleConfiguration@ operation.
 --
---
--- This operation requires permissions for the @elasticfilesystem:PutLifecycleConfiguration@ operation.
---
--- To apply a @LifecycleConfiguration@ object to an encrypted file system, you need the same AWS Key Management Service (AWS KMS) permissions as when you created the encrypted file system.
+-- To apply a @LifecycleConfiguration@ object to an encrypted file system,
+-- you need the same AWS Key Management Service (AWS KMS) permissions as
+-- when you created the encrypted file system.
 module Network.AWS.EFS.PutLifecycleConfiguration
   ( -- * Creating a Request
-    putLifecycleConfiguration,
-    PutLifecycleConfiguration,
+    PutLifecycleConfiguration (..),
+    newPutLifecycleConfiguration,
 
     -- * Request Lenses
-    plcFileSystemId,
-    plcLifecyclePolicies,
+    putLifecycleConfiguration_fileSystemId,
+    putLifecycleConfiguration_lifecyclePolicies,
 
     -- * Destructuring the Response
-    lifecycleConfigurationDescription,
-    LifecycleConfigurationDescription,
+    LifecycleConfigurationDescription (..),
+    newLifecycleConfigurationDescription,
 
     -- * Response Lenses
-    lcdLifecyclePolicies,
+    lifecycleConfigurationDescription_lifecyclePolicies,
   )
 where
 
 import Network.AWS.EFS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EFS.Types.LifecycleConfigurationDescription
+import Network.AWS.EFS.Types.LifecyclePolicy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putLifecycleConfiguration' smart constructor.
+-- | /See:/ 'newPutLifecycleConfiguration' smart constructor.
 data PutLifecycleConfiguration = PutLifecycleConfiguration'
-  { _plcFileSystemId ::
-      !Text,
-    _plcLifecyclePolicies ::
-      ![LifecyclePolicy]
+  { -- | The ID of the file system for which you are creating the
+    -- @LifecycleConfiguration@ object (String).
+    fileSystemId :: Prelude.Text,
+    -- | An array of @LifecyclePolicy@ objects that define the file system\'s
+    -- @LifecycleConfiguration@ object. A @LifecycleConfiguration@ object tells
+    -- lifecycle management when to transition files from the Standard storage
+    -- class to the Infrequent Access storage class.
+    lifecyclePolicies :: [LifecyclePolicy]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutLifecycleConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutLifecycleConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plcFileSystemId' - The ID of the file system for which you are creating the @LifecycleConfiguration@ object (String).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'plcLifecyclePolicies' - An array of @LifecyclePolicy@ objects that define the file system's @LifecycleConfiguration@ object. A @LifecycleConfiguration@ object tells lifecycle management when to transition files from the Standard storage class to the Infrequent Access storage class.
-putLifecycleConfiguration ::
-  -- | 'plcFileSystemId'
-  Text ->
+-- 'fileSystemId', 'putLifecycleConfiguration_fileSystemId' - The ID of the file system for which you are creating the
+-- @LifecycleConfiguration@ object (String).
+--
+-- 'lifecyclePolicies', 'putLifecycleConfiguration_lifecyclePolicies' - An array of @LifecyclePolicy@ objects that define the file system\'s
+-- @LifecycleConfiguration@ object. A @LifecycleConfiguration@ object tells
+-- lifecycle management when to transition files from the Standard storage
+-- class to the Infrequent Access storage class.
+newPutLifecycleConfiguration ::
+  -- | 'fileSystemId'
+  Prelude.Text ->
   PutLifecycleConfiguration
-putLifecycleConfiguration pFileSystemId_ =
+newPutLifecycleConfiguration pFileSystemId_ =
   PutLifecycleConfiguration'
-    { _plcFileSystemId =
+    { fileSystemId =
         pFileSystemId_,
-      _plcLifecyclePolicies = mempty
+      lifecyclePolicies = Prelude.mempty
     }
 
--- | The ID of the file system for which you are creating the @LifecycleConfiguration@ object (String).
-plcFileSystemId :: Lens' PutLifecycleConfiguration Text
-plcFileSystemId = lens _plcFileSystemId (\s a -> s {_plcFileSystemId = a})
+-- | The ID of the file system for which you are creating the
+-- @LifecycleConfiguration@ object (String).
+putLifecycleConfiguration_fileSystemId :: Lens.Lens' PutLifecycleConfiguration Prelude.Text
+putLifecycleConfiguration_fileSystemId = Lens.lens (\PutLifecycleConfiguration' {fileSystemId} -> fileSystemId) (\s@PutLifecycleConfiguration' {} a -> s {fileSystemId = a} :: PutLifecycleConfiguration)
 
--- | An array of @LifecyclePolicy@ objects that define the file system's @LifecycleConfiguration@ object. A @LifecycleConfiguration@ object tells lifecycle management when to transition files from the Standard storage class to the Infrequent Access storage class.
-plcLifecyclePolicies :: Lens' PutLifecycleConfiguration [LifecyclePolicy]
-plcLifecyclePolicies = lens _plcLifecyclePolicies (\s a -> s {_plcLifecyclePolicies = a}) . _Coerce
+-- | An array of @LifecyclePolicy@ objects that define the file system\'s
+-- @LifecycleConfiguration@ object. A @LifecycleConfiguration@ object tells
+-- lifecycle management when to transition files from the Standard storage
+-- class to the Infrequent Access storage class.
+putLifecycleConfiguration_lifecyclePolicies :: Lens.Lens' PutLifecycleConfiguration [LifecyclePolicy]
+putLifecycleConfiguration_lifecyclePolicies = Lens.lens (\PutLifecycleConfiguration' {lifecyclePolicies} -> lifecyclePolicies) (\s@PutLifecycleConfiguration' {} a -> s {lifecyclePolicies = a} :: PutLifecycleConfiguration) Prelude.. Prelude._Coerce
 
-instance AWSRequest PutLifecycleConfiguration where
+instance Prelude.AWSRequest PutLifecycleConfiguration where
   type
     Rs PutLifecycleConfiguration =
       LifecycleConfigurationDescription
-  request = putJSON efs
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable PutLifecycleConfiguration
+instance Prelude.Hashable PutLifecycleConfiguration
 
-instance NFData PutLifecycleConfiguration
+instance Prelude.NFData PutLifecycleConfiguration
 
-instance ToHeaders PutLifecycleConfiguration where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PutLifecycleConfiguration where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON PutLifecycleConfiguration where
+instance Prelude.ToJSON PutLifecycleConfiguration where
   toJSON PutLifecycleConfiguration' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("LifecyclePolicies" .= _plcLifecyclePolicies)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("LifecyclePolicies" Prelude..= lifecyclePolicies)
           ]
       )
 
-instance ToPath PutLifecycleConfiguration where
+instance Prelude.ToPath PutLifecycleConfiguration where
   toPath PutLifecycleConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-02-01/file-systems/",
-        toBS _plcFileSystemId,
+        Prelude.toBS fileSystemId,
         "/lifecycle-configuration"
       ]
 
-instance ToQuery PutLifecycleConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery PutLifecycleConfiguration where
+  toQuery = Prelude.const Prelude.mempty

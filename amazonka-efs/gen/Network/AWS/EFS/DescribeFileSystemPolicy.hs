@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,86 +23,86 @@
 --
 -- Returns the @FileSystemPolicy@ for the specified EFS file system.
 --
---
--- This operation requires permissions for the @elasticfilesystem:DescribeFileSystemPolicy@ action.
+-- This operation requires permissions for the
+-- @elasticfilesystem:DescribeFileSystemPolicy@ action.
 module Network.AWS.EFS.DescribeFileSystemPolicy
   ( -- * Creating a Request
-    describeFileSystemPolicy,
-    DescribeFileSystemPolicy,
+    DescribeFileSystemPolicy (..),
+    newDescribeFileSystemPolicy,
 
     -- * Request Lenses
-    dfspFileSystemId,
+    describeFileSystemPolicy_fileSystemId,
 
     -- * Destructuring the Response
-    fileSystemPolicyDescription,
-    FileSystemPolicyDescription,
+    FileSystemPolicyDescription (..),
+    newFileSystemPolicyDescription,
 
     -- * Response Lenses
-    fspdFileSystemId,
-    fspdPolicy,
+    fileSystemPolicyDescription_fileSystemId,
+    fileSystemPolicyDescription_policy,
   )
 where
 
 import Network.AWS.EFS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EFS.Types.FileSystemPolicyDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeFileSystemPolicy' smart constructor.
-newtype DescribeFileSystemPolicy = DescribeFileSystemPolicy'
-  { _dfspFileSystemId ::
-      Text
+-- | /See:/ 'newDescribeFileSystemPolicy' smart constructor.
+data DescribeFileSystemPolicy = DescribeFileSystemPolicy'
+  { -- | Specifies which EFS file system to retrieve the @FileSystemPolicy@ for.
+    fileSystemId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFileSystemPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFileSystemPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfspFileSystemId' - Specifies which EFS file system to retrieve the @FileSystemPolicy@ for.
-describeFileSystemPolicy ::
-  -- | 'dfspFileSystemId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fileSystemId', 'describeFileSystemPolicy_fileSystemId' - Specifies which EFS file system to retrieve the @FileSystemPolicy@ for.
+newDescribeFileSystemPolicy ::
+  -- | 'fileSystemId'
+  Prelude.Text ->
   DescribeFileSystemPolicy
-describeFileSystemPolicy pFileSystemId_ =
+newDescribeFileSystemPolicy pFileSystemId_ =
   DescribeFileSystemPolicy'
-    { _dfspFileSystemId =
+    { fileSystemId =
         pFileSystemId_
     }
 
 -- | Specifies which EFS file system to retrieve the @FileSystemPolicy@ for.
-dfspFileSystemId :: Lens' DescribeFileSystemPolicy Text
-dfspFileSystemId = lens _dfspFileSystemId (\s a -> s {_dfspFileSystemId = a})
+describeFileSystemPolicy_fileSystemId :: Lens.Lens' DescribeFileSystemPolicy Prelude.Text
+describeFileSystemPolicy_fileSystemId = Lens.lens (\DescribeFileSystemPolicy' {fileSystemId} -> fileSystemId) (\s@DescribeFileSystemPolicy' {} a -> s {fileSystemId = a} :: DescribeFileSystemPolicy)
 
-instance AWSRequest DescribeFileSystemPolicy where
+instance Prelude.AWSRequest DescribeFileSystemPolicy where
   type
     Rs DescribeFileSystemPolicy =
       FileSystemPolicyDescription
-  request = get efs
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable DescribeFileSystemPolicy
+instance Prelude.Hashable DescribeFileSystemPolicy
 
-instance NFData DescribeFileSystemPolicy
+instance Prelude.NFData DescribeFileSystemPolicy
 
-instance ToHeaders DescribeFileSystemPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeFileSystemPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeFileSystemPolicy where
+instance Prelude.ToPath DescribeFileSystemPolicy where
   toPath DescribeFileSystemPolicy' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-02-01/file-systems/",
-        toBS _dfspFileSystemId,
+        Prelude.toBS fileSystemId,
         "/policy"
       ]
 
-instance ToQuery DescribeFileSystemPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeFileSystemPolicy where
+  toQuery = Prelude.const Prelude.mempty

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.EFS.Types.ThroughputMode
   ( ThroughputMode
       ( ..,
-        Bursting,
-        Provisioned
+        ThroughputModeBursting,
+        ThroughputModeProvisioned
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ThroughputMode = ThroughputMode' (CI Text)
+newtype ThroughputMode = ThroughputMode'
+  { fromThroughputMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Bursting :: ThroughputMode
-pattern Bursting = ThroughputMode' "bursting"
+pattern ThroughputModeBursting :: ThroughputMode
+pattern ThroughputModeBursting = ThroughputMode' "bursting"
 
-pattern Provisioned :: ThroughputMode
-pattern Provisioned = ThroughputMode' "provisioned"
+pattern ThroughputModeProvisioned :: ThroughputMode
+pattern ThroughputModeProvisioned = ThroughputMode' "provisioned"
 
 {-# COMPLETE
-  Bursting,
-  Provisioned,
+  ThroughputModeBursting,
+  ThroughputModeProvisioned,
   ThroughputMode'
   #-}
 
-instance FromText ThroughputMode where
-  parser = (ThroughputMode' . mk) <$> takeText
+instance Prelude.FromText ThroughputMode where
+  parser = ThroughputMode' Prelude.<$> Prelude.takeText
 
-instance ToText ThroughputMode where
-  toText (ThroughputMode' ci) = original ci
+instance Prelude.ToText ThroughputMode where
+  toText (ThroughputMode' x) = x
 
-instance Hashable ThroughputMode
+instance Prelude.Hashable ThroughputMode
 
-instance NFData ThroughputMode
+instance Prelude.NFData ThroughputMode
 
-instance ToByteString ThroughputMode
+instance Prelude.ToByteString ThroughputMode
 
-instance ToQuery ThroughputMode
+instance Prelude.ToQuery ThroughputMode
 
-instance ToHeader ThroughputMode
+instance Prelude.ToHeader ThroughputMode
 
-instance ToJSON ThroughputMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ThroughputMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ThroughputMode where
-  parseJSON = parseJSONText "ThroughputMode"
+instance Prelude.FromJSON ThroughputMode where
+  parseJSON = Prelude.parseJSONText "ThroughputMode"

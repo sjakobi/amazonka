@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EFS.Types.PosixUser where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The full POSIX identity, including the user ID, group ID, and any secondary group IDs, on the access point that is used for all file system operations performed by NFS clients using the access point.
+-- | The full POSIX identity, including the user ID, group ID, and any
+-- secondary group IDs, on the access point that is used for all file
+-- system operations performed by NFS clients using the access point.
 --
---
---
--- /See:/ 'posixUser' smart constructor.
+-- /See:/ 'newPosixUser' smart constructor.
 data PosixUser = PosixUser'
-  { _puSecondaryGids ::
-      !(Maybe [Nat]),
-    _puUid :: !Nat,
-    _puGid :: !Nat
+  { -- | Secondary POSIX group IDs used for all file system operations using this
+    -- access point.
+    secondaryGids :: Prelude.Maybe [Prelude.Nat],
+    -- | The POSIX user ID used for all file system operations using this access
+    -- point.
+    uid :: Prelude.Nat,
+    -- | The POSIX group ID used for all file system operations using this access
+    -- point.
+    gid :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PosixUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PosixUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'puSecondaryGids' - Secondary POSIX group IDs used for all file system operations using this access point.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'puUid' - The POSIX user ID used for all file system operations using this access point.
+-- 'secondaryGids', 'posixUser_secondaryGids' - Secondary POSIX group IDs used for all file system operations using this
+-- access point.
 --
--- * 'puGid' - The POSIX group ID used for all file system operations using this access point.
-posixUser ::
-  -- | 'puUid'
-  Natural ->
-  -- | 'puGid'
-  Natural ->
+-- 'uid', 'posixUser_uid' - The POSIX user ID used for all file system operations using this access
+-- point.
+--
+-- 'gid', 'posixUser_gid' - The POSIX group ID used for all file system operations using this access
+-- point.
+newPosixUser ::
+  -- | 'uid'
+  Prelude.Natural ->
+  -- | 'gid'
+  Prelude.Natural ->
   PosixUser
-posixUser pUid_ pGid_ =
+newPosixUser pUid_ pGid_ =
   PosixUser'
-    { _puSecondaryGids = Nothing,
-      _puUid = _Nat # pUid_,
-      _puGid = _Nat # pGid_
+    { secondaryGids = Prelude.Nothing,
+      uid = Prelude._Nat Lens.# pUid_,
+      gid = Prelude._Nat Lens.# pGid_
     }
 
--- | Secondary POSIX group IDs used for all file system operations using this access point.
-puSecondaryGids :: Lens' PosixUser [Natural]
-puSecondaryGids = lens _puSecondaryGids (\s a -> s {_puSecondaryGids = a}) . _Default . _Coerce
+-- | Secondary POSIX group IDs used for all file system operations using this
+-- access point.
+posixUser_secondaryGids :: Lens.Lens' PosixUser (Prelude.Maybe [Prelude.Natural])
+posixUser_secondaryGids = Lens.lens (\PosixUser' {secondaryGids} -> secondaryGids) (\s@PosixUser' {} a -> s {secondaryGids = a} :: PosixUser) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The POSIX user ID used for all file system operations using this access point.
-puUid :: Lens' PosixUser Natural
-puUid = lens _puUid (\s a -> s {_puUid = a}) . _Nat
+-- | The POSIX user ID used for all file system operations using this access
+-- point.
+posixUser_uid :: Lens.Lens' PosixUser Prelude.Natural
+posixUser_uid = Lens.lens (\PosixUser' {uid} -> uid) (\s@PosixUser' {} a -> s {uid = a} :: PosixUser) Prelude.. Prelude._Nat
 
--- | The POSIX group ID used for all file system operations using this access point.
-puGid :: Lens' PosixUser Natural
-puGid = lens _puGid (\s a -> s {_puGid = a}) . _Nat
+-- | The POSIX group ID used for all file system operations using this access
+-- point.
+posixUser_gid :: Lens.Lens' PosixUser Prelude.Natural
+posixUser_gid = Lens.lens (\PosixUser' {gid} -> gid) (\s@PosixUser' {} a -> s {gid = a} :: PosixUser) Prelude.. Prelude._Nat
 
-instance FromJSON PosixUser where
+instance Prelude.FromJSON PosixUser where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PosixUser"
       ( \x ->
           PosixUser'
-            <$> (x .:? "SecondaryGids" .!= mempty)
-            <*> (x .: "Uid")
-            <*> (x .: "Gid")
+            Prelude.<$> ( x Prelude..:? "SecondaryGids"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "Uid")
+            Prelude.<*> (x Prelude..: "Gid")
       )
 
-instance Hashable PosixUser
+instance Prelude.Hashable PosixUser
 
-instance NFData PosixUser
+instance Prelude.NFData PosixUser
 
-instance ToJSON PosixUser where
+instance Prelude.ToJSON PosixUser where
   toJSON PosixUser' {..} =
-    object
-      ( catMaybes
-          [ ("SecondaryGids" .=) <$> _puSecondaryGids,
-            Just ("Uid" .= _puUid),
-            Just ("Gid" .= _puGid)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SecondaryGids" Prelude..=)
+              Prelude.<$> secondaryGids,
+            Prelude.Just ("Uid" Prelude..= uid),
+            Prelude.Just ("Gid" Prelude..= gid)
           ]
       )

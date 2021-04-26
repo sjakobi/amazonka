@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,104 +21,108 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the @FileSystemPolicy@ for the specified file system. The default @FileSystemPolicy@ goes into effect once the existing policy is deleted. For more information about the default file system policy, see <https://docs.aws.amazon.com/efs/latest/ug/res-based-policies-efs.html Using Resource-based Policies with EFS> .
+-- Deletes the @FileSystemPolicy@ for the specified file system. The
+-- default @FileSystemPolicy@ goes into effect once the existing policy is
+-- deleted. For more information about the default file system policy, see
+-- <https://docs.aws.amazon.com/efs/latest/ug/res-based-policies-efs.html Using Resource-based Policies with EFS>.
 --
---
--- This operation requires permissions for the @elasticfilesystem:DeleteFileSystemPolicy@ action.
+-- This operation requires permissions for the
+-- @elasticfilesystem:DeleteFileSystemPolicy@ action.
 module Network.AWS.EFS.DeleteFileSystemPolicy
   ( -- * Creating a Request
-    deleteFileSystemPolicy,
-    DeleteFileSystemPolicy,
+    DeleteFileSystemPolicy (..),
+    newDeleteFileSystemPolicy,
 
     -- * Request Lenses
-    delFileSystemId,
+    deleteFileSystemPolicy_fileSystemId,
 
     -- * Destructuring the Response
-    deleteFileSystemPolicyResponse,
-    DeleteFileSystemPolicyResponse,
+    DeleteFileSystemPolicyResponse (..),
+    newDeleteFileSystemPolicyResponse,
   )
 where
 
 import Network.AWS.EFS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteFileSystemPolicy' smart constructor.
-newtype DeleteFileSystemPolicy = DeleteFileSystemPolicy'
-  { _delFileSystemId ::
-      Text
+-- | /See:/ 'newDeleteFileSystemPolicy' smart constructor.
+data DeleteFileSystemPolicy = DeleteFileSystemPolicy'
+  { -- | Specifies the EFS file system for which to delete the
+    -- @FileSystemPolicy@.
+    fileSystemId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFileSystemPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFileSystemPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delFileSystemId' - Specifies the EFS file system for which to delete the @FileSystemPolicy@ .
-deleteFileSystemPolicy ::
-  -- | 'delFileSystemId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fileSystemId', 'deleteFileSystemPolicy_fileSystemId' - Specifies the EFS file system for which to delete the
+-- @FileSystemPolicy@.
+newDeleteFileSystemPolicy ::
+  -- | 'fileSystemId'
+  Prelude.Text ->
   DeleteFileSystemPolicy
-deleteFileSystemPolicy pFileSystemId_ =
+newDeleteFileSystemPolicy pFileSystemId_ =
   DeleteFileSystemPolicy'
-    { _delFileSystemId =
+    { fileSystemId =
         pFileSystemId_
     }
 
--- | Specifies the EFS file system for which to delete the @FileSystemPolicy@ .
-delFileSystemId :: Lens' DeleteFileSystemPolicy Text
-delFileSystemId = lens _delFileSystemId (\s a -> s {_delFileSystemId = a})
+-- | Specifies the EFS file system for which to delete the
+-- @FileSystemPolicy@.
+deleteFileSystemPolicy_fileSystemId :: Lens.Lens' DeleteFileSystemPolicy Prelude.Text
+deleteFileSystemPolicy_fileSystemId = Lens.lens (\DeleteFileSystemPolicy' {fileSystemId} -> fileSystemId) (\s@DeleteFileSystemPolicy' {} a -> s {fileSystemId = a} :: DeleteFileSystemPolicy)
 
-instance AWSRequest DeleteFileSystemPolicy where
+instance Prelude.AWSRequest DeleteFileSystemPolicy where
   type
     Rs DeleteFileSystemPolicy =
       DeleteFileSystemPolicyResponse
-  request = delete efs
+  request = Request.delete defaultService
   response =
-    receiveNull DeleteFileSystemPolicyResponse'
+    Response.receiveNull
+      DeleteFileSystemPolicyResponse'
 
-instance Hashable DeleteFileSystemPolicy
+instance Prelude.Hashable DeleteFileSystemPolicy
 
-instance NFData DeleteFileSystemPolicy
+instance Prelude.NFData DeleteFileSystemPolicy
 
-instance ToHeaders DeleteFileSystemPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteFileSystemPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteFileSystemPolicy where
+instance Prelude.ToPath DeleteFileSystemPolicy where
   toPath DeleteFileSystemPolicy' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-02-01/file-systems/",
-        toBS _delFileSystemId,
+        Prelude.toBS fileSystemId,
         "/policy"
       ]
 
-instance ToQuery DeleteFileSystemPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFileSystemPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFileSystemPolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteFileSystemPolicyResponse' smart constructor.
 data DeleteFileSystemPolicyResponse = DeleteFileSystemPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFileSystemPolicyResponse' with the minimum fields required to make a request.
-deleteFileSystemPolicyResponse ::
+-- |
+-- Create a value of 'DeleteFileSystemPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteFileSystemPolicyResponse ::
   DeleteFileSystemPolicyResponse
-deleteFileSystemPolicyResponse =
+newDeleteFileSystemPolicyResponse =
   DeleteFileSystemPolicyResponse'
 
-instance NFData DeleteFileSystemPolicyResponse
+instance
+  Prelude.NFData
+    DeleteFileSystemPolicyResponse

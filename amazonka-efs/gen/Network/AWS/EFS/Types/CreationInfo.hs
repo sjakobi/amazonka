@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EFS.Types.CreationInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Required if the @RootDirectory@ > @Path@ specified does not exist. Specifies the POSIX IDs and permissions to apply to the access point's @RootDirectory@ > @Path@ . If the access point root directory does not exist, EFS creates it with these settings when a client connects to the access point. When specifying @CreationInfo@ , you must include values for all properties.
+-- | Required if the @RootDirectory@ > @Path@ specified does not exist.
+-- Specifies the POSIX IDs and permissions to apply to the access point\'s
+-- @RootDirectory@ > @Path@. If the access point root directory does not
+-- exist, EFS creates it with these settings when a client connects to the
+-- access point. When specifying @CreationInfo@, you must include values
+-- for all properties.
 --
+-- If you do not provide @CreationInfo@ and the specified @RootDirectory@
+-- does not exist, attempts to mount the file system using the access point
+-- will fail.
 --
--- /Important:/ If you do not provide @CreationInfo@ and the specified @RootDirectory@ does not exist, attempts to mount the file system using the access point will fail.
---
---
--- /See:/ 'creationInfo' smart constructor.
+-- /See:/ 'newCreationInfo' smart constructor.
 data CreationInfo = CreationInfo'
-  { _ciOwnerUid ::
-      !Nat,
-    _ciOwnerGid :: !Nat,
-    _ciPermissions :: !Text
+  { -- | Specifies the POSIX user ID to apply to the @RootDirectory@. Accepts
+    -- values from 0 to 2^32 (4294967295).
+    ownerUid :: Prelude.Nat,
+    -- | Specifies the POSIX group ID to apply to the @RootDirectory@. Accepts
+    -- values from 0 to 2^32 (4294967295).
+    ownerGid :: Prelude.Nat,
+    -- | Specifies the POSIX permissions to apply to the @RootDirectory@, in the
+    -- format of an octal number representing the file\'s mode bits.
+    permissions :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreationInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreationInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciOwnerUid' - Specifies the POSIX user ID to apply to the @RootDirectory@ . Accepts values from 0 to 2^32 (4294967295).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciOwnerGid' - Specifies the POSIX group ID to apply to the @RootDirectory@ . Accepts values from 0 to 2^32 (4294967295).
+-- 'ownerUid', 'creationInfo_ownerUid' - Specifies the POSIX user ID to apply to the @RootDirectory@. Accepts
+-- values from 0 to 2^32 (4294967295).
 --
--- * 'ciPermissions' - Specifies the POSIX permissions to apply to the @RootDirectory@ , in the format of an octal number representing the file's mode bits.
-creationInfo ::
-  -- | 'ciOwnerUid'
-  Natural ->
-  -- | 'ciOwnerGid'
-  Natural ->
-  -- | 'ciPermissions'
-  Text ->
+-- 'ownerGid', 'creationInfo_ownerGid' - Specifies the POSIX group ID to apply to the @RootDirectory@. Accepts
+-- values from 0 to 2^32 (4294967295).
+--
+-- 'permissions', 'creationInfo_permissions' - Specifies the POSIX permissions to apply to the @RootDirectory@, in the
+-- format of an octal number representing the file\'s mode bits.
+newCreationInfo ::
+  -- | 'ownerUid'
+  Prelude.Natural ->
+  -- | 'ownerGid'
+  Prelude.Natural ->
+  -- | 'permissions'
+  Prelude.Text ->
   CreationInfo
-creationInfo pOwnerUid_ pOwnerGid_ pPermissions_ =
+newCreationInfo pOwnerUid_ pOwnerGid_ pPermissions_ =
   CreationInfo'
-    { _ciOwnerUid = _Nat # pOwnerUid_,
-      _ciOwnerGid = _Nat # pOwnerGid_,
-      _ciPermissions = pPermissions_
+    { ownerUid =
+        Prelude._Nat Lens.# pOwnerUid_,
+      ownerGid = Prelude._Nat Lens.# pOwnerGid_,
+      permissions = pPermissions_
     }
 
--- | Specifies the POSIX user ID to apply to the @RootDirectory@ . Accepts values from 0 to 2^32 (4294967295).
-ciOwnerUid :: Lens' CreationInfo Natural
-ciOwnerUid = lens _ciOwnerUid (\s a -> s {_ciOwnerUid = a}) . _Nat
+-- | Specifies the POSIX user ID to apply to the @RootDirectory@. Accepts
+-- values from 0 to 2^32 (4294967295).
+creationInfo_ownerUid :: Lens.Lens' CreationInfo Prelude.Natural
+creationInfo_ownerUid = Lens.lens (\CreationInfo' {ownerUid} -> ownerUid) (\s@CreationInfo' {} a -> s {ownerUid = a} :: CreationInfo) Prelude.. Prelude._Nat
 
--- | Specifies the POSIX group ID to apply to the @RootDirectory@ . Accepts values from 0 to 2^32 (4294967295).
-ciOwnerGid :: Lens' CreationInfo Natural
-ciOwnerGid = lens _ciOwnerGid (\s a -> s {_ciOwnerGid = a}) . _Nat
+-- | Specifies the POSIX group ID to apply to the @RootDirectory@. Accepts
+-- values from 0 to 2^32 (4294967295).
+creationInfo_ownerGid :: Lens.Lens' CreationInfo Prelude.Natural
+creationInfo_ownerGid = Lens.lens (\CreationInfo' {ownerGid} -> ownerGid) (\s@CreationInfo' {} a -> s {ownerGid = a} :: CreationInfo) Prelude.. Prelude._Nat
 
--- | Specifies the POSIX permissions to apply to the @RootDirectory@ , in the format of an octal number representing the file's mode bits.
-ciPermissions :: Lens' CreationInfo Text
-ciPermissions = lens _ciPermissions (\s a -> s {_ciPermissions = a})
+-- | Specifies the POSIX permissions to apply to the @RootDirectory@, in the
+-- format of an octal number representing the file\'s mode bits.
+creationInfo_permissions :: Lens.Lens' CreationInfo Prelude.Text
+creationInfo_permissions = Lens.lens (\CreationInfo' {permissions} -> permissions) (\s@CreationInfo' {} a -> s {permissions = a} :: CreationInfo)
 
-instance FromJSON CreationInfo where
+instance Prelude.FromJSON CreationInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CreationInfo"
       ( \x ->
           CreationInfo'
-            <$> (x .: "OwnerUid")
-            <*> (x .: "OwnerGid")
-            <*> (x .: "Permissions")
+            Prelude.<$> (x Prelude..: "OwnerUid")
+            Prelude.<*> (x Prelude..: "OwnerGid")
+            Prelude.<*> (x Prelude..: "Permissions")
       )
 
-instance Hashable CreationInfo
+instance Prelude.Hashable CreationInfo
 
-instance NFData CreationInfo
+instance Prelude.NFData CreationInfo
 
-instance ToJSON CreationInfo where
+instance Prelude.ToJSON CreationInfo where
   toJSON CreationInfo' {..} =
-    object
-      ( catMaybes
-          [ Just ("OwnerUid" .= _ciOwnerUid),
-            Just ("OwnerGid" .= _ciOwnerGid),
-            Just ("Permissions" .= _ciPermissions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("OwnerUid" Prelude..= ownerUid),
+            Prelude.Just ("OwnerGid" Prelude..= ownerGid),
+            Prelude.Just ("Permissions" Prelude..= permissions)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,141 +23,152 @@ import Network.AWS.EFS.Types.LifeCycleState
 import Network.AWS.EFS.Types.PosixUser
 import Network.AWS.EFS.Types.RootDirectory
 import Network.AWS.EFS.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides a description of an EFS file system access point.
 --
---
---
--- /See:/ 'accessPointDescription' smart constructor.
+-- /See:/ 'newAccessPointDescription' smart constructor.
 data AccessPointDescription = AccessPointDescription'
-  { _apdOwnerId ::
-      !(Maybe Text),
-    _apdAccessPointARN ::
-      !(Maybe Text),
-    _apdAccessPointId ::
-      !(Maybe Text),
-    _apdRootDirectory ::
-      !(Maybe RootDirectory),
-    _apdName :: !(Maybe Text),
-    _apdPosixUser ::
-      !(Maybe PosixUser),
-    _apdTags ::
-      !(Maybe [Tag]),
-    _apdLifeCycleState ::
-      !(Maybe LifeCycleState),
-    _apdFileSystemId ::
-      !(Maybe Text),
-    _apdClientToken ::
-      !(Maybe Text)
+  { -- | Identified the AWS account that owns the access point resource.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The unique Amazon Resource Name (ARN) associated with the access point.
+    accessPointArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the access point, assigned by Amazon EFS.
+    accessPointId :: Prelude.Maybe Prelude.Text,
+    -- | The directory on the Amazon EFS file system that the access point
+    -- exposes as the root directory to NFS clients using the access point.
+    rootDirectory :: Prelude.Maybe RootDirectory,
+    -- | The name of the access point. This is the value of the @Name@ tag.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The full POSIX identity, including the user ID, group ID, and secondary
+    -- group IDs on the access point that is used for all file operations by
+    -- NFS clients using the access point.
+    posixUser :: Prelude.Maybe PosixUser,
+    -- | The tags associated with the access point, presented as an array of Tag
+    -- objects.
+    tags :: Prelude.Maybe [Tag],
+    -- | Identifies the lifecycle phase of the access point.
+    lifeCycleState :: Prelude.Maybe LifeCycleState,
+    -- | The ID of the EFS file system that the access point applies to.
+    fileSystemId :: Prelude.Maybe Prelude.Text,
+    -- | The opaque string specified in the request to ensure idempotent
+    -- creation.
+    clientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccessPointDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccessPointDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apdOwnerId' - Identified the AWS account that owns the access point resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apdAccessPointARN' - The unique Amazon Resource Name (ARN) associated with the access point.
+-- 'ownerId', 'accessPointDescription_ownerId' - Identified the AWS account that owns the access point resource.
 --
--- * 'apdAccessPointId' - The ID of the access point, assigned by Amazon EFS.
+-- 'accessPointArn', 'accessPointDescription_accessPointArn' - The unique Amazon Resource Name (ARN) associated with the access point.
 --
--- * 'apdRootDirectory' - The directory on the Amazon EFS file system that the access point exposes as the root directory to NFS clients using the access point.
+-- 'accessPointId', 'accessPointDescription_accessPointId' - The ID of the access point, assigned by Amazon EFS.
 --
--- * 'apdName' - The name of the access point. This is the value of the @Name@ tag.
+-- 'rootDirectory', 'accessPointDescription_rootDirectory' - The directory on the Amazon EFS file system that the access point
+-- exposes as the root directory to NFS clients using the access point.
 --
--- * 'apdPosixUser' - The full POSIX identity, including the user ID, group ID, and secondary group IDs on the access point that is used for all file operations by NFS clients using the access point.
+-- 'name', 'accessPointDescription_name' - The name of the access point. This is the value of the @Name@ tag.
 --
--- * 'apdTags' - The tags associated with the access point, presented as an array of Tag objects.
+-- 'posixUser', 'accessPointDescription_posixUser' - The full POSIX identity, including the user ID, group ID, and secondary
+-- group IDs on the access point that is used for all file operations by
+-- NFS clients using the access point.
 --
--- * 'apdLifeCycleState' - Identifies the lifecycle phase of the access point.
+-- 'tags', 'accessPointDescription_tags' - The tags associated with the access point, presented as an array of Tag
+-- objects.
 --
--- * 'apdFileSystemId' - The ID of the EFS file system that the access point applies to.
+-- 'lifeCycleState', 'accessPointDescription_lifeCycleState' - Identifies the lifecycle phase of the access point.
 --
--- * 'apdClientToken' - The opaque string specified in the request to ensure idempotent creation.
-accessPointDescription ::
+-- 'fileSystemId', 'accessPointDescription_fileSystemId' - The ID of the EFS file system that the access point applies to.
+--
+-- 'clientToken', 'accessPointDescription_clientToken' - The opaque string specified in the request to ensure idempotent
+-- creation.
+newAccessPointDescription ::
   AccessPointDescription
-accessPointDescription =
+newAccessPointDescription =
   AccessPointDescription'
-    { _apdOwnerId = Nothing,
-      _apdAccessPointARN = Nothing,
-      _apdAccessPointId = Nothing,
-      _apdRootDirectory = Nothing,
-      _apdName = Nothing,
-      _apdPosixUser = Nothing,
-      _apdTags = Nothing,
-      _apdLifeCycleState = Nothing,
-      _apdFileSystemId = Nothing,
-      _apdClientToken = Nothing
+    { ownerId = Prelude.Nothing,
+      accessPointArn = Prelude.Nothing,
+      accessPointId = Prelude.Nothing,
+      rootDirectory = Prelude.Nothing,
+      name = Prelude.Nothing,
+      posixUser = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      lifeCycleState = Prelude.Nothing,
+      fileSystemId = Prelude.Nothing,
+      clientToken = Prelude.Nothing
     }
 
 -- | Identified the AWS account that owns the access point resource.
-apdOwnerId :: Lens' AccessPointDescription (Maybe Text)
-apdOwnerId = lens _apdOwnerId (\s a -> s {_apdOwnerId = a})
+accessPointDescription_ownerId :: Lens.Lens' AccessPointDescription (Prelude.Maybe Prelude.Text)
+accessPointDescription_ownerId = Lens.lens (\AccessPointDescription' {ownerId} -> ownerId) (\s@AccessPointDescription' {} a -> s {ownerId = a} :: AccessPointDescription)
 
 -- | The unique Amazon Resource Name (ARN) associated with the access point.
-apdAccessPointARN :: Lens' AccessPointDescription (Maybe Text)
-apdAccessPointARN = lens _apdAccessPointARN (\s a -> s {_apdAccessPointARN = a})
+accessPointDescription_accessPointArn :: Lens.Lens' AccessPointDescription (Prelude.Maybe Prelude.Text)
+accessPointDescription_accessPointArn = Lens.lens (\AccessPointDescription' {accessPointArn} -> accessPointArn) (\s@AccessPointDescription' {} a -> s {accessPointArn = a} :: AccessPointDescription)
 
 -- | The ID of the access point, assigned by Amazon EFS.
-apdAccessPointId :: Lens' AccessPointDescription (Maybe Text)
-apdAccessPointId = lens _apdAccessPointId (\s a -> s {_apdAccessPointId = a})
+accessPointDescription_accessPointId :: Lens.Lens' AccessPointDescription (Prelude.Maybe Prelude.Text)
+accessPointDescription_accessPointId = Lens.lens (\AccessPointDescription' {accessPointId} -> accessPointId) (\s@AccessPointDescription' {} a -> s {accessPointId = a} :: AccessPointDescription)
 
--- | The directory on the Amazon EFS file system that the access point exposes as the root directory to NFS clients using the access point.
-apdRootDirectory :: Lens' AccessPointDescription (Maybe RootDirectory)
-apdRootDirectory = lens _apdRootDirectory (\s a -> s {_apdRootDirectory = a})
+-- | The directory on the Amazon EFS file system that the access point
+-- exposes as the root directory to NFS clients using the access point.
+accessPointDescription_rootDirectory :: Lens.Lens' AccessPointDescription (Prelude.Maybe RootDirectory)
+accessPointDescription_rootDirectory = Lens.lens (\AccessPointDescription' {rootDirectory} -> rootDirectory) (\s@AccessPointDescription' {} a -> s {rootDirectory = a} :: AccessPointDescription)
 
 -- | The name of the access point. This is the value of the @Name@ tag.
-apdName :: Lens' AccessPointDescription (Maybe Text)
-apdName = lens _apdName (\s a -> s {_apdName = a})
+accessPointDescription_name :: Lens.Lens' AccessPointDescription (Prelude.Maybe Prelude.Text)
+accessPointDescription_name = Lens.lens (\AccessPointDescription' {name} -> name) (\s@AccessPointDescription' {} a -> s {name = a} :: AccessPointDescription)
 
--- | The full POSIX identity, including the user ID, group ID, and secondary group IDs on the access point that is used for all file operations by NFS clients using the access point.
-apdPosixUser :: Lens' AccessPointDescription (Maybe PosixUser)
-apdPosixUser = lens _apdPosixUser (\s a -> s {_apdPosixUser = a})
+-- | The full POSIX identity, including the user ID, group ID, and secondary
+-- group IDs on the access point that is used for all file operations by
+-- NFS clients using the access point.
+accessPointDescription_posixUser :: Lens.Lens' AccessPointDescription (Prelude.Maybe PosixUser)
+accessPointDescription_posixUser = Lens.lens (\AccessPointDescription' {posixUser} -> posixUser) (\s@AccessPointDescription' {} a -> s {posixUser = a} :: AccessPointDescription)
 
--- | The tags associated with the access point, presented as an array of Tag objects.
-apdTags :: Lens' AccessPointDescription [Tag]
-apdTags = lens _apdTags (\s a -> s {_apdTags = a}) . _Default . _Coerce
+-- | The tags associated with the access point, presented as an array of Tag
+-- objects.
+accessPointDescription_tags :: Lens.Lens' AccessPointDescription (Prelude.Maybe [Tag])
+accessPointDescription_tags = Lens.lens (\AccessPointDescription' {tags} -> tags) (\s@AccessPointDescription' {} a -> s {tags = a} :: AccessPointDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Identifies the lifecycle phase of the access point.
-apdLifeCycleState :: Lens' AccessPointDescription (Maybe LifeCycleState)
-apdLifeCycleState = lens _apdLifeCycleState (\s a -> s {_apdLifeCycleState = a})
+accessPointDescription_lifeCycleState :: Lens.Lens' AccessPointDescription (Prelude.Maybe LifeCycleState)
+accessPointDescription_lifeCycleState = Lens.lens (\AccessPointDescription' {lifeCycleState} -> lifeCycleState) (\s@AccessPointDescription' {} a -> s {lifeCycleState = a} :: AccessPointDescription)
 
 -- | The ID of the EFS file system that the access point applies to.
-apdFileSystemId :: Lens' AccessPointDescription (Maybe Text)
-apdFileSystemId = lens _apdFileSystemId (\s a -> s {_apdFileSystemId = a})
+accessPointDescription_fileSystemId :: Lens.Lens' AccessPointDescription (Prelude.Maybe Prelude.Text)
+accessPointDescription_fileSystemId = Lens.lens (\AccessPointDescription' {fileSystemId} -> fileSystemId) (\s@AccessPointDescription' {} a -> s {fileSystemId = a} :: AccessPointDescription)
 
--- | The opaque string specified in the request to ensure idempotent creation.
-apdClientToken :: Lens' AccessPointDescription (Maybe Text)
-apdClientToken = lens _apdClientToken (\s a -> s {_apdClientToken = a})
+-- | The opaque string specified in the request to ensure idempotent
+-- creation.
+accessPointDescription_clientToken :: Lens.Lens' AccessPointDescription (Prelude.Maybe Prelude.Text)
+accessPointDescription_clientToken = Lens.lens (\AccessPointDescription' {clientToken} -> clientToken) (\s@AccessPointDescription' {} a -> s {clientToken = a} :: AccessPointDescription)
 
-instance FromJSON AccessPointDescription where
+instance Prelude.FromJSON AccessPointDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccessPointDescription"
       ( \x ->
           AccessPointDescription'
-            <$> (x .:? "OwnerId")
-            <*> (x .:? "AccessPointArn")
-            <*> (x .:? "AccessPointId")
-            <*> (x .:? "RootDirectory")
-            <*> (x .:? "Name")
-            <*> (x .:? "PosixUser")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "LifeCycleState")
-            <*> (x .:? "FileSystemId")
-            <*> (x .:? "ClientToken")
+            Prelude.<$> (x Prelude..:? "OwnerId")
+            Prelude.<*> (x Prelude..:? "AccessPointArn")
+            Prelude.<*> (x Prelude..:? "AccessPointId")
+            Prelude.<*> (x Prelude..:? "RootDirectory")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "PosixUser")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "LifeCycleState")
+            Prelude.<*> (x Prelude..:? "FileSystemId")
+            Prelude.<*> (x Prelude..:? "ClientToken")
       )
 
-instance Hashable AccessPointDescription
+instance Prelude.Hashable AccessPointDescription
 
-instance NFData AccessPointDescription
+instance Prelude.NFData AccessPointDescription

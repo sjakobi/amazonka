@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,95 +21,110 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a tag for an EFS resource. You can create tags for EFS file systems and access points using this API operation.
+-- Creates a tag for an EFS resource. You can create tags for EFS file
+-- systems and access points using this API operation.
 --
---
--- This operation requires permissions for the @elasticfilesystem:TagResource@ action.
+-- This operation requires permissions for the
+-- @elasticfilesystem:TagResource@ action.
 module Network.AWS.EFS.TagResource
   ( -- * Creating a Request
-    tagResource,
-    TagResource,
+    TagResource (..),
+    newTagResource,
 
     -- * Request Lenses
-    trResourceId,
-    trTags,
+    tagResource_resourceId,
+    tagResource_tags,
 
     -- * Destructuring the Response
-    tagResourceResponse,
-    TagResourceResponse,
+    TagResourceResponse (..),
+    newTagResourceResponse,
   )
 where
 
 import Network.AWS.EFS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagResource' smart constructor.
+-- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { _trResourceId ::
-      !Text,
-    _trTags :: ![Tag]
+  { -- | The ID specifying the EFS resource that you want to create a tag for.
+    resourceId :: Prelude.Text,
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trResourceId' - The ID specifying the EFS resource that you want to create a tag for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTags' -
-tagResource ::
-  -- | 'trResourceId'
-  Text ->
+-- 'resourceId', 'tagResource_resourceId' - The ID specifying the EFS resource that you want to create a tag for.
+--
+-- 'tags', 'tagResource_tags' -
+newTagResource ::
+  -- | 'resourceId'
+  Prelude.Text ->
   TagResource
-tagResource pResourceId_ =
+newTagResource pResourceId_ =
   TagResource'
-    { _trResourceId = pResourceId_,
-      _trTags = mempty
+    { resourceId = pResourceId_,
+      tags = Prelude.mempty
     }
 
 -- | The ID specifying the EFS resource that you want to create a tag for.
-trResourceId :: Lens' TagResource Text
-trResourceId = lens _trResourceId (\s a -> s {_trResourceId = a})
+tagResource_resourceId :: Lens.Lens' TagResource Prelude.Text
+tagResource_resourceId = Lens.lens (\TagResource' {resourceId} -> resourceId) (\s@TagResource' {} a -> s {resourceId = a} :: TagResource)
 
 -- |
-trTags :: Lens' TagResource [Tag]
-trTags = lens _trTags (\s a -> s {_trTags = a}) . _Coerce
+tagResource_tags :: Lens.Lens' TagResource [Tag]
+tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest TagResource where
+instance Prelude.AWSRequest TagResource where
   type Rs TagResource = TagResourceResponse
-  request = postJSON efs
-  response = receiveNull TagResourceResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull TagResourceResponse'
 
-instance Hashable TagResource
+instance Prelude.Hashable TagResource
 
-instance NFData TagResource
+instance Prelude.NFData TagResource
 
-instance ToHeaders TagResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders TagResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON TagResource where
+instance Prelude.ToJSON TagResource where
   toJSON TagResource' {..} =
-    object (catMaybes [Just ("Tags" .= _trTags)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Tags" Prelude..= tags)]
+      )
 
-instance ToPath TagResource where
+instance Prelude.ToPath TagResource where
   toPath TagResource' {..} =
-    mconcat
-      ["/2015-02-01/resource-tags/", toBS _trResourceId]
+    Prelude.mconcat
+      [ "/2015-02-01/resource-tags/",
+        Prelude.toBS resourceId
+      ]
 
-instance ToQuery TagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery TagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagResourceResponse' smart constructor.
+-- | /See:/ 'newTagResourceResponse' smart constructor.
 data TagResourceResponse = TagResourceResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourceResponse' with the minimum fields required to make a request.
-tagResourceResponse ::
+-- |
+-- Create a value of 'TagResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newTagResourceResponse ::
   TagResourceResponse
-tagResourceResponse = TagResourceResponse'
+newTagResourceResponse = TagResourceResponse'
 
-instance NFData TagResourceResponse
+instance Prelude.NFData TagResourceResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,102 +21,114 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes tags from an EFS resource. You can remove tags from EFS file systems and access points using this API operation.
+-- Removes tags from an EFS resource. You can remove tags from EFS file
+-- systems and access points using this API operation.
 --
---
--- This operation requires permissions for the @elasticfilesystem:UntagResource@ action.
+-- This operation requires permissions for the
+-- @elasticfilesystem:UntagResource@ action.
 module Network.AWS.EFS.UntagResource
   ( -- * Creating a Request
-    untagResource,
-    UntagResource,
+    UntagResource (..),
+    newUntagResource,
 
     -- * Request Lenses
-    urResourceId,
-    urTagKeys,
+    untagResource_resourceId,
+    untagResource_tagKeys,
 
     -- * Destructuring the Response
-    untagResourceResponse,
-    UntagResourceResponse,
+    UntagResourceResponse (..),
+    newUntagResourceResponse,
   )
 where
 
 import Network.AWS.EFS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagResource' smart constructor.
+-- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { _urResourceId ::
-      !Text,
-    _urTagKeys :: !(List1 Text)
+  { -- | Specifies the EFS resource that you want to remove tags from.
+    resourceId :: Prelude.Text,
+    -- | The keys of the key:value tag pairs that you want to remove from the
+    -- specified EFS resource.
+    tagKeys :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urResourceId' - Specifies the EFS resource that you want to remove tags from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urTagKeys' - The keys of the key:value tag pairs that you want to remove from the specified EFS resource.
-untagResource ::
-  -- | 'urResourceId'
-  Text ->
-  -- | 'urTagKeys'
-  NonEmpty Text ->
+-- 'resourceId', 'untagResource_resourceId' - Specifies the EFS resource that you want to remove tags from.
+--
+-- 'tagKeys', 'untagResource_tagKeys' - The keys of the key:value tag pairs that you want to remove from the
+-- specified EFS resource.
+newUntagResource ::
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'tagKeys'
+  Prelude.NonEmpty Prelude.Text ->
   UntagResource
-untagResource pResourceId_ pTagKeys_ =
+newUntagResource pResourceId_ pTagKeys_ =
   UntagResource'
-    { _urResourceId = pResourceId_,
-      _urTagKeys = _List1 # pTagKeys_
+    { resourceId = pResourceId_,
+      tagKeys = Prelude._List1 Lens.# pTagKeys_
     }
 
 -- | Specifies the EFS resource that you want to remove tags from.
-urResourceId :: Lens' UntagResource Text
-urResourceId = lens _urResourceId (\s a -> s {_urResourceId = a})
+untagResource_resourceId :: Lens.Lens' UntagResource Prelude.Text
+untagResource_resourceId = Lens.lens (\UntagResource' {resourceId} -> resourceId) (\s@UntagResource' {} a -> s {resourceId = a} :: UntagResource)
 
--- | The keys of the key:value tag pairs that you want to remove from the specified EFS resource.
-urTagKeys :: Lens' UntagResource (NonEmpty Text)
-urTagKeys = lens _urTagKeys (\s a -> s {_urTagKeys = a}) . _List1
+-- | The keys of the key:value tag pairs that you want to remove from the
+-- specified EFS resource.
+untagResource_tagKeys :: Lens.Lens' UntagResource (Prelude.NonEmpty Prelude.Text)
+untagResource_tagKeys = Lens.lens (\UntagResource' {tagKeys} -> tagKeys) (\s@UntagResource' {} a -> s {tagKeys = a} :: UntagResource) Prelude.. Prelude._List1
 
-instance AWSRequest UntagResource where
+instance Prelude.AWSRequest UntagResource where
   type Rs UntagResource = UntagResourceResponse
-  request = delete efs
-  response = receiveNull UntagResourceResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull UntagResourceResponse'
 
-instance Hashable UntagResource
+instance Prelude.Hashable UntagResource
 
-instance NFData UntagResource
+instance Prelude.NFData UntagResource
 
-instance ToHeaders UntagResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UntagResource where
+instance Prelude.ToPath UntagResource where
   toPath UntagResource' {..} =
-    mconcat
-      ["/2015-02-01/resource-tags/", toBS _urResourceId]
+    Prelude.mconcat
+      [ "/2015-02-01/resource-tags/",
+        Prelude.toBS resourceId
+      ]
 
-instance ToQuery UntagResource where
+instance Prelude.ToQuery UntagResource where
   toQuery UntagResource' {..} =
-    mconcat
-      ["tagKeys" =: toQueryList "member" _urTagKeys]
+    Prelude.mconcat
+      [ "tagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
+      ]
 
--- | /See:/ 'untagResourceResponse' smart constructor.
+-- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResourceResponse' with the minimum fields required to make a request.
-untagResourceResponse ::
+-- |
+-- Create a value of 'UntagResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagResourceResponse ::
   UntagResourceResponse
-untagResourceResponse = UntagResourceResponse'
+newUntagResourceResponse = UntagResourceResponse'
 
-instance NFData UntagResourceResponse
+instance Prelude.NFData UntagResourceResponse

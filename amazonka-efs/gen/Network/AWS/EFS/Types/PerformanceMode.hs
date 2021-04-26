@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.EFS.Types.PerformanceMode
   ( PerformanceMode
       ( ..,
-        GeneralPurpose,
-        MaxIO
+        PerformanceModeGeneralPurpose,
+        PerformanceModeMaxIO
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PerformanceMode = PerformanceMode' (CI Text)
+newtype PerformanceMode = PerformanceMode'
+  { fromPerformanceMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GeneralPurpose :: PerformanceMode
-pattern GeneralPurpose = PerformanceMode' "generalPurpose"
+pattern PerformanceModeGeneralPurpose :: PerformanceMode
+pattern PerformanceModeGeneralPurpose = PerformanceMode' "generalPurpose"
 
-pattern MaxIO :: PerformanceMode
-pattern MaxIO = PerformanceMode' "maxIO"
+pattern PerformanceModeMaxIO :: PerformanceMode
+pattern PerformanceModeMaxIO = PerformanceMode' "maxIO"
 
 {-# COMPLETE
-  GeneralPurpose,
-  MaxIO,
+  PerformanceModeGeneralPurpose,
+  PerformanceModeMaxIO,
   PerformanceMode'
   #-}
 
-instance FromText PerformanceMode where
-  parser = (PerformanceMode' . mk) <$> takeText
+instance Prelude.FromText PerformanceMode where
+  parser = PerformanceMode' Prelude.<$> Prelude.takeText
 
-instance ToText PerformanceMode where
-  toText (PerformanceMode' ci) = original ci
+instance Prelude.ToText PerformanceMode where
+  toText (PerformanceMode' x) = x
 
-instance Hashable PerformanceMode
+instance Prelude.Hashable PerformanceMode
 
-instance NFData PerformanceMode
+instance Prelude.NFData PerformanceMode
 
-instance ToByteString PerformanceMode
+instance Prelude.ToByteString PerformanceMode
 
-instance ToQuery PerformanceMode
+instance Prelude.ToQuery PerformanceMode
 
-instance ToHeader PerformanceMode
+instance Prelude.ToHeader PerformanceMode
 
-instance ToJSON PerformanceMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON PerformanceMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PerformanceMode where
-  parseJSON = parseJSONText "PerformanceMode"
+instance Prelude.FromJSON PerformanceMode where
+  parseJSON = Prelude.parseJSONText "PerformanceMode"

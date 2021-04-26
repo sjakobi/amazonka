@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,92 +21,104 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the file system's backup policy. Use this action to start or stop automatic backups of the file system.
+-- Updates the file system\'s backup policy. Use this action to start or
+-- stop automatic backups of the file system.
 module Network.AWS.EFS.PutBackupPolicy
   ( -- * Creating a Request
-    putBackupPolicy,
-    PutBackupPolicy,
+    PutBackupPolicy (..),
+    newPutBackupPolicy,
 
     -- * Request Lenses
-    pbpFileSystemId,
-    pbpBackupPolicy,
+    putBackupPolicy_fileSystemId,
+    putBackupPolicy_backupPolicy,
 
     -- * Destructuring the Response
-    backupPolicyDescription,
-    BackupPolicyDescription,
+    BackupPolicyDescription (..),
+    newBackupPolicyDescription,
 
     -- * Response Lenses
-    bpdBackupPolicy,
+    backupPolicyDescription_backupPolicy,
   )
 where
 
 import Network.AWS.EFS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EFS.Types.BackupPolicy
+import Network.AWS.EFS.Types.BackupPolicyDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putBackupPolicy' smart constructor.
+-- | /See:/ 'newPutBackupPolicy' smart constructor.
 data PutBackupPolicy = PutBackupPolicy'
-  { _pbpFileSystemId ::
-      !Text,
-    _pbpBackupPolicy :: !BackupPolicy
+  { -- | Specifies which EFS file system to update the backup policy for.
+    fileSystemId :: Prelude.Text,
+    -- | The backup policy included in the @PutBackupPolicy@ request.
+    backupPolicy :: BackupPolicy
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutBackupPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutBackupPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pbpFileSystemId' - Specifies which EFS file system to update the backup policy for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pbpBackupPolicy' - The backup policy included in the @PutBackupPolicy@ request.
-putBackupPolicy ::
-  -- | 'pbpFileSystemId'
-  Text ->
-  -- | 'pbpBackupPolicy'
+-- 'fileSystemId', 'putBackupPolicy_fileSystemId' - Specifies which EFS file system to update the backup policy for.
+--
+-- 'backupPolicy', 'putBackupPolicy_backupPolicy' - The backup policy included in the @PutBackupPolicy@ request.
+newPutBackupPolicy ::
+  -- | 'fileSystemId'
+  Prelude.Text ->
+  -- | 'backupPolicy'
   BackupPolicy ->
   PutBackupPolicy
-putBackupPolicy pFileSystemId_ pBackupPolicy_ =
+newPutBackupPolicy pFileSystemId_ pBackupPolicy_ =
   PutBackupPolicy'
-    { _pbpFileSystemId = pFileSystemId_,
-      _pbpBackupPolicy = pBackupPolicy_
+    { fileSystemId = pFileSystemId_,
+      backupPolicy = pBackupPolicy_
     }
 
 -- | Specifies which EFS file system to update the backup policy for.
-pbpFileSystemId :: Lens' PutBackupPolicy Text
-pbpFileSystemId = lens _pbpFileSystemId (\s a -> s {_pbpFileSystemId = a})
+putBackupPolicy_fileSystemId :: Lens.Lens' PutBackupPolicy Prelude.Text
+putBackupPolicy_fileSystemId = Lens.lens (\PutBackupPolicy' {fileSystemId} -> fileSystemId) (\s@PutBackupPolicy' {} a -> s {fileSystemId = a} :: PutBackupPolicy)
 
 -- | The backup policy included in the @PutBackupPolicy@ request.
-pbpBackupPolicy :: Lens' PutBackupPolicy BackupPolicy
-pbpBackupPolicy = lens _pbpBackupPolicy (\s a -> s {_pbpBackupPolicy = a})
+putBackupPolicy_backupPolicy :: Lens.Lens' PutBackupPolicy BackupPolicy
+putBackupPolicy_backupPolicy = Lens.lens (\PutBackupPolicy' {backupPolicy} -> backupPolicy) (\s@PutBackupPolicy' {} a -> s {backupPolicy = a} :: PutBackupPolicy)
 
-instance AWSRequest PutBackupPolicy where
+instance Prelude.AWSRequest PutBackupPolicy where
   type Rs PutBackupPolicy = BackupPolicyDescription
-  request = putJSON efs
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable PutBackupPolicy
+instance Prelude.Hashable PutBackupPolicy
 
-instance NFData PutBackupPolicy
+instance Prelude.NFData PutBackupPolicy
 
-instance ToHeaders PutBackupPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PutBackupPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON PutBackupPolicy where
+instance Prelude.ToJSON PutBackupPolicy where
   toJSON PutBackupPolicy' {..} =
-    object
-      ( catMaybes
-          [Just ("BackupPolicy" .= _pbpBackupPolicy)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("BackupPolicy" Prelude..= backupPolicy)
+          ]
       )
 
-instance ToPath PutBackupPolicy where
+instance Prelude.ToPath PutBackupPolicy where
   toPath PutBackupPolicy' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-02-01/file-systems/",
-        toBS _pbpFileSystemId,
+        Prelude.toBS fileSystemId,
         "/backup-policy"
       ]
 
-instance ToQuery PutBackupPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery PutBackupPolicy where
+  toQuery = Prelude.const Prelude.mempty

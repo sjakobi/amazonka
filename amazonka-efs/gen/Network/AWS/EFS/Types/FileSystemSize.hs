@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EFS.Types.FileSystemSize where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The latest known metered size (in bytes) of data stored in the file system, in its @Value@ field, and the time at which that size was determined in its @Timestamp@ field. The value doesn't represent the size of a consistent snapshot of the file system, but it is eventually consistent when there are no writes to the file system. That is, the value represents the actual size only if the file system is not modified for a period longer than a couple of hours. Otherwise, the value is not necessarily the exact size the file system was at any instant in time.
+-- | The latest known metered size (in bytes) of data stored in the file
+-- system, in its @Value@ field, and the time at which that size was
+-- determined in its @Timestamp@ field. The value doesn\'t represent the
+-- size of a consistent snapshot of the file system, but it is eventually
+-- consistent when there are no writes to the file system. That is, the
+-- value represents the actual size only if the file system is not modified
+-- for a period longer than a couple of hours. Otherwise, the value is not
+-- necessarily the exact size the file system was at any instant in time.
 --
---
---
--- /See:/ 'fileSystemSize' smart constructor.
+-- /See:/ 'newFileSystemSize' smart constructor.
 data FileSystemSize = FileSystemSize'
-  { _fssValueInStandard ::
-      !(Maybe Nat),
-    _fssValueInIA :: !(Maybe Nat),
-    _fssTimestamp :: !(Maybe POSIX),
-    _fssValue :: !Nat
+  { -- | The latest known metered size (in bytes) of data stored in the Standard
+    -- storage class.
+    valueInStandard :: Prelude.Maybe Prelude.Nat,
+    -- | The latest known metered size (in bytes) of data stored in the
+    -- Infrequent Access storage class.
+    valueInIA :: Prelude.Maybe Prelude.Nat,
+    -- | The time at which the size of data, returned in the @Value@ field, was
+    -- determined. The value is the integer number of seconds since
+    -- 1970-01-01T00:00:00Z.
+    timestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The latest known metered size (in bytes) of data stored in the file
+    -- system.
+    value :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileSystemSize' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileSystemSize' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fssValueInStandard' - The latest known metered size (in bytes) of data stored in the Standard storage class.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fssValueInIA' - The latest known metered size (in bytes) of data stored in the Infrequent Access storage class.
+-- 'valueInStandard', 'fileSystemSize_valueInStandard' - The latest known metered size (in bytes) of data stored in the Standard
+-- storage class.
 --
--- * 'fssTimestamp' - The time at which the size of data, returned in the @Value@ field, was determined. The value is the integer number of seconds since 1970-01-01T00:00:00Z.
+-- 'valueInIA', 'fileSystemSize_valueInIA' - The latest known metered size (in bytes) of data stored in the
+-- Infrequent Access storage class.
 --
--- * 'fssValue' - The latest known metered size (in bytes) of data stored in the file system.
-fileSystemSize ::
-  -- | 'fssValue'
-  Natural ->
+-- 'timestamp', 'fileSystemSize_timestamp' - The time at which the size of data, returned in the @Value@ field, was
+-- determined. The value is the integer number of seconds since
+-- 1970-01-01T00:00:00Z.
+--
+-- 'value', 'fileSystemSize_value' - The latest known metered size (in bytes) of data stored in the file
+-- system.
+newFileSystemSize ::
+  -- | 'value'
+  Prelude.Natural ->
   FileSystemSize
-fileSystemSize pValue_ =
+newFileSystemSize pValue_ =
   FileSystemSize'
-    { _fssValueInStandard = Nothing,
-      _fssValueInIA = Nothing,
-      _fssTimestamp = Nothing,
-      _fssValue = _Nat # pValue_
+    { valueInStandard = Prelude.Nothing,
+      valueInIA = Prelude.Nothing,
+      timestamp = Prelude.Nothing,
+      value = Prelude._Nat Lens.# pValue_
     }
 
--- | The latest known metered size (in bytes) of data stored in the Standard storage class.
-fssValueInStandard :: Lens' FileSystemSize (Maybe Natural)
-fssValueInStandard = lens _fssValueInStandard (\s a -> s {_fssValueInStandard = a}) . mapping _Nat
+-- | The latest known metered size (in bytes) of data stored in the Standard
+-- storage class.
+fileSystemSize_valueInStandard :: Lens.Lens' FileSystemSize (Prelude.Maybe Prelude.Natural)
+fileSystemSize_valueInStandard = Lens.lens (\FileSystemSize' {valueInStandard} -> valueInStandard) (\s@FileSystemSize' {} a -> s {valueInStandard = a} :: FileSystemSize) Prelude.. Lens.mapping Prelude._Nat
 
--- | The latest known metered size (in bytes) of data stored in the Infrequent Access storage class.
-fssValueInIA :: Lens' FileSystemSize (Maybe Natural)
-fssValueInIA = lens _fssValueInIA (\s a -> s {_fssValueInIA = a}) . mapping _Nat
+-- | The latest known metered size (in bytes) of data stored in the
+-- Infrequent Access storage class.
+fileSystemSize_valueInIA :: Lens.Lens' FileSystemSize (Prelude.Maybe Prelude.Natural)
+fileSystemSize_valueInIA = Lens.lens (\FileSystemSize' {valueInIA} -> valueInIA) (\s@FileSystemSize' {} a -> s {valueInIA = a} :: FileSystemSize) Prelude.. Lens.mapping Prelude._Nat
 
--- | The time at which the size of data, returned in the @Value@ field, was determined. The value is the integer number of seconds since 1970-01-01T00:00:00Z.
-fssTimestamp :: Lens' FileSystemSize (Maybe UTCTime)
-fssTimestamp = lens _fssTimestamp (\s a -> s {_fssTimestamp = a}) . mapping _Time
+-- | The time at which the size of data, returned in the @Value@ field, was
+-- determined. The value is the integer number of seconds since
+-- 1970-01-01T00:00:00Z.
+fileSystemSize_timestamp :: Lens.Lens' FileSystemSize (Prelude.Maybe Prelude.UTCTime)
+fileSystemSize_timestamp = Lens.lens (\FileSystemSize' {timestamp} -> timestamp) (\s@FileSystemSize' {} a -> s {timestamp = a} :: FileSystemSize) Prelude.. Lens.mapping Prelude._Time
 
--- | The latest known metered size (in bytes) of data stored in the file system.
-fssValue :: Lens' FileSystemSize Natural
-fssValue = lens _fssValue (\s a -> s {_fssValue = a}) . _Nat
+-- | The latest known metered size (in bytes) of data stored in the file
+-- system.
+fileSystemSize_value :: Lens.Lens' FileSystemSize Prelude.Natural
+fileSystemSize_value = Lens.lens (\FileSystemSize' {value} -> value) (\s@FileSystemSize' {} a -> s {value = a} :: FileSystemSize) Prelude.. Prelude._Nat
 
-instance FromJSON FileSystemSize where
+instance Prelude.FromJSON FileSystemSize where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileSystemSize"
       ( \x ->
           FileSystemSize'
-            <$> (x .:? "ValueInStandard")
-            <*> (x .:? "ValueInIA")
-            <*> (x .:? "Timestamp")
-            <*> (x .: "Value")
+            Prelude.<$> (x Prelude..:? "ValueInStandard")
+            Prelude.<*> (x Prelude..:? "ValueInIA")
+            Prelude.<*> (x Prelude..:? "Timestamp")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable FileSystemSize
+instance Prelude.Hashable FileSystemSize
 
-instance NFData FileSystemSize
+instance Prelude.NFData FileSystemSize

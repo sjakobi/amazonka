@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,96 +21,108 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a file system, permanently severing access to its contents. Upon return, the file system no longer exists and you can't access any contents of the deleted file system.
+-- Deletes a file system, permanently severing access to its contents. Upon
+-- return, the file system no longer exists and you can\'t access any
+-- contents of the deleted file system.
 --
+-- You can\'t delete a file system that is in use. That is, if the file
+-- system has any mount targets, you must first delete them. For more
+-- information, see DescribeMountTargets and DeleteMountTarget.
 --
--- You can't delete a file system that is in use. That is, if the file system has any mount targets, you must first delete them. For more information, see 'DescribeMountTargets' and 'DeleteMountTarget' .
+-- The @DeleteFileSystem@ call returns while the file system state is still
+-- @deleting@. You can check the file system deletion status by calling the
+-- DescribeFileSystems operation, which returns a list of file systems in
+-- your account. If you pass file system ID or creation token for the
+-- deleted file system, the DescribeFileSystems returns a
+-- @404 FileSystemNotFound@ error.
 --
--- This operation requires permissions for the @elasticfilesystem:DeleteFileSystem@ action.
+-- This operation requires permissions for the
+-- @elasticfilesystem:DeleteFileSystem@ action.
 module Network.AWS.EFS.DeleteFileSystem
   ( -- * Creating a Request
-    deleteFileSystem,
-    DeleteFileSystem,
+    DeleteFileSystem (..),
+    newDeleteFileSystem,
 
     -- * Request Lenses
-    dfsfFileSystemId,
+    deleteFileSystem_fileSystemId,
 
     -- * Destructuring the Response
-    deleteFileSystemResponse,
-    DeleteFileSystemResponse,
+    DeleteFileSystemResponse (..),
+    newDeleteFileSystemResponse,
   )
 where
 
 import Network.AWS.EFS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteFileSystem' smart constructor.
-newtype DeleteFileSystem = DeleteFileSystem'
-  { _dfsfFileSystemId ::
-      Text
+-- /See:/ 'newDeleteFileSystem' smart constructor.
+data DeleteFileSystem = DeleteFileSystem'
+  { -- | The ID of the file system you want to delete.
+    fileSystemId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFileSystem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFileSystem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsfFileSystemId' - The ID of the file system you want to delete.
-deleteFileSystem ::
-  -- | 'dfsfFileSystemId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fileSystemId', 'deleteFileSystem_fileSystemId' - The ID of the file system you want to delete.
+newDeleteFileSystem ::
+  -- | 'fileSystemId'
+  Prelude.Text ->
   DeleteFileSystem
-deleteFileSystem pFileSystemId_ =
-  DeleteFileSystem'
-    { _dfsfFileSystemId =
-        pFileSystemId_
-    }
+newDeleteFileSystem pFileSystemId_ =
+  DeleteFileSystem' {fileSystemId = pFileSystemId_}
 
 -- | The ID of the file system you want to delete.
-dfsfFileSystemId :: Lens' DeleteFileSystem Text
-dfsfFileSystemId = lens _dfsfFileSystemId (\s a -> s {_dfsfFileSystemId = a})
+deleteFileSystem_fileSystemId :: Lens.Lens' DeleteFileSystem Prelude.Text
+deleteFileSystem_fileSystemId = Lens.lens (\DeleteFileSystem' {fileSystemId} -> fileSystemId) (\s@DeleteFileSystem' {} a -> s {fileSystemId = a} :: DeleteFileSystem)
 
-instance AWSRequest DeleteFileSystem where
+instance Prelude.AWSRequest DeleteFileSystem where
   type Rs DeleteFileSystem = DeleteFileSystemResponse
-  request = delete efs
-  response = receiveNull DeleteFileSystemResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteFileSystemResponse'
 
-instance Hashable DeleteFileSystem
+instance Prelude.Hashable DeleteFileSystem
 
-instance NFData DeleteFileSystem
+instance Prelude.NFData DeleteFileSystem
 
-instance ToHeaders DeleteFileSystem where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteFileSystem where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteFileSystem where
+instance Prelude.ToPath DeleteFileSystem where
   toPath DeleteFileSystem' {..} =
-    mconcat
-      ["/2015-02-01/file-systems/", toBS _dfsfFileSystemId]
+    Prelude.mconcat
+      [ "/2015-02-01/file-systems/",
+        Prelude.toBS fileSystemId
+      ]
 
-instance ToQuery DeleteFileSystem where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFileSystem where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFileSystemResponse' smart constructor.
+-- | /See:/ 'newDeleteFileSystemResponse' smart constructor.
 data DeleteFileSystemResponse = DeleteFileSystemResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFileSystemResponse' with the minimum fields required to make a request.
-deleteFileSystemResponse ::
+-- |
+-- Create a value of 'DeleteFileSystemResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteFileSystemResponse ::
   DeleteFileSystemResponse
-deleteFileSystemResponse = DeleteFileSystemResponse'
+newDeleteFileSystemResponse =
+  DeleteFileSystemResponse'
 
-instance NFData DeleteFileSystemResponse
+instance Prelude.NFData DeleteFileSystemResponse

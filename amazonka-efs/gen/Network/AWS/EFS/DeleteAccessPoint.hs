@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,93 +21,96 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified access point. After deletion is complete, new clients can no longer connect to the access points. Clients connected to the access point at the time of deletion will continue to function until they terminate their connection.
+-- Deletes the specified access point. After deletion is complete, new
+-- clients can no longer connect to the access points. Clients connected to
+-- the access point at the time of deletion will continue to function until
+-- they terminate their connection.
 --
---
--- This operation requires permissions for the @elasticfilesystem:DeleteAccessPoint@ action.
+-- This operation requires permissions for the
+-- @elasticfilesystem:DeleteAccessPoint@ action.
 module Network.AWS.EFS.DeleteAccessPoint
   ( -- * Creating a Request
-    deleteAccessPoint,
-    DeleteAccessPoint,
+    DeleteAccessPoint (..),
+    newDeleteAccessPoint,
 
     -- * Request Lenses
-    dapAccessPointId,
+    deleteAccessPoint_accessPointId,
 
     -- * Destructuring the Response
-    deleteAccessPointResponse,
-    DeleteAccessPointResponse,
+    DeleteAccessPointResponse (..),
+    newDeleteAccessPointResponse,
   )
 where
 
 import Network.AWS.EFS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAccessPoint' smart constructor.
-newtype DeleteAccessPoint = DeleteAccessPoint'
-  { _dapAccessPointId ::
-      Text
+-- | /See:/ 'newDeleteAccessPoint' smart constructor.
+data DeleteAccessPoint = DeleteAccessPoint'
+  { -- | The ID of the access point that you want to delete.
+    accessPointId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAccessPoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAccessPoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dapAccessPointId' - The ID of the access point that you want to delete.
-deleteAccessPoint ::
-  -- | 'dapAccessPointId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'accessPointId', 'deleteAccessPoint_accessPointId' - The ID of the access point that you want to delete.
+newDeleteAccessPoint ::
+  -- | 'accessPointId'
+  Prelude.Text ->
   DeleteAccessPoint
-deleteAccessPoint pAccessPointId_ =
-  DeleteAccessPoint'
-    { _dapAccessPointId =
-        pAccessPointId_
-    }
+newDeleteAccessPoint pAccessPointId_ =
+  DeleteAccessPoint' {accessPointId = pAccessPointId_}
 
 -- | The ID of the access point that you want to delete.
-dapAccessPointId :: Lens' DeleteAccessPoint Text
-dapAccessPointId = lens _dapAccessPointId (\s a -> s {_dapAccessPointId = a})
+deleteAccessPoint_accessPointId :: Lens.Lens' DeleteAccessPoint Prelude.Text
+deleteAccessPoint_accessPointId = Lens.lens (\DeleteAccessPoint' {accessPointId} -> accessPointId) (\s@DeleteAccessPoint' {} a -> s {accessPointId = a} :: DeleteAccessPoint)
 
-instance AWSRequest DeleteAccessPoint where
+instance Prelude.AWSRequest DeleteAccessPoint where
   type Rs DeleteAccessPoint = DeleteAccessPointResponse
-  request = delete efs
-  response = receiveNull DeleteAccessPointResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteAccessPointResponse'
 
-instance Hashable DeleteAccessPoint
+instance Prelude.Hashable DeleteAccessPoint
 
-instance NFData DeleteAccessPoint
+instance Prelude.NFData DeleteAccessPoint
 
-instance ToHeaders DeleteAccessPoint where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteAccessPoint where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteAccessPoint where
+instance Prelude.ToPath DeleteAccessPoint where
   toPath DeleteAccessPoint' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-02-01/access-points/",
-        toBS _dapAccessPointId
+        Prelude.toBS accessPointId
       ]
 
-instance ToQuery DeleteAccessPoint where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAccessPoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAccessPointResponse' smart constructor.
+-- | /See:/ 'newDeleteAccessPointResponse' smart constructor.
 data DeleteAccessPointResponse = DeleteAccessPointResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAccessPointResponse' with the minimum fields required to make a request.
-deleteAccessPointResponse ::
+-- |
+-- Create a value of 'DeleteAccessPointResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAccessPointResponse ::
   DeleteAccessPointResponse
-deleteAccessPointResponse =
+newDeleteAccessPointResponse =
   DeleteAccessPointResponse'
 
-instance NFData DeleteAccessPointResponse
+instance Prelude.NFData DeleteAccessPointResponse
