@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.LogGroupField where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The fields contained in log events found by a @GetLogGroupFields@ operation, along with the percentage of queried log events in which each field appears.
+-- | The fields contained in log events found by a @GetLogGroupFields@
+-- operation, along with the percentage of queried log events in which each
+-- field appears.
 --
---
---
--- /See:/ 'logGroupField' smart constructor.
+-- /See:/ 'newLogGroupField' smart constructor.
 data LogGroupField = LogGroupField'
-  { _lgfName ::
-      !(Maybe Text),
-    _lgfPercent :: !(Maybe Nat)
+  { -- | The name of a log field.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The percentage of log events queried that contained the field.
+    percent :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LogGroupField' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LogGroupField' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgfName' - The name of a log field.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgfPercent' - The percentage of log events queried that contained the field.
-logGroupField ::
+-- 'name', 'logGroupField_name' - The name of a log field.
+--
+-- 'percent', 'logGroupField_percent' - The percentage of log events queried that contained the field.
+newLogGroupField ::
   LogGroupField
-logGroupField =
+newLogGroupField =
   LogGroupField'
-    { _lgfName = Nothing,
-      _lgfPercent = Nothing
+    { name = Prelude.Nothing,
+      percent = Prelude.Nothing
     }
 
 -- | The name of a log field.
-lgfName :: Lens' LogGroupField (Maybe Text)
-lgfName = lens _lgfName (\s a -> s {_lgfName = a})
+logGroupField_name :: Lens.Lens' LogGroupField (Prelude.Maybe Prelude.Text)
+logGroupField_name = Lens.lens (\LogGroupField' {name} -> name) (\s@LogGroupField' {} a -> s {name = a} :: LogGroupField)
 
 -- | The percentage of log events queried that contained the field.
-lgfPercent :: Lens' LogGroupField (Maybe Natural)
-lgfPercent = lens _lgfPercent (\s a -> s {_lgfPercent = a}) . mapping _Nat
+logGroupField_percent :: Lens.Lens' LogGroupField (Prelude.Maybe Prelude.Natural)
+logGroupField_percent = Lens.lens (\LogGroupField' {percent} -> percent) (\s@LogGroupField' {} a -> s {percent = a} :: LogGroupField) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON LogGroupField where
+instance Prelude.FromJSON LogGroupField where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LogGroupField"
       ( \x ->
           LogGroupField'
-            <$> (x .:? "name") <*> (x .:? "percent")
+            Prelude.<$> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "percent")
       )
 
-instance Hashable LogGroupField
+instance Prelude.Hashable LogGroupField
 
-instance NFData LogGroupField
+instance Prelude.NFData LogGroupField

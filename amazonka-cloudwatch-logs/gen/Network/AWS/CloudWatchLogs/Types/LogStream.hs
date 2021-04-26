@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,108 +19,151 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.LogStream where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a log stream, which is a sequence of log events from a single emitter of logs.
+-- | Represents a log stream, which is a sequence of log events from a single
+-- emitter of logs.
 --
---
---
--- /See:/ 'logStream' smart constructor.
+-- /See:/ 'newLogStream' smart constructor.
 data LogStream = LogStream'
-  { _lsLogStreamName ::
-      !(Maybe Text),
-    _lsCreationTime :: !(Maybe Nat),
-    _lsArn :: !(Maybe Text),
-    _lsStoredBytes :: !(Maybe Nat),
-    _lsUploadSequenceToken :: !(Maybe Text),
-    _lsFirstEventTimestamp :: !(Maybe Nat),
-    _lsLastEventTimestamp :: !(Maybe Nat),
-    _lsLastIngestionTime :: !(Maybe Nat)
+  { -- | The name of the log stream.
+    logStreamName :: Prelude.Maybe Prelude.Text,
+    -- | The creation time of the stream, expressed as the number of milliseconds
+    -- after Jan 1, 1970 00:00:00 UTC.
+    creationTime :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Name (ARN) of the log stream.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The number of bytes stored.
+    --
+    -- __Important:__ On June 17, 2019, this parameter was deprecated for log
+    -- streams, and is always reported as zero. This change applies only to log
+    -- streams. The @storedBytes@ parameter for log groups is not affected.
+    storedBytes :: Prelude.Maybe Prelude.Nat,
+    -- | The sequence token.
+    uploadSequenceToken :: Prelude.Maybe Prelude.Text,
+    -- | The time of the first event, expressed as the number of milliseconds
+    -- after Jan 1, 1970 00:00:00 UTC.
+    firstEventTimestamp :: Prelude.Maybe Prelude.Nat,
+    -- | The time of the most recent log event in the log stream in CloudWatch
+    -- Logs. This number is expressed as the number of milliseconds after Jan
+    -- 1, 1970 00:00:00 UTC. The @lastEventTime@ value updates on an eventual
+    -- consistency basis. It typically updates in less than an hour from
+    -- ingestion, but in rare situations might take longer.
+    lastEventTimestamp :: Prelude.Maybe Prelude.Nat,
+    -- | The ingestion time, expressed as the number of milliseconds after Jan 1,
+    -- 1970 00:00:00 UTC.
+    lastIngestionTime :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LogStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LogStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsLogStreamName' - The name of the log stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsCreationTime' - The creation time of the stream, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+-- 'logStreamName', 'logStream_logStreamName' - The name of the log stream.
 --
--- * 'lsArn' - The Amazon Resource Name (ARN) of the log stream.
+-- 'creationTime', 'logStream_creationTime' - The creation time of the stream, expressed as the number of milliseconds
+-- after Jan 1, 1970 00:00:00 UTC.
 --
--- * 'lsStoredBytes' - The number of bytes stored. __Important:__ On June 17, 2019, this parameter was deprecated for log streams, and is always reported as zero. This change applies only to log streams. The @storedBytes@ parameter for log groups is not affected.
+-- 'arn', 'logStream_arn' - The Amazon Resource Name (ARN) of the log stream.
 --
--- * 'lsUploadSequenceToken' - The sequence token.
+-- 'storedBytes', 'logStream_storedBytes' - The number of bytes stored.
 --
--- * 'lsFirstEventTimestamp' - The time of the first event, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+-- __Important:__ On June 17, 2019, this parameter was deprecated for log
+-- streams, and is always reported as zero. This change applies only to log
+-- streams. The @storedBytes@ parameter for log groups is not affected.
 --
--- * 'lsLastEventTimestamp' - The time of the most recent log event in the log stream in CloudWatch Logs. This number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. The @lastEventTime@ value updates on an eventual consistency basis. It typically updates in less than an hour from ingestion, but in rare situations might take longer.
+-- 'uploadSequenceToken', 'logStream_uploadSequenceToken' - The sequence token.
 --
--- * 'lsLastIngestionTime' - The ingestion time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-logStream ::
+-- 'firstEventTimestamp', 'logStream_firstEventTimestamp' - The time of the first event, expressed as the number of milliseconds
+-- after Jan 1, 1970 00:00:00 UTC.
+--
+-- 'lastEventTimestamp', 'logStream_lastEventTimestamp' - The time of the most recent log event in the log stream in CloudWatch
+-- Logs. This number is expressed as the number of milliseconds after Jan
+-- 1, 1970 00:00:00 UTC. The @lastEventTime@ value updates on an eventual
+-- consistency basis. It typically updates in less than an hour from
+-- ingestion, but in rare situations might take longer.
+--
+-- 'lastIngestionTime', 'logStream_lastIngestionTime' - The ingestion time, expressed as the number of milliseconds after Jan 1,
+-- 1970 00:00:00 UTC.
+newLogStream ::
   LogStream
-logStream =
+newLogStream =
   LogStream'
-    { _lsLogStreamName = Nothing,
-      _lsCreationTime = Nothing,
-      _lsArn = Nothing,
-      _lsStoredBytes = Nothing,
-      _lsUploadSequenceToken = Nothing,
-      _lsFirstEventTimestamp = Nothing,
-      _lsLastEventTimestamp = Nothing,
-      _lsLastIngestionTime = Nothing
+    { logStreamName = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      storedBytes = Prelude.Nothing,
+      uploadSequenceToken = Prelude.Nothing,
+      firstEventTimestamp = Prelude.Nothing,
+      lastEventTimestamp = Prelude.Nothing,
+      lastIngestionTime = Prelude.Nothing
     }
 
 -- | The name of the log stream.
-lsLogStreamName :: Lens' LogStream (Maybe Text)
-lsLogStreamName = lens _lsLogStreamName (\s a -> s {_lsLogStreamName = a})
+logStream_logStreamName :: Lens.Lens' LogStream (Prelude.Maybe Prelude.Text)
+logStream_logStreamName = Lens.lens (\LogStream' {logStreamName} -> logStreamName) (\s@LogStream' {} a -> s {logStreamName = a} :: LogStream)
 
--- | The creation time of the stream, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-lsCreationTime :: Lens' LogStream (Maybe Natural)
-lsCreationTime = lens _lsCreationTime (\s a -> s {_lsCreationTime = a}) . mapping _Nat
+-- | The creation time of the stream, expressed as the number of milliseconds
+-- after Jan 1, 1970 00:00:00 UTC.
+logStream_creationTime :: Lens.Lens' LogStream (Prelude.Maybe Prelude.Natural)
+logStream_creationTime = Lens.lens (\LogStream' {creationTime} -> creationTime) (\s@LogStream' {} a -> s {creationTime = a} :: LogStream) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The Amazon Resource Name (ARN) of the log stream.
-lsArn :: Lens' LogStream (Maybe Text)
-lsArn = lens _lsArn (\s a -> s {_lsArn = a})
+logStream_arn :: Lens.Lens' LogStream (Prelude.Maybe Prelude.Text)
+logStream_arn = Lens.lens (\LogStream' {arn} -> arn) (\s@LogStream' {} a -> s {arn = a} :: LogStream)
 
--- | The number of bytes stored. __Important:__ On June 17, 2019, this parameter was deprecated for log streams, and is always reported as zero. This change applies only to log streams. The @storedBytes@ parameter for log groups is not affected.
-lsStoredBytes :: Lens' LogStream (Maybe Natural)
-lsStoredBytes = lens _lsStoredBytes (\s a -> s {_lsStoredBytes = a}) . mapping _Nat
+-- | The number of bytes stored.
+--
+-- __Important:__ On June 17, 2019, this parameter was deprecated for log
+-- streams, and is always reported as zero. This change applies only to log
+-- streams. The @storedBytes@ parameter for log groups is not affected.
+logStream_storedBytes :: Lens.Lens' LogStream (Prelude.Maybe Prelude.Natural)
+logStream_storedBytes = Lens.lens (\LogStream' {storedBytes} -> storedBytes) (\s@LogStream' {} a -> s {storedBytes = a} :: LogStream) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The sequence token.
-lsUploadSequenceToken :: Lens' LogStream (Maybe Text)
-lsUploadSequenceToken = lens _lsUploadSequenceToken (\s a -> s {_lsUploadSequenceToken = a})
+logStream_uploadSequenceToken :: Lens.Lens' LogStream (Prelude.Maybe Prelude.Text)
+logStream_uploadSequenceToken = Lens.lens (\LogStream' {uploadSequenceToken} -> uploadSequenceToken) (\s@LogStream' {} a -> s {uploadSequenceToken = a} :: LogStream)
 
--- | The time of the first event, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-lsFirstEventTimestamp :: Lens' LogStream (Maybe Natural)
-lsFirstEventTimestamp = lens _lsFirstEventTimestamp (\s a -> s {_lsFirstEventTimestamp = a}) . mapping _Nat
+-- | The time of the first event, expressed as the number of milliseconds
+-- after Jan 1, 1970 00:00:00 UTC.
+logStream_firstEventTimestamp :: Lens.Lens' LogStream (Prelude.Maybe Prelude.Natural)
+logStream_firstEventTimestamp = Lens.lens (\LogStream' {firstEventTimestamp} -> firstEventTimestamp) (\s@LogStream' {} a -> s {firstEventTimestamp = a} :: LogStream) Prelude.. Lens.mapping Prelude._Nat
 
--- | The time of the most recent log event in the log stream in CloudWatch Logs. This number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. The @lastEventTime@ value updates on an eventual consistency basis. It typically updates in less than an hour from ingestion, but in rare situations might take longer.
-lsLastEventTimestamp :: Lens' LogStream (Maybe Natural)
-lsLastEventTimestamp = lens _lsLastEventTimestamp (\s a -> s {_lsLastEventTimestamp = a}) . mapping _Nat
+-- | The time of the most recent log event in the log stream in CloudWatch
+-- Logs. This number is expressed as the number of milliseconds after Jan
+-- 1, 1970 00:00:00 UTC. The @lastEventTime@ value updates on an eventual
+-- consistency basis. It typically updates in less than an hour from
+-- ingestion, but in rare situations might take longer.
+logStream_lastEventTimestamp :: Lens.Lens' LogStream (Prelude.Maybe Prelude.Natural)
+logStream_lastEventTimestamp = Lens.lens (\LogStream' {lastEventTimestamp} -> lastEventTimestamp) (\s@LogStream' {} a -> s {lastEventTimestamp = a} :: LogStream) Prelude.. Lens.mapping Prelude._Nat
 
--- | The ingestion time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-lsLastIngestionTime :: Lens' LogStream (Maybe Natural)
-lsLastIngestionTime = lens _lsLastIngestionTime (\s a -> s {_lsLastIngestionTime = a}) . mapping _Nat
+-- | The ingestion time, expressed as the number of milliseconds after Jan 1,
+-- 1970 00:00:00 UTC.
+logStream_lastIngestionTime :: Lens.Lens' LogStream (Prelude.Maybe Prelude.Natural)
+logStream_lastIngestionTime = Lens.lens (\LogStream' {lastIngestionTime} -> lastIngestionTime) (\s@LogStream' {} a -> s {lastIngestionTime = a} :: LogStream) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON LogStream where
+instance Prelude.FromJSON LogStream where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LogStream"
       ( \x ->
           LogStream'
-            <$> (x .:? "logStreamName")
-            <*> (x .:? "creationTime")
-            <*> (x .:? "arn")
-            <*> (x .:? "storedBytes")
-            <*> (x .:? "uploadSequenceToken")
-            <*> (x .:? "firstEventTimestamp")
-            <*> (x .:? "lastEventTimestamp")
-            <*> (x .:? "lastIngestionTime")
+            Prelude.<$> (x Prelude..:? "logStreamName")
+            Prelude.<*> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "storedBytes")
+            Prelude.<*> (x Prelude..:? "uploadSequenceToken")
+            Prelude.<*> (x Prelude..:? "firstEventTimestamp")
+            Prelude.<*> (x Prelude..:? "lastEventTimestamp")
+            Prelude.<*> (x Prelude..:? "lastIngestionTime")
       )
 
-instance Hashable LogStream
+instance Prelude.Hashable LogStream
 
-instance NFData LogStream
+instance Prelude.NFData LogStream

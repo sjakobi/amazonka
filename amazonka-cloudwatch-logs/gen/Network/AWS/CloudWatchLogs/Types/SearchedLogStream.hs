@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.SearchedLogStream where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the search status of a log stream.
 --
---
---
--- /See:/ 'searchedLogStream' smart constructor.
+-- /See:/ 'newSearchedLogStream' smart constructor.
 data SearchedLogStream = SearchedLogStream'
-  { _slsLogStreamName ::
-      !(Maybe Text),
-    _slsSearchedCompletely ::
-      !(Maybe Bool)
+  { -- | The name of the log stream.
+    logStreamName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether all the events in this log stream were searched.
+    searchedCompletely :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchedLogStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchedLogStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slsLogStreamName' - The name of the log stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slsSearchedCompletely' - Indicates whether all the events in this log stream were searched.
-searchedLogStream ::
+-- 'logStreamName', 'searchedLogStream_logStreamName' - The name of the log stream.
+--
+-- 'searchedCompletely', 'searchedLogStream_searchedCompletely' - Indicates whether all the events in this log stream were searched.
+newSearchedLogStream ::
   SearchedLogStream
-searchedLogStream =
+newSearchedLogStream =
   SearchedLogStream'
-    { _slsLogStreamName = Nothing,
-      _slsSearchedCompletely = Nothing
+    { logStreamName = Prelude.Nothing,
+      searchedCompletely = Prelude.Nothing
     }
 
 -- | The name of the log stream.
-slsLogStreamName :: Lens' SearchedLogStream (Maybe Text)
-slsLogStreamName = lens _slsLogStreamName (\s a -> s {_slsLogStreamName = a})
+searchedLogStream_logStreamName :: Lens.Lens' SearchedLogStream (Prelude.Maybe Prelude.Text)
+searchedLogStream_logStreamName = Lens.lens (\SearchedLogStream' {logStreamName} -> logStreamName) (\s@SearchedLogStream' {} a -> s {logStreamName = a} :: SearchedLogStream)
 
 -- | Indicates whether all the events in this log stream were searched.
-slsSearchedCompletely :: Lens' SearchedLogStream (Maybe Bool)
-slsSearchedCompletely = lens _slsSearchedCompletely (\s a -> s {_slsSearchedCompletely = a})
+searchedLogStream_searchedCompletely :: Lens.Lens' SearchedLogStream (Prelude.Maybe Prelude.Bool)
+searchedLogStream_searchedCompletely = Lens.lens (\SearchedLogStream' {searchedCompletely} -> searchedCompletely) (\s@SearchedLogStream' {} a -> s {searchedCompletely = a} :: SearchedLogStream)
 
-instance FromJSON SearchedLogStream where
+instance Prelude.FromJSON SearchedLogStream where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SearchedLogStream"
       ( \x ->
           SearchedLogStream'
-            <$> (x .:? "logStreamName")
-            <*> (x .:? "searchedCompletely")
+            Prelude.<$> (x Prelude..:? "logStreamName")
+            Prelude.<*> (x Prelude..:? "searchedCompletely")
       )
 
-instance Hashable SearchedLogStream
+instance Prelude.Hashable SearchedLogStream
 
-instance NFData SearchedLogStream
+instance Prelude.NFData SearchedLogStream

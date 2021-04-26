@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudWatchLogs.Types.OrderBy
   ( OrderBy
       ( ..,
-        LastEventTime,
-        LogStreamName
+        OrderByLastEventTime,
+        OrderByLogStreamName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrderBy = OrderBy' (CI Text)
+newtype OrderBy = OrderBy'
+  { fromOrderBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LastEventTime :: OrderBy
-pattern LastEventTime = OrderBy' "LastEventTime"
+pattern OrderByLastEventTime :: OrderBy
+pattern OrderByLastEventTime = OrderBy' "LastEventTime"
 
-pattern LogStreamName :: OrderBy
-pattern LogStreamName = OrderBy' "LogStreamName"
+pattern OrderByLogStreamName :: OrderBy
+pattern OrderByLogStreamName = OrderBy' "LogStreamName"
 
 {-# COMPLETE
-  LastEventTime,
-  LogStreamName,
+  OrderByLastEventTime,
+  OrderByLogStreamName,
   OrderBy'
   #-}
 
-instance FromText OrderBy where
-  parser = (OrderBy' . mk) <$> takeText
+instance Prelude.FromText OrderBy where
+  parser = OrderBy' Prelude.<$> Prelude.takeText
 
-instance ToText OrderBy where
-  toText (OrderBy' ci) = original ci
+instance Prelude.ToText OrderBy where
+  toText (OrderBy' x) = x
 
-instance Hashable OrderBy
+instance Prelude.Hashable OrderBy
 
-instance NFData OrderBy
+instance Prelude.NFData OrderBy
 
-instance ToByteString OrderBy
+instance Prelude.ToByteString OrderBy
 
-instance ToQuery OrderBy
+instance Prelude.ToQuery OrderBy
 
-instance ToHeader OrderBy
+instance Prelude.ToHeader OrderBy
 
-instance ToJSON OrderBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON OrderBy where
+  toJSON = Prelude.toJSONText

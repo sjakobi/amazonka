@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,118 +21,142 @@ module Network.AWS.CloudWatchLogs.Types.ExportTask where
 
 import Network.AWS.CloudWatchLogs.Types.ExportTaskExecutionInfo
 import Network.AWS.CloudWatchLogs.Types.ExportTaskStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents an export task.
 --
---
---
--- /See:/ 'exportTask' smart constructor.
+-- /See:/ 'newExportTask' smart constructor.
 data ExportTask = ExportTask'
-  { _etStatus ::
-      !(Maybe ExportTaskStatus),
-    _etExecutionInfo ::
-      !(Maybe ExportTaskExecutionInfo),
-    _etTo :: !(Maybe Nat),
-    _etTaskId :: !(Maybe Text),
-    _etTaskName :: !(Maybe Text),
-    _etLogGroupName :: !(Maybe Text),
-    _etDestination :: !(Maybe Text),
-    _etDestinationPrefix :: !(Maybe Text),
-    _etFrom :: !(Maybe Nat)
+  { -- | The status of the export task.
+    status :: Prelude.Maybe ExportTaskStatus,
+    -- | Execution information about the export task.
+    executionInfo :: Prelude.Maybe ExportTaskExecutionInfo,
+    -- | The end time, expressed as the number of milliseconds after Jan 1, 1970
+    -- 00:00:00 UTC. Events with a timestamp later than this time are not
+    -- exported.
+    to :: Prelude.Maybe Prelude.Nat,
+    -- | The ID of the export task.
+    taskId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the export task.
+    taskName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the log group from which logs data was exported.
+    logGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the S3 bucket to which the log data was exported.
+    destination :: Prelude.Maybe Prelude.Text,
+    -- | The prefix that was used as the start of Amazon S3 key for every object
+    -- exported.
+    destinationPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The start time, expressed as the number of milliseconds after Jan 1,
+    -- 1970 00:00:00 UTC. Events with a timestamp before this time are not
+    -- exported.
+    from :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etStatus' - The status of the export task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etExecutionInfo' - Execution information about the export task.
+-- 'status', 'exportTask_status' - The status of the export task.
 --
--- * 'etTo' - The end time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp later than this time are not exported.
+-- 'executionInfo', 'exportTask_executionInfo' - Execution information about the export task.
 --
--- * 'etTaskId' - The ID of the export task.
+-- 'to', 'exportTask_to' - The end time, expressed as the number of milliseconds after Jan 1, 1970
+-- 00:00:00 UTC. Events with a timestamp later than this time are not
+-- exported.
 --
--- * 'etTaskName' - The name of the export task.
+-- 'taskId', 'exportTask_taskId' - The ID of the export task.
 --
--- * 'etLogGroupName' - The name of the log group from which logs data was exported.
+-- 'taskName', 'exportTask_taskName' - The name of the export task.
 --
--- * 'etDestination' - The name of the S3 bucket to which the log data was exported.
+-- 'logGroupName', 'exportTask_logGroupName' - The name of the log group from which logs data was exported.
 --
--- * 'etDestinationPrefix' - The prefix that was used as the start of Amazon S3 key for every object exported.
+-- 'destination', 'exportTask_destination' - The name of the S3 bucket to which the log data was exported.
 --
--- * 'etFrom' - The start time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp before this time are not exported.
-exportTask ::
+-- 'destinationPrefix', 'exportTask_destinationPrefix' - The prefix that was used as the start of Amazon S3 key for every object
+-- exported.
+--
+-- 'from', 'exportTask_from' - The start time, expressed as the number of milliseconds after Jan 1,
+-- 1970 00:00:00 UTC. Events with a timestamp before this time are not
+-- exported.
+newExportTask ::
   ExportTask
-exportTask =
+newExportTask =
   ExportTask'
-    { _etStatus = Nothing,
-      _etExecutionInfo = Nothing,
-      _etTo = Nothing,
-      _etTaskId = Nothing,
-      _etTaskName = Nothing,
-      _etLogGroupName = Nothing,
-      _etDestination = Nothing,
-      _etDestinationPrefix = Nothing,
-      _etFrom = Nothing
+    { status = Prelude.Nothing,
+      executionInfo = Prelude.Nothing,
+      to = Prelude.Nothing,
+      taskId = Prelude.Nothing,
+      taskName = Prelude.Nothing,
+      logGroupName = Prelude.Nothing,
+      destination = Prelude.Nothing,
+      destinationPrefix = Prelude.Nothing,
+      from = Prelude.Nothing
     }
 
 -- | The status of the export task.
-etStatus :: Lens' ExportTask (Maybe ExportTaskStatus)
-etStatus = lens _etStatus (\s a -> s {_etStatus = a})
+exportTask_status :: Lens.Lens' ExportTask (Prelude.Maybe ExportTaskStatus)
+exportTask_status = Lens.lens (\ExportTask' {status} -> status) (\s@ExportTask' {} a -> s {status = a} :: ExportTask)
 
 -- | Execution information about the export task.
-etExecutionInfo :: Lens' ExportTask (Maybe ExportTaskExecutionInfo)
-etExecutionInfo = lens _etExecutionInfo (\s a -> s {_etExecutionInfo = a})
+exportTask_executionInfo :: Lens.Lens' ExportTask (Prelude.Maybe ExportTaskExecutionInfo)
+exportTask_executionInfo = Lens.lens (\ExportTask' {executionInfo} -> executionInfo) (\s@ExportTask' {} a -> s {executionInfo = a} :: ExportTask)
 
--- | The end time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp later than this time are not exported.
-etTo :: Lens' ExportTask (Maybe Natural)
-etTo = lens _etTo (\s a -> s {_etTo = a}) . mapping _Nat
+-- | The end time, expressed as the number of milliseconds after Jan 1, 1970
+-- 00:00:00 UTC. Events with a timestamp later than this time are not
+-- exported.
+exportTask_to :: Lens.Lens' ExportTask (Prelude.Maybe Prelude.Natural)
+exportTask_to = Lens.lens (\ExportTask' {to} -> to) (\s@ExportTask' {} a -> s {to = a} :: ExportTask) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ID of the export task.
-etTaskId :: Lens' ExportTask (Maybe Text)
-etTaskId = lens _etTaskId (\s a -> s {_etTaskId = a})
+exportTask_taskId :: Lens.Lens' ExportTask (Prelude.Maybe Prelude.Text)
+exportTask_taskId = Lens.lens (\ExportTask' {taskId} -> taskId) (\s@ExportTask' {} a -> s {taskId = a} :: ExportTask)
 
 -- | The name of the export task.
-etTaskName :: Lens' ExportTask (Maybe Text)
-etTaskName = lens _etTaskName (\s a -> s {_etTaskName = a})
+exportTask_taskName :: Lens.Lens' ExportTask (Prelude.Maybe Prelude.Text)
+exportTask_taskName = Lens.lens (\ExportTask' {taskName} -> taskName) (\s@ExportTask' {} a -> s {taskName = a} :: ExportTask)
 
 -- | The name of the log group from which logs data was exported.
-etLogGroupName :: Lens' ExportTask (Maybe Text)
-etLogGroupName = lens _etLogGroupName (\s a -> s {_etLogGroupName = a})
+exportTask_logGroupName :: Lens.Lens' ExportTask (Prelude.Maybe Prelude.Text)
+exportTask_logGroupName = Lens.lens (\ExportTask' {logGroupName} -> logGroupName) (\s@ExportTask' {} a -> s {logGroupName = a} :: ExportTask)
 
 -- | The name of the S3 bucket to which the log data was exported.
-etDestination :: Lens' ExportTask (Maybe Text)
-etDestination = lens _etDestination (\s a -> s {_etDestination = a})
+exportTask_destination :: Lens.Lens' ExportTask (Prelude.Maybe Prelude.Text)
+exportTask_destination = Lens.lens (\ExportTask' {destination} -> destination) (\s@ExportTask' {} a -> s {destination = a} :: ExportTask)
 
--- | The prefix that was used as the start of Amazon S3 key for every object exported.
-etDestinationPrefix :: Lens' ExportTask (Maybe Text)
-etDestinationPrefix = lens _etDestinationPrefix (\s a -> s {_etDestinationPrefix = a})
+-- | The prefix that was used as the start of Amazon S3 key for every object
+-- exported.
+exportTask_destinationPrefix :: Lens.Lens' ExportTask (Prelude.Maybe Prelude.Text)
+exportTask_destinationPrefix = Lens.lens (\ExportTask' {destinationPrefix} -> destinationPrefix) (\s@ExportTask' {} a -> s {destinationPrefix = a} :: ExportTask)
 
--- | The start time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp before this time are not exported.
-etFrom :: Lens' ExportTask (Maybe Natural)
-etFrom = lens _etFrom (\s a -> s {_etFrom = a}) . mapping _Nat
+-- | The start time, expressed as the number of milliseconds after Jan 1,
+-- 1970 00:00:00 UTC. Events with a timestamp before this time are not
+-- exported.
+exportTask_from :: Lens.Lens' ExportTask (Prelude.Maybe Prelude.Natural)
+exportTask_from = Lens.lens (\ExportTask' {from} -> from) (\s@ExportTask' {} a -> s {from = a} :: ExportTask) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON ExportTask where
+instance Prelude.FromJSON ExportTask where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExportTask"
       ( \x ->
           ExportTask'
-            <$> (x .:? "status")
-            <*> (x .:? "executionInfo")
-            <*> (x .:? "to")
-            <*> (x .:? "taskId")
-            <*> (x .:? "taskName")
-            <*> (x .:? "logGroupName")
-            <*> (x .:? "destination")
-            <*> (x .:? "destinationPrefix")
-            <*> (x .:? "from")
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "executionInfo")
+            Prelude.<*> (x Prelude..:? "to")
+            Prelude.<*> (x Prelude..:? "taskId")
+            Prelude.<*> (x Prelude..:? "taskName")
+            Prelude.<*> (x Prelude..:? "logGroupName")
+            Prelude.<*> (x Prelude..:? "destination")
+            Prelude.<*> (x Prelude..:? "destinationPrefix")
+            Prelude.<*> (x Prelude..:? "from")
       )
 
-instance Hashable ExportTask
+instance Prelude.Hashable ExportTask
 
-instance NFData ExportTask
+instance Prelude.NFData ExportTask

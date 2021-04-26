@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.CloudWatchLogs.Types.Distribution
   ( Distribution
       ( ..,
-        ByLogStream,
-        Random
+        DistributionByLogStream,
+        DistributionRandom
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The method used to distribute log data to the destination, which can be either random or grouped by log stream.
-data Distribution = Distribution' (CI Text)
+-- | The method used to distribute log data to the destination, which can be
+-- either random or grouped by log stream.
+newtype Distribution = Distribution'
+  { fromDistribution ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ByLogStream :: Distribution
-pattern ByLogStream = Distribution' "ByLogStream"
+pattern DistributionByLogStream :: Distribution
+pattern DistributionByLogStream = Distribution' "ByLogStream"
 
-pattern Random :: Distribution
-pattern Random = Distribution' "Random"
+pattern DistributionRandom :: Distribution
+pattern DistributionRandom = Distribution' "Random"
 
 {-# COMPLETE
-  ByLogStream,
-  Random,
+  DistributionByLogStream,
+  DistributionRandom,
   Distribution'
   #-}
 
-instance FromText Distribution where
-  parser = (Distribution' . mk) <$> takeText
+instance Prelude.FromText Distribution where
+  parser = Distribution' Prelude.<$> Prelude.takeText
 
-instance ToText Distribution where
-  toText (Distribution' ci) = original ci
+instance Prelude.ToText Distribution where
+  toText (Distribution' x) = x
 
-instance Hashable Distribution
+instance Prelude.Hashable Distribution
 
-instance NFData Distribution
+instance Prelude.NFData Distribution
 
-instance ToByteString Distribution
+instance Prelude.ToByteString Distribution
 
-instance ToQuery Distribution
+instance Prelude.ToQuery Distribution
 
-instance ToHeader Distribution
+instance Prelude.ToHeader Distribution
 
-instance ToJSON Distribution where
-  toJSON = toJSONText
+instance Prelude.ToJSON Distribution where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Distribution where
-  parseJSON = parseJSONText "Distribution"
+instance Prelude.FromJSON Distribution where
+  parseJSON = Prelude.parseJSONText "Distribution"

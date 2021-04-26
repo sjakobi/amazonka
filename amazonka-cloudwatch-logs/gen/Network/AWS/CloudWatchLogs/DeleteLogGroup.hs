@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,97 +21,107 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified log group and permanently deletes all the archived log events associated with the log group.
+-- Deletes the specified log group and permanently deletes all the archived
+-- log events associated with the log group.
 module Network.AWS.CloudWatchLogs.DeleteLogGroup
   ( -- * Creating a Request
-    deleteLogGroup,
-    DeleteLogGroup,
+    DeleteLogGroup (..),
+    newDeleteLogGroup,
 
     -- * Request Lenses
-    dlgLogGroupName,
+    deleteLogGroup_logGroupName,
 
     -- * Destructuring the Response
-    deleteLogGroupResponse,
-    DeleteLogGroupResponse,
+    DeleteLogGroupResponse (..),
+    newDeleteLogGroupResponse,
   )
 where
 
 import Network.AWS.CloudWatchLogs.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLogGroup' smart constructor.
-newtype DeleteLogGroup = DeleteLogGroup'
-  { _dlgLogGroupName ::
-      Text
+-- | /See:/ 'newDeleteLogGroup' smart constructor.
+data DeleteLogGroup = DeleteLogGroup'
+  { -- | The name of the log group.
+    logGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLogGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLogGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlgLogGroupName' - The name of the log group.
-deleteLogGroup ::
-  -- | 'dlgLogGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'logGroupName', 'deleteLogGroup_logGroupName' - The name of the log group.
+newDeleteLogGroup ::
+  -- | 'logGroupName'
+  Prelude.Text ->
   DeleteLogGroup
-deleteLogGroup pLogGroupName_ =
-  DeleteLogGroup' {_dlgLogGroupName = pLogGroupName_}
+newDeleteLogGroup pLogGroupName_ =
+  DeleteLogGroup' {logGroupName = pLogGroupName_}
 
 -- | The name of the log group.
-dlgLogGroupName :: Lens' DeleteLogGroup Text
-dlgLogGroupName = lens _dlgLogGroupName (\s a -> s {_dlgLogGroupName = a})
+deleteLogGroup_logGroupName :: Lens.Lens' DeleteLogGroup Prelude.Text
+deleteLogGroup_logGroupName = Lens.lens (\DeleteLogGroup' {logGroupName} -> logGroupName) (\s@DeleteLogGroup' {} a -> s {logGroupName = a} :: DeleteLogGroup)
 
-instance AWSRequest DeleteLogGroup where
+instance Prelude.AWSRequest DeleteLogGroup where
   type Rs DeleteLogGroup = DeleteLogGroupResponse
-  request = postJSON cloudWatchLogs
-  response = receiveNull DeleteLogGroupResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteLogGroupResponse'
 
-instance Hashable DeleteLogGroup
+instance Prelude.Hashable DeleteLogGroup
 
-instance NFData DeleteLogGroup
+instance Prelude.NFData DeleteLogGroup
 
-instance ToHeaders DeleteLogGroup where
+instance Prelude.ToHeaders DeleteLogGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Logs_20140328.DeleteLogGroup" :: ByteString),
+              Prelude.=# ( "Logs_20140328.DeleteLogGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteLogGroup where
+instance Prelude.ToJSON DeleteLogGroup where
   toJSON DeleteLogGroup' {..} =
-    object
-      ( catMaybes
-          [Just ("logGroupName" .= _dlgLogGroupName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("logGroupName" Prelude..= logGroupName)
+          ]
       )
 
-instance ToPath DeleteLogGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLogGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLogGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteLogGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteLogGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteLogGroupResponse' smart constructor.
 data DeleteLogGroupResponse = DeleteLogGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLogGroupResponse' with the minimum fields required to make a request.
-deleteLogGroupResponse ::
+-- |
+-- Create a value of 'DeleteLogGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteLogGroupResponse ::
   DeleteLogGroupResponse
-deleteLogGroupResponse = DeleteLogGroupResponse'
+newDeleteLogGroupResponse = DeleteLogGroupResponse'
 
-instance NFData DeleteLogGroupResponse
+instance Prelude.NFData DeleteLogGroupResponse

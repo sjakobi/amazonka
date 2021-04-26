@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,185 +21,249 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Schedules a query of a log group using CloudWatch Logs Insights. You specify the log group and time range to query and the query string to use.
+-- Schedules a query of a log group using CloudWatch Logs Insights. You
+-- specify the log group and time range to query and the query string to
+-- use.
 --
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
 --
--- For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax> .
---
--- Queries time out after 15 minutes of execution. If your queries are timing out, reduce the time range being searched or partition your query into a number of queries.
+-- Queries time out after 15 minutes of execution. If your queries are
+-- timing out, reduce the time range being searched or partition your query
+-- into a number of queries.
 module Network.AWS.CloudWatchLogs.StartQuery
   ( -- * Creating a Request
-    startQuery,
-    StartQuery,
+    StartQuery (..),
+    newStartQuery,
 
     -- * Request Lenses
-    sqLogGroupNames,
-    sqLogGroupName,
-    sqLimit,
-    sqStartTime,
-    sqEndTime,
-    sqQueryString,
+    startQuery_logGroupNames,
+    startQuery_logGroupName,
+    startQuery_limit,
+    startQuery_startTime,
+    startQuery_endTime,
+    startQuery_queryString,
 
     -- * Destructuring the Response
-    startQueryResponse,
-    StartQueryResponse,
+    StartQueryResponse (..),
+    newStartQueryResponse,
 
     -- * Response Lenses
-    srsQueryId,
-    srsResponseStatus,
+    startQueryResponse_queryId,
+    startQueryResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchLogs.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startQuery' smart constructor.
+-- | /See:/ 'newStartQuery' smart constructor.
 data StartQuery = StartQuery'
-  { _sqLogGroupNames ::
-      !(Maybe [Text]),
-    _sqLogGroupName :: !(Maybe Text),
-    _sqLimit :: !(Maybe Nat),
-    _sqStartTime :: !Nat,
-    _sqEndTime :: !Nat,
-    _sqQueryString :: !Text
+  { -- | The list of log groups to be queried. You can include up to 20 log
+    -- groups.
+    --
+    -- A @StartQuery@ operation must include a @logGroupNames@ or a
+    -- @logGroupName@ parameter, but not both.
+    logGroupNames :: Prelude.Maybe [Prelude.Text],
+    -- | The log group on which to perform the query.
+    --
+    -- A @StartQuery@ operation must include a @logGroupNames@ or a
+    -- @logGroupName@ parameter, but not both.
+    logGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of log events to return in the query. If the query
+    -- string uses the @fields@ command, only the specified fields and their
+    -- values are returned. The default is 1000.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The beginning of the time range to query. The range is inclusive, so the
+    -- specified start time is included in the query. Specified as epoch time,
+    -- the number of seconds since January 1, 1970, 00:00:00 UTC.
+    startTime :: Prelude.Nat,
+    -- | The end of the time range to query. The range is inclusive, so the
+    -- specified end time is included in the query. Specified as epoch time,
+    -- the number of seconds since January 1, 1970, 00:00:00 UTC.
+    endTime :: Prelude.Nat,
+    -- | The query string to use. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
+    queryString :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartQuery' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartQuery' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sqLogGroupNames' - The list of log groups to be queried. You can include up to 20 log groups. A @StartQuery@ operation must include a @logGroupNames@ or a @logGroupName@ parameter, but not both.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sqLogGroupName' - The log group on which to perform the query. A @StartQuery@ operation must include a @logGroupNames@ or a @logGroupName@ parameter, but not both.
+-- 'logGroupNames', 'startQuery_logGroupNames' - The list of log groups to be queried. You can include up to 20 log
+-- groups.
 --
--- * 'sqLimit' - The maximum number of log events to return in the query. If the query string uses the @fields@ command, only the specified fields and their values are returned. The default is 1000.
+-- A @StartQuery@ operation must include a @logGroupNames@ or a
+-- @logGroupName@ parameter, but not both.
 --
--- * 'sqStartTime' - The beginning of the time range to query. The range is inclusive, so the specified start time is included in the query. Specified as epoch time, the number of seconds since January 1, 1970, 00:00:00 UTC.
+-- 'logGroupName', 'startQuery_logGroupName' - The log group on which to perform the query.
 --
--- * 'sqEndTime' - The end of the time range to query. The range is inclusive, so the specified end time is included in the query. Specified as epoch time, the number of seconds since January 1, 1970, 00:00:00 UTC.
+-- A @StartQuery@ operation must include a @logGroupNames@ or a
+-- @logGroupName@ parameter, but not both.
 --
--- * 'sqQueryString' - The query string to use. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax> .
-startQuery ::
-  -- | 'sqStartTime'
-  Natural ->
-  -- | 'sqEndTime'
-  Natural ->
-  -- | 'sqQueryString'
-  Text ->
+-- 'limit', 'startQuery_limit' - The maximum number of log events to return in the query. If the query
+-- string uses the @fields@ command, only the specified fields and their
+-- values are returned. The default is 1000.
+--
+-- 'startTime', 'startQuery_startTime' - The beginning of the time range to query. The range is inclusive, so the
+-- specified start time is included in the query. Specified as epoch time,
+-- the number of seconds since January 1, 1970, 00:00:00 UTC.
+--
+-- 'endTime', 'startQuery_endTime' - The end of the time range to query. The range is inclusive, so the
+-- specified end time is included in the query. Specified as epoch time,
+-- the number of seconds since January 1, 1970, 00:00:00 UTC.
+--
+-- 'queryString', 'startQuery_queryString' - The query string to use. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
+newStartQuery ::
+  -- | 'startTime'
+  Prelude.Natural ->
+  -- | 'endTime'
+  Prelude.Natural ->
+  -- | 'queryString'
+  Prelude.Text ->
   StartQuery
-startQuery pStartTime_ pEndTime_ pQueryString_ =
+newStartQuery pStartTime_ pEndTime_ pQueryString_ =
   StartQuery'
-    { _sqLogGroupNames = Nothing,
-      _sqLogGroupName = Nothing,
-      _sqLimit = Nothing,
-      _sqStartTime = _Nat # pStartTime_,
-      _sqEndTime = _Nat # pEndTime_,
-      _sqQueryString = pQueryString_
+    { logGroupNames = Prelude.Nothing,
+      logGroupName = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      startTime = Prelude._Nat Lens.# pStartTime_,
+      endTime = Prelude._Nat Lens.# pEndTime_,
+      queryString = pQueryString_
     }
 
--- | The list of log groups to be queried. You can include up to 20 log groups. A @StartQuery@ operation must include a @logGroupNames@ or a @logGroupName@ parameter, but not both.
-sqLogGroupNames :: Lens' StartQuery [Text]
-sqLogGroupNames = lens _sqLogGroupNames (\s a -> s {_sqLogGroupNames = a}) . _Default . _Coerce
+-- | The list of log groups to be queried. You can include up to 20 log
+-- groups.
+--
+-- A @StartQuery@ operation must include a @logGroupNames@ or a
+-- @logGroupName@ parameter, but not both.
+startQuery_logGroupNames :: Lens.Lens' StartQuery (Prelude.Maybe [Prelude.Text])
+startQuery_logGroupNames = Lens.lens (\StartQuery' {logGroupNames} -> logGroupNames) (\s@StartQuery' {} a -> s {logGroupNames = a} :: StartQuery) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The log group on which to perform the query. A @StartQuery@ operation must include a @logGroupNames@ or a @logGroupName@ parameter, but not both.
-sqLogGroupName :: Lens' StartQuery (Maybe Text)
-sqLogGroupName = lens _sqLogGroupName (\s a -> s {_sqLogGroupName = a})
+-- | The log group on which to perform the query.
+--
+-- A @StartQuery@ operation must include a @logGroupNames@ or a
+-- @logGroupName@ parameter, but not both.
+startQuery_logGroupName :: Lens.Lens' StartQuery (Prelude.Maybe Prelude.Text)
+startQuery_logGroupName = Lens.lens (\StartQuery' {logGroupName} -> logGroupName) (\s@StartQuery' {} a -> s {logGroupName = a} :: StartQuery)
 
--- | The maximum number of log events to return in the query. If the query string uses the @fields@ command, only the specified fields and their values are returned. The default is 1000.
-sqLimit :: Lens' StartQuery (Maybe Natural)
-sqLimit = lens _sqLimit (\s a -> s {_sqLimit = a}) . mapping _Nat
+-- | The maximum number of log events to return in the query. If the query
+-- string uses the @fields@ command, only the specified fields and their
+-- values are returned. The default is 1000.
+startQuery_limit :: Lens.Lens' StartQuery (Prelude.Maybe Prelude.Natural)
+startQuery_limit = Lens.lens (\StartQuery' {limit} -> limit) (\s@StartQuery' {} a -> s {limit = a} :: StartQuery) Prelude.. Lens.mapping Prelude._Nat
 
--- | The beginning of the time range to query. The range is inclusive, so the specified start time is included in the query. Specified as epoch time, the number of seconds since January 1, 1970, 00:00:00 UTC.
-sqStartTime :: Lens' StartQuery Natural
-sqStartTime = lens _sqStartTime (\s a -> s {_sqStartTime = a}) . _Nat
+-- | The beginning of the time range to query. The range is inclusive, so the
+-- specified start time is included in the query. Specified as epoch time,
+-- the number of seconds since January 1, 1970, 00:00:00 UTC.
+startQuery_startTime :: Lens.Lens' StartQuery Prelude.Natural
+startQuery_startTime = Lens.lens (\StartQuery' {startTime} -> startTime) (\s@StartQuery' {} a -> s {startTime = a} :: StartQuery) Prelude.. Prelude._Nat
 
--- | The end of the time range to query. The range is inclusive, so the specified end time is included in the query. Specified as epoch time, the number of seconds since January 1, 1970, 00:00:00 UTC.
-sqEndTime :: Lens' StartQuery Natural
-sqEndTime = lens _sqEndTime (\s a -> s {_sqEndTime = a}) . _Nat
+-- | The end of the time range to query. The range is inclusive, so the
+-- specified end time is included in the query. Specified as epoch time,
+-- the number of seconds since January 1, 1970, 00:00:00 UTC.
+startQuery_endTime :: Lens.Lens' StartQuery Prelude.Natural
+startQuery_endTime = Lens.lens (\StartQuery' {endTime} -> endTime) (\s@StartQuery' {} a -> s {endTime = a} :: StartQuery) Prelude.. Prelude._Nat
 
--- | The query string to use. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax> .
-sqQueryString :: Lens' StartQuery Text
-sqQueryString = lens _sqQueryString (\s a -> s {_sqQueryString = a})
+-- | The query string to use. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
+startQuery_queryString :: Lens.Lens' StartQuery Prelude.Text
+startQuery_queryString = Lens.lens (\StartQuery' {queryString} -> queryString) (\s@StartQuery' {} a -> s {queryString = a} :: StartQuery)
 
-instance AWSRequest StartQuery where
+instance Prelude.AWSRequest StartQuery where
   type Rs StartQuery = StartQueryResponse
-  request = postJSON cloudWatchLogs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartQueryResponse'
-            <$> (x .?> "queryId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "queryId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartQuery
+instance Prelude.Hashable StartQuery
 
-instance NFData StartQuery
+instance Prelude.NFData StartQuery
 
-instance ToHeaders StartQuery where
+instance Prelude.ToHeaders StartQuery where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Logs_20140328.StartQuery" :: ByteString),
+              Prelude.=# ("Logs_20140328.StartQuery" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartQuery where
+instance Prelude.ToJSON StartQuery where
   toJSON StartQuery' {..} =
-    object
-      ( catMaybes
-          [ ("logGroupNames" .=) <$> _sqLogGroupNames,
-            ("logGroupName" .=) <$> _sqLogGroupName,
-            ("limit" .=) <$> _sqLimit,
-            Just ("startTime" .= _sqStartTime),
-            Just ("endTime" .= _sqEndTime),
-            Just ("queryString" .= _sqQueryString)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("logGroupNames" Prelude..=)
+              Prelude.<$> logGroupNames,
+            ("logGroupName" Prelude..=) Prelude.<$> logGroupName,
+            ("limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just ("startTime" Prelude..= startTime),
+            Prelude.Just ("endTime" Prelude..= endTime),
+            Prelude.Just ("queryString" Prelude..= queryString)
           ]
       )
 
-instance ToPath StartQuery where
-  toPath = const "/"
+instance Prelude.ToPath StartQuery where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartQuery where
-  toQuery = const mempty
+instance Prelude.ToQuery StartQuery where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startQueryResponse' smart constructor.
+-- | /See:/ 'newStartQueryResponse' smart constructor.
 data StartQueryResponse = StartQueryResponse'
-  { _srsQueryId ::
-      !(Maybe Text),
-    _srsResponseStatus :: !Int
+  { -- | The unique ID of the query.
+    queryId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartQueryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartQueryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsQueryId' - The unique ID of the query.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srsResponseStatus' - -- | The response status code.
-startQueryResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- 'queryId', 'startQueryResponse_queryId' - The unique ID of the query.
+--
+-- 'httpStatus', 'startQueryResponse_httpStatus' - The response's http status code.
+newStartQueryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartQueryResponse
-startQueryResponse pResponseStatus_ =
+newStartQueryResponse pHttpStatus_ =
   StartQueryResponse'
-    { _srsQueryId = Nothing,
-      _srsResponseStatus = pResponseStatus_
+    { queryId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique ID of the query.
-srsQueryId :: Lens' StartQueryResponse (Maybe Text)
-srsQueryId = lens _srsQueryId (\s a -> s {_srsQueryId = a})
+startQueryResponse_queryId :: Lens.Lens' StartQueryResponse (Prelude.Maybe Prelude.Text)
+startQueryResponse_queryId = Lens.lens (\StartQueryResponse' {queryId} -> queryId) (\s@StartQueryResponse' {} a -> s {queryId = a} :: StartQueryResponse)
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StartQueryResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+startQueryResponse_httpStatus :: Lens.Lens' StartQueryResponse Prelude.Int
+startQueryResponse_httpStatus = Lens.lens (\StartQueryResponse' {httpStatus} -> httpStatus) (\s@StartQueryResponse' {} a -> s {httpStatus = a} :: StartQueryResponse)
 
-instance NFData StartQueryResponse
+instance Prelude.NFData StartQueryResponse

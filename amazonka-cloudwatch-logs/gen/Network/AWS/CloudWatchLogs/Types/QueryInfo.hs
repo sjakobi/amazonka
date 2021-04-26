@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,81 +20,91 @@
 module Network.AWS.CloudWatchLogs.Types.QueryInfo where
 
 import Network.AWS.CloudWatchLogs.Types.QueryStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about one CloudWatch Logs Insights query that matches the request in a @DescribeQueries@ operation.
+-- | Information about one CloudWatch Logs Insights query that matches the
+-- request in a @DescribeQueries@ operation.
 --
---
---
--- /See:/ 'queryInfo' smart constructor.
+-- /See:/ 'newQueryInfo' smart constructor.
 data QueryInfo = QueryInfo'
-  { _qiQueryString ::
-      !(Maybe Text),
-    _qiStatus :: !(Maybe QueryStatus),
-    _qiQueryId :: !(Maybe Text),
-    _qiLogGroupName :: !(Maybe Text),
-    _qiCreateTime :: !(Maybe Nat)
+  { -- | The query string used in this query.
+    queryString :: Prelude.Maybe Prelude.Text,
+    -- | The status of this query. Possible values are @Cancelled@, @Complete@,
+    -- @Failed@, @Running@, @Scheduled@, and @Unknown@.
+    status :: Prelude.Maybe QueryStatus,
+    -- | The unique ID number of this query.
+    queryId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the log group scanned by this query.
+    logGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that this query was created.
+    createTime :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qiQueryString' - The query string used in this query.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qiStatus' - The status of this query. Possible values are @Cancelled@ , @Complete@ , @Failed@ , @Running@ , @Scheduled@ , and @Unknown@ .
+-- 'queryString', 'queryInfo_queryString' - The query string used in this query.
 --
--- * 'qiQueryId' - The unique ID number of this query.
+-- 'status', 'queryInfo_status' - The status of this query. Possible values are @Cancelled@, @Complete@,
+-- @Failed@, @Running@, @Scheduled@, and @Unknown@.
 --
--- * 'qiLogGroupName' - The name of the log group scanned by this query.
+-- 'queryId', 'queryInfo_queryId' - The unique ID number of this query.
 --
--- * 'qiCreateTime' - The date and time that this query was created.
-queryInfo ::
+-- 'logGroupName', 'queryInfo_logGroupName' - The name of the log group scanned by this query.
+--
+-- 'createTime', 'queryInfo_createTime' - The date and time that this query was created.
+newQueryInfo ::
   QueryInfo
-queryInfo =
+newQueryInfo =
   QueryInfo'
-    { _qiQueryString = Nothing,
-      _qiStatus = Nothing,
-      _qiQueryId = Nothing,
-      _qiLogGroupName = Nothing,
-      _qiCreateTime = Nothing
+    { queryString = Prelude.Nothing,
+      status = Prelude.Nothing,
+      queryId = Prelude.Nothing,
+      logGroupName = Prelude.Nothing,
+      createTime = Prelude.Nothing
     }
 
 -- | The query string used in this query.
-qiQueryString :: Lens' QueryInfo (Maybe Text)
-qiQueryString = lens _qiQueryString (\s a -> s {_qiQueryString = a})
+queryInfo_queryString :: Lens.Lens' QueryInfo (Prelude.Maybe Prelude.Text)
+queryInfo_queryString = Lens.lens (\QueryInfo' {queryString} -> queryString) (\s@QueryInfo' {} a -> s {queryString = a} :: QueryInfo)
 
--- | The status of this query. Possible values are @Cancelled@ , @Complete@ , @Failed@ , @Running@ , @Scheduled@ , and @Unknown@ .
-qiStatus :: Lens' QueryInfo (Maybe QueryStatus)
-qiStatus = lens _qiStatus (\s a -> s {_qiStatus = a})
+-- | The status of this query. Possible values are @Cancelled@, @Complete@,
+-- @Failed@, @Running@, @Scheduled@, and @Unknown@.
+queryInfo_status :: Lens.Lens' QueryInfo (Prelude.Maybe QueryStatus)
+queryInfo_status = Lens.lens (\QueryInfo' {status} -> status) (\s@QueryInfo' {} a -> s {status = a} :: QueryInfo)
 
 -- | The unique ID number of this query.
-qiQueryId :: Lens' QueryInfo (Maybe Text)
-qiQueryId = lens _qiQueryId (\s a -> s {_qiQueryId = a})
+queryInfo_queryId :: Lens.Lens' QueryInfo (Prelude.Maybe Prelude.Text)
+queryInfo_queryId = Lens.lens (\QueryInfo' {queryId} -> queryId) (\s@QueryInfo' {} a -> s {queryId = a} :: QueryInfo)
 
 -- | The name of the log group scanned by this query.
-qiLogGroupName :: Lens' QueryInfo (Maybe Text)
-qiLogGroupName = lens _qiLogGroupName (\s a -> s {_qiLogGroupName = a})
+queryInfo_logGroupName :: Lens.Lens' QueryInfo (Prelude.Maybe Prelude.Text)
+queryInfo_logGroupName = Lens.lens (\QueryInfo' {logGroupName} -> logGroupName) (\s@QueryInfo' {} a -> s {logGroupName = a} :: QueryInfo)
 
 -- | The date and time that this query was created.
-qiCreateTime :: Lens' QueryInfo (Maybe Natural)
-qiCreateTime = lens _qiCreateTime (\s a -> s {_qiCreateTime = a}) . mapping _Nat
+queryInfo_createTime :: Lens.Lens' QueryInfo (Prelude.Maybe Prelude.Natural)
+queryInfo_createTime = Lens.lens (\QueryInfo' {createTime} -> createTime) (\s@QueryInfo' {} a -> s {createTime = a} :: QueryInfo) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON QueryInfo where
+instance Prelude.FromJSON QueryInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueryInfo"
       ( \x ->
           QueryInfo'
-            <$> (x .:? "queryString")
-            <*> (x .:? "status")
-            <*> (x .:? "queryId")
-            <*> (x .:? "logGroupName")
-            <*> (x .:? "createTime")
+            Prelude.<$> (x Prelude..:? "queryString")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "queryId")
+            Prelude.<*> (x Prelude..:? "logGroupName")
+            Prelude.<*> (x Prelude..:? "createTime")
       )
 
-instance Hashable QueryInfo
+instance Prelude.Hashable QueryInfo
 
-instance NFData QueryInfo
+instance Prelude.NFData QueryInfo

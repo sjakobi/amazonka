@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,130 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves all of the fields and values of a single log event. All fields are retrieved, even if the original query that produced the @logRecordPointer@ retrieved only a subset of fields. Fields are returned as field name/field value pairs.
+-- Retrieves all of the fields and values of a single log event. All fields
+-- are retrieved, even if the original query that produced the
+-- @logRecordPointer@ retrieved only a subset of fields. Fields are
+-- returned as field name\/field value pairs.
 --
---
--- The full unparsed log event is returned within @@message@ .
+-- The full unparsed log event is returned within @\@message@.
 module Network.AWS.CloudWatchLogs.GetLogRecord
   ( -- * Creating a Request
-    getLogRecord,
-    GetLogRecord,
+    GetLogRecord (..),
+    newGetLogRecord,
 
     -- * Request Lenses
-    glrLogRecordPointer,
+    getLogRecord_logRecordPointer,
 
     -- * Destructuring the Response
-    getLogRecordResponse,
-    GetLogRecordResponse,
+    GetLogRecordResponse (..),
+    newGetLogRecordResponse,
 
     -- * Response Lenses
-    glrrrsLogRecord,
-    glrrrsResponseStatus,
+    getLogRecordResponse_logRecord,
+    getLogRecordResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchLogs.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getLogRecord' smart constructor.
-newtype GetLogRecord = GetLogRecord'
-  { _glrLogRecordPointer ::
-      Text
+-- | /See:/ 'newGetLogRecord' smart constructor.
+data GetLogRecord = GetLogRecord'
+  { -- | The pointer corresponding to the log event record you want to retrieve.
+    -- You get this from the response of a @GetQueryResults@ operation. In that
+    -- response, the value of the @\@ptr@ field for a log event is the value to
+    -- use as @logRecordPointer@ to retrieve that complete log event record.
+    logRecordPointer :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetLogRecord' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetLogRecord' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'glrLogRecordPointer' - The pointer corresponding to the log event record you want to retrieve. You get this from the response of a @GetQueryResults@ operation. In that response, the value of the @@ptr@ field for a log event is the value to use as @logRecordPointer@ to retrieve that complete log event record.
-getLogRecord ::
-  -- | 'glrLogRecordPointer'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'logRecordPointer', 'getLogRecord_logRecordPointer' - The pointer corresponding to the log event record you want to retrieve.
+-- You get this from the response of a @GetQueryResults@ operation. In that
+-- response, the value of the @\@ptr@ field for a log event is the value to
+-- use as @logRecordPointer@ to retrieve that complete log event record.
+newGetLogRecord ::
+  -- | 'logRecordPointer'
+  Prelude.Text ->
   GetLogRecord
-getLogRecord pLogRecordPointer_ =
+newGetLogRecord pLogRecordPointer_ =
   GetLogRecord'
-    { _glrLogRecordPointer =
+    { logRecordPointer =
         pLogRecordPointer_
     }
 
--- | The pointer corresponding to the log event record you want to retrieve. You get this from the response of a @GetQueryResults@ operation. In that response, the value of the @@ptr@ field for a log event is the value to use as @logRecordPointer@ to retrieve that complete log event record.
-glrLogRecordPointer :: Lens' GetLogRecord Text
-glrLogRecordPointer = lens _glrLogRecordPointer (\s a -> s {_glrLogRecordPointer = a})
+-- | The pointer corresponding to the log event record you want to retrieve.
+-- You get this from the response of a @GetQueryResults@ operation. In that
+-- response, the value of the @\@ptr@ field for a log event is the value to
+-- use as @logRecordPointer@ to retrieve that complete log event record.
+getLogRecord_logRecordPointer :: Lens.Lens' GetLogRecord Prelude.Text
+getLogRecord_logRecordPointer = Lens.lens (\GetLogRecord' {logRecordPointer} -> logRecordPointer) (\s@GetLogRecord' {} a -> s {logRecordPointer = a} :: GetLogRecord)
 
-instance AWSRequest GetLogRecord where
+instance Prelude.AWSRequest GetLogRecord where
   type Rs GetLogRecord = GetLogRecordResponse
-  request = postJSON cloudWatchLogs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetLogRecordResponse'
-            <$> (x .?> "logRecord" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "logRecord"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetLogRecord
+instance Prelude.Hashable GetLogRecord
 
-instance NFData GetLogRecord
+instance Prelude.NFData GetLogRecord
 
-instance ToHeaders GetLogRecord where
+instance Prelude.ToHeaders GetLogRecord where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Logs_20140328.GetLogRecord" :: ByteString),
+              Prelude.=# ("Logs_20140328.GetLogRecord" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetLogRecord where
+instance Prelude.ToJSON GetLogRecord where
   toJSON GetLogRecord' {..} =
-    object
-      ( catMaybes
-          [Just ("logRecordPointer" .= _glrLogRecordPointer)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("logRecordPointer" Prelude..= logRecordPointer)
+          ]
       )
 
-instance ToPath GetLogRecord where
-  toPath = const "/"
+instance Prelude.ToPath GetLogRecord where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetLogRecord where
-  toQuery = const mempty
+instance Prelude.ToQuery GetLogRecord where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getLogRecordResponse' smart constructor.
+-- | /See:/ 'newGetLogRecordResponse' smart constructor.
 data GetLogRecordResponse = GetLogRecordResponse'
-  { _glrrrsLogRecord ::
-      !(Maybe (Map Text Text)),
-    _glrrrsResponseStatus :: !Int
+  { -- | The requested log event, as a JSON string.
+    logRecord :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetLogRecordResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetLogRecordResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'glrrrsLogRecord' - The requested log event, as a JSON string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'glrrrsResponseStatus' - -- | The response status code.
-getLogRecordResponse ::
-  -- | 'glrrrsResponseStatus'
-  Int ->
+-- 'logRecord', 'getLogRecordResponse_logRecord' - The requested log event, as a JSON string.
+--
+-- 'httpStatus', 'getLogRecordResponse_httpStatus' - The response's http status code.
+newGetLogRecordResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetLogRecordResponse
-getLogRecordResponse pResponseStatus_ =
+newGetLogRecordResponse pHttpStatus_ =
   GetLogRecordResponse'
-    { _glrrrsLogRecord = Nothing,
-      _glrrrsResponseStatus = pResponseStatus_
+    { logRecord = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The requested log event, as a JSON string.
-glrrrsLogRecord :: Lens' GetLogRecordResponse (HashMap Text Text)
-glrrrsLogRecord = lens _glrrrsLogRecord (\s a -> s {_glrrrsLogRecord = a}) . _Default . _Map
+getLogRecordResponse_logRecord :: Lens.Lens' GetLogRecordResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getLogRecordResponse_logRecord = Lens.lens (\GetLogRecordResponse' {logRecord} -> logRecord) (\s@GetLogRecordResponse' {} a -> s {logRecord = a} :: GetLogRecordResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-glrrrsResponseStatus :: Lens' GetLogRecordResponse Int
-glrrrsResponseStatus = lens _glrrrsResponseStatus (\s a -> s {_glrrrsResponseStatus = a})
+-- | The response's http status code.
+getLogRecordResponse_httpStatus :: Lens.Lens' GetLogRecordResponse Prelude.Int
+getLogRecordResponse_httpStatus = Lens.lens (\GetLogRecordResponse' {httpStatus} -> httpStatus) (\s@GetLogRecordResponse' {} a -> s {httpStatus = a} :: GetLogRecordResponse)
 
-instance NFData GetLogRecordResponse
+instance Prelude.NFData GetLogRecordResponse

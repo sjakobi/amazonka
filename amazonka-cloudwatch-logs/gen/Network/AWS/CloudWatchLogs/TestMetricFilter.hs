@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,161 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Tests the filter pattern of a metric filter against a sample of log event messages. You can use this operation to validate the correctness of a metric filter pattern.
+-- Tests the filter pattern of a metric filter against a sample of log
+-- event messages. You can use this operation to validate the correctness
+-- of a metric filter pattern.
 module Network.AWS.CloudWatchLogs.TestMetricFilter
   ( -- * Creating a Request
-    testMetricFilter,
-    TestMetricFilter,
+    TestMetricFilter (..),
+    newTestMetricFilter,
 
     -- * Request Lenses
-    tmfFilterPattern,
-    tmfLogEventMessages,
+    testMetricFilter_filterPattern,
+    testMetricFilter_logEventMessages,
 
     -- * Destructuring the Response
-    testMetricFilterResponse,
-    TestMetricFilterResponse,
+    TestMetricFilterResponse (..),
+    newTestMetricFilterResponse,
 
     -- * Response Lenses
-    tmfrrsMatches,
-    tmfrrsResponseStatus,
+    testMetricFilterResponse_matches,
+    testMetricFilterResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchLogs.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchLogs.Types.MetricFilterMatchRecord
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'testMetricFilter' smart constructor.
+-- | /See:/ 'newTestMetricFilter' smart constructor.
 data TestMetricFilter = TestMetricFilter'
-  { _tmfFilterPattern ::
-      !Text,
-    _tmfLogEventMessages :: !(List1 Text)
+  { filterPattern :: Prelude.Text,
+    -- | The log event messages to test.
+    logEventMessages :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestMetricFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestMetricFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tmfFilterPattern' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tmfLogEventMessages' - The log event messages to test.
-testMetricFilter ::
-  -- | 'tmfFilterPattern'
-  Text ->
-  -- | 'tmfLogEventMessages'
-  NonEmpty Text ->
+-- 'filterPattern', 'testMetricFilter_filterPattern' - Undocumented member.
+--
+-- 'logEventMessages', 'testMetricFilter_logEventMessages' - The log event messages to test.
+newTestMetricFilter ::
+  -- | 'filterPattern'
+  Prelude.Text ->
+  -- | 'logEventMessages'
+  Prelude.NonEmpty Prelude.Text ->
   TestMetricFilter
-testMetricFilter pFilterPattern_ pLogEventMessages_ =
-  TestMetricFilter'
-    { _tmfFilterPattern =
-        pFilterPattern_,
-      _tmfLogEventMessages = _List1 # pLogEventMessages_
-    }
+newTestMetricFilter
+  pFilterPattern_
+  pLogEventMessages_ =
+    TestMetricFilter'
+      { filterPattern = pFilterPattern_,
+        logEventMessages =
+          Prelude._List1 Lens.# pLogEventMessages_
+      }
 
 -- | Undocumented member.
-tmfFilterPattern :: Lens' TestMetricFilter Text
-tmfFilterPattern = lens _tmfFilterPattern (\s a -> s {_tmfFilterPattern = a})
+testMetricFilter_filterPattern :: Lens.Lens' TestMetricFilter Prelude.Text
+testMetricFilter_filterPattern = Lens.lens (\TestMetricFilter' {filterPattern} -> filterPattern) (\s@TestMetricFilter' {} a -> s {filterPattern = a} :: TestMetricFilter)
 
 -- | The log event messages to test.
-tmfLogEventMessages :: Lens' TestMetricFilter (NonEmpty Text)
-tmfLogEventMessages = lens _tmfLogEventMessages (\s a -> s {_tmfLogEventMessages = a}) . _List1
+testMetricFilter_logEventMessages :: Lens.Lens' TestMetricFilter (Prelude.NonEmpty Prelude.Text)
+testMetricFilter_logEventMessages = Lens.lens (\TestMetricFilter' {logEventMessages} -> logEventMessages) (\s@TestMetricFilter' {} a -> s {logEventMessages = a} :: TestMetricFilter) Prelude.. Prelude._List1
 
-instance AWSRequest TestMetricFilter where
+instance Prelude.AWSRequest TestMetricFilter where
   type Rs TestMetricFilter = TestMetricFilterResponse
-  request = postJSON cloudWatchLogs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TestMetricFilterResponse'
-            <$> (x .?> "matches" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "matches" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TestMetricFilter
+instance Prelude.Hashable TestMetricFilter
 
-instance NFData TestMetricFilter
+instance Prelude.NFData TestMetricFilter
 
-instance ToHeaders TestMetricFilter where
+instance Prelude.ToHeaders TestMetricFilter where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Logs_20140328.TestMetricFilter" :: ByteString),
+              Prelude.=# ( "Logs_20140328.TestMetricFilter" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TestMetricFilter where
+instance Prelude.ToJSON TestMetricFilter where
   toJSON TestMetricFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("filterPattern" .= _tmfFilterPattern),
-            Just ("logEventMessages" .= _tmfLogEventMessages)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("filterPattern" Prelude..= filterPattern),
+            Prelude.Just
+              ("logEventMessages" Prelude..= logEventMessages)
           ]
       )
 
-instance ToPath TestMetricFilter where
-  toPath = const "/"
+instance Prelude.ToPath TestMetricFilter where
+  toPath = Prelude.const "/"
 
-instance ToQuery TestMetricFilter where
-  toQuery = const mempty
+instance Prelude.ToQuery TestMetricFilter where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'testMetricFilterResponse' smart constructor.
+-- | /See:/ 'newTestMetricFilterResponse' smart constructor.
 data TestMetricFilterResponse = TestMetricFilterResponse'
-  { _tmfrrsMatches ::
-      !( Maybe
-           [MetricFilterMatchRecord]
-       ),
-    _tmfrrsResponseStatus ::
-      !Int
+  { -- | The matched events.
+    matches :: Prelude.Maybe [MetricFilterMatchRecord],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestMetricFilterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestMetricFilterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tmfrrsMatches' - The matched events.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tmfrrsResponseStatus' - -- | The response status code.
-testMetricFilterResponse ::
-  -- | 'tmfrrsResponseStatus'
-  Int ->
+-- 'matches', 'testMetricFilterResponse_matches' - The matched events.
+--
+-- 'httpStatus', 'testMetricFilterResponse_httpStatus' - The response's http status code.
+newTestMetricFilterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TestMetricFilterResponse
-testMetricFilterResponse pResponseStatus_ =
+newTestMetricFilterResponse pHttpStatus_ =
   TestMetricFilterResponse'
-    { _tmfrrsMatches = Nothing,
-      _tmfrrsResponseStatus = pResponseStatus_
+    { matches =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The matched events.
-tmfrrsMatches :: Lens' TestMetricFilterResponse [MetricFilterMatchRecord]
-tmfrrsMatches = lens _tmfrrsMatches (\s a -> s {_tmfrrsMatches = a}) . _Default . _Coerce
+testMetricFilterResponse_matches :: Lens.Lens' TestMetricFilterResponse (Prelude.Maybe [MetricFilterMatchRecord])
+testMetricFilterResponse_matches = Lens.lens (\TestMetricFilterResponse' {matches} -> matches) (\s@TestMetricFilterResponse' {} a -> s {matches = a} :: TestMetricFilterResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-tmfrrsResponseStatus :: Lens' TestMetricFilterResponse Int
-tmfrrsResponseStatus = lens _tmfrrsResponseStatus (\s a -> s {_tmfrrsResponseStatus = a})
+-- | The response's http status code.
+testMetricFilterResponse_httpStatus :: Lens.Lens' TestMetricFilterResponse Prelude.Int
+testMetricFilterResponse_httpStatus = Lens.lens (\TestMetricFilterResponse' {httpStatus} -> httpStatus) (\s@TestMetricFilterResponse' {} a -> s {httpStatus = a} :: TestMetricFilterResponse)
 
-instance NFData TestMetricFilterResponse
+instance Prelude.NFData TestMetricFilterResponse

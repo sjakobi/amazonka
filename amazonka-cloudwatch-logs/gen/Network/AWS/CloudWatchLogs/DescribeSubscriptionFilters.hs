@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,209 +21,236 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the subscription filters for the specified log group. You can list all the subscription filters or filter the results by prefix. The results are ASCII-sorted by filter name.
---
---
+-- Lists the subscription filters for the specified log group. You can list
+-- all the subscription filters or filter the results by prefix. The
+-- results are ASCII-sorted by filter name.
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudWatchLogs.DescribeSubscriptionFilters
   ( -- * Creating a Request
-    describeSubscriptionFilters,
-    DescribeSubscriptionFilters,
+    DescribeSubscriptionFilters (..),
+    newDescribeSubscriptionFilters,
 
     -- * Request Lenses
-    dsfFilterNamePrefix,
-    dsfNextToken,
-    dsfLimit,
-    dsfLogGroupName,
+    describeSubscriptionFilters_filterNamePrefix,
+    describeSubscriptionFilters_nextToken,
+    describeSubscriptionFilters_limit,
+    describeSubscriptionFilters_logGroupName,
 
     -- * Destructuring the Response
-    describeSubscriptionFiltersResponse,
-    DescribeSubscriptionFiltersResponse,
+    DescribeSubscriptionFiltersResponse (..),
+    newDescribeSubscriptionFiltersResponse,
 
     -- * Response Lenses
-    dsfrrsNextToken,
-    dsfrrsSubscriptionFilters,
-    dsfrrsResponseStatus,
+    describeSubscriptionFiltersResponse_nextToken,
+    describeSubscriptionFiltersResponse_subscriptionFilters,
+    describeSubscriptionFiltersResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchLogs.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudWatchLogs.Types.SubscriptionFilter
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeSubscriptionFilters' smart constructor.
+-- | /See:/ 'newDescribeSubscriptionFilters' smart constructor.
 data DescribeSubscriptionFilters = DescribeSubscriptionFilters'
-  { _dsfFilterNamePrefix ::
-      !(Maybe Text),
-    _dsfNextToken ::
-      !(Maybe Text),
-    _dsfLimit ::
-      !(Maybe Nat),
-    _dsfLogGroupName ::
-      !Text
+  { -- | The prefix to match. If you don\'t specify a value, no prefix filter is
+    -- applied.
+    filterNamePrefix :: Prelude.Maybe Prelude.Text,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items returned. If you don\'t specify a value, the
+    -- default is up to 50 items.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the log group.
+    logGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSubscriptionFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSubscriptionFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsfFilterNamePrefix' - The prefix to match. If you don't specify a value, no prefix filter is applied.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsfNextToken' - The token for the next set of items to return. (You received this token from a previous call.)
+-- 'filterNamePrefix', 'describeSubscriptionFilters_filterNamePrefix' - The prefix to match. If you don\'t specify a value, no prefix filter is
+-- applied.
 --
--- * 'dsfLimit' - The maximum number of items returned. If you don't specify a value, the default is up to 50 items.
+-- 'nextToken', 'describeSubscriptionFilters_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- * 'dsfLogGroupName' - The name of the log group.
-describeSubscriptionFilters ::
-  -- | 'dsfLogGroupName'
-  Text ->
+-- 'limit', 'describeSubscriptionFilters_limit' - The maximum number of items returned. If you don\'t specify a value, the
+-- default is up to 50 items.
+--
+-- 'logGroupName', 'describeSubscriptionFilters_logGroupName' - The name of the log group.
+newDescribeSubscriptionFilters ::
+  -- | 'logGroupName'
+  Prelude.Text ->
   DescribeSubscriptionFilters
-describeSubscriptionFilters pLogGroupName_ =
+newDescribeSubscriptionFilters pLogGroupName_ =
   DescribeSubscriptionFilters'
-    { _dsfFilterNamePrefix =
-        Nothing,
-      _dsfNextToken = Nothing,
-      _dsfLimit = Nothing,
-      _dsfLogGroupName = pLogGroupName_
+    { filterNamePrefix =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      logGroupName = pLogGroupName_
     }
 
--- | The prefix to match. If you don't specify a value, no prefix filter is applied.
-dsfFilterNamePrefix :: Lens' DescribeSubscriptionFilters (Maybe Text)
-dsfFilterNamePrefix = lens _dsfFilterNamePrefix (\s a -> s {_dsfFilterNamePrefix = a})
+-- | The prefix to match. If you don\'t specify a value, no prefix filter is
+-- applied.
+describeSubscriptionFilters_filterNamePrefix :: Lens.Lens' DescribeSubscriptionFilters (Prelude.Maybe Prelude.Text)
+describeSubscriptionFilters_filterNamePrefix = Lens.lens (\DescribeSubscriptionFilters' {filterNamePrefix} -> filterNamePrefix) (\s@DescribeSubscriptionFilters' {} a -> s {filterNamePrefix = a} :: DescribeSubscriptionFilters)
 
--- | The token for the next set of items to return. (You received this token from a previous call.)
-dsfNextToken :: Lens' DescribeSubscriptionFilters (Maybe Text)
-dsfNextToken = lens _dsfNextToken (\s a -> s {_dsfNextToken = a})
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeSubscriptionFilters_nextToken :: Lens.Lens' DescribeSubscriptionFilters (Prelude.Maybe Prelude.Text)
+describeSubscriptionFilters_nextToken = Lens.lens (\DescribeSubscriptionFilters' {nextToken} -> nextToken) (\s@DescribeSubscriptionFilters' {} a -> s {nextToken = a} :: DescribeSubscriptionFilters)
 
--- | The maximum number of items returned. If you don't specify a value, the default is up to 50 items.
-dsfLimit :: Lens' DescribeSubscriptionFilters (Maybe Natural)
-dsfLimit = lens _dsfLimit (\s a -> s {_dsfLimit = a}) . mapping _Nat
+-- | The maximum number of items returned. If you don\'t specify a value, the
+-- default is up to 50 items.
+describeSubscriptionFilters_limit :: Lens.Lens' DescribeSubscriptionFilters (Prelude.Maybe Prelude.Natural)
+describeSubscriptionFilters_limit = Lens.lens (\DescribeSubscriptionFilters' {limit} -> limit) (\s@DescribeSubscriptionFilters' {} a -> s {limit = a} :: DescribeSubscriptionFilters) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the log group.
-dsfLogGroupName :: Lens' DescribeSubscriptionFilters Text
-dsfLogGroupName = lens _dsfLogGroupName (\s a -> s {_dsfLogGroupName = a})
+describeSubscriptionFilters_logGroupName :: Lens.Lens' DescribeSubscriptionFilters Prelude.Text
+describeSubscriptionFilters_logGroupName = Lens.lens (\DescribeSubscriptionFilters' {logGroupName} -> logGroupName) (\s@DescribeSubscriptionFilters' {} a -> s {logGroupName = a} :: DescribeSubscriptionFilters)
 
-instance AWSPager DescribeSubscriptionFilters where
+instance Pager.AWSPager DescribeSubscriptionFilters where
   page rq rs
-    | stop (rs ^. dsfrrsNextToken) = Nothing
-    | stop (rs ^. dsfrrsSubscriptionFilters) = Nothing
-    | otherwise =
-      Just $ rq & dsfNextToken .~ rs ^. dsfrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeSubscriptionFiltersResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeSubscriptionFiltersResponse_subscriptionFilters
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeSubscriptionFilters_nextToken
+          Lens..~ rs
+          Lens.^? describeSubscriptionFiltersResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeSubscriptionFilters where
+instance
+  Prelude.AWSRequest
+    DescribeSubscriptionFilters
+  where
   type
     Rs DescribeSubscriptionFilters =
       DescribeSubscriptionFiltersResponse
-  request = postJSON cloudWatchLogs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeSubscriptionFiltersResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "subscriptionFilters" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "subscriptionFilters"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSubscriptionFilters
+instance Prelude.Hashable DescribeSubscriptionFilters
 
-instance NFData DescribeSubscriptionFilters
+instance Prelude.NFData DescribeSubscriptionFilters
 
-instance ToHeaders DescribeSubscriptionFilters where
+instance
+  Prelude.ToHeaders
+    DescribeSubscriptionFilters
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Logs_20140328.DescribeSubscriptionFilters" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Logs_20140328.DescribeSubscriptionFilters" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeSubscriptionFilters where
+instance Prelude.ToJSON DescribeSubscriptionFilters where
   toJSON DescribeSubscriptionFilters' {..} =
-    object
-      ( catMaybes
-          [ ("filterNamePrefix" .=) <$> _dsfFilterNamePrefix,
-            ("nextToken" .=) <$> _dsfNextToken,
-            ("limit" .=) <$> _dsfLimit,
-            Just ("logGroupName" .= _dsfLogGroupName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("filterNamePrefix" Prelude..=)
+              Prelude.<$> filterNamePrefix,
+            ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just
+              ("logGroupName" Prelude..= logGroupName)
           ]
       )
 
-instance ToPath DescribeSubscriptionFilters where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSubscriptionFilters where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSubscriptionFilters where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeSubscriptionFilters where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeSubscriptionFiltersResponse' smart constructor.
+-- | /See:/ 'newDescribeSubscriptionFiltersResponse' smart constructor.
 data DescribeSubscriptionFiltersResponse = DescribeSubscriptionFiltersResponse'
-  { _dsfrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dsfrrsSubscriptionFilters ::
-      !( Maybe
-           [SubscriptionFilter]
-       ),
-    _dsfrrsResponseStatus ::
-      !Int
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The subscription filters.
+    subscriptionFilters :: Prelude.Maybe [SubscriptionFilter],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSubscriptionFiltersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSubscriptionFiltersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsfrrsNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsfrrsSubscriptionFilters' - The subscription filters.
+-- 'nextToken', 'describeSubscriptionFiltersResponse_nextToken' - Undocumented member.
 --
--- * 'dsfrrsResponseStatus' - -- | The response status code.
-describeSubscriptionFiltersResponse ::
-  -- | 'dsfrrsResponseStatus'
-  Int ->
+-- 'subscriptionFilters', 'describeSubscriptionFiltersResponse_subscriptionFilters' - The subscription filters.
+--
+-- 'httpStatus', 'describeSubscriptionFiltersResponse_httpStatus' - The response's http status code.
+newDescribeSubscriptionFiltersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSubscriptionFiltersResponse
-describeSubscriptionFiltersResponse pResponseStatus_ =
+newDescribeSubscriptionFiltersResponse pHttpStatus_ =
   DescribeSubscriptionFiltersResponse'
-    { _dsfrrsNextToken =
-        Nothing,
-      _dsfrrsSubscriptionFilters = Nothing,
-      _dsfrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      subscriptionFilters = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-dsfrrsNextToken :: Lens' DescribeSubscriptionFiltersResponse (Maybe Text)
-dsfrrsNextToken = lens _dsfrrsNextToken (\s a -> s {_dsfrrsNextToken = a})
+describeSubscriptionFiltersResponse_nextToken :: Lens.Lens' DescribeSubscriptionFiltersResponse (Prelude.Maybe Prelude.Text)
+describeSubscriptionFiltersResponse_nextToken = Lens.lens (\DescribeSubscriptionFiltersResponse' {nextToken} -> nextToken) (\s@DescribeSubscriptionFiltersResponse' {} a -> s {nextToken = a} :: DescribeSubscriptionFiltersResponse)
 
 -- | The subscription filters.
-dsfrrsSubscriptionFilters :: Lens' DescribeSubscriptionFiltersResponse [SubscriptionFilter]
-dsfrrsSubscriptionFilters = lens _dsfrrsSubscriptionFilters (\s a -> s {_dsfrrsSubscriptionFilters = a}) . _Default . _Coerce
+describeSubscriptionFiltersResponse_subscriptionFilters :: Lens.Lens' DescribeSubscriptionFiltersResponse (Prelude.Maybe [SubscriptionFilter])
+describeSubscriptionFiltersResponse_subscriptionFilters = Lens.lens (\DescribeSubscriptionFiltersResponse' {subscriptionFilters} -> subscriptionFilters) (\s@DescribeSubscriptionFiltersResponse' {} a -> s {subscriptionFilters = a} :: DescribeSubscriptionFiltersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsfrrsResponseStatus :: Lens' DescribeSubscriptionFiltersResponse Int
-dsfrrsResponseStatus = lens _dsfrrsResponseStatus (\s a -> s {_dsfrrsResponseStatus = a})
+-- | The response's http status code.
+describeSubscriptionFiltersResponse_httpStatus :: Lens.Lens' DescribeSubscriptionFiltersResponse Prelude.Int
+describeSubscriptionFiltersResponse_httpStatus = Lens.lens (\DescribeSubscriptionFiltersResponse' {httpStatus} -> httpStatus) (\s@DescribeSubscriptionFiltersResponse' {} a -> s {httpStatus = a} :: DescribeSubscriptionFiltersResponse)
 
-instance NFData DescribeSubscriptionFiltersResponse
+instance
+  Prelude.NFData
+    DescribeSubscriptionFiltersResponse

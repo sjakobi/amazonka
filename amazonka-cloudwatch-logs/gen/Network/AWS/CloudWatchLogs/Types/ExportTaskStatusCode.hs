@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.CloudWatchLogs.Types.ExportTaskStatusCode
   ( ExportTaskStatusCode
       ( ..,
-        Cancelled,
-        Completed,
-        Failed,
-        Pending,
-        PendingCancel,
-        Running
+        ExportTaskStatusCodeCANCELLED,
+        ExportTaskStatusCodeCOMPLETED,
+        ExportTaskStatusCodeFAILED,
+        ExportTaskStatusCodePENDING,
+        ExportTaskStatusCodePENDINGCANCEL,
+        ExportTaskStatusCodeRUNNING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExportTaskStatusCode
-  = ExportTaskStatusCode'
-      ( CI
-          Text
-      )
+newtype ExportTaskStatusCode = ExportTaskStatusCode'
+  { fromExportTaskStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cancelled :: ExportTaskStatusCode
-pattern Cancelled = ExportTaskStatusCode' "CANCELLED"
+pattern ExportTaskStatusCodeCANCELLED :: ExportTaskStatusCode
+pattern ExportTaskStatusCodeCANCELLED = ExportTaskStatusCode' "CANCELLED"
 
-pattern Completed :: ExportTaskStatusCode
-pattern Completed = ExportTaskStatusCode' "COMPLETED"
+pattern ExportTaskStatusCodeCOMPLETED :: ExportTaskStatusCode
+pattern ExportTaskStatusCodeCOMPLETED = ExportTaskStatusCode' "COMPLETED"
 
-pattern Failed :: ExportTaskStatusCode
-pattern Failed = ExportTaskStatusCode' "FAILED"
+pattern ExportTaskStatusCodeFAILED :: ExportTaskStatusCode
+pattern ExportTaskStatusCodeFAILED = ExportTaskStatusCode' "FAILED"
 
-pattern Pending :: ExportTaskStatusCode
-pattern Pending = ExportTaskStatusCode' "PENDING"
+pattern ExportTaskStatusCodePENDING :: ExportTaskStatusCode
+pattern ExportTaskStatusCodePENDING = ExportTaskStatusCode' "PENDING"
 
-pattern PendingCancel :: ExportTaskStatusCode
-pattern PendingCancel = ExportTaskStatusCode' "PENDING_CANCEL"
+pattern ExportTaskStatusCodePENDINGCANCEL :: ExportTaskStatusCode
+pattern ExportTaskStatusCodePENDINGCANCEL = ExportTaskStatusCode' "PENDING_CANCEL"
 
-pattern Running :: ExportTaskStatusCode
-pattern Running = ExportTaskStatusCode' "RUNNING"
+pattern ExportTaskStatusCodeRUNNING :: ExportTaskStatusCode
+pattern ExportTaskStatusCodeRUNNING = ExportTaskStatusCode' "RUNNING"
 
 {-# COMPLETE
-  Cancelled,
-  Completed,
-  Failed,
-  Pending,
-  PendingCancel,
-  Running,
+  ExportTaskStatusCodeCANCELLED,
+  ExportTaskStatusCodeCOMPLETED,
+  ExportTaskStatusCodeFAILED,
+  ExportTaskStatusCodePENDING,
+  ExportTaskStatusCodePENDINGCANCEL,
+  ExportTaskStatusCodeRUNNING,
   ExportTaskStatusCode'
   #-}
 
-instance FromText ExportTaskStatusCode where
-  parser = (ExportTaskStatusCode' . mk) <$> takeText
+instance Prelude.FromText ExportTaskStatusCode where
+  parser = ExportTaskStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText ExportTaskStatusCode where
-  toText (ExportTaskStatusCode' ci) = original ci
+instance Prelude.ToText ExportTaskStatusCode where
+  toText (ExportTaskStatusCode' x) = x
 
-instance Hashable ExportTaskStatusCode
+instance Prelude.Hashable ExportTaskStatusCode
 
-instance NFData ExportTaskStatusCode
+instance Prelude.NFData ExportTaskStatusCode
 
-instance ToByteString ExportTaskStatusCode
+instance Prelude.ToByteString ExportTaskStatusCode
 
-instance ToQuery ExportTaskStatusCode
+instance Prelude.ToQuery ExportTaskStatusCode
 
-instance ToHeader ExportTaskStatusCode
+instance Prelude.ToHeader ExportTaskStatusCode
 
-instance ToJSON ExportTaskStatusCode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExportTaskStatusCode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExportTaskStatusCode where
-  parseJSON = parseJSONText "ExportTaskStatusCode"
+instance Prelude.FromJSON ExportTaskStatusCode where
+  parseJSON = Prelude.parseJSONText "ExportTaskStatusCode"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,99 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.LogGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a log group.
 --
---
---
--- /See:/ 'logGroup' smart constructor.
+-- /See:/ 'newLogGroup' smart constructor.
 data LogGroup = LogGroup'
-  { _lgRetentionInDays ::
-      !(Maybe Int),
-    _lgCreationTime :: !(Maybe Nat),
-    _lgArn :: !(Maybe Text),
-    _lgStoredBytes :: !(Maybe Nat),
-    _lgMetricFilterCount :: !(Maybe Int),
-    _lgKmsKeyId :: !(Maybe Text),
-    _lgLogGroupName :: !(Maybe Text)
+  { retentionInDays :: Prelude.Maybe Prelude.Int,
+    -- | The creation time of the log group, expressed as the number of
+    -- milliseconds after Jan 1, 1970 00:00:00 UTC.
+    creationTime :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Name (ARN) of the log group.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The number of bytes stored.
+    storedBytes :: Prelude.Maybe Prelude.Nat,
+    -- | The number of metric filters.
+    metricFilterCount :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the CMK to use when encrypting log
+    -- data.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the log group.
+    logGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LogGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LogGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgRetentionInDays' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgCreationTime' - The creation time of the log group, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+-- 'retentionInDays', 'logGroup_retentionInDays' - Undocumented member.
 --
--- * 'lgArn' - The Amazon Resource Name (ARN) of the log group.
+-- 'creationTime', 'logGroup_creationTime' - The creation time of the log group, expressed as the number of
+-- milliseconds after Jan 1, 1970 00:00:00 UTC.
 --
--- * 'lgStoredBytes' - The number of bytes stored.
+-- 'arn', 'logGroup_arn' - The Amazon Resource Name (ARN) of the log group.
 --
--- * 'lgMetricFilterCount' - The number of metric filters.
+-- 'storedBytes', 'logGroup_storedBytes' - The number of bytes stored.
 --
--- * 'lgKmsKeyId' - The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
+-- 'metricFilterCount', 'logGroup_metricFilterCount' - The number of metric filters.
 --
--- * 'lgLogGroupName' - The name of the log group.
-logGroup ::
+-- 'kmsKeyId', 'logGroup_kmsKeyId' - The Amazon Resource Name (ARN) of the CMK to use when encrypting log
+-- data.
+--
+-- 'logGroupName', 'logGroup_logGroupName' - The name of the log group.
+newLogGroup ::
   LogGroup
-logGroup =
+newLogGroup =
   LogGroup'
-    { _lgRetentionInDays = Nothing,
-      _lgCreationTime = Nothing,
-      _lgArn = Nothing,
-      _lgStoredBytes = Nothing,
-      _lgMetricFilterCount = Nothing,
-      _lgKmsKeyId = Nothing,
-      _lgLogGroupName = Nothing
+    { retentionInDays = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      storedBytes = Prelude.Nothing,
+      metricFilterCount = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      logGroupName = Prelude.Nothing
     }
 
 -- | Undocumented member.
-lgRetentionInDays :: Lens' LogGroup (Maybe Int)
-lgRetentionInDays = lens _lgRetentionInDays (\s a -> s {_lgRetentionInDays = a})
+logGroup_retentionInDays :: Lens.Lens' LogGroup (Prelude.Maybe Prelude.Int)
+logGroup_retentionInDays = Lens.lens (\LogGroup' {retentionInDays} -> retentionInDays) (\s@LogGroup' {} a -> s {retentionInDays = a} :: LogGroup)
 
--- | The creation time of the log group, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-lgCreationTime :: Lens' LogGroup (Maybe Natural)
-lgCreationTime = lens _lgCreationTime (\s a -> s {_lgCreationTime = a}) . mapping _Nat
+-- | The creation time of the log group, expressed as the number of
+-- milliseconds after Jan 1, 1970 00:00:00 UTC.
+logGroup_creationTime :: Lens.Lens' LogGroup (Prelude.Maybe Prelude.Natural)
+logGroup_creationTime = Lens.lens (\LogGroup' {creationTime} -> creationTime) (\s@LogGroup' {} a -> s {creationTime = a} :: LogGroup) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The Amazon Resource Name (ARN) of the log group.
-lgArn :: Lens' LogGroup (Maybe Text)
-lgArn = lens _lgArn (\s a -> s {_lgArn = a})
+logGroup_arn :: Lens.Lens' LogGroup (Prelude.Maybe Prelude.Text)
+logGroup_arn = Lens.lens (\LogGroup' {arn} -> arn) (\s@LogGroup' {} a -> s {arn = a} :: LogGroup)
 
 -- | The number of bytes stored.
-lgStoredBytes :: Lens' LogGroup (Maybe Natural)
-lgStoredBytes = lens _lgStoredBytes (\s a -> s {_lgStoredBytes = a}) . mapping _Nat
+logGroup_storedBytes :: Lens.Lens' LogGroup (Prelude.Maybe Prelude.Natural)
+logGroup_storedBytes = Lens.lens (\LogGroup' {storedBytes} -> storedBytes) (\s@LogGroup' {} a -> s {storedBytes = a} :: LogGroup) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The number of metric filters.
-lgMetricFilterCount :: Lens' LogGroup (Maybe Int)
-lgMetricFilterCount = lens _lgMetricFilterCount (\s a -> s {_lgMetricFilterCount = a})
+logGroup_metricFilterCount :: Lens.Lens' LogGroup (Prelude.Maybe Prelude.Int)
+logGroup_metricFilterCount = Lens.lens (\LogGroup' {metricFilterCount} -> metricFilterCount) (\s@LogGroup' {} a -> s {metricFilterCount = a} :: LogGroup)
 
--- | The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
-lgKmsKeyId :: Lens' LogGroup (Maybe Text)
-lgKmsKeyId = lens _lgKmsKeyId (\s a -> s {_lgKmsKeyId = a})
+-- | The Amazon Resource Name (ARN) of the CMK to use when encrypting log
+-- data.
+logGroup_kmsKeyId :: Lens.Lens' LogGroup (Prelude.Maybe Prelude.Text)
+logGroup_kmsKeyId = Lens.lens (\LogGroup' {kmsKeyId} -> kmsKeyId) (\s@LogGroup' {} a -> s {kmsKeyId = a} :: LogGroup)
 
 -- | The name of the log group.
-lgLogGroupName :: Lens' LogGroup (Maybe Text)
-lgLogGroupName = lens _lgLogGroupName (\s a -> s {_lgLogGroupName = a})
+logGroup_logGroupName :: Lens.Lens' LogGroup (Prelude.Maybe Prelude.Text)
+logGroup_logGroupName = Lens.lens (\LogGroup' {logGroupName} -> logGroupName) (\s@LogGroup' {} a -> s {logGroupName = a} :: LogGroup)
 
-instance FromJSON LogGroup where
+instance Prelude.FromJSON LogGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LogGroup"
       ( \x ->
           LogGroup'
-            <$> (x .:? "retentionInDays")
-            <*> (x .:? "creationTime")
-            <*> (x .:? "arn")
-            <*> (x .:? "storedBytes")
-            <*> (x .:? "metricFilterCount")
-            <*> (x .:? "kmsKeyId")
-            <*> (x .:? "logGroupName")
+            Prelude.<$> (x Prelude..:? "retentionInDays")
+            Prelude.<*> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "storedBytes")
+            Prelude.<*> (x Prelude..:? "metricFilterCount")
+            Prelude.<*> (x Prelude..:? "kmsKeyId")
+            Prelude.<*> (x Prelude..:? "logGroupName")
       )
 
-instance Hashable LogGroup
+instance Prelude.Hashable LogGroup
 
-instance NFData LogGroup
+instance Prelude.NFData LogGroup

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,113 +24,121 @@
 -- Deletes the specified metric filter.
 module Network.AWS.CloudWatchLogs.DeleteMetricFilter
   ( -- * Creating a Request
-    deleteMetricFilter,
-    DeleteMetricFilter,
+    DeleteMetricFilter (..),
+    newDeleteMetricFilter,
 
     -- * Request Lenses
-    dmfLogGroupName,
-    dmfFilterName,
+    deleteMetricFilter_logGroupName,
+    deleteMetricFilter_filterName,
 
     -- * Destructuring the Response
-    deleteMetricFilterResponse,
-    DeleteMetricFilterResponse,
+    DeleteMetricFilterResponse (..),
+    newDeleteMetricFilterResponse,
   )
 where
 
 import Network.AWS.CloudWatchLogs.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteMetricFilter' smart constructor.
+-- | /See:/ 'newDeleteMetricFilter' smart constructor.
 data DeleteMetricFilter = DeleteMetricFilter'
-  { _dmfLogGroupName ::
-      !Text,
-    _dmfFilterName :: !Text
+  { -- | The name of the log group.
+    logGroupName :: Prelude.Text,
+    -- | The name of the metric filter.
+    filterName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMetricFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMetricFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmfLogGroupName' - The name of the log group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmfFilterName' - The name of the metric filter.
-deleteMetricFilter ::
-  -- | 'dmfLogGroupName'
-  Text ->
-  -- | 'dmfFilterName'
-  Text ->
+-- 'logGroupName', 'deleteMetricFilter_logGroupName' - The name of the log group.
+--
+-- 'filterName', 'deleteMetricFilter_filterName' - The name of the metric filter.
+newDeleteMetricFilter ::
+  -- | 'logGroupName'
+  Prelude.Text ->
+  -- | 'filterName'
+  Prelude.Text ->
   DeleteMetricFilter
-deleteMetricFilter pLogGroupName_ pFilterName_ =
+newDeleteMetricFilter pLogGroupName_ pFilterName_ =
   DeleteMetricFilter'
-    { _dmfLogGroupName =
-        pLogGroupName_,
-      _dmfFilterName = pFilterName_
+    { logGroupName = pLogGroupName_,
+      filterName = pFilterName_
     }
 
 -- | The name of the log group.
-dmfLogGroupName :: Lens' DeleteMetricFilter Text
-dmfLogGroupName = lens _dmfLogGroupName (\s a -> s {_dmfLogGroupName = a})
+deleteMetricFilter_logGroupName :: Lens.Lens' DeleteMetricFilter Prelude.Text
+deleteMetricFilter_logGroupName = Lens.lens (\DeleteMetricFilter' {logGroupName} -> logGroupName) (\s@DeleteMetricFilter' {} a -> s {logGroupName = a} :: DeleteMetricFilter)
 
 -- | The name of the metric filter.
-dmfFilterName :: Lens' DeleteMetricFilter Text
-dmfFilterName = lens _dmfFilterName (\s a -> s {_dmfFilterName = a})
+deleteMetricFilter_filterName :: Lens.Lens' DeleteMetricFilter Prelude.Text
+deleteMetricFilter_filterName = Lens.lens (\DeleteMetricFilter' {filterName} -> filterName) (\s@DeleteMetricFilter' {} a -> s {filterName = a} :: DeleteMetricFilter)
 
-instance AWSRequest DeleteMetricFilter where
+instance Prelude.AWSRequest DeleteMetricFilter where
   type
     Rs DeleteMetricFilter =
       DeleteMetricFilterResponse
-  request = postJSON cloudWatchLogs
-  response = receiveNull DeleteMetricFilterResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteMetricFilterResponse'
 
-instance Hashable DeleteMetricFilter
+instance Prelude.Hashable DeleteMetricFilter
 
-instance NFData DeleteMetricFilter
+instance Prelude.NFData DeleteMetricFilter
 
-instance ToHeaders DeleteMetricFilter where
+instance Prelude.ToHeaders DeleteMetricFilter where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Logs_20140328.DeleteMetricFilter" :: ByteString),
+              Prelude.=# ( "Logs_20140328.DeleteMetricFilter" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteMetricFilter where
+instance Prelude.ToJSON DeleteMetricFilter where
   toJSON DeleteMetricFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("logGroupName" .= _dmfLogGroupName),
-            Just ("filterName" .= _dmfFilterName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("logGroupName" Prelude..= logGroupName),
+            Prelude.Just ("filterName" Prelude..= filterName)
           ]
       )
 
-instance ToPath DeleteMetricFilter where
-  toPath = const "/"
+instance Prelude.ToPath DeleteMetricFilter where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteMetricFilter where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteMetricFilter where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteMetricFilterResponse' smart constructor.
+-- | /See:/ 'newDeleteMetricFilterResponse' smart constructor.
 data DeleteMetricFilterResponse = DeleteMetricFilterResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMetricFilterResponse' with the minimum fields required to make a request.
-deleteMetricFilterResponse ::
+-- |
+-- Create a value of 'DeleteMetricFilterResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteMetricFilterResponse ::
   DeleteMetricFilterResponse
-deleteMetricFilterResponse =
+newDeleteMetricFilterResponse =
   DeleteMetricFilterResponse'
 
-instance NFData DeleteMetricFilterResponse
+instance Prelude.NFData DeleteMetricFilterResponse

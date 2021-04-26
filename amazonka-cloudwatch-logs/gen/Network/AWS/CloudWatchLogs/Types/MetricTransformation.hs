@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,113 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.MetricTransformation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates how to transform ingested log events to metric data in a CloudWatch metric.
+-- | Indicates how to transform ingested log events to metric data in a
+-- CloudWatch metric.
 --
---
---
--- /See:/ 'metricTransformation' smart constructor.
+-- /See:/ 'newMetricTransformation' smart constructor.
 data MetricTransformation = MetricTransformation'
-  { _mtDefaultValue ::
-      !(Maybe Double),
-    _mtMetricName :: !Text,
-    _mtMetricNamespace :: !Text,
-    _mtMetricValue :: !Text
+  { -- | (Optional) The value to emit when a filter pattern does not match a log
+    -- event. This value can be null.
+    defaultValue :: Prelude.Maybe Prelude.Double,
+    -- | The name of the CloudWatch metric.
+    metricName :: Prelude.Text,
+    -- | A custom namespace to contain your metric in CloudWatch. Use namespaces
+    -- to group together metrics that are similar. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace Namespaces>.
+    metricNamespace :: Prelude.Text,
+    -- | The value to publish to the CloudWatch metric when a filter pattern
+    -- matches a log event.
+    metricValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricTransformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricTransformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtDefaultValue' - (Optional) The value to emit when a filter pattern does not match a log event. This value can be null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtMetricName' - The name of the CloudWatch metric.
+-- 'defaultValue', 'metricTransformation_defaultValue' - (Optional) The value to emit when a filter pattern does not match a log
+-- event. This value can be null.
 --
--- * 'mtMetricNamespace' - A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are similar. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace Namespaces> .
+-- 'metricName', 'metricTransformation_metricName' - The name of the CloudWatch metric.
 --
--- * 'mtMetricValue' - The value to publish to the CloudWatch metric when a filter pattern matches a log event.
-metricTransformation ::
-  -- | 'mtMetricName'
-  Text ->
-  -- | 'mtMetricNamespace'
-  Text ->
-  -- | 'mtMetricValue'
-  Text ->
+-- 'metricNamespace', 'metricTransformation_metricNamespace' - A custom namespace to contain your metric in CloudWatch. Use namespaces
+-- to group together metrics that are similar. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace Namespaces>.
+--
+-- 'metricValue', 'metricTransformation_metricValue' - The value to publish to the CloudWatch metric when a filter pattern
+-- matches a log event.
+newMetricTransformation ::
+  -- | 'metricName'
+  Prelude.Text ->
+  -- | 'metricNamespace'
+  Prelude.Text ->
+  -- | 'metricValue'
+  Prelude.Text ->
   MetricTransformation
-metricTransformation
+newMetricTransformation
   pMetricName_
   pMetricNamespace_
   pMetricValue_ =
     MetricTransformation'
-      { _mtDefaultValue = Nothing,
-        _mtMetricName = pMetricName_,
-        _mtMetricNamespace = pMetricNamespace_,
-        _mtMetricValue = pMetricValue_
+      { defaultValue =
+          Prelude.Nothing,
+        metricName = pMetricName_,
+        metricNamespace = pMetricNamespace_,
+        metricValue = pMetricValue_
       }
 
--- | (Optional) The value to emit when a filter pattern does not match a log event. This value can be null.
-mtDefaultValue :: Lens' MetricTransformation (Maybe Double)
-mtDefaultValue = lens _mtDefaultValue (\s a -> s {_mtDefaultValue = a})
+-- | (Optional) The value to emit when a filter pattern does not match a log
+-- event. This value can be null.
+metricTransformation_defaultValue :: Lens.Lens' MetricTransformation (Prelude.Maybe Prelude.Double)
+metricTransformation_defaultValue = Lens.lens (\MetricTransformation' {defaultValue} -> defaultValue) (\s@MetricTransformation' {} a -> s {defaultValue = a} :: MetricTransformation)
 
 -- | The name of the CloudWatch metric.
-mtMetricName :: Lens' MetricTransformation Text
-mtMetricName = lens _mtMetricName (\s a -> s {_mtMetricName = a})
+metricTransformation_metricName :: Lens.Lens' MetricTransformation Prelude.Text
+metricTransformation_metricName = Lens.lens (\MetricTransformation' {metricName} -> metricName) (\s@MetricTransformation' {} a -> s {metricName = a} :: MetricTransformation)
 
--- | A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are similar. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace Namespaces> .
-mtMetricNamespace :: Lens' MetricTransformation Text
-mtMetricNamespace = lens _mtMetricNamespace (\s a -> s {_mtMetricNamespace = a})
+-- | A custom namespace to contain your metric in CloudWatch. Use namespaces
+-- to group together metrics that are similar. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace Namespaces>.
+metricTransformation_metricNamespace :: Lens.Lens' MetricTransformation Prelude.Text
+metricTransformation_metricNamespace = Lens.lens (\MetricTransformation' {metricNamespace} -> metricNamespace) (\s@MetricTransformation' {} a -> s {metricNamespace = a} :: MetricTransformation)
 
--- | The value to publish to the CloudWatch metric when a filter pattern matches a log event.
-mtMetricValue :: Lens' MetricTransformation Text
-mtMetricValue = lens _mtMetricValue (\s a -> s {_mtMetricValue = a})
+-- | The value to publish to the CloudWatch metric when a filter pattern
+-- matches a log event.
+metricTransformation_metricValue :: Lens.Lens' MetricTransformation Prelude.Text
+metricTransformation_metricValue = Lens.lens (\MetricTransformation' {metricValue} -> metricValue) (\s@MetricTransformation' {} a -> s {metricValue = a} :: MetricTransformation)
 
-instance FromJSON MetricTransformation where
+instance Prelude.FromJSON MetricTransformation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MetricTransformation"
       ( \x ->
           MetricTransformation'
-            <$> (x .:? "defaultValue")
-            <*> (x .: "metricName")
-            <*> (x .: "metricNamespace")
-            <*> (x .: "metricValue")
+            Prelude.<$> (x Prelude..:? "defaultValue")
+            Prelude.<*> (x Prelude..: "metricName")
+            Prelude.<*> (x Prelude..: "metricNamespace")
+            Prelude.<*> (x Prelude..: "metricValue")
       )
 
-instance Hashable MetricTransformation
+instance Prelude.Hashable MetricTransformation
 
-instance NFData MetricTransformation
+instance Prelude.NFData MetricTransformation
 
-instance ToJSON MetricTransformation where
+instance Prelude.ToJSON MetricTransformation where
   toJSON MetricTransformation' {..} =
-    object
-      ( catMaybes
-          [ ("defaultValue" .=) <$> _mtDefaultValue,
-            Just ("metricName" .= _mtMetricName),
-            Just ("metricNamespace" .= _mtMetricNamespace),
-            Just ("metricValue" .= _mtMetricValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("defaultValue" Prelude..=)
+              Prelude.<$> defaultValue,
+            Prelude.Just ("metricName" Prelude..= metricName),
+            Prelude.Just
+              ("metricNamespace" Prelude..= metricNamespace),
+            Prelude.Just ("metricValue" Prelude..= metricValue)
           ]
       )

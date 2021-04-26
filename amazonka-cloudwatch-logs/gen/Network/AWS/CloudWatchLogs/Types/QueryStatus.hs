@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.CloudWatchLogs.Types.QueryStatus
   ( QueryStatus
       ( ..,
-        QSCancelled,
-        QSComplete,
-        QSFailed,
-        QSRunning,
-        QSScheduled
+        QueryStatusCancelled,
+        QueryStatusComplete,
+        QueryStatusFailed,
+        QueryStatusRunning,
+        QueryStatusScheduled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QueryStatus = QueryStatus' (CI Text)
+newtype QueryStatus = QueryStatus'
+  { fromQueryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern QSCancelled :: QueryStatus
-pattern QSCancelled = QueryStatus' "Cancelled"
+pattern QueryStatusCancelled :: QueryStatus
+pattern QueryStatusCancelled = QueryStatus' "Cancelled"
 
-pattern QSComplete :: QueryStatus
-pattern QSComplete = QueryStatus' "Complete"
+pattern QueryStatusComplete :: QueryStatus
+pattern QueryStatusComplete = QueryStatus' "Complete"
 
-pattern QSFailed :: QueryStatus
-pattern QSFailed = QueryStatus' "Failed"
+pattern QueryStatusFailed :: QueryStatus
+pattern QueryStatusFailed = QueryStatus' "Failed"
 
-pattern QSRunning :: QueryStatus
-pattern QSRunning = QueryStatus' "Running"
+pattern QueryStatusRunning :: QueryStatus
+pattern QueryStatusRunning = QueryStatus' "Running"
 
-pattern QSScheduled :: QueryStatus
-pattern QSScheduled = QueryStatus' "Scheduled"
+pattern QueryStatusScheduled :: QueryStatus
+pattern QueryStatusScheduled = QueryStatus' "Scheduled"
 
 {-# COMPLETE
-  QSCancelled,
-  QSComplete,
-  QSFailed,
-  QSRunning,
-  QSScheduled,
+  QueryStatusCancelled,
+  QueryStatusComplete,
+  QueryStatusFailed,
+  QueryStatusRunning,
+  QueryStatusScheduled,
   QueryStatus'
   #-}
 
-instance FromText QueryStatus where
-  parser = (QueryStatus' . mk) <$> takeText
+instance Prelude.FromText QueryStatus where
+  parser = QueryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText QueryStatus where
-  toText (QueryStatus' ci) = original ci
+instance Prelude.ToText QueryStatus where
+  toText (QueryStatus' x) = x
 
-instance Hashable QueryStatus
+instance Prelude.Hashable QueryStatus
 
-instance NFData QueryStatus
+instance Prelude.NFData QueryStatus
 
-instance ToByteString QueryStatus
+instance Prelude.ToByteString QueryStatus
 
-instance ToQuery QueryStatus
+instance Prelude.ToQuery QueryStatus
 
-instance ToHeader QueryStatus
+instance Prelude.ToHeader QueryStatus
 
-instance ToJSON QueryStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON QueryStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON QueryStatus where
-  parseJSON = parseJSONText "QueryStatus"
+instance Prelude.FromJSON QueryStatus where
+  parseJSON = Prelude.parseJSONText "QueryStatus"

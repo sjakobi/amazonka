@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.RejectedLogEventsInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the rejected events.
 --
---
---
--- /See:/ 'rejectedLogEventsInfo' smart constructor.
+-- /See:/ 'newRejectedLogEventsInfo' smart constructor.
 data RejectedLogEventsInfo = RejectedLogEventsInfo'
-  { _rleiTooOldLogEventEndIndex ::
-      !(Maybe Int),
-    _rleiExpiredLogEventEndIndex ::
-      !(Maybe Int),
-    _rleiTooNewLogEventStartIndex ::
-      !(Maybe Int)
+  { -- | The log events that are too old.
+    tooOldLogEventEndIndex :: Prelude.Maybe Prelude.Int,
+    -- | The expired log events.
+    expiredLogEventEndIndex :: Prelude.Maybe Prelude.Int,
+    -- | The log events that are too new.
+    tooNewLogEventStartIndex :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectedLogEventsInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectedLogEventsInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rleiTooOldLogEventEndIndex' - The log events that are too old.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rleiExpiredLogEventEndIndex' - The expired log events.
+-- 'tooOldLogEventEndIndex', 'rejectedLogEventsInfo_tooOldLogEventEndIndex' - The log events that are too old.
 --
--- * 'rleiTooNewLogEventStartIndex' - The log events that are too new.
-rejectedLogEventsInfo ::
+-- 'expiredLogEventEndIndex', 'rejectedLogEventsInfo_expiredLogEventEndIndex' - The expired log events.
+--
+-- 'tooNewLogEventStartIndex', 'rejectedLogEventsInfo_tooNewLogEventStartIndex' - The log events that are too new.
+newRejectedLogEventsInfo ::
   RejectedLogEventsInfo
-rejectedLogEventsInfo =
+newRejectedLogEventsInfo =
   RejectedLogEventsInfo'
-    { _rleiTooOldLogEventEndIndex =
-        Nothing,
-      _rleiExpiredLogEventEndIndex = Nothing,
-      _rleiTooNewLogEventStartIndex = Nothing
+    { tooOldLogEventEndIndex =
+        Prelude.Nothing,
+      expiredLogEventEndIndex = Prelude.Nothing,
+      tooNewLogEventStartIndex = Prelude.Nothing
     }
 
 -- | The log events that are too old.
-rleiTooOldLogEventEndIndex :: Lens' RejectedLogEventsInfo (Maybe Int)
-rleiTooOldLogEventEndIndex = lens _rleiTooOldLogEventEndIndex (\s a -> s {_rleiTooOldLogEventEndIndex = a})
+rejectedLogEventsInfo_tooOldLogEventEndIndex :: Lens.Lens' RejectedLogEventsInfo (Prelude.Maybe Prelude.Int)
+rejectedLogEventsInfo_tooOldLogEventEndIndex = Lens.lens (\RejectedLogEventsInfo' {tooOldLogEventEndIndex} -> tooOldLogEventEndIndex) (\s@RejectedLogEventsInfo' {} a -> s {tooOldLogEventEndIndex = a} :: RejectedLogEventsInfo)
 
 -- | The expired log events.
-rleiExpiredLogEventEndIndex :: Lens' RejectedLogEventsInfo (Maybe Int)
-rleiExpiredLogEventEndIndex = lens _rleiExpiredLogEventEndIndex (\s a -> s {_rleiExpiredLogEventEndIndex = a})
+rejectedLogEventsInfo_expiredLogEventEndIndex :: Lens.Lens' RejectedLogEventsInfo (Prelude.Maybe Prelude.Int)
+rejectedLogEventsInfo_expiredLogEventEndIndex = Lens.lens (\RejectedLogEventsInfo' {expiredLogEventEndIndex} -> expiredLogEventEndIndex) (\s@RejectedLogEventsInfo' {} a -> s {expiredLogEventEndIndex = a} :: RejectedLogEventsInfo)
 
 -- | The log events that are too new.
-rleiTooNewLogEventStartIndex :: Lens' RejectedLogEventsInfo (Maybe Int)
-rleiTooNewLogEventStartIndex = lens _rleiTooNewLogEventStartIndex (\s a -> s {_rleiTooNewLogEventStartIndex = a})
+rejectedLogEventsInfo_tooNewLogEventStartIndex :: Lens.Lens' RejectedLogEventsInfo (Prelude.Maybe Prelude.Int)
+rejectedLogEventsInfo_tooNewLogEventStartIndex = Lens.lens (\RejectedLogEventsInfo' {tooNewLogEventStartIndex} -> tooNewLogEventStartIndex) (\s@RejectedLogEventsInfo' {} a -> s {tooNewLogEventStartIndex = a} :: RejectedLogEventsInfo)
 
-instance FromJSON RejectedLogEventsInfo where
+instance Prelude.FromJSON RejectedLogEventsInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RejectedLogEventsInfo"
       ( \x ->
           RejectedLogEventsInfo'
-            <$> (x .:? "tooOldLogEventEndIndex")
-            <*> (x .:? "expiredLogEventEndIndex")
-            <*> (x .:? "tooNewLogEventStartIndex")
+            Prelude.<$> (x Prelude..:? "tooOldLogEventEndIndex")
+            Prelude.<*> (x Prelude..:? "expiredLogEventEndIndex")
+            Prelude.<*> (x Prelude..:? "tooNewLogEventStartIndex")
       )
 
-instance Hashable RejectedLogEventsInfo
+instance Prelude.Hashable RejectedLogEventsInfo
 
-instance NFData RejectedLogEventsInfo
+instance Prelude.NFData RejectedLogEventsInfo

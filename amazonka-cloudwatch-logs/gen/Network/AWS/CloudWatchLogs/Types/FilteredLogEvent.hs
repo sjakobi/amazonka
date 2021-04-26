@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.FilteredLogEvent where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a matched event.
 --
---
---
--- /See:/ 'filteredLogEvent' smart constructor.
+-- /See:/ 'newFilteredLogEvent' smart constructor.
 data FilteredLogEvent = FilteredLogEvent'
-  { _fleLogStreamName ::
-      !(Maybe Text),
-    _fleEventId :: !(Maybe Text),
-    _fleMessage :: !(Maybe Text),
-    _fleIngestionTime :: !(Maybe Nat),
-    _fleTimestamp :: !(Maybe Nat)
+  { -- | The name of the log stream to which this event belongs.
+    logStreamName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the event.
+    eventId :: Prelude.Maybe Prelude.Text,
+    -- | The data contained in the log event.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The time the event was ingested, expressed as the number of milliseconds
+    -- after Jan 1, 1970 00:00:00 UTC.
+    ingestionTime :: Prelude.Maybe Prelude.Nat,
+    -- | The time the event occurred, expressed as the number of milliseconds
+    -- after Jan 1, 1970 00:00:00 UTC.
+    timestamp :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FilteredLogEvent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FilteredLogEvent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fleLogStreamName' - The name of the log stream to which this event belongs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fleEventId' - The ID of the event.
+-- 'logStreamName', 'filteredLogEvent_logStreamName' - The name of the log stream to which this event belongs.
 --
--- * 'fleMessage' - The data contained in the log event.
+-- 'eventId', 'filteredLogEvent_eventId' - The ID of the event.
 --
--- * 'fleIngestionTime' - The time the event was ingested, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+-- 'message', 'filteredLogEvent_message' - The data contained in the log event.
 --
--- * 'fleTimestamp' - The time the event occurred, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-filteredLogEvent ::
+-- 'ingestionTime', 'filteredLogEvent_ingestionTime' - The time the event was ingested, expressed as the number of milliseconds
+-- after Jan 1, 1970 00:00:00 UTC.
+--
+-- 'timestamp', 'filteredLogEvent_timestamp' - The time the event occurred, expressed as the number of milliseconds
+-- after Jan 1, 1970 00:00:00 UTC.
+newFilteredLogEvent ::
   FilteredLogEvent
-filteredLogEvent =
+newFilteredLogEvent =
   FilteredLogEvent'
-    { _fleLogStreamName = Nothing,
-      _fleEventId = Nothing,
-      _fleMessage = Nothing,
-      _fleIngestionTime = Nothing,
-      _fleTimestamp = Nothing
+    { logStreamName = Prelude.Nothing,
+      eventId = Prelude.Nothing,
+      message = Prelude.Nothing,
+      ingestionTime = Prelude.Nothing,
+      timestamp = Prelude.Nothing
     }
 
 -- | The name of the log stream to which this event belongs.
-fleLogStreamName :: Lens' FilteredLogEvent (Maybe Text)
-fleLogStreamName = lens _fleLogStreamName (\s a -> s {_fleLogStreamName = a})
+filteredLogEvent_logStreamName :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.Text)
+filteredLogEvent_logStreamName = Lens.lens (\FilteredLogEvent' {logStreamName} -> logStreamName) (\s@FilteredLogEvent' {} a -> s {logStreamName = a} :: FilteredLogEvent)
 
 -- | The ID of the event.
-fleEventId :: Lens' FilteredLogEvent (Maybe Text)
-fleEventId = lens _fleEventId (\s a -> s {_fleEventId = a})
+filteredLogEvent_eventId :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.Text)
+filteredLogEvent_eventId = Lens.lens (\FilteredLogEvent' {eventId} -> eventId) (\s@FilteredLogEvent' {} a -> s {eventId = a} :: FilteredLogEvent)
 
 -- | The data contained in the log event.
-fleMessage :: Lens' FilteredLogEvent (Maybe Text)
-fleMessage = lens _fleMessage (\s a -> s {_fleMessage = a})
+filteredLogEvent_message :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.Text)
+filteredLogEvent_message = Lens.lens (\FilteredLogEvent' {message} -> message) (\s@FilteredLogEvent' {} a -> s {message = a} :: FilteredLogEvent)
 
--- | The time the event was ingested, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-fleIngestionTime :: Lens' FilteredLogEvent (Maybe Natural)
-fleIngestionTime = lens _fleIngestionTime (\s a -> s {_fleIngestionTime = a}) . mapping _Nat
+-- | The time the event was ingested, expressed as the number of milliseconds
+-- after Jan 1, 1970 00:00:00 UTC.
+filteredLogEvent_ingestionTime :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.Natural)
+filteredLogEvent_ingestionTime = Lens.lens (\FilteredLogEvent' {ingestionTime} -> ingestionTime) (\s@FilteredLogEvent' {} a -> s {ingestionTime = a} :: FilteredLogEvent) Prelude.. Lens.mapping Prelude._Nat
 
--- | The time the event occurred, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-fleTimestamp :: Lens' FilteredLogEvent (Maybe Natural)
-fleTimestamp = lens _fleTimestamp (\s a -> s {_fleTimestamp = a}) . mapping _Nat
+-- | The time the event occurred, expressed as the number of milliseconds
+-- after Jan 1, 1970 00:00:00 UTC.
+filteredLogEvent_timestamp :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.Natural)
+filteredLogEvent_timestamp = Lens.lens (\FilteredLogEvent' {timestamp} -> timestamp) (\s@FilteredLogEvent' {} a -> s {timestamp = a} :: FilteredLogEvent) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON FilteredLogEvent where
+instance Prelude.FromJSON FilteredLogEvent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FilteredLogEvent"
       ( \x ->
           FilteredLogEvent'
-            <$> (x .:? "logStreamName")
-            <*> (x .:? "eventId")
-            <*> (x .:? "message")
-            <*> (x .:? "ingestionTime")
-            <*> (x .:? "timestamp")
+            Prelude.<$> (x Prelude..:? "logStreamName")
+            Prelude.<*> (x Prelude..:? "eventId")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "ingestionTime")
+            Prelude.<*> (x Prelude..:? "timestamp")
       )
 
-instance Hashable FilteredLogEvent
+instance Prelude.Hashable FilteredLogEvent
 
-instance NFData FilteredLogEvent
+instance Prelude.NFData FilteredLogEvent

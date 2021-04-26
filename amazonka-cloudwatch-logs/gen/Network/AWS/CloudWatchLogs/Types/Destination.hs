@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,107 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.Destination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a cross-account destination that receives subscription log events.
+-- | Represents a cross-account destination that receives subscription log
+-- events.
 --
---
---
--- /See:/ 'destination' smart constructor.
+-- /See:/ 'newDestination' smart constructor.
 data Destination = Destination'
-  { _dCreationTime ::
-      !(Maybe Nat),
-    _dRoleARN :: !(Maybe Text),
-    _dDestinationName :: !(Maybe Text),
-    _dArn :: !(Maybe Text),
-    _dTargetARN :: !(Maybe Text),
-    _dAccessPolicy :: !(Maybe Text)
+  { -- | The creation time of the destination, expressed as the number of
+    -- milliseconds after Jan 1, 1970 00:00:00 UTC.
+    creationTime :: Prelude.Maybe Prelude.Nat,
+    -- | A role for impersonation, used when delivering log events to the target.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the destination.
+    destinationName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of this destination.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the physical target where the log
+    -- events are delivered (for example, a Kinesis stream).
+    targetArn :: Prelude.Maybe Prelude.Text,
+    -- | An IAM policy document that governs which AWS accounts can create
+    -- subscription filters against this destination.
+    accessPolicy :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Destination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Destination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dCreationTime' - The creation time of the destination, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dRoleARN' - A role for impersonation, used when delivering log events to the target.
+-- 'creationTime', 'destination_creationTime' - The creation time of the destination, expressed as the number of
+-- milliseconds after Jan 1, 1970 00:00:00 UTC.
 --
--- * 'dDestinationName' - The name of the destination.
+-- 'roleArn', 'destination_roleArn' - A role for impersonation, used when delivering log events to the target.
 --
--- * 'dArn' - The ARN of this destination.
+-- 'destinationName', 'destination_destinationName' - The name of the destination.
 --
--- * 'dTargetARN' - The Amazon Resource Name (ARN) of the physical target where the log events are delivered (for example, a Kinesis stream).
+-- 'arn', 'destination_arn' - The ARN of this destination.
 --
--- * 'dAccessPolicy' - An IAM policy document that governs which AWS accounts can create subscription filters against this destination.
-destination ::
+-- 'targetArn', 'destination_targetArn' - The Amazon Resource Name (ARN) of the physical target where the log
+-- events are delivered (for example, a Kinesis stream).
+--
+-- 'accessPolicy', 'destination_accessPolicy' - An IAM policy document that governs which AWS accounts can create
+-- subscription filters against this destination.
+newDestination ::
   Destination
-destination =
+newDestination =
   Destination'
-    { _dCreationTime = Nothing,
-      _dRoleARN = Nothing,
-      _dDestinationName = Nothing,
-      _dArn = Nothing,
-      _dTargetARN = Nothing,
-      _dAccessPolicy = Nothing
+    { creationTime = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      destinationName = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      targetArn = Prelude.Nothing,
+      accessPolicy = Prelude.Nothing
     }
 
--- | The creation time of the destination, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-dCreationTime :: Lens' Destination (Maybe Natural)
-dCreationTime = lens _dCreationTime (\s a -> s {_dCreationTime = a}) . mapping _Nat
+-- | The creation time of the destination, expressed as the number of
+-- milliseconds after Jan 1, 1970 00:00:00 UTC.
+destination_creationTime :: Lens.Lens' Destination (Prelude.Maybe Prelude.Natural)
+destination_creationTime = Lens.lens (\Destination' {creationTime} -> creationTime) (\s@Destination' {} a -> s {creationTime = a} :: Destination) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A role for impersonation, used when delivering log events to the target.
-dRoleARN :: Lens' Destination (Maybe Text)
-dRoleARN = lens _dRoleARN (\s a -> s {_dRoleARN = a})
+destination_roleArn :: Lens.Lens' Destination (Prelude.Maybe Prelude.Text)
+destination_roleArn = Lens.lens (\Destination' {roleArn} -> roleArn) (\s@Destination' {} a -> s {roleArn = a} :: Destination)
 
 -- | The name of the destination.
-dDestinationName :: Lens' Destination (Maybe Text)
-dDestinationName = lens _dDestinationName (\s a -> s {_dDestinationName = a})
+destination_destinationName :: Lens.Lens' Destination (Prelude.Maybe Prelude.Text)
+destination_destinationName = Lens.lens (\Destination' {destinationName} -> destinationName) (\s@Destination' {} a -> s {destinationName = a} :: Destination)
 
 -- | The ARN of this destination.
-dArn :: Lens' Destination (Maybe Text)
-dArn = lens _dArn (\s a -> s {_dArn = a})
+destination_arn :: Lens.Lens' Destination (Prelude.Maybe Prelude.Text)
+destination_arn = Lens.lens (\Destination' {arn} -> arn) (\s@Destination' {} a -> s {arn = a} :: Destination)
 
--- | The Amazon Resource Name (ARN) of the physical target where the log events are delivered (for example, a Kinesis stream).
-dTargetARN :: Lens' Destination (Maybe Text)
-dTargetARN = lens _dTargetARN (\s a -> s {_dTargetARN = a})
+-- | The Amazon Resource Name (ARN) of the physical target where the log
+-- events are delivered (for example, a Kinesis stream).
+destination_targetArn :: Lens.Lens' Destination (Prelude.Maybe Prelude.Text)
+destination_targetArn = Lens.lens (\Destination' {targetArn} -> targetArn) (\s@Destination' {} a -> s {targetArn = a} :: Destination)
 
--- | An IAM policy document that governs which AWS accounts can create subscription filters against this destination.
-dAccessPolicy :: Lens' Destination (Maybe Text)
-dAccessPolicy = lens _dAccessPolicy (\s a -> s {_dAccessPolicy = a})
+-- | An IAM policy document that governs which AWS accounts can create
+-- subscription filters against this destination.
+destination_accessPolicy :: Lens.Lens' Destination (Prelude.Maybe Prelude.Text)
+destination_accessPolicy = Lens.lens (\Destination' {accessPolicy} -> accessPolicy) (\s@Destination' {} a -> s {accessPolicy = a} :: Destination)
 
-instance FromJSON Destination where
+instance Prelude.FromJSON Destination where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Destination"
       ( \x ->
           Destination'
-            <$> (x .:? "creationTime")
-            <*> (x .:? "roleArn")
-            <*> (x .:? "destinationName")
-            <*> (x .:? "arn")
-            <*> (x .:? "targetArn")
-            <*> (x .:? "accessPolicy")
+            Prelude.<$> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "roleArn")
+            Prelude.<*> (x Prelude..:? "destinationName")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "targetArn")
+            Prelude.<*> (x Prelude..:? "accessPolicy")
       )
 
-instance Hashable Destination
+instance Prelude.Hashable Destination
 
-instance NFData Destination
+instance Prelude.NFData Destination

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,57 @@
 module Network.AWS.CloudWatchLogs.Types.ExportTaskStatus where
 
 import Network.AWS.CloudWatchLogs.Types.ExportTaskStatusCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the status of an export task.
 --
---
---
--- /See:/ 'exportTaskStatus' smart constructor.
+-- /See:/ 'newExportTaskStatus' smart constructor.
 data ExportTaskStatus = ExportTaskStatus'
-  { _etsMessage ::
-      !(Maybe Text),
-    _etsCode ::
-      !(Maybe ExportTaskStatusCode)
+  { -- | The status message related to the status code.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The status code of the export task.
+    code :: Prelude.Maybe ExportTaskStatusCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportTaskStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportTaskStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etsMessage' - The status message related to the status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etsCode' - The status code of the export task.
-exportTaskStatus ::
+-- 'message', 'exportTaskStatus_message' - The status message related to the status code.
+--
+-- 'code', 'exportTaskStatus_code' - The status code of the export task.
+newExportTaskStatus ::
   ExportTaskStatus
-exportTaskStatus =
+newExportTaskStatus =
   ExportTaskStatus'
-    { _etsMessage = Nothing,
-      _etsCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The status message related to the status code.
-etsMessage :: Lens' ExportTaskStatus (Maybe Text)
-etsMessage = lens _etsMessage (\s a -> s {_etsMessage = a})
+exportTaskStatus_message :: Lens.Lens' ExportTaskStatus (Prelude.Maybe Prelude.Text)
+exportTaskStatus_message = Lens.lens (\ExportTaskStatus' {message} -> message) (\s@ExportTaskStatus' {} a -> s {message = a} :: ExportTaskStatus)
 
 -- | The status code of the export task.
-etsCode :: Lens' ExportTaskStatus (Maybe ExportTaskStatusCode)
-etsCode = lens _etsCode (\s a -> s {_etsCode = a})
+exportTaskStatus_code :: Lens.Lens' ExportTaskStatus (Prelude.Maybe ExportTaskStatusCode)
+exportTaskStatus_code = Lens.lens (\ExportTaskStatus' {code} -> code) (\s@ExportTaskStatus' {} a -> s {code = a} :: ExportTaskStatus)
 
-instance FromJSON ExportTaskStatus where
+instance Prelude.FromJSON ExportTaskStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExportTaskStatus"
       ( \x ->
           ExportTaskStatus'
-            <$> (x .:? "message") <*> (x .:? "code")
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "code")
       )
 
-instance Hashable ExportTaskStatus
+instance Prelude.Hashable ExportTaskStatus
 
-instance NFData ExportTaskStatus
+instance Prelude.NFData ExportTaskStatus

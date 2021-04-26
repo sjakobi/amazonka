@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,101 +21,112 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified destination, and eventually disables all the subscription filters that publish to it. This operation does not delete the physical resource encapsulated by the destination.
+-- Deletes the specified destination, and eventually disables all the
+-- subscription filters that publish to it. This operation does not delete
+-- the physical resource encapsulated by the destination.
 module Network.AWS.CloudWatchLogs.DeleteDestination
   ( -- * Creating a Request
-    deleteDestination,
-    DeleteDestination,
+    DeleteDestination (..),
+    newDeleteDestination,
 
     -- * Request Lenses
-    ddDestinationName,
+    deleteDestination_destinationName,
 
     -- * Destructuring the Response
-    deleteDestinationResponse,
-    DeleteDestinationResponse,
+    DeleteDestinationResponse (..),
+    newDeleteDestinationResponse,
   )
 where
 
 import Network.AWS.CloudWatchLogs.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDestination' smart constructor.
-newtype DeleteDestination = DeleteDestination'
-  { _ddDestinationName ::
-      Text
+-- | /See:/ 'newDeleteDestination' smart constructor.
+data DeleteDestination = DeleteDestination'
+  { -- | The name of the destination.
+    destinationName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddDestinationName' - The name of the destination.
-deleteDestination ::
-  -- | 'ddDestinationName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'destinationName', 'deleteDestination_destinationName' - The name of the destination.
+newDeleteDestination ::
+  -- | 'destinationName'
+  Prelude.Text ->
   DeleteDestination
-deleteDestination pDestinationName_ =
+newDeleteDestination pDestinationName_ =
   DeleteDestination'
-    { _ddDestinationName =
+    { destinationName =
         pDestinationName_
     }
 
 -- | The name of the destination.
-ddDestinationName :: Lens' DeleteDestination Text
-ddDestinationName = lens _ddDestinationName (\s a -> s {_ddDestinationName = a})
+deleteDestination_destinationName :: Lens.Lens' DeleteDestination Prelude.Text
+deleteDestination_destinationName = Lens.lens (\DeleteDestination' {destinationName} -> destinationName) (\s@DeleteDestination' {} a -> s {destinationName = a} :: DeleteDestination)
 
-instance AWSRequest DeleteDestination where
+instance Prelude.AWSRequest DeleteDestination where
   type Rs DeleteDestination = DeleteDestinationResponse
-  request = postJSON cloudWatchLogs
-  response = receiveNull DeleteDestinationResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteDestinationResponse'
 
-instance Hashable DeleteDestination
+instance Prelude.Hashable DeleteDestination
 
-instance NFData DeleteDestination
+instance Prelude.NFData DeleteDestination
 
-instance ToHeaders DeleteDestination where
+instance Prelude.ToHeaders DeleteDestination where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Logs_20140328.DeleteDestination" :: ByteString),
+              Prelude.=# ( "Logs_20140328.DeleteDestination" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDestination where
+instance Prelude.ToJSON DeleteDestination where
   toJSON DeleteDestination' {..} =
-    object
-      ( catMaybes
-          [Just ("destinationName" .= _ddDestinationName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("destinationName" Prelude..= destinationName)
+          ]
       )
 
-instance ToPath DeleteDestination where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDestination where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDestination where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDestination where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDestinationResponse' smart constructor.
+-- | /See:/ 'newDeleteDestinationResponse' smart constructor.
 data DeleteDestinationResponse = DeleteDestinationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDestinationResponse' with the minimum fields required to make a request.
-deleteDestinationResponse ::
+-- |
+-- Create a value of 'DeleteDestinationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteDestinationResponse ::
   DeleteDestinationResponse
-deleteDestinationResponse =
+newDeleteDestinationResponse =
   DeleteDestinationResponse'
 
-instance NFData DeleteDestinationResponse
+instance Prelude.NFData DeleteDestinationResponse

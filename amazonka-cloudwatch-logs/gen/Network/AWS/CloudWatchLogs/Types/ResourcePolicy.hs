@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.ResourcePolicy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A policy enabling one or more entities to put logs to a log group in this account.
+-- | A policy enabling one or more entities to put logs to a log group in
+-- this account.
 --
---
---
--- /See:/ 'resourcePolicy' smart constructor.
+-- /See:/ 'newResourcePolicy' smart constructor.
 data ResourcePolicy = ResourcePolicy'
-  { _rpPolicyName ::
-      !(Maybe Text),
-    _rpPolicyDocument :: !(Maybe Text),
-    _rpLastUpdatedTime :: !(Maybe Nat)
+  { -- | The name of the resource policy.
+    policyName :: Prelude.Maybe Prelude.Text,
+    -- | The details of the policy.
+    policyDocument :: Prelude.Maybe Prelude.Text,
+    -- | Timestamp showing when this policy was last updated, expressed as the
+    -- number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+    lastUpdatedTime :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourcePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourcePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpPolicyName' - The name of the resource policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpPolicyDocument' - The details of the policy.
+-- 'policyName', 'resourcePolicy_policyName' - The name of the resource policy.
 --
--- * 'rpLastUpdatedTime' - Timestamp showing when this policy was last updated, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-resourcePolicy ::
+-- 'policyDocument', 'resourcePolicy_policyDocument' - The details of the policy.
+--
+-- 'lastUpdatedTime', 'resourcePolicy_lastUpdatedTime' - Timestamp showing when this policy was last updated, expressed as the
+-- number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+newResourcePolicy ::
   ResourcePolicy
-resourcePolicy =
+newResourcePolicy =
   ResourcePolicy'
-    { _rpPolicyName = Nothing,
-      _rpPolicyDocument = Nothing,
-      _rpLastUpdatedTime = Nothing
+    { policyName = Prelude.Nothing,
+      policyDocument = Prelude.Nothing,
+      lastUpdatedTime = Prelude.Nothing
     }
 
 -- | The name of the resource policy.
-rpPolicyName :: Lens' ResourcePolicy (Maybe Text)
-rpPolicyName = lens _rpPolicyName (\s a -> s {_rpPolicyName = a})
+resourcePolicy_policyName :: Lens.Lens' ResourcePolicy (Prelude.Maybe Prelude.Text)
+resourcePolicy_policyName = Lens.lens (\ResourcePolicy' {policyName} -> policyName) (\s@ResourcePolicy' {} a -> s {policyName = a} :: ResourcePolicy)
 
 -- | The details of the policy.
-rpPolicyDocument :: Lens' ResourcePolicy (Maybe Text)
-rpPolicyDocument = lens _rpPolicyDocument (\s a -> s {_rpPolicyDocument = a})
+resourcePolicy_policyDocument :: Lens.Lens' ResourcePolicy (Prelude.Maybe Prelude.Text)
+resourcePolicy_policyDocument = Lens.lens (\ResourcePolicy' {policyDocument} -> policyDocument) (\s@ResourcePolicy' {} a -> s {policyDocument = a} :: ResourcePolicy)
 
--- | Timestamp showing when this policy was last updated, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
-rpLastUpdatedTime :: Lens' ResourcePolicy (Maybe Natural)
-rpLastUpdatedTime = lens _rpLastUpdatedTime (\s a -> s {_rpLastUpdatedTime = a}) . mapping _Nat
+-- | Timestamp showing when this policy was last updated, expressed as the
+-- number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+resourcePolicy_lastUpdatedTime :: Lens.Lens' ResourcePolicy (Prelude.Maybe Prelude.Natural)
+resourcePolicy_lastUpdatedTime = Lens.lens (\ResourcePolicy' {lastUpdatedTime} -> lastUpdatedTime) (\s@ResourcePolicy' {} a -> s {lastUpdatedTime = a} :: ResourcePolicy) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON ResourcePolicy where
+instance Prelude.FromJSON ResourcePolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourcePolicy"
       ( \x ->
           ResourcePolicy'
-            <$> (x .:? "policyName")
-            <*> (x .:? "policyDocument")
-            <*> (x .:? "lastUpdatedTime")
+            Prelude.<$> (x Prelude..:? "policyName")
+            Prelude.<*> (x Prelude..:? "policyDocument")
+            Prelude.<*> (x Prelude..:? "lastUpdatedTime")
       )
 
-instance Hashable ResourcePolicy
+instance Prelude.Hashable ResourcePolicy
 
-instance NFData ResourcePolicy
+instance Prelude.NFData ResourcePolicy

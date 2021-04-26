@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudWatchLogs.Types.QueryDefinition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This structure contains details about a saved CloudWatch Logs Insights query definition.
+-- | This structure contains details about a saved CloudWatch Logs Insights
+-- query definition.
 --
---
---
--- /See:/ 'queryDefinition' smart constructor.
+-- /See:/ 'newQueryDefinition' smart constructor.
 data QueryDefinition = QueryDefinition'
-  { _qdQueryString ::
-      !(Maybe Text),
-    _qdName :: !(Maybe Text),
-    _qdLogGroupNames :: !(Maybe [Text]),
-    _qdLastModified :: !(Maybe Nat),
-    _qdQueryDefinitionId :: !(Maybe Text)
+  { -- | The query string to use for this definition. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
+    queryString :: Prelude.Maybe Prelude.Text,
+    -- | The name of the query definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If this query definition contains a list of log groups that it is
+    -- limited to, that list appears here.
+    logGroupNames :: Prelude.Maybe [Prelude.Text],
+    -- | The date that the query definition was most recently modified.
+    lastModified :: Prelude.Maybe Prelude.Nat,
+    -- | The unique ID of the query definition.
+    queryDefinitionId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qdQueryString' - The query string to use for this definition. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qdName' - The name of the query definition.
+-- 'queryString', 'queryDefinition_queryString' - The query string to use for this definition. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
 --
--- * 'qdLogGroupNames' - If this query definition contains a list of log groups that it is limited to, that list appears here.
+-- 'name', 'queryDefinition_name' - The name of the query definition.
 --
--- * 'qdLastModified' - The date that the query definition was most recently modified.
+-- 'logGroupNames', 'queryDefinition_logGroupNames' - If this query definition contains a list of log groups that it is
+-- limited to, that list appears here.
 --
--- * 'qdQueryDefinitionId' - The unique ID of the query definition.
-queryDefinition ::
+-- 'lastModified', 'queryDefinition_lastModified' - The date that the query definition was most recently modified.
+--
+-- 'queryDefinitionId', 'queryDefinition_queryDefinitionId' - The unique ID of the query definition.
+newQueryDefinition ::
   QueryDefinition
-queryDefinition =
+newQueryDefinition =
   QueryDefinition'
-    { _qdQueryString = Nothing,
-      _qdName = Nothing,
-      _qdLogGroupNames = Nothing,
-      _qdLastModified = Nothing,
-      _qdQueryDefinitionId = Nothing
+    { queryString = Prelude.Nothing,
+      name = Prelude.Nothing,
+      logGroupNames = Prelude.Nothing,
+      lastModified = Prelude.Nothing,
+      queryDefinitionId = Prelude.Nothing
     }
 
--- | The query string to use for this definition. For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax> .
-qdQueryString :: Lens' QueryDefinition (Maybe Text)
-qdQueryString = lens _qdQueryString (\s a -> s {_qdQueryString = a})
+-- | The query string to use for this definition. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
+queryDefinition_queryString :: Lens.Lens' QueryDefinition (Prelude.Maybe Prelude.Text)
+queryDefinition_queryString = Lens.lens (\QueryDefinition' {queryString} -> queryString) (\s@QueryDefinition' {} a -> s {queryString = a} :: QueryDefinition)
 
 -- | The name of the query definition.
-qdName :: Lens' QueryDefinition (Maybe Text)
-qdName = lens _qdName (\s a -> s {_qdName = a})
+queryDefinition_name :: Lens.Lens' QueryDefinition (Prelude.Maybe Prelude.Text)
+queryDefinition_name = Lens.lens (\QueryDefinition' {name} -> name) (\s@QueryDefinition' {} a -> s {name = a} :: QueryDefinition)
 
--- | If this query definition contains a list of log groups that it is limited to, that list appears here.
-qdLogGroupNames :: Lens' QueryDefinition [Text]
-qdLogGroupNames = lens _qdLogGroupNames (\s a -> s {_qdLogGroupNames = a}) . _Default . _Coerce
+-- | If this query definition contains a list of log groups that it is
+-- limited to, that list appears here.
+queryDefinition_logGroupNames :: Lens.Lens' QueryDefinition (Prelude.Maybe [Prelude.Text])
+queryDefinition_logGroupNames = Lens.lens (\QueryDefinition' {logGroupNames} -> logGroupNames) (\s@QueryDefinition' {} a -> s {logGroupNames = a} :: QueryDefinition) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date that the query definition was most recently modified.
-qdLastModified :: Lens' QueryDefinition (Maybe Natural)
-qdLastModified = lens _qdLastModified (\s a -> s {_qdLastModified = a}) . mapping _Nat
+queryDefinition_lastModified :: Lens.Lens' QueryDefinition (Prelude.Maybe Prelude.Natural)
+queryDefinition_lastModified = Lens.lens (\QueryDefinition' {lastModified} -> lastModified) (\s@QueryDefinition' {} a -> s {lastModified = a} :: QueryDefinition) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The unique ID of the query definition.
-qdQueryDefinitionId :: Lens' QueryDefinition (Maybe Text)
-qdQueryDefinitionId = lens _qdQueryDefinitionId (\s a -> s {_qdQueryDefinitionId = a})
+queryDefinition_queryDefinitionId :: Lens.Lens' QueryDefinition (Prelude.Maybe Prelude.Text)
+queryDefinition_queryDefinitionId = Lens.lens (\QueryDefinition' {queryDefinitionId} -> queryDefinitionId) (\s@QueryDefinition' {} a -> s {queryDefinitionId = a} :: QueryDefinition)
 
-instance FromJSON QueryDefinition where
+instance Prelude.FromJSON QueryDefinition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueryDefinition"
       ( \x ->
           QueryDefinition'
-            <$> (x .:? "queryString")
-            <*> (x .:? "name")
-            <*> (x .:? "logGroupNames" .!= mempty)
-            <*> (x .:? "lastModified")
-            <*> (x .:? "queryDefinitionId")
+            Prelude.<$> (x Prelude..:? "queryString")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> ( x Prelude..:? "logGroupNames"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "lastModified")
+            Prelude.<*> (x Prelude..:? "queryDefinitionId")
       )
 
-instance Hashable QueryDefinition
+instance Prelude.Hashable QueryDefinition
 
-instance NFData QueryDefinition
+instance Prelude.NFData QueryDefinition

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,112 +21,123 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified log stream and permanently deletes all the archived log events associated with the log stream.
+-- Deletes the specified log stream and permanently deletes all the
+-- archived log events associated with the log stream.
 module Network.AWS.CloudWatchLogs.DeleteLogStream
   ( -- * Creating a Request
-    deleteLogStream,
-    DeleteLogStream,
+    DeleteLogStream (..),
+    newDeleteLogStream,
 
     -- * Request Lenses
-    delLogGroupName,
-    delLogStreamName,
+    deleteLogStream_logGroupName,
+    deleteLogStream_logStreamName,
 
     -- * Destructuring the Response
-    deleteLogStreamResponse,
-    DeleteLogStreamResponse,
+    DeleteLogStreamResponse (..),
+    newDeleteLogStreamResponse,
   )
 where
 
 import Network.AWS.CloudWatchLogs.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLogStream' smart constructor.
+-- | /See:/ 'newDeleteLogStream' smart constructor.
 data DeleteLogStream = DeleteLogStream'
-  { _delLogGroupName ::
-      !Text,
-    _delLogStreamName :: !Text
+  { -- | The name of the log group.
+    logGroupName :: Prelude.Text,
+    -- | The name of the log stream.
+    logStreamName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLogStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLogStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delLogGroupName' - The name of the log group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delLogStreamName' - The name of the log stream.
-deleteLogStream ::
-  -- | 'delLogGroupName'
-  Text ->
-  -- | 'delLogStreamName'
-  Text ->
+-- 'logGroupName', 'deleteLogStream_logGroupName' - The name of the log group.
+--
+-- 'logStreamName', 'deleteLogStream_logStreamName' - The name of the log stream.
+newDeleteLogStream ::
+  -- | 'logGroupName'
+  Prelude.Text ->
+  -- | 'logStreamName'
+  Prelude.Text ->
   DeleteLogStream
-deleteLogStream pLogGroupName_ pLogStreamName_ =
+newDeleteLogStream pLogGroupName_ pLogStreamName_ =
   DeleteLogStream'
-    { _delLogGroupName = pLogGroupName_,
-      _delLogStreamName = pLogStreamName_
+    { logGroupName = pLogGroupName_,
+      logStreamName = pLogStreamName_
     }
 
 -- | The name of the log group.
-delLogGroupName :: Lens' DeleteLogStream Text
-delLogGroupName = lens _delLogGroupName (\s a -> s {_delLogGroupName = a})
+deleteLogStream_logGroupName :: Lens.Lens' DeleteLogStream Prelude.Text
+deleteLogStream_logGroupName = Lens.lens (\DeleteLogStream' {logGroupName} -> logGroupName) (\s@DeleteLogStream' {} a -> s {logGroupName = a} :: DeleteLogStream)
 
 -- | The name of the log stream.
-delLogStreamName :: Lens' DeleteLogStream Text
-delLogStreamName = lens _delLogStreamName (\s a -> s {_delLogStreamName = a})
+deleteLogStream_logStreamName :: Lens.Lens' DeleteLogStream Prelude.Text
+deleteLogStream_logStreamName = Lens.lens (\DeleteLogStream' {logStreamName} -> logStreamName) (\s@DeleteLogStream' {} a -> s {logStreamName = a} :: DeleteLogStream)
 
-instance AWSRequest DeleteLogStream where
+instance Prelude.AWSRequest DeleteLogStream where
   type Rs DeleteLogStream = DeleteLogStreamResponse
-  request = postJSON cloudWatchLogs
-  response = receiveNull DeleteLogStreamResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteLogStreamResponse'
 
-instance Hashable DeleteLogStream
+instance Prelude.Hashable DeleteLogStream
 
-instance NFData DeleteLogStream
+instance Prelude.NFData DeleteLogStream
 
-instance ToHeaders DeleteLogStream where
+instance Prelude.ToHeaders DeleteLogStream where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Logs_20140328.DeleteLogStream" :: ByteString),
+              Prelude.=# ( "Logs_20140328.DeleteLogStream" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteLogStream where
+instance Prelude.ToJSON DeleteLogStream where
   toJSON DeleteLogStream' {..} =
-    object
-      ( catMaybes
-          [ Just ("logGroupName" .= _delLogGroupName),
-            Just ("logStreamName" .= _delLogStreamName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("logGroupName" Prelude..= logGroupName),
+            Prelude.Just
+              ("logStreamName" Prelude..= logStreamName)
           ]
       )
 
-instance ToPath DeleteLogStream where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLogStream where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLogStream where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteLogStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteLogStreamResponse' smart constructor.
+-- | /See:/ 'newDeleteLogStreamResponse' smart constructor.
 data DeleteLogStreamResponse = DeleteLogStreamResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLogStreamResponse' with the minimum fields required to make a request.
-deleteLogStreamResponse ::
+-- |
+-- Create a value of 'DeleteLogStreamResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteLogStreamResponse ::
   DeleteLogStreamResponse
-deleteLogStreamResponse = DeleteLogStreamResponse'
+newDeleteLogStreamResponse = DeleteLogStreamResponse'
 
-instance NFData DeleteLogStreamResponse
+instance Prelude.NFData DeleteLogStreamResponse

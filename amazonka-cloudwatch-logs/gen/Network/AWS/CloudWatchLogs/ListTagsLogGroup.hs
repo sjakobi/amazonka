@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,133 +24,136 @@
 -- Lists the tags for the specified log group.
 module Network.AWS.CloudWatchLogs.ListTagsLogGroup
   ( -- * Creating a Request
-    listTagsLogGroup,
-    ListTagsLogGroup,
+    ListTagsLogGroup (..),
+    newListTagsLogGroup,
 
     -- * Request Lenses
-    ltlgLogGroupName,
+    listTagsLogGroup_logGroupName,
 
     -- * Destructuring the Response
-    listTagsLogGroupResponse,
-    ListTagsLogGroupResponse,
+    ListTagsLogGroupResponse (..),
+    newListTagsLogGroupResponse,
 
     -- * Response Lenses
-    ltlgrrsTags,
-    ltlgrrsResponseStatus,
+    listTagsLogGroupResponse_tags,
+    listTagsLogGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudWatchLogs.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTagsLogGroup' smart constructor.
-newtype ListTagsLogGroup = ListTagsLogGroup'
-  { _ltlgLogGroupName ::
-      Text
+-- | /See:/ 'newListTagsLogGroup' smart constructor.
+data ListTagsLogGroup = ListTagsLogGroup'
+  { -- | The name of the log group.
+    logGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsLogGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsLogGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltlgLogGroupName' - The name of the log group.
-listTagsLogGroup ::
-  -- | 'ltlgLogGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'logGroupName', 'listTagsLogGroup_logGroupName' - The name of the log group.
+newListTagsLogGroup ::
+  -- | 'logGroupName'
+  Prelude.Text ->
   ListTagsLogGroup
-listTagsLogGroup pLogGroupName_ =
-  ListTagsLogGroup'
-    { _ltlgLogGroupName =
-        pLogGroupName_
-    }
+newListTagsLogGroup pLogGroupName_ =
+  ListTagsLogGroup' {logGroupName = pLogGroupName_}
 
 -- | The name of the log group.
-ltlgLogGroupName :: Lens' ListTagsLogGroup Text
-ltlgLogGroupName = lens _ltlgLogGroupName (\s a -> s {_ltlgLogGroupName = a})
+listTagsLogGroup_logGroupName :: Lens.Lens' ListTagsLogGroup Prelude.Text
+listTagsLogGroup_logGroupName = Lens.lens (\ListTagsLogGroup' {logGroupName} -> logGroupName) (\s@ListTagsLogGroup' {} a -> s {logGroupName = a} :: ListTagsLogGroup)
 
-instance AWSRequest ListTagsLogGroup where
+instance Prelude.AWSRequest ListTagsLogGroup where
   type Rs ListTagsLogGroup = ListTagsLogGroupResponse
-  request = postJSON cloudWatchLogs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagsLogGroupResponse'
-            <$> (x .?> "tags" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTagsLogGroup
+instance Prelude.Hashable ListTagsLogGroup
 
-instance NFData ListTagsLogGroup
+instance Prelude.NFData ListTagsLogGroup
 
-instance ToHeaders ListTagsLogGroup where
+instance Prelude.ToHeaders ListTagsLogGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Logs_20140328.ListTagsLogGroup" :: ByteString),
+              Prelude.=# ( "Logs_20140328.ListTagsLogGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTagsLogGroup where
+instance Prelude.ToJSON ListTagsLogGroup where
   toJSON ListTagsLogGroup' {..} =
-    object
-      ( catMaybes
-          [Just ("logGroupName" .= _ltlgLogGroupName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("logGroupName" Prelude..= logGroupName)
+          ]
       )
 
-instance ToPath ListTagsLogGroup where
-  toPath = const "/"
+instance Prelude.ToPath ListTagsLogGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTagsLogGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTagsLogGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTagsLogGroupResponse' smart constructor.
+-- | /See:/ 'newListTagsLogGroupResponse' smart constructor.
 data ListTagsLogGroupResponse = ListTagsLogGroupResponse'
-  { _ltlgrrsTags ::
-      !( Maybe
-           (Map Text Text)
-       ),
-    _ltlgrrsResponseStatus ::
-      !Int
+  { -- | The tags for the log group.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsLogGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsLogGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltlgrrsTags' - The tags for the log group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltlgrrsResponseStatus' - -- | The response status code.
-listTagsLogGroupResponse ::
-  -- | 'ltlgrrsResponseStatus'
-  Int ->
+-- 'tags', 'listTagsLogGroupResponse_tags' - The tags for the log group.
+--
+-- 'httpStatus', 'listTagsLogGroupResponse_httpStatus' - The response's http status code.
+newListTagsLogGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsLogGroupResponse
-listTagsLogGroupResponse pResponseStatus_ =
+newListTagsLogGroupResponse pHttpStatus_ =
   ListTagsLogGroupResponse'
-    { _ltlgrrsTags = Nothing,
-      _ltlgrrsResponseStatus = pResponseStatus_
+    { tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The tags for the log group.
-ltlgrrsTags :: Lens' ListTagsLogGroupResponse (HashMap Text Text)
-ltlgrrsTags = lens _ltlgrrsTags (\s a -> s {_ltlgrrsTags = a}) . _Default . _Map
+listTagsLogGroupResponse_tags :: Lens.Lens' ListTagsLogGroupResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+listTagsLogGroupResponse_tags = Lens.lens (\ListTagsLogGroupResponse' {tags} -> tags) (\s@ListTagsLogGroupResponse' {} a -> s {tags = a} :: ListTagsLogGroupResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-ltlgrrsResponseStatus :: Lens' ListTagsLogGroupResponse Int
-ltlgrrsResponseStatus = lens _ltlgrrsResponseStatus (\s a -> s {_ltlgrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsLogGroupResponse_httpStatus :: Lens.Lens' ListTagsLogGroupResponse Prelude.Int
+listTagsLogGroupResponse_httpStatus = Lens.lens (\ListTagsLogGroupResponse' {httpStatus} -> httpStatus) (\s@ListTagsLogGroupResponse' {} a -> s {httpStatus = a} :: ListTagsLogGroupResponse)
 
-instance NFData ListTagsLogGroupResponse
+instance Prelude.NFData ListTagsLogGroupResponse
