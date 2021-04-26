@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Batch.Types.ArrayPropertiesDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing the array properties of a job.
 --
---
---
--- /See:/ 'arrayPropertiesDetail' smart constructor.
+-- /See:/ 'newArrayPropertiesDetail' smart constructor.
 data ArrayPropertiesDetail = ArrayPropertiesDetail'
-  { _apdIndex ::
-      !(Maybe Int),
-    _apdStatusSummary ::
-      !(Maybe (Map Text Int)),
-    _apdSize :: !(Maybe Int)
+  { -- | The job index within the array that\'s associated with this job. This
+    -- parameter is returned for array job children.
+    index :: Prelude.Maybe Prelude.Int,
+    -- | A summary of the number of array job children in each available job
+    -- status. This parameter is returned for parent array jobs.
+    statusSummary :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Int),
+    -- | The size of the array job. This parameter is returned for parent array
+    -- jobs.
+    size :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArrayPropertiesDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArrayPropertiesDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apdIndex' - The job index within the array that's associated with this job. This parameter is returned for array job children.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apdStatusSummary' - A summary of the number of array job children in each available job status. This parameter is returned for parent array jobs.
+-- 'index', 'arrayPropertiesDetail_index' - The job index within the array that\'s associated with this job. This
+-- parameter is returned for array job children.
 --
--- * 'apdSize' - The size of the array job. This parameter is returned for parent array jobs.
-arrayPropertiesDetail ::
+-- 'statusSummary', 'arrayPropertiesDetail_statusSummary' - A summary of the number of array job children in each available job
+-- status. This parameter is returned for parent array jobs.
+--
+-- 'size', 'arrayPropertiesDetail_size' - The size of the array job. This parameter is returned for parent array
+-- jobs.
+newArrayPropertiesDetail ::
   ArrayPropertiesDetail
-arrayPropertiesDetail =
+newArrayPropertiesDetail =
   ArrayPropertiesDetail'
-    { _apdIndex = Nothing,
-      _apdStatusSummary = Nothing,
-      _apdSize = Nothing
+    { index = Prelude.Nothing,
+      statusSummary = Prelude.Nothing,
+      size = Prelude.Nothing
     }
 
--- | The job index within the array that's associated with this job. This parameter is returned for array job children.
-apdIndex :: Lens' ArrayPropertiesDetail (Maybe Int)
-apdIndex = lens _apdIndex (\s a -> s {_apdIndex = a})
+-- | The job index within the array that\'s associated with this job. This
+-- parameter is returned for array job children.
+arrayPropertiesDetail_index :: Lens.Lens' ArrayPropertiesDetail (Prelude.Maybe Prelude.Int)
+arrayPropertiesDetail_index = Lens.lens (\ArrayPropertiesDetail' {index} -> index) (\s@ArrayPropertiesDetail' {} a -> s {index = a} :: ArrayPropertiesDetail)
 
--- | A summary of the number of array job children in each available job status. This parameter is returned for parent array jobs.
-apdStatusSummary :: Lens' ArrayPropertiesDetail (HashMap Text Int)
-apdStatusSummary = lens _apdStatusSummary (\s a -> s {_apdStatusSummary = a}) . _Default . _Map
+-- | A summary of the number of array job children in each available job
+-- status. This parameter is returned for parent array jobs.
+arrayPropertiesDetail_statusSummary :: Lens.Lens' ArrayPropertiesDetail (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Int))
+arrayPropertiesDetail_statusSummary = Lens.lens (\ArrayPropertiesDetail' {statusSummary} -> statusSummary) (\s@ArrayPropertiesDetail' {} a -> s {statusSummary = a} :: ArrayPropertiesDetail) Prelude.. Lens.mapping Prelude._Map
 
--- | The size of the array job. This parameter is returned for parent array jobs.
-apdSize :: Lens' ArrayPropertiesDetail (Maybe Int)
-apdSize = lens _apdSize (\s a -> s {_apdSize = a})
+-- | The size of the array job. This parameter is returned for parent array
+-- jobs.
+arrayPropertiesDetail_size :: Lens.Lens' ArrayPropertiesDetail (Prelude.Maybe Prelude.Int)
+arrayPropertiesDetail_size = Lens.lens (\ArrayPropertiesDetail' {size} -> size) (\s@ArrayPropertiesDetail' {} a -> s {size = a} :: ArrayPropertiesDetail)
 
-instance FromJSON ArrayPropertiesDetail where
+instance Prelude.FromJSON ArrayPropertiesDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ArrayPropertiesDetail"
       ( \x ->
           ArrayPropertiesDetail'
-            <$> (x .:? "index")
-            <*> (x .:? "statusSummary" .!= mempty)
-            <*> (x .:? "size")
+            Prelude.<$> (x Prelude..:? "index")
+            Prelude.<*> ( x Prelude..:? "statusSummary"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "size")
       )
 
-instance Hashable ArrayPropertiesDetail
+instance Prelude.Hashable ArrayPropertiesDetail
 
-instance NFData ArrayPropertiesDetail
+instance Prelude.NFData ArrayPropertiesDetail

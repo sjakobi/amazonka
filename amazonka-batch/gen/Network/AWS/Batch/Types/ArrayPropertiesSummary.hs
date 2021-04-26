@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Batch.Types.ArrayPropertiesSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing the array properties of a job.
 --
---
---
--- /See:/ 'arrayPropertiesSummary' smart constructor.
+-- /See:/ 'newArrayPropertiesSummary' smart constructor.
 data ArrayPropertiesSummary = ArrayPropertiesSummary'
-  { _apsIndex ::
-      !(Maybe Int),
-    _apsSize :: !(Maybe Int)
+  { -- | The job index within the array that\'s associated with this job. This
+    -- parameter is returned for children of array jobs.
+    index :: Prelude.Maybe Prelude.Int,
+    -- | The size of the array job. This parameter is returned for parent array
+    -- jobs.
+    size :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArrayPropertiesSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArrayPropertiesSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apsIndex' - The job index within the array that's associated with this job. This parameter is returned for children of array jobs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apsSize' - The size of the array job. This parameter is returned for parent array jobs.
-arrayPropertiesSummary ::
+-- 'index', 'arrayPropertiesSummary_index' - The job index within the array that\'s associated with this job. This
+-- parameter is returned for children of array jobs.
+--
+-- 'size', 'arrayPropertiesSummary_size' - The size of the array job. This parameter is returned for parent array
+-- jobs.
+newArrayPropertiesSummary ::
   ArrayPropertiesSummary
-arrayPropertiesSummary =
+newArrayPropertiesSummary =
   ArrayPropertiesSummary'
-    { _apsIndex = Nothing,
-      _apsSize = Nothing
+    { index = Prelude.Nothing,
+      size = Prelude.Nothing
     }
 
--- | The job index within the array that's associated with this job. This parameter is returned for children of array jobs.
-apsIndex :: Lens' ArrayPropertiesSummary (Maybe Int)
-apsIndex = lens _apsIndex (\s a -> s {_apsIndex = a})
+-- | The job index within the array that\'s associated with this job. This
+-- parameter is returned for children of array jobs.
+arrayPropertiesSummary_index :: Lens.Lens' ArrayPropertiesSummary (Prelude.Maybe Prelude.Int)
+arrayPropertiesSummary_index = Lens.lens (\ArrayPropertiesSummary' {index} -> index) (\s@ArrayPropertiesSummary' {} a -> s {index = a} :: ArrayPropertiesSummary)
 
--- | The size of the array job. This parameter is returned for parent array jobs.
-apsSize :: Lens' ArrayPropertiesSummary (Maybe Int)
-apsSize = lens _apsSize (\s a -> s {_apsSize = a})
+-- | The size of the array job. This parameter is returned for parent array
+-- jobs.
+arrayPropertiesSummary_size :: Lens.Lens' ArrayPropertiesSummary (Prelude.Maybe Prelude.Int)
+arrayPropertiesSummary_size = Lens.lens (\ArrayPropertiesSummary' {size} -> size) (\s@ArrayPropertiesSummary' {} a -> s {size = a} :: ArrayPropertiesSummary)
 
-instance FromJSON ArrayPropertiesSummary where
+instance Prelude.FromJSON ArrayPropertiesSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ArrayPropertiesSummary"
       ( \x ->
           ArrayPropertiesSummary'
-            <$> (x .:? "index") <*> (x .:? "size")
+            Prelude.<$> (x Prelude..:? "index")
+            Prelude.<*> (x Prelude..:? "size")
       )
 
-instance Hashable ArrayPropertiesSummary
+instance Prelude.Hashable ArrayPropertiesSummary
 
-instance NFData ArrayPropertiesSummary
+instance Prelude.NFData ArrayPropertiesSummary

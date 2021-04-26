@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Batch.Types.CRAllocationStrategy
   ( CRAllocationStrategy
       ( ..,
-        BestFit,
-        BestFitProgressive,
-        SpotCapacityOptimized
+        CRAllocationStrategyBESTFIT,
+        CRAllocationStrategyBESTFITPROGRESSIVE,
+        CRAllocationStrategySPOTCAPACITYOPTIMIZED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CRAllocationStrategy
-  = CRAllocationStrategy'
-      ( CI
-          Text
-      )
+newtype CRAllocationStrategy = CRAllocationStrategy'
+  { fromCRAllocationStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BestFit :: CRAllocationStrategy
-pattern BestFit = CRAllocationStrategy' "BEST_FIT"
+pattern CRAllocationStrategyBESTFIT :: CRAllocationStrategy
+pattern CRAllocationStrategyBESTFIT = CRAllocationStrategy' "BEST_FIT"
 
-pattern BestFitProgressive :: CRAllocationStrategy
-pattern BestFitProgressive = CRAllocationStrategy' "BEST_FIT_PROGRESSIVE"
+pattern CRAllocationStrategyBESTFITPROGRESSIVE :: CRAllocationStrategy
+pattern CRAllocationStrategyBESTFITPROGRESSIVE = CRAllocationStrategy' "BEST_FIT_PROGRESSIVE"
 
-pattern SpotCapacityOptimized :: CRAllocationStrategy
-pattern SpotCapacityOptimized = CRAllocationStrategy' "SPOT_CAPACITY_OPTIMIZED"
+pattern CRAllocationStrategySPOTCAPACITYOPTIMIZED :: CRAllocationStrategy
+pattern CRAllocationStrategySPOTCAPACITYOPTIMIZED = CRAllocationStrategy' "SPOT_CAPACITY_OPTIMIZED"
 
 {-# COMPLETE
-  BestFit,
-  BestFitProgressive,
-  SpotCapacityOptimized,
+  CRAllocationStrategyBESTFIT,
+  CRAllocationStrategyBESTFITPROGRESSIVE,
+  CRAllocationStrategySPOTCAPACITYOPTIMIZED,
   CRAllocationStrategy'
   #-}
 
-instance FromText CRAllocationStrategy where
-  parser = (CRAllocationStrategy' . mk) <$> takeText
+instance Prelude.FromText CRAllocationStrategy where
+  parser = CRAllocationStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText CRAllocationStrategy where
-  toText (CRAllocationStrategy' ci) = original ci
+instance Prelude.ToText CRAllocationStrategy where
+  toText (CRAllocationStrategy' x) = x
 
-instance Hashable CRAllocationStrategy
+instance Prelude.Hashable CRAllocationStrategy
 
-instance NFData CRAllocationStrategy
+instance Prelude.NFData CRAllocationStrategy
 
-instance ToByteString CRAllocationStrategy
+instance Prelude.ToByteString CRAllocationStrategy
 
-instance ToQuery CRAllocationStrategy
+instance Prelude.ToQuery CRAllocationStrategy
 
-instance ToHeader CRAllocationStrategy
+instance Prelude.ToHeader CRAllocationStrategy
 
-instance ToJSON CRAllocationStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON CRAllocationStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CRAllocationStrategy where
-  parseJSON = parseJSONText "CRAllocationStrategy"
+instance Prelude.FromJSON CRAllocationStrategy where
+  parseJSON = Prelude.parseJSONText "CRAllocationStrategy"

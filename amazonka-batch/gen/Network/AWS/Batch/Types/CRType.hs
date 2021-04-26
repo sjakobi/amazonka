@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,65 @@
 module Network.AWS.Batch.Types.CRType
   ( CRType
       ( ..,
-        EC2,
-        Fargate,
-        FargateSpot,
-        Spot
+        CRTypeEC2,
+        CRTypeFARGATE,
+        CRTypeFARGATESPOT,
+        CRTypeSPOT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CRType = CRType' (CI Text)
+newtype CRType = CRType' {fromCRType :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EC2 :: CRType
-pattern EC2 = CRType' "EC2"
+pattern CRTypeEC2 :: CRType
+pattern CRTypeEC2 = CRType' "EC2"
 
-pattern Fargate :: CRType
-pattern Fargate = CRType' "FARGATE"
+pattern CRTypeFARGATE :: CRType
+pattern CRTypeFARGATE = CRType' "FARGATE"
 
-pattern FargateSpot :: CRType
-pattern FargateSpot = CRType' "FARGATE_SPOT"
+pattern CRTypeFARGATESPOT :: CRType
+pattern CRTypeFARGATESPOT = CRType' "FARGATE_SPOT"
 
-pattern Spot :: CRType
-pattern Spot = CRType' "SPOT"
+pattern CRTypeSPOT :: CRType
+pattern CRTypeSPOT = CRType' "SPOT"
 
 {-# COMPLETE
-  EC2,
-  Fargate,
-  FargateSpot,
-  Spot,
+  CRTypeEC2,
+  CRTypeFARGATE,
+  CRTypeFARGATESPOT,
+  CRTypeSPOT,
   CRType'
   #-}
 
-instance FromText CRType where
-  parser = (CRType' . mk) <$> takeText
+instance Prelude.FromText CRType where
+  parser = CRType' Prelude.<$> Prelude.takeText
 
-instance ToText CRType where
-  toText (CRType' ci) = original ci
+instance Prelude.ToText CRType where
+  toText (CRType' x) = x
 
-instance Hashable CRType
+instance Prelude.Hashable CRType
 
-instance NFData CRType
+instance Prelude.NFData CRType
 
-instance ToByteString CRType
+instance Prelude.ToByteString CRType
 
-instance ToQuery CRType
+instance Prelude.ToQuery CRType
 
-instance ToHeader CRType
+instance Prelude.ToHeader CRType
 
-instance ToJSON CRType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CRType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CRType where
-  parseJSON = parseJSONText "CRType"
+instance Prelude.FromJSON CRType where
+  parseJSON = Prelude.parseJSONText "CRType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Batch.Types.FargatePlatformConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The platform configuration for jobs running on Fargate resources. Jobs running on EC2 resources must not specify this parameter.
+-- | The platform configuration for jobs running on Fargate resources. Jobs
+-- running on EC2 resources must not specify this parameter.
 --
---
---
--- /See:/ 'fargatePlatformConfiguration' smart constructor.
-newtype FargatePlatformConfiguration = FargatePlatformConfiguration'
-  { _fpcPlatformVersion ::
-      Maybe Text
+-- /See:/ 'newFargatePlatformConfiguration' smart constructor.
+data FargatePlatformConfiguration = FargatePlatformConfiguration'
+  { -- | The AWS Fargate platform version on which the jobs are running. A
+    -- platform version is specified only for jobs running on Fargate
+    -- resources. If one isn\'t specified, the @LATEST@ platform version is
+    -- used by default. This will use a recent, approved version of the AWS
+    -- Fargate platform for compute resources. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate platform versions>
+    -- in the /Amazon Elastic Container Service Developer Guide/.
+    platformVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FargatePlatformConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FargatePlatformConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fpcPlatformVersion' - The AWS Fargate platform version on which the jobs are running. A platform version is specified only for jobs running on Fargate resources. If one isn't specified, the @LATEST@ platform version is used by default. This will use a recent, approved version of the AWS Fargate platform for compute resources. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate platform versions> in the /Amazon Elastic Container Service Developer Guide/ .
-fargatePlatformConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'platformVersion', 'fargatePlatformConfiguration_platformVersion' - The AWS Fargate platform version on which the jobs are running. A
+-- platform version is specified only for jobs running on Fargate
+-- resources. If one isn\'t specified, the @LATEST@ platform version is
+-- used by default. This will use a recent, approved version of the AWS
+-- Fargate platform for compute resources. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate platform versions>
+-- in the /Amazon Elastic Container Service Developer Guide/.
+newFargatePlatformConfiguration ::
   FargatePlatformConfiguration
-fargatePlatformConfiguration =
+newFargatePlatformConfiguration =
   FargatePlatformConfiguration'
-    { _fpcPlatformVersion =
-        Nothing
+    { platformVersion =
+        Prelude.Nothing
     }
 
--- | The AWS Fargate platform version on which the jobs are running. A platform version is specified only for jobs running on Fargate resources. If one isn't specified, the @LATEST@ platform version is used by default. This will use a recent, approved version of the AWS Fargate platform for compute resources. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate platform versions> in the /Amazon Elastic Container Service Developer Guide/ .
-fpcPlatformVersion :: Lens' FargatePlatformConfiguration (Maybe Text)
-fpcPlatformVersion = lens _fpcPlatformVersion (\s a -> s {_fpcPlatformVersion = a})
+-- | The AWS Fargate platform version on which the jobs are running. A
+-- platform version is specified only for jobs running on Fargate
+-- resources. If one isn\'t specified, the @LATEST@ platform version is
+-- used by default. This will use a recent, approved version of the AWS
+-- Fargate platform for compute resources. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate platform versions>
+-- in the /Amazon Elastic Container Service Developer Guide/.
+fargatePlatformConfiguration_platformVersion :: Lens.Lens' FargatePlatformConfiguration (Prelude.Maybe Prelude.Text)
+fargatePlatformConfiguration_platformVersion = Lens.lens (\FargatePlatformConfiguration' {platformVersion} -> platformVersion) (\s@FargatePlatformConfiguration' {} a -> s {platformVersion = a} :: FargatePlatformConfiguration)
 
-instance FromJSON FargatePlatformConfiguration where
+instance
+  Prelude.FromJSON
+    FargatePlatformConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FargatePlatformConfiguration"
       ( \x ->
           FargatePlatformConfiguration'
-            <$> (x .:? "platformVersion")
+            Prelude.<$> (x Prelude..:? "platformVersion")
       )
 
-instance Hashable FargatePlatformConfiguration
+instance
+  Prelude.Hashable
+    FargatePlatformConfiguration
 
-instance NFData FargatePlatformConfiguration
+instance Prelude.NFData FargatePlatformConfiguration
 
-instance ToJSON FargatePlatformConfiguration where
+instance Prelude.ToJSON FargatePlatformConfiguration where
   toJSON FargatePlatformConfiguration' {..} =
-    object
-      ( catMaybes
-          [("platformVersion" .=) <$> _fpcPlatformVersion]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("platformVersion" Prelude..=)
+              Prelude.<$> platformVersion
+          ]
       )

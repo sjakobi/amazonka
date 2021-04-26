@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,107 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Batch.Types.LaunchTemplateSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object representing a launch template associated with a compute resource. You must specify either the launch template ID or launch template name in the request, but not both.
+-- | An object representing a launch template associated with a compute
+-- resource. You must specify either the launch template ID or launch
+-- template name in the request, but not both.
 --
+-- If security groups are specified using both the @securityGroupIds@
+-- parameter of @CreateComputeEnvironment@ and the launch template, the
+-- values in the @securityGroupIds@ parameter of @CreateComputeEnvironment@
+-- will be used.
 --
--- If security groups are specified using both the @securityGroupIds@ parameter of @CreateComputeEnvironment@ and the launch template, the values in the @securityGroupIds@ parameter of @CreateComputeEnvironment@ will be used.
+-- This object isn\'t applicable to jobs running on Fargate resources.
 --
---
--- /See:/ 'launchTemplateSpecification' smart constructor.
+-- /See:/ 'newLaunchTemplateSpecification' smart constructor.
 data LaunchTemplateSpecification = LaunchTemplateSpecification'
-  { _ltsLaunchTemplateId ::
-      !(Maybe Text),
-    _ltsLaunchTemplateName ::
-      !(Maybe Text),
-    _ltsVersion ::
-      !(Maybe Text)
+  { -- | The ID of the launch template.
+    launchTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the launch template.
+    launchTemplateName :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the launch template, @$Latest@, or @$Default@.
+    --
+    -- If the value is @$Latest@, the latest version of the launch template is
+    -- used. If the value is @$Default@, the default version of the launch
+    -- template is used.
+    --
+    -- Default: @$Default@.
+    version :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltsLaunchTemplateId' - The ID of the launch template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltsLaunchTemplateName' - The name of the launch template.
+-- 'launchTemplateId', 'launchTemplateSpecification_launchTemplateId' - The ID of the launch template.
 --
--- * 'ltsVersion' - The version number of the launch template, @> Latest@ , or @> Default@ . If the value is @> Latest@ , the latest version of the launch template is used. If the value is @> Default@ , the default version of the launch template is used. Default: @> Default@ .
-launchTemplateSpecification ::
+-- 'launchTemplateName', 'launchTemplateSpecification_launchTemplateName' - The name of the launch template.
+--
+-- 'version', 'launchTemplateSpecification_version' - The version number of the launch template, @$Latest@, or @$Default@.
+--
+-- If the value is @$Latest@, the latest version of the launch template is
+-- used. If the value is @$Default@, the default version of the launch
+-- template is used.
+--
+-- Default: @$Default@.
+newLaunchTemplateSpecification ::
   LaunchTemplateSpecification
-launchTemplateSpecification =
+newLaunchTemplateSpecification =
   LaunchTemplateSpecification'
-    { _ltsLaunchTemplateId =
-        Nothing,
-      _ltsLaunchTemplateName = Nothing,
-      _ltsVersion = Nothing
+    { launchTemplateId =
+        Prelude.Nothing,
+      launchTemplateName = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
 -- | The ID of the launch template.
-ltsLaunchTemplateId :: Lens' LaunchTemplateSpecification (Maybe Text)
-ltsLaunchTemplateId = lens _ltsLaunchTemplateId (\s a -> s {_ltsLaunchTemplateId = a})
+launchTemplateSpecification_launchTemplateId :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
+launchTemplateSpecification_launchTemplateId = Lens.lens (\LaunchTemplateSpecification' {launchTemplateId} -> launchTemplateId) (\s@LaunchTemplateSpecification' {} a -> s {launchTemplateId = a} :: LaunchTemplateSpecification)
 
 -- | The name of the launch template.
-ltsLaunchTemplateName :: Lens' LaunchTemplateSpecification (Maybe Text)
-ltsLaunchTemplateName = lens _ltsLaunchTemplateName (\s a -> s {_ltsLaunchTemplateName = a})
+launchTemplateSpecification_launchTemplateName :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
+launchTemplateSpecification_launchTemplateName = Lens.lens (\LaunchTemplateSpecification' {launchTemplateName} -> launchTemplateName) (\s@LaunchTemplateSpecification' {} a -> s {launchTemplateName = a} :: LaunchTemplateSpecification)
 
--- | The version number of the launch template, @> Latest@ , or @> Default@ . If the value is @> Latest@ , the latest version of the launch template is used. If the value is @> Default@ , the default version of the launch template is used. Default: @> Default@ .
-ltsVersion :: Lens' LaunchTemplateSpecification (Maybe Text)
-ltsVersion = lens _ltsVersion (\s a -> s {_ltsVersion = a})
+-- | The version number of the launch template, @$Latest@, or @$Default@.
+--
+-- If the value is @$Latest@, the latest version of the launch template is
+-- used. If the value is @$Default@, the default version of the launch
+-- template is used.
+--
+-- Default: @$Default@.
+launchTemplateSpecification_version :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
+launchTemplateSpecification_version = Lens.lens (\LaunchTemplateSpecification' {version} -> version) (\s@LaunchTemplateSpecification' {} a -> s {version = a} :: LaunchTemplateSpecification)
 
-instance FromJSON LaunchTemplateSpecification where
+instance Prelude.FromJSON LaunchTemplateSpecification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LaunchTemplateSpecification"
       ( \x ->
           LaunchTemplateSpecification'
-            <$> (x .:? "launchTemplateId")
-            <*> (x .:? "launchTemplateName")
-            <*> (x .:? "version")
+            Prelude.<$> (x Prelude..:? "launchTemplateId")
+            Prelude.<*> (x Prelude..:? "launchTemplateName")
+            Prelude.<*> (x Prelude..:? "version")
       )
 
-instance Hashable LaunchTemplateSpecification
+instance Prelude.Hashable LaunchTemplateSpecification
 
-instance NFData LaunchTemplateSpecification
+instance Prelude.NFData LaunchTemplateSpecification
 
-instance ToJSON LaunchTemplateSpecification where
+instance Prelude.ToJSON LaunchTemplateSpecification where
   toJSON LaunchTemplateSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("launchTemplateId" .=) <$> _ltsLaunchTemplateId,
-            ("launchTemplateName" .=) <$> _ltsLaunchTemplateName,
-            ("version" .=) <$> _ltsVersion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("launchTemplateId" Prelude..=)
+              Prelude.<$> launchTemplateId,
+            ("launchTemplateName" Prelude..=)
+              Prelude.<$> launchTemplateName,
+            ("version" Prelude..=) Prelude.<$> version
           ]
       )

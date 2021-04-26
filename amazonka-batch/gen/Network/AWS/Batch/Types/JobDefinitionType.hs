@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Batch.Types.JobDefinitionType
   ( JobDefinitionType
       ( ..,
-        Container,
-        Multinode
+        JobDefinitionTypeContainer,
+        JobDefinitionTypeMultinode
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobDefinitionType = JobDefinitionType' (CI Text)
+newtype JobDefinitionType = JobDefinitionType'
+  { fromJobDefinitionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Container :: JobDefinitionType
-pattern Container = JobDefinitionType' "container"
+pattern JobDefinitionTypeContainer :: JobDefinitionType
+pattern JobDefinitionTypeContainer = JobDefinitionType' "container"
 
-pattern Multinode :: JobDefinitionType
-pattern Multinode = JobDefinitionType' "multinode"
+pattern JobDefinitionTypeMultinode :: JobDefinitionType
+pattern JobDefinitionTypeMultinode = JobDefinitionType' "multinode"
 
 {-# COMPLETE
-  Container,
-  Multinode,
+  JobDefinitionTypeContainer,
+  JobDefinitionTypeMultinode,
   JobDefinitionType'
   #-}
 
-instance FromText JobDefinitionType where
-  parser = (JobDefinitionType' . mk) <$> takeText
+instance Prelude.FromText JobDefinitionType where
+  parser = JobDefinitionType' Prelude.<$> Prelude.takeText
 
-instance ToText JobDefinitionType where
-  toText (JobDefinitionType' ci) = original ci
+instance Prelude.ToText JobDefinitionType where
+  toText (JobDefinitionType' x) = x
 
-instance Hashable JobDefinitionType
+instance Prelude.Hashable JobDefinitionType
 
-instance NFData JobDefinitionType
+instance Prelude.NFData JobDefinitionType
 
-instance ToByteString JobDefinitionType
+instance Prelude.ToByteString JobDefinitionType
 
-instance ToQuery JobDefinitionType
+instance Prelude.ToQuery JobDefinitionType
 
-instance ToHeader JobDefinitionType
+instance Prelude.ToHeader JobDefinitionType
 
-instance ToJSON JobDefinitionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobDefinitionType where
+  toJSON = Prelude.toJSONText

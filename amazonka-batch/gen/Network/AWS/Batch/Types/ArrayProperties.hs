@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,37 +19,43 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Batch.Types.ArrayProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing an AWS Batch array job.
 --
---
---
--- /See:/ 'arrayProperties' smart constructor.
-newtype ArrayProperties = ArrayProperties'
-  { _apSize ::
-      Maybe Int
+-- /See:/ 'newArrayProperties' smart constructor.
+data ArrayProperties = ArrayProperties'
+  { -- | The size of the array job.
+    size :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArrayProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArrayProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apSize' - The size of the array job.
-arrayProperties ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'size', 'arrayProperties_size' - The size of the array job.
+newArrayProperties ::
   ArrayProperties
-arrayProperties = ArrayProperties' {_apSize = Nothing}
+newArrayProperties =
+  ArrayProperties' {size = Prelude.Nothing}
 
 -- | The size of the array job.
-apSize :: Lens' ArrayProperties (Maybe Int)
-apSize = lens _apSize (\s a -> s {_apSize = a})
+arrayProperties_size :: Lens.Lens' ArrayProperties (Prelude.Maybe Prelude.Int)
+arrayProperties_size = Lens.lens (\ArrayProperties' {size} -> size) (\s@ArrayProperties' {} a -> s {size = a} :: ArrayProperties)
 
-instance Hashable ArrayProperties
+instance Prelude.Hashable ArrayProperties
 
-instance NFData ArrayProperties
+instance Prelude.NFData ArrayProperties
 
-instance ToJSON ArrayProperties where
+instance Prelude.ToJSON ArrayProperties where
   toJSON ArrayProperties' {..} =
-    object (catMaybes [("size" .=) <$> _apSize])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("size" Prelude..=) Prelude.<$> size]
+      )

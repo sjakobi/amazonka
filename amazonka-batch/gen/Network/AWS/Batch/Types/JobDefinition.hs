@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,168 +24,252 @@ import Network.AWS.Batch.Types.JobTimeout
 import Network.AWS.Batch.Types.NodeProperties
 import Network.AWS.Batch.Types.PlatformCapability
 import Network.AWS.Batch.Types.RetryStrategy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing an AWS Batch job definition.
 --
---
---
--- /See:/ 'jobDefinition' smart constructor.
+-- /See:/ 'newJobDefinition' smart constructor.
 data JobDefinition = JobDefinition'
-  { _jdStatus ::
-      !(Maybe Text),
-    _jdPlatformCapabilities ::
-      !(Maybe [PlatformCapability]),
-    _jdTimeout :: !(Maybe JobTimeout),
-    _jdNodeProperties ::
-      !(Maybe NodeProperties),
-    _jdTags :: !(Maybe (Map Text Text)),
-    _jdContainerProperties ::
-      !(Maybe ContainerProperties),
-    _jdRetryStrategy :: !(Maybe RetryStrategy),
-    _jdParameters :: !(Maybe (Map Text Text)),
-    _jdPropagateTags :: !(Maybe Bool),
-    _jdJobDefinitionName :: !Text,
-    _jdJobDefinitionARN :: !Text,
-    _jdRevision :: !Int,
-    _jdType :: !Text
+  { -- | The status of the job definition.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The platform capabilities required by the job definition. If no value is
+    -- specified, it defaults to @EC2@. Jobs run on Fargate resources specify
+    -- @FARGATE@.
+    platformCapabilities :: Prelude.Maybe [PlatformCapability],
+    -- | The timeout configuration for jobs that are submitted with this job
+    -- definition. You can specify a timeout duration after which AWS Batch
+    -- terminates your jobs if they haven\'t finished.
+    timeout :: Prelude.Maybe JobTimeout,
+    -- | An object with various properties specific to multi-node parallel jobs.
+    --
+    -- If the job runs on Fargate resources, then you must not specify
+    -- @nodeProperties@; use @containerProperties@ instead.
+    nodeProperties :: Prelude.Maybe NodeProperties,
+    -- | The tags applied to the job definition.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | An object with various properties specific to container-based jobs.
+    containerProperties :: Prelude.Maybe ContainerProperties,
+    -- | The retry strategy to use for failed jobs that are submitted with this
+    -- job definition.
+    retryStrategy :: Prelude.Maybe RetryStrategy,
+    -- | Default parameters or parameter substitution placeholders that are set
+    -- in the job definition. Parameters are specified as a key-value pair
+    -- mapping. Parameters in a @SubmitJob@ request override any corresponding
+    -- parameter defaults from the job definition. For more information about
+    -- specifying parameters, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html Job Definition Parameters>
+    -- in the /AWS Batch User Guide/.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Specifies whether to propagate the tags from the job or job definition
+    -- to the corresponding Amazon ECS task. If no value is specified, the tags
+    -- aren\'t propagated. Tags can only be propagated to the tasks during task
+    -- creation. For tags with the same name, job tags are given priority over
+    -- job definitions tags. If the total number of combined tags from the job
+    -- and job definition is over 50, the job is moved to the @FAILED@ state.
+    propagateTags :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the job definition.
+    jobDefinitionName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the job definition.
+    jobDefinitionArn :: Prelude.Text,
+    -- | The revision of the job definition.
+    revision :: Prelude.Int,
+    -- | The type of job definition. If the job is run on Fargate resources, then
+    -- @multinode@ isn\'t supported. For more information about multi-node
+    -- parallel jobs, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition>
+    -- in the /AWS Batch User Guide/.
+    type' :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jdStatus' - The status of the job definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jdPlatformCapabilities' - The platform capabilities required by the job definition. If no value is specified, it defaults to @EC2@ . Jobs run on Fargate resources specify @FARGATE@ .
+-- 'status', 'jobDefinition_status' - The status of the job definition.
 --
--- * 'jdTimeout' - The timeout configuration for jobs that are submitted with this job definition. You can specify a timeout duration after which AWS Batch terminates your jobs if they haven't finished.
+-- 'platformCapabilities', 'jobDefinition_platformCapabilities' - The platform capabilities required by the job definition. If no value is
+-- specified, it defaults to @EC2@. Jobs run on Fargate resources specify
+-- @FARGATE@.
 --
--- * 'jdNodeProperties' - An object with various properties specific to multi-node parallel jobs.
+-- 'timeout', 'jobDefinition_timeout' - The timeout configuration for jobs that are submitted with this job
+-- definition. You can specify a timeout duration after which AWS Batch
+-- terminates your jobs if they haven\'t finished.
 --
--- * 'jdTags' - The tags applied to the job definition.
+-- 'nodeProperties', 'jobDefinition_nodeProperties' - An object with various properties specific to multi-node parallel jobs.
 --
--- * 'jdContainerProperties' - An object with various properties specific to container-based jobs.
+-- If the job runs on Fargate resources, then you must not specify
+-- @nodeProperties@; use @containerProperties@ instead.
 --
--- * 'jdRetryStrategy' - The retry strategy to use for failed jobs that are submitted with this job definition.
+-- 'tags', 'jobDefinition_tags' - The tags applied to the job definition.
 --
--- * 'jdParameters' - Default parameters or parameter substitution placeholders that are set in the job definition. Parameters are specified as a key-value pair mapping. Parameters in a @SubmitJob@ request override any corresponding parameter defaults from the job definition. For more information about specifying parameters, see <https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html Job Definition Parameters> in the /AWS Batch User Guide/ .
+-- 'containerProperties', 'jobDefinition_containerProperties' - An object with various properties specific to container-based jobs.
 --
--- * 'jdPropagateTags' - Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks during task creation. For tags with the same name, job tags are given priority over job definitions tags. If the total number of combined tags from the job and job definition is over 50, the job is moved to the @FAILED@ state.
+-- 'retryStrategy', 'jobDefinition_retryStrategy' - The retry strategy to use for failed jobs that are submitted with this
+-- job definition.
 --
--- * 'jdJobDefinitionName' - The name of the job definition.
+-- 'parameters', 'jobDefinition_parameters' - Default parameters or parameter substitution placeholders that are set
+-- in the job definition. Parameters are specified as a key-value pair
+-- mapping. Parameters in a @SubmitJob@ request override any corresponding
+-- parameter defaults from the job definition. For more information about
+-- specifying parameters, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html Job Definition Parameters>
+-- in the /AWS Batch User Guide/.
 --
--- * 'jdJobDefinitionARN' - The Amazon Resource Name (ARN) for the job definition.
+-- 'propagateTags', 'jobDefinition_propagateTags' - Specifies whether to propagate the tags from the job or job definition
+-- to the corresponding Amazon ECS task. If no value is specified, the tags
+-- aren\'t propagated. Tags can only be propagated to the tasks during task
+-- creation. For tags with the same name, job tags are given priority over
+-- job definitions tags. If the total number of combined tags from the job
+-- and job definition is over 50, the job is moved to the @FAILED@ state.
 --
--- * 'jdRevision' - The revision of the job definition.
+-- 'jobDefinitionName', 'jobDefinition_jobDefinitionName' - The name of the job definition.
 --
--- * 'jdType' - The type of job definition. If the job is run on Fargate resources, then @multinode@ isn't supported. For more information about multi-node parallel jobs, see <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition> in the /AWS Batch User Guide/ .
-jobDefinition ::
-  -- | 'jdJobDefinitionName'
-  Text ->
-  -- | 'jdJobDefinitionARN'
-  Text ->
-  -- | 'jdRevision'
-  Int ->
-  -- | 'jdType'
-  Text ->
+-- 'jobDefinitionArn', 'jobDefinition_jobDefinitionArn' - The Amazon Resource Name (ARN) for the job definition.
+--
+-- 'revision', 'jobDefinition_revision' - The revision of the job definition.
+--
+-- 'type'', 'jobDefinition_type' - The type of job definition. If the job is run on Fargate resources, then
+-- @multinode@ isn\'t supported. For more information about multi-node
+-- parallel jobs, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition>
+-- in the /AWS Batch User Guide/.
+newJobDefinition ::
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
+  -- | 'jobDefinitionArn'
+  Prelude.Text ->
+  -- | 'revision'
+  Prelude.Int ->
+  -- | 'type''
+  Prelude.Text ->
   JobDefinition
-jobDefinition
+newJobDefinition
   pJobDefinitionName_
-  pJobDefinitionARN_
+  pJobDefinitionArn_
   pRevision_
   pType_ =
     JobDefinition'
-      { _jdStatus = Nothing,
-        _jdPlatformCapabilities = Nothing,
-        _jdTimeout = Nothing,
-        _jdNodeProperties = Nothing,
-        _jdTags = Nothing,
-        _jdContainerProperties = Nothing,
-        _jdRetryStrategy = Nothing,
-        _jdParameters = Nothing,
-        _jdPropagateTags = Nothing,
-        _jdJobDefinitionName = pJobDefinitionName_,
-        _jdJobDefinitionARN = pJobDefinitionARN_,
-        _jdRevision = pRevision_,
-        _jdType = pType_
+      { status = Prelude.Nothing,
+        platformCapabilities = Prelude.Nothing,
+        timeout = Prelude.Nothing,
+        nodeProperties = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        containerProperties = Prelude.Nothing,
+        retryStrategy = Prelude.Nothing,
+        parameters = Prelude.Nothing,
+        propagateTags = Prelude.Nothing,
+        jobDefinitionName = pJobDefinitionName_,
+        jobDefinitionArn = pJobDefinitionArn_,
+        revision = pRevision_,
+        type' = pType_
       }
 
 -- | The status of the job definition.
-jdStatus :: Lens' JobDefinition (Maybe Text)
-jdStatus = lens _jdStatus (\s a -> s {_jdStatus = a})
+jobDefinition_status :: Lens.Lens' JobDefinition (Prelude.Maybe Prelude.Text)
+jobDefinition_status = Lens.lens (\JobDefinition' {status} -> status) (\s@JobDefinition' {} a -> s {status = a} :: JobDefinition)
 
--- | The platform capabilities required by the job definition. If no value is specified, it defaults to @EC2@ . Jobs run on Fargate resources specify @FARGATE@ .
-jdPlatformCapabilities :: Lens' JobDefinition [PlatformCapability]
-jdPlatformCapabilities = lens _jdPlatformCapabilities (\s a -> s {_jdPlatformCapabilities = a}) . _Default . _Coerce
+-- | The platform capabilities required by the job definition. If no value is
+-- specified, it defaults to @EC2@. Jobs run on Fargate resources specify
+-- @FARGATE@.
+jobDefinition_platformCapabilities :: Lens.Lens' JobDefinition (Prelude.Maybe [PlatformCapability])
+jobDefinition_platformCapabilities = Lens.lens (\JobDefinition' {platformCapabilities} -> platformCapabilities) (\s@JobDefinition' {} a -> s {platformCapabilities = a} :: JobDefinition) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The timeout configuration for jobs that are submitted with this job definition. You can specify a timeout duration after which AWS Batch terminates your jobs if they haven't finished.
-jdTimeout :: Lens' JobDefinition (Maybe JobTimeout)
-jdTimeout = lens _jdTimeout (\s a -> s {_jdTimeout = a})
+-- | The timeout configuration for jobs that are submitted with this job
+-- definition. You can specify a timeout duration after which AWS Batch
+-- terminates your jobs if they haven\'t finished.
+jobDefinition_timeout :: Lens.Lens' JobDefinition (Prelude.Maybe JobTimeout)
+jobDefinition_timeout = Lens.lens (\JobDefinition' {timeout} -> timeout) (\s@JobDefinition' {} a -> s {timeout = a} :: JobDefinition)
 
 -- | An object with various properties specific to multi-node parallel jobs.
-jdNodeProperties :: Lens' JobDefinition (Maybe NodeProperties)
-jdNodeProperties = lens _jdNodeProperties (\s a -> s {_jdNodeProperties = a})
+--
+-- If the job runs on Fargate resources, then you must not specify
+-- @nodeProperties@; use @containerProperties@ instead.
+jobDefinition_nodeProperties :: Lens.Lens' JobDefinition (Prelude.Maybe NodeProperties)
+jobDefinition_nodeProperties = Lens.lens (\JobDefinition' {nodeProperties} -> nodeProperties) (\s@JobDefinition' {} a -> s {nodeProperties = a} :: JobDefinition)
 
 -- | The tags applied to the job definition.
-jdTags :: Lens' JobDefinition (HashMap Text Text)
-jdTags = lens _jdTags (\s a -> s {_jdTags = a}) . _Default . _Map
+jobDefinition_tags :: Lens.Lens' JobDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+jobDefinition_tags = Lens.lens (\JobDefinition' {tags} -> tags) (\s@JobDefinition' {} a -> s {tags = a} :: JobDefinition) Prelude.. Lens.mapping Prelude._Map
 
 -- | An object with various properties specific to container-based jobs.
-jdContainerProperties :: Lens' JobDefinition (Maybe ContainerProperties)
-jdContainerProperties = lens _jdContainerProperties (\s a -> s {_jdContainerProperties = a})
+jobDefinition_containerProperties :: Lens.Lens' JobDefinition (Prelude.Maybe ContainerProperties)
+jobDefinition_containerProperties = Lens.lens (\JobDefinition' {containerProperties} -> containerProperties) (\s@JobDefinition' {} a -> s {containerProperties = a} :: JobDefinition)
 
--- | The retry strategy to use for failed jobs that are submitted with this job definition.
-jdRetryStrategy :: Lens' JobDefinition (Maybe RetryStrategy)
-jdRetryStrategy = lens _jdRetryStrategy (\s a -> s {_jdRetryStrategy = a})
+-- | The retry strategy to use for failed jobs that are submitted with this
+-- job definition.
+jobDefinition_retryStrategy :: Lens.Lens' JobDefinition (Prelude.Maybe RetryStrategy)
+jobDefinition_retryStrategy = Lens.lens (\JobDefinition' {retryStrategy} -> retryStrategy) (\s@JobDefinition' {} a -> s {retryStrategy = a} :: JobDefinition)
 
--- | Default parameters or parameter substitution placeholders that are set in the job definition. Parameters are specified as a key-value pair mapping. Parameters in a @SubmitJob@ request override any corresponding parameter defaults from the job definition. For more information about specifying parameters, see <https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html Job Definition Parameters> in the /AWS Batch User Guide/ .
-jdParameters :: Lens' JobDefinition (HashMap Text Text)
-jdParameters = lens _jdParameters (\s a -> s {_jdParameters = a}) . _Default . _Map
+-- | Default parameters or parameter substitution placeholders that are set
+-- in the job definition. Parameters are specified as a key-value pair
+-- mapping. Parameters in a @SubmitJob@ request override any corresponding
+-- parameter defaults from the job definition. For more information about
+-- specifying parameters, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html Job Definition Parameters>
+-- in the /AWS Batch User Guide/.
+jobDefinition_parameters :: Lens.Lens' JobDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+jobDefinition_parameters = Lens.lens (\JobDefinition' {parameters} -> parameters) (\s@JobDefinition' {} a -> s {parameters = a} :: JobDefinition) Prelude.. Lens.mapping Prelude._Map
 
--- | Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks during task creation. For tags with the same name, job tags are given priority over job definitions tags. If the total number of combined tags from the job and job definition is over 50, the job is moved to the @FAILED@ state.
-jdPropagateTags :: Lens' JobDefinition (Maybe Bool)
-jdPropagateTags = lens _jdPropagateTags (\s a -> s {_jdPropagateTags = a})
+-- | Specifies whether to propagate the tags from the job or job definition
+-- to the corresponding Amazon ECS task. If no value is specified, the tags
+-- aren\'t propagated. Tags can only be propagated to the tasks during task
+-- creation. For tags with the same name, job tags are given priority over
+-- job definitions tags. If the total number of combined tags from the job
+-- and job definition is over 50, the job is moved to the @FAILED@ state.
+jobDefinition_propagateTags :: Lens.Lens' JobDefinition (Prelude.Maybe Prelude.Bool)
+jobDefinition_propagateTags = Lens.lens (\JobDefinition' {propagateTags} -> propagateTags) (\s@JobDefinition' {} a -> s {propagateTags = a} :: JobDefinition)
 
 -- | The name of the job definition.
-jdJobDefinitionName :: Lens' JobDefinition Text
-jdJobDefinitionName = lens _jdJobDefinitionName (\s a -> s {_jdJobDefinitionName = a})
+jobDefinition_jobDefinitionName :: Lens.Lens' JobDefinition Prelude.Text
+jobDefinition_jobDefinitionName = Lens.lens (\JobDefinition' {jobDefinitionName} -> jobDefinitionName) (\s@JobDefinition' {} a -> s {jobDefinitionName = a} :: JobDefinition)
 
 -- | The Amazon Resource Name (ARN) for the job definition.
-jdJobDefinitionARN :: Lens' JobDefinition Text
-jdJobDefinitionARN = lens _jdJobDefinitionARN (\s a -> s {_jdJobDefinitionARN = a})
+jobDefinition_jobDefinitionArn :: Lens.Lens' JobDefinition Prelude.Text
+jobDefinition_jobDefinitionArn = Lens.lens (\JobDefinition' {jobDefinitionArn} -> jobDefinitionArn) (\s@JobDefinition' {} a -> s {jobDefinitionArn = a} :: JobDefinition)
 
 -- | The revision of the job definition.
-jdRevision :: Lens' JobDefinition Int
-jdRevision = lens _jdRevision (\s a -> s {_jdRevision = a})
+jobDefinition_revision :: Lens.Lens' JobDefinition Prelude.Int
+jobDefinition_revision = Lens.lens (\JobDefinition' {revision} -> revision) (\s@JobDefinition' {} a -> s {revision = a} :: JobDefinition)
 
--- | The type of job definition. If the job is run on Fargate resources, then @multinode@ isn't supported. For more information about multi-node parallel jobs, see <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition> in the /AWS Batch User Guide/ .
-jdType :: Lens' JobDefinition Text
-jdType = lens _jdType (\s a -> s {_jdType = a})
+-- | The type of job definition. If the job is run on Fargate resources, then
+-- @multinode@ isn\'t supported. For more information about multi-node
+-- parallel jobs, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition>
+-- in the /AWS Batch User Guide/.
+jobDefinition_type :: Lens.Lens' JobDefinition Prelude.Text
+jobDefinition_type = Lens.lens (\JobDefinition' {type'} -> type') (\s@JobDefinition' {} a -> s {type' = a} :: JobDefinition)
 
-instance FromJSON JobDefinition where
+instance Prelude.FromJSON JobDefinition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobDefinition"
       ( \x ->
           JobDefinition'
-            <$> (x .:? "status")
-            <*> (x .:? "platformCapabilities" .!= mempty)
-            <*> (x .:? "timeout")
-            <*> (x .:? "nodeProperties")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "containerProperties")
-            <*> (x .:? "retryStrategy")
-            <*> (x .:? "parameters" .!= mempty)
-            <*> (x .:? "propagateTags")
-            <*> (x .: "jobDefinitionName")
-            <*> (x .: "jobDefinitionArn")
-            <*> (x .: "revision")
-            <*> (x .: "type")
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> ( x Prelude..:? "platformCapabilities"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "timeout")
+            Prelude.<*> (x Prelude..:? "nodeProperties")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "containerProperties")
+            Prelude.<*> (x Prelude..:? "retryStrategy")
+            Prelude.<*> ( x Prelude..:? "parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "propagateTags")
+            Prelude.<*> (x Prelude..: "jobDefinitionName")
+            Prelude.<*> (x Prelude..: "jobDefinitionArn")
+            Prelude.<*> (x Prelude..: "revision")
+            Prelude.<*> (x Prelude..: "type")
       )
 
-instance Hashable JobDefinition
+instance Prelude.Hashable JobDefinition
 
-instance NFData JobDefinition
+instance Prelude.NFData JobDefinition

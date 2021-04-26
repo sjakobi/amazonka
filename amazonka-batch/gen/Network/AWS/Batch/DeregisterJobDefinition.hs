@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deregisters an AWS Batch job definition. Job definitions are permanently deleted after 180 days.
+-- Deregisters an AWS Batch job definition. Job definitions are permanently
+-- deleted after 180 days.
 module Network.AWS.Batch.DeregisterJobDefinition
   ( -- * Creating a Request
-    deregisterJobDefinition,
-    DeregisterJobDefinition,
+    DeregisterJobDefinition (..),
+    newDeregisterJobDefinition,
 
     -- * Request Lenses
-    djdJobDefinition,
+    deregisterJobDefinition_jobDefinition,
 
     -- * Destructuring the Response
-    deregisterJobDefinitionResponse,
-    DeregisterJobDefinitionResponse,
+    DeregisterJobDefinitionResponse (..),
+    newDeregisterJobDefinitionResponse,
 
     -- * Response Lenses
-    djdrrsResponseStatus,
+    deregisterJobDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Batch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deregisterJobDefinition' smart constructor.
-newtype DeregisterJobDefinition = DeregisterJobDefinition'
-  { _djdJobDefinition ::
-      Text
+-- | /See:/ 'newDeregisterJobDefinition' smart constructor.
+data DeregisterJobDefinition = DeregisterJobDefinition'
+  { -- | The name and revision (@name:revision@) or full Amazon Resource Name
+    -- (ARN) of the job definition to deregister.
+    jobDefinition :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djdJobDefinition' - The name and revision (@name:revision@ ) or full Amazon Resource Name (ARN) of the job definition to deregister.
-deregisterJobDefinition ::
-  -- | 'djdJobDefinition'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobDefinition', 'deregisterJobDefinition_jobDefinition' - The name and revision (@name:revision@) or full Amazon Resource Name
+-- (ARN) of the job definition to deregister.
+newDeregisterJobDefinition ::
+  -- | 'jobDefinition'
+  Prelude.Text ->
   DeregisterJobDefinition
-deregisterJobDefinition pJobDefinition_ =
+newDeregisterJobDefinition pJobDefinition_ =
   DeregisterJobDefinition'
-    { _djdJobDefinition =
+    { jobDefinition =
         pJobDefinition_
     }
 
--- | The name and revision (@name:revision@ ) or full Amazon Resource Name (ARN) of the job definition to deregister.
-djdJobDefinition :: Lens' DeregisterJobDefinition Text
-djdJobDefinition = lens _djdJobDefinition (\s a -> s {_djdJobDefinition = a})
+-- | The name and revision (@name:revision@) or full Amazon Resource Name
+-- (ARN) of the job definition to deregister.
+deregisterJobDefinition_jobDefinition :: Lens.Lens' DeregisterJobDefinition Prelude.Text
+deregisterJobDefinition_jobDefinition = Lens.lens (\DeregisterJobDefinition' {jobDefinition} -> jobDefinition) (\s@DeregisterJobDefinition' {} a -> s {jobDefinition = a} :: DeregisterJobDefinition)
 
-instance AWSRequest DeregisterJobDefinition where
+instance Prelude.AWSRequest DeregisterJobDefinition where
   type
     Rs DeregisterJobDefinition =
       DeregisterJobDefinitionResponse
-  request = postJSON batch
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeregisterJobDefinitionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeregisterJobDefinition
+instance Prelude.Hashable DeregisterJobDefinition
 
-instance NFData DeregisterJobDefinition
+instance Prelude.NFData DeregisterJobDefinition
 
-instance ToHeaders DeregisterJobDefinition where
+instance Prelude.ToHeaders DeregisterJobDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeregisterJobDefinition where
+instance Prelude.ToJSON DeregisterJobDefinition where
   toJSON DeregisterJobDefinition' {..} =
-    object
-      ( catMaybes
-          [Just ("jobDefinition" .= _djdJobDefinition)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("jobDefinition" Prelude..= jobDefinition)
+          ]
       )
 
-instance ToPath DeregisterJobDefinition where
-  toPath = const "/v1/deregisterjobdefinition"
+instance Prelude.ToPath DeregisterJobDefinition where
+  toPath = Prelude.const "/v1/deregisterjobdefinition"
 
-instance ToQuery DeregisterJobDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery DeregisterJobDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deregisterJobDefinitionResponse' smart constructor.
-newtype DeregisterJobDefinitionResponse = DeregisterJobDefinitionResponse'
-  { _djdrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeregisterJobDefinitionResponse' smart constructor.
+data DeregisterJobDefinitionResponse = DeregisterJobDefinitionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterJobDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterJobDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djdrrsResponseStatus' - -- | The response status code.
-deregisterJobDefinitionResponse ::
-  -- | 'djdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deregisterJobDefinitionResponse_httpStatus' - The response's http status code.
+newDeregisterJobDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeregisterJobDefinitionResponse
-deregisterJobDefinitionResponse pResponseStatus_ =
+newDeregisterJobDefinitionResponse pHttpStatus_ =
   DeregisterJobDefinitionResponse'
-    { _djdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-djdrrsResponseStatus :: Lens' DeregisterJobDefinitionResponse Int
-djdrrsResponseStatus = lens _djdrrsResponseStatus (\s a -> s {_djdrrsResponseStatus = a})
+-- | The response's http status code.
+deregisterJobDefinitionResponse_httpStatus :: Lens.Lens' DeregisterJobDefinitionResponse Prelude.Int
+deregisterJobDefinitionResponse_httpStatus = Lens.lens (\DeregisterJobDefinitionResponse' {httpStatus} -> httpStatus) (\s@DeregisterJobDefinitionResponse' {} a -> s {httpStatus = a} :: DeregisterJobDefinitionResponse)
 
-instance NFData DeregisterJobDefinitionResponse
+instance
+  Prelude.NFData
+    DeregisterJobDefinitionResponse

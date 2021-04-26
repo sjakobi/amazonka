@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,179 +23,253 @@
 --
 -- Describes one or more of your job queues.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Batch.DescribeJobQueues
   ( -- * Creating a Request
-    describeJobQueues,
-    DescribeJobQueues,
+    DescribeJobQueues (..),
+    newDescribeJobQueues,
 
     -- * Request Lenses
-    djqNextToken,
-    djqMaxResults,
-    djqJobQueues,
+    describeJobQueues_nextToken,
+    describeJobQueues_maxResults,
+    describeJobQueues_jobQueues,
 
     -- * Destructuring the Response
-    describeJobQueuesResponse,
-    DescribeJobQueuesResponse,
+    DescribeJobQueuesResponse (..),
+    newDescribeJobQueuesResponse,
 
     -- * Response Lenses
-    djqrrsNextToken,
-    djqrrsJobQueues,
-    djqrrsResponseStatus,
+    describeJobQueuesResponse_nextToken,
+    describeJobQueuesResponse_jobQueues,
+    describeJobQueuesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Batch.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Batch.Types.JobQueueDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Contains the parameters for @DescribeJobQueues@ .
+-- | Contains the parameters for @DescribeJobQueues@.
 --
---
---
--- /See:/ 'describeJobQueues' smart constructor.
+-- /See:/ 'newDescribeJobQueues' smart constructor.
 data DescribeJobQueues = DescribeJobQueues'
-  { _djqNextToken ::
-      !(Maybe Text),
-    _djqMaxResults :: !(Maybe Int),
-    _djqJobQueues :: !(Maybe [Text])
+  { -- | The @nextToken@ value returned from a previous paginated
+    -- @DescribeJobQueues@ request where @maxResults@ was used and the results
+    -- exceeded the value of that parameter. Pagination continues from the end
+    -- of the previous results that returned the @nextToken@ value. This value
+    -- is @null@ when there are no more results to return.
+    --
+    -- This token should be treated as an opaque identifier that\'s only used
+    -- to retrieve the next items in a list and not for other programmatic
+    -- purposes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results returned by @DescribeJobQueues@ in
+    -- paginated output. When this parameter is used, @DescribeJobQueues@ only
+    -- returns @maxResults@ results in a single page along with a @nextToken@
+    -- response element. The remaining results of the initial request can be
+    -- seen by sending another @DescribeJobQueues@ request with the returned
+    -- @nextToken@ value. This value can be between 1 and 100. If this
+    -- parameter isn\'t used, then @DescribeJobQueues@ returns up to 100
+    -- results and a @nextToken@ value if applicable.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A list of up to 100 queue names or full queue Amazon Resource Name (ARN)
+    -- entries.
+    jobQueues :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeJobQueues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeJobQueues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djqNextToken' - The @nextToken@ value returned from a previous paginated @DescribeJobQueues@ request where @maxResults@ was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the @nextToken@ value. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'djqMaxResults' - The maximum number of results returned by @DescribeJobQueues@ in paginated output. When this parameter is used, @DescribeJobQueues@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @DescribeJobQueues@ request with the returned @nextToken@ value. This value can be between 1 and 100. If this parameter isn't used, then @DescribeJobQueues@ returns up to 100 results and a @nextToken@ value if applicable.
+-- 'nextToken', 'describeJobQueues_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @DescribeJobQueues@ request where @maxResults@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value. This value
+-- is @null@ when there are no more results to return.
 --
--- * 'djqJobQueues' - A list of up to 100 queue names or full queue Amazon Resource Name (ARN) entries.
-describeJobQueues ::
+-- This token should be treated as an opaque identifier that\'s only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+--
+-- 'maxResults', 'describeJobQueues_maxResults' - The maximum number of results returned by @DescribeJobQueues@ in
+-- paginated output. When this parameter is used, @DescribeJobQueues@ only
+-- returns @maxResults@ results in a single page along with a @nextToken@
+-- response element. The remaining results of the initial request can be
+-- seen by sending another @DescribeJobQueues@ request with the returned
+-- @nextToken@ value. This value can be between 1 and 100. If this
+-- parameter isn\'t used, then @DescribeJobQueues@ returns up to 100
+-- results and a @nextToken@ value if applicable.
+--
+-- 'jobQueues', 'describeJobQueues_jobQueues' - A list of up to 100 queue names or full queue Amazon Resource Name (ARN)
+-- entries.
+newDescribeJobQueues ::
   DescribeJobQueues
-describeJobQueues =
+newDescribeJobQueues =
   DescribeJobQueues'
-    { _djqNextToken = Nothing,
-      _djqMaxResults = Nothing,
-      _djqJobQueues = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      jobQueues = Prelude.Nothing
     }
 
--- | The @nextToken@ value returned from a previous paginated @DescribeJobQueues@ request where @maxResults@ was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the @nextToken@ value. This value is @null@ when there are no more results to return.
-djqNextToken :: Lens' DescribeJobQueues (Maybe Text)
-djqNextToken = lens _djqNextToken (\s a -> s {_djqNextToken = a})
+-- | The @nextToken@ value returned from a previous paginated
+-- @DescribeJobQueues@ request where @maxResults@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value. This value
+-- is @null@ when there are no more results to return.
+--
+-- This token should be treated as an opaque identifier that\'s only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+describeJobQueues_nextToken :: Lens.Lens' DescribeJobQueues (Prelude.Maybe Prelude.Text)
+describeJobQueues_nextToken = Lens.lens (\DescribeJobQueues' {nextToken} -> nextToken) (\s@DescribeJobQueues' {} a -> s {nextToken = a} :: DescribeJobQueues)
 
--- | The maximum number of results returned by @DescribeJobQueues@ in paginated output. When this parameter is used, @DescribeJobQueues@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @DescribeJobQueues@ request with the returned @nextToken@ value. This value can be between 1 and 100. If this parameter isn't used, then @DescribeJobQueues@ returns up to 100 results and a @nextToken@ value if applicable.
-djqMaxResults :: Lens' DescribeJobQueues (Maybe Int)
-djqMaxResults = lens _djqMaxResults (\s a -> s {_djqMaxResults = a})
+-- | The maximum number of results returned by @DescribeJobQueues@ in
+-- paginated output. When this parameter is used, @DescribeJobQueues@ only
+-- returns @maxResults@ results in a single page along with a @nextToken@
+-- response element. The remaining results of the initial request can be
+-- seen by sending another @DescribeJobQueues@ request with the returned
+-- @nextToken@ value. This value can be between 1 and 100. If this
+-- parameter isn\'t used, then @DescribeJobQueues@ returns up to 100
+-- results and a @nextToken@ value if applicable.
+describeJobQueues_maxResults :: Lens.Lens' DescribeJobQueues (Prelude.Maybe Prelude.Int)
+describeJobQueues_maxResults = Lens.lens (\DescribeJobQueues' {maxResults} -> maxResults) (\s@DescribeJobQueues' {} a -> s {maxResults = a} :: DescribeJobQueues)
 
--- | A list of up to 100 queue names or full queue Amazon Resource Name (ARN) entries.
-djqJobQueues :: Lens' DescribeJobQueues [Text]
-djqJobQueues = lens _djqJobQueues (\s a -> s {_djqJobQueues = a}) . _Default . _Coerce
+-- | A list of up to 100 queue names or full queue Amazon Resource Name (ARN)
+-- entries.
+describeJobQueues_jobQueues :: Lens.Lens' DescribeJobQueues (Prelude.Maybe [Prelude.Text])
+describeJobQueues_jobQueues = Lens.lens (\DescribeJobQueues' {jobQueues} -> jobQueues) (\s@DescribeJobQueues' {} a -> s {jobQueues = a} :: DescribeJobQueues) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeJobQueues where
+instance Pager.AWSPager DescribeJobQueues where
   page rq rs
-    | stop (rs ^. djqrrsNextToken) = Nothing
-    | stop (rs ^. djqrrsJobQueues) = Nothing
-    | otherwise =
-      Just $ rq & djqNextToken .~ rs ^. djqrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeJobQueuesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeJobQueuesResponse_jobQueues
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeJobQueues_nextToken
+          Lens..~ rs
+          Lens.^? describeJobQueuesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeJobQueues where
+instance Prelude.AWSRequest DescribeJobQueues where
   type Rs DescribeJobQueues = DescribeJobQueuesResponse
-  request = postJSON batch
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeJobQueuesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "jobQueues" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "jobQueues"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeJobQueues
+instance Prelude.Hashable DescribeJobQueues
 
-instance NFData DescribeJobQueues
+instance Prelude.NFData DescribeJobQueues
 
-instance ToHeaders DescribeJobQueues where
+instance Prelude.ToHeaders DescribeJobQueues where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeJobQueues where
+instance Prelude.ToJSON DescribeJobQueues where
   toJSON DescribeJobQueues' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _djqNextToken,
-            ("maxResults" .=) <$> _djqMaxResults,
-            ("jobQueues" .=) <$> _djqJobQueues
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("jobQueues" Prelude..=) Prelude.<$> jobQueues
           ]
       )
 
-instance ToPath DescribeJobQueues where
-  toPath = const "/v1/describejobqueues"
+instance Prelude.ToPath DescribeJobQueues where
+  toPath = Prelude.const "/v1/describejobqueues"
 
-instance ToQuery DescribeJobQueues where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeJobQueues where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeJobQueuesResponse' smart constructor.
+-- | /See:/ 'newDescribeJobQueuesResponse' smart constructor.
 data DescribeJobQueuesResponse = DescribeJobQueuesResponse'
-  { _djqrrsNextToken ::
-      !(Maybe Text),
-    _djqrrsJobQueues ::
-      !( Maybe
-           [JobQueueDetail]
-       ),
-    _djqrrsResponseStatus ::
-      !Int
+  { -- | The @nextToken@ value to include in a future @DescribeJobQueues@
+    -- request. When the results of a @DescribeJobQueues@ request exceed
+    -- @maxResults@, this value can be used to retrieve the next page of
+    -- results. This value is @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of job queues.
+    jobQueues :: Prelude.Maybe [JobQueueDetail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeJobQueuesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeJobQueuesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djqrrsNextToken' - The @nextToken@ value to include in a future @DescribeJobQueues@ request. When the results of a @DescribeJobQueues@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'djqrrsJobQueues' - The list of job queues.
+-- 'nextToken', 'describeJobQueuesResponse_nextToken' - The @nextToken@ value to include in a future @DescribeJobQueues@
+-- request. When the results of a @DescribeJobQueues@ request exceed
+-- @maxResults@, this value can be used to retrieve the next page of
+-- results. This value is @null@ when there are no more results to return.
 --
--- * 'djqrrsResponseStatus' - -- | The response status code.
-describeJobQueuesResponse ::
-  -- | 'djqrrsResponseStatus'
-  Int ->
+-- 'jobQueues', 'describeJobQueuesResponse_jobQueues' - The list of job queues.
+--
+-- 'httpStatus', 'describeJobQueuesResponse_httpStatus' - The response's http status code.
+newDescribeJobQueuesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeJobQueuesResponse
-describeJobQueuesResponse pResponseStatus_ =
+newDescribeJobQueuesResponse pHttpStatus_ =
   DescribeJobQueuesResponse'
-    { _djqrrsNextToken =
-        Nothing,
-      _djqrrsJobQueues = Nothing,
-      _djqrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      jobQueues = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @nextToken@ value to include in a future @DescribeJobQueues@ request. When the results of a @DescribeJobQueues@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
-djqrrsNextToken :: Lens' DescribeJobQueuesResponse (Maybe Text)
-djqrrsNextToken = lens _djqrrsNextToken (\s a -> s {_djqrrsNextToken = a})
+-- | The @nextToken@ value to include in a future @DescribeJobQueues@
+-- request. When the results of a @DescribeJobQueues@ request exceed
+-- @maxResults@, this value can be used to retrieve the next page of
+-- results. This value is @null@ when there are no more results to return.
+describeJobQueuesResponse_nextToken :: Lens.Lens' DescribeJobQueuesResponse (Prelude.Maybe Prelude.Text)
+describeJobQueuesResponse_nextToken = Lens.lens (\DescribeJobQueuesResponse' {nextToken} -> nextToken) (\s@DescribeJobQueuesResponse' {} a -> s {nextToken = a} :: DescribeJobQueuesResponse)
 
 -- | The list of job queues.
-djqrrsJobQueues :: Lens' DescribeJobQueuesResponse [JobQueueDetail]
-djqrrsJobQueues = lens _djqrrsJobQueues (\s a -> s {_djqrrsJobQueues = a}) . _Default . _Coerce
+describeJobQueuesResponse_jobQueues :: Lens.Lens' DescribeJobQueuesResponse (Prelude.Maybe [JobQueueDetail])
+describeJobQueuesResponse_jobQueues = Lens.lens (\DescribeJobQueuesResponse' {jobQueues} -> jobQueues) (\s@DescribeJobQueuesResponse' {} a -> s {jobQueues = a} :: DescribeJobQueuesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-djqrrsResponseStatus :: Lens' DescribeJobQueuesResponse Int
-djqrrsResponseStatus = lens _djqrrsResponseStatus (\s a -> s {_djqrrsResponseStatus = a})
+-- | The response's http status code.
+describeJobQueuesResponse_httpStatus :: Lens.Lens' DescribeJobQueuesResponse Prelude.Int
+describeJobQueuesResponse_httpStatus = Lens.lens (\DescribeJobQueuesResponse' {httpStatus} -> httpStatus) (\s@DescribeJobQueuesResponse' {} a -> s {httpStatus = a} :: DescribeJobQueuesResponse)
 
-instance NFData DescribeJobQueuesResponse
+instance Prelude.NFData DescribeJobQueuesResponse

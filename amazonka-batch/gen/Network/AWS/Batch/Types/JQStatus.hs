@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.Batch.Types.JQStatus
   ( JQStatus
       ( ..,
-        Creating,
-        Deleted,
-        Deleting,
-        Invalid,
-        Updating,
-        Valid
+        JQStatusCREATING,
+        JQStatusDELETED,
+        JQStatusDELETING,
+        JQStatusINVALID,
+        JQStatusUPDATING,
+        JQStatusVALID
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JQStatus = JQStatus' (CI Text)
+newtype JQStatus = JQStatus'
+  { fromJQStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Creating :: JQStatus
-pattern Creating = JQStatus' "CREATING"
+pattern JQStatusCREATING :: JQStatus
+pattern JQStatusCREATING = JQStatus' "CREATING"
 
-pattern Deleted :: JQStatus
-pattern Deleted = JQStatus' "DELETED"
+pattern JQStatusDELETED :: JQStatus
+pattern JQStatusDELETED = JQStatus' "DELETED"
 
-pattern Deleting :: JQStatus
-pattern Deleting = JQStatus' "DELETING"
+pattern JQStatusDELETING :: JQStatus
+pattern JQStatusDELETING = JQStatus' "DELETING"
 
-pattern Invalid :: JQStatus
-pattern Invalid = JQStatus' "INVALID"
+pattern JQStatusINVALID :: JQStatus
+pattern JQStatusINVALID = JQStatus' "INVALID"
 
-pattern Updating :: JQStatus
-pattern Updating = JQStatus' "UPDATING"
+pattern JQStatusUPDATING :: JQStatus
+pattern JQStatusUPDATING = JQStatus' "UPDATING"
 
-pattern Valid :: JQStatus
-pattern Valid = JQStatus' "VALID"
+pattern JQStatusVALID :: JQStatus
+pattern JQStatusVALID = JQStatus' "VALID"
 
 {-# COMPLETE
-  Creating,
-  Deleted,
-  Deleting,
-  Invalid,
-  Updating,
-  Valid,
+  JQStatusCREATING,
+  JQStatusDELETED,
+  JQStatusDELETING,
+  JQStatusINVALID,
+  JQStatusUPDATING,
+  JQStatusVALID,
   JQStatus'
   #-}
 
-instance FromText JQStatus where
-  parser = (JQStatus' . mk) <$> takeText
+instance Prelude.FromText JQStatus where
+  parser = JQStatus' Prelude.<$> Prelude.takeText
 
-instance ToText JQStatus where
-  toText (JQStatus' ci) = original ci
+instance Prelude.ToText JQStatus where
+  toText (JQStatus' x) = x
 
-instance Hashable JQStatus
+instance Prelude.Hashable JQStatus
 
-instance NFData JQStatus
+instance Prelude.NFData JQStatus
 
-instance ToByteString JQStatus
+instance Prelude.ToByteString JQStatus
 
-instance ToQuery JQStatus
+instance Prelude.ToQuery JQStatus
 
-instance ToHeader JQStatus
+instance Prelude.ToHeader JQStatus
 
-instance FromJSON JQStatus where
-  parseJSON = parseJSONText "JQStatus"
+instance Prelude.FromJSON JQStatus where
+  parseJSON = Prelude.parseJSONText "JQStatus"

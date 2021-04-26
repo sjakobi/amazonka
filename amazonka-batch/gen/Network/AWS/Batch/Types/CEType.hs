@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,55 @@
 module Network.AWS.Batch.Types.CEType
   ( CEType
       ( ..,
-        Managed,
-        Unmanaged
+        CETypeMANAGED,
+        CETypeUNMANAGED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CEType = CEType' (CI Text)
+newtype CEType = CEType' {fromCEType :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Managed :: CEType
-pattern Managed = CEType' "MANAGED"
+pattern CETypeMANAGED :: CEType
+pattern CETypeMANAGED = CEType' "MANAGED"
 
-pattern Unmanaged :: CEType
-pattern Unmanaged = CEType' "UNMANAGED"
+pattern CETypeUNMANAGED :: CEType
+pattern CETypeUNMANAGED = CEType' "UNMANAGED"
 
 {-# COMPLETE
-  Managed,
-  Unmanaged,
+  CETypeMANAGED,
+  CETypeUNMANAGED,
   CEType'
   #-}
 
-instance FromText CEType where
-  parser = (CEType' . mk) <$> takeText
+instance Prelude.FromText CEType where
+  parser = CEType' Prelude.<$> Prelude.takeText
 
-instance ToText CEType where
-  toText (CEType' ci) = original ci
+instance Prelude.ToText CEType where
+  toText (CEType' x) = x
 
-instance Hashable CEType
+instance Prelude.Hashable CEType
 
-instance NFData CEType
+instance Prelude.NFData CEType
 
-instance ToByteString CEType
+instance Prelude.ToByteString CEType
 
-instance ToQuery CEType
+instance Prelude.ToQuery CEType
 
-instance ToHeader CEType
+instance Prelude.ToHeader CEType
 
-instance ToJSON CEType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CEType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CEType where
-  parseJSON = parseJSONText "CEType"
+instance Prelude.FromJSON CEType where
+  parseJSON = Prelude.parseJSONText "CEType"

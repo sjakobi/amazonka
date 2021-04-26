@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Batch.Types.JobStatus
   ( JobStatus
       ( ..,
-        Failed,
-        Pending,
-        Runnable,
-        Running,
-        Starting,
-        Submitted,
-        Succeeded
+        JobStatusFAILED,
+        JobStatusPENDING,
+        JobStatusRUNNABLE,
+        JobStatusRUNNING,
+        JobStatusSTARTING,
+        JobStatusSUBMITTED,
+        JobStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobStatus = JobStatus' (CI Text)
+newtype JobStatus = JobStatus'
+  { fromJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: JobStatus
-pattern Failed = JobStatus' "FAILED"
+pattern JobStatusFAILED :: JobStatus
+pattern JobStatusFAILED = JobStatus' "FAILED"
 
-pattern Pending :: JobStatus
-pattern Pending = JobStatus' "PENDING"
+pattern JobStatusPENDING :: JobStatus
+pattern JobStatusPENDING = JobStatus' "PENDING"
 
-pattern Runnable :: JobStatus
-pattern Runnable = JobStatus' "RUNNABLE"
+pattern JobStatusRUNNABLE :: JobStatus
+pattern JobStatusRUNNABLE = JobStatus' "RUNNABLE"
 
-pattern Running :: JobStatus
-pattern Running = JobStatus' "RUNNING"
+pattern JobStatusRUNNING :: JobStatus
+pattern JobStatusRUNNING = JobStatus' "RUNNING"
 
-pattern Starting :: JobStatus
-pattern Starting = JobStatus' "STARTING"
+pattern JobStatusSTARTING :: JobStatus
+pattern JobStatusSTARTING = JobStatus' "STARTING"
 
-pattern Submitted :: JobStatus
-pattern Submitted = JobStatus' "SUBMITTED"
+pattern JobStatusSUBMITTED :: JobStatus
+pattern JobStatusSUBMITTED = JobStatus' "SUBMITTED"
 
-pattern Succeeded :: JobStatus
-pattern Succeeded = JobStatus' "SUCCEEDED"
+pattern JobStatusSUCCEEDED :: JobStatus
+pattern JobStatusSUCCEEDED = JobStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  Failed,
-  Pending,
-  Runnable,
-  Running,
-  Starting,
-  Submitted,
-  Succeeded,
+  JobStatusFAILED,
+  JobStatusPENDING,
+  JobStatusRUNNABLE,
+  JobStatusRUNNING,
+  JobStatusSTARTING,
+  JobStatusSUBMITTED,
+  JobStatusSUCCEEDED,
   JobStatus'
   #-}
 
-instance FromText JobStatus where
-  parser = (JobStatus' . mk) <$> takeText
+instance Prelude.FromText JobStatus where
+  parser = JobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText JobStatus where
-  toText (JobStatus' ci) = original ci
+instance Prelude.ToText JobStatus where
+  toText (JobStatus' x) = x
 
-instance Hashable JobStatus
+instance Prelude.Hashable JobStatus
 
-instance NFData JobStatus
+instance Prelude.NFData JobStatus
 
-instance ToByteString JobStatus
+instance Prelude.ToByteString JobStatus
 
-instance ToQuery JobStatus
+instance Prelude.ToQuery JobStatus
 
-instance ToHeader JobStatus
+instance Prelude.ToHeader JobStatus
 
-instance ToJSON JobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JobStatus where
-  parseJSON = parseJSONText "JobStatus"
+instance Prelude.FromJSON JobStatus where
+  parseJSON = Prelude.parseJSONText "JobStatus"

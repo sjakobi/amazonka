@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Batch.Types.NodePropertiesSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object representing the properties of a node that's associated with a multi-node parallel job.
+-- | An object representing the properties of a node that\'s associated with
+-- a multi-node parallel job.
 --
---
---
--- /See:/ 'nodePropertiesSummary' smart constructor.
+-- /See:/ 'newNodePropertiesSummary' smart constructor.
 data NodePropertiesSummary = NodePropertiesSummary'
-  { _npsIsMainNode ::
-      !(Maybe Bool),
-    _npsNodeIndex ::
-      !(Maybe Int),
-    _npsNumNodes ::
-      !(Maybe Int)
+  { -- | Specifies whether the current node is the main node for a multi-node
+    -- parallel job.
+    isMainNode :: Prelude.Maybe Prelude.Bool,
+    -- | The node index for the node. Node index numbering begins at zero. This
+    -- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
+    -- environment variable.
+    nodeIndex :: Prelude.Maybe Prelude.Int,
+    -- | The number of nodes associated with a multi-node parallel job.
+    numNodes :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodePropertiesSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodePropertiesSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'npsIsMainNode' - Specifies whether the current node is the main node for a multi-node parallel job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'npsNodeIndex' - The node index for the node. Node index numbering begins at zero. This index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@ environment variable.
+-- 'isMainNode', 'nodePropertiesSummary_isMainNode' - Specifies whether the current node is the main node for a multi-node
+-- parallel job.
 --
--- * 'npsNumNodes' - The number of nodes associated with a multi-node parallel job.
-nodePropertiesSummary ::
+-- 'nodeIndex', 'nodePropertiesSummary_nodeIndex' - The node index for the node. Node index numbering begins at zero. This
+-- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
+-- environment variable.
+--
+-- 'numNodes', 'nodePropertiesSummary_numNodes' - The number of nodes associated with a multi-node parallel job.
+newNodePropertiesSummary ::
   NodePropertiesSummary
-nodePropertiesSummary =
+newNodePropertiesSummary =
   NodePropertiesSummary'
-    { _npsIsMainNode = Nothing,
-      _npsNodeIndex = Nothing,
-      _npsNumNodes = Nothing
+    { isMainNode =
+        Prelude.Nothing,
+      nodeIndex = Prelude.Nothing,
+      numNodes = Prelude.Nothing
     }
 
--- | Specifies whether the current node is the main node for a multi-node parallel job.
-npsIsMainNode :: Lens' NodePropertiesSummary (Maybe Bool)
-npsIsMainNode = lens _npsIsMainNode (\s a -> s {_npsIsMainNode = a})
+-- | Specifies whether the current node is the main node for a multi-node
+-- parallel job.
+nodePropertiesSummary_isMainNode :: Lens.Lens' NodePropertiesSummary (Prelude.Maybe Prelude.Bool)
+nodePropertiesSummary_isMainNode = Lens.lens (\NodePropertiesSummary' {isMainNode} -> isMainNode) (\s@NodePropertiesSummary' {} a -> s {isMainNode = a} :: NodePropertiesSummary)
 
--- | The node index for the node. Node index numbering begins at zero. This index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@ environment variable.
-npsNodeIndex :: Lens' NodePropertiesSummary (Maybe Int)
-npsNodeIndex = lens _npsNodeIndex (\s a -> s {_npsNodeIndex = a})
+-- | The node index for the node. Node index numbering begins at zero. This
+-- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
+-- environment variable.
+nodePropertiesSummary_nodeIndex :: Lens.Lens' NodePropertiesSummary (Prelude.Maybe Prelude.Int)
+nodePropertiesSummary_nodeIndex = Lens.lens (\NodePropertiesSummary' {nodeIndex} -> nodeIndex) (\s@NodePropertiesSummary' {} a -> s {nodeIndex = a} :: NodePropertiesSummary)
 
 -- | The number of nodes associated with a multi-node parallel job.
-npsNumNodes :: Lens' NodePropertiesSummary (Maybe Int)
-npsNumNodes = lens _npsNumNodes (\s a -> s {_npsNumNodes = a})
+nodePropertiesSummary_numNodes :: Lens.Lens' NodePropertiesSummary (Prelude.Maybe Prelude.Int)
+nodePropertiesSummary_numNodes = Lens.lens (\NodePropertiesSummary' {numNodes} -> numNodes) (\s@NodePropertiesSummary' {} a -> s {numNodes = a} :: NodePropertiesSummary)
 
-instance FromJSON NodePropertiesSummary where
+instance Prelude.FromJSON NodePropertiesSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NodePropertiesSummary"
       ( \x ->
           NodePropertiesSummary'
-            <$> (x .:? "isMainNode")
-            <*> (x .:? "nodeIndex")
-            <*> (x .:? "numNodes")
+            Prelude.<$> (x Prelude..:? "isMainNode")
+            Prelude.<*> (x Prelude..:? "nodeIndex")
+            Prelude.<*> (x Prelude..:? "numNodes")
       )
 
-instance Hashable NodePropertiesSummary
+instance Prelude.Hashable NodePropertiesSummary
 
-instance NFData NodePropertiesSummary
+instance Prelude.NFData NodePropertiesSummary

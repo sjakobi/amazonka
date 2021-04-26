@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,197 +23,276 @@
 --
 -- Describes one or more of your compute environments.
 --
---
--- If you're using an unmanaged compute environment, you can use the @DescribeComputeEnvironment@ operation to determine the @ecsClusterArn@ that you should launch your Amazon ECS container instances into.
---
+-- If you\'re using an unmanaged compute environment, you can use the
+-- @DescribeComputeEnvironment@ operation to determine the @ecsClusterArn@
+-- that you should launch your Amazon ECS container instances into.
 --
 -- This operation returns paginated results.
 module Network.AWS.Batch.DescribeComputeEnvironments
   ( -- * Creating a Request
-    describeComputeEnvironments,
-    DescribeComputeEnvironments,
+    DescribeComputeEnvironments (..),
+    newDescribeComputeEnvironments,
 
     -- * Request Lenses
-    dceNextToken,
-    dceMaxResults,
-    dceComputeEnvironments,
+    describeComputeEnvironments_nextToken,
+    describeComputeEnvironments_maxResults,
+    describeComputeEnvironments_computeEnvironments,
 
     -- * Destructuring the Response
-    describeComputeEnvironmentsResponse,
-    DescribeComputeEnvironmentsResponse,
+    DescribeComputeEnvironmentsResponse (..),
+    newDescribeComputeEnvironmentsResponse,
 
     -- * Response Lenses
-    dcerrsNextToken,
-    dcerrsComputeEnvironments,
-    dcerrsResponseStatus,
+    describeComputeEnvironmentsResponse_nextToken,
+    describeComputeEnvironmentsResponse_computeEnvironments,
+    describeComputeEnvironmentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Batch.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Batch.Types.ComputeEnvironmentDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Contains the parameters for @DescribeComputeEnvironments@ .
+-- | Contains the parameters for @DescribeComputeEnvironments@.
 --
---
---
--- /See:/ 'describeComputeEnvironments' smart constructor.
+-- /See:/ 'newDescribeComputeEnvironments' smart constructor.
 data DescribeComputeEnvironments = DescribeComputeEnvironments'
-  { _dceNextToken ::
-      !(Maybe Text),
-    _dceMaxResults ::
-      !(Maybe Int),
-    _dceComputeEnvironments ::
-      !(Maybe [Text])
+  { -- | The @nextToken@ value returned from a previous paginated
+    -- @DescribeComputeEnvironments@ request where @maxResults@ was used and
+    -- the results exceeded the value of that parameter. Pagination continues
+    -- from the end of the previous results that returned the @nextToken@
+    -- value. This value is @null@ when there are no more results to return.
+    --
+    -- This token should be treated as an opaque identifier that\'s only used
+    -- to retrieve the next items in a list and not for other programmatic
+    -- purposes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of cluster results returned by
+    -- @DescribeComputeEnvironments@ in paginated output. When this parameter
+    -- is used, @DescribeComputeEnvironments@ only returns @maxResults@ results
+    -- in a single page along with a @nextToken@ response element. The
+    -- remaining results of the initial request can be seen by sending another
+    -- @DescribeComputeEnvironments@ request with the returned @nextToken@
+    -- value. This value can be between 1 and 100. If this parameter isn\'t
+    -- used, then @DescribeComputeEnvironments@ returns up to 100 results and a
+    -- @nextToken@ value if applicable.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A list of up to 100 compute environment names or full Amazon Resource
+    -- Name (ARN) entries.
+    computeEnvironments :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeComputeEnvironments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeComputeEnvironments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dceNextToken' - The @nextToken@ value returned from a previous paginated @DescribeComputeEnvironments@ request where @maxResults@ was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the @nextToken@ value. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dceMaxResults' - The maximum number of cluster results returned by @DescribeComputeEnvironments@ in paginated output. When this parameter is used, @DescribeComputeEnvironments@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @DescribeComputeEnvironments@ request with the returned @nextToken@ value. This value can be between 1 and 100. If this parameter isn't used, then @DescribeComputeEnvironments@ returns up to 100 results and a @nextToken@ value if applicable.
+-- 'nextToken', 'describeComputeEnvironments_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @DescribeComputeEnvironments@ request where @maxResults@ was used and
+-- the results exceeded the value of that parameter. Pagination continues
+-- from the end of the previous results that returned the @nextToken@
+-- value. This value is @null@ when there are no more results to return.
 --
--- * 'dceComputeEnvironments' - A list of up to 100 compute environment names or full Amazon Resource Name (ARN) entries.
-describeComputeEnvironments ::
+-- This token should be treated as an opaque identifier that\'s only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+--
+-- 'maxResults', 'describeComputeEnvironments_maxResults' - The maximum number of cluster results returned by
+-- @DescribeComputeEnvironments@ in paginated output. When this parameter
+-- is used, @DescribeComputeEnvironments@ only returns @maxResults@ results
+-- in a single page along with a @nextToken@ response element. The
+-- remaining results of the initial request can be seen by sending another
+-- @DescribeComputeEnvironments@ request with the returned @nextToken@
+-- value. This value can be between 1 and 100. If this parameter isn\'t
+-- used, then @DescribeComputeEnvironments@ returns up to 100 results and a
+-- @nextToken@ value if applicable.
+--
+-- 'computeEnvironments', 'describeComputeEnvironments_computeEnvironments' - A list of up to 100 compute environment names or full Amazon Resource
+-- Name (ARN) entries.
+newDescribeComputeEnvironments ::
   DescribeComputeEnvironments
-describeComputeEnvironments =
+newDescribeComputeEnvironments =
   DescribeComputeEnvironments'
-    { _dceNextToken =
-        Nothing,
-      _dceMaxResults = Nothing,
-      _dceComputeEnvironments = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      computeEnvironments = Prelude.Nothing
     }
 
--- | The @nextToken@ value returned from a previous paginated @DescribeComputeEnvironments@ request where @maxResults@ was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the @nextToken@ value. This value is @null@ when there are no more results to return.
-dceNextToken :: Lens' DescribeComputeEnvironments (Maybe Text)
-dceNextToken = lens _dceNextToken (\s a -> s {_dceNextToken = a})
+-- | The @nextToken@ value returned from a previous paginated
+-- @DescribeComputeEnvironments@ request where @maxResults@ was used and
+-- the results exceeded the value of that parameter. Pagination continues
+-- from the end of the previous results that returned the @nextToken@
+-- value. This value is @null@ when there are no more results to return.
+--
+-- This token should be treated as an opaque identifier that\'s only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+describeComputeEnvironments_nextToken :: Lens.Lens' DescribeComputeEnvironments (Prelude.Maybe Prelude.Text)
+describeComputeEnvironments_nextToken = Lens.lens (\DescribeComputeEnvironments' {nextToken} -> nextToken) (\s@DescribeComputeEnvironments' {} a -> s {nextToken = a} :: DescribeComputeEnvironments)
 
--- | The maximum number of cluster results returned by @DescribeComputeEnvironments@ in paginated output. When this parameter is used, @DescribeComputeEnvironments@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @DescribeComputeEnvironments@ request with the returned @nextToken@ value. This value can be between 1 and 100. If this parameter isn't used, then @DescribeComputeEnvironments@ returns up to 100 results and a @nextToken@ value if applicable.
-dceMaxResults :: Lens' DescribeComputeEnvironments (Maybe Int)
-dceMaxResults = lens _dceMaxResults (\s a -> s {_dceMaxResults = a})
+-- | The maximum number of cluster results returned by
+-- @DescribeComputeEnvironments@ in paginated output. When this parameter
+-- is used, @DescribeComputeEnvironments@ only returns @maxResults@ results
+-- in a single page along with a @nextToken@ response element. The
+-- remaining results of the initial request can be seen by sending another
+-- @DescribeComputeEnvironments@ request with the returned @nextToken@
+-- value. This value can be between 1 and 100. If this parameter isn\'t
+-- used, then @DescribeComputeEnvironments@ returns up to 100 results and a
+-- @nextToken@ value if applicable.
+describeComputeEnvironments_maxResults :: Lens.Lens' DescribeComputeEnvironments (Prelude.Maybe Prelude.Int)
+describeComputeEnvironments_maxResults = Lens.lens (\DescribeComputeEnvironments' {maxResults} -> maxResults) (\s@DescribeComputeEnvironments' {} a -> s {maxResults = a} :: DescribeComputeEnvironments)
 
--- | A list of up to 100 compute environment names or full Amazon Resource Name (ARN) entries.
-dceComputeEnvironments :: Lens' DescribeComputeEnvironments [Text]
-dceComputeEnvironments = lens _dceComputeEnvironments (\s a -> s {_dceComputeEnvironments = a}) . _Default . _Coerce
+-- | A list of up to 100 compute environment names or full Amazon Resource
+-- Name (ARN) entries.
+describeComputeEnvironments_computeEnvironments :: Lens.Lens' DescribeComputeEnvironments (Prelude.Maybe [Prelude.Text])
+describeComputeEnvironments_computeEnvironments = Lens.lens (\DescribeComputeEnvironments' {computeEnvironments} -> computeEnvironments) (\s@DescribeComputeEnvironments' {} a -> s {computeEnvironments = a} :: DescribeComputeEnvironments) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeComputeEnvironments where
+instance Pager.AWSPager DescribeComputeEnvironments where
   page rq rs
-    | stop (rs ^. dcerrsNextToken) = Nothing
-    | stop (rs ^. dcerrsComputeEnvironments) = Nothing
-    | otherwise =
-      Just $ rq & dceNextToken .~ rs ^. dcerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeComputeEnvironmentsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeComputeEnvironmentsResponse_computeEnvironments
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeComputeEnvironments_nextToken
+          Lens..~ rs
+          Lens.^? describeComputeEnvironmentsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeComputeEnvironments where
+instance
+  Prelude.AWSRequest
+    DescribeComputeEnvironments
+  where
   type
     Rs DescribeComputeEnvironments =
       DescribeComputeEnvironmentsResponse
-  request = postJSON batch
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeComputeEnvironmentsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "computeEnvironments" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "computeEnvironments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeComputeEnvironments
+instance Prelude.Hashable DescribeComputeEnvironments
 
-instance NFData DescribeComputeEnvironments
+instance Prelude.NFData DescribeComputeEnvironments
 
-instance ToHeaders DescribeComputeEnvironments where
+instance
+  Prelude.ToHeaders
+    DescribeComputeEnvironments
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeComputeEnvironments where
+instance Prelude.ToJSON DescribeComputeEnvironments where
   toJSON DescribeComputeEnvironments' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _dceNextToken,
-            ("maxResults" .=) <$> _dceMaxResults,
-            ("computeEnvironments" .=)
-              <$> _dceComputeEnvironments
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("computeEnvironments" Prelude..=)
+              Prelude.<$> computeEnvironments
           ]
       )
 
-instance ToPath DescribeComputeEnvironments where
-  toPath = const "/v1/describecomputeenvironments"
+instance Prelude.ToPath DescribeComputeEnvironments where
+  toPath =
+    Prelude.const "/v1/describecomputeenvironments"
 
-instance ToQuery DescribeComputeEnvironments where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeComputeEnvironments where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeComputeEnvironmentsResponse' smart constructor.
+-- | /See:/ 'newDescribeComputeEnvironmentsResponse' smart constructor.
 data DescribeComputeEnvironmentsResponse = DescribeComputeEnvironmentsResponse'
-  { _dcerrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dcerrsComputeEnvironments ::
-      !( Maybe
-           [ComputeEnvironmentDetail]
-       ),
-    _dcerrsResponseStatus ::
-      !Int
+  { -- | The @nextToken@ value to include in a future
+    -- @DescribeComputeEnvironments@ request. When the results of a
+    -- @DescribeJobDefinitions@ request exceed @maxResults@, this value can be
+    -- used to retrieve the next page of results. This value is @null@ when
+    -- there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of compute environments.
+    computeEnvironments :: Prelude.Maybe [ComputeEnvironmentDetail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeComputeEnvironmentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeComputeEnvironmentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcerrsNextToken' - The @nextToken@ value to include in a future @DescribeComputeEnvironments@ request. When the results of a @DescribeJobDefinitions@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcerrsComputeEnvironments' - The list of compute environments.
+-- 'nextToken', 'describeComputeEnvironmentsResponse_nextToken' - The @nextToken@ value to include in a future
+-- @DescribeComputeEnvironments@ request. When the results of a
+-- @DescribeJobDefinitions@ request exceed @maxResults@, this value can be
+-- used to retrieve the next page of results. This value is @null@ when
+-- there are no more results to return.
 --
--- * 'dcerrsResponseStatus' - -- | The response status code.
-describeComputeEnvironmentsResponse ::
-  -- | 'dcerrsResponseStatus'
-  Int ->
+-- 'computeEnvironments', 'describeComputeEnvironmentsResponse_computeEnvironments' - The list of compute environments.
+--
+-- 'httpStatus', 'describeComputeEnvironmentsResponse_httpStatus' - The response's http status code.
+newDescribeComputeEnvironmentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeComputeEnvironmentsResponse
-describeComputeEnvironmentsResponse pResponseStatus_ =
+newDescribeComputeEnvironmentsResponse pHttpStatus_ =
   DescribeComputeEnvironmentsResponse'
-    { _dcerrsNextToken =
-        Nothing,
-      _dcerrsComputeEnvironments = Nothing,
-      _dcerrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      computeEnvironments = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @nextToken@ value to include in a future @DescribeComputeEnvironments@ request. When the results of a @DescribeJobDefinitions@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dcerrsNextToken :: Lens' DescribeComputeEnvironmentsResponse (Maybe Text)
-dcerrsNextToken = lens _dcerrsNextToken (\s a -> s {_dcerrsNextToken = a})
+-- | The @nextToken@ value to include in a future
+-- @DescribeComputeEnvironments@ request. When the results of a
+-- @DescribeJobDefinitions@ request exceed @maxResults@, this value can be
+-- used to retrieve the next page of results. This value is @null@ when
+-- there are no more results to return.
+describeComputeEnvironmentsResponse_nextToken :: Lens.Lens' DescribeComputeEnvironmentsResponse (Prelude.Maybe Prelude.Text)
+describeComputeEnvironmentsResponse_nextToken = Lens.lens (\DescribeComputeEnvironmentsResponse' {nextToken} -> nextToken) (\s@DescribeComputeEnvironmentsResponse' {} a -> s {nextToken = a} :: DescribeComputeEnvironmentsResponse)
 
 -- | The list of compute environments.
-dcerrsComputeEnvironments :: Lens' DescribeComputeEnvironmentsResponse [ComputeEnvironmentDetail]
-dcerrsComputeEnvironments = lens _dcerrsComputeEnvironments (\s a -> s {_dcerrsComputeEnvironments = a}) . _Default . _Coerce
+describeComputeEnvironmentsResponse_computeEnvironments :: Lens.Lens' DescribeComputeEnvironmentsResponse (Prelude.Maybe [ComputeEnvironmentDetail])
+describeComputeEnvironmentsResponse_computeEnvironments = Lens.lens (\DescribeComputeEnvironmentsResponse' {computeEnvironments} -> computeEnvironments) (\s@DescribeComputeEnvironmentsResponse' {} a -> s {computeEnvironments = a} :: DescribeComputeEnvironmentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcerrsResponseStatus :: Lens' DescribeComputeEnvironmentsResponse Int
-dcerrsResponseStatus = lens _dcerrsResponseStatus (\s a -> s {_dcerrsResponseStatus = a})
+-- | The response's http status code.
+describeComputeEnvironmentsResponse_httpStatus :: Lens.Lens' DescribeComputeEnvironmentsResponse Prelude.Int
+describeComputeEnvironmentsResponse_httpStatus = Lens.lens (\DescribeComputeEnvironmentsResponse' {httpStatus} -> httpStatus) (\s@DescribeComputeEnvironmentsResponse' {} a -> s {httpStatus = a} :: DescribeComputeEnvironmentsResponse)
 
-instance NFData DescribeComputeEnvironmentsResponse
+instance
+  Prelude.NFData
+    DescribeComputeEnvironmentsResponse

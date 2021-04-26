@@ -11,13 +11,26 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Using AWS Batch, you can run batch computing workloads on the AWS Cloud. Batch computing is a common means for developers, scientists, and engineers to access large amounts of compute resources. AWS Batch utilizes the advantages of this computing workload to remove the undifferentiated heavy lifting of configuring and managing required infrastructure, while also adopting a familiar batch computing software approach. Given these advantages, AWS Batch can help you to efficiently provision resources in response to jobs submitted, thus effectively helping to eliminate capacity constraints, reduce compute costs, and deliver your results more quickly.
+-- Using AWS Batch, you can run batch computing workloads on the AWS Cloud.
+-- Batch computing is a common means for developers, scientists, and
+-- engineers to access large amounts of compute resources. AWS Batch
+-- utilizes the advantages of this computing workload to remove the
+-- undifferentiated heavy lifting of configuring and managing required
+-- infrastructure, while also adopting a familiar batch computing software
+-- approach. Given these advantages, AWS Batch can help you to efficiently
+-- provision resources in response to jobs submitted, thus effectively
+-- helping to eliminate capacity constraints, reduce compute costs, and
+-- deliver your results more quickly.
 --
---
--- As a fully managed service, AWS Batch can run batch computing workloads of any scale. AWS Batch automatically provisions compute resources and optimizes workload distribution based on the quantity and scale of your specific workloads. With AWS Batch, there's no need to install or manage batch computing software. This means that you can focus your time and energy on analyzing results and solving your specific problems.
+-- As a fully managed service, AWS Batch can run batch computing workloads
+-- of any scale. AWS Batch automatically provisions compute resources and
+-- optimizes workload distribution based on the quantity and scale of your
+-- specific workloads. With AWS Batch, there\'s no need to install or
+-- manage batch computing software. This means that you can focus your time
+-- and energy on analyzing results and solving your specific problems.
 module Network.AWS.Batch
   ( -- * Service Configuration
-    batch,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -35,69 +48,126 @@ module Network.AWS.Batch
     -- $operations
 
     -- ** CreateComputeEnvironment
-    module Network.AWS.Batch.CreateComputeEnvironment,
+    CreateComputeEnvironment (CreateComputeEnvironment'),
+    newCreateComputeEnvironment,
+    CreateComputeEnvironmentResponse (CreateComputeEnvironmentResponse'),
+    newCreateComputeEnvironmentResponse,
 
     -- ** CancelJob
-    module Network.AWS.Batch.CancelJob,
+    CancelJob (CancelJob'),
+    newCancelJob,
+    CancelJobResponse (CancelJobResponse'),
+    newCancelJobResponse,
 
     -- ** DescribeJobs
-    module Network.AWS.Batch.DescribeJobs,
+    DescribeJobs (DescribeJobs'),
+    newDescribeJobs,
+    DescribeJobsResponse (DescribeJobsResponse'),
+    newDescribeJobsResponse,
 
     -- ** DeleteComputeEnvironment
-    module Network.AWS.Batch.DeleteComputeEnvironment,
+    DeleteComputeEnvironment (DeleteComputeEnvironment'),
+    newDeleteComputeEnvironment,
+    DeleteComputeEnvironmentResponse (DeleteComputeEnvironmentResponse'),
+    newDeleteComputeEnvironmentResponse,
 
     -- ** UpdateComputeEnvironment
-    module Network.AWS.Batch.UpdateComputeEnvironment,
+    UpdateComputeEnvironment (UpdateComputeEnvironment'),
+    newUpdateComputeEnvironment,
+    UpdateComputeEnvironmentResponse (UpdateComputeEnvironmentResponse'),
+    newUpdateComputeEnvironmentResponse,
 
     -- ** UntagResource
-    module Network.AWS.Batch.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DescribeJobQueues (Paginated)
-    module Network.AWS.Batch.DescribeJobQueues,
+    DescribeJobQueues (DescribeJobQueues'),
+    newDescribeJobQueues,
+    DescribeJobQueuesResponse (DescribeJobQueuesResponse'),
+    newDescribeJobQueuesResponse,
 
     -- ** TagResource
-    module Network.AWS.Batch.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** DeregisterJobDefinition
-    module Network.AWS.Batch.DeregisterJobDefinition,
+    DeregisterJobDefinition (DeregisterJobDefinition'),
+    newDeregisterJobDefinition,
+    DeregisterJobDefinitionResponse (DeregisterJobDefinitionResponse'),
+    newDeregisterJobDefinitionResponse,
 
     -- ** DeleteJobQueue
-    module Network.AWS.Batch.DeleteJobQueue,
+    DeleteJobQueue (DeleteJobQueue'),
+    newDeleteJobQueue,
+    DeleteJobQueueResponse (DeleteJobQueueResponse'),
+    newDeleteJobQueueResponse,
 
     -- ** UpdateJobQueue
-    module Network.AWS.Batch.UpdateJobQueue,
+    UpdateJobQueue (UpdateJobQueue'),
+    newUpdateJobQueue,
+    UpdateJobQueueResponse (UpdateJobQueueResponse'),
+    newUpdateJobQueueResponse,
 
     -- ** DescribeJobDefinitions (Paginated)
-    module Network.AWS.Batch.DescribeJobDefinitions,
+    DescribeJobDefinitions (DescribeJobDefinitions'),
+    newDescribeJobDefinitions,
+    DescribeJobDefinitionsResponse (DescribeJobDefinitionsResponse'),
+    newDescribeJobDefinitionsResponse,
 
     -- ** ListJobs (Paginated)
-    module Network.AWS.Batch.ListJobs,
+    ListJobs (ListJobs'),
+    newListJobs,
+    ListJobsResponse (ListJobsResponse'),
+    newListJobsResponse,
 
     -- ** DescribeComputeEnvironments (Paginated)
-    module Network.AWS.Batch.DescribeComputeEnvironments,
+    DescribeComputeEnvironments (DescribeComputeEnvironments'),
+    newDescribeComputeEnvironments,
+    DescribeComputeEnvironmentsResponse (DescribeComputeEnvironmentsResponse'),
+    newDescribeComputeEnvironmentsResponse,
 
     -- ** TerminateJob
-    module Network.AWS.Batch.TerminateJob,
+    TerminateJob (TerminateJob'),
+    newTerminateJob,
+    TerminateJobResponse (TerminateJobResponse'),
+    newTerminateJobResponse,
 
     -- ** RegisterJobDefinition
-    module Network.AWS.Batch.RegisterJobDefinition,
+    RegisterJobDefinition (RegisterJobDefinition'),
+    newRegisterJobDefinition,
+    RegisterJobDefinitionResponse (RegisterJobDefinitionResponse'),
+    newRegisterJobDefinitionResponse,
 
     -- ** SubmitJob
-    module Network.AWS.Batch.SubmitJob,
+    SubmitJob (SubmitJob'),
+    newSubmitJob,
+    SubmitJobResponse (SubmitJobResponse'),
+    newSubmitJobResponse,
 
     -- ** CreateJobQueue
-    module Network.AWS.Batch.CreateJobQueue,
+    CreateJobQueue (CreateJobQueue'),
+    newCreateJobQueue,
+    CreateJobQueueResponse (CreateJobQueueResponse'),
+    newCreateJobQueueResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.Batch.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- * Types
 
     -- ** ArrayJobDependency
     ArrayJobDependency (..),
 
-    -- ** AssignPublicIP
-    AssignPublicIP (..),
+    -- ** AssignPublicIp
+    AssignPublicIp (..),
 
     -- ** CEState
     CEState (..),
@@ -142,397 +212,176 @@ module Network.AWS.Batch
     RetryAction (..),
 
     -- ** ArrayProperties
-    ArrayProperties,
-    arrayProperties,
-    apSize,
+    ArrayProperties (ArrayProperties'),
+    newArrayProperties,
 
     -- ** ArrayPropertiesDetail
-    ArrayPropertiesDetail,
-    arrayPropertiesDetail,
-    apdIndex,
-    apdStatusSummary,
-    apdSize,
+    ArrayPropertiesDetail (ArrayPropertiesDetail'),
+    newArrayPropertiesDetail,
 
     -- ** ArrayPropertiesSummary
-    ArrayPropertiesSummary,
-    arrayPropertiesSummary,
-    apsIndex,
-    apsSize,
+    ArrayPropertiesSummary (ArrayPropertiesSummary'),
+    newArrayPropertiesSummary,
 
     -- ** AttemptContainerDetail
-    AttemptContainerDetail,
-    attemptContainerDetail,
-    acdLogStreamName,
-    acdContainerInstanceARN,
-    acdExitCode,
-    acdReason,
-    acdTaskARN,
-    acdNetworkInterfaces,
+    AttemptContainerDetail (AttemptContainerDetail'),
+    newAttemptContainerDetail,
 
     -- ** AttemptDetail
-    AttemptDetail,
-    attemptDetail,
-    adContainer,
-    adStartedAt,
-    adStoppedAt,
-    adStatusReason,
+    AttemptDetail (AttemptDetail'),
+    newAttemptDetail,
 
     -- ** ComputeEnvironmentDetail
-    ComputeEnvironmentDetail,
-    computeEnvironmentDetail,
-    cedStatus,
-    cedServiceRole,
-    cedState,
-    cedComputeResources,
-    cedTags,
-    cedStatusReason,
-    cedType,
-    cedComputeEnvironmentName,
-    cedComputeEnvironmentARN,
-    cedEcsClusterARN,
+    ComputeEnvironmentDetail (ComputeEnvironmentDetail'),
+    newComputeEnvironmentDetail,
 
     -- ** ComputeEnvironmentOrder
-    ComputeEnvironmentOrder,
-    computeEnvironmentOrder,
-    ceoOrder,
-    ceoComputeEnvironment,
+    ComputeEnvironmentOrder (ComputeEnvironmentOrder'),
+    newComputeEnvironmentOrder,
 
     -- ** ComputeResource
-    ComputeResource,
-    computeResource,
-    crSecurityGroupIds,
-    crBidPercentage,
-    crMinvCPUs,
-    crEc2KeyPair,
-    crPlacementGroup,
-    crLaunchTemplate,
-    crImageId,
-    crSpotIAMFleetRole,
-    crEc2Configuration,
-    crTags,
-    crDesiredvCPUs,
-    crAllocationStrategy,
-    crInstanceRole,
-    crInstanceTypes,
-    crType,
-    crMaxvCPUs,
-    crSubnets,
+    ComputeResource (ComputeResource'),
+    newComputeResource,
 
     -- ** ComputeResourceUpdate
-    ComputeResourceUpdate,
-    computeResourceUpdate,
-    cruSecurityGroupIds,
-    cruMinvCPUs,
-    cruMaxvCPUs,
-    cruDesiredvCPUs,
-    cruSubnets,
+    ComputeResourceUpdate (ComputeResourceUpdate'),
+    newComputeResourceUpdate,
 
     -- ** ContainerDetail
-    ContainerDetail,
-    containerDetail,
-    cdLogStreamName,
-    cdLinuxParameters,
-    cdMemory,
-    cdUser,
-    cdInstanceType,
-    cdNetworkConfiguration,
-    cdExecutionRoleARN,
-    cdPrivileged,
-    cdVcpus,
-    cdContainerInstanceARN,
-    cdVolumes,
-    cdEnvironment,
-    cdFargatePlatformConfiguration,
-    cdExitCode,
-    cdSecrets,
-    cdMountPoints,
-    cdImage,
-    cdCommand,
-    cdLogConfiguration,
-    cdReason,
-    cdResourceRequirements,
-    cdJobRoleARN,
-    cdReadonlyRootFilesystem,
-    cdUlimits,
-    cdTaskARN,
-    cdNetworkInterfaces,
+    ContainerDetail (ContainerDetail'),
+    newContainerDetail,
 
     -- ** ContainerOverrides
-    ContainerOverrides,
-    containerOverrides,
-    coMemory,
-    coInstanceType,
-    coVcpus,
-    coEnvironment,
-    coCommand,
-    coResourceRequirements,
+    ContainerOverrides (ContainerOverrides'),
+    newContainerOverrides,
 
     -- ** ContainerProperties
-    ContainerProperties,
-    containerProperties,
-    cpLinuxParameters,
-    cpMemory,
-    cpUser,
-    cpInstanceType,
-    cpNetworkConfiguration,
-    cpExecutionRoleARN,
-    cpPrivileged,
-    cpVcpus,
-    cpVolumes,
-    cpEnvironment,
-    cpFargatePlatformConfiguration,
-    cpSecrets,
-    cpMountPoints,
-    cpImage,
-    cpCommand,
-    cpLogConfiguration,
-    cpResourceRequirements,
-    cpJobRoleARN,
-    cpReadonlyRootFilesystem,
-    cpUlimits,
+    ContainerProperties (ContainerProperties'),
+    newContainerProperties,
 
     -- ** ContainerSummary
-    ContainerSummary,
-    containerSummary,
-    csExitCode,
-    csReason,
+    ContainerSummary (ContainerSummary'),
+    newContainerSummary,
 
     -- ** Device
-    Device,
-    device,
-    dPermissions,
-    dContainerPath,
-    dHostPath,
+    Device (Device'),
+    newDevice,
 
-    -- ** EC2Configuration
-    EC2Configuration,
-    ec2Configuration,
-    ecImageIdOverride,
-    ecImageType,
+    -- ** Ec2Configuration
+    Ec2Configuration (Ec2Configuration'),
+    newEc2Configuration,
 
     -- ** EvaluateOnExit
-    EvaluateOnExit,
-    evaluateOnExit,
-    eoeOnExitCode,
-    eoeOnStatusReason,
-    eoeOnReason,
-    eoeAction,
+    EvaluateOnExit (EvaluateOnExit'),
+    newEvaluateOnExit,
 
     -- ** FargatePlatformConfiguration
-    FargatePlatformConfiguration,
-    fargatePlatformConfiguration,
-    fpcPlatformVersion,
+    FargatePlatformConfiguration (FargatePlatformConfiguration'),
+    newFargatePlatformConfiguration,
 
     -- ** Host
-    Host,
-    host,
-    hSourcePath,
+    Host (Host'),
+    newHost,
 
     -- ** JobDefinition
-    JobDefinition,
-    jobDefinition,
-    jdStatus,
-    jdPlatformCapabilities,
-    jdTimeout,
-    jdNodeProperties,
-    jdTags,
-    jdContainerProperties,
-    jdRetryStrategy,
-    jdParameters,
-    jdPropagateTags,
-    jdJobDefinitionName,
-    jdJobDefinitionARN,
-    jdRevision,
-    jdType,
+    JobDefinition (JobDefinition'),
+    newJobDefinition,
 
     -- ** JobDependency
-    JobDependency,
-    jobDependency,
-    jobType,
-    jobJobId,
+    JobDependency (JobDependency'),
+    newJobDependency,
 
     -- ** JobDetail
-    JobDetail,
-    jobDetail,
-    jContainer,
-    jStartedAt,
-    jDependsOn,
-    jPlatformCapabilities,
-    jTimeout,
-    jArrayProperties,
-    jCreatedAt,
-    jJobARN,
-    jNodeDetails,
-    jStoppedAt,
-    jNodeProperties,
-    jTags,
-    jAttempts,
-    jRetryStrategy,
-    jStatusReason,
-    jParameters,
-    jPropagateTags,
-    jJobName,
-    jJobId,
-    jJobQueue,
-    jStatus,
-    jJobDefinition,
+    JobDetail (JobDetail'),
+    newJobDetail,
 
     -- ** JobQueueDetail
-    JobQueueDetail,
-    jobQueueDetail,
-    jqdStatus,
-    jqdTags,
-    jqdStatusReason,
-    jqdJobQueueName,
-    jqdJobQueueARN,
-    jqdState,
-    jqdPriority,
-    jqdComputeEnvironmentOrder,
+    JobQueueDetail (JobQueueDetail'),
+    newJobQueueDetail,
 
     -- ** JobSummary
-    JobSummary,
-    jobSummary,
-    jsContainer,
-    jsStartedAt,
-    jsStatus,
-    jsArrayProperties,
-    jsCreatedAt,
-    jsJobARN,
-    jsStoppedAt,
-    jsNodeProperties,
-    jsStatusReason,
-    jsJobId,
-    jsJobName,
+    JobSummary (JobSummary'),
+    newJobSummary,
 
     -- ** JobTimeout
-    JobTimeout,
-    jobTimeout,
-    jtAttemptDurationSeconds,
+    JobTimeout (JobTimeout'),
+    newJobTimeout,
 
     -- ** KeyValuePair
-    KeyValuePair,
-    keyValuePair,
-    kvpName,
-    kvpValue,
+    KeyValuePair (KeyValuePair'),
+    newKeyValuePair,
 
     -- ** LaunchTemplateSpecification
-    LaunchTemplateSpecification,
-    launchTemplateSpecification,
-    ltsLaunchTemplateId,
-    ltsLaunchTemplateName,
-    ltsVersion,
+    LaunchTemplateSpecification (LaunchTemplateSpecification'),
+    newLaunchTemplateSpecification,
 
     -- ** LinuxParameters
-    LinuxParameters,
-    linuxParameters,
-    lpTmpfs,
-    lpMaxSwap,
-    lpDevices,
-    lpSwappiness,
-    lpInitProcessEnabled,
-    lpSharedMemorySize,
+    LinuxParameters (LinuxParameters'),
+    newLinuxParameters,
 
     -- ** LogConfiguration
-    LogConfiguration,
-    logConfiguration,
-    lcOptions,
-    lcSecretOptions,
-    lcLogDriver,
+    LogConfiguration (LogConfiguration'),
+    newLogConfiguration,
 
     -- ** MountPoint
-    MountPoint,
-    mountPoint,
-    mpReadOnly,
-    mpSourceVolume,
-    mpContainerPath,
+    MountPoint (MountPoint'),
+    newMountPoint,
 
     -- ** NetworkConfiguration
-    NetworkConfiguration,
-    networkConfiguration,
-    ncAssignPublicIP,
+    NetworkConfiguration (NetworkConfiguration'),
+    newNetworkConfiguration,
 
     -- ** NetworkInterface
-    NetworkInterface,
-    networkInterface,
-    niPrivateIPv4Address,
-    niIpv6Address,
-    niAttachmentId,
+    NetworkInterface (NetworkInterface'),
+    newNetworkInterface,
 
     -- ** NodeDetails
-    NodeDetails,
-    nodeDetails,
-    ndIsMainNode,
-    ndNodeIndex,
+    NodeDetails (NodeDetails'),
+    newNodeDetails,
 
     -- ** NodeOverrides
-    NodeOverrides,
-    nodeOverrides,
-    noNodePropertyOverrides,
-    noNumNodes,
+    NodeOverrides (NodeOverrides'),
+    newNodeOverrides,
 
     -- ** NodeProperties
-    NodeProperties,
-    nodeProperties,
-    npNumNodes,
-    npMainNode,
-    npNodeRangeProperties,
+    NodeProperties (NodeProperties'),
+    newNodeProperties,
 
     -- ** NodePropertiesSummary
-    NodePropertiesSummary,
-    nodePropertiesSummary,
-    npsIsMainNode,
-    npsNodeIndex,
-    npsNumNodes,
+    NodePropertiesSummary (NodePropertiesSummary'),
+    newNodePropertiesSummary,
 
     -- ** NodePropertyOverride
-    NodePropertyOverride,
-    nodePropertyOverride,
-    npoContainerOverrides,
-    npoTargetNodes,
+    NodePropertyOverride (NodePropertyOverride'),
+    newNodePropertyOverride,
 
     -- ** NodeRangeProperty
-    NodeRangeProperty,
-    nodeRangeProperty,
-    nrpContainer,
-    nrpTargetNodes,
+    NodeRangeProperty (NodeRangeProperty'),
+    newNodeRangeProperty,
 
     -- ** ResourceRequirement
-    ResourceRequirement,
-    resourceRequirement,
-    rrValue,
-    rrType,
+    ResourceRequirement (ResourceRequirement'),
+    newResourceRequirement,
 
     -- ** RetryStrategy
-    RetryStrategy,
-    retryStrategy,
-    rsEvaluateOnExit,
-    rsAttempts,
+    RetryStrategy (RetryStrategy'),
+    newRetryStrategy,
 
     -- ** Secret
-    Secret,
-    secret,
-    sName,
-    sValueFrom,
+    Secret (Secret'),
+    newSecret,
 
     -- ** Tmpfs
-    Tmpfs,
-    tmpfs,
-    tMountOptions,
-    tContainerPath,
-    tSize,
+    Tmpfs (Tmpfs'),
+    newTmpfs,
 
     -- ** Ulimit
-    Ulimit,
-    ulimit,
-    uHardLimit,
-    uName,
-    uSoftLimit,
+    Ulimit (Ulimit'),
+    newUlimit,
 
     -- ** Volume
-    Volume,
-    volume,
-    vName,
-    vHost,
+    Volume (Volume'),
+    newVolume,
   )
 where
 
@@ -546,6 +395,7 @@ import Network.AWS.Batch.DescribeComputeEnvironments
 import Network.AWS.Batch.DescribeJobDefinitions
 import Network.AWS.Batch.DescribeJobQueues
 import Network.AWS.Batch.DescribeJobs
+import Network.AWS.Batch.Lens
 import Network.AWS.Batch.ListJobs
 import Network.AWS.Batch.ListTagsForResource
 import Network.AWS.Batch.RegisterJobDefinition

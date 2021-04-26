@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Batch.Types.DeviceCgroupPermission
   ( DeviceCgroupPermission
       ( ..,
-        Mknod,
-        Read,
-        Write
+        DeviceCgroupPermissionMKNOD,
+        DeviceCgroupPermissionREAD,
+        DeviceCgroupPermissionWRITE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceCgroupPermission
-  = DeviceCgroupPermission'
-      ( CI
-          Text
-      )
+newtype DeviceCgroupPermission = DeviceCgroupPermission'
+  { fromDeviceCgroupPermission ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Mknod :: DeviceCgroupPermission
-pattern Mknod = DeviceCgroupPermission' "MKNOD"
+pattern DeviceCgroupPermissionMKNOD :: DeviceCgroupPermission
+pattern DeviceCgroupPermissionMKNOD = DeviceCgroupPermission' "MKNOD"
 
-pattern Read :: DeviceCgroupPermission
-pattern Read = DeviceCgroupPermission' "READ"
+pattern DeviceCgroupPermissionREAD :: DeviceCgroupPermission
+pattern DeviceCgroupPermissionREAD = DeviceCgroupPermission' "READ"
 
-pattern Write :: DeviceCgroupPermission
-pattern Write = DeviceCgroupPermission' "WRITE"
+pattern DeviceCgroupPermissionWRITE :: DeviceCgroupPermission
+pattern DeviceCgroupPermissionWRITE = DeviceCgroupPermission' "WRITE"
 
 {-# COMPLETE
-  Mknod,
-  Read,
-  Write,
+  DeviceCgroupPermissionMKNOD,
+  DeviceCgroupPermissionREAD,
+  DeviceCgroupPermissionWRITE,
   DeviceCgroupPermission'
   #-}
 
-instance FromText DeviceCgroupPermission where
-  parser = (DeviceCgroupPermission' . mk) <$> takeText
+instance Prelude.FromText DeviceCgroupPermission where
+  parser = DeviceCgroupPermission' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceCgroupPermission where
-  toText (DeviceCgroupPermission' ci) = original ci
+instance Prelude.ToText DeviceCgroupPermission where
+  toText (DeviceCgroupPermission' x) = x
 
-instance Hashable DeviceCgroupPermission
+instance Prelude.Hashable DeviceCgroupPermission
 
-instance NFData DeviceCgroupPermission
+instance Prelude.NFData DeviceCgroupPermission
 
-instance ToByteString DeviceCgroupPermission
+instance Prelude.ToByteString DeviceCgroupPermission
 
-instance ToQuery DeviceCgroupPermission
+instance Prelude.ToQuery DeviceCgroupPermission
 
-instance ToHeader DeviceCgroupPermission
+instance Prelude.ToHeader DeviceCgroupPermission
 
-instance ToJSON DeviceCgroupPermission where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeviceCgroupPermission where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeviceCgroupPermission where
-  parseJSON = parseJSONText "DeviceCgroupPermission"
+instance Prelude.FromJSON DeviceCgroupPermission where
+  parseJSON = Prelude.parseJSONText "DeviceCgroupPermission"

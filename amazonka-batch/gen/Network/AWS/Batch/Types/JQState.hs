@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Batch.Types.JQState
   ( JQState
       ( ..,
-        JQSDisabled,
-        JQSEnabled
+        JQStateDISABLED,
+        JQStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JQState = JQState' (CI Text)
+newtype JQState = JQState'
+  { fromJQState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JQSDisabled :: JQState
-pattern JQSDisabled = JQState' "DISABLED"
+pattern JQStateDISABLED :: JQState
+pattern JQStateDISABLED = JQState' "DISABLED"
 
-pattern JQSEnabled :: JQState
-pattern JQSEnabled = JQState' "ENABLED"
+pattern JQStateENABLED :: JQState
+pattern JQStateENABLED = JQState' "ENABLED"
 
 {-# COMPLETE
-  JQSDisabled,
-  JQSEnabled,
+  JQStateDISABLED,
+  JQStateENABLED,
   JQState'
   #-}
 
-instance FromText JQState where
-  parser = (JQState' . mk) <$> takeText
+instance Prelude.FromText JQState where
+  parser = JQState' Prelude.<$> Prelude.takeText
 
-instance ToText JQState where
-  toText (JQState' ci) = original ci
+instance Prelude.ToText JQState where
+  toText (JQState' x) = x
 
-instance Hashable JQState
+instance Prelude.Hashable JQState
 
-instance NFData JQState
+instance Prelude.NFData JQState
 
-instance ToByteString JQState
+instance Prelude.ToByteString JQState
 
-instance ToQuery JQState
+instance Prelude.ToQuery JQState
 
-instance ToHeader JQState
+instance Prelude.ToHeader JQState
 
-instance ToJSON JQState where
-  toJSON = toJSONText
+instance Prelude.ToJSON JQState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JQState where
-  parseJSON = parseJSONText "JQState"
+instance Prelude.FromJSON JQState where
+  parseJSON = Prelude.parseJSONText "JQState"

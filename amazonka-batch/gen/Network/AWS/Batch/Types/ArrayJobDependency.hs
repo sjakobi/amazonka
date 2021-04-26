@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Batch.Types.ArrayJobDependency
   ( ArrayJobDependency
       ( ..,
-        NToN,
-        Sequential
+        ArrayJobDependencyNTON,
+        ArrayJobDependencySEQUENTIAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArrayJobDependency
-  = ArrayJobDependency'
-      ( CI
-          Text
-      )
+newtype ArrayJobDependency = ArrayJobDependency'
+  { fromArrayJobDependency ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NToN :: ArrayJobDependency
-pattern NToN = ArrayJobDependency' "N_TO_N"
+pattern ArrayJobDependencyNTON :: ArrayJobDependency
+pattern ArrayJobDependencyNTON = ArrayJobDependency' "N_TO_N"
 
-pattern Sequential :: ArrayJobDependency
-pattern Sequential = ArrayJobDependency' "SEQUENTIAL"
+pattern ArrayJobDependencySEQUENTIAL :: ArrayJobDependency
+pattern ArrayJobDependencySEQUENTIAL = ArrayJobDependency' "SEQUENTIAL"
 
 {-# COMPLETE
-  NToN,
-  Sequential,
+  ArrayJobDependencyNTON,
+  ArrayJobDependencySEQUENTIAL,
   ArrayJobDependency'
   #-}
 
-instance FromText ArrayJobDependency where
-  parser = (ArrayJobDependency' . mk) <$> takeText
+instance Prelude.FromText ArrayJobDependency where
+  parser = ArrayJobDependency' Prelude.<$> Prelude.takeText
 
-instance ToText ArrayJobDependency where
-  toText (ArrayJobDependency' ci) = original ci
+instance Prelude.ToText ArrayJobDependency where
+  toText (ArrayJobDependency' x) = x
 
-instance Hashable ArrayJobDependency
+instance Prelude.Hashable ArrayJobDependency
 
-instance NFData ArrayJobDependency
+instance Prelude.NFData ArrayJobDependency
 
-instance ToByteString ArrayJobDependency
+instance Prelude.ToByteString ArrayJobDependency
 
-instance ToQuery ArrayJobDependency
+instance Prelude.ToQuery ArrayJobDependency
 
-instance ToHeader ArrayJobDependency
+instance Prelude.ToHeader ArrayJobDependency
 
-instance ToJSON ArrayJobDependency where
-  toJSON = toJSONText
+instance Prelude.ToJSON ArrayJobDependency where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ArrayJobDependency where
-  parseJSON = parseJSONText "ArrayJobDependency"
+instance Prelude.FromJSON ArrayJobDependency where
+  parseJSON = Prelude.parseJSONText "ArrayJobDependency"

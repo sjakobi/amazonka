@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.Batch.Types.CEStatus
   ( CEStatus
       ( ..,
-        CESCreating,
-        CESDeleted,
-        CESDeleting,
-        CESInvalid,
-        CESUpdating,
-        CESValid
+        CEStatusCREATING,
+        CEStatusDELETED,
+        CEStatusDELETING,
+        CEStatusINVALID,
+        CEStatusUPDATING,
+        CEStatusVALID
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CEStatus = CEStatus' (CI Text)
+newtype CEStatus = CEStatus'
+  { fromCEStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CESCreating :: CEStatus
-pattern CESCreating = CEStatus' "CREATING"
+pattern CEStatusCREATING :: CEStatus
+pattern CEStatusCREATING = CEStatus' "CREATING"
 
-pattern CESDeleted :: CEStatus
-pattern CESDeleted = CEStatus' "DELETED"
+pattern CEStatusDELETED :: CEStatus
+pattern CEStatusDELETED = CEStatus' "DELETED"
 
-pattern CESDeleting :: CEStatus
-pattern CESDeleting = CEStatus' "DELETING"
+pattern CEStatusDELETING :: CEStatus
+pattern CEStatusDELETING = CEStatus' "DELETING"
 
-pattern CESInvalid :: CEStatus
-pattern CESInvalid = CEStatus' "INVALID"
+pattern CEStatusINVALID :: CEStatus
+pattern CEStatusINVALID = CEStatus' "INVALID"
 
-pattern CESUpdating :: CEStatus
-pattern CESUpdating = CEStatus' "UPDATING"
+pattern CEStatusUPDATING :: CEStatus
+pattern CEStatusUPDATING = CEStatus' "UPDATING"
 
-pattern CESValid :: CEStatus
-pattern CESValid = CEStatus' "VALID"
+pattern CEStatusVALID :: CEStatus
+pattern CEStatusVALID = CEStatus' "VALID"
 
 {-# COMPLETE
-  CESCreating,
-  CESDeleted,
-  CESDeleting,
-  CESInvalid,
-  CESUpdating,
-  CESValid,
+  CEStatusCREATING,
+  CEStatusDELETED,
+  CEStatusDELETING,
+  CEStatusINVALID,
+  CEStatusUPDATING,
+  CEStatusVALID,
   CEStatus'
   #-}
 
-instance FromText CEStatus where
-  parser = (CEStatus' . mk) <$> takeText
+instance Prelude.FromText CEStatus where
+  parser = CEStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CEStatus where
-  toText (CEStatus' ci) = original ci
+instance Prelude.ToText CEStatus where
+  toText (CEStatus' x) = x
 
-instance Hashable CEStatus
+instance Prelude.Hashable CEStatus
 
-instance NFData CEStatus
+instance Prelude.NFData CEStatus
 
-instance ToByteString CEStatus
+instance Prelude.ToByteString CEStatus
 
-instance ToQuery CEStatus
+instance Prelude.ToQuery CEStatus
 
-instance ToHeader CEStatus
+instance Prelude.ToHeader CEStatus
 
-instance FromJSON CEStatus where
-  parseJSON = parseJSONText "CEStatus"
+instance Prelude.FromJSON CEStatus where
+  parseJSON = Prelude.parseJSONText "CEStatus"

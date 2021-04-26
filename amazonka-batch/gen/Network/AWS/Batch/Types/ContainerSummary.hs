@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Batch.Types.ContainerSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing summary details of a container within a job.
 --
---
---
--- /See:/ 'containerSummary' smart constructor.
+-- /See:/ 'newContainerSummary' smart constructor.
 data ContainerSummary = ContainerSummary'
-  { _csExitCode ::
-      !(Maybe Int),
-    _csReason :: !(Maybe Text)
+  { -- | The exit code to return upon completion.
+    exitCode :: Prelude.Maybe Prelude.Int,
+    -- | A short (255 max characters) human-readable string to provide additional
+    -- details about a running or stopped container.
+    reason :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContainerSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContainerSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csExitCode' - The exit code to return upon completion.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csReason' - A short (255 max characters) human-readable string to provide additional details about a running or stopped container.
-containerSummary ::
+-- 'exitCode', 'containerSummary_exitCode' - The exit code to return upon completion.
+--
+-- 'reason', 'containerSummary_reason' - A short (255 max characters) human-readable string to provide additional
+-- details about a running or stopped container.
+newContainerSummary ::
   ContainerSummary
-containerSummary =
+newContainerSummary =
   ContainerSummary'
-    { _csExitCode = Nothing,
-      _csReason = Nothing
+    { exitCode = Prelude.Nothing,
+      reason = Prelude.Nothing
     }
 
 -- | The exit code to return upon completion.
-csExitCode :: Lens' ContainerSummary (Maybe Int)
-csExitCode = lens _csExitCode (\s a -> s {_csExitCode = a})
+containerSummary_exitCode :: Lens.Lens' ContainerSummary (Prelude.Maybe Prelude.Int)
+containerSummary_exitCode = Lens.lens (\ContainerSummary' {exitCode} -> exitCode) (\s@ContainerSummary' {} a -> s {exitCode = a} :: ContainerSummary)
 
--- | A short (255 max characters) human-readable string to provide additional details about a running or stopped container.
-csReason :: Lens' ContainerSummary (Maybe Text)
-csReason = lens _csReason (\s a -> s {_csReason = a})
+-- | A short (255 max characters) human-readable string to provide additional
+-- details about a running or stopped container.
+containerSummary_reason :: Lens.Lens' ContainerSummary (Prelude.Maybe Prelude.Text)
+containerSummary_reason = Lens.lens (\ContainerSummary' {reason} -> reason) (\s@ContainerSummary' {} a -> s {reason = a} :: ContainerSummary)
 
-instance FromJSON ContainerSummary where
+instance Prelude.FromJSON ContainerSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ContainerSummary"
       ( \x ->
           ContainerSummary'
-            <$> (x .:? "exitCode") <*> (x .:? "reason")
+            Prelude.<$> (x Prelude..:? "exitCode")
+            Prelude.<*> (x Prelude..:? "reason")
       )
 
-instance Hashable ContainerSummary
+instance Prelude.Hashable ContainerSummary
 
-instance NFData ContainerSummary
+instance Prelude.NFData ContainerSummary

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,285 +24,416 @@
 -- Registers an AWS Batch job definition.
 module Network.AWS.Batch.RegisterJobDefinition
   ( -- * Creating a Request
-    registerJobDefinition,
-    RegisterJobDefinition,
+    RegisterJobDefinition (..),
+    newRegisterJobDefinition,
 
     -- * Request Lenses
-    rjdPlatformCapabilities,
-    rjdTimeout,
-    rjdNodeProperties,
-    rjdTags,
-    rjdContainerProperties,
-    rjdRetryStrategy,
-    rjdParameters,
-    rjdPropagateTags,
-    rjdJobDefinitionName,
-    rjdType,
+    registerJobDefinition_platformCapabilities,
+    registerJobDefinition_timeout,
+    registerJobDefinition_nodeProperties,
+    registerJobDefinition_tags,
+    registerJobDefinition_containerProperties,
+    registerJobDefinition_retryStrategy,
+    registerJobDefinition_parameters,
+    registerJobDefinition_propagateTags,
+    registerJobDefinition_jobDefinitionName,
+    registerJobDefinition_type,
 
     -- * Destructuring the Response
-    registerJobDefinitionResponse,
-    RegisterJobDefinitionResponse,
+    RegisterJobDefinitionResponse (..),
+    newRegisterJobDefinitionResponse,
 
     -- * Response Lenses
-    rjdrrsResponseStatus,
-    rjdrrsJobDefinitionName,
-    rjdrrsJobDefinitionARN,
-    rjdrrsRevision,
+    registerJobDefinitionResponse_httpStatus,
+    registerJobDefinitionResponse_jobDefinitionName,
+    registerJobDefinitionResponse_jobDefinitionArn,
+    registerJobDefinitionResponse_revision,
   )
 where
 
 import Network.AWS.Batch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Contains the parameters for @RegisterJobDefinition@ .
+-- | Contains the parameters for @RegisterJobDefinition@.
 --
---
---
--- /See:/ 'registerJobDefinition' smart constructor.
+-- /See:/ 'newRegisterJobDefinition' smart constructor.
 data RegisterJobDefinition = RegisterJobDefinition'
-  { _rjdPlatformCapabilities ::
-      !( Maybe
-           [PlatformCapability]
-       ),
-    _rjdTimeout ::
-      !(Maybe JobTimeout),
-    _rjdNodeProperties ::
-      !(Maybe NodeProperties),
-    _rjdTags ::
-      !(Maybe (Map Text Text)),
-    _rjdContainerProperties ::
-      !( Maybe
-           ContainerProperties
-       ),
-    _rjdRetryStrategy ::
-      !(Maybe RetryStrategy),
-    _rjdParameters ::
-      !(Maybe (Map Text Text)),
-    _rjdPropagateTags ::
-      !(Maybe Bool),
-    _rjdJobDefinitionName ::
-      !Text,
-    _rjdType ::
-      !JobDefinitionType
+  { -- | The platform capabilities required by the job definition. If no value is
+    -- specified, it defaults to @EC2@. To run the job on Fargate resources,
+    -- specify @FARGATE@.
+    platformCapabilities :: Prelude.Maybe [PlatformCapability],
+    -- | The timeout configuration for jobs that are submitted with this job
+    -- definition, after which AWS Batch terminates your jobs if they have not
+    -- finished. If a job is terminated due to a timeout, it isn\'t retried.
+    -- The minimum value for the timeout is 60 seconds. Any timeout
+    -- configuration that\'s specified during a SubmitJob operation overrides
+    -- the timeout configuration defined here. For more information, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/job_timeouts.html Job Timeouts>
+    -- in the /AWS Batch User Guide/.
+    timeout :: Prelude.Maybe JobTimeout,
+    -- | An object with various properties specific to multi-node parallel jobs.
+    -- If you specify node properties for a job, it becomes a multi-node
+    -- parallel job. For more information, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html Multi-node Parallel Jobs>
+    -- in the /AWS Batch User Guide/. If the job definition\'s @type@ parameter
+    -- is @container@, then you must specify either @containerProperties@ or
+    -- @nodeProperties@.
+    --
+    -- If the job runs on Fargate resources, then you must not specify
+    -- @nodeProperties@; use @containerProperties@ instead.
+    nodeProperties :: Prelude.Maybe NodeProperties,
+    -- | The tags that you apply to the job definition to help you categorize and
+    -- organize your resources. Each tag consists of a key and an optional
+    -- value. For more information, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html Tagging AWS Resources>
+    -- in /AWS Batch User Guide/.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | An object with various properties specific to single-node
+    -- container-based jobs. If the job definition\'s @type@ parameter is
+    -- @container@, then you must specify either @containerProperties@ or
+    -- @nodeProperties@.
+    --
+    -- If the job runs on Fargate resources, then you must not specify
+    -- @nodeProperties@; use only @containerProperties@.
+    containerProperties :: Prelude.Maybe ContainerProperties,
+    -- | The retry strategy to use for failed jobs that are submitted with this
+    -- job definition. Any retry strategy that\'s specified during a SubmitJob
+    -- operation overrides the retry strategy defined here. If a job is
+    -- terminated due to a timeout, it isn\'t retried.
+    retryStrategy :: Prelude.Maybe RetryStrategy,
+    -- | Default parameter substitution placeholders to set in the job
+    -- definition. Parameters are specified as a key-value pair mapping.
+    -- Parameters in a @SubmitJob@ request override any corresponding parameter
+    -- defaults from the job definition.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Specifies whether to propagate the tags from the job or job definition
+    -- to the corresponding Amazon ECS task. If no value is specified, the tags
+    -- are not propagated. Tags can only be propagated to the tasks during task
+    -- creation. For tags with the same name, job tags are given priority over
+    -- job definitions tags. If the total number of combined tags from the job
+    -- and job definition is over 50, the job is moved to the @FAILED@ state.
+    propagateTags :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the job definition to register. Up to 128 letters (uppercase
+    -- and lowercase), numbers, hyphens, and underscores are allowed.
+    jobDefinitionName :: Prelude.Text,
+    -- | The type of job definition. For more information about multi-node
+    -- parallel jobs, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition>
+    -- in the /AWS Batch User Guide/.
+    --
+    -- If the job is run on Fargate resources, then @multinode@ isn\'t
+    -- supported.
+    type' :: JobDefinitionType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rjdPlatformCapabilities' - The platform capabilities required by the job definition. If no value is specified, it defaults to @EC2@ . To run the job on Fargate resources, specify @FARGATE@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rjdTimeout' - The timeout configuration for jobs that are submitted with this job definition, after which AWS Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout, it isn't retried. The minimum value for the timeout is 60 seconds. Any timeout configuration that's specified during a 'SubmitJob' operation overrides the timeout configuration defined here. For more information, see <https://docs.aws.amazon.com/batch/latest/userguide/job_timeouts.html Job Timeouts> in the /AWS Batch User Guide/ .
+-- 'platformCapabilities', 'registerJobDefinition_platformCapabilities' - The platform capabilities required by the job definition. If no value is
+-- specified, it defaults to @EC2@. To run the job on Fargate resources,
+-- specify @FARGATE@.
 --
--- * 'rjdNodeProperties' - An object with various properties specific to multi-node parallel jobs. If you specify node properties for a job, it becomes a multi-node parallel job. For more information, see <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html Multi-node Parallel Jobs> in the /AWS Batch User Guide/ . If the job definition's @type@ parameter is @container@ , then you must specify either @containerProperties@ or @nodeProperties@ .
+-- 'timeout', 'registerJobDefinition_timeout' - The timeout configuration for jobs that are submitted with this job
+-- definition, after which AWS Batch terminates your jobs if they have not
+-- finished. If a job is terminated due to a timeout, it isn\'t retried.
+-- The minimum value for the timeout is 60 seconds. Any timeout
+-- configuration that\'s specified during a SubmitJob operation overrides
+-- the timeout configuration defined here. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/job_timeouts.html Job Timeouts>
+-- in the /AWS Batch User Guide/.
 --
--- * 'rjdTags' - The tags that you apply to the job definition to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see <https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html Tagging AWS Resources> in /AWS Batch User Guide/ .
+-- 'nodeProperties', 'registerJobDefinition_nodeProperties' - An object with various properties specific to multi-node parallel jobs.
+-- If you specify node properties for a job, it becomes a multi-node
+-- parallel job. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html Multi-node Parallel Jobs>
+-- in the /AWS Batch User Guide/. If the job definition\'s @type@ parameter
+-- is @container@, then you must specify either @containerProperties@ or
+-- @nodeProperties@.
 --
--- * 'rjdContainerProperties' - An object with various properties specific to single-node container-based jobs. If the job definition's @type@ parameter is @container@ , then you must specify either @containerProperties@ or @nodeProperties@ .
+-- If the job runs on Fargate resources, then you must not specify
+-- @nodeProperties@; use @containerProperties@ instead.
 --
--- * 'rjdRetryStrategy' - The retry strategy to use for failed jobs that are submitted with this job definition. Any retry strategy that's specified during a 'SubmitJob' operation overrides the retry strategy defined here. If a job is terminated due to a timeout, it isn't retried.
+-- 'tags', 'registerJobDefinition_tags' - The tags that you apply to the job definition to help you categorize and
+-- organize your resources. Each tag consists of a key and an optional
+-- value. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html Tagging AWS Resources>
+-- in /AWS Batch User Guide/.
 --
--- * 'rjdParameters' - Default parameter substitution placeholders to set in the job definition. Parameters are specified as a key-value pair mapping. Parameters in a @SubmitJob@ request override any corresponding parameter defaults from the job definition.
+-- 'containerProperties', 'registerJobDefinition_containerProperties' - An object with various properties specific to single-node
+-- container-based jobs. If the job definition\'s @type@ parameter is
+-- @container@, then you must specify either @containerProperties@ or
+-- @nodeProperties@.
 --
--- * 'rjdPropagateTags' - Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If no value is specified, the tags are not propagated. Tags can only be propagated to the tasks during task creation. For tags with the same name, job tags are given priority over job definitions tags. If the total number of combined tags from the job and job definition is over 50, the job is moved to the @FAILED@ state.
+-- If the job runs on Fargate resources, then you must not specify
+-- @nodeProperties@; use only @containerProperties@.
 --
--- * 'rjdJobDefinitionName' - The name of the job definition to register. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and underscores are allowed.
+-- 'retryStrategy', 'registerJobDefinition_retryStrategy' - The retry strategy to use for failed jobs that are submitted with this
+-- job definition. Any retry strategy that\'s specified during a SubmitJob
+-- operation overrides the retry strategy defined here. If a job is
+-- terminated due to a timeout, it isn\'t retried.
 --
--- * 'rjdType' - The type of job definition. For more information about multi-node parallel jobs, see <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition> in the /AWS Batch User Guide/ .
-registerJobDefinition ::
-  -- | 'rjdJobDefinitionName'
-  Text ->
-  -- | 'rjdType'
+-- 'parameters', 'registerJobDefinition_parameters' - Default parameter substitution placeholders to set in the job
+-- definition. Parameters are specified as a key-value pair mapping.
+-- Parameters in a @SubmitJob@ request override any corresponding parameter
+-- defaults from the job definition.
+--
+-- 'propagateTags', 'registerJobDefinition_propagateTags' - Specifies whether to propagate the tags from the job or job definition
+-- to the corresponding Amazon ECS task. If no value is specified, the tags
+-- are not propagated. Tags can only be propagated to the tasks during task
+-- creation. For tags with the same name, job tags are given priority over
+-- job definitions tags. If the total number of combined tags from the job
+-- and job definition is over 50, the job is moved to the @FAILED@ state.
+--
+-- 'jobDefinitionName', 'registerJobDefinition_jobDefinitionName' - The name of the job definition to register. Up to 128 letters (uppercase
+-- and lowercase), numbers, hyphens, and underscores are allowed.
+--
+-- 'type'', 'registerJobDefinition_type' - The type of job definition. For more information about multi-node
+-- parallel jobs, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition>
+-- in the /AWS Batch User Guide/.
+--
+-- If the job is run on Fargate resources, then @multinode@ isn\'t
+-- supported.
+newRegisterJobDefinition ::
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
+  -- | 'type''
   JobDefinitionType ->
   RegisterJobDefinition
-registerJobDefinition pJobDefinitionName_ pType_ =
+newRegisterJobDefinition pJobDefinitionName_ pType_ =
   RegisterJobDefinition'
-    { _rjdPlatformCapabilities =
-        Nothing,
-      _rjdTimeout = Nothing,
-      _rjdNodeProperties = Nothing,
-      _rjdTags = Nothing,
-      _rjdContainerProperties = Nothing,
-      _rjdRetryStrategy = Nothing,
-      _rjdParameters = Nothing,
-      _rjdPropagateTags = Nothing,
-      _rjdJobDefinitionName = pJobDefinitionName_,
-      _rjdType = pType_
+    { platformCapabilities =
+        Prelude.Nothing,
+      timeout = Prelude.Nothing,
+      nodeProperties = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      containerProperties = Prelude.Nothing,
+      retryStrategy = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      propagateTags = Prelude.Nothing,
+      jobDefinitionName = pJobDefinitionName_,
+      type' = pType_
     }
 
--- | The platform capabilities required by the job definition. If no value is specified, it defaults to @EC2@ . To run the job on Fargate resources, specify @FARGATE@ .
-rjdPlatformCapabilities :: Lens' RegisterJobDefinition [PlatformCapability]
-rjdPlatformCapabilities = lens _rjdPlatformCapabilities (\s a -> s {_rjdPlatformCapabilities = a}) . _Default . _Coerce
+-- | The platform capabilities required by the job definition. If no value is
+-- specified, it defaults to @EC2@. To run the job on Fargate resources,
+-- specify @FARGATE@.
+registerJobDefinition_platformCapabilities :: Lens.Lens' RegisterJobDefinition (Prelude.Maybe [PlatformCapability])
+registerJobDefinition_platformCapabilities = Lens.lens (\RegisterJobDefinition' {platformCapabilities} -> platformCapabilities) (\s@RegisterJobDefinition' {} a -> s {platformCapabilities = a} :: RegisterJobDefinition) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The timeout configuration for jobs that are submitted with this job definition, after which AWS Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout, it isn't retried. The minimum value for the timeout is 60 seconds. Any timeout configuration that's specified during a 'SubmitJob' operation overrides the timeout configuration defined here. For more information, see <https://docs.aws.amazon.com/batch/latest/userguide/job_timeouts.html Job Timeouts> in the /AWS Batch User Guide/ .
-rjdTimeout :: Lens' RegisterJobDefinition (Maybe JobTimeout)
-rjdTimeout = lens _rjdTimeout (\s a -> s {_rjdTimeout = a})
+-- | The timeout configuration for jobs that are submitted with this job
+-- definition, after which AWS Batch terminates your jobs if they have not
+-- finished. If a job is terminated due to a timeout, it isn\'t retried.
+-- The minimum value for the timeout is 60 seconds. Any timeout
+-- configuration that\'s specified during a SubmitJob operation overrides
+-- the timeout configuration defined here. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/job_timeouts.html Job Timeouts>
+-- in the /AWS Batch User Guide/.
+registerJobDefinition_timeout :: Lens.Lens' RegisterJobDefinition (Prelude.Maybe JobTimeout)
+registerJobDefinition_timeout = Lens.lens (\RegisterJobDefinition' {timeout} -> timeout) (\s@RegisterJobDefinition' {} a -> s {timeout = a} :: RegisterJobDefinition)
 
--- | An object with various properties specific to multi-node parallel jobs. If you specify node properties for a job, it becomes a multi-node parallel job. For more information, see <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html Multi-node Parallel Jobs> in the /AWS Batch User Guide/ . If the job definition's @type@ parameter is @container@ , then you must specify either @containerProperties@ or @nodeProperties@ .
-rjdNodeProperties :: Lens' RegisterJobDefinition (Maybe NodeProperties)
-rjdNodeProperties = lens _rjdNodeProperties (\s a -> s {_rjdNodeProperties = a})
+-- | An object with various properties specific to multi-node parallel jobs.
+-- If you specify node properties for a job, it becomes a multi-node
+-- parallel job. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html Multi-node Parallel Jobs>
+-- in the /AWS Batch User Guide/. If the job definition\'s @type@ parameter
+-- is @container@, then you must specify either @containerProperties@ or
+-- @nodeProperties@.
+--
+-- If the job runs on Fargate resources, then you must not specify
+-- @nodeProperties@; use @containerProperties@ instead.
+registerJobDefinition_nodeProperties :: Lens.Lens' RegisterJobDefinition (Prelude.Maybe NodeProperties)
+registerJobDefinition_nodeProperties = Lens.lens (\RegisterJobDefinition' {nodeProperties} -> nodeProperties) (\s@RegisterJobDefinition' {} a -> s {nodeProperties = a} :: RegisterJobDefinition)
 
--- | The tags that you apply to the job definition to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see <https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html Tagging AWS Resources> in /AWS Batch User Guide/ .
-rjdTags :: Lens' RegisterJobDefinition (HashMap Text Text)
-rjdTags = lens _rjdTags (\s a -> s {_rjdTags = a}) . _Default . _Map
+-- | The tags that you apply to the job definition to help you categorize and
+-- organize your resources. Each tag consists of a key and an optional
+-- value. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html Tagging AWS Resources>
+-- in /AWS Batch User Guide/.
+registerJobDefinition_tags :: Lens.Lens' RegisterJobDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+registerJobDefinition_tags = Lens.lens (\RegisterJobDefinition' {tags} -> tags) (\s@RegisterJobDefinition' {} a -> s {tags = a} :: RegisterJobDefinition) Prelude.. Lens.mapping Prelude._Map
 
--- | An object with various properties specific to single-node container-based jobs. If the job definition's @type@ parameter is @container@ , then you must specify either @containerProperties@ or @nodeProperties@ .
-rjdContainerProperties :: Lens' RegisterJobDefinition (Maybe ContainerProperties)
-rjdContainerProperties = lens _rjdContainerProperties (\s a -> s {_rjdContainerProperties = a})
+-- | An object with various properties specific to single-node
+-- container-based jobs. If the job definition\'s @type@ parameter is
+-- @container@, then you must specify either @containerProperties@ or
+-- @nodeProperties@.
+--
+-- If the job runs on Fargate resources, then you must not specify
+-- @nodeProperties@; use only @containerProperties@.
+registerJobDefinition_containerProperties :: Lens.Lens' RegisterJobDefinition (Prelude.Maybe ContainerProperties)
+registerJobDefinition_containerProperties = Lens.lens (\RegisterJobDefinition' {containerProperties} -> containerProperties) (\s@RegisterJobDefinition' {} a -> s {containerProperties = a} :: RegisterJobDefinition)
 
--- | The retry strategy to use for failed jobs that are submitted with this job definition. Any retry strategy that's specified during a 'SubmitJob' operation overrides the retry strategy defined here. If a job is terminated due to a timeout, it isn't retried.
-rjdRetryStrategy :: Lens' RegisterJobDefinition (Maybe RetryStrategy)
-rjdRetryStrategy = lens _rjdRetryStrategy (\s a -> s {_rjdRetryStrategy = a})
+-- | The retry strategy to use for failed jobs that are submitted with this
+-- job definition. Any retry strategy that\'s specified during a SubmitJob
+-- operation overrides the retry strategy defined here. If a job is
+-- terminated due to a timeout, it isn\'t retried.
+registerJobDefinition_retryStrategy :: Lens.Lens' RegisterJobDefinition (Prelude.Maybe RetryStrategy)
+registerJobDefinition_retryStrategy = Lens.lens (\RegisterJobDefinition' {retryStrategy} -> retryStrategy) (\s@RegisterJobDefinition' {} a -> s {retryStrategy = a} :: RegisterJobDefinition)
 
--- | Default parameter substitution placeholders to set in the job definition. Parameters are specified as a key-value pair mapping. Parameters in a @SubmitJob@ request override any corresponding parameter defaults from the job definition.
-rjdParameters :: Lens' RegisterJobDefinition (HashMap Text Text)
-rjdParameters = lens _rjdParameters (\s a -> s {_rjdParameters = a}) . _Default . _Map
+-- | Default parameter substitution placeholders to set in the job
+-- definition. Parameters are specified as a key-value pair mapping.
+-- Parameters in a @SubmitJob@ request override any corresponding parameter
+-- defaults from the job definition.
+registerJobDefinition_parameters :: Lens.Lens' RegisterJobDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+registerJobDefinition_parameters = Lens.lens (\RegisterJobDefinition' {parameters} -> parameters) (\s@RegisterJobDefinition' {} a -> s {parameters = a} :: RegisterJobDefinition) Prelude.. Lens.mapping Prelude._Map
 
--- | Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If no value is specified, the tags are not propagated. Tags can only be propagated to the tasks during task creation. For tags with the same name, job tags are given priority over job definitions tags. If the total number of combined tags from the job and job definition is over 50, the job is moved to the @FAILED@ state.
-rjdPropagateTags :: Lens' RegisterJobDefinition (Maybe Bool)
-rjdPropagateTags = lens _rjdPropagateTags (\s a -> s {_rjdPropagateTags = a})
+-- | Specifies whether to propagate the tags from the job or job definition
+-- to the corresponding Amazon ECS task. If no value is specified, the tags
+-- are not propagated. Tags can only be propagated to the tasks during task
+-- creation. For tags with the same name, job tags are given priority over
+-- job definitions tags. If the total number of combined tags from the job
+-- and job definition is over 50, the job is moved to the @FAILED@ state.
+registerJobDefinition_propagateTags :: Lens.Lens' RegisterJobDefinition (Prelude.Maybe Prelude.Bool)
+registerJobDefinition_propagateTags = Lens.lens (\RegisterJobDefinition' {propagateTags} -> propagateTags) (\s@RegisterJobDefinition' {} a -> s {propagateTags = a} :: RegisterJobDefinition)
 
--- | The name of the job definition to register. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and underscores are allowed.
-rjdJobDefinitionName :: Lens' RegisterJobDefinition Text
-rjdJobDefinitionName = lens _rjdJobDefinitionName (\s a -> s {_rjdJobDefinitionName = a})
+-- | The name of the job definition to register. Up to 128 letters (uppercase
+-- and lowercase), numbers, hyphens, and underscores are allowed.
+registerJobDefinition_jobDefinitionName :: Lens.Lens' RegisterJobDefinition Prelude.Text
+registerJobDefinition_jobDefinitionName = Lens.lens (\RegisterJobDefinition' {jobDefinitionName} -> jobDefinitionName) (\s@RegisterJobDefinition' {} a -> s {jobDefinitionName = a} :: RegisterJobDefinition)
 
--- | The type of job definition. For more information about multi-node parallel jobs, see <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition> in the /AWS Batch User Guide/ .
-rjdType :: Lens' RegisterJobDefinition JobDefinitionType
-rjdType = lens _rjdType (\s a -> s {_rjdType = a})
+-- | The type of job definition. For more information about multi-node
+-- parallel jobs, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/multi-node-job-def.html Creating a multi-node parallel job definition>
+-- in the /AWS Batch User Guide/.
+--
+-- If the job is run on Fargate resources, then @multinode@ isn\'t
+-- supported.
+registerJobDefinition_type :: Lens.Lens' RegisterJobDefinition JobDefinitionType
+registerJobDefinition_type = Lens.lens (\RegisterJobDefinition' {type'} -> type') (\s@RegisterJobDefinition' {} a -> s {type' = a} :: RegisterJobDefinition)
 
-instance AWSRequest RegisterJobDefinition where
+instance Prelude.AWSRequest RegisterJobDefinition where
   type
     Rs RegisterJobDefinition =
       RegisterJobDefinitionResponse
-  request = postJSON batch
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterJobDefinitionResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "jobDefinitionName")
-            <*> (x .:> "jobDefinitionArn")
-            <*> (x .:> "revision")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "jobDefinitionName")
+            Prelude.<*> (x Prelude..:> "jobDefinitionArn")
+            Prelude.<*> (x Prelude..:> "revision")
       )
 
-instance Hashable RegisterJobDefinition
+instance Prelude.Hashable RegisterJobDefinition
 
-instance NFData RegisterJobDefinition
+instance Prelude.NFData RegisterJobDefinition
 
-instance ToHeaders RegisterJobDefinition where
+instance Prelude.ToHeaders RegisterJobDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterJobDefinition where
+instance Prelude.ToJSON RegisterJobDefinition where
   toJSON RegisterJobDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("platformCapabilities" .=)
-              <$> _rjdPlatformCapabilities,
-            ("timeout" .=) <$> _rjdTimeout,
-            ("nodeProperties" .=) <$> _rjdNodeProperties,
-            ("tags" .=) <$> _rjdTags,
-            ("containerProperties" .=)
-              <$> _rjdContainerProperties,
-            ("retryStrategy" .=) <$> _rjdRetryStrategy,
-            ("parameters" .=) <$> _rjdParameters,
-            ("propagateTags" .=) <$> _rjdPropagateTags,
-            Just ("jobDefinitionName" .= _rjdJobDefinitionName),
-            Just ("type" .= _rjdType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("platformCapabilities" Prelude..=)
+              Prelude.<$> platformCapabilities,
+            ("timeout" Prelude..=) Prelude.<$> timeout,
+            ("nodeProperties" Prelude..=)
+              Prelude.<$> nodeProperties,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("containerProperties" Prelude..=)
+              Prelude.<$> containerProperties,
+            ("retryStrategy" Prelude..=)
+              Prelude.<$> retryStrategy,
+            ("parameters" Prelude..=) Prelude.<$> parameters,
+            ("propagateTags" Prelude..=)
+              Prelude.<$> propagateTags,
+            Prelude.Just
+              ("jobDefinitionName" Prelude..= jobDefinitionName),
+            Prelude.Just ("type" Prelude..= type')
           ]
       )
 
-instance ToPath RegisterJobDefinition where
-  toPath = const "/v1/registerjobdefinition"
+instance Prelude.ToPath RegisterJobDefinition where
+  toPath = Prelude.const "/v1/registerjobdefinition"
 
-instance ToQuery RegisterJobDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterJobDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerJobDefinitionResponse' smart constructor.
+-- | /See:/ 'newRegisterJobDefinitionResponse' smart constructor.
 data RegisterJobDefinitionResponse = RegisterJobDefinitionResponse'
-  { _rjdrrsResponseStatus ::
-      !Int,
-    _rjdrrsJobDefinitionName ::
-      !Text,
-    _rjdrrsJobDefinitionARN ::
-      !Text,
-    _rjdrrsRevision ::
-      !Int
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The name of the job definition.
+    jobDefinitionName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the job definition.
+    jobDefinitionArn :: Prelude.Text,
+    -- | The revision of the job definition.
+    revision :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterJobDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterJobDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rjdrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rjdrrsJobDefinitionName' - The name of the job definition.
+-- 'httpStatus', 'registerJobDefinitionResponse_httpStatus' - The response's http status code.
 --
--- * 'rjdrrsJobDefinitionARN' - The Amazon Resource Name (ARN) of the job definition.
+-- 'jobDefinitionName', 'registerJobDefinitionResponse_jobDefinitionName' - The name of the job definition.
 --
--- * 'rjdrrsRevision' - The revision of the job definition.
-registerJobDefinitionResponse ::
-  -- | 'rjdrrsResponseStatus'
-  Int ->
-  -- | 'rjdrrsJobDefinitionName'
-  Text ->
-  -- | 'rjdrrsJobDefinitionARN'
-  Text ->
-  -- | 'rjdrrsRevision'
-  Int ->
+-- 'jobDefinitionArn', 'registerJobDefinitionResponse_jobDefinitionArn' - The Amazon Resource Name (ARN) of the job definition.
+--
+-- 'revision', 'registerJobDefinitionResponse_revision' - The revision of the job definition.
+newRegisterJobDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
+  -- | 'jobDefinitionArn'
+  Prelude.Text ->
+  -- | 'revision'
+  Prelude.Int ->
   RegisterJobDefinitionResponse
-registerJobDefinitionResponse
-  pResponseStatus_
+newRegisterJobDefinitionResponse
+  pHttpStatus_
   pJobDefinitionName_
-  pJobDefinitionARN_
+  pJobDefinitionArn_
   pRevision_ =
     RegisterJobDefinitionResponse'
-      { _rjdrrsResponseStatus =
-          pResponseStatus_,
-        _rjdrrsJobDefinitionName =
-          pJobDefinitionName_,
-        _rjdrrsJobDefinitionARN = pJobDefinitionARN_,
-        _rjdrrsRevision = pRevision_
+      { httpStatus =
+          pHttpStatus_,
+        jobDefinitionName = pJobDefinitionName_,
+        jobDefinitionArn = pJobDefinitionArn_,
+        revision = pRevision_
       }
 
--- | -- | The response status code.
-rjdrrsResponseStatus :: Lens' RegisterJobDefinitionResponse Int
-rjdrrsResponseStatus = lens _rjdrrsResponseStatus (\s a -> s {_rjdrrsResponseStatus = a})
+-- | The response's http status code.
+registerJobDefinitionResponse_httpStatus :: Lens.Lens' RegisterJobDefinitionResponse Prelude.Int
+registerJobDefinitionResponse_httpStatus = Lens.lens (\RegisterJobDefinitionResponse' {httpStatus} -> httpStatus) (\s@RegisterJobDefinitionResponse' {} a -> s {httpStatus = a} :: RegisterJobDefinitionResponse)
 
 -- | The name of the job definition.
-rjdrrsJobDefinitionName :: Lens' RegisterJobDefinitionResponse Text
-rjdrrsJobDefinitionName = lens _rjdrrsJobDefinitionName (\s a -> s {_rjdrrsJobDefinitionName = a})
+registerJobDefinitionResponse_jobDefinitionName :: Lens.Lens' RegisterJobDefinitionResponse Prelude.Text
+registerJobDefinitionResponse_jobDefinitionName = Lens.lens (\RegisterJobDefinitionResponse' {jobDefinitionName} -> jobDefinitionName) (\s@RegisterJobDefinitionResponse' {} a -> s {jobDefinitionName = a} :: RegisterJobDefinitionResponse)
 
 -- | The Amazon Resource Name (ARN) of the job definition.
-rjdrrsJobDefinitionARN :: Lens' RegisterJobDefinitionResponse Text
-rjdrrsJobDefinitionARN = lens _rjdrrsJobDefinitionARN (\s a -> s {_rjdrrsJobDefinitionARN = a})
+registerJobDefinitionResponse_jobDefinitionArn :: Lens.Lens' RegisterJobDefinitionResponse Prelude.Text
+registerJobDefinitionResponse_jobDefinitionArn = Lens.lens (\RegisterJobDefinitionResponse' {jobDefinitionArn} -> jobDefinitionArn) (\s@RegisterJobDefinitionResponse' {} a -> s {jobDefinitionArn = a} :: RegisterJobDefinitionResponse)
 
 -- | The revision of the job definition.
-rjdrrsRevision :: Lens' RegisterJobDefinitionResponse Int
-rjdrrsRevision = lens _rjdrrsRevision (\s a -> s {_rjdrrsRevision = a})
+registerJobDefinitionResponse_revision :: Lens.Lens' RegisterJobDefinitionResponse Prelude.Int
+registerJobDefinitionResponse_revision = Lens.lens (\RegisterJobDefinitionResponse' {revision} -> revision) (\s@RegisterJobDefinitionResponse' {} a -> s {revision = a} :: RegisterJobDefinitionResponse)
 
-instance NFData RegisterJobDefinitionResponse
+instance Prelude.NFData RegisterJobDefinitionResponse

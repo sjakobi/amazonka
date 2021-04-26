@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,79 +20,92 @@
 module Network.AWS.Batch.Types.NodeProperties where
 
 import Network.AWS.Batch.Types.NodeRangeProperty
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing the node properties of a multi-node parallel job.
 --
---
---
--- /See:/ 'nodeProperties' smart constructor.
+-- /See:/ 'newNodeProperties' smart constructor.
 data NodeProperties = NodeProperties'
-  { _npNumNodes ::
-      !Int,
-    _npMainNode :: !Int,
-    _npNodeRangeProperties ::
-      ![NodeRangeProperty]
+  { -- | The number of nodes associated with a multi-node parallel job.
+    numNodes :: Prelude.Int,
+    -- | Specifies the node index for the main node of a multi-node parallel job.
+    -- This node index value must be fewer than the number of nodes.
+    mainNode :: Prelude.Int,
+    -- | A list of node ranges and their properties associated with a multi-node
+    -- parallel job.
+    nodeRangeProperties :: [NodeRangeProperty]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodeProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodeProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'npNumNodes' - The number of nodes associated with a multi-node parallel job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'npMainNode' - Specifies the node index for the main node of a multi-node parallel job. This node index value must be fewer than the number of nodes.
+-- 'numNodes', 'nodeProperties_numNodes' - The number of nodes associated with a multi-node parallel job.
 --
--- * 'npNodeRangeProperties' - A list of node ranges and their properties associated with a multi-node parallel job.
-nodeProperties ::
-  -- | 'npNumNodes'
-  Int ->
-  -- | 'npMainNode'
-  Int ->
+-- 'mainNode', 'nodeProperties_mainNode' - Specifies the node index for the main node of a multi-node parallel job.
+-- This node index value must be fewer than the number of nodes.
+--
+-- 'nodeRangeProperties', 'nodeProperties_nodeRangeProperties' - A list of node ranges and their properties associated with a multi-node
+-- parallel job.
+newNodeProperties ::
+  -- | 'numNodes'
+  Prelude.Int ->
+  -- | 'mainNode'
+  Prelude.Int ->
   NodeProperties
-nodeProperties pNumNodes_ pMainNode_ =
+newNodeProperties pNumNodes_ pMainNode_ =
   NodeProperties'
-    { _npNumNodes = pNumNodes_,
-      _npMainNode = pMainNode_,
-      _npNodeRangeProperties = mempty
+    { numNodes = pNumNodes_,
+      mainNode = pMainNode_,
+      nodeRangeProperties = Prelude.mempty
     }
 
 -- | The number of nodes associated with a multi-node parallel job.
-npNumNodes :: Lens' NodeProperties Int
-npNumNodes = lens _npNumNodes (\s a -> s {_npNumNodes = a})
+nodeProperties_numNodes :: Lens.Lens' NodeProperties Prelude.Int
+nodeProperties_numNodes = Lens.lens (\NodeProperties' {numNodes} -> numNodes) (\s@NodeProperties' {} a -> s {numNodes = a} :: NodeProperties)
 
--- | Specifies the node index for the main node of a multi-node parallel job. This node index value must be fewer than the number of nodes.
-npMainNode :: Lens' NodeProperties Int
-npMainNode = lens _npMainNode (\s a -> s {_npMainNode = a})
+-- | Specifies the node index for the main node of a multi-node parallel job.
+-- This node index value must be fewer than the number of nodes.
+nodeProperties_mainNode :: Lens.Lens' NodeProperties Prelude.Int
+nodeProperties_mainNode = Lens.lens (\NodeProperties' {mainNode} -> mainNode) (\s@NodeProperties' {} a -> s {mainNode = a} :: NodeProperties)
 
--- | A list of node ranges and their properties associated with a multi-node parallel job.
-npNodeRangeProperties :: Lens' NodeProperties [NodeRangeProperty]
-npNodeRangeProperties = lens _npNodeRangeProperties (\s a -> s {_npNodeRangeProperties = a}) . _Coerce
+-- | A list of node ranges and their properties associated with a multi-node
+-- parallel job.
+nodeProperties_nodeRangeProperties :: Lens.Lens' NodeProperties [NodeRangeProperty]
+nodeProperties_nodeRangeProperties = Lens.lens (\NodeProperties' {nodeRangeProperties} -> nodeRangeProperties) (\s@NodeProperties' {} a -> s {nodeRangeProperties = a} :: NodeProperties) Prelude.. Prelude._Coerce
 
-instance FromJSON NodeProperties where
+instance Prelude.FromJSON NodeProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NodeProperties"
       ( \x ->
           NodeProperties'
-            <$> (x .: "numNodes")
-            <*> (x .: "mainNode")
-            <*> (x .:? "nodeRangeProperties" .!= mempty)
+            Prelude.<$> (x Prelude..: "numNodes")
+            Prelude.<*> (x Prelude..: "mainNode")
+            Prelude.<*> ( x Prelude..:? "nodeRangeProperties"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable NodeProperties
+instance Prelude.Hashable NodeProperties
 
-instance NFData NodeProperties
+instance Prelude.NFData NodeProperties
 
-instance ToJSON NodeProperties where
+instance Prelude.ToJSON NodeProperties where
   toJSON NodeProperties' {..} =
-    object
-      ( catMaybes
-          [ Just ("numNodes" .= _npNumNodes),
-            Just ("mainNode" .= _npMainNode),
-            Just
-              ("nodeRangeProperties" .= _npNodeRangeProperties)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("numNodes" Prelude..= numNodes),
+            Prelude.Just ("mainNode" Prelude..= mainNode),
+            Prelude.Just
+              ( "nodeRangeProperties"
+                  Prelude..= nodeRangeProperties
+              )
           ]
       )

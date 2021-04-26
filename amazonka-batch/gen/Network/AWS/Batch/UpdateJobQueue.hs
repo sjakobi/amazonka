@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,178 +24,242 @@
 -- Updates a job queue.
 module Network.AWS.Batch.UpdateJobQueue
   ( -- * Creating a Request
-    updateJobQueue,
-    UpdateJobQueue,
+    UpdateJobQueue (..),
+    newUpdateJobQueue,
 
     -- * Request Lenses
-    ujqComputeEnvironmentOrder,
-    ujqPriority,
-    ujqState,
-    ujqJobQueue,
+    updateJobQueue_computeEnvironmentOrder,
+    updateJobQueue_priority,
+    updateJobQueue_state,
+    updateJobQueue_jobQueue,
 
     -- * Destructuring the Response
-    updateJobQueueResponse,
-    UpdateJobQueueResponse,
+    UpdateJobQueueResponse (..),
+    newUpdateJobQueueResponse,
 
     -- * Response Lenses
-    ujqrrsJobQueueName,
-    ujqrrsJobQueueARN,
-    ujqrrsResponseStatus,
+    updateJobQueueResponse_jobQueueName,
+    updateJobQueueResponse_jobQueueArn,
+    updateJobQueueResponse_httpStatus,
   )
 where
 
 import Network.AWS.Batch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Contains the parameters for @UpdateJobQueue@ .
+-- | Contains the parameters for @UpdateJobQueue@.
 --
---
---
--- /See:/ 'updateJobQueue' smart constructor.
+-- /See:/ 'newUpdateJobQueue' smart constructor.
 data UpdateJobQueue = UpdateJobQueue'
-  { _ujqComputeEnvironmentOrder ::
-      !(Maybe [ComputeEnvironmentOrder]),
-    _ujqPriority :: !(Maybe Int),
-    _ujqState :: !(Maybe JQState),
-    _ujqJobQueue :: !Text
+  { -- | Details the set of compute environments mapped to a job queue and their
+    -- order relative to each other. This is one of the parameters used by the
+    -- job scheduler to determine which compute environment should run a given
+    -- job. Compute environments must be in the @VALID@ state before you can
+    -- associate them with a job queue. All of the compute environments must be
+    -- either EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@);
+    -- EC2 and Fargate compute environments can\'t be mixed.
+    --
+    -- All compute environments that are associated with a job queue must share
+    -- the same architecture. AWS Batch doesn\'t support mixing compute
+    -- environment architecture types in a single job queue.
+    computeEnvironmentOrder :: Prelude.Maybe [ComputeEnvironmentOrder],
+    -- | The priority of the job queue. Job queues with a higher priority (or a
+    -- higher integer value for the @priority@ parameter) are evaluated first
+    -- when associated with the same compute environment. Priority is
+    -- determined in descending order, for example, a job queue with a priority
+    -- value of @10@ is given scheduling preference over a job queue with a
+    -- priority value of @1@. All of the compute environments must be either
+    -- EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@); EC2 and
+    -- Fargate compute environments cannot be mixed.
+    priority :: Prelude.Maybe Prelude.Int,
+    -- | Describes the queue\'s ability to accept new jobs. If the job queue
+    -- state is @ENABLED@, it is able to accept jobs. If the job queue state is
+    -- @DISABLED@, new jobs cannot be added to the queue, but jobs already in
+    -- the queue can finish.
+    state :: Prelude.Maybe JQState,
+    -- | The name or the Amazon Resource Name (ARN) of the job queue.
+    jobQueue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateJobQueue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateJobQueue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ujqComputeEnvironmentOrder' - Details the set of compute environments mapped to a job queue and their order relative to each other. This is one of the parameters used by the job scheduler to determine which compute environment should run a given job. Compute environments must be in the @VALID@ state before you can associate them with a job queue. All of the compute environments must be either EC2 (@EC2@ or @SPOT@ ) or Fargate (@FARGATE@ or @FARGATE_SPOT@ ); EC2 and Fargate compute environments can't be mixed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ujqPriority' - The priority of the job queue. Job queues with a higher priority (or a higher integer value for the @priority@ parameter) are evaluated first when associated with the same compute environment. Priority is determined in descending order, for example, a job queue with a priority value of @10@ is given scheduling preference over a job queue with a priority value of @1@ . All of the compute environments must be either EC2 (@EC2@ or @SPOT@ ) or Fargate (@FARGATE@ or @FARGATE_SPOT@ ); EC2 and Fargate compute environments cannot be mixed.
+-- 'computeEnvironmentOrder', 'updateJobQueue_computeEnvironmentOrder' - Details the set of compute environments mapped to a job queue and their
+-- order relative to each other. This is one of the parameters used by the
+-- job scheduler to determine which compute environment should run a given
+-- job. Compute environments must be in the @VALID@ state before you can
+-- associate them with a job queue. All of the compute environments must be
+-- either EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@);
+-- EC2 and Fargate compute environments can\'t be mixed.
 --
--- * 'ujqState' - Describes the queue's ability to accept new jobs. If the job queue state is @ENABLED@ , it is able to accept jobs. If the job queue state is @DISABLED@ , new jobs cannot be added to the queue, but jobs already in the queue can finish.
+-- All compute environments that are associated with a job queue must share
+-- the same architecture. AWS Batch doesn\'t support mixing compute
+-- environment architecture types in a single job queue.
 --
--- * 'ujqJobQueue' - The name or the Amazon Resource Name (ARN) of the job queue.
-updateJobQueue ::
-  -- | 'ujqJobQueue'
-  Text ->
+-- 'priority', 'updateJobQueue_priority' - The priority of the job queue. Job queues with a higher priority (or a
+-- higher integer value for the @priority@ parameter) are evaluated first
+-- when associated with the same compute environment. Priority is
+-- determined in descending order, for example, a job queue with a priority
+-- value of @10@ is given scheduling preference over a job queue with a
+-- priority value of @1@. All of the compute environments must be either
+-- EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@); EC2 and
+-- Fargate compute environments cannot be mixed.
+--
+-- 'state', 'updateJobQueue_state' - Describes the queue\'s ability to accept new jobs. If the job queue
+-- state is @ENABLED@, it is able to accept jobs. If the job queue state is
+-- @DISABLED@, new jobs cannot be added to the queue, but jobs already in
+-- the queue can finish.
+--
+-- 'jobQueue', 'updateJobQueue_jobQueue' - The name or the Amazon Resource Name (ARN) of the job queue.
+newUpdateJobQueue ::
+  -- | 'jobQueue'
+  Prelude.Text ->
   UpdateJobQueue
-updateJobQueue pJobQueue_ =
+newUpdateJobQueue pJobQueue_ =
   UpdateJobQueue'
-    { _ujqComputeEnvironmentOrder =
-        Nothing,
-      _ujqPriority = Nothing,
-      _ujqState = Nothing,
-      _ujqJobQueue = pJobQueue_
+    { computeEnvironmentOrder =
+        Prelude.Nothing,
+      priority = Prelude.Nothing,
+      state = Prelude.Nothing,
+      jobQueue = pJobQueue_
     }
 
--- | Details the set of compute environments mapped to a job queue and their order relative to each other. This is one of the parameters used by the job scheduler to determine which compute environment should run a given job. Compute environments must be in the @VALID@ state before you can associate them with a job queue. All of the compute environments must be either EC2 (@EC2@ or @SPOT@ ) or Fargate (@FARGATE@ or @FARGATE_SPOT@ ); EC2 and Fargate compute environments can't be mixed.
-ujqComputeEnvironmentOrder :: Lens' UpdateJobQueue [ComputeEnvironmentOrder]
-ujqComputeEnvironmentOrder = lens _ujqComputeEnvironmentOrder (\s a -> s {_ujqComputeEnvironmentOrder = a}) . _Default . _Coerce
+-- | Details the set of compute environments mapped to a job queue and their
+-- order relative to each other. This is one of the parameters used by the
+-- job scheduler to determine which compute environment should run a given
+-- job. Compute environments must be in the @VALID@ state before you can
+-- associate them with a job queue. All of the compute environments must be
+-- either EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@);
+-- EC2 and Fargate compute environments can\'t be mixed.
+--
+-- All compute environments that are associated with a job queue must share
+-- the same architecture. AWS Batch doesn\'t support mixing compute
+-- environment architecture types in a single job queue.
+updateJobQueue_computeEnvironmentOrder :: Lens.Lens' UpdateJobQueue (Prelude.Maybe [ComputeEnvironmentOrder])
+updateJobQueue_computeEnvironmentOrder = Lens.lens (\UpdateJobQueue' {computeEnvironmentOrder} -> computeEnvironmentOrder) (\s@UpdateJobQueue' {} a -> s {computeEnvironmentOrder = a} :: UpdateJobQueue) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The priority of the job queue. Job queues with a higher priority (or a higher integer value for the @priority@ parameter) are evaluated first when associated with the same compute environment. Priority is determined in descending order, for example, a job queue with a priority value of @10@ is given scheduling preference over a job queue with a priority value of @1@ . All of the compute environments must be either EC2 (@EC2@ or @SPOT@ ) or Fargate (@FARGATE@ or @FARGATE_SPOT@ ); EC2 and Fargate compute environments cannot be mixed.
-ujqPriority :: Lens' UpdateJobQueue (Maybe Int)
-ujqPriority = lens _ujqPriority (\s a -> s {_ujqPriority = a})
+-- | The priority of the job queue. Job queues with a higher priority (or a
+-- higher integer value for the @priority@ parameter) are evaluated first
+-- when associated with the same compute environment. Priority is
+-- determined in descending order, for example, a job queue with a priority
+-- value of @10@ is given scheduling preference over a job queue with a
+-- priority value of @1@. All of the compute environments must be either
+-- EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@); EC2 and
+-- Fargate compute environments cannot be mixed.
+updateJobQueue_priority :: Lens.Lens' UpdateJobQueue (Prelude.Maybe Prelude.Int)
+updateJobQueue_priority = Lens.lens (\UpdateJobQueue' {priority} -> priority) (\s@UpdateJobQueue' {} a -> s {priority = a} :: UpdateJobQueue)
 
--- | Describes the queue's ability to accept new jobs. If the job queue state is @ENABLED@ , it is able to accept jobs. If the job queue state is @DISABLED@ , new jobs cannot be added to the queue, but jobs already in the queue can finish.
-ujqState :: Lens' UpdateJobQueue (Maybe JQState)
-ujqState = lens _ujqState (\s a -> s {_ujqState = a})
+-- | Describes the queue\'s ability to accept new jobs. If the job queue
+-- state is @ENABLED@, it is able to accept jobs. If the job queue state is
+-- @DISABLED@, new jobs cannot be added to the queue, but jobs already in
+-- the queue can finish.
+updateJobQueue_state :: Lens.Lens' UpdateJobQueue (Prelude.Maybe JQState)
+updateJobQueue_state = Lens.lens (\UpdateJobQueue' {state} -> state) (\s@UpdateJobQueue' {} a -> s {state = a} :: UpdateJobQueue)
 
 -- | The name or the Amazon Resource Name (ARN) of the job queue.
-ujqJobQueue :: Lens' UpdateJobQueue Text
-ujqJobQueue = lens _ujqJobQueue (\s a -> s {_ujqJobQueue = a})
+updateJobQueue_jobQueue :: Lens.Lens' UpdateJobQueue Prelude.Text
+updateJobQueue_jobQueue = Lens.lens (\UpdateJobQueue' {jobQueue} -> jobQueue) (\s@UpdateJobQueue' {} a -> s {jobQueue = a} :: UpdateJobQueue)
 
-instance AWSRequest UpdateJobQueue where
+instance Prelude.AWSRequest UpdateJobQueue where
   type Rs UpdateJobQueue = UpdateJobQueueResponse
-  request = postJSON batch
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateJobQueueResponse'
-            <$> (x .?> "jobQueueName")
-            <*> (x .?> "jobQueueArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "jobQueueName")
+            Prelude.<*> (x Prelude..?> "jobQueueArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateJobQueue
+instance Prelude.Hashable UpdateJobQueue
 
-instance NFData UpdateJobQueue
+instance Prelude.NFData UpdateJobQueue
 
-instance ToHeaders UpdateJobQueue where
+instance Prelude.ToHeaders UpdateJobQueue where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateJobQueue where
+instance Prelude.ToJSON UpdateJobQueue where
   toJSON UpdateJobQueue' {..} =
-    object
-      ( catMaybes
-          [ ("computeEnvironmentOrder" .=)
-              <$> _ujqComputeEnvironmentOrder,
-            ("priority" .=) <$> _ujqPriority,
-            ("state" .=) <$> _ujqState,
-            Just ("jobQueue" .= _ujqJobQueue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("computeEnvironmentOrder" Prelude..=)
+              Prelude.<$> computeEnvironmentOrder,
+            ("priority" Prelude..=) Prelude.<$> priority,
+            ("state" Prelude..=) Prelude.<$> state,
+            Prelude.Just ("jobQueue" Prelude..= jobQueue)
           ]
       )
 
-instance ToPath UpdateJobQueue where
-  toPath = const "/v1/updatejobqueue"
+instance Prelude.ToPath UpdateJobQueue where
+  toPath = Prelude.const "/v1/updatejobqueue"
 
-instance ToQuery UpdateJobQueue where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateJobQueue where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateJobQueueResponse' smart constructor.
+-- | /See:/ 'newUpdateJobQueueResponse' smart constructor.
 data UpdateJobQueueResponse = UpdateJobQueueResponse'
-  { _ujqrrsJobQueueName ::
-      !(Maybe Text),
-    _ujqrrsJobQueueARN ::
-      !(Maybe Text),
-    _ujqrrsResponseStatus ::
-      !Int
+  { -- | The name of the job queue.
+    jobQueueName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the job queue.
+    jobQueueArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateJobQueueResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateJobQueueResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ujqrrsJobQueueName' - The name of the job queue.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ujqrrsJobQueueARN' - The Amazon Resource Name (ARN) of the job queue.
+-- 'jobQueueName', 'updateJobQueueResponse_jobQueueName' - The name of the job queue.
 --
--- * 'ujqrrsResponseStatus' - -- | The response status code.
-updateJobQueueResponse ::
-  -- | 'ujqrrsResponseStatus'
-  Int ->
+-- 'jobQueueArn', 'updateJobQueueResponse_jobQueueArn' - The Amazon Resource Name (ARN) of the job queue.
+--
+-- 'httpStatus', 'updateJobQueueResponse_httpStatus' - The response's http status code.
+newUpdateJobQueueResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateJobQueueResponse
-updateJobQueueResponse pResponseStatus_ =
+newUpdateJobQueueResponse pHttpStatus_ =
   UpdateJobQueueResponse'
-    { _ujqrrsJobQueueName =
-        Nothing,
-      _ujqrrsJobQueueARN = Nothing,
-      _ujqrrsResponseStatus = pResponseStatus_
+    { jobQueueName =
+        Prelude.Nothing,
+      jobQueueArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the job queue.
-ujqrrsJobQueueName :: Lens' UpdateJobQueueResponse (Maybe Text)
-ujqrrsJobQueueName = lens _ujqrrsJobQueueName (\s a -> s {_ujqrrsJobQueueName = a})
+updateJobQueueResponse_jobQueueName :: Lens.Lens' UpdateJobQueueResponse (Prelude.Maybe Prelude.Text)
+updateJobQueueResponse_jobQueueName = Lens.lens (\UpdateJobQueueResponse' {jobQueueName} -> jobQueueName) (\s@UpdateJobQueueResponse' {} a -> s {jobQueueName = a} :: UpdateJobQueueResponse)
 
 -- | The Amazon Resource Name (ARN) of the job queue.
-ujqrrsJobQueueARN :: Lens' UpdateJobQueueResponse (Maybe Text)
-ujqrrsJobQueueARN = lens _ujqrrsJobQueueARN (\s a -> s {_ujqrrsJobQueueARN = a})
+updateJobQueueResponse_jobQueueArn :: Lens.Lens' UpdateJobQueueResponse (Prelude.Maybe Prelude.Text)
+updateJobQueueResponse_jobQueueArn = Lens.lens (\UpdateJobQueueResponse' {jobQueueArn} -> jobQueueArn) (\s@UpdateJobQueueResponse' {} a -> s {jobQueueArn = a} :: UpdateJobQueueResponse)
 
--- | -- | The response status code.
-ujqrrsResponseStatus :: Lens' UpdateJobQueueResponse Int
-ujqrrsResponseStatus = lens _ujqrrsResponseStatus (\s a -> s {_ujqrrsResponseStatus = a})
+-- | The response's http status code.
+updateJobQueueResponse_httpStatus :: Lens.Lens' UpdateJobQueueResponse Prelude.Int
+updateJobQueueResponse_httpStatus = Lens.lens (\UpdateJobQueueResponse' {httpStatus} -> httpStatus) (\s@UpdateJobQueueResponse' {} a -> s {httpStatus = a} :: UpdateJobQueueResponse)
 
-instance NFData UpdateJobQueueResponse
+instance Prelude.NFData UpdateJobQueueResponse

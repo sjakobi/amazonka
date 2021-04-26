@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,92 @@
 module Network.AWS.Batch.Types.AttemptDetail where
 
 import Network.AWS.Batch.Types.AttemptContainerDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing a job attempt.
 --
---
---
--- /See:/ 'attemptDetail' smart constructor.
+-- /See:/ 'newAttemptDetail' smart constructor.
 data AttemptDetail = AttemptDetail'
-  { _adContainer ::
-      !(Maybe AttemptContainerDetail),
-    _adStartedAt :: !(Maybe Integer),
-    _adStoppedAt :: !(Maybe Integer),
-    _adStatusReason :: !(Maybe Text)
+  { -- | Details about the container in this job attempt.
+    container :: Prelude.Maybe AttemptContainerDetail,
+    -- | The Unix timestamp (in milliseconds) for when the attempt was started
+    -- (when the attempt transitioned from the @STARTING@ state to the
+    -- @RUNNING@ state).
+    startedAt :: Prelude.Maybe Prelude.Integer,
+    -- | The Unix timestamp (in milliseconds) for when the attempt was stopped
+    -- (when the attempt transitioned from the @RUNNING@ state to a terminal
+    -- state, such as @SUCCEEDED@ or @FAILED@).
+    stoppedAt :: Prelude.Maybe Prelude.Integer,
+    -- | A short, human-readable string to provide additional details about the
+    -- current status of the job attempt.
+    statusReason :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttemptDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttemptDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adContainer' - Details about the container in this job attempt.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adStartedAt' - The Unix timestamp (in milliseconds) for when the attempt was started (when the attempt transitioned from the @STARTING@ state to the @RUNNING@ state).
+-- 'container', 'attemptDetail_container' - Details about the container in this job attempt.
 --
--- * 'adStoppedAt' - The Unix timestamp (in milliseconds) for when the attempt was stopped (when the attempt transitioned from the @RUNNING@ state to a terminal state, such as @SUCCEEDED@ or @FAILED@ ).
+-- 'startedAt', 'attemptDetail_startedAt' - The Unix timestamp (in milliseconds) for when the attempt was started
+-- (when the attempt transitioned from the @STARTING@ state to the
+-- @RUNNING@ state).
 --
--- * 'adStatusReason' - A short, human-readable string to provide additional details about the current status of the job attempt.
-attemptDetail ::
+-- 'stoppedAt', 'attemptDetail_stoppedAt' - The Unix timestamp (in milliseconds) for when the attempt was stopped
+-- (when the attempt transitioned from the @RUNNING@ state to a terminal
+-- state, such as @SUCCEEDED@ or @FAILED@).
+--
+-- 'statusReason', 'attemptDetail_statusReason' - A short, human-readable string to provide additional details about the
+-- current status of the job attempt.
+newAttemptDetail ::
   AttemptDetail
-attemptDetail =
+newAttemptDetail =
   AttemptDetail'
-    { _adContainer = Nothing,
-      _adStartedAt = Nothing,
-      _adStoppedAt = Nothing,
-      _adStatusReason = Nothing
+    { container = Prelude.Nothing,
+      startedAt = Prelude.Nothing,
+      stoppedAt = Prelude.Nothing,
+      statusReason = Prelude.Nothing
     }
 
 -- | Details about the container in this job attempt.
-adContainer :: Lens' AttemptDetail (Maybe AttemptContainerDetail)
-adContainer = lens _adContainer (\s a -> s {_adContainer = a})
+attemptDetail_container :: Lens.Lens' AttemptDetail (Prelude.Maybe AttemptContainerDetail)
+attemptDetail_container = Lens.lens (\AttemptDetail' {container} -> container) (\s@AttemptDetail' {} a -> s {container = a} :: AttemptDetail)
 
--- | The Unix timestamp (in milliseconds) for when the attempt was started (when the attempt transitioned from the @STARTING@ state to the @RUNNING@ state).
-adStartedAt :: Lens' AttemptDetail (Maybe Integer)
-adStartedAt = lens _adStartedAt (\s a -> s {_adStartedAt = a})
+-- | The Unix timestamp (in milliseconds) for when the attempt was started
+-- (when the attempt transitioned from the @STARTING@ state to the
+-- @RUNNING@ state).
+attemptDetail_startedAt :: Lens.Lens' AttemptDetail (Prelude.Maybe Prelude.Integer)
+attemptDetail_startedAt = Lens.lens (\AttemptDetail' {startedAt} -> startedAt) (\s@AttemptDetail' {} a -> s {startedAt = a} :: AttemptDetail)
 
--- | The Unix timestamp (in milliseconds) for when the attempt was stopped (when the attempt transitioned from the @RUNNING@ state to a terminal state, such as @SUCCEEDED@ or @FAILED@ ).
-adStoppedAt :: Lens' AttemptDetail (Maybe Integer)
-adStoppedAt = lens _adStoppedAt (\s a -> s {_adStoppedAt = a})
+-- | The Unix timestamp (in milliseconds) for when the attempt was stopped
+-- (when the attempt transitioned from the @RUNNING@ state to a terminal
+-- state, such as @SUCCEEDED@ or @FAILED@).
+attemptDetail_stoppedAt :: Lens.Lens' AttemptDetail (Prelude.Maybe Prelude.Integer)
+attemptDetail_stoppedAt = Lens.lens (\AttemptDetail' {stoppedAt} -> stoppedAt) (\s@AttemptDetail' {} a -> s {stoppedAt = a} :: AttemptDetail)
 
--- | A short, human-readable string to provide additional details about the current status of the job attempt.
-adStatusReason :: Lens' AttemptDetail (Maybe Text)
-adStatusReason = lens _adStatusReason (\s a -> s {_adStatusReason = a})
+-- | A short, human-readable string to provide additional details about the
+-- current status of the job attempt.
+attemptDetail_statusReason :: Lens.Lens' AttemptDetail (Prelude.Maybe Prelude.Text)
+attemptDetail_statusReason = Lens.lens (\AttemptDetail' {statusReason} -> statusReason) (\s@AttemptDetail' {} a -> s {statusReason = a} :: AttemptDetail)
 
-instance FromJSON AttemptDetail where
+instance Prelude.FromJSON AttemptDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttemptDetail"
       ( \x ->
           AttemptDetail'
-            <$> (x .:? "container")
-            <*> (x .:? "startedAt")
-            <*> (x .:? "stoppedAt")
-            <*> (x .:? "statusReason")
+            Prelude.<$> (x Prelude..:? "container")
+            Prelude.<*> (x Prelude..:? "startedAt")
+            Prelude.<*> (x Prelude..:? "stoppedAt")
+            Prelude.<*> (x Prelude..:? "statusReason")
       )
 
-instance Hashable AttemptDetail
+instance Prelude.Hashable AttemptDetail
 
-instance NFData AttemptDetail
+instance Prelude.NFData AttemptDetail

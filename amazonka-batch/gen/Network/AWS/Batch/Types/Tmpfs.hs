@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,120 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Batch.Types.Tmpfs where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The container path, mount options, and size of the tmpfs mount.
 --
+-- This object isn\'t applicable to jobs running on Fargate resources.
 --
---
--- /See:/ 'tmpfs' smart constructor.
+-- /See:/ 'newTmpfs' smart constructor.
 data Tmpfs = Tmpfs'
-  { _tMountOptions ::
-      !(Maybe [Text]),
-    _tContainerPath :: !Text,
-    _tSize :: !Int
+  { -- | The list of tmpfs volume mount options.
+    --
+    -- Valid values: \"@defaults@\" | \"@ro@\" | \"@rw@\" | \"@suid@\" |
+    -- \"@nosuid@\" | \"@dev@\" | \"@nodev@\" | \"@exec@\" | \"@noexec@\" |
+    -- \"@sync@\" | \"@async@\" | \"@dirsync@\" | \"@remount@\" | \"@mand@\" |
+    -- \"@nomand@\" | \"@atime@\" | \"@noatime@\" | \"@diratime@\" |
+    -- \"@nodiratime@\" | \"@bind@\" |
+    -- \"@rbind\" | \"unbindable\" | \"runbindable\" | \"private\" | \"rprivate\" | \"shared\" | \"rshared\" | \"slave\" | \"rslave\" | \"relatime@\"
+    -- | \"@norelatime@\" | \"@strictatime@\" | \"@nostrictatime@\" |
+    -- \"@mode@\" | \"@uid@\" | \"@gid@\" | \"@nr_inodes@\" | \"@nr_blocks@\" |
+    -- \"@mpol@\"
+    mountOptions :: Prelude.Maybe [Prelude.Text],
+    -- | The absolute file path in the container where the tmpfs volume is
+    -- mounted.
+    containerPath :: Prelude.Text,
+    -- | The size (in MiB) of the tmpfs volume.
+    size :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tmpfs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tmpfs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tMountOptions' - The list of tmpfs volume mount options. Valid values: "@defaults@ " | "@ro@ " | "@rw@ " | "@suid@ " | "@nosuid@ " | "@dev@ " | "@nodev@ " | "@exec@ " | "@noexec@ " | "@sync@ " | "@async@ " | "@dirsync@ " | "@remount@ " | "@mand@ " | "@nomand@ " | "@atime@ " | "@noatime@ " | "@diratime@ " | "@nodiratime@ " | "@bind@ " | "@rbind" | "unbindable" | "runbindable" | "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime@ " | "@norelatime@ " | "@strictatime@ " | "@nostrictatime@ " | "@mode@ " | "@uid@ " | "@gid@ " | "@nr_inodes@ " | "@nr_blocks@ " | "@mpol@ "
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tContainerPath' - The absolute file path in the container where the tmpfs volume is mounted.
+-- 'mountOptions', 'tmpfs_mountOptions' - The list of tmpfs volume mount options.
 --
--- * 'tSize' - The size (in MiB) of the tmpfs volume.
-tmpfs ::
-  -- | 'tContainerPath'
-  Text ->
-  -- | 'tSize'
-  Int ->
+-- Valid values: \"@defaults@\" | \"@ro@\" | \"@rw@\" | \"@suid@\" |
+-- \"@nosuid@\" | \"@dev@\" | \"@nodev@\" | \"@exec@\" | \"@noexec@\" |
+-- \"@sync@\" | \"@async@\" | \"@dirsync@\" | \"@remount@\" | \"@mand@\" |
+-- \"@nomand@\" | \"@atime@\" | \"@noatime@\" | \"@diratime@\" |
+-- \"@nodiratime@\" | \"@bind@\" |
+-- \"@rbind\" | \"unbindable\" | \"runbindable\" | \"private\" | \"rprivate\" | \"shared\" | \"rshared\" | \"slave\" | \"rslave\" | \"relatime@\"
+-- | \"@norelatime@\" | \"@strictatime@\" | \"@nostrictatime@\" |
+-- \"@mode@\" | \"@uid@\" | \"@gid@\" | \"@nr_inodes@\" | \"@nr_blocks@\" |
+-- \"@mpol@\"
+--
+-- 'containerPath', 'tmpfs_containerPath' - The absolute file path in the container where the tmpfs volume is
+-- mounted.
+--
+-- 'size', 'tmpfs_size' - The size (in MiB) of the tmpfs volume.
+newTmpfs ::
+  -- | 'containerPath'
+  Prelude.Text ->
+  -- | 'size'
+  Prelude.Int ->
   Tmpfs
-tmpfs pContainerPath_ pSize_ =
+newTmpfs pContainerPath_ pSize_ =
   Tmpfs'
-    { _tMountOptions = Nothing,
-      _tContainerPath = pContainerPath_,
-      _tSize = pSize_
+    { mountOptions = Prelude.Nothing,
+      containerPath = pContainerPath_,
+      size = pSize_
     }
 
--- | The list of tmpfs volume mount options. Valid values: "@defaults@ " | "@ro@ " | "@rw@ " | "@suid@ " | "@nosuid@ " | "@dev@ " | "@nodev@ " | "@exec@ " | "@noexec@ " | "@sync@ " | "@async@ " | "@dirsync@ " | "@remount@ " | "@mand@ " | "@nomand@ " | "@atime@ " | "@noatime@ " | "@diratime@ " | "@nodiratime@ " | "@bind@ " | "@rbind" | "unbindable" | "runbindable" | "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime@ " | "@norelatime@ " | "@strictatime@ " | "@nostrictatime@ " | "@mode@ " | "@uid@ " | "@gid@ " | "@nr_inodes@ " | "@nr_blocks@ " | "@mpol@ "
-tMountOptions :: Lens' Tmpfs [Text]
-tMountOptions = lens _tMountOptions (\s a -> s {_tMountOptions = a}) . _Default . _Coerce
+-- | The list of tmpfs volume mount options.
+--
+-- Valid values: \"@defaults@\" | \"@ro@\" | \"@rw@\" | \"@suid@\" |
+-- \"@nosuid@\" | \"@dev@\" | \"@nodev@\" | \"@exec@\" | \"@noexec@\" |
+-- \"@sync@\" | \"@async@\" | \"@dirsync@\" | \"@remount@\" | \"@mand@\" |
+-- \"@nomand@\" | \"@atime@\" | \"@noatime@\" | \"@diratime@\" |
+-- \"@nodiratime@\" | \"@bind@\" |
+-- \"@rbind\" | \"unbindable\" | \"runbindable\" | \"private\" | \"rprivate\" | \"shared\" | \"rshared\" | \"slave\" | \"rslave\" | \"relatime@\"
+-- | \"@norelatime@\" | \"@strictatime@\" | \"@nostrictatime@\" |
+-- \"@mode@\" | \"@uid@\" | \"@gid@\" | \"@nr_inodes@\" | \"@nr_blocks@\" |
+-- \"@mpol@\"
+tmpfs_mountOptions :: Lens.Lens' Tmpfs (Prelude.Maybe [Prelude.Text])
+tmpfs_mountOptions = Lens.lens (\Tmpfs' {mountOptions} -> mountOptions) (\s@Tmpfs' {} a -> s {mountOptions = a} :: Tmpfs) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The absolute file path in the container where the tmpfs volume is mounted.
-tContainerPath :: Lens' Tmpfs Text
-tContainerPath = lens _tContainerPath (\s a -> s {_tContainerPath = a})
+-- | The absolute file path in the container where the tmpfs volume is
+-- mounted.
+tmpfs_containerPath :: Lens.Lens' Tmpfs Prelude.Text
+tmpfs_containerPath = Lens.lens (\Tmpfs' {containerPath} -> containerPath) (\s@Tmpfs' {} a -> s {containerPath = a} :: Tmpfs)
 
 -- | The size (in MiB) of the tmpfs volume.
-tSize :: Lens' Tmpfs Int
-tSize = lens _tSize (\s a -> s {_tSize = a})
+tmpfs_size :: Lens.Lens' Tmpfs Prelude.Int
+tmpfs_size = Lens.lens (\Tmpfs' {size} -> size) (\s@Tmpfs' {} a -> s {size = a} :: Tmpfs)
 
-instance FromJSON Tmpfs where
+instance Prelude.FromJSON Tmpfs where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Tmpfs"
       ( \x ->
           Tmpfs'
-            <$> (x .:? "mountOptions" .!= mempty)
-            <*> (x .: "containerPath")
-            <*> (x .: "size")
+            Prelude.<$> ( x Prelude..:? "mountOptions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "containerPath")
+            Prelude.<*> (x Prelude..: "size")
       )
 
-instance Hashable Tmpfs
+instance Prelude.Hashable Tmpfs
 
-instance NFData Tmpfs
+instance Prelude.NFData Tmpfs
 
-instance ToJSON Tmpfs where
+instance Prelude.ToJSON Tmpfs where
   toJSON Tmpfs' {..} =
-    object
-      ( catMaybes
-          [ ("mountOptions" .=) <$> _tMountOptions,
-            Just ("containerPath" .= _tContainerPath),
-            Just ("size" .= _tSize)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("mountOptions" Prelude..=)
+              Prelude.<$> mountOptions,
+            Prelude.Just
+              ("containerPath" Prelude..= containerPath),
+            Prelude.Just ("size" Prelude..= size)
           ]
       )

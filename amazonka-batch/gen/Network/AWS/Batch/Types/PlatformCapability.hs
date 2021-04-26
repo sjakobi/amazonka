@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Batch.Types.PlatformCapability
   ( PlatformCapability
       ( ..,
-        PCEC2,
-        PCFargate
+        PlatformCapabilityEC2,
+        PlatformCapabilityFARGATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlatformCapability
-  = PlatformCapability'
-      ( CI
-          Text
-      )
+newtype PlatformCapability = PlatformCapability'
+  { fromPlatformCapability ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PCEC2 :: PlatformCapability
-pattern PCEC2 = PlatformCapability' "EC2"
+pattern PlatformCapabilityEC2 :: PlatformCapability
+pattern PlatformCapabilityEC2 = PlatformCapability' "EC2"
 
-pattern PCFargate :: PlatformCapability
-pattern PCFargate = PlatformCapability' "FARGATE"
+pattern PlatformCapabilityFARGATE :: PlatformCapability
+pattern PlatformCapabilityFARGATE = PlatformCapability' "FARGATE"
 
 {-# COMPLETE
-  PCEC2,
-  PCFargate,
+  PlatformCapabilityEC2,
+  PlatformCapabilityFARGATE,
   PlatformCapability'
   #-}
 
-instance FromText PlatformCapability where
-  parser = (PlatformCapability' . mk) <$> takeText
+instance Prelude.FromText PlatformCapability where
+  parser = PlatformCapability' Prelude.<$> Prelude.takeText
 
-instance ToText PlatformCapability where
-  toText (PlatformCapability' ci) = original ci
+instance Prelude.ToText PlatformCapability where
+  toText (PlatformCapability' x) = x
 
-instance Hashable PlatformCapability
+instance Prelude.Hashable PlatformCapability
 
-instance NFData PlatformCapability
+instance Prelude.NFData PlatformCapability
 
-instance ToByteString PlatformCapability
+instance Prelude.ToByteString PlatformCapability
 
-instance ToQuery PlatformCapability
+instance Prelude.ToQuery PlatformCapability
 
-instance ToHeader PlatformCapability
+instance Prelude.ToHeader PlatformCapability
 
-instance ToJSON PlatformCapability where
-  toJSON = toJSONText
+instance Prelude.ToJSON PlatformCapability where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PlatformCapability where
-  parseJSON = parseJSONText "PlatformCapability"
+instance Prelude.FromJSON PlatformCapability where
+  parseJSON = Prelude.parseJSONText "PlatformCapability"

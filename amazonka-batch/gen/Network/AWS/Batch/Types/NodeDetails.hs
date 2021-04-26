@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Batch.Types.NodeDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing the details of a multi-node parallel job node.
 --
---
---
--- /See:/ 'nodeDetails' smart constructor.
+-- /See:/ 'newNodeDetails' smart constructor.
 data NodeDetails = NodeDetails'
-  { _ndIsMainNode ::
-      !(Maybe Bool),
-    _ndNodeIndex :: !(Maybe Int)
+  { -- | Specifies whether the current node is the main node for a multi-node
+    -- parallel job.
+    isMainNode :: Prelude.Maybe Prelude.Bool,
+    -- | The node index for the node. Node index numbering begins at zero. This
+    -- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
+    -- environment variable.
+    nodeIndex :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodeDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodeDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ndIsMainNode' - Specifies whether the current node is the main node for a multi-node parallel job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ndNodeIndex' - The node index for the node. Node index numbering begins at zero. This index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@ environment variable.
-nodeDetails ::
+-- 'isMainNode', 'nodeDetails_isMainNode' - Specifies whether the current node is the main node for a multi-node
+-- parallel job.
+--
+-- 'nodeIndex', 'nodeDetails_nodeIndex' - The node index for the node. Node index numbering begins at zero. This
+-- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
+-- environment variable.
+newNodeDetails ::
   NodeDetails
-nodeDetails =
+newNodeDetails =
   NodeDetails'
-    { _ndIsMainNode = Nothing,
-      _ndNodeIndex = Nothing
+    { isMainNode = Prelude.Nothing,
+      nodeIndex = Prelude.Nothing
     }
 
--- | Specifies whether the current node is the main node for a multi-node parallel job.
-ndIsMainNode :: Lens' NodeDetails (Maybe Bool)
-ndIsMainNode = lens _ndIsMainNode (\s a -> s {_ndIsMainNode = a})
+-- | Specifies whether the current node is the main node for a multi-node
+-- parallel job.
+nodeDetails_isMainNode :: Lens.Lens' NodeDetails (Prelude.Maybe Prelude.Bool)
+nodeDetails_isMainNode = Lens.lens (\NodeDetails' {isMainNode} -> isMainNode) (\s@NodeDetails' {} a -> s {isMainNode = a} :: NodeDetails)
 
--- | The node index for the node. Node index numbering begins at zero. This index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@ environment variable.
-ndNodeIndex :: Lens' NodeDetails (Maybe Int)
-ndNodeIndex = lens _ndNodeIndex (\s a -> s {_ndNodeIndex = a})
+-- | The node index for the node. Node index numbering begins at zero. This
+-- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
+-- environment variable.
+nodeDetails_nodeIndex :: Lens.Lens' NodeDetails (Prelude.Maybe Prelude.Int)
+nodeDetails_nodeIndex = Lens.lens (\NodeDetails' {nodeIndex} -> nodeIndex) (\s@NodeDetails' {} a -> s {nodeIndex = a} :: NodeDetails)
 
-instance FromJSON NodeDetails where
+instance Prelude.FromJSON NodeDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NodeDetails"
       ( \x ->
           NodeDetails'
-            <$> (x .:? "isMainNode") <*> (x .:? "nodeIndex")
+            Prelude.<$> (x Prelude..:? "isMainNode")
+            Prelude.<*> (x Prelude..:? "nodeIndex")
       )
 
-instance Hashable NodeDetails
+instance Prelude.Hashable NodeDetails
 
-instance NFData NodeDetails
+instance Prelude.NFData NodeDetails

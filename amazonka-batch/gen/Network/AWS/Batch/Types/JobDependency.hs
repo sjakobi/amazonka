@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,66 @@
 module Network.AWS.Batch.Types.JobDependency where
 
 import Network.AWS.Batch.Types.ArrayJobDependency
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing an AWS Batch job dependency.
 --
---
---
--- /See:/ 'jobDependency' smart constructor.
+-- /See:/ 'newJobDependency' smart constructor.
 data JobDependency = JobDependency'
-  { _jobType ::
-      !(Maybe ArrayJobDependency),
-    _jobJobId :: !(Maybe Text)
+  { -- | The type of the job dependency.
+    type' :: Prelude.Maybe ArrayJobDependency,
+    -- | The job ID of the AWS Batch job associated with this dependency.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobDependency' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobDependency' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jobType' - The type of the job dependency.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jobJobId' - The job ID of the AWS Batch job associated with this dependency.
-jobDependency ::
+-- 'type'', 'jobDependency_type' - The type of the job dependency.
+--
+-- 'jobId', 'jobDependency_jobId' - The job ID of the AWS Batch job associated with this dependency.
+newJobDependency ::
   JobDependency
-jobDependency =
+newJobDependency =
   JobDependency'
-    { _jobType = Nothing,
-      _jobJobId = Nothing
+    { type' = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
 -- | The type of the job dependency.
-jobType :: Lens' JobDependency (Maybe ArrayJobDependency)
-jobType = lens _jobType (\s a -> s {_jobType = a})
+jobDependency_type :: Lens.Lens' JobDependency (Prelude.Maybe ArrayJobDependency)
+jobDependency_type = Lens.lens (\JobDependency' {type'} -> type') (\s@JobDependency' {} a -> s {type' = a} :: JobDependency)
 
 -- | The job ID of the AWS Batch job associated with this dependency.
-jobJobId :: Lens' JobDependency (Maybe Text)
-jobJobId = lens _jobJobId (\s a -> s {_jobJobId = a})
+jobDependency_jobId :: Lens.Lens' JobDependency (Prelude.Maybe Prelude.Text)
+jobDependency_jobId = Lens.lens (\JobDependency' {jobId} -> jobId) (\s@JobDependency' {} a -> s {jobId = a} :: JobDependency)
 
-instance FromJSON JobDependency where
+instance Prelude.FromJSON JobDependency where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobDependency"
       ( \x ->
           JobDependency'
-            <$> (x .:? "type") <*> (x .:? "jobId")
+            Prelude.<$> (x Prelude..:? "type")
+            Prelude.<*> (x Prelude..:? "jobId")
       )
 
-instance Hashable JobDependency
+instance Prelude.Hashable JobDependency
 
-instance NFData JobDependency
+instance Prelude.NFData JobDependency
 
-instance ToJSON JobDependency where
+instance Prelude.ToJSON JobDependency where
   toJSON JobDependency' {..} =
-    object
-      ( catMaybes
-          [ ("type" .=) <$> _jobType,
-            ("jobId" .=) <$> _jobJobId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("type" Prelude..=) Prelude.<$> type',
+            ("jobId" Prelude..=) Prelude.<$> jobId
           ]
       )

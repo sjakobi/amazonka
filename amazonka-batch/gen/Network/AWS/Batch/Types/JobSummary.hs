@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,141 +23,181 @@ import Network.AWS.Batch.Types.ArrayPropertiesSummary
 import Network.AWS.Batch.Types.ContainerSummary
 import Network.AWS.Batch.Types.JobStatus
 import Network.AWS.Batch.Types.NodePropertiesSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing summary details of a job.
 --
---
---
--- /See:/ 'jobSummary' smart constructor.
+-- /See:/ 'newJobSummary' smart constructor.
 data JobSummary = JobSummary'
-  { _jsContainer ::
-      !(Maybe ContainerSummary),
-    _jsStartedAt :: !(Maybe Integer),
-    _jsStatus :: !(Maybe JobStatus),
-    _jsArrayProperties ::
-      !(Maybe ArrayPropertiesSummary),
-    _jsCreatedAt :: !(Maybe Integer),
-    _jsJobARN :: !(Maybe Text),
-    _jsStoppedAt :: !(Maybe Integer),
-    _jsNodeProperties ::
-      !(Maybe NodePropertiesSummary),
-    _jsStatusReason :: !(Maybe Text),
-    _jsJobId :: !Text,
-    _jsJobName :: !Text
+  { -- | An object representing the details of the container that\'s associated
+    -- with the job.
+    container :: Prelude.Maybe ContainerSummary,
+    -- | The Unix timestamp for when the job was started (when the job
+    -- transitioned from the @STARTING@ state to the @RUNNING@ state).
+    startedAt :: Prelude.Maybe Prelude.Integer,
+    -- | The current status for the job.
+    status :: Prelude.Maybe JobStatus,
+    -- | The array properties of the job, if it is an array job.
+    arrayProperties :: Prelude.Maybe ArrayPropertiesSummary,
+    -- | The Unix timestamp for when the job was created. For non-array jobs and
+    -- parent array jobs, this is when the job entered the @SUBMITTED@ state
+    -- (at the time SubmitJob was called). For array child jobs, this is when
+    -- the child job was spawned by its parent and entered the @PENDING@ state.
+    createdAt :: Prelude.Maybe Prelude.Integer,
+    -- | The Amazon Resource Name (ARN) of the job.
+    jobArn :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the job was stopped (when the job
+    -- transitioned from the @RUNNING@ state to a terminal state, such as
+    -- @SUCCEEDED@ or @FAILED@).
+    stoppedAt :: Prelude.Maybe Prelude.Integer,
+    -- | The node properties for a single node in a job summary list.
+    --
+    -- This isn\'t applicable to jobs running on Fargate resources.
+    nodeProperties :: Prelude.Maybe NodePropertiesSummary,
+    -- | A short, human-readable string to provide additional details about the
+    -- current status of the job.
+    statusReason :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the job.
+    jobId :: Prelude.Text,
+    -- | The name of the job.
+    jobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jsContainer' - An object representing the details of the container that's associated with the job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jsStartedAt' - The Unix timestamp for when the job was started (when the job transitioned from the @STARTING@ state to the @RUNNING@ state).
+-- 'container', 'jobSummary_container' - An object representing the details of the container that\'s associated
+-- with the job.
 --
--- * 'jsStatus' - The current status for the job.
+-- 'startedAt', 'jobSummary_startedAt' - The Unix timestamp for when the job was started (when the job
+-- transitioned from the @STARTING@ state to the @RUNNING@ state).
 --
--- * 'jsArrayProperties' - The array properties of the job, if it is an array job.
+-- 'status', 'jobSummary_status' - The current status for the job.
 --
--- * 'jsCreatedAt' - The Unix timestamp for when the job was created. For non-array jobs and parent array jobs, this is when the job entered the @SUBMITTED@ state (at the time 'SubmitJob' was called). For array child jobs, this is when the child job was spawned by its parent and entered the @PENDING@ state.
+-- 'arrayProperties', 'jobSummary_arrayProperties' - The array properties of the job, if it is an array job.
 --
--- * 'jsJobARN' - The Amazon Resource Name (ARN) of the job.
+-- 'createdAt', 'jobSummary_createdAt' - The Unix timestamp for when the job was created. For non-array jobs and
+-- parent array jobs, this is when the job entered the @SUBMITTED@ state
+-- (at the time SubmitJob was called). For array child jobs, this is when
+-- the child job was spawned by its parent and entered the @PENDING@ state.
 --
--- * 'jsStoppedAt' - The Unix timestamp for when the job was stopped (when the job transitioned from the @RUNNING@ state to a terminal state, such as @SUCCEEDED@ or @FAILED@ ).
+-- 'jobArn', 'jobSummary_jobArn' - The Amazon Resource Name (ARN) of the job.
 --
--- * 'jsNodeProperties' - The node properties for a single node in a job summary list.
+-- 'stoppedAt', 'jobSummary_stoppedAt' - The Unix timestamp for when the job was stopped (when the job
+-- transitioned from the @RUNNING@ state to a terminal state, such as
+-- @SUCCEEDED@ or @FAILED@).
 --
--- * 'jsStatusReason' - A short, human-readable string to provide additional details about the current status of the job.
+-- 'nodeProperties', 'jobSummary_nodeProperties' - The node properties for a single node in a job summary list.
 --
--- * 'jsJobId' - The ID of the job.
+-- This isn\'t applicable to jobs running on Fargate resources.
 --
--- * 'jsJobName' - The name of the job.
-jobSummary ::
-  -- | 'jsJobId'
-  Text ->
-  -- | 'jsJobName'
-  Text ->
+-- 'statusReason', 'jobSummary_statusReason' - A short, human-readable string to provide additional details about the
+-- current status of the job.
+--
+-- 'jobId', 'jobSummary_jobId' - The ID of the job.
+--
+-- 'jobName', 'jobSummary_jobName' - The name of the job.
+newJobSummary ::
+  -- | 'jobId'
+  Prelude.Text ->
+  -- | 'jobName'
+  Prelude.Text ->
   JobSummary
-jobSummary pJobId_ pJobName_ =
+newJobSummary pJobId_ pJobName_ =
   JobSummary'
-    { _jsContainer = Nothing,
-      _jsStartedAt = Nothing,
-      _jsStatus = Nothing,
-      _jsArrayProperties = Nothing,
-      _jsCreatedAt = Nothing,
-      _jsJobARN = Nothing,
-      _jsStoppedAt = Nothing,
-      _jsNodeProperties = Nothing,
-      _jsStatusReason = Nothing,
-      _jsJobId = pJobId_,
-      _jsJobName = pJobName_
+    { container = Prelude.Nothing,
+      startedAt = Prelude.Nothing,
+      status = Prelude.Nothing,
+      arrayProperties = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      jobArn = Prelude.Nothing,
+      stoppedAt = Prelude.Nothing,
+      nodeProperties = Prelude.Nothing,
+      statusReason = Prelude.Nothing,
+      jobId = pJobId_,
+      jobName = pJobName_
     }
 
--- | An object representing the details of the container that's associated with the job.
-jsContainer :: Lens' JobSummary (Maybe ContainerSummary)
-jsContainer = lens _jsContainer (\s a -> s {_jsContainer = a})
+-- | An object representing the details of the container that\'s associated
+-- with the job.
+jobSummary_container :: Lens.Lens' JobSummary (Prelude.Maybe ContainerSummary)
+jobSummary_container = Lens.lens (\JobSummary' {container} -> container) (\s@JobSummary' {} a -> s {container = a} :: JobSummary)
 
--- | The Unix timestamp for when the job was started (when the job transitioned from the @STARTING@ state to the @RUNNING@ state).
-jsStartedAt :: Lens' JobSummary (Maybe Integer)
-jsStartedAt = lens _jsStartedAt (\s a -> s {_jsStartedAt = a})
+-- | The Unix timestamp for when the job was started (when the job
+-- transitioned from the @STARTING@ state to the @RUNNING@ state).
+jobSummary_startedAt :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.Integer)
+jobSummary_startedAt = Lens.lens (\JobSummary' {startedAt} -> startedAt) (\s@JobSummary' {} a -> s {startedAt = a} :: JobSummary)
 
 -- | The current status for the job.
-jsStatus :: Lens' JobSummary (Maybe JobStatus)
-jsStatus = lens _jsStatus (\s a -> s {_jsStatus = a})
+jobSummary_status :: Lens.Lens' JobSummary (Prelude.Maybe JobStatus)
+jobSummary_status = Lens.lens (\JobSummary' {status} -> status) (\s@JobSummary' {} a -> s {status = a} :: JobSummary)
 
 -- | The array properties of the job, if it is an array job.
-jsArrayProperties :: Lens' JobSummary (Maybe ArrayPropertiesSummary)
-jsArrayProperties = lens _jsArrayProperties (\s a -> s {_jsArrayProperties = a})
+jobSummary_arrayProperties :: Lens.Lens' JobSummary (Prelude.Maybe ArrayPropertiesSummary)
+jobSummary_arrayProperties = Lens.lens (\JobSummary' {arrayProperties} -> arrayProperties) (\s@JobSummary' {} a -> s {arrayProperties = a} :: JobSummary)
 
--- | The Unix timestamp for when the job was created. For non-array jobs and parent array jobs, this is when the job entered the @SUBMITTED@ state (at the time 'SubmitJob' was called). For array child jobs, this is when the child job was spawned by its parent and entered the @PENDING@ state.
-jsCreatedAt :: Lens' JobSummary (Maybe Integer)
-jsCreatedAt = lens _jsCreatedAt (\s a -> s {_jsCreatedAt = a})
+-- | The Unix timestamp for when the job was created. For non-array jobs and
+-- parent array jobs, this is when the job entered the @SUBMITTED@ state
+-- (at the time SubmitJob was called). For array child jobs, this is when
+-- the child job was spawned by its parent and entered the @PENDING@ state.
+jobSummary_createdAt :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.Integer)
+jobSummary_createdAt = Lens.lens (\JobSummary' {createdAt} -> createdAt) (\s@JobSummary' {} a -> s {createdAt = a} :: JobSummary)
 
 -- | The Amazon Resource Name (ARN) of the job.
-jsJobARN :: Lens' JobSummary (Maybe Text)
-jsJobARN = lens _jsJobARN (\s a -> s {_jsJobARN = a})
+jobSummary_jobArn :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.Text)
+jobSummary_jobArn = Lens.lens (\JobSummary' {jobArn} -> jobArn) (\s@JobSummary' {} a -> s {jobArn = a} :: JobSummary)
 
--- | The Unix timestamp for when the job was stopped (when the job transitioned from the @RUNNING@ state to a terminal state, such as @SUCCEEDED@ or @FAILED@ ).
-jsStoppedAt :: Lens' JobSummary (Maybe Integer)
-jsStoppedAt = lens _jsStoppedAt (\s a -> s {_jsStoppedAt = a})
+-- | The Unix timestamp for when the job was stopped (when the job
+-- transitioned from the @RUNNING@ state to a terminal state, such as
+-- @SUCCEEDED@ or @FAILED@).
+jobSummary_stoppedAt :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.Integer)
+jobSummary_stoppedAt = Lens.lens (\JobSummary' {stoppedAt} -> stoppedAt) (\s@JobSummary' {} a -> s {stoppedAt = a} :: JobSummary)
 
 -- | The node properties for a single node in a job summary list.
-jsNodeProperties :: Lens' JobSummary (Maybe NodePropertiesSummary)
-jsNodeProperties = lens _jsNodeProperties (\s a -> s {_jsNodeProperties = a})
+--
+-- This isn\'t applicable to jobs running on Fargate resources.
+jobSummary_nodeProperties :: Lens.Lens' JobSummary (Prelude.Maybe NodePropertiesSummary)
+jobSummary_nodeProperties = Lens.lens (\JobSummary' {nodeProperties} -> nodeProperties) (\s@JobSummary' {} a -> s {nodeProperties = a} :: JobSummary)
 
--- | A short, human-readable string to provide additional details about the current status of the job.
-jsStatusReason :: Lens' JobSummary (Maybe Text)
-jsStatusReason = lens _jsStatusReason (\s a -> s {_jsStatusReason = a})
+-- | A short, human-readable string to provide additional details about the
+-- current status of the job.
+jobSummary_statusReason :: Lens.Lens' JobSummary (Prelude.Maybe Prelude.Text)
+jobSummary_statusReason = Lens.lens (\JobSummary' {statusReason} -> statusReason) (\s@JobSummary' {} a -> s {statusReason = a} :: JobSummary)
 
 -- | The ID of the job.
-jsJobId :: Lens' JobSummary Text
-jsJobId = lens _jsJobId (\s a -> s {_jsJobId = a})
+jobSummary_jobId :: Lens.Lens' JobSummary Prelude.Text
+jobSummary_jobId = Lens.lens (\JobSummary' {jobId} -> jobId) (\s@JobSummary' {} a -> s {jobId = a} :: JobSummary)
 
 -- | The name of the job.
-jsJobName :: Lens' JobSummary Text
-jsJobName = lens _jsJobName (\s a -> s {_jsJobName = a})
+jobSummary_jobName :: Lens.Lens' JobSummary Prelude.Text
+jobSummary_jobName = Lens.lens (\JobSummary' {jobName} -> jobName) (\s@JobSummary' {} a -> s {jobName = a} :: JobSummary)
 
-instance FromJSON JobSummary where
+instance Prelude.FromJSON JobSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobSummary"
       ( \x ->
           JobSummary'
-            <$> (x .:? "container")
-            <*> (x .:? "startedAt")
-            <*> (x .:? "status")
-            <*> (x .:? "arrayProperties")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "jobArn")
-            <*> (x .:? "stoppedAt")
-            <*> (x .:? "nodeProperties")
-            <*> (x .:? "statusReason")
-            <*> (x .: "jobId")
-            <*> (x .: "jobName")
+            Prelude.<$> (x Prelude..:? "container")
+            Prelude.<*> (x Prelude..:? "startedAt")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "arrayProperties")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "jobArn")
+            Prelude.<*> (x Prelude..:? "stoppedAt")
+            Prelude.<*> (x Prelude..:? "nodeProperties")
+            Prelude.<*> (x Prelude..:? "statusReason")
+            Prelude.<*> (x Prelude..: "jobId")
+            Prelude.<*> (x Prelude..: "jobName")
       )
 
-instance Hashable JobSummary
+instance Prelude.Hashable JobSummary
 
-instance NFData JobSummary
+instance Prelude.NFData JobSummary

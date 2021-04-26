@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Batch.Types.CEState
   ( CEState
       ( ..,
-        Disabled,
-        Enabled
+        CEStateDISABLED,
+        CEStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CEState = CEState' (CI Text)
+newtype CEState = CEState'
+  { fromCEState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: CEState
-pattern Disabled = CEState' "DISABLED"
+pattern CEStateDISABLED :: CEState
+pattern CEStateDISABLED = CEState' "DISABLED"
 
-pattern Enabled :: CEState
-pattern Enabled = CEState' "ENABLED"
+pattern CEStateENABLED :: CEState
+pattern CEStateENABLED = CEState' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  CEStateDISABLED,
+  CEStateENABLED,
   CEState'
   #-}
 
-instance FromText CEState where
-  parser = (CEState' . mk) <$> takeText
+instance Prelude.FromText CEState where
+  parser = CEState' Prelude.<$> Prelude.takeText
 
-instance ToText CEState where
-  toText (CEState' ci) = original ci
+instance Prelude.ToText CEState where
+  toText (CEState' x) = x
 
-instance Hashable CEState
+instance Prelude.Hashable CEState
 
-instance NFData CEState
+instance Prelude.NFData CEState
 
-instance ToByteString CEState
+instance Prelude.ToByteString CEState
 
-instance ToQuery CEState
+instance Prelude.ToQuery CEState
 
-instance ToHeader CEState
+instance Prelude.ToHeader CEState
 
-instance ToJSON CEState where
-  toJSON = toJSONText
+instance Prelude.ToJSON CEState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CEState where
-  parseJSON = parseJSONText "CEState"
+instance Prelude.FromJSON CEState where
+  parseJSON = Prelude.parseJSONText "CEState"

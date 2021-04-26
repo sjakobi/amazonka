@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,75 +20,94 @@
 module Network.AWS.Batch.Types.Device where
 
 import Network.AWS.Batch.Types.DeviceCgroupPermission
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing a container instance host device.
 --
+-- This object isn\'t applicable to jobs running on Fargate resources and
+-- shouldn\'t be provided.
 --
---
--- /See:/ 'device' smart constructor.
+-- /See:/ 'newDevice' smart constructor.
 data Device = Device'
-  { _dPermissions ::
-      !(Maybe [DeviceCgroupPermission]),
-    _dContainerPath :: !(Maybe Text),
-    _dHostPath :: !Text
+  { -- | The explicit permissions to provide to the container for the device. By
+    -- default, the container has permissions for @read@, @write@, and @mknod@
+    -- for the device.
+    permissions :: Prelude.Maybe [DeviceCgroupPermission],
+    -- | The path inside the container used to expose the host device. By default
+    -- the @hostPath@ value is used.
+    containerPath :: Prelude.Maybe Prelude.Text,
+    -- | The path for the device on the host container instance.
+    hostPath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Device' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Device' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dPermissions' - The explicit permissions to provide to the container for the device. By default, the container has permissions for @read@ , @write@ , and @mknod@ for the device.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dContainerPath' - The path inside the container used to expose the host device. By default the @hostPath@ value is used.
+-- 'permissions', 'device_permissions' - The explicit permissions to provide to the container for the device. By
+-- default, the container has permissions for @read@, @write@, and @mknod@
+-- for the device.
 --
--- * 'dHostPath' - The path for the device on the host container instance.
-device ::
-  -- | 'dHostPath'
-  Text ->
+-- 'containerPath', 'device_containerPath' - The path inside the container used to expose the host device. By default
+-- the @hostPath@ value is used.
+--
+-- 'hostPath', 'device_hostPath' - The path for the device on the host container instance.
+newDevice ::
+  -- | 'hostPath'
+  Prelude.Text ->
   Device
-device pHostPath_ =
+newDevice pHostPath_ =
   Device'
-    { _dPermissions = Nothing,
-      _dContainerPath = Nothing,
-      _dHostPath = pHostPath_
+    { permissions = Prelude.Nothing,
+      containerPath = Prelude.Nothing,
+      hostPath = pHostPath_
     }
 
--- | The explicit permissions to provide to the container for the device. By default, the container has permissions for @read@ , @write@ , and @mknod@ for the device.
-dPermissions :: Lens' Device [DeviceCgroupPermission]
-dPermissions = lens _dPermissions (\s a -> s {_dPermissions = a}) . _Default . _Coerce
+-- | The explicit permissions to provide to the container for the device. By
+-- default, the container has permissions for @read@, @write@, and @mknod@
+-- for the device.
+device_permissions :: Lens.Lens' Device (Prelude.Maybe [DeviceCgroupPermission])
+device_permissions = Lens.lens (\Device' {permissions} -> permissions) (\s@Device' {} a -> s {permissions = a} :: Device) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The path inside the container used to expose the host device. By default the @hostPath@ value is used.
-dContainerPath :: Lens' Device (Maybe Text)
-dContainerPath = lens _dContainerPath (\s a -> s {_dContainerPath = a})
+-- | The path inside the container used to expose the host device. By default
+-- the @hostPath@ value is used.
+device_containerPath :: Lens.Lens' Device (Prelude.Maybe Prelude.Text)
+device_containerPath = Lens.lens (\Device' {containerPath} -> containerPath) (\s@Device' {} a -> s {containerPath = a} :: Device)
 
 -- | The path for the device on the host container instance.
-dHostPath :: Lens' Device Text
-dHostPath = lens _dHostPath (\s a -> s {_dHostPath = a})
+device_hostPath :: Lens.Lens' Device Prelude.Text
+device_hostPath = Lens.lens (\Device' {hostPath} -> hostPath) (\s@Device' {} a -> s {hostPath = a} :: Device)
 
-instance FromJSON Device where
+instance Prelude.FromJSON Device where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Device"
       ( \x ->
           Device'
-            <$> (x .:? "permissions" .!= mempty)
-            <*> (x .:? "containerPath")
-            <*> (x .: "hostPath")
+            Prelude.<$> ( x Prelude..:? "permissions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "containerPath")
+            Prelude.<*> (x Prelude..: "hostPath")
       )
 
-instance Hashable Device
+instance Prelude.Hashable Device
 
-instance NFData Device
+instance Prelude.NFData Device
 
-instance ToJSON Device where
+instance Prelude.ToJSON Device where
   toJSON Device' {..} =
-    object
-      ( catMaybes
-          [ ("permissions" .=) <$> _dPermissions,
-            ("containerPath" .=) <$> _dContainerPath,
-            Just ("hostPath" .= _dHostPath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("permissions" Prelude..=) Prelude.<$> permissions,
+            ("containerPath" Prelude..=)
+              Prelude.<$> containerPath,
+            Prelude.Just ("hostPath" Prelude..= hostPath)
           ]
       )
